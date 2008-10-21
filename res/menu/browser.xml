@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2008 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/MAIN_MENU">
+        <item android:id="@+id/goto_menu_id"
+            android:title="@string/goto_dot" 
+            android:alphabeticShortcut="l" 
+            android:icon="@drawable/ic_menu_goto" />
+        <item android:id="@+id/search_menu_id"
+            android:title="@string/search"
+            android:icon="@android:drawable/ic_menu_search"/>
+        <item android:id="@+id/bookmarks_menu_id"
+            android:title="@string/bookmarks" 
+            android:alphabeticShortcut="b" 
+            android:icon="@drawable/ic_menu_bookmark" />
+        <item android:id="@+id/windows_menu_id"
+            android:title="@string/view_tabs" 
+            android:alphabeticShortcut="t" 
+            android:titleCondensed="@string/view_tabs_condensed"
+            android:icon="@drawable/ic_menu_windows" />
+        <item android:id="@+id/stop_reload_menu_id"
+            android:alphabeticShortcut="r" />
+        <item android:id="@+id/back_menu_id"
+            android:title="@string/back" 
+            android:alphabeticShortcut="j" 
+            android:icon="@drawable/ic_menu_back" />
+        <item android:id="@+id/close_menu_id"
+            android:title="@string/close" 
+            android:alphabeticShortcut="w" 
+            android:icon="@android:drawable/ic_menu_close_clear_cancel" />
+        <item android:id="@+id/forward_menu_id"
+            android:title="@string/forward" 
+            android:alphabeticShortcut="k" />
+        <item android:id="@+id/homepage_menu_id"
+            android:title="@string/homepage" 
+            android:alphabeticShortcut="&#32;" 
+            android:icon="@drawable/ic_menu_home" />
+        <item android:id="@+id/classic_history_menu_id"
+            android:icon="@drawable/ic_menu_recent_history" 
+            android:alphabeticShortcut="h" 
+            android:title="@string/history" />
+        <item android:id="@+id/view_downloads_menu_id"
+            android:title="@string/menu_view_download" /> 
+<!--
+        Disabling the find option for version 1.0
+        <item android:id="@+id/find_menu_id"
+            android:title="@string/find_dot" 
+            android:alphabeticShortcut="f" />
+-->
+        <item android:id="@+id/page_info_menu_id"
+            android:title="@string/page_info" />
+        <item android:id="@+id/bookmark_page_menu_id"
+            android:title="@string/menu_bookmark_page"/>
+        <item android:id="@+id/share_page_menu_id"
+            android:title="@string/share_page"/>
+        <item android:id="@+id/flip_orientation_menu_id"
+            android:title="@string/menu_flip_orientation" /> 
+        <item android:id="@+id/zoom_menu_id"
+            android:title="@string/menu_zoom" />
+        <item android:id="@+id/preferences_menu_id"
+            android:title="@string/menu_preferences" />
+        <item android:id="@+id/zoom_in_menu_id"
+            android:alphabeticShortcut="i" />
+        <item android:id="@+id/zoom_out_menu_id"
+            android:alphabeticShortcut="o" />
+        <item android:id="@+id/dump_nav_menu_id"
+            android:title="@string/dump_nav"
+            android:visible="false" />
+    </group>
+    <group android:id="@+id/TAB_MENU">
+        <item android:id="@+id/new_tab_menu_id"
+            android:title="@string/tab_picker_new_tab"
+            android:icon="@android:drawable/ic_menu_add" />
+        <item android:id="@+id/bookmarks_tab_menu_id"
+            android:title="@string/bookmarks" 
+            android:icon="@drawable/ic_menu_bookmark" />
+        <item android:id="@+id/history_tab_menu_id"
+            android:title="@string/history"
+            android:icon="@drawable/ic_menu_recent_history" />
+    </group>
+    <!-- these items are toggled in and out of @+id/stop_reload_menu_id -->
+    <item android:id="@+id/stop_menu_id"
+        android:title="@string/stop" 
+        android:icon="@drawable/ic_menu_stop"
+        android:visible="false" />
+    <item android:id="@+id/reload_menu_id"
+        android:title="@string/reload" 
+        android:icon="@drawable/ic_menu_refresh" 
+        android:visible="false" />
+</menu>
+ 

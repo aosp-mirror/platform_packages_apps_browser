@@ -1,0 +1,2750 @@
+﻿<!DOCTYPE html>
+
+<!--
+Copyright 2007, The Android Open Source Project
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, 
+    this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+ 3. Neither the name of Google Inc. nor the names of its contributors may be
+    used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<html>
+<head>
+  <style type="text/css">
+
+
+/*
+Copyright 2007, The Android Open Source Project
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, 
+    this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+ 3. Neither the name of Google Inc. nor the names of its contributors may be
+    used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+body, html {
+  background-color:white;
+  padding:0;
+  margin:0;
+  height:100%;
+  overflow:hidden;
+  cursor:default;
+
+  /* 
+    Makes the text unselectable in mozilla. See html_diaog.js for IE
+    implementation.
+  */
+  -moz-user-select:none;
+}
+
+body, td, input, select, button {
+  font-family:arial,sans-serif;
+  font-size:13px;
+}
+
+p {
+  margin:0;
+  margin-bottom:1em;
+}
+
+a {
+  color:blue;
+  text-decoration:underline;
+}
+
+button {
+  /*
+  It would be better to express margins in ems, but it causes layout
+  artifacts (presumably because of rounding errors) when combined with
+  the -moz-border-radius property used in button.css on Firefox 2.
+
+  Also: bizarely, if I try to use the more natural margin-left:10px, I get
+  a bug where the buttons bounce on IE when you hover over them.
+  */
+  position:relative;
+  margin-right:7px;
+  left:7px;
+}
+
+#head {
+  padding:1em;
+}
+
+#foot {
+
+  /*
+  On Android we do not use position:absolute due to some
+  rendering limitations (absolute positioning works, but
+  the automatic resizing of dialog is confused by the
+  variable content and the display is wrong, while if we
+  remove the absolute positioning, #foot is back in the
+  flow and the dialog displays correctly)
+  */
+
+  background:white;
+  bottom:0;
+  width:100%;
+}
+
+#button-row {
+  margin:1em;
+}
+
+.accesskey {
+  text-decoration: underline;
+
+  /* IE CSS extension */
+  accelerator: true;
+}
+
+    h1 {
+      font-size:1.2em;
+      margin:0;
+    }
+
+    h2 {
+      font-size:1.1em;
+      margin:0;
+    }
+
+    /* TODO(aa): Move into standard stylesheet if used in all dialogs? */
+    #icon {
+      margin-right:0.5em;
+    }
+
+    #content {
+      overflow-x:hidden;
+      overflow-y:auto;
+
+      margin:0 1em;
+
+    }
+
+    #content table {
+      border: 1px #ccc;
+      /* Only set the sides and bottom border of the table because
+      border-colapse doesn't work on WinCE. */
+      border-style: none solid;
+      border-collapse: collapse;
+      /* A bug in Mozilla with border-collapse:collapse along with the overflow
+      settings we have on the scroll element causes the left border to be
+      placed 1px to the left, making the element invisible. */
+      margin-left:1px;
+    }
+
+    #content td {
+
+      padding: 4px; 
+
+    }
+
+    #content table.permissions {
+      border-bottom-style: solid;
+    }
+
+    #version {
+      font-size:0.8em;
+      font-style:italic;
+    }
+
+    #content td.left {
+      width: 100%;
+
+      padding-left: 20px;
+
+    }
+
+    #content td.right {
+
+      padding-right: 20px;
+
+    }
+
+    .app-icon {
+      width: 30px;
+    }
+
+    .app-name {
+      width: 150px;
+    }
+
+    .app-origin {
+      width: 70px;
+    }
+
+
+
+    td.origin-name {
+      font-weight: bold;
+      width: 100%;
+    }
+
+
+    div.radio-buttons {
+
+      width: 150px;
+
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+  <div id="strings" style="display:none;">
+    <div id="string-cancel"></div>
+    <div id="string-cancel-accesskey"></div>
+    <div id="string-apply"></div>
+    <div id="string-apply-accesskey"></div>
+    <div id="string-nosites"></div>
+    <div id="string-allowed"></div>
+    <div id="string-denied"></div>
+    <div id="string-local-storage"></div>
+    <div id="string-location-data"></div>
+    <div id="string-remove"></div>
+  </div>
+  
+  <div id="head">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td valign="middle">
+
+          <img id="icon" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAJPElEQVR4Xq3V
+WWyc1d0G8Oecd515Z/csHsfxntiOE8eOMY6dxFkokJCQlACBhEpsvWgLRkAL
+IhRxEYrSpp/6XYCgUokKBQEl0ABR0wrShBAI2R1nM3HseB+Px2PPPu/Mu3aE
+uKkoUhPzuzhXRzp/PUfPOcQ0TcxGrOcJ9Jz6F4YmTNq2yF4r5436aFyrlyz8
+nyQxH6m7aTdETxO+D8UssSxF/0gGc4NCpc3u2VtctvBNb5HjN71XUw8bxAHd
+pPiGkQeg/PADDI5lMZ3QYRUZL2MpqRVIyhpwGwj62OdTObo1l405svEBd9/h
+J7ae3Nd1p6rIP+wA5/tzuKExgKDfsZm32KHIU6AUaGnwiD5b5u3R0787OXVu
+x0kbF3t7ZuyzPZ/ve2HjfySI65SdPOQf7z/UNM87pPg8zi32wI0/J8oINE1F
+NgewLOBxW8GwxnyTUWCqcSycHyT7Du99V9XY1rX37Lh43QPoagrhS689zRnp
+X/p9btjcZUB+CL29vThwPD6USOnHrRbGqCixNLc3ueuK3BpMQ0U0oaJvONvd
+uvaGoVklkJm+6DbU2Aa3rxxy7CL0VBxj4Qz++s/I4ebF1VvKAyRiaEmkMobt
+bO/0Gy0NRZu9bh5XBifVxqXbnm/p2JiZVQtmJs5WhcZHq+XkEAhlYJrAF2cS
+qUX1pV13bVgSqa+yo6bMgSInl57XdOdDM0l9kFIKniWcwDP6rFtQUn/f6QTt
+uPd0z2AMJoGqGYjMqD1Vc8j5zEw/qJGG3UrBsQwMNpjgqHZW1w3MKbYiFTm1
+StOU2Q3Ai3bcdt9LH4iuusczsgxKCSwiYxLCQMmnwbAUDEMg5/PgRDec3qqc
+yXpQ4rejrjj0zME9j+/IyUnrrGrIsDwal3f1GAbReI7FgiqpeTqWWjQxJePK
+cAY9lxO4MmrCJc6UOt3BDoAFIQbmV3mF7qN7num/3F2CAnb610+CwITAsjAB
+GIYBAkBgKN4ZDiFhAttqq4TpqamNcU0PEULHeUJDnEAUs0P2e0saYeaGsLjO
+bjvfl3pDUWnX0IT8JYMcOprLmsTc0T/yzopyNRsFy7CIzOQQy3kO2ezeQRSQ
+qVvbEc2r2D00DsUwANNEhdWCUknEuyMT6GpvRTCT3GparW/LeQXTyWT0QjT9
+SXEt9+jSX1Xvd7iql+ZiF8CyDBQNmJzO64ZJj9ntLt3lCTaLNp89E+3BmXMD
+hcPVzNh4zLQGOh976oW9f0YBSy0WvD86CcNThLtrKkloZIhSm0PvHp/A1rpq
+lCiy17TbdwY710C72IOiaNR7MqFsuJjVXyoOp6Qq/TIEjiKb08FxHMqDFkY3
+yTLK2UGQQiJ0Bf/4fFQfjJa8sG7zI++1+eYYHo9nCN8iXdWlyIHgyboqsJry
+cljROmKqtreIY/9uJVgkSLaHi5evXKGHQ1Cv9oNQin2FZC5l0i0ttzrifAU5
+FovpvpEJ+YjLzup1VVL7onk2QRQYUGLi4pUYDp7zPvvcrv07BUH47mcUZXg8
+2rYEpqY8JFTUPFKzoKG5UhJ3uIo8J731Da/PWd65AqExGCODoIQAuoYGlw1B
+VthOjpEJPYpVGVNbdvOaus6GGtvqyLSyqvdqdoQS8s21TEZzkGyuE98e/h20
+JeAFL8ttiondjrllQDyGIlGA3+GgFkPH1Imv0NdzFgPxJCJZGQalqHLYsCLg
+vosH+ay4j+9sH3PO0z6e+onLZBzzq8RjMLXtn345irc+upr97Pj48bLy8iF8
+D/Liwhp0+jyBSUU52Oh2LbCYOhiOg6pqOBdL4Eg0poRy6gkLy0SKRaGy2W1v
+bnTZITEMcgB0wsM0ga8GRkFX+G9pvW/xp4qsMOevpFc6JYTL6n98ua55vc5y
+Iv4bsmvxfDS6nYjnlc2VkuWdCqedVxUVR6fj2DM8fpwThF8sdDnPcLoKllJr
+QtXur7NL/9fmcVpFlgWVJBT24FTv1zjjLt39xAcf/5S3cPhfUZFSHJ6YQoVV
+PMKKYpSxSgjJORyYmBoRrNI9j61ZeWZzZSmaXHYEBD7b5nG8GlO0rlAub6LA
+SKehxGOAaMHZLw5u7jt11IdrQP82FkFtSTEsBEGbw+knDidGUhlEFfW9wgM0
+XCynYWMoGl0OgFKEZQUNDuktWTcuEYsFBRhMpvHOhcvZ2k13Ple1uDmNa0C3
+LF6A1ZXl0FRlk3tuOavJWaQ0DQ6OO52MxzE2GQGTzYJwPFoDPlxKpgGYikTJ
+JPUUIUcp9g+OZEtuWXf/s7tff8XqcMi4Bux6K+tNDg8+6F+waAcnSchenIRL
+FGDjGL+mqIjBBCQRNosFJ0NhhFUNIsdxAqU+wenGcH8/ZkTp/PYXd77P8zyu
+FQ0lM09xbvcuR209lKEBUBOolKwICMKDedOkeZb75qV89UIf3uwbwl1zi2GD
+2e4sK68DAQopoaS6Jlzk8+N60LCifjAZS0wo3SdBkgmYlMAncmj3OpvSmvYa
+SyCUFwdg6jp+VlOGeRxtopL0srN+AZcfHYbf5USq50xw7PLXDK4DObS6FZNy
+fr+TZdZRSuEROBT6DoYQjGRljGVz3VaG+cjDMqMCpcvsc+Zs8Ta12JT+y1CH
+BwGGweHxMOTWZY9s2/WHV0S7A9eCnLh5KXoTmTVnYsmtGU2HT+SDLW77+haP
+CzaHA9l0BjlNhVDkg628HILNDvlqP5SxYXAcjwIcn0ng9RPdZ188cLitbvkK
+BdeAPTA5g1a34yDgOFiIHIQQDKayXQ6W/e1ClrWypgE7z4ElJrIDV3ApPImR
+VBYCz6FC0iHrBj4eGE413n3v02WNixVcI7bRaYMBoMJmRR4motk8av2+l6Zj
+sdWKad5htYjQczkkpiI4MDmNL6LxbsUw/1Ik8nmJYe6ITk8vkWoX7ChU8FPu
+OlrA/P+SevhFHj6bhKDVgq/jCUQNwENJkUmwXgCg6QaOzSTx4Wj4PZ/TuX5b
+bfWXQYJTvK69Wbduw/sP7Pz9AZc/YOA6sGo2AxMA1Q0IFCghJj4cGERpqf/I
+J+HIJRNmOSVUOh9LxtxWy/YHW5cotkgImqZC1/K4/dHHrtrm1+J6UXHZKlg7
+b4Jl+SqwHStRe/NatN++EcFVPzrfcOvaVk/nmhaho7Dctn7TA1u3Xg3Mmwd/
+RyduXL8BbbdvAmuxYjb+DcasAaYvg7ldAAAAAElFTkSuQmCC
+           ">
+
+          <!-- Some browsers automatically focus the first focusable item. We
+          don't want anything focused, so we add this fake item. -->
+          <a href="#" id="focus-thief"></a>
+        </td>
+        <td width="100%" valign="middle">
+          <h1>
+          <span id="string-gears-settings"></span>
+          </h1>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="content">
+    <p>
+      <span id="string-permissions-description"></span>
+    </p>
+    <div id='div-permissions'>
+    </div>
+    <br>
+    <br>
+    <div id="string-version"></div>
+  </div>
+  <div id="foot">
+    <div id="button-row">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+
+          <td nowrap="true" align="right" valign="middle">
+            <button id="confirm-button" class="custom"
+                onclick="saveAndClose(calculateDiff()); return false;"
+              ></button
+            ><button id="cancel-button" accesskey="C" class="custom"
+                onclick="saveAndClose(null); return false;"
+              ></button>
+          </td>
+
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+</body>
+
+<script>
+/*
+Copyright (c) 2005 JSON.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+//Array.prototype.______array = '______array';
+
+var JSON = {
+    org: 'http://www.JSON.org',
+    copyright: '(c)2005 JSON.org',
+    license: 'http://www.crockford.com/JSON/license.html',
+
+    stringify: function (arg) {
+        var c, i, l, s = '', v;
+
+        switch (typeof arg) {
+        case 'object':
+            if (arg) {
+                if (arg.constructor == Array.prototype.constructor) {
+                    for (i = 0; i < arg.length; ++i) {
+                        v = this.stringify(arg[i]);
+                        if (s) {
+                            s += ',';
+                        }
+                        s += v;
+                    }
+                    return '[' + s + ']';
+                } else if (typeof arg.toString != 'undefined') {
+                    for (i in arg) {
+                        v = arg[i];
+                        if (typeof v != 'undefined' && typeof v != 'function') {
+                            v = this.stringify(v);
+                            if (s) {
+                                s += ',';
+                            }
+                            s += this.stringify(i) + ':' + v;
+                        }
+                    }
+                    return '{' + s + '}';
+                }
+            }
+            return 'null';
+        case 'number':
+            return isFinite(arg) ? String(arg) : 'null';
+        case 'string':
+            l = arg.length;
+            s = '"';
+            for (i = 0; i < l; i += 1) {
+                c = arg.charAt(i);
+                if (c >= ' ') {
+                    if (c == '\\' || c == '"') {
+                        s += '\\';
+                    }
+                    s += c;
+                } else {
+                    switch (c) {
+                        case '\b':
+                            s += '\\b';
+                            break;
+                        case '\f':
+                            s += '\\f';
+                            break;
+                        case '\n':
+                            s += '\\n';
+                            break;
+                        case '\r':
+                            s += '\\r';
+                            break;
+                        case '\t':
+                            s += '\\t';
+                            break;
+                        default:
+                            c = c.charCodeAt();
+                            s += '\\u00' + Math.floor(c / 16).toString(16) +
+                                (c % 16).toString(16);
+                    }
+                }
+            }
+            return s + '"';
+        case 'boolean':
+            return String(arg);
+        default:
+            return 'null';
+        }
+    },
+    parse: function (text) {
+        var at = 0;
+        var ch = ' ';
+
+        function error(m) {
+            throw {
+                name: 'JSONError',
+                message: m,
+                at: at - 1,
+                text: text
+            };
+        }
+
+        function next() {
+            ch = text.charAt(at);
+            at += 1;
+            return ch;
+        }
+
+        function white() {
+            while (ch) {
+                if (ch <= ' ') {
+                    next();
+                } else if (ch == '/') {
+                    switch (next()) {
+                        case '/':
+                            while (next() && ch != '\n' && ch != '\r') {}
+                            break;
+                        case '*':
+                            next();
+                            for (;;) {
+                                if (ch) {
+                                    if (ch == '*') {
+                                        if (next() == '/') {
+                                            next();
+                                            break;
+                                        }
+                                    } else {
+                                        next();
+                                    }
+                                } else {
+                                    error("Unterminated comment");
+                                }
+                            }
+                            break;
+                        default:
+                            error("Syntax error");
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+        function string() {
+            var i, s = '', t, u;
+
+            if (ch == '"') {
+outer:          while (next()) {
+                    if (ch == '"') {
+                        next();
+                        return s;
+                    } else if (ch == '\\') {
+                        switch (next()) {
+                        case 'b':
+                            s += '\b';
+                            break;
+                        case 'f':
+                            s += '\f';
+                            break;
+                        case 'n':
+                            s += '\n';
+                            break;
+                        case 'r':
+                            s += '\r';
+                            break;
+                        case 't':
+                            s += '\t';
+                            break;
+                        case 'u':
+                            u = 0;
+                            for (i = 0; i < 4; i += 1) {
+                                t = parseInt(next(), 16);
+                                if (!isFinite(t)) {
+                                    break outer;
+                                }
+                                u = u * 16 + t;
+                            }
+                            s += String.fromCharCode(u);
+                            break;
+                        default:
+                            s += ch;
+                        }
+                    } else {
+                        s += ch;
+                    }
+                }
+            }
+            error("Bad string");
+        }
+
+        function array() {
+            var a = [];
+
+            if (ch == '[') {
+                next();
+                white();
+                if (ch == ']') {
+                    next();
+                    return a;
+                }
+                while (ch) {
+                    a.push(value());
+                    white();
+                    if (ch == ']') {
+                        next();
+                        return a;
+                    } else if (ch != ',') {
+                        break;
+                    }
+                    next();
+                    white();
+                }
+            }
+            error("Bad array");
+        }
+
+        function object() {
+            var k, o = {};
+
+            if (ch == '{') {
+                next();
+                white();
+                if (ch == '}') {
+                    next();
+                    return o;
+                }
+                while (ch) {
+                    k = string();
+                    white();
+                    if (ch != ':') {
+                        break;
+                    }
+                    next();
+                    o[k] = value();
+                    white();
+                    if (ch == '}') {
+                        next();
+                        return o;
+                    } else if (ch != ',') {
+                        break;
+                    }
+                    next();
+                    white();
+                }
+            }
+            error("Bad object");
+        }
+
+        function number() {
+            var n = '', v;
+            if (ch == '-') {
+                n = '-';
+                next();
+            }
+            while (ch >= '0' && ch <= '9') {
+                n += ch;
+                next();
+            }
+            if (ch == '.') {
+                n += '.';
+                while (next() && ch >= '0' && ch <= '9') {
+                    n += ch;
+                }
+            }
+            if (ch == 'e' || ch == 'E') {
+                n += 'e';
+                next();
+                if (ch == '-' || ch == '+') {
+                    n += ch;
+                    next();
+                }
+                while (ch >= '0' && ch <= '9') {
+                    n += ch;
+                    next();
+                }
+            }
+            v = +n;
+            if (!isFinite(v)) {
+                ////error("Bad number");
+            } else {
+                return v;
+            }
+        }
+
+        function word() {
+            switch (ch) {
+                case 't':
+                    if (next() == 'r' && next() == 'u' && next() == 'e') {
+                        next();
+                        return true;
+                    }
+                    break;
+                case 'f':
+                    if (next() == 'a' && next() == 'l' && next() == 's' &&
+                            next() == 'e') {
+                        next();
+                        return false;
+                    }
+                    break;
+                case 'n':
+                    if (next() == 'u' && next() == 'l' && next() == 'l') {
+                        next();
+                        return null;
+                    }
+                    break;
+            }
+            error("Syntax error");
+        }
+
+        function value() {
+            white();
+            switch (ch) {
+                case '{':
+                    return object();
+                case '[':
+                    return array();
+                case '"':
+                    return string();
+                case '-':
+                    return number();
+                default:
+                    return ch >= '0' && ch <= '9' ? number() : word();
+            }
+        }
+
+        return value();
+    }
+};
+
+// Copyright 2008, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//=============================================================================
+// Various basic JavaScript utilities.
+//=============================================================================
+
+/**
+ * Check that the type is not undefined (we do it here as on
+ * some devices typeof returns unknown instead of undefined...).
+ * We have to pass the evaluation of (typeof elem) (i.e., a string)
+ * to the function rather than simply (element) -- passing an 
+ * undefined object would make the function crash on PIE.
+ */
+function isDefined(type) {
+  return type != 'undefined' && type != 'unknown';
+}
+
+/**
+ * Returns true if val is a function.
+ */
+function isFunction(val) {
+  return typeof val == "function";
+}
+
+// TODO(aa): more basic type checking here.
+
+
+/**
+ * Creates a 'bound' function that calls the current function with a preset
+ * 'this' object and set of arguments.
+ */
+Function.prototype.bind = function(obj) {
+  var preArgs = Array.prototype.slice.call(arguments, 1);
+  var self = this;
+  return function() {
+    var postArgs = Array.prototype.slice.call(arguments, 0);
+    var totalArgs = preArgs.concat(postArgs);
+    return self.apply(obj, totalArgs);
+  }
+};
+
+/**
+ * Creates a partially applied function that calls the current function with
+ * a preset set of arguments.
+ */
+Function.prototype.partial = function() {
+  var args = Array.prototype.slice.call(arguments, 0);
+  return this.bind(null, args);
+};
+
+/**
+ * Binds all the methods in obj to obj.
+ */
+function bindMethods(obj) {
+  for (var p in obj) {
+    if (isFunction(obj[p])) {
+      obj[p] = obj[p].bind(obj);
+    }
+  }
+}
+
+
+/**
+ * Trim leading and trailing whitespace from a string.
+ */
+String.prototype.trim = function(str) {
+  return this.replace(/^\s+/, "").replace(/\s+$/, "");
+};
+
+
+/**
+ * Find the index of a given element in an array. Returns -1 if the item does
+ * not exist.
+ */
+Array.prototype.indexOf = function(item) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] === item) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+/**
+ * Makes a deep copy of an object.
+ */
+function cloneObject(original) {
+  var newObject = new Object();
+  for (i in original) {
+    if (typeof original[i] == 'object') {
+      newObject[i] = cloneObject(original[i]);
+    }
+    else {
+      newObject[i] = original[i];
+    }
+  }
+  newObject.length = original.length;
+  return newObject;
+}
+
+var browser = {};
+
+(function() {
+  var ua = navigator.userAgent;
+  browser.opera = typeof opera != "undefined";
+  browser.ie = !browser.opera && ua.indexOf("MSIE") > -1;
+  browser.ie_mobile = (ua.indexOf("Windows CE") > -1) &&
+      (ua.indexOf("MSIE") > -1);
+  browser.webkit = ua.indexOf("WebKit") > -1;
+  // WebKit also gives product == "gecko".
+  browser.mozilla = !browser.webkit && navigator.product == "Gecko";
+  browser.safari = ua.indexOf("Safari") > -1;
+  browser.mac = navigator.platform.indexOf("Mac") > -1;
+  browser.linux = navigator.platform.indexOf("Linux") > -1;
+  browser.windows = navigator.platform.indexOf("Win") > -1;
+  browser.android = ua.indexOf("Android") > -1;
+  if (browser.android) {
+    browser.safari = false;
+  }
+  // TODO(aa): Add detection for more browsers, as necessary.
+})();
+
+// Copyright 2008, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//=============================================================================
+// DOM manipulation utilities.
+// Requires: base.js
+//=============================================================================
+
+var dom = {};
+
+/**
+ * Provides a cross-browser way of getting an element by its id
+ */
+dom.getElementById = function(id) {
+  if (isDefined(typeof document.getElementById)) {
+    return document.getElementById(id);
+  } else if (isDefined(typeof document.all)) {
+    return document.all[id];
+  }
+  throw new Error("Failed to get element by ID.");
+};
+
+/**
+ * Gets the position and dimensions of an element in pixels in relation
+ * to the window origin.
+ */
+dom.getPosition = function(elem) {
+  var ret = { 'left'   : 0,
+              'top'    : 0,
+              'width'  : elem.width,
+              'height' : elem.height };
+  
+  if (!elem.offsetParent) return ret;
+  
+  var left = 0;
+  var top = 0;
+  while (elem) {
+    left += elem.offsetLeft;
+    top += elem.offsetTop;
+    elem = elem.offsetParent
+  }
+  ret.left = left;
+  ret.top = top;
+  return ret;
+};
+
+/**
+ * Returns the height of the inside of the window.
+ */
+dom.getWindowInnerHeight = function() {
+  if (isDefined(typeof window.innerHeight)) { // Firefox
+    return window.innerHeight;
+  } else if (isDefined(typeof document.body.offsetHeight)) { // IE
+    return document.body.offsetHeight;
+  }
+
+  throw new Error("Could not get windowInnerHeight.");
+};
+
+/**
+ * Add an event listener to an element cross-browser.
+ */
+dom.addEvent = function(element, eventName, handler) {
+  var wrapper = dom._callEventHandler.bind(dom, handler);
+
+  if (isDefined(typeof element.addEventListener)) {
+    // Standards-compatible browsers
+    element.addEventListener(eventName, wrapper, false);
+  } else if (isDefined(typeof element.attachEvent)) {
+    // IE
+    element.attachEvent("on" + eventName, wrapper);
+  } else {
+    throw new Error('Failed to attach event.');
+  }
+};
+
+/**
+ * Private helper for calling event handlers compatibly across browsers.
+ */
+dom._callEventHandler = function(handler, e) {
+  // Older versions of IE don't pass event to the handler.
+  if (!e) e = window.event;
+
+  // TODO(aa): Normalize event object properties.
+
+  return handler(e);
+};
+
+/**
+ * Gets the CSS classes for an element.
+ */
+dom.getClasses = function(elm) {
+  return elm.className.split(/\s+/);
+};
+
+/**
+ * Check is an element has a particular CSS class name.
+ */
+dom.hasClass = function(elm, className) {
+  return this.getClasses(elm).indexOf(className) > -1;
+};
+
+/**
+ * Adds a CSS class to an element. Do nothing if the class already exists.
+ */
+dom.addClass = function(elm, className) {
+  var classes = this.getClasses(elm);
+  if (classes.indexOf(className) > -1) {
+    return;
+  }
+  classes.push(className);
+  elm.className = classes.join(" ");
+};
+
+/**
+ * Removes a CSS class from an element. Do nothing if the class doesn't exist.
+ */
+dom.removeClass = function(elm, className) {
+  var classes = this.getClasses(elm);
+  var index = classes.indexOf(className);
+  if (index == -1) {
+    return;
+  }
+  classes.splice(index, 1);
+  elm.className = classes.join(" ");
+};
+
+/**
+ * Gets the text (non-html) content of an element.
+ */
+dom.getTextContent = function(elm) {
+  if (isDefined(typeof elm.textContent)) {
+    return elm.textContent;
+  } else if (isDefined(typeof elm.innerText)) {
+    return elm.innerText;
+  } else {
+    throw new Error("Could not find a property to get text content.");
+  }
+};
+
+/**
+ * Sets the text (non-html) contents of an element.
+ */
+dom.setTextContent = function(elm, text) {
+  if (isDefined(typeof elm.textContent)) {
+    elm.textContent = text;
+  } else if (isDefined(typeof elm.innerText)) {
+    elm.innerText = text;
+  } else {
+    throw new Error("Could not find a property to set text content.");
+  }
+};
+
+// Copyright 2007, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+/**
+ * Initialize the base functionality of the dialog.
+ */
+function initDialog() {
+  if (!browser.ie_mobile) {
+    dom.addEvent(document, "keyup", handleKeyUp);
+  } else {
+    var buttonRowElem = null;
+    if (window.pie_dialog.IsSmartPhone()) {
+      buttonRowElem = dom.getElementById("button-row-smartphone");
+    } else {
+      buttonRowElem = dom.getElementById("button-row");
+    }
+    if (buttonRowElem) {
+      buttonRowElem.style.display = 'block';
+    }
+  }
+  if (browser.ie_mobile) {
+    window.pie_dialog.SetScriptContext(window);
+    window.pie_dialog.ResizeDialog();
+  }
+}
+
+/**
+ * Set the label of an input button, and optionally, its accesskey.
+ */
+function setButtonLabel(textID, elemID, accessKeyID) {
+  var textElem = dom.getElementById(textID);
+  var buttonElem = dom.getElementById(elemID);
+  if (textElem == null || buttonElem == null) {
+    return;
+  }
+
+  var accessKeyElem = null;
+  if (isDefined(typeof accessKeyID)) {
+    accessKeyElem = dom.getElementById(accessKeyID);
+  }
+
+  // This function works for two different kinds of buttons. Simple buttons
+  // based on the <input type="button"> tag, and custom buttons based on a
+  // <button> tag with the css class "custom".
+  // Note that on Windows Mobile 5, the tagName property is not defined.
+  // We can therefore safely assume that the converse is also true:
+  // if tagName is not defined, then the platform must be Windows Mobile 5.  
+  if (!isDefined(typeof buttonElem.tagName) ||
+      buttonElem.tagName.toLowerCase() == "input") {
+    buttonElem.value = dom.getTextContent(textElem).trim();
+    if (accessKeyElem != null) {
+      buttonElem.accessKey = dom.getTextContent(accessKeyElem).trim();
+    }
+  } else if (buttonElem.tagName.toLowerCase() == "button") {
+    var text = dom.getTextContent(textElem).trim();
+
+    if (accessKeyElem != null) {
+      // Some browsers use the accessKey attribute of the the anchor tag.
+      var accessKey = dom.getTextContent(accessKeyElem).trim();
+      buttonElem.accessKey = accessKey;
+
+      // Find the first matching character in the text and mark it.
+      // Note: this form of String.replace() only replaces the first occurence.
+      text = text.replace(accessKey,
+                          "<span class='accesskey'>" + accessKey + "</span>");
+    }
+
+    buttonElem.innerHTML = text;
+  } else {
+    throw new Error("Unexpected button tag name: " + buttonElem.tagName);
+  }
+}
+
+/**
+ * Allows a dialog to do custom layout when the window changes sizes. The
+ * provided function will be called with the height of the content area when the
+ * dialog should relayout.
+ */
+function initCustomLayout(layoutFunction) {
+  function doLayout() {
+    layoutFunction(getContentHeight());
+  }
+
+  doLayout();
+
+  // We do an additional layout in onload because sometimes things aren't
+  // stabilized when the first doLayout() is called above.
+  dom.addEvent(window, "load", doLayout);
+  dom.addEvent(window, "resize", doLayout);
+
+  // Mozilla doesn't fire continuous events during resize, so if we want to get
+  // somewhat smooth resizing, we need to run our own timer loop. This still
+  // doesn't look perfect, because the timer goes off out of sync with the
+  // browser's internal reflow, but I think it's better than nothing.
+  // TODO(aa): Keep looking for a way to get an event for each reflow, like IE.
+  if (browser.mozilla) {
+    var lastHeight = -1;
+
+    function maybeDoLayout() {
+      var currentHeight = dom.getWindowInnerHeight();
+      if (currentHeight != lastHeight) {
+        lastHeight = currentHeight;
+        doLayout();
+      }
+    }
+
+    window.setInterval(maybeDoLayout, 30);
+  }
+}
+
+/**
+ * Get the JSON-formatted arguments that were passed by the caller.
+ */
+function getArguments() {
+  var argsString;
+  if (browser.ie_mobile) {
+    argsString = window.pie_dialog.GetDialogArguments();
+  } else if (browser.ie) {
+    argsString = window.external.GetDialogArguments();
+  } else if (browser.mozilla) {
+    argsString = getFirefoxArguments(window.arguments[0]);
+  } else if (browser.safari) {
+    argsString = window.gears_dialogArguments;
+  } else if (browser.android) {
+    argsString = "" + window.bridge.getDialogArguments();
+  }
+
+  if (typeof argsString == "string") {
+    return JSON.parse(argsString);
+  } else {
+    return null;
+  }
+}
+
+/**
+ * Helper used by getArguments(). Getting the arguments in the right type is
+ * more involved in Firefox.
+ */
+function getFirefoxArguments(windowArguments) {
+  var Ci = Components.interfaces;
+  windowArguments.QueryInterface(Ci.nsIProperties);
+  var supportsString = 
+    windowArguments.get("dialogArguments", Ci.nsISupportsString);
+  return supportsString.data;
+}
+
+/**
+ * Close the dialog, sending the specified result back to the caller.
+ */
+function saveAndClose(resultObject) {
+  var resultString = JSON.stringify(resultObject);
+  if (browser.ie_mobile) {
+    window.pie_dialog.CloseDialog(resultString);
+  } else if (browser.ie) {
+    window.external.CloseDialog(resultString);
+  } else if (browser.mozilla) {
+    saveFirefoxResults(resultString);
+    window.close();
+  } else if (browser.safari) {
+    window.gears_dialog.setResults(resultString);
+  } else if (browser.android) {
+    window.bridge.closeDialog(resultString);
+  }
+}
+
+/**
+ * Helper used by endDialog() for Firefox.
+ */
+function saveFirefoxResults(resultString) {
+  var Cc = Components.classes;
+  var Ci = Components.interfaces;
+  
+  var props = window.arguments[0].QueryInterface(Ci.nsIProperties);
+  var supportsString = Cc["@mozilla.org/supports-string;1"]
+      .createInstance(Ci.nsISupportsString);
+      
+  supportsString.data = resultString;
+  props.set("dialogResult", supportsString);
+}
+
+/**
+ * Returns the height of the content area of the dialog.
+ */
+function getContentHeight() {
+  var head = dom.getElementById("head");
+  var foot = dom.getElementById("foot");
+  return dom.getWindowInnerHeight() - head.offsetHeight - foot.offsetHeight;
+}
+
+/**
+ * For some reason ESC doesn't work on HTML dialogs in either Firefox or IE. So
+ * we implement it manually.
+ */
+function handleKeyUp(e) {
+  var ESC_KEY_CODE = 27;
+  
+  if (e.keyCode == ESC_KEY_CODE) {
+    saveAndClose(null);
+  }
+}
+
+/**
+ * Disables a button in the right way, whether it is normal or custom.
+ */
+function disableButton(buttonElem) {
+  buttonElem.disabled = true;
+
+  if (browser.ie_mobile) {
+    window.pie_dialog.SetButtonEnabled(false);
+  }
+
+  if (!isDefined(typeof buttonElem.tagName) || 
+      buttonElem.tagName.toLowerCase() == "input") {
+    buttonElem.style.color = "gray";
+  } else if (buttonElem.tagName.toLowerCase() == "button") {
+    dom.addClass(buttonElem, "disabled");
+  } else {
+    throw new Error("Unexpected tag name: " + buttonElem.tagName);
+  }
+}
+
+/**
+ * Enables a button in the right way, whether it is normal or custom.
+ */
+function enableButton(buttonElem) {
+  buttonElem.disabled = false;
+
+  if (browser.ie_mobile) {
+    window.pie_dialog.SetButtonEnabled(true);
+  }
+  
+  if (!isDefined(typeof buttonElem.tagName) ||
+      buttonElem.tagName.toLowerCase() == "input") {
+    buttonElem.style.color = "black";
+  } else if (buttonElem.tagName.toLowerCase() == "button") {
+    dom.removeClass(buttonElem, "disabled");
+  } else {
+    throw new Error("Unexpected tag name: " + buttonElem.tagName);
+  }
+}
+
+/**
+ * Returns a wrapped domain (useful for small screens dialogs, 
+ * e.g. windows mobile devices)
+ */
+function wrapDomain(str) {
+  if (!browser.ie_mobile) {
+    return str;
+  }
+
+  var max = 20;
+  var url;
+  var scheme_start = str.indexOf("://");
+  var scheme = "";
+
+  if (scheme_start != -1) {
+    scheme = str.substring(0, scheme_start);
+    scheme += "://";
+    // there's automatically an hyphenation
+    // point used by the browser after http://
+    // so we only have to hyphenate the
+    // rest of the string
+    url = str.substring(scheme.length);
+  } else {
+    url = str;
+  }
+
+  // We hyphenate the string on every dot
+  var components = url.split(".");
+  if (components.length < 1) {
+    return str;
+  }
+
+  var content = components[0];
+  var len = content.length;
+  for (var i=1; i < components.length; i++) {
+    var elem = components[i];
+    content += ".";
+    len++;
+    if (len + elem.length > max) {
+      content += "<br>";
+      len = 0;
+    }
+    content += elem;
+    len += elem.length;
+  }
+  return scheme + content;
+}
+
+/**
+ * Resizes the dialog to fit the content size.
+ */
+function resizeDialogToFitContent(opt_minDialogInnerHeight) {
+  // This does not work on PIE (no height measurement)
+  if (browser.ie_mobile) {
+    window.pie_dialog.ResizeDialog();
+    return;
+  }
+  // window.resize() is not working on Android, we bail out.
+  if (browser.android) {
+    return;
+  }
+
+  // Resize the window to fit
+  var contentDiv = dom.getElementById("content");
+  var contentHeightProvided = getContentHeight();
+  var contentHeightDesired = contentDiv.offsetHeight;
+
+  var dialogHeightProvided = dom.getWindowInnerHeight();
+  var dialogHeightDesired =
+      dialogHeightProvided + (contentHeightDesired - contentHeightProvided);
+
+  var minDialogHeight = opt_minDialogInnerHeight || 0;
+  var maxDialogHeight = 400; // arbitrary max height for a dialog to resize to
+  
+  var targetHeight = Math.max(dialogHeightDesired, minDialogHeight);
+  targetHeight = Math.min(dialogHeightDesired, maxDialogHeight);
+
+  if (targetHeight != dialogHeightProvided) {
+    var dy = targetHeight - dialogHeightProvided;
+    window.resizeBy(0, dy);
+  }
+}
+
+/**
+ * Safari running on OSX 10.4 can't load images dynamically from the network,
+ * this helper function calls gears-specific code to work around this
+ * limitation.
+ */
+function loadImage(elem, image_url) {
+  if (browser.safari) {
+    var position = dom.getPosition(elem);
+    window.gears_dialog.loadImageIntoElement(image_url, position.top,
+                                             position.left,
+                                             position.width,
+                                             position.height);
+  } else {
+    elem.src = image_url;
+  }
+}
+
+// Copyright 2008, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//=============================================================================
+// Implements the behavior of our custom buttons. There is no native support in
+// IE for rounded corners on HTML elements, so this script also implements a
+// hack to simulate them in that browser.
+//
+// Requires: base.js, dom.js
+//=============================================================================
+
+/**
+ * Constructor.
+ */
+function CustomButton(htmlButton) {
+  bindMethods(this);
+  
+  this._focused = false;
+  this._htmlButton = htmlButton;
+
+  if (!document.all) {  // not IE
+    dom.addEvent(htmlButton, "mouseover", this._handleMouseOver);
+    dom.addEvent(htmlButton, "mouseout", this._handleMouseOut);
+  } else {  // IE
+    // mouseover/mouseout behave badly with nested elements in IE. Luckily,
+    // mouseenter/mouseleave are provided and have the equivalent semantics.
+    dom.addEvent(htmlButton, "mouseenter", this._handleMouseOver);
+    dom.addEvent(htmlButton, "mouseleave", this._handleMouseOut);
+
+    // We also handle focus and blur in IE so that we can update the corners
+    // to match the black border IE provides.
+    dom.addEvent(htmlButton, "focusin", this._handleFocus);
+    dom.addEvent(htmlButton, "blur", this._handleBlur);
+
+    dom.addClass(htmlButton, "ie");
+    this._createCorners();
+  }
+
+  // Limit button widths to a minimum of 60px. They look funny skinnier.  
+  if (htmlButton.offsetWidth < 60) {
+    htmlButton.style.width = "60px";
+  }
+
+  htmlButton.style.visibility = "visible";
+}
+
+/**
+ * Initializes all the custom buttons on the page.
+ */
+CustomButton.initializeAll = function() {
+  var buttons = document.getElementsByTagName("button");
+  for (var i = 0, button; button = buttons[i]; i++) {
+    if (dom.hasClass(button, "custom")) {
+      new CustomButton(button);
+    }
+  }
+};
+
+/**
+ * Highlights the button on mouseover. Note that this gets called multiple
+ * times while the mouse goes over sub elements inside the button.
+ */
+CustomButton.prototype._handleMouseOver = function() {
+  if (!this._htmlButton.disabled && !this._focused) {
+    dom.addClass(this._htmlButton, "hover");
+    this._setCornerColor("blue");
+  }
+};
+
+/**
+ * Undoes the highlighting of the button on mouseout. Note that this gets called
+ * multiple times when the mouse moves out of sub elements, even if it is still
+ * over the button. That is OK, as long as there is immediately a mouseover
+ * event.
+ */
+CustomButton.prototype._handleMouseOut = function() {
+  if (!this._htmlButton.disabled && !this._focused) {
+    dom.removeClass(this._htmlButton, "hover");
+    this._setCornerColor("grey");
+  }
+};
+
+/**
+ * Highlights the button on focus. Currently only used for IE.
+ * TODO(aa): The black highlight looks cool. Consider for other browsers.
+ */
+CustomButton.prototype._handleFocus = function() {
+  dom.removeClass(this._htmlButton, "hover");
+  this._setCornerColor("black");
+  this._focused = true;
+};
+
+/**
+ * Undoes the highlighting of the button on blur.
+ */
+CustomButton.prototype._handleBlur = function() {
+  this._setCornerColor("grey");
+  this._focused = false;
+};
+
+/**
+ * Helper to create the graphics that make the button have rounded corners in
+ * IE.
+ */
+CustomButton.prototype._createCorners = function() {
+  // Making the button position:relative makes it possible to position things
+  // inside it relative to it's border.
+  this._htmlButton.style.position = "relative";
+
+  var verticalEdges = ["left", "right"];
+  var horizontalEdges = ["top", "bottom"];
+  var colors = ["grey", "blue", "black"];
+
+  for (var i = 0; i < verticalEdges.length; i++) {
+    for (var j = 0; j < horizontalEdges.length; j++) {
+      for (var k = 0; k < colors.length; k++) {
+        var img = document.createElement("img");
+        img.src = "button_corner_" + colors[k]  + ".gif";
+        img.color  = colors[k];
+        img.style.position = "absolute";
+        img.style[verticalEdges[i]] = "-2px";
+        img.style[horizontalEdges[j]] = "-2px";
+        img.style.filter =
+            "progid:DXImageTransform.Microsoft.BasicImage(Rotation=" + 
+            (i + j) + ")";
+        this._htmlButton.appendChild(img);
+      }
+    }
+  }
+
+  this._setCornerColor("grey");
+};
+
+/**
+ * Sets the color of the corners in IE by changing the stack order of the corner
+ * images.
+ */
+CustomButton.prototype._setCornerColor = function(newColor) {
+  var imgs = this._htmlButton.getElementsByTagName("img");
+  for (var i = 0, img; img = imgs[i]; i++) {
+    img.style.zIndex = Number(img.color == newColor);
+  }
+};
+
+var localized_strings = {
+  "el": {
+    "string-denied": "Δεν επιτρέπονται",
+    "string-apply-accesskey": "A",
+    "string-remove": "Κατάργηση",
+    "string-gears-settings": "Ρυθμίσεις Gears",
+    "string-apply": "Εφαρμογή",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Άκυρο",
+    "string-html-title": "Ρυθμίσεις Gears",
+    "string-allowed": "Επιτρέπονται",
+    "string-local-storage": "Τοπικός αποθηκευτικός χώρος",
+    "string-nosites": "Δεν υπάρχουν ιστότοποι.",
+    "string-permissions-description": "Ο παρακάτω πίνακας δείχνει τα δικαιώματα που χορηγήσατε σε κάθε ιστότοπο που επιχείρησε να χρησιμοποιήσει το Gears.",
+    "string-location-data": "Τοποθεσία",
+    "string-version": "Έκδοση Gears 0.4.23.0"
+  },
+  "gu": {
+    "string-denied": "નકારેલું",
+    "string-apply-accesskey": "A",
+    "string-remove": "દૂર કરો",
+    "string-gears-settings": "Gears સેટિંગ્સ",
+    "string-apply": "લાગુ કરો",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "રદ કરો",
+    "string-html-title": "Gears સેટિંગ્સ",
+    "string-allowed": "મંજુર કરેલ",
+    "string-local-storage": "સ્થાનિક સ્ટોરેજ",
+    "string-nosites": "કોઇ સાઇટ્સ નથીં.",
+    "string-permissions-description": "નીચેનુ કોષ્ટક દર્શાવે છે કે તમે જુદી-જુદી સાઇટ્સને કઇ પરવાનગીઓ આપેલી છે કે જેમણે Gearsનો ઉપયોગ કરવાનો પ્રયત્ન કર્યો છે.",
+    "string-location-data": "સ્થાન",
+    "string-version": "Gears સંસ્કરણ 0.4.23.0"
+  },
+  "zh-TW": {
+    "string-denied": "遭拒",
+    "string-apply-accesskey": "A",
+    "string-remove": "移除",
+    "string-gears-settings": "Gears 設定",
+    "string-apply": "套用",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "取消",
+    "string-html-title": "Gears 設定",
+    "string-allowed": "允許",
+    "string-local-storage": "本機儲存",
+    "string-nosites": "沒有網站。",
+    "string-permissions-description": "下表顯示您授予嘗試使用 Gears 之各個網站的權限。",
+    "string-location-data": "位置",
+    "string-version": "Gears 版本 0.4.23.0"
+  },
+  "vi": {
+    "string-denied": "Bị từ chối",
+    "string-apply-accesskey": "P",
+    "string-remove": "Xoá",
+    "string-gears-settings": "Cài đặt Gears",
+    "string-apply": "Áp dụng",
+    "string-cancel-accesskey": "H",
+    "string-cancel": "Huỷ",
+    "string-html-title": "Cài đặt Gears",
+    "string-allowed": "Được phép",
+    "string-local-storage": "Bộ nhớ cục bộ",
+    "string-nosites": "Không có trang web nào.",
+    "string-permissions-description": "Bảng dưới đây hiển thị các quyền bạn cấp cho mỗi trang đã cố gắng sử dụng Gears.",
+    "string-location-data": "Vị trí",
+    "string-version": "Gears phiên bản 0.4.23.0"
+  },
+  "ca": {
+    "string-denied": "Denegat",
+    "string-apply-accesskey": "P",
+    "string-remove": "Elimina",
+    "string-gears-settings": "Configuració de Gears",
+    "string-apply": "Aplica",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancel·la",
+    "string-html-title": "Configuració de Gears",
+    "string-allowed": "Permès",
+    "string-local-storage": "Emmagatzematge local",
+    "string-nosites": "Cap lloc.",
+    "string-permissions-description": "La taula següent mostra els permisos que teniu a cada lloc que ha intentat utilizar Gears.",
+    "string-location-data": "Ubicació",
+    "string-version": "Versió de Gears 0.4.23.0"
+  },
+  "it": {
+    "string-denied": "Non consentito",
+    "string-apply-accesskey": "A",
+    "string-remove": "Rimuovi",
+    "string-gears-settings": "Impostazioni di Google Gears",
+    "string-apply": "Applica",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Annulla",
+    "string-html-title": "Impostazioni di Google Gears",
+    "string-allowed": "Consentito",
+    "string-local-storage": "Archiviazione locale",
+    "string-nosites": "Nessun sito.",
+    "string-permissions-description": "La tabella riportata di seguito mostra le autorizzazioni concesse ai siti che hanno tentato di utilizzare Google Gears.",
+    "string-location-data": "Posizione",
+    "string-version": "Versione di Google Gears 0.4.23.0"
+  },
+  "kn": {
+    "string-denied": "ನಿರಾಕರಿಸಲಾಗಿದೆ",
+    "string-apply-accesskey": "A",
+    "string-remove": "ತೆಗೆಯಿರಿ",
+    "string-gears-settings": "Gears ಸೆಟ್ಟಿಂಗ್ಸ್",
+    "string-apply": "ಅನ್ವಯಿಸಿ",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "ರದ್ದುಮಾಡು",
+    "string-html-title": "Gears ಸೆಟ್ಟಿಂಗ್ಸ್",
+    "string-allowed": "ಅನುಮತಿಸಲಾಗಿದೆ",
+    "string-local-storage": "ಸ್ಥಳೀಯ ಶೇಖರಣೆ",
+    "string-nosites": "ಸೈಟುಗಳಿಲ್ಲ.",
+    "string-permissions-description": "ಕೆಳಗಿನ ಟೇಬಲ್ Gears ಬಳಸಲು ಪ್ರಯತ್ನಿಸಿದ ಪ್ರತಿಯೊಂದು ಸೈಟ್ ಗೂ ನೀವು ನೀಡಿದ ಅನುಮತಿಗಳನ್ನು ತೋರಿಸುತ್ತಿದೆ.",
+    "string-location-data": "ಸ್ಥಳ",
+    "string-version": "0.4.23.0 Gears ಆವೃತ್ತಿ"
+  },
+  "ar": {
+    "string-denied": "مرفوض",
+    "string-apply-accesskey": "س",
+    "string-remove": "إزالة",
+    "string-gears-settings": "إعدادات Gears",
+    "string-apply": "تطبيق",
+    "string-cancel-accesskey": "غ",
+    "string-cancel": "إلغاء",
+    "string-html-title": "إعدادات Gears",
+    "string-allowed": "مسموح",
+    "string-local-storage": "تخزين محلي",
+    "string-nosites": "لا توجد مواقع.",
+    "string-permissions-description": "يوضح الجدول أدناه الأذونات التي قمت بمنحها لكل موقع حاول استخدام Gears.",
+    "string-location-data": "الموقع",
+    "string-version": "Gears الإصدار 0.4.23.0"
+  },
+  "ml": {
+    "string-denied": "തടഞ്ഞു",
+    "string-apply-accesskey": "A",
+    "string-remove": "നീക്കംചെയ്യൂ",
+    "string-gears-settings": "Gears ക്രമീകരണങ്ങള്",
+    "string-apply": "അപേക്ഷിക്കുക",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "റദ്ദാക്കൂ",
+    "string-html-title": "Gears ക്രമീകരണങ്ങള്",
+    "string-allowed": "അനുവദിച്ചു",
+    "string-local-storage": "പ്രാദേശിക ശേഖരം",
+    "string-nosites": "സൈറ്റുകളൊന്നുമില്ല.",
+    "string-permissions-description": "താഴെക്കാണുന്ന പട്ടിക Gears ഉപയോഗിക്കാന് ശ്രമിച്ച ഓരോ സൈറ്റിലേക്കും അനുവദിച്ചവ കാണിക്കുന്നു.",
+    "string-location-data": "ലൊക്കേഷന്",
+    "string-version": "Gears പതിപ്പ് 0.4.23.0"
+  },
+  "cs": {
+    "string-denied": "Zamítnuto",
+    "string-apply-accesskey": "P",
+    "string-remove": "Odebrat",
+    "string-gears-settings": "Nastavení aplikace Gears",
+    "string-apply": "Použít",
+    "string-cancel-accesskey": "R",
+    "string-cancel": "Zrušit",
+    "string-html-title": "Nastavení aplikace Gears",
+    "string-allowed": "Povoleno",
+    "string-local-storage": "Místní úložiště",
+    "string-nosites": "Žádné weby.",
+    "string-permissions-description": "Následující tabulka zobrazuje oprávnění udělená každému webu, který se pokusil použít aplikaci Gears.",
+    "string-location-data": "Lokalita",
+    "string-version": "Gears verze 0.4.23.0"
+  },
+  "et": {
+    "string-denied": "Keelatud",
+    "string-apply-accesskey": "L",
+    "string-remove": "Eemalda",
+    "string-gears-settings": "Gearsi seaded",
+    "string-apply": "Rakenda",
+    "string-cancel-accesskey": "T",
+    "string-cancel": "Tühista",
+    "string-html-title": "Gearsi seaded",
+    "string-allowed": "Lubatud",
+    "string-local-storage": "Kohalik salvestamine",
+    "string-nosites": "Saidid puuduvad.",
+    "string-permissions-description": "Alljärgnev tabel näitab lubasid, mille olete igale Gearsi kasutada püüdnud saidile andnud.",
+    "string-location-data": "Asukoht",
+    "string-version": "Gearsi versioon 0.4.23.0"
+  },
+  "id": {
+    "string-denied": "Ditolak",
+    "string-apply-accesskey": "A",
+    "string-remove": "Hapus",
+    "string-gears-settings": "Pengaturan Gears",
+    "string-apply": "Terapkan",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Batalkan",
+    "string-html-title": "Pengaturan Gears",
+    "string-allowed": "Diizinkan",
+    "string-local-storage": "Penyimpanan lokal",
+    "string-nosites": "Tiada situs.",
+    "string-permissions-description": "Tabel berikut menunjukkan izin yang telah Anda berikan ke setiap situs yang berusaha menggunakan Gears.",
+    "string-location-data": "Lokasi",
+    "string-version": "Versi Gears 0.4.23.0"
+  },
+  "es": {
+    "string-denied": "Denegado",
+    "string-apply-accesskey": "P",
+    "string-remove": "Quitar",
+    "string-gears-settings": "Configuración Gears",
+    "string-apply": "Aplicar",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancelar",
+    "string-html-title": "Configuración Gears",
+    "string-allowed": "Permitido",
+    "string-local-storage": "Almacenamiento local",
+    "string-nosites": "No hay sitios.",
+    "string-permissions-description": "La siguiente tabla muestra las autorizaciones que has concedido a cada sitio en el que has intentado usar Gears.",
+    "string-location-data": "Ubicación",
+    "string-version": "Versión Gears 0.4.23.0"
+  },
+  "en-GB": {
+    "string-denied": "Denied",
+    "string-apply-accesskey": "A",
+    "string-remove": "Remove",
+    "string-gears-settings": "Gears Settings",
+    "string-apply": "Apply",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancel",
+    "string-html-title": "Gears Settings",
+    "string-allowed": "Allowed",
+    "string-local-storage": "Local storage",
+    "string-nosites": "No sites.",
+    "string-permissions-description": "The table below shows the permissions you have granted to each site that has attempted to use Gears.",
+    "string-location-data": "Location",
+    "string-version": "Gears version 0.4.23.0"
+  },
+  "ru": {
+    "string-denied": "Отказано",
+    "string-apply-accesskey": "A",
+    "string-remove": "Удалить",
+    "string-gears-settings": "Настройки Gears",
+    "string-apply": "Применить",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Отмена",
+    "string-html-title": "Настройки Gears",
+    "string-allowed": "Разрешено",
+    "string-local-storage": "Локальное хранилище",
+    "string-nosites": "Нет сайтов.",
+    "string-permissions-description": "В таблице ниже перечислены разрешения, предоставленные каждому сайту, который пытался воспользоваться Gears.",
+    "string-location-data": "Местонахождение",
+    "string-version": "Gears версии 0.4.23.0"
+  },
+  "nl": {
+    "string-denied": "Geweigerd",
+    "string-apply-accesskey": "A",
+    "string-remove": "Verwijderen",
+    "string-gears-settings": "Instellingen voor Gears",
+    "string-apply": "Toepassen",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Annuleren",
+    "string-html-title": "Instellingen voor Gears",
+    "string-allowed": "Toegestaan",
+    "string-local-storage": "Lokale opslag",
+    "string-nosites": "Geen sites.",
+    "string-permissions-description": "Voor elke site die heeft geprobeerd Gears te gebruiken, worden in de tabel hieronder de machtigingen weergegeven die u aan deze site hebt verleend.",
+    "string-location-data": "Locatie",
+    "string-version": "Gears-versie 0.4.23.0"
+  },
+  "no": {
+    "string-denied": "Ikke tillatt",
+    "string-apply-accesskey": "T",
+    "string-remove": "Fjern",
+    "string-gears-settings": "Innstillinger for Gears",
+    "string-apply": "Bruk",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Avbryt",
+    "string-html-title": "Innstillinger for Gears",
+    "string-allowed": "Tillatt",
+    "string-local-storage": "Lokal lagring",
+    "string-nosites": "Ingen steder.",
+    "string-permissions-description": "Tabellen nedenfor viser tillatelsene du har gitt til hvert nettsted som har forsøkt å bruke Gears.",
+    "string-location-data": "Område",
+    "string-version": "Gears versjon 0.4.23.0"
+  },
+  "tr": {
+    "string-denied": "Reddedildi",
+    "string-apply-accesskey": "V",
+    "string-remove": "Kaldır",
+    "string-gears-settings": "Gears Ayarları",
+    "string-apply": "Uygula",
+    "string-cancel-accesskey": "a",
+    "string-cancel": "İptal",
+    "string-html-title": "Gears Ayarları",
+    "string-allowed": "İzin verildi",
+    "string-local-storage": "Yerel depolama",
+    "string-nosites": "Site yok.",
+    "string-permissions-description": "Aşağıdaki tablo Gears kullanan her site için sağladığınız izinleri gösterir.",
+    "string-location-data": "Konum",
+    "string-version": "Gears sürüm 0.4.23.0"
+  },
+  "lv": {
+    "string-denied": "Neatļauts",
+    "string-apply-accesskey": "A",
+    "string-remove": "Noņemt",
+    "string-gears-settings": "Gears iestatījumi",
+    "string-apply": "Lietot",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Atcelt",
+    "string-html-title": "Gears iestatījumi",
+    "string-allowed": "Atļauts",
+    "string-local-storage": "Vietējā atmiņa",
+    "string-nosites": "Nav vietņu.",
+    "string-permissions-description": "Tālāk minētā tabula rāda atļaujas, kuras esat piešķīris katrai vietnei, kas mēģināja lietot Gears.",
+    "string-location-data": "Atrašanās vieta",
+    "string-version": "Gears versija 0.4.23.0"
+  },
+  "lt": {
+    "string-denied": "Neleidžiama",
+    "string-apply-accesskey": "A",
+    "string-remove": "Pašalinti",
+    "string-gears-settings": "„Gears“ nuostatos",
+    "string-apply": "Taikyti",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Atšaukti",
+    "string-html-title": "„Gears“ nuostatos",
+    "string-allowed": "Leidžiama",
+    "string-local-storage": "Vietinė saugykla",
+    "string-nosites": "Nėra svetainių.",
+    "string-permissions-description": "Žemiau pateikta lentelėje rodomi leidimai, kuriuos suteikėte kiekvienai svetainei, bandžiusiai naudoti „Gears“.",
+    "string-location-data": "Vietovė",
+    "string-version": "„Gears“ versija 0.4.23.0"
+  },
+  "th": {
+    "string-denied": "ปฏิเสธ",
+    "string-apply-accesskey": "อ",
+    "string-remove": "ลบ",
+    "string-gears-settings": "การตั้งค่า Gears",
+    "string-apply": "ใช้",
+    "string-cancel-accesskey": "ย",
+    "string-cancel": "ยกเลิก",
+    "string-html-title": "การตั้งค่า Gears",
+    "string-allowed": "อนุญาต",
+    "string-local-storage": "พื้นที่เก็บข้อมูลในเครื่อง",
+    "string-nosites": "ไม่มีไซต์",
+    "string-permissions-description": "ตารางต่อไปนี้แสดงสิทธิ์ที่คุณให้แก่แต่ละไซต์ที่พยายามใช้ Gears",
+    "string-location-data": "ตำแหน่ง",
+    "string-version": "Gears เวอร์ชัน 0.4.23.0"
+  },
+  "ro": {
+    "string-denied": "Refuzat",
+    "string-apply-accesskey": "P",
+    "string-remove": "Eliminaţi",
+    "string-gears-settings": "Setări Gears",
+    "string-apply": "Aplicaţi",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Anulaţi",
+    "string-html-title": "Setări Gears",
+    "string-allowed": "Permis",
+    "string-local-storage": "Stocare locală",
+    "string-nosites": "Niciun site.",
+    "string-permissions-description": "Tabelul de mai jos afişează permisiunile pe care le-aţi acordat fiecărui site care a încercat să utilizeze Gears.",
+    "string-location-data": "Locaţie",
+    "string-version": "Versiune Gears 0.4.23.0"
+  },
+  "is": {
+    "string-denied": "Hafnað",
+    "string-apply-accesskey": "L",
+    "string-remove": "Fjarlægja",
+    "string-gears-settings": "Stillingar Gears",
+    "string-apply": "Nota",
+    "string-cancel-accesskey": "H",
+    "string-cancel": "Hætta við",
+    "string-html-title": "Stillingar Gears",
+    "string-allowed": "Leyft",
+    "string-local-storage": "Staðbundin geymsla",
+    "string-nosites": "Engin vefsvæði.",
+    "string-permissions-description": "Taflan hér fyrir neðan sýnir þær heimildir sem þú hefur veitt hverju svæði sem hefur reynt að nota Gears.",
+    "string-location-data": "Staðsetning",
+    "string-version": "Gears útgáfa 0.4.23.0"
+  },
+  "fil": {
+    "string-denied": "Tinganggihan",
+    "string-apply-accesskey": "P",
+    "string-remove": "Alisin",
+    "string-gears-settings": "Mga Setting ng Gear",
+    "string-apply": "Ilapat",
+    "string-cancel-accesskey": "I",
+    "string-cancel": "Ikansela",
+    "string-html-title": "Mga Setting ng Gear",
+    "string-allowed": "Pinahintulutan",
+    "string-local-storage": "Lokal na imbakan",
+    "string-nosites": "Walang mga site.",
+    "string-permissions-description": "Ang talahanayan sa ibaba ay nagpapakita ng mga pahintulot na naibigay mo sa bawat site na sinubukang gumamit ng Mga Gear.",
+    "string-location-data": "Lokasyon",
+    "string-version": "bersyon ng Mga Gear 0.4.23.0"
+  },
+  "ta": {
+    "string-denied": "அனுமதி மறுத்தது",
+    "string-apply-accesskey": "A",
+    "string-remove": "அகற்று",
+    "string-gears-settings": "Gears அமைப்புகள்",
+    "string-apply": "பயன்படுத்து",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "ரத்துசெய்",
+    "string-html-title": "Gears அமைப்புகள்",
+    "string-allowed": "அனுமதிக்கப்பட்டது",
+    "string-local-storage": "உள்ளக சேமிப்பிடம்",
+    "string-nosites": "தளங்கள் இல்லை.",
+    "string-permissions-description": "கீழே உள்ள அட்டவணை Gears ஐப் பயன்படுத்த ஒவ்வொரு தளங்களுக்கும் நீங்கள் அளித்த அனுமதிகளை காட்டுகிறது.",
+    "string-location-data": "இருப்பிடம்",
+    "string-version": "Gears பதிப்பு 0.4.23.0"
+  },
+  "fr": {
+    "string-denied": "Refusé",
+    "string-apply-accesskey": "A",
+    "string-remove": "Supprimer",
+    "string-gears-settings": "Paramètres de Google Gears",
+    "string-apply": "Appliquer",
+    "string-cancel-accesskey": "U",
+    "string-cancel": "Annuler",
+    "string-html-title": "Paramètres de Google Gears",
+    "string-allowed": "Autorisé",
+    "string-local-storage": "Stockage local",
+    "string-nosites": "Aucun site.",
+    "string-permissions-description": "Le tableau ci-dessous montre les autorisations que vous avez accordées à chaque site ayant tenté d'utiliser Google Gears.",
+    "string-location-data": "Emplacement",
+    "string-version": "Version 0.4.23.0 de Google Gears"
+  },
+  "bg": {
+    "string-denied": "Отказан",
+    "string-apply-accesskey": "A",
+    "string-remove": "Премахване",
+    "string-gears-settings": "Настройки на Gears",
+    "string-apply": "Прилагане",
+    "string-cancel-accesskey": "С",
+    "string-cancel": "Отказ",
+    "string-html-title": "Настройки на Gears",
+    "string-allowed": "Разрешен",
+    "string-local-storage": "Локално хранилище",
+    "string-nosites": "Няма сайтове.",
+    "string-permissions-description": "В таблицата по-долу са показани дадените от вас разрешения на всеки сайт, който се е опитал да използва Gears.",
+    "string-location-data": "Местоположение",
+    "string-version": "Версия 0.4.23.0 на Gears"
+  },
+  "uk": {
+    "string-denied": "Відхилено",
+    "string-apply-accesskey": "A",
+    "string-remove": "Видалити",
+    "string-gears-settings": "Налаштування Gears",
+    "string-apply": "Застосувати",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Скасувати",
+    "string-html-title": "Налаштування Gears",
+    "string-allowed": "Дозволено",
+    "string-local-storage": "Збереження на локальному диску",
+    "string-nosites": "Сайти відсутні.",
+    "string-permissions-description": "У нижченаведеній таблиці наведено дозволи, надані кожному сайту, який намагається використовувати Gears.",
+    "string-location-data": "Розташування",
+    "string-version": "Gears версії 0.4.23.0"
+  },
+  "hr": {
+    "string-denied": "Odbijeno",
+    "string-apply-accesskey": "A",
+    "string-remove": "Ukloni",
+    "string-gears-settings": "Postavke Gearsa",
+    "string-apply": "Primijeni",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Odustani",
+    "string-html-title": "Postavke Gearsa",
+    "string-allowed": "Dopušteno",
+    "string-local-storage": "Lokalna pohrana",
+    "string-nosites": "Nema web-lokacija.",
+    "string-permissions-description": "U dolje navedenoj tablici navedene su dozvole koje ste dali svakoj web-lokaciji koja je pokušala koristiti Gears.",
+    "string-location-data": "Lokacija",
+    "string-version": "Verzija Gearsa 0.4.23.0"
+  },
+  "bn": {
+    "string-denied": "অস্বীকৃত",
+    "string-apply-accesskey": "A",
+    "string-remove": "সরান",
+    "string-gears-settings": "Gears সেটিংস",
+    "string-apply": "প্রয়োগ",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "বাতিল",
+    "string-html-title": "Gears সেটিংস",
+    "string-allowed": "অনুমতিপ্রাপ্ত",
+    "string-local-storage": "স্থানিয় স্টোরেজ",
+    "string-nosites": "কোন সাইটগুলি ׀",
+    "string-permissions-description": "নিচের সারণিটির অনুসারে আপনি প্রত্যেকটি সাইটটিকে অনুমতি দিয়েছেন যা Gears ব্যবহার করতে চেয়েছে ׀",
+    "string-location-data": "অবস্থান",
+    "string-version": "Gears সংস্করণ 0.4.23.0"
+  },
+  "en-US": {
+    "string-denied": "Denied",
+    "string-apply-accesskey": "A",
+    "string-remove": "Remove",
+    "string-gears-settings": "Gears Settings",
+    "string-apply": "Apply",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancel",
+    "string-html-title": "Gears Settings",
+    "string-allowed": "Allowed",
+    "string-local-storage": "Local storage",
+    "string-nosites": "No sites.",
+    "string-permissions-description": "The table below shows the permissions you have granted to each site that has attempted to use Gears.",
+    "string-location-data": "Location",
+    "string-version": "Gears version 0.4.23.0"
+  },
+  "da": {
+    "string-denied": "Afvist",
+    "string-apply-accesskey": "I",
+    "string-remove": "Fjern",
+    "string-gears-settings": "Indstillinger til Gears",
+    "string-apply": "Anvend",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Annuller",
+    "string-html-title": "Indstillinger til Gears",
+    "string-allowed": "Tilladt",
+    "string-local-storage": "Lokalt lager",
+    "string-nosites": "Ingen websteder.",
+    "string-permissions-description": "Nedenstående tabel indeholder en oversigt over de tilladelser, du har givet til de websteder, der har forsøgt at få adgang til at bruge Gears.",
+    "string-location-data": "Placering",
+    "string-version": "Gears-version PRODUKT_VERSION"
+  },
+  "fa": {
+    "string-denied": "مردود",
+    "string-apply-accesskey": "مجاز",
+    "string-remove": "حذف",
+    "string-gears-settings": "تنظیمات Gears",
+    "string-apply": "اعمال",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "لغو",
+    "string-html-title": "تنظیمات Gears",
+    "string-allowed": "مجاز",
+    "string-local-storage": "مکان ذخیره",
+    "string-nosites": "سایتی وجود ندارد.",
+    "string-permissions-description": "جدول زیر مجوزهای شما برای دستیابی به سایتهایی که از Gears استفاده می کند را نشان می دهد.",
+    "string-location-data": "موقعیت",
+    "string-version": "Gears نسخه 0.4.23.0"
+  },
+  "hi": {
+    "string-denied": "अस्वीकृत",
+    "string-apply-accesskey": "अनुमति दें",
+    "string-remove": "निकालें",
+    "string-gears-settings": "Gears सेटिंग्स",
+    "string-apply": "लागू करें",
+    "string-cancel-accesskey": "रद्द करें",
+    "string-cancel": "रद्द करें",
+    "string-html-title": "Gears सेटिंग्स",
+    "string-allowed": "स्वीकार्य",
+    "string-local-storage": "स्थानीय संग्रहण",
+    "string-nosites": "कोई साइट नहीं.",
+    "string-permissions-description": "नीचे दी गई टेबल वे अनुमतियाँ दिखाती है जो आपने उन साइटों को दी है जिन्होंने Gears का उपयोग करने का प्रयास किया है.",
+    "string-location-data": "स्थिति",
+    "string-version": "Gears संस्करण 0.4.23.0"
+  },
+  "pt-BR": {
+    "string-denied": "Negado",
+    "string-apply-accesskey": "P",
+    "string-remove": "Remover",
+    "string-gears-settings": "Configurações do Gears",
+    "string-apply": "Aplicar",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancelar",
+    "string-html-title": "Configurações do Gears",
+    "string-allowed": "Permitido",
+    "string-local-storage": "Armazenamento local",
+    "string-nosites": "Nenhum site.",
+    "string-permissions-description": "A tabela abaixo mostra as permissões concedidas por você a cada site que tentou usar o Gears.",
+    "string-location-data": "Local",
+    "string-version": "Gears versão 0.4.23.0"
+  },
+  "fi": {
+    "string-denied": "Estetty",
+    "string-apply-accesskey": "A",
+    "string-remove": "Poista",
+    "string-gears-settings": "Gearsin asetukset",
+    "string-apply": "Ota käyttöön",
+    "string-cancel-accesskey": "P",
+    "string-cancel": "Peruuta",
+    "string-html-title": "Gearsin asetukset",
+    "string-allowed": "Sallittu",
+    "string-local-storage": "Paikallinen tallennus",
+    "string-nosites": "Ei sivustoja.",
+    "string-permissions-description": "Oheisesta taulukosta näet luvat, jotka olet myöntänyt jokaiselle sivustolle, joka on yrittänyt käyttää Gearsia.",
+    "string-location-data": "Sijainti",
+    "string-version": "Gearsin versio 0.4.23.0"
+  },
+  "hu": {
+    "string-denied": "Megtagadva",
+    "string-apply-accesskey": "E",
+    "string-remove": "Eltávolítás",
+    "string-gears-settings": "A Szinkron beállításai",
+    "string-apply": "OK",
+    "string-cancel-accesskey": "M",
+    "string-cancel": "Mégse",
+    "string-html-title": "A Szinkron beállításai",
+    "string-allowed": "Engedélyezve",
+    "string-local-storage": "Helyi tárolás",
+    "string-nosites": "Nincsenek webhelyek.",
+    "string-permissions-description": "Az alábbi táblázat azt mutatja, hogy a Szinkron használatát megkísérlő webhelyeknek milyen engedélyeket adott.",
+    "string-location-data": "Hely",
+    "string-version": "A Szinkron verziószáma: 0.4.23.0"
+  },
+  "ja": {
+    "string-denied": "拒否",
+    "string-apply-accesskey": "A",
+    "string-remove": "削除",
+    "string-gears-settings": "Gears の設定",
+    "string-apply": "適用",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "キャンセル",
+    "string-html-title": "Gears の設定",
+    "string-allowed": "許可",
+    "string-local-storage": "ローカル保存",
+    "string-nosites": "サイトがありません。",
+    "string-permissions-description": "下記の表は、Gears を使用しようとした各サイトに与えた権限を示しています。",
+    "string-location-data": "場所",
+    "string-version": "Gears バージョン 0.4.23.0"
+  },
+  "he": {
+    "string-denied": "נדחה",
+    "string-apply-accesskey": "א",
+    "string-remove": "הסר",
+    "string-gears-settings": "הגדרות Gears",
+    "string-apply": "החל",
+    "string-cancel-accesskey": "ביטול",
+    "string-cancel": "ביטול",
+    "string-html-title": "הגדרות Gears",
+    "string-allowed": "מותר",
+    "string-local-storage": "אחסון מקומי",
+    "string-nosites": "ללא אתרים.",
+    "string-permissions-description": "הטבלה שלהלן מראה את ההרשאות שהענקת לכל אתר שניסה להשתמש ב-Gears.",
+    "string-location-data": "מיקום",
+    "string-version": "Gears בגרסה 0.4.23.0"
+  },
+  "te": {
+    "string-denied": "అనుమతి లేని",
+    "string-apply-accesskey": "A",
+    "string-remove": "తొలగించు",
+    "string-gears-settings": "Gears సెట్టింగులు",
+    "string-apply": "వర్తించు",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "రద్దు చెయ్యి",
+    "string-html-title": "Gears సెట్టింగులు",
+    "string-allowed": "అనుమతించబడిన",
+    "string-local-storage": "స్థానిక నిల్వ",
+    "string-nosites": "సైట్లు లేవు.",
+    "string-permissions-description": "ఈ క్రింది పట్టిక, మీరు ఏ సైట్లకి Gears ఉపయోగించడానికి అనుమతి ఇచ్చారో, చూపిస్తుంది.",
+    "string-location-data": "స్థానం",
+    "string-version": "0.4.23.0 Gears వర్షన్"
+  },
+  "pt-PT": {
+    "string-denied": "Negado",
+    "string-apply-accesskey": "P",
+    "string-remove": "Remover",
+    "string-gears-settings": "Definições do Gears",
+    "string-apply": "Aplicar",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancelar",
+    "string-html-title": "Definições do Gears",
+    "string-allowed": "Permitido",
+    "string-local-storage": "Armazenamento local",
+    "string-nosites": "Não existem sites.",
+    "string-permissions-description": "A tabela abaixo mostra as autorizações que concedeu a cada site que tentou utilizar o Gears.",
+    "string-location-data": "Localização",
+    "string-version": "Versão 0.4.23.0 do Gears"
+  },
+  "sr": {
+    "string-denied": "Забрањен приступ",
+    "string-apply-accesskey": "M",
+    "string-remove": "Уклони",
+    "string-gears-settings": "Gears подешавања",
+    "string-apply": "Примени",
+    "string-cancel-accesskey": "О",
+    "string-cancel": "Откажи",
+    "string-html-title": "Gears подешавања",
+    "string-allowed": "Дозвољен приступ",
+    "string-local-storage": "Локални простор за складиштење",
+    "string-nosites": "Ниједан сајт.",
+    "string-permissions-description": "Табела испод приказује дозволе које сте одобрили сваком сајту који је покушао да користи Gears.",
+    "string-location-data": "Локација",
+    "string-version": "Gears верзија 0.4.23.0"
+  },
+  "ko": {
+    "string-denied": "거부됨",
+    "string-apply-accesskey": "A",
+    "string-remove": "삭제",
+    "string-gears-settings": "Gears 설정",
+    "string-apply": "적용",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "취소",
+    "string-html-title": "Gears 설정",
+    "string-allowed": "허용",
+    "string-local-storage": "로컬 저장소",
+    "string-nosites": "사이트가 없습니다.",
+    "string-permissions-description": "다음 표는 Gears를 사용하려 시도했던 각 사이트에 대해 승인받은 사용권한을 보여줍니다.",
+    "string-location-data": "위치",
+    "string-version": "Gears 버전 0.4.23.0"
+  },
+  "sv": {
+    "string-denied": "Nekad",
+    "string-apply-accesskey": "T",
+    "string-remove": "Ta bort",
+    "string-gears-settings": "Inställningar i Gears",
+    "string-apply": "Tillämpa",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Avbryt",
+    "string-html-title": "Inställningar i Gears",
+    "string-allowed": "Tillåten",
+    "string-local-storage": "Lokal lagring",
+    "string-nosites": "Inga webbplatser",
+    "string-permissions-description": "Tabellen nedan visar beviljade tillstånd för varje webbplats som har försökt att använda Gears.",
+    "string-location-data": "Plats",
+    "string-version": "Gears version 0.4.23.0"
+  },
+  "ur": {
+    "string-denied": "مسترد",
+    "string-apply-accesskey": "A",
+    "string-remove": "حذف کریں",
+    "string-gears-settings": "گیئرز کی ترتیبات",
+    "string-apply": "اطلاق کریں",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "منسوخ",
+    "string-html-title": "گیئرز کی ترتیبات",
+    "string-allowed": "اجازت ہے",
+    "string-local-storage": "ذخیرہ کرنے کی مقامی جگہ",
+    "string-nosites": "کوئی سائٹ نہیں۔",
+    "string-permissions-description": "ذیل کا جدول ان اجازتوں کو دکھاتا ہے جو آپ نے ان سائٹوں کیلئے دی ہیں جنہوں نے گیئرز کے استعمال کی کوشش کی تھی۔",
+    "string-location-data": "جائے وقوع",
+    "string-version": "گیئرز ورژن0.4.23.0"
+  },
+  "sk": {
+    "string-denied": "Odmietnuté",
+    "string-apply-accesskey": "P",
+    "string-remove": "Odstrániť",
+    "string-gears-settings": "Nastavenia rozšírenia Gears",
+    "string-apply": "Použiť",
+    "string-cancel-accesskey": "R",
+    "string-cancel": "Zrušiť",
+    "string-html-title": "Nastavenia rozšírenia Gears",
+    "string-allowed": "Povolené",
+    "string-local-storage": "Lokálny ukladací priestor",
+    "string-nosites": "Žiadne lokality.",
+    "string-permissions-description": "V nižšie uvedenej tabuľke sú uvedené povolenia, ktoré máte udelené pre všetky lokality, ktoré sa pokúsili použiť rozšírenie Gears.",
+    "string-location-data": "Umiestnenie",
+    "string-version": "Gears, verzia 0.4.23.0"
+  },
+  "zh-CN": {
+    "string-denied": "已拒绝",
+    "string-apply-accesskey": "A",
+    "string-remove": "删除",
+    "string-gears-settings": "Gears 设置",
+    "string-apply": "应用",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "取消",
+    "string-html-title": "Gears 设置",
+    "string-allowed": "允许",
+    "string-local-storage": "本地存储",
+    "string-nosites": "没有网站。",
+    "string-permissions-description": "下表显示了您向试图使用 Gears 的每个网站授予了哪些权限。",
+    "string-location-data": "位置",
+    "string-version": "Gears 版本 0.4.23.0"
+  },
+  "de": {
+    "string-denied": "Verweigert",
+    "string-apply-accesskey": "Z",
+    "string-remove": "Entfernen",
+    "string-gears-settings": "Gears-Einstellungen",
+    "string-apply": "Anwenden",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Abbrechen",
+    "string-html-title": "Gears-Einstellungen",
+    "string-allowed": "Zulässig",
+    "string-local-storage": "Lokaler Speicherplatz",
+    "string-nosites": "Keine Sites.",
+    "string-permissions-description": "Die untenstehende Tabelle zeigt die Berechtigungen an, die Sie jeder Site gewährt haben, die versucht hat, Gears zu verwenden.",
+    "string-location-data": "Speicherort",
+    "string-version": "Gears-Version PRODUKT_VERSION"
+  },
+  "pl": {
+    "string-denied": "Zabroniono",
+    "string-apply-accesskey": "Z",
+    "string-remove": "Usuń",
+    "string-gears-settings": "Ustawienia wtyczki Gears",
+    "string-apply": "Zastosuj",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Anuluj",
+    "string-html-title": "Ustawienia wtyczki Gears",
+    "string-allowed": "Zezwolono",
+    "string-local-storage": "Przechowywanie danych lokalnie",
+    "string-nosites": "Brak witryn.",
+    "string-permissions-description": "Poniższa tabela zawiera uprawnienia, jakie przyznano każdej z witryn próbujących użyć wtyczki Gears.",
+    "string-location-data": "Lokalizacja",
+    "string-version": "Gears 0.4.23.0"
+  },
+  "ms": {
+    "string-denied": "Ditolak",
+    "string-apply-accesskey": "N",
+    "string-remove": "Keluarkan",
+    "string-gears-settings": "Tetapan Gear",
+    "string-apply": "Gunakan",
+    "string-cancel-accesskey": "B",
+    "string-cancel": "Batal",
+    "string-html-title": "Tetapan Gear",
+    "string-allowed": "Dibenarkan",
+    "string-local-storage": "Penyimpanan setempat",
+    "string-nosites": "Tiada tapak.",
+    "string-permissions-description": "Jadual di bawah menunjukkan kebenaran yang telah anda berikan kepada setiap tapak yang telah cuba menggunakan Gear.",
+    "string-location-data": "Lokasi",
+    "string-version": "Versi Gear 0.4.23.0"
+  },
+  "sl": {
+    "string-denied": "Zavrnjeno",
+    "string-apply-accesskey": "A",
+    "string-remove": "Odstrani",
+    "string-gears-settings": "Nastavitve programa Gears",
+    "string-apply": "Uporabi",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Prekliči",
+    "string-html-title": "Nastavitve programa Gears",
+    "string-allowed": "Dovoljeno",
+    "string-local-storage": "Lokalna shramba",
+    "string-nosites": "Ni spletnih mest.",
+    "string-permissions-description": "V spodnji tabeli so prikazana dovoljenja, ki ste jih podelili vsem spletnim mestom, ki so poskusila uporabljati program Gears.",
+    "string-location-data": "Lokacija",
+    "string-version": "Različica programa Gears 0.4.23.0"
+  },
+  "mr": {
+    "string-denied": "अननुमत",
+    "string-apply-accesskey": "A",
+    "string-remove": "काढा",
+    "string-gears-settings": "Gears सेटिंग्ज",
+    "string-apply": "लागू करा",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "रद्द करा",
+    "string-html-title": "Gears सेटिंग्ज",
+    "string-allowed": "अनुमत",
+    "string-local-storage": "स्थानिक संचय",
+    "string-nosites": "साइट नाहीत.",
+    "string-permissions-description": "निम्न सारणी Gears वापरण्याचा प्रयत्न केलेल्या प्रत्येक साइटकरिता आपल्याकडे किती परवानग्या आहेत हे दर्शविते.",
+    "string-location-data": "स्थान",
+    "string-version": "Gears आवृत्ती 0.4.23.0"
+  },
+  "or": {
+    "string-denied": "ମନାକରନ୍ତୁ",
+    "string-apply-accesskey": "A",
+    "string-remove": "ଅପସାରଣ",
+    "string-gears-settings": "Gears ସେଟିଂସମୂହ",
+    "string-apply": "ଲାଗୁ କରନ୍ତୁ",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "ବାତିଲ୍",
+    "string-html-title": "Gears ସେଟିଂସମୂହ",
+    "string-allowed": "ଅନୁମତି ପ୍ରାପ୍ତ କରନ୍ତୁ",
+    "string-local-storage": "ସ୍ଥାନୀୟ ସଂଞ୍ଚୟ",
+    "string-nosites": "କୌଣସି ସାଇଟମାନ ନାହିଁ |",
+    "string-permissions-description": "ନିମ୍ନ ସାରଣୀ ଆପଣ ପ୍ରତ୍ୟେକ ସାଇଟକୁ ପ୍ରଦାନ କରିଥିବା ସ୍ବୀକୃତି ଦର୍ଶାଉଛି,ଯାହା Gears ବ୍ୟବହାର କରିବାକୁ ପଦକ୍ଷେପ ନେଇଛି |",
+    "string-location-data": "ସ୍ଥାନ",
+    "string-version": "Gears ସଂସ୍କରଣ 0.4.23.0"
+  }
+};
+
+// Insert all localized strings for the specified locale into the div or span
+// matching the id.
+function loadI18nStrings(locale) {
+  var rtl_languages = ['he', 'ar', 'fa', 'ur'];
+
+  if (!locale) {
+    locale = 'en-US';
+  } else {
+    if (!localized_strings[locale]) {
+      // For xx-YY locales, determine what the base locale is.
+      var base_locale = locale.split('-')[0];
+
+      if (localized_strings[base_locale]) {
+        locale = base_locale;
+      } else {
+        locale = 'en-US';
+      }
+    }
+  }
+
+  var strings = localized_strings[locale];
+
+  // If the specified locale is an right to left language, change the direction
+  // of the page.
+  for (index in rtl_languages) {
+    if (locale == rtl_languages[index]) {
+      document.body.dir = "rtl";
+      break;
+    }
+  }
+
+  // Copy each string to the proper UI element, if it exists.
+  for (name in strings) {
+    if (name == 'string-html-title') {
+      if (!browser.ie_mobile) {
+        // IE Mobile dialogs don't have a title bar.
+        // Furthermore, document.title is undefined in IE Mobile on WinMo 5.
+        // It's also impossible to add properties to the window object.
+        // (see http://code.google.com/apis/gears/mobile.html)
+        document.title = strings[name];
+      }
+    } else {
+      var element = dom.getElementById(name);
+      if (element) {
+        element.innerHTML = strings[name];
+      }
+    }
+  }
+}
+
+
+</script>
+<script>
+  var debug = false;
+  var permissions;
+  var originalPermissions;
+
+  // Must match values in permission_db.h
+  var PERMISSION_NOT_SET = 0;
+  var PERMISSION_ALLOWED = 1;
+  var PERMISSION_DENIED  = 2;
+
+  if (debug && browser.ie_mobile) {
+    // Handy for debugging layout.
+    // Remember to remove the pie_dialog object tag above when debugging on
+    // WinMo 5, otherwise the assignement below will fail with "the object does
+    // not support this property or method".
+    pie_dialog = new Object();
+    pie_dialog.IsSmartPhone = function() { return false; };
+    pie_dialog.SetCancelButton = function() {};
+    pie_dialog.SetButton = function() {};
+    pie_dialog.SetButtonEnabled = function() {};
+    pie_dialog.SetScriptContext = function() {};
+    pie_dialog.ResizeDialog = function() {};
+  }
+
+  initDialog();
+
+  initSettings();
+
+  setButtonLabel("string-cancel", "cancel-button", "string-cancel-accesskey");
+  setButtonLabel("string-apply", "confirm-button", "string-apply-accesskey");
+
+  if (!browser.ie_mobile) {
+    CustomButton.initializeAll();
+    if (!browser.android) {
+      initCustomLayout(layoutSettings);
+    }
+  } else {
+    var applyText = dom.getElementById("string-apply");
+    if (applyText) {
+      window.pie_dialog.SetButton(applyText.innerText, 
+        "saveAndClose(calculateDiff());");
+    }
+    var cancelText = dom.getElementById("string-cancel");
+    if (cancelText) {
+      window.pie_dialog.SetCancelButton(cancelText.innerText);
+    }
+    window.pie_dialog.SetButtonEnabled(true);
+  }
+
+  // Start out with only cancel enabled, just for clarity.
+  disableButton(dom.getElementById("confirm-button"));
+
+  function initSettings() {
+    var args;
+
+    if (debug) {
+      // Handy for debugging layout:
+      var args = {
+        locale: "en-US",
+        permissions: [
+          {
+            name: "http://www.google.com",
+            localStorage: { permissionState: 1 },
+            locationData: { permissionState: 0 }
+          },
+          { 
+            name: "http://www.aaronboodman.com",
+            localStorage: { permissionState: 1 },
+            locationData: { permissionState: 1 }
+          },
+          { 
+            name: "http://www.evil.org",
+            localStorage: { permissionState: 2 },
+            locationData: { permissionState: 2 }
+          }
+        ]
+      };
+    } else {
+      args = getArguments();
+    }
+    loadI18nStrings(args.locale);
+    permissions = args.permissions;
+    originalPermissions = cloneObject(permissions);
+
+    updatePermissionsList();
+  }
+
+  function updatePermissionsList() {
+    var table = dom.getElementById('div-permissions');
+
+    var content = "";
+    var isFirstOrigin = true;
+    for (var index = 0; index < permissions.length; index++) {
+      content += renderOrigin(index, permissions[index], isFirstOrigin);
+      isFirstOrigin = false;
+    }
+    if (content == "") {
+      content = "<table style=\"border-style: solid;\"><tbody>";
+      content += "<tr><td class=\"left\"><em>";
+      var noSitesText = dom.getElementById("string-nosites");
+      if (noSitesText) {
+        if (isDefined(typeof noSitesText.innerText)) {
+          content += noSitesText.innerText;
+        } else {
+          content += noSitesText.textContent;
+        }
+      }
+      content += "</em></td><td></td></tr></tbody></table>";
+    } 
+    table.innerHTML = content;
+  }
+
+  function renderOrigin(index, originData, isFirstOrigin) {
+    var localStorageContent =
+        renderLocalStorage(index, originData.localStorage);
+    var locationDataContent =
+        renderLocationData(index, originData.locationData);
+
+    // Defend against an origin having no data for any permission class.
+    if (localStorageContent == "" && locationDataContent == "") {
+      return "";
+    }
+    var content = "<table";
+    if (isFirstOrigin) {
+      content += " style=\"border-top-style: solid;\"";
+    }
+    content += "><tbody>";
+    content += "<tr><td class=\"origin-name\">";
+    content += wrapDomain(originData.name);
+    content += "</td><td><a href='#' onclick='handleRemoveClick(";
+    content += index;
+    content += ");'>";
+    content += getString("string-remove");
+    content += "</a></td>";
+    content += "</td></tr></tbody></table>";
+
+    content += "<table class=\"permissions\"><tbody>";
+    if (localStorageContent != "") {
+      content += "<tr>";
+      content += localStorageContent;
+      content += "</tr>";
+    }
+    if (locationDataContent != "") {
+      content += "<tr>";
+      content += locationDataContent;
+      content += "</tr>";
+    }
+    content += "</td></tr></tbody></table>";
+    return content;
+  }
+
+  function renderLocalStorage(index, data) {
+    if (data == null || data.permissionState == PERMISSION_NOT_SET) {
+      return "";
+    }
+    var content = "";
+    content += "<td class=\"left\">";
+    content += getString("string-local-storage");
+    content += "</td><td class=\"right\">";
+    content += renderRadioButtons(index, "localStorage",
+                                  data.permissionState);
+    content += "</td>";
+    // Permission class-specific content goes here;
+    return content;
+  }
+
+  function renderLocationData(index, data) {
+    if (data == null || data.permissionState == PERMISSION_NOT_SET) {
+      return "";
+    }
+    var content = "";
+    content += "<td class=\"left\">";
+    content += getString("string-location-data");
+    content += "</td><td class=\"right\">";
+    content += renderRadioButtons(index, "locationData",
+                                  data.permissionState);
+    content += "</td>";
+    // Permission class-specific content goes here;
+    return content;
+  }
+
+  function getString(stringId) {
+    var textElement = dom.getElementById(stringId);
+    if (!isDefined(typeof textElement)) {
+      return "";
+    }
+    return dom.getTextContent(textElement);
+  }
+
+  function renderRadioButtons(index, permissionClass, permissionState) {
+    var radioButtonName = getRadioButtonName(index, permissionClass);
+    var content = "<div class=\"radio-buttons\">";
+    content += "<input type=\"radio\" name=\"" + radioButtonName + "\"";
+    content += " id=\"" + radioButtonName + "-allow\"";
+
+    if (permissionState == PERMISSION_ALLOWED) {
+      content += "checked=\"true\"";
+    }
+    content += " onclick='handleRadioClick(" + index + ", \"" +
+               permissionClass + "\", " + PERMISSION_ALLOWED + ");'>";
+    content += "</input>";
+    content += "<label for=\"" + radioButtonName + "-allow\">";
+    content += getString("string-allowed");
+    content += "</label>";
+
+    content += "<input type=\"radio\" name=\"" + radioButtonName + "\"";
+    content += " id=\"" + radioButtonName + "-deny\"";
+
+    if (permissionState == PERMISSION_DENIED) {
+      content += "checked=\"true\"";
+    }
+    content += " onclick='handleRadioClick(" + index + ", \"" +
+               permissionClass + "\", " + PERMISSION_DENIED + ");'>";
+    content += "</input>";
+    content += "<label for=\"" + radioButtonName + "-deny\">";
+    content += getString("string-denied");
+    content += "</label>";
+    content += "</div>";
+    return content;
+  }
+
+  function getRadioButtonName(index, permissionClass) {
+    return index + "-" + permissionClass + "-radio";
+  }
+
+  function handleRadioClick(index, permissionClass, permissionState) {
+    updatePermission(index, permissionClass, permissionState);
+
+    // Return false to prevent the default link action (scrolling up to top of
+    // page in this case).
+    return false;
+  }
+
+  function handleRemoveClick(index) {
+    updatePermission(index, "localStorage", PERMISSION_NOT_SET);
+    updatePermission(index, "locationData", PERMISSION_NOT_SET);
+    updatePermissionsList();
+
+    // Return false to prevent the default link action (scrolling up to top of
+    // page in this case).
+    return false;
+  }
+
+  function updatePermission(index, permissionClass, permissionState) {
+    if (permissions[index][permissionClass]) {
+      if (permissions[index][permissionClass].permissionState !=
+          permissionState) {
+        permissions[index][permissionClass].permissionState =
+          permissionState;
+        enableButton(dom.getElementById("confirm-button"));
+      }
+    }
+  }
+
+  function layoutSettings(contentHeight) {
+    var content = dom.getElementById("content");
+
+    content.style.height = Math.max(contentHeight, 0) + "px";
+
+    // If a scrollbar is going to be visible, then add some padding between it
+    // and the inner right edge of the content. We don't want to have this in
+    // all the time or else there will be double-padding when the scrollbar
+    // isn't visible.
+    if (content.scrollHeight > contentHeight) {
+      content.style.paddingRight = "1em";
+    } else {
+      content.style.paddingRight = "";
+    }
+  }
+
+  function calculateDiff() {
+    var permissionClasses = ["localStorage", "locationData"];
+    var result = { "modifiedOrigins": [] };
+    for (var index = 0; index < originalPermissions.length; index++) {
+      var originalOriginData = originalPermissions[index];
+      var originData = permissions[index];
+      // Defend against a mis-match between the origins in each list.
+      if (isDefined(typeof originData) && 
+          originData.name == originalOriginData.name) {
+        var modifiedOriginData = new Object();
+        var modified = false;
+        for (var i = 0; i < permissionClasses.length; i++) {
+          var permissionClass = permissionClasses[i];
+          // The data may not include entries for all permission classes.
+          if (isDefined(typeof originalOriginData[permissionClass])) {
+            var originalState =
+                originalOriginData[permissionClass]["permissionState"];
+            var state = originData[permissionClass]["permissionState"];
+            if (originalState != state) {
+              modified = true;
+              modifiedOriginData[permissionClass] = new Object();
+              modifiedOriginData[permissionClass]["permissionState"] = state;
+            }
+          }
+        }
+        if (modified) {
+          modifiedOriginData.name = originData.name;
+          result.modifiedOrigins.push(modifiedOriginData);
+        }
+      }
+    }
+    return result;
+  }
+
+</script>
+</html>

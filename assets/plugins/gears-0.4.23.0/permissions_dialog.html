@@ -1,0 +1,2857 @@
+﻿<!DOCTYPE html>
+
+<!--
+Copyright 2007, The Android Open Source Project
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, 
+    this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+ 3. Neither the name of Google Inc. nor the names of its contributors may be
+    used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<html>
+<head>
+  <style type="text/css">
+
+
+/*
+Copyright 2007, The Android Open Source Project
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, 
+    this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+ 3. Neither the name of Google Inc. nor the names of its contributors may be
+    used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+body, html {
+  background-color:white;
+  padding:0;
+  margin:0;
+  height:100%;
+  overflow:hidden;
+  cursor:default;
+
+  /* 
+    Makes the text unselectable in mozilla. See html_diaog.js for IE
+    implementation.
+  */
+  -moz-user-select:none;
+}
+
+body, td, input, select, button {
+  font-family:arial,sans-serif;
+  font-size:13px;
+}
+
+p {
+  margin:0;
+  margin-bottom:1em;
+}
+
+a {
+  color:blue;
+  text-decoration:underline;
+}
+
+button {
+  /*
+  It would be better to express margins in ems, but it causes layout
+  artifacts (presumably because of rounding errors) when combined with
+  the -moz-border-radius property used in button.css on Firefox 2.
+
+  Also: bizarely, if I try to use the more natural margin-left:10px, I get
+  a bug where the buttons bounce on IE when you hover over them.
+  */
+  position:relative;
+  margin-right:7px;
+  left:7px;
+}
+
+#head {
+  padding:1em;
+}
+
+#foot {
+
+  /*
+  On Android we do not use position:absolute due to some
+  rendering limitations (absolute positioning works, but
+  the automatic resizing of dialog is confused by the
+  variable content and the display is wrong, while if we
+  remove the absolute positioning, #foot is back in the
+  flow and the dialog displays correctly)
+  */
+
+  background:white;
+  bottom:0;
+  width:100%;
+}
+
+#button-row {
+  margin:1em;
+}
+
+.accesskey {
+  text-decoration: underline;
+
+  /* IE CSS extension */
+  accelerator: true;
+}
+
+    #content {
+      margin:0 1em;
+    }
+
+    #yellowbox-right {
+      padding-left:1em;
+      padding-right:1em;
+    }
+
+
+
+    #checkbox-row {
+      margin-top:1em;
+
+      margin-bottom:1em;
+
+    }
+
+    .header-icon {
+      margin-right:0.5em;
+      display:none;
+    }
+
+    #custom-icon {
+      display:none;
+      margin-left:1em;
+    }
+
+    #custom-name {
+      font-weight:bold;
+      font-size:1.1em;
+      display:none;
+    }
+
+    #origin {
+      display:none;
+    }
+
+    #custom-message {
+
+      margin-top:6px;
+
+      display:none;
+    }
+
+    #origin-only {
+      font-weight:bold;
+      font-size:1.1em;
+      display:none;
+    }
+
+    #yellowbox {
+      margin:4px 0 4px 0;
+      border:solid #f1cc1d;
+      border-width:1px 0;
+      background:#faefb8;
+    }
+
+    #yellowbox-inner {
+      /* pseudo-rounded corners */
+      margin:0 -1px;
+      border:solid #f1cc1d;
+      border-width:0 1px;
+
+      padding:1em 0;
+
+    }
+
+    #yellowbox p {
+
+      padding:0 1em;
+
+    }
+
+    #permissions-help {
+      margin:4px;
+      display:none;
+    }
+  </style>
+</head>
+<body>
+  <div id="strings" style="display:none">
+    <div id="string-allow"></div>
+    <div id="string-allow-accesskey"></div>
+    <div id="string-deny"></div>
+    <div id="string-deny-accesskey"></div>
+    <div id="string-cancel"></div>
+    <div id="string-trust-site-accesskey"></div>
+  </div>
+
+  <!--
+  PIE only works with one window, and we are in a modal dialog.
+  Using window.open(this.href) replaces the content of the current dialog,
+  which is annoying when no back button is displayed...
+  The workaround is to embed directly a short explanation text, and
+  hide/show the div container for the help and the settings dialog.
+  -->
+
+  <div id="permissions-help">
+   <h2>Information</h2>
+   <p>
+     <span id="string-description"></span>
+   </p>
+   <ul>
+     <li><span id="string-localserver-desc"></span></li>
+     <li><span id="string-database-desc"></span></li>
+     <li><span id="string-workerpool-desc"></span></li>
+   </ul>
+   <a href="#" onclick="showHelp(false); return false;">Go back</a>
+  </div>
+
+
+  <div id="head">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td valign="top">
+        <!-- On IE Mobile, we can reliably hide or show div elements.
+        Showing or hiding image elements is like playing the Russian roulette:
+        it is potentially lethal. -->
+        <div id="icon-local-data" class="header-icon">
+
+          <img width="32" height="32" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0
+d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABLNJREFUeNrEV1toHFUY/ua2
+9yTYpKEJxIRisJJWY+1L82KtLaYPtRE1IERSFYxVKEqLoH2QPFjxhr5ozUuD
+iIZWkdQgWgu2IsQH26TFeklqAxpzaUjcZJPdzVzX/5zdmb3NdlYM5od/z5mz
+Z/7/O//1jJBKpbCeJGKdSf7g/Y5+Gg+6/Tk1HYJpWbBMExaNeXM+mjRaMAwd
+mqZB13XOTU2VaL6tOlfUZeJdh547s1QEgCl/rLMCPp/AF+bmLNTWpg1z+GiY
+C2QKbOGGnoJumDQ3aZ5eUzUVyUQS8XgciUQcrXf60d1VSc8pApbC98OJ1mjU
+unDivQNFIBgAUq7kLJnEEp8piuJpwr33V2D3rhC3ypmhGzj92Z/0XiAjOkWy
+gfa9Vfj6XIxAmBdo8e4iAM5QsCzLsieAurogWu+q5PPRKwmEw2EC4MvIsJA+
+oEggbsHA6flWuGrKnDhN1r+ygCjKzn5Z9iEYCkLx+QtkSgRCcg/C/wpAkrIA
+JALjJ+WKXAygZBawH0HImloQDOe5HBcwAPZ+keYMtCQpfE0QbJnyzQHklwPJ
+eS7fBaIDRqZ3RMmWIXqWmzSAPIS681wOgGvXLQwOJXgW/DZuOBbIk+ltgXx/
+xVessgFcn9AxNp506oQiK1Q3BC6DahPPAM8YyN0QDvud+ZNdsyVeUzIcvCk4
+FvmKT/J2gSBkAUQqpP+3FxQWov4PL62pgie67ykHQL6Jnnl2cE2UU6PzbLhi
+FofsUpLz6eoXn3K2aW7sZwz3vYPV5SWPM5aWLXtVKkZL05M4/2YvUqYBdWUZ
+c+O/IFBRiV+/+pzqgICxb4aw56VX0bBjp1up8nZBbhCWIi2+gurGJqiRMGJT
+E1igthusjEBPJpFcXiSQf6HB5b1C2fV1m5z59Mys7QIph4vJT6eNz9+AQX3f
+1DUkFxeRiEZhGgYx3RFWNb6nRLEulN2U4Y0MjOhUKpsLiPl3uO9d1GxuptMm
+yPxj2PZQF9oOvUhKa6DRRUSURYwM9POYKDZBkezGDG9mxUTMxqJYFLGTF3/A
+qac6sbowDx/1+ejkH9j/xglsffBRNN/3ADr7BqAEK8gqBqYuX8THjx/gQVkc
+53myhQxr7PbjmQXs5H7yOzO9QM2m9vaWvP/v2NcBi65olmGhqn5TuVnAruJ/
+s94v2oFis1sGqBSApqFRBizx51z6/btzHIDso04YCLkGoYtsg3jBMwhZWu05
+dhzaqgp1OYZITQ2+PHYY186f5e4ZPPI0FibGyToWQtUbsbPnCNp6XvAKQkZx
+4kRZdYCZvL33LZzsuBcbGm+FqSbx7esvU0ZopFhPG5N+2nqe53FRRh1gbyza
+F8YSl1KX/hcIkKl1WKRUlMmk1HJTVoqfPlKzwbva59/5osz8TimemZ3HyOhV
+ProRM78vUoVkLEbxEEftllZsaX+Y8l+l248IJRQpXQeY721OUyLjgiy82Zk5
+jI7+RLnh3jiq6hvQfepspu7HsPvoK3x96/5HcOmTk9z8bI+r/mIXLGSCMAug
+pWUbtm/fwRdGRq+UNGZhgLH42Nf7dlkdX1VVe2HeNj8HSJ9LJb8N15roO/Kj
+46/9eJAAWA6A9f48/0eAAQASLt1W3nvcdQAAAABJRU5ErkJggg==
+           ">
+
+        </div>
+        <div id="icon-locationdata" class="header-icon">
+
+          <img width="32" height="32" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsT
+AAALEwEAmpwYAAAAIGNIUk0AAG4nAABzrwAA/oMAAH9bAABMGwAA+PYAADHr
+AAAXyBit77wAAAXuSURBVHja7JdLbFxnFcd/3+M+Zjz2jCe168QTx2lw0rRV
+E4PapGqgXhDRpkhTsUCAqDQLFjyE2kUjsUGGJcomG8tdQOsKNggEKZQuKEhu
+FYqAFjshNLaT+DUO8sw44/G8PHPn3rks5tp1wqNjCMqGTzr6pPOd+53/eX7n
+Ct/3uZdLco/X/wGI3X5wbnggCjwHjACDAXsRmAQunJ1a3vifATg3PJAEJqTW
+Ma/hoQyFMhRCSDzXxXMaBSB1dmr59XbvVLtQPiq18XLv4cO2UyrjN320qdGm
+iRkOEYpGsTs77Xql8oXTfV28tbrx9l0DcG54IKkM8+WDJ5+knFulsraOMlvW
+K9NEmSbaMjE7Ogh3d7NZ2Bg5fX/X9FurG7N3KwnPD544RaNWpriapWfoEI89
+/2ViiQTR/n6GP/9F4oOHkFpjd3XRM3QY4Hw7F+t2rDc7IoNWJExm9jJew+XI
+6U/TMzTEvkePIZWBkAq7K8aVX/4cpU26+qLkFxcHzw0PJD8qH9rxwPHuxADr
+KwtU1gpIrTA6wggpKedyFFbSCKkwQmGUNpCGgTIMuvcPABy/GyE47rl11pfT
+gM/To98mti9B7to1/jjxCpd++mPyC/NEeu/n5Fe+jtIGSptYndG2AOg2ABTK
+uSy1YgVlKMxwB0JKaqUSytAoramXywghMSwTZbTI9zyAwt0AsFjbKCOUQmrF
+n374Gp/40vMcOPEEAoEyDBIff4xmw+Xqb95AahNlWGwWN7Ya1H8dggsIH6kl
+UisKK2nWrl9DCMnBJz/F4BOfRAhJKZuhXiyiDRN8KKws4zb9X5imJXeQCAjT
+tNoDcHZq+RIwid9EaYXSmsraGl6jwcLv3mHh3Ys0XZdyLhtYb5K9NkPDqb89
+ejV7BTAAM9iNwOsSEKZptRUCgBe9hjvpuV7M7ND87dIU2ZkPUJaNYYfIz99A
+22EMu4N8eomVy+9vLFUbo0Bsh0IfaAJ1YBNoAF5bjSjwQqpequA3faTWSG20
+yk4byCDxnEqZxT9c5Oam+9L3F9dvAvftoJ5g7wbsoAuLtp/joKGkiqtZhJQt
+EIFipVtxn5v8NfMV57vjC/nLQC+wJ/BCFOgK9m4gtBX+Xc0DZ6eWX/ObzQvF
+TA6lzaDmDZRhcvMv0xSqtXd+sLj+28DCrXirHa+uH4SgDniA/58MJKlqPl9w
+Nqsoo9V0qut5cos3Sj9KF74XGCV3KPQAN4j7LSADlALe7ieiYOA4v55Ot7xg
+mKzO/JVMzf3JyqZbCaz1A3KBSqB0OaBbQQL6jlP/6CoYH0seC+K4vby16vTm
+m9fxGi5COhTXcxSO9Yc/++DeFEKglfA7Ow0vFJLXXdd785WJqaUAjO849fYm
+ovGx5CiQikRCg5FIqOXPpofve0ilWPvVLEapCyElVXOd/FAfjuMRCmkOHLDZ
+t9eiVHZIpzdBcB74zte+8fpGWyPZ+Fjy1Xg8mjp54lH6+uIBeI+52QVsW7F/
+oIfc3Co/++YbeI7Dx756klwDenstYt2KcEhw9MEwQniUSnUu/j5PJuNMAyN3
+gpD/XHksdeaZEfbu7dnm12p1stlb9PZ2A9AzdB9WpwBb0gjbPP54D6dO9fDI
+w1EKBZd6vQlAJKJ4+nScQw/Yx4HJ8bFk9F96YHws+WqiP5raE49hmsaOXPKp
+1eq4rkckYuPjg+/zwcSfqVYbJD73CH19diALlYqL1mBZYpsHPumVGpls+TZP
+iNst70499dQJpNiqnibQxG04XL06x9GjB9Fa4NME38PbdAAPFZJAE99vfeO6
+HrOzZY4csVCquX2PZbm8936ZG/ONbRDiQ+Xx1LNnPoNpSfC9AEAr6ZaXlihX
+yjz00EHw3QCAuy2zJbeVK+Bx5UqRaJckkZA75FrnF9+tcmPenQZG1PhY8oV4
+fM+3nj1zBtMyArQfut5zG8zMzHHogQFse+f57XJ38iwTFhbr9PfrfzjfnxCs
+Zry+SsVfFeNjySQwcWetb08sWrInHiaTLe+6ZcaiNoWN2r8TeU7c69/zvw8A
+aBuA3Xz76MYAAAAASUVORK5CYII=
+           ">
+
+        </div> 
+          <!-- Some browsers automatically focus the first focusable item. We
+          don't want anything focused, so we add this fake item. -->
+          <a href="#" id="focus-thief"></a>
+        </td>
+        <td width="100%" valign="middle">
+          <div id="local-data" style="display:none">
+            <span id="string-query-data"></span>
+          </div>
+          <div id="location-data" style="display:none">
+            <span id="string-query-location"></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="content">
+    <div id="yellowbox">
+      <div id="yellowbox-inner">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td id="yellowbox-left" valign="top">
+              <img id="custom-icon" width="0" height="0" src="blank.gif">
+            </td>
+            <td id="yellowbox-right" width="100%" valign="middle">
+              <div id="custom-name"></div>
+              <div id="origin"></div>
+              <div id="origin-only"></div>
+              <div id="custom-message"></div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div id="string-location-privacy-statement" style="display:none; padding-top:3px;"></div>
+
+    <p id="checkbox-row" style="display:none">
+      <table width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <td valign="middle">
+            <input type="checkbox" id="unlock" accesskey="T"
+                   onclick="updateAllowButtonEnabledState()">
+          </td>
+          <td valign="middle">
+            <label for="unlock">
+              &nbsp;<span id="string-trust-site"></span>
+            </label>
+          </td>
+        </tr>
+      </table>
+    </p>
+    
+  </div>
+
+  <div id="foot">
+
+    <div id="button-row">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+
+
+          <td width="100%" valign="middle">
+
+            <a href="#" onclick="denyAccessPermanently(); return false;">
+
+            <span id="string-never-allow-link"></span></a>
+
+          </td>
+
+
+          <td nowrap="true" align="right" valign="middle">
+            <button id="allow-button" class="custom"
+              onclick="allowAccessPermanently(); return false;"></button
+            ><button id="deny-button" class="custom"
+              onclick="denyAccessTemporarily(); return false;"></button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+</body>
+<!--
+We include all files through m4 as the HTML dialog implementation on
+PocketIE does not support callbacks for loading external JavaScript files.
+TODO: find a better way to include scripts for PIE
+-->
+<script>
+/*
+Copyright (c) 2005 JSON.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+//Array.prototype.______array = '______array';
+
+var JSON = {
+    org: 'http://www.JSON.org',
+    copyright: '(c)2005 JSON.org',
+    license: 'http://www.crockford.com/JSON/license.html',
+
+    stringify: function (arg) {
+        var c, i, l, s = '', v;
+
+        switch (typeof arg) {
+        case 'object':
+            if (arg) {
+                if (arg.constructor == Array.prototype.constructor) {
+                    for (i = 0; i < arg.length; ++i) {
+                        v = this.stringify(arg[i]);
+                        if (s) {
+                            s += ',';
+                        }
+                        s += v;
+                    }
+                    return '[' + s + ']';
+                } else if (typeof arg.toString != 'undefined') {
+                    for (i in arg) {
+                        v = arg[i];
+                        if (typeof v != 'undefined' && typeof v != 'function') {
+                            v = this.stringify(v);
+                            if (s) {
+                                s += ',';
+                            }
+                            s += this.stringify(i) + ':' + v;
+                        }
+                    }
+                    return '{' + s + '}';
+                }
+            }
+            return 'null';
+        case 'number':
+            return isFinite(arg) ? String(arg) : 'null';
+        case 'string':
+            l = arg.length;
+            s = '"';
+            for (i = 0; i < l; i += 1) {
+                c = arg.charAt(i);
+                if (c >= ' ') {
+                    if (c == '\\' || c == '"') {
+                        s += '\\';
+                    }
+                    s += c;
+                } else {
+                    switch (c) {
+                        case '\b':
+                            s += '\\b';
+                            break;
+                        case '\f':
+                            s += '\\f';
+                            break;
+                        case '\n':
+                            s += '\\n';
+                            break;
+                        case '\r':
+                            s += '\\r';
+                            break;
+                        case '\t':
+                            s += '\\t';
+                            break;
+                        default:
+                            c = c.charCodeAt();
+                            s += '\\u00' + Math.floor(c / 16).toString(16) +
+                                (c % 16).toString(16);
+                    }
+                }
+            }
+            return s + '"';
+        case 'boolean':
+            return String(arg);
+        default:
+            return 'null';
+        }
+    },
+    parse: function (text) {
+        var at = 0;
+        var ch = ' ';
+
+        function error(m) {
+            throw {
+                name: 'JSONError',
+                message: m,
+                at: at - 1,
+                text: text
+            };
+        }
+
+        function next() {
+            ch = text.charAt(at);
+            at += 1;
+            return ch;
+        }
+
+        function white() {
+            while (ch) {
+                if (ch <= ' ') {
+                    next();
+                } else if (ch == '/') {
+                    switch (next()) {
+                        case '/':
+                            while (next() && ch != '\n' && ch != '\r') {}
+                            break;
+                        case '*':
+                            next();
+                            for (;;) {
+                                if (ch) {
+                                    if (ch == '*') {
+                                        if (next() == '/') {
+                                            next();
+                                            break;
+                                        }
+                                    } else {
+                                        next();
+                                    }
+                                } else {
+                                    error("Unterminated comment");
+                                }
+                            }
+                            break;
+                        default:
+                            error("Syntax error");
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+        function string() {
+            var i, s = '', t, u;
+
+            if (ch == '"') {
+outer:          while (next()) {
+                    if (ch == '"') {
+                        next();
+                        return s;
+                    } else if (ch == '\\') {
+                        switch (next()) {
+                        case 'b':
+                            s += '\b';
+                            break;
+                        case 'f':
+                            s += '\f';
+                            break;
+                        case 'n':
+                            s += '\n';
+                            break;
+                        case 'r':
+                            s += '\r';
+                            break;
+                        case 't':
+                            s += '\t';
+                            break;
+                        case 'u':
+                            u = 0;
+                            for (i = 0; i < 4; i += 1) {
+                                t = parseInt(next(), 16);
+                                if (!isFinite(t)) {
+                                    break outer;
+                                }
+                                u = u * 16 + t;
+                            }
+                            s += String.fromCharCode(u);
+                            break;
+                        default:
+                            s += ch;
+                        }
+                    } else {
+                        s += ch;
+                    }
+                }
+            }
+            error("Bad string");
+        }
+
+        function array() {
+            var a = [];
+
+            if (ch == '[') {
+                next();
+                white();
+                if (ch == ']') {
+                    next();
+                    return a;
+                }
+                while (ch) {
+                    a.push(value());
+                    white();
+                    if (ch == ']') {
+                        next();
+                        return a;
+                    } else if (ch != ',') {
+                        break;
+                    }
+                    next();
+                    white();
+                }
+            }
+            error("Bad array");
+        }
+
+        function object() {
+            var k, o = {};
+
+            if (ch == '{') {
+                next();
+                white();
+                if (ch == '}') {
+                    next();
+                    return o;
+                }
+                while (ch) {
+                    k = string();
+                    white();
+                    if (ch != ':') {
+                        break;
+                    }
+                    next();
+                    o[k] = value();
+                    white();
+                    if (ch == '}') {
+                        next();
+                        return o;
+                    } else if (ch != ',') {
+                        break;
+                    }
+                    next();
+                    white();
+                }
+            }
+            error("Bad object");
+        }
+
+        function number() {
+            var n = '', v;
+            if (ch == '-') {
+                n = '-';
+                next();
+            }
+            while (ch >= '0' && ch <= '9') {
+                n += ch;
+                next();
+            }
+            if (ch == '.') {
+                n += '.';
+                while (next() && ch >= '0' && ch <= '9') {
+                    n += ch;
+                }
+            }
+            if (ch == 'e' || ch == 'E') {
+                n += 'e';
+                next();
+                if (ch == '-' || ch == '+') {
+                    n += ch;
+                    next();
+                }
+                while (ch >= '0' && ch <= '9') {
+                    n += ch;
+                    next();
+                }
+            }
+            v = +n;
+            if (!isFinite(v)) {
+                ////error("Bad number");
+            } else {
+                return v;
+            }
+        }
+
+        function word() {
+            switch (ch) {
+                case 't':
+                    if (next() == 'r' && next() == 'u' && next() == 'e') {
+                        next();
+                        return true;
+                    }
+                    break;
+                case 'f':
+                    if (next() == 'a' && next() == 'l' && next() == 's' &&
+                            next() == 'e') {
+                        next();
+                        return false;
+                    }
+                    break;
+                case 'n':
+                    if (next() == 'u' && next() == 'l' && next() == 'l') {
+                        next();
+                        return null;
+                    }
+                    break;
+            }
+            error("Syntax error");
+        }
+
+        function value() {
+            white();
+            switch (ch) {
+                case '{':
+                    return object();
+                case '[':
+                    return array();
+                case '"':
+                    return string();
+                case '-':
+                    return number();
+                default:
+                    return ch >= '0' && ch <= '9' ? number() : word();
+            }
+        }
+
+        return value();
+    }
+};
+
+// Copyright 2008, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//=============================================================================
+// Various basic JavaScript utilities.
+//=============================================================================
+
+/**
+ * Check that the type is not undefined (we do it here as on
+ * some devices typeof returns unknown instead of undefined...).
+ * We have to pass the evaluation of (typeof elem) (i.e., a string)
+ * to the function rather than simply (element) -- passing an 
+ * undefined object would make the function crash on PIE.
+ */
+function isDefined(type) {
+  return type != 'undefined' && type != 'unknown';
+}
+
+/**
+ * Returns true if val is a function.
+ */
+function isFunction(val) {
+  return typeof val == "function";
+}
+
+// TODO(aa): more basic type checking here.
+
+
+/**
+ * Creates a 'bound' function that calls the current function with a preset
+ * 'this' object and set of arguments.
+ */
+Function.prototype.bind = function(obj) {
+  var preArgs = Array.prototype.slice.call(arguments, 1);
+  var self = this;
+  return function() {
+    var postArgs = Array.prototype.slice.call(arguments, 0);
+    var totalArgs = preArgs.concat(postArgs);
+    return self.apply(obj, totalArgs);
+  }
+};
+
+/**
+ * Creates a partially applied function that calls the current function with
+ * a preset set of arguments.
+ */
+Function.prototype.partial = function() {
+  var args = Array.prototype.slice.call(arguments, 0);
+  return this.bind(null, args);
+};
+
+/**
+ * Binds all the methods in obj to obj.
+ */
+function bindMethods(obj) {
+  for (var p in obj) {
+    if (isFunction(obj[p])) {
+      obj[p] = obj[p].bind(obj);
+    }
+  }
+}
+
+
+/**
+ * Trim leading and trailing whitespace from a string.
+ */
+String.prototype.trim = function(str) {
+  return this.replace(/^\s+/, "").replace(/\s+$/, "");
+};
+
+
+/**
+ * Find the index of a given element in an array. Returns -1 if the item does
+ * not exist.
+ */
+Array.prototype.indexOf = function(item) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] === item) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+/**
+ * Makes a deep copy of an object.
+ */
+function cloneObject(original) {
+  var newObject = new Object();
+  for (i in original) {
+    if (typeof original[i] == 'object') {
+      newObject[i] = cloneObject(original[i]);
+    }
+    else {
+      newObject[i] = original[i];
+    }
+  }
+  newObject.length = original.length;
+  return newObject;
+}
+
+var browser = {};
+
+(function() {
+  var ua = navigator.userAgent;
+  browser.opera = typeof opera != "undefined";
+  browser.ie = !browser.opera && ua.indexOf("MSIE") > -1;
+  browser.ie_mobile = (ua.indexOf("Windows CE") > -1) &&
+      (ua.indexOf("MSIE") > -1);
+  browser.webkit = ua.indexOf("WebKit") > -1;
+  // WebKit also gives product == "gecko".
+  browser.mozilla = !browser.webkit && navigator.product == "Gecko";
+  browser.safari = ua.indexOf("Safari") > -1;
+  browser.mac = navigator.platform.indexOf("Mac") > -1;
+  browser.linux = navigator.platform.indexOf("Linux") > -1;
+  browser.windows = navigator.platform.indexOf("Win") > -1;
+  browser.android = ua.indexOf("Android") > -1;
+  if (browser.android) {
+    browser.safari = false;
+  }
+  // TODO(aa): Add detection for more browsers, as necessary.
+})();
+
+// Copyright 2008, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//=============================================================================
+// DOM manipulation utilities.
+// Requires: base.js
+//=============================================================================
+
+var dom = {};
+
+/**
+ * Provides a cross-browser way of getting an element by its id
+ */
+dom.getElementById = function(id) {
+  if (isDefined(typeof document.getElementById)) {
+    return document.getElementById(id);
+  } else if (isDefined(typeof document.all)) {
+    return document.all[id];
+  }
+  throw new Error("Failed to get element by ID.");
+};
+
+/**
+ * Gets the position and dimensions of an element in pixels in relation
+ * to the window origin.
+ */
+dom.getPosition = function(elem) {
+  var ret = { 'left'   : 0,
+              'top'    : 0,
+              'width'  : elem.width,
+              'height' : elem.height };
+  
+  if (!elem.offsetParent) return ret;
+  
+  var left = 0;
+  var top = 0;
+  while (elem) {
+    left += elem.offsetLeft;
+    top += elem.offsetTop;
+    elem = elem.offsetParent
+  }
+  ret.left = left;
+  ret.top = top;
+  return ret;
+};
+
+/**
+ * Returns the height of the inside of the window.
+ */
+dom.getWindowInnerHeight = function() {
+  if (isDefined(typeof window.innerHeight)) { // Firefox
+    return window.innerHeight;
+  } else if (isDefined(typeof document.body.offsetHeight)) { // IE
+    return document.body.offsetHeight;
+  }
+
+  throw new Error("Could not get windowInnerHeight.");
+};
+
+/**
+ * Add an event listener to an element cross-browser.
+ */
+dom.addEvent = function(element, eventName, handler) {
+  var wrapper = dom._callEventHandler.bind(dom, handler);
+
+  if (isDefined(typeof element.addEventListener)) {
+    // Standards-compatible browsers
+    element.addEventListener(eventName, wrapper, false);
+  } else if (isDefined(typeof element.attachEvent)) {
+    // IE
+    element.attachEvent("on" + eventName, wrapper);
+  } else {
+    throw new Error('Failed to attach event.');
+  }
+};
+
+/**
+ * Private helper for calling event handlers compatibly across browsers.
+ */
+dom._callEventHandler = function(handler, e) {
+  // Older versions of IE don't pass event to the handler.
+  if (!e) e = window.event;
+
+  // TODO(aa): Normalize event object properties.
+
+  return handler(e);
+};
+
+/**
+ * Gets the CSS classes for an element.
+ */
+dom.getClasses = function(elm) {
+  return elm.className.split(/\s+/);
+};
+
+/**
+ * Check is an element has a particular CSS class name.
+ */
+dom.hasClass = function(elm, className) {
+  return this.getClasses(elm).indexOf(className) > -1;
+};
+
+/**
+ * Adds a CSS class to an element. Do nothing if the class already exists.
+ */
+dom.addClass = function(elm, className) {
+  var classes = this.getClasses(elm);
+  if (classes.indexOf(className) > -1) {
+    return;
+  }
+  classes.push(className);
+  elm.className = classes.join(" ");
+};
+
+/**
+ * Removes a CSS class from an element. Do nothing if the class doesn't exist.
+ */
+dom.removeClass = function(elm, className) {
+  var classes = this.getClasses(elm);
+  var index = classes.indexOf(className);
+  if (index == -1) {
+    return;
+  }
+  classes.splice(index, 1);
+  elm.className = classes.join(" ");
+};
+
+/**
+ * Gets the text (non-html) content of an element.
+ */
+dom.getTextContent = function(elm) {
+  if (isDefined(typeof elm.textContent)) {
+    return elm.textContent;
+  } else if (isDefined(typeof elm.innerText)) {
+    return elm.innerText;
+  } else {
+    throw new Error("Could not find a property to get text content.");
+  }
+};
+
+/**
+ * Sets the text (non-html) contents of an element.
+ */
+dom.setTextContent = function(elm, text) {
+  if (isDefined(typeof elm.textContent)) {
+    elm.textContent = text;
+  } else if (isDefined(typeof elm.innerText)) {
+    elm.innerText = text;
+  } else {
+    throw new Error("Could not find a property to set text content.");
+  }
+};
+
+// Copyright 2007, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+/**
+ * Initialize the base functionality of the dialog.
+ */
+function initDialog() {
+  if (!browser.ie_mobile) {
+    dom.addEvent(document, "keyup", handleKeyUp);
+  } else {
+    var buttonRowElem = null;
+    if (window.pie_dialog.IsSmartPhone()) {
+      buttonRowElem = dom.getElementById("button-row-smartphone");
+    } else {
+      buttonRowElem = dom.getElementById("button-row");
+    }
+    if (buttonRowElem) {
+      buttonRowElem.style.display = 'block';
+    }
+  }
+  if (browser.ie_mobile) {
+    window.pie_dialog.SetScriptContext(window);
+    window.pie_dialog.ResizeDialog();
+  }
+}
+
+/**
+ * Set the label of an input button, and optionally, its accesskey.
+ */
+function setButtonLabel(textID, elemID, accessKeyID) {
+  var textElem = dom.getElementById(textID);
+  var buttonElem = dom.getElementById(elemID);
+  if (textElem == null || buttonElem == null) {
+    return;
+  }
+
+  var accessKeyElem = null;
+  if (isDefined(typeof accessKeyID)) {
+    accessKeyElem = dom.getElementById(accessKeyID);
+  }
+
+  // This function works for two different kinds of buttons. Simple buttons
+  // based on the <input type="button"> tag, and custom buttons based on a
+  // <button> tag with the css class "custom".
+  // Note that on Windows Mobile 5, the tagName property is not defined.
+  // We can therefore safely assume that the converse is also true:
+  // if tagName is not defined, then the platform must be Windows Mobile 5.  
+  if (!isDefined(typeof buttonElem.tagName) ||
+      buttonElem.tagName.toLowerCase() == "input") {
+    buttonElem.value = dom.getTextContent(textElem).trim();
+    if (accessKeyElem != null) {
+      buttonElem.accessKey = dom.getTextContent(accessKeyElem).trim();
+    }
+  } else if (buttonElem.tagName.toLowerCase() == "button") {
+    var text = dom.getTextContent(textElem).trim();
+
+    if (accessKeyElem != null) {
+      // Some browsers use the accessKey attribute of the the anchor tag.
+      var accessKey = dom.getTextContent(accessKeyElem).trim();
+      buttonElem.accessKey = accessKey;
+
+      // Find the first matching character in the text and mark it.
+      // Note: this form of String.replace() only replaces the first occurence.
+      text = text.replace(accessKey,
+                          "<span class='accesskey'>" + accessKey + "</span>");
+    }
+
+    buttonElem.innerHTML = text;
+  } else {
+    throw new Error("Unexpected button tag name: " + buttonElem.tagName);
+  }
+}
+
+/**
+ * Allows a dialog to do custom layout when the window changes sizes. The
+ * provided function will be called with the height of the content area when the
+ * dialog should relayout.
+ */
+function initCustomLayout(layoutFunction) {
+  function doLayout() {
+    layoutFunction(getContentHeight());
+  }
+
+  doLayout();
+
+  // We do an additional layout in onload because sometimes things aren't
+  // stabilized when the first doLayout() is called above.
+  dom.addEvent(window, "load", doLayout);
+  dom.addEvent(window, "resize", doLayout);
+
+  // Mozilla doesn't fire continuous events during resize, so if we want to get
+  // somewhat smooth resizing, we need to run our own timer loop. This still
+  // doesn't look perfect, because the timer goes off out of sync with the
+  // browser's internal reflow, but I think it's better than nothing.
+  // TODO(aa): Keep looking for a way to get an event for each reflow, like IE.
+  if (browser.mozilla) {
+    var lastHeight = -1;
+
+    function maybeDoLayout() {
+      var currentHeight = dom.getWindowInnerHeight();
+      if (currentHeight != lastHeight) {
+        lastHeight = currentHeight;
+        doLayout();
+      }
+    }
+
+    window.setInterval(maybeDoLayout, 30);
+  }
+}
+
+/**
+ * Get the JSON-formatted arguments that were passed by the caller.
+ */
+function getArguments() {
+  var argsString;
+  if (browser.ie_mobile) {
+    argsString = window.pie_dialog.GetDialogArguments();
+  } else if (browser.ie) {
+    argsString = window.external.GetDialogArguments();
+  } else if (browser.mozilla) {
+    argsString = getFirefoxArguments(window.arguments[0]);
+  } else if (browser.safari) {
+    argsString = window.gears_dialogArguments;
+  } else if (browser.android) {
+    argsString = "" + window.bridge.getDialogArguments();
+  }
+
+  if (typeof argsString == "string") {
+    return JSON.parse(argsString);
+  } else {
+    return null;
+  }
+}
+
+/**
+ * Helper used by getArguments(). Getting the arguments in the right type is
+ * more involved in Firefox.
+ */
+function getFirefoxArguments(windowArguments) {
+  var Ci = Components.interfaces;
+  windowArguments.QueryInterface(Ci.nsIProperties);
+  var supportsString = 
+    windowArguments.get("dialogArguments", Ci.nsISupportsString);
+  return supportsString.data;
+}
+
+/**
+ * Close the dialog, sending the specified result back to the caller.
+ */
+function saveAndClose(resultObject) {
+  var resultString = JSON.stringify(resultObject);
+  if (browser.ie_mobile) {
+    window.pie_dialog.CloseDialog(resultString);
+  } else if (browser.ie) {
+    window.external.CloseDialog(resultString);
+  } else if (browser.mozilla) {
+    saveFirefoxResults(resultString);
+    window.close();
+  } else if (browser.safari) {
+    window.gears_dialog.setResults(resultString);
+  } else if (browser.android) {
+    window.bridge.closeDialog(resultString);
+  }
+}
+
+/**
+ * Helper used by endDialog() for Firefox.
+ */
+function saveFirefoxResults(resultString) {
+  var Cc = Components.classes;
+  var Ci = Components.interfaces;
+  
+  var props = window.arguments[0].QueryInterface(Ci.nsIProperties);
+  var supportsString = Cc["@mozilla.org/supports-string;1"]
+      .createInstance(Ci.nsISupportsString);
+      
+  supportsString.data = resultString;
+  props.set("dialogResult", supportsString);
+}
+
+/**
+ * Returns the height of the content area of the dialog.
+ */
+function getContentHeight() {
+  var head = dom.getElementById("head");
+  var foot = dom.getElementById("foot");
+  return dom.getWindowInnerHeight() - head.offsetHeight - foot.offsetHeight;
+}
+
+/**
+ * For some reason ESC doesn't work on HTML dialogs in either Firefox or IE. So
+ * we implement it manually.
+ */
+function handleKeyUp(e) {
+  var ESC_KEY_CODE = 27;
+  
+  if (e.keyCode == ESC_KEY_CODE) {
+    saveAndClose(null);
+  }
+}
+
+/**
+ * Disables a button in the right way, whether it is normal or custom.
+ */
+function disableButton(buttonElem) {
+  buttonElem.disabled = true;
+
+  if (browser.ie_mobile) {
+    window.pie_dialog.SetButtonEnabled(false);
+  }
+
+  if (!isDefined(typeof buttonElem.tagName) || 
+      buttonElem.tagName.toLowerCase() == "input") {
+    buttonElem.style.color = "gray";
+  } else if (buttonElem.tagName.toLowerCase() == "button") {
+    dom.addClass(buttonElem, "disabled");
+  } else {
+    throw new Error("Unexpected tag name: " + buttonElem.tagName);
+  }
+}
+
+/**
+ * Enables a button in the right way, whether it is normal or custom.
+ */
+function enableButton(buttonElem) {
+  buttonElem.disabled = false;
+
+  if (browser.ie_mobile) {
+    window.pie_dialog.SetButtonEnabled(true);
+  }
+  
+  if (!isDefined(typeof buttonElem.tagName) ||
+      buttonElem.tagName.toLowerCase() == "input") {
+    buttonElem.style.color = "black";
+  } else if (buttonElem.tagName.toLowerCase() == "button") {
+    dom.removeClass(buttonElem, "disabled");
+  } else {
+    throw new Error("Unexpected tag name: " + buttonElem.tagName);
+  }
+}
+
+/**
+ * Returns a wrapped domain (useful for small screens dialogs, 
+ * e.g. windows mobile devices)
+ */
+function wrapDomain(str) {
+  if (!browser.ie_mobile) {
+    return str;
+  }
+
+  var max = 20;
+  var url;
+  var scheme_start = str.indexOf("://");
+  var scheme = "";
+
+  if (scheme_start != -1) {
+    scheme = str.substring(0, scheme_start);
+    scheme += "://";
+    // there's automatically an hyphenation
+    // point used by the browser after http://
+    // so we only have to hyphenate the
+    // rest of the string
+    url = str.substring(scheme.length);
+  } else {
+    url = str;
+  }
+
+  // We hyphenate the string on every dot
+  var components = url.split(".");
+  if (components.length < 1) {
+    return str;
+  }
+
+  var content = components[0];
+  var len = content.length;
+  for (var i=1; i < components.length; i++) {
+    var elem = components[i];
+    content += ".";
+    len++;
+    if (len + elem.length > max) {
+      content += "<br>";
+      len = 0;
+    }
+    content += elem;
+    len += elem.length;
+  }
+  return scheme + content;
+}
+
+/**
+ * Resizes the dialog to fit the content size.
+ */
+function resizeDialogToFitContent(opt_minDialogInnerHeight) {
+  // This does not work on PIE (no height measurement)
+  if (browser.ie_mobile) {
+    window.pie_dialog.ResizeDialog();
+    return;
+  }
+  // window.resize() is not working on Android, we bail out.
+  if (browser.android) {
+    return;
+  }
+
+  // Resize the window to fit
+  var contentDiv = dom.getElementById("content");
+  var contentHeightProvided = getContentHeight();
+  var contentHeightDesired = contentDiv.offsetHeight;
+
+  var dialogHeightProvided = dom.getWindowInnerHeight();
+  var dialogHeightDesired =
+      dialogHeightProvided + (contentHeightDesired - contentHeightProvided);
+
+  var minDialogHeight = opt_minDialogInnerHeight || 0;
+  var maxDialogHeight = 400; // arbitrary max height for a dialog to resize to
+  
+  var targetHeight = Math.max(dialogHeightDesired, minDialogHeight);
+  targetHeight = Math.min(dialogHeightDesired, maxDialogHeight);
+
+  if (targetHeight != dialogHeightProvided) {
+    var dy = targetHeight - dialogHeightProvided;
+    window.resizeBy(0, dy);
+  }
+}
+
+/**
+ * Safari running on OSX 10.4 can't load images dynamically from the network,
+ * this helper function calls gears-specific code to work around this
+ * limitation.
+ */
+function loadImage(elem, image_url) {
+  if (browser.safari) {
+    var position = dom.getPosition(elem);
+    window.gears_dialog.loadImageIntoElement(image_url, position.top,
+                                             position.left,
+                                             position.width,
+                                             position.height);
+  } else {
+    elem.src = image_url;
+  }
+}
+
+// Copyright 2008, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//=============================================================================
+// Implements the behavior of our custom buttons. There is no native support in
+// IE for rounded corners on HTML elements, so this script also implements a
+// hack to simulate them in that browser.
+//
+// Requires: base.js, dom.js
+//=============================================================================
+
+/**
+ * Constructor.
+ */
+function CustomButton(htmlButton) {
+  bindMethods(this);
+  
+  this._focused = false;
+  this._htmlButton = htmlButton;
+
+  if (!document.all) {  // not IE
+    dom.addEvent(htmlButton, "mouseover", this._handleMouseOver);
+    dom.addEvent(htmlButton, "mouseout", this._handleMouseOut);
+  } else {  // IE
+    // mouseover/mouseout behave badly with nested elements in IE. Luckily,
+    // mouseenter/mouseleave are provided and have the equivalent semantics.
+    dom.addEvent(htmlButton, "mouseenter", this._handleMouseOver);
+    dom.addEvent(htmlButton, "mouseleave", this._handleMouseOut);
+
+    // We also handle focus and blur in IE so that we can update the corners
+    // to match the black border IE provides.
+    dom.addEvent(htmlButton, "focusin", this._handleFocus);
+    dom.addEvent(htmlButton, "blur", this._handleBlur);
+
+    dom.addClass(htmlButton, "ie");
+    this._createCorners();
+  }
+
+  // Limit button widths to a minimum of 60px. They look funny skinnier.  
+  if (htmlButton.offsetWidth < 60) {
+    htmlButton.style.width = "60px";
+  }
+
+  htmlButton.style.visibility = "visible";
+}
+
+/**
+ * Initializes all the custom buttons on the page.
+ */
+CustomButton.initializeAll = function() {
+  var buttons = document.getElementsByTagName("button");
+  for (var i = 0, button; button = buttons[i]; i++) {
+    if (dom.hasClass(button, "custom")) {
+      new CustomButton(button);
+    }
+  }
+};
+
+/**
+ * Highlights the button on mouseover. Note that this gets called multiple
+ * times while the mouse goes over sub elements inside the button.
+ */
+CustomButton.prototype._handleMouseOver = function() {
+  if (!this._htmlButton.disabled && !this._focused) {
+    dom.addClass(this._htmlButton, "hover");
+    this._setCornerColor("blue");
+  }
+};
+
+/**
+ * Undoes the highlighting of the button on mouseout. Note that this gets called
+ * multiple times when the mouse moves out of sub elements, even if it is still
+ * over the button. That is OK, as long as there is immediately a mouseover
+ * event.
+ */
+CustomButton.prototype._handleMouseOut = function() {
+  if (!this._htmlButton.disabled && !this._focused) {
+    dom.removeClass(this._htmlButton, "hover");
+    this._setCornerColor("grey");
+  }
+};
+
+/**
+ * Highlights the button on focus. Currently only used for IE.
+ * TODO(aa): The black highlight looks cool. Consider for other browsers.
+ */
+CustomButton.prototype._handleFocus = function() {
+  dom.removeClass(this._htmlButton, "hover");
+  this._setCornerColor("black");
+  this._focused = true;
+};
+
+/**
+ * Undoes the highlighting of the button on blur.
+ */
+CustomButton.prototype._handleBlur = function() {
+  this._setCornerColor("grey");
+  this._focused = false;
+};
+
+/**
+ * Helper to create the graphics that make the button have rounded corners in
+ * IE.
+ */
+CustomButton.prototype._createCorners = function() {
+  // Making the button position:relative makes it possible to position things
+  // inside it relative to it's border.
+  this._htmlButton.style.position = "relative";
+
+  var verticalEdges = ["left", "right"];
+  var horizontalEdges = ["top", "bottom"];
+  var colors = ["grey", "blue", "black"];
+
+  for (var i = 0; i < verticalEdges.length; i++) {
+    for (var j = 0; j < horizontalEdges.length; j++) {
+      for (var k = 0; k < colors.length; k++) {
+        var img = document.createElement("img");
+        img.src = "button_corner_" + colors[k]  + ".gif";
+        img.color  = colors[k];
+        img.style.position = "absolute";
+        img.style[verticalEdges[i]] = "-2px";
+        img.style[horizontalEdges[j]] = "-2px";
+        img.style.filter =
+            "progid:DXImageTransform.Microsoft.BasicImage(Rotation=" + 
+            (i + j) + ")";
+        this._htmlButton.appendChild(img);
+      }
+    }
+  }
+
+  this._setCornerColor("grey");
+};
+
+/**
+ * Sets the color of the corners in IE by changing the stack order of the corner
+ * images.
+ */
+CustomButton.prototype._setCornerColor = function(newColor) {
+  var imgs = this._htmlButton.getElementsByTagName("img");
+  for (var i = 0, img; img = imgs[i]; i++) {
+    img.style.zIndex = Number(img.color == newColor);
+  }
+};
+
+var localized_strings = {
+  "el": {
+    "string-workerpool-desc": "Εκτέλεση ασύγχρονου JavaScript για βελτίωση απόκρισης εφαρμογών",
+    "string-allow": "Να επιτρέπεται",
+    "string-query-data": "Ο παρακάτω ιστότοπος επιθυμεί να αποθηκεύει πληροφορίες στον υπολογιστή σας χρησιμοποιώντας το Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Ο παρακάτω ιστότοπος επιθυμεί να αποκτήσει πρόσβαση σε πληροφορίες σχετικά με την τοποθεσία σας μέσω του Gears.",
+    "string-html-title": "Προειδοποίηση ασφαλείας Gears",
+    "string-description": "Το Gears είναι μια επέκταση προγράμματος περιήγησης ανοιχτής προέλευσης που επιτρέπει τις εφαρμογές ιστού να παρέχουν λειτουργίες εκτός σύνδεσης χρησιμοποιώντας τα ακόλουθα JavaScript API:",
+    "string-database-desc": "Αποθήκευση δεδομένων τοπικά σε μια σχεσιακή βάση δεδομένων με δυνατότητα πλήρους αναζήτησης",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Άκυρο",
+    "string-never-allow-link": "Να μην επιτρέπεται ποτέ αυτός ο ιστότοπος",
+    "string-deny": "Απόρριψη",
+    "string-never-allow-link-wince": "Να μην επιτρέπεται ποτέ",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Αποθήκευση και διανομή πόρων εφαρμογών τοπικά",
+    "string-location-privacy-statement": "Διαβάστε την πολιτική για θέματα ιδιωτικού περιεχομένου του ιστότοπου για να δείτε πώς θα χρησιμοποιηθεί η τοποθεσία σας.",
+    "string-trust-site": "Εμπιστεύομαι αυτόν τον ιστότοπο. Να επιτρέπεται να χρησιμοποιεί το Gears."
+  },
+  "gu": {
+    "string-workerpool-desc": "એપ્લિકેશનની રિસ્પોંસિવનેસ વધારવા માટે અસિંક્રોનસ JavaScript ચલાવો",
+    "string-allow": "મંજૂરી આપો",
+    "string-query-data": "નીચેની વેબસાઇટ Gearsનો ઉપયોગ કરીને તમારા કમ્પ્યુટર પર માહિતી સંગ્રહિત કરવા માંગે છે.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "નીચેની વેબસાઇટ Gearsનો ઉપયોગ કરીને તમારા સ્થાન વિશેની માહિતી એક્સેસ કરવા માંગે છે.",
+    "string-html-title": "Gears સુરક્ષા ચેતવણી",
+    "string-description": "Gears એક ઓપન સોર્સ બ્રાઉઝર એક્સ્ટેંશન છે જે નીચેની JavaScript APIsનો ઉપયોગ કરીને ઓફલાઇન ફંક્શનાલિટી આપવા વેબ એપ્લિકેશંસને એનેબલ કરે છે.",
+    "string-database-desc": "ડેટાને સ્થાનિક રીતે સંપૂર્ણ રીતે શોધી શકાય તેવા રિલેશનલ ડેટાબેસમાં સ્ટોર કરો",
+    "string-allow-accesskey": "A",
+    "string-cancel": "રદ કરો",
+    "string-never-allow-link": "આ સાઇટને ક્યારેય મંજૂરી આપશો નહીં",
+    "string-deny": "નકારો",
+    "string-never-allow-link-wince": "તેને ક્યારેય મંજૂર કરશો નહીં",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "એપ્લિકેશન સાધનોને સ્થાનિક રીતે સ્ટોર અને સર્વ કરો",
+    "string-location-privacy-statement": "તમારા સ્થળનો ઉપયોગ કેવી રીતે થશે તે જોવા સાઇટની ગોપનીયતા નીતિ વાંચો.",
+    "string-trust-site": "આ સાઇટ પર મને વિષ્વાસ છે. તેને Gearsનો ઉપયોગ કરવાની મંજુરી આપો."
+  },
+  "zh-TW": {
+    "string-workerpool-desc": "執行非同步 JavaScript 以提升應用程式的回應速度",
+    "string-allow": "允許",
+    "string-query-data": "下方的網站要使用 Gears 在您的電腦上儲存資訊。",
+    "string-deny-accesskey": "D",
+    "string-query-location": "下方的網站要使用 Gears 存取您位置的相關資訊。",
+    "string-html-title": "Gears 安全性警告",
+    "string-description": "Gears 是一種開放程式碼的瀏覽器擴充功能，它透過下列 JavaScript API 為網路應用程式提供離線功能：",
+    "string-database-desc": "在本機將資料儲存到完全可搜尋的關聯式資料庫中",
+    "string-allow-accesskey": "A",
+    "string-cancel": "取消",
+    "string-never-allow-link": "永不允許這個網站",
+    "string-deny": "拒絕",
+    "string-never-allow-link-wince": "永不允許",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "在本機儲存並提供應用程式資源",
+    "string-location-privacy-statement": "閱讀網站的隱私權政策以查看網站會如何使用您的位置。",
+    "string-trust-site": "我相信這個網站。 讓它使用 Gears。"
+  },
+  "vi": {
+    "string-workerpool-desc": "Chạy JavaScript không đồng bộ để tăng khả năng phản hồi của ứng dụng",
+    "string-allow": "Cho phép",
+    "string-query-data": "Trang web dưới đây muốn lưu trữ thông tin trên máy tính của bạn bằng cách sử dụng Gears.",
+    "string-deny-accesskey": "T",
+    "string-query-location": "Trang web dưới đây muốn truy cập vào thông tin về vị trí của bạn bằng cách sử dụng Gears.",
+    "string-html-title": "Cảnh báo Bảo mật của Gears",
+    "string-description": "Gears là một tiện ích bổ sung nguồn mở của trình duyệt cho phép ứng dụng web cung cấp tính năng ngoại tuyến bằng cách sử dụng các JavaScript API dưới đây:",
+    "string-database-desc": "Lưu dữ liệu cục bộ trong cơ sở dữ liệu quan hệ có thể tìm kiếm đầy đủ",
+    "string-allow-accesskey": "P",
+    "string-cancel": "Huỷ",
+    "string-never-allow-link": "Không bao giờ cho phép trang web này",
+    "string-deny": "Từ chối",
+    "string-never-allow-link-wince": "Không bao giờ cho phép Gears trên trang web này",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Lưu trữ và phục vụ các tài nguyên ứng dụng cục bộ",
+    "string-location-privacy-statement": "Đọc chính sách bảo mật của trang để xem vị trí của bạn sẽ được sử dụng thế nào.",
+    "string-trust-site": "Tôi tin cậy trang này. Cho phép trang web này sử dụng Gears."
+  },
+  "ca": {
+    "string-workerpool-desc": "Executar JavaScript asíncron per millorar la sensibilitat de les aplicacions",
+    "string-allow": "Permet",
+    "string-query-data": "El lloc web següent vol emmagatzemar informació al vostre ordinador mitjançant Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "El lloc web següent vol accedir a informació sobre la vostra ubicació mitjançant Gears.",
+    "string-html-title": "Advertència de seguretat de Gears",
+    "string-description": "Gear és una extensió de navegador de codi obert que permet que les aplicacions web proporcionin funcionalitat fora de línia mitjançant les següents API de JavaScript:",
+    "string-database-desc": "Desar dades localment en una base de dades relacional amb funció de cerca completa",
+    "string-allow-accesskey": "P",
+    "string-cancel": "Cancel·la",
+    "string-never-allow-link": "No permetis mai aquest lloc",
+    "string-deny": "Denega",
+    "string-never-allow-link-wince": "No permetre'l mai",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Desar i servir recursos d'aplicacions localment",
+    "string-location-privacy-statement": "Llegiu la política de privadesa del lloc per veure com es farà servir la vostra ubicació.",
+    "string-trust-site": "Confio en aquest lloc. Permet que utilitzi Gears."
+  },
+  "it": {
+    "string-workerpool-desc": "Eseguire codice JavaScript in modo asincrono per migliorare la velocità di risposta dell'applicazione",
+    "string-allow": "Consenti",
+    "string-query-data": "Il sito Web riportato di seguito vuole memorizzare le informazioni relative al computer che utilizza Google Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Il sito Web riportato di seguito vuole accedere alle informazioni relative alla posizione di utilizzo di Google Gears.",
+    "string-html-title": "Avviso di protezione di Google Gears",
+    "string-description": "Google Gears è un'estensione browser open source che permette alle applicazioni Web di fornire funzionalità offline tramite le seguenti API JavaScript:",
+    "string-database-desc": "Memorizzare i dati localmente in un database relazionale dotato di ricerca integrata",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Annulla",
+    "string-never-allow-link": "Non consentire mai l'accesso a questo sito",
+    "string-deny": "Nega",
+    "string-never-allow-link-wince": "Non consentirlo mai",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Memorizzare e fornire localmente le risorse dell'applicazione",
+    "string-location-privacy-statement": "Leggi le norme sulla privacy del sito per vedere come verrà utilizzata la tua posizione.",
+    "string-trust-site": "Considero questo sito attendibile. Consenti al sito di utilizzare Google Gears."
+  },
+  "kn": {
+    "string-workerpool-desc": "ಅಪ್ಲಿಕೇಶನ್ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಉತ್ತಮಪಡಿಸಲು ಏಸಿಂಕ್ರೋನಸ್ ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ಚಲಿಸಿ",
+    "string-allow": "ಅನುಮತಿಸು",
+    "string-query-data": "ಈ ಕೆಳಗಿನ ವೆಬ್ ಸೈಟ್ Gears ಬಳಸಿ ನಿಮ್ಮ ಕಂಪ್ಯೂಟರಿನಲ್ಲಿ ಮಾಹಿತಿಯನ್ನು ಇರಿಸಲು ಬಯಸುತ್ತಿದೆ.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "ಈ ಕೆಳಗಿನ ವೆಬ್ ಸೈಟ್ Gears ಬಳಸಿ ನಿಮ್ಮ ಸ್ಥಳದ ಕುರಿತು ಮಾಹಿತಿ ಪಡೆದುಕೊಳ್ಳಲು ಬಯಸುತ್ತಿದೆ.",
+    "string-html-title": "Gears ರಕ್ಷಣಾ ಎಚ್ಚರಿಕೆ",
+    "string-description": "Gears ಒಂದು ಓಪನ್ ಸೋರ್ಸ್ ಬ್ರೌಸರ್ ವಿಸ್ತರಣೆಯಾಗಿದ್ದು, ಅದು ವೆಬ್ ಅಪ್ಲಿಕೇಶನ್ ಗಳಿಗೆ ಈ ಕೆಳಗಿನ JavaScript API ಗಳನ್ನು ಬಳಸಿ ಆಫ್ಲೈನ್ ಫಂಕ್ಷನಾಲಿಟಿಯನ್ನು ನೀಡಲು ಸಾಧ್ಯವಾಗಿಸುತ್ತದೆ.",
+    "string-database-desc": "ಪೂರ್ಣವಾಗಿ ಹುಡುಕಬಹುದಾದ ಸಾಂಬಂಧಿಕ ಡೇಟಾಬೇಸ್‌ನಲ್ಲಿ ಸ್ಥಳೀಯವಾಗಿ ಡೇಟಾವನ್ನು ಸಂಗ್ರಹಿಸಿ",
+    "string-allow-accesskey": "A",
+    "string-cancel": "ರದ್ದುಮಾಡು",
+    "string-never-allow-link": "ಈ ಸೈಟನ್ನು ಎಂದಿಗೂ ಅನುಮತಿಸಬೇಡಿ",
+    "string-deny": "ನಿರಾಕರಿಸು",
+    "string-never-allow-link-wince": "ಅದನ್ನು ಎಂದಿಗೂ ಅನುಮತಿಸಬೇಡಿ",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "ಸ್ಥಳೀಯವಾಗಿ ಅಪ್ಲಿಕೇಶನ್ ಮೂಲಗಳನ್ನು ಸಂಗ್ರಹಿಸಿ ಮತ್ತು ಒದಗಿಸಿ",
+    "string-location-privacy-statement": "ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಹೇಗೆ ಉಪಯೋಗಿಸಲಾಗುತ್ತದೆ ಎಂದು ತಿಳಿಯಲು ಈ ಸೈಟ್ ನ ಗೌಪ್ಯತಾ ನೀತಿಯನ್ನು ಓದಿ.",
+    "string-trust-site": "ಈ ಸೈಟನ್ನು ನಾನು ನಂಬುತ್ತೇನೆ. ಇದಕ್ಕೆ Gears ಉಪಯೋಗಿಸಲು ಅನುಮತಿಸು."
+  },
+  "ar": {
+    "string-workerpool-desc": "تشغيل جافا سكريبت غير متزامنة لتحسين سرعة استجابة التطبيقات",
+    "string-allow": "سماح",
+    "string-query-data": "يرغب موقع الويب أدناه في تخزين معلومات على موقعك باستخدام Gears.",
+    "string-deny-accesskey": "ف",
+    "string-query-location": "يرغب موقع الويب أدناه في الوصول إلى معلومات حول موقعك باستخدام Gears.",
+    "string-html-title": "تحذير أمان خاص بـ Gears",
+    "string-description": "Gears هو ملحق متصفح مفتوح المصدر يتيح لتطبيقات الويب إمكانية القيام بوظائفها في حالة عدم الاتصال باستخدام واجهات برمجة التطبيقات (API) التالية المعدة باستخدام جافا سكريبت:",
+    "string-database-desc": "تخزين البيانات محليًا في قاعدة بيانات ارتباطية قابلة للبحث بشكل كامل",
+    "string-allow-accesskey": "س",
+    "string-cancel": "إلغاء",
+    "string-never-allow-link": "عدم السماح لهذا الموقع مطلقًا",
+    "string-deny": "رفض",
+    "string-never-allow-link-wince": "عدم السماح بـ Gears مطلقًا",
+    "string-trust-site-accesskey": "موثوق",
+    "string-localserver-desc": "تخزين موارد التطبيقات وإتاحتها محليًا",
+    "string-location-privacy-statement": "قم بقراءة سياسة خصوصية الموقع لمعرفة كيف سيتم استخدام موقعك.",
+    "string-trust-site": "أثق في هذا الموقع. وأرجو السماح له باستخدام Gears."
+  },
+  "ml": {
+    "string-workerpool-desc": "അപ്ലിക്കേഷന്‍ പ്രതികരണം അഭിവൃദ്ധിപ്പെടുത്താന്‍ ഏകകാലികമല്ലാത്ത ജാവാസ്ക്രിപ്റ്റ് പ്രവര്‍ത്തിപ്പിക്കുക",
+    "string-allow": "അനുവദിക്കൂ",
+    "string-query-data": "താഴെക്കാണുന്ന വെബ്സൈറ്റ് നിങ്ങളുടെ കമ്പ്യൂട്ടറില് വിവരങ്ങള് Gears ഉപയോഗിച്ച് ശേഖരിക്കാനാഗ്രഹിക്കുന്നു.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "താഴെക്കാണുന്ന വെബ്സൈറ്റ് നിങ്ങളുടെ മേഖലയെക്കുറിച്ചുള്ള വിവരങ്ങള് Gears ഉപയോഗിച്ച് ആക്സസ്സ് ചെയ്യാനാഗ്രഹിക്കുന്നു.",
+    "string-html-title": "Gears സുരക്ഷാ മുന്നറിയിപ്പ്",
+    "string-description": "Gears ഒരു തുറന്ന ഉറവിട ബ്രൌസര്‍ എക്സ്റ്റന്ഷനാണ്, അത് JavaScript APIs ഉപയോഗിച്ച് വെബ് അപ്ളിക്കേഷന് ഓഫ്ലൈന് ക്രിയാത്മകത നല്കുന്നു:",
+    "string-database-desc": "പൂര്‍ണമായും തിരയാവുന്ന ആനുപാതികമായ ഡാറ്റാബേസില്‍ ഡാറ്റ സംഭരിക്കുക",
+    "string-allow-accesskey": "A",
+    "string-cancel": "റദ്ദാക്കൂ",
+    "string-never-allow-link": "ഈ സൈറ്റിനെ ഒരിക്കലും അനുവദിക്കരുത്",
+    "string-deny": "നിരസിക്കൂ",
+    "string-never-allow-link-wince": "ഇതൊരിക്കലും അനുവദിക്കരുത്",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "അപ്ലിക്കേഷന്‍ വിഭവങ്ങള്‍ പ്രാദേശികമായി സംഭരിച്ച് പ്രയോജനപ്പെടുത്തൂ",
+    "string-location-privacy-statement": "നിങ്ങളുടെ ലൊക്കേഷന് എങ്ങനെയാണ് ഉപയോഗിച്ചിരിക്കുന്നതെന്ന് കാണാന് സൈറ്റിന്റെ സ്വകാര്യതാ നയം വായിക്കുക.",
+    "string-trust-site": "ഞാനീ സൈറ്റിനെ വിശ്വസിക്കുന്നു. ഇതിനെ Gears ഉപയോഗിക്കാന് അനുവദിക്കുക."
+  },
+  "cs": {
+    "string-workerpool-desc": "Spouštět asynchronní JavaScript ke zlepšení odezvy aplikace",
+    "string-allow": "Povolit",
+    "string-query-data": "Následující webová stránka chce pomocí aplikace Gears uložit informace do vašeho počítače.",
+    "string-deny-accesskey": "Z",
+    "string-query-location": "Následující webová stránka se pomocí aplikace Gears pokouší získat informace o vaší lokalitě.",
+    "string-html-title": "Výstraha zabezpečení aplikace Gears",
+    "string-description": "Gears je rozšíření typu open source pro webové prohlížeče, které umožňuje webovým aplikacím pracovat v režimu offline pomocí následujících rozhraní API prostředí JavaScript:",
+    "string-database-desc": "Ukládat data lokálně v relační databázi, ve které lze vyhledávat",
+    "string-allow-accesskey": "P",
+    "string-cancel": "Zrušit",
+    "string-never-allow-link": "Nikdy nepovolit tyto stránky",
+    "string-deny": "Zamítnout",
+    "string-never-allow-link-wince": "Nikdy nepovolit tuto aplikaci",
+    "string-trust-site-accesskey": "d",
+    "string-localserver-desc": "Ukládat a nabízet zdroje aplikací lokálně",
+    "string-location-privacy-statement": "Přečtěte si zásady ochrany osobních údajů tohoto webu, kde zjistíte, jakým způsobem budou použity informace o vaší lokalitě.",
+    "string-trust-site": "Důvěřuji tomuto webu. Umožnit používání aplikace Gears."
+  },
+  "et": {
+    "string-workerpool-desc": "Käivita asünkroonne JavaScript, et rakenduse töö kiirust parandada",
+    "string-allow": "Luba",
+    "string-query-data": "Alljärgnev veebisait soovib Gearsi kasutades salvestada teavet teie arvutisse.",
+    "string-deny-accesskey": "K",
+    "string-query-location": "Alljärgnev veebisait soovib Gearsi kasutades juurdepääsu teabele teie asukoha kohta.",
+    "string-html-title": "Gearsi turvahoiatus",
+    "string-description": "Gears on avatud lähtekoodiga brauserilaiendus, mis võimaldab veebirakendustel võrguühenduseta töötada, kasutades järgmisi JavaScripti rakendusliideseid:",
+    "string-database-desc": "Salvestage andmed lokaalselt otsingu täisfunktsiooniga relatsioonandmebaasi",
+    "string-allow-accesskey": "L",
+    "string-cancel": "Tühista",
+    "string-never-allow-link": "Ära luba seda saiti kunagi",
+    "string-deny": "Keeldu",
+    "string-never-allow-link-wince": "Ära luba seda kunagi",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Salvestage ja kasutage rakenduse vahendeid lokaalselt",
+    "string-location-privacy-statement": "Kui soovite teada, kuidas teie asukohateavet kasutatakse, lugege saidi privaatsuspõhimõtteid.",
+    "string-trust-site": "Usaldan seda saiti. Luba sellel Gearsi kasutada."
+  },
+  "id": {
+    "string-workerpool-desc": "Menjalankan JavaScript asinkron untuk meningkatkan respons aplikasi",
+    "string-allow": "OK",
+    "string-query-data": "Website berikut ingin menyimpan informasi di komputer Anda dengan menggunakan Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Website berikut ingin mengakses informasi tentang lokasi Anda dengan menggunakan Gears.",
+    "string-html-title": "Peringatan Keamanan Gears",
+    "string-description": "Gears adalah ekstensi browser open source yang memungkinkan aplikasi web untuk menyediakan fungsionalitas offline dengan menggunakan JavaScript API:",
+    "string-database-desc": "Menyimpan data secara lokal pada basis data relasional yang dapat cari",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Batalkan",
+    "string-never-allow-link": "Jangan pernah izinkan situs ini",
+    "string-deny": "Tolak",
+    "string-never-allow-link-wince": "Jangan pernah mengizinkannya",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Menyimpan dan menggunakan sumber daya aplikasi secara lokal",
+    "string-location-privacy-statement": "Baca kebijakan privasi situs untuk melihat bagaimana lokasi Anda akan digunakan.",
+    "string-trust-site": "Saya mempercayai situs ini. Izinkan untuk menggunakan Gears."
+  },
+  "es": {
+    "string-workerpool-desc": "Ejecutar JavaScript asíncrono para mejorar la capacidad de respuesta de la aplicación",
+    "string-allow": "Permitir",
+    "string-query-data": "El siguiente sitio Web desea almacenar información en tu equipo utilizando Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "El siguiente sitio web desea acceder a información sobre tu ubicación con Gears.",
+    "string-html-title": "Advertencia de seguridad Gears",
+    "string-description": "Gears es una extensión del navegador de software libre que permite a las aplicaciones web funcionar sin conexión a través de las siguientes interfaces de programación de aplicaciones (API) de Javascript:",
+    "string-database-desc": "Almacenar datos localmente en una base de datos relacional que admite búsquedas completas",
+    "string-allow-accesskey": "P",
+    "string-cancel": "Cancelar",
+    "string-never-allow-link": "No permitir nunca este sitio",
+    "string-deny": "Denegar",
+    "string-never-allow-link-wince": "No permitirlo nunca",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Almacenar y proporcionar recursos de aplicaciones de forma local.",
+    "string-location-privacy-statement": "Lee la política de privacidad de este sitio para ver cómo se utilizará tu ubicación.",
+    "string-trust-site": "Confío en este sitio. Permitir utilizar Gears."
+  },
+  "en-GB": {
+    "string-workerpool-desc": "Run asynchronous JavaScript to improve application responsiveness",
+    "string-allow": "Allow",
+    "string-query-data": "The website below wants to store information on your computer using Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "The website below wants to access information about your location using Gears.",
+    "string-html-title": "Gears Security Warning",
+    "string-description": "Gears is an open source browser extension that enables web applications to provide offline functionality using the following JavaScript APIs:",
+    "string-database-desc": "Store data locally in a fully-searchable relational database",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Cancel",
+    "string-never-allow-link": "Never allow this site",
+    "string-deny": "Deny",
+    "string-never-allow-link-wince": "Never allow",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Store and serve application resources locally",
+    "string-location-privacy-statement": "Read the site's privacy policy to see how your location will be used.",
+    "string-trust-site": "I trust this site. Allow it to use Gears."
+  },
+  "ru": {
+    "string-workerpool-desc": "Запустить асинхронный JavaScript, чтобы ускорить работу приложения",
+    "string-allow": "Разрешить",
+    "string-query-data": "Указанный ниже веб-сайт запрашивает разрешение на хранение информации на компьютере с помощью Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Указанный ниже веб-сайт запрашивает разрешение на получение информации о местонахождении с помощью Gears.",
+    "string-html-title": "Предупреждение безопасности Gears",
+    "string-description": "Gears – это расширение для браузера с открытым исходным кодом, позволяющее веб-приложениям работать в автономном режиме с помощью следующих API JavaScript:",
+    "string-database-desc": "Сохраняйте данные на компьютере пользователя в виде реляционной БД с возможностью поиска по ним",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Отмена",
+    "string-never-allow-link": "Никогда не разрешать этому сайту",
+    "string-deny": "Запретить",
+    "string-never-allow-link-wince": "Никогда не разрешать",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Сохраняйте и размещайте ресурсы приложений на локальном компьютере",
+    "string-location-privacy-statement": "Для того чтобы узнать о том, как будет использована информация о местонахождении, ознакомьтесь с политикой конфиденциальности сайта.",
+    "string-trust-site": "Я доверяю этому сайту. Разрешить использование Gears."
+  },
+  "nl": {
+    "string-workerpool-desc": "Asynchroon JavaScript uitvoeren om ontvankelijkheid van toepassing te verbeteren",
+    "string-allow": "Toestaan",
+    "string-query-data": "De website hieronder probeert via Gears informatie op uw computer op te slaan.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "De website hieronder probeert via Gears informatie te krijgen over uw locatie.",
+    "string-html-title": "Beveiligingswaarschuwing voor Gears",
+    "string-description": "Gears is een browseruitbreiding met open broncode waarmee webtoepassingen offline functionaliteit kunnen bieden met de volgende JavaScript-API's:",
+    "string-database-desc": "Gegevens lokaal opslaan in een volledig doorzoekbare relationele database",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Annuleren",
+    "string-never-allow-link": "Deze site nooit toestaan",
+    "string-deny": "Weigeren",
+    "string-never-allow-link-wince": "Nooit toestaan",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Toepassingsbronnen lokaal opslaan en aanbieden",
+    "string-location-privacy-statement": "Lees het privacybeleid op de site voor informatie over het gebruik van uw locatie.",
+    "string-trust-site": "Ik vertrouw deze site. Sta deze site toe Gears te gebruiken."
+  },
+  "no": {
+    "string-workerpool-desc": "Kjør asynkront JavaScript for å forbedre programmets respons",
+    "string-allow": "Tillat",
+    "string-query-data": "Nettstedet nedenfor ønsker å bruke Gears til å lagre informasjon om datamaskinen.",
+    "string-deny-accesskey": "V",
+    "string-query-location": "Nettstedet nedenfor ønsker å bruke Gears for å få tilgang på informasjon om hvor du befinner deg.",
+    "string-html-title": "Sikkerhetsadvarsel for Gears",
+    "string-description": "Gears er en nettleserutvidelse med åpen kildekode som lar nettprogrammer fungere i frakoblet modus ved hjelp av følgende JavaScript API-er:",
+    "string-database-desc": "Lagre data lokalt i en fullt søkbar relasjonsdatabase",
+    "string-allow-accesskey": "T",
+    "string-cancel": "Avbryt",
+    "string-never-allow-link": "Avvis alltid dette nettstedet",
+    "string-deny": "Avvis",
+    "string-never-allow-link-wince": "Avvis alltid",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Lagre og bruk programressurser lokalt",
+    "string-location-privacy-statement": "Les retningslinjene for personvern for nettstedet for å se hvordan området brukes.",
+    "string-trust-site": "Jeg stoler på dette nettstedet. Tillat at det bruker Gears."
+  },
+  "tr": {
+    "string-workerpool-desc": "Uygulamanın daha iyi yanıt vermesi için asenkron olarak Javascript yürütür",
+    "string-allow": "İzin ver",
+    "string-query-data": "Aşağıdaki web sitesi Gears'ı kullanarak bilgisayarınızda bilgi depolamak istiyor.",
+    "string-deny-accesskey": "R",
+    "string-query-location": "Aşağıdaki web sitesi Gears'ı kullanarak konumunuzla ilgili bilgilere erişmek istiyor.",
+    "string-html-title": "Gears Güvenlik Uyarısı",
+    "string-description": "Gears, web uygulamalarının aşağıdaki JavaScript API'larını kullanarak çevrimdışı çalışmasına olanak tanıyan açık kaynaklı bir tarayıcı uzantısıdır:",
+    "string-database-desc": "Verileri tamamen aratılabilir ilişkisel veritabanında yerel olarak sakla",
+    "string-allow-accesskey": "V",
+    "string-cancel": "İptal",
+    "string-never-allow-link": "Bu siteye asla izin verme",
+    "string-deny": "Reddet",
+    "string-never-allow-link-wince": "Asla izin verme",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Uygulama kaynaklarını yerel olarak saklar ve sunar",
+    "string-location-privacy-statement": "Konumunuzun nasıl kullanılacağını öğrenmek için sitenin gizlilik politikasını okuyun.",
+    "string-trust-site": "Bu siteye güveniyorum. Gears'ı kullanmasına izin ver."
+  },
+  "lv": {
+    "string-workerpool-desc": "Palaidiet asinhrono JavaScript, lai uzlabotu lietojumprogrammas atbildēšanas iespējas",
+    "string-allow": "Atļaut",
+    "string-query-data": "Tālāk minētā vietne vēlas saglabāt informāciju par jūsu datoru, lietojot Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Tālāk minētā vietne vēlas piekļūt informācijai par jūsu atrašanās vietu, lietojot Gears.",
+    "string-html-title": "Gears drošības brīdinājums",
+    "string-description": "Gears ir atklāta pirmkoda pārlūkprogramma, ar kuru tīmekļa lietojumprogrammas nodrošina funkcionalitāti bezsaistē, izmantojot šādas JavaScript API:",
+    "string-database-desc": "Datu glabāšana lokāli pilnībā pārmeklējamā relāciju datu bāzē",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Atcelt",
+    "string-never-allow-link": "Nekad neļaut piekļūt šai vietnei",
+    "string-deny": "Aizliegt",
+    "string-never-allow-link-wince": "Nekad to neatļaut",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Lietojumprogrammu resursu saglabāšana un apkalpošana lokāli",
+    "string-location-privacy-statement": "Izlasiet vietnes konfidencialitātes politiku, lai redzētu, kā tiks izmantota jūsu atrašanās vieta.",
+    "string-trust-site": "Es uzticos šai vietnei. Atļaujiet tai lietot Gears."
+  },
+  "lt": {
+    "string-workerpool-desc": "Padidinkite programos jautrumą paleisdami asinchroninę „Javascript“",
+    "string-allow": "Leisti",
+    "string-query-data": "Žemiau nurodyta interneto svetainė bando išsaugoti informaciją apie jūsų vietovę naudojant „Gears“.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Žemiau nurodyta interneto svetainė bando prieiti prie informacijos apie jūsų vietovę naudojant „Gears“.",
+    "string-html-title": "„Gears“ įspėjimas apie saugą",
+    "string-description": "„Gears“ – tai atvirojo kodo naršyklės plėtinys, leidžiantis žiniatinklio programoms naudoti atjungties funkcines galimybes su šiais „JavaScript“ API:",
+    "string-database-desc": "Išsaugokite duomenis vietoje, sąryšinėje duomenų bazėje su veikiančia paieškos funkcija",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Atšaukti",
+    "string-never-allow-link": "Niekada neleisti šios svetainės",
+    "string-deny": "Atmesti",
+    "string-never-allow-link-wince": "Niekada neleisti",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Saugokite ir prižiūrėkite programos išteklius vietoje",
+    "string-location-privacy-statement": "Perskaitykite svetainės privatumo politiką, kad sužinotumėte, kaip bus naudojama jūsų vietovė.",
+    "string-trust-site": "Pasitikiu šia svetaine. Leisti jai naudoti „Gears“."
+  },
+  "th": {
+    "string-workerpool-desc": "เรียกใช้ JavaScript อะซิงโครนัสเพื่อปรับปรุงการตอบสนองของแอปพลิเคชัน",
+    "string-allow": "อนุญาต",
+    "string-query-data": "เว็บไซต์ต่อไปนี้ต้องการเก็บข้อมูลในคอมพิวเตอร์ของคุณโดยใช้ Gears",
+    "string-deny-accesskey": "ป",
+    "string-query-location": "เว็บไซต์ต่อไปนี้ต้องการเข้าถึงข้อมูลเกี่ยวกับตำแหน่งของคุณโดยใช้ Gears",
+    "string-html-title": "คำเตือนด้านความปลอดภัยของ Gears",
+    "string-description": "Gears เป็นส่วนขยายเบราว์เซอร์แบบโอเพ่นซอร์สที่ช่วยให้แอปพลิเคชันทางเว็บมีการทำงานแบบออฟไลน์โดยใช้ JavaScript API ต่อไปนี้:",
+    "string-database-desc": "จัดเก็บข้อมูลในตัวเครื่องในฐานข้อมูลที่สัมพันธ์กันและสามารถค้นหาได้อย่างสมบูรณ์",
+    "string-allow-accesskey": "อ",
+    "string-cancel": "ยกเลิก",
+    "string-never-allow-link": "ไม่อนุญาตไซต์นี้",
+    "string-deny": "ปฏิเสธ",
+    "string-never-allow-link-wince": "ไม่อนุญาต",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "จัดเก็บและรองรับทรัพยากรของแอปพลิเคชันในเครื่อง",
+    "string-location-privacy-statement": "อ่านนโยบายส่วนบุคคลของไซต์เพื่อดูว่าตำแหน่งของคุณจะถูกนำมาใช้อย่างไร",
+    "string-trust-site": "ฉันเชื่อถือไซต์นี้ อนุญาตให้ใช้ Gears"
+  },
+  "ro": {
+    "string-workerpool-desc": "Rulaţi JavaScript asincron, pentru a îmbunătăţi viteza de răspuns a aplicaţiei",
+    "string-allow": "Permiteţi",
+    "string-query-data": "Site-ul Web de mai jos doreşte să salveze informaţii pe computerul dvs. utilizând Gears.",
+    "string-deny-accesskey": "R",
+    "string-query-location": "Site-ul Web de mai jos doreşte să acceseze informaţii despre locaţia dvs. utilizând Gears.",
+    "string-html-title": "Avertizare de securitate Gears",
+    "string-description": "Gears este o extensie de browser cu sursă liberă care permite aplicaţiilor Web să ofere funcţionalitate offline, utilizând următoarele API-uri JavaScript:",
+    "string-database-desc": "Stocaţi date local într-o bază de date relaţională în care se pot efectua căutări complete",
+    "string-allow-accesskey": "P",
+    "string-cancel": "Anulaţi",
+    "string-never-allow-link": "Nu permiteţi niciodată acest site",
+    "string-deny": "Respingeţi",
+    "string-never-allow-link-wince": "Nu permiteţi niciodată",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Stocaţi şi livraţi local resurse ale aplicaţiei",
+    "string-location-privacy-statement": "Citiţi politica de confidenţialitate a site-ului pentru a afla cum va fi utilizată locaţia dvs.",
+    "string-trust-site": "Am încredere în acest site. Îi permit să utilizeze Gears."
+  },
+  "is": {
+    "string-workerpool-desc": "Keyra ósamstillt JavaScript til að bæta svörun forrits",
+    "string-allow": "Leyfa",
+    "string-query-data": "Vefsvæðið hér fyrir neðan vill fá aðgang að upplýsingum um tölvuna þína með því að nota Gears.",
+    "string-deny-accesskey": "F",
+    "string-query-location": "Vefsvæðið hér fyrir neðan vill fá aðgang að upplýsingum um staðsetninguna þína með því að nota Gears.",
+    "string-html-title": "Öryggisviðvörun frá Gears",
+    "string-description": "Gears er vafraviðbót með opnum kóða sem gerir vefforritum kleift að vinna án nettengingar með eftirfarandi JavaScript forritaskilum:",
+    "string-database-desc": "Geyma gögn staðbundið í töflugagnagrunni sem hægt er að leita í",
+    "string-allow-accesskey": "L",
+    "string-cancel": "Hætta við",
+    "string-never-allow-link": "Aldrei leyfa þetta svæði",
+    "string-deny": "Hafna",
+    "string-never-allow-link-wince": "Aldrei leyfa það",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Geyma og vinna staðbundið með tilföng fyrir forrit",
+    "string-location-privacy-statement": "Lestu persónuverndarstefnu svæðisins til þess að sjá hvernig staðsetningin þín verður notuð.",
+    "string-trust-site": "Ég treysti þessu vefsvæði. Það má nota Gears."
+  },
+  "fil": {
+    "string-workerpool-desc": "Magpatakbo ng hindi magkakasabay na JavaScript upang mapagbuti ang kakayahang tumugon ng application",
+    "string-allow": "Payagan",
+    "string-query-data": "Nais lagyan ng impormasyon ang website sa ibaba sa iyong computer gamit ang Mga Gear.",
+    "string-deny-accesskey": "T",
+    "string-query-location": "Nais i-access ng website sa ibaba ang impormasyon tungkol sa iyong lokasyon gamit ang mga Gear.",
+    "string-html-title": "Babala sa Seguridad ng Mga Gear",
+    "string-description": "Ang mga Gear ay isang open source browser extension na pinagana ng mga web application ng offline na pagpapaandar gamit ang sumusunod na Mga JavaScript API:",
+    "string-database-desc": "I-imbak ang data nang lokal sa isang ganap na mahahanapan na relational database",
+    "string-allow-accesskey": "P",
+    "string-cancel": "Ikansela",
+    "string-never-allow-link": "Huwag kailanman payagan ang site na ito",
+    "string-deny": "Tanggihan",
+    "string-never-allow-link-wince": "Huwag kailanman ito papayagan",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Mag-imbak at maghatid nang lokal ng mga mapagkukunan ng application",
+    "string-location-privacy-statement": "Basahin ang patakaran sa privacy ng site upang makita kung paano magagamit ang iyong lokasyon.",
+    "string-trust-site": "Pinagkakatiwalaan ko ang site na ito. Pinahihintulutan na gamitin ang mga Gear na ito."
+  },
+  "ta": {
+    "string-workerpool-desc": "பயன்பாட்டின் செயல்திறனை மேம்படுத்த ஒத்திசையாத JavaScript ஐ இயக்கவும்.",
+    "string-allow": "அனுமதி",
+    "string-query-data": "கீழே உள்ள வலைத்தளம் Gears ஐப் பயன்படுத்தி உங்கள் கணினியில் தகவலைச் சேமிக்க நினைக்கிறது.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "கீழே உள்ள வலைத்தளம் Gears ஐப் பயன்படுத்தி உங்கள் இருப்பிடம் பற்றிய தகவலை அணுக நினைக்கிறது.",
+    "string-html-title": "Gears பாதுகாப்பு எச்சரிக்கை",
+    "string-description": "Gears ஒரு ஓப்பன் சோர்ஸ் உலாவி விரிவாக்கல், பின்வரும் JavaScript APIகளைப் பயன்படுத்தி ஆஃப்லைனில் வலை பயன்பாடுகளை அணுக உதவுகிறது:",
+    "string-database-desc": "தரவுகளை உங்கள் கணினியிலேயே, முழுமையாகத் தேடப்படக்கூடிய, ரிலேஷனல் டேடாபேஸில் சேமிக்கவும்",
+    "string-allow-accesskey": "A",
+    "string-cancel": "ரத்துசெய்",
+    "string-never-allow-link": "இந்த தளத்தை எப்போதும் அனுமதிக்காதே",
+    "string-deny": "மறு",
+    "string-never-allow-link-wince": "எப்போதும் அனுமதிக்காதே",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "பயன்பாட்டின் ஆதாரங்களை உங்கள் கணினியில் சேமிக்கவும் மற்றும் வழங்கவும்",
+    "string-location-privacy-statement": "உங்கள் இருப்பிடத்தை எங்கு உபயோகப்படுத்தப்படும் என்று காண தளங்களின் தனியுரிமை கொள்கையைப் படிக்கவும்.",
+    "string-trust-site": "நான் இந்த தளத்தை நம்புகிறேன். Gears ஐப் பயன்படுத்த அனுமதிக்கவும்."
+  },
+  "fr": {
+    "string-workerpool-desc": "Exécuter JavaScript asynchrone pour améliorer le temps de réponse de l'application",
+    "string-allow": "Autoriser",
+    "string-query-data": "Le site Web ci-dessous souhaite stocker des informations sur votre ordinateur à l'aide de Google Gears.",
+    "string-deny-accesskey": "R",
+    "string-query-location": "Le site Web ci-dessous souhaite accéder aux informations sur votre emplacement à l'aide de Google Gears.",
+    "string-html-title": "Avertissement de sécurité de Google Gears",
+    "string-description": "Google Gears est une extension open source de navigateur qui permet aux applications Web de fournir des services hors ligne, grâce aux API JavaScript suivantes :",
+    "string-database-desc": "Enregistrer des données localement dans une base de données relationnelle avec une fonction de recherche",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Annuler",
+    "string-never-allow-link": "Ne jamais autoriser ce site",
+    "string-deny": "Refuser",
+    "string-never-allow-link-wince": "Ne jamais l'autoriser",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Stocker et distribuer localement des ressources de l'application",
+    "string-location-privacy-statement": "Lisez la politique de confidentialité du site pour savoir comment votre emplacement va être utilisé.",
+    "string-trust-site": "J'ai confiance en ce site. L'autoriser à utiliser Google Gears."
+  },
+  "bg": {
+    "string-workerpool-desc": "Изпълнявайте асинхронен JavaScript, за да подобрите скоростта на работа на приложенията",
+    "string-allow": "Разрешаване",
+    "string-query-data": "Уебсайтът по-долу иска да съхрани информация на компютъра ви чрез Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Уебсайтът по-долу иска да получи достъп до информацията за вашето местоположение чрез Gears.",
+    "string-html-title": "Предупреждение за защита на Gears",
+    "string-description": "Gears е разширение за браузъри с отворен код, което позволява на уеб приложенията да функционират в офлайн режим чрез следните приложни програмни интерфейси на JavaScript:",
+    "string-database-desc": "Съхранявайте информация локално в база от сродни данни с възможност за пълно търсене в тях",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Отказ",
+    "string-never-allow-link": "Не давам разрешението си за този сайт",
+    "string-deny": "Забраняване",
+    "string-never-allow-link-wince": "Не се разрешава изобщо",
+    "string-trust-site-accesskey": "й",
+    "string-localserver-desc": "Съхранявайте и използайте локално ресурсите на приложенията",
+    "string-location-privacy-statement": "Прочетете декларацията за поверителност на сайта, за да разберете как ще се използва информацията за местоположението ви.",
+    "string-trust-site": "Имам доверие на този сайт. Нека да може да използва Gears."
+  },
+  "uk": {
+    "string-workerpool-desc": "Запустіть асинхронний сценарій Javascript, щоб підвищити швидкість реагування програми",
+    "string-allow": "Дозволити",
+    "string-query-data": "Нижченаведений веб-сайт намагається зберегти інформацію на Вашому комп’ютері за допомогою Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Нижченаведений веб-сайт намагається отримати доступ до інформації про Ваше розташування за допомогою Gears.",
+    "string-html-title": "Попередження системи безпеки Gears",
+    "string-description": "Gears – це розширення веб-браузера з відкритим кодом, яке дозволяє веб-програмам працювати в автономному режимі за допомогою таких інтерфейсів API JavaScript:",
+    "string-database-desc": "Дані зберігаються локально у відповідній базі даних із повною підтримкою функцій пошуку",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Скасувати",
+    "string-never-allow-link": "Ніколи не дозволяти цьому веб-сайту",
+    "string-deny": "Відхилити",
+    "string-never-allow-link-wince": "Ніколи не дозволяти",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Локальне збереження та обслуговування програмних ресурсів",
+    "string-location-privacy-statement": "Ознайомтеся з політикою конфіденційності веб-сайту, щоб дізнатися, як буде використовуватися Ваше розташування.",
+    "string-trust-site": "Я довіряю цьому сайту. Дозволити йому використовувати Gears."
+  },
+  "hr": {
+    "string-workerpool-desc": "Pokrenite asinkroni JavaScript kako biste poboljšali odziv aplikacije",
+    "string-allow": "Dopusti",
+    "string-query-data": "Dolje navedena web-lokacija želi pomoću Gearsa pohraniti informacije na Vaše računalo.",
+    "string-deny-accesskey": "O",
+    "string-query-location": "Dolje navedena web-lokacija želi pristupiti informacijama o vašoj lokaciji pomoću Gearsa.",
+    "string-html-title": "Gearsovo upozorenje o sigurnosti",
+    "string-description": "Gears je pregledničko proširenje otvorenog izvornog koda koje web-aplikacijama omogućuje izvanmrežno funkcioniranje pomoću sljedećih API-ja za JavaScript:",
+    "string-database-desc": "Podatke spremi lokalno u potpuno pretraživoj relacijskoj bazi podataka",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Odustani",
+    "string-never-allow-link": "Nikad ne dopuštaj ovu web lokaciju",
+    "string-deny": "Odbij",
+    "string-never-allow-link-wince": "Nikad ne dopuštaj",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Izvore aplikacije pohrani i poslužuj lokalno",
+    "string-location-privacy-statement": "Pročitajte pravila o zaštiti privatnosti te web-lokacije da biste saznali kako će se koristiti Vaša lokacija.",
+    "string-trust-site": "Ovu web-lokaciju smatram pouzdanom. Dopusti joj da koristi Gears."
+  },
+  "bn": {
+    "string-workerpool-desc": "প্রয়োগ প্রতিক্রিয়া উন্নত করতে অ্যাসিঙ্ক্রোনাস জাভাস্ক্রিপ্ট রান করুন",
+    "string-allow": "মঞ্জুরি দিন",
+    "string-query-data": "নিচের ওয়েবসাইটটি আপনার কম্পিউটারে তথ্য সঞ্চয় করতে চায় Gears ব্যহার করে ׀",
+    "string-deny-accesskey": "D",
+    "string-query-location": "নিচের ওয়েবসাইটটি আপনার Gears ব্যবহার করার অবস্থানের সম্পর্কে তথ্য অ্যাকসেস করতে চায় ׀",
+    "string-html-title": "Gears নিরাপত্তা সতর্কবাণী",
+    "string-description": "Gears একটি মুক্ত স্রোত ব্রাউসার যা ওয়েব অ্যাপ্লিকেশান প্রদান করে JavaScript APIs ব্যবহার করে অফলাইন ফাংশানালিটি প্রদান করে :",
+    "string-database-desc": "একটি পূর্ণ-সন্ধানযোগ্য সম্পর্কযুক্ত ডেটাবেসে স্থানীয়ভাবে ডেটা সঞ্চয় করুন",
+    "string-allow-accesskey": "A",
+    "string-cancel": "বাতিল",
+    "string-never-allow-link": "কখনই এই সাইটটির মঞ্জুরি দেবেন না",
+    "string-deny": "অস্বীকার",
+    "string-never-allow-link-wince": "এটিকে কখনই অনুমতি দেয় না",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "প্রয়োগ সম্পদ স্থানীয়ভানে সঞ্চয় এবং পরিবেশন করুন",
+    "string-location-privacy-statement": "এই সাইটের গোপনীয়তা নীতি পড়ুন আপনার অবস্থান কি ভাবে ব্যবহার করা হবে তা দেখতে׀",
+    "string-trust-site": "আমি এই সাইটে বিশ্বাস করি׀ Gears ব্যবহার করতে অনুমতি দিন ׀"
+  },
+  "en-US": {
+    "string-workerpool-desc": "Run asynchronous JavaScript to improve application responsiveness",
+    "string-allow": "Allow",
+    "string-query-data": "The website below wants to store information on your computer using Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "The website below wants to access information about your location using Gears.",
+    "string-html-title": "Gears Security Warning",
+    "string-description": "Gears is an open source browser extension that enables web applications to provide offline functionality using the following JavaScript APIs:",
+    "string-database-desc": "Store data locally in a fully-searchable relational database",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Cancel",
+    "string-never-allow-link": "Never allow this site",
+    "string-deny": "Deny",
+    "string-never-allow-link-wince": "Never allow it",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Store and serve application resources locally",
+    "string-location-privacy-statement": "Read the site's privacy policy to see how your location will be used.",
+    "string-trust-site": "I trust this site. Allow it to use Gears."
+  },
+  "da": {
+    "string-workerpool-desc": "Kør asynkron JavaScript for at forbedre programmernes svartid",
+    "string-allow": "Tillad",
+    "string-query-data": "Nedenstående websted ønsker at gemme oplysninger på din computer ved hjælp af Gears.",
+    "string-deny-accesskey": "F",
+    "string-query-location": "Nedenstående websted ønsker at få adgang til oplysninger om din placering ved hjælp af Gears.",
+    "string-html-title": "Gears-sikkerhedsadvarsel",
+    "string-description": "Gears er en open source-browserudvidelse, som gør det muligt for webprogrammer at stille offlinefunktioner til rådighed ved hjælp af følgende JavaScript-API'er:",
+    "string-database-desc": "Gem data lokalt i en fuldt søgbar relationel database",
+    "string-allow-accesskey": "I",
+    "string-cancel": "Annuller",
+    "string-never-allow-link": "Tillad aldrig dette websted",
+    "string-deny": "Afvis",
+    "string-never-allow-link-wince": "Giv aldrig tilladelse",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Gem og servicer applikationsressourcer lokalt",
+    "string-location-privacy-statement": "Læs webstedets politik til beskyttelse af personlige oplysninger for at få mere at vide om, hvordan din placering vil blive brugt.",
+    "string-trust-site": "Jeg har tillid til dette websted. Giv tilladelse til, at det bruger Gears."
+  },
+  "fa": {
+    "string-workerpool-desc": "JavaScript ناهمزمان را برای بهبود پاسخگویی برنامه اجرا کنید.",
+    "string-allow": "مجاز",
+    "string-query-data": "وب سایت زیر می خواهد با استفاده از Gears اطلاعات را در رایانه شما ذخیره کند.",
+    "string-deny-accesskey": "رد كردن",
+    "string-query-location": "وب سایت زیر می خواهد با استفاده از Gears به اطلاعاتی در مورد موقعیت شما دست یابد.",
+    "string-html-title": "اخطار امنیتی Gears",
+    "string-description": "Gears یک پسوند مرورگر منبع باز است که با استفاده از برنامه های JavaScript زیر امکان عملکرد برنامه های وب در حالت آفلاین را فراهم می سازد:",
+    "string-database-desc": "داده ها را در یک پایگاه داده مربوطه که کاملاً قابل جستجو باشد به صورت محلی ذخیره کنید",
+    "string-allow-accesskey": "مجاز",
+    "string-cancel": "لغو",
+    "string-never-allow-link": "هرگز به این سایت اجازه داده نشود",
+    "string-deny": "رد",
+    "string-never-allow-link-wince": "هرگز اجازه داده نشود",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "منابع برنامه را به صورت محلی ذخیره و استفاده کنید",
+    "string-location-privacy-statement": "برای اطلاع از نحوه استفاده از موقعیت خود، سیاست حفظ حقوق خصوصی سایت را مطالعه کنید.",
+    "string-trust-site": "من به این سایت اعتماد دارم. به آن اجازه دهید از Gears استفاده کند."
+  },
+  "hi": {
+    "string-workerpool-desc": "अनुप्रयोग की प्रतिक्रियात्मकता में सुधार लाने के लिए एसिंक्रॉनस JavaScript चलाएँ",
+    "string-allow": "अनुमति दें",
+    "string-query-data": "नीचे दी गई वेबसाइट Gears का उपयोग कर आपके कंप्यूटर पर जानकारी संग्रहीत करना चाहती है.",
+    "string-deny-accesskey": "इंकार करें",
+    "string-query-location": "नीचे दी गई वेबसाइट Gears का उपयोग कर आपकी स्थिति के बारे में जानकारी पर पहुँचना चाहती है.",
+    "string-html-title": "Gears सुरक्षा चेतावनी",
+    "string-description": "Gears एक खुला स्रोत ब्राउज़र एक्सटेंशन है जो वेब अनुप्रयोगों को निम्नलिखित JavaScript APIs का उपयोग कर ऑफ़लाइन कार्यक्षमताएँ उपलब्ध कराने देता है:",
+    "string-database-desc": "डेटा को स्थानीय रूप से एक पूर्ण रूप से खोजने योग्य रिलेशनल डेटाबेस में संचित करें",
+    "string-allow-accesskey": "अनुमति दें",
+    "string-cancel": "रद्द करें",
+    "string-never-allow-link": "इस साइट को कभी अनुमति न दें",
+    "string-deny": "इंकार करें",
+    "string-never-allow-link-wince": "उसे कभी अनुमति न दें",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "अनुप्रयोग संसाधन स्थानीय रूप से संचित और सर्व करें",
+    "string-location-privacy-statement": "यह देखने के लिए कि आपकी स्थिति का किस प्रकार उपयोग किया जाएगा साइट की गोपनीयता नीति पढ़ें.",
+    "string-trust-site": "मैं इस साइट पर भरोसा करता हूँ. इसे Gears का उपयोग करने दें."
+  },
+  "pt-BR": {
+    "string-workerpool-desc": "Executar o JavaScript assíncrono para melhorar a resposta do aplicativo",
+    "string-allow": "Permitir",
+    "string-query-data": "O site abaixo deseja armazenar informações sobre o computador que usa o Gears.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "O site abaixo deseja acessar informações sobre o local que usa o Gears.",
+    "string-html-title": "Aviso de segurança do Gears",
+    "string-description": "O Gears é uma extensão de navegador de código aberto que permite que aplicativos da web forneçam funcionalidades off-line utilizando estas APIs em JavaScript:",
+    "string-database-desc": "Armazenar os dados em um banco de dados relacional local completamente pesquisável",
+    "string-allow-accesskey": "P",
+    "string-cancel": "Cancelar",
+    "string-never-allow-link": "Nunca permitir este site",
+    "string-deny": "Negar",
+    "string-never-allow-link-wince": "Nunca permiti-lo",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Armazenar e atender a recursos de aplicativo localmente",
+    "string-location-privacy-statement": "Leia as políticas de privacidade dos sites para ver como seu local será usado.",
+    "string-trust-site": "Este site é confiável. Permita que ele use o Gears."
+  },
+  "fi": {
+    "string-workerpool-desc": "Paranna sovellusten suorituskykyä käyttämällä asynkronista JavaScriptiä",
+    "string-allow": "Salli",
+    "string-query-data": "Alla oleva sivusto haluaa tallentaa tietoja tietokoneellesi käyttämällä Gearsia.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Alla oleva sivusto haluaa päästä sijaintitietoihisi käyttämällä Gearsia.",
+    "string-html-title": "Gears-tietoturvavaroitus",
+    "string-description": "Gears on avoimen lähdekoodin selainlaajennus, jonka avulla verkkosovelluksia voi käyttää offline-tilassa seuraavilla JavaScript API -liittymillä:",
+    "string-database-desc": "Tallenna tietoja paikallisesti täysin haettaviin relaatiotietokantoihin",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Peruuta",
+    "string-never-allow-link": "Älä koskaan salli tätä sivustoa",
+    "string-deny": "Estä",
+    "string-never-allow-link-wince": "Älä koskaan salli",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Tallenna ja käytä sovellusten resurssitiedostoja paikallisesti",
+    "string-location-privacy-statement": "Lukemalla tämän sivuston tietosuojakäytännön näet, miten sijaintiasi käytetään.",
+    "string-trust-site": "Luotan tähän sivustoon. Anna sen käyttää Gearsia."
+  },
+  "hu": {
+    "string-workerpool-desc": "Aszinkron JavaScript futtatása az alkalmazás jobb kezelhetősége érdekében",
+    "string-allow": "Engedélyezés",
+    "string-query-data": "Az alábbi webhely a Szinkron szolgáltatás használatával adatokat szeretne tárolni az Ön számítógépén.",
+    "string-deny-accesskey": "T",
+    "string-query-location": "Az alábbi webhely a Szinkron szolgáltatás használatával adatokat szeretne megtudni az Ön helyéről.",
+    "string-html-title": "Biztonsági figyelmeztetés a Szinkrontól",
+    "string-description": "A Szinkron nyílt forráskódú böngészőbővítmény, amely lehetővé teszi a webes alkalmazások számára, hogy kapcsolaton kívüli funkciókat kínáljanak a következő JavaScript API-k segítségével:",
+    "string-database-desc": "Adatok helyi tárolása egy teljes mértékben kereshető relációs adatbázisban",
+    "string-allow-accesskey": "E",
+    "string-cancel": "Mégse",
+    "string-never-allow-link": "Soha ne engedélyezze ezt a webhelyet",
+    "string-deny": "Tiltás",
+    "string-never-allow-link-wince": "Soha ne engedélyezze",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Alkalmazás-erőforrások helyi tárolása és kiszolgálása",
+    "string-location-privacy-statement": "Olvassa el a webhely adatvédelmi szabályzatát, hogy megtudja, hogyan kezelik a felhasználók helyét.",
+    "string-trust-site": "Megbízom ebben a webhelyben. Használhatja a Szinkron szolgáltatást."
+  },
+  "ja": {
+    "string-workerpool-desc": "Asynchronous JavaScript により、アプリケーションのレスポンスを向上",
+    "string-allow": "許可",
+    "string-query-data": "下記のウェブサイトは、Gears を使用してパソコンに情報を保存します。",
+    "string-deny-accesskey": "D",
+    "string-query-location": "下記のウェブサイトは、Gears を使用して場所に関する情報にアクセスします。",
+    "string-html-title": "Gears のセキュリティ警告",
+    "string-description": "Gears は、ウェブ アプリケーションの機能をオフラインで使えるようにするオープン ソースのブラウザ拡張ツールです。使用している JavaScript API は、次のとおりです。",
+    "string-database-desc": "検索できるローカルのリレーショナル データベースにデータを保存",
+    "string-allow-accesskey": "A",
+    "string-cancel": "キャンセル",
+    "string-never-allow-link": "このサイトを常に拒否する",
+    "string-deny": "拒否",
+    "string-never-allow-link-wince": "常に拒否する",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "アプリケーション リソースをクライアント PC 側で格納して提供",
+    "string-location-privacy-statement": "場所の使用方法については、サイトのプライバシー ポリシーをご覧ください。",
+    "string-trust-site": "このサイトを信頼します。Gears の使用を許可します。"
+  },
+  "he": {
+    "string-workerpool-desc": "הפעל Javascript אסינכרוני כדי לשפר את היענות היישום",
+    "string-allow": "אפשר",
+    "string-query-data": "אתר האינטרנט שלהלן מבקש לאחסן באמצעות Gears מידע במחשב שלך.",
+    "string-deny-accesskey": "ד",
+    "string-query-location": "אתר האינטרנט שלהלן מבקש גישה באמצעות Gears למידע לגבי המיקום שלך.",
+    "string-html-title": "אזהרת אבטחה של Gears",
+    "string-description": "Gears הוא הרחבת דפדפן בעלת קוד פתוח. ההרחבה מאפשרת ליישומי אינטרנט לספק פונקציונליות באופן לא מקוון באמצעות ממשקי JavaScript API הבאים:",
+    "string-database-desc": "אחסן מידע באופן מקומי במסד נתונים טבלאי הניתן לחיפוש במלואו",
+    "string-allow-accesskey": "א",
+    "string-cancel": "ביטול",
+    "string-never-allow-link": "לעולם אין לאפשר אתר זה",
+    "string-deny": "דחה",
+    "string-never-allow-link-wince": "לעולם אל תאפשר שירות זה",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "אחסן משאבי יישומים והגש אותם באופן מקומי",
+    "string-location-privacy-statement": "עיין בהצהרת הפרטיות של האתר כדי לראות את אופן השימוש במיקומך.",
+    "string-trust-site": "אני נותן אמון באתר זה. אפשר לו להשתמש ב-Gears."
+  },
+  "te": {
+    "string-workerpool-desc": "అప్లికేషన్ ప్రతిస్పందనా స్వభావాన్ని పెంచడానికి అసమకాలీకరించిన జావాస్క్రిప్ట్‌ను రన్ చెయ్యండి",
+    "string-allow": "అనుమతించు",
+    "string-query-data": "Gears ఉపయోగించి ఈ క్రింది నున్న వెబ్సైట్ మీ కంప్యుటర్లో సమాచారాన్ని నిల్వ చెయ్యలనుకుంటుంది.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Gears ఉపయోగించి ఈ క్రింది నున్న వెబ్సైట్ మీ స్థానం గురించి సమాచారాన్ని ఆక్సెస్ చెయ్యలనుకుంటుంది.",
+    "string-html-title": "Gears భద్రత హెచ్చెరిక",
+    "string-description": "Gears అనేది ఒక ఓపెన్ సోర్స్ బ్రౌజర్ ఎక్స్ టెన్షన్. ఇది ఈ క్రింది JavaScript API లని ఉపయోగించి వెబ్ అప్లికేషన్ల కోసం ఆఫ్లైన్ ఉపయోగాన్ని ఎనేబుల్ చేస్తుంది:",
+    "string-database-desc": "డేటాను స్థానికంగా శోధించదగిన సంబంధిత డేటాబేస్‌లో నిల్వ చెయ్యండి",
+    "string-allow-accesskey": "A",
+    "string-cancel": "రద్దు చెయ్యి",
+    "string-never-allow-link": "ఈ సైట్‌ను ఎప్పుడూ అనుమతించవద్దు",
+    "string-deny": "తిరస్కరించు",
+    "string-never-allow-link-wince": "దీనిని ఎప్పుడూ అనుమతించవద్దు",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "అప్లికేషన్ రిసోర్సులను స్థానికంగా నిల్వ చేసి, అందించు",
+    "string-location-privacy-statement": "ఈ సైట్ యొక్క గోప్యతా విధానాన్ని చదివి మీ స్థానం ఎలా ఉపయోగించబడుతుందో తెలుసుకోండి .",
+    "string-trust-site": "నేను ఈ సైట్ని నమ్ముతున్నాను. దానిని Gears ఉపయోగించడానికి అనుమతించు."
+  },
+  "pt-PT": {
+    "string-workerpool-desc": "Executar Javascript assíncrono para melhorar a capacidade de resposta das aplicações",
+    "string-allow": "Permitir",
+    "string-query-data": "O Web site abaixo deseja armazenar informação no seu computador através do Gears.",
+    "string-deny-accesskey": "E",
+    "string-query-location": "O Web site abaixo deseja aceder a informação acerca da sua localização através do Gears.",
+    "string-html-title": "Aviso de segurança do Gears",
+    "string-description": "O Gears é uma extensão de browser de software livre que permite às aplicações Web fornecerem a funcionalidade off-line através da utilização das seguintes APIs de JavaScript:",
+    "string-database-desc": "Armazenar dados localmente numa base de dados relacional totalmente pesquisável",
+    "string-allow-accesskey": "P",
+    "string-cancel": "Cancelar",
+    "string-never-allow-link": "Nunca permitir este site",
+    "string-deny": "Negar",
+    "string-never-allow-link-wince": "Nunca permitir",
+    "string-trust-site-accesskey": "c",
+    "string-localserver-desc": "Armazenar e servir localmente recursos da aplicação",
+    "string-location-privacy-statement": "Leia a política de privacidade do site para saber como a sua localização vai ser usada.",
+    "string-trust-site": "Confio neste site. Permitir que utilize o Gears."
+  },
+  "sr": {
+    "string-workerpool-desc": "Покрените асинхрони JavaScript како бисте побољшали реакције апликације",
+    "string-allow": "Дозволи",
+    "string-query-data": "Веб сајт испод жели да ускладишти информације на вашем рачунару помоћу услуге Gears.",
+    "string-deny-accesskey": "X",
+    "string-query-location": "Веб сајт испод жели да приступи информацијама о вашој локацији помоћу услуге Gears.",
+    "string-html-title": "Gears безбедносно упозорење",
+    "string-description": "Gears је проширење прегледача отвореног кода којe веб апликацијама омогућава функционисање ван мреже помоћу следећих JavaScript API-ја:",
+    "string-database-desc": "Складиштите податке локално у потпуно претраживој релационој бази података",
+    "string-allow-accesskey": "M",
+    "string-cancel": "Откажи",
+    "string-never-allow-link": "Никада не дозволи овом сајту",
+    "string-deny": "Забрани приступ",
+    "string-never-allow-link-wince": "Никада не дозволи",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Складиштите и пружајте ресурсе апликације локално",
+    "string-location-privacy-statement": "Прочитајте политику приватности сајта да бисте видели како ће се ваша локација користити.",
+    "string-trust-site": "Имам поверења у овај сајт. Дозволи му да користи Gears."
+  },
+  "ko": {
+    "string-workerpool-desc": "비동기 자바스크립트를 실행하여 응용 프로그램 응답성 개선",
+    "string-allow": "허용",
+    "string-query-data": "다음 웹사이트가 Gears를 사용하여 컴퓨터에 정보를 저장하려고 합니다.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "다음 웹사이트가 Gears를 사용하여 사용자의 위치 정보에 액세스하려고 합니다.",
+    "string-html-title": "Gears 보안경고",
+    "string-description": "Gears는 다음과 같은 자바스크립트 API를 통해 오프라인에서 웹 애플리케이션을 사용할 수 있게 해 주는 오픈 소스 브라우저 확장 프로그램입니다.",
+    "string-database-desc": "완벽한 검색이 가능한 관계형 데이터베이스의 형태로 데이터를 로컬 컴퓨터에 저장",
+    "string-allow-accesskey": "A",
+    "string-cancel": "취소",
+    "string-never-allow-link": "사이트를 허용하지 않음",
+    "string-deny": "금지",
+    "string-never-allow-link-wince": "허용하지 않음",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "로컬 컴퓨터에서 애플리케이션 리소스 저장 및 사용",
+    "string-location-privacy-statement": "위치가 사용되는 방법을 보려면 사이트의 개인정보 보호정책을 읽어 보세요.",
+    "string-trust-site": "이 사이트를 신뢰합니다. Gears 사용을 허용합니다."
+  },
+  "sv": {
+    "string-workerpool-desc": "Kör asynkron JavaScript som förbättrar programmets responsivitet",
+    "string-allow": "Tillåt",
+    "string-query-data": "Webbplatsen nedan vill ha tillgång till information om din plats som använder Gears.",
+    "string-deny-accesskey": "E",
+    "string-query-location": "Webbplatsen nedan will ha tillgång till information om din plats som använder Gears.",
+    "string-html-title": "Säkerhetsvarning i Gears",
+    "string-description": "Gears är ett webbläsartillägg med öppen källkod som gör att webbprogram kan ge offlinefunktionalitet med följande JavaScript-API:er:",
+    "string-database-desc": "Spara data lokalt i en helt sökbar relationsdatabas",
+    "string-allow-accesskey": "T",
+    "string-cancel": "Avbryt",
+    "string-never-allow-link": "Tillåt aldrig den här webbplatsen",
+    "string-deny": "Neka",
+    "string-never-allow-link-wince": "Tillåt aldrig",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Spara och hantera programresurser lokalt",
+    "string-location-privacy-statement": "Läs webbplatsens sekretesspolicy för att se hur din plats kommer att användas.",
+    "string-trust-site": "Jag litar på den här platsen Tillåt den använda Gears."
+  },
+  "ur": {
+    "string-workerpool-desc": "اپلی کیشن کا رد عمل بہتر بنانے کیلئے مطابقت پذیر جاوا اسکرپٹ چلائیں",
+    "string-allow": "اجازت دیں",
+    "string-query-data": "ذیل کی ویب سائٹ گیئرز کا استعمال کرتے ہوئے آپ کے کمپیوٹر پر معلومات جمع کرنا چاہتی ہے۔",
+    "string-deny-accesskey": "D",
+    "string-query-location": "ذیل کی ویب سائٹ گیئرز کا استعمال کرتے ہوئے آپ کے مقام سے متعلق معلومات تک رسائی حاصل کرنا چاہتی ہے۔",
+    "string-html-title": "گیئرز کی تحفظاتی تنبیہ",
+    "string-description": "گیئرز براؤزر کی ایک کھلے وسائل والی توسیع ہے جو ویب اطلاقات کو درج ذیل جاوا اسکرپٹ اطلاقات کا استعمال کرتے ہوئے آف لائن کارکردگی فراہم کرنے کے قابل بناتا ہے:",
+    "string-database-desc": "ایک پوری طرح قابل تلاش متعلقہ ڈیٹا بیس",
+    "string-allow-accesskey": "A",
+    "string-cancel": "منسوخ",
+    "string-never-allow-link": "کبھی بھی اس سائٹ کی اجازت نہ دیں۔",
+    "string-deny": "مسترد",
+    "string-never-allow-link-wince": "کبھی بھی اس کی اجازت نہ دیں",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "اطلاقی وسائل کو مقامی طور پر جمع اور استعمال کریں",
+    "string-location-privacy-statement": "یہ دیکھنے کیلئے کہ آپ کے جائے وقوع کا استعمال کس طرح کیا جائے گا، اس سائٹ کی رازداری کی پالیسی کو پڑھیں۔",
+    "string-trust-site": "میں اس سائٹ پر اعتبار کرتا ہوں۔ اسے گیئرز استعمال کرنے کی اجازت دیں۔"
+  },
+  "sk": {
+    "string-workerpool-desc": "Spustiť asynchrónny Javascript na zlepšenie reakcie aplikácie",
+    "string-allow": "Povoliť",
+    "string-query-data": "Nižšie uvedená webová lokalita chce použiť rozšírenie Gears na uchovávanie informácií vo vašom počítači.",
+    "string-deny-accesskey": "K",
+    "string-query-location": "Nižšie uvedená webová lokalita chce použiť rozšírenie Gears na získanie prístupu k informáciám o vašom umiestnení.",
+    "string-html-title": "Varovanie zabezpečenia rozšírenia Gears",
+    "string-description": "Gears je rozšírenie prehliadača typu open source, ktoré umožňuje webovým aplikáciám poskytovať funkcie v režime offline prostredníctvom nasledujúcich rozhraní JavaScript API:",
+    "string-database-desc": "Uložiť informácie lokálne v relačnej databáze, s možnosťou úplného prehľadávania",
+    "string-allow-accesskey": "P",
+    "string-cancel": "Zrušiť",
+    "string-never-allow-link": "Nikdy nepovoliť túto lokalitu",
+    "string-deny": "Zakázať",
+    "string-never-allow-link-wince": "Nikdy nepovoliť",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Uložiť a sprístupniť zdroje aplikácie lokálne",
+    "string-location-privacy-statement": "Ak chcete zistiť, na aké účely sa použijú informácie o vašom umiestnení, prečítajte si zásady ochrany osobných údajov pre túto lokalitu.",
+    "string-trust-site": "Považujem túto lokalitu za dôveryhodnú. Povoliť, aby mohla používať rozšírenie Gears."
+  },
+  "zh-CN": {
+    "string-workerpool-desc": "运行异步 JavaScript 以提高应用程序响应速度",
+    "string-allow": "允许",
+    "string-query-data": "下列网站要使用 Gears 在您的计算机上存储信息。",
+    "string-deny-accesskey": "D",
+    "string-query-location": "下列网站要使用 Gears 访问有关您的位置的信息。",
+    "string-html-title": "Gears 安全警告",
+    "string-description": "Gears 是一种开放源代码的浏览器扩展程序，通过该扩展程序网络应用程序可以使用以下 JavaScript API 提供脱机功能：",
+    "string-database-desc": "在本地将数据存储到可全面搜索的关系数据库中",
+    "string-allow-accesskey": "A",
+    "string-cancel": "取消",
+    "string-never-allow-link": "永不允许该网站",
+    "string-deny": "拒绝",
+    "string-never-allow-link-wince": "永不允许",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "在本地存储和提供应用程序资源",
+    "string-location-privacy-statement": "阅读网站的隐私政策，了解该网站会如何使用您的位置。",
+    "string-trust-site": "我信任该网站。 允许其使用 Gears。"
+  },
+  "de": {
+    "string-workerpool-desc": "Asynchrones JavaScript zum Verbessern der Anwendungsreaktion ausführen",
+    "string-allow": "Zulassen",
+    "string-query-data": "Die untenstehende Website möchte über Gears Informationen auf Ihrem Computer speichern.",
+    "string-deny-accesskey": "V",
+    "string-query-location": "Die untenstehende Website fordert über Gears Zugriffsinformationen zu Ihrem Speicherort an.",
+    "string-html-title": "Gears-Sicherheitswarnung",
+    "string-description": "Gears ist eine Open-Source-Browsererweiterung, mit der Webanwendungen unter Verwendung der folgenden JavaScript-APIs Offline-Funktionen anbieten können:",
+    "string-database-desc": "Daten lokal in einer voll durchsuchbaren relationalen Datenbank speichern",
+    "string-allow-accesskey": "Z",
+    "string-cancel": "Abbrechen",
+    "string-never-allow-link": "Diese Website nie zulassen",
+    "string-deny": "Verweigern",
+    "string-never-allow-link-wince": "Nie zulassen",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Anwendungsressourcen lokal speichern und bereitstellen",
+    "string-location-privacy-statement": "Lesen Sie die Datenschutzrichtlinien für die Site, um zu erfahren, wie Ihr Speicherort verwendet wird.",
+    "string-trust-site": "Ich vertraue dieser Site. Verwendung von Gears zulassen."
+  },
+  "pl": {
+    "string-workerpool-desc": "Uruchom asynchroniczny skrypt JavaScript, aby usprawnić działanie aplikacji",
+    "string-allow": "Zezwalaj",
+    "string-query-data": "Poniższa witryna internetowa chce przechowywać informacje na Twoim komputerze za pośrednictwem wtyczki Gears.",
+    "string-deny-accesskey": "P",
+    "string-query-location": "Poniższa witryna internetowa chce uzyskać dostęp do informacji o Twojej lokalizacji za pośrednictwem wtyczki Gears.",
+    "string-html-title": "Ostrzeżenie wtyczki Gears dotyczące zabezpieczeń",
+    "string-description": "Wtyczka Gears to rozszerzenie przeglądarki typu open source, które umożliwia aplikacjom internetowym funkcjonowanie w trybie offline przy użyciu następujących interfejsów API języka JavaScript:",
+    "string-database-desc": "Przechowuj dane lokalnie w relacyjnej bazie danych z możliwością pełnego przeszukiwania",
+    "string-allow-accesskey": "Z",
+    "string-cancel": "Anuluj",
+    "string-never-allow-link": "Nigdy nie zezwalaj na tę witrynę",
+    "string-deny": "Odmów",
+    "string-never-allow-link-wince": "Nigdy nie zezwalaj",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Przechowuj zasoby aplikacji i obsługuj je lokalnie",
+    "string-location-privacy-statement": "Zapoznaj się z polityką prywatności witryny, aby zobaczyć, do czego zostaną wykorzystane informacje o Twojej lokalizacji.",
+    "string-trust-site": "Ufam tej witrynie. Zezwól jej na korzystanie z wtyczki Gears."
+  },
+  "ms": {
+    "string-workerpool-desc": "Jalankan JavaScript tak segerak untuk meningkatkan kesambutan aplikasi",
+    "string-allow": "Benarkan",
+    "string-query-data": "Laman web di bawah mahu menyimpan maklumat pada komputer anda dengan menggunakan Gear.",
+    "string-deny-accesskey": "L",
+    "string-query-location": "Laman web di bawah mahu mengakses maklumat mengenai lokasi anda dengan menggunakan Gear.",
+    "string-html-title": "Amaran Keselamatan Gear",
+    "string-description": "Gear adalah lanjutan penyemak imbas sumber terbuka yang membolehkan aplikasi web untuk menyediakan kefungsian luar talian menggunakan JavaScript APIs yang berikut:",
+    "string-database-desc": "Simpan data setempat dalam pangkalan data hubungan boleh cari sepenuhnya",
+    "string-allow-accesskey": "N",
+    "string-cancel": "Batal",
+    "string-never-allow-link": "Jangan sekali-kali benarkan laman ini",
+    "string-deny": "Tolak",
+    "string-never-allow-link-wince": "Jangan sekali-kali benarkannya",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Simpan dan berikan sumber aplikasi setempat",
+    "string-location-privacy-statement": "Baca dasar privasi tapak untuk melihat bagaimana lokasi anda akan digunakan.",
+    "string-trust-site": "Saya percaya tapak ini. Benarkannya untuk menggunakan Gear."
+  },
+  "sl": {
+    "string-workerpool-desc": "Zaženi asinhroni javascript, da bo odzivnost aplikacij boljša",
+    "string-allow": "Dovoli",
+    "string-query-data": "To spletno mesto želi shraniti informacije o računalniku, v katerem se uporablja program Gears.",
+    "string-deny-accesskey": "R",
+    "string-query-location": "To spletno mesto želi omogočiti dostop do informacij o lokaciji, ki uporablja program Gears.",
+    "string-html-title": "Varnostno opozorilo programa Gears",
+    "string-description": "Gears je odprtokodna razširitev brskalnika, ki z uporabo teh programskih vmesnikov z JavaScriptom omogoča delovanje spletnih programov brez povezave:",
+    "string-database-desc": "Lokalno shranjevanje podatkov v relacijsko podatkovno zbirko, po kateri je mogoče iskati",
+    "string-allow-accesskey": "A",
+    "string-cancel": "Prekliči",
+    "string-never-allow-link": "Nikoli ne dovoli tega spletnega mesta",
+    "string-deny": "Zavrni",
+    "string-never-allow-link-wince": "Nikoli ne dovoli",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "Lokalno shranjevanje in omogočanje virov za aplikacije",
+    "string-location-privacy-statement": "Če želite izvedeti, kako bo uporabljena vaša lokacija, preberite pravilnik o zasebnosti, ki velja za to spletno mesto.",
+    "string-trust-site": "Temu spletnemu mestu zaupam. Dovoli mu uporabo programa Gears."
+  },
+  "mr": {
+    "string-workerpool-desc": "अनुप्रयोगाच्या प्रतिसादात्मकतेत सुधारणा करण्यासाठी असिंक्रोनस JavaScript चालवा",
+    "string-allow": "अनुमती द्या",
+    "string-query-data": "खालील वेबसाइट Gears वापरुन आपल्या संगणकावर माहिती संचयित करू इच्छित आहे.",
+    "string-deny-accesskey": "D",
+    "string-query-location": "खालील वेबसाइट Gears वापरुन आपल्या स्थानाबद्दलच्या माहितीमध्ये प्रवेश करू इच्छिते.",
+    "string-html-title": "Gears सुरक्षा चेतावणी",
+    "string-description": "Gears एक ओपन सोर्स ब्राउझर विस्तार आहे जो ऑफलाइन कार्यक्षमता प्रदान करण्यासाठी खालील JavaScript APIs वापरुन वेब अनुप्रयोग सक्षम करतोः",
+    "string-database-desc": "संपूर्ण-शोध करण्यायोग्य संबंधित डेटाबेस मध्ये स्थानिक रुपात डेटा संग्रहित करा",
+    "string-allow-accesskey": "A",
+    "string-cancel": "रद्द करा",
+    "string-never-allow-link": "या साइटला कधीही अनुमती देऊ नये",
+    "string-deny": "अमान्य करा",
+    "string-never-allow-link-wince": "यास कधीही परवानगी देऊ नये",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "अनुप्रयोग स्रोतांना स्थानिक रुपात संग्रहित आणि सर्व्ह करा",
+    "string-location-privacy-statement": "आपले स्थान कसे वापरले जाते हे जाणून घेण्यासाठी साउटचे गोपनीयता धोरण वाचा.",
+    "string-trust-site": "माझा या साइटवर विश्वास आहे. तिला Gears वापरण्याची परवानगी द्या."
+  },
+  "or": {
+    "string-workerpool-desc": "ଅନୁପ୍ରୟୋଗ ଶୀଘ୍ର ପ୍ରତିକ୍ରିୟା କରିବାକୁ ଏକ ଏସିଂକ୍ରୋନିୟସ୍ JavaScript ଚଲାନ୍ତୁ",
+    "string-allow": "ଅନୁମତି",
+    "string-query-data": "Gears ବ୍ୟବହାର କରି ନିମ୍ନ ୱେବସାଇଟ୍ ଆପଣଙ୍କ କମ୍ପ୍ୟୁଟରରେ ସୂଚନା ଗଚ୍ଛିତ କରିବାକୁ ଚାହୁଁଛି |",
+    "string-deny-accesskey": "D",
+    "string-query-location": "Gears ବ୍ୟବହାର କରି ନିମ୍ନ ୱେବସାଇଟ୍ ଆପଣଙ୍କ ଅବସ୍ଥାନ ସମ୍ବନ୍ଧରେ ସୂଚନା ଆସେସ୍ କରିବାକୁ ଚାହୁଁଛି |",
+    "string-html-title": "Gears ସୁରକ୍ଷା ଚେତାବନୀ",
+    "string-description": "Gears ଏକ ଖୋଲା ଉତ୍ସ ବ୍ରାଉଜର୍ ବିସ୍ତାର , ଯାହା ଅଫଲାଇନ୍ କାର୍ଯ୍ୟକ୍ଷମତା ପ୍ରଦାନ କରିବାକୁ ନିମ୍ନ JavaScript APIs ବ୍ୟବହାର କରି ୱେବ୍ ଅନୁପ୍ରୟୋଗ ସକ୍ଷମ କରେ",
+    "string-database-desc": "ପୂର୍ଣ୍ଣ-ସନ୍ଧାନ ଯୋଗ୍ୟ ସମ୍ପର୍କିତ ଡାଟାବେସ୍‌‌ରେ ଡାଟା ସ୍ଥାନୀୟ ଭାବରେ ଗଚ୍ଛିତ କରନ୍ତୁ",
+    "string-allow-accesskey": "A",
+    "string-cancel": "ବାତିଲ୍",
+    "string-never-allow-link": "କେବେ ମଧ୍ୟ ଏହି ସାଇଟ୍‌କୁ ଅନୁମତି କରନ୍ତୁ ନାହିଁ",
+    "string-deny": "ଅଗ୍ରାହ୍ୟ",
+    "string-never-allow-link-wince": "ଏହାକୁ କେବେ ମଧ୍ୟ ଅନୁମତି କରନ୍ତୁ ନାହିଁ",
+    "string-trust-site-accesskey": "t",
+    "string-localserver-desc": "ଅନୁପ୍ରୟୋଗ ଉତ୍ସଗୁଡିକୁ ସ୍ଥାନୀୟ ଭାବରେ ଗଚ୍ଛିତ ଏବଂ ପରିବେଷିତ କରନ୍ତୁ",
+    "string-location-privacy-statement": "ଆଣଙ୍କର ଅବସ୍ଥାନ କିପରି ବ୍ୟବହୃତ ହେବ ଦେଖିବାକୁ ଏହି ସାଇଟର ଗୋପନୀୟତା ନୀତି ପଢନ୍ତୁ |",
+    "string-trust-site": "ମୁଁ ଏହି ସାଇଟକୁ ବିଶ୍ବାସ କରେ,ଏହାକୁ Gears ବ୍ୟବହାର କରିବାକୁ ଅନୁମତି ପ୍ରଦାନ କରନ୍ତୁ |"
+  }
+};
+
+// Insert all localized strings for the specified locale into the div or span
+// matching the id.
+function loadI18nStrings(locale) {
+  var rtl_languages = ['he', 'ar', 'fa', 'ur'];
+
+  if (!locale) {
+    locale = 'en-US';
+  } else {
+    if (!localized_strings[locale]) {
+      // For xx-YY locales, determine what the base locale is.
+      var base_locale = locale.split('-')[0];
+
+      if (localized_strings[base_locale]) {
+        locale = base_locale;
+      } else {
+        locale = 'en-US';
+      }
+    }
+  }
+
+  var strings = localized_strings[locale];
+
+  // If the specified locale is an right to left language, change the direction
+  // of the page.
+  for (index in rtl_languages) {
+    if (locale == rtl_languages[index]) {
+      document.body.dir = "rtl";
+      break;
+    }
+  }
+
+  // Copy each string to the proper UI element, if it exists.
+  for (name in strings) {
+    if (name == 'string-html-title') {
+      if (!browser.ie_mobile) {
+        // IE Mobile dialogs don't have a title bar.
+        // Furthermore, document.title is undefined in IE Mobile on WinMo 5.
+        // It's also impossible to add properties to the window object.
+        // (see http://code.google.com/apis/gears/mobile.html)
+        document.title = strings[name];
+      }
+    } else {
+      var element = dom.getElementById(name);
+      if (element) {
+        element.innerHTML = strings[name];
+      }
+    }
+  }
+}
+
+
+</script>
+
+<script>
+  var debug = false;
+  initDialog();
+
+  initWarning();
+
+  setButtonLabel("string-allow", "allow-button", "string-allow-accesskey");
+  setButtonLabel("string-deny", "deny-button", "string-deny-accesskey");
+
+  // Highlight the access key in the 'trust' text.
+  // TODO(zork): Cause this to be based on the localized string, and figure out
+  // how to programmatically set the access key for the checkbox.
+  var trustTextElement = dom.getElementById("string-trust-site");
+  text = trustTextElement.innerHTML;
+  text = text.replace(/t/, "<span class='accesskey'>t</span>");
+  trustTextElement.innerHTML = text;
+
+  if (!browser.ie_mobile) {
+    CustomButton.initializeAll();
+  }
+
+  if (browser.ie_mobile) {
+    var allowText = dom.getElementById("string-allow");
+    if (allowText) {
+      window.pie_dialog.SetButton(allowText.innerText, "allowAccessPermanently();");
+      window.pie_dialog.SetButtonEnabled(true);
+    }
+    var cancelText = dom.getElementById("string-cancel");
+    if (cancelText) {
+      window.pie_dialog.SetCancelButton(cancelText.innerText);
+    }
+    // Focus allow button by default.
+    dom.getElementById('allow-button').focus();
+  }
+
+  function setTextContent(elem, content) {
+    if (isDefined(typeof document.createTextNode)) {
+      elem.appendChild(document.createTextNode(content)); 
+    } else {
+      elem.innerText = content;
+    }
+  }
+
+  function showHelp(show) {
+    if (browser.ie_mobile) {
+      var elemSettings = dom.getElementById("permissions-settings"); 
+      var elemHelp = dom.getElementById("permissions-help"); 
+      if (show) {
+        elemSettings.style.display = 'none';
+        elemHelp.style.display = 'block';
+        window.pie_dialog.SetButton("Back", "showHelp(false);");
+        window.pie_dialog.SetButtonEnabled(true);
+      } else {
+        elemSettings.style.display = 'block';
+        elemHelp.style.display = 'none';
+        window.pie_dialog.SetButton("Allow", "allowAccessPermanently();");
+      }
+      window.pie_dialog.ResizeDialog();
+    } else {
+      window.open('http://gears.google.com/?action=help');
+    }
+  }
+
+  function initWarning() {
+    var args;
+    if (debug) {
+      // Handy for debugging layout:
+      args = {
+        locale: "en-US",
+        origin: "http://www.google.com",
+        dialogType: "localData",
+        customIcon: "http://google-gears.googlecode.com/svn/trunk/gears/test/manual/shortcuts/32.png",
+        customName: "My Application",
+        customMessage: "Press the button to enable my application to run offline!"
+      };
+    } else {
+      // The arguments to this dialog are a single string, see PermissionsDialog
+      args = getArguments();
+    }
+
+    loadI18nStrings(args.locale);
+    var origin = args['origin'];  // required parameter
+    var dialogType = args['dialogType'];  // required parameter
+    var customIcon = args['customIcon'];
+    var customName = args['customName'];
+    var customMessage = args['customMessage'];
+
+    var elem;
+
+    elem = dom.getElementById("icon");
+    if (dialogType == "localData") {
+      elem = dom.getElementById("icon-local-data");
+      elem.style.display = "block";
+      elem = dom.getElementById("local-data");
+      elem.style.display = "block";
+    } else if (dialogType == "locationData") {
+      elem = dom.getElementById("icon-locationdata");
+      elem.style.display = "block";
+      elem = dom.getElementById("location-data");
+      elem.style.display = "block";
+      elem = dom.getElementById("string-location-privacy-statement");
+      elem.style.display = "block";
+    }
+
+    if (!customName) {
+      elem = dom.getElementById("origin-only");
+      elem.style.display = "block";
+      if (browser.ie_mobile) {
+        elem.innerHTML = wrapDomain(origin);
+      } else {
+        setTextContent(elem, origin);
+      }
+
+      // When all we have is the origin, we lay it out centered because that
+      // looks nicer. This is also what the original dialog did, which did not
+      // support the extra name, icon, or message.
+      if (!browser.ie_mobile && !customIcon && !customMessage) {
+        elem.setAttribute("align", "center");
+      }
+    } else {
+      elem = dom.getElementById("origin");
+      elem.style.display = "block";
+      setTextContent(elem, origin);
+    }
+
+    if (customIcon) {
+      elem = dom.getElementById("custom-icon");
+      elem.style.display = "inline";
+      elem.height = 32;
+      elem.width = 32;
+      loadImage(elem, customIcon);
+    }
+
+    if (customName) {
+      elem = dom.getElementById("custom-name");
+      elem.style.display = "block";
+      setTextContent(elem, customName);
+    }
+
+    if (customMessage) {
+      elem = dom.getElementById("custom-message");
+      elem.style.display = "block";
+      setTextContent(elem, customMessage);
+    }
+
+    if (!browser.ie_mobile) {
+      // Set up the checkbox to toggle the enabledness of the Allow button.
+      dom.getElementById("unlock").onclick = updateAllowButtonEnabledState;
+      dom.getElementById("checkbox-row").style.display = 'block';
+      updateAllowButtonEnabledState();
+    }
+    resizeDialogToFitContent();
+  }
+
+
+  function updateAllowButtonEnabledState() {
+    var allowButton = dom.getElementById("allow-button");
+    var unlockCheckbox = dom.getElementById("unlock");
+
+    if (unlockCheckbox.checked) {
+      enableButton(allowButton);
+    } else {
+      disableButton(allowButton);
+    }
+  }
+
+  // Note: The structure that the following functions pass is coupled to the
+  // code in PermissionsDialog that processes it.
+  function allowAccessPermanently() {
+      saveAndClose({"allow": true, "permanently": true});
+  }
+
+  function denyAccessTemporarily() {
+    saveAndClose({"allow": false, "permanently": false});
+  }
+
+  function denyAccessPermanently() {
+    saveAndClose({"allow": false, "permanently": true });
+  }
+</script>
+</html>

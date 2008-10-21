@@ -1,0 +1,2907 @@
+﻿<!DOCTYPE html>
+
+<!--
+Copyright 2007, The Android Open Source Project
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, 
+    this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+ 3. Neither the name of Google Inc. nor the names of its contributors may be
+    used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<html>
+<head>
+  <style type="text/css">
+
+
+/*
+Copyright 2007, The Android Open Source Project
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, 
+    this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+ 3. Neither the name of Google Inc. nor the names of its contributors may be
+    used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+body, html {
+  background-color:white;
+  padding:0;
+  margin:0;
+  height:100%;
+  overflow:hidden;
+  cursor:default;
+
+  /* 
+    Makes the text unselectable in mozilla. See html_diaog.js for IE
+    implementation.
+  */
+  -moz-user-select:none;
+}
+
+body, td, input, select, button {
+  font-family:arial,sans-serif;
+  font-size:13px;
+}
+
+p {
+  margin:0;
+  margin-bottom:1em;
+}
+
+a {
+  color:blue;
+  text-decoration:underline;
+}
+
+button {
+  /*
+  It would be better to express margins in ems, but it causes layout
+  artifacts (presumably because of rounding errors) when combined with
+  the -moz-border-radius property used in button.css on Firefox 2.
+
+  Also: bizarely, if I try to use the more natural margin-left:10px, I get
+  a bug where the buttons bounce on IE when you hover over them.
+  */
+  position:relative;
+  margin-right:7px;
+  left:7px;
+}
+
+#head {
+  padding:1em;
+}
+
+#foot {
+
+  /*
+  On Android we do not use position:absolute due to some
+  rendering limitations (absolute positioning works, but
+  the automatic resizing of dialog is confused by the
+  variable content and the display is wrong, while if we
+  remove the absolute positioning, #foot is back in the
+  flow and the dialog displays correctly)
+  */
+
+  background:white;
+  bottom:0;
+  width:100%;
+}
+
+#button-row {
+  margin:1em;
+}
+
+.accesskey {
+  text-decoration: underline;
+
+  /* IE CSS extension */
+  accelerator: true;
+}
+
+    #icon {
+      margin-right:0.5em;
+    }
+
+    #content {
+      margin:0 1em;
+      padding-bottom:1em;
+    }
+
+    #scroll td {
+      padding-top:0;
+    }
+
+    #scroll img {
+      margin-right:1em;
+    }
+
+    #highlightbox {
+      /* for pseudo-rounded corners, also see highlightbox-inner */
+      margin:0 1px;
+      border:solid #e8e8e8;
+      border-width:1px 0;
+      background:#f8f8f8;
+    }
+
+    #highlightbox-inner {
+      margin:0 -1px;
+      border:solid #e8e8e8;
+      border-width:0 1px;
+      padding:1em;
+    }
+    
+    #shortcut-name {
+      margin-bottom:2px;
+      font-weight: bold;
+    }
+
+    #shortcut-description {
+      /* We turn this on only when there is a description */
+      display:none;
+    }
+
+    #locations {
+      margin-top:1.2em;
+      display:none;
+    }
+    
+    #locations table {
+      margin-top:-2px;
+      margin-left:0.45em;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- This div contains strings that are conditionally used in the UI -->
+  <div id="strings" style="display:none;">
+    <!-- window titles -->
+    <div id="string-title-default"></div>
+    <div id="string-title-simple"></div>
+    
+    <!-- headers -->
+    <div id="string-header-desktop"></div>
+    <div id="string-header-wince"></div>
+
+    <!-- buttons -->
+    <div id="string-ok"></div>
+    <div id="string-ok-accesskey"></div>
+    <div id="string-cancel"></div>
+    <div id="string-cancel-accesskey"></div>
+    <div id="string-yes"></div>
+    <div id="string-yes-accesskey"></div>
+    <div id="string-no"></div>
+    <div id="string-no-accesskey"></div>
+    <div id="string-never-allow"></div>
+    <div id="string-never-allow-wince"></div>
+  </div>
+
+  <div id="head">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td valign="top">
+
+          <img id="icon" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAJPElEQVR4Xq3V
+WWyc1d0G8Oecd515Z/csHsfxntiOE8eOMY6dxFkokJCQlACBhEpsvWgLRkAL
+IhRxEYrSpp/6XYCgUokKBQEl0ABR0wrShBAI2R1nM3HseB+Px2PPPu/Mu3aE
+uKkoUhPzuzhXRzp/PUfPOcQ0TcxGrOcJ9Jz6F4YmTNq2yF4r5436aFyrlyz8
+nyQxH6m7aTdETxO+D8UssSxF/0gGc4NCpc3u2VtctvBNb5HjN71XUw8bxAHd
+pPiGkQeg/PADDI5lMZ3QYRUZL2MpqRVIyhpwGwj62OdTObo1l405svEBd9/h
+J7ae3Nd1p6rIP+wA5/tzuKExgKDfsZm32KHIU6AUaGnwiD5b5u3R0787OXVu
+x0kbF3t7ZuyzPZ/ve2HjfySI65SdPOQf7z/UNM87pPg8zi32wI0/J8oINE1F
+NgewLOBxW8GwxnyTUWCqcSycHyT7Du99V9XY1rX37Lh43QPoagrhS689zRnp
+X/p9btjcZUB+CL29vThwPD6USOnHrRbGqCixNLc3ueuK3BpMQ0U0oaJvONvd
+uvaGoVklkJm+6DbU2Aa3rxxy7CL0VBxj4Qz++s/I4ebF1VvKAyRiaEmkMobt
+bO/0Gy0NRZu9bh5XBifVxqXbnm/p2JiZVQtmJs5WhcZHq+XkEAhlYJrAF2cS
+qUX1pV13bVgSqa+yo6bMgSInl57XdOdDM0l9kFIKniWcwDP6rFtQUn/f6QTt
+uPd0z2AMJoGqGYjMqD1Vc8j5zEw/qJGG3UrBsQwMNpjgqHZW1w3MKbYiFTm1
+StOU2Q3Ai3bcdt9LH4iuusczsgxKCSwiYxLCQMmnwbAUDEMg5/PgRDec3qqc
+yXpQ4rejrjj0zME9j+/IyUnrrGrIsDwal3f1GAbReI7FgiqpeTqWWjQxJePK
+cAY9lxO4MmrCJc6UOt3BDoAFIQbmV3mF7qN7num/3F2CAnb610+CwITAsjAB
+GIYBAkBgKN4ZDiFhAttqq4TpqamNcU0PEULHeUJDnEAUs0P2e0saYeaGsLjO
+bjvfl3pDUWnX0IT8JYMcOprLmsTc0T/yzopyNRsFy7CIzOQQy3kO2ezeQRSQ
+qVvbEc2r2D00DsUwANNEhdWCUknEuyMT6GpvRTCT3GparW/LeQXTyWT0QjT9
+SXEt9+jSX1Xvd7iql+ZiF8CyDBQNmJzO64ZJj9ntLt3lCTaLNp89E+3BmXMD
+hcPVzNh4zLQGOh976oW9f0YBSy0WvD86CcNThLtrKkloZIhSm0PvHp/A1rpq
+lCiy17TbdwY710C72IOiaNR7MqFsuJjVXyoOp6Qq/TIEjiKb08FxHMqDFkY3
+yTLK2UGQQiJ0Bf/4fFQfjJa8sG7zI++1+eYYHo9nCN8iXdWlyIHgyboqsJry
+cljROmKqtreIY/9uJVgkSLaHi5evXKGHQ1Cv9oNQin2FZC5l0i0ttzrifAU5
+FovpvpEJ+YjLzup1VVL7onk2QRQYUGLi4pUYDp7zPvvcrv07BUH47mcUZXg8
+2rYEpqY8JFTUPFKzoKG5UhJ3uIo8J731Da/PWd65AqExGCODoIQAuoYGlw1B
+VthOjpEJPYpVGVNbdvOaus6GGtvqyLSyqvdqdoQS8s21TEZzkGyuE98e/h20
+JeAFL8ttiondjrllQDyGIlGA3+GgFkPH1Imv0NdzFgPxJCJZGQalqHLYsCLg
+vosH+ay4j+9sH3PO0z6e+onLZBzzq8RjMLXtn345irc+upr97Pj48bLy8iF8
+D/Liwhp0+jyBSUU52Oh2LbCYOhiOg6pqOBdL4Eg0poRy6gkLy0SKRaGy2W1v
+bnTZITEMcgB0wsM0ga8GRkFX+G9pvW/xp4qsMOevpFc6JYTL6n98ua55vc5y
+Iv4bsmvxfDS6nYjnlc2VkuWdCqedVxUVR6fj2DM8fpwThF8sdDnPcLoKllJr
+QtXur7NL/9fmcVpFlgWVJBT24FTv1zjjLt39xAcf/5S3cPhfUZFSHJ6YQoVV
+PMKKYpSxSgjJORyYmBoRrNI9j61ZeWZzZSmaXHYEBD7b5nG8GlO0rlAub6LA
+SKehxGOAaMHZLw5u7jt11IdrQP82FkFtSTEsBEGbw+knDidGUhlEFfW9wgM0
+XCynYWMoGl0OgFKEZQUNDuktWTcuEYsFBRhMpvHOhcvZ2k13Ple1uDmNa0C3
+LF6A1ZXl0FRlk3tuOavJWaQ0DQ6OO52MxzE2GQGTzYJwPFoDPlxKpgGYikTJ
+JPUUIUcp9g+OZEtuWXf/s7tff8XqcMi4Bux6K+tNDg8+6F+waAcnSchenIRL
+FGDjGL+mqIjBBCQRNosFJ0NhhFUNIsdxAqU+wenGcH8/ZkTp/PYXd77P8zyu
+FQ0lM09xbvcuR209lKEBUBOolKwICMKDedOkeZb75qV89UIf3uwbwl1zi2GD
+2e4sK68DAQopoaS6Jlzk8+N60LCifjAZS0wo3SdBkgmYlMAncmj3OpvSmvYa
+SyCUFwdg6jp+VlOGeRxtopL0srN+AZcfHYbf5USq50xw7PLXDK4DObS6FZNy
+fr+TZdZRSuEROBT6DoYQjGRljGVz3VaG+cjDMqMCpcvsc+Zs8Ta12JT+y1CH
+BwGGweHxMOTWZY9s2/WHV0S7A9eCnLh5KXoTmTVnYsmtGU2HT+SDLW77+haP
+CzaHA9l0BjlNhVDkg628HILNDvlqP5SxYXAcjwIcn0ng9RPdZ188cLitbvkK
+BdeAPTA5g1a34yDgOFiIHIQQDKayXQ6W/e1ClrWypgE7z4ElJrIDV3ApPImR
+VBYCz6FC0iHrBj4eGE413n3v02WNixVcI7bRaYMBoMJmRR4motk8av2+l6Zj
+sdWKad5htYjQczkkpiI4MDmNL6LxbsUw/1Ik8nmJYe6ITk8vkWoX7ChU8FPu
+OlrA/P+SevhFHj6bhKDVgq/jCUQNwENJkUmwXgCg6QaOzSTx4Wj4PZ/TuX5b
+bfWXQYJTvK69Wbduw/sP7Pz9AZc/YOA6sGo2AxMA1Q0IFCghJj4cGERpqf/I
+J+HIJRNmOSVUOh9LxtxWy/YHW5cotkgImqZC1/K4/dHHrtrm1+J6UXHZKlg7
+b4Jl+SqwHStRe/NatN++EcFVPzrfcOvaVk/nmhaho7Dctn7TA1u3Xg3Mmwd/
+RyduXL8BbbdvAmuxYjb+DcasAaYvg7ldAAAAAElFTkSuQmCC
+           ">
+
+          <!-- Some browsers automatically focus the first focusable item. We
+          don't want anything focused, so we add this fake item. -->
+          <a href="#" id="focus-thief"></a>
+        </td>
+        <td id="header" width="100%" valign="middle"></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="content">
+    <div id="highlightbox">
+      <div id="highlightbox-inner">
+        <div id="scroll">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td valign="top"><img id="shortcut-icon" width="32" height="32" src="blank.gif"></td>
+              <td align="left" width="100%" valign="middle">
+                <div id="shortcut-name"></div
+                ><div id="shortcut-description"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="locations">
+      <p><span id="string-location-query"></span></p>
+      <div id="locations-windows">
+        <table cellpadding="0" cellspacing="2" border="0">
+          <tr>
+            <!-- NOTE: Confusingly, onclick also gets fired when the checkbox changes via keyboard press. -->
+            <!-- NOTE: The values in the checkboxes correspond to the SHORTCUT_LOCATION_* bitmasks defined in desktop.cc. -->
+            <td valign="middle"><input type="checkbox" id="location-desktop" value="1" onclick="resetConfirmDisabledState()"></td>
+            <td valign="middle"><label for="location-desktop"><span id="string-desktop"></span></label></td>
+          </tr>
+          <tr>
+            <td valign="middle"><input type="checkbox" id="location-startmenu" value="4" onclick="resetConfirmDisabledState()"></td>
+            <td valign="middle"><label for="location-startmenu"><span id="string-startmenu"></span></label></td>
+          </tr>
+          <tr>
+            <td valign="middle"><input type="checkbox" id="location-quicklaunch" value="2" onclick="resetConfirmDisabledState()"></td>
+            <td valign="middle"><label for="location-quicklaunch"><span id="string-quicklaunch"></span></label></td>
+          </tr>
+        </table>
+      </div>
+      <!-- TODO(aa): Support more locations on other platforms, such as dock
+      and applications on OSX? -->
+    </div>
+  </div>
+
+  <div id="foot">
+
+
+    <div id="button-row">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+
+          <td width="100%" valign="middle">
+            <a href="#" onclick="denyShortcutPermanently(); return false;" id="deny-permanently-link"></a>
+          </td>
+          <td nowrap="true" align="right" valign="middle">
+            <button id="allow-button" class="custom"
+              onclick="allowShortcutsTemporarily(); return false;"></button
+            ><button id="deny-button" class="custom"
+              onclick="denyShortcutsTemporarily(); return false;"></button>
+          </td>
+
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</body>
+<!--
+We include all files through m4 as the HTML dialog implementation on
+PocketIE does not support callbacks for loading external JavaScript files.
+TODO: find a better way to include scripts for PIE
+-->
+<script>
+/*
+Copyright (c) 2005 JSON.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+//Array.prototype.______array = '______array';
+
+var JSON = {
+    org: 'http://www.JSON.org',
+    copyright: '(c)2005 JSON.org',
+    license: 'http://www.crockford.com/JSON/license.html',
+
+    stringify: function (arg) {
+        var c, i, l, s = '', v;
+
+        switch (typeof arg) {
+        case 'object':
+            if (arg) {
+                if (arg.constructor == Array.prototype.constructor) {
+                    for (i = 0; i < arg.length; ++i) {
+                        v = this.stringify(arg[i]);
+                        if (s) {
+                            s += ',';
+                        }
+                        s += v;
+                    }
+                    return '[' + s + ']';
+                } else if (typeof arg.toString != 'undefined') {
+                    for (i in arg) {
+                        v = arg[i];
+                        if (typeof v != 'undefined' && typeof v != 'function') {
+                            v = this.stringify(v);
+                            if (s) {
+                                s += ',';
+                            }
+                            s += this.stringify(i) + ':' + v;
+                        }
+                    }
+                    return '{' + s + '}';
+                }
+            }
+            return 'null';
+        case 'number':
+            return isFinite(arg) ? String(arg) : 'null';
+        case 'string':
+            l = arg.length;
+            s = '"';
+            for (i = 0; i < l; i += 1) {
+                c = arg.charAt(i);
+                if (c >= ' ') {
+                    if (c == '\\' || c == '"') {
+                        s += '\\';
+                    }
+                    s += c;
+                } else {
+                    switch (c) {
+                        case '\b':
+                            s += '\\b';
+                            break;
+                        case '\f':
+                            s += '\\f';
+                            break;
+                        case '\n':
+                            s += '\\n';
+                            break;
+                        case '\r':
+                            s += '\\r';
+                            break;
+                        case '\t':
+                            s += '\\t';
+                            break;
+                        default:
+                            c = c.charCodeAt();
+                            s += '\\u00' + Math.floor(c / 16).toString(16) +
+                                (c % 16).toString(16);
+                    }
+                }
+            }
+            return s + '"';
+        case 'boolean':
+            return String(arg);
+        default:
+            return 'null';
+        }
+    },
+    parse: function (text) {
+        var at = 0;
+        var ch = ' ';
+
+        function error(m) {
+            throw {
+                name: 'JSONError',
+                message: m,
+                at: at - 1,
+                text: text
+            };
+        }
+
+        function next() {
+            ch = text.charAt(at);
+            at += 1;
+            return ch;
+        }
+
+        function white() {
+            while (ch) {
+                if (ch <= ' ') {
+                    next();
+                } else if (ch == '/') {
+                    switch (next()) {
+                        case '/':
+                            while (next() && ch != '\n' && ch != '\r') {}
+                            break;
+                        case '*':
+                            next();
+                            for (;;) {
+                                if (ch) {
+                                    if (ch == '*') {
+                                        if (next() == '/') {
+                                            next();
+                                            break;
+                                        }
+                                    } else {
+                                        next();
+                                    }
+                                } else {
+                                    error("Unterminated comment");
+                                }
+                            }
+                            break;
+                        default:
+                            error("Syntax error");
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+        function string() {
+            var i, s = '', t, u;
+
+            if (ch == '"') {
+outer:          while (next()) {
+                    if (ch == '"') {
+                        next();
+                        return s;
+                    } else if (ch == '\\') {
+                        switch (next()) {
+                        case 'b':
+                            s += '\b';
+                            break;
+                        case 'f':
+                            s += '\f';
+                            break;
+                        case 'n':
+                            s += '\n';
+                            break;
+                        case 'r':
+                            s += '\r';
+                            break;
+                        case 't':
+                            s += '\t';
+                            break;
+                        case 'u':
+                            u = 0;
+                            for (i = 0; i < 4; i += 1) {
+                                t = parseInt(next(), 16);
+                                if (!isFinite(t)) {
+                                    break outer;
+                                }
+                                u = u * 16 + t;
+                            }
+                            s += String.fromCharCode(u);
+                            break;
+                        default:
+                            s += ch;
+                        }
+                    } else {
+                        s += ch;
+                    }
+                }
+            }
+            error("Bad string");
+        }
+
+        function array() {
+            var a = [];
+
+            if (ch == '[') {
+                next();
+                white();
+                if (ch == ']') {
+                    next();
+                    return a;
+                }
+                while (ch) {
+                    a.push(value());
+                    white();
+                    if (ch == ']') {
+                        next();
+                        return a;
+                    } else if (ch != ',') {
+                        break;
+                    }
+                    next();
+                    white();
+                }
+            }
+            error("Bad array");
+        }
+
+        function object() {
+            var k, o = {};
+
+            if (ch == '{') {
+                next();
+                white();
+                if (ch == '}') {
+                    next();
+                    return o;
+                }
+                while (ch) {
+                    k = string();
+                    white();
+                    if (ch != ':') {
+                        break;
+                    }
+                    next();
+                    o[k] = value();
+                    white();
+                    if (ch == '}') {
+                        next();
+                        return o;
+                    } else if (ch != ',') {
+                        break;
+                    }
+                    next();
+                    white();
+                }
+            }
+            error("Bad object");
+        }
+
+        function number() {
+            var n = '', v;
+            if (ch == '-') {
+                n = '-';
+                next();
+            }
+            while (ch >= '0' && ch <= '9') {
+                n += ch;
+                next();
+            }
+            if (ch == '.') {
+                n += '.';
+                while (next() && ch >= '0' && ch <= '9') {
+                    n += ch;
+                }
+            }
+            if (ch == 'e' || ch == 'E') {
+                n += 'e';
+                next();
+                if (ch == '-' || ch == '+') {
+                    n += ch;
+                    next();
+                }
+                while (ch >= '0' && ch <= '9') {
+                    n += ch;
+                    next();
+                }
+            }
+            v = +n;
+            if (!isFinite(v)) {
+                ////error("Bad number");
+            } else {
+                return v;
+            }
+        }
+
+        function word() {
+            switch (ch) {
+                case 't':
+                    if (next() == 'r' && next() == 'u' && next() == 'e') {
+                        next();
+                        return true;
+                    }
+                    break;
+                case 'f':
+                    if (next() == 'a' && next() == 'l' && next() == 's' &&
+                            next() == 'e') {
+                        next();
+                        return false;
+                    }
+                    break;
+                case 'n':
+                    if (next() == 'u' && next() == 'l' && next() == 'l') {
+                        next();
+                        return null;
+                    }
+                    break;
+            }
+            error("Syntax error");
+        }
+
+        function value() {
+            white();
+            switch (ch) {
+                case '{':
+                    return object();
+                case '[':
+                    return array();
+                case '"':
+                    return string();
+                case '-':
+                    return number();
+                default:
+                    return ch >= '0' && ch <= '9' ? number() : word();
+            }
+        }
+
+        return value();
+    }
+};
+
+// Copyright 2008, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//=============================================================================
+// Various basic JavaScript utilities.
+//=============================================================================
+
+/**
+ * Check that the type is not undefined (we do it here as on
+ * some devices typeof returns unknown instead of undefined...).
+ * We have to pass the evaluation of (typeof elem) (i.e., a string)
+ * to the function rather than simply (element) -- passing an 
+ * undefined object would make the function crash on PIE.
+ */
+function isDefined(type) {
+  return type != 'undefined' && type != 'unknown';
+}
+
+/**
+ * Returns true if val is a function.
+ */
+function isFunction(val) {
+  return typeof val == "function";
+}
+
+// TODO(aa): more basic type checking here.
+
+
+/**
+ * Creates a 'bound' function that calls the current function with a preset
+ * 'this' object and set of arguments.
+ */
+Function.prototype.bind = function(obj) {
+  var preArgs = Array.prototype.slice.call(arguments, 1);
+  var self = this;
+  return function() {
+    var postArgs = Array.prototype.slice.call(arguments, 0);
+    var totalArgs = preArgs.concat(postArgs);
+    return self.apply(obj, totalArgs);
+  }
+};
+
+/**
+ * Creates a partially applied function that calls the current function with
+ * a preset set of arguments.
+ */
+Function.prototype.partial = function() {
+  var args = Array.prototype.slice.call(arguments, 0);
+  return this.bind(null, args);
+};
+
+/**
+ * Binds all the methods in obj to obj.
+ */
+function bindMethods(obj) {
+  for (var p in obj) {
+    if (isFunction(obj[p])) {
+      obj[p] = obj[p].bind(obj);
+    }
+  }
+}
+
+
+/**
+ * Trim leading and trailing whitespace from a string.
+ */
+String.prototype.trim = function(str) {
+  return this.replace(/^\s+/, "").replace(/\s+$/, "");
+};
+
+
+/**
+ * Find the index of a given element in an array. Returns -1 if the item does
+ * not exist.
+ */
+Array.prototype.indexOf = function(item) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] === item) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+/**
+ * Makes a deep copy of an object.
+ */
+function cloneObject(original) {
+  var newObject = new Object();
+  for (i in original) {
+    if (typeof original[i] == 'object') {
+      newObject[i] = cloneObject(original[i]);
+    }
+    else {
+      newObject[i] = original[i];
+    }
+  }
+  newObject.length = original.length;
+  return newObject;
+}
+
+var browser = {};
+
+(function() {
+  var ua = navigator.userAgent;
+  browser.opera = typeof opera != "undefined";
+  browser.ie = !browser.opera && ua.indexOf("MSIE") > -1;
+  browser.ie_mobile = (ua.indexOf("Windows CE") > -1) &&
+      (ua.indexOf("MSIE") > -1);
+  browser.webkit = ua.indexOf("WebKit") > -1;
+  // WebKit also gives product == "gecko".
+  browser.mozilla = !browser.webkit && navigator.product == "Gecko";
+  browser.safari = ua.indexOf("Safari") > -1;
+  browser.mac = navigator.platform.indexOf("Mac") > -1;
+  browser.linux = navigator.platform.indexOf("Linux") > -1;
+  browser.windows = navigator.platform.indexOf("Win") > -1;
+  browser.android = ua.indexOf("Android") > -1;
+  if (browser.android) {
+    browser.safari = false;
+  }
+  // TODO(aa): Add detection for more browsers, as necessary.
+})();
+
+// Copyright 2008, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//=============================================================================
+// DOM manipulation utilities.
+// Requires: base.js
+//=============================================================================
+
+var dom = {};
+
+/**
+ * Provides a cross-browser way of getting an element by its id
+ */
+dom.getElementById = function(id) {
+  if (isDefined(typeof document.getElementById)) {
+    return document.getElementById(id);
+  } else if (isDefined(typeof document.all)) {
+    return document.all[id];
+  }
+  throw new Error("Failed to get element by ID.");
+};
+
+/**
+ * Gets the position and dimensions of an element in pixels in relation
+ * to the window origin.
+ */
+dom.getPosition = function(elem) {
+  var ret = { 'left'   : 0,
+              'top'    : 0,
+              'width'  : elem.width,
+              'height' : elem.height };
+  
+  if (!elem.offsetParent) return ret;
+  
+  var left = 0;
+  var top = 0;
+  while (elem) {
+    left += elem.offsetLeft;
+    top += elem.offsetTop;
+    elem = elem.offsetParent
+  }
+  ret.left = left;
+  ret.top = top;
+  return ret;
+};
+
+/**
+ * Returns the height of the inside of the window.
+ */
+dom.getWindowInnerHeight = function() {
+  if (isDefined(typeof window.innerHeight)) { // Firefox
+    return window.innerHeight;
+  } else if (isDefined(typeof document.body.offsetHeight)) { // IE
+    return document.body.offsetHeight;
+  }
+
+  throw new Error("Could not get windowInnerHeight.");
+};
+
+/**
+ * Add an event listener to an element cross-browser.
+ */
+dom.addEvent = function(element, eventName, handler) {
+  var wrapper = dom._callEventHandler.bind(dom, handler);
+
+  if (isDefined(typeof element.addEventListener)) {
+    // Standards-compatible browsers
+    element.addEventListener(eventName, wrapper, false);
+  } else if (isDefined(typeof element.attachEvent)) {
+    // IE
+    element.attachEvent("on" + eventName, wrapper);
+  } else {
+    throw new Error('Failed to attach event.');
+  }
+};
+
+/**
+ * Private helper for calling event handlers compatibly across browsers.
+ */
+dom._callEventHandler = function(handler, e) {
+  // Older versions of IE don't pass event to the handler.
+  if (!e) e = window.event;
+
+  // TODO(aa): Normalize event object properties.
+
+  return handler(e);
+};
+
+/**
+ * Gets the CSS classes for an element.
+ */
+dom.getClasses = function(elm) {
+  return elm.className.split(/\s+/);
+};
+
+/**
+ * Check is an element has a particular CSS class name.
+ */
+dom.hasClass = function(elm, className) {
+  return this.getClasses(elm).indexOf(className) > -1;
+};
+
+/**
+ * Adds a CSS class to an element. Do nothing if the class already exists.
+ */
+dom.addClass = function(elm, className) {
+  var classes = this.getClasses(elm);
+  if (classes.indexOf(className) > -1) {
+    return;
+  }
+  classes.push(className);
+  elm.className = classes.join(" ");
+};
+
+/**
+ * Removes a CSS class from an element. Do nothing if the class doesn't exist.
+ */
+dom.removeClass = function(elm, className) {
+  var classes = this.getClasses(elm);
+  var index = classes.indexOf(className);
+  if (index == -1) {
+    return;
+  }
+  classes.splice(index, 1);
+  elm.className = classes.join(" ");
+};
+
+/**
+ * Gets the text (non-html) content of an element.
+ */
+dom.getTextContent = function(elm) {
+  if (isDefined(typeof elm.textContent)) {
+    return elm.textContent;
+  } else if (isDefined(typeof elm.innerText)) {
+    return elm.innerText;
+  } else {
+    throw new Error("Could not find a property to get text content.");
+  }
+};
+
+/**
+ * Sets the text (non-html) contents of an element.
+ */
+dom.setTextContent = function(elm, text) {
+  if (isDefined(typeof elm.textContent)) {
+    elm.textContent = text;
+  } else if (isDefined(typeof elm.innerText)) {
+    elm.innerText = text;
+  } else {
+    throw new Error("Could not find a property to set text content.");
+  }
+};
+
+// Copyright 2007, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+/**
+ * Initialize the base functionality of the dialog.
+ */
+function initDialog() {
+  if (!browser.ie_mobile) {
+    dom.addEvent(document, "keyup", handleKeyUp);
+  } else {
+    var buttonRowElem = null;
+    if (window.pie_dialog.IsSmartPhone()) {
+      buttonRowElem = dom.getElementById("button-row-smartphone");
+    } else {
+      buttonRowElem = dom.getElementById("button-row");
+    }
+    if (buttonRowElem) {
+      buttonRowElem.style.display = 'block';
+    }
+  }
+  if (browser.ie_mobile) {
+    window.pie_dialog.SetScriptContext(window);
+    window.pie_dialog.ResizeDialog();
+  }
+}
+
+/**
+ * Set the label of an input button, and optionally, its accesskey.
+ */
+function setButtonLabel(textID, elemID, accessKeyID) {
+  var textElem = dom.getElementById(textID);
+  var buttonElem = dom.getElementById(elemID);
+  if (textElem == null || buttonElem == null) {
+    return;
+  }
+
+  var accessKeyElem = null;
+  if (isDefined(typeof accessKeyID)) {
+    accessKeyElem = dom.getElementById(accessKeyID);
+  }
+
+  // This function works for two different kinds of buttons. Simple buttons
+  // based on the <input type="button"> tag, and custom buttons based on a
+  // <button> tag with the css class "custom".
+  // Note that on Windows Mobile 5, the tagName property is not defined.
+  // We can therefore safely assume that the converse is also true:
+  // if tagName is not defined, then the platform must be Windows Mobile 5.  
+  if (!isDefined(typeof buttonElem.tagName) ||
+      buttonElem.tagName.toLowerCase() == "input") {
+    buttonElem.value = dom.getTextContent(textElem).trim();
+    if (accessKeyElem != null) {
+      buttonElem.accessKey = dom.getTextContent(accessKeyElem).trim();
+    }
+  } else if (buttonElem.tagName.toLowerCase() == "button") {
+    var text = dom.getTextContent(textElem).trim();
+
+    if (accessKeyElem != null) {
+      // Some browsers use the accessKey attribute of the the anchor tag.
+      var accessKey = dom.getTextContent(accessKeyElem).trim();
+      buttonElem.accessKey = accessKey;
+
+      // Find the first matching character in the text and mark it.
+      // Note: this form of String.replace() only replaces the first occurence.
+      text = text.replace(accessKey,
+                          "<span class='accesskey'>" + accessKey + "</span>");
+    }
+
+    buttonElem.innerHTML = text;
+  } else {
+    throw new Error("Unexpected button tag name: " + buttonElem.tagName);
+  }
+}
+
+/**
+ * Allows a dialog to do custom layout when the window changes sizes. The
+ * provided function will be called with the height of the content area when the
+ * dialog should relayout.
+ */
+function initCustomLayout(layoutFunction) {
+  function doLayout() {
+    layoutFunction(getContentHeight());
+  }
+
+  doLayout();
+
+  // We do an additional layout in onload because sometimes things aren't
+  // stabilized when the first doLayout() is called above.
+  dom.addEvent(window, "load", doLayout);
+  dom.addEvent(window, "resize", doLayout);
+
+  // Mozilla doesn't fire continuous events during resize, so if we want to get
+  // somewhat smooth resizing, we need to run our own timer loop. This still
+  // doesn't look perfect, because the timer goes off out of sync with the
+  // browser's internal reflow, but I think it's better than nothing.
+  // TODO(aa): Keep looking for a way to get an event for each reflow, like IE.
+  if (browser.mozilla) {
+    var lastHeight = -1;
+
+    function maybeDoLayout() {
+      var currentHeight = dom.getWindowInnerHeight();
+      if (currentHeight != lastHeight) {
+        lastHeight = currentHeight;
+        doLayout();
+      }
+    }
+
+    window.setInterval(maybeDoLayout, 30);
+  }
+}
+
+/**
+ * Get the JSON-formatted arguments that were passed by the caller.
+ */
+function getArguments() {
+  var argsString;
+  if (browser.ie_mobile) {
+    argsString = window.pie_dialog.GetDialogArguments();
+  } else if (browser.ie) {
+    argsString = window.external.GetDialogArguments();
+  } else if (browser.mozilla) {
+    argsString = getFirefoxArguments(window.arguments[0]);
+  } else if (browser.safari) {
+    argsString = window.gears_dialogArguments;
+  } else if (browser.android) {
+    argsString = "" + window.bridge.getDialogArguments();
+  }
+
+  if (typeof argsString == "string") {
+    return JSON.parse(argsString);
+  } else {
+    return null;
+  }
+}
+
+/**
+ * Helper used by getArguments(). Getting the arguments in the right type is
+ * more involved in Firefox.
+ */
+function getFirefoxArguments(windowArguments) {
+  var Ci = Components.interfaces;
+  windowArguments.QueryInterface(Ci.nsIProperties);
+  var supportsString = 
+    windowArguments.get("dialogArguments", Ci.nsISupportsString);
+  return supportsString.data;
+}
+
+/**
+ * Close the dialog, sending the specified result back to the caller.
+ */
+function saveAndClose(resultObject) {
+  var resultString = JSON.stringify(resultObject);
+  if (browser.ie_mobile) {
+    window.pie_dialog.CloseDialog(resultString);
+  } else if (browser.ie) {
+    window.external.CloseDialog(resultString);
+  } else if (browser.mozilla) {
+    saveFirefoxResults(resultString);
+    window.close();
+  } else if (browser.safari) {
+    window.gears_dialog.setResults(resultString);
+  } else if (browser.android) {
+    window.bridge.closeDialog(resultString);
+  }
+}
+
+/**
+ * Helper used by endDialog() for Firefox.
+ */
+function saveFirefoxResults(resultString) {
+  var Cc = Components.classes;
+  var Ci = Components.interfaces;
+  
+  var props = window.arguments[0].QueryInterface(Ci.nsIProperties);
+  var supportsString = Cc["@mozilla.org/supports-string;1"]
+      .createInstance(Ci.nsISupportsString);
+      
+  supportsString.data = resultString;
+  props.set("dialogResult", supportsString);
+}
+
+/**
+ * Returns the height of the content area of the dialog.
+ */
+function getContentHeight() {
+  var head = dom.getElementById("head");
+  var foot = dom.getElementById("foot");
+  return dom.getWindowInnerHeight() - head.offsetHeight - foot.offsetHeight;
+}
+
+/**
+ * For some reason ESC doesn't work on HTML dialogs in either Firefox or IE. So
+ * we implement it manually.
+ */
+function handleKeyUp(e) {
+  var ESC_KEY_CODE = 27;
+  
+  if (e.keyCode == ESC_KEY_CODE) {
+    saveAndClose(null);
+  }
+}
+
+/**
+ * Disables a button in the right way, whether it is normal or custom.
+ */
+function disableButton(buttonElem) {
+  buttonElem.disabled = true;
+
+  if (browser.ie_mobile) {
+    window.pie_dialog.SetButtonEnabled(false);
+  }
+
+  if (!isDefined(typeof buttonElem.tagName) || 
+      buttonElem.tagName.toLowerCase() == "input") {
+    buttonElem.style.color = "gray";
+  } else if (buttonElem.tagName.toLowerCase() == "button") {
+    dom.addClass(buttonElem, "disabled");
+  } else {
+    throw new Error("Unexpected tag name: " + buttonElem.tagName);
+  }
+}
+
+/**
+ * Enables a button in the right way, whether it is normal or custom.
+ */
+function enableButton(buttonElem) {
+  buttonElem.disabled = false;
+
+  if (browser.ie_mobile) {
+    window.pie_dialog.SetButtonEnabled(true);
+  }
+  
+  if (!isDefined(typeof buttonElem.tagName) ||
+      buttonElem.tagName.toLowerCase() == "input") {
+    buttonElem.style.color = "black";
+  } else if (buttonElem.tagName.toLowerCase() == "button") {
+    dom.removeClass(buttonElem, "disabled");
+  } else {
+    throw new Error("Unexpected tag name: " + buttonElem.tagName);
+  }
+}
+
+/**
+ * Returns a wrapped domain (useful for small screens dialogs, 
+ * e.g. windows mobile devices)
+ */
+function wrapDomain(str) {
+  if (!browser.ie_mobile) {
+    return str;
+  }
+
+  var max = 20;
+  var url;
+  var scheme_start = str.indexOf("://");
+  var scheme = "";
+
+  if (scheme_start != -1) {
+    scheme = str.substring(0, scheme_start);
+    scheme += "://";
+    // there's automatically an hyphenation
+    // point used by the browser after http://
+    // so we only have to hyphenate the
+    // rest of the string
+    url = str.substring(scheme.length);
+  } else {
+    url = str;
+  }
+
+  // We hyphenate the string on every dot
+  var components = url.split(".");
+  if (components.length < 1) {
+    return str;
+  }
+
+  var content = components[0];
+  var len = content.length;
+  for (var i=1; i < components.length; i++) {
+    var elem = components[i];
+    content += ".";
+    len++;
+    if (len + elem.length > max) {
+      content += "<br>";
+      len = 0;
+    }
+    content += elem;
+    len += elem.length;
+  }
+  return scheme + content;
+}
+
+/**
+ * Resizes the dialog to fit the content size.
+ */
+function resizeDialogToFitContent(opt_minDialogInnerHeight) {
+  // This does not work on PIE (no height measurement)
+  if (browser.ie_mobile) {
+    window.pie_dialog.ResizeDialog();
+    return;
+  }
+  // window.resize() is not working on Android, we bail out.
+  if (browser.android) {
+    return;
+  }
+
+  // Resize the window to fit
+  var contentDiv = dom.getElementById("content");
+  var contentHeightProvided = getContentHeight();
+  var contentHeightDesired = contentDiv.offsetHeight;
+
+  var dialogHeightProvided = dom.getWindowInnerHeight();
+  var dialogHeightDesired =
+      dialogHeightProvided + (contentHeightDesired - contentHeightProvided);
+
+  var minDialogHeight = opt_minDialogInnerHeight || 0;
+  var maxDialogHeight = 400; // arbitrary max height for a dialog to resize to
+  
+  var targetHeight = Math.max(dialogHeightDesired, minDialogHeight);
+  targetHeight = Math.min(dialogHeightDesired, maxDialogHeight);
+
+  if (targetHeight != dialogHeightProvided) {
+    var dy = targetHeight - dialogHeightProvided;
+    window.resizeBy(0, dy);
+  }
+}
+
+/**
+ * Safari running on OSX 10.4 can't load images dynamically from the network,
+ * this helper function calls gears-specific code to work around this
+ * limitation.
+ */
+function loadImage(elem, image_url) {
+  if (browser.safari) {
+    var position = dom.getPosition(elem);
+    window.gears_dialog.loadImageIntoElement(image_url, position.top,
+                                             position.left,
+                                             position.width,
+                                             position.height);
+  } else {
+    elem.src = image_url;
+  }
+}
+
+// Copyright 2008, The Android Open Source Project
+//
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+//
+//  1. Redistributions of source code must retain the above copyright notice, 
+//     this list of conditions and the following disclaimer.
+//  2. Redistributions in binary form must reproduce the above copyright notice,
+//     this list of conditions and the following disclaimer in the documentation
+//     and/or other materials provided with the distribution.
+//  3. Neither the name of Google Inc. nor the names of its contributors may be
+//     used to endorse or promote products derived from this software without
+//     specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+//=============================================================================
+// Implements the behavior of our custom buttons. There is no native support in
+// IE for rounded corners on HTML elements, so this script also implements a
+// hack to simulate them in that browser.
+//
+// Requires: base.js, dom.js
+//=============================================================================
+
+/**
+ * Constructor.
+ */
+function CustomButton(htmlButton) {
+  bindMethods(this);
+  
+  this._focused = false;
+  this._htmlButton = htmlButton;
+
+  if (!document.all) {  // not IE
+    dom.addEvent(htmlButton, "mouseover", this._handleMouseOver);
+    dom.addEvent(htmlButton, "mouseout", this._handleMouseOut);
+  } else {  // IE
+    // mouseover/mouseout behave badly with nested elements in IE. Luckily,
+    // mouseenter/mouseleave are provided and have the equivalent semantics.
+    dom.addEvent(htmlButton, "mouseenter", this._handleMouseOver);
+    dom.addEvent(htmlButton, "mouseleave", this._handleMouseOut);
+
+    // We also handle focus and blur in IE so that we can update the corners
+    // to match the black border IE provides.
+    dom.addEvent(htmlButton, "focusin", this._handleFocus);
+    dom.addEvent(htmlButton, "blur", this._handleBlur);
+
+    dom.addClass(htmlButton, "ie");
+    this._createCorners();
+  }
+
+  // Limit button widths to a minimum of 60px. They look funny skinnier.  
+  if (htmlButton.offsetWidth < 60) {
+    htmlButton.style.width = "60px";
+  }
+
+  htmlButton.style.visibility = "visible";
+}
+
+/**
+ * Initializes all the custom buttons on the page.
+ */
+CustomButton.initializeAll = function() {
+  var buttons = document.getElementsByTagName("button");
+  for (var i = 0, button; button = buttons[i]; i++) {
+    if (dom.hasClass(button, "custom")) {
+      new CustomButton(button);
+    }
+  }
+};
+
+/**
+ * Highlights the button on mouseover. Note that this gets called multiple
+ * times while the mouse goes over sub elements inside the button.
+ */
+CustomButton.prototype._handleMouseOver = function() {
+  if (!this._htmlButton.disabled && !this._focused) {
+    dom.addClass(this._htmlButton, "hover");
+    this._setCornerColor("blue");
+  }
+};
+
+/**
+ * Undoes the highlighting of the button on mouseout. Note that this gets called
+ * multiple times when the mouse moves out of sub elements, even if it is still
+ * over the button. That is OK, as long as there is immediately a mouseover
+ * event.
+ */
+CustomButton.prototype._handleMouseOut = function() {
+  if (!this._htmlButton.disabled && !this._focused) {
+    dom.removeClass(this._htmlButton, "hover");
+    this._setCornerColor("grey");
+  }
+};
+
+/**
+ * Highlights the button on focus. Currently only used for IE.
+ * TODO(aa): The black highlight looks cool. Consider for other browsers.
+ */
+CustomButton.prototype._handleFocus = function() {
+  dom.removeClass(this._htmlButton, "hover");
+  this._setCornerColor("black");
+  this._focused = true;
+};
+
+/**
+ * Undoes the highlighting of the button on blur.
+ */
+CustomButton.prototype._handleBlur = function() {
+  this._setCornerColor("grey");
+  this._focused = false;
+};
+
+/**
+ * Helper to create the graphics that make the button have rounded corners in
+ * IE.
+ */
+CustomButton.prototype._createCorners = function() {
+  // Making the button position:relative makes it possible to position things
+  // inside it relative to it's border.
+  this._htmlButton.style.position = "relative";
+
+  var verticalEdges = ["left", "right"];
+  var horizontalEdges = ["top", "bottom"];
+  var colors = ["grey", "blue", "black"];
+
+  for (var i = 0; i < verticalEdges.length; i++) {
+    for (var j = 0; j < horizontalEdges.length; j++) {
+      for (var k = 0; k < colors.length; k++) {
+        var img = document.createElement("img");
+        img.src = "button_corner_" + colors[k]  + ".gif";
+        img.color  = colors[k];
+        img.style.position = "absolute";
+        img.style[verticalEdges[i]] = "-2px";
+        img.style[horizontalEdges[j]] = "-2px";
+        img.style.filter =
+            "progid:DXImageTransform.Microsoft.BasicImage(Rotation=" + 
+            (i + j) + ")";
+        this._htmlButton.appendChild(img);
+      }
+    }
+  }
+
+  this._setCornerColor("grey");
+};
+
+/**
+ * Sets the color of the corners in IE by changing the stack order of the corner
+ * images.
+ */
+CustomButton.prototype._setCornerColor = function(newColor) {
+  var imgs = this._htmlButton.getElementsByTagName("img");
+  for (var i = 0, img; img = imgs[i]; i++) {
+    img.style.zIndex = Number(img.color == newColor);
+  }
+};
+
+var localized_strings = {
+  "el": {
+    "string-no": "Όχι",
+    "string-header-desktop": "Αυτός ο ιστότοπος θέλει να δημιουργήσει μια συντόμευση στον υπολογιστή σας. Θέλετε να το επιτρέψετε αυτό;",
+    "string-no-accesskey": "Ο",
+    "string-header-wince": "Αυτός ο ιστότοπος θέλει να δημιουργήσει μια συντόμευση στη λίστα προγραμμάτων. Θέλετε να το επιτρέψετε;",
+    "string-title-simple": "Δημιουργία συντομεύσεων εφαρμογών",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Άκυρο",
+    "string-startmenu": "Μενού έναρξης",
+    "string-yes": "Ναι",
+    "string-never-allow": "Να μην επιτρέπεται ποτέ αυτή η συντόμευση",
+    "string-yes-accesskey": "Ν",
+    "string-quicklaunch": "Γραμμή γρήγορης εκκίνησης",
+    "string-never-allow-wince": "Να μην επιτρέπεται ποτέ",
+    "string-desktop": "Επιφάνεια εργασίας",
+    "string-title-default": "Gears - Δημιουργία συντόμευσης στην επιφάνεια εργασίας",
+    "string-location-query": "Δημιουργία συντομεύσεων στις παρακάτω θέσεις:"
+  },
+  "gu": {
+    "string-no": "નહીં",
+    "string-header-desktop": "આ વેબસાઇટને તમારા કમ્પ્યુટર પર એક શોર્ટકટ બનાવવો છે શું આની તમારે મંજુરી આપવી છે?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "આ વેબસાઇટ આપની પ્રોગ્રામોની સૂચિમાં શૉર્ટકટ્સ બનાવવા માંગે છે. શું આપ આને મંજુરી આપવા માંગો છો?",
+    "string-title-simple": "એપ્લિકેશન શોર્ટકટ બનાવો",
+    "string-ok-accesskey": "O",
+    "string-ok": "ઓકે",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "રદ કરો",
+    "string-startmenu": "પ્રારંભ મેનુ",
+    "string-yes": "હા",
+    "string-never-allow": "આ શૉર્ટકટને ક્યારેય મંજૂર કરશો નહીં",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "ક્વિક લોંચ બાર",
+    "string-never-allow-wince": "ક્યારેય મંજૂર કરશો નહીં",
+    "string-desktop": "ડેસ્કટોપ",
+    "string-title-default": "Gears - ડેસ્ક્ટોપ શોર્ટકટ બનાવો",
+    "string-location-query": "નીચેના સ્થાનો પર શોર્ટકટ્સ બનાવો"
+  },
+  "zh-TW": {
+    "string-no": "否",
+    "string-header-desktop": "這個網站要在您的電腦上建立捷徑。 您是否允許這個動作？",
+    "string-no-accesskey": "N",
+    "string-header-wince": "這個網站要在您的程式清單中建立捷徑。 您是否允許這個動作？",
+    "string-title-simple": "建立應用程式捷徑",
+    "string-ok-accesskey": "O",
+    "string-ok": "確定",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "取消",
+    "string-startmenu": "開始功能表",
+    "string-yes": "是",
+    "string-never-allow": "永不允許這個捷徑",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "快速啟動列",
+    "string-never-allow-wince": "永不允許",
+    "string-desktop": "桌面",
+    "string-title-default": "Gears - 建立桌面捷徑",
+    "string-location-query": "在下列位置建立捷徑："
+  },
+  "vi": {
+    "string-no": "Không",
+    "string-header-desktop": "Trang web này muốn tạo một lối tắt trên màn hình của bạn. Bạn có cho phép tác vụ này không?",
+    "string-no-accesskey": "K",
+    "string-header-wince": "Trang web này muốn tạo lối tắt trong danh sách chương trình của bạn. Bạn có cho phép tác vụ này không?",
+    "string-title-simple": "Tạp Lối tắt cho Ứng dụng",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "H",
+    "string-cancel": "Huỷ",
+    "string-startmenu": "Trình đơn bắt đầu",
+    "string-yes": "Có",
+    "string-never-allow": "Không bao giờ cho phép lối tắt này",
+    "string-yes-accesskey": "C",
+    "string-quicklaunch": "Thanh khởi động nhanh",
+    "string-never-allow-wince": "Không bao giờ cho phép",
+    "string-desktop": "Màn hình",
+    "string-title-default": "Gears - Tạo Lối tắt trên Màn hình",
+    "string-location-query": "Tạo lối tắt trong các vị trí sau:"
+  },
+  "ca": {
+    "string-no": "No",
+    "string-header-desktop": "Aquest lloc web vol crear una drecera al vostre ordinador. Ho voleu permetre?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Aquest lloc web vol crear una drecera a la vostra llista de programes. Ho voleu permetre?",
+    "string-title-simple": "Creeu dreceres d'aplicacions",
+    "string-ok-accesskey": "O",
+    "string-ok": "D'acord",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancel·la",
+    "string-startmenu": "Menú Inici",
+    "string-yes": "Sí",
+    "string-never-allow": "No permetre mai aquesta drecera",
+    "string-yes-accesskey": "S",
+    "string-quicklaunch": "Barra d'inici ràpid",
+    "string-never-allow-wince": "No permetre mai",
+    "string-desktop": "Escriptori",
+    "string-title-default": "Gears - Crea una drecera a l'escriptori",
+    "string-location-query": "Crea dreceres a les ubicacions següents:"
+  },
+  "it": {
+    "string-no": "No",
+    "string-header-desktop": "Questo sito web vuole creare un collegamento sul tuo computer. Consentire l'operazione?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Questo sito Web vuole creare sul tuo desktop un collegamento nel tuo elenco di programmi. Consentire l'operazione?",
+    "string-title-simple": "Crea collegamenti applicazione",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Annulla",
+    "string-startmenu": "Menu Start",
+    "string-yes": "Sì",
+    "string-never-allow": "Non consentire mai questo collegamento",
+    "string-yes-accesskey": "S",
+    "string-quicklaunch": "Barra Avvio veloce",
+    "string-never-allow-wince": "Non consentire mai",
+    "string-desktop": "Desktop",
+    "string-title-default": "Google Gears - Crea collegamento sul desktop",
+    "string-location-query": "Crea collegamenti nelle seguenti posizioni:"
+  },
+  "kn": {
+    "string-no": "ಇಲ್ಲ",
+    "string-header-desktop": "ಈ ವೆಬ್ ಸೈಟ್ ನಿಮ್ಮ ಕಂಪ್ಯೂಟರಿನಲ್ಲಿ ಒಂದು ಶಾರ್ಟ್ ಕಟ್ ರಚಿಸಲು ಬಯಸುತ್ತದೆ. ಇದನ್ನು ನೀವು ಅನುಮತಿಸಲು ಬಯಸುತ್ತೀರಾ?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "ನಿಮ್ಮ ಕಾರ್ಯಕ್ರಮಗಳ ಪಟ್ಟಿಯಲ್ಲಿ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ರಚಿಸಲು ಈ ವೆಬ್‌ಸೈಟ್ ಬಯಸುತ್ತದೆ. ನೀವು ಇದನ್ನು ಅನುಮತಿಸಲು ಬಯಸುತ್ತೀರಾ?",
+    "string-title-simple": "ಅಪ್ಲಿಕೇಶನ್ ಶಾರ್ಟ್ ಕಟ್ ಗಳನ್ನು ರಚಿಸಿ",
+    "string-ok-accesskey": "O",
+    "string-ok": "ಸರಿ",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "ರದ್ದುಮಾಡು",
+    "string-startmenu": "ಪ್ರಾರಂಭ ಮೆನು",
+    "string-yes": "ಹೌದು",
+    "string-never-allow": "ಈ ಶಾರ್ಟ್‌ಕಟ್‌ನ್ನು ಎಂದಿಗೂ ಅನುಮತಿಸಬೇಡಿ",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "ಕ್ವಿಕ್ ಲಾಂಚ್ ಬಾರ್",
+    "string-never-allow-wince": "ಎಂದಿಗೂ ಅನುಮತಿಸಬೇಡಿ",
+    "string-desktop": "ಡೆಸ್ಕ್ ಟಾಪ್",
+    "string-title-default": "Gears - ಡೆಸ್ಕ್ ಟಾಪ್ ಶಾರ್ಟ್ ಕಟ್ ರಚಿಸಿ",
+    "string-location-query": "ಈ ಕೆಳಗಿನ ಸ್ಥಳಗಳಲ್ಲಿ ಶಾರ್ಟ್ ಕಟ್ ಗಳನ್ನು ರಚಿಸಿ:"
+  },
+  "ar": {
+    "string-no": "لا",
+    "string-header-desktop": "يتطلب موقع الويب هذا إنشاء اختصار على الكمبيوتر الخاص بك. هل تريد السماح بذلك؟",
+    "string-no-accesskey": "ل",
+    "string-header-wince": "يرغب موقع الويب هذا في إنشاء اختصار في قائمة البرامج لديك. هل ترغب في السماح له بذلك؟",
+    "string-title-simple": "إنشاء اختصارات للتطبيقات",
+    "string-ok-accesskey": "م",
+    "string-ok": "موافق",
+    "string-cancel-accesskey": "غ",
+    "string-cancel": "إلغاء",
+    "string-startmenu": "القائمة ابدأ",
+    "string-yes": "نعم",
+    "string-never-allow": "عدم السماح بهذا الاختصار مطلقًا",
+    "string-yes-accesskey": "ن",
+    "string-quicklaunch": "شريط التشغيل السريع",
+    "string-never-allow-wince": "عدم السماح مطلقًا",
+    "string-desktop": "سطح المكتب",
+    "string-title-default": "Gears - إنشاء اختصار لسطح المكتب",
+    "string-location-query": "قم بإنشاء اختصارات في المواقع التالية:"
+  },
+  "ml": {
+    "string-no": "ഇല്ല",
+    "string-header-desktop": "ഈ വെബ്സൈറ്റ് നിങ്ങളുടെ കമ്പ്യൂട്ടരില് ഒരു കുറുക്കുവഴി സൃഷ്ടിക്കാന് ആവശ്യപ്പെടുന്നു. ഇതനുവദിക്കാന് നിങ്ങള് ആഗ്രഹിക്കുന്നുണ്ടോ?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "പ്രോഗ്രാമുകളുടെ പട്ടികയില്‍ ഒരു കുറുക്കുവഴി സൃഷ്ടിക്കാന്‍ ഈ വെബ്സൈറ്റ് ആവശ്യപ്പെടുന്നു. ഇതനുവദിക്കാന്‍ നിങ്ങള്‍ ആഗ്രഹിക്കുന്നുണ്ടോ?",
+    "string-title-simple": "അപ്ലിക്കേഷന്‍ കുറുക്കുവഴികള്‍ സൃഷ്ടിക്കുക",
+    "string-ok-accesskey": "O",
+    "string-ok": "ശരി",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "റദ്ദാക്കൂ",
+    "string-startmenu": "തുടങ്ങുക മെനു",
+    "string-yes": "അതെ",
+    "string-never-allow": "ഈ കുറുക്കുവഴി ഒരിക്കലും അനുവദിക്കരുത്",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "ദ്രുത ലോഞ്ച് ബാര്‍",
+    "string-never-allow-wince": "ഒരിക്കലും അനുവദിക്കരുത്",
+    "string-desktop": "ഡെസ്ക്ടോപ്",
+    "string-title-default": "Gears - ഡെസ്ക്ടോപ് കുറുക്കുവഴി സൃഷ്ടിക്കുക",
+    "string-location-query": "താഴെക്കാണുന്ന ലോക്കഷനുകളില് കുറുക്കുവഴികള് സൃഷ്ടിക്കുക"
+  },
+  "cs": {
+    "string-no": "Ne",
+    "string-header-desktop": "Tato webová stránka chce vytvořit zástupce ve vašem počítači. Chcete tuto akci povolit?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Tento web chce vytvořit zástupce v seznamu programů. Chcete tuto akci povolit?",
+    "string-title-simple": "Vytvořit zástupce aplikace",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "R",
+    "string-cancel": "Zrušit",
+    "string-startmenu": "Nabídka Start",
+    "string-yes": "Ano",
+    "string-never-allow": "Nikdy nepovolit tohoto zástupce",
+    "string-yes-accesskey": "A",
+    "string-quicklaunch": "Panel rychlého spuštění",
+    "string-never-allow-wince": "Nikdy nepovolit",
+    "string-desktop": "Plocha",
+    "string-title-default": "Gears – vytvořit zástupce na ploše",
+    "string-location-query": "Vytvořit zástupce v následujících umístěních:"
+  },
+  "et": {
+    "string-no": "Ei",
+    "string-header-desktop": "See veebilehekülg tahab teie arvutisse otseteed luua. Kas soovite seda lubada?",
+    "string-no-accesskey": "E",
+    "string-header-wince": "Veebisait soovib teie programmiloendisse luua otsetee. Kas lubate seda?",
+    "string-title-simple": "Loo rakenduse otseteed",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "T",
+    "string-cancel": "Tühista",
+    "string-startmenu": "Start-menüü",
+    "string-yes": "Jah",
+    "string-never-allow": "Ära luba seda otseteed kunagi",
+    "string-yes-accesskey": "J",
+    "string-quicklaunch": "Kiirkäivitusriba",
+    "string-never-allow-wince": "Ära luba kunagi",
+    "string-desktop": "Töölaud",
+    "string-title-default": "Gears – loo töölaua otsetee",
+    "string-location-query": "Loo otseteed järgmistesse asukohtadesse:"
+  },
+  "id": {
+    "string-no": "Tidak",
+    "string-header-desktop": "Website ini ingin membuat pintasan pada komputer Anda. Anda ingin mengizinkannya?",
+    "string-no-accesskey": "T",
+    "string-header-wince": "Situs web ini ingin membuat pintasan dalam daftar program Anda. Apakah Anda mengizinkannya?",
+    "string-title-simple": "Buat Pintasan Aplikasi",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Batalkan",
+    "string-startmenu": "Menu Mulai",
+    "string-yes": "Ya",
+    "string-never-allow": "Jangan pernah mengizinkan pintasan ini",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "Bilah luncur cepat",
+    "string-never-allow-wince": "Jangan pernah mengizinkan",
+    "string-desktop": "Desktop",
+    "string-title-default": "Gears - Buat Jalan Pintas Desktop",
+    "string-location-query": "Buat pintasan di lokasi berikut ini:"
+  },
+  "es": {
+    "string-no": "No",
+    "string-header-desktop": "Este sitio web desea crear un acceso directo en tu equipo. ¿Quieres permitirlo?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Este sitio web desea crear un acceso directo en tu lista de programas. ¿Quieres permitirlo?",
+    "string-title-simple": "Crear accesos directos de la aplicación",
+    "string-ok-accesskey": "A",
+    "string-ok": "Aceptar",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancelar",
+    "string-startmenu": "Menú Inicio",
+    "string-yes": "Sí",
+    "string-never-allow": "No permitir nunca este acceso directo",
+    "string-yes-accesskey": "S",
+    "string-quicklaunch": "Barra de inicio rápida",
+    "string-never-allow-wince": "No permitir nunca",
+    "string-desktop": "Escritorio",
+    "string-title-default": "Gears - Crear acceso directo en el escritorio",
+    "string-location-query": "Crear accesos directos en las siguientes ubicaciones:"
+  },
+  "en-GB": {
+    "string-no": "No",
+    "string-header-desktop": "This website wants to create a shortcut on your computer. Do you want to allow this?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "This website wants to create the shortcuts listed below in your list of programmes. Do you want to allow this?",
+    "string-title-simple": "Create Application Shortcuts",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancel",
+    "string-startmenu": "Start menu",
+    "string-yes": "Yes",
+    "string-never-allow": "Never allow this shortcut",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "Quick launch bar",
+    "string-never-allow-wince": "Never allow",
+    "string-desktop": "Desktop",
+    "string-title-default": "Gears - Create Desktop Shortcut",
+    "string-location-query": "Create shortcuts in the following locations:"
+  },
+  "ru": {
+    "string-no": "Нет",
+    "string-header-desktop": "Этот веб-сайт собирается создать ярлык на вашем компьютере. Разрешить?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Этот веб-сайт пытается создать ярлык в вашем списке программ. Разрешить?",
+    "string-title-simple": "Создать ярлыки для приложений",
+    "string-ok-accesskey": "O",
+    "string-ok": "ОК",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Отмена",
+    "string-startmenu": "Меню \"Пуск\"",
+    "string-yes": "Да",
+    "string-never-allow": "Никогда не разрешать создание этого ярлыка",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "Панель быстрого запуска",
+    "string-never-allow-wince": "Никогда",
+    "string-desktop": "Рабочий стол",
+    "string-title-default": "Gears — создать ярлык на рабочем столе",
+    "string-location-query": "Создать ярлыки со следующим размещением:"
+  },
+  "nl": {
+    "string-no": "Nee",
+    "string-header-desktop": "Deze website wil een snelkoppeling maken op je computer. Vind je dat goed?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Deze website wil een snelkoppeling maken in uw programmalijst. Wilt u dit toestaan?",
+    "string-title-simple": "Toepassingssnelkoppelingen maken",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Annuleren",
+    "string-startmenu": "Startmenu",
+    "string-yes": "Ja",
+    "string-never-allow": "Deze snelkoppeling nooit toestaan",
+    "string-yes-accesskey": "J",
+    "string-quicklaunch": "Werkbalk Snel starten",
+    "string-never-allow-wince": "Nooit toestaan",
+    "string-desktop": "Bureaublad",
+    "string-title-default": "Gears - Snelkoppeling op bureaublad maken",
+    "string-location-query": "Snelkoppelingen maken op de volgende locaties:"
+  },
+  "no": {
+    "string-no": "Nei",
+    "string-header-desktop": "Dette nettstedet ønsker å opprette en snarvei på datamaskinen. Vil du tillate dette?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Dette nettstedet vil opprette en snarvei i listen over programmer. Vil du tillate dette?",
+    "string-title-simple": "Opprett snarveier til programmer",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Avbryt",
+    "string-startmenu": "Start-meny",
+    "string-yes": "Ja",
+    "string-never-allow": "Avvis alltid denne snarveien",
+    "string-yes-accesskey": "J",
+    "string-quicklaunch": "Hurtigstartlinje",
+    "string-never-allow-wince": "Avvis alltid",
+    "string-desktop": "Skrivebord",
+    "string-title-default": "Gears – Opprett snarvei på skrivebordet",
+    "string-location-query": "Opprett snarveier på følgende plasseringer:"
+  },
+  "tr": {
+    "string-no": "Hayır",
+    "string-header-desktop": "Bu web sitesi bilgisayarınızda bir kısayol oluşturmak istiyor. Buna izin vermek istiyor musunuz?",
+    "string-no-accesskey": "H",
+    "string-header-wince": "Bu web sitesi, programlar listenizde bir kısayol oluşturmak istiyor. Buna izin vermek istiyor musunuz?",
+    "string-title-simple": "Uygulama Kısayolları Oluştur",
+    "string-ok-accesskey": "T",
+    "string-ok": "Tamam",
+    "string-cancel-accesskey": "a",
+    "string-cancel": "İptal",
+    "string-startmenu": "Başlat menüsü",
+    "string-yes": "Evet",
+    "string-never-allow": "Bu kısayola asla izin verme",
+    "string-yes-accesskey": "E",
+    "string-quicklaunch": "Hızlı başlat çubuğu",
+    "string-never-allow-wince": "Asla izin verme",
+    "string-desktop": "Masaüstü",
+    "string-title-default": "Gears - Masaüstü Kısayolu Oluştur",
+    "string-location-query": "Kısayolları aşağıdaki konumlarda oluştur:"
+  },
+  "lv": {
+    "string-no": "Nē",
+    "string-header-desktop": "Šī vietne vēlas izveidot datorā saīsni. Vai vēlaties to atļaut?",
+    "string-no-accesskey": "Nē",
+    "string-header-wince": "Šī vietne jūsu programmu sarakstā gatavojas izveidot īsceļu. Vai atļausit?",
+    "string-title-simple": "Izveidot lietojumprogrammu saīsnes",
+    "string-ok-accesskey": "O",
+    "string-ok": "Labi",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Atcelt",
+    "string-startmenu": "Izvēlne Sākt",
+    "string-yes": "Jā",
+    "string-never-allow": "Nekad neatļaut šī īsceļa izveidi",
+    "string-yes-accesskey": "Jā",
+    "string-quicklaunch": "Ātrās palaišanas josla",
+    "string-never-allow-wince": "Nekad neatļaut",
+    "string-desktop": "Datora darbvirsma",
+    "string-title-default": "Gears — darbvirsmas saīsnes izveide",
+    "string-location-query": "Izveidot saīsnes šādās vietās:"
+  },
+  "lt": {
+    "string-no": "Ne",
+    "string-header-desktop": "Ši svetainė sukurs šaukinį jūsų kompiuteryje. Ar leisti?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Ši svetainė sukurs šaukinį programų sąraše. Ar leisti?",
+    "string-title-simple": "Sukurti programos šaukinius",
+    "string-ok-accesskey": "O",
+    "string-ok": "Gerai",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Atšaukti",
+    "string-startmenu": "Pradinis meniu",
+    "string-yes": "Taip",
+    "string-never-allow": "Niekada neleisti šio šaukinio",
+    "string-yes-accesskey": "T",
+    "string-quicklaunch": "Sparčiosios paleisties juosta",
+    "string-never-allow-wince": "Niekada neleisti",
+    "string-desktop": "Darbalaukis",
+    "string-title-default": "„Gears“ – sukurti darbalaukio šaukinį",
+    "string-location-query": "Sukurti šaukinius šiose vietose:"
+  },
+  "th": {
+    "string-no": "ไม่",
+    "string-header-desktop": "เว็บไซต์นี้ต้องการสร้างทางลัดบนเดสก์ท็อปของคุณ คุณต้องการอนุญาตหรือไม่",
+    "string-no-accesskey": "ม",
+    "string-header-wince": "เว็บไซต์นี้ต้องการสร้างทางลัดที่ปรากฏในรายการโปรแกรมของคุณ คุณต้องการอนุญาตหรือไม่",
+    "string-title-simple": "สร้างทางลัดของแอปพลิเคชัน",
+    "string-ok-accesskey": "ต",
+    "string-ok": "ตกลง",
+    "string-cancel-accesskey": "ย",
+    "string-cancel": "ยกเลิก",
+    "string-startmenu": "เมนู Start",
+    "string-yes": "ใช่",
+    "string-never-allow": "ไม่อนุญาตให้สร้างทางลัดนี้",
+    "string-yes-accesskey": "ช",
+    "string-quicklaunch": "แถบ Quick Launch",
+    "string-never-allow-wince": "ไม่อนุญาต",
+    "string-desktop": "เดสก์ท็อป",
+    "string-title-default": "Gears - สร้างทางลัดบนเดสก์ท็อป",
+    "string-location-query": "สร้างทางลัดในตำแหน่งต่อไปนี้:"
+  },
+  "ro": {
+    "string-no": "Nu",
+    "string-header-desktop": "Acest site Web doreşte să creeze o comandă rapidă pe computerul dvs. Permiteţi acest lucru?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Acest site Web doreşte să creeze o comandă rapidă în lista dvs. de programe. Permiteţi acest lucru?",
+    "string-title-simple": "Creaţi comenzi rapide pentru aplicaţii",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Anulaţi",
+    "string-startmenu": "Meniul Start",
+    "string-yes": "Da",
+    "string-never-allow": "Nu permiteţi niciodată această comandă rapidă",
+    "string-yes-accesskey": "D",
+    "string-quicklaunch": "Bara Lansare rapidă",
+    "string-never-allow-wince": "Nu permiteţi niciodată",
+    "string-desktop": "Desktop",
+    "string-title-default": "Gears – Creaţi comandă rapidă de pe desktop",
+    "string-location-query": "Creaţi comenzi rapide în următoarele locaţii:"
+  },
+  "is": {
+    "string-no": "Nei",
+    "string-header-desktop": "Þetta vefsvæði óskar eftir að búa til flýtivísun á tölvunni hjá þér. Viltu leyfa það?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Þetta vefsvæði óskar eftir að búa til flýtivísun í forritalistanum hjá þér. Viltu leyfa það?",
+    "string-title-simple": "Útbúa flýtivísanir fyrir forrit",
+    "string-ok-accesskey": "O",
+    "string-ok": "Í lagi",
+    "string-cancel-accesskey": "H",
+    "string-cancel": "Hætta við",
+    "string-startmenu": "Upphafsvalmynd",
+    "string-yes": "Já",
+    "string-never-allow": "Aldrei heimila þessa flýtivísun",
+    "string-yes-accesskey": "J",
+    "string-quicklaunch": "Stika fyrir flýtiræsingu",
+    "string-never-allow-wince": "Leyfa aldrei",
+    "string-desktop": "Skjáborð",
+    "string-title-default": "Gears - Setja flýtivísun á skjáborð",
+    "string-location-query": "Útbúa flýtivísanir á eftirfarandi staðsetningum:"
+  },
+  "fil": {
+    "string-no": "Hindi",
+    "string-header-desktop": "Nais ng website na ito na lumikha ng isang shortcut sa iyong computer. Nais mo bang payagan ito?",
+    "string-no-accesskey": "H",
+    "string-header-wince": "Nais ng website na ito na lumikha ng isang shortcut sa iyong listahan ng mga program. Nais mo ba itong payagan?",
+    "string-title-simple": "Lumikha ng mga Shortcut ng Application",
+    "string-ok-accesskey": "K",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "I",
+    "string-cancel": "Ikansela",
+    "string-startmenu": "Start menu",
+    "string-yes": "Oo",
+    "string-never-allow": "Huwag kailanman payagan ang shortcut na ito",
+    "string-yes-accesskey": "O",
+    "string-quicklaunch": "Quick launch bar",
+    "string-never-allow-wince": "Huwag kailanman papayagan",
+    "string-desktop": "Desktop",
+    "string-title-default": "Mga Gear - Lumikha ng Shortcut sa Desktop",
+    "string-location-query": "Lumikha ng mga shortcut sa mga sumusunod na lokasyon:"
+  },
+  "ta": {
+    "string-no": "இல்லை",
+    "string-header-desktop": "இந்தத் தளம் உங்கள் கணினியில் குறுக்கு வழியை உருவாக்க விரும்புகிறது. நீங்கள் இதை அனுமதிக்க வேண்டுமா?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "உங்கள் நிரல்களின் பட்டியலில் ஒரு குறுக்குவழியை உருவாக்க இந்த வலைத்தளம் முயற்சிக்கிறது. இதனை அனுமதிக்க விரும்புகிறீர்களா?",
+    "string-title-simple": "அப்ளிகேஷன் குறுக்குவழியை உருவாக்கு",
+    "string-ok-accesskey": "O",
+    "string-ok": "சரி",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "ரத்துசெய்",
+    "string-startmenu": "ஸ்டார்ட் மெனு",
+    "string-yes": "ஆம்",
+    "string-never-allow": "இந்த குறுக்குவழியை எப்போதும் அனுமதிக்க வேண்டாம்",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "குவிக் லான்ச் பார்",
+    "string-never-allow-wince": "எப்போதும் அனுமதிக்காதே",
+    "string-desktop": "டெஸ்க்டாப்",
+    "string-title-default": "Gears - டெஸ்க்டாப் குறுக்குவழியை உருவாக்கு",
+    "string-location-query": "பின்வரும் இடத்தில் குறுக்கு வழியை உருவாக்கவும்:"
+  },
+  "fr": {
+    "string-no": "Non",
+    "string-header-desktop": "Autorisez-vous la création par ce site Web d'un raccourci sur votre ordinateur ?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Ce site Web souhaite créer un raccourci dans votre liste de programmes. Autorisez-vous cette opération ?",
+    "string-title-simple": "Créer des raccourcis d'applications",
+    "string-ok-accesskey": "K",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "U",
+    "string-cancel": "Annuler",
+    "string-startmenu": "Menu Démarrer",
+    "string-yes": "Oui",
+    "string-never-allow": "Ne jamais autoriser ce raccourci",
+    "string-yes-accesskey": "O",
+    "string-quicklaunch": "Barre de lancement rapide",
+    "string-never-allow-wince": "Ne jamais autoriser",
+    "string-desktop": "Bureau",
+    "string-title-default": "Google Gears - Créer un raccourci sur le Bureau",
+    "string-location-query": "Créer des raccourcis aux emplacements suivants :"
+  },
+  "bg": {
+    "string-no": "Не",
+    "string-header-desktop": "Прави се опит за създаване на пряк път към този уебсайт на компютъра ви. Разрешавате ли?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Този уебсайт иска да създаде пряк път в списъка ви с програми. Разрешавате ли?",
+    "string-title-simple": "Създаване на преки пътища към приложението",
+    "string-ok-accesskey": "О",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "С",
+    "string-cancel": "Отказ",
+    "string-startmenu": "Меню „Старт“",
+    "string-yes": "Да",
+    "string-never-allow": "Създаването на този пряк път не се разрешава изобщо",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "Лента за бързо стартиране",
+    "string-never-allow-wince": "Не се разрешава изобщо",
+    "string-desktop": "Работен плот",
+    "string-title-default": "Gears - Създаване на пряк път на работния плот",
+    "string-location-query": "Преки пътища да бъдат създадени на следните места:"
+  },
+  "uk": {
+    "string-no": "Ні",
+    "string-header-desktop": "Цей веб-сайт хоче створити ярлик на Вашому комп’ютері. Дозволити?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Цей веб-сайт намагається створити ярлик у списку програм. Дозволити це?",
+    "string-title-simple": "Створіть ярлики програм",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Скасувати",
+    "string-startmenu": "Меню \"Пуск\"",
+    "string-yes": "Так",
+    "string-never-allow": "Ніколи не дозволяти створювати цей ярлик",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "Панель \"Швидкий запуск\"",
+    "string-never-allow-wince": "Ніколи не дозволяти",
+    "string-desktop": "Робочий стіл",
+    "string-title-default": "Gears – Створення ярликів на робочому столі",
+    "string-location-query": "Створіть ярлики у таких розташуваннях:"
+  },
+  "hr": {
+    "string-no": "Ne",
+    "string-header-desktop": "Ova web-lokacija želi stvoriti prečac na Vašem računalu. Dopuštate li taj postupak?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Ova web-lokacija želi stvoriti prečac na Vašem popisu programa. Dopuštate li taj postupak?",
+    "string-title-simple": "Stvori prečace za aplikacije",
+    "string-ok-accesskey": "K",
+    "string-ok": "U redu",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Odustani",
+    "string-startmenu": "Izbornik Start",
+    "string-yes": "Da",
+    "string-never-allow": "Nikad ne dopuštaj ovaj prečac",
+    "string-yes-accesskey": "D",
+    "string-quicklaunch": "Traka za brzo pokretanje",
+    "string-never-allow-wince": "Ne dopuštaj",
+    "string-desktop": "Radna površina",
+    "string-title-default": "Gears – Napravi prečac na radnoj površini",
+    "string-location-query": "Stvori prečace na sljedećim mjestima:"
+  },
+  "bn": {
+    "string-no": "না",
+    "string-header-desktop": "এই ওয়েবসাইটটা আপনার কম্পিউটারে একটি শর্টকার্ট তৈরি করতে চায় ׀ আপনি কি এটার অনুমতি দিতে চান?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "এই ওয়েবসাইটটি আপনার প্রোগ্রামের তালিকাতে একটি শর্টকাট তৈরি করতে চায়৷ আপনি কি এটি মঞ্জুরি দিতে চান?",
+    "string-title-simple": "অ্যাপ্লিকেশান শর্টকার্ট তৈরি করুন",
+    "string-ok-accesskey": "O",
+    "string-ok": "ওকে",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "বাতিল",
+    "string-startmenu": "সূচনা মেনু",
+    "string-yes": "হ্যাঁ",
+    "string-never-allow": "কখনই এই শর্টকাটটির মঞ্জুরি দেবেন না",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "দ্রুত লঞ্চ দণ্ড",
+    "string-never-allow-wince": "কখনই মঞ্জুরি দেবেন না",
+    "string-desktop": "ডেস্কটপ",
+    "string-title-default": "Gears- ডেস্কটপ শর্টকাট তৈরি করুন",
+    "string-location-query": "এই যায়গাগুলিতে জন্য শর্টকার্টগুলি তৈরি করুন:"
+  },
+  "en-US": {
+    "string-no": "No",
+    "string-header-desktop": "This website wants to create a shortcut on your computer. Do you want to allow this?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "This website wants to create a shortcut in your list of programs. Do you want to allow this?",
+    "string-title-simple": "Create Application Shortcuts",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancel",
+    "string-startmenu": "Start menu",
+    "string-yes": "Yes",
+    "string-never-allow": "Never allow this shortcut",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "Quick launch bar",
+    "string-never-allow-wince": "Never allow",
+    "string-desktop": "Desktop",
+    "string-title-default": "Gears - Create Desktop Shortcut",
+    "string-location-query": "Create shortcuts in the following locations:"
+  },
+  "da": {
+    "string-no": "Nej",
+    "string-header-desktop": "Dette websted ønsker at oprette en genvej på din computer. Vil du tillade det?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Dette websted ønsker at oprette en genvej i din liste med programmer. Vil du tillade det?",
+    "string-title-simple": "Opret genveje til programmer",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Annuller",
+    "string-startmenu": "Startmenu",
+    "string-yes": "Ja",
+    "string-never-allow": "Tillad aldrig denne genvej",
+    "string-yes-accesskey": "J",
+    "string-quicklaunch": "Værktøjslinjen Hurtig start",
+    "string-never-allow-wince": "Giv aldrig tilladelse",
+    "string-desktop": "Skrivebord",
+    "string-title-default": "Gears – opret genvej på skrivebordet",
+    "string-location-query": "Opret genveje følgende steder:"
+  },
+  "fa": {
+    "string-no": "خیر",
+    "string-header-desktop": "این وب سایت می خواهد میانبری در رایانه شما ایجاد کند. آیا اجازه می دهید؟",
+    "string-no-accesskey": "N",
+    "string-header-wince": "این وب سایت می خواهد یك میانبر در ليست برنامه های شما ایجاد کند. آیا اجازه می دهید؟",
+    "string-title-simple": "ايجاد ميانبرهای برنامه",
+    "string-ok-accesskey": "O",
+    "string-ok": "تأیید",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "لغو",
+    "string-startmenu": "منوی شروع",
+    "string-yes": "بله",
+    "string-never-allow": "هرگز اجازه ندهید این میانبر ایجاد شود.",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "ميله راه اندازی سريع",
+    "string-never-allow-wince": "هرگز اجازه داده نشود",
+    "string-desktop": "دسک تاپ",
+    "string-title-default": "Gears- ایجاد میانبر در دسک تاپ",
+    "string-location-query": "ایجاد میانبر در محل های زیر:"
+  },
+  "hi": {
+    "string-no": "नहीं",
+    "string-header-desktop": "यह वेबसाइट आपके कंप्यूटर पर एक शॉर्टकट बनाना चाहती है. क्या आप इसकी अनुमति देना चाहते हैं?",
+    "string-no-accesskey": "नहीं",
+    "string-header-wince": "यह वेबसाइट आपके प्रोग्रामों की सूची में शॉर्टकट बनाना चाहती है. क्या आप इसकी अनुमति देना चाहते हैं?",
+    "string-title-simple": "अनुप्रयोग शार्टकट बनाएँ",
+    "string-ok-accesskey": "ठीक",
+    "string-ok": "ठीक",
+    "string-cancel-accesskey": "रद्द करें",
+    "string-cancel": "रद्द करें",
+    "string-startmenu": "प्रारंभ मेनू",
+    "string-yes": "हाँ",
+    "string-never-allow": "इस शॉर्टकट को कभी अनुमति न दें",
+    "string-yes-accesskey": "हाँ",
+    "string-quicklaunch": "त्वरित लॉन्च पट्टिका",
+    "string-never-allow-wince": "कभी अनुमति न दें",
+    "string-desktop": "डेस्कटॉप",
+    "string-title-default": "Gears - डेस्कटॉप शॉर्टकट बनाएँ",
+    "string-location-query": "निम्न स्थानों पर शॉर्टकट बनाएँ:"
+  },
+  "pt-BR": {
+    "string-no": "Não",
+    "string-header-desktop": "Este site deseja criar um atalho no seu computador. Gostaria de permitir isso?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Este site deseja criar um atalho na sua lista de programas. Deseja permitir isso?",
+    "string-title-simple": "Criar atalhos do aplicativo",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancelar",
+    "string-startmenu": "Menu Iniciar",
+    "string-yes": "Sim",
+    "string-never-allow": "Nunca permitir este atalho",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "Barra de inicialização rápida",
+    "string-never-allow-wince": "Nunca permitir",
+    "string-desktop": "Área de trabalho",
+    "string-title-default": "Gears - Criar atalho na área de trabalho",
+    "string-location-query": "Criar atalhos nos seguintes locais:"
+  },
+  "fi": {
+    "string-no": "Ei",
+    "string-header-desktop": "Tämä sivusto haluaa luoda pikakuvakkeen tietokoneellesi. Sallitko pikakuvakkeen luomisen?",
+    "string-no-accesskey": "E",
+    "string-header-wince": "Tämä sivusto haluaa luoda pikakuvakkeen ohjelmaluetteloosi. Sallitko pikakuvakkeen luomisen?",
+    "string-title-simple": "Luo sovelluksista pikakuvakkeita",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "P",
+    "string-cancel": "Peruuta",
+    "string-startmenu": "Aloitusvalikko",
+    "string-yes": "Kyllä",
+    "string-never-allow": "Älä koskaan salli tätä pikakuvaketta",
+    "string-yes-accesskey": "K",
+    "string-quicklaunch": "Pikakäynnistyspalkki",
+    "string-never-allow-wince": "Älä koskaan salli",
+    "string-desktop": "Työpöytä",
+    "string-title-default": "Gears - Luo pikakuvake työpöydälle",
+    "string-location-query": "Luo pikakuvakkeet seuraaviin kohteisiin:"
+  },
+  "hu": {
+    "string-no": "Nem",
+    "string-header-desktop": "Ez a webhely parancsikont szeretne létrehozni a számítógépen. Engedélyezi ezt?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Ez a webhely egy parancsikont kíván létrehozni a programlistában. Engedélyezi ezt?",
+    "string-title-simple": "Alkalmazásindító parancsikonok létrehozása",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "M",
+    "string-cancel": "Mégse",
+    "string-startmenu": "Start menü",
+    "string-yes": "Igen",
+    "string-never-allow": "Soha ne engedélyezze ezt a parancsikont",
+    "string-yes-accesskey": "I",
+    "string-quicklaunch": "Gyorsindítás eszköztár",
+    "string-never-allow-wince": "Soha ne engedélyezze",
+    "string-desktop": "Asztal",
+    "string-title-default": "Szinkron - Asztali parancsikon létrehozása",
+    "string-location-query": "Parancsikonok létrehozása a következő helyeken:"
+  },
+  "ja": {
+    "string-no": "いいえ",
+    "string-header-desktop": "デスクトップにこのサイトのショートカットが作成されます。許可しますか？",
+    "string-no-accesskey": "N",
+    "string-header-wince": "プログラム一覧にこのサイトのショートカットが作成されます。許可しますか？",
+    "string-title-simple": "アプリケーション ショートカットを作成",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "キャンセル",
+    "string-startmenu": "スタート メニュー",
+    "string-yes": "はい",
+    "string-never-allow": "このショートカットを常に拒否する",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "クイック起動バー",
+    "string-never-allow-wince": "許可しない",
+    "string-desktop": "デスクトップ",
+    "string-title-default": "Gears - デスクトップ ショートカットを作成",
+    "string-location-query": "ショートカットを作成する場所"
+  },
+  "he": {
+    "string-no": "לא",
+    "string-header-desktop": "אתר אינטרנט זה רוצה ליצור קיצור דרך במחשב שלך. האם ברצונך לאפשר זאת?",
+    "string-no-accesskey": "לא",
+    "string-header-wince": "אתר אינטרנט זה מעוניין ליצור קיצור דרך ברשימת התוכניות שלך. האם ברצונך לאפשר זאת?",
+    "string-title-simple": "צור קיצורי דרך ליישומים",
+    "string-ok-accesskey": "אישור",
+    "string-ok": "אישור",
+    "string-cancel-accesskey": "ביטול",
+    "string-cancel": "ביטול",
+    "string-startmenu": "תפריט 'התחל'",
+    "string-yes": "כן",
+    "string-never-allow": "לעולם אל תאפשר קיצור דרך זה",
+    "string-yes-accesskey": "כן",
+    "string-quicklaunch": "סרגל הפעלה מהירה",
+    "string-never-allow-wince": "לעולם אל תאפשר",
+    "string-desktop": "שולחן עבודה",
+    "string-title-default": "Gears - צור קיצור דרך בשולחן העבודה",
+    "string-location-query": "צור קיצורי דרך במיקומים הבאים:"
+  },
+  "te": {
+    "string-no": "వద్దు",
+    "string-header-desktop": "ఈ వెబ్ సైట్ మీ కమ్ప్యుటర్ పైన షార్ట్ కట్స్ సృష్టించాలని అనుకుంటుంది . ఇది మీరు కొనసాగించాలని అనుకుంటున్నారా?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "ఈ వెబ్‌సైట్ మీ ప్రోగ్రామ్‌ల జాబితాలో ఒక సత్వర మార్గాన్ని సృష్టించదలిచింది. మీరు దీనిని అనుమతించదలిచారా?",
+    "string-title-simple": "అప్ప్లికేషన్ల షార్ట్కట్లు సృష్టించు",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "రద్దు చెయ్యి",
+    "string-startmenu": "స్టార్ట్ మెన్యు",
+    "string-yes": "అవును",
+    "string-never-allow": "ఈ సత్వర మార్గాన్ని ఎప్పుడూ అనుమతించవద్దు",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "శీఘ్ర లాంచ్ బార్",
+    "string-never-allow-wince": "ఎప్పుడూ అనుమతించవద్దు",
+    "string-desktop": "డెస్క్ టాప్",
+    "string-title-default": "Gears -డెస్క్ టాప్ షార్ట్ కట్ని సృష్టించు",
+    "string-location-query": "ఈ లోకేషన్స్ లో షార్ట్ కట్స్ సృష్టించండి:"
+  },
+  "pt-PT": {
+    "string-no": "Não",
+    "string-header-desktop": "Este Web site pretende criar um atalho no seu computador. Pretende permitir esta acção?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Este Web site pretende criar um atalho na sua lista de programas. Pretende permitir esta acção?",
+    "string-title-simple": "Criar atalhos para as aplicações",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Cancelar",
+    "string-startmenu": "Menu Iniciar",
+    "string-yes": "Sim",
+    "string-never-allow": "Nunca permitir este atalho",
+    "string-yes-accesskey": "S",
+    "string-quicklaunch": "Barra de iniciação rápida",
+    "string-never-allow-wince": "Nunca permitir",
+    "string-desktop": "Ambiente de trabalho",
+    "string-title-default": "Gears - Criar atalho no ambiente de trabalho",
+    "string-location-query": "Criar atalhos nas seguintes localizações:"
+  },
+  "sr": {
+    "string-no": "Не",
+    "string-header-desktop": "Овај веб сајт жели да направи пречицу на вашем рачунару. Да ли желите да то дозволите?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Овај веб сајт жели да направи пречицу на листи програма. Да ли желите да то дозволите?",
+    "string-title-simple": "Креирај пречице апликација",
+    "string-ok-accesskey": "P",
+    "string-ok": "Потврди",
+    "string-cancel-accesskey": "О",
+    "string-cancel": "Откажи",
+    "string-startmenu": "Старт мени",
+    "string-yes": "Да",
+    "string-never-allow": "Никада не дозволи ову пречицу",
+    "string-yes-accesskey": "D",
+    "string-quicklaunch": "Трака за брзо покретање",
+    "string-never-allow-wince": "Никада не дозволи",
+    "string-desktop": "Радна површина",
+    "string-title-default": "Gears - направи пречицу на радној површини",
+    "string-location-query": "Hаправи пречице на следећим локацијама:"
+  },
+  "ko": {
+    "string-no": "아니요",
+    "string-header-desktop": "웹사이트에서 사용자 컴퓨터에 바로가기를 만들려고 합니다. 허용하시겠습니까?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "웹사이트에서 프로그램 목록에 바로가기를 만들려고 합니다. 바로가기를 만드시겠습니까?",
+    "string-title-simple": "애플리케이션 바로가기 만들기",
+    "string-ok-accesskey": "O",
+    "string-ok": "확인",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "취소",
+    "string-startmenu": "시작 메뉴",
+    "string-yes": "예",
+    "string-never-allow": "바로가기를 허용하지 않음",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "빠른실행 표시줄",
+    "string-never-allow-wince": "허용 안함",
+    "string-desktop": "바탕화면",
+    "string-title-default": "Gears - 바탕화면 바로가기 만들기",
+    "string-location-query": "바로가기 생성 위치:"
+  },
+  "sv": {
+    "string-no": "Nej",
+    "string-header-desktop": "Webbplatsen försöker skapa en genväg i datorn. Vill du tillåta det?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Den här webbplatsen vill skapa en genväg i din programlista. Vill du tillåta det?",
+    "string-title-simple": "Skapa programgenvägar",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Avbryt",
+    "string-startmenu": "Start-meny",
+    "string-yes": "Ja",
+    "string-never-allow": "Tillåt aldrig den här genvägen",
+    "string-yes-accesskey": "J",
+    "string-quicklaunch": "Fältet Snabbstart",
+    "string-never-allow-wince": "Tillåt aldrig",
+    "string-desktop": "Skrivbord",
+    "string-title-default": "Gears - Skapa genväg på skrivbordet",
+    "string-location-query": "Skapa genvägar på följande platser:"
+  },
+  "ur": {
+    "string-no": "نہیں",
+    "string-header-desktop": "یہ ویب سائٹ آپ کے کمپیوٹر پر ایک شارٹ کٹ بنانا چاہتی ہے۔ کیا آپ اس کی اجازت دیں گے؟",
+    "string-no-accesskey": "نہیں",
+    "string-header-wince": "یہ ویب سائٹ آپ کے پروگرامز کی فہرست میں درج ذیل شارٹ کٹ بنانا چاہتی ہے۔ کیا آپ اس کی اجازت دیں گے؟",
+    "string-title-simple": "اطلاق کا شارٹ کٹ بنائیں",
+    "string-ok-accesskey": "O",
+    "string-ok": "ٹھیک ہے",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "منسوخ",
+    "string-startmenu": "اسٹارٹ مینو",
+    "string-yes": "ہاں",
+    "string-never-allow": "کبھی بھی اس شارٹ کٹ کی اجازت نہ دیں۔",
+    "string-yes-accesskey": "ہاں",
+    "string-quicklaunch": "فوری شروع کرنے کا بار",
+    "string-never-allow-wince": "کبھی بھی اجازت نہ دیں",
+    "string-desktop": "ڈیسک ٹاپ",
+    "string-title-default": "گیئرز - ڈیسک ٹاپ شارٹ کٹ بنائیں",
+    "string-location-query": "درج ذیل مقامات پر شارٹ کٹ بنائیں:"
+  },
+  "sk": {
+    "string-no": "Nie",
+    "string-header-desktop": "Táto webová lokalita chce vytvoriť odkaz v počítači. Chcete to povoliť?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Táto webová lokalita chce vytvoriť odkaz v zozname programov. Chcete to povoliť?",
+    "string-title-simple": "Vytvorte odkazy na aplikácie",
+    "string-ok-accesskey": "K",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "R",
+    "string-cancel": "Zrušiť",
+    "string-startmenu": "Ponuka Štart",
+    "string-yes": "Áno",
+    "string-never-allow": "Nikdy nepovoliť tento odkaz",
+    "string-yes-accesskey": "O",
+    "string-quicklaunch": "Panel s nástrojmi Rýchly prístup",
+    "string-never-allow-wince": "Nikdy nepovoliť",
+    "string-desktop": "Pracovná plocha",
+    "string-title-default": "Gears - Vytvoriť odkaz na pracovnej ploche",
+    "string-location-query": "Vytvoriť odkazy na nasledujúcich miestach:"
+  },
+  "zh-CN": {
+    "string-no": "否",
+    "string-header-desktop": "该网站要在您的计算机上创建快捷键。 是否允许该操作？",
+    "string-no-accesskey": "N",
+    "string-header-wince": "该网站要在您的程序列表中创建快捷方式。 是否允许该操作？",
+    "string-title-simple": "创建应用程序快捷键",
+    "string-ok-accesskey": "O",
+    "string-ok": "确定",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "取消",
+    "string-startmenu": "开始菜单",
+    "string-yes": "是",
+    "string-never-allow": "永不允许该快捷方式",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "快速启动栏",
+    "string-never-allow-wince": "永不允许",
+    "string-desktop": "桌面",
+    "string-title-default": "Gears - 创建桌面快捷方式",
+    "string-location-query": "在以下位置创建快捷键："
+  },
+  "de": {
+    "string-no": "Nein",
+    "string-header-desktop": "Für diese Website soll eine Verknüpfung auf Ihrem Computer erstellt werden. Möchten Sie dies zulassen?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Für diese Website soll eine Verknüpfung in Ihrer Programmliste erstellt werden. Möchten Sie dies zulassen?",
+    "string-title-simple": "Anwendungsverknüpfungen erstellen",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Abbrechen",
+    "string-startmenu": "Startmenü",
+    "string-yes": "Ja",
+    "string-never-allow": "Diese Verknüpfung nie zulassen",
+    "string-yes-accesskey": "J",
+    "string-quicklaunch": "Schnellstartleiste",
+    "string-never-allow-wince": "Nie zulassen",
+    "string-desktop": "Desktop",
+    "string-title-default": "Gears - Desktopverknüpfung erstellen",
+    "string-location-query": "Verknüpfungen unter folgenden Speicherpfaden erstellen:"
+  },
+  "pl": {
+    "string-no": "Nie",
+    "string-header-desktop": "Ta witryna internetowa chce utworzyć skrót na Twoim komputerze. Czy chcesz na to zezwolić?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "Ta witryna chce utworzyć skrót na Twojej liście programów. Czy chcesz na to zezwolić?",
+    "string-title-simple": "Utwórz skróty do aplikacji",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "A",
+    "string-cancel": "Anuluj",
+    "string-startmenu": "Menu Start",
+    "string-yes": "Tak",
+    "string-never-allow": "Nigdy nie zezwalaj na ten skrót",
+    "string-yes-accesskey": "T",
+    "string-quicklaunch": "Pasek szybkiego uruchamiania",
+    "string-never-allow-wince": "Nigdy nie zezwalaj",
+    "string-desktop": "Pulpit",
+    "string-title-default": "Gears — utwórz skrót na pulpicie",
+    "string-location-query": "Utwórz skróty w następujących lokalizacjach:"
+  },
+  "ms": {
+    "string-no": "Tidak",
+    "string-header-desktop": "Laman web ini mahu membuat pintasan pada komputer anda. Adakah anda membenarkannya?",
+    "string-no-accesskey": "T",
+    "string-header-wince": "Laman web ini mahu membuat pintasan dalam senarai atur cara anda. Adakah anda hendak membenarkannya?",
+    "string-title-simple": "Buat Pintasan Aplikasi",
+    "string-ok-accesskey": "O",
+    "string-ok": "OK",
+    "string-cancel-accesskey": "B",
+    "string-cancel": "Batal",
+    "string-startmenu": "Menu mula",
+    "string-yes": "Ya",
+    "string-never-allow": "Jangan sekali-kali benarkan pintasan ini",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "Bar lancar cepat",
+    "string-never-allow-wince": "Jangan sekali-kali benarkan",
+    "string-desktop": "Desktop",
+    "string-title-default": "Gear - Buat Pintasan Desktop",
+    "string-location-query": "Buat pintasan dalam lokasi yang berikut:"
+  },
+  "sl": {
+    "string-no": "Ne",
+    "string-header-desktop": "To spletno mesto želi v vašem računalniku ustvariti bližnjico. Ali želite to dejanje dovoliti?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "To spletno mesto skuša na seznamu programov ustvariti bližnjico. Ali želite to dejanje dovoliti?",
+    "string-title-simple": "Ustvarite bližnjice za programe",
+    "string-ok-accesskey": "O",
+    "string-ok": "V redu",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "Prekliči",
+    "string-startmenu": "Meni »Start«",
+    "string-yes": "Da",
+    "string-never-allow": "Nikoli ne dovoli te bližnjice",
+    "string-yes-accesskey": "D",
+    "string-quicklaunch": "Vrstica za hitri zagon",
+    "string-never-allow-wince": "Nikoli ne dovoli",
+    "string-desktop": "Namizje",
+    "string-title-default": "Gears – Ustvarjanje bližnjice na namizju",
+    "string-location-query": "Ustvari bližnjice na teh mestih:"
+  },
+  "mr": {
+    "string-no": "नाही",
+    "string-header-desktop": "ही वेबसाइट आपल्या संगणकावर शॉर्टकट तयार करू इच्छिते. यास आपली अनुमती आहे?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "ही वेबसाइट आपल्या प्रोग्राम्स सूचीमध्ये एक शॉर्टकट तयार करू इच्छित आहे. आपण यास परवानगी देऊ इच्छिता काय?",
+    "string-title-simple": "एप्लिकेशन शॉर्टकट तयार करा",
+    "string-ok-accesskey": "O",
+    "string-ok": "ओके",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "रद्द करा",
+    "string-startmenu": "स्टार्ट मेनू",
+    "string-yes": "होय",
+    "string-never-allow": "या शॉर्टकटला कधीही परवानगी देऊ नये",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "क्विक लाँच बार",
+    "string-never-allow-wince": "कधीही परवानगी देऊ नये",
+    "string-desktop": "डेस्कटॉप",
+    "string-title-default": "Gears - डेस्कटॉप शॉर्टकट तयार करा",
+    "string-location-query": "खालील स्थानांवर शॉर्टकट तयार करा:"
+  },
+  "or": {
+    "string-no": "ନା",
+    "string-header-desktop": "ଏହି ୱେବସାଇଟ୍ ଆପଣଙ୍କ କମ୍ପ୍ୟୁଟରରେ ଏକ ସର୍ଟକଟ ସୃଷ୍ଟି କରିବାକୁ ଚାହୁଁଛି ଆପଣ ଏହାକୁ ଅନୁମତି ଦେବାକୁ ଚାହୁଁଛନ୍ତି ?",
+    "string-no-accesskey": "N",
+    "string-header-wince": "ଏହି ୱେବସାଇଟ୍ ଆପଣଙ୍କର ପ୍ରୋଗ୍ରାମ୍ ତାଲିକାରେ ଏକ ସର୍ଟକଟ୍ ସୃଷ୍ଟି କରିବାକୁ ଚାହୁଁଛି । ଆପଣ ଏହାକୁ ଅନୁମତି କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?",
+    "string-title-simple": "ଅନୁପ୍ରୟୋଗ ସର୍ଟକଟଗୁଡିକ ସୃଷ୍ଟି କରନ୍ତୁ",
+    "string-ok-accesskey": "O",
+    "string-ok": "ଓକେ",
+    "string-cancel-accesskey": "C",
+    "string-cancel": "ବାତିଲ୍",
+    "string-startmenu": "ଷ୍ଟାର୍ଟ ମେନୁ",
+    "string-yes": "ହଁ",
+    "string-never-allow": "ଏହି ସର୍ଟକଟ୍ କେବେ ମଧ୍ୟ ଅନୁମତି କରନ୍ତୁ ନାହିଁ",
+    "string-yes-accesskey": "Y",
+    "string-quicklaunch": "କୁଇକ୍ ଲଞ୍ଚ୍ ବାର୍",
+    "string-never-allow-wince": "କେବେ ମଧ୍ୟ ଅନୁମତି କରନ୍ତୁ ନାହିଁ",
+    "string-desktop": "ଡେସ୍କଟପ୍",
+    "string-title-default": "Gears - ଡେସ୍କଟପ୍ ସର୍ଟକଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ",
+    "string-location-query": "ନିମ୍ନ ଅବସ୍ଥାନ ଗୁଡିକରେ ସର୍ଟକଟ ସୃଷ୍ଟି କରନ୍ତୁ:"
+  }
+};
+
+// Insert all localized strings for the specified locale into the div or span
+// matching the id.
+function loadI18nStrings(locale) {
+  var rtl_languages = ['he', 'ar', 'fa', 'ur'];
+
+  if (!locale) {
+    locale = 'en-US';
+  } else {
+    if (!localized_strings[locale]) {
+      // For xx-YY locales, determine what the base locale is.
+      var base_locale = locale.split('-')[0];
+
+      if (localized_strings[base_locale]) {
+        locale = base_locale;
+      } else {
+        locale = 'en-US';
+      }
+    }
+  }
+
+  var strings = localized_strings[locale];
+
+  // If the specified locale is an right to left language, change the direction
+  // of the page.
+  for (index in rtl_languages) {
+    if (locale == rtl_languages[index]) {
+      document.body.dir = "rtl";
+      break;
+    }
+  }
+
+  // Copy each string to the proper UI element, if it exists.
+  for (name in strings) {
+    if (name == 'string-html-title') {
+      if (!browser.ie_mobile) {
+        // IE Mobile dialogs don't have a title bar.
+        // Furthermore, document.title is undefined in IE Mobile on WinMo 5.
+        // It's also impossible to add properties to the window object.
+        // (see http://code.google.com/apis/gears/mobile.html)
+        document.title = strings[name];
+      }
+    } else {
+      var element = dom.getElementById(name);
+      if (element) {
+        element.innerHTML = strings[name];
+      }
+    }
+  }
+}
+
+
+</script>
+
+<script>
+  var debug = false;
+  var dialogMinHeight = 200;
+
+  // We currently only support custom locations for desktop windows.
+  var locationsEnabled = browser.windows && !browser.ie_mobile;
+
+  var args;
+
+  if (debug) {
+    // Handy for debugging layout:
+    if (browser.ie_mobile) {
+      window.pie_dialog = new Object();
+      window.pie_dialog.IsSmartPhone = function() { return false; };
+      window.pie_dialog.SetCancelButton = function() {};
+      window.pie_dialog.SetButton = function() {};
+      window.pie_dialog.SetButtonEnabled = function() {};
+      window.pie_dialog.SetScriptContext = function() {};
+      window.pie_dialog.ResizeDialog = function() {};
+    }
+
+    args = {
+      locale: "en-US",
+      style: "simple",
+      name: "My Application",
+      link: "http://www.google.com/",
+      description: "This application does things does things!",
+      // description: "This application does things does things that do things that do things that do things that do things that do things that do things that do things that do things that do things that do things that do things that do things that do things that do things that do things that do things that do things that do things.",
+      icon16x16: "http://google-gears.googlecode.com/svn/trunk/gears/test/manual/shortcuts/16.png",
+      icon32x32: "http://google-gears.googlecode.com/svn/trunk/gears/test/manual/shortcuts/32.png",
+      icon48x48: "http://google-gears.googlecode.com/svn/trunk/gears/test/manual/shortcuts/48.png",
+      icon128x128: "http://google-gears.googlecode.com/svn/trunk/gears/test/manual/shortcuts/128.png"
+    };
+  } else {
+    args = getArguments();
+  }
+
+  loadI18nStrings(args.locale);
+
+  initDialog();
+  initLayout();
+  initShortcuts(args);
+  resizeDialogToFitContent(dialogMinHeight);
+
+  function initLayout() {
+    if (locationsEnabled) {
+      dom.getElementById("locations").style.display = "block";
+    }
+    
+    // Set up the rest of the layout. The details vary based on the layout style
+    // and the user agent (currently "simple" style only supported by desktop
+    // Gears).
+    if (isDefined(typeof args.style) && args.style == "simple") {
+      initSimpleStyle();
+    } else if (browser.ie_mobile) {
+      initPieStyle();
+    } else {
+      initDefaultStyle();
+    }
+
+    resetConfirmDisabledState();
+  }
+
+  function initSimpleStyle() {
+    document.title =
+        dom.getTextContent(dom.getElementById("string-title-simple"));
+    dom.getElementById("icon").parentNode.style.display = "none";
+    dom.getElementById("header").style.display = "none";
+    dom.getElementById("head").style.paddingBottom = "0";
+    dom.getElementById("deny-permanently-link").style.display = "none";
+    setButtonLabel("string-ok", "allow-button", "string-ok-accesskey");
+    setButtonLabel("string-cancel", "deny-button", "string-cancel-accesskey");
+
+    // Also check the desktop checkbox by default
+    dom.getElementById("location-desktop").checked = true;    
+
+    // Turn on the buttons. They are turned off by default for CustomButton, but
+    // simple style does not use custom button.
+    var buttons = document.getElementsByTagName("button");
+    for (var i = 0, button; button = buttons[i]; i++) {
+      button.className = "";
+      button.style.visibility = "visible";
+    }
+  }
+
+  function initPieStyle() {
+    // For PIE, we don't set a window title.
+    setElementContents("string-header-wince", "header");
+
+    if (window.pie_dialog.IsSmartPhone()) {
+      // On softkey-only devices we only use a regular link to trigger
+      // the "never-allow" action. For "allow" and "deny" we use only
+      // the softkey lables.
+      setElementContents("string-never-allow-wince", "deny-permanently-link");
+    } else {
+      // For touchscreen devices, we use buttons for all actions. Additionally,
+      // we also set the sofkey labels.
+      setButtonLabel("string-yes", "allow-button", "string-yes-accesskey");
+      setButtonLabel("string-no", "deny-button", "string-no-accesskey");
+      setButtonLabel("string-never-allow-wince", "deny-permanently-button");
+    }
+    // Set the softkey labels for both softkey-only and touchscreen UIs.
+    window.pie_dialog.SetButton(dom.getElementById("string-yes").innerText,
+                                "allowShortcutsTemporarily();");
+    window.pie_dialog.SetCancelButton(dom.getElementById("string-no").innerText);
+    // On PIE, the allow button is disabled by default.
+    // Why not just remove the disabled attribute?
+    // Because on WinCE, we need to also call
+    // window.pie_dialog.SetButtonEnabled(true); , which enables the right
+    // softkey button.
+    enableButton(dom.getElementById("allow-button"));
+  }
+
+  function initDefaultStyle() {
+    document.title =
+      dom.getTextContent(dom.getElementById("string-title-default"));
+    setElementContents("string-header-desktop", "header");
+    setButtonLabel("string-yes", "allow-button", "string-yes-accesskey");
+    setButtonLabel("string-no", "deny-button", "string-no-accesskey");
+    setElementContents("string-never-allow", "deny-permanently-link");
+
+    CustomButton.initializeAll();
+  }
+  
+  /**
+   * Populate the shortcuts UI based on the data passed in from C++.
+   */
+  function initShortcuts(shortcutData) {
+    var iconElement = dom.getElementById("shortcut-icon");
+    var nameElement = dom.getElementById("shortcut-name");
+    var descriptionElement = dom.getElementById("shortcut-description");
+    
+    loadImage(iconElement, pickIconToRender(shortcutData));
+    dom.setTextContent(nameElement, shortcutData.name);
+
+    if (isDefined(typeof shortcutData.description) &&
+        shortcutData.description) {
+      dom.setTextContent(descriptionElement, shortcutData.description);
+      descriptionElement.style.display = "block";
+    }
+
+    preloadIcons(shortcutData);
+  }
+
+  /**
+   * Picks the best icon to render in the UI.
+   */
+  function pickIconToRender(shortcutData) {
+    if (shortcutData.icon32x32) { // ideal size
+      return shortcutData.icon32x32;
+    } else if (shortcutData.icon48x48) { // better to pick one that is too big
+      return shortcutData.icon48x48;
+    } else if (shortcutData.icon128x128) {
+      return shortcutData.icon128x128;
+    } else {
+      return shortcutData.icon16x16; // pick too small icon last
+    }
+  }
+
+  /**
+   * Preloads the icons for a shortcut so that later when they are requested
+   * from C++, they will be fast.
+   */
+  function preloadIcons(shortcutData) {
+    for (var prop in shortcutData) {
+      if (prop.indexOf("icon") == 0) {
+        var img = new Image();
+        img.src = shortcutData[prop];
+      }
+    }
+  }
+
+  /**
+   * Sets the confirm button's disabled state depending on whether there is
+   * at least one checkbox checked.
+   */  
+  function resetConfirmDisabledState() {
+    if (!locationsEnabled) {
+      return;
+    }
+    
+    var allowButton = dom.getElementById("allow-button");
+    var checkboxes =
+        dom.getElementById("locations").getElementsByTagName("input");
+
+    for (var i = 0, checkbox; checkbox = checkboxes[i]; i++) {
+      if (checkbox.checked) {
+        enableButton(allowButton);
+        return;
+      }
+    }
+    
+    disableButton(allowButton);
+  }
+
+  /**
+   * Called when the user clicks the allow button.
+   */
+  function allowShortcutsTemporarily() {
+    var result = {
+      allow: true,
+      locations: 0
+    };
+    
+    if (locationsEnabled) {
+      var checkboxes =
+          dom.getElementById("locations").getElementsByTagName("input");
+      for (var i = 0, checkbox; checkbox = checkboxes[i]; i++) {
+        if (checkbox.checked) {
+          result.locations |= parseInt(checkbox.value);
+        }
+      }
+    }
+    saveAndClose(result);
+  }
+
+  /**
+   * Called when the user clicks the no button.
+   */
+  function denyShortcutsTemporarily() {
+    saveAndClose(null); // default behavior is to deny all
+  }
+  
+  /**
+   * Called when the user clicks the "Never allow this shortcut" link.
+   */
+  function denyShortcutPermanently() {
+    saveAndClose({
+      allow: false
+    });
+  }
+
+  /**
+   * Set the contents of the element specified by destID from from that of the
+   * element specified by sourceID.
+   */
+  function setElementContents(sourceID, destID) {
+    var sourceElem = dom.getElementById(sourceID);
+    var destElem = dom.getElementById(destID);
+    if (isDefined(typeof sourceElem) && isDefined(typeof destElem)) {
+      destElem.innerHTML = sourceElem.innerHTML;
+    }
+  }
+</script>
+</html>

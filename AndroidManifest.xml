@@ -1,0 +1,185 @@
+<!--
+/* //device/apps/Browser/AndroidManifest.xml
+**
+** Copyright 2006, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.browser">
+
+    <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <application   android:name="Browser"
+                   android:label="Browser"
+                   android:icon="@drawable/ic_launcher_browser"
+                   android:taskAffinity="android.task.browser" >
+        <!-- TODO: Remove dependency of application on the test runner
+             (android.test) library. -->
+        <uses-library android:name="android.test.runner" />
+
+        <provider android:name="BrowserProvider" android:authorities="browser" android:multiprocess="true" />
+        <activity android:name="BrowserActivity" android:label="Browser"
+                  android:launchMode="singleTask"
+                  android:alwaysRetainTaskState="true"
+                  android:configChanges="orientation|keyboardHidden"
+                  android:theme="@style/BrowserTheme" >
+            <!-- For these schemes were not particular MIME type has been
+                 supplied, we are a good candidate. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:scheme="about" />
+            </intent-filter>
+            <!--  For these schemes where any of these particular MIME types
+                  have been supplied, we are a good candidate. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:mimeType="text/html"/>
+                <data android:mimeType="text/plain"/>
+                <data android:mimeType="application/xhtml+xml"/>
+                <data android:mimeType="application/vnd.wap.xhtml+xml"/>
+            </intent-filter>
+            <!-- We are also the main entry point of the browser. -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+            <!-- The maps app is a much better experience, so it's not
+                 worth having this at all... especially for a demo!
+            <intent-filter android:label="Map In Browser">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/postal-address" />
+            </intent-filter>
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.WEB_SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.WEB_SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                    android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.net.http.NETWORK_STATE" />
+                <action android:name="android.intent.action.PROXY_CHANGE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="BrowserBookmarksPage" android:label="@string/bookmarks"
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <activity-alias android:name="ShortcutBookmarksPage"
+            android:targetActivity="BrowserBookmarksPage"
+            android:label="@string/shortcut_bookmark">
+
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity-alias>        
+
+        <activity android:name="BrowserDownloadPage" android:label=""
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <activity android:name="BrowserPreferencesPage" android:label=""
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <activity android:name="BrowserHistoryPage" android:label=""
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <activity android:name="BrowserPluginList" android:label=""
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <activity android:name="GearsDialog" android:process=":dialog"
+                  android:configChanges="orientation|keyboardHidden"
+                  android:theme="@android:style/Theme.Dialog">
+        </activity>
+
+        <service android:name="GearsDialogService" android:process=":dialog"
+                 android:exported="false">
+            <intent-filter>
+                <action android:name="com.android.browser.IGearsDialogService" />
+            </intent-filter>
+        </service>
+
+        <activity android:name="AddBookmarkPage" android:label="Save bookmark" android:theme="@android:style/Theme.Dialog"
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/bookmark"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Makes .BrowserActivity the search target for any activity in Browser -->
+        <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
+
+
+    </application>
+
+    <!-- Browser tests.  Invoke with: -->
+    <!--      adb shell am instrument -w com.android.browser/.BrowserTestRunner -->
+    <instrumentation android:name="BrowserTestRunner"
+        android:targetPackage="com.android.browser"
+        android:label="@string/activity_instrumentation_test_runner"
+    />
+    <!-- Browser tests.  Invoke with: -->
+    <!--      adb shell am instrument -w com.android.browser/.BrowserFunctionalTestRunner -->
+    <instrumentation android:name="BrowserFunctionalTestRunner"
+        android:targetPackage="com.android.browser"
+        android:label="@string/activity_instrumentation_functional_test_runner"
+    />
+
+    <instrumentation android:name="BrowserLaunchPerformance"
+        android:targetPackage="com.android.browser"
+        android:label="Browser Launch Performance"
+    />
+
+</manifest>
+

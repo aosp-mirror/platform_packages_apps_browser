@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Sign-in dialog -->
+    <string name="sign_in_to">Sign in to <xliff:g id="hostname">%s1</xliff:g> \"<xliff:g id="realm">%s2</xliff:g>\"</string>
+    <string name="username">Name</string>
+    <string name="password">Password</string>
+    <string name="action">Sign in</string>
+    <!-- Button label -->
+    <string name="cancel">Cancel</string>
+    <!-- Button label -->
+    <string name="ok">OK</string>
+    <!-- Button label -->
+    <string name="done">Done</string>
+    <!-- Button label -->
+    <string name="prev">Prev</string>
+    <!-- Button label -->
+    <string name="next">Next</string>
+    <string name="matches_found">Matches found:</string>
+    <string name="zero">0</string>
+    
+    <!-- Menu item -->
+    <string name="page_info">Page info</string>
+    <string name="page_info_view">View page info</string>
+    <!-- Page Info dialog strings -->
+    <string name="page_info_address">Address:</string>
+    <string name="page_info_type">Type:</string>
+    <string name="page_info_render_mode">Render mode:</string>
+    <string name="page_info_cache_source">Cache source:</string>
+    <string name="page_info_encoding">Encoding:</string>
+    <string name="page_info_size">Size:</string>
+    <string name="page_info_referring_url">Referring URL:</string>
+    <string name="page_info_modified">Modified:</string>
+    <string name="page_info_expires">Expires:</string>
+
+    <!-- SSL Error dialogs -->
+    <string name="ssl_warnings_header">There are problems with the security certificate for this site.</string>
+    <string name="ssl_continue">Continue</string>
+    <string name="security_warning">Security warning</string>
+    <string name="view_certificate">View certificate</string>
+
+    <string name="ssl_untrusted">This certificate is not from a trusted authority.</string>
+    <string name="ssl_mismatch">The name of the site does not match the name on the certificate.</string>
+    <string name="ssl_expired">This certificate has expired.</string>
+    <string name="ssl_not_yet_valid">This certificate is not valid yet.</string>
+    
+    <!-- SSL Certificate dialogs -->
+    <string name="ssl_certificate">Security certificate</string>
+    <string name="ssl_certificate_is_valid">This certificate is valid.</string>
+    <string name="issued_to">Issued to:</string>
+    <string name="common_name">Common name:</string>
+    <string name="org_name">Organization:</string>
+    <string name="org_unit">Organizational unit:</string>
+    <string name="issued_by">Issued by:</string>
+    <string name="validity_period">Validity:</string>
+    <string name="issued_on">Issued on:</string>
+    <string name="expires_on">Expires on:</string>
+    <string name="fingerprints">Fingerprints:</string>
+    <string name="sha1_fingerprint">SHA1 fingerprint:</string>
+    <string name="md5_fingerprint">MD5 fingerprint:</string>
+
+    <!-- Dialog that is shown while we are retrieving the login creds from the system -->
+    <string name="retrieving_creds_dlg_msg">Retrieving sign-in details\u2026</string>
+    <!-- Menu item -->
+    <string name="close">Close</string>
+    <!-- Confirmation dialog message -->
+    <string name="close_window">This window will be closed.</string>
+    <!-- Toast -->
+    <string name="stopping">Stopping\u2026</string>
+    <!-- Menu item -->
+    <string name="stop">Stop</string>
+    <!-- Menu item -->
+    <string name="reload">Refresh</string>
+    <!-- Menu item -->
+    <string name="back">Back</string>
+    <!-- Menu item -->
+    <string name="forward">Forward</string>
+    <!-- Button label -->
+    <string name="save">OK</string>
+    <!-- Button label -->
+    <string name="do_not_save">Cancel</string>
+    <!-- Field label in Bookmark dialog box -->
+    <string name="location">Location</string>
+    <!-- Field label in Bookmark dialog box -->
+    <string name="name">Name</string>
+    <!-- Initial value in Location field in Bookmark dialog box -->
+    <string name="http">http://</string>
+    <!-- Menu item -->
+    <string name="save_to_bookmarks">Bookmark link</string>
+    <!-- Menu item -->
+    <string name="edit_bookmark">Edit bookmark</string>
+    <string name="open_bookmark">Open</string>
+    <!-- Menu item -->
+    <string name="remove_bookmark">Delete bookmark</string>
+    <!-- Menu item -->
+    <string name="remove_history_item">Remove from history</string>
+    <!-- Toast -->
+    <string name="bookmark_saved">Saved to bookmarks.</string>
+    <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+    <string name="bookmark_needs_title">"Bookmark must have a name."</string>
+        <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+    <string name="bookmark_needs_url">"Bookmark must have a location."</string>
+        <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name & Location fields -->
+    <string name="empty_bookmark">"Cannot create empty bookmark."</string>
+        <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+    <string name="bookmark_url_not_valid">URL is not valid.</string>
+        <!-- Confirmation dialog title -->
+    <string name="delete_bookmark">Delete</string>
+    <!-- Menu item -->
+    <string name="bookmark_page">Bookmark last-viewed page</string>
+    <!-- Summary text under the New Bookmark item on the Bookmarks screen -->
+    <string name="current_page">Current page:\u0020</string>
+    <!-- Confirmation dialog message -->
+    <string name="delete_bookmark_warning">Bookmark \"<xliff:g id="bookmark">%s</xliff:g>\" will be deleted.</string>
+    <string name="info_base">Title:\n  <xliff:g id="title">%s1</xliff:g> \n\nURL: \n  <xliff:g id="url">%s2</xliff:g></string>
+    <!-- Menu item -->
+    <string name="open_in_new_window">Open in new window</string>
+    <!-- Appears in Current windows screen as label on blank + window; user selects this window to open a new browser window -->
+    <string name="new_window">New window</string>
+    <string name="delete">Delete</string>
+    <!-- Menu item -->
+    <string name="goto_dot">Go to URL</string>
+    <string name="find_dot">Find on page</string>
+    <!-- Menu item -->
+    <string name="homepage">Home page</string>
+    <string name="view_tabs">Window overview</string>
+    <!-- Menu item -->
+    <string name="view_tabs_condensed">Window</string>
+    <!-- Title of current windows screen; appears in title bar -->
+    <string name="tab_picker_title">Current windows</string>
+    <!-- Menu item -->
+    <string name="tab_picker_view_tab">View</string>
+    <!-- Menu item -->
+    <string name="tab_picker_new_tab">New window</string>
+    <!-- Menu item -->
+    <string name="tab_picker_remove_tab">Close</string>
+    <!-- Menu item -->
+    <string name="tab_picker_bookmark">Bookmark</string>
+    <!-- Menu item -->
+    <string name="tab_picker_send_url">Share link</string>
+    <!-- Menu item -->
+    <string name="bookmarks">Bookmarks</string>
+    <string name="shortcut_bookmark">Bookmark</string>
+    <!-- Menu item -->
+    <string name="history">History</string>
+    <string name="visual_history">Window history</string>
+    <string name="menu_use_as_homepage">Set as home page</string>
+    <!-- Menu item -->
+    <string name="menu_view_download">Downloads</string>
+    <!-- Menu item -->
+    <string name="menu_bookmark_page">Bookmark page</string>
+    <!-- Menu item -->
+    <string name="share_page">Share page</string>
+    <string name="homepage_set">Home page updated</string>
+    <!-- Menu item -->
+    <string name="menu_zoom">Zoom</string>
+    <!-- Menu item -->
+    <string name="menu_flip_orientation">Flip orientation</string>
+    <!-- Menu item -->
+    <string name="contextmenu_openlink">Open</string>
+    <!-- Menu item -->
+    <string name="contextmenu_openlink_newwindow">Open in new window</string>
+    <!-- Menu item -->
+    <string name="contextmenu_bookmark_thislink">Bookmark link</string>
+    <!-- Menu item -->
+    <string name="contextmenu_savelink">Save link</string>
+    <!-- Menu item -->
+    <string name="contextmenu_sharelink">Share link</string>
+    <!-- Menu item -->
+    <string name="contextmenu_copy">Copy</string>
+    <!-- Menu item -->
+    <string name="contextmenu_copylink">Copy link URL</string>
+    <!-- Menu item -->
+    <string name="contextmenu_download_image">Save image</string>
+    <!-- Menu item -->
+    <string name="contextmenu_view_image">View image</string>
+    <!-- Menu item -->
+    <string name="contextmenu_dial_dot">Dial\u2026</string>
+    <!-- Menu item -->
+    <string name="contextmenu_add_contact">Add contact</string>
+    <!-- Menu item -->
+    <string name="contextmenu_send_mail">Send email</string>
+    <!-- Menu item -->
+    <string name="contextmenu_map">Map</string>
+    <!-- Menu item -->
+    <string name="contextmenu_javascript">JavaScript</string>
+ 
+    <string name="clear">Clear</string>
+    <string name="cache_cleared">Cache cleared</string>
+
+    <string name="override_message">The existing bookmark will be replaced.</string>
+    <string name="override">Replace</string>
+    <string name="replace">Replace</string>
+    <string name="with">with</string>
+    <string name="question_mark">\?</string>
+
+    <string name="browser_bookmarks_page_bookmarks_text">Bookmarks</string>
+
+    <string name="history_picker_view_web_page">Open</string>
+
+    <!-- Settings screen strings -->
+    <!-- Menu item -->
+    <string name="menu_preferences">Settings</string>
+    <!-- Settings screen, section title -->
+    <string name="pref_content_title">Page content settings</string>
+    <!-- Settings label -->
+    <string name="pref_content_load_images">Load images</string>
+    <string name="pref_content_load_images_summary">Display images on Web pages</string>
+    <!-- Settings label -->
+    <string name="pref_content_block_popups">Block pop-up windows</string>
+    <!-- Settings label -->
+    <string name="pref_content_javascript">Enable JavaScript</string>
+    <!-- Settings label -->
+    <string name="pref_content_open_in_background">Open in background</string>
+    <!-- Settings summary -->
+    <string name="pref_content_open_in_background_summary">New windows open behind the current one</string>
+    <!-- Settings label -->
+    <string name="pref_content_homepage">Set home page</string>
+    <!-- Settings label -->
+    <string name="pref_content_autofit">Auto-fit pages</string>
+    <!-- Settings summary -->
+    <string name="pref_content_autofit_summary">Format Web pages to fit the screen</string>
+    <!-- Settings screen, section title -->
+    <string name="pref_privacy_title">Privacy settings</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_cache">Clear cache</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_cache_summary">Delete all cached page content</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_cache_dlg">The cache will be cleared.</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_cookies">Clear all cookie data</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_cookies_summary">Clear all the browser cookies</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_cookies_dlg">All cookies will be cleared.</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_history">Clear history</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_history_summary">Clear the browser navigation history</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_history_dlg">The browser navigation history will be cleared.</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_form_data">Clear form data</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_form_data_summary">Clear all the saved form data</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_form_data_dlg">All saved form data will be cleared.</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_passwords">Clear passwords</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_passwords_summary">Clear all the saved passwords</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_passwords_dlg">All saved passwords will be cleared.</string>
+    <!-- Settings screen, section title -->
+    <string name="pref_security_title">Security settings</string>
+    <!-- Settings label -->
+    <string name="pref_security_remember_passwords">Remember passwords</string>
+    <!-- Settings summary -->
+    <string name="pref_security_remember_passwords_summary">Save usernames and passwords for Web sites</string>
+    <!-- Settings label -->
+    <string name="pref_security_save_form_data">Remember form data</string>
+    <!-- Settings summary -->
+    <string name="pref_security_save_form_data_summary">Remember data I type in forms for later use</string>
+    <!-- Settings label -->
+    <string name="pref_security_show_security_warning">Show security warnings</string>
+    <!-- Settings summmary -->
+    <string name="pref_security_show_security_warning_summary">Show warning if there is a problem with a site\'s security</string>
+    <!-- Settings label -->
+    <string name="pref_security_accept_cookies">Accept cookies</string>
+    <!-- Settings summary -->
+    <string name="pref_security_accept_cookies_summary">Allow sites to save and read \"cookie\" data</string>
+    <!-- Settings label -->
+    <string name="pref_text_size">Text size</string>
+    <!-- Settings text size options; appear in Text size dialog box -->
+    <string-array name="pref_text_size_choices">
+        <item>Tiny</item>
+        <item>Small</item>
+        <item>Normal</item>
+        <item>Large</item>
+        <item>Huge</item>
+    </string-array>
+    <!-- Dialog box title -->
+    <string name="pref_text_size_dialogtitle">Text size</string>
+    <string name="pref_text_size_summary">Select the size of text on Web pages</string>
+    <string-array name="pref_text_size_values">
+        <item><xliff:g>SMALLEST</xliff:g></item>
+        <item><xliff:g>SMALLER</xliff:g></item>
+        <item><xliff:g>NORMAL</xliff:g></item>
+        <item><xliff:g>LARGER</xliff:g></item>
+        <item><xliff:g>LARGEST</xliff:g></item>
+    </string-array>
+    <!-- Settings screen, section title -->
+    <string name="pref_extras_title">Advanced settings</string>
+    <!-- Settings label -->
+    <string name="pref_extras_gears_enable">Enable Gears</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_gears_enable_summary">Applications that extend browser functionality</string>
+    <!-- Settings label -->
+    <string name="pref_extras_gears_settings">Gears settings</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_gears_settings_summary">Applications that extend browser functionality</string>
+    <string name="pref_plugin_installed_summaryxx">View currently-installed plugins</string>
+    <string name="pref_plugin_installed_empty_listxx">No installed plugins.</string>
+    <!-- Settings label -->
+    <string name="pref_extras_reset_default">Reset to default</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_reset_default_summary">Clear all browser data and reset all settings to default</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_extras_reset_default_dlg">All browser data will be cleared and settings will revert to default values.</string>
+    <!-- Confirmation dialog title -->
+    <string name="pref_extras_reset_default_dlg_title">Reset to default</string>
+    <string name="pref_development_title">Debug</string>
+    <string name="pref_development_viewport">Use wide viewport</string>
+    <string name="pref_development_single_column_rendering">Single column rendering</string>
+    <string name="pref_development_normal_rendering">Normal rendering</string>
+    <string name="pref_development_trace">Enable tracing</string>
+    <string name="pref_development_track">Enable trackball</string>
+    <string name="pref_development_nav_dump">Enable nav cache dump</string>
+    <string name="pref_development_uastring">UAString</string>
+    <string-array name="pref_development_ua_choices">
+        <item>Android</item>
+        <item>Desktop</item>
+        <item>iPhone</item>
+    </string-array>
+    <string-array name="pref_development_ua_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <!-- Dialog box title -->
+    <string name="browserFrameRedirect">Redirect</string>
+    <!-- Dialog box message -->
+    <string name="browserFrame307Post">This Web page is being redirected. Resend your typed form data to the new location?</string>
+    <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>
+    <string name="browserFrameFileErrorLabel">Problem with file</string>
+    <!-- Dialog box title -->
+    <string name="browserFrameFormResubmitLabel">Confirm</string>
+    <!-- Dialog box message -->
+    <string name="browserFrameFormResubmitMessage">The page you are trying to view contains data that has already been submitted (\"POSTDATA\"). If you resend the data, any action the form on the page carried out (such as a search or online purchase) will be repeated.</string>
+    <!-- Dialog box title -->
+    <string name="loadSuspendedTitle">No network connection</string>
+    <!-- Dialog box message -->
+    <string name="loadSuspended">The page will continue loading after connection has been restored.</string>
+    <!-- Menu item -->
+    <string name="clear_history">Clear history</string>
+    <!-- History screen title; appears in title bar -->
+    <string name="browser_history">Recently-visited pages</string>
+    <!-- Appears on History screen if no history is found -->
+    <string name="empty_history">Browser history is empty.</string>
+    <!-- Menu item -->
+    <string name="add_new_bookmark">New bookmark</string>
+    <string name="no_database">No database!</string>
+    
+    <string name="search_label">Browser</string>
+    <string name="search_hint">Type Web address</string>
+    <!-- Menu item -->
+    <string name="search">Search</string>
+    <string name="search_button_text">Go</string>
+    
+    <string name="js_dialog_title_prefix">The page at</string>
+    <string name="js_dialog_title_suffix">says:</string>
+    <string name="js_dialog_title_default">JavaScript</string>
+    <string name="js_dialog_before_unload">Navigate away from this page?\n\n<xliff:g id="message">%s</xliff:g>\n\nSelect OK to continue, or Cancel to stay on the current page.</string>
+
+    <!-- Pop-up window dialog -->
+    <string name="attention">Attention</string>
+    <string name="popup_window_attempt">This site is attempting to open a
+      pop-up window.</string>
+    <string name="allow">Allow</string>
+    <string name="block">Block</string>
+
+    <string name="too_many_windows_dialog_title">Window limit reached</string>
+    <string name="too_many_windows_dialog_message">Could not open a new window because you have already opened the maximum number.</string>
+    <string name="too_many_subwindows_dialog_title">Pop-up already open</string>
+    <string name="too_many_subwindows_dialog_message">Could not open a new
+      pop-up window because only one can be open at any time.</string>
+
+    <!-- Download History UI strings -->
+    <string name="download_title">Download history</string>
+    <!-- Download history screen string-->
+    <string name="download_unknown_filename">&lt;Unknown&gt;</string>
+    <!-- Context menu item on Download history screen -->
+    <string name="download_menu_open">Open</string>
+    <!-- Context menu item on Download history screen -->
+    <string name="download_menu_clear">Clear from list</string>
+    <!-- Context menu item in Download history screen -->
+    <string name="download_menu_cancel">Cancel download</string>
+    <!-- Menu item -->
+    <string name="download_menu_cancel_all">Cancel all downloads</string>
+    <!-- Menu item -->
+    <string name="download_menu_clear_all">Clear list</string>
+    <!-- Confirmation dialog title -->
+    <string name="download_clear_dlg_title">Clear</string>
+    <!-- Confirmation dialog message -->
+    <string name="download_clear_dlg_msg">All items will be cleared from the list and removed from the browser cache.</string>
+    <!-- Confirmation dialog title -->
+    <string name="download_cancel_dlg_title">Cancel downloads</string>
+    <!-- Confirmation dialog message -->
+    <string name="download_cancel_dlg_msg">All <xliff:g id="download_count">%d</xliff:g> downloads will be canceled and cleared from the download history.</string>
+    <!-- Dialog title -->
+    <string name="download_file_error_dlg_title">Out of space</string>
+    <!-- Dialog message -->
+    <string name="download_file_error_dlg_msg"><xliff:g id="filename">%s</xliff:g> could not be downloaded.\nFree up some space on your phone and try again.</string>
+    <string name="download_failed_generic_dlg_title">Download unsuccessful</string>
+    <!-- Dialog title -->
+    <string name="download_no_sdcard_dlg_title">No SD card</string>
+    <!-- Dialog message -->
+    <string name="download_no_sdcard_dlg_msg">An SD card is required to download <xliff:g id="filename">%s</xliff:g>.</string>
+    <string name="download_no_application">No application can be found to open this file.</string>
+    <string name="retry">Retry</string>
+    <!-- Appears in Download history screen if there is no history -->
+    <string name="no_downloads">Download history is empty.</string>
+    <!-- the following download_xxxx matches the download manager state, ie Downloads.Status -->
+    <string name="download_error">Download unsuccessful.</string>
+    <!-- Appears in Download history screen after an item has downloaded, included item size -->
+    <string name="download_success"><xliff:g id="file">%s</xliff:g> Download complete.</string>
+    <!-- Appears in Download history screen while an item is being downloaded -->
+    <string name="download_running">Downloading\u2026</string>
+    <string name="download_pending">Starting download\u2026</string>
+    <string name="download_pending_network">Waiting for data connection\u2026</string>
+    <string name="download_running_paused">Waiting for data connection\u2026</string>
+    <string name="download_canceled">Download canceled.</string>
+    <string name="download_not_acceptable">Cannot download. The content being downloaded is not supported on the phone.</string>
+    <string name="download_file_error">Cannot finish download. There is not enough space.</string>
+    <string name="download_length_required">Cannot download. The size of the item cannot be determined.</string>
+    <string name="download_precondition_failed">Download interrupted. It cannot be resumed.</string>
+
+    <!-- Oma Download Manager. Note: These oma_* messages are no longer used and so not revealed to the end-user-->
+    <string name="oma_label_want_to_download">Do you want to download this content?</string>
+    <string name="oma_label_download_error">Download error:</string>
+    <string name="oma_label_proceed">Proceed</string>
+    <string name="oma_label_action">Download</string>
+    <string name="oma_label_exit">Exit</string>
+    <string name="oma_label_cancel">Exit</string>   
+
+    <string name="oma_label_name">Name:</string>
+    <string name="oma_label_vendor">Vendor:</string>
+    <string name="oma_label_size">Size:</string>
+    <string name="oma_label_type">Type:</string>
+    <string name="oma_label_description">Description:</string>
+
+    <string name="oma_error_insufficient_memory">Insufficient memory! Check your SD card.</string>
+    <string name="oma_error_invalid_descriptor">Invalid download descriptor.</string>
+    <string name="oma_error_non_acceptable_content">Content not supported.</string>
+    <string name="oma_error_failed_to_download">Unable to download media.</string>
+    <string name="oma_warning_one_or_more_types_not_supported">One or more content categories are not supported.</string>
+    <string name="oma_status_success">Success</string>
+    <string name="oma_status_insufficient_memory">Insufficient memory</string>
+    <string name="oma_status_loss_of_service">Loss of service</string>
+    <string name="oma_status_attribute_mismatch">Attribute mismatch</string>
+    <string name="oma_status_invalid_descriptor">Invalid descriptor</string>
+    <string name="oma_status_invalid_version">Invalid version</string>
+    <string name="oma_status_device_aborted">Phone aborted</string>
+    <string name="oma_status_non_acceptable_content">Unacceptable content</string>
+    <string name="oma_status_loader_error">Loader error</string>
+
+
+    <string name="activity_instrumentation_test_runner">Browser Test Runner</string>
+    <string name="activity_instrumentation_functional_test_runner">Browser Functional Test Runner</string>
+    <string name="dump_nav">Dump navigation cache</string>
+
+    <!-- Bookmarks -->
+    <string-array name="bookmarks">
+        <item>Google</item>
+        <item>http://www.google.com/</item>
+        <item>Yahoo!</item>
+        <item>http://www.yahoo.com/</item>
+        <item>MSN</item>
+        <item>http://www.msn.com/</item>
+        <item>MySpace</item>
+        <item>http://www.myspace.com/</item>
+        <item>Facebook</item>
+        <item>http://www.facebook.com/</item>
+        <item>Wikipedia</item>
+        <item>http://www.wikipedia.org/</item>
+        <item>eBay</item>
+        <item>http://www.ebay.com/</item>
+        <item>CNN</item>
+        <item>http://www.cnn.com/</item>
+        <item>New York Times</item>
+        <item>http://www.nytimes.com/</item>
+        <item>ESPN</item>
+        <item>http://espn.go.com/</item>
+        <item>Amazon</item>
+        <item>http://www.amazon.com/</item>
+        <item>Weather Channel</item>
+        <item>http://www.weather.com/</item>
+        <item>BBC</item>
+        <item>http://www.bbc.co.uk/</item>
+    </string-array>
+</resources>
