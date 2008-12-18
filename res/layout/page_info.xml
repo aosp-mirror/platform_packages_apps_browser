@@ -14,54 +14,61 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-    
-    <!-- Title: -->
-    <TextView
-        android:id="@+id/title"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:layout_marginTop="12dip"
-        android:layout_marginBottom="12dip" />
-    
-    <!-- Address: -->
-    <TableLayout
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        
-        <TextView 
-            android:id="@+id/address_header"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/page_info_address"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:gravity="left"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginBottom="10dip" />
-        
+        android:orientation="vertical" >
+    
+        <!-- Title: -->
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/title"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:textStyle="bold"
             android:textSize="14sp"
             android:textColor="@color/white"
-            android:gravity="left"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
+            android:layout_marginTop="12dip"
             android:layout_marginBottom="12dip" />
+    
+        <!-- Address: -->
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         
-    </TableLayout>
+            <TextView 
+                android:id="@+id/address_header"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/page_info_address"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="left"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginBottom="10dip" />
+            
+            <TextView
+                android:id="@+id/address"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:gravity="left"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginBottom="12dip" />
+            
+        </TableLayout>
+        
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

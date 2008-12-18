@@ -55,12 +55,9 @@
             android:title="@string/history" />
         <item android:id="@+id/view_downloads_menu_id"
             android:title="@string/menu_view_download" /> 
-<!--
-        Disabling the find option for version 1.0
         <item android:id="@+id/find_menu_id"
             android:title="@string/find_dot" 
             android:alphabeticShortcut="f" />
--->
         <item android:id="@+id/page_info_menu_id"
             android:title="@string/page_info" />
         <item android:id="@+id/bookmark_page_menu_id"
@@ -77,6 +74,22 @@
             android:alphabeticShortcut="i" />
         <item android:id="@+id/zoom_out_menu_id"
             android:alphabeticShortcut="o" />
+        <item android:id="@+id/window_one_menu_id"
+            android:alphabeticShortcut="1" />
+        <item android:id="@+id/window_two_menu_id"
+            android:alphabeticShortcut="2" />
+        <item android:id="@+id/window_three_menu_id"
+            android:alphabeticShortcut="3" />
+        <item android:id="@+id/window_four_menu_id"
+            android:alphabeticShortcut="4" />
+        <item android:id="@+id/window_five_menu_id"
+            android:alphabeticShortcut="5" />
+        <item android:id="@+id/window_six_menu_id"
+            android:alphabeticShortcut="6" />
+        <item android:id="@+id/window_seven_menu_id"
+            android:alphabeticShortcut="7" />
+        <item android:id="@+id/window_eight_menu_id"
+            android:alphabeticShortcut="8" />
         <item android:id="@+id/dump_nav_menu_id"
             android:title="@string/dump_nav"
             android:visible="false" />
@@ -84,12 +97,15 @@
     <group android:id="@+id/TAB_MENU">
         <item android:id="@+id/new_tab_menu_id"
             android:title="@string/tab_picker_new_tab"
+            android:alphabeticShortcut="t" 
             android:icon="@android:drawable/ic_menu_add" />
         <item android:id="@+id/bookmarks_tab_menu_id"
             android:title="@string/bookmarks" 
+            android:alphabeticShortcut="b" 
             android:icon="@drawable/ic_menu_bookmark" />
         <item android:id="@+id/history_tab_menu_id"
             android:title="@string/history"
+            android:alphabeticShortcut="h" 
             android:icon="@drawable/ic_menu_recent_history" />
     </group>
     <!-- these items are toggled in and out of @+id/stop_reload_menu_id -->

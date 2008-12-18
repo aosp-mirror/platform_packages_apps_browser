@@ -50,6 +50,11 @@
             android:defaultValue="false"
             android:title="@string/pref_development_nav_dump" />
 
+        <com.android.browser.BrowserSearchpagePreference
+                android:key="search_url" 
+                android:title="@string/pref_development_search_url"
+                android:singleLine="true" />
+
         <ListPreference
             android:key="user_agent"
             android:title="@string/pref_development_uastring"

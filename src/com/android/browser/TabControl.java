@@ -35,6 +35,7 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -169,9 +170,12 @@ class TabControl {
         // children.
         private Vector<Tab> mChildTabs;
 
+        private Boolean mCloseOnExit;
+
         // Construct a new tab
-        private Tab(WebView w) {
+        private Tab(WebView w, boolean closeOnExit) {
             mMainView = w;
+            mCloseOnExit = closeOnExit;
         }
 
         /**
@@ -236,6 +240,17 @@ class TabControl {
 
         private void setParentTab(Tab parent) {
             mParentTab = parent;
+            // This tab may have been freed due to low memory. If that is the
+            // case, the parent tab index is already saved. If we are changing
+            // that index (most likely due to removing the parent tab) we must
+            // update the parent tab index in the saved Bundle.
+            if (mSavedState != null) {
+                if (parent == null) {
+                    mSavedState.remove(PARENTTAB);
+                } else {
+                    mSavedState.putInt(PARENTTAB, getTabIndex(parent));
+                }
+            }
         }
         
         /**
@@ -273,7 +288,19 @@ class TabControl {
         public Tab getParentTab() {
             return mParentTab;
         }
+
+        /**
+         * Return whether this tab should be closed when it is backing out of
+         * the first page.
+         * @return TRUE if this tab should be closed when exit.
+         */
+        public boolean closeOnExit() {
+            return mCloseOnExit;
+        }
     };
+
+    // Directory to store thumbnails for each WebView.
+    private final File mThumbnailDir;
 
     /**
      * Construct a new TabControl object that interfaces with the given
@@ -286,6 +313,15 @@ class TabControl {
         mInflateService =
                 ((LayoutInflater) activity.getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE));
+        mThumbnailDir = activity.getDir("thumbnails", 0);
+    }
+
+    File getThumbnailDir() {
+        return mThumbnailDir;
+    }
+
+    BrowserActivity getBrowserActivity() {
+        return mActivity;
     }
 
     /**
@@ -368,7 +404,7 @@ class TabControl {
      * @return The newly createTab or null if we have reached the maximum
      *         number of open tabs.
      */
-    Tab createNewTab() {
+    Tab createNewTab(boolean closeOnExit) {
         int size = mTabs.size();
         // Return false if we have maxed out on tabs
         if (MAX_TABS == size) {
@@ -382,7 +418,7 @@ class TabControl {
         final BrowserSettings s = BrowserSettings.getInstance();
         s.addObserver(w.getSettings()).update(s, null);
         // Create a new tab and add it to the tab list
-        Tab t = new Tab(w);
+        Tab t = new Tab(w, closeOnExit);
         mTabs.add(t);
         return t;
     }
@@ -418,6 +454,26 @@ class TabControl {
         
         // Remove it from our list of tabs.
         mTabs.remove(t);
+
+        // The tab indices have shifted, update all the saved state so we point
+        // to the correct index.
+        for (Tab tab : mTabs) {
+            if (tab.mChildTabs != null) {
+                for (Tab child : tab.mChildTabs) {
+                    child.setParentTab(tab);
+                }
+            }
+        }
+
+
+        // This tab may have been pushed in to the background and then closed.
+        // If the saved state contains a picture file, delete the file.
+        if (t.mSavedState != null) {
+            if (t.mSavedState.containsKey("picture")) {
+                new File(t.mSavedState.getString("picture")).delete();
+            }
+        }
+
         // Remove it from the queue of viewed tabs.
         mTabQueue.remove(t);
         mCurrentTab = -1;
@@ -473,6 +529,8 @@ class TabControl {
     private static final String CURRTAB = "currentTab";
     private static final String CURRURL = "currentUrl";
     private static final String CURRTITLE = "currentTitle";
+    private static final String CLOSEONEXIT = "closeonexit";
+    private static final String PARENTTAB = "parentTab";
 
     /**
      * Save the state of all the Tabs.
@@ -506,7 +564,7 @@ class TabControl {
             final int currentTab = inState.getInt(CURRTAB, -1);
             for (int i = 0; i < numTabs; i++) {
                 if (i == currentTab) {
-                    Tab t = createNewTab();
+                    Tab t = createNewTab(false);
                     // Me must set the current tab before restoring the state
                     // so that all the client classes are set.
                     setCurrentTab(t);
@@ -518,7 +576,7 @@ class TabControl {
                 } else {
                     // Create a new tab and don't restore the state yet, add it
                     // to the tab list
-                    Tab t = new Tab(null);
+                    Tab t = new Tab(null, false);
                     t.mSavedState = inState.getBundle(WEBVIEW + i);
                     if (t.mSavedState != null) {
                         t.mUrl = t.mSavedState.getString(CURRURL);
@@ -526,6 +584,21 @@ class TabControl {
                     }
                     mTabs.add(t);
                     mTabQueue.add(t);
+                }
+            }
+            // Rebuild the tree of tabs. Do this after all tabs have been
+            // created/restored so that the parent tab exists.
+            for (int i = 0; i < numTabs; i++) {
+                final Bundle b = inState.getBundle(WEBVIEW + i);
+                final Tab t = getTab(i);
+                if (b != null && t != null) {
+                    final int parentIndex = b.getInt(PARENTTAB, -1);
+                    if (parentIndex != -1) {
+                        final Tab parent = getTab(parentIndex);
+                        if (parent != null) {
+                            parent.addChildTab(t);
+                        }
+                    }
                 }
             }
         }
@@ -801,9 +874,16 @@ class TabControl {
             }
             final Bundle b = new Bundle();
             final WebBackForwardList list = w.saveState(b);
+            if (list != null) {
+                final File f = new File(mThumbnailDir, w.hashCode()
+                        + "_pic.save");
+                if (w.savePicture(b, f)) {
+                    b.putString("picture", f.getPath());
+                }
+            }
 
             // Store some extra info for displaying the tab in the picker.
-            final WebHistoryItem item = 
+            final WebHistoryItem item =
                     list != null ? list.getCurrentItem() : null;
             populatePickerData(t, item);
             if (t.mUrl != null) {
@@ -811,6 +891,12 @@ class TabControl {
             }
             if (t.mTitle != null) {
                 b.putString(CURRTITLE, t.mTitle);
+            }
+            b.putBoolean(CLOSEONEXIT, t.mCloseOnExit);
+
+            // Remember the parent tab so the relationship can be restored.
+            if (t.mParentTab != null) {
+                b.putInt(PARENTTAB, getTabIndex(t.mParentTab));
             }
 
             // Remember the saved state.
@@ -832,9 +918,15 @@ class TabControl {
         if (list == null) {
             return false;
         }
+        if (b.containsKey("picture")) {
+            final File f = new File(b.getString("picture"));
+            w.restorePicture(b, f);
+            f.delete();
+        }
         t.mSavedState = null;
         t.mUrl = null;
         t.mTitle = null;
+        t.mCloseOnExit = b.getBoolean(CLOSEONEXIT);
         return true;
     }
 }

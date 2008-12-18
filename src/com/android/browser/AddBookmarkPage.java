@@ -114,7 +114,8 @@ public class AddBookmarkPage extends Activity {
      */
     boolean save() {
         String title = mTitle.getText().toString().trim();
-        String unfilteredUrl = mAddress.getText().toString();
+        String unfilteredUrl = 
+                BrowserActivity.fixUrl(mAddress.getText().toString());
         boolean emptyTitle = title.length() == 0;
         boolean emptyUrl = unfilteredUrl.trim().length() == 0;
         Resources r = getResources();

@@ -15,22 +15,24 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/ADD_MENU">
-        <item android:id="@+id/new_context_menu_id"
-            android:title="@string/save_to_bookmarks"/>
-    </group>
-    <group android:id="@+id/CONTEXT_MENU">
-        <item android:id="@+id/open_context_menu_id"
-            android:title="@string/open_bookmark"/>
-        <item android:id="@+id/new_window_context_menu_id"
-            android:title="@string/open_in_new_window"/>
-        <item android:id="@+id/edit_context_menu_id"
-            android:title="@string/edit_bookmark"/>
-        <item android:id="@+id/send_context_menu_id"
-            android:title="@string/tab_picker_send_url"/>
-         <item android:id="@+id/copy_url_context_menu_id"
-            android:title="@string/contextmenu_copylink"/>  
-         <item android:id="@+id/delete_context_menu_id"
-            android:title="@string/remove_bookmark"/>    
-    </group>
+  <group android:id="@+id/ADD_MENU">
+    <item android:id="@+id/new_context_menu_id"
+      android:title="@string/save_to_bookmarks"/>
+  </group>
+  <group android:id="@+id/CONTEXT_MENU">
+    <item android:id="@+id/open_context_menu_id"
+      android:title="@string/open_bookmark"/>
+    <item android:id="@+id/new_window_context_menu_id"
+      android:title="@string/open_in_new_window"/>
+    <item android:id="@+id/edit_context_menu_id"
+      android:title="@string/edit_bookmark"/>
+    <item android:id="@+id/shortcut_context_menu_id"
+      android:title="@string/create_shortcut_bookmark"/>
+    <item android:id="@+id/send_context_menu_id"
+      android:title="@string/tab_picker_send_url"/>
+    <item android:id="@+id/copy_url_context_menu_id"
+      android:title="@string/contextmenu_copylink"/>
+    <item android:id="@+id/delete_context_menu_id"
+      android:title="@string/remove_bookmark"/>
+  </group>
 </menu>

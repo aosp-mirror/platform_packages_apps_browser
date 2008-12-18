@@ -30,6 +30,7 @@ import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.SystemProperties;
 import android.provider.Browser;
 import android.util.Log;
 import android.text.util.Regex;
@@ -101,6 +102,45 @@ public class BrowserProvider extends ContentProvider {
 
     public BrowserProvider() {
     }
+  
+
+    private static CharSequence replaceSystemPropertyInString(CharSequence srcString) {
+        StringBuffer sb = new StringBuffer();
+        int lastCharLoc = 0;
+        for (int i = 0; i < srcString.length(); ++i) {
+            char c = srcString.charAt(i);
+            if (c == '{') {
+                sb.append(srcString.subSequence(lastCharLoc, i));
+                lastCharLoc = i;
+          inner:
+                for (int j = i; j < srcString.length(); ++j) {
+                    char k = srcString.charAt(j);
+                    if (k == '}') {
+                        String propertyKeyValue = srcString.subSequence(i + 1, j).toString();
+                        // See if the propertyKeyValue specifies a default value
+                        int defaultOffset = propertyKeyValue.indexOf(':');
+                        if (defaultOffset == -1) {
+                            sb.append(SystemProperties.get(propertyKeyValue));
+                        } else {
+                            String propertyKey = propertyKeyValue.substring(0, defaultOffset);
+                            String defaultValue = 
+                                    propertyKeyValue.substring(defaultOffset + 1, 
+                                                               propertyKeyValue.length());
+                            sb.append(SystemProperties.get(propertyKey, defaultValue));
+                        }
+                        lastCharLoc = j + 1;
+                        i = j;
+                        break inner;
+                    }
+                }
+            }
+        }
+        if (srcString.length() - lastCharLoc > 0) {
+            // Put on the tail, if there is one
+            sb.append(srcString.subSequence(lastCharLoc, srcString.length()));
+        }
+        return sb;
+    }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
         private Context mContext;
@@ -129,9 +169,10 @@ public class BrowserProvider extends ContentProvider {
             int size = bookmarks.length;
             try {
                 for (int i = 0; i < size; i = i + 2) {
+                    CharSequence bookmarkDestination = replaceSystemPropertyInString(bookmarks[i + 1]);
                     db.execSQL("INSERT INTO bookmarks (title, url, visits, " +
                             "date, created, bookmark)" + " VALUES('" +
-                            bookmarks[i] + "', '" + bookmarks[i + 1] + 
+                            bookmarks[i] + "', '" + bookmarkDestination + 
                             "', 0, 0, 0, 1);");
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -401,12 +442,18 @@ public class BrowserProvider extends ContentProvider {
                 myArgs = null;
             } else {
                 String like = selectionArgs[0] + "%";
-                SUGGEST_ARGS[0] = "http://" + like;
-                SUGGEST_ARGS[1] = "http://www." + like;
-                SUGGEST_ARGS[2] = "https://" + like;
-                SUGGEST_ARGS[3] = "https://www." + like;
-                myArgs = SUGGEST_ARGS;
-                suggestSelection = SUGGEST_SELECTION;
+                if (selectionArgs[0].startsWith("http")) {
+                    myArgs = new String[1];
+                    myArgs[0] = like;
+                    suggestSelection = selection;
+                } else {
+                    SUGGEST_ARGS[0] = "http://" + like;
+                    SUGGEST_ARGS[1] = "http://www." + like;
+                    SUGGEST_ARGS[2] = "https://" + like;
+                    SUGGEST_ARGS[3] = "https://www." + like;
+                    myArgs = SUGGEST_ARGS;
+                    suggestSelection = SUGGEST_SELECTION;
+                }
             }
             // Suggestions are always performed with the default sort order:
             // date ASC.

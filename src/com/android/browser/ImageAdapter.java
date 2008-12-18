@@ -17,18 +17,20 @@
 package com.android.browser;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
-import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.webkit.WebView;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -38,31 +40,25 @@ import java.util.ArrayList;
 public class ImageAdapter implements ListAdapter {
     
     ArrayList<TabControl.Tab> mItems;  // Items shown in the grid
-    ArrayList<DataSetObserver> mDataObservers; // Data change listeners
-    Context mContext;  // Context to use to inflate views
-    boolean mMaxedOut;
-    boolean mLandScape;
-    ImageGrid mImageGrid;
-    boolean mIsLive;
+    private ArrayList<DataSetObserver> mDataObservers; // Data change listeners
+    private Context mContext;  // Context to use to inflate views
+    private boolean mMaxedOut;
+    private ImageGrid mImageGrid;
+    private boolean mIsLive;
+    private int mTabHeight;
 
-    ImageAdapter(Context context, ImageGrid grid,
-            ArrayList<TabControl.Tab> items, boolean live) {
+    ImageAdapter(Context context, ImageGrid grid, boolean live) {
         mContext = context;
         mIsLive = live;
-        if (items == null) {
-            mItems = new ArrayList<TabControl.Tab>();
-        } else {
-            mItems = items;
-            if (items.size() == TabControl.MAX_TABS) {
-                mMaxedOut = true;
-            }
-        }
+        mItems = new ArrayList<TabControl.Tab>();
         mImageGrid = grid;
         mDataObservers = new ArrayList<DataSetObserver>();
-        mLandScape = context.getResources().getConfiguration().orientation ==
-                Configuration.ORIENTATION_LANDSCAPE;
     }
-    
+
+    void heightChanged(int newHeight) {
+        mTabHeight = newHeight;
+    }
+
     /**
      *  Whether the adapter is at its limit, determined by TabControl.MAX_TABS
      *
@@ -197,9 +193,9 @@ public class ImageAdapter implements ListAdapter {
             TabControl.Tab t = mItems.get(position);
             img.setTab(t);
             tv.setText(t.getTitle());
-            // Do not put the 'X' for a single tab or if the tab picker isn't
-            // "live" (meaning the user cannot click on a tab)
-            if (mItems.size() == 1 || !mIsLive) {
+            // Do not put the 'X' if the tab picker isn't "live" (meaning the
+            // user cannot click on a tab)
+            if (!mIsLive) {
                 close.setVisibility(View.GONE);
             } else {
                 close.setVisibility(View.VISIBLE);
@@ -218,10 +214,9 @@ public class ImageAdapter implements ListAdapter {
             tv.setText(R.string.new_window);
             close.setVisibility(View.GONE);
         }
-        if (mLandScape) {
-            ViewGroup.LayoutParams lp = img.getLayoutParams();
-            lp.width = 225;
-            lp.height = 120;
+        ViewGroup.LayoutParams lp = img.getLayoutParams();
+        if (lp.height != mTabHeight) {
+            lp.height = mTabHeight;
             img.requestLayout();
         }
         return v;
@@ -245,7 +240,7 @@ public class ImageAdapter implements ListAdapter {
                 };
         new AlertDialog.Builder(mContext)
                 .setTitle(R.string.close)
-                .setIcon(R.drawable.ssl_icon)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage(R.string.close_window)
                 .setPositiveButton(R.string.ok, confirm)
                 .setNegativeButton(R.string.cancel, null)
@@ -257,7 +252,6 @@ public class ImageAdapter implements ListAdapter {
      */
     public void registerDataSetObserver(DataSetObserver observer) {
         mDataObservers.add(observer);
-
     }
 
     /* (non-Javadoc)
@@ -272,9 +266,8 @@ public class ImageAdapter implements ListAdapter {
      */
     public void unregisterDataSetObserver(DataSetObserver observer) {
         mDataObservers.remove(observer);
-
     }
-    
+
     /**
      * Notify all the observers that a change has happened.
      */

@@ -28,6 +28,14 @@
                 android:entryValues="@array/pref_text_size_values"
                 android:dialogTitle="@string/pref_text_size_dialogtitle" />
 
+        <ListPreference
+                android:key="default_text_encoding"
+                android:title="@string/pref_default_text_encoding"
+                android:defaultValue="@string/pref_default_text_encoding_default"
+                android:entries="@array/pref_default_text_encoding_choices"
+                android:entryValues="@array/pref_default_text_encoding_values"
+                android:dialogTitle="@string/pref_default_text_encoding_dialogtitle" />
+
         <CheckBoxPreference
                 android:key="block_popup_windows"
                 android:defaultValue="true"
@@ -56,8 +64,8 @@
                 android:title="@string/pref_content_open_in_background"
                 android:summary="@string/pref_content_open_in_background_summary" />
 
-        <EditTextPreference
-                android:key="homepage"
+        <com.android.browser.BrowserHomepagePreference
+                android:key="homepage" 
                 android:title="@string/pref_content_homepage"
                 android:singleLine="true" />
 
@@ -140,8 +148,10 @@
     <PreferenceCategory
             android:title="@string/pref_extras_title">
                      
+            <!-- This setting is named "Enable Gears" but is actually
+                 tied to enabling all plugins. -->
             <CheckBoxPreference
-                    android:key="enable_gears"
+                    android:key="enable_plugins"
                     android:defaultValue="true"
                     android:title="@string/pref_extras_gears_enable"
                     android:summary="@string/pref_extras_gears_enable_summary" />
@@ -149,7 +159,7 @@
             <Preference
                     android:key="gears_settings"
                     android:persistent="false"
-                    android:dependency="enable_gears"
+                    android:dependency="enable_plugins"
                     android:title="@string/pref_extras_gears_settings"
                     android:summary="@string/pref_extras_gears_settings_summary" />
 

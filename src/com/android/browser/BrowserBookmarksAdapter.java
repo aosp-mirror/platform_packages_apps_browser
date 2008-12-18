@@ -312,8 +312,21 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         if (url == null || favicon == null) {
             return;
         }
-        final String[] selArgs = new String[] { url };
-        final String where = Browser.BookmarkColumns.URL + " == ? AND "
+        // Strip the query.
+        int query = url.indexOf('?');
+        String noQuery = url;
+        if (query != -1) {
+            noQuery = url.substring(0, query);
+        }
+        url = noQuery + '?';
+        // Use noQuery to search for the base url (i.e. if the url is
+        // http://www.yahoo.com/?rs=1, search for http://www.yahoo.com)
+        // Use url to match the base url with other queries (i.e. if the url is
+        // http://www.google.com/m, search for
+        // http://www.google.com/m?some_query)
+        final String[] selArgs = new String[] { noQuery, url };
+        final String where = "(" + Browser.BookmarkColumns.URL + " == ? OR "
+                + Browser.BookmarkColumns.URL + " GLOB ? || '*') AND "
                 + Browser.BookmarkColumns.BOOKMARK + " == 1";
         final String[] projection = new String[] { Browser.BookmarkColumns._ID };
         final Cursor c = cr.query(Browser.BOOKMARKS_URI, projection, where,

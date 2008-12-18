@@ -75,7 +75,7 @@ public class BrowserDownloadPage extends Activity
         mDownloadCursor = managedQuery(Downloads.CONTENT_URI, 
                 new String [] {"_id", Downloads.TITLE, Downloads.STATUS,
                 Downloads.TOTAL_BYTES, Downloads.CURRENT_BYTES, 
-                Downloads.FILENAME, Downloads.DESCRIPTION, 
+                Downloads._DATA, Downloads.DESCRIPTION, 
                 Downloads.MIMETYPE, Downloads.LAST_MODIFICATION,
                 Downloads.VISIBILITY}, 
                 null, null);
@@ -170,6 +170,7 @@ public class BrowserDownloadPage extends Activity
                     (AdapterView.AdapterContextMenuInfo) menuInfo;
             mDownloadCursor.moveToPosition(info.position);
             mContextMenuPosition = info.position;
+            menu.setHeaderTitle(mDownloadCursor.getString(mTitleColumnId));
             
             MenuInflater inflater = getMenuInflater();
             int status = mDownloadCursor.getInt(mStatusColumnId);
@@ -242,10 +243,7 @@ public class BrowserDownloadPage extends Activity
      * @param id Row id of the download to resume
      */
     private void resumeDownload(final long id) {
-        Uri record = ContentUris.withAppendedId(Downloads.CONTENT_URI, id);
-        ContentValues values = new ContentValues();
-        values.put(Downloads.CONTROL, Downloads.CONTROL_RUN);
-        getContentResolver().update(record, values, null, null);
+        // the relevant functionality doesn't exist in the download manager
     }
     
     /**
@@ -327,7 +325,7 @@ public class BrowserDownloadPage extends Activity
      */
     private void cancelAllDownloads() {
         if (mDownloadCursor.moveToFirst()) {
-            StringBuffer where = new StringBuffer();
+            StringBuilder where = new StringBuilder();
             boolean firstTime = true;
             while (!mDownloadCursor.isAfterLast()) {
                 int status = mDownloadCursor.getInt(mStatusColumnId);
@@ -339,9 +337,9 @@ public class BrowserDownloadPage extends Activity
                     }
                     where.append("( ");
                     where.append(Downloads._ID);
-                    where.append(" = ");
+                    where.append(" = '");
                     where.append(mDownloadCursor.getLong(mIdColumnId));
-                    where.append(" )");
+                    where.append("' )");
                 }
                 mDownloadCursor.moveToNext();
             }
@@ -372,7 +370,7 @@ public class BrowserDownloadPage extends Activity
      */
     private void clearAllDownloads() {
         if (mDownloadCursor.moveToFirst()) {
-            StringBuffer where = new StringBuffer();
+            StringBuilder where = new StringBuilder();
             boolean firstTime = true;
             while (!mDownloadCursor.isAfterLast()) {
                 int status = mDownloadCursor.getInt(mStatusColumnId);
@@ -384,9 +382,9 @@ public class BrowserDownloadPage extends Activity
                     }
                     where.append("( ");
                     where.append(Downloads._ID);
-                    where.append(" = ");
+                    where.append(" = '");
                     where.append(mDownloadCursor.getLong(mIdColumnId));
-                    where.append(" )");
+                    where.append("' )");
                 }
                 mDownloadCursor.moveToNext();
             }
@@ -402,7 +400,7 @@ public class BrowserDownloadPage extends Activity
      */
     private void openCurrentDownload() {
         int filenameColumnId = 
-                mDownloadCursor.getColumnIndexOrThrow(Downloads.FILENAME);
+                mDownloadCursor.getColumnIndexOrThrow(Downloads._DATA);
         String filename = mDownloadCursor.getString(filenameColumnId);
         int mimetypeColumnId =
                 mDownloadCursor.getColumnIndexOrThrow(Downloads.MIMETYPE);

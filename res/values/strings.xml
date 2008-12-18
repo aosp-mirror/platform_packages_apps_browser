@@ -16,99 +16,120 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Sign-in dialog -->
+    <!-- This is used as the title of a dialog which is used to sign in to a secure site.
+            "%s1"is replaced with the host and "%s2" with realm -->
     <string name="sign_in_to">Sign in to <xliff:g id="hostname">%s1</xliff:g> \"<xliff:g id="realm">%s2</xliff:g>\"</string>
+    <!-- Prompt for an input box that allows the user to enter their login name -->
     <string name="username">Name</string>
+    <!-- Prompt for an input box that allows the user to enter their password -->
     <string name="password">Password</string>
+    <!-- The label on the "sign in" button -->
     <string name="action">Sign in</string>
-    <!-- Button label -->
+
+    <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
     <string name="cancel">Cancel</string>
-    <!-- Button label -->
+    <!-- Label for a confirm button.  Used in multiple contexts. -->
     <string name="ok">OK</string>
-    <!-- Button label -->
-    <string name="done">Done</string>
-    <!-- Button label -->
-    <string name="prev">Prev</string>
-    <!-- Button label -->
-    <string name="next">Next</string>
-    <string name="matches_found">Matches found:</string>
-    <string name="zero">0</string>
+
+    <!--The find dialog -->
+    <!-- Displayed on the Find Dialog, stating "X matches" where X is the
+            number of matches found in the current page -->
+    <string name="matches_found">\u0020matches</string>
+    <!-- Displayed on the Find Dialog, stating that there are "zero
+            matches" -->
+    <string name="zero">No</string>
     
     <!-- Menu item -->
     <string name="page_info">Page info</string>
+    <!-- Label for a button on an SSL error dialog that allows the user to see
+        Page info screen for the current page -->
     <string name="page_info_view">View page info</string>
     <!-- Page Info dialog strings -->
+    <!-- Noun.  The url for the current page. Displayed on the Page Info
+            screen. -->
     <string name="page_info_address">Address:</string>
-    <string name="page_info_type">Type:</string>
-    <string name="page_info_render_mode">Render mode:</string>
-    <string name="page_info_cache_source">Cache source:</string>
-    <string name="page_info_encoding">Encoding:</string>
-    <string name="page_info_size">Size:</string>
-    <string name="page_info_referring_url">Referring URL:</string>
-    <string name="page_info_modified">Modified:</string>
-    <string name="page_info_expires">Expires:</string>
 
     <!-- SSL Error dialogs -->
     <string name="ssl_warnings_header">There are problems with the security certificate for this site.</string>
+    <!-- Label for a button on an SSL error dialog that lets the user continue
+            and view the page despite the error -->
     <string name="ssl_continue">Continue</string>
+    <!-- Title for an SSL error dialog  -->
     <string name="security_warning">Security warning</string>
+    <!-- Label for a button on an SSL error dialog that lets the user view the
+        certificate -->
     <string name="view_certificate">View certificate</string>
 
+    <!-- Message in an SSL Error dialog -->
     <string name="ssl_untrusted">This certificate is not from a trusted authority.</string>
+    <!-- Message in an SSL Error dialog -->
     <string name="ssl_mismatch">The name of the site does not match the name on the certificate.</string>
+    <!-- Message in an SSL Error dialog -->
     <string name="ssl_expired">This certificate has expired.</string>
+    <!-- Message in an SSL Error dialog -->
     <string name="ssl_not_yet_valid">This certificate is not valid yet.</string>
     
     <!-- SSL Certificate dialogs -->
+    <!-- Title for an SSL Certificate dialog -->
     <string name="ssl_certificate">Security certificate</string>
+    <!-- Message on an SSL Certificate dialog -->
     <string name="ssl_certificate_is_valid">This certificate is valid.</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="issued_to">Issued to:</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="common_name">Common name:</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="org_name">Organization:</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="org_unit">Organizational unit:</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="issued_by">Issued by:</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="validity_period">Validity:</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="issued_on">Issued on:</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="expires_on">Expires on:</string>
-    <string name="fingerprints">Fingerprints:</string>
-    <string name="sha1_fingerprint">SHA1 fingerprint:</string>
-    <string name="md5_fingerprint">MD5 fingerprint:</string>
 
     <!-- Dialog that is shown while we are retrieving the login creds from the system -->
     <string name="retrieving_creds_dlg_msg">Retrieving sign-in details\u2026</string>
-    <!-- Menu item -->
+    <!-- Menu item in a context menu for closing a browser window. -->
     <string name="close">Close</string>
-    <!-- Confirmation dialog message -->
+    <!-- Confirmation dialog message stating that a browser window will be closed -->
     <string name="close_window">This window will be closed.</string>
-    <!-- Toast -->
+    <!-- Toast informing the user that loading has stopped for the current page. -->
     <string name="stopping">Stopping\u2026</string>
-    <!-- Menu item -->
+    <!-- Menu item to stop the current page from loading. -->
     <string name="stop">Stop</string>
-    <!-- Menu item -->
+    <!-- Menu item to reload or refresh the current page. -->
     <string name="reload">Refresh</string>
-    <!-- Menu item -->
+    <!-- Menu item to go back to the previous page. -->
     <string name="back">Back</string>
-    <!-- Menu item -->
+    <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
     <string name="forward">Forward</string>
-    <!-- Button label -->
+    <!-- Button label to confirm saving a bookmark. -->
     <string name="save">OK</string>
-    <!-- Button label -->
+    <!-- Button label to cancel saving a bookmark. -->
     <string name="do_not_save">Cancel</string>
-    <!-- Field label in Bookmark dialog box -->
+    <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
     <string name="location">Location</string>
-    <!-- Field label in Bookmark dialog box -->
+    <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
     <string name="name">Name</string>
     <!-- Initial value in Location field in Bookmark dialog box -->
     <string name="http">http://</string>
-    <!-- Menu item -->
-    <string name="save_to_bookmarks">Bookmark link</string>
-    <!-- Menu item -->
+    <!-- Menu item that opens a dialog to save a bookmark, initialized with the current page -->
+    <string name="save_to_bookmarks">Bookmark</string>
+    <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
     <string name="edit_bookmark">Edit bookmark</string>
+    <!-- Context menu item to create a shortcut to the bookmark on the desktop -->
+    <string name="create_shortcut_bookmark">Add shortcut to Home</string>
+    <!-- Context menu item to open the currently highlighted bookmark -->
     <string name="open_bookmark">Open</string>
-    <!-- Menu item -->
+    <!-- Menu item to remove the currently highlighted bookmark-->
     <string name="remove_bookmark">Delete bookmark</string>
-    <!-- Menu item -->
+    <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
     <string name="remove_history_item">Remove from history</string>
-    <!-- Toast -->
+    <!-- Toast informing the user that their action to save a bookmark has succeeded -->
     <string name="bookmark_saved">Saved to bookmarks.</string>
     <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
     <string name="bookmark_needs_title">"Bookmark must have a name."</string>
@@ -118,107 +139,129 @@
     <string name="empty_bookmark">"Cannot create empty bookmark."</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
     <string name="bookmark_url_not_valid">URL is not valid.</string>
-        <!-- Confirmation dialog title -->
+        <!-- Title of a confirmation dialog when the user deletes a bookmark-->
     <string name="delete_bookmark">Delete</string>
-    <!-- Menu item -->
+    <!-- Menu item in the page that displays all bookmarks. It brings up a
+            dialog that allows the user to bookmark the page that the browser is
+            currently on, but is not visible because the bookmarks page is 
+            showing. -->
     <string name="bookmark_page">Bookmark last-viewed page</string>
-    <!-- Summary text under the New Bookmark item on the Bookmarks screen -->
+    <!-- Summary text under the New Bookmark item on the Bookmarks screen.
+            Tells the user that if they select this item, it will bring up a
+            dialog to bookmark the page that the browser is currently viewing,
+            though it is not currently being displayed, since they are viewing
+            the bookmarks screen. -->
     <string name="current_page">Current page:\u0020</string>
-    <!-- Confirmation dialog message -->
+    <!-- Confirmation dialog message confirming that the user wishes to delete
+            the bookmark they selected for deletion -->
     <string name="delete_bookmark_warning">Bookmark \"<xliff:g id="bookmark">%s</xliff:g>\" will be deleted.</string>
-    <string name="info_base">Title:\n  <xliff:g id="title">%s1</xliff:g> \n\nURL: \n  <xliff:g id="url">%s2</xliff:g></string>
-    <!-- Menu item -->
+    <!-- Context Menu item to open the selected link in a new window -->
     <string name="open_in_new_window">Open in new window</string>
-    <!-- Appears in Current windows screen as label on blank + window; user selects this window to open a new browser window -->
+    <!-- Appears in Current windows screen as label on blank + window; user 
+            selects this window to open a new browser window -->
     <string name="new_window">New window</string>
-    <string name="delete">Delete</string>
-    <!-- Menu item -->
+    <!-- Menu item to open a dialog which allows the user to enter a url-->
     <string name="goto_dot">Go to URL</string>
+    <!-- Menu item that opens up a dialog which allows the user to provide a
+            string and search for it on the page. -->
     <string name="find_dot">Find on page</string>
-    <!-- Menu item -->
+    <!-- Menu item to go to the home page, as stored in settings -->
     <string name="homepage">Home page</string>
+    <!-- Menu item which opens a screen which shows all the currently open
+            windows, and also allows them to create a new one. -->
     <string name="view_tabs">Window overview</string>
-    <!-- Menu item -->
-    <string name="view_tabs_condensed">Window</string>
+    <!-- Menu item which opens a screen which shows all the currently open
+            windows, and also allows them to create a new one. This is a shorter
+            alternate version of "view_tabs"-->
+    <string name="view_tabs_condensed">Windows</string>
     <!-- Title of current windows screen; appears in title bar -->
     <string name="tab_picker_title">Current windows</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to view the selected window on the window picker
+            screen -->
     <string name="tab_picker_view_tab">View</string>
-    <!-- Menu item -->
+    <!-- Menu item on the window picker screen to open a new window -->
     <string name="tab_picker_new_tab">New window</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to close the currently selected window -->
     <string name="tab_picker_remove_tab">Close</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to bookmark the currently selected window -->
     <string name="tab_picker_bookmark">Bookmark</string>
-    <!-- Menu item -->
+    <!-- Context Menu item from the bookmarks page to share the selected
+            bookmark  -->
     <string name="tab_picker_send_url">Share link</string>
-    <!-- Menu item -->
+    <!-- Menu item to open the bookmarks page. This is a shorter version that
+            is displayed with an icon -->
     <string name="bookmarks">Bookmarks</string>
+    <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
     <string name="shortcut_bookmark">Bookmark</string>
-    <!-- Menu item -->
+    <!-- Menu item to display the History of previously visited pages -->
     <string name="history">History</string>
-    <string name="visual_history">Window history</string>
-    <string name="menu_use_as_homepage">Set as home page</string>
-    <!-- Menu item -->
+    <!-- Menu item for viewing downloads from the browser -->
     <string name="menu_view_download">Downloads</string>
-    <!-- Menu item -->
+    <!-- Menu item to display the bookmark page.  This is a longer version shown
+            without an icon next to it -->
     <string name="menu_bookmark_page">Bookmark page</string>
     <!-- Menu item -->
     <string name="share_page">Share page</string>
-    <string name="homepage_set">Home page updated</string>
-    <!-- Menu item -->
+    <!-- Menu item to bring up the zoom controls -->
     <string name="menu_zoom">Zoom</string>
-    <!-- Menu item -->
+    <!-- Menu item to flip the orientation of the screen.-->
     <string name="menu_flip_orientation">Flip orientation</string>
-    <!-- Menu item -->
+    <!-- Context Menu item open the currently selected link in the current
+            window.-->
     <string name="contextmenu_openlink">Open</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to open the currently selected link in a new
+            window. -->
     <string name="contextmenu_openlink_newwindow">Open in new window</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to create a bookmark for the url of the currently
+            selected link. -->
     <string name="contextmenu_bookmark_thislink">Bookmark link</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to save the webpage referred to by this link to the
+            SD card (external storage) -->
     <string name="contextmenu_savelink">Save link</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to send the url of the selected link to someone else,
+            via Gmail or another app -->
     <string name="contextmenu_sharelink">Share link</string>
-    <!-- Menu item -->
+    <!-- Context Menu item -->
     <string name="contextmenu_copy">Copy</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to copy the url of the selected link to the
+            clipboard -->
     <string name="contextmenu_copylink">Copy link URL</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to save the image to external storage -->
     <string name="contextmenu_download_image">Save image</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to view the image by itself in the browser -->
     <string name="contextmenu_view_image">View image</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to open the dialer app with the selected phone number
+            -->
     <string name="contextmenu_dial_dot">Dial\u2026</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to add the selected phone number to the address book.
+            -->
     <string name="contextmenu_add_contact">Add contact</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to send an email using the selected email address.-->
     <string name="contextmenu_send_mail">Send email</string>
-    <!-- Menu item -->
+    <!-- Context Menu item to show the currently selected address in the Maps
+            application -->
     <string name="contextmenu_map">Map</string>
-    <!-- Menu item -->
-    <string name="contextmenu_javascript">JavaScript</string>
  
+    <!-- Used as the title of dialogs in the Browser Settings confirming that
+            the user wants to clear (cache, history, or cookie data) -->
     <string name="clear">Clear</string>
-    <string name="cache_cleared">Cache cleared</string>
 
-    <string name="override_message">The existing bookmark will be replaced.</string>
-    <string name="override">Replace</string>
+    <!-- Part of a sentence that says "Replace <url of existing bookmark> with
+            <url of new bookmark>?" -->
     <string name="replace">Replace</string>
-    <string name="with">with</string>
-    <string name="question_mark">\?</string>
 
+    <!-- Title displayed when the bookmarks page is shown -->
     <string name="browser_bookmarks_page_bookmarks_text">Bookmarks</string>
 
-    <string name="history_picker_view_web_page">Open</string>
 
     <!-- Settings screen strings -->
-    <!-- Menu item -->
+    <!-- Menu item to open the Settings screen -->
     <string name="menu_preferences">Settings</string>
     <!-- Settings screen, section title -->
     <string name="pref_content_title">Page content settings</string>
     <!-- Settings label -->
     <string name="pref_content_load_images">Load images</string>
+    <!-- Settings label -->
     <string name="pref_content_load_images_summary">Display images on Web pages</string>
     <!-- Settings label -->
     <string name="pref_content_block_popups">Block pop-up windows</string>
@@ -285,7 +328,7 @@
     <!-- Settings summary -->
     <string name="pref_security_accept_cookies_summary">Allow sites to save and read \"cookie\" data</string>
     <!-- Settings label -->
-    <string name="pref_text_size">Text size</string>
+    <string name="pref_text_size">Set text size</string>
     <!-- Settings text size options; appear in Text size dialog box -->
     <string-array name="pref_text_size_choices">
         <item>Tiny</item>
@@ -294,9 +337,9 @@
         <item>Large</item>
         <item>Huge</item>
     </string-array>
-    <!-- Dialog box title -->
+    <!-- Title of dialog for setting the text size -->
     <string name="pref_text_size_dialogtitle">Text size</string>
-    <string name="pref_text_size_summary">Select the size of text on Web pages</string>
+    <!-- Do not translate -->
     <string-array name="pref_text_size_values">
         <item><xliff:g>SMALLEST</xliff:g></item>
         <item><xliff:g>SMALLER</xliff:g></item>
@@ -313,9 +356,10 @@
     <!-- Settings label -->
     <string name="pref_extras_gears_settings">Gears settings</string>
     <!-- Settings summary -->
+    <string name="pref_plugin_installed">Plugins list</string>
+    <!-- Settings summary -->
+    <string name="pref_plugin_installed_empty_list">No installed plugins.</string>
     <string name="pref_extras_gears_settings_summary">Applications that extend browser functionality</string>
-    <string name="pref_plugin_installed_summaryxx">View currently-installed plugins</string>
-    <string name="pref_plugin_installed_empty_listxx">No installed plugins.</string>
     <!-- Settings label -->
     <string name="pref_extras_reset_default">Reset to default</string>
     <!-- Settings summary -->
@@ -324,29 +368,65 @@
     <string name="pref_extras_reset_default_dlg">All browser data will be cleared and settings will revert to default values.</string>
     <!-- Confirmation dialog title -->
     <string name="pref_extras_reset_default_dlg_title">Reset to default</string>
+    <!-- Title for a group of settings -->
     <string name="pref_development_title">Debug</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_viewport">Use wide viewport</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_single_column_rendering">Single column rendering</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_normal_rendering">Normal rendering</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_trace">Enable tracing</string>
-    <string name="pref_development_track">Enable trackball</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_nav_dump">Enable nav cache dump</string>
+    <!-- Do not tranlsate.  Development option -->
+    <string name="pref_development_search_url">Set search URL</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_uastring">UAString</string>
+    <!-- Do not tranlsate.  Development option -->
     <string-array name="pref_development_ua_choices">
         <item>Android</item>
         <item>Desktop</item>
         <item>iPhone</item>
     </string-array>
+    <!-- Do not tranlsate.  Development option -->
     <string-array name="pref_development_ua_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
+    <!-- Settings screen, setting option name -->
+    <string name="pref_default_text_encoding">Set text encoding</string>
+    <!-- Options in the Default encoding dialog box -->
+    <string-array name="pref_default_text_encoding_choices">
+        <item>Latin-1 (ISO-8859-1)</item>
+        <item>Unicode (UTF-8)</item>
+        <item>Japanese (ISO-2022-JP)</item>
+        <item>Japanese (SHIFT_JIS)</item>
+        <item>Japanese (EUC-JP)</item>
+        <!-- TODO: We should add a lot more encodings.  -->
+    </string-array>
+    <!-- Dialog box title -->
+    <string name="pref_default_text_encoding_dialogtitle">Text encoding</string>
+    <!-- Do not translate. Actual encoding values. Must be valid text encodings understandable from WebKit. -->
+    <string-array name="pref_default_text_encoding_values">
+        <item>Latin-1</item>
+        <item>UTF-8</item>
+        <item>ISO-2022-JP</item>
+        <item>SHIFT_JIS</item>
+        <item>EUC-JP</item>
+    </string-array>
+    <string name="pref_default_text_encoding_default">Latin-1</string>
     <!-- Dialog box title -->
     <string name="browserFrameRedirect">Redirect</string>
     <!-- Dialog box message -->
     <string name="browserFrame307Post">This Web page is being redirected. Resend your typed form data to the new location?</string>
+    <!-- Title for a dialog displayed when the browser has a data connectivity
+            problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>
+    <!-- Title for a dialog displayed when the browser runs into a file label
+            error -->
     <string name="browserFrameFileErrorLabel">Problem with file</string>
     <!-- Dialog box title -->
     <string name="browserFrameFormResubmitLabel">Confirm</string>
@@ -364,29 +444,60 @@
     <string name="empty_history">Browser history is empty.</string>
     <!-- Menu item -->
     <string name="add_new_bookmark">New bookmark</string>
+    <!-- Add bookmark dialog sets its title to this if we have no database.
+            This is an error case -->
     <string name="no_database">No database!</string>
     
+    <!-- This string is for the browser "Go To" UI. -->
+    <!-- Do not translate.  This string is not displayed in UI (no badge is selected for go to). -->
     <string name="search_label">Browser</string>
+    <!-- This string is for the browser "Go To" UI. -->
+    <!-- This is the hint text shown in the Go To widget, before text is entered. -->
     <string name="search_hint">Type Web address</string>
     <!-- Menu item -->
     <string name="search">Search</string>
+    <!-- This string is for the browser "Go To" UI. -->
+    <!-- This is the button label in the "Go To" UI. -->
     <string name="search_button_text">Go</string>
-    
+
+    <!-- Part of the title for a JavaScript dialog.  The full sentence says "The
+            page at <url of current page> says:" followed by the message
+            provided by the page -->
     <string name="js_dialog_title_prefix">The page at</string>
+    <!-- Part of the title for a JavaScript dialog.  The full sentence says "The
+            page at <url of current page> says:" followed by the message
+            provided by the page -->
     <string name="js_dialog_title_suffix">says:</string>
+    <!-- Default title for a javascript dialog -->
     <string name="js_dialog_title_default">JavaScript</string>
+    <!-- Message in a javascript dialog asking if the user wishes to leave the
+             current page -->
     <string name="js_dialog_before_unload">Navigate away from this page?\n\n<xliff:g id="message">%s</xliff:g>\n\nSelect OK to continue, or Cancel to stay on the current page.</string>
 
     <!-- Pop-up window dialog -->
+    <!-- Title for a dialog informing the user that the site is attempting to
+            display a popup window -->
     <string name="attention">Attention</string>
+    <!-- Message for a dialog informing the user that the site is attempting to
+            display a popup window -->
     <string name="popup_window_attempt">This site is attempting to open a
       pop-up window.</string>
+    <!-- Label for a button to allow a particular popup window to open -->
     <string name="allow">Allow</string>
+    <!-- Label for a button to disallow a particular popup from opening -->
     <string name="block">Block</string>
 
+    <!-- Title for a dialog informing the user that they cannot open any more
+            windows because the limit has been reached. -->
     <string name="too_many_windows_dialog_title">Window limit reached</string>
+    <!-- Message in a dialog telling the user that they cannot open any more
+            windows because the limit has been reached. -->
     <string name="too_many_windows_dialog_message">Could not open a new window because you have already opened the maximum number.</string>
+    <!-- Title for a dialog informing the user that they cannot open a subwindow
+            because only one can be open at a time. -->
     <string name="too_many_subwindows_dialog_title">Pop-up already open</string>
+    <!-- Message for a dialog informing the user that they cannot open a
+            subwindow because only one can be open at a time. -->
     <string name="too_many_subwindows_dialog_message">Could not open a new
       pop-up window because only one can be open at any time.</string>
 
@@ -416,12 +527,24 @@
     <string name="download_file_error_dlg_title">Out of space</string>
     <!-- Dialog message -->
     <string name="download_file_error_dlg_msg"><xliff:g id="filename">%s</xliff:g> could not be downloaded.\nFree up some space on your phone and try again.</string>
+    <!-- Title for a dialog informing the user that the download has failed -->
     <string name="download_failed_generic_dlg_title">Download unsuccessful</string>
     <!-- Dialog title -->
     <string name="download_no_sdcard_dlg_title">No SD card</string>
     <!-- Dialog message -->
     <string name="download_no_sdcard_dlg_msg">An SD card is required to download <xliff:g id="filename">%s</xliff:g>.</string>
+    <!-- Title for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything -->
+    <string name="download_sdcard_busy_dlg_title">SD card unavailable</string>
+    <!-- Message for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything.  Informs
+            the user how to enable SD card storage -->
+    <string name="download_sdcard_busy_dlg_msg">The SD card is busy. To allow downloads, go to Home > Settings > SD card &amp; phone storage and clear the \"Use for USB storage\" check box.</string>
+ 
+    <!-- Message for a dialog informing the user that there is no application on
+            the phone that can open the file that was downloaded  -->
     <string name="download_no_application">No application can be found to open this file.</string>
+    <!-- Label for a button to re-attempt downloading a file -->
     <string name="retry">Retry</string>
     <!-- Appears in Download history screen if there is no history -->
     <string name="no_downloads">Download history is empty.</string>
@@ -431,47 +554,43 @@
     <string name="download_success"><xliff:g id="file">%s</xliff:g> Download complete.</string>
     <!-- Appears in Download history screen while an item is being downloaded -->
     <string name="download_running">Downloading\u2026</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download has not
+            yet begun -->
     <string name="download_pending">Starting download\u2026</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download is
+            waiting for a network connection to continue -->
     <string name="download_pending_network">Waiting for data connection\u2026</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download has
+            paused to wait for a network connection -->
     <string name="download_running_paused">Waiting for data connection\u2026</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download has
+            been canceled -->
     <string name="download_canceled">Download canceled.</string>
-    <string name="download_not_acceptable">Cannot download. The content being downloaded is not supported on the phone.</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download will
+            not happen because the content is not supported by the phone -->
+    <string name="download_not_acceptable">Cannot download. The content is not supported on the phone.</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download did not
+            finish because there is not enough storage for the file -->
     <string name="download_file_error">Cannot finish download. There is not enough space.</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the item cannot be
+            downloaded because it cannot determine the length of the item -->
     <string name="download_length_required">Cannot download. The size of the item cannot be determined.</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download was
+            interrupted and cannot be resumed -->
     <string name="download_precondition_failed">Download interrupted. It cannot be resumed.</string>
 
-    <!-- Oma Download Manager. Note: These oma_* messages are no longer used and so not revealed to the end-user-->
-    <string name="oma_label_want_to_download">Do you want to download this content?</string>
-    <string name="oma_label_download_error">Download error:</string>
-    <string name="oma_label_proceed">Proceed</string>
-    <string name="oma_label_action">Download</string>
-    <string name="oma_label_exit">Exit</string>
-    <string name="oma_label_cancel">Exit</string>   
-
-    <string name="oma_label_name">Name:</string>
-    <string name="oma_label_vendor">Vendor:</string>
-    <string name="oma_label_size">Size:</string>
-    <string name="oma_label_type">Type:</string>
-    <string name="oma_label_description">Description:</string>
-
-    <string name="oma_error_insufficient_memory">Insufficient memory! Check your SD card.</string>
-    <string name="oma_error_invalid_descriptor">Invalid download descriptor.</string>
-    <string name="oma_error_non_acceptable_content">Content not supported.</string>
-    <string name="oma_error_failed_to_download">Unable to download media.</string>
-    <string name="oma_warning_one_or_more_types_not_supported">One or more content categories are not supported.</string>
-    <string name="oma_status_success">Success</string>
-    <string name="oma_status_insufficient_memory">Insufficient memory</string>
-    <string name="oma_status_loss_of_service">Loss of service</string>
-    <string name="oma_status_attribute_mismatch">Attribute mismatch</string>
-    <string name="oma_status_invalid_descriptor">Invalid descriptor</string>
-    <string name="oma_status_invalid_version">Invalid version</string>
-    <string name="oma_status_device_aborted">Phone aborted</string>
-    <string name="oma_status_non_acceptable_content">Unacceptable content</string>
-    <string name="oma_status_loader_error">Loader error</string>
-
-
     <string name="activity_instrumentation_test_runner">Browser Test Runner</string>
+    <!-- Do not translate.  Testing only -->
     <string name="activity_instrumentation_functional_test_runner">Browser Functional Test Runner</string>
+    <!-- Do not translate.  Testing only -->
     <string name="dump_nav">Dump navigation cache</string>
 
     <!-- Bookmarks -->
@@ -503,4 +622,63 @@
         <item>BBC</item>
         <item>http://www.bbc.co.uk/</item>
     </string-array>
+
+    <!-- Note that this is the standard search url.  It uses the current locale for language -->
+    <!-- (%1$s) and country (%2$s) and shouldn't need to be replaced by locale or mcc selected -->
+    <!-- resources. -->
+    <!-- Any changes to this (especially in terms of adding/removing the MCC-specific flavors) -->
+    <!-- should be mirrored by changes in apps/GoogleSearch. -->
+    <!-- Do not translate.  This string is an internal URI, not seen in the UI. -->
+    <string name="google_search_base" translatable="false">
+        http://www.google.com/m?hl=%1$s&amp;gl=%2$s&amp;</string>
+
+    <!-- Title of an application permission, listed so the user can choose whether 
+        they want to allow the application to do this. -->
+    <string name="permlab_readHistoryBookmarks">read Browser\'s history and bookmarks</string>
+    <!-- Description of an application permission, listed so the user can choose whether
+        they want to allow the application to do this. -->
+    <string name="permdesc_readHistoryBookmarks">Allows the application to read all 
+        the URLs that the Browser has visited, and all of the Browser\'s bookmarks.</string>
+
+    <!-- Title of an application permission, listed so the user can choose whether 
+        they want to allow the application to do this. -->
+    <string name="permlab_writeHistoryBookmarks">write Browser\'s history and bookmarks</string>
+    <!-- Description of an application permission, listed so the user can choose whether
+        they want to allow the application to do this. -->
+    <string name="permdesc_writeHistoryBookmarks">Allows an application to modify the
+        Browser\'s history or bookmarks stored on your phone. Malicious applications 
+        can use this to erase or modify your Browser\'s data.</string>
+
+    <!-- Gears Dialog -->
+    <string name="query_data_message">The Web site below wants to store information on your computer using Gears.</string>
+    <string name="location_message">The Web site below wants to access information about your location using Gears.</string>
+    <string name="shortcut_message">This Web site wants to create a shortcut on your computer. Do you want to allow this?</string>
+    <string name="settings_message">The table below shows the permissions you have granted to each site that has attempted to use Gears.</string>
+    <string name="filepicker_message">Gears File Picker</string>
+
+    <string name="settings_title">Gears settings</string>
+    <string name="privacy_policy">Read the site\'s privacy policy to see how your location will be used.</string>
+
+    <string name="permission_button_alwaysdeny">Never allow this site</string>
+    <string name="permission_button_allow">Allow</string>
+    <string name="permission_button_deny">Deny</string>
+
+    <string name="shortcut_button_alwaysdeny">Never allow this shortcut</string>
+    <string name="shortcut_button_allow">OK</string>
+    <string name="shortcut_button_deny">Cancel</string>
+
+    <string name="settings_button_allow">Apply</string>
+    <string name="settings_button_deny">Cancel</string>
+
+    <string name="filepicker_button_allow">OK</string>
+    <string name="filepicker_button_deny">Cancel</string>
+
+    <string name="remove">Remove</string>
+    <string name="local_storage">Local storage</string>
+    <string name="allowed">Allowed</string>
+    <string name="denied">Denied</string>
+
+    <string name="unrecognized_dialog_message">Unrecognized dialog type</string>
+    <string name="default_button">OK</string>
+
 </resources>

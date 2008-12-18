@@ -48,6 +48,8 @@ public class GearsDialog extends Activity {
   private String htmlContent;
   private String dialogArguments;
 
+  private boolean dismissed = false;
+
   @Override
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
@@ -66,14 +68,24 @@ public class GearsDialog extends Activity {
   }
 
   @Override
+  public void onDestroy() {
+    super.onDestroy();
+    // In case we reach this point without
+    // notifying GearsDialogService, we do it now.
+    if (!dismissed) {
+      notifyEndOfDialog();
+    }
+  }
+
+  @Override
   public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     Intent i = getIntent();
     boolean inSettings = i.getBooleanExtra("inSettings", false);
     // If we are called from the settings, we
-    // dismiss ourselve upon upon rotation
+    // dismiss ourselve upon rotation
     if (inSettings) {
-      GearsDialogService.signalFinishedDialog();
+      notifyEndOfDialog();
       finish();
     }
   }
@@ -88,10 +100,22 @@ public class GearsDialog extends Activity {
     webview.loadDataWithBaseURL("", htmlContent, "text/html", "", "");
   }
 
+  /**
+   * Signal to GearsDialogService that we are done.
+   */
+  private void notifyEndOfDialog() {
+    GearsDialogService.signalFinishedDialog();
+    dismissed = true;
+  }
+
+  /**
+   * Intercepts the back key to immediately notify
+   * GearsDialogService that we are done.
+   */
   public boolean dispatchKeyEvent(KeyEvent event) {
     if (event.getKeyCode() ==  KeyEvent.KEYCODE_BACK && event.isDown()) {
-      GearsDialogService.signalFinishedDialog();
-     }
+      notifyEndOfDialog();
+    }
     return super.dispatchKeyEvent(event);
   }
 
@@ -110,7 +134,7 @@ public class GearsDialog extends Activity {
    */
   public void closeDialog(String results) {
     GearsDialogService.closeDialog(results);
-    GearsDialogService.signalFinishedDialog();
+    notifyEndOfDialog();
     finish();
   }
 

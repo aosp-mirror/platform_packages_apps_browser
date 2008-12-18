@@ -16,22 +16,24 @@
 
 package com.android.browser;
 
+import android.app.Dialog;
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
+import android.view.Window;
 import android.webkit.WebView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/* package */ class FindDialog extends LinearLayout implements TextWatcher {
+/* package */ class FindDialog extends Dialog implements TextWatcher {
     private WebView         mWebView;
     private TextView        mMatches;
     private BrowserActivity mBrowserActivity;
@@ -41,10 +43,7 @@ import android.widget.TextView;
     private EditText        mEditText;
     private View            mNextButton;
     private View            mPrevButton;
-
-    // Tags for messages to be sent to the handler.
-    private final static int FIND_RESPONSE  = 0;
-    private final static int NUM_FOUND      = 1;
+    private View            mMatchesView;
 
     private View.OnClickListener mFindListener = new View.OnClickListener() {
         public void onClick(View v) {
@@ -65,26 +64,7 @@ import android.widget.TextView;
             if (mWebView == null) {
                 throw new AssertionError("No WebView for FindDialog::onClick");
             }
-            // Find is disabled for version 1.0, so find methods on WebView are
-            // currently private.
-            //mWebView.findPrevious(mEditText.getText().toString(),
-            //        mFindHandler.obtainMessage(FIND_RESPONSE));
-        }
-    };
-    
-    private Handler mFindHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (NUM_FOUND == msg.what) {
-                mMatches.setText(Integer.toString(msg.arg1));
-                if (0 == msg.arg1) {
-                    disableButtons();
-                } else {
-                    mPrevButton.setFocusable(true);
-                    mNextButton.setFocusable(true);
-                    mPrevButton.setEnabled(true);
-                    mNextButton.setEnabled(true);
-                }
-            }
+            mWebView.findNext(false);
         }
     };
     
@@ -95,20 +75,35 @@ import android.widget.TextView;
         mNextButton.setFocusable(false);
     }
 
-    public void setWebView(WebView webview) {
+    /* package */ void setWebView(WebView webview) {
         mWebView = webview;
     }
 
     /* package */ FindDialog(BrowserActivity context) {
-        super(context);
+        super(context, R.style.FindDialogTheme);
         mBrowserActivity = context;
-        LayoutInflater factory = LayoutInflater.from(context);
-        factory.inflate(R.layout.browser_find, this);
-        
-        setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        
+        setCanceledOnTouchOutside(true);
+    }
+
+    /* package */ void onConfigurationChanged(Configuration newConfig) {
+        // FIXME: Would like to call mWebView.findAll again, so that the
+        // matches would refresh, but the new picture has not yet been
+        // created, so it is too soon.
+        mEditText.getText().clear();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Window theWindow = getWindow();
+        theWindow.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL);
+
+        setContentView(R.layout.browser_find);
+
+        theWindow.setLayout(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
         mEditText = (EditText) findViewById(R.id.edit);
         
         View button = findViewById(R.id.next);
@@ -124,47 +119,21 @@ import android.widget.TextView;
         mOk = button;
         
         mMatches = (TextView) findViewById(R.id.matches);
+        mMatchesView = findViewById(R.id.matches_view);
         disableButtons();
     }
     
     public void dismiss() {
+        super.dismiss();
         mBrowserActivity.closeFind();
-        // If the nav buttons are highlighted, then there are matches
-        // highlighted in the WebView, and they should be cleared.
-        if (mPrevButton.isEnabled()) {
-            // Find is disabled for version 1.0, so find methods on WebView are
-            // currently private.
-            //mWebView.clearMatches();
-        }
+        mWebView.clearMatches();
     }
     
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        // Make up and down find previous/next
         int code = event.getKeyCode();
         boolean up = event.getAction() == KeyEvent.ACTION_UP;
         switch (code) {
-            case KeyEvent.KEYCODE_BACK:
-                if (up) {
-                    dismiss();
-                }
-                return true;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                if (event.getMetaState() != 0) {
-                    break;
-                }
-                if (up) {
-                    mFindPreviousListener.onClick(null);
-                }
-                return true;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                if (event.getMetaState() != 0) {
-                    break;
-                }
-                if (up) {
-                    mFindListener.onClick(null);
-                }
-                return true;
             case KeyEvent.KEYCODE_DPAD_CENTER:
             case KeyEvent.KEYCODE_ENTER:
                 if (!mEditText.hasFocus()) {
@@ -179,26 +148,16 @@ import android.widget.TextView;
         }
         return super.dispatchKeyEvent(event);
     }
-    
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        super.dispatchTouchEvent(ev);
-        // Return true so that BrowserActivity thinks we handled it and does
-        // not dismiss us.
-        return true;
-    }
 
     private void findNext() {
         if (mWebView == null) {
             throw new AssertionError("No WebView for FindDialog::findNext");
         }
-        // Find is disabled for version 1.0, so find methods on WebView are
-        // currently private.
-        //mWebView.findNext(mEditText.getText().toString(),
-        //        mFindHandler.obtainMessage(FIND_RESPONSE));
+        mWebView.findNext(true);
     }
     
     public void show() {
+        super.show();
         mEditText.requestFocus();
         mEditText.setText("");
         Spannable span = (Spannable) mEditText.getText();
@@ -219,22 +178,30 @@ import android.widget.TextView;
                               int start, 
                               int before, 
                               int count) {
+        if (mWebView == null) {
+            throw new AssertionError(
+                    "No WebView for FindDialog::onTextChanged");
+        }
         CharSequence find = mEditText.getText();
         if (0 == find.length()) {
             disableButtons();
-            // Find is disabled for version 1.0, so find methods on WebView are
-            // currently private.
-            //mWebView.clearMatches();
-            mMatches.setText(R.string.zero);
+            mWebView.clearMatches();
+            mMatchesView.setVisibility(View.INVISIBLE);
         } else {
-            if (mWebView == null) {
-                throw new AssertionError(
-                        "No WebView for FindDialog::onTextChanged");
+            mMatchesView.setVisibility(View.VISIBLE);
+            int found = mWebView.findAll(find.toString());
+            mMatches.setText(Integer.toString(found));
+            if (found < 2) {
+                disableButtons();
+                if (found == 0) {
+                    mMatches.setText(R.string.zero);
+                }
+            } else {
+                mPrevButton.setFocusable(true);
+                mNextButton.setFocusable(true);
+                mPrevButton.setEnabled(true);
+                mNextButton.setEnabled(true);
             }
-            // Find is disabled for version 1.0, so find methods on WebView are
-            // currently private.
-            //mWebView.findAll(find.toString(),
-            //        mFindHandler.obtainMessage(NUM_FOUND));
         }
     }
 

@@ -39,6 +39,7 @@ class ImageGrid extends GridView implements OnItemClickListener,
     private Listener     mListener;
     private ImageAdapter mAdapter;
     private boolean      mIsLive;
+    private static final int SPACING = 10;
     public static final int CANCEL  = -99;
     public static final int NEW_TAB = -1;
 
@@ -58,23 +59,18 @@ class ImageGrid extends GridView implements OnItemClickListener,
             setOnItemClickListener(this);
             setOnCreateContextMenuListener(this);
         }
-        if (Config.DEBUG && l == null) {
-            throw new AssertionError();
-        }
         mListener = l;
 
-        mAdapter = new ImageAdapter(context, this, null, live);
+        mAdapter = new ImageAdapter(context, this, live);
         setAdapter(mAdapter);
 
-        // android.R.color.window_background seems to return transparent?
-//        setBackgroundColor(android.R.color.window_background);
         setBackgroundColor(0xFF000000);
 
-        setPadding(0, 10, 0, 10);
-        setVerticalSpacing(10);
-        setHorizontalSpacing(10);
+        setVerticalSpacing(SPACING);
+        setHorizontalSpacing(SPACING);
         setNumColumns(2);
         setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+        setSelector(android.R.drawable.gallery_thumb);
     }
 
     @Override
@@ -189,11 +185,6 @@ class ImageGrid extends GridView implements OnItemClickListener,
                 position--;
             }
             menu.setHeaderTitle(mAdapter.mItems.get(position).getTitle());
-
-            // If we only have one active tab left, don't add the remove option
-            if (mAdapter.mItems.size() <= 1) {
-                menu.findItem(R.id.remove_tab_menu_id).setVisible(false);
-            }
         }
     }
 
@@ -212,10 +203,13 @@ class ImageGrid extends GridView implements OnItemClickListener,
     
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        // Called when our orientation changes.  Replace the adapter with one
-        // that has the appropriate dimensions.
-        mAdapter = new ImageAdapter(mContext, this, mAdapter.mItems, mIsLive);
-        setAdapter(mAdapter);
+        // Called when our orientation changes. Tell the adapter about the new
+        // size. Compute the individual tab height by taking the grid height
+        // and subtracting the SPACING. Then subtract the list padding twice
+        // (once for each tab on screen) and divide the remaining height by 2.
+        int tabHeight = (h - SPACING
+                - 2 * (getListPaddingTop() + getListPaddingBottom())) / 2;
+        mAdapter.heightChanged(tabHeight);
         super.onSizeChanged(w, h, oldw, oldh);
     }
 

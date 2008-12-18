@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +53,10 @@ public class BrowserBookmarksPage extends Activity implements
     private AddNewBookmark          mAddHeader;
     private boolean                 mCanceled = false;
     private boolean                 mCreateShortcut;
+    // XXX: There is no public string defining this intent so if Home changes
+    // the value, we have to update this string.
+    private static final String     INSTALL_SHORTCUT =
+            "com.android.launcher.action.INSTALL_SHORTCUT";
     
     private final static String LOGTAG = "browser";
 
@@ -79,6 +84,12 @@ public class BrowserBookmarksPage extends Activity implements
             break;
         case R.id.edit_context_menu_id:
             editBookmark(i.position);
+            break;
+        case R.id.shortcut_context_menu_id:
+            final Intent send = createShortcutIntent(getUrl(i.position),
+                    getBookmarkTitle(i.position));
+            send.setAction(INSTALL_SHORTCUT);
+            sendBroadcast(send);
             break;
         case R.id.delete_context_menu_id:
             displayRemoveBookmarkDialog(i.position);
@@ -191,18 +202,26 @@ public class BrowserBookmarksPage extends Activity implements
                     loadUrl(position);
                 }
             } else {
-                final Intent intent = new Intent();
-                intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(getUrl(position))));
-                intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getBookmarkTitle(position));
-                intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                        Intent.ShortcutIconResource.fromContext(BrowserBookmarksPage.this,
-                                R.drawable.ic_launcher_browser));
+                final Intent intent = createShortcutIntent(getUrl(position),
+                        getBookmarkTitle(position));
                 setResult(RESULT_OK, intent);
                 finish();
             }
         }
     };
+
+    private Intent createShortcutIntent(String url, String title) {
+        final Intent i = new Intent();
+        i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(url)));
+        i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
+        i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                Intent.ShortcutIconResource.fromContext(BrowserBookmarksPage.this,
+                        R.drawable.ic_launcher_browser));
+        // Do not allow duplicate items
+        i.putExtra("duplicate", false);
+        return i;
+    }
 
     private void saveCurrentPage() {
         Intent i = new Intent(BrowserBookmarksPage.this,
@@ -290,7 +309,7 @@ public class BrowserBookmarksPage extends Activity implements
         final int deletePos = position;
         new AlertDialog.Builder(this)
                 .setTitle(R.string.delete_bookmark)
-                .setIcon(R.drawable.ssl_icon)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage(getText(R.string.delete_bookmark_warning).toString().replace(
                         "%s", getBookmarkTitle(deletePos)))
                 .setPositiveButton(R.string.ok, 

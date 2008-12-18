@@ -70,12 +70,14 @@ public class FakeWebView extends ImageView {
                 final WebView w = mTab.getTopWindow();
                 if (w != null) {
                     Picture p = w.capturePicture();
-                    canvas.save();
-                    float scale = getWidth() * w.getScale() / w.getWidth();
-                    canvas.scale(scale, scale);
-                    canvas.translate(-w.getScrollX(), -w.getScrollY());
-                    canvas.drawPicture(p);
-                    canvas.restore();
+                    if (p != null) {
+                        canvas.save();
+                        float scale = getWidth() * w.getScale() / w.getWidth();
+                        canvas.scale(scale, scale);
+                        canvas.translate(-w.getScrollX(), -w.getScrollY());
+                        canvas.drawPicture(p);
+                        canvas.restore();
+                    }
                 }
             }
         }

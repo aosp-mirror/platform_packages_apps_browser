@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.SystemProperties;
 import android.view.WindowManager;
 import android.webkit.CacheManager;
 import android.webkit.CookieManager;
@@ -63,7 +64,8 @@ class BrowserSettings extends Observable {
     private boolean saveFormData = true;
     private boolean openInBackground = false;
     private String defaultTextEncodingName;
-    private String homeUrl = "http://www.google.com/m";
+    private String homeUrl = "http://www.google.com/m?client=ms-" + 
+        SystemProperties.get("ro.com.google.clientid", "unknown");
     private boolean loginInitialized = false;
     private int orientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
     private boolean autoFitPage = true;
@@ -102,7 +104,17 @@ class BrowserSettings extends Observable {
     public final static String PREF_DEBUG_SETTINGS = "debug_menu";
     public final static String PREF_GEARS_SETTINGS = "gears_settings";
     public final static String PREF_TEXT_SIZE = "text_size";
-    
+    public final static String PREF_DEFAULT_TEXT_ENCODING =
+            "default_text_encoding";
+
+    private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
+            "U; Intel Mac OS X 10_5_5; en-us) AppleWebKit/525.18 (KHTML, " +
+            "like Gecko) Version/3.1.2 Safari/525.20.1";
+
+    private static final String IPHONE_USERAGENT = "Mozilla/5.0 (iPhone; U; " +
+            "CPU iPhone OS 2_2 like Mac OS X; en-us) AppleWebKit/525.18.1 " +
+            "(KHTML, like Gecko) Version/3.1.1 Mobile/5G77 Safari/525.20";
+
     // Value to truncate strings when adding them to a TextView within
     // a ListView
     public final static int MAX_TEXTVIEW_LEN = 80;
@@ -134,7 +146,14 @@ class BrowserSettings extends Observable {
             WebSettings s = mSettings;
 
             s.setLayoutAlgorithm(b.layoutAlgorithm);
-            s.setUserAgent(b.userAgent);
+            if (b.userAgent == 0) {
+                // use the default ua string
+                s.setUserAgentString(null);
+            } else if (b.userAgent == 1) {
+                s.setUserAgentString(DESKTOP_USERAGENT);
+            } else if (b.userAgent == 2) {
+                s.setUserAgentString(IPHONE_USERAGENT);
+            }
             s.setUseWideViewPort(b.useWideViewPort);
             s.setLoadsImagesAutomatically(b.loadsImagesAutomatically);
             s.setJavaScriptEnabled(b.javaScriptEnabled);
@@ -157,6 +176,8 @@ class BrowserSettings extends Observable {
             s.setNeedInitialFocus(false);
             // Browser supports multiple windows
             s.setSupportMultipleWindows(true);
+            // Turn off file access
+            s.setAllowFileAccess(false);
         }
     }
    
@@ -218,6 +239,9 @@ class BrowserSettings extends Observable {
         } else {
             layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL;
         }
+        defaultTextEncodingName =
+                p.getString(PREF_DEFAULT_TEXT_ENCODING,
+                        defaultTextEncodingName);
         
         showDebugSettings = 
                 p.getBoolean(PREF_DEBUG_SETTINGS, showDebugSettings);
@@ -244,6 +268,8 @@ class BrowserSettings extends Observable {
             navDump = p.getBoolean("enable_nav_dump", navDump);
             doFlick = p.getBoolean("enable_flick", doFlick);
             userAgent = Integer.parseInt(p.getString("user_agent", "0"));
+            mTabControl.getBrowserActivity().setBaseSearchUrl(
+                    p.getString("search_url", ""));
         }
         update();
     }
@@ -398,10 +424,6 @@ class BrowserSettings extends Observable {
         ContentResolver resolver = context.getContentResolver();
         Browser.clearHistory(resolver);
         Browser.clearSearches(resolver);
-        // Delete back-forward list
-        if (mTabControl != null) {
-            mTabControl.clearHistory();
-        }
     }
 
     /* package */ void clearFormData(Context context) {

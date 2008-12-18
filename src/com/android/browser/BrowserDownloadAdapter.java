@@ -20,7 +20,6 @@ package com.android.browser;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Formatter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -30,6 +29,7 @@ import android.drm.mobile1.DrmRawContent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Downloads;
+import android.text.format.Formatter;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -59,7 +59,7 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
 
     public BrowserDownloadAdapter(Context context, int layout, Cursor c) {
         super(context, layout, c);
-        mFilenameColumnId = c.getColumnIndexOrThrow(Downloads.FILENAME);
+        mFilenameColumnId = c.getColumnIndexOrThrow(Downloads._DATA);
         mTitleColumnId = c.getColumnIndexOrThrow(Downloads.TITLE);
         mDescColumnId = c.getColumnIndexOrThrow(Downloads.DESCRIPTION);
         mStatusColumnId = c.getColumnIndexOrThrow(Downloads.STATUS);
@@ -213,7 +213,7 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
                 return R.string.download_file_error;
                 
             case Downloads.STATUS_BAD_REQUEST:
-            case Downloads.STATUS_ERROR:
+            case Downloads.STATUS_UNKNOWN_ERROR:
             default:
                 return R.string.download_error;
         }
