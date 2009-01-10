@@ -579,8 +579,9 @@ public class BrowserActivity extends Activity
                 copyBuildInfos();
 
                 // Refresh the plugin list.
-                if (mWebView != null)
-                    mWebView.refreshPlugins(false);
+                if (mTabControl.getCurrentWebView() != null) {
+                    mTabControl.getCurrentWebView().refreshPlugins(false);
+                }
             } catch (IOException e) {
                 Log.e(TAG, "IO Exception: " + e);
             }
@@ -701,11 +702,11 @@ public class BrowserActivity extends Activity
             // This is one of the only places we call attachTabToContentView
             // without animating from the tab picker.
             attachTabToContentView(t);
-            mWebView = t.getWebView();
+            WebView webView = t.getWebView();
             if (extra != null) {
                 int scale = extra.getInt(Browser.INITIAL_ZOOM_LEVEL, 0);
                 if (scale > 0 && scale <= 1000) {
-                    mWebView.setInitialScale(scale);
+                    webView.setInitialScale(scale);
                 }
             }
             // If we are not restoring from an icicle, then there is a high
@@ -721,19 +722,18 @@ public class BrowserActivity extends Activity
             String url = getUrlFromIntent(intent);
             if (url == null || url.length() == 0) {
                 if (mSettings.isLoginInitialized()) {
-                    mWebView.loadUrl(mSettings.getHomePage());
+                    webView.loadUrl(mSettings.getHomePage());
                 } else {
                     waitForCredentials();
                 }
             } else {
-                mWebView.loadUrl(url);
+                webView.loadUrl(url);
             }
         } else {
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails. Attach it to the view here since we
             // are not animating from the tab picker.
             attachTabToContentView(mTabControl.getCurrentTab());
-            mWebView = mTabControl.getCurrentWebView();
         }
 
         /* enables registration for changes in network status from
@@ -757,17 +757,19 @@ public class BrowserActivity extends Activity
 
     @Override
     protected void onNewIntent(Intent intent) {
+        TabControl.Tab current = mTabControl.getCurrentTab();
         // When a tab is closed on exit, the current tab index is set to -1.
         // Reset before proceed as Browser requires the current tab to be set.
-        if (mTabControl.getCurrentIndex() == -1) {
-            TabControl.Tab current = mTabControl.getTab(0);
+        if (current == null) {
+            // Try to reset the tab in case the index was incorrect.
+            current = mTabControl.getTab(0);
+            if (current == null) {
+                // No tabs at all so just ignore this intent.
+                return;
+            }
             mTabControl.setCurrentTab(current);
             attachTabToContentView(current);
-            mWebView = current.getWebView();
-            resetTitleAndIcon(mWebView);
-        }
-        if (mWebView == null) {
-            return;
+            resetTitleAndIcon(current.getWebView());
         }
         final String action = intent.getAction();
         final int flags = intent.getFlags();
@@ -796,16 +798,15 @@ public class BrowserActivity extends Activity
                     mSettings.toggleDebugSettings();
                     return;
                 }
-                final TabControl.Tab currentTab = mTabControl.getCurrentTab();
                 // If the Window overview is up and we are not in the midst of
                 // an animation, animate away from the Window overview.
                 if (mTabOverview != null && mAnimationCount == 0) {
-                    sendAnimateFromOverview(currentTab, false, url,
+                    sendAnimateFromOverview(current, false, url,
                             TAB_OVERVIEW_DELAY, null);
                 } else {
                     // Get rid of the subwindow if it exists
-                    dismissSubWindow(currentTab);
-                    mWebView.loadUrl(url);
+                    dismissSubWindow(current);
+                    current.getWebView().loadUrl(url);
                 }
             }
         }
@@ -938,16 +939,18 @@ public class BrowserActivity extends Activity
                 boolean gestZ = az > 3.5f && arz > 1.0f && az > arz;
 
                 if ((gestY || gestZ) && !(gestY && gestZ)) {
-                    WebView view = mWebView;
+                    WebView view = mTabControl.getCurrentWebView();
 
-                    if (gestZ) {
-                        if (z < 0) {
-                            view.zoomOut();
+                    if (view != null) {
+                        if (gestZ) {
+                            if (z < 0) {
+                                view.zoomOut();
+                            } else {
+                                view.zoomIn();
+                            }
                         } else {
-                            view.zoomIn();
+                            view.flingScroll(0, Math.round(y * 100));
                         }
-                    } else {
-                        view.flingScroll(0, Math.round(y * 100));
                     }
                     mLastGestureTime = now;
                 }
@@ -1132,7 +1135,10 @@ public class BrowserActivity extends Activity
         if ((!mActivityInPause && !mPageStarted) || 
                 (mActivityInPause && mPageStarted)) {
             CookieSyncManager.getInstance().startSync();
-            mWebView.resumeTimers();
+            WebView w = mTabControl.getCurrentWebView();
+            if (w != null) {
+                w.resumeTimers();
+            }
             return true;
         } else {
             return false;
@@ -1142,7 +1148,10 @@ public class BrowserActivity extends Activity
     private boolean pauseWebView() {
         if (mActivityInPause && !mPageStarted) {
             CookieSyncManager.getInstance().stopSync();
-            mWebView.pauseTimers();
+            WebView w = mTabControl.getCurrentWebView();
+            if (w != null) {
+                w.pauseTimers();
+            }
             return true;
         } else {
             return false;
@@ -1188,7 +1197,10 @@ public class BrowserActivity extends Activity
         mHandler.removeMessages(CANCEL_CREDS_REQUEST);
 
         // Load the page
-        mWebView.loadUrl(mSettings.getHomePage());
+        WebView w = mTabControl.getCurrentWebView();
+        if (w != null) {
+            w.loadUrl(mSettings.getHomePage());
+        }
 
         // Update the settings, need to do this last as it can take a moment
         // to persist the settings. In the mean time we could be loading
@@ -1380,8 +1392,11 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.homepage_menu_id:
-                dismissSubWindow(mTabControl.getCurrentTab());
-                mWebView.loadUrl(mSettings.getHomePage());
+                TabControl.Tab current = mTabControl.getCurrentTab();
+                if (current != null) {
+                    dismissSubWindow(current);
+                    current.getWebView().loadUrl(mSettings.getHomePage());
+                }
                 break;
 
             case R.id.preferences_menu_id:
@@ -1441,8 +1456,8 @@ public class BrowserActivity extends Activity
             case R.id.flip_orientation_menu_id:
                 if (mSettings.getOrientation() != 
                         ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-                mSettings.setOrientation(this, 
-                        ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    mSettings.setOrientation(this, 
+                            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 } else {
                     mSettings.setOrientation(this,
                             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
@@ -1815,10 +1830,8 @@ public class BrowserActivity extends Activity
         mTabControl.setCurrentTab(tab);
         // Attach the WebView so it will layout.
         attachTabToContentView(tab);
-        // Reset the current WebView.
-        mWebView = tab.getWebView();
         // Set the view to invisibile for now.
-        mWebView.setVisibility(View.INVISIBLE);
+        tab.getWebView().setVisibility(View.INVISIBLE);
         // If there is a sub window, make it invisible too.
         if (tab.getSubWebView() != null) {
             tab.getSubWebViewContainer().setVisibility(View.INVISIBLE);
@@ -1890,14 +1903,14 @@ public class BrowserActivity extends Activity
                     assert msg == null;
                     // just dismiss the subwindow and load the given url.
                     dismissSubWindow(currentTab);
-                    mWebView.loadUrl(url);
+                    currentTab.getWebView().loadUrl(url);
                 }
             } else {
                 // show mTabOverview if it is not there.
                 if (mTabOverview == null) {
                     // We have to delay the animation from the tab picker by the
-                    // length of the tab animation. Add a delay so the tab overview
-                    // can be shown before the second animation begins.
+                    // length of the tab animation. Add a delay so the tab
+                    // overview can be shown before the second animation begins.
                     delay = TAB_ANIMATION_DURATION + TAB_OVERVIEW_DELAY;
                     tabPicker(false, ImageGrid.NEW_TAB, false);
                 }
@@ -1916,7 +1929,7 @@ public class BrowserActivity extends Activity
                 // Get rid of the subwindow if it exists
                 dismissSubWindow(currentTab);
                 // Load the given url.
-                mWebView.loadUrl(url);
+                currentTab.getWebView().loadUrl(url);
             }
         }
     }
@@ -2070,15 +2083,17 @@ public class BrowserActivity extends Activity
                                 // given location is null, set the fade
                                 // parameter to true.
                                 dismissTabOverview(v == null);
+                                TabControl.Tab t =
+                                        mTabControl.getCurrentTab();
+                                WebView w = t.getWebView();
                                 if (url != null) {
                                     // Dismiss the subwindow if one exists.
-                                    dismissSubWindow(
-                                            mTabControl.getCurrentTab());
-                                    mWebView.loadUrl(url);
+                                    dismissSubWindow(t);
+                                    w.loadUrl(url);
                                 }
                                 mMenuState = R.id.MAIN_MENU;
                                 // Resume regular updates.
-                                mWebView.resumeTimers();
+                                w.resumeTimers();
                                 // Dispatch the message after the animation
                                 // completes.
                                 if (msg != null) {
@@ -2118,7 +2133,7 @@ public class BrowserActivity extends Activity
         }
         // Just in case there was a problem with animating away from the tab
         // overview
-        mWebView.setVisibility(View.VISIBLE);
+        mTabControl.getCurrentWebView().setVisibility(View.VISIBLE);
         // Make the sub window container visible.
         if (mTabControl.getCurrentSubWindow() != null) {
             mTabControl.getCurrentTab().getSubWebViewContainer()
@@ -2204,11 +2219,15 @@ public class BrowserActivity extends Activity
      * Reset the title, favicon, and progress.
      */
     private void resetTitleIconAndProgress() {
-        resetTitleAndIcon(mWebView);
-        int progress = mWebView.getProgress();
+        WebView current = mTabControl.getCurrentWebView();
+        if (current == null) {
+            return;
+        }
+        resetTitleAndIcon(current);
+        int progress = current.getProgress();
         mInLoad = (progress != 100);
         updateInLoadMenuItems();
-        mWebChromeClient.onProgressChanged(mWebView, progress);
+        mWebChromeClient.onProgressChanged(current, progress);
     }
 
     // Reset the title and the icon based on the given item.
@@ -2361,6 +2380,11 @@ public class BrowserActivity extends Activity
         if (tab != null) {
             sendAnimateFromOverview(tab, false, null, delay, null);
         } else {
+            // Increment this here so that no other animations can happen in
+            // between the end of the tab picker transition and the beginning
+            // of openTabAndShow. This has a matching decrement in the handler
+            // of OPEN_TAB_AND_SHOW.
+            mAnimationCount++;
             // Send a message to open a new tab.
             mHandler.sendMessageDelayed(
                     mHandler.obtainMessage(OPEN_TAB_AND_SHOW,
@@ -2369,27 +2393,38 @@ public class BrowserActivity extends Activity
     }
 
     private void goBackOnePageOrQuit() {
-        if (mWebView.canGoBack()) {
-            mWebView.goBack();
+        TabControl.Tab current = mTabControl.getCurrentTab();
+        if (current == null) {
+            /*
+             * Instead of finishing the activity, simply push this to the back
+             * of the stack and let ActivityManager to choose the foreground
+             * activity. As BrowserActivity is singleTask, it will be always the
+             * root of the task. So we can use either true or false for
+             * moveTaskToBack().
+             */
+            moveTaskToBack(true);
+        }
+        WebView w = current.getWebView();
+        if (w.canGoBack()) {
+            w.goBack();
         } else {
-            TabControl.Tab self = mTabControl.getCurrentTab();
             // Check to see if we are closing a window that was created by
             // another window. If so, we switch back to that window.
-            TabControl.Tab parent = self.getParentTab();
+            TabControl.Tab parent = current.getParentTab();
             if (parent != null) {
                 switchTabs(mTabControl.getCurrentIndex(),
                         mTabControl.getTabIndex(parent), true);
             } else {
-                if (self.closeOnExit()) {
+                if (current.closeOnExit()) {
                     if (mTabControl.getTabCount() == 1) {
                         finish();
                         return;
                     }
                     // call pauseWebView() now, we won't be able to call it in
-                    // onPause() as the mWebView won't be valid.
+                    // onPause() as the WebView won't be valid.
                     pauseWebView();
-                    removeTabFromContentView(self);
-                    mTabControl.removeTab(self);
+                    removeTabFromContentView(current);
+                    mTabControl.removeTab(current);
                 }
                 /*
                  * Instead of finishing the activity, simply push this to the back
@@ -2547,6 +2582,10 @@ public class BrowserActivity extends Activity
                     break;
 
                 case OPEN_TAB_AND_SHOW:
+                    // Decrement mAnimationCount before openTabAndShow because
+                    // the method relies on the value being 0 to start the next
+                    // animation.
+                    mAnimationCount--;
                     openTabAndShow((String) msg.obj, null, false);
                     break;
 
@@ -3043,7 +3082,7 @@ public class BrowserActivity extends Activity
 
                 new AlertDialog.Builder(BrowserActivity.this)
                     .setTitle(R.string.security_warning)
-                    .setIcon(R.drawable.ic_dialog_alert)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
                     .setView(warningsView)
                     .setPositiveButton(R.string.ssl_continue,
                             new DialogInterface.OnClickListener() {
@@ -3093,9 +3132,11 @@ public class BrowserActivity extends Activity
             boolean reuseHttpAuthUsernamePassword =
                 handler.useHttpAuthUsernamePassword();
 
-            if (reuseHttpAuthUsernamePassword) {
+            if (reuseHttpAuthUsernamePassword &&
+                    (mTabControl.getCurrentWebView() != null)) {
                 String[] credentials =
-                    mWebView.getHttpAuthUsernamePassword(host, realm);
+                        mTabControl.getCurrentWebView()
+                                .getHttpAuthUsernamePassword(host, realm);
                 if (credentials != null && credentials.length == 2) {
                     username = credentials[0];
                     password = credentials[1];
@@ -3121,10 +3162,13 @@ public class BrowserActivity extends Activity
 
         @Override
         public void onUnhandledKeyEvent(WebView view, KeyEvent event) {
+            if (view != mTabControl.getCurrentTopWebView()) {
+                return;
+            }
             if (event.isDown()) {
-                mKeyTracker.doKeyDown(event.getKeyCode(), event);
+                BrowserActivity.this.onKeyDown(event.getKeyCode(), event);
             } else {
-                mKeyTracker.doKeyUp(event.getKeyCode(), event);
+                BrowserActivity.this.onKeyUp(event.getKeyCode(), event);
             }
         }
     };
@@ -3155,9 +3199,9 @@ public class BrowserActivity extends Activity
                 // in during the animation.
                 openTabAndShow(null, msg, false);
                 parent.addChildTab(mTabControl.getCurrentTab());
-                WebView.WebViewTransport transport = 
-                    (WebView.WebViewTransport) msg.obj;
-                transport.setWebView(mWebView);
+                WebView.WebViewTransport transport =
+                        (WebView.WebViewTransport) msg.obj;
+                transport.setWebView(mTabControl.getCurrentWebView());
             }
         }
 
@@ -3173,7 +3217,7 @@ public class BrowserActivity extends Activity
             if (dialog && mTabControl.getCurrentSubWindow() != null) {
                 new AlertDialog.Builder(BrowserActivity.this)
                         .setTitle(R.string.too_many_subwindows_dialog_title)
-                        .setIcon(R.drawable.ic_dialog_alert)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
                         .setMessage(R.string.too_many_subwindows_dialog_message)
                         .setPositiveButton(R.string.ok, null)
                         .show();
@@ -3181,7 +3225,7 @@ public class BrowserActivity extends Activity
             } else if (mTabControl.getTabCount() >= TabControl.MAX_TABS) {
                 new AlertDialog.Builder(BrowserActivity.this)
                         .setTitle(R.string.too_many_windows_dialog_title)
-                        .setIcon(R.drawable.ic_dialog_alert)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
                         .setMessage(R.string.too_many_windows_dialog_message)
                         .setPositiveButton(R.string.ok, null)
                         .show();
@@ -3226,7 +3270,7 @@ public class BrowserActivity extends Activity
             final AlertDialog d =
                     new AlertDialog.Builder(BrowserActivity.this)
                     .setTitle(R.string.attention)
-                    .setIcon(R.drawable.ic_dialog_alert)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
                     .setMessage(R.string.popup_window_attempt)
                     .setPositiveButton(R.string.allow, allowListener)
                     .setNegativeButton(R.string.block, blockListener)
@@ -3543,7 +3587,7 @@ public class BrowserActivity extends Activity
 
             new AlertDialog.Builder(this)
                 .setTitle(title)
-                .setIcon(R.drawable.ic_dialog_alert)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage(msg)
                 .setPositiveButton(R.string.ok, null)
                 .show();
@@ -3658,7 +3702,7 @@ public class BrowserActivity extends Activity
         if (view == null) {
             url = tab.getUrl();
             title = tab.getTitle();
-        }else if (view == mWebView) {
+        } else if (view == mTabControl.getCurrentWebView()) {
              // Use the cached title and url if this is the current WebView
             url = mUrl;
             title = mTitle;
@@ -3682,7 +3726,7 @@ public class BrowserActivity extends Activity
 
         AlertDialog.Builder alertDialogBuilder =
             new AlertDialog.Builder(this)
-            .setTitle(R.string.page_info).setIcon(R.drawable.ic_dialog_info)
+            .setTitle(R.string.page_info).setIcon(android.R.drawable.ic_dialog_info)
             .setView(pageInfoView)
             .setPositiveButton(
                 R.string.ok,
@@ -3763,7 +3807,7 @@ public class BrowserActivity extends Activity
      */
     private void showSSLCertificate(final TabControl.Tab tab) {
         final View certificateView =
-            inflateCertificateView(mWebView.getCertificate());
+                inflateCertificateView(tab.getWebView().getCertificate());
         if (certificateView == null) {
             return;
         }
@@ -4012,7 +4056,7 @@ public class BrowserActivity extends Activity
         mHttpAuthHandler = handler;
         mHttpAuthenticationDialog = new AlertDialog.Builder(this)
                 .setTitle(titleText)
-                .setIcon(R.drawable.ic_dialog_alert)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setView(v)
                 .setPositiveButton(R.string.action,
                         new DialogInterface.OnClickListener() {
@@ -4055,7 +4099,12 @@ public class BrowserActivity extends Activity
     }
 
     public int getProgress() {
-        return mWebView.getProgress();
+        WebView w = mTabControl.getCurrentWebView();
+        if (w != null) {
+            return w.getProgress();
+        } else {
+            return 100;
+        }
     }
 
     /**
@@ -4070,7 +4119,10 @@ public class BrowserActivity extends Activity
     public void setHttpAuthUsernamePassword(String host, String realm,
                                             String username,
                                             String password) {
-        mWebView.setHttpAuthUsernamePassword(host, realm, username, password);
+        WebView w = mTabControl.getCurrentWebView();
+        if (w != null) {
+            w.setHttpAuthUsernamePassword(host, realm, username, password);
+        }
     }
 
     /**
@@ -4092,7 +4144,10 @@ public class BrowserActivity extends Activity
                         .show();
             }
         }
-        mTabControl.getCurrentWebView().setNetworkAvailable(up);
+        WebView w = mTabControl.getCurrentWebView();
+        if (w != null) {
+            w.setNetworkAvailable(up);
+        }
     }
 
     @Override
@@ -4180,14 +4235,9 @@ public class BrowserActivity extends Activity
                 mTabOverview.setCurrentIndex(mTabControl.getTabIndex(current));
             }
 
-            // FIXME: This isn't really right. We don't have a current WebView
-            // since we are switching between tabs and haven't selected a new
-            // one. This just prevents a NPE in case the user hits home from the
-            // tab switcher.
             // Only the current tab ensures its WebView is non-null. This
             // implies that we are reloading the freed tab.
             mTabControl.setCurrentTab(current);
-            mWebView = current.getWebView();
         }
         public void onClick(int index) {
             // Change the tab if necessary.
@@ -4323,10 +4373,14 @@ public class BrowserActivity extends Activity
     }
 
     private void bookmarksPicker() {
+        WebView current = mTabControl.getCurrentWebView();
+        if (current == null) {
+            return;
+        }
         Intent intent = new Intent(this,
                 BrowserBookmarksPage.class);
-        String title = mWebView.getTitle();
-        String url = mWebView.getUrl();
+        String title = current.getTitle();
+        String url = current.getUrl();
         // Just in case the user opens bookmarks before a page finishes loading
         // so the current history item, and therefore the page, is null.
         if (null == url) {
@@ -4506,7 +4560,6 @@ public class BrowserActivity extends Activity
     private int mLockIconType = LOCK_ICON_UNSECURE;
     private int mPrevLockType = LOCK_ICON_UNSECURE;
 
-    private WebView         mWebView;
     private BrowserSettings mSettings;
     private TabControl      mTabControl;
     private ContentResolver mResolver;

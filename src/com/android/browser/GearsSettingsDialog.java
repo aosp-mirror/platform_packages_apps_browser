@@ -166,6 +166,7 @@ class GearsSettingsDialog extends GearsBaseDialog
     if (listView != null) {
       ListView list = (ListView) listView;
       list.setAdapter(new SettingsAdapter(mActivity, mSitesPermissions));
+      list.setScrollBarStyle(android.view.View.SCROLLBARS_OUTSIDE_INSET);
     }
     if (mDebug) {
       printPermissions();
@@ -354,6 +355,7 @@ class GearsSettingsDialog extends GearsBaseDialog
       };
       button.setTag(perms);
       button.setOnClickListener(listener);
+      displayAsLink(button);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

@@ -649,12 +649,13 @@
         Browser\'s history or bookmarks stored on your phone. Malicious applications 
         can use this to erase or modify your Browser\'s data.</string>
 
-    <!-- Gears Dialog -->
+    <!-- Gears Dialogs -->
     <string name="query_data_message">The Web site below wants to store information on your computer using Gears.</string>
     <string name="location_message">The Web site below wants to access information about your location using Gears.</string>
     <string name="shortcut_message">This Web site wants to create a shortcut on your computer. Do you want to allow this?</string>
     <string name="settings_message">The table below shows the permissions you have granted to each site that has attempted to use Gears.</string>
     <string name="filepicker_message">Gears File Picker</string>
+    <string name="image_message">Selected image</string>
 
     <string name="settings_title">Gears settings</string>
     <string name="privacy_policy">Read the site\'s privacy policy to see how your location will be used.</string>
@@ -672,6 +673,10 @@
 
     <string name="filepicker_button_allow">OK</string>
     <string name="filepicker_button_deny">Cancel</string>
+    <string name="filepicker_path">path:</string>
+    <string name="filepicker_no_files_selected">No files selected</string>
+    <string name="filepicker_one_file_selected">One file selected</string>
+    <string name="filepicker_some_files_selected">files selected</string>
 
     <string name="remove">Remove</string>
     <string name="local_storage">Local storage</string>

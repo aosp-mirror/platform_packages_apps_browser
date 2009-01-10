@@ -22,7 +22,7 @@
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:gravity="center_horizontal"
-  android:padding="2px" >
+  android:padding="4px" >
 
   <ImageView
     android:id="@+id/icon"
@@ -32,8 +32,10 @@
 
   <TextView
     android:id="@+id/name"
-    android:textAppearance="?android:attr/textAppearanceSmall"
     android:textColor="@color/black"
+    android:textSize="13dip"
+    android:shadowColor="@color/white"
+    android:shadowRadius="2.0"
     android:singleLine="true"
     android:ellipsize="middle"
     android:layout_width="wrap_content"

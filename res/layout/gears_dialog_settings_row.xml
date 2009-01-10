@@ -50,7 +50,9 @@
 
   <TableLayout
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:stretchColumns="0"
+    android:shrinkColumns="0">
 
     <TableRow
       android:id="@+id/local_storage_choice"
@@ -63,7 +65,10 @@
         android:gravity="center_vertical"
         android:text="@string/local_storage"/>
 
-      <RadioGroup android:orientation="horizontal">
+      <RadioGroup
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent">
         <RadioButton
           android:id="@+id/local_storage_allowed"
           android:layout_width="wrap_content"
@@ -91,10 +96,13 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:textColor="@color/black"
-        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
         android:text="@string/location"/>
 
-      <RadioGroup android:orientation="horizontal">
+      <RadioGroup
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent">
         <RadioButton
           android:id="@+id/location_data_allowed"
           android:layout_width="wrap_content"

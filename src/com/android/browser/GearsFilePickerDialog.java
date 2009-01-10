@@ -48,6 +48,7 @@ import java.util.Vector;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Gears FilePicker dialog
@@ -60,14 +61,44 @@ class GearsFilePickerDialog extends GearsBaseDialog
   private static Bitmap mDefaultIcon;
   private static Bitmap mImageIcon;
   private static Bitmap mBackIcon;
+
+  private static String MULTIPLE_FILES = "MULTIPLE_FILES";
+  private static String SINGLE_FILE = "SINGLE_FILE";
+
   private static ImagesLoad mImagesLoader;
   private FilePickerAdapter mAdapter;
+  private String mSelectionMode;
+  private boolean mMultipleSelection;
+  private String mCurrentPath;
+
+  // Disable saving thumbnails until this is refactored to fit into
+  // existing schemes.
+  private static final boolean enableSavedThumbnails = false;
 
   public GearsFilePickerDialog(Activity activity,
                                Handler handler,
                                String arguments) {
     super (activity, handler, arguments);
     mAdapter = new FilePickerAdapter(activity);
+    parseArguments();
+  }
+
+  public void parseArguments() {
+    mSelectionMode = MULTIPLE_FILES;
+    try {
+      JSONObject json = new JSONObject(mDialogArguments);
+
+      if (json.has("mode")) {
+        mSelectionMode = json.getString("mode");
+      }
+    } catch (JSONException e) {
+      Log.e(TAG, "exc: " + e);
+    }
+    if (mSelectionMode.equalsIgnoreCase(SINGLE_FILE)) {
+      mMultipleSelection = false;
+    } else {
+      mMultipleSelection = true;
+    }
   }
 
   public void setup() {
@@ -76,9 +107,17 @@ class GearsFilePickerDialog extends GearsBaseDialog
                  R.string.filepicker_button_allow,
                  R.string.filepicker_button_deny);
     setupDialog();
+
+    TextView textViewPath = (TextView) findViewById(R.id.path_name);
+    if (textViewPath != null) {
+      textViewPath.setText(R.string.filepicker_path);
+    }
+
     GridView view = (GridView) findViewById(R.id.files_list);
     view.setAdapter(mAdapter);
     view.setOnTouchListener(this);
+
+    setSelectionText();
 
     mImagesLoader = new ImagesLoad(mAdapter);
     mImagesLoader.setAdapterView(view);
@@ -86,10 +125,37 @@ class GearsFilePickerDialog extends GearsBaseDialog
     thread.start();
   }
 
+  public void setSelectionText() {
+    Vector elements = mAdapter.selectedElements();
+    if (elements == null)
+      return;
+    TextView info = (TextView) findViewById(R.id.selection);
+    int nbElements = elements.size();
+    if (nbElements == 0) {
+      info.setText(R.string.filepicker_no_files_selected);
+    } else if (nbElements == 1) {
+      info.setText(R.string.filepicker_one_file_selected);
+    } else {
+      info.setText(nbElements + " " +
+                   mActivity.getString(
+                       R.string.filepicker_some_files_selected));
+    }
+  }
+
+  public void setCurrentPath(String path) {
+    if (path != null) {
+      mCurrentPath = path;
+      TextView textViewPath = (TextView) findViewById(R.id.current_path);
+      if (textViewPath != null) {
+        textViewPath.setText(path);
+      }
+    }
+  }
+
   public void setupDialog(TextView message, ImageView icon) {
     message.setText(R.string.filepicker_message);
     message.setTextSize(24);
-    icon.setImageResource(R.drawable.gears_icon_48x48);
+    icon.setImageResource(R.drawable.gears_icon_32x32);
   }
 
   public boolean onTouch(View v, MotionEvent event) {
@@ -149,11 +215,13 @@ class GearsFilePickerDialog extends GearsBaseDialog
       Bitmap finalImage = null;
       try {
         String thumbnailPath = getThumbnailPath(path);
-        File thumbnail = new File(thumbnailPath);
-        if (thumbnail.exists()) {
-          finalImage = BitmapFactory.decodeFile(thumbnailPath);
-          if (finalImage != null) {
-            return finalImage;
+        if (enableSavedThumbnails) {
+          File thumbnail = new File(thumbnailPath);
+          if (thumbnail.exists()) {
+            finalImage = BitmapFactory.decodeFile(thumbnailPath);
+            if (finalImage != null) {
+              return finalImage;
+            }
           }
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -178,12 +246,14 @@ class GearsFilePickerDialog extends GearsBaseDialog
           return null;
         }
         finalImage = Bitmap.createScaledBitmap(originalImage, size, size, true);
-        if (saveImage(thumbnailPath, finalImage)) {
-          if (mDebug) {
-            Log.v(TAG, "Saved thumbnail for file " + path);
+        if (enableSavedThumbnails) {
+          if (saveImage(thumbnailPath, finalImage)) {
+            if (mDebug) {
+              Log.v(TAG, "Saved thumbnail for file " + path);
+            }
+          } else {
+            Log.e(TAG, "Could NOT Save thumbnail for file " + path);
           }
-        } else {
-          Log.e(TAG, "Could NOT Save thumbnail for file " + path);
         }
         originalImage.recycle();
       } catch (java.lang.OutOfMemoryError e) {
@@ -519,8 +589,8 @@ class GearsFilePickerDialog extends GearsBaseDialog
       Uri requests[] = { MediaStore.Images.Media.INTERNAL_CONTENT_URI,
                          MediaStore.Images.Media.EXTERNAL_CONTENT_URI };
 
-      String sdCardPath = Environment.getExternalStorageDirectory().getPath();
-      mRootElement = new FilePickerElement(sdCardPath, "SD Card", this);
+      String startingPath = Environment.getExternalStorageDirectory().getPath();
+      mRootElement = new FilePickerElement(startingPath, "SD Card", this);
       mCurrentElement = mRootElement;
     }
 
@@ -534,6 +604,7 @@ class GearsFilePickerDialog extends GearsBaseDialog
 
     public int getCount() {
       Vector elems = mCurrentElement.getChildren();
+      setCurrentPath(mCurrentElement.getPath());
       return elems.size();
     }
 
@@ -587,18 +658,43 @@ class GearsFilePickerDialog extends GearsBaseDialog
             mCurrentElement = elem;
             mCurrentElement.refresh();
           } else {
-            elem.toggleSelection();
+            if (mMultipleSelection) {
+              elem.toggleSelection();
+            } else {
+              Vector elems = selectedElements();
+              if (elems != null) {
+                if (elems.size() == 0) {
+                  elem.toggleSelection();
+                } else if ((elems.size() == 1)
+                           && elem.isSelected()) {
+                  elem.toggleSelection();
+                }
+              }
+            }
           }
+          setSelectionText();
           notifyDataSetChanged();
         }
       };
-      imageView.setOnClickListener(listener);
       cell.setLayoutParams(new GridView.LayoutParams(96, 96));
+      cell.setOnClickListener(listener);
+      cell.setOnTouchListener(new View.OnTouchListener() {
+        public boolean onTouch(View v, MotionEvent event) {
+          if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            int color = getResources().getColor(R.color.icon_selection);
+            v.setBackgroundColor(color);
+          } else {
+            v.setBackgroundColor(Color.WHITE);
+          }
+          return false;
+        }
+      });
 
-      imageView.setTag(position);
+      cell.setTag(position);
 
       if (elem.isSelected()) {
-        cell.setBackgroundColor(Color.LTGRAY);
+        int color = getResources().getColor(R.color.icon_selection);
+        cell.setBackgroundColor(color);
       } else {
         cell.setBackgroundColor(Color.WHITE);
       }
