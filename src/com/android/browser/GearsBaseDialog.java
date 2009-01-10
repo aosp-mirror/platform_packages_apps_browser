@@ -22,6 +22,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -145,11 +148,14 @@ class GearsBaseDialog {
    */
   void setupButton(int buttonRscID,
                    int rscString,
-                   View.OnClickListener listener) {
+                   View.OnClickListener listener,
+                   boolean isLink,
+                   boolean requestFocus) {
     View view = findViewById(buttonRscID);
     if (view == null) {
       return;
     }
+
     Button button = (Button) view;
 
     if (rscString == 0) {
@@ -158,7 +164,22 @@ class GearsBaseDialog {
       CharSequence text = getString(rscString);
       button.setText(text);
       button.setOnClickListener(listener);
+      if (isLink) {
+        displayAsLink(button);
+      }
+      if (requestFocus) {
+        button.requestFocus();
+      }
     }
+  }
+
+  /**
+   * Button setup: as the above method, except that 'isLink' and
+   * 'requestFocus' default to false.
+   */
+  void setupButton(int buttonRsc, int rsc,
+                   View.OnClickListener listener) {
+    setupButton(buttonRsc, rsc, listener, false, false);
   }
 
   /**
@@ -170,14 +191,14 @@ class GearsBaseDialog {
                   public void onClick(View v) {
                     mHandler.sendEmptyMessage(ALWAYS_DENY);
                   }
-                });
+                }, true, false);
 
     setupButton(R.id.button_allow, allowRsc,
                 new Button.OnClickListener() {
                   public void onClick(View v) {
                     mHandler.sendEmptyMessage(ALLOW);
                   }
-                });
+                }, false, true);
 
     setupButton(R.id.button_deny, denyRsc,
                 new Button.OnClickListener() {
@@ -185,6 +206,26 @@ class GearsBaseDialog {
                     mHandler.sendEmptyMessage(DENY);
                   }
                 });
+  }
+
+  /**
+   * Display a button as an HTML link. Remove the background, set the
+   * text color to R.color.dialog_link and draw an underline
+   */
+  void displayAsLink(Button button) {
+    if (button == null) {
+      return;
+    }
+
+    CharSequence text = button.getText();
+    button.setBackgroundDrawable(null);
+    int color = getResources().getColor(R.color.dialog_link);
+    button.setTextColor(color);
+    SpannableString str = new SpannableString(text);
+    str.setSpan(new UnderlineSpan(), 0, str.length(),
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+    button.setText(str);
+    button.setFocusable(false);
   }
 
   /**
@@ -331,6 +372,5 @@ class GearsBaseDialog {
     setupButtons(0, 0, R.string.default_button);
     setupDialog();
   }
-
 
 }

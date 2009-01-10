@@ -94,32 +94,63 @@
     android:background="@color/white"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dip">
+    android:paddingTop="2dip">
 
-    <Button
-      android:id="@+id/button_alwaysdeny"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      style="@style/gears_button"
-      android:textSize="13dip"/>
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_alignParentRight="true"
+    <LinearLayout 
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
       android:layout_height="wrap_content">
 
-      <Button
-        android:id="@+id/button_allow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="13dip"/>
+       <TextView
+         android:id="@+id/selection"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:textSize="13dip"
+         android:gravity="right"
+         android:textColor="@color/black"/>
 
-      <Button
-        android:id="@+id/button_deny"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="13dip"/>
+       <RelativeLayout
+         android:background="@color/white"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:paddingTop="2dip">
+
+         <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@color/white">
+ 
+           <Button
+             android:id="@+id/button_alwaysdeny"
+             android:layout_width="wrap_content"
+             android:layout_height="48px"
+             android:layout_alignParentLeft="true"
+             style="@style/gears_button"
+             android:textSize="13dip"/>
+
+         </LinearLayout>
+
+         <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_alignParentRight="true"
+           android:layout_height="wrap_content">
+
+           <Button
+             android:id="@+id/button_allow"
+             android:layout_width="wrap_content"
+             android:layout_height="48px"
+             android:textSize="13dip"/>
+
+           <Button
+             android:id="@+id/button_deny"
+             android:layout_width="wrap_content"
+             android:layout_height="48px"
+             android:textSize="13dip"/>
+
+         </LinearLayout>
+
+       </RelativeLayout>
 
     </LinearLayout>
 

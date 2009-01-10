@@ -32,13 +32,17 @@
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="gray">#ffbbbbbb</color>
+    <color name="dark_gray">#ff777777</color>
+    <color name="blue">#ff0000ff</color>
     
     <color name="translucent_white">#11ffffff</color>
 
-    <!-- Gears Dialog -->
+    <!-- Gears Dialogs -->
     <color name="permission_border">#f1cc1d</color>
     <color name="permission_background">#faefb8</color>
     <color name="shortcut_border">#e8e8e8</color>
     <color name="shortcut_background">#f8f8f8</color>
+    <color name="icon_selection">#ff7a00</color>
+    <color name="dialog_link">#ff0000ff</color>
 </resources>
 

@@ -14,12 +14,16 @@
      limitations under the License.
 -->
 
+<!-- Note:  This defines the UI for the "Go To" UI, which uses the search manager UI, but
+     is actually used to enter Uri's to load and display. -->
+     
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
     android:icon="@drawable/ic_search_category_browser"
     android:label="@string/search_label"
     android:hint="@string/search_hint"
     android:searchButtonText="@string/search_button_text"
     android:searchMode="queryRewriteFromData"
+    android:inputType="textUri"
     
     android:searchSuggestAuthority="browser"
     android:searchSuggestSelection="url LIKE ?"

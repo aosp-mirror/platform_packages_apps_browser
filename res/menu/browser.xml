@@ -50,7 +50,7 @@
             android:alphabeticShortcut="&#32;" 
             android:icon="@drawable/ic_menu_home" />
         <item android:id="@+id/classic_history_menu_id"
-            android:icon="@drawable/ic_menu_recent_history" 
+            android:icon="@android:drawable/ic_menu_recent_history" 
             android:alphabeticShortcut="h" 
             android:title="@string/history" />
         <item android:id="@+id/view_downloads_menu_id"
@@ -106,7 +106,7 @@
         <item android:id="@+id/history_tab_menu_id"
             android:title="@string/history"
             android:alphabeticShortcut="h" 
-            android:icon="@drawable/ic_menu_recent_history" />
+            android:icon="@android:drawable/ic_menu_recent_history" />
     </group>
     <!-- these items are toggled in and out of @+id/stop_reload_menu_id -->
     <item android:id="@+id/stop_menu_id"
@@ -115,7 +115,7 @@
         android:visible="false" />
     <item android:id="@+id/reload_menu_id"
         android:title="@string/reload" 
-        android:icon="@drawable/ic_menu_refresh" 
+        android:icon="@android:drawable/ic_menu_refresh" 
         android:visible="false" />
 </menu>
  
