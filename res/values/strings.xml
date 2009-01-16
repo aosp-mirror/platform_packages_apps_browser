@@ -15,6 +15,9 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- The name of the application. -->
+    <string name="application_name">Browser</string>
+
     <!-- Sign-in dialog -->
     <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
@@ -165,6 +168,8 @@
     <!-- Menu item that opens up a dialog which allows the user to provide a
             string and search for it on the page. -->
     <string name="find_dot">Find on page</string>
+    <!-- Menu item to switch to text selection mode for copy and paste. -->
+    <string name="select_dot">Select text</string>
     <!-- Menu item to go to the home page, as stored in settings -->
     <string name="homepage">Home page</string>
     <!-- Menu item which opens a screen which shows all the currently open

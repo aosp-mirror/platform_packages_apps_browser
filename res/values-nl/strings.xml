@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="sign_in_to">"Aanmelden bij <xliff:g id="HOSTNAME">%s1</xliff:g> \'<xliff:g id="REALM">%s2</xliff:g>\'"</string>
+    <string name="username">"Naam"</string>
+    <string name="password">"Wachtwoord"</string>
+    <string name="action">"Aanmelden"</string>
+    <string name="cancel">"Annuleren"</string>
+    <string name="ok">"OK"</string>
+    <string name="matches_found">"overeenkomsten"</string>
+    <string name="zero">"Nee"</string>
+    <string name="page_info">"Pagina-informatie"</string>
+    <string name="page_info_view">"Pagina-informatie weergeven"</string>
+    <string name="page_info_address">"Adres:"</string>
+    <string name="ssl_warnings_header">"Er zijn problemen met het beveiligingscertificaat van deze site."</string>
+    <string name="ssl_continue">"Doorgaan"</string>
+    <string name="security_warning">"Beveiligingswaarschuwing"</string>
+    <string name="view_certificate">"Certificaat weergeven"</string>
+    <string name="ssl_untrusted">"Dit is geen certificaat van een vertrouwde autoriteit."</string>
+    <string name="ssl_mismatch">"De naam van deze site komt niet overeen met de naam op het certificaat."</string>
+    <string name="ssl_expired">"Dit certificaat is verlopen."</string>
+    <string name="ssl_not_yet_valid">"Dit certificaat is nog niet geldig."</string>
+    <string name="ssl_certificate">"Beveiligingscertificaat"</string>
+    <string name="ssl_certificate_is_valid">"Dit certificaat is geldig."</string>
+    <string name="issued_to">"Uitgegeven voor:"</string>
+    <string name="common_name">"Algemene naam:"</string>
+    <string name="org_name">"Organisatie:"</string>
+    <string name="org_unit">"Organisatie-eenheid:"</string>
+    <string name="issued_by">"Uitgegeven door:"</string>
+    <string name="validity_period">"Geldigheid:"</string>
+    <string name="issued_on">"Uitgegeven op:"</string>
+    <string name="expires_on">"Verloopt op:"</string>
+    <string name="retrieving_creds_dlg_msg">"Aanmeldingsgegevens ophalen..."</string>
+    <string name="close">"Sluiten"</string>
+    <string name="close_window">"Dit venster wordt gesloten."</string>
+    <string name="stopping">"Stoppen..."</string>
+    <string name="stop">"Stoppen"</string>
+    <string name="reload">"Vernieuwen"</string>
+    <string name="back">"Terug"</string>
+    <string name="forward">"Volgende"</string>
+    <string name="save">"OK"</string>
+    <string name="do_not_save">"Annuleren"</string>
+    <string name="location">"Locatie"</string>
+    <string name="name">"Naam"</string>
+    <string name="http">"http://"</string>
+    <string name="save_to_bookmarks">"Bladwijzer"</string>
+    <string name="edit_bookmark">"Bladwijzer bewerken"</string>
+    <string name="create_shortcut_bookmark">"Snelkoppeling naar startpagina toevoegen"</string>
+    <string name="open_bookmark">"Openen"</string>
+    <string name="remove_bookmark">"Bladwijzer verwijderen"</string>
+    <string name="remove_history_item">"Uit geschiedenis verwijderen"</string>
+    <string name="bookmark_saved">"Opgeslagen in bladwijzers."</string>
+    <string name="bookmark_needs_title">"Bladwijzer moet een naam hebben."</string>
+    <string name="bookmark_needs_url">"Bladwijzers moeten een locatie hebben."</string>
+    <string name="empty_bookmark">"Kan geen lege bladwijzer maken."</string>
+    <string name="bookmark_url_not_valid">"URL is ongeldig."</string>
+    <string name="delete_bookmark">"Verwijderen"</string>
+    <string name="bookmark_page">"Bladwijzer maken voor de laatst weergegeven pagina"</string>
+    <string name="current_page">"Huidige pagina:"</string>
+    <string name="delete_bookmark_warning">"Bladwijzer \'<xliff:g id="BOOKMARK">%s</xliff:g>\' wordt verwijderd."</string>
+    <string name="open_in_new_window">"Openen in een nieuw venster"</string>
+    <string name="new_window">"Nieuw venster"</string>
+    <string name="goto_dot">"Ga naar URL"</string>
+    <string name="find_dot">"Zoeken op pagina"</string>
+    <string name="homepage">"Startpagina"</string>
+    <string name="view_tabs">"Vensteroverzicht"</string>
+    <string name="view_tabs_condensed">"Windows"</string>
+    <string name="tab_picker_title">"Huidige vensters"</string>
+    <string name="tab_picker_view_tab">"Weergeven"</string>
+    <string name="tab_picker_new_tab">"Nieuw venster"</string>
+    <string name="tab_picker_remove_tab">"Sluiten"</string>
+    <string name="tab_picker_bookmark">"Bladwijzer"</string>
+    <string name="tab_picker_send_url">"Link delen"</string>
+    <string name="bookmarks">"Bladwijzers"</string>
+    <string name="shortcut_bookmark">"Bladwijzer"</string>
+    <string name="history">"Geschiedenis"</string>
+    <string name="menu_view_download">"Downloads"</string>
+    <string name="menu_bookmark_page">"Bladwijzerpagina"</string>
+    <string name="share_page">"Pagina delen"</string>
+    <string name="menu_zoom">"Zoomen"</string>
+    <string name="menu_flip_orientation">"Stand draaien"</string>
+    <string name="contextmenu_openlink">"Openen"</string>
+    <string name="contextmenu_openlink_newwindow">"Openen in een nieuw venster"</string>
+    <string name="contextmenu_bookmark_thislink">"Bladwijzer maken van link"</string>
+    <string name="contextmenu_savelink">"Link opslaan"</string>
+    <string name="contextmenu_sharelink">"Link delen"</string>
+    <string name="contextmenu_copy">"Kopiëren"</string>
+    <string name="contextmenu_copylink">"URL van koppeling kopiëren"</string>
+    <string name="contextmenu_download_image">"Afbeelding opslaan"</string>
+    <string name="contextmenu_view_image">"Afbeelding weergeven"</string>
+    <string name="contextmenu_dial_dot">"Bellen..."</string>
+    <string name="contextmenu_add_contact">"Contactpersoon toevoegen"</string>
+    <string name="contextmenu_send_mail">"E-mail verzenden"</string>
+    <string name="contextmenu_map">"Kaart"</string>
+    <string name="clear">"Wissen"</string>
+    <string name="replace">"Vervangen"</string>
+    <string name="browser_bookmarks_page_bookmarks_text">"Bladwijzers"</string>
+    <string name="menu_preferences">"Instellingen"</string>
+    <string name="pref_content_title">"Instellingen voor pagina-inhoud"</string>
+    <string name="pref_content_load_images">"Afbeeldingen laden"</string>
+    <string name="pref_content_load_images_summary">"Afbeeldingen op webpagina\'s weergeven"</string>
+    <string name="pref_content_block_popups">"Pop-upvensters blokkeren"</string>
+    <string name="pref_content_javascript">"JavaScript inschakelen"</string>
+    <string name="pref_content_open_in_background">"Openen op de achtergrond"</string>
+    <string name="pref_content_open_in_background_summary">"Nieuwe vensters worden achter het huidige venster weergegeven."</string>
+    <string name="pref_content_homepage">"Startpagina instellen"</string>
+    <string name="pref_content_autofit">"Pagina\'s automatisch laten passen"</string>
+    <string name="pref_content_autofit_summary">"Webpagina\'s zo indelen dat deze op het scherm passen"</string>
+    <string name="pref_privacy_title">"Privacyinstellingen"</string>
+    <string name="pref_privacy_clear_cache">"Cache wissen"</string>
+    <string name="pref_privacy_clear_cache_summary">"Alle pagina-inhoud in cache verwijderen"</string>
+    <string name="pref_privacy_clear_cache_dlg">"De cache wordt gewist."</string>
+    <string name="pref_privacy_clear_cookies">"Alle cookiegegevens wissen"</string>
+    <string name="pref_privacy_clear_cookies_summary">"Alle browsercookies wissen"</string>
+    <string name="pref_privacy_clear_cookies_dlg">"Alle cookies worden gewist."</string>
+    <string name="pref_privacy_clear_history">"Geschiedenis wissen"</string>
+    <string name="pref_privacy_clear_history_summary">"Navigatiegeschiedenis van de browser wissen"</string>
+    <string name="pref_privacy_clear_history_dlg">"De navigatiegeschiedenis van de browser wordt gewist."</string>
+    <string name="pref_privacy_clear_form_data">"Formuliergegevens wissen"</string>
+    <string name="pref_privacy_clear_form_data_summary">"Alle opgeslagen formuliergegevens wissen"</string>
+    <string name="pref_privacy_clear_form_data_dlg">"Alle opgeslagen formuliergegevens worden gewist."</string>
+    <string name="pref_privacy_clear_passwords">"Wachtwoorden wissen"</string>
+    <string name="pref_privacy_clear_passwords_summary">"Alle opgeslagen wachtwoorden wissen"</string>
+    <string name="pref_privacy_clear_passwords_dlg">"Alle opgeslagen wachtwoorden worden gewist."</string>
+    <string name="pref_security_title">"Beveiligingsinstellingen"</string>
+    <string name="pref_security_remember_passwords">"Wachtwoorden onthouden"</string>
+    <string name="pref_security_remember_passwords_summary">"Gebruikersnamen en wachtwoorden voor websites opslaan"</string>
+    <string name="pref_security_save_form_data">"Gegevens op formulier onthouden"</string>
+    <string name="pref_security_save_form_data_summary">"Gegevens die ik typ in formulieren, onthouden voor later gebruik."</string>
+    <string name="pref_security_show_security_warning">"Beveiligingswaarschuwingen weergeven"</string>
+    <string name="pref_security_show_security_warning_summary">"Waarschuwen als er een beveiligingsprobleem is met een site"</string>
+    <string name="pref_security_accept_cookies">"Cookies accepteren"</string>
+    <string name="pref_security_accept_cookies_summary">"Sites toestaan cookiegegevens te lezen en schrijven"</string>
+    <string name="pref_text_size">"Tekengrootte instellen"</string>
+  <string-array name="pref_text_size_choices">
+    <item>"Minuscuul"</item>
+    <item>"Klein"</item>
+    <item>"Normaal"</item>
+    <item>"Groot"</item>
+    <item>"Enorm"</item>
+  </string-array>
+    <string name="pref_text_size_dialogtitle">"Tekengrootte"</string>
+    <string name="pref_extras_title">"Geavanceerde instellingen"</string>
+    <string name="pref_extras_gears_enable">"Gears inschakelen"</string>
+    <string name="pref_extras_gears_enable_summary">"Toepassingen die de functionaliteit van de browser vergroten"</string>
+    <string name="pref_extras_gears_settings">"Instellingen van Gears"</string>
+    <string name="pref_plugin_installed">"Lijst met invoegtoepassingen"</string>
+    <string name="pref_plugin_installed_empty_list">"Geen invoegtoepassingen geïnstalleerd."</string>
+    <string name="pref_extras_gears_settings_summary">"Toepassingen die de functionaliteit van de browser vergroten"</string>
+    <string name="pref_extras_reset_default">"Standaardinstellingen herstellen"</string>
+    <string name="pref_extras_reset_default_summary">"Alle browsergegevens wissen en alle standaardinstellingen herstellen"</string>
+    <string name="pref_extras_reset_default_dlg">"Alle browsergegevens worden gewist en de standaardinstellingen worden hersteld."</string>
+    <string name="pref_extras_reset_default_dlg_title">"Standaardinstellingen herstellen"</string>
+    <string name="pref_development_title">"Foutopsporing"</string>
+    <string name="pref_development_viewport">"Use wide viewport"</string>
+    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
+    <string name="pref_development_normal_rendering">"Normaal gerenderd"</string>
+    <string name="pref_development_trace">"Traceren inschakelen"</string>
+    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
+    <string name="pref_development_search_url">"Set search URL"</string>
+    <string name="pref_development_uastring">"UAString"</string>
+  <string-array name="pref_development_ua_choices">
+    <item>"Android"</item>
+    <item>"Desktop"</item>
+    <item>"iPhone"</item>
+  </string-array>
+  <string-array name="pref_development_ua_values">
+    <item>"0"</item>
+    <item>"1"</item>
+    <item>"2"</item>
+  </string-array>
+    <string name="pref_default_text_encoding">"Tekstcodering instellen"</string>
+  <string-array name="pref_default_text_encoding_choices">
+    <item>"Latijn-1 (ISO-8859-1)"</item>
+    <item>"Unicode (UTF-8)"</item>
+    <item>"Japans (ISO-2022-JP)"</item>
+    <item>"Japans (SHIFT_JIS)"</item>
+    <item>"Japans (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle">"Tekstcodering"</string>
+    <string name="pref_default_text_encoding_default">"Latijn-1"</string>
+    <string name="browserFrameRedirect">"Omleiden"</string>
+    <string name="browserFrame307Post">"Deze webpagina wordt omgeleid. Wilt u uw ingevulde formuliergegevens doorsturen naar de nieuwe locatie?"</string>
+    <string name="browserFrameNetworkErrorLabel">"Probleem met gegevensverbinding"</string>
+    <string name="browserFrameFileErrorLabel">"Probleem met bestand"</string>
+    <string name="browserFrameFormResubmitLabel">"Bevestigen"</string>
+    <string name="browserFrameFormResubmitMessage">"De pagina die u probeert te openen, bevat gegevens die al verzonden zijn (\'POSTDATA\'). Als u de gegevens opnieuw verzendt, wordt elke actie herhaald die het formulier op de pagina heeft uitgevoerd (zoals een zoekopdracht of online aankoop)."</string>
+    <string name="loadSuspendedTitle">"Geen netwerkverbinding"</string>
+    <string name="loadSuspended">"De pagina wordt verder geladen zodra de verbinding is hersteld."</string>
+    <string name="clear_history">"Geschiedenis wissen"</string>
+    <string name="browser_history">"Onlangs bezochte pagina\'s"</string>
+    <string name="empty_history">"Browsergeschiedenis is leeg."</string>
+    <string name="add_new_bookmark">"Nieuwe bladwijzer"</string>
+    <string name="no_database">"Geen database."</string>
+    <string name="search_hint">"Typ het webadres"</string>
+    <string name="search">"Zoeken"</string>
+    <string name="search_button_text">"Ga"</string>
+    <string name="js_dialog_title_prefix">"De pagina op"</string>
+    <string name="js_dialog_title_suffix">"zegt:"</string>
+    <string name="js_dialog_title_default">"JavaScript"</string>
+    <string name="js_dialog_before_unload">"Wilt u deze pagina verlaten?"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"Kies OK om door te gaan of Annuleren om op de huidige pagina te blijven."</string>
+    <string name="attention">"Opgelet"</string>
+    <string name="popup_window_attempt">"Deze site probeert een pop-upvenster te openen."</string>
+    <string name="allow">"Toestaan"</string>
+    <string name="block">"Blokkeren"</string>
+    <string name="too_many_windows_dialog_title">"Limiet van venster is bereikt"</string>
+    <string name="too_many_windows_dialog_message">"Kan geen nieuw venster openen omdat u al het maximum aantal vensters heeft geopend."</string>
+    <string name="too_many_subwindows_dialog_title">"Pop-up is al geopend."</string>
+    <string name="too_many_subwindows_dialog_message">"Kan geen nieuw pop-upvenster openen omdat er maar één venster tegelijk geopend kan zijn."</string>
+    <string name="download_title">"Downloadgeschiedenis"</string>
+    <string name="download_unknown_filename">"&lt;Onbekend&gt;"</string>
+    <string name="download_menu_open">"Openen"</string>
+    <string name="download_menu_clear">"Wissen uit lijst"</string>
+    <string name="download_menu_cancel">"Download annuleren"</string>
+    <string name="download_menu_cancel_all">"Alle downloads annuleren"</string>
+    <string name="download_menu_clear_all">"Lijst wissen"</string>
+    <string name="download_clear_dlg_title">"Wissen"</string>
+    <string name="download_clear_dlg_msg">"Alle items worden uit de lijst en uit de browsercache verwijderd."</string>
+    <string name="download_cancel_dlg_title">"Downloads annuleren"</string>
+    <string name="download_cancel_dlg_msg">"Alle <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> downloads worden geannuleerd en gewist uit de downloadgeschiedenis."</string>
+    <string name="download_file_error_dlg_title">"Geen ruimte meer"</string>
+    <string name="download_file_error_dlg_msg">"<xliff:g id="FILENAME">%s</xliff:g> kan niet worden gedownload."\n"Maak ruimte vrij op uw telefoon en probeer het opnieuw."</string>
+    <string name="download_failed_generic_dlg_title">"Downloaden is mislukt."</string>
+    <string name="download_no_sdcard_dlg_title">"Geen SD-kaart"</string>
+    <string name="download_no_sdcard_dlg_msg">"Een SD-kaart is vereist om <xliff:g id="FILENAME">%s</xliff:g> te kunnen downloaden."</string>
+    <string name="download_sdcard_busy_dlg_title">"SD-kaart niet beschikbaar"</string>
+    <string name="download_sdcard_busy_dlg_msg">"De SD-kaart is in gebruik. Als u downloads wilt toestaan, gaat u naar de spartpagina en selecteert u \'Instellingen\' &gt; \'SD-kaart en telefoongeheugen\' en verwijdert u het vinkje uit het selectievakje \'Gebruiken voor USB-opslag\'."</string>
+    <string name="download_no_application">"Er is geen toepassing gevonden waarmee dit bestand kan worden geopend."</string>
+    <string name="retry">"Opnieuw proberen"</string>
+    <string name="no_downloads">"Downloadgeschiedenis is leeg."</string>
+    <string name="download_error">"Downloaden is mislukt."</string>
+    <string name="download_success">"Downloaden van <xliff:g id="FILE">%s</xliff:g> is voltooid."</string>
+    <string name="download_running">"Downloaden..."</string>
+    <string name="download_pending">"Downloaden starten..."</string>
+    <string name="download_pending_network">"Wachten op gegevensverbinding..."</string>
+    <string name="download_running_paused">"Wachten op gegevensverbinding..."</string>
+    <string name="download_canceled">"Download is geannuleerd."</string>
+    <string name="download_not_acceptable">"Kan niet downloaden. De inhoud wordt niet ondersteund door de telefoon."</string>
+    <string name="download_file_error">"Kan download niet voltooien. Er is niet genoeg ruimte."</string>
+    <string name="download_length_required">"Kan niet downloaden. De grootte van het item kan niet worden vastgesteld."</string>
+    <string name="download_precondition_failed">"Download is onderbroken. Deze kan niet worden voortgezet."</string>
+    <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
+  <string-array name="bookmarks">
+    <item>"Google"</item>
+    <item>"http://www.google.com/"</item>
+    <item>"Yahoo!"</item>
+    <item>"http://www.yahoo.com/"</item>
+    <item>"MSN"</item>
+    <item>"http://www.msn.com/"</item>
+    <item>"MySpace"</item>
+    <item>"http://www.myspace.com"</item>
+    <item>"Facebook"</item>
+    <item>"http://www.facebook.com/"</item>
+    <item>"Wikipedia"</item>
+    <item>"http://www.wikipedia.org/"</item>
+    <item>"eBay"</item>
+    <item>"http://www.ebay.com/"</item>
+    <item>"CNN"</item>
+    <item>"http://www.cnn.com/"</item>
+    <item>"New York Times"</item>
+    <item>"http://www.nytimes.com/"</item>
+    <item>"ESPN"</item>
+    <item>"http://espn.go.com/"</item>
+    <item>"Amazon"</item>
+    <item>"http://www.amazon.com/"</item>
+    <item>"Weather Channel"</item>
+    <item>"http://www.weather.com/"</item>
+    <item>"BBC"</item>
+    <item>"http://www.bbc.co.uk/"</item>
+  </string-array>
+    <string name="permlab_readHistoryBookmarks">"browsergeschiedenis en bladwijzers lezen"</string>
+    <string name="permdesc_readHistoryBookmarks">"Hiermee kan een toepassing de URL\'s lezen die u via de browser heeft bezocht, evenals alle bladwijzers van de browser."</string>
+    <string name="permlab_writeHistoryBookmarks">"browsergeschiedenis en bladwijzers schrijven"</string>
+    <string name="permdesc_writeHistoryBookmarks">"Hiermee kan een toepassing de op uw telefoon opgeslagen browsergeschiedenis of bladwijzers wijzigen. Schadelijke toepassingen kunnen hiermee uw browsergegevens verwijderen of wijzigen."</string>
+    <string name="query_data_message">"De onderstaande website probeer gegevens op uw computer op te slaan met Google Gears."</string>
+    <string name="location_message">"De onderstaande website probeert via Gears informatie over uw locatie te krijgen."</string>
+    <string name="shortcut_message">"Deze website probeert een snelkoppeling te maken op uw computer. Wilt u dit toestaan?"</string>
+    <string name="settings_message">"De onderstaande tabel geeft de toestemming weer die u heeft verleend aan elke site die Gears heeft geprobeerd te gebruiken."</string>
+    <string name="filepicker_message">"Bestandenkiezer van Google Gears"</string>
+    <string name="image_message">"Geselecteerde foto"</string>
+    <string name="settings_title">"Instellingen van Gears"</string>
+    <string name="privacy_policy">"U kunt het privacybeleid van de site raadplegen voor meer informatie over hoe uw locatie wordt gebruikt."</string>
+    <string name="permission_button_alwaysdeny">"Deze site nooit toestaan"</string>
+    <string name="permission_button_allow">"Toestaan"</string>
+    <string name="permission_button_deny">"Weigeren"</string>
+    <string name="shortcut_button_alwaysdeny">"Deze snelkoppeling nooit toestaan"</string>
+    <string name="shortcut_button_allow">"OK"</string>
+    <string name="shortcut_button_deny">"Annuleren"</string>
+    <string name="settings_button_allow">"Toepassen"</string>
+    <string name="settings_button_deny">"Annuleren"</string>
+    <string name="filepicker_button_allow">"OK"</string>
+    <string name="filepicker_button_deny">"Annuleren"</string>
+    <string name="filepicker_path">"pad:"</string>
+    <string name="filepicker_no_files_selected">"Er zijn geen bestanden geselecteerd"</string>
+    <string name="filepicker_one_file_selected">"Eén bestand geselecteerd"</string>
+    <string name="filepicker_some_files_selected">"bestanden geselecteerd"</string>
+    <string name="remove">"Verwijderen"</string>
+    <string name="local_storage">"Lokale opslag"</string>
+    <string name="allowed">"Toegestaan"</string>
+    <string name="denied">"Geweigerd"</string>
+    <string name="unrecognized_dialog_message">"Dialoogtype wordt niet herkend"</string>
+    <string name="default_button">"OK"</string>
+</resources>

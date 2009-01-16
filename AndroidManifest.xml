@@ -46,7 +46,7 @@
         android:protectionLevel="dangerous" />
 
     <application   android:name="Browser"
-                   android:label="Browser"
+                   android:label="@string/application_name"
                    android:icon="@drawable/ic_launcher_browser"
                    android:taskAffinity="android.task.browser" >
         <!-- TODO: Remove dependency of application on the test runner
@@ -58,7 +58,8 @@
                   android:multiprocess="true" 
                   android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
                   android:writePermission="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
-        <activity android:name="BrowserActivity" android:label="Browser"
+        <activity android:name="BrowserActivity"
+                  android:label="@string/application_name"
                   android:launchMode="singleTask"
                   android:alwaysRetainTaskState="true"
                   android:configChanges="orientation|keyboardHidden"

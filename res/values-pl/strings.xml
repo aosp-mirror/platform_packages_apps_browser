@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="sign_in_to">"Zaloguj się w witrynie <xliff:g id="HOSTNAME">%s1</xliff:g> „<xliff:g id="REALM">%s2</xliff:g>”"</string>
+    <string name="username">"Nazwa"</string>
+    <string name="password">"Hasło"</string>
+    <string name="action">"Zaloguj się"</string>
+    <string name="cancel">"Anuluj"</string>
+    <string name="ok">"OK"</string>
+    <string name="matches_found">"dopasowania"</string>
+    <string name="zero">"Nie"</string>
+    <string name="page_info">"Informacje o stronie"</string>
+    <string name="page_info_view">"Informacje o stronie"</string>
+    <string name="page_info_address">"Adres:"</string>
+    <string name="ssl_warnings_header">"Są problemy z certyfikatem zabezpieczeń tej strony."</string>
+    <string name="ssl_continue">"Kontynuuj"</string>
+    <string name="security_warning">"Ostrzeżenie zabezpieczeń"</string>
+    <string name="view_certificate">"Wyświetl certyfikat"</string>
+    <string name="ssl_untrusted">"Ten certyfikat nie pochodzi od zaufanego urzędu."</string>
+    <string name="ssl_mismatch">"Nazwa witryny nie odpowiada nazwie podanej w certyfikacie."</string>
+    <string name="ssl_expired">"Ten certyfikat wygasł."</string>
+    <string name="ssl_not_yet_valid">"Ten certyfikat nie jest jeszcze prawidłowy."</string>
+    <string name="ssl_certificate">"Certyfikat zabezpieczeń"</string>
+    <string name="ssl_certificate_is_valid">"Ten certyfikat jest prawidłowy."</string>
+    <string name="issued_to">"Otrzymujący:"</string>
+    <string name="common_name">"Nazwa pospolita:"</string>
+    <string name="org_name">"Organizacja:"</string>
+    <string name="org_unit">"Jednostka organizacyjna:"</string>
+    <string name="issued_by">"Wystawca:"</string>
+    <string name="validity_period">"Poprawność:"</string>
+    <string name="issued_on">"Data wystawienia:"</string>
+    <string name="expires_on">"Wygasa:"</string>
+    <string name="retrieving_creds_dlg_msg">"Pobieranie szczegółów logowania…"</string>
+    <string name="close">"Zamknij"</string>
+    <string name="close_window">"To okno zostanie zamknięte."</string>
+    <string name="stopping">"Trwa zatrzymywanie…"</string>
+    <string name="stop">"Zatrzymaj"</string>
+    <string name="reload">"Odśwież"</string>
+    <string name="back">"Wstecz"</string>
+    <string name="forward">"Dalej"</string>
+    <string name="save">"OK"</string>
+    <string name="do_not_save">"Anuluj"</string>
+    <string name="location">"Adres"</string>
+    <string name="name">"Nazwa"</string>
+    <string name="http">"http://"</string>
+    <string name="save_to_bookmarks">"Utwórz zakładkę"</string>
+    <string name="edit_bookmark">"Edytuj zakładkę"</string>
+    <string name="create_shortcut_bookmark">"Dodaj skrót do strony głównej"</string>
+    <string name="open_bookmark">"Otwórz"</string>
+    <string name="remove_bookmark">"Usuń zakładkę"</string>
+    <string name="remove_history_item">"Usuń z historii"</string>
+    <string name="bookmark_saved">"Zapisano na liście zakładek."</string>
+    <string name="bookmark_needs_title">"Zakładka musi mieć nazwę."</string>
+    <string name="bookmark_needs_url">"Zakładka musi zawierać adres."</string>
+    <string name="empty_bookmark">"Nie można utworzyć pustej zakładki."</string>
+    <string name="bookmark_url_not_valid">"Adres URL jest nieprawidłowy."</string>
+    <string name="delete_bookmark">"Usuń"</string>
+    <string name="bookmark_page">"Dodaj do zakładek ostatnio wyświetlaną stronę"</string>
+    <string name="current_page">"Bieżąca strona:"</string>
+    <string name="delete_bookmark_warning">"Zakładka „<xliff:g id="BOOKMARK">%s</xliff:g>” zostanie usunięta."</string>
+    <string name="open_in_new_window">"Otwórz w nowym oknie"</string>
+    <string name="new_window">"Nowe okno"</string>
+    <string name="goto_dot">"Przejdź pod adres URL"</string>
+    <string name="find_dot">"Znajdź na stronie"</string>
+    <string name="homepage">"Strona główna"</string>
+    <string name="view_tabs">"Przegląd okien"</string>
+    <string name="view_tabs_condensed">"Windows"</string>
+    <string name="tab_picker_title">"Bieżące okna"</string>
+    <string name="tab_picker_view_tab">"Wyświetl"</string>
+    <string name="tab_picker_new_tab">"Nowe okno"</string>
+    <string name="tab_picker_remove_tab">"Zamknij"</string>
+    <string name="tab_picker_bookmark">"Utwórz zakładkę"</string>
+    <string name="tab_picker_send_url">"Prześlij link"</string>
+    <string name="bookmarks">"Zakładki"</string>
+    <string name="shortcut_bookmark">"Utwórz zakładkę"</string>
+    <string name="history">"Historia"</string>
+    <string name="menu_view_download">"Pobrane pliki"</string>
+    <string name="menu_bookmark_page">"Strona zakładek"</string>
+    <string name="share_page">"Udostępnij stronę"</string>
+    <string name="menu_zoom">"Powiększenie"</string>
+    <string name="menu_flip_orientation">"Zmień orientację"</string>
+    <string name="contextmenu_openlink">"Otwórz"</string>
+    <string name="contextmenu_openlink_newwindow">"Otwórz w nowym oknie"</string>
+    <string name="contextmenu_bookmark_thislink">"Dodaj link do zakładek"</string>
+    <string name="contextmenu_savelink">"Zapisz link"</string>
+    <string name="contextmenu_sharelink">"Udostępnij link"</string>
+    <string name="contextmenu_copy">"Kopiuj"</string>
+    <string name="contextmenu_copylink">"Kopiuj adres URL linku"</string>
+    <string name="contextmenu_download_image">"Zapisz obraz"</string>
+    <string name="contextmenu_view_image">"Wyświetl obraz"</string>
+    <string name="contextmenu_dial_dot">"Wybierz numer…"</string>
+    <string name="contextmenu_add_contact">"Dodaj kontakt"</string>
+    <string name="contextmenu_send_mail">"Wyślij wiadomość e-mail"</string>
+    <string name="contextmenu_map">"Mapa"</string>
+    <string name="clear">"Wyczyść"</string>
+    <string name="replace">"Zastąp adres"</string>
+    <string name="browser_bookmarks_page_bookmarks_text">"Zakładki"</string>
+    <string name="menu_preferences">"Ustawienia"</string>
+    <string name="pref_content_title">"Ustawienia zawartości stron"</string>
+    <string name="pref_content_load_images">"Wczytuj obrazy"</string>
+    <string name="pref_content_load_images_summary">"Wyświetlaj obrazy na stronach WWW"</string>
+    <string name="pref_content_block_popups">"Blokuj okienka wyskakujące"</string>
+    <string name="pref_content_javascript">"Włącz skrypty JavaScript"</string>
+    <string name="pref_content_open_in_background">"Otwórz w tle"</string>
+    <string name="pref_content_open_in_background_summary">"Nowe okna są otwierane za bieżącym"</string>
+    <string name="pref_content_homepage">"Ustaw stronę główną"</string>
+    <string name="pref_content_autofit">"Automatycznie dopasowuj strony"</string>
+    <string name="pref_content_autofit_summary">"Formatuj strony WWW, aby mieściły się na ekranie"</string>
+    <string name="pref_privacy_title">"Ustawienia prywatności"</string>
+    <string name="pref_privacy_clear_cache">"Wyczyść pamięć podręczną"</string>
+    <string name="pref_privacy_clear_cache_summary">"Usuń całą zawartość stron z pamięci podręcznej"</string>
+    <string name="pref_privacy_clear_cache_dlg">"Pamięć podręczna zostanie wyczyszczona."</string>
+    <string name="pref_privacy_clear_cookies">"Wyczyść wszystkie dane plików cookie"</string>
+    <string name="pref_privacy_clear_cookies_summary">"Wyczyść pliki cookie przeglądarki"</string>
+    <string name="pref_privacy_clear_cookies_dlg">"Wszystkie pliki cookie zostaną usunięte."</string>
+    <string name="pref_privacy_clear_history">"Wyczyść historię"</string>
+    <string name="pref_privacy_clear_history_summary">"Wyczyść historię przeglądania"</string>
+    <string name="pref_privacy_clear_history_dlg">"Historia przeglądania zostanie wyczyszczona."</string>
+    <string name="pref_privacy_clear_form_data">"Wyczyść dane formularzy"</string>
+    <string name="pref_privacy_clear_form_data_summary">"Usuń wszystkie zapisane dane formularzy"</string>
+    <string name="pref_privacy_clear_form_data_dlg">"Wszystkie zapamiętane dane formularzy zostaną wyczyszczone."</string>
+    <string name="pref_privacy_clear_passwords">"Wyczyść hasła"</string>
+    <string name="pref_privacy_clear_passwords_summary">"Wyczyść wszystkie zapamiętane hasła"</string>
+    <string name="pref_privacy_clear_passwords_dlg">"Wszystkie zapamiętane hasła zostaną wyczyszczone."</string>
+    <string name="pref_security_title">"Ustawienia zabezpieczeń"</string>
+    <string name="pref_security_remember_passwords">"Zapamiętuj hasła"</string>
+    <string name="pref_security_remember_passwords_summary">"Zapamiętuj nazwy użytkownika i hasła do stron WWW"</string>
+    <string name="pref_security_save_form_data">"Zapamiętaj dane formularza"</string>
+    <string name="pref_security_save_form_data_summary">"Zapamiętuj do późniejszego użycia dane, które wpisuję w formularzach"</string>
+    <string name="pref_security_show_security_warning">"Wyświetlaj ostrzeżenia zabezpieczeń"</string>
+    <string name="pref_security_show_security_warning_summary">"Wyświetl ostrzeżenie w razie problemów z zabezpieczeniami strony"</string>
+    <string name="pref_security_accept_cookies">"Akceptuj pliki cookie"</string>
+    <string name="pref_security_accept_cookies_summary">"Zezwalaj witrynom na zapis i odczyt danych plików „cookie”."</string>
+    <string name="pref_text_size">"Ustaw rozmiar tekstu"</string>
+  <string-array name="pref_text_size_choices">
+    <item>"Bardzo mały"</item>
+    <item>"Mały"</item>
+    <item>"Normalny"</item>
+    <item>"Duży"</item>
+    <item>"Bardzo duży"</item>
+  </string-array>
+    <string name="pref_text_size_dialogtitle">"Rozmiar tekstu"</string>
+    <string name="pref_extras_title">"Ustawienia zaawansowane"</string>
+    <string name="pref_extras_gears_enable">"Włącz technologię Gears"</string>
+    <string name="pref_extras_gears_enable_summary">"Aplikacje rozszerzające zakres funkcji przeglądarki"</string>
+    <string name="pref_extras_gears_settings">"Gears — ustawienia"</string>
+    <string name="pref_plugin_installed">"Lista dodatków plug-in"</string>
+    <string name="pref_plugin_installed_empty_list">"Brak zainstalowanych dodatków plug-in."</string>
+    <string name="pref_extras_gears_settings_summary">"Aplikacje rozszerzające zakres funkcji przeglądarki"</string>
+    <string name="pref_extras_reset_default">"Przywróć wartości domyślne"</string>
+    <string name="pref_extras_reset_default_summary">"Wyczyść wszystkie dane przeglądarki i przywróć wszystkie ustawienia do wartości domyślnych"</string>
+    <string name="pref_extras_reset_default_dlg">"Wszystkie dane przeglądarki zostaną wyczyszczone, a ustawienia powrócą do wartości domyślnych."</string>
+    <string name="pref_extras_reset_default_dlg_title">"Przywróć wartości domyślne"</string>
+    <string name="pref_development_title">"Debugowanie"</string>
+    <string name="pref_development_viewport">"Use wide viewport"</string>
+    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
+    <string name="pref_development_normal_rendering">"Normal rendering"</string>
+    <string name="pref_development_trace">"Enable tracing"</string>
+    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
+    <string name="pref_development_search_url">"Ustaw adres URL wyszukiwania"</string>
+    <string name="pref_development_uastring">"UAString"</string>
+  <string-array name="pref_development_ua_choices">
+    <item>"Android"</item>
+    <item>"Desktop"</item>
+    <item>"iPhone"</item>
+  </string-array>
+  <string-array name="pref_development_ua_values">
+    <item>"0"</item>
+    <item>"1"</item>
+    <item>"2"</item>
+  </string-array>
+    <string name="pref_default_text_encoding">"Ustaw kodowanie tekstu"</string>
+  <string-array name="pref_default_text_encoding_choices">
+    <item>"Latin-1 (ISO-8859-1)"</item>
+    <item>"Unicode (UTF-8)"</item>
+    <item>"Japoński (ISO-2022-JP)"</item>
+    <item>"Japoński (SHIFT_JIS)"</item>
+    <item>"Japoński (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle">"Kodowanie tekstu"</string>
+    <string name="pref_default_text_encoding_default">"Latin-1"</string>
+    <string name="browserFrameRedirect">"Przekieruj"</string>
+    <string name="browserFrame307Post">"Ta strona WWW jest przekierowywana. Czy wysłać wpisane dane formularza do nowej lokalizacji?"</string>
+    <string name="browserFrameNetworkErrorLabel">"Problem z łącznością danych"</string>
+    <string name="browserFrameFileErrorLabel">"Problem z plikiem"</string>
+    <string name="browserFrameFormResubmitLabel">"Potwierdzenie"</string>
+    <string name="browserFrameFormResubmitMessage">"Strona, którą próbujesz wyświetlić, zawiera dane, które już przesłano („POSTDATA”). Jeśli wyślesz te dane ponownie, wszelkie operacje wykonane przez formularz na tej stronie (np. wyszukiwanie lub zakup online) zostaną powtórzone."</string>
+    <string name="loadSuspendedTitle">"Brak połączenia z siecią"</string>
+    <string name="loadSuspended">"Ładowanie strony będzie kontynuowane po przywróceniu połączenia."</string>
+    <string name="clear_history">"Wyczyść historię"</string>
+    <string name="browser_history">"Ostatnio odwiedzane strony"</string>
+    <string name="empty_history">"Historia przeglądarki jest pusta."</string>
+    <string name="add_new_bookmark">"Nowa zakładka"</string>
+    <string name="no_database">"Brak bazy danych!"</string>
+    <string name="search_hint">"Wpisz adres WWW"</string>
+    <string name="search">"Szukaj"</string>
+    <string name="search_button_text">"Idź"</string>
+    <string name="js_dialog_title_prefix">"Strona pod adresem"</string>
+    <string name="js_dialog_title_suffix">"mówi:"</string>
+    <string name="js_dialog_title_default">"JavaScript"</string>
+    <string name="js_dialog_before_unload">"Czy opuścić tę stronę?"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"Wybierz polecenie OK, aby kontynuować, lub Anuluj, aby pozostać na tej stronie."</string>
+    <string name="attention">"Uwaga"</string>
+    <string name="popup_window_attempt">"Ta strona próbuje otworzyć okienko wyskakujące."</string>
+    <string name="allow">"Zezwól"</string>
+    <string name="block">"Zablokuj"</string>
+    <string name="too_many_windows_dialog_title">"Osiągnięto limit liczby okien"</string>
+    <string name="too_many_windows_dialog_message">"Nie można otworzyć nowego okna, ponieważ jest już otwarta maksymalna liczba okien."</string>
+    <string name="too_many_subwindows_dialog_title">"Okienko wyskakujące jest już otwarte"</string>
+    <string name="too_many_subwindows_dialog_message">"Nie można otworzyć nowego okienka wyskakującego, ponieważ otwarte może być tylko jedno w danej chwili."</string>
+    <string name="download_title">"Historia pobierania"</string>
+    <string name="download_unknown_filename">"&lt;Nieznane&gt;"</string>
+    <string name="download_menu_open">"Otwórz"</string>
+    <string name="download_menu_clear">"Usuń z listy"</string>
+    <string name="download_menu_cancel">"Anuluj pobieranie"</string>
+    <string name="download_menu_cancel_all">"Anuluj pobieranie wszystkich plików"</string>
+    <string name="download_menu_clear_all">"Wyczyść listę"</string>
+    <string name="download_clear_dlg_title">"Wyczyść"</string>
+    <string name="download_clear_dlg_msg">"Wszystkie pozycje zostaną usunięte z listy i z pamięci podręcznej przeglądarki."</string>
+    <string name="download_cancel_dlg_title">"Anuluj wszystkie pobierania"</string>
+    <string name="download_cancel_dlg_msg">"Wszystkie pobierane pliki (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) zostaną anulowane i usunięte z historii pobierania."</string>
+    <string name="download_file_error_dlg_title">"Brak miejsca"</string>
+    <string name="download_file_error_dlg_msg">"Nie można pobrać pliku <xliff:g id="FILENAME">%s</xliff:g>."\n" Zwolnij trochę miejsca w telefonie i spróbuj ponownie."</string>
+    <string name="download_failed_generic_dlg_title">"Pobieranie nie powiodło się"</string>
+    <string name="download_no_sdcard_dlg_title">"Brak karty SD"</string>
+    <string name="download_no_sdcard_dlg_msg">"Do pobrania pliku <xliff:g id="FILENAME">%s</xliff:g> potrzebna jest karta SD."</string>
+    <string name="download_sdcard_busy_dlg_title">"Karta SD jest niedostępna"</string>
+    <string name="download_sdcard_busy_dlg_msg">"Karta SD jest zajęta. Aby zezwolić na pobieranie, przejdź do Strona główna &gt; Ustawienia &gt; Karta SD i pamięć telefonu, a następnie usuń zaznaczenie pola wyboru „Użyj dla pamięci USB”."</string>
+    <string name="download_no_application">"Nie można znaleźć pliku do otwarcia tego programu."</string>
+    <string name="retry">"Spróbuj ponownie"</string>
+    <string name="no_downloads">"Historia pobierania jest pusta."</string>
+    <string name="download_error">"Pobieranie nie powiodło się."</string>
+    <string name="download_success">"Pobieranie pliku <xliff:g id="FILE">%s</xliff:g> zakończone."</string>
+    <string name="download_running">"Trwa pobieranie…"</string>
+    <string name="download_pending">"Rozpoczynanie pobierania"</string>
+    <string name="download_pending_network">"Oczekiwanie na połączenie danych…"</string>
+    <string name="download_running_paused">"Oczekiwanie na połączenie danych..."</string>
+    <string name="download_canceled">"Pobieranie anulowane."</string>
+    <string name="download_not_acceptable">"Pobranie niemożliwe. Ta zawartość nie jest obsługiwana przez ten telefon."</string>
+    <string name="download_file_error">"Nie można ukończyć pobierania. Za mało miejsca."</string>
+    <string name="download_length_required">"Pobieranie niemożliwe. Nie można ustalić rozmiaru elementu."</string>
+    <string name="download_precondition_failed">"Pobieranie zostało przerwane. Nie można go wznowić."</string>
+    <string name="activity_instrumentation_test_runner">"Uruchamianie testów przeglądarki"</string>
+  <string-array name="bookmarks">
+    <item>"Google"</item>
+    <item>"http://www.google.com/"</item>
+    <item>"Yahoo!"</item>
+    <item>"http://www.yahoo.com/"</item>
+    <item>"MSN"</item>
+    <item>"http://www.msn.com/"</item>
+    <item>"MySpace"</item>
+    <item>"http://www.myspace.com/"</item>
+    <item>"Facebook"</item>
+    <item>"http://www.facebook.com/"</item>
+    <item>"Wikipedia"</item>
+    <item>"http://www.wikipedia.org/"</item>
+    <item>"eBay"</item>
+    <item>"http://www.ebay.com/"</item>
+    <item>"CNN"</item>
+    <item>"http://www.cnn.com/"</item>
+    <item>"New York Times"</item>
+    <item>"http://www.nytimes.com/"</item>
+    <item>"ESPN"</item>
+    <item>"http://espn.go.com/"</item>
+    <item>"Amazon"</item>
+    <item>"http://www.amazon.com/"</item>
+    <item>"Pogoda"</item>
+    <item>"http://www.weather.com/"</item>
+    <item>"BBC"</item>
+    <item>"http://www.bbc.co.uk/"</item>
+  </string-array>
+    <string name="permlab_readHistoryBookmarks">"odczytywanie historii i zakładek przeglądarki"</string>
+    <string name="permdesc_readHistoryBookmarks">"Zezwala aplikacji na odczytanie wszystkich adresów URL odwiedzonych przy użyciu przeglądarki oraz wszystkich zakładek przeglądarki."</string>
+    <string name="permlab_writeHistoryBookmarks">"zapisać historię i zakładki przeglądarki"</string>
+    <string name="permdesc_writeHistoryBookmarks">"Pozwala aplikacji na zmianę historii lub zakładek przeglądarki zapisanych w telefonie. Szkodliwe aplikacje mogą to wykorzystać, aby usunąć lub zmienić dane przeglądarki."</string>
+    <string name="query_data_message">"Poniższa witryna chce przechowywać informacje w Twoim komputerze przy użyciu Gears."</string>
+    <string name="location_message">"Poniższa witryna chce uzyskać informacje o Twojej lokalizacji przy użyciu Gears."</string>
+    <string name="shortcut_message">"Ta witryna chce utworzyć skrót w Twoim komputerze. Czy chcesz na to zezwolić?"</string>
+    <string name="settings_message">"W poniższej tabeli przedstawiono uprawnienia udzielone każdej z witryn próbujących użyć Gears."</string>
+    <string name="filepicker_message">"Gears — wybieranie pliku"</string>
+    <string name="image_message">"Wybrany obraz"</string>
+    <string name="settings_title">"Gears — ustawienia"</string>
+    <string name="privacy_policy">"Przeczytaj zasady zachowania poufności informacji witryny, aby dowiedzieć się, jak będą użyte informacje o twojej lokalizacji."</string>
+    <string name="permission_button_alwaysdeny">"Nigdy nie zezwalaj tej witrynie"</string>
+    <string name="permission_button_allow">"Zezwól"</string>
+    <string name="permission_button_deny">"Odmów"</string>
+    <string name="shortcut_button_alwaysdeny">"Nigdy nie zezwalaj temu skrótowi"</string>
+    <string name="shortcut_button_allow">"OK"</string>
+    <string name="shortcut_button_deny">"Anuluj"</string>
+    <string name="settings_button_allow">"Zastosuj"</string>
+    <string name="settings_button_deny">"Anuluj"</string>
+    <string name="filepicker_button_allow">"OK"</string>
+    <string name="filepicker_button_deny">"Anuluj"</string>
+    <string name="filepicker_path">"ścieżka:"</string>
+    <string name="filepicker_no_files_selected">"Nie wybrano żadnych plików"</string>
+    <string name="filepicker_one_file_selected">"Wybrano jeden plik"</string>
+    <string name="filepicker_some_files_selected">"plików wybrano"</string>
+    <string name="remove">"Usuń"</string>
+    <string name="local_storage">"Pamięć lokalna"</string>
+    <string name="allowed">"Zezwolono"</string>
+    <string name="denied">"Odmówiono"</string>
+    <string name="unrecognized_dialog_message">"Nierozpoznany typ okna dialogowego"</string>
+    <string name="default_button">"OK"</string>
+</resources>

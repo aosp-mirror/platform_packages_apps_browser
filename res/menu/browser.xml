@@ -58,6 +58,8 @@
         <item android:id="@+id/find_menu_id"
             android:title="@string/find_dot" 
             android:alphabeticShortcut="f" />
+        <item android:id="@+id/select_text_id"
+            android:title="@string/select_dot" />
         <item android:id="@+id/page_info_menu_id"
             android:title="@string/page_info" />
         <item android:id="@+id/bookmark_page_menu_id"

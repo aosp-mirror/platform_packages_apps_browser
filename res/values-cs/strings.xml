@@ -1,363 +1,303 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="sign_in_to">"Přihlásit k <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
-    <string name="username">"Jméno"</string>
+    <string name="sign_in_to">"Přihlásit se: <xliff:g id="HOSTNAME">%s1</xliff:g> <xliff:g id="REALM">%s2</xliff:g>"</string>
+    <string name="username">"Název"</string>
     <string name="password">"Heslo"</string>
     <string name="action">"Přihlásit se"</string>
-    <string name="cancel">"Storno"</string>
+    <string name="cancel">"Zrušit"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">"Nalezené výsledky:"</string>
-    <string name="zero">"0"</string>
-    <!-- no translation found for page_info (1656227822243993707) -->
-    <skip />
-    <!-- no translation found for page_info_view (159850381944181348) -->
-    <skip />
-    <!-- no translation found for page_info_address (2265093697152452560) -->
-    <skip />
-    <string name="ssl_warnings_header">"Došlo k potížím s certifikátem zabezpečení tohoto webu"</string>
+    <string name="matches_found">"shod"</string>
+    <string name="zero">"Ne"</string>
+    <string name="page_info">"Informace o stránce"</string>
+    <string name="page_info_view">"Zobrazit informace o stránce"</string>
+    <string name="page_info_address">"Adresa:"</string>
+    <string name="ssl_warnings_header">"Vyskytly se problémy s certifikátem zabezpečení tohoto webu."</string>
     <string name="ssl_continue">"Pokračovat"</string>
     <string name="security_warning">"Upozornění zabezpečení"</string>
     <string name="view_certificate">"Zobrazit certifikát"</string>
-    <string name="ssl_untrusted">"Tento certifikát nepochází od důvěryhodného certifikačního úřadu"</string>
-    <string name="ssl_mismatch">"Neshoda názvu hostitele"</string>
-    <string name="ssl_expired">"Platnost tohoto certifikátu vypršela"</string>
-    <string name="ssl_not_yet_valid">"Tento certifikát ještě není platný"</string>
-    <string name="ssl_certificate">"Certifikát"</string>
-    <string name="ssl_certificate_is_valid">"Tento certifikát je platný"</string>
-    <string name="issued_to">"Vystaveno pro:"</string>
-    <string name="common_name">"Obecné jméno:"</string>
+    <string name="ssl_untrusted">"Tento certifikát nepochází od důvěryhodné autority."</string>
+    <string name="ssl_mismatch">"Název webu se neshoduje s názvem uvedeným v certifikátu."</string>
+    <string name="ssl_expired">"Platnost certifikátu vypršela."</string>
+    <string name="ssl_not_yet_valid">"Tento certifikát zatím není platný."</string>
+    <string name="ssl_certificate">"Certifikát zabezpečení"</string>
+    <string name="ssl_certificate_is_valid">"Tento certifikát je platný."</string>
+    <string name="issued_to">"Vydáno komu:"</string>
+    <string name="common_name">"Běžný název:"</string>
     <string name="org_name">"Organizace:"</string>
     <string name="org_unit">"Organizační jednotka:"</string>
-    <string name="issued_by">"Vystavitel:"</string>
-    <!-- no translation found for validity_period (1501896257332312390) -->
-    <skip />
-    <!-- no translation found for issued_on (414564986069254430) -->
-    <skip />
-    <!-- no translation found for expires_on (6391846087921048527) -->
-    <skip />
-    <!-- no translation found for retrieving_creds_dlg_msg (7567204449190054542) -->
-    <skip />
+    <string name="issued_by">"Vydal:"</string>
+    <string name="validity_period">"Platnost:"</string>
+    <string name="issued_on">"Datum vydání:"</string>
+    <string name="expires_on">"Platnost vyprší:"</string>
+    <string name="retrieving_creds_dlg_msg">"Načítání podrobností pro přihlášení..."</string>
     <string name="close">"Zavřít"</string>
-    <!-- no translation found for close_window (4303233575176107684) -->
-    <skip />
-    <string name="stopping">"Zastavení…"</string>
+    <string name="close_window">"Toto okno bude zavřeno."</string>
+    <string name="stopping">"Zastavuji..."</string>
     <string name="stop">"Zastavit"</string>
-    <string name="reload">"Aktualizovat"</string>
+    <string name="reload">"Obnovit"</string>
     <string name="back">"Zpět"</string>
     <string name="forward">"Předat dál"</string>
-    <string name="save">"Uložit"</string>
-    <string name="do_not_save">"Neukládat"</string>
-    <string name="location">"Umístění"</string>
+    <string name="save">"OK"</string>
+    <string name="do_not_save">"Zrušit"</string>
+    <string name="location">"Lokalita"</string>
     <string name="name">"Název"</string>
     <string name="http">"http://"</string>
-    <string name="save_to_bookmarks">"Uložit do záložek"</string>
+    <string name="save_to_bookmarks">"Přidat do záložek"</string>
     <string name="edit_bookmark">"Upravit záložku"</string>
-    <!-- no translation found for create_shortcut_bookmark (8844594917529938681) -->
-    <skip />
-    <string name="open_bookmark">"Zobrazit webovou stránku"</string>
-    <string name="remove_bookmark">"Odstranit záložku"</string>
-    <!-- no translation found for remove_history_item (7324190140276838017) -->
-    <skip />
-    <string name="bookmark_saved">"Uloženo do záložek"</string>
-    <string name="bookmark_needs_title">"Záložka musí mít název!"</string>
-    <string name="bookmark_needs_url">"Záložka musí mít umístění!"</string>
-    <string name="empty_bookmark">"Nelze vytvořit prázdnou záložku!"</string>
-    <string name="bookmark_url_not_valid">"Adresa URL je neplatná!"</string>
-    <string name="delete_bookmark">"Odstranit záložku?"</string>
-    <!-- no translation found for bookmark_page (3160265153559879995) -->
-    <skip />
+    <string name="create_shortcut_bookmark">"Přidat odkaz na plochu"</string>
+    <string name="open_bookmark">"Otevřít"</string>
+    <string name="remove_bookmark">"Smazat záložku"</string>
+    <string name="remove_history_item">"Odstranit z historie"</string>
+    <string name="bookmark_saved">"Uloženo do záložek."</string>
+    <string name="bookmark_needs_title">"Záložka musí mít název."</string>
+    <string name="bookmark_needs_url">"Záložka musí mít umístění."</string>
+    <string name="empty_bookmark">"Nelze vytvořit prázdnou záložku."</string>
+    <string name="bookmark_url_not_valid">"Adresa URL není platná."</string>
+    <string name="delete_bookmark">"Smazat"</string>
+    <string name="bookmark_page">"Přidat poslední zobrazenou stránku do záložek"</string>
     <string name="current_page">"Aktuální stránka:"</string>
-    <string name="delete_bookmark_warning">"Odstranit \"<xliff:g id="BOOKMARK">%s</xliff:g>\"?"</string>
-    <string name="open_in_new_window">"Otevřít v novém okně"</string>
+    <string name="delete_bookmark_warning">"Záložka <xliff:g id="BOOKMARK">%s</xliff:g> bude smazána."</string>
+    <string name="open_in_new_window">"Otevřít v novém okně"</string>
     <string name="new_window">"Nové okno"</string>
-    <string name="goto_dot">"Přejít…"</string>
-    <string name="find_dot">"Najít…"</string>
-    <string name="homepage">"Domovská stránka"</string>
+    <string name="goto_dot">"Přejít na adresu URL"</string>
+    <string name="find_dot">"Vyhledat na stránce"</string>
+    <string name="homepage">"Plocha"</string>
     <string name="view_tabs">"Přehled okna"</string>
-    <string name="view_tabs_condensed">"Okna"</string>
+    <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"Aktuální okna"</string>
     <string name="tab_picker_view_tab">"Zobrazit"</string>
-    <string name="tab_picker_new_tab">"Otevřít nové okno"</string>
+    <string name="tab_picker_new_tab">"Nové okno"</string>
     <string name="tab_picker_remove_tab">"Zavřít"</string>
-    <string name="tab_picker_bookmark">"Záložka"</string>
-    <string name="tab_picker_send_url">"Odeslat adresu URL"</string>
+    <string name="tab_picker_bookmark">"Přidat do záložek"</string>
+    <string name="tab_picker_send_url">"Sdílet odkaz"</string>
     <string name="bookmarks">"Záložky"</string>
-    <!-- no translation found for shortcut_bookmark (2216457055118901642) -->
-    <skip />
+    <string name="shortcut_bookmark">"Přidat do záložek"</string>
     <string name="history">"Historie"</string>
-    <string name="menu_view_download">"Zobrazit soubory ke stažení"</string>
-    <!-- no translation found for menu_bookmark_page (3665522585178656450) -->
-    <skip />
-    <!-- no translation found for share_page (8692293666665880742) -->
-    <skip />
-    <string name="menu_zoom">"Lupa"</string>
-    <!-- no translation found for menu_flip_orientation (2091430534812676789) -->
-    <skip />
-    <string name="contextmenu_openlink">"Otevřít odkaz"</string>
-    <string name="contextmenu_openlink_newwindow">"Otevřít v novém okně"</string>
+    <string name="menu_view_download">"Stahování"</string>
+    <string name="menu_bookmark_page">"Stránka Záložky"</string>
+    <string name="share_page">"Sdílet stránku"</string>
+    <string name="menu_zoom">"Přiblížení"</string>
+    <string name="menu_flip_orientation">"Změnit orientaci"</string>
+    <string name="contextmenu_openlink">"Otevřít"</string>
+    <string name="contextmenu_openlink_newwindow">"Otevřít v novém okně"</string>
     <string name="contextmenu_bookmark_thislink">"Přidat odkaz do záložek"</string>
-    <!-- no translation found for contextmenu_savelink (4158359991031234655) -->
-    <skip />
-    <!-- no translation found for contextmenu_sharelink (7783642077260444452) -->
-    <skip />
-    <!-- no translation found for contextmenu_copy (4371155644923777927) -->
-    <skip />
-    <string name="contextmenu_copylink">"Kopírovat odkaz"</string>
-    <string name="contextmenu_download_image">"Stáhnout obrázek"</string>
-    <!-- no translation found for contextmenu_view_image (531069860166711980) -->
-    <skip />
-    <!-- no translation found for contextmenu_dial_dot (6240101001071843117) -->
-    <skip />
-    <!-- no translation found for contextmenu_add_contact (8251406599209677565) -->
-    <skip />
-    <!-- no translation found for contextmenu_send_mail (1725214944636787835) -->
-    <skip />
-    <!-- no translation found for contextmenu_map (5651794703520905543) -->
-    <skip />
+    <string name="contextmenu_savelink">"Uložit odkaz"</string>
+    <string name="contextmenu_sharelink">"Sdílet odkaz"</string>
+    <string name="contextmenu_copy">"Kopírovat"</string>
+    <string name="contextmenu_copylink">"Kopírovat adresu URL odkazu"</string>
+    <string name="contextmenu_download_image">"Uložit obrázek"</string>
+    <string name="contextmenu_view_image">"Zobrazit obrázek"</string>
+    <string name="contextmenu_dial_dot">"Volat..."</string>
+    <string name="contextmenu_add_contact">"Přidat kontakt"</string>
+    <string name="contextmenu_send_mail">"Odeslat e-mail"</string>
+    <string name="contextmenu_map">"Mapa"</string>
     <string name="clear">"Vymazat"</string>
     <string name="replace">"Nahradit"</string>
     <string name="browser_bookmarks_page_bookmarks_text">"Záložky"</string>
     <string name="menu_preferences">"Nastavení"</string>
     <string name="pref_content_title">"Nastavení obsahu stránky"</string>
-    <string name="pref_content_load_images">"Načítat obrázky"</string>
-    <string name="pref_content_load_images_summary">"Obrázky budou načítány s webovými stránkami"</string>
-    <string name="pref_content_block_popups">"Blokovat automaticky otevíraná okna"</string>
+    <string name="pref_content_load_images">"Načíst obrázky"</string>
+    <string name="pref_content_load_images_summary">"Zobrazovat obrázky na webových stránkách"</string>
+    <string name="pref_content_block_popups">"Blokovat vyskakovací okna"</string>
     <string name="pref_content_javascript">"Povolit JavaScript"</string>
     <string name="pref_content_open_in_background">"Otevřít na pozadí"</string>
-    <string name="pref_content_open_in_background_summary">"Otevře nová okna na pozadí"</string>
-    <!-- no translation found for pref_content_homepage (2991649697673532692) -->
-    <skip />
-    <!-- no translation found for pref_content_autofit (1364437137234703707) -->
-    <skip />
-    <!-- no translation found for pref_content_autofit_summary (444470842722907601) -->
-    <skip />
+    <string name="pref_content_open_in_background_summary">"Nová okna budou otevřena za aktuálním"</string>
+    <string name="pref_content_homepage">"Nastavit domovskou stránku"</string>
+    <string name="pref_content_autofit">"Automaticky přizpůsobit stránky"</string>
+    <string name="pref_content_autofit_summary">"Přizpůsobit velikost webových stránek obrazovce"</string>
     <string name="pref_privacy_title">"Nastavení ochrany osobních údajů"</string>
     <string name="pref_privacy_clear_cache">"Vymazat mezipaměť"</string>
-    <string name="pref_privacy_clear_cache_summary">"Vymaže mezipaměť prohlížeče"</string>
-    <string name="pref_privacy_clear_cache_dlg">"Vymazat mezipaměť?"</string>
-    <string name="pref_privacy_clear_cookies">"Vymazat soubory cookie"</string>
-    <string name="pref_privacy_clear_cookies_summary">"Vymaže všechny soubory cookie prohlížeče"</string>
-    <string name="pref_privacy_clear_cookies_dlg">"Vymazat všechny soubory cookie?"</string>
+    <string name="pref_privacy_clear_cache_summary">"Smazat veškerý obsah stránek v mezipaměti"</string>
+    <string name="pref_privacy_clear_cache_dlg">"Mezipaměť bude vymazána."</string>
+    <string name="pref_privacy_clear_cookies">"Vymazat všechny soubory cookie"</string>
+    <string name="pref_privacy_clear_cookies_summary">"Vymazat všechny soubory cookie prohlížeče"</string>
+    <string name="pref_privacy_clear_cookies_dlg">"Všechny soubory cookie budou smazány."</string>
     <string name="pref_privacy_clear_history">"Vymazat historii"</string>
-    <string name="pref_privacy_clear_history_summary">"Vymaže historii navigace prohlížeče"</string>
-    <string name="pref_privacy_clear_history_dlg">"Vymazat historii prohlížeče?"</string>
+    <string name="pref_privacy_clear_history_summary">"Vymazat historii stránek prohlížeče"</string>
+    <string name="pref_privacy_clear_history_dlg">"Historie stránek prohlížeče bude vymazána."</string>
     <string name="pref_privacy_clear_form_data">"Vymazat data formulářů"</string>
-    <string name="pref_privacy_clear_form_data_summary">"Vymaže všechna uložená data formulářů"</string>
-    <string name="pref_privacy_clear_form_data_dlg">"Vymazat uložená data formulářů?"</string>
+    <string name="pref_privacy_clear_form_data_summary">"Vymazat všechna uložená data formulářů"</string>
+    <string name="pref_privacy_clear_form_data_dlg">"Všechna uložená data formulářů budou vymazána."</string>
     <string name="pref_privacy_clear_passwords">"Vymazat hesla"</string>
-    <string name="pref_privacy_clear_passwords_summary">"Vymaže všechna uložená hesla"</string>
-    <string name="pref_privacy_clear_passwords_dlg">"Vymazat všechna uložená hesla?"</string>
+    <string name="pref_privacy_clear_passwords_summary">"Vymazat všechna uložená hesla"</string>
+    <string name="pref_privacy_clear_passwords_dlg">"Všechna uložená hesla budou vymazána."</string>
     <string name="pref_security_title">"Nastavení zabezpečení"</string>
     <string name="pref_security_remember_passwords">"Zapamatovat hesla"</string>
-    <string name="pref_security_remember_passwords_summary">"Povolí zapamatování uživatelských jmen a hesel na webech"</string>
-    <string name="pref_security_save_form_data">"Zapamatovat data formulářů"</string>
-    <string name="pref_security_save_form_data_summary">"Povolí zapamatování údajů zadaných do formulářů k pozdějšímu použití"</string>
-    <string name="pref_security_show_security_warning">"Zobrazovat upozornění zabezpečení"</string>
-    <string name="pref_security_show_security_warning_summary">"Zobrazí upozornění v případě potíží se zabezpečeným webem"</string>
+    <string name="pref_security_remember_passwords_summary">"Ukládat uživatelská jména a hesla na webových stránkách"</string>
+    <string name="pref_security_save_form_data">"Zapamatovat data formuláře"</string>
+    <string name="pref_security_save_form_data_summary">"Zapamatovat si data, která zadám do formulářů, pro další použití"</string>
+    <string name="pref_security_show_security_warning">"Zobrazit upozornění zabezpečení"</string>
+    <string name="pref_security_show_security_warning_summary">"Zobrazit upozornění, pokud dojde k problému se zabezpečením webu"</string>
     <string name="pref_security_accept_cookies">"Přijímat soubory cookie"</string>
-    <string name="pref_security_accept_cookies_summary">"Povolí prohlížeči pracovat se soubory cookie"</string>
-    <string name="pref_text_size">"Velikost textu"</string>
-    <!-- no translation found for pref_text_size_choices:0 (4457326528950972067) -->
-    <!-- no translation found for pref_text_size_choices:1 (1555986354512273606) -->
-    <!-- no translation found for pref_text_size_choices:2 (8305896588786870094) -->
-    <!-- no translation found for pref_text_size_choices:3 (696418588578389970) -->
-    <!-- no translation found for pref_text_size_choices:4 (369126115416730900) -->
+    <string name="pref_security_accept_cookies_summary">"Povolit webům ukládat a číst soubory cookie"</string>
+    <string name="pref_text_size">"Nastavení velikosti textu"</string>
+  <string-array name="pref_text_size_choices">
+    <item>"Malá"</item>
+    <item>"Malé"</item>
+    <item>"Běžné"</item>
+    <item>"Velké"</item>
+    <item>"Velké"</item>
+  </string-array>
     <string name="pref_text_size_dialogtitle">"Velikost textu"</string>
-    <string name="pref_extras_title">"Doplňky"</string>
-    <!-- no translation found for pref_extras_gears_enable (4340581939678973961) -->
-    <skip />
-    <!-- no translation found for pref_extras_gears_enable_summary (8268383434639752615) -->
-    <skip />
-    <!-- no translation found for pref_extras_gears_settings (8134598592309505365) -->
-    <skip />
-    <string name="pref_plugin_installed">"Nainstalované moduly plug-in"</string>
-    <string name="pref_plugin_installed_empty_list">"Žádné nainstalované moduly plug-in"</string>
-    <!-- no translation found for pref_extras_gears_settings_summary (4977594917280947221) -->
-    <skip />
-    <string name="pref_extras_reset_default">"Obnovit nastavení"</string>
-    <string name="pref_extras_reset_default_summary">"Obnovit výchozí nastavení všech hodnot"</string>
-    <string name="pref_extras_reset_default_dlg">"Obnovit výchozí nastavení?"</string>
-    <!-- no translation found for pref_extras_reset_default_dlg_title (3219857287210097506) -->
-    <skip />
+    <string name="pref_extras_title">"Upřesnit nastavení"</string>
+    <string name="pref_extras_gears_enable">"Povolit službu Gears"</string>
+    <string name="pref_extras_gears_enable_summary">"Aplikace, které rozšiřují funkce prohlížeče"</string>
+    <string name="pref_extras_gears_settings">"Nastavení služby Gears"</string>
+    <string name="pref_plugin_installed">"Seznam pluginů"</string>
+    <string name="pref_plugin_installed_empty_list">"Nejsou nainstalované žádné pluginy."</string>
+    <string name="pref_extras_gears_settings_summary">"Aplikace, které rozšiřují funkce prohlížeče"</string>
+    <string name="pref_extras_reset_default">"Obnovit výchozí"</string>
+    <string name="pref_extras_reset_default_summary">"Vymazat všechna data prohlížeče a obnovit všechna nastavení na výchozí hodnoty"</string>
+    <string name="pref_extras_reset_default_dlg">"Všechna data prohlížeče budou vymazána a bude použito výchozí nastavení."</string>
+    <string name="pref_extras_reset_default_dlg_title">"Obnovit výchozí"</string>
     <string name="pref_development_title">"Ladit"</string>
-    <string name="pref_development_viewport">"Používat širokou pracovní oblast"</string>
-    <string name="pref_development_single_column_rendering">"Zobrazování v jednom sloupci"</string>
-    <string name="pref_development_normal_rendering">"Normální zobrazování"</string>
-    <string name="pref_development_trace">"Povolit trasování"</string>
-    <string name="pref_development_nav_dump">"Povolit výpis mezipaměti navigace"</string>
-    <string name="pref_development_uastring">"Řetězec Desktop UA"</string>
-    <!-- no translation found for pref_development_ua_choices:0 (8502182137122977907) -->
-    <!-- no translation found for pref_development_ua_choices:1 (1998909307307679470) -->
-    <!-- no translation found for pref_development_ua_choices:2 (4853619775017483028) -->
-    <!-- no translation found for pref_development_ua_values:0 (3489778245340350674) -->
-    <!-- no translation found for pref_development_ua_values:1 (6221825100252834342) -->
-    <!-- no translation found for pref_development_ua_values:2 (5248227834068796732) -->
-    <!-- no translation found for pref_default_text_encoding (6304831623703726600) -->
-    <skip />
-    <!-- no translation found for pref_default_text_encoding_choices:0 (8765350839505971955) -->
-    <!-- no translation found for pref_default_text_encoding_choices:1 (77312792454464279) -->
-    <!-- no translation found for pref_default_text_encoding_choices:2 (2253146182935181942) -->
-    <!-- no translation found for pref_default_text_encoding_choices:3 (7817846505944009833) -->
-    <!-- no translation found for pref_default_text_encoding_choices:4 (2895188063888859356) -->
-    <!-- no translation found for pref_default_text_encoding_dialogtitle (3198813978566207575) -->
-    <skip />
-    <!-- no translation found for pref_default_text_encoding_default (6124114302615434355) -->
-    <skip />
-    <string name="browserFrameRedirect">"Přesměrovat"</string>
-    <string name="browserFrame307Post">"Tato webová stránka se nyní přesměruje. Chcete znovu odeslat zadaná data formuláře do nového umístění?"</string>
-    <string name="browserFrameNetworkErrorLabel">"Chyba sítě"</string>
-    <string name="browserFrameFileErrorLabel">"Chyba souboru"</string>
+    <string name="pref_development_viewport">"Use wide viewport"</string>
+    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
+    <string name="pref_development_normal_rendering">"Běžné vykreslování"</string>
+    <string name="pref_development_trace">"Enable tracing"</string>
+    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
+    <string name="pref_development_search_url">"Set search URL"</string>
+    <string name="pref_development_uastring">"UAString"</string>
+  <string-array name="pref_development_ua_choices">
+    <item>"Android"</item>
+    <item>"Desktop"</item>
+    <item>"iPhone"</item>
+  </string-array>
+  <string-array name="pref_development_ua_values">
+    <item>"0"</item>
+    <item>"1"</item>
+    <item>"2"</item>
+  </string-array>
+    <string name="pref_default_text_encoding">"Nastavení kódování textu"</string>
+  <string-array name="pref_default_text_encoding_choices">
+    <item>"Latin-1 (ISO-8859-1)"</item>
+    <item>"Unicode (UTF-8)"</item>
+    <item>"Japonština (ISO-2022-JP)"</item>
+    <item>"Japonština (SHIFT_JIS)"</item>
+    <item>"Japonština (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle">"Kódování textu"</string>
+    <string name="pref_default_text_encoding_default">"Latin-1"</string>
+    <string name="browserFrameRedirect">"Přesměrování"</string>
+    <string name="browserFrame307Post">"Probíhá přesměrování webové stránky. Chcete data zadaná do formuláře znovu odeslat do nového umístění?"</string>
+    <string name="browserFrameNetworkErrorLabel">"Problémy s datovým připojením"</string>
+    <string name="browserFrameFileErrorLabel">"Problém se souborem"</string>
     <string name="browserFrameFormResubmitLabel">"Potvrdit"</string>
-    <string name="browserFrameFormResubmitMessage">"Stránka, kterou chcete zobrazit, obsahuje data POSTDATA. Pokud znovu odešlete data, zopakují se všechny činnosti provedené formulářem (např. hledání nebo nakupování online)."</string>
-    <string name="loadSuspendedTitle">"Žádné pokrytí sítí!"</string>
-    <string name="loadSuspended">"Načítání stránky je pozastaveno a bude pokračovat po obnovení připojení"</string>
-    <!-- no translation found for clear_history (3513685511948114003) -->
-    <skip />
-    <string name="browser_history">"Historie prohlížeče"</string>
-    <!-- no translation found for empty_history (6213663891559716675) -->
-    <skip />
+    <string name="browserFrameFormResubmitMessage">"Stránka, kterou se pokoušíte zobrazit, obsahuje data, která již byla odeslána (POSTDATA). Pokud data odešlete znovu, jakákoli akce vykonaná pomocí formuláře na stránce bude provedena znovu (např. hledání či nákup online)."</string>
+    <string name="loadSuspendedTitle">"Žádné připojení k síti"</string>
+    <string name="loadSuspended">"Po obnovení připojení bude pokračovat načítání stránky."</string>
+    <string name="clear_history">"Vymazat historii"</string>
+    <string name="browser_history">"Nedávno navštívené stránky"</string>
+    <string name="empty_history">"Historie prohlížeče je prázdná."</string>
     <string name="add_new_bookmark">"Nová záložka"</string>
-    <string name="no_database">"Žádná databáze!"</string>
-    <!-- no translation found for search_hint (6901396674886953519) -->
-    <skip />
-    <!-- no translation found for search (4226978786484971503) -->
-    <skip />
-    <!-- no translation found for search_button_text (154992215859076652) -->
-    <skip />
-    <string name="js_dialog_title_prefix">"Stránka na adrese"</string>
-    <string name="js_dialog_title_suffix">"uvádí:"</string>
+    <string name="no_database">"Databáze neexistuje."</string>
+    <string name="search_hint">"Zadejte webovou adresu"</string>
+    <string name="search">"Hledat"</string>
+    <string name="search_button_text">"Přejít"</string>
+    <string name="js_dialog_title_prefix">"Sdělení ze stránky"</string>
+    <string name="js_dialog_title_suffix">":"</string>
     <string name="js_dialog_title_default">"JavaScript"</string>
-    <!-- no translation found for js_dialog_before_unload (6366800208412705478) -->
-    <skip />
-    <!-- no translation found for attention (2464961428524095045) -->
-    <skip />
-    <!-- no translation found for popup_window_attempt (8398708758010279253) -->
-    <skip />
-    <!-- no translation found for allow (975920461384028355) -->
-    <skip />
-    <!-- no translation found for block (8222234609302978844) -->
-    <skip />
-    <!-- no translation found for too_many_windows_dialog_title (7333114058131121612) -->
-    <skip />
-    <!-- no translation found for too_many_windows_dialog_message (5756910780171823582) -->
-    <skip />
-    <!-- no translation found for too_many_subwindows_dialog_title (2259095685014237401) -->
-    <skip />
-    <!-- no translation found for too_many_subwindows_dialog_message (8649268116653189359) -->
-    <skip />
+    <string name="js_dialog_before_unload">"Chcete opustit tuto stránku?"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"Vyberte OK, chcete-li pokračovat, nebo Zrušit, chcete-li na stránce zůstat."</string>
+    <string name="attention">"Upozornění"</string>
+    <string name="popup_window_attempt">"Tato stránka se pokouší otevřít vyskakovací okno."</string>
+    <string name="allow">"Povolit"</string>
+    <string name="block">"Blokovat"</string>
+    <string name="too_many_windows_dialog_title">"Bylo dosaženo maximálního počtu oken"</string>
+    <string name="too_many_windows_dialog_message">"Nové okno nelze otevřít, protože je již otevřen maximální počet oken."</string>
+    <string name="too_many_subwindows_dialog_title">"Vyskakovací okno je již otevřené"</string>
+    <string name="too_many_subwindows_dialog_message">"Nelze otevřít nové vyskakovací okno, protože může být otevřené pouze jedno."</string>
     <string name="download_title">"Historie stahování"</string>
-    <string name="download_unknown_filename">"&lt;Neznámý&gt;"</string>
+    <string name="download_unknown_filename">"&lt;Neznámé&gt;"</string>
     <string name="download_menu_open">"Otevřít"</string>
     <string name="download_menu_clear">"Vymazat ze seznamu"</string>
     <string name="download_menu_cancel">"Zrušit stahování"</string>
-    <string name="download_menu_cancel_all">"Zrušit stahování"</string>
+    <string name="download_menu_cancel_all">"Zrušit stahování všech souborů"</string>
     <string name="download_menu_clear_all">"Vymazat seznam"</string>
-    <string name="download_clear_dlg_title">"Vymazat historii stahování?"</string>
-    <string name="download_clear_dlg_msg">"Všechny položky budou vymazány ze seznamu a odebrány z mezipaměti prohlížeče."</string>
-    <string name="download_cancel_dlg_title">"Zrušit všechny soubory ke stažení?"</string>
-    <string name="download_cancel_dlg_msg">"Všech <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> souborů ke stažení bude zrušeno a vymazáno z historie stahování"</string>
-    <string name="download_file_error_dlg_title">"V zařízení je nedostatek volného místa!"</string>
-    <string name="download_file_error_dlg_msg">"Soubor <xliff:g id="FILENAME">%s</xliff:g> nelze stáhnout!"\n"Uvolněte místo a akci zopakujte"</string>
-    <!-- no translation found for download_failed_generic_dlg_title (8562717866914682645) -->
-    <skip />
-    <string name="download_no_sdcard_dlg_title">"Karta SD chybí"</string>
-    <string name="download_no_sdcard_dlg_msg">"Ke stažení souboru <xliff:g id="FILENAME">%s</xliff:g> je požadována karta SD"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_title (3567893864853166417) -->
-    <skip />
-    <!-- no translation found for download_sdcard_busy_dlg_msg (1001912975692187541) -->
-    <skip />
-    <!-- no translation found for download_no_application (5265347124243427089) -->
-    <skip />
-    <string name="retry">"Opakovat"</string>
-    <!-- no translation found for no_downloads (7894879851319497472) -->
-    <skip />
-    <string name="download_error">"Chyba"</string>
-    <string name="download_success">"Stahování souboru <xliff:g id="FILE">%s</xliff:g> dokončeno"</string>
-    <string name="download_running">"Stahování"</string>
-    <string name="download_pending">"Zahájení stahování…"</string>
-    <string name="download_pending_network">"Čekání na síť…"</string>
-    <string name="download_running_paused">"Čekání na síť…"</string>
-    <string name="download_canceled">"Zrušeno"</string>
-    <string name="download_not_acceptable">"Nelze stáhnout; obsah není podporován"</string>
-    <string name="download_file_error">"Stahování nelze dokončit; není dostatek volného místa."</string>
-    <string name="download_length_required">"Nelze stáhnout; nelze zjistit velikost obsahu"</string>
-    <string name="download_precondition_failed">"Stahování bylo přerušeno a nelze jej obnovit"</string>
-    <string name="activity_instrumentation_test_runner">"Spouštěč testu prohlížeče"</string>
-    <!-- no translation found for bookmarks:0 (2669626530219651906) -->
-    <!-- no translation found for bookmarks:1 (8920188753455673436) -->
-    <!-- no translation found for bookmarks:2 (5890527770397510829) -->
-    <!-- no translation found for bookmarks:3 (634634678612400806) -->
-    <!-- no translation found for bookmarks:4 (4132740574133762086) -->
-    <!-- no translation found for bookmarks:5 (6510542478033180946) -->
-    <!-- no translation found for bookmarks:6 (5667186751799051943) -->
-    <!-- no translation found for bookmarks:7 (3378357885957076220) -->
-    <!-- no translation found for bookmarks:8 (2727431815822096867) -->
-    <!-- no translation found for bookmarks:9 (7949295853613367991) -->
-    <!-- no translation found for bookmarks:10 (5985757861847203946) -->
-    <!-- no translation found for bookmarks:11 (6260770464856553368) -->
-    <!-- no translation found for bookmarks:12 (4463319277329080059) -->
-    <!-- no translation found for bookmarks:13 (2636025423846695074) -->
-    <!-- no translation found for bookmarks:14 (2643133601978453087) -->
-    <!-- no translation found for bookmarks:15 (8995994276785373352) -->
-    <!-- no translation found for bookmarks:16 (4894838772550822052) -->
-    <!-- no translation found for bookmarks:17 (7081430327955247093) -->
-    <!-- no translation found for bookmarks:18 (2796182980773740417) -->
-    <!-- no translation found for bookmarks:19 (1324322519589241668) -->
-    <!-- no translation found for bookmarks:20 (1055922756345330887) -->
-    <!-- no translation found for bookmarks:21 (1518235964411311132) -->
-    <!-- no translation found for bookmarks:22 (8138495122223575936) -->
-    <!-- no translation found for bookmarks:23 (8289313955121188870) -->
-    <!-- no translation found for bookmarks:24 (7125621759895702022) -->
-    <!-- no translation found for bookmarks:25 (7609322002140654607) -->
-    <!-- no translation found for permlab_browserHistoryBookmarks (5493497627955922660) -->
-    <skip />
-    <!-- no translation found for permdesc_browserHistoryBookmarksr (3171543258112427347) -->
-    <skip />
-    <!-- no translation found for query_data_message (7140709852400117779) -->
-    <skip />
-    <!-- no translation found for location_message (6511630893995463975) -->
-    <skip />
-    <!-- no translation found for shortcut_message (5568077355697048834) -->
-    <skip />
-    <!-- no translation found for settings_message (1701958693991922301) -->
-    <skip />
-    <!-- no translation found for filepicker_message (5531754350158888098) -->
-    <skip />
-    <!-- no translation found for settings_title (32825391041790606) -->
-    <skip />
-    <!-- no translation found for privacy_policy (1087157192372256439) -->
-    <skip />
-    <!-- no translation found for permission_button_alwaysdeny (7803128350369883866) -->
-    <skip />
-    <!-- no translation found for permission_button_allow (7881835043864608428) -->
-    <skip />
-    <!-- no translation found for permission_button_deny (3548320067085927679) -->
-    <skip />
-    <!-- no translation found for shortcut_button_alwaysdeny (6308157245982840996) -->
-    <skip />
-    <!-- no translation found for shortcut_button_allow (8498946786971248422) -->
-    <skip />
-    <!-- no translation found for shortcut_button_deny (3940523612393573649) -->
-    <skip />
-    <!-- no translation found for settings_button_allow (7851054650645187901) -->
-    <skip />
-    <!-- no translation found for settings_button_deny (3326471281560175933) -->
-    <skip />
-    <!-- no translation found for filepicker_button_allow (5240552202985777948) -->
-    <skip />
-    <!-- no translation found for filepicker_button_deny (1051766005354192724) -->
-    <skip />
-    <!-- no translation found for remove (2594370161087626837) -->
-    <skip />
-    <!-- no translation found for local_storage (5763760818741582585) -->
-    <skip />
-    <!-- no translation found for allowed (8924273826726032911) -->
-    <skip />
-    <!-- no translation found for denied (6492706120626219130) -->
-    <skip />
-    <!-- no translation found for unrecognized_dialog_message (3815294112748134088) -->
-    <skip />
-    <!-- no translation found for default_button (1348925503811332932) -->
-    <skip />
+    <string name="download_clear_dlg_title">"Vymazat"</string>
+    <string name="download_clear_dlg_msg">"Všechny položky v seznamu budou vymazány a odstraněny z mezipaměti prohlížeče."</string>
+    <string name="download_cancel_dlg_title">"Zrušit stahování"</string>
+    <string name="download_cancel_dlg_msg">"Stahování všech souborů (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) bude zrušeno a soubory budou vymazány z historie stahování."</string>
+    <string name="download_file_error_dlg_title">"Nedostatek místa"</string>
+    <string name="download_file_error_dlg_msg">"Soubor <xliff:g id="FILENAME">%s</xliff:g> nelze stáhnout."\n"Uvolněte paměť telefonu a akci opakujte."</string>
+    <string name="download_failed_generic_dlg_title">"Stahování bylo neúspěšné"</string>
+    <string name="download_no_sdcard_dlg_title">"Žádná karta SD není dostupná."</string>
+    <string name="download_no_sdcard_dlg_msg">"Na kartu SD je třeba stáhnout soubor <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_sdcard_busy_dlg_title">"Karta SD není dostupná"</string>
+    <string name="download_sdcard_busy_dlg_msg">"Karta SD je zaneprázdněná. Chcete-li povolit stahování, přejděte na Plochu &gt; Nastavení &gt; Karta SD a paměť telefonu a zrušte zaškrtnutí políčka Použít jako paměťové zařízení USB."</string>
+    <string name="download_no_application">"Nebyla nalezena žádná aplikace, ve které lze tento soubor otevřít."</string>
+    <string name="retry">"Zkusit znovu"</string>
+    <string name="no_downloads">"Historie stahování je prázdná."</string>
+    <string name="download_error">"Stahování bylo neúspěšné."</string>
+    <string name="download_success">"<xliff:g id="FILE">%s</xliff:g> Stahování dokončeno."</string>
+    <string name="download_running">"Stahování..."</string>
+    <string name="download_pending">"Zahájení stahování..."</string>
+    <string name="download_pending_network">"Čekání na datové připojení..."</string>
+    <string name="download_running_paused">"Čekání na datové připojení..."</string>
+    <string name="download_canceled">"Stahování bylo zrušeno."</string>
+    <string name="download_not_acceptable">"Nelze stáhnout. Tento obsah není telefonem podporován."</string>
+    <string name="download_file_error">"Stahování nelze dokončit. Není dostatek místa."</string>
+    <string name="download_length_required">"Nelze stáhnout. Velikost položky nelze určit."</string>
+    <string name="download_precondition_failed">"Stahování bylo přerušeno a nelze v něm pokračovat."</string>
+    <string name="activity_instrumentation_test_runner">"Testovací verze prohlížeče"</string>
+  <string-array name="bookmarks">
+    <item>"Google"</item>
+    <item>"http://www.google.com/"</item>
+    <item>"Yahoo!"</item>
+    <item>"http://www.yahoo.com/"</item>
+    <item>"MSN"</item>
+    <item>"http://www.msn.com/"</item>
+    <item>"MySpace"</item>
+    <item>"http://www.myspace.com/"</item>
+    <item>"Facebook"</item>
+    <item>"http://www.facebook.com/"</item>
+    <item>"Wikipedia"</item>
+    <item>"http://www.wikipedia.org/"</item>
+    <item>"eBay"</item>
+    <item>"http://www.ebay.com/"</item>
+    <item>"CNN"</item>
+    <item>"http://www.cnn.com/"</item>
+    <item>"New York Times"</item>
+    <item>"http://www.nytimes.com/"</item>
+    <item>"ESPN"</item>
+    <item>"http://espn.go.com/"</item>
+    <item>"Amazon"</item>
+    <item>"http://www.amazon.com/"</item>
+    <item>"Weather Channel"</item>
+    <item>"http://www.weather.com/"</item>
+    <item>"BBC"</item>
+    <item>"http://www.bbc.co.uk/"</item>
+  </string-array>
+    <string name="permlab_readHistoryBookmarks">"čtení historie a záložek prohlížeče"</string>
+    <string name="permdesc_readHistoryBookmarks">"Umožňuje aplikaci číst všechny navštívené adresy URL a záložky prohlížeče."</string>
+    <string name="permlab_writeHistoryBookmarks">"zápis historie a záložek prohlížeče"</string>
+    <string name="permdesc_writeHistoryBookmarks">"Umožní aplikaci změnit historii či záložky prohlížeče uložené v telefonu. Škodlivé aplikace mohou pomocí tohoto nastavení vymazat či pozměnit data prohlížeče."</string>
+    <string name="query_data_message">"Níže uvedený web se pokouší do vašeho počítače uložit informace pomocí služby Gears."</string>
+    <string name="location_message">"Níže uvedený web se pomocí služby Gears pokouší získat přístup k informacím o vaší poloze."</string>
+    <string name="shortcut_message">"Tento web se na vašem počítači pokouší vytvořit zástupce. Chcete to povolit?"</string>
+    <string name="settings_message">"Níže uvedená tabulka zobrazuje oprávnění, která jste udělili jednotlivým webům, které se pokusily použít službu Gears."</string>
+    <string name="filepicker_message">"Vybírání souborů služby Gears"</string>
+    <string name="image_message">"Vybraný obrázek"</string>
+    <string name="settings_title">"Nastavení služby Gears"</string>
+    <string name="privacy_policy">"Chcete-li zjistit, jak bude vaše poloha využita, přečtěte si zásady ochrany osobních údajů těchto stránek."</string>
+    <string name="permission_button_alwaysdeny">"Nikdy nepovolit tento web"</string>
+    <string name="permission_button_allow">"Povolit"</string>
+    <string name="permission_button_deny">"Odepřít"</string>
+    <string name="shortcut_button_alwaysdeny">"Nikdy nepovolovat tento odkaz"</string>
+    <string name="shortcut_button_allow">"OK"</string>
+    <string name="shortcut_button_deny">"Zrušit"</string>
+    <string name="settings_button_allow">"Použít"</string>
+    <string name="settings_button_deny">"Zrušit"</string>
+    <string name="filepicker_button_allow">"OK"</string>
+    <string name="filepicker_button_deny">"Zrušit"</string>
+    <string name="filepicker_path">"cesta:"</string>
+    <string name="filepicker_no_files_selected">"Nebyly vybrány žádné soubory"</string>
+    <string name="filepicker_one_file_selected">"Byl vybrán jeden soubor"</string>
+    <string name="filepicker_some_files_selected">"souborů bylo vybráno"</string>
+    <string name="remove">"Odstranit"</string>
+    <string name="local_storage">"Místní úložiště"</string>
+    <string name="allowed">"Povoleno"</string>
+    <string name="denied">"Odepřeno"</string>
+    <string name="unrecognized_dialog_message">"Nerozpoznaný typ dialogu"</string>
+    <string name="default_button">"OK"</string>
 </resources>
