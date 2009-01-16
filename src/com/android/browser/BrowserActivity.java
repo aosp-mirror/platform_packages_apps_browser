@@ -1414,6 +1414,9 @@ public class BrowserActivity extends Activity
                 mMenuState = EMPTY_MENU;
                 break;
 
+            case R.id.select_text_id:
+                getTopWindow().emulateShiftHeld();
+                break;
             case R.id.page_info_menu_id:
                 showPageInfo(mTabControl.getCurrentTab(), false);
                 break;
