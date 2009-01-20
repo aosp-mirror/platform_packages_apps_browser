@@ -58,7 +58,7 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
         mValues = values[0];
 
         // Check to make sure we have a URI to download
-        String uri = mValues.getAsString(Downloads.URI);
+        String uri = mValues.getAsString(Downloads.COLUMN_URI);
         if (uri == null || uri.length() == 0) {
             return null;
         }
@@ -66,15 +66,15 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
         // User agent is likely to be null, though the AndroidHttpClient
         // seems ok with that.
         AndroidHttpClient client = AndroidHttpClient.newInstance(
-                mValues.getAsString(Downloads.USER_AGENT));
+                mValues.getAsString(Downloads.COLUMN_USER_AGENT));
         HttpHead request = new HttpHead(uri);
 
-        String cookie = mValues.getAsString(Downloads.COOKIE_DATA);
+        String cookie = mValues.getAsString(Downloads.COLUMN_COOKIE_DATA);
         if (cookie != null && cookie.length() > 0) {
             request.addHeader("Cookie", cookie);
         }
 
-        String referer = mValues.getAsString(Downloads.REFERER);
+        String referer = mValues.getAsString(Downloads.COLUMN_REFERER);
         if (referer != null && referer.length() > 0) {
             request.addHeader("Referer", referer);
         }
@@ -111,19 +111,19 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
    @Override
     public void onPostExecute(String mimeType) {
        if (mimeType != null) {
-           String url = mValues.getAsString(Downloads.URI);
+           String url = mValues.getAsString(Downloads.COLUMN_URI);
            if (mimeType.equalsIgnoreCase("text/plain") ||
                    mimeType.equalsIgnoreCase("application/octet-stream")) {
                String newMimeType =
                        MimeTypeMap.getSingleton().getMimeTypeFromExtension(
                            MimeTypeMap.getFileExtensionFromUrl(url));
                if (newMimeType != null) {
-                   mValues.put(Downloads.MIMETYPE, newMimeType);
+                   mValues.put(Downloads.COLUMN_MIME_TYPE, newMimeType);
                }
            }
            String filename = URLUtil.guessFileName(url,
                    null, mimeType);
-           mValues.put(Downloads.FILENAME_HINT, filename);
+           mValues.put(Downloads.COLUMN_FILE_NAME_HINT, filename);
        }
 
        // Start the download
