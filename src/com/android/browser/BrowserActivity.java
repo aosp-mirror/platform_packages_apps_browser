@@ -3427,19 +3427,19 @@ public class BrowserActivity extends Activity
         String cookies = CookieManager.getInstance().getCookie(url);
 
         ContentValues values = new ContentValues();
-        values.put(Downloads.URI, url);
-        values.put(Downloads.COOKIE_DATA, cookies);
-        values.put(Downloads.USER_AGENT, userAgent);
-        values.put(Downloads.NOTIFICATION_PACKAGE,
+        values.put(Downloads.COLUMN_URI, url);
+        values.put(Downloads.COLUMN_COOKIE_DATA, cookies);
+        values.put(Downloads.COLUMN_USER_AGENT, userAgent);
+        values.put(Downloads.COLUMN_NOTIFICATION_PACKAGE,
                 getPackageName());
-        values.put(Downloads.NOTIFICATION_CLASS,
+        values.put(Downloads.COLUMN_NOTIFICATION_CLASS,
                 BrowserDownloadPage.class.getCanonicalName());
-        values.put(Downloads.VISIBILITY, Downloads.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        values.put(Downloads.MIMETYPE, mimetype);
-        values.put(Downloads.FILENAME_HINT, filename);
-        values.put(Downloads.DESCRIPTION, Uri.parse(url).getHost());
+        values.put(Downloads.COLUMN_VISIBILITY, Downloads.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        values.put(Downloads.COLUMN_MIME_TYPE, mimetype);
+        values.put(Downloads.COLUMN_FILE_NAME_HINT, filename);
+        values.put(Downloads.COLUMN_DESCRIPTION, Uri.parse(url).getHost());
         if (contentLength > 0) {
-            values.put(Downloads.TOTAL_BYTES, contentLength);
+            values.put(Downloads.COLUMN_TOTAL_BYTES, contentLength);
         }
         if (mimetype == null) {
             // We must have long pressed on a link or image to download it. We
