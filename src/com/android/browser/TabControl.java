@@ -107,27 +107,6 @@ class TabControl {
             }
             mActivity.dismissSubWindow(mTab);
         }
-        // JavaScript functions
-        @Override
-        public boolean onJsAlert(WebView view, String url, String message,
-                JsResult result) {
-            return mClient.onJsAlert(view, url, message, result);
-        }
-        @Override
-        public boolean onJsConfirm(WebView view, String url, String message,
-                JsResult result) {
-            return mClient.onJsConfirm(view, url, message, result);
-        }
-        @Override
-        public boolean onJsPrompt(WebView view, String url, String message,
-                String initValue, JsPromptResult result) {
-            return mClient.onJsPrompt(view, url, message, initValue, result);
-        }
-        @Override
-        public boolean onJsBeforeUnload(WebView view, String url,
-                String message, JsResult result) {
-            return mClient.onJsBeforeUnload(view, url, message, result);
-        }
     }
     // Background WebChromeClient for focusing tabs
     private class BackgroundChromeClient extends WebChromeClient {

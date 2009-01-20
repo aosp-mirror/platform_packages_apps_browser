@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for application_name (1935869255545976415) -->
+    <skip />
     <string name="sign_in_to">"Connectez-vous à <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username">"Nom"</string>
     <string name="password">"Mot de passe"</string>
@@ -62,6 +64,8 @@
     <string name="new_window">"Nouvelle fenêtre"</string>
     <string name="goto_dot">"Accéder à l\'URL"</string>
     <string name="find_dot">"Rechercher sur la page"</string>
+    <!-- no translation found for select_dot (6299170761900561967) -->
+    <skip />
     <string name="homepage">"Page d\'accueil"</string>
     <string name="view_tabs">"Vue d\'ensemble des fenêtres"</string>
     <string name="view_tabs_condensed">"Windows"</string>
@@ -195,10 +199,6 @@
     <string name="search_hint">"Saisir l\'adresse Web"</string>
     <string name="search">"Rechercher"</string>
     <string name="search_button_text">"Aller"</string>
-    <string name="js_dialog_title_prefix">"La page à l\'adresse"</string>
-    <string name="js_dialog_title_suffix">"indique que :"</string>
-    <string name="js_dialog_title_default">"JavaScript"</string>
-    <string name="js_dialog_before_unload">"Vous souhaitez quitter cette page ?"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"Sélectionnez OK pour continuer ou Annuler pour rester sur la page actuelle."</string>
     <string name="attention">"Attention"</string>
     <string name="popup_window_attempt">"Le site tente d\'ouvrir une fenêtre contextuelle."</string>
     <string name="allow">"Autoriser"</string>

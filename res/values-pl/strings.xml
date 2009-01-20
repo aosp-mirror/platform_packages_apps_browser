@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for application_name (1935869255545976415) -->
+    <skip />
     <string name="sign_in_to">"Zaloguj się w witrynie <xliff:g id="HOSTNAME">%s1</xliff:g> „<xliff:g id="REALM">%s2</xliff:g>”"</string>
     <string name="username">"Nazwa"</string>
     <string name="password">"Hasło"</string>
@@ -62,6 +64,8 @@
     <string name="new_window">"Nowe okno"</string>
     <string name="goto_dot">"Przejdź pod adres URL"</string>
     <string name="find_dot">"Znajdź na stronie"</string>
+    <!-- no translation found for select_dot (6299170761900561967) -->
+    <skip />
     <string name="homepage">"Strona główna"</string>
     <string name="view_tabs">"Przegląd okien"</string>
     <string name="view_tabs_condensed">"Windows"</string>
@@ -195,10 +199,6 @@
     <string name="search_hint">"Wpisz adres WWW"</string>
     <string name="search">"Szukaj"</string>
     <string name="search_button_text">"Idź"</string>
-    <string name="js_dialog_title_prefix">"Strona pod adresem"</string>
-    <string name="js_dialog_title_suffix">"mówi:"</string>
-    <string name="js_dialog_title_default">"JavaScript"</string>
-    <string name="js_dialog_before_unload">"Czy opuścić tę stronę?"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"Wybierz polecenie OK, aby kontynuować, lub Anuluj, aby pozostać na tej stronie."</string>
     <string name="attention">"Uwaga"</string>
     <string name="popup_window_attempt">"Ta strona próbuje otworzyć okienko wyskakujące."</string>
     <string name="allow">"Zezwól"</string>

@@ -18,7 +18,7 @@
 
     <item android:id="@+id/download_menu_clear_all"
         android:title="@string/download_menu_clear_all" 
-        android:icon="@drawable/ic_menu_clear_playlist" />
+        android:icon="@*android:drawable/ic_menu_clear_playlist" />
     <item android:id="@+id/download_menu_cancel_all"
         android:title="@string/download_menu_cancel_all" 
         android:icon="@android:drawable/ic_menu_close_clear_cancel" />

@@ -465,20 +465,6 @@
     <!-- This is the button label in the "Go To" UI. -->
     <string name="search_button_text">Go</string>
 
-    <!-- Part of the title for a JavaScript dialog.  The full sentence says "The
-            page at <url of current page> says:" followed by the message
-            provided by the page -->
-    <string name="js_dialog_title_prefix">The page at</string>
-    <!-- Part of the title for a JavaScript dialog.  The full sentence says "The
-            page at <url of current page> says:" followed by the message
-            provided by the page -->
-    <string name="js_dialog_title_suffix">says:</string>
-    <!-- Default title for a javascript dialog -->
-    <string name="js_dialog_title_default">JavaScript</string>
-    <!-- Message in a javascript dialog asking if the user wishes to leave the
-             current page -->
-    <string name="js_dialog_before_unload">Navigate away from this page?\n\n<xliff:g id="message">%s</xliff:g>\n\nSelect OK to continue, or Cancel to stay on the current page.</string>
-
     <!-- Pop-up window dialog -->
     <!-- Title for a dialog informing the user that the site is attempting to
             display a popup window -->
