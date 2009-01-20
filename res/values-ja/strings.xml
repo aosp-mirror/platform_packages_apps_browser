@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for application_name (1935869255545976415) -->
+    <skip />
     <string name="sign_in_to">"<xliff:g id="HOSTNAME">%s1</xliff:g>に「<xliff:g id="REALM">%s2</xliff:g>」でログイン"</string>
     <string name="username">"名前"</string>
     <string name="password">"パスワード"</string>
@@ -62,6 +64,8 @@
     <string name="new_window">"新しいウィンドウ"</string>
     <string name="goto_dot">"URLに移動"</string>
     <string name="find_dot">"このページの検索"</string>
+    <!-- no translation found for select_dot (6299170761900561967) -->
+    <skip />
     <string name="homepage">"ホームページ"</string>
     <string name="view_tabs">"ウィンドウリスト"</string>
     <string name="view_tabs_condensed">"ウィンドウ"</string>
@@ -195,10 +199,6 @@
     <string name="search_hint">"ウェブアドレスを入力してください"</string>
     <string name="search">"検索"</string>
     <string name="search_button_text">"移動"</string>
-    <string name="js_dialog_title_prefix">"ページ"</string>
-    <string name="js_dialog_title_suffix">":"</string>
-    <string name="js_dialog_title_default">"JavaScript"</string>
-    <string name="js_dialog_before_unload">"このページから移動しますか？"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"続行する場合は[OK]、今のページに残る場合は[キャンセル]を選択してください。"</string>
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"このサイトはポップアップウィンドウを開こうとしています。"</string>
     <string name="allow">"許可"</string>

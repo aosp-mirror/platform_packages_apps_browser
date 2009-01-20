@@ -54,8 +54,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.WebAddress;
 import android.net.http.EventHandler;
@@ -63,7 +61,6 @@ import android.net.http.RequestQueue;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
@@ -78,7 +75,6 @@ import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
-import android.provider.Checkin;
 import android.provider.Contacts.Intents.Insert;
 import android.provider.Contacts;
 import android.provider.Downloads;
@@ -104,7 +100,6 @@ import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
@@ -112,8 +107,6 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
 import android.webkit.HttpAuthHandler;
-import android.webkit.JsPromptResult;
-import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
@@ -143,7 +136,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -151,7 +143,6 @@ import java.util.regex.Pattern;
 import java.util.Vector;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 public class BrowserActivity extends Activity
     implements KeyTracker.OnKeyTracker,
@@ -210,7 +201,8 @@ public class BrowserActivity extends Activity
 
                     if (googleUser == null || !hostedUser.equals(googleUser)) {
                         String domain = hostedUser.substring(hostedUser.lastIndexOf('@')+1);
-                        homepage = "http://www.google.com/m/a/" + domain;
+                        homepage = "http://www.google.com/m/a/" + domain + "?client=ms-" +
+                            SystemProperties.get("ro.com.google.clientid", "unknown");
                     }
                 } catch (RemoteException ignore) {
                     // Login service died; carry on
@@ -228,7 +220,7 @@ public class BrowserActivity extends Activity
                         resumeAfterCredentials();
 
                         // as this is running in a separate thread,
-                        // BrowserActivity's onDestroy() may have been called, 
+                        // BrowserActivity's onDestroy() may have been called,
                         // which also calls unbindService().
                         if (mGlsConnection != null) {
                             // we no longer need to keep GLS open
@@ -665,10 +657,8 @@ public class BrowserActivity extends Activity
         mGenericFavicon = getResources().getDrawable(
                 R.drawable.app_web_browser_sm);
 
-
-        mContentView = new FrameLayout(this);
-
-        setContentView(mContentView);
+        mContentView = (FrameLayout) getWindow().getDecorView().findViewById(
+                com.android.internal.R.id.content);
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);
@@ -773,7 +763,7 @@ public class BrowserActivity extends Activity
         }
         final String action = intent.getAction();
         final int flags = intent.getFlags();
-        if (Intent.ACTION_MAIN.equals(action) || 
+        if (Intent.ACTION_MAIN.equals(action) ||
                 (flags & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0) {
             // just resume the browser
             return;
@@ -786,7 +776,7 @@ public class BrowserActivity extends Activity
             if (url == null || url.length() == 0) {
                 url = mSettings.getHomePage();
             }
-            if (Intent.ACTION_VIEW.equals(action) && 
+            if (Intent.ACTION_VIEW.equals(action) &&
                     (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
                 // if FLAG_ACTIVITY_BROUGHT_TO_FRONT flag is on, the url will be
                 // opened in a new tab unless we have reached MAX_TABS. Then the
@@ -872,7 +862,7 @@ public class BrowserActivity extends Activity
 
     /**
      * Looking for the pattern like this
-     * 
+     *
      *          *
      *         * *
      *      ***   *     *******
@@ -890,7 +880,7 @@ public class BrowserActivity extends Activity
         public void onSensorChanged(int sensor, float[] values) {
             boolean show = false;
             float[] diff = new float[3];
-            
+
             for (int i = 0; i < 3; i++) {
                 diff[i] = values[i] - mPrev[i];
                 if (Math.abs(diff[i]) > 1) {
@@ -959,7 +949,7 @@ public class BrowserActivity extends Activity
 
         public void onAccuracyChanged(int sensor, int accuracy) {
             // TODO Auto-generated method stub
-            
+
         }
     };
 
@@ -1018,7 +1008,7 @@ public class BrowserActivity extends Activity
         // the default implementation requires each view to have an id. As the
         // browser handles the state itself and it doesn't use id for the views,
         // don't call the default implementation. Otherwise it will trigger the
-        // warning like this, "couldn't save which view has focus because the 
+        // warning like this, "couldn't save which view has focus because the
         // focused view XXX has no id".
 
         // Save all the tabs
@@ -1088,7 +1078,7 @@ public class BrowserActivity extends Activity
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        
+
         if (mPageInfoDialog != null) {
             mPageInfoDialog.dismiss();
             showPageInfo(
@@ -1132,7 +1122,7 @@ public class BrowserActivity extends Activity
     }
 
     private boolean resumeWebView() {
-        if ((!mActivityInPause && !mPageStarted) || 
+        if ((!mActivityInPause && !mPageStarted) ||
                 (mActivityInPause && mPageStarted)) {
             CookieSyncManager.getInstance().startSync();
             WebView w = mTabControl.getCurrentWebView();
@@ -1168,7 +1158,7 @@ public class BrowserActivity extends Activity
         mCredsDlg = new ProgressDialog(this);
         mCredsDlg.setIndeterminate(true);
         mCredsDlg.setMessage(getText(R.string.retrieving_creds_dlg_msg));
-        // If the user cancels the operation, then cancel the Google 
+        // If the user cancels the operation, then cancel the Google
         // Credentials request.
         mCredsDlg.setCancelMessage(mHandler.obtainMessage(CANCEL_CREDS_REQUEST));
         mCredsDlg.show();
@@ -1310,7 +1300,7 @@ public class BrowserActivity extends Activity
     }
 
     @Override
-    public void startSearch(String initialQuery, boolean selectInitialQuery, 
+    public void startSearch(String initialQuery, boolean selectInitialQuery,
             Bundle appSearchData, boolean globalSearch) {
         if (appSearchData == null) {
             appSearchData = createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_TYPE);
@@ -1429,11 +1419,11 @@ public class BrowserActivity extends Activity
                 Browser.saveBookmark(this, getTopWindow().getTitle(),
                         getTopWindow().getUrl());
                 break;
-                
+
             case R.id.share_page_menu_id:
                 Browser.sendString(this, getTopWindow().getUrl());
                 break;
-                
+
             case R.id.dump_nav_menu_id:
                 getTopWindow().debugDump();
                 break;
@@ -1455,11 +1445,11 @@ public class BrowserActivity extends Activity
             case R.id.view_downloads_menu_id:
                 viewDownloads(null);
                 break;
-                
+
             case R.id.flip_orientation_menu_id:
-                if (mSettings.getOrientation() != 
+                if (mSettings.getOrientation() !=
                         ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-                    mSettings.setOrientation(this, 
+                    mSettings.setOrientation(this,
                             ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 } else {
                     mSettings.setOrientation(this,
@@ -1542,16 +1532,16 @@ public class BrowserActivity extends Activity
                     for (int id = 0; id < WINDOW_SHORTCUT_ID_ARRAY.length; id++) {
                         if (WINDOW_SHORTCUT_ID_ARRAY[id] == menuid) {
                             TabControl.Tab desiredTab = mTabControl.getTab(id);
-                            if (desiredTab != null && 
+                            if (desiredTab != null &&
                                     desiredTab != mTabControl.getCurrentTab()) {
                                 switchTabs(mTabControl.getCurrentIndex(), id, false);
                             }
                             break;
-                        } 
+                        }
                     }
                 }
                 break;
-                
+
             default:
                 if (!super.onOptionsItemSelected(item)) {
                     return false;
@@ -1608,10 +1598,10 @@ public class BrowserActivity extends Activity
                 final MenuItem back = menu.findItem(R.id.back_menu_id);
                 back.setVisible(canGoBack);
                 back.setEnabled(canGoBack);
-                final MenuItem flip = 
+                final MenuItem flip =
                         menu.findItem(R.id.flip_orientation_menu_id);
-                boolean keyboardClosed = 
-                        getResources().getConfiguration().hardKeyboardHidden == 
+                boolean keyboardClosed =
+                        getResources().getConfiguration().hardKeyboardHidden ==
                         Configuration.HARDKEYBOARDHIDDEN_YES;
                 flip.setEnabled(keyboardClosed);
 
@@ -1625,7 +1615,7 @@ public class BrowserActivity extends Activity
 
                 menu.findItem(R.id.zoom_in_menu_id).setVisible(false);
                 menu.findItem(R.id.zoom_out_menu_id).setVisible(false);
-                
+
                 // decide whether to show the share link option
                 PackageManager pm = getPackageManager();
                 Intent send = new Intent(Intent.ACTION_SEND);
@@ -1634,7 +1624,7 @@ public class BrowserActivity extends Activity
                         PackageManager.MATCH_DEFAULT_ONLY);
                 menu.findItem(R.id.share_page_menu_id).setVisible(
                         list.size() > 0);
-                
+
                 // Hide the menu+<window number> items
                 // Can't set visibility in menu xml file b/c when a
                 // group is set visible, all items are set visible.
@@ -2171,7 +2161,7 @@ public class BrowserActivity extends Activity
             mText = toCopy;
         }
     }
-    
+
     private class Download implements OnMenuItemClickListener {
         private String mText;
 
@@ -2549,7 +2539,6 @@ public class BrowserActivity extends Activity
     public final static int STOP_LOAD               = 1002;
 
     // Message Ids
-    private static final int JS_CONFIRM              = 101;
     private static final int FOCUS_NODE_HREF         = 102;
     private static final int CANCEL_CREDS_REQUEST    = 103;
     private static final int ANIMATE_FROM_OVERVIEW   = 104;
@@ -2563,15 +2552,6 @@ public class BrowserActivity extends Activity
 
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case JS_CONFIRM:
-                    JsResult res = (JsResult) msg.obj;
-                    if (msg.arg1 == 0) {
-                        res.cancel();
-                    } else {
-                        res.confirm();
-                    }
-                    break;
-
                 case ANIMATE_FROM_OVERVIEW:
                     final HashMap map = (HashMap) msg.obj;
                     animateFromTabOverview((AnimatingView) map.get("view"),
@@ -2815,7 +2795,7 @@ public class BrowserActivity extends Activity
                                     && mWebView.getContext() != null
                                     && mWebView.getContext().getSystemService(
                                     Context.CONNECTIVITY_SERVICE) != null) {
-                                ConnectivityManager cManager = 
+                                ConnectivityManager cManager =
                                         (ConnectivityManager) mWebView
                                         .getContext().getSystemService(
                                         Context.CONNECTIVITY_SERVICE);
@@ -3191,7 +3171,7 @@ public class BrowserActivity extends Activity
                 mTabControl.createSubWindow();
                 final TabControl.Tab t = mTabControl.getCurrentTab();
                 attachSubWindow(t);
-                WebView.WebViewTransport transport = 
+                WebView.WebViewTransport transport =
                         (WebView.WebViewTransport) msg.obj;
                 transport.setWebView(t.getSubWebView());
                 msg.sendToTarget();
@@ -3338,7 +3318,7 @@ public class BrowserActivity extends Activity
             try {
                 url = "%" + url;
                 String [] selArgs = new String[] { url };
-                
+
                 String where = Browser.BookmarkColumns.URL + " LIKE ? AND "
                         + Browser.BookmarkColumns.BOOKMARK + " = 0";
                 Cursor c = mResolver.query(Browser.BOOKMARKS_URI,
@@ -3365,159 +3345,6 @@ public class BrowserActivity extends Activity
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
             updateIcon(view.getUrl(), icon);
-        }
-
-        //----------------------------------------------------------------------
-        // JavaScript functions.
-        //----------------------------------------------------------------------
-
-        // Show an alert to the user.
-        @Override
-        public boolean onJsAlert(WebView view, String url, String message,
-                JsResult result) {
-            String title = url;
-            if (URLUtil.isDataUrl(url)) {
-                // For data: urls, we just display 'JavaScript' similar to
-                // Safari.
-                title = getString(R.string.js_dialog_title_default);
-            } else {
-                try {
-                    URL aUrl = new URL(url);
-                    // Example: "The page at 'http://www.mit.edu' says:"
-                    title = getText(R.string.js_dialog_title_prefix)
-                        + " '"
-                        + (aUrl.getProtocol() + "://" + aUrl.getHost())
-                        + "' "
-                        + getText(R.string.js_dialog_title_suffix);
-                } catch (MalformedURLException ex) {
-                    // do nothing. just use the url passed as the title
-                }
-            }
-            final JsResult res = result;
-            new AlertDialog.Builder(BrowserActivity.this)
-                    .setTitle(title)
-                    .setMessage(message)
-                    .setPositiveButton(R.string.ok,
-                            new AlertDialog.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                        int which) {
-                                    res.confirm();
-                                }
-                            })
-                    .setCancelable(false)
-                    .show();
-            return true;
-        }
-
-        @Override
-        public boolean onJsConfirm(WebView view, String url, String message,
-                final JsResult result) {
-            String title = url;
-            try {
-                URL aUrl = new URL(url);
-                // Example: "The page at 'http://www.mit.edu' says:"
-                title = getText(R.string.js_dialog_title_prefix)
-                    + " '"
-                    + (aUrl.getProtocol() + "://" + aUrl.getHost())
-                    + "' "
-                    + getText(R.string.js_dialog_title_suffix);
-            } catch (MalformedURLException ex) {
-                // do nothing. just use the url passed as the title
-            }
-            new AlertDialog.Builder(BrowserActivity.this)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        mHandler.obtainMessage(JS_CONFIRM, 1, 0, result).sendToTarget();
-                    }})
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        mHandler.obtainMessage(JS_CONFIRM, 0, 0, result).sendToTarget();
-                    }})
-                .show();
-            // Return true so WebView knows we will handle the confirm.
-            return true;
-        }
-
-        @Override
-        public boolean onJsPrompt(WebView view, String url, String message, String defaultValue,
-                final JsPromptResult result) {
-            String title = url;
-            try {
-                URL aUrl = new URL(url);
-                // Example: "The page at 'http://www.mit.edu' says:"
-                title = getText(R.string.js_dialog_title_prefix)
-                    + " '"
-                    + (aUrl.getProtocol() + "://" + aUrl.getHost())
-                    + "' "
-                    + getText(R.string.js_dialog_title_suffix);
-            } catch (MalformedURLException ex) {
-                // do nothing, just use the url passed as the title
-            }
-
-            final LayoutInflater factory = LayoutInflater.from(BrowserActivity.this);
-            final View v = factory.inflate(R.layout.js_prompt, null);
-            ((TextView)v.findViewById(R.id.message)).setText(message);
-            ((EditText)v.findViewById(R.id.value)).setText(defaultValue);
-
-            new AlertDialog.Builder(BrowserActivity.this)
-                .setTitle(title)
-                .setView(v)
-                .setPositiveButton(R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                String value = ((EditText)v.findViewById(R.id.value)).getText()
-                                        .toString();
-                                result.confirm(value);
-                            }
-                        })
-                .setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                result.cancel();
-                            }
-                        })
-                .setOnCancelListener(
-                        new DialogInterface.OnCancelListener() {
-                            public void onCancel(DialogInterface dialog) {
-                                result.cancel();
-                            }
-                        })
-                .show();
-
-            // Return true so WebView knows we will handle the prompt.
-            return true;
-        }
-
-        @Override
-        public boolean onJsBeforeUnload(WebView view, String url,
-                String message, final JsResult result) {
-            final String m =
-                    getString(R.string.js_dialog_before_unload, message);
-            new AlertDialog.Builder(BrowserActivity.this)
-                    .setMessage(m)
-                    .setPositiveButton(R.string.ok,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                        int which) {
-                                    // Use JS_CONFIRM since it has the same
-                                    // behavior we want here.
-                                    mHandler.obtainMessage(JS_CONFIRM, 1, 0,
-                                            result).sendToTarget();
-                                }})
-                    .setNegativeButton(R.string.cancel,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                        int which) {
-                                    // Use JS_CONFIRM since it has the same
-                                    // behavior we want here.
-                                    mHandler.obtainMessage(JS_CONFIRM, 0, 0,
-                                            result).sendToTarget();
-                                }})
-                    .show();
-            // Return true so WebView knows we will handle the dialog.
-            return true;
         }
     };
 
@@ -3696,7 +3523,7 @@ public class BrowserActivity extends Activity
                 .from(this);
 
         final View pageInfoView = factory.inflate(R.layout.page_info, null);
-        
+
         final WebView view = tab.getWebView();
 
         String url = null;
@@ -3770,7 +3597,7 @@ public class BrowserActivity extends Activity
 
         // if we have a main top-level page SSL certificate set or a certificate
         // error
-        if (fromShowSSLCertificateOnError || 
+        if (fromShowSSLCertificateOnError ||
                 (view != null && view.getCertificate() != null)) {
             // add a 'View Certificate' button
             alertDialogBuilder.setNeutralButton(
@@ -3933,7 +3760,7 @@ public class BrowserActivity extends Activity
                                 // need to show the dialog again once the
                                 // user is done exploring the page-info details
 
-                                showPageInfo(mTabControl.getTabFromView(view), 
+                                showPageInfo(mTabControl.getTabFromView(view),
                                         true);
                             }
                         })
@@ -4187,7 +4014,7 @@ public class BrowserActivity extends Activity
         }
         getTopWindow().requestFocus();
     }
-    
+
     /*
      * This method is called as a result of the user selecting the options
      * menu to see the download window, or when a download changes state. It
@@ -4703,10 +4530,10 @@ public class BrowserActivity extends Activity
     // overlap. A count of 0 means no animation where a count of > 0 means
     // there are animations in progress.
     private int mAnimationCount;
-    
+
     // As the ids are dynamically created, we can't guarantee that they will
     // be in sequence, so this static array maps ids to a window number.
-    final static private int[] WINDOW_SHORTCUT_ID_ARRAY = 
+    final static private int[] WINDOW_SHORTCUT_ID_ARRAY =
     { R.id.window_one_menu_id, R.id.window_two_menu_id, R.id.window_three_menu_id,
       R.id.window_four_menu_id, R.id.window_five_menu_id, R.id.window_six_menu_id,
       R.id.window_seven_menu_id, R.id.window_eight_menu_id };

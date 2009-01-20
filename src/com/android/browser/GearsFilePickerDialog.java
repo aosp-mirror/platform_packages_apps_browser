@@ -413,7 +413,7 @@ class GearsFilePickerDialog extends GearsBaseDialog
       }
       if (mBackIcon == null) {
         mBackIcon = BitmapFactory.decodeResource(getResources(),
-                                                 R.drawable.gears_back);
+                com.android.internal.R.drawable.ic_menu_back);
       }
     }
 

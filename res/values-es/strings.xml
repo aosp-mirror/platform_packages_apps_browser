@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for application_name (1935869255545976415) -->
+    <skip />
     <string name="sign_in_to">"Acceder a <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username">"Nombre"</string>
     <string name="password">"Contraseña"</string>
@@ -62,6 +64,8 @@
     <string name="new_window">"Nueva ventana"</string>
     <string name="goto_dot">"Ir a URL"</string>
     <string name="find_dot">"Buscar en la página"</string>
+    <!-- no translation found for select_dot (6299170761900561967) -->
+    <skip />
     <string name="homepage">"Página principal"</string>
     <string name="view_tabs">"Visión general de ventanas"</string>
     <string name="view_tabs_condensed">"Windows"</string>
@@ -195,10 +199,6 @@
     <string name="search_hint">"Introduce la dirección web."</string>
     <string name="search">"Buscar"</string>
     <string name="search_button_text">"Ir"</string>
-    <string name="js_dialog_title_prefix">"La página"</string>
-    <string name="js_dialog_title_suffix">"dice:"</string>
-    <string name="js_dialog_title_default">"JavaScript"</string>
-    <string name="js_dialog_before_unload">"¿Quieres salir de esta página?"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"Selecciona \"Aceptar\" para continuar o \"Cancelar\" para permanecer en la página actual."</string>
     <string name="attention">"Atención"</string>
     <string name="popup_window_attempt">"Este sitio está intentando mostrar una ventana emergente."</string>
     <string name="allow">"Permitir"</string>

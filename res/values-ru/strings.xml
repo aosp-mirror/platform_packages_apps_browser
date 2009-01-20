@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for application_name (1935869255545976415) -->
+    <skip />
     <string name="sign_in_to">"Регистрация в <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username">"Название"</string>
     <string name="password">"Пароль"</string>
@@ -62,6 +64,8 @@
     <string name="new_window">"Новое окно"</string>
     <string name="goto_dot">"Перейти к URL"</string>
     <string name="find_dot">"Найти на странице"</string>
+    <!-- no translation found for select_dot (6299170761900561967) -->
+    <skip />
     <string name="homepage">"Главная страница"</string>
     <string name="view_tabs">"Обзор окон"</string>
     <string name="view_tabs_condensed">"Окна"</string>
@@ -195,10 +199,6 @@
     <string name="search_hint">"Введите веб-адрес"</string>
     <string name="search">"Поиск"</string>
     <string name="search_button_text">"Перейти"</string>
-    <string name="js_dialog_title_prefix">"На странице по адресу"</string>
-    <string name="js_dialog_title_suffix">"сказано:"</string>
-    <string name="js_dialog_title_default">"JavaScript"</string>
-    <string name="js_dialog_before_unload">"Перейти с этой страницы?"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"Нажмите \"ОК\", чтобы продолжить, или \"Отмена\", чтобы остаться на текущей странице."</string>
     <string name="attention">"Внимание"</string>
     <string name="popup_window_attempt">"Этот сайт пытается открыть всплывающее окно."</string>
     <string name="allow">"Разрешить"</string>

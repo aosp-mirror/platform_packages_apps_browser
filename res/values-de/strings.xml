@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for application_name (1935869255545976415) -->
+    <skip />
     <string name="sign_in_to">"Bei <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\" anmelden"</string>
     <string name="username">"Name"</string>
     <string name="password">"Passwort"</string>
@@ -62,6 +64,8 @@
     <string name="new_window">"Neues Fenster"</string>
     <string name="goto_dot">"Gehe zu URL"</string>
     <string name="find_dot">"Auf Seite suchen"</string>
+    <!-- no translation found for select_dot (6299170761900561967) -->
+    <skip />
     <string name="homepage">"Startseite"</string>
     <string name="view_tabs">"Fensterübersicht"</string>
     <string name="view_tabs_condensed">"Windows"</string>
@@ -102,7 +106,7 @@
     <string name="pref_content_block_popups">"Popup-Fenster blockieren"</string>
     <string name="pref_content_javascript">"JavaScript aktivieren"</string>
     <string name="pref_content_open_in_background">"Im Hintergrund öffnen"</string>
-    <string name="pref_content_open_in_background_summary">"Neue Fenster hinter dem aktuellen Fenster geöffnet"</string>
+    <string name="pref_content_open_in_background_summary">"Neue Fenster hinter dem aktuellen Fenster öffnen"</string>
     <string name="pref_content_homepage">"Startseite festlegen"</string>
     <string name="pref_content_autofit">"Seiten autom. anpassen"</string>
     <string name="pref_content_autofit_summary">"Webseiten an den Bildschirm anpassen"</string>
@@ -195,10 +199,6 @@
     <string name="search_hint">"Webadresse eingeben"</string>
     <string name="search">"Suche"</string>
     <string name="search_button_text">"Los"</string>
-    <string name="js_dialog_title_prefix">"Die Seite auf"</string>
-    <string name="js_dialog_title_suffix">"zeigt an:"</string>
-    <string name="js_dialog_title_default">"JavaScript"</string>
-    <string name="js_dialog_before_unload">"Von dieser Seite navigieren?"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"Wählen Sie \"OK\", um fortzufahren, oder wählen Sie \"Abbrechen\", um auf der aktuellen Seite zu bleiben."</string>
     <string name="attention">"Achtung"</string>
     <string name="popup_window_attempt">"Diese Website versucht, ein Pop-up-Fenster zu öffnen."</string>
     <string name="allow">"Zulassen"</string>

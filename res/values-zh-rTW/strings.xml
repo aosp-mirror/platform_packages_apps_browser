@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for application_name (1935869255545976415) -->
+    <skip />
     <string name="sign_in_to">"登入到 <xliff:g id="HOSTNAME">%s1</xliff:g>「<xliff:g id="REALM">%s2</xliff:g>」"</string>
     <string name="username">"名字"</string>
     <string name="password">"密碼"</string>
@@ -62,6 +64,8 @@
     <string name="new_window">"新視窗"</string>
     <string name="goto_dot">"前往網址"</string>
     <string name="find_dot">"在頁面中尋找"</string>
+    <!-- no translation found for select_dot (6299170761900561967) -->
+    <skip />
     <string name="homepage">"首頁"</string>
     <string name="view_tabs">"視窗總覽"</string>
     <string name="view_tabs_condensed">"視窗"</string>
@@ -195,10 +199,6 @@
     <string name="search_hint">"輸入網頁位址"</string>
     <string name="search">"搜尋"</string>
     <string name="search_button_text">"前往"</string>
-    <string name="js_dialog_title_prefix">"此網頁："</string>
-    <string name="js_dialog_title_suffix">"描述："</string>
-    <string name="js_dialog_title_default">"JavaScript"</string>
-    <string name="js_dialog_before_unload">"離開此頁？"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n" 選取確定，離開此頁；或取消，留在此頁。"</string>
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"此網站試圖開啟快顯視窗。"</string>
     <string name="allow">"允許"</string>

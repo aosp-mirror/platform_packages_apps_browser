@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for application_name (1935869255545976415) -->
+    <skip />
     <string name="sign_in_to">"Přihlásit se: <xliff:g id="HOSTNAME">%s1</xliff:g> <xliff:g id="REALM">%s2</xliff:g>"</string>
     <string name="username">"Název"</string>
     <string name="password">"Heslo"</string>
@@ -62,6 +64,8 @@
     <string name="new_window">"Nové okno"</string>
     <string name="goto_dot">"Přejít na adresu URL"</string>
     <string name="find_dot">"Vyhledat na stránce"</string>
+    <!-- no translation found for select_dot (6299170761900561967) -->
+    <skip />
     <string name="homepage">"Plocha"</string>
     <string name="view_tabs">"Přehled okna"</string>
     <string name="view_tabs_condensed">"Windows"</string>
@@ -195,10 +199,6 @@
     <string name="search_hint">"Zadejte webovou adresu"</string>
     <string name="search">"Hledat"</string>
     <string name="search_button_text">"Přejít"</string>
-    <string name="js_dialog_title_prefix">"Sdělení ze stránky"</string>
-    <string name="js_dialog_title_suffix">":"</string>
-    <string name="js_dialog_title_default">"JavaScript"</string>
-    <string name="js_dialog_before_unload">"Chcete opustit tuto stránku?"\n\n"<xliff:g id="MESSAGE">%s</xliff:g>"\n\n"Vyberte OK, chcete-li pokračovat, nebo Zrušit, chcete-li na stránce zůstat."</string>
     <string name="attention">"Upozornění"</string>
     <string name="popup_window_attempt">"Tato stránka se pokouší otevřít vyskakovací okno."</string>
     <string name="allow">"Povolit"</string>
