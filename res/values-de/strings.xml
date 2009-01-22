@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
@@ -240,34 +254,6 @@
     <string name="download_length_required">"Download kann nicht gestartet werden, da die Größe des Elements nicht bestimmt werden kann."</string>
     <string name="download_precondition_failed">"Download wurde unterbrochen und kann nicht fortgesetzt werden."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.com/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Wikipedia"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
     <string name="permlab_readHistoryBookmarks">"Browserverlauf und Lesezeichen lesen"</string>
     <string name="permdesc_readHistoryBookmarks">"Ermöglicht der Anwendung, alle URLs, die mit dem Browser besucht wurden, sowie alle Lesezeichen des Browsers zu lesen."</string>
     <string name="permlab_writeHistoryBookmarks">"Browserverlauf und Lesezeichen schreiben"</string>
