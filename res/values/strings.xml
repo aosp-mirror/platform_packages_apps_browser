@@ -585,7 +585,7 @@
     <string name="dump_nav">Dump navigation cache</string>
 
     <!-- Bookmarks -->
-    <string-array name="bookmarks">
+    <string-array name="bookmarks" translatable="false">
         <item>Google</item>
         <item>http://www.google.com/</item>
         <item>Yahoo!</item>
