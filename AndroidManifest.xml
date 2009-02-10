@@ -127,9 +127,16 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="CombinedBookmarkHistoryActivity" android:label=""
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+        </activity>
+
         <activity android:name="BrowserBookmarksPage" android:label="@string/bookmarks"
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
+
+        <activity android:name="MostVisitedActivity" android:label=""
+                android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>
 
         <activity-alias android:name="ShortcutBookmarksPage"
             android:targetActivity="BrowserBookmarksPage"
@@ -146,7 +153,7 @@
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
-        <activity android:name="BrowserPreferencesPage" android:label=""
+        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
@@ -177,7 +184,7 @@
         </service>
 
         <activity android:name="AddBookmarkPage" android:label="Save bookmark" android:theme="@android:style/Theme.Dialog"
-                  android:configChanges="orientation|keyboardHidden">
+                  android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />

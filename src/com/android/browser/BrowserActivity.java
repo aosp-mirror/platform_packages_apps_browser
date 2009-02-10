@@ -54,10 +54,10 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.WebAddress;
 import android.net.http.EventHandler;
-import android.net.http.RequestQueue;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.AsyncTask;
@@ -97,6 +97,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -730,19 +731,18 @@ public class BrowserActivity extends Activity
            http stack */
         mNetworkStateChangedFilter = new IntentFilter();
         mNetworkStateChangedFilter.addAction(
-                RequestQueue.HTTP_NETWORK_STATE_CHANGED_INTENT);
+                ConnectivityManager.CONNECTIVITY_ACTION);
         mNetworkStateIntentReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     if (intent.getAction().equals(
-                            RequestQueue.HTTP_NETWORK_STATE_CHANGED_INTENT)) {
-                        Boolean up = (Boolean)intent.getExtra(
-                                RequestQueue.HTTP_NETWORK_STATE_UP);
-                        onNetworkToggle(up);
+                            ConnectivityManager.CONNECTIVITY_ACTION)) {
+                        boolean down = intent.getBooleanExtra(
+                                ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+                        onNetworkToggle(!down);
                     }
                 }
             };
-        setRequestedOrientation(mSettings.getOrientation());
     }
 
     @Override
@@ -1324,14 +1324,8 @@ public class BrowserActivity extends Activity
                 }
                 break;
 
-            case R.id.search_menu_id:
-                // launch using "global" search, which will bring up the Google search box
-                startSearch(null, false,
-                        createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHMENU), true);
-                break;
-
             case R.id.bookmarks_menu_id:
-                bookmarksPicker();
+                bookmarksOrHistoryPicker(false);
                 break;
 
             case R.id.windows_menu_id:
@@ -1412,12 +1406,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.classic_history_menu_id:
-                loadHistory();
-                break;
-
-            case R.id.bookmark_page_menu_id:
-                Browser.saveBookmark(this, getTopWindow().getTitle(),
-                        getTopWindow().getUrl());
+                bookmarksOrHistoryPicker(true);
                 break;
 
             case R.id.share_page_menu_id:
@@ -1426,12 +1415,6 @@ public class BrowserActivity extends Activity
 
             case R.id.dump_nav_menu_id:
                 getTopWindow().debugDump();
-                break;
-
-            case R.id.zoom_menu_id:
-                // FIXME: Can we move this out of WebView? How does this work
-                // for a subwindow?
-                getTopWindow().invokeZoomPicker();
                 break;
 
             case R.id.zoom_in_menu_id:
@@ -1444,18 +1427,6 @@ public class BrowserActivity extends Activity
 
             case R.id.view_downloads_menu_id:
                 viewDownloads(null);
-                break;
-
-            case R.id.flip_orientation_menu_id:
-                if (mSettings.getOrientation() !=
-                        ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-                    mSettings.setOrientation(this,
-                            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                } else {
-                    mSettings.setOrientation(this,
-                            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                }
-                setRequestedOrientation(mSettings.getOrientation());
                 break;
 
             // -- Tab menu
@@ -1499,17 +1470,12 @@ public class BrowserActivity extends Activity
                 }
                 break;
 
-            case R.id.history_tab_menu_id: {
-                    Intent i = new Intent(this, BrowserHistoryPage.class);
-                    i.putExtra("maxTabsOpen",
-                            mTabControl.getTabCount() >=
-                            TabControl.MAX_TABS);
-                    startActivityForResult(i, CLASSIC_HISTORY_PAGE);
-                }
+            case R.id.history_tab_menu_id:
+                bookmarksOrHistoryPicker(true);
                 break;
 
             case R.id.bookmarks_tab_menu_id:
-                bookmarksPicker();
+                bookmarksOrHistoryPicker(false);
                 break;
 
             case R.id.properties_tab_menu_id:
@@ -1570,6 +1536,7 @@ public class BrowserActivity extends Activity
                 if (mCurrentMenuState != mMenuState) {
                     menu.setGroupVisible(R.id.MAIN_MENU, false);
                     menu.setGroupEnabled(R.id.MAIN_MENU, false);
+                    menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, false);
                     menu.setGroupVisible(R.id.TAB_MENU, true);
                     menu.setGroupEnabled(R.id.TAB_MENU, true);
                 }
@@ -1582,6 +1549,7 @@ public class BrowserActivity extends Activity
                 if (mCurrentMenuState != mMenuState) {
                     menu.setGroupVisible(R.id.MAIN_MENU, false);
                     menu.setGroupEnabled(R.id.MAIN_MENU, false);
+                    menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, false);
                     menu.setGroupVisible(R.id.TAB_MENU, false);
                     menu.setGroupEnabled(R.id.TAB_MENU, false);
                 }
@@ -1590,31 +1558,27 @@ public class BrowserActivity extends Activity
                 if (mCurrentMenuState != mMenuState) {
                     menu.setGroupVisible(R.id.MAIN_MENU, true);
                     menu.setGroupEnabled(R.id.MAIN_MENU, true);
+                    menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, true);
                     menu.setGroupVisible(R.id.TAB_MENU, false);
                     menu.setGroupEnabled(R.id.TAB_MENU, false);
                 }
                 final WebView w = getTopWindow();
-                boolean canGoBack = w.canGoBack();
+                boolean canGoBack = false;
+                boolean canGoForward = false;
+                boolean isHome = false;
+                if (w != null) {
+                    canGoBack = w.canGoBack();
+                    canGoForward = w.canGoForward();
+                    isHome = mSettings.getHomePage().equals(w.getUrl());
+                }
                 final MenuItem back = menu.findItem(R.id.back_menu_id);
-                back.setVisible(canGoBack);
                 back.setEnabled(canGoBack);
-                final MenuItem flip =
-                        menu.findItem(R.id.flip_orientation_menu_id);
-                boolean keyboardClosed =
-                        getResources().getConfiguration().hardKeyboardHidden ==
-                        Configuration.HARDKEYBOARDHIDDEN_YES;
-                flip.setEnabled(keyboardClosed);
 
-                boolean isHome = mSettings.getHomePage().equals(w.getUrl());
                 final MenuItem home = menu.findItem(R.id.homepage_menu_id);
-                home.setVisible(!isHome);
                 home.setEnabled(!isHome);
 
                 menu.findItem(R.id.forward_menu_id)
-                        .setEnabled(w.canGoForward());
-
-                menu.findItem(R.id.zoom_in_menu_id).setVisible(false);
-                menu.findItem(R.id.zoom_out_menu_id).setVisible(false);
+                        .setEnabled(canGoForward);
 
                 // decide whether to show the share link option
                 PackageManager pm = getPackageManager();
@@ -1624,13 +1588,6 @@ public class BrowserActivity extends Activity
                         PackageManager.MATCH_DEFAULT_ONLY);
                 menu.findItem(R.id.share_page_menu_id).setVisible(
                         list.size() > 0);
-
-                // Hide the menu+<window number> items
-                // Can't set visibility in menu xml file b/c when a
-                // group is set visible, all items are set visible.
-                for (int i = 0; i < WINDOW_SHORTCUT_ID_ARRAY.length; i++) {
-                    menu.findItem(WINDOW_SHORTCUT_ID_ARRAY[i]).setVisible(false);
-                }
 
                 // If there is only 1 window, the text will be "New window"
                 final MenuItem windows = menu.findItem(R.id.windows_menu_id);
@@ -1741,10 +1698,14 @@ public class BrowserActivity extends Activity
                         PackageManager.MATCH_DEFAULT_ONLY);
                 menu.findItem(R.id.share_link_context_menu_id).setVisible(
                         list.size() > 0);
-                break;
-
+                if (type == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
+                    break;
+                }
+                // otherwise fall through to handle image part
             case WebView.HitTestResult.IMAGE_TYPE:
-                menu.setHeaderTitle(extra);
+                if (type == WebView.HitTestResult.IMAGE_TYPE) {
+                    menu.setHeaderTitle(extra);
+                }
                 menu.findItem(R.id.view_image_context_menu_id).setIntent(
                         new Intent(Intent.ACTION_VIEW, Uri.parse(extra)));
                 menu.findItem(R.id.download_context_menu_id).
@@ -1838,7 +1799,13 @@ public class BrowserActivity extends Activity
         // Send the animate message.
         final HashMap map = new HashMap();
         map.put("view", view);
-        map.put("url", url);
+        // Load the url after the AnimatingView has captured the picture. This
+        // prevents any bad layout or bad scale from being used during
+        // animation.
+        if (url != null) {
+            dismissSubWindow(tab);
+            tab.getWebView().loadUrl(url);
+        }
         map.put("msg", msg);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(
                 ANIMATE_FROM_OVERVIEW, newTab ? 1 : 0, 0, map), delay);
@@ -2041,7 +2008,7 @@ public class BrowserActivity extends Activity
     // Animate from the tab picker. The index supplied is the index to animate
     // from.
     private void animateFromTabOverview(final AnimatingView view,
-            final boolean newTab, final String url, final Message msg) {
+            final boolean newTab, final Message msg) {
         // firstVisible is the first visible tab on the screen.  This helps
         // to know which corner of the screen the selected tab is.
         int firstVisible = mTabOverview.getFirstVisiblePosition();
@@ -2063,7 +2030,7 @@ public class BrowserActivity extends Activity
         // Find the view at this location.
         final View v = mTabOverview.getChildAt(location);
 
-        // Wait until the animation completes to load the url.
+        // Wait until the animation completes to replace the AnimatingView.
         final Animation.AnimationListener l =
                 new Animation.AnimationListener() {
                     public void onAnimationStart(Animation a) {}
@@ -2078,15 +2045,9 @@ public class BrowserActivity extends Activity
                                 dismissTabOverview(v == null);
                                 TabControl.Tab t =
                                         mTabControl.getCurrentTab();
-                                WebView w = t.getWebView();
-                                if (url != null) {
-                                    // Dismiss the subwindow if one exists.
-                                    dismissSubWindow(t);
-                                    w.loadUrl(url);
-                                }
                                 mMenuState = R.id.MAIN_MENU;
                                 // Resume regular updates.
-                                w.resumeTimers();
+                                t.getWebView().resumeTimers();
                                 // Dispatch the message after the animation
                                 // completes.
                                 if (msg != null) {
@@ -2111,7 +2072,7 @@ public class BrowserActivity extends Activity
             // Make the view VISIBLE during the animation.
             view.setVisibility(View.VISIBLE);
         } else {
-            // Go ahead and load the url.
+            // Go ahead and do all the cleanup.
             l.onAnimationEnd(null);
         }
     }
@@ -2450,7 +2411,7 @@ public class BrowserActivity extends Activity
                 return KeyTracker.State.DONE_TRACKING;
             }
             if (stage == KeyTracker.Stage.LONG_REPEAT) {
-                loadHistory();
+                bookmarksOrHistoryPicker(true);
                 return KeyTracker.State.DONE_TRACKING;
             } else if (stage == KeyTracker.Stage.UP) {
                 // FIXME: Currently, we do not have a notion of the
@@ -2522,13 +2483,6 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private void loadHistory() {
-        Intent intent = new Intent(this, BrowserHistoryPage.class);
-        intent.putExtra("maxTabsOpen",
-                mTabControl.getTabCount() >= TabControl.MAX_TABS);
-        startActivityForResult(intent, CLASSIC_HISTORY_PAGE);
-    }
-
     // called by a non-UI thread to post the message
     public void postMessage(int what, int arg1, int arg2, Object obj) {
         mHandler.sendMessage(mHandler.obtainMessage(what, arg1, arg2, obj));
@@ -2555,8 +2509,7 @@ public class BrowserActivity extends Activity
                 case ANIMATE_FROM_OVERVIEW:
                     final HashMap map = (HashMap) msg.obj;
                     animateFromTabOverview((AnimatingView) map.get("view"),
-                            msg.arg1 == 1, (String) map.get("url"),
-                            (Message) map.get("msg"));
+                            msg.arg1 == 1, (Message) map.get("msg"));
                     break;
 
                 case ANIMATE_TO_OVERVIEW:
@@ -2723,6 +2676,18 @@ public class BrowserActivity extends Activity
 
             mInLoad = true;
             updateInLoadMenuItems();
+            if (!mIsNetworkUp) {
+                if ( mAlertDialog == null) {
+                    mAlertDialog = new AlertDialog.Builder(BrowserActivity.this)
+                        .setTitle(R.string.loadSuspendedTitle)
+                        .setMessage(R.string.loadSuspended)
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
+                }
+                if (view != null) {
+                    view.setNetworkAvailable(false);
+                }
+            }
 
             // schedule to check memory condition
             mHandler.sendMessageDelayed(mHandler.obtainMessage(CHECK_MEMORY),
@@ -3884,7 +3849,7 @@ public class BrowserActivity extends Activity
         }
 
         mHttpAuthHandler = handler;
-        mHttpAuthenticationDialog = new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(titleText)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setView(v)
@@ -3920,12 +3885,17 @@ public class BrowserActivity extends Activity
                             mHttpAuthenticationDialog = null;
                             mHttpAuthHandler = null;
                         }})
-                .show();
+                .create();
+        // Make the IME appear when the dialog is displayed if applicable.
+        dialog.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
         if (focusId != 0) {
-            mHttpAuthenticationDialog.findViewById(focusId).requestFocus();
+            dialog.findViewById(focusId).requestFocus();
         } else {
             v.findViewById(R.id.username_edit).requestFocus();
         }
+        mHttpAuthenticationDialog = dialog;
     }
 
     public int getProgress() {
@@ -3956,16 +3926,20 @@ public class BrowserActivity extends Activity
     }
 
     /**
-     * http stack says net has come or gone... inform the user
+     * connectivity manager says net has come or gone... inform the user
      * @param up true if net has come up, false if net has gone down
      */
     public void onNetworkToggle(boolean up) {
-        if (up) {
+        if (up == mIsNetworkUp) {
+            return;
+        } else if (up) {
+            mIsNetworkUp = true;
             if (mAlertDialog != null) {
                 mAlertDialog.cancel();
                 mAlertDialog = null;
             }
         } else {
+            mIsNetworkUp = false;
             if (mInLoad && mAlertDialog == null) {
                 mAlertDialog = new AlertDialog.Builder(this)
                         .setTitle(R.string.loadSuspendedTitle)
@@ -3984,8 +3958,7 @@ public class BrowserActivity extends Activity
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
         switch (requestCode) {
-            case BOOKMARKS_PAGE:
-            case CLASSIC_HISTORY_PAGE:
+            case COMBO_PAGE:
                 if (resultCode == RESULT_OK && intent != null) {
                     String data = intent.getAction();
                     Bundle extras = intent.getExtras();
@@ -4202,13 +4175,13 @@ public class BrowserActivity extends Activity
         mMenuState = EMPTY_MENU;
     }
 
-    private void bookmarksPicker() {
+    private void bookmarksOrHistoryPicker(boolean startWithHistory) {
         WebView current = mTabControl.getCurrentWebView();
         if (current == null) {
             return;
         }
         Intent intent = new Intent(this,
-                BrowserBookmarksPage.class);
+                CombinedBookmarkHistoryActivity.class);
         String title = current.getTitle();
         String url = current.getUrl();
         // Just in case the user opens bookmarks before a page finishes loading
@@ -4228,7 +4201,11 @@ public class BrowserActivity extends Activity
         intent.putExtra("url", url);
         intent.putExtra("maxTabsOpen",
                 mTabControl.getTabCount() >= TabControl.MAX_TABS);
-        startActivityForResult(intent, BOOKMARKS_PAGE);
+        if (startWithHistory) {
+            intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_TAB,
+                    CombinedBookmarkHistoryActivity.HISTORY_TAB);
+        }
+        startActivityForResult(intent, COMBO_PAGE);
     }
 
     // Called when loading from context menu or LOAD_URL message
@@ -4351,7 +4328,7 @@ public class BrowserActivity extends Activity
         return composeSearchUrl(inUrl);
     }
 
-    /* package */static String composeSearchUrl(String search) {
+    /* package */ String composeSearchUrl(String search) {
         return URLUtil.composeSearchUrl(search, QuickSearch_G,
                 QUERY_PLACE_HOLDER);
     }
@@ -4409,6 +4386,7 @@ public class BrowserActivity extends Activity
     boolean mCanChord;
 
     private boolean mInLoad;
+    private boolean mIsNetworkUp;
 
     private boolean mPageStarted;
     private boolean mActivityInPause = true;
@@ -4503,8 +4481,6 @@ public class BrowserActivity extends Activity
 
     // "source" parameter for Google search through search key
     final static String GOOGLE_SEARCH_SOURCE_SEARCHKEY = "browser-key";
-    // "source" parameter for Google search through search menu
-    final static String GOOGLE_SEARCH_SOURCE_SEARCHMENU = "browser-menu";
     // "source" parameter for Google search through goto menu
     final static String GOOGLE_SEARCH_SOURCE_GOTO = "browser-goto";
     // "source" parameter for Google search through simplily type
@@ -4543,10 +4519,9 @@ public class BrowserActivity extends Activity
     private BroadcastReceiver mNetworkStateIntentReceiver;
 
     // activity requestCode
-    final static int BOOKMARKS_PAGE         = 1;
-    final static int CLASSIC_HISTORY_PAGE   = 2;
-    final static int DOWNLOAD_PAGE          = 3;
-    final static int PREFERENCES_PAGE       = 4;
+    final static int COMBO_PAGE             = 1;
+    final static int DOWNLOAD_PAGE          = 2;
+    final static int PREFERENCES_PAGE       = 3;
 
     // the frenquency of checking whether system memory is low
     final static int CHECK_MEMORY_INTERVAL = 30000;     // 30 seconds

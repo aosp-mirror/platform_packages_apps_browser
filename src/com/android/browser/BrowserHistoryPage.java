@@ -16,14 +16,17 @@
 
 package com.android.browser;
 
-import android.app.ListActivity;
+import android.app.Activity;
+import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.ServiceManager;
 import android.provider.Browser;
 import android.text.IClipboard;
@@ -41,11 +44,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.webkit.DateSorter;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -53,22 +56,16 @@ import java.util.Vector;
  * Activity for displaying the browser's history, divided into
  * days of viewing.
  */
-public class BrowserHistoryPage extends ListActivity {
+public class BrowserHistoryPage extends ExpandableListActivity {
     private HistoryAdapter          mAdapter;
     private DateSorter              mDateSorter;
     private boolean                 mMaxTabsOpen;
 
     private final static String LOGTAG = "browser";
 
-    // FIXME: Make this a part of Browser so we do not have more than one
-    // copy (other copy is in BrowserBookmarksAdapter).
-    // Used to store favicons as we get them from the database
-    private final HashMap<String, Bitmap> mUrlsToIcons =
-            new HashMap<String, Bitmap>();
     // Implementation of WebIconDatabase.IconListener
     private class IconReceiver implements IconListener {
         public void onReceivedIcon(String url, Bitmap icon) {
-            mUrlsToIcons.put(url, icon);
             setListAdapter(mAdapter);
         }
     }
@@ -87,7 +84,7 @@ public class BrowserHistoryPage extends ListActivity {
             b.putBoolean("new_window", true);
             intent.putExtras(b);
         }
-        setResult(RESULT_OK, intent);
+        setResultToParent(RESULT_OK, intent);
         finish();
     }
     
@@ -111,20 +108,25 @@ public class BrowserHistoryPage extends ListActivity {
 
         mAdapter = new HistoryAdapter();
         setListAdapter(mAdapter);
-        ListView list = getListView();
+        final ExpandableListView list = getExpandableListView();
         list.setOnCreateContextMenuListener(this);
         LayoutInflater factory = LayoutInflater.from(this);
         View v = factory.inflate(R.layout.empty_history, null);
         addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT));
         list.setEmptyView(v);
-
+        list.post(new Runnable() {
+            public void run() {
+                list.expandGroup(0);
+            }
+        });
         mMaxTabsOpen = getIntent().getBooleanExtra("maxTabsOpen", false);
-        Browser.requestAllIcons(getContentResolver(), null, mIconReceiver);
+        CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
+                .addListener(mIconReceiver);
         
         // initialize the result to canceled, so that if the user just presses
         // back then it will have the correct result
-        setResult(RESULT_CANCELED);
+        setResultToParent(RESULT_CANCELED, null);
     }
 
     @Override
@@ -160,9 +162,12 @@ public class BrowserHistoryPage extends ListActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
-        AdapterView.AdapterContextMenuInfo i = 
-            (AdapterView.AdapterContextMenuInfo)
-            menuInfo;
+        ExpandableListContextMenuInfo i = 
+            (ExpandableListContextMenuInfo) menuInfo;
+        // Do not allow a context menu to come up from the group views.
+        if (!(i.targetView instanceof HistoryItem)) {
+            return;
+        }
 
         // Inflate the menu
         MenuInflater inflater = getMenuInflater();
@@ -174,7 +179,7 @@ public class BrowserHistoryPage extends ListActivity {
         // Only show open in new tab if we have not maxed out available tabs
         menu.findItem(R.id.new_window_context_menu_id).setVisible(!mMaxTabsOpen);
         
-     // decide whether to show the share link option
+        // decide whether to show the share link option
         PackageManager pm = getPackageManager();
         Intent send = new Intent(Intent.ACTION_SEND);
         send.setType("text/plain");
@@ -188,8 +193,8 @@ public class BrowserHistoryPage extends ListActivity {
     
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo i = 
-            (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        ExpandableListContextMenuInfo i = 
+            (ExpandableListContextMenuInfo) item.getMenuInfo();
         String url = ((HistoryItem)i.targetView).getUrl();
         String title = ((HistoryItem)i.targetView).getName();
         switch (item.getItemId()) {
@@ -219,13 +224,41 @@ public class BrowserHistoryPage extends ListActivity {
     }
     
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
+    public boolean onChildClick(ExpandableListView parent, View v,
+            int groupPosition, int childPosition, long id) {
         if (v instanceof HistoryItem) {
             loadUrl(((HistoryItem) v).getUrl(), false);
+            return true;
         }
+        return false;
     }
 
-    private class HistoryAdapter implements ListAdapter {
+    // This Activity is generally a sub-Activity of CombinedHistoryActivity. In
+    // that situation, we need to pass our result code up to our parent.
+    // However, if someone calls this Activity directly, then this has no
+    // parent, and it needs to set it on itself.
+    private void setResultToParent(int resultCode, Intent data) {
+        Activity a = getParent() == null ? this : getParent();
+        a.setResult(resultCode, data);
+    }
+
+    private class ChangeObserver extends ContentObserver {
+        public ChangeObserver() {
+            super(new Handler());
+        }
+
+        @Override
+        public boolean deliverSelfNotifications() {
+            return true;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            mAdapter.refreshData();
+        }
+    }
+    
+    private class HistoryAdapter implements ExpandableListAdapter {
         
         // Map of items. Negative values are labels, positive values
         // and zero are cursor offsets.
@@ -245,6 +278,7 @@ public class BrowserHistoryPage extends ListActivity {
                     whereClause, null, orderBy);
             
             buildMap();
+            mCursor.registerContentObserver(new ChangeObserver());
         }
         
         void refreshData() {
@@ -255,107 +289,109 @@ public class BrowserHistoryPage extends ListActivity {
             }
         }
         
-        public void buildMap() {
+        private void buildMap() {
             // The cursor is sorted by date
-            // Make one pass to build up the ItemMap with the inserted 
-            // section separators. 
-            int array[] = new int[mCursor.getCount() + DateSorter.DAY_COUNT];
+            // The ItemMap will store the number of items in each bin.
+            int array[] = new int[DateSorter.DAY_COUNT];
+            // Zero out the array.
+            for (int j = 0; j < DateSorter.DAY_COUNT; j++) {
+                array[j] = 0;
+            }
             int dateIndex = -1;
             if (mCursor.moveToFirst() && mCursor.getCount() > 0) {
-                int itemIndex = 0;
                 while (!mCursor.isAfterLast()) {
                     long date = mCursor.getLong(Browser.HISTORY_PROJECTION_DATE_INDEX);
                     int index = mDateSorter.getIndex(date);
                     if (index > dateIndex) {
+                        if (index == DateSorter.DAY_COUNT - 1) {
+                            // We are already in the last bin, so it will
+                            // include all the remaining items
+                            array[index] = mCursor.getCount()
+                                    - mCursor.getPosition();
+                            break;
+                        }
                         dateIndex = index;
-                        array[itemIndex] = dateIndex - DateSorter.DAY_COUNT;
-                        itemIndex++;
                     }
-                    array[itemIndex] = mCursor.getPosition();
-                    itemIndex++;
+                    array[dateIndex]++;
                     mCursor.moveToNext();
                 }
-            } else {
-                // The db is empty, just add the heading for the first item
-                dateIndex = 0;
-                array[0] = dateIndex - DateSorter.DAY_COUNT;
             }
-            // Compress the array as the trailing date sections may be
-            // empty
-            int extraEntries = DateSorter.DAY_COUNT - dateIndex - 1;
-            if (extraEntries > 0) {
-                int newArraySize = array.length - extraEntries;
-                mItemMap = new int[newArraySize];
-                System.arraycopy(array, 0, mItemMap, 0, newArraySize);
-            } else {
-                mItemMap = array;
-            }
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (mItemMap[position] < 0) {
-                return getHeaderView(position, convertView);
-            }
-            return getHistoryItem(position, convertView);
+            mItemMap = array;
         }
         
-        View getHistoryItem(int position, View convertView) {
+        public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
+                View convertView, ViewGroup parent) {
             HistoryItem item;
             if (null == convertView || !(convertView instanceof HistoryItem)) {
                 item = new HistoryItem(BrowserHistoryPage.this);
+                // Add padding on the left so it will be indented from the
+                // arrows on the group views.
+                item.setPadding(item.getPaddingLeft() + 10,
+                        item.getPaddingTop(),
+                        item.getPaddingRight(),
+                        item.getPaddingBottom());
             } else {
                 item = (HistoryItem) convertView;
             }
-            mCursor.moveToPosition(mItemMap[position]);
+            int index = childPosition;
+            for (int i = 0; i < groupPosition; i++) {
+                index += mItemMap[i];
+            }
+            mCursor.moveToPosition(index);
             item.setName(mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX));
             String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
             item.setUrl(url);
-            item.setFavicon((Bitmap) mUrlsToIcons.get(url));
+            item.setFavicon(CombinedBookmarkHistoryActivity.getIconListenerSet(
+                    getContentResolver()).getFavicon(url));
+            item.setIsBookmark(1 ==
+                    mCursor.getInt(Browser.HISTORY_PROJECTION_BOOKMARK_INDEX));
             return item;
         }
         
-        View getHeaderView(int position, View convertView) {
+        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
             TextView item;
             if (null == convertView || !(convertView instanceof TextView)) {
                 LayoutInflater factory = 
                         LayoutInflater.from(BrowserHistoryPage.this);
                 item = (TextView) 
-                        factory.inflate(android.R.layout.preference_category, null);
+                        factory.inflate(R.layout.history_header, null);
             } else {
                 item = (TextView) convertView;
             }
-            item.setText(mDateSorter.getLabel(
-                    mItemMap[position] + DateSorter.DAY_COUNT));
+            item.setText(mDateSorter.getLabel(groupPosition));
             return item;
         }
 
         public boolean areAllItemsEnabled() {
-            return false;
+            return true;
         }
 
-        public boolean isEnabled(int position) {
-            return mItemMap[position] >= 0;
+        public boolean isChildSelectable(int groupPosition, int childPosition) {
+            return true;
         }
 
-        public int getCount() {
-            return mItemMap.length;
+        public int getGroupCount() {
+            return DateSorter.DAY_COUNT;
         }
 
-        public Object getItem(int position) {
+        public int getChildrenCount(int groupPosition) {
+            return mItemMap[groupPosition];
+        }
+
+        public Object getGroup(int groupPosition) {
             return null;
         }
 
-        public long getItemId(int position) {
-            return mItemMap[position];
+        public Object getChild(int groupPosition, int childPosition) {
+            return null;
         }
 
-        // 0 for TextView, 1 for HistoryItem
-        public int getItemViewType(int position) {
-            return mItemMap[position] < 0 ? 0 : 1;
+        public long getGroupId(int groupPosition) {
+            return groupPosition;
         }
 
-        public int getViewTypeCount() {
-            return 2;
+        public long getChildId(int groupPosition, int childPosition) {
+            return (childPosition << 3) + groupPosition;
         }
 
         public boolean hasStableIds() {
@@ -370,8 +406,24 @@ public class BrowserHistoryPage extends ListActivity {
             mObservers.remove(observer);
         }
 
+        public void onGroupExpanded(int groupPosition) {
+        
+        }
+
+        public void onGroupCollapsed(int groupPosition) {
+        
+        }
+
+        public long getCombinedChildId(long groupId, long childId) {
+            return childId;
+        }
+
+        public long getCombinedGroupId(long groupId) {
+            return groupId;
+        }
+
         public boolean isEmpty() {
-            return getCount() == 1;
+            return mCursor.getCount() == 0;
         }
     }
 }

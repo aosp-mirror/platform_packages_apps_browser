@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"Přihlásit se: <xliff:g id="HOSTNAME">%s1</xliff:g> <xliff:g id="REALM">%s2</xliff:g>"</string>
     <string name="username">"Název"</string>
     <string name="password">"Heslo"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"Zastavuji..."</string>
     <string name="stop">"Zastavit"</string>
     <string name="reload">"Obnovit"</string>
-    <string name="back">"Zpět"</string>
     <string name="forward">"Předat dál"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"Zrušit"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"Adresa URL není platná."</string>
     <string name="delete_bookmark">"Smazat"</string>
     <string name="bookmark_page">"Přidat poslední zobrazenou stránku do záložek"</string>
-    <string name="current_page">"Aktuální stránka:"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"Záložka <xliff:g id="BOOKMARK">%s</xliff:g> bude smazána."</string>
     <string name="open_in_new_window">"Otevřít v novém okně"</string>
     <string name="new_window">"Nové okno"</string>
-    <string name="goto_dot">"Přejít na adresu URL"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"Vyhledat na stránce"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"Plocha"</string>
     <string name="view_tabs">"Přehled okna"</string>
     <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"Aktuální okna"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"Přidat do záložek"</string>
     <string name="history">"Historie"</string>
     <string name="menu_view_download">"Stahování"</string>
-    <string name="menu_bookmark_page">"Stránka Záložky"</string>
     <string name="share_page">"Sdílet stránku"</string>
-    <string name="menu_zoom">"Přiblížení"</string>
-    <string name="menu_flip_orientation">"Změnit orientaci"</string>
     <string name="contextmenu_openlink">"Otevřít"</string>
     <string name="contextmenu_openlink_newwindow">"Otevřít v novém okně"</string>
     <string name="contextmenu_bookmark_thislink">"Přidat odkaz do záložek"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"Vymazat historii"</string>
     <string name="browser_history">"Nedávno navštívené stránky"</string>
     <string name="empty_history">"Historie prohlížeče je prázdná."</string>
-    <string name="add_new_bookmark">"Nová záložka"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"Databáze neexistuje."</string>
     <string name="search_hint">"Zadejte webovou adresu"</string>
-    <string name="search">"Hledat"</string>
     <string name="search_button_text">"Přejít"</string>
     <string name="attention">"Upozornění"</string>
     <string name="popup_window_attempt">"Tato stránka se pokouší otevřít vyskakovací okno."</string>
@@ -254,6 +261,8 @@
     <string name="download_length_required">"Nelze stáhnout. Velikost položky nelze určit."</string>
     <string name="download_precondition_failed">"Stahování bylo přerušeno a nelze v něm pokračovat."</string>
     <string name="activity_instrumentation_test_runner">"Testovací verze prohlížeče"</string>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"čtení historie a záložek prohlížeče"</string>
     <string name="permdesc_readHistoryBookmarks">"Umožňuje aplikaci číst všechny navštívené adresy URL a záložky prohlížeče."</string>
     <string name="permlab_writeHistoryBookmarks">"zápis historie a záložek prohlížeče"</string>
@@ -263,7 +272,6 @@
     <string name="shortcut_message">"Tento web se na vašem počítači pokouší vytvořit zástupce. Chcete to povolit?"</string>
     <string name="settings_message">"Níže uvedená tabulka zobrazuje oprávnění, která jste udělili jednotlivým webům, které se pokusily použít službu Gears."</string>
     <string name="filepicker_message">"Vybírání souborů služby Gears"</string>
-    <string name="image_message">"Vybraný obrázek"</string>
     <string name="settings_title">"Nastavení služby Gears"</string>
     <string name="privacy_policy">"Chcete-li zjistit, jak bude vaše poloha využita, přečtěte si zásady ochrany osobních údajů těchto stránek."</string>
     <string name="permission_button_alwaysdeny">"Nikdy nepovolit tento web"</string>
@@ -286,4 +294,6 @@
     <string name="denied">"Odepřeno"</string>
     <string name="unrecognized_dialog_message">"Nerozpoznaný typ dialogu"</string>
     <string name="default_button">"OK"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

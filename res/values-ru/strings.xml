@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"Регистрация в <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username">"Название"</string>
     <string name="password">"Пароль"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"Остановка загрузки…"</string>
     <string name="stop">"Остановить"</string>
     <string name="reload">"Обновить"</string>
-    <string name="back">"Назад"</string>
     <string name="forward">"Вперед"</string>
     <string name="save">"ОК"</string>
     <string name="do_not_save">"Отмена"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"URL недействителен."</string>
     <string name="delete_bookmark">"Удаление"</string>
     <string name="bookmark_page">"Добавить в закладки последнюю просмотренную страницу"</string>
-    <string name="current_page">"Текущая страница:"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"Закладка \"<xliff:g id="BOOKMARK">%s</xliff:g>\" будет удалена."</string>
     <string name="open_in_new_window">"Открыть в новом окне"</string>
     <string name="new_window">"Новое окно"</string>
-    <string name="goto_dot">"Перейти к URL"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"Найти на странице"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"Главная страница"</string>
     <string name="view_tabs">"Обзор окон"</string>
     <string name="view_tabs_condensed">"Окна"</string>
     <string name="tab_picker_title">"Текущие окна"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"Закладка"</string>
     <string name="history">"История"</string>
     <string name="menu_view_download">"Загрузки"</string>
-    <string name="menu_bookmark_page">"Страница закладок"</string>
     <string name="share_page">"Отправить страницу"</string>
-    <string name="menu_zoom">"Масштаб"</string>
-    <string name="menu_flip_orientation">"Изменить ориентацию"</string>
     <string name="contextmenu_openlink">"Открыть"</string>
     <string name="contextmenu_openlink_newwindow">"Открыть в новом окне"</string>
     <string name="contextmenu_bookmark_thislink">"Добавить в закладки"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"Очистить историю"</string>
     <string name="browser_history">"Недавно посещенные страницы"</string>
     <string name="empty_history">"История бразуера пуста."</string>
-    <string name="add_new_bookmark">"Создать закладку"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"Нет базы данных!"</string>
     <string name="search_hint">"Введите веб-адрес"</string>
-    <string name="search">"Поиск"</string>
     <string name="search_button_text">"Перейти"</string>
     <string name="attention">"Внимание"</string>
     <string name="popup_window_attempt">"Этот сайт пытается открыть всплывающее окно."</string>
@@ -254,34 +261,8 @@
     <string name="download_length_required">"Загрузка невозможна. Не удается определить размер элемента."</string>
     <string name="download_precondition_failed">"Загрузка прервана и не может быть продолжена."</string>
     <string name="activity_instrumentation_test_runner">"Проверка браузера"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.ru/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Википедия"</item>
-    <item>"http://ru.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"считывать историю и закладки браузера"</string>
     <string name="permdesc_readHistoryBookmarks">"Позволяет приложению считывать все URL, открытые через браузер, и все закладки браузера."</string>
     <string name="permlab_writeHistoryBookmarks">"записывать историю и закладки браузера"</string>
@@ -291,7 +272,6 @@
     <string name="shortcut_message">"Этот веб-сайт пытается создать ярлык на вашем компьютере. Разрешить?"</string>
     <string name="settings_message">"В таблице ниже показаны разрешения, которые вы дали сайтам, пытавшимся использовать Gears."</string>
     <string name="filepicker_message">"Выбор файлов Gears"</string>
-    <string name="image_message">"Выбранное изображение"</string>
     <string name="settings_title">"Настройки Gears"</string>
     <string name="privacy_policy">"Прочитайте политику конфиденциальности сайта, чтобы узнать, как будут использованы данные о вашем местоположении."</string>
     <string name="permission_button_alwaysdeny">"Никогда для этого сайта"</string>
@@ -314,4 +294,6 @@
     <string name="denied">"Запрещено"</string>
     <string name="unrecognized_dialog_message">"Неизвестный тип диалога"</string>
     <string name="default_button">"ОК"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

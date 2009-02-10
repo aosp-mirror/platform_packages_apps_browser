@@ -162,7 +162,7 @@ public class BrowserBookmarksPage extends Activity implements
         }
 
         mBookmarksAdapter = new BrowserBookmarksAdapter(this, 
-                getIntent().getStringExtra("title"), mCreateShortcut);
+                getIntent().getStringExtra("url"), mCreateShortcut);
         mMaxTabsOpen = getIntent().getBooleanExtra("maxTabsOpen", false);
 
         ListView listView = (ListView) findViewById(R.id.list);
@@ -204,7 +204,7 @@ public class BrowserBookmarksPage extends Activity implements
             } else {
                 final Intent intent = createShortcutIntent(getUrl(position),
                         getBookmarkTitle(position));
-                setResult(RESULT_OK, intent);
+                setResultToParent(RESULT_OK, intent);
                 finish();
             }
         }
@@ -231,7 +231,8 @@ public class BrowserBookmarksPage extends Activity implements
     }
 
     private void loadUrl(int position) {
-        setResult(RESULT_OK, (new Intent()).setAction(getUrl(position)));
+        Intent intent = (new Intent()).setAction(getUrl(position));
+        setResultToParent(RESULT_OK, intent);
         finish();
     }
 
@@ -262,7 +263,7 @@ public class BrowserBookmarksPage extends Activity implements
     private void openInNewWindow(int position) {
         Bundle b = new Bundle();
         b.putBoolean("new_window", true);
-        setResult(RESULT_OK,
+        setResultToParent(RESULT_OK,
                 (new Intent()).setAction(getUrl(position)).putExtras(b));
 
         finish();
@@ -367,9 +368,18 @@ public class BrowserBookmarksPage extends Activity implements
     
     public boolean dispatchKeyEvent(KeyEvent event) {    
         if (event.getKeyCode() ==  KeyEvent.KEYCODE_BACK && event.isDown()) {
-            setResult(RESULT_CANCELED);
+            setResultToParent(RESULT_CANCELED, null);
             mCanceled = true;
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    // This Activity is generally a sub-Activity of CombinedHistoryActivity. In
+    // that situation, we need to pass our result code up to our parent.
+    // However, if someone calls this Activity directly, then this has no
+    // parent, and it needs to set it on itself.
+    private void setResultToParent(int resultCode, Intent data) {
+        Activity a = getParent() == null ? this : getParent();
+        a.setResult(resultCode, data);
     }
 }

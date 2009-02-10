@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"Acceder a <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username">"Nombre"</string>
     <string name="password">"Contraseña"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"Deteniendo..."</string>
     <string name="stop">"Detener"</string>
     <string name="reload">"Actualizar"</string>
-    <string name="back">"Anterior"</string>
     <string name="forward">"Siguiente"</string>
     <string name="save">"Aceptar"</string>
     <string name="do_not_save">"Cancelar"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"La URL no es válida."</string>
     <string name="delete_bookmark">"Suprimir"</string>
     <string name="bookmark_page">"Marcar como última página vista"</string>
-    <string name="current_page">"Página actual:"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"Se eliminará el marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
     <string name="open_in_new_window">"Abrir en ventana nueva"</string>
     <string name="new_window">"Nueva ventana"</string>
-    <string name="goto_dot">"Ir a URL"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"Buscar en la página"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"Página principal"</string>
     <string name="view_tabs">"Visión general de ventanas"</string>
     <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"Ventanas actuales"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"Marcar"</string>
     <string name="history">"Historial"</string>
     <string name="menu_view_download">"Descargas"</string>
-    <string name="menu_bookmark_page">"Marcar página"</string>
     <string name="share_page">"Compartir página"</string>
-    <string name="menu_zoom">"Zoom"</string>
-    <string name="menu_flip_orientation">"Cambiar orientación"</string>
     <string name="contextmenu_openlink">"Abrir"</string>
     <string name="contextmenu_openlink_newwindow">"Abrir en ventana nueva"</string>
     <string name="contextmenu_bookmark_thislink">"Marcar enlace"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"Borrar historial"</string>
     <string name="browser_history">"Páginas visitadas recientemente"</string>
     <string name="empty_history">"El historial del navegador está vacío."</string>
-    <string name="add_new_bookmark">"Marcador nuevo"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"No hay ninguna base de datos."</string>
     <string name="search_hint">"Introduce la dirección web."</string>
-    <string name="search">"Buscar"</string>
     <string name="search_button_text">"Ir"</string>
     <string name="attention">"Atención"</string>
     <string name="popup_window_attempt">"Este sitio está intentando mostrar una ventana emergente."</string>
@@ -254,34 +261,8 @@
     <string name="download_length_required">"No se puede realizar la descarga, porque no es posible determinar el tamaño del elemento."</string>
     <string name="download_precondition_failed">"La descarga se ha interrumpido y no se puede reanudar."</string>
     <string name="activity_instrumentation_test_runner">"Realizador de pruebas del navegador"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.com/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Wikipedia"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"leer información de marcadores y del historial del navegador"</string>
     <string name="permdesc_readHistoryBookmarks">"Permite que la aplicación lea todas las URL que ha visitado el navegador y todos sus marcadores."</string>
     <string name="permlab_writeHistoryBookmarks">"escribir en marcadores y en el historial del navegador"</string>
@@ -291,7 +272,6 @@
     <string name="shortcut_message">"¿Quieres permitir que este sitio web cree un acceso directo en tu equipo?"</string>
     <string name="settings_message">"En la tabla que aparece a continuación se muestran los permisos que has concedido a los distintos sitios web que han intentado utilizar Gears."</string>
     <string name="filepicker_message">"Selector de archivos de Gears"</string>
-    <string name="image_message">"Imagen seleccionada"</string>
     <string name="settings_title">"Configuración de Gears"</string>
     <string name="privacy_policy">"Lee la política de privacidad del sitio para saber cómo se utilizará tu ubicación."</string>
     <string name="permission_button_alwaysdeny">"No permitir nunca este sitio"</string>
@@ -314,4 +294,6 @@
     <string name="denied">"Denegado"</string>
     <string name="unrecognized_dialog_message">"Tipo de cuadro de diálogo no reconocido"</string>
     <string name="default_button">"Aceptar"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

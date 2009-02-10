@@ -63,10 +63,6 @@ class AddNewBookmark extends LinearLayout {
      *  @param url  The new url for the bookmark item.
      */
     /* package */ void setUrl(String url) {
-        if (url.length() > BrowserSettings.MAX_TEXTVIEW_LEN) {
-            mUrlText.setText(url.substring(0, BrowserSettings.MAX_TEXTVIEW_LEN));
-        } else {
-            mUrlText.setText(url);
-        }
+        mUrlText.setText(url);
     }
 }

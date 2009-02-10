@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"<xliff:g id="HOSTNAME">%s1</xliff:g>に「<xliff:g id="REALM">%s2</xliff:g>」でログイン"</string>
     <string name="username">"名前"</string>
     <string name="password">"パスワード"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"停止中..."</string>
     <string name="stop">"停止"</string>
     <string name="reload">"リフレッシュ"</string>
-    <string name="back">"戻る"</string>
     <string name="forward">"進む"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"キャンセル"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"無効なURLです。"</string>
     <string name="delete_bookmark">"削除"</string>
     <string name="bookmark_page">"最後に表示したページをブックマークする"</string>
-    <string name="current_page">"現在のページ:"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"ブックマーク「<xliff:g id="BOOKMARK">%s</xliff:g>」を削除します。"</string>
     <string name="open_in_new_window">"新しいウィンドウで開く"</string>
     <string name="new_window">"新しいウィンドウ"</string>
-    <string name="goto_dot">"URLに移動"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"このページの検索"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"ホームページ"</string>
     <string name="view_tabs">"ウィンドウリスト"</string>
     <string name="view_tabs_condensed">"ウィンドウ"</string>
     <string name="tab_picker_title">"現在のウィンドウ"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"ブックマーク"</string>
     <string name="history">"履歴"</string>
     <string name="menu_view_download">"ダウンロード"</string>
-    <string name="menu_bookmark_page">"ページをブックマーク"</string>
     <string name="share_page">"ページを共有"</string>
-    <string name="menu_zoom">"ズーム"</string>
-    <string name="menu_flip_orientation">"画面の向きを変更"</string>
     <string name="contextmenu_openlink">"開く"</string>
     <string name="contextmenu_openlink_newwindow">"新しいウィンドウで開く"</string>
     <string name="contextmenu_bookmark_thislink">"リンクをブックマーク"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"履歴をクリア"</string>
     <string name="browser_history">"最近閲覧したページ"</string>
     <string name="empty_history">"ブラウザ履歴はありません。"</string>
-    <string name="add_new_bookmark">"新しいブックマーク"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"データベースがありません。"</string>
     <string name="search_hint">"ウェブアドレスを入力してください"</string>
-    <string name="search">"検索"</string>
     <string name="search_button_text">"移動"</string>
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"このサイトはポップアップウィンドウを開こうとしています。"</string>
@@ -254,34 +261,8 @@
     <string name="download_length_required">"項目のサイズを特定できないため、ダウンロードできません。"</string>
     <string name="download_precondition_failed">"ダウンロードが中断されました。再開できません。"</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.com/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"ウィキペディア"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"ブラウザの履歴とブックマークの読み取り"</string>
     <string name="permdesc_readHistoryBookmarks">"ブラウザでアクセスしたすべてのURLとブックマークの読み取りをアプリケーションに許可します。"</string>
     <string name="permlab_writeHistoryBookmarks">"ブラウザの履歴とブックマークの書き込み"</string>
@@ -291,7 +272,6 @@
     <string name="shortcut_message">"このウェブサイトはコンピュータ上にショートカットを作成しようとしています。作成を許可しますか？"</string>
     <string name="settings_message">"Gearsを使用しようとしたサイトに許可した権限は、以下の表のとおりです。"</string>
     <string name="filepicker_message">"Gears File Picker"</string>
-    <string name="image_message">"選択した画像"</string>
     <string name="settings_title">"Gears設定"</string>
     <string name="privacy_policy">"サイトのプライバシーポリシーを読んで、現在地の情報がどのように使用されるのか確認してください。"</string>
     <string name="permission_button_alwaysdeny">"このサイトを常に拒否する"</string>
@@ -314,4 +294,6 @@
     <string name="denied">"拒否されました"</string>
     <string name="unrecognized_dialog_message">"不明な種類のダイアログです"</string>
     <string name="default_button">"OK"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

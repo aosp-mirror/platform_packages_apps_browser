@@ -180,6 +180,7 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
                     sb.append("/");
                     sb.append(Formatter.formatFileSize(mContext, totalBytes));
                     sb.append(")");
+                    pb.setIndeterminate(false);
                     pb.setProgress(progressAmount);
                 } else {
                     pb.setIndeterminate(true);

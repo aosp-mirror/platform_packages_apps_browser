@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"Connectez-vous à <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username">"Nom"</string>
     <string name="password">"Mot de passe"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"Arrêt..."</string>
     <string name="stop">"Interrompre"</string>
     <string name="reload">"Actualiser"</string>
-    <string name="back">"Précédent"</string>
     <string name="forward">"Suivant"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"Annuler"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"L\'URL est incorrecte."</string>
     <string name="delete_bookmark">"Supprimer"</string>
     <string name="bookmark_page">"Dernière page de favori consultée"</string>
-    <string name="current_page">"Page actuelle :"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"Le favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sera supprimé."</string>
     <string name="open_in_new_window">"Ouvrir dans une nouvelle fenêtre"</string>
     <string name="new_window">"Nouvelle fenêtre"</string>
-    <string name="goto_dot">"Accéder à l\'URL"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"Rechercher sur la page"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"Page d\'accueil"</string>
     <string name="view_tabs">"Vue d\'ensemble des fenêtres"</string>
     <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"Fenêtres actuelles"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"Favori"</string>
     <string name="history">"Historique"</string>
     <string name="menu_view_download">"Téléchargements"</string>
-    <string name="menu_bookmark_page">"Page de favori"</string>
     <string name="share_page">"Partager la page"</string>
-    <string name="menu_zoom">"Zoom"</string>
-    <string name="menu_flip_orientation">"Changer l\'orientation"</string>
     <string name="contextmenu_openlink">"Ouvrir"</string>
     <string name="contextmenu_openlink_newwindow">"Ouvrir une nouvelle fenêtre"</string>
     <string name="contextmenu_bookmark_thislink">"Lien du favori"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"Effacer l\'historique"</string>
     <string name="browser_history">"Dernières pages consultées"</string>
     <string name="empty_history">"L\'historique du navigateur est vide."</string>
-    <string name="add_new_bookmark">"Nouveau favori"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"Aucune base de données !"</string>
     <string name="search_hint">"Saisir l\'adresse Web"</string>
-    <string name="search">"Rechercher"</string>
     <string name="search_button_text">"Aller"</string>
     <string name="attention">"Attention"</string>
     <string name="popup_window_attempt">"Le site tente d\'ouvrir une fenêtre contextuelle."</string>
@@ -254,34 +261,8 @@
     <string name="download_length_required">"Téléchargement impossible. La taille de l\'élément n\'a pas pu être déterminée."</string>
     <string name="download_precondition_failed">"Téléchargement interrompu. Impossible de reprendre le téléchargement."</string>
     <string name="activity_instrumentation_test_runner">"Testeur de navigateur"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.com/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Wikipédia"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Météo"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"lire l\'historique du navigateur et les favoris"</string>
     <string name="permdesc_readHistoryBookmarks">"Permet à l\'application de lire toutes les URL visitées par le navigateur et tous les favoris."</string>
     <string name="permlab_writeHistoryBookmarks">"écrire l\'historique du navigateur et les favoris"</string>
@@ -291,7 +272,6 @@
     <string name="shortcut_message">"Voulez-vous autoriser ce site Web à créer un raccourci sur votre ordinateur ?"</string>
     <string name="settings_message">"Le tableau ci-dessous indique les fonctions que vous avez autorisées pour chaque site ayant tenté d\'utiliser Google Gears."</string>
     <string name="filepicker_message">"Sélecteur de fichiers Google Gears"</string>
-    <string name="image_message">"Image sélectionnée"</string>
     <string name="settings_title">"Paramètres Google Gears"</string>
     <string name="privacy_policy">"Lisez la politique de confidentialité du site pour voir comment votre emplacement sera utilisé."</string>
     <string name="permission_button_alwaysdeny">"Ne jamais autoriser ce site"</string>
@@ -314,4 +294,6 @@
     <string name="denied">"Refusé"</string>
     <string name="unrecognized_dialog_message">"Type de boîte de dialogue inconnu"</string>
     <string name="default_button">"OK"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

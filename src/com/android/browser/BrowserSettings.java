@@ -67,7 +67,6 @@ class BrowserSettings extends Observable {
     private String homeUrl = "http://www.google.com/m?client=ms-" + 
         SystemProperties.get("ro.com.google.clientid", "unknown");
     private boolean loginInitialized = false;
-    private int orientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
     private boolean autoFitPage = true;
     private boolean showDebugSettings = false;
     
@@ -231,7 +230,6 @@ class BrowserSettings extends Observable {
         loginInitialized = p.getBoolean("login_initialized", loginInitialized);
         textSize = WebSettings.TextSize.valueOf(
                 p.getString(PREF_TEXT_SIZE, textSize.name()));
-        orientation = p.getInt("orientation", orientation);
         autoFitPage = p.getBoolean("autofit_pages", autoFitPage);
         useWideViewPort = true; // use wide view port for either setting
         if (autoFitPage) {
@@ -301,22 +299,7 @@ class BrowserSettings extends Observable {
         ed.putBoolean("login_initialized", loginInitialized);
         ed.commit();
     }
-    
-    public int getOrientation() {
-        return orientation;
-    }
-    
-    public void setOrientation(Context context, int o) {
-        if (orientation == o) {
-            return;
-        }
-        orientation = o;
-        Editor ed = PreferenceManager.
-                getDefaultSharedPreferences(context).edit();      
-        ed.putInt("orientation", orientation);
-        ed.commit();
-    }
-    
+
     public WebSettings.TextSize getTextSize() {
         return textSize;
     }

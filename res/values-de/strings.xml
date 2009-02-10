@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"Bei <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\" anmelden"</string>
     <string name="username">"Name"</string>
     <string name="password">"Passwort"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"Wird angehalten..."</string>
     <string name="stop">"Anhalten"</string>
     <string name="reload">"Aktualisieren"</string>
-    <string name="back">"Zurück"</string>
     <string name="forward">"Weiter"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"Abbrechen"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"URL ist nicht gültig."</string>
     <string name="delete_bookmark">"Löschen"</string>
     <string name="bookmark_page">"Lesezeichen für zuletzt besuchte Seite"</string>
-    <string name="current_page">"Aktuelle Seite:"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"Lesezeichen \"<xliff:g id="BOOKMARK">%s</xliff:g>\" wird gelöscht."</string>
     <string name="open_in_new_window">"In neuem Fenster öffnen"</string>
     <string name="new_window">"Neues Fenster"</string>
-    <string name="goto_dot">"Gehe zu URL"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"Auf Seite suchen"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"Startseite"</string>
     <string name="view_tabs">"Fensterübersicht"</string>
     <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"Aktuelle Fenster"</string>
@@ -91,12 +101,9 @@
     <string name="tab_picker_send_url">"Link weiterleiten"</string>
     <string name="bookmarks">"Lesezeichen"</string>
     <string name="shortcut_bookmark">"Lesezeichen"</string>
-    <string name="history">"Suchverlauf"</string>
+    <string name="history">"Verlauf"</string>
     <string name="menu_view_download">"Downloads"</string>
-    <string name="menu_bookmark_page">"Lesezeichen-Seite"</string>
     <string name="share_page">"Seitenlink weiterleiten"</string>
-    <string name="menu_zoom">"Zoom"</string>
-    <string name="menu_flip_orientation">"Ausrichtung drehen"</string>
     <string name="contextmenu_openlink">"Öffnen"</string>
     <string name="contextmenu_openlink_newwindow">"In neuem Fenster öffnen"</string>
     <string name="contextmenu_bookmark_thislink">"Lesezeichen-Link"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"Verlauf löschen"</string>
     <string name="browser_history">"Zuletzt besuchte Seiten"</string>
     <string name="empty_history">"Browserverlauf ist leer."</string>
-    <string name="add_new_bookmark">"Neues Lesezeichen"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"Keine Datenbank!"</string>
     <string name="search_hint">"Webadresse eingeben"</string>
-    <string name="search">"Suche"</string>
     <string name="search_button_text">"Los"</string>
     <string name="attention">"Achtung"</string>
     <string name="popup_window_attempt">"Diese Website versucht, ein Pop-up-Fenster zu öffnen."</string>
@@ -254,6 +261,8 @@
     <string name="download_length_required">"Download kann nicht gestartet werden, da die Größe des Elements nicht bestimmt werden kann."</string>
     <string name="download_precondition_failed">"Download wurde unterbrochen und kann nicht fortgesetzt werden."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"Browserverlauf und Lesezeichen lesen"</string>
     <string name="permdesc_readHistoryBookmarks">"Ermöglicht der Anwendung, alle URLs, die mit dem Browser besucht wurden, sowie alle Lesezeichen des Browsers zu lesen."</string>
     <string name="permlab_writeHistoryBookmarks">"Browserverlauf und Lesezeichen schreiben"</string>
@@ -263,7 +272,6 @@
     <string name="shortcut_message">"Diese Website möchte einen Shortcut auf Ihrem Computer erstellen. Sind Sie damit einverstanden?"</string>
     <string name="settings_message">"Die folgende Tabelle zeigt die Berechtigungen, die Sie jeder Website erteilt haben, die versucht hat, Gears zu verwenden."</string>
     <string name="filepicker_message">"Gears File Picker"</string>
-    <string name="image_message">"Ausgewähltes Bild"</string>
     <string name="settings_title">"Gears-Einstellungen"</string>
     <string name="privacy_policy">"Lesen Sie die Datenschutzbestimmungen dieser Website, um herauszufinden, wie Ihr Ort verwendet wird."</string>
     <string name="permission_button_alwaysdeny">"Diese Website niemals zulassen"</string>
@@ -286,4 +294,6 @@
     <string name="denied">"Abgelehnt"</string>
     <string name="unrecognized_dialog_message">"Unbekannter Dialogtyp"</string>
     <string name="default_button">"OK"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

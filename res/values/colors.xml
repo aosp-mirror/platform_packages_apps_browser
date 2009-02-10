@@ -33,10 +33,7 @@
     <color name="black">#ff000000</color>
     <color name="gray">#ffbbbbbb</color>
     <color name="dark_gray">#ff777777</color>
-    <color name="blue">#ff0000ff</color>
     
-    <color name="translucent_white">#11ffffff</color>
-
     <!-- Gears Dialogs -->
     <color name="permission_border">#f1cc1d</color>
     <color name="permission_background">#faefb8</color>

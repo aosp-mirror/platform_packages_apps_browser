@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"登录至 <xliff:g id="HOSTNAME">%s1</xliff:g>“<xliff:g id="REALM">%s2</xliff:g>”"</string>
     <string name="username">"名称"</string>
     <string name="password">"密码"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"正在停止..."</string>
     <string name="stop">"停止"</string>
     <string name="reload">"刷新"</string>
-    <string name="back">"返回"</string>
     <string name="forward">"前进"</string>
     <string name="save">"确定"</string>
     <string name="do_not_save">"取消"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"网址无效。"</string>
     <string name="delete_bookmark">"删除"</string>
     <string name="bookmark_page">"将上次查看过的页面加为书签"</string>
-    <string name="current_page">"当前页面："</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"会删除书签“<xliff:g id="BOOKMARK">%s</xliff:g>”。"</string>
     <string name="open_in_new_window">"在新窗口中打开"</string>
     <string name="new_window">"新窗口"</string>
-    <string name="goto_dot">"转至网址"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"在页面上查找"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"主页"</string>
     <string name="view_tabs">"窗口概述"</string>
     <string name="view_tabs_condensed">"窗口"</string>
     <string name="tab_picker_title">"当前窗口"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"书签"</string>
     <string name="history">"历史记录"</string>
     <string name="menu_view_download">"下载"</string>
-    <string name="menu_bookmark_page">"书签页面"</string>
     <string name="share_page">"共享页面"</string>
-    <string name="menu_zoom">"缩放"</string>
-    <string name="menu_flip_orientation">"反转方向"</string>
     <string name="contextmenu_openlink">"打开"</string>
     <string name="contextmenu_openlink_newwindow">"在新窗口中打开"</string>
     <string name="contextmenu_bookmark_thislink">"书签链接"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"清除历史记录"</string>
     <string name="browser_history">"最近访问过的页面"</string>
     <string name="empty_history">"浏览器历史记录为空。"</string>
-    <string name="add_new_bookmark">"新建书签"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"没有数据库！"</string>
     <string name="search_hint">"键入网址"</string>
-    <string name="search">"搜索"</string>
     <string name="search_button_text">"转至"</string>
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"该网站正试图打开一个弹出窗口。"</string>
@@ -254,34 +261,8 @@
     <string name="download_length_required">"无法下载。无法确定该项的大小。"</string>
     <string name="download_precondition_failed">"下载中断，无法重新开始。"</string>
     <string name="activity_instrumentation_test_runner">"浏览器测试运行器"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.cn/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Wikipedia"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"易趣"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"纽约时报"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"卓越亚马逊"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"读取浏览器的历史记录和书签"</string>
     <string name="permdesc_readHistoryBookmarks">"允许应用程序读取浏览器访问过的所有网址以及浏览器的所有书签。"</string>
     <string name="permlab_writeHistoryBookmarks">"写入浏览器的历史记录和书签"</string>
@@ -291,7 +272,6 @@
     <string name="shortcut_message">"该网站想要在您的计算机上创建快捷方式。是否允许创建？"</string>
     <string name="settings_message">"下表显示了您授予尝试使用 Gears 的各个网站的权限。"</string>
     <string name="filepicker_message">"Gears 文件选择器"</string>
-    <string name="image_message">"选定图片"</string>
     <string name="settings_title">"Gears 设置"</string>
     <string name="privacy_policy">"阅读网站的隐私政策，以了解会如何使用您的位置。"</string>
     <string name="permission_button_alwaysdeny">"始终拒绝该网站"</string>
@@ -314,4 +294,6 @@
     <string name="denied">"已拒绝"</string>
     <string name="unrecognized_dialog_message">"未识别的对话类型"</string>
     <string name="default_button">"确定"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"Zaloguj się w witrynie <xliff:g id="HOSTNAME">%s1</xliff:g> „<xliff:g id="REALM">%s2</xliff:g>”"</string>
     <string name="username">"Nazwa"</string>
     <string name="password">"Hasło"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"Trwa zatrzymywanie…"</string>
     <string name="stop">"Zatrzymaj"</string>
     <string name="reload">"Odśwież"</string>
-    <string name="back">"Wstecz"</string>
     <string name="forward">"Dalej"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"Anuluj"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"Adres URL jest nieprawidłowy."</string>
     <string name="delete_bookmark">"Usuń"</string>
     <string name="bookmark_page">"Dodaj do zakładek ostatnio wyświetlaną stronę"</string>
-    <string name="current_page">"Bieżąca strona:"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"Zakładka „<xliff:g id="BOOKMARK">%s</xliff:g>” zostanie usunięta."</string>
     <string name="open_in_new_window">"Otwórz w nowym oknie"</string>
     <string name="new_window">"Nowe okno"</string>
-    <string name="goto_dot">"Przejdź pod adres URL"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"Znajdź na stronie"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"Strona główna"</string>
     <string name="view_tabs">"Przegląd okien"</string>
     <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"Bieżące okna"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"Utwórz zakładkę"</string>
     <string name="history">"Historia"</string>
     <string name="menu_view_download">"Pobrane pliki"</string>
-    <string name="menu_bookmark_page">"Strona zakładek"</string>
     <string name="share_page">"Udostępnij stronę"</string>
-    <string name="menu_zoom">"Powiększenie"</string>
-    <string name="menu_flip_orientation">"Zmień orientację"</string>
     <string name="contextmenu_openlink">"Otwórz"</string>
     <string name="contextmenu_openlink_newwindow">"Otwórz w nowym oknie"</string>
     <string name="contextmenu_bookmark_thislink">"Dodaj link do zakładek"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"Wyczyść historię"</string>
     <string name="browser_history">"Ostatnio odwiedzane strony"</string>
     <string name="empty_history">"Historia przeglądarki jest pusta."</string>
-    <string name="add_new_bookmark">"Nowa zakładka"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"Brak bazy danych!"</string>
     <string name="search_hint">"Wpisz adres WWW"</string>
-    <string name="search">"Szukaj"</string>
     <string name="search_button_text">"Idź"</string>
     <string name="attention">"Uwaga"</string>
     <string name="popup_window_attempt">"Ta strona próbuje otworzyć okienko wyskakujące."</string>
@@ -254,34 +261,8 @@
     <string name="download_length_required">"Pobieranie niemożliwe. Nie można ustalić rozmiaru elementu."</string>
     <string name="download_precondition_failed">"Pobieranie zostało przerwane. Nie można go wznowić."</string>
     <string name="activity_instrumentation_test_runner">"Uruchamianie testów przeglądarki"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.com/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Wikipedia"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Pogoda"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"odczytywanie historii i zakładek przeglądarki"</string>
     <string name="permdesc_readHistoryBookmarks">"Zezwala aplikacji na odczytanie wszystkich adresów URL odwiedzonych przy użyciu przeglądarki oraz wszystkich zakładek przeglądarki."</string>
     <string name="permlab_writeHistoryBookmarks">"zapisać historię i zakładki przeglądarki"</string>
@@ -291,7 +272,6 @@
     <string name="shortcut_message">"Ta witryna chce utworzyć skrót w Twoim komputerze. Czy chcesz na to zezwolić?"</string>
     <string name="settings_message">"W poniższej tabeli przedstawiono uprawnienia udzielone każdej z witryn próbujących użyć Gears."</string>
     <string name="filepicker_message">"Gears — wybieranie pliku"</string>
-    <string name="image_message">"Wybrany obraz"</string>
     <string name="settings_title">"Gears — ustawienia"</string>
     <string name="privacy_policy">"Przeczytaj zasady zachowania poufności informacji witryny, aby dowiedzieć się, jak będą użyte informacje o twojej lokalizacji."</string>
     <string name="permission_button_alwaysdeny">"Nigdy nie zezwalaj tej witrynie"</string>
@@ -314,4 +294,6 @@
     <string name="denied">"Odmówiono"</string>
     <string name="unrecognized_dialog_message">"Nierozpoznany typ okna dialogowego"</string>
     <string name="default_button">"OK"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

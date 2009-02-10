@@ -18,9 +18,11 @@
     android:id="@+id/findControls"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/bottom_bar"
-    android:paddingTop="12dip"
-    >
+    android:paddingTop="5dip"
+    android:paddingLeft="4dip"
+    android:paddingRight="4dip"
+    android:paddingBottom="1dip"
+    android:background="@android:drawable/bottom_bar">
     <ImageButton 
         android:src="@drawable/ic_btn_find_prev"
         android:id="@+id/previous"
@@ -46,8 +48,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:scrollHorizontally="true"
-            android:autoText="false"
-            android:capitalize="none"
+            android:inputType="text"
             android:hint="@string/find_dot"
             />
         <LinearLayout android:id="@+id/matches_view"

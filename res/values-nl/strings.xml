@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"Aanmelden bij <xliff:g id="HOSTNAME">%s1</xliff:g> \'<xliff:g id="REALM">%s2</xliff:g>\'"</string>
     <string name="username">"Naam"</string>
     <string name="password">"Wachtwoord"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"Stoppen..."</string>
     <string name="stop">"Stoppen"</string>
     <string name="reload">"Vernieuwen"</string>
-    <string name="back">"Terug"</string>
     <string name="forward">"Volgende"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"Annuleren"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"URL is ongeldig."</string>
     <string name="delete_bookmark">"Verwijderen"</string>
     <string name="bookmark_page">"Bladwijzer maken voor de laatst weergegeven pagina"</string>
-    <string name="current_page">"Huidige pagina:"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"Bladwijzer \'<xliff:g id="BOOKMARK">%s</xliff:g>\' wordt verwijderd."</string>
     <string name="open_in_new_window">"Openen in een nieuw venster"</string>
     <string name="new_window">"Nieuw venster"</string>
-    <string name="goto_dot">"Ga naar URL"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"Zoeken op pagina"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"Startpagina"</string>
     <string name="view_tabs">"Vensteroverzicht"</string>
     <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"Huidige vensters"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"Bladwijzer"</string>
     <string name="history">"Geschiedenis"</string>
     <string name="menu_view_download">"Downloads"</string>
-    <string name="menu_bookmark_page">"Bladwijzerpagina"</string>
     <string name="share_page">"Pagina delen"</string>
-    <string name="menu_zoom">"Zoomen"</string>
-    <string name="menu_flip_orientation">"Stand draaien"</string>
     <string name="contextmenu_openlink">"Openen"</string>
     <string name="contextmenu_openlink_newwindow">"Openen in een nieuw venster"</string>
     <string name="contextmenu_bookmark_thislink">"Bladwijzer maken van link"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"Geschiedenis wissen"</string>
     <string name="browser_history">"Onlangs bezochte pagina\'s"</string>
     <string name="empty_history">"Browsergeschiedenis is leeg."</string>
-    <string name="add_new_bookmark">"Nieuwe bladwijzer"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"Geen database."</string>
     <string name="search_hint">"Typ het webadres"</string>
-    <string name="search">"Zoeken"</string>
     <string name="search_button_text">"Ga"</string>
     <string name="attention">"Opgelet"</string>
     <string name="popup_window_attempt">"Deze site probeert een pop-upvenster te openen."</string>
@@ -254,34 +261,8 @@
     <string name="download_length_required">"Kan niet downloaden. De grootte van het item kan niet worden vastgesteld."</string>
     <string name="download_precondition_failed">"Download is onderbroken. Deze kan niet worden voortgezet."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.com/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Wikipedia"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"browsergeschiedenis en bladwijzers lezen"</string>
     <string name="permdesc_readHistoryBookmarks">"Hiermee kan een toepassing de URL\'s lezen die u via de browser heeft bezocht, evenals alle bladwijzers van de browser."</string>
     <string name="permlab_writeHistoryBookmarks">"browsergeschiedenis en bladwijzers schrijven"</string>
@@ -291,7 +272,6 @@
     <string name="shortcut_message">"Deze website probeert een snelkoppeling te maken op uw computer. Wilt u dit toestaan?"</string>
     <string name="settings_message">"De onderstaande tabel geeft de toestemming weer die u heeft verleend aan elke site die Gears heeft geprobeerd te gebruiken."</string>
     <string name="filepicker_message">"Bestandenkiezer van Google Gears"</string>
-    <string name="image_message">"Geselecteerde foto"</string>
     <string name="settings_title">"Instellingen van Gears"</string>
     <string name="privacy_policy">"U kunt het privacybeleid van de site raadplegen voor meer informatie over hoe uw locatie wordt gebruikt."</string>
     <string name="permission_button_alwaysdeny">"Deze site nooit toestaan"</string>
@@ -314,4 +294,6 @@
     <string name="denied">"Geweigerd"</string>
     <string name="unrecognized_dialog_message">"Dialoogtype wordt niet herkend"</string>
     <string name="default_button">"OK"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

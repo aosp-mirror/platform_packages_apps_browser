@@ -19,19 +19,20 @@ package com.android.browser;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
  *  Custom layout for an item representing a bookmark in the browser.
  */
-class BookmarkItem extends RelativeLayout {
+class BookmarkItem extends LinearLayout {
 
-    private TextView    mTextView;
-    private TextView    mUrlText;
-    private ImageView   mImageView;
-    private LayoutInflater mFactory;
+    protected TextView    mTextView;
+    protected TextView    mUrlText;
+    protected ImageView   mImageView;
+    protected String      mUrl;
 
     /**
      *  Instantiate a bookmark item, including a default favicon.
@@ -41,11 +42,13 @@ class BookmarkItem extends RelativeLayout {
     BookmarkItem(Context context) {
         super(context);
 
-        mFactory = LayoutInflater.from(context);
-        mFactory.inflate(R.layout.bookmark_item, this);
+        LayoutInflater factory = LayoutInflater.from(context);
+        factory.inflate(R.layout.history_item, this);
         mTextView = (TextView) findViewById(R.id.title);
         mUrlText = (TextView) findViewById(R.id.url);
         mImageView = (ImageView) findViewById(R.id.favicon);
+        View star = findViewById(R.id.star);
+        star.setVisibility(View.GONE);
     }
 
     /**
@@ -61,8 +64,8 @@ class BookmarkItem extends RelativeLayout {
     /**
      * Return the name assigned to this bookmark item.
      */
-    /* package */ CharSequence getName() {
-        return mTextView.getText();
+    /* package */ String getName() {
+        return mTextView.getText().toString();
     }
 
     /**
@@ -70,6 +73,10 @@ class BookmarkItem extends RelativeLayout {
      */
     /* package */ TextView getNameTextView() {
         return mTextView;
+    }
+
+    /* package */ String getUrl() {
+        return mUrl;
     }
 
     /**
@@ -101,5 +108,6 @@ class BookmarkItem extends RelativeLayout {
      */
     /* package */ void setUrl(String url) {
         mUrlText.setText(url);
+        mUrl = url;
     }
 }

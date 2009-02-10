@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"Accedi a <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username">"Nome"</string>
     <string name="password">"Password"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"Interruzione..."</string>
     <string name="stop">"Interrompi"</string>
     <string name="reload">"Aggiorna"</string>
-    <string name="back">"Indietro"</string>
     <string name="forward">"Avanti"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"Annulla"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"URL non valido."</string>
     <string name="delete_bookmark">"Elimina"</string>
     <string name="bookmark_page">"Aggiungi ultima pagina visualizzata in segnalibri"</string>
-    <string name="current_page">"Pagina corrente:"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"Il segnalibro \"<xliff:g id="BOOKMARK">%s</xliff:g>\" verrà eliminato."</string>
     <string name="open_in_new_window">"Apri in nuova finestra"</string>
     <string name="new_window">"Nuova finestra"</string>
-    <string name="goto_dot">"Vai a URL"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"Trova nella pagina"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"Home page"</string>
     <string name="view_tabs">"Anteprima finestre"</string>
     <string name="view_tabs_condensed">"Finestre"</string>
     <string name="tab_picker_title">"Finestre correnti"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"Segnalibro"</string>
     <string name="history">"Cronologia"</string>
     <string name="menu_view_download">"Download"</string>
-    <string name="menu_bookmark_page">"Pagina segnalibri"</string>
     <string name="share_page">"Condividi pagina"</string>
-    <string name="menu_zoom">"Zoom"</string>
-    <string name="menu_flip_orientation">"Capovolgi orientamento"</string>
     <string name="contextmenu_openlink">"Apri"</string>
     <string name="contextmenu_openlink_newwindow">"Apri in nuova finestra"</string>
     <string name="contextmenu_bookmark_thislink">"Aggiungi link in segnalibri"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"Cancella cronologia"</string>
     <string name="browser_history">"Pagine visitate di recente"</string>
     <string name="empty_history">"La cronologia del browser è vuota."</string>
-    <string name="add_new_bookmark">"Nuovo segnalibro"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"Nessun database"</string>
     <string name="search_hint">"Digita l\'indirizzo web"</string>
-    <string name="search">"Cerca"</string>
     <string name="search_button_text">"Vai"</string>
     <string name="attention">"Attenzione"</string>
     <string name="popup_window_attempt">"Il sito sta tentando di aprire una finestra pop-up."</string>
@@ -254,34 +261,8 @@
     <string name="download_length_required">"Impossibile effettuare il download. Impossibile determinare le dimensioni dell\'elemento."</string>
     <string name="download_precondition_failed">"Download interrotto. Impossibile ripristinarlo."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.com/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Wikipedia"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"leggere cronologia e segnalibri del browser"</string>
     <string name="permdesc_readHistoryBookmarks">"Consente all\'applicazione di leggere tutti gli URL visitati e tutti i segnalibri del browser."</string>
     <string name="permlab_writeHistoryBookmarks">"creare cronologia e segnalibri del browser"</string>
@@ -291,7 +272,6 @@
     <string name="shortcut_message">"Il sito web desidera creare un collegamento sul computer. Consenti questa operazione?"</string>
     <string name="settings_message">"Nella tabella che segue vengono riportate le autorizzazioni concesse a ogni sito che ha provato a usare Gears."</string>
     <string name="filepicker_message">"Selettore file Gears"</string>
-    <string name="image_message">"Immagine selezionata"</string>
     <string name="settings_title">"Impostazioni Gears"</string>
     <string name="privacy_policy">"Per conoscere la modalità di utilizzo della tua posizione, leggi le norme sulla privacy del sito."</string>
     <string name="permission_button_alwaysdeny">"Non consentire mai il sito"</string>
@@ -314,4 +294,6 @@
     <string name="denied">"Negato"</string>
     <string name="unrecognized_dialog_message">"Tipo di finestra non riconosciuto"</string>
     <string name="default_button">"OK"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

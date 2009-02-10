@@ -17,7 +17,9 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Config;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,8 +27,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.webkit.HttpAuthHandler;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
@@ -78,6 +82,26 @@ class TabControl {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             return mClient.shouldOverrideUrlLoading(view, url);
+        }
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler,
+                SslError error) {
+            mClient.onReceivedSslError(view, handler, error);
+        }
+        @Override
+        public void onReceivedHttpAuthRequest(WebView view,
+                HttpAuthHandler handler, String host, String realm) {
+            mClient.onReceivedHttpAuthRequest(view, handler, host, realm);
+        }
+        @Override
+        public void onFormResubmission(WebView view, Message dontResend,
+                Message resend) {
+            mClient.onFormResubmission(view, dontResend, resend);
+        }
+        @Override
+        public void onReceivedError(WebView view, int errorCode,
+                String description, String failingUrl) {
+            mClient.onReceivedError(view, errorCode, description, failingUrl);
         }
     }
     // Subclass of WebChromeClient to display javascript dialogs.

@@ -17,6 +17,16 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for application_name (1935869255545976415) -->
     <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
     <string name="sign_in_to">"登入到 <xliff:g id="HOSTNAME">%s1</xliff:g>「<xliff:g id="REALM">%s2</xliff:g>」"</string>
     <string name="username">"名字"</string>
     <string name="password">"密碼"</string>
@@ -52,7 +62,6 @@
     <string name="stopping">"停止中…"</string>
     <string name="stop">"停止"</string>
     <string name="reload">"重新整理"</string>
-    <string name="back">"上一頁"</string>
     <string name="forward">"下一頁"</string>
     <string name="save">"確定"</string>
     <string name="do_not_save">"取消"</string>
@@ -72,15 +81,16 @@
     <string name="bookmark_url_not_valid">"網址無效。"</string>
     <string name="delete_bookmark">"刪除"</string>
     <string name="bookmark_page">"最後瀏覽的書籤頁面"</string>
-    <string name="current_page">"本頁："</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
     <string name="delete_bookmark_warning">"<xliff:g id="BOOKMARK">%s</xliff:g>"</string>
     <string name="open_in_new_window">"在新視窗開啟"</string>
     <string name="new_window">"新視窗"</string>
-    <string name="goto_dot">"前往網址"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
     <string name="find_dot">"在頁面中尋找"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
-    <string name="homepage">"首頁"</string>
     <string name="view_tabs">"視窗總覽"</string>
     <string name="view_tabs_condensed">"視窗"</string>
     <string name="tab_picker_title">"目前視窗"</string>
@@ -93,10 +103,7 @@
     <string name="shortcut_bookmark">"書籤"</string>
     <string name="history">"紀錄"</string>
     <string name="menu_view_download">"下載"</string>
-    <string name="menu_bookmark_page">"書籤頁面"</string>
     <string name="share_page">"分享網頁"</string>
-    <string name="menu_zoom">"縮放"</string>
-    <string name="menu_flip_orientation">"旋轉方向"</string>
     <string name="contextmenu_openlink">"開啟"</string>
     <string name="contextmenu_openlink_newwindow">"在新視窗開啟"</string>
     <string name="contextmenu_bookmark_thislink">"書籤連結"</string>
@@ -208,10 +215,10 @@
     <string name="clear_history">"清除紀錄"</string>
     <string name="browser_history">"最近瀏覽的頁面"</string>
     <string name="empty_history">"瀏覽記錄是空的。"</string>
-    <string name="add_new_bookmark">"新書籤"</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
     <string name="no_database">"沒有資料！"</string>
     <string name="search_hint">"輸入網頁位址"</string>
-    <string name="search">"搜尋"</string>
     <string name="search_button_text">"前往"</string>
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"此網站試圖開啟快顯視窗。"</string>
@@ -254,6 +261,8 @@
     <string name="download_length_required">"無法下載。物件大小無法估計。"</string>
     <string name="download_precondition_failed">"下載中斷。無法續傳。"</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
     <string name="permlab_readHistoryBookmarks">"讀取瀏覽器的瀏覽記錄和書籤"</string>
     <string name="permdesc_readHistoryBookmarks">"允許應用程式讀取瀏覽器造訪過的所有 URL 和瀏覽器所有的書籤。"</string>
     <string name="permlab_writeHistoryBookmarks">"寫入瀏覽器的瀏覽記錄和書籤"</string>
@@ -263,7 +272,6 @@
     <string name="shortcut_message">"此網站想要在您的電腦上建立捷徑。是否允許此動作？"</string>
     <string name="settings_message">"下表列出您為每個想要使用 Gears 之網站所授予的權限。"</string>
     <string name="filepicker_message">"Gears File Picker"</string>
-    <string name="image_message">"選取的圖片"</string>
     <string name="settings_title">"裝置設定"</string>
     <string name="privacy_policy">"讀取網站的隱私權政策，以瞭解網站將如何使用您的位置資訊。"</string>
     <string name="permission_button_alwaysdeny">"永遠不允許此網站"</string>
@@ -286,4 +294,6 @@
     <string name="denied">"遭拒"</string>
     <string name="unrecognized_dialog_message">"無法辨識的對話類型"</string>
     <string name="default_button">"確定"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
 </resources>

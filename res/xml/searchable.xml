@@ -23,6 +23,7 @@
     android:hint="@string/search_hint"
     android:searchButtonText="@string/search_button_text"
     android:searchMode="queryRewriteFromData"
+    android:voiceSearchMode="showVoiceSearchButton|launchWebSearch"
     android:inputType="textUri"
     
     android:searchSuggestAuthority="browser"
