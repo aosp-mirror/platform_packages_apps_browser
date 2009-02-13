@@ -31,8 +31,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 
 import java.util.Vector;
 
@@ -47,6 +49,12 @@ public class MostVisitedActivity extends ListActivity {
         CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
                 .addListener(new IconReceiver());
         setListAdapter(mAdapter);
+        ListView list = getListView();
+        LayoutInflater factory = LayoutInflater.from(this);
+        View v = factory.inflate(R.layout.empty_history, null);
+        addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.FILL_PARENT));
+        list.setEmptyView(v);
     }
 
     private class IconReceiver implements IconListener {

@@ -37,6 +37,7 @@ class GearsShortcutDialog extends GearsBaseDialog {
   private final String ICON_32 = "icon32x32";
   private final String ICON_48 = "icon48x48";
   private final String ICON_128 = "icon128x128";
+  private int mNotification = 0;
 
   public GearsShortcutDialog(Activity activity,
                              Handler handler,
@@ -45,19 +46,10 @@ class GearsShortcutDialog extends GearsBaseDialog {
   }
 
   public void setup() {
-    inflate(R.layout.gears_dialog_permission, R.id.panel_content);
+    inflate(R.layout.gears_dialog_shortcut, R.id.panel_content);
     setupButtons(R.string.shortcut_button_alwaysdeny,
                  R.string.shortcut_button_allow,
                  R.string.shortcut_button_deny);
-
-    View contentBorder = findViewById(R.id.content_border);
-    if (contentBorder != null) {
-      contentBorder.setBackgroundResource(R.color.shortcut_border);
-    }
-    View contentBackground = findViewById(R.id.content_background);
-    if (contentBackground != null) {
-      contentBackground.setBackgroundResource(R.color.shortcut_background);
-    }
 
     try {
       JSONObject json = new JSONObject(mDialogArguments);
@@ -69,17 +61,25 @@ class GearsShortcutDialog extends GearsBaseDialog {
 
       setupDialog();
 
-      setLabel(json, "name", R.id.origin_title);
+      setLabel(json, "name", R.id.shortcut_name);
       setLabel(json, "link", R.id.origin_subtitle);
       setLabel(json, "description", R.id.origin_message);
     } catch (JSONException e) {
       Log.e(TAG, "JSON exception", e);
     }
+
+    TextView msg = (TextView) findViewById(R.id.permission_dialog_message);
+    msg.setText(R.string.shortcut_message);
+
+    View shortcutIcon = findViewById(R.id.shortcut_panel);
+    if (shortcutIcon != null) {
+      shortcutIcon.setVisibility(View.VISIBLE);
+    }
   }
 
   public void setupDialog(TextView message, ImageView icon) {
-    message.setText(R.string.shortcut_message);
-    icon.setImageResource(R.drawable.gears_icon_48x48);
+    message.setText(R.string.shortcut_prompt);
+    icon.setImageResource(R.drawable.ic_dialog_menu_generic);
   }
 
   /**
@@ -136,6 +136,7 @@ class GearsShortcutDialog extends GearsBaseDialog {
         break;
       case ALLOW:
         ret = "{\"allow\": true, \"locations\": 0 }";
+        mNotification = R.string.shortcut_notification;
         break;
       case DENY:
         ret = null;
@@ -144,4 +145,7 @@ class GearsShortcutDialog extends GearsBaseDialog {
     return ret;
   }
 
+  public int notification() {
+    return mNotification;
+  }
 }

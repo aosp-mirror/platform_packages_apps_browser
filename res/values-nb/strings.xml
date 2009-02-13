@@ -16,17 +16,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name">"Nettleser"</string>
-    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
-    <skip />
-    <!-- no translation found for tab_most_visited (1077402532455000703) -->
-    <skip />
-    <!-- no translation found for tab_history (1979267558744613746) -->
-    <skip />
-    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
-    <skip />
-    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
-    <skip />
-    <string name="sign_in_to">"Logg inn på <xliff:g id="HOSTNAME">%s1</xliff:g> \\\"<xliff:g id="REALM">%s2</xliff:g>\\\""</string>
+    <string name="tab_bookmarks">"Bokmerker"</string>
+    <string name="tab_most_visited">"Mest besøkt"</string>
+    <string name="tab_history">"Historie"</string>
+    <string name="added_to_bookmarks">"Lagt til bokmerker"</string>
+    <string name="removed_from_bookmarks">"Fjernet fra bokmerker"</string>
+    <string name="sign_in_to">"Logg inn på <xliff:g id="HOSTNAME">%s1</xliff:g> \\\\\\\"<xliff:g id="REALM">%s2</xliff:g>\\\\\\\""</string>
     <string name="username">"Brukernavn"</string>
     <string name="password">"Passord"</string>
     <string name="action">"Logg inn"</string>
@@ -81,13 +76,12 @@
     <string name="delete_bookmark">"Slett"</string>
     <string name="bookmark_page">"Legg til bokmerke for sist sette side"</string>
     <string name="current_page">"Gjeldende side:"</string>
-    <string name="delete_bookmark_warning">"Bokmerket \\\"<xliff:g id="BOOKMARK">%s</xliff:g>\\\" vil bli slettet."</string>
+    <string name="delete_bookmark_warning">"Bokmerket \\\\\\\"<xliff:g id="BOOKMARK">%s</xliff:g>\\\\\\\" vil bli slettet."</string>
     <string name="open_in_new_window">"Åpne i nytt vindu"</string>
     <string name="new_window">"Nytt vindu"</string>
     <string name="goto_dot">"Gå til URL"</string>
     <string name="find_dot">"Finn på siden"</string>
-    <!-- no translation found for select_dot (6299170761900561967) -->
-    <skip />
+    <string name="select_dot">"Velg tekst"</string>
     <string name="view_tabs">"Vindusoversikt"</string>
     <string name="view_tabs_condensed">"Vinduer"</string>
     <string name="tab_picker_title">"Gjeldende vinduer"</string>
@@ -206,7 +200,7 @@
     <string name="browserFrameNetworkErrorLabel">"Tilkoblingsproblem"</string>
     <string name="browserFrameFileErrorLabel">"Problem med fil"</string>
     <string name="browserFrameFormResubmitLabel">"Bekreft"</string>
-    <string name="browserFrameFormResubmitMessage">"Siden du prøver å se, inneholder data som allerede er blitt sendt inn (\\\"POSTDATA\\\"). Hvis du sender dataene på nytt, kan det skjemaet på siden gjorde bli gjort på nytt."</string>
+    <string name="browserFrameFormResubmitMessage">"Siden du prøver å se, inneholder data som allerede er blitt sendt inn (\\\\\\\"POSTDATA\\\\\\\"). Hvis du sender dataene på nytt, kan det skjemaet på siden gjorde bli gjort på nytt."</string>
     <string name="loadSuspendedTitle">"Ingen nettverkstilkobling"</string>
     <string name="loadSuspended">"Siden vil fortsette å laste etter at tilkoblingen er blitt gjenopprettet."</string>
     <string name="clear_history">"Slett logg"</string>
@@ -241,7 +235,7 @@
     <string name="download_no_sdcard_dlg_title">"Mangler minnekort"</string>
     <string name="download_no_sdcard_dlg_msg">"Du trenger et minnekort for å laste ned <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title">"Minnekort utilgjengelig"</string>
-    <string name="download_sdcard_busy_dlg_msg">"Minnekortet er opptatt. For å tillatte nedlastinger, gå til Hjem &gt; Innstillinger &gt; Minnekort og telefonlagring, og fjern haken ved \\\"Bruk for USB-lagring\\\"-boksen."</string>
+    <string name="download_sdcard_busy_dlg_msg">"Minnekortet er opptatt. For å tillatte nedlastinger, gå til Hjem &gt; Innstillinger &gt; Minnekort og telefonlagring, og fjern haken ved \\\\\\\"Bruk for USB-lagring\\\\\\\"-boksen."</string>
     <string name="download_no_application">"Fant ingen applikasjon som kunne åpne denne filen."</string>
     <string name="retry">"Prøv igjen"</string>
     <string name="no_downloads">"Nedlastingsloggen er tom."</string>
@@ -257,12 +251,11 @@
     <string name="download_length_required">"Kan ikke laste ned. Klarte ikke bestemme størrelsen på filen."</string>
     <string name="download_precondition_failed">"Nedlastingen ble avbrutt. Den kan ikke fortsettes."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <!-- no translation found for search_google (1231765426260855357) -->
-    <skip />
-    <string name="permlab_readHistoryBookmarks">"read Browser\\\'s history and bookmarks"</string>
-    <string name="permdesc_readHistoryBookmarks">"Allows the application to read all the URLs that the Browser has visited, and all of the Browser\\\'s bookmarks."</string>
-    <string name="permlab_writeHistoryBookmarks">"write Browser\\\'s history and bookmarks"</string>
-    <string name="permdesc_writeHistoryBookmarks">"Allows an application to modify the Browser\\\'s history or bookmarks stored on your phone. Malicious applications can use this to erase or modify your Browser\\\'s data."</string>
+    <string name="search_google">"Søk på Google"</string>
+    <string name="permlab_readHistoryBookmarks">"read Browser\\\\\\\'s history and bookmarks"</string>
+    <string name="permdesc_readHistoryBookmarks">"Allows the application to read all the URLs that the Browser has visited, and all of the Browser\\\\\\\'s bookmarks."</string>
+    <string name="permlab_writeHistoryBookmarks">"write Browser\\\\\\\'s history and bookmarks"</string>
+    <string name="permdesc_writeHistoryBookmarks">"Allows an application to modify the Browser\\\\\\\'s history or bookmarks stored on your phone. Malicious applications can use this to erase or modify your Browser\\\\\\\'s data."</string>
     <string name="query_data_message">"Nettsiden under ønsker å lagre informasjon på datamaskinen ved hjelp av Gears."</string>
     <string name="location_message">"Nettsiden under ønsker å finne ut hvor du er ved hjelp av Gears."</string>
     <string name="shortcut_message">"Denne nettsiden ønsker å lage en snarvei på datamaskinen. Ønsker du å tillate dette?"</string>
@@ -290,6 +283,5 @@
     <string name="denied">"Nektet"</string>
     <string name="unrecognized_dialog_message">"Ukjent meldingstype"</string>
     <string name="default_button">"OK"</string>
-    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
-    <skip />
+    <string name="zoom_overview_button_text">"Oversikt"</string>
 </resources>

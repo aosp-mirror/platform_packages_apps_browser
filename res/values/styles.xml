@@ -32,7 +32,7 @@
         <item name="android:textAppearance">?android:attr/textAppearanceLargeInverse</item>
         <item name="android:completionThreshold">2</item>
         <item name="android:dropDownSelector">@android:drawable/list_selector_background</item>
-        <item name="android:popupBackground">@android:drawable/editbox_dropdown_dark_frame</item>
+        <item name="android:popupBackground">@android:drawable/spinner_dropdown_background</item>
     </style>
 
     <style name="gears_button">

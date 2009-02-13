@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -191,14 +192,14 @@ class GearsBaseDialog {
                   public void onClick(View v) {
                     mHandler.sendEmptyMessage(ALWAYS_DENY);
                   }
-                }, true, false);
+                });
 
     setupButton(R.id.button_allow, allowRsc,
                 new Button.OnClickListener() {
                   public void onClick(View v) {
                     mHandler.sendEmptyMessage(ALLOW);
                   }
-                }, false, true);
+                });
 
     setupButton(R.id.button_deny, denyRsc,
                 new Button.OnClickListener() {
@@ -245,6 +246,67 @@ class GearsBaseDialog {
       }
     } catch (JSONException e) {
       Log.e(TAG, "json exception", e);
+    }
+  }
+
+  /**
+   * Utility method to hide a view.
+   */
+  void hideView(View v, int rsc) {
+    if (rsc == 0) {
+      return;
+    }
+    View view = v.findViewById(rsc);
+    if (view != null) {
+      view.setVisibility(View.GONE);
+    }
+  }
+
+  /**
+   * Utility method to show a view.
+   */
+  void showView(View v, int rsc) {
+    if (rsc == 0) {
+      return;
+    }
+    View view = v.findViewById(rsc);
+    if (view != null) {
+      view.setVisibility(View.VISIBLE);
+    }
+  }
+
+  /**
+   * Utility method to set a text.
+   */
+  void setText(View v, int rsc, CharSequence text) {
+    if (rsc == 0) {
+      return;
+    }
+    View view = v.findViewById(rsc);
+    if (view != null) {
+      TextView textView = (TextView) view;
+      textView.setText(text);
+      textView.setVisibility(View.VISIBLE);
+    }
+  }
+
+  /**
+   * Utility method to set a text.
+   */
+  void setText(View v, int rsc, int txtRsc) {
+    if (rsc == 0) {
+      return;
+    }
+    View view = v.findViewById(rsc);
+    if (view != null) {
+      TextView textView = (TextView) view;
+      if (txtRsc == 0) {
+        textView.setVisibility(View.GONE);
+      } else {
+        CharSequence text = getString(txtRsc);
+        textView.setText(text);
+        textView.setVisibility(View.VISIBLE);
+      }
     }
   }
 
@@ -360,7 +422,7 @@ class GearsBaseDialog {
    */
   public void setupDialog(TextView message, ImageView icon) {
     message.setText(R.string.unrecognized_dialog_message);
-    icon.setImageResource(R.drawable.gears_icon_48x48);
+    icon.setImageResource(R.drawable.ic_dialog_menu_generic);
     message.setVisibility(View.VISIBLE);
   }
 
@@ -371,6 +433,31 @@ class GearsBaseDialog {
   public void setup() {
     setupButtons(0, 0, R.string.default_button);
     setupDialog();
+  }
+
+  /**
+   * Method called when the back button is pressed,
+   * allowing the dialog to intercept the default behaviour.
+   */
+  public boolean handleBackButton() {
+    return false;
+  }
+
+  /**
+   * Returns the resource string of the notification displayed
+   * after the dialog. By default, does not return one.
+   */
+  public int notification() {
+    return 0;
+  }
+
+  /**
+   * If a secondary dialog (e.g. a confirmation dialog) is created,
+   * GearsNativeDialog will call this method.
+   */
+  public Dialog onCreateDialog(int id) {
+    // This should be redefined by subclasses as needed.
+    return null;
   }
 
 }

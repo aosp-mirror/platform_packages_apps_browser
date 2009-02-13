@@ -155,7 +155,7 @@ class GearsFilePickerDialog extends GearsBaseDialog
   public void setupDialog(TextView message, ImageView icon) {
     message.setText(R.string.filepicker_message);
     message.setTextSize(24);
-    icon.setImageResource(R.drawable.gears_icon_32x32);
+    icon.setImageResource(R.drawable.ic_dialog_menu_generic);
   }
 
   public boolean onTouch(View v, MotionEvent event) {
@@ -684,7 +684,7 @@ class GearsFilePickerDialog extends GearsBaseDialog
             int color = getResources().getColor(R.color.icon_selection);
             v.setBackgroundColor(color);
           } else {
-            v.setBackgroundColor(Color.WHITE);
+            v.setBackgroundColor(android.R.color.background_dark);
           }
           return false;
         }
@@ -696,7 +696,7 @@ class GearsFilePickerDialog extends GearsBaseDialog
         int color = getResources().getColor(R.color.icon_selection);
         cell.setBackgroundColor(color);
       } else {
-        cell.setBackgroundColor(Color.WHITE);
+        cell.setBackgroundColor(android.R.color.background_dark);
       }
       Bitmap bmp = elem.getIcon(position);
       if (bmp != null) {

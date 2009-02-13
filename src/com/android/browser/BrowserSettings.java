@@ -334,6 +334,8 @@ class BrowserSettings extends Observable {
     
     public void toggleDebugSettings() {
         showDebugSettings = !showDebugSettings;
+        navDump = showDebugSettings;
+        update();
     }
 
     /**

@@ -641,20 +641,43 @@
         can use this to erase or modify your Browser\'s data.</string>
 
     <!-- Gears Dialogs -->
-    <string name="query_data_message">The Web site below wants to store information on your computer using Gears.</string>
-    <string name="location_message">The Web site below wants to access information about your location using Gears.</string>
-    <string name="shortcut_message">This Web site wants to create a shortcut on your computer. Do you want to allow this?</string>
+    <string name="query_data_prompt">Allow storage</string>
+    <string name="query_data_message">This web site would like to store information on your phone.</string>
+    <string name="location_prompt">Access your location</string>
+    <string name="location_message">This web site would like to have access to your location</string>
+    <string name="shortcut_prompt">Create a shortcut</string>
+    <string name="shortcut_message">This web site would like to create a shortcut to this page on your home screen.</string>
     <string name="settings_message">The table below shows the permissions you have granted to each site that has attempted to use Gears.</string>
-    <string name="filepicker_message">Gears File Picker</string>
+    <string name="filepicker_message">File Picker</string>
+    <string name="image_message">Choosen Image</string>
 
     <string name="settings_title">Gears settings</string>
     <string name="privacy_policy">Read the site\'s privacy policy to see how your location will be used.</string>
+    <string name="settings_storage_title">Allow Local Storage</string>
+    <string name="settings_storage_subtitle_on">This site can save information to your phone</string>
+    <string name="settings_storage_subtitle_off">This site cannot save information to your phone</string>
 
-    <string name="permission_button_alwaysdeny">Never allow this site</string>
-    <string name="permission_button_allow">Allow</string>
-    <string name="permission_button_deny">Deny</string>
+    <string name="settings_location_title">Allow Location Detection</string>
+    <string name="settings_location_subtitle_on">This site can read your current location</string>
+    <string name="settings_location_subtitle_off">This site cannot read your current location</string>
 
-    <string name="shortcut_button_alwaysdeny">Never allow this shortcut</string>
+    <string name="settings_remove_site">Remove this site from Gears</string>
+    <string name="settings_empty">No permissions set</string>
+
+    <string name="settings_confirmation_remove_title">Remove this site</string>
+    <string name="settings_confirmation_remove">All permissions will be canceled, and any data stored on your phone by the site will be deleted</string>
+
+    <string name="storage_notification">This site will store information on this phone.\n Change this setting in:\n Settings->Gears Settings</string>
+    <string name="storage_notification_alwaysdeny">This site will never store information on this phone.\n Change this setting in:\n Settings->Gears Settings</string>
+    <string name="location_notification">This site will now access your location.\n Change this setting in:\n Settings->Gears Settings</string>
+    <string name="location_notification_alwaysdeny">This site will never access your location.\n Change this setting in:\n Settings->Gears Settings</string>
+    <string name="shortcut_notification">Shortcut created</string>
+
+    <string name="permission_button_alwaysdeny">Never Allow</string>
+    <string name="permission_button_allow">OK</string>
+    <string name="permission_button_deny">Cancel</string>
+
+    <string name="shortcut_button_alwaysdeny">Never Allow</string>
     <string name="shortcut_button_allow">OK</string>
     <string name="shortcut_button_deny">Cancel</string>
 

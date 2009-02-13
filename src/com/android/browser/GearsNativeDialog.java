@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,9 +25,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Config;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import android.webkit.gears.NativeDialog;
 
@@ -90,10 +93,15 @@ public class GearsNativeDialog extends Activity {
 
   @Override
   public void onCreate(Bundle icicle) {
-    super.onCreate(icicle);
-    requestWindowFeature(Window.FEATURE_NO_TITLE);
-    setContentView(R.layout.gears_dialog);
     getArguments();
+    if (mDialogType == SETTINGS_DIALOG) {
+      setTheme(android.R.style.Theme);
+    }
+    super.onCreate(icicle);
+    if (mDialogType != SETTINGS_DIALOG) {
+      requestWindowFeature(Window.FEATURE_NO_TITLE);
+      setContentView(R.layout.gears_dialog);
+    }
 
     switch (mDialogType) {
       case SETTINGS_DIALOG:
@@ -185,6 +193,9 @@ public class GearsNativeDialog extends Activity {
         + "customMessage: \"Press the button to enable my "
         + "application to run offline!\" };";
 
+    String argumentsPermissions2 = "{ locale: \"en-US\", "
+        + "origin: \"http://www.google.com\", dialogType: \"localData\" };";
+
     String argumentsLocation = "{ locale: \"en-US\", "
         + "origin: \"http://www.google.com\", dialogType: \"locationData\","
         + "customIcon: \"http://google-gears.googlecode.com/"
@@ -195,14 +206,20 @@ public class GearsNativeDialog extends Activity {
 
     String argumentsSettings = "{ locale: \"en-US\", permissions: [ { "
         + "name: \"http://www.google.com\", "
-        + "localStorage: { permissionState: 1 }, "
-        + "locationData: { permissionState: 0 } }, "
+        + "localStorage: { permissionState: 0 }, "
+        + "locationData: { permissionState: 1 } }, "
         + "{ name: \"http://www.aaronboodman.com\", "
         + "localStorage: { permissionState: 1 }, "
         + "locationData: { permissionState: 2 } }, "
         + "{ name: \"http://www.evil.org\", "
         + "localStorage: { permissionState: 2 }, "
         + "locationData: { permissionState: 2 } } ] }";
+
+    String argumentsFilePicker = "{ \"cameraMode\" : \"OFF\", \"filters\""
+        + ": [ \"text/html\", \".txt\" ], \"mode\" : \"MULTIPLE_FILES\" }\"";
+
+    String argumentsFilePicker2 = "{ \"cameraMode\" : \"OFF\", \"filters\""
+        + ": [ \"text/html\", \".txt\" ], \"mode\" : \"SINGLE_FILE\" }\"";
 
     switch (mDialogType) {
       case SHORTCUT_DIALOG:
@@ -216,6 +233,9 @@ public class GearsNativeDialog extends Activity {
         break;
       case SETTINGS_DIALOG:
         mDialogArguments = argumentsSettings;
+        break;
+      case FILEPICKER_DIALOG:
+        mDialogArguments = argumentsFilePicker2;
     }
   }
 
@@ -232,6 +252,14 @@ public class GearsNativeDialog extends Activity {
     NativeDialog.closeDialog(ret);
     notifyEndOfDialog();
     finish();
+
+    // If the dialog sets a notification, we display it.
+    int notification = dialog.notification();
+    if (notification != 0) {
+      Toast toast = Toast.makeText(this, notification, Toast.LENGTH_LONG);
+      toast.setGravity(Gravity.BOTTOM, 0, 0);
+      toast.show();
+    }
   }
 
   @Override
@@ -265,10 +293,26 @@ public class GearsNativeDialog extends Activity {
    * NativeDialog that we are done.
    */
   public boolean dispatchKeyEvent(KeyEvent event) {
-    if (event.getKeyCode() ==  KeyEvent.KEYCODE_BACK && event.isDown()) {
-      closeDialog(GearsBaseDialog.CANCEL);
+    if ((event.getKeyCode() == KeyEvent.KEYCODE_BACK)
+      && (event.getAction() == KeyEvent.ACTION_DOWN)) {
+      if (!dialog.handleBackButton()) {
+        // if the dialog doesn't do anything with the back button
+        closeDialog(GearsBaseDialog.CANCEL);
+      }
+      return true; // event consumed
     }
     return super.dispatchKeyEvent(event);
+  }
+
+  /**
+   * If the dialog call showDialog() on ourself, we let
+   * it handle the creation of this secondary dialog.
+   * It is used in GearsSettingsDialog, to create the confirmation
+   * dialog when the user click on "Remove this site from Gears"
+   */
+  @Override
+  protected Dialog onCreateDialog(int id) {
+    return dialog.onCreateDialog(id);
   }
 
 }

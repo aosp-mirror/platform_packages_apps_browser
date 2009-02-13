@@ -120,6 +120,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomRingController;
 
 import com.google.android.googleapps.IGoogleLoginService;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
@@ -131,6 +132,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -743,6 +745,9 @@ public class BrowserActivity extends Activity
                     }
                 }
             };
+            
+        // Show a tutorial for the new zoom interaction (the method ensure we only show it once)
+        ZoomRingController.showZoomTutorialOnce(this);
     }
 
     @Override
@@ -3389,10 +3394,44 @@ public class BrowserActivity extends Activity
             return;
         }
 
+        // java.net.URI is a lot stricter than KURL so we have to undo
+        // KURL's percent-encoding and redo the encoding using java.net.URI.
+        URI uri = null;
+        try {
+            // Undo the percent-encoding that KURL may have done.
+            String newUrl = new String(URLUtil.decode(url.getBytes()));
+            // Parse the url into pieces
+            WebAddress w = new WebAddress(newUrl);
+            String frag = null;
+            String query = null;
+            String path = w.mPath;
+            // Break the path into path, query, and fragment
+            if (path.length() > 0) {
+                // Strip the fragment
+                int idx = path.lastIndexOf('#');
+                if (idx != -1) {
+                    frag = path.substring(idx + 1);
+                    path = path.substring(0, idx);
+                }
+                idx = path.lastIndexOf('?');
+                if (idx != -1) {
+                    query = path.substring(idx + 1);
+                    path = path.substring(0, idx);
+                }
+            }
+            uri = new URI(w.mScheme, w.mAuthInfo, w.mHost, w.mPort, path,
+                    query, frag);
+        } catch (Exception e) {
+            Log.e(LOGTAG, "Could not parse url for download: " + url, e);
+            return;
+        }
+
+        // XXX: Have to use the old url since the cookies were stored using the
+        // old percent-encoded url.
         String cookies = CookieManager.getInstance().getCookie(url);
 
         ContentValues values = new ContentValues();
-        values.put(Downloads.URI, url);
+        values.put(Downloads.URI, uri.toString());
         values.put(Downloads.COOKIE_DATA, cookies);
         values.put(Downloads.USER_AGENT, userAgent);
         values.put(Downloads.NOTIFICATION_PACKAGE,
@@ -3402,7 +3441,7 @@ public class BrowserActivity extends Activity
         values.put(Downloads.VISIBILITY, Downloads.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         values.put(Downloads.MIMETYPE, mimetype);
         values.put(Downloads.FILENAME_HINT, filename);
-        values.put(Downloads.DESCRIPTION, Uri.parse(url).getHost());
+        values.put(Downloads.DESCRIPTION, uri.getHost());
         if (contentLength > 0) {
             values.put(Downloads.TOTAL_BYTES, contentLength);
         }
