@@ -183,10 +183,8 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         PackageManager pm = getPackageManager();
         Intent send = new Intent(Intent.ACTION_SEND);
         send.setType("text/plain");
-        List<ResolveInfo> list = pm.queryIntentActivities(send,
-                PackageManager.MATCH_DEFAULT_ONLY);
-        menu.findItem(R.id.share_link_context_menu_id).setVisible(
-                list.size() > 0);
+        ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
+        menu.findItem(R.id.share_link_context_menu_id).setVisible(ri != null);
         
         super.onCreateContextMenu(menu, v, menuInfo);
     }

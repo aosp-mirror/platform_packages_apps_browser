@@ -53,7 +53,7 @@ class BrowserSettings extends Observable {
     // Public variables for settings
     // NOTE: these defaults need to be kept in sync with the XML
     // until the performance of PreferenceManager.setDefaultValues()
-    // is improved. 
+    // is improved.
     private boolean loadsImagesAutomatically = true;
     private boolean javaScriptEnabled = true;
     private boolean pluginsEnabled = true;
@@ -64,12 +64,12 @@ class BrowserSettings extends Observable {
     private boolean saveFormData = true;
     private boolean openInBackground = false;
     private String defaultTextEncodingName;
-    private String homeUrl = "http://www.google.com/m?client=ms-" + 
-        SystemProperties.get("ro.com.google.clientid", "unknown");
+    private String homeUrl = "http://www.google.com/m?client=ms-" +
+        SystemProperties.get("persist.sys.com.google.clientid", "unknown");
     private boolean loginInitialized = false;
     private boolean autoFitPage = true;
     private boolean showDebugSettings = false;
-    
+
     // Development settings
     public WebSettings.LayoutAlgorithm layoutAlgorithm =
         WebSettings.LayoutAlgorithm.NARROW_COLUMNS;
@@ -78,7 +78,7 @@ class BrowserSettings extends Observable {
     private boolean tracing = false;
     private boolean lightTouch = false;
     private boolean navDump = false;
-    // Browser only settings 
+    // Browser only settings
     private boolean doFlick = false;
 
     // Private preconfigured values
@@ -88,17 +88,17 @@ class BrowserSettings extends Observable {
     private static int defaultFixedFontSize = 13;
     private static WebSettings.TextSize textSize =
         WebSettings.TextSize.NORMAL;
-    
+
     // Preference keys that are used outside this class
     public final static String PREF_CLEAR_CACHE = "privacy_clear_cache";
     public final static String PREF_CLEAR_COOKIES = "privacy_clear_cookies";
     public final static String PREF_CLEAR_HISTORY = "privacy_clear_history";
     public final static String PREF_HOMEPAGE = "homepage";
-    public final static String PREF_CLEAR_FORM_DATA = 
+    public final static String PREF_CLEAR_FORM_DATA =
             "privacy_clear_form_data";
-    public final static String PREF_CLEAR_PASSWORDS = 
+    public final static String PREF_CLEAR_PASSWORDS =
             "privacy_clear_passwords";
-    public final static String PREF_EXTRAS_RESET_DEFAULTS = 
+    public final static String PREF_EXTRAS_RESET_DEFAULTS =
             "reset_default_preferences";
     public final static String PREF_DEBUG_SETTINGS = "debug_menu";
     public final static String PREF_GEARS_SETTINGS = "gears_settings";
@@ -119,7 +119,7 @@ class BrowserSettings extends Observable {
     public final static int MAX_TEXTVIEW_LEN = 80;
 
     private TabControl mTabControl;
-    
+
     // Single instance of the BrowserSettings for use in the Browser app.
     private static BrowserSettings sSingleton;
 
@@ -127,7 +127,7 @@ class BrowserSettings extends Observable {
     // observer.
     private HashMap<WebSettings,Observer> mWebSettingsToObservers =
         new HashMap<WebSettings,Observer>();
- 
+
     /*
      * An observer wrapper for updating a WebSettings object with the new
      * settings after a call to BrowserSettings.update().
@@ -179,7 +179,7 @@ class BrowserSettings extends Observable {
             s.setAllowFileAccess(false);
         }
     }
-   
+
     /**
      * Load settings from the browser app's database.
      * NOTE: Strings used for the preferences must match those specified
@@ -190,7 +190,7 @@ class BrowserSettings extends Observable {
      *            observers of this object.
      */
     public void loadFromDb(Context ctx) {
-        SharedPreferences p = 
+        SharedPreferences p =
                 PreferenceManager.getDefaultSharedPreferences(ctx);
 
         // Set the default value for the plugins path to the application's
@@ -203,27 +203,27 @@ class BrowserSettings extends Observable {
         //PreferenceManager.setDefaultValues(ctx, R.xml.browser_preferences);
         syncSharedPreferences(p);
     }
-    
+
     /* package */ void syncSharedPreferences(SharedPreferences p) {
-        homeUrl = 
+        homeUrl =
             p.getString(PREF_HOMEPAGE, homeUrl);
-        loadsImagesAutomatically = p.getBoolean("load_images", 
+        loadsImagesAutomatically = p.getBoolean("load_images",
                 loadsImagesAutomatically);
-        javaScriptEnabled = p.getBoolean("enable_javascript", 
+        javaScriptEnabled = p.getBoolean("enable_javascript",
                 javaScriptEnabled);
-        pluginsEnabled = p.getBoolean("enable_plugins", 
+        pluginsEnabled = p.getBoolean("enable_plugins",
                 pluginsEnabled);
         pluginsPath = p.getString("plugins_path", pluginsPath);
         javaScriptCanOpenWindowsAutomatically = !p.getBoolean(
-            "block_popup_windows", 
+            "block_popup_windows",
             !javaScriptCanOpenWindowsAutomatically);
-        showSecurityWarnings = p.getBoolean("show_security_warnings", 
+        showSecurityWarnings = p.getBoolean("show_security_warnings",
                 showSecurityWarnings);
-        rememberPasswords = p.getBoolean("remember_passwords", 
+        rememberPasswords = p.getBoolean("remember_passwords",
                 rememberPasswords);
-        saveFormData = p.getBoolean("save_formdata", 
+        saveFormData = p.getBoolean("save_formdata",
                 saveFormData);
-        boolean accept_cookies = p.getBoolean("accept_cookies", 
+        boolean accept_cookies = p.getBoolean("accept_cookies",
                 CookieManager.getInstance().acceptCookie());
         CookieManager.getInstance().setAcceptCookie(accept_cookies);
         openInBackground = p.getBoolean("open_in_background", openInBackground);
@@ -240,23 +240,23 @@ class BrowserSettings extends Observable {
         defaultTextEncodingName =
                 p.getString(PREF_DEFAULT_TEXT_ENCODING,
                         defaultTextEncodingName);
-        
-        showDebugSettings = 
+
+        showDebugSettings =
                 p.getBoolean(PREF_DEBUG_SETTINGS, showDebugSettings);
         // Debug menu items have precidence if the menu is visible
         if (showDebugSettings) {
-            boolean small_screen = p.getBoolean("small_screen", 
-                    layoutAlgorithm == 
+            boolean small_screen = p.getBoolean("small_screen",
+                    layoutAlgorithm ==
                     WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
             if (small_screen) {
                 layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN;
             } else {
-                boolean normal_layout = p.getBoolean("normal_layout", 
+                boolean normal_layout = p.getBoolean("normal_layout",
                         layoutAlgorithm == WebSettings.LayoutAlgorithm.NORMAL);
                 if (normal_layout) {
                     layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL;
                 } else {
-                    layoutAlgorithm = 
+                    layoutAlgorithm =
                             WebSettings.LayoutAlgorithm.NARROW_COLUMNS;
                 }
             }
@@ -271,7 +271,7 @@ class BrowserSettings extends Observable {
         }
         update();
     }
-    
+
     public String getPluginsPath() {
         return pluginsPath;
     }
@@ -279,23 +279,23 @@ class BrowserSettings extends Observable {
     public String getHomePage() {
         return homeUrl;
     }
-    
+
     public void setHomePage(Context context, String url) {
         Editor ed = PreferenceManager.
-                getDefaultSharedPreferences(context).edit();      
+                getDefaultSharedPreferences(context).edit();
         ed.putString(PREF_HOMEPAGE, url);
         ed.commit();
         homeUrl = url;
     }
-    
+
     public boolean isLoginInitialized() {
         return loginInitialized;
     }
-    
+
     public void setLoginInitialized(Context context) {
         loginInitialized = true;
         Editor ed = PreferenceManager.
-                getDefaultSharedPreferences(context).edit();      
+                getDefaultSharedPreferences(context).edit();
         ed.putBoolean("login_initialized", loginInitialized);
         ed.commit();
     }
@@ -327,11 +327,11 @@ class BrowserSettings extends Observable {
     public boolean doFlick() {
         return doFlick;
     }
-    
+
     public boolean showDebugSettings() {
         return showDebugSettings;
     }
-    
+
     public void toggleDebugSettings() {
         showDebugSettings = !showDebugSettings;
         navDump = showDebugSettings;
@@ -341,7 +341,7 @@ class BrowserSettings extends Observable {
     /**
      * Add a WebSettings object to the list of observers that will be updated
      * when update() is called.
-     * 
+     *
      * @param s A WebSettings object that is strictly tied to the life of a
      *            WebView.
      */
@@ -423,12 +423,12 @@ class BrowserSettings extends Observable {
         db.clearUsernamePassword();
         db.clearHttpAuthUsernamePassword();
     }
-    
+
     /*package*/ void resetDefaultPreferences(Context context) {
-        SharedPreferences p = 
+        SharedPreferences p =
             PreferenceManager.getDefaultSharedPreferences(context);
         p.edit().clear().commit();
-        PreferenceManager.setDefaultValues(context, R.xml.browser_preferences, 
+        PreferenceManager.setDefaultValues(context, R.xml.browser_preferences,
                 true);
     }
 

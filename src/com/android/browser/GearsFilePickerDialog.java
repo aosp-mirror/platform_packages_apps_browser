@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -27,6 +28,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images.Media;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -41,6 +43,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,6 +69,7 @@ class GearsFilePickerDialog extends GearsBaseDialog
   private static String SINGLE_FILE = "SINGLE_FILE";
 
   private static ImagesLoad mImagesLoader;
+  private static SystemThumbnails mSystemThumbnails;
   private FilePickerAdapter mAdapter;
   private String mSelectionMode;
   private boolean mMultipleSelection;
@@ -117,12 +121,19 @@ class GearsFilePickerDialog extends GearsBaseDialog
     view.setAdapter(mAdapter);
     view.setOnTouchListener(this);
 
+    showView(null, R.id.selection);
     setSelectionText();
 
     mImagesLoader = new ImagesLoad(mAdapter);
     mImagesLoader.setAdapterView(view);
-    Thread thread = new Thread(mImagesLoader);
-    thread.start();
+    Thread imagesLoaderThread = new Thread(mImagesLoader);
+    imagesLoaderThread.setPriority(Thread.MIN_PRIORITY);
+    imagesLoaderThread.start();
+
+    mSystemThumbnails = new SystemThumbnails();
+    Thread systemThumbnailsThread = new Thread(mSystemThumbnails);
+    systemThumbnailsThread.setPriority(Thread.MIN_PRIORITY);
+    systemThumbnailsThread.start();
   }
 
   public void setSelectionText() {
@@ -164,19 +175,89 @@ class GearsFilePickerDialog extends GearsBaseDialog
   }
 
   /**
+   * Utility class encapsulating thumbnails information
+   * for a file (file image id and magic number)
+   */
+  class SystemThumbnailInfo {
+    private long mID;
+    private long mMagicNumber;
+    SystemThumbnailInfo(long anID, long magicNumber) {
+      mID = anID;
+      mMagicNumber = magicNumber;
+    }
+    public long getID() {
+      return mID;
+    }
+    public long getMagicNumber() {
+      return mMagicNumber;
+    }
+  }
+
+  /**
+   * Utility class to pre-fetch the thumbnails information
+   */
+  class SystemThumbnails implements Runnable {
+    private Map<String, SystemThumbnailInfo> mThumbnails;
+
+    SystemThumbnails() {
+      mThumbnails = Collections.synchronizedMap(new HashMap());
+    }
+
+    public void run() {
+      Uri query = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+      Cursor cursor = mActivity.managedQuery(query,
+          new String[] { "_id", "mini_thumb_magic", "_data" },
+          null, null, null);
+
+      if (cursor != null) {
+        int count = cursor.getCount();
+        for (int i = 0; i < count; i++) {
+          cursor.moveToPosition(i);
+          SystemThumbnailInfo info = new SystemThumbnailInfo(cursor.getLong(0),
+                                                             cursor.getLong(1));
+          mThumbnails.put(cursor.getString(2), info);
+        }
+      }
+    }
+
+    public SystemThumbnailInfo getThumb(String path) {
+      SystemThumbnailInfo ret = mThumbnails.get(path);
+      if (ret == null) {
+        Uri query = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Cursor cursor = mActivity.managedQuery(query,
+          new String[] { "_id", "mini_thumb_magic", "_data" },
+              "_data = ?", new String[] { path }, null);
+        if (cursor != null && cursor.moveToFirst()) {
+          long longid = cursor.getLong(0);
+          long miniThumbMagic = cursor.getLong(1);
+          ret = new SystemThumbnailInfo(longid, miniThumbMagic);
+          mThumbnails.put(path, ret);
+        }
+      }
+      return ret;
+    }
+  }
+
+  /**
    * Utility class to load and generate thumbnails
    * for image files
    */
   class ImagesLoad implements Runnable {
-    private Map mImagesMap;
     private Vector mImagesPath;
     private BaseAdapter mAdapter;
     private AdapterView mAdapterView;
     private Vector<FilePickerElement> mElements;
     private Handler mLoaderHandler;
+    // We use the same value as in Camera.app's ImageManager.java
+    private static final int BYTES_PER_MINI_THUMB = 10000;
+    private final byte[] mMiniThumbData = new byte[BYTES_PER_MINI_THUMB];
+    private final int MINI_THUMB_DATA_FILE_VERSION = 3;
+    private final int THUMBNAIL_SIZE = 128;
+    private Map<Uri, RandomAccessFile> mThumbFiles;
 
     ImagesLoad(BaseAdapter adapter) {
       mAdapter = adapter;
+      mThumbFiles = Collections.synchronizedMap(new HashMap());
     }
 
     public void signalChanges() {
@@ -185,57 +266,130 @@ class GearsFilePickerDialog extends GearsBaseDialog
       mHandler.sendMessage(message);
     }
 
-    /**
-     * TODO: use the same thumbnails as the photo app
-     * (bug: http://b/issue?id=1497927)
-     */
-    public String getThumbnailPath(String path) {
-      File f = new File(path);
-      String myPath = f.getParent() + "/.thumbnails";
-      File d = new File(myPath);
-      if (!d.exists()) {
-        d.mkdirs();
+    private String getMiniThumbFileFromUri(Uri uri) {
+      if (uri == null) {
+        return null;
       }
-      return myPath + "/" + f.getName();
+      String directoryName =
+          Environment.getExternalStorageDirectory().toString() +
+          "/dcim/.thumbnails";
+      String path = directoryName + "/.thumbdata" +
+          MINI_THUMB_DATA_FILE_VERSION + "-" + uri.hashCode();
+      return path;
     }
 
-    public boolean saveImage(String path, Bitmap image) {
-      boolean ret = false;
+    private Bitmap getMiniThumbFor(Uri uri, long longid, long magic) {
+      RandomAccessFile thumbFile = mThumbFiles.get(uri);
       try {
-        FileOutputStream outStream = new FileOutputStream(path);
-        ret = image.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-      } catch (IOException e) {
-        Log.e(TAG, "IOException ", e);
+        if (thumbFile == null) {
+          String path = getMiniThumbFileFromUri(uri);
+          File f = new File(path);
+          if (f.exists()) {
+            thumbFile = new RandomAccessFile(f, "rw");
+            mThumbFiles.put(uri, thumbFile);
+          }
+        }
+      } catch (IOException ex) {
       }
-      return ret;
+      if (thumbFile == null) {
+        return null;
+      }
+      byte[] data = getMiniThumbFromFile(thumbFile, longid,
+                                         mMiniThumbData, magic);
+      if (data != null) {
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
+      }
+      return null;
     }
 
+    private byte [] getMiniThumbFromFile(RandomAccessFile r,
+                                         long id,
+                                         byte [] data,
+                                         long magicCheck) {
+      if (r == null)
+        return null;
+      long pos = id * BYTES_PER_MINI_THUMB;
+      RandomAccessFile f = r;
+      synchronized (f) {
+        try {
+          f.seek(pos);
+          if (f.readByte() == 1) {
+            long magic = f.readLong();
+            if (magic != magicCheck) {
+              return null;
+            }
+            int length = f.readInt();
+            f.read(data, 0, length);
+            return data;
+          } else {
+            return null;
+          }
+        } catch (IOException ex) {
+          long fileLength;
+          try {
+            fileLength = f.length();
+          } catch (IOException ex1) {
+            fileLength = -1;
+          }
+          return null;
+        }
+      }
+    }
+
+    /*
+     * Returns a thumbnail saved by the Camera application
+     * We pre-cached the information (image id and magic number)
+     * when starting the filepicker.
+     */
+    public Bitmap getSystemThumbnail(FilePickerElement elem) {
+      if (elem.askedForSystemThumbnail() == false) {
+        elem.setAskedForSystemThumbnail(true);
+        String path = elem.getPath();
+        SystemThumbnailInfo thumbInfo = mSystemThumbnails.getThumb(path);
+        if (thumbInfo != null) {
+          Uri query = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+          Bitmap bmp = getMiniThumbFor(query, thumbInfo.getID(),
+                                       thumbInfo.getMagicNumber());
+          if (bmp != null) {
+            return bmp;
+          }
+        }
+      }
+      return null;
+    }
+
+    /*
+     * Generate a thumbnail for a given element
+     */
     public Bitmap generateImage(FilePickerElement elem) {
       String path = elem.getPath();
       Bitmap finalImage = null;
       try {
-        String thumbnailPath = getThumbnailPath(path);
-        if (enableSavedThumbnails) {
-          File thumbnail = new File(thumbnailPath);
-          if (thumbnail.exists()) {
-            finalImage = BitmapFactory.decodeFile(thumbnailPath);
-            if (finalImage != null) {
-              return finalImage;
-            }
-          }
+
+        // First we try to get the thumbnail from the system
+        // (created by the Camera application)
+
+        finalImage = getSystemThumbnail(elem);
+        if (finalImage != null) {
+          return finalImage;
         }
+
+        // No thumbnail was found, so we have to create one
+        //
+        // First we get the image information and
+        // determine the sampleSize
+
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
 
         int width = options.outWidth;
         int height = options.outHeight;
-        int size = 128;
         int sampleSize = 1;
-        if (width > size || height > size) {
+        if (width > THUMBNAIL_SIZE || height > THUMBNAIL_SIZE) {
           sampleSize = 2;
-          while ((width / sampleSize > size)
-                 || (height / sampleSize > size)) {
+          while ((width / sampleSize > 2*THUMBNAIL_SIZE)
+                 || (height / sampleSize > 2*THUMBNAIL_SIZE)) {
             sampleSize += 2;
           }
         }
@@ -245,16 +399,37 @@ class GearsFilePickerDialog extends GearsBaseDialog
         if (originalImage == null) {
           return null;
         }
-        finalImage = Bitmap.createScaledBitmap(originalImage, size, size, true);
-        if (enableSavedThumbnails) {
-          if (saveImage(thumbnailPath, finalImage)) {
-            if (mDebug) {
-              Log.v(TAG, "Saved thumbnail for file " + path);
-            }
-          } else {
-            Log.e(TAG, "Could NOT Save thumbnail for file " + path);
-          }
+
+        // Let's rescale the image to a THUMBNAIL_SIZE
+
+        width = originalImage.getWidth();
+        height = originalImage.getHeight();
+
+        if (width > height) {
+          width = (int) (width * (THUMBNAIL_SIZE / (double) height));
+          height = THUMBNAIL_SIZE;
+        } else {
+          height = (int) (height * (THUMBNAIL_SIZE / (double) width));
+          width = THUMBNAIL_SIZE;
         }
+        originalImage = Bitmap.createScaledBitmap(originalImage,
+                                                  width, height, true);
+
+        // We can now crop the image to a THUMBNAIL_SIZE rectangle
+
+        width = originalImage.getWidth();
+        height = originalImage.getHeight();
+        int d = 0;
+        if (width > height) {
+          d = (width - height) / 2;
+          finalImage = Bitmap.createBitmap(originalImage, d, 0,
+                                           THUMBNAIL_SIZE, THUMBNAIL_SIZE);
+        } else {
+          d = (height - width) / 2;
+          finalImage = Bitmap.createBitmap(originalImage, 0, d,
+                                           THUMBNAIL_SIZE, THUMBNAIL_SIZE);
+        }
+
         originalImage.recycle();
       } catch (java.lang.OutOfMemoryError e) {
         Log.e(TAG, "Intercepted OOM ", e);
@@ -267,24 +442,41 @@ class GearsFilePickerDialog extends GearsBaseDialog
                                        GearsBaseDialog.PAUSE_REQUEST_ICON);
       mLoaderHandler.sendMessageAtFrontOfQueue(message);
     }
-    public void postIconRequest(FilePickerElement item, int position) {
+
+    public void clearIconRequests() {
+      Message message = Message.obtain(mLoaderHandler,
+                                       GearsBaseDialog.CLEAR_REQUEST_ICON);
+      mLoaderHandler.sendMessageAtFrontOfQueue(message);
+    }
+
+    public void postIconRequest(FilePickerElement item,
+                                int position,
+                                boolean front) {
       if (item == null) {
         return;
       }
-      Message message = mLoaderHandler.obtainMessage(
-          GearsBaseDialog.REQUEST_ICON, position, 0, item);
-      mLoaderHandler.sendMessage(message);
+      if (item.isImage() && (item.getThumbnail() == null))  {
+        Message message = mLoaderHandler.obtainMessage(
+            GearsBaseDialog.REQUEST_ICON, position, 0, item);
+        if (front) {
+          mLoaderHandler.sendMessageAtFrontOfQueue(message);
+        } else {
+          mLoaderHandler.sendMessage(message);
+        }
+      }
     }
 
-    public void generateIcon(FilePickerElement elem) {
+    public boolean generateIcon(FilePickerElement elem) {
       if (elem.isImage()) {
         if (elem.getThumbnail() == null) {
           Bitmap image = generateImage(elem);
           if (image != null) {
             elem.setThumbnail(image);
+            return true;
           }
         }
       }
+      return false;
     }
 
     public void setAdapterView(AdapterView view) {
@@ -295,8 +487,12 @@ class GearsFilePickerDialog extends GearsBaseDialog
       Looper.prepare();
       mLoaderHandler = new Handler() {
         public void handleMessage(Message msg) {
-          int visibleElements = 10;
-          if (msg.what == GearsBaseDialog.PAUSE_REQUEST_ICON) {
+          if (msg.what == GearsBaseDialog.CLEAR_REQUEST_ICON) {
+            mLoaderHandler.removeMessages(
+                GearsBaseDialog.PAUSE_REQUEST_ICON);
+            mLoaderHandler.removeMessages(
+                GearsBaseDialog.REQUEST_ICON);
+          } else if (msg.what == GearsBaseDialog.PAUSE_REQUEST_ICON) {
             try {
               // We are busy (likely) scrolling the view,
               // so we just pause the loading.
@@ -307,24 +503,15 @@ class GearsFilePickerDialog extends GearsBaseDialog
               Log.e(TAG, "InterruptedException ", e);
             }
           } else if (msg.what == GearsBaseDialog.REQUEST_ICON) {
+            FilePickerElement elem = (FilePickerElement) msg.obj;
+            if (generateIcon(elem)) {
+              signalChanges();
+            }
             try {
-              Thread.sleep(10);
+              Thread.sleep(50);
             } catch (InterruptedException e) {
               Log.e(TAG, "InterruptedException ", e);
             }
-            FilePickerElement elem = (FilePickerElement) msg.obj;
-            int firstVisiblePosition = mAdapterView.getFirstVisiblePosition();
-            // If the elements are not visible, we slow down the update
-            // TODO: replace this by a low-priority thread
-            if ((msg.arg1 < firstVisiblePosition - visibleElements)
-                && msg.arg1 > firstVisiblePosition + visibleElements) {
-              try {
-                Thread.sleep(100);
-              } catch (InterruptedException e) {
-              }
-            }
-            generateIcon(elem);
-            signalChanges();
           }
         }
       };
@@ -348,6 +535,7 @@ class GearsFilePickerDialog extends GearsBaseDialog
     private String mExtension;
     private Bitmap mThumbnail;
     private boolean mIsImage;
+    private boolean mAskedForSystemThumbnail;
 
     public FilePickerElement(String name, BaseAdapter adapter) {
       this(name, adapter, null);
@@ -365,6 +553,7 @@ class GearsFilePickerDialog extends GearsBaseDialog
       mParent = parent;
       mIsSelected = false;
       mChildren = null;
+      mAskedForSystemThumbnail = false;
     }
 
     public FilePickerElement(String path,
@@ -378,8 +567,17 @@ class GearsFilePickerDialog extends GearsBaseDialog
       mParent = parent;
       mAdapter = adapter;
       mExtension = null;
+      mAskedForSystemThumbnail = false;
 
       setIcons();
+    }
+
+    public void setAskedForSystemThumbnail(boolean value) {
+      mAskedForSystemThumbnail = value;
+    }
+
+    public boolean askedForSystemThumbnail() {
+      return mAskedForSystemThumbnail;
     }
 
     public void setIcons() {
@@ -486,10 +684,7 @@ class GearsFilePickerDialog extends GearsBaseDialog
     public void refresh() {
       mChildren = null;
       Vector children = getChildren();
-      for (int i = 0; i < children.size(); i++) {
-        FilePickerElement elem = (FilePickerElement) children.get(i);
-        mImagesLoader.postIconRequest(elem, i);
-      }
+      mImagesLoader.clearIconRequests();
     }
 
     public Vector getChildren() {
@@ -519,11 +714,19 @@ class GearsFilePickerDialog extends GearsBaseDialog
     public FilePickerElement getChild(int position) {
       Vector children = getChildren();
       if (children != null) {
-        return (FilePickerElement) children.get(position);
+        FilePickerElement elem = (FilePickerElement) children.get(position);
+        return elem;
       }
       return null;
     }
 
+    /*
+     * Depending on the type, we return either
+     * the icon (mIcon) or the back icon (mBackIcon).
+     * If we can load a system thumbnail we do this
+     * synchronously and return it, else we ask the
+     * mImagesLoader to generate a thumbnail for us.
+     */
     public Bitmap getIcon(int position) {
       if (mIsParent) {
         return mBackIcon;
@@ -532,7 +735,12 @@ class GearsFilePickerDialog extends GearsBaseDialog
         if (mThumbnail != null) {
           return mThumbnail;
         } else {
-          mImagesLoader.postIconRequest(this, position);
+          Bitmap image = mImagesLoader.getSystemThumbnail(this);
+          if (image != null) {
+            mThumbnail = image;
+            return mThumbnail;
+          }
+          mImagesLoader.postIconRequest(this, position, true);
         }
       }
       return mIcon;
@@ -585,9 +793,6 @@ class GearsFilePickerDialog extends GearsBaseDialog
 
       mImagesMap = Collections.synchronizedMap(new HashMap());
       mImagesSelected = new HashMap();
-
-      Uri requests[] = { MediaStore.Images.Media.INTERNAL_CONTENT_URI,
-                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI };
 
       String startingPath = Environment.getExternalStorageDirectory().getPath();
       mRootElement = new FilePickerElement(startingPath, "SD Card", this);

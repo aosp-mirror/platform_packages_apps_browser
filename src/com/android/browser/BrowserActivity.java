@@ -16,26 +16,28 @@
 
 package com.android.browser;
 
+import com.google.android.googleapps.IGoogleLoginService;
+import com.google.android.googlelogin.GoogleLoginServiceConstants;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.SearchManager;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
-import android.content.res.AssetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.pm.ActivityInfo;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -75,10 +77,10 @@ import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
-import android.provider.Contacts.Intents.Insert;
 import android.provider.Contacts;
 import android.provider.Downloads;
 import android.provider.MediaStore;
+import android.provider.Contacts.Intents.Insert;
 import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -86,8 +88,6 @@ import android.text.util.Regex;
 import android.util.Config;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -98,6 +98,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -120,17 +122,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ZoomRingController;
-
-import com.google.android.googleapps.IGoogleLoginService;
-import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -141,9 +139,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Vector;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -205,7 +203,7 @@ public class BrowserActivity extends Activity
                     if (googleUser == null || !hostedUser.equals(googleUser)) {
                         String domain = hostedUser.substring(hostedUser.lastIndexOf('@')+1);
                         homepage = "http://www.google.com/m/a/" + domain + "?client=ms-" +
-                            SystemProperties.get("ro.com.google.clientid", "unknown");
+                            SystemProperties.get("persist.sys.com.google.clientid", "unknown");
                     }
                 } catch (RemoteException ignore) {
                     // Login service died; carry on
@@ -745,9 +743,6 @@ public class BrowserActivity extends Activity
                     }
                 }
             };
-            
-        // Show a tutorial for the new zoom interaction (the method ensure we only show it once)
-        ZoomRingController.showZoomTutorialOnce(this);
     }
 
     @Override
@@ -1589,10 +1584,8 @@ public class BrowserActivity extends Activity
                 PackageManager pm = getPackageManager();
                 Intent send = new Intent(Intent.ACTION_SEND);
                 send.setType("text/plain");
-                List<ResolveInfo> list = pm.queryIntentActivities(send,
-                        PackageManager.MATCH_DEFAULT_ONLY);
-                menu.findItem(R.id.share_page_menu_id).setVisible(
-                        list.size() > 0);
+                ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
+                menu.findItem(R.id.share_page_menu_id).setVisible(ri != null);
 
                 // If there is only 1 window, the text will be "New window"
                 final MenuItem windows = menu.findItem(R.id.windows_menu_id);
@@ -1699,10 +1692,8 @@ public class BrowserActivity extends Activity
                 PackageManager pm = getPackageManager();
                 Intent send = new Intent(Intent.ACTION_SEND);
                 send.setType("text/plain");
-                List<ResolveInfo> list = pm.queryIntentActivities(send,
-                        PackageManager.MATCH_DEFAULT_ONLY);
-                menu.findItem(R.id.share_link_context_menu_id).setVisible(
-                        list.size() > 0);
+                ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
+                menu.findItem(R.id.share_link_context_menu_id).setVisible(ri != null);
                 if (type == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
                     break;
                 }
@@ -3337,8 +3328,8 @@ public class BrowserActivity extends Activity
             //     that matches.
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse(url), mimetype);
-            if (getPackageManager().queryIntentActivities(intent,
-                        PackageManager.MATCH_DEFAULT_ONLY).size() != 0) {
+            if (getPackageManager().resolveActivity(intent,
+                        PackageManager.MATCH_DEFAULT_ONLY) != null) {
                 // someone knows how to handle this mime type with this scheme, don't download.
                 try {
                     startActivity(intent);
@@ -4392,7 +4383,7 @@ public class BrowserActivity extends Activity
                     R.string.google_search_base, l.getLanguage(),
                     l.getCountry().toLowerCase())
                     + "client=ms-"
-                    + SystemProperties.get("ro.com.google.clientid", "unknown")
+                    + SystemProperties.get("persist.sys.com.google.clientid", "unknown")
                     + "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&q=%s";
         } else {
             QuickSearch_G = url;

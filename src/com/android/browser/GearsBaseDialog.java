@@ -68,6 +68,7 @@ class GearsBaseDialog {
   public static final int UPDATE_ICON = 5;
   public static final int REQUEST_ICON = 6;
   public static final int PAUSE_REQUEST_ICON = 7;
+  public static final int CLEAR_REQUEST_ICON = 8;
 
   protected final String LOCAL_DATA_STRING = "localData";
   protected final String LOCAL_STORAGE_STRING = "localStorage";
@@ -256,7 +257,12 @@ class GearsBaseDialog {
     if (rsc == 0) {
       return;
     }
-    View view = v.findViewById(rsc);
+    View view;
+    if (v == null) {
+      view = findViewById(rsc);
+    } else {
+      view = v.findViewById(rsc);
+    }
     if (view != null) {
       view.setVisibility(View.GONE);
     }
@@ -269,7 +275,12 @@ class GearsBaseDialog {
     if (rsc == 0) {
       return;
     }
-    View view = v.findViewById(rsc);
+    View view;
+    if (v == null) {
+      view = findViewById(rsc);
+    } else {
+      view = v.findViewById(rsc);
+    }
     if (view != null) {
       view.setVisibility(View.VISIBLE);
     }

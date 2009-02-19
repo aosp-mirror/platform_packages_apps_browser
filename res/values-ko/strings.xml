@@ -15,18 +15,12 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for application_name (1935869255545976415) -->
-    <skip />
-    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
-    <skip />
-    <!-- no translation found for tab_most_visited (1077402532455000703) -->
-    <skip />
-    <!-- no translation found for tab_history (1979267558744613746) -->
-    <skip />
-    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
-    <skip />
-    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
-    <skip />
+    <string name="application_name">"브라우저"</string>
+    <string name="tab_bookmarks">"북마크"</string>
+    <string name="tab_most_visited">"최다 방문 웹사이트"</string>
+    <string name="tab_history">"기록"</string>
+    <string name="added_to_bookmarks">"북마크에 추가되었습니다."</string>
+    <string name="removed_from_bookmarks">"북마크에서 삭제"</string>
     <string name="sign_in_to">"<xliff:g id="HOSTNAME">%s1</xliff:g> \'<xliff:g id="REALM">%s2</xliff:g>\'에 로그인"</string>
     <string name="username">"이름"</string>
     <string name="password">"비밀번호"</string>
@@ -81,16 +75,13 @@
     <string name="bookmark_url_not_valid">"URL이 올바르지 않습니다."</string>
     <string name="delete_bookmark">"삭제"</string>
     <string name="bookmark_page">"마지막으로 본 페이지를 북마크 설정"</string>
-    <!-- no translation found for current_page (7510129573681663135) -->
-    <skip />
+    <string name="current_page">"북마크할 페이지"</string>
     <string name="delete_bookmark_warning">"\'<xliff:g id="BOOKMARK">%s</xliff:g>\' 북마크가 삭제됩니다."</string>
     <string name="open_in_new_window">"새 창에서 열기"</string>
     <string name="new_window">"새 창"</string>
-    <!-- no translation found for goto_dot (3895839050522602723) -->
-    <skip />
+    <string name="goto_dot">"실행"</string>
     <string name="find_dot">"검색 페이지"</string>
-    <!-- no translation found for select_dot (6299170761900561967) -->
-    <skip />
+    <string name="select_dot">"텍스트 선택"</string>
     <string name="view_tabs">"창 세부정보"</string>
     <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"현재 창"</string>
@@ -215,8 +206,7 @@
     <string name="clear_history">"기록 지우기"</string>
     <string name="browser_history">"최근에 방문한 페이지"</string>
     <string name="empty_history">"브라우저 기록이 비어 있습니다."</string>
-    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
-    <skip />
+    <string name="add_new_bookmark">"북마크에 추가..."</string>
     <string name="no_database">"데이터베이스 없음"</string>
     <string name="search_hint">"웹 주소 입력"</string>
     <string name="search_button_text">"이동"</string>
@@ -261,23 +251,68 @@
     <string name="download_length_required">"항목의 크기를 확인할 수 없으므로 다운로드할 수 없습니다."</string>
     <string name="download_precondition_failed">"다운로드 중단됨. 다시 시작할 수 없습니다."</string>
     <string name="activity_instrumentation_test_runner">"브라우저 테스트 실행기"</string>
-    <!-- no translation found for search_google (1231765426260855357) -->
-    <skip />
+    <string name="search_google">"Google 검색"</string>
     <string name="permlab_readHistoryBookmarks">"브라우저의 기록 및 북마크 읽기"</string>
     <string name="permdesc_readHistoryBookmarks">"응용프로그램이 브라우저에서 방문한 모든 URL과 브라우저의 북마크를 모두 읽을 수 있습니다."</string>
     <string name="permlab_writeHistoryBookmarks">"브라우저의 기록 및 북마크 쓰기"</string>
     <string name="permdesc_writeHistoryBookmarks">"응용프로그램이 전화기에 저장된 브라우저의 기록 또는 북마크를 수정할 수 있습니다. 악성 응용프로그램은 이 기능을 이용하여 브라우저의 데이터를 지우거나 수정할 수 있습니다."</string>
-    <string name="query_data_message">"아래 웹사이트가 Gears를 사용하여 컴퓨터에 정보를 저장하려고 합니다."</string>
-    <string name="location_message">"아래 웹사이트가 Gears를 사용하여 사용자 위치에 대한 정보에 액세스하려고 합니다."</string>
-    <string name="shortcut_message">"웹사이트가 컴퓨터에 바로가기를 만들려고 합니다. 허용하시겠습니까?"</string>
+    <!-- no translation found for query_data_prompt (5474381240981604223) -->
+    <skip />
+    <!-- no translation found for query_data_message (8789381063185445197) -->
+    <skip />
+    <!-- no translation found for location_prompt (226262202057302423) -->
+    <skip />
+    <!-- no translation found for location_message (6790400729681341258) -->
+    <skip />
+    <!-- no translation found for shortcut_prompt (437193299088893596) -->
+    <skip />
+    <!-- no translation found for shortcut_message (4793042709293755892) -->
+    <skip />
     <string name="settings_message">"아래 표는 Gears를 사용하려고 시도한 각 사이트에 부여한 권한을 보여줍니다."</string>
-    <string name="filepicker_message">"Gears 파일 선택기"</string>
+    <!-- no translation found for filepicker_message (4929726371602896039) -->
+    <skip />
+    <!-- no translation found for image_message (5450245866521896891) -->
+    <skip />
     <string name="settings_title">"Gears 설정"</string>
     <string name="privacy_policy">"위치가 어떻게 사용되는지 보려면 사이트의 개인정보 보호정책을 읽어보세요."</string>
-    <string name="permission_button_alwaysdeny">"이 사이트를 허용하지 않음"</string>
-    <string name="permission_button_allow">"허용"</string>
-    <string name="permission_button_deny">"거부"</string>
-    <string name="shortcut_button_alwaysdeny">"이 바로가기를 허용하지 않음"</string>
+    <!-- no translation found for settings_storage_title (7089119630457156408) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
+    <skip />
+    <!-- no translation found for settings_location_title (4953062923509886651) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
+    <skip />
+    <!-- no translation found for settings_remove_site (1822247070226589958) -->
+    <skip />
+    <!-- no translation found for settings_empty (2008952224378583146) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
+    <skip />
+    <!-- no translation found for storage_notification (6534213782873968255) -->
+    <skip />
+    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
+    <skip />
+    <!-- no translation found for location_notification (3495804750470905804) -->
+    <skip />
+    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
+    <skip />
+    <!-- no translation found for shortcut_notification (1659700220868444568) -->
+    <skip />
+    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
+    <skip />
+    <!-- no translation found for permission_button_allow (7301874925704148242) -->
+    <skip />
+    <!-- no translation found for permission_button_deny (104712269725153018) -->
+    <skip />
+    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
+    <skip />
     <string name="shortcut_button_allow">"확인"</string>
     <string name="shortcut_button_deny">"취소"</string>
     <string name="settings_button_allow">"적용"</string>
@@ -294,6 +329,5 @@
     <string name="denied">"거부됨"</string>
     <string name="unrecognized_dialog_message">"인식할 수 없는 대화상자 유형"</string>
     <string name="default_button">"확인"</string>
-    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
-    <skip />
+    <string name="zoom_overview_button_text">"전체보기"</string>
 </resources>

@@ -15,18 +15,12 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for application_name (1935869255545976415) -->
-    <skip />
-    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
-    <skip />
-    <!-- no translation found for tab_most_visited (1077402532455000703) -->
-    <skip />
-    <!-- no translation found for tab_history (1979267558744613746) -->
-    <skip />
-    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
-    <skip />
-    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
-    <skip />
+    <string name="application_name">"瀏覽器"</string>
+    <string name="tab_bookmarks">"書籤"</string>
+    <string name="tab_most_visited">"常用網頁"</string>
+    <string name="tab_history">"紀錄"</string>
+    <string name="added_to_bookmarks">"已加入書籤"</string>
+    <string name="removed_from_bookmarks">"已自書籤中移除"</string>
     <string name="sign_in_to">"登入到 <xliff:g id="HOSTNAME">%s1</xliff:g>「<xliff:g id="REALM">%s2</xliff:g>」"</string>
     <string name="username">"名字"</string>
     <string name="password">"密碼"</string>
@@ -81,16 +75,13 @@
     <string name="bookmark_url_not_valid">"網址無效。"</string>
     <string name="delete_bookmark">"刪除"</string>
     <string name="bookmark_page">"最後瀏覽的書籤頁面"</string>
-    <!-- no translation found for current_page (7510129573681663135) -->
-    <skip />
+    <string name="current_page">"來源"</string>
     <string name="delete_bookmark_warning">"<xliff:g id="BOOKMARK">%s</xliff:g>"</string>
     <string name="open_in_new_window">"在新視窗開啟"</string>
     <string name="new_window">"新視窗"</string>
-    <!-- no translation found for goto_dot (3895839050522602723) -->
-    <skip />
+    <string name="goto_dot">"前往"</string>
     <string name="find_dot">"在頁面中尋找"</string>
-    <!-- no translation found for select_dot (6299170761900561967) -->
-    <skip />
+    <string name="select_dot">"選取文字"</string>
     <string name="view_tabs">"視窗總覽"</string>
     <string name="view_tabs_condensed">"視窗"</string>
     <string name="tab_picker_title">"目前視窗"</string>
@@ -215,8 +206,7 @@
     <string name="clear_history">"清除紀錄"</string>
     <string name="browser_history">"最近瀏覽的頁面"</string>
     <string name="empty_history">"瀏覽記錄是空的。"</string>
-    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
-    <skip />
+    <string name="add_new_bookmark">"加入書籤…"</string>
     <string name="no_database">"沒有資料！"</string>
     <string name="search_hint">"輸入網頁位址"</string>
     <string name="search_button_text">"前往"</string>
@@ -261,23 +251,68 @@
     <string name="download_length_required">"無法下載。物件大小無法估計。"</string>
     <string name="download_precondition_failed">"下載中斷。無法續傳。"</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <!-- no translation found for search_google (1231765426260855357) -->
-    <skip />
+    <string name="search_google">"搜尋 Google"</string>
     <string name="permlab_readHistoryBookmarks">"讀取瀏覽器的瀏覽記錄和書籤"</string>
     <string name="permdesc_readHistoryBookmarks">"允許應用程式讀取瀏覽器造訪過的所有 URL 和瀏覽器所有的書籤。"</string>
     <string name="permlab_writeHistoryBookmarks">"寫入瀏覽器的瀏覽記錄和書籤"</string>
     <string name="permdesc_writeHistoryBookmarks">"允許應用程式修改儲存在電話上的瀏覽器記錄或書籤。惡意應用程式可能會使用此選項來清除或修改您瀏覽器的資料。"</string>
-    <string name="query_data_message">"下列網站想要使用 Gears 在您的電腦上儲存資訊。"</string>
-    <string name="location_message">"下列網站想要使用 Gears 來存取您的位置資訊。"</string>
-    <string name="shortcut_message">"此網站想要在您的電腦上建立捷徑。是否允許此動作？"</string>
+    <!-- no translation found for query_data_prompt (5474381240981604223) -->
+    <skip />
+    <!-- no translation found for query_data_message (8789381063185445197) -->
+    <skip />
+    <!-- no translation found for location_prompt (226262202057302423) -->
+    <skip />
+    <!-- no translation found for location_message (6790400729681341258) -->
+    <skip />
+    <!-- no translation found for shortcut_prompt (437193299088893596) -->
+    <skip />
+    <!-- no translation found for shortcut_message (4793042709293755892) -->
+    <skip />
     <string name="settings_message">"下表列出您為每個想要使用 Gears 之網站所授予的權限。"</string>
-    <string name="filepicker_message">"Gears File Picker"</string>
+    <!-- no translation found for filepicker_message (4929726371602896039) -->
+    <skip />
+    <!-- no translation found for image_message (5450245866521896891) -->
+    <skip />
     <string name="settings_title">"裝置設定"</string>
     <string name="privacy_policy">"讀取網站的隱私權政策，以瞭解網站將如何使用您的位置資訊。"</string>
-    <string name="permission_button_alwaysdeny">"永遠不允許此網站"</string>
-    <string name="permission_button_allow">"允許"</string>
-    <string name="permission_button_deny">"拒絕"</string>
-    <string name="shortcut_button_alwaysdeny">"永遠不允許此捷徑"</string>
+    <!-- no translation found for settings_storage_title (7089119630457156408) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
+    <skip />
+    <!-- no translation found for settings_location_title (4953062923509886651) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
+    <skip />
+    <!-- no translation found for settings_remove_site (1822247070226589958) -->
+    <skip />
+    <!-- no translation found for settings_empty (2008952224378583146) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
+    <skip />
+    <!-- no translation found for storage_notification (6534213782873968255) -->
+    <skip />
+    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
+    <skip />
+    <!-- no translation found for location_notification (3495804750470905804) -->
+    <skip />
+    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
+    <skip />
+    <!-- no translation found for shortcut_notification (1659700220868444568) -->
+    <skip />
+    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
+    <skip />
+    <!-- no translation found for permission_button_allow (7301874925704148242) -->
+    <skip />
+    <!-- no translation found for permission_button_deny (104712269725153018) -->
+    <skip />
+    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
+    <skip />
     <string name="shortcut_button_allow">"確定"</string>
     <string name="shortcut_button_deny">"取消"</string>
     <string name="settings_button_allow">"套用"</string>
@@ -294,6 +329,5 @@
     <string name="denied">"遭拒"</string>
     <string name="unrecognized_dialog_message">"無法辨識的對話類型"</string>
     <string name="default_button">"確定"</string>
-    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
-    <skip />
+    <string name="zoom_overview_button_text">"總覽"</string>
 </resources>

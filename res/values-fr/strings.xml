@@ -15,18 +15,12 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for application_name (1935869255545976415) -->
-    <skip />
-    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
-    <skip />
-    <!-- no translation found for tab_most_visited (1077402532455000703) -->
-    <skip />
-    <!-- no translation found for tab_history (1979267558744613746) -->
-    <skip />
-    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
-    <skip />
-    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
-    <skip />
+    <string name="application_name">"Navigateur"</string>
+    <string name="tab_bookmarks">"Favoris"</string>
+    <string name="tab_most_visited">"Les plus consultés"</string>
+    <string name="tab_history">"Historique"</string>
+    <string name="added_to_bookmarks">"Ajouté aux favoris"</string>
+    <string name="removed_from_bookmarks">"Supprimé des favoris"</string>
     <string name="sign_in_to">"Connectez-vous à <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username">"Nom"</string>
     <string name="password">"Mot de passe"</string>
@@ -81,16 +75,13 @@
     <string name="bookmark_url_not_valid">"L\'URL est incorrecte."</string>
     <string name="delete_bookmark">"Supprimer"</string>
     <string name="bookmark_page">"Dernière page de favori consultée"</string>
-    <!-- no translation found for current_page (7510129573681663135) -->
-    <skip />
+    <string name="current_page">"de"</string>
     <string name="delete_bookmark_warning">"Le favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sera supprimé."</string>
     <string name="open_in_new_window">"Ouvrir dans une nouvelle fenêtre"</string>
     <string name="new_window">"Nouvelle fenêtre"</string>
-    <!-- no translation found for goto_dot (3895839050522602723) -->
-    <skip />
+    <string name="goto_dot">"OK"</string>
     <string name="find_dot">"Rechercher sur la page"</string>
-    <!-- no translation found for select_dot (6299170761900561967) -->
-    <skip />
+    <string name="select_dot">"Sélectionner le texte"</string>
     <string name="view_tabs">"Vue d\'ensemble des fenêtres"</string>
     <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"Fenêtres actuelles"</string>
@@ -124,7 +115,7 @@
     <string name="pref_content_title">"Paramètres du contenu de la page"</string>
     <string name="pref_content_load_images">"Charger les images"</string>
     <string name="pref_content_load_images_summary">"Afficher les images des pages Web"</string>
-    <string name="pref_content_block_popups">"Bloquer les fenêtres contextuelles"</string>
+    <string name="pref_content_block_popups">"Bloquer les fenêtres pop-up"</string>
     <string name="pref_content_javascript">"Activer JavaScript"</string>
     <string name="pref_content_open_in_background">"Ouvrir à l\'arrière-plan"</string>
     <string name="pref_content_open_in_background_summary">"Les nouvelles fenêtres s\'ouvrent derrière la fenêtre actuelle"</string>
@@ -153,7 +144,7 @@
     <string name="pref_security_save_form_data">"Mémoriser les données de formulaire"</string>
     <string name="pref_security_save_form_data_summary">"Mémoriser les données saisies dans les formulaires pour les utiliser ultérieurement"</string>
     <string name="pref_security_show_security_warning">"Afficher les avertissements de sécurité"</string>
-    <string name="pref_security_show_security_warning_summary">"Afficher un avertissement lorsqu\'un site présente des problèmes de sécurité"</string>
+    <string name="pref_security_show_security_warning_summary">"Afficher un avertissement en cas de problème de sécurité d\'un site"</string>
     <string name="pref_security_accept_cookies">"Accepter les cookies"</string>
     <string name="pref_security_accept_cookies_summary">"Autoriser les sites à enregistrer et lire les données \"cookie\""</string>
     <string name="pref_text_size">"Définir la taille du texte"</string>
@@ -215,8 +206,7 @@
     <string name="clear_history">"Effacer l\'historique"</string>
     <string name="browser_history">"Dernières pages consultées"</string>
     <string name="empty_history">"L\'historique du navigateur est vide."</string>
-    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
-    <skip />
+    <string name="add_new_bookmark">"Ajouter aux favoris..."</string>
     <string name="no_database">"Aucune base de données !"</string>
     <string name="search_hint">"Saisir l\'adresse Web"</string>
     <string name="search_button_text">"Aller"</string>
@@ -261,23 +251,68 @@
     <string name="download_length_required">"Téléchargement impossible. La taille de l\'élément n\'a pas pu être déterminée."</string>
     <string name="download_precondition_failed">"Téléchargement interrompu. Impossible de reprendre le téléchargement."</string>
     <string name="activity_instrumentation_test_runner">"Testeur de navigateur"</string>
-    <!-- no translation found for search_google (1231765426260855357) -->
-    <skip />
+    <string name="search_google">"Recherche Google"</string>
     <string name="permlab_readHistoryBookmarks">"lire l\'historique du navigateur et les favoris"</string>
     <string name="permdesc_readHistoryBookmarks">"Permet à l\'application de lire toutes les URL visitées par le navigateur et tous les favoris."</string>
     <string name="permlab_writeHistoryBookmarks">"écrire l\'historique du navigateur et les favoris"</string>
     <string name="permdesc_writeHistoryBookmarks">"Permet à une application de modifier l\'historique du navigateur ou les favoris enregistrés sur votre téléphone. Des applications malveillantes peuvent utiliser cette fonction pour effacer ou modifier les données de votre navigateur."</string>
-    <string name="query_data_message">"Le site Web ci-dessous tente d\'enregistrer des informations sur votre ordinateur avec Google Gears."</string>
-    <string name="location_message">"Le site Web ci-dessous tente d\'accéder à des informations sur votre emplacement avec Google Gears."</string>
-    <string name="shortcut_message">"Voulez-vous autoriser ce site Web à créer un raccourci sur votre ordinateur ?"</string>
+    <!-- no translation found for query_data_prompt (5474381240981604223) -->
+    <skip />
+    <!-- no translation found for query_data_message (8789381063185445197) -->
+    <skip />
+    <!-- no translation found for location_prompt (226262202057302423) -->
+    <skip />
+    <!-- no translation found for location_message (6790400729681341258) -->
+    <skip />
+    <!-- no translation found for shortcut_prompt (437193299088893596) -->
+    <skip />
+    <!-- no translation found for shortcut_message (4793042709293755892) -->
+    <skip />
     <string name="settings_message">"Le tableau ci-dessous indique les fonctions que vous avez autorisées pour chaque site ayant tenté d\'utiliser Google Gears."</string>
-    <string name="filepicker_message">"Sélecteur de fichiers Google Gears"</string>
+    <!-- no translation found for filepicker_message (4929726371602896039) -->
+    <skip />
+    <!-- no translation found for image_message (5450245866521896891) -->
+    <skip />
     <string name="settings_title">"Paramètres Google Gears"</string>
     <string name="privacy_policy">"Lisez la politique de confidentialité du site pour voir comment votre emplacement sera utilisé."</string>
-    <string name="permission_button_alwaysdeny">"Ne jamais autoriser ce site"</string>
-    <string name="permission_button_allow">"Autoriser"</string>
-    <string name="permission_button_deny">"Refuser"</string>
-    <string name="shortcut_button_alwaysdeny">"Ne jamais autoriser ce raccourci"</string>
+    <!-- no translation found for settings_storage_title (7089119630457156408) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
+    <skip />
+    <!-- no translation found for settings_location_title (4953062923509886651) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
+    <skip />
+    <!-- no translation found for settings_remove_site (1822247070226589958) -->
+    <skip />
+    <!-- no translation found for settings_empty (2008952224378583146) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
+    <skip />
+    <!-- no translation found for storage_notification (6534213782873968255) -->
+    <skip />
+    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
+    <skip />
+    <!-- no translation found for location_notification (3495804750470905804) -->
+    <skip />
+    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
+    <skip />
+    <!-- no translation found for shortcut_notification (1659700220868444568) -->
+    <skip />
+    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
+    <skip />
+    <!-- no translation found for permission_button_allow (7301874925704148242) -->
+    <skip />
+    <!-- no translation found for permission_button_deny (104712269725153018) -->
+    <skip />
+    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
+    <skip />
     <string name="shortcut_button_allow">"OK"</string>
     <string name="shortcut_button_deny">"Annuler"</string>
     <string name="settings_button_allow">"Appliquer"</string>
@@ -294,6 +329,5 @@
     <string name="denied">"Refusé"</string>
     <string name="unrecognized_dialog_message">"Type de boîte de dialogue inconnu"</string>
     <string name="default_button">"OK"</string>
-    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
-    <skip />
+    <string name="zoom_overview_button_text">"Présentation"</string>
 </resources>

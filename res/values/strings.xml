@@ -644,7 +644,7 @@
     <string name="query_data_prompt">Allow storage</string>
     <string name="query_data_message">This web site would like to store information on your phone.</string>
     <string name="location_prompt">Access your location</string>
-    <string name="location_message">This web site would like to have access to your location</string>
+    <string name="location_message">This web site would like to have access to your location.</string>
     <string name="shortcut_prompt">Create a shortcut</string>
     <string name="shortcut_message">This web site would like to create a shortcut to this page on your home screen.</string>
     <string name="settings_message">The table below shows the permissions you have granted to each site that has attempted to use Gears.</string>
@@ -665,12 +665,12 @@
     <string name="settings_empty">No permissions set</string>
 
     <string name="settings_confirmation_remove_title">Remove this site</string>
-    <string name="settings_confirmation_remove">All permissions will be canceled, and any data stored on your phone by the site will be deleted</string>
+    <string name="settings_confirmation_remove">All permissions will be cleared, and any data stored on your phone by the site will be deleted.</string>
 
-    <string name="storage_notification">This site will store information on this phone.\n Change this setting in:\n Settings->Gears Settings</string>
-    <string name="storage_notification_alwaysdeny">This site will never store information on this phone.\n Change this setting in:\n Settings->Gears Settings</string>
-    <string name="location_notification">This site will now access your location.\n Change this setting in:\n Settings->Gears Settings</string>
-    <string name="location_notification_alwaysdeny">This site will never access your location.\n Change this setting in:\n Settings->Gears Settings</string>
+    <string name="storage_notification">This site will store information on this phone.\n Change this setting in:\n Settings -> Gears Settings</string>
+    <string name="storage_notification_alwaysdeny">This site will never store information on this phone.\n Change this setting in:\n Settings -> Gears Settings</string>
+    <string name="location_notification">This site can access your current location.\n Change this setting in:\n Settings -> Gears Settings</string>
+    <string name="location_notification_alwaysdeny">This site will not access your current location.\n Change this setting in:\n Settings -> Gears Settings</string>
     <string name="shortcut_notification">Shortcut created</string>
 
     <string name="permission_button_alwaysdeny">Never Allow</string>
