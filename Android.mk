@@ -9,8 +9,7 @@ LOCAL_JAVA_LIBRARIES := android.test.runner
 
 LOCAL_STATIC_JAVA_LIBRARIES := googlelogin-client
 
-LOCAL_SRC_FILES := $(call all-subdir-java-files) \
-	src/com/android/browser/IGearsDialogService.aidl
+LOCAL_SRC_FILES := $(call all-subdir-java-files)
 
 LOCAL_PACKAGE_NAME := Browser
 
