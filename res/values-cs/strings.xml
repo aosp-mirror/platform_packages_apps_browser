@@ -27,7 +27,7 @@
     <string name="action">"Přihlásit se"</string>
     <string name="cancel">"Zrušit"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" shod"</string>
+    <string name="matches_found">"shod"</string>
     <string name="zero">"Ne"</string>
     <string name="page_info">"Informace o stránce"</string>
     <string name="page_info_view">"Zobrazit informace o stránce"</string>
@@ -75,7 +75,7 @@
     <string name="bookmark_url_not_valid">"Adresa URL není platná."</string>
     <string name="delete_bookmark">"Smazat"</string>
     <string name="bookmark_page">"Přidat poslední zobrazenou stránku do záložek"</string>
-    <string name="current_page">"od "</string>
+    <string name="current_page">"od"</string>
     <string name="delete_bookmark_warning">"Záložka <xliff:g id="BOOKMARK">%s</xliff:g> bude smazána."</string>
     <string name="open_in_new_window">"Otevřít v novém okně"</string>
     <string name="new_window">"Nové okno"</string>
@@ -235,8 +235,7 @@
     <string name="download_no_sdcard_dlg_title">"Žádná karta SD není dostupná."</string>
     <string name="download_no_sdcard_dlg_msg">"Na kartu SD je třeba stáhnout soubor <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title">"Karta SD není dostupná"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"Karta SD je zaneprázdněná. Chcete-li povolit stahování, přejděte na Plochu &gt; Nastavení &gt; Karta SD a paměť telefonu a zrušte zaškrtnutí políčka Použít jako paměťové zařízení USB."</string>
     <string name="download_no_application">"Nebyla nalezena žádná aplikace, ve které lze tento soubor otevřít."</string>
     <string name="retry">"Zkusit znovu"</string>
     <string name="no_downloads">"Historie stahování je prázdná."</string>
@@ -263,7 +262,7 @@
     <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
+    <!-- no translation found for location_message (6790400729681341258) -->
     <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
@@ -294,7 +293,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />

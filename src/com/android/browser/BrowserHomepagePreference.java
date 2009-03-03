@@ -48,10 +48,8 @@ public class BrowserHomepagePreference extends EditTextPreference implements
         AlertDialog dialog = (AlertDialog) getDialog();
         // This callback is called before the dialog has been fully constructed
         if (dialog != null) {
-            String url = s.toString();
             dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(
-                    url.length() == 0 || url.equals("about:blank") ||
-                    Regex.WEB_URL_PATTERN.matcher(url).matches());
+                    Regex.WEB_URL_PATTERN.matcher(s.toString()).matches());
         }
     }
 

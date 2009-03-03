@@ -27,7 +27,7 @@
     <string name="action">"로그인"</string>
     <string name="cancel">"취소"</string>
     <string name="ok">"확인"</string>
-    <string name="matches_found">" 개 일치"</string>
+    <string name="matches_found">"개 일치"</string>
     <string name="zero">"없음"</string>
     <string name="page_info">"페이지 정보"</string>
     <string name="page_info_view">"페이지 정보 보기"</string>
@@ -75,7 +75,7 @@
     <string name="bookmark_url_not_valid">"URL이 올바르지 않습니다."</string>
     <string name="delete_bookmark">"삭제"</string>
     <string name="bookmark_page">"마지막으로 본 페이지를 북마크 설정"</string>
-    <string name="current_page">"북마크할 페이지 "</string>
+    <string name="current_page">"북마크할 페이지"</string>
     <string name="delete_bookmark_warning">"\'<xliff:g id="BOOKMARK">%s</xliff:g>\' 북마크가 삭제됩니다."</string>
     <string name="open_in_new_window">"새 창에서 열기"</string>
     <string name="new_window">"새 창"</string>
@@ -235,8 +235,7 @@
     <string name="download_no_sdcard_dlg_title">"SD 카드 없음"</string>
     <string name="download_no_sdcard_dlg_msg">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 SD 카드가 필요합니다."</string>
     <string name="download_sdcard_busy_dlg_title">"SD 카드를 사용할 수 없음"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"SD 카드가 사용 중입니다. 다운로드를 허용하려면 홈 &gt; 설정 &gt; SD 카드 및 전화기 저장공간으로 이동하여 \'USB 저장에 사용\' 확인란을 선택취소하세요."</string>
     <string name="download_no_application">"파일을 열 수 있는 응용프로그램이 없습니다."</string>
     <string name="retry">"다시 시도"</string>
     <string name="no_downloads">"다운로드 기록이 비어 있습니다."</string>
@@ -263,7 +262,7 @@
     <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
+    <!-- no translation found for location_message (6790400729681341258) -->
     <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
@@ -294,7 +293,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />

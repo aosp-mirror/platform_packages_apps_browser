@@ -27,7 +27,7 @@
     <string name="action">"Anmelden"</string>
     <string name="cancel">"Abbrechen"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" Treffer"</string>
+    <string name="matches_found">"Treffer"</string>
     <string name="zero">"Nein"</string>
     <string name="page_info">"Seiten-Info"</string>
     <string name="page_info_view">"Seiten-Info anzeigen"</string>
@@ -75,7 +75,7 @@
     <string name="bookmark_url_not_valid">"URL ist nicht gültig."</string>
     <string name="delete_bookmark">"Löschen"</string>
     <string name="bookmark_page">"Lesezeichen für zuletzt besuchte Seite"</string>
-    <string name="current_page">"von "</string>
+    <string name="current_page">"von"</string>
     <string name="delete_bookmark_warning">"Lesezeichen \"<xliff:g id="BOOKMARK">%s</xliff:g>\" wird gelöscht."</string>
     <string name="open_in_new_window">"In neuem Fenster öffnen"</string>
     <string name="new_window">"Neues Fenster"</string>
@@ -235,8 +235,7 @@
     <string name="download_no_sdcard_dlg_title">"Keine SD-Karte"</string>
     <string name="download_no_sdcard_dlg_msg">"Zum Download von <xliff:g id="FILENAME">%s</xliff:g> ist eine SD-Karte erforderlich."</string>
     <string name="download_sdcard_busy_dlg_title">"SD-Karte nicht verfügbar"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"Die SD-Karte ist ausgelastet. Um Downloads zuzulassen, gehen Sie zur Startseite &gt; Einstellungen &gt; SD-Karte &amp; Telefonspeicher und deaktivieren Sie das Kontrollkästchen \"Für USB-Speicher verwenden\"."</string>
     <string name="download_no_application">"Es kann keine Anwendung gefunden werden, um diese Datei zu öffnen."</string>
     <string name="retry">"Wiederholen"</string>
     <string name="no_downloads">"Downloadverlauf ist leer."</string>
@@ -263,7 +262,7 @@
     <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
+    <!-- no translation found for location_message (6790400729681341258) -->
     <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
@@ -294,7 +293,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />

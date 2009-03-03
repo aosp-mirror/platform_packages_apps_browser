@@ -27,7 +27,7 @@
     <string name="action">"ログイン"</string>
     <string name="cancel">"キャンセル"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" 件一致"</string>
+    <string name="matches_found">"件一致"</string>
     <string name="zero">"いいえ"</string>
     <string name="page_info">"ページ情報"</string>
     <string name="page_info_view">"ページ情報を表示"</string>
@@ -75,7 +75,7 @@
     <string name="bookmark_url_not_valid">"無効なURLです。"</string>
     <string name="delete_bookmark">"削除"</string>
     <string name="bookmark_page">"最後に表示したページをブックマークする"</string>
-    <string name="current_page">"ブックマークするページ "</string>
+    <string name="current_page">"ブックマークするページ"</string>
     <string name="delete_bookmark_warning">"ブックマーク「<xliff:g id="BOOKMARK">%s</xliff:g>」を削除します。"</string>
     <string name="open_in_new_window">"新しいウィンドウで開く"</string>
     <string name="new_window">"新規ウィンドウ"</string>
@@ -235,8 +235,7 @@
     <string name="download_no_sdcard_dlg_title">"SDカードがありません"</string>
     <string name="download_no_sdcard_dlg_msg">"<xliff:g id="FILENAME">%s</xliff:g>をダウンロードするにはSDカードが必要です。"</string>
     <string name="download_sdcard_busy_dlg_title">"SDカードは利用できません"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"SDカードはビジーです。ダウンロードできるようにするには、[ホーム]&gt;[設定]&gt;[SDカードと携帯電話のメモリ]の順に選択して[USBメモリに使用]をオフにします。"</string>
     <string name="download_no_application">"このファイルを開くアプリケーションがありません。"</string>
     <string name="retry">"やり直す"</string>
     <string name="no_downloads">"ダウンロード履歴はありません。"</string>
@@ -263,7 +262,7 @@
     <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
+    <!-- no translation found for location_message (6790400729681341258) -->
     <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
@@ -294,7 +293,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />

@@ -115,18 +115,11 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT));
         list.setEmptyView(v);
-        // Do not post the runnable if there is nothing in the list.
-        if (list.getExpandableListAdapter().getGroupCount() > 0) {
-            list.post(new Runnable() {
-                public void run() {
-                    // In case the history gets cleared before this event
-                    // happens.
-                    if (list.getExpandableListAdapter().getGroupCount() > 0) {
-                        list.expandGroup(0);
-                    }
-                }
-            });
-        }
+        list.post(new Runnable() {
+            public void run() {
+                list.expandGroup(0);
+            }
+        });
         mMaxTabsOpen = getIntent().getBooleanExtra("maxTabsOpen", false);
         CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
                 .addListener(mIconReceiver);
@@ -265,12 +258,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     
     private class HistoryAdapter implements ExpandableListAdapter {
         
-        // Array for each of our bins.  Each entry represents how many items are
-        // in that bin.
+        // Map of items. Negative values are labels, positive values
+        // and zero are cursor offsets.
         int mItemMap[];
-        // This is our GroupCount.  We will have at most DateSorter.DAY_COUNT
-        // bins, less if the user has no items in one or more bins.
-        int mNumberOfBins;
         Vector<DataSetObserver> mObservers;
         Cursor mCursor;
         
@@ -305,14 +295,12 @@ public class BrowserHistoryPage extends ExpandableListActivity {
             for (int j = 0; j < DateSorter.DAY_COUNT; j++) {
                 array[j] = 0;
             }
-            mNumberOfBins = 0;
             int dateIndex = -1;
             if (mCursor.moveToFirst() && mCursor.getCount() > 0) {
                 while (!mCursor.isAfterLast()) {
                     long date = mCursor.getLong(Browser.HISTORY_PROJECTION_DATE_INDEX);
                     int index = mDateSorter.getIndex(date);
                     if (index > dateIndex) {
-                        mNumberOfBins++;
                         if (index == DateSorter.DAY_COUNT - 1) {
                             // We are already in the last bin, so it will
                             // include all the remaining items
@@ -328,37 +316,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
             }
             mItemMap = array;
         }
-
-        // This translates from a group position in the Adapter to a position in
-        // our array.  This is necessary because some positions in the array
-        // have no history items, so we simply do not present those positions
-        // to the Adapter.
-        private int groupPositionToArrayPosition(int groupPosition) {
-            if (groupPosition < 0 || groupPosition >= DateSorter.DAY_COUNT) {
-                throw new AssertionError("group position out of range");
-            }
-            if (DateSorter.DAY_COUNT == mNumberOfBins || 0 == mNumberOfBins) {
-                // In the first case, we have exactly the same number of bins
-                // as our maximum possible, so there is no need to do a
-                // conversion
-                // The second statement is in case this method gets called when
-                // the array is empty, in which case the provided groupPosition
-                // will do fine.
-                return groupPosition;
-            }
-            int arrayPosition = -1;
-            while (groupPosition > -1) {
-                arrayPosition++;
-                if (mItemMap[arrayPosition] != 0) {
-                    groupPosition--;
-                }
-            }
-            return arrayPosition;
-        }
-
+        
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
                 View convertView, ViewGroup parent) {
-            groupPosition = groupPositionToArrayPosition(groupPosition);
             HistoryItem item;
             if (null == convertView || !(convertView instanceof HistoryItem)) {
                 item = new HistoryItem(BrowserHistoryPage.this);
@@ -387,7 +347,6 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }
         
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-            groupPosition = groupPositionToArrayPosition(groupPosition);
             TextView item;
             if (null == convertView || !(convertView instanceof TextView)) {
                 LayoutInflater factory = 
@@ -410,11 +369,11 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }
 
         public int getGroupCount() {
-            return mNumberOfBins;
+            return DateSorter.DAY_COUNT;
         }
 
         public int getChildrenCount(int groupPosition) {
-            return mItemMap[groupPositionToArrayPosition(groupPosition)];
+            return mItemMap[groupPosition];
         }
 
         public Object getGroup(int groupPosition) {

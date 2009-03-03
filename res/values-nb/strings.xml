@@ -21,13 +21,13 @@
     <string name="tab_history">"Historie"</string>
     <string name="added_to_bookmarks">"Lagt til bokmerker"</string>
     <string name="removed_from_bookmarks">"Fjernet fra bokmerker"</string>
-    <string name="sign_in_to">"Logg inn på <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="sign_in_to">"Logg inn på <xliff:g id="HOSTNAME">%s1</xliff:g> \\\\\\\"<xliff:g id="REALM">%s2</xliff:g>\\\\\\\""</string>
     <string name="username">"Brukernavn"</string>
     <string name="password">"Passord"</string>
     <string name="action">"Logg inn"</string>
     <string name="cancel">"Avbryt"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" treff"</string>
+    <string name="matches_found">"treff"</string>
     <string name="zero">"Ingen"</string>
     <string name="page_info">"Sideinformasjon"</string>
     <string name="page_info_view">"Vis sideinformasjon"</string>
@@ -75,8 +75,8 @@
     <string name="bookmark_url_not_valid">"Adressen er ikke gyldig."</string>
     <string name="delete_bookmark">"Slett"</string>
     <string name="bookmark_page">"Legg til bokmerke for sist sette side"</string>
-    <string name="current_page">"Gjeldende side: "</string>
-    <string name="delete_bookmark_warning">"Bokmerket \"<xliff:g id="BOOKMARK">%s</xliff:g>\" vil bli slettet."</string>
+    <string name="current_page">"Gjeldende side:"</string>
+    <string name="delete_bookmark_warning">"Bokmerket \\\\\\\"<xliff:g id="BOOKMARK">%s</xliff:g>\\\\\\\" vil bli slettet."</string>
     <string name="open_in_new_window">"Åpne i nytt vindu"</string>
     <string name="new_window">"Nytt vindu"</string>
     <string name="goto_dot">"Gå til URL"</string>
@@ -200,7 +200,7 @@
     <string name="browserFrameNetworkErrorLabel">"Tilkoblingsproblem"</string>
     <string name="browserFrameFileErrorLabel">"Problem med fil"</string>
     <string name="browserFrameFormResubmitLabel">"Bekreft"</string>
-    <string name="browserFrameFormResubmitMessage">"Siden du prøver å se, inneholder data som allerede er blitt sendt inn (\"POSTDATA\"). Hvis du sender dataene på nytt, kan det skjemaet på siden gjorde bli gjort på nytt."</string>
+    <string name="browserFrameFormResubmitMessage">"Siden du prøver å se, inneholder data som allerede er blitt sendt inn (\\\\\\\"POSTDATA\\\\\\\"). Hvis du sender dataene på nytt, kan det skjemaet på siden gjorde bli gjort på nytt."</string>
     <string name="loadSuspendedTitle">"Ingen nettverkstilkobling"</string>
     <string name="loadSuspended">"Siden vil fortsette å laste etter at tilkoblingen er blitt gjenopprettet."</string>
     <string name="clear_history">"Slett logg"</string>
@@ -235,8 +235,7 @@
     <string name="download_no_sdcard_dlg_title">"Mangler minnekort"</string>
     <string name="download_no_sdcard_dlg_msg">"Du trenger et minnekort for å laste ned <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title">"Minnekort utilgjengelig"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"Minnekortet er opptatt. For å tillatte nedlastinger, gå til Hjem &gt; Innstillinger &gt; Minnekort og telefonlagring, og fjern haken ved \\\\\\\"Bruk for USB-lagring\\\\\\\"-boksen."</string>
     <string name="download_no_application">"Fant ingen applikasjon som kunne åpne denne filen."</string>
     <string name="retry">"Prøv igjen"</string>
     <string name="no_downloads">"Nedlastingsloggen er tom."</string>
@@ -253,21 +252,25 @@
     <string name="download_precondition_failed">"Nedlastingen ble avbrutt. Den kan ikke fortsettes."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
     <string name="search_google">"Søk på Google"</string>
-    <string name="permlab_readHistoryBookmarks">"read Browser\'s history and bookmarks"</string>
-    <string name="permdesc_readHistoryBookmarks">"Allows the application to read all the URLs that the Browser has visited, and all of the Browser\'s bookmarks."</string>
-    <string name="permlab_writeHistoryBookmarks">"write Browser\'s history and bookmarks"</string>
-    <string name="permdesc_writeHistoryBookmarks">"Allows an application to modify the Browser\'s history or bookmarks stored on your phone. Malicious applications can use this to erase or modify your Browser\'s data."</string>
+    <string name="permlab_readHistoryBookmarks">"read Browser\\\\\\\'s history and bookmarks"</string>
+    <string name="permdesc_readHistoryBookmarks">"Allows the application to read all the URLs that the Browser has visited, and all of the Browser\\\\\\\'s bookmarks."</string>
+    <string name="permlab_writeHistoryBookmarks">"write Browser\\\\\\\'s history and bookmarks"</string>
+    <string name="permdesc_writeHistoryBookmarks">"Allows an application to modify the Browser\\\\\\\'s history or bookmarks stored on your phone. Malicious applications can use this to erase or modify your Browser\\\\\\\'s data."</string>
     <!-- no translation found for query_data_prompt (5474381240981604223) -->
     <skip />
-    <string name="query_data_message">"Nettsiden under ønsker å lagre informasjon på datamaskinen ved hjelp av Gears."</string>
+    <!-- no translation found for query_data_message (8789381063185445197) -->
+    <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <string name="location_message">"Nettsiden under ønsker å finne ut hvor du er ved hjelp av Gears."</string>
+    <!-- no translation found for location_message (6790400729681341258) -->
+    <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
-    <string name="shortcut_message">"Denne nettsiden ønsker å lage en snarvei på datamaskinen. Ønsker du å tillate dette?"</string>
+    <!-- no translation found for shortcut_message (4793042709293755892) -->
+    <skip />
     <string name="settings_message">"Tabellen under viser rettighetent du har gitt til hver side som har prøvd å bruke Gears."</string>
-    <string name="filepicker_message">"Gears filplukker"</string>
+    <!-- no translation found for filepicker_message (4929726371602896039) -->
+    <skip />
     <!-- no translation found for image_message (5450245866521896891) -->
     <skip />
     <string name="settings_title">"Gears-innstillinger"</string>
@@ -290,7 +293,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />
@@ -302,10 +305,14 @@
     <skip />
     <!-- no translation found for shortcut_notification (1659700220868444568) -->
     <skip />
-    <string name="permission_button_alwaysdeny">"Aldri tillat for denne siden"</string>
-    <string name="permission_button_allow">"Tillat"</string>
-    <string name="permission_button_deny">"Nekt"</string>
-    <string name="shortcut_button_alwaysdeny">"Aldri tillat denne snarveien"</string>
+    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
+    <skip />
+    <!-- no translation found for permission_button_allow (7301874925704148242) -->
+    <skip />
+    <!-- no translation found for permission_button_deny (104712269725153018) -->
+    <skip />
+    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
+    <skip />
     <string name="shortcut_button_allow">"OK"</string>
     <string name="shortcut_button_deny">"Avbryt"</string>
     <string name="settings_button_allow">"Bruk"</string>

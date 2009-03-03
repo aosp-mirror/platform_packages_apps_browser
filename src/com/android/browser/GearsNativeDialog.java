@@ -36,6 +36,8 @@ import android.webkit.gears.NativeDialog;
 import com.android.browser.GearsBaseDialog;
 import com.android.browser.GearsPermissionsDialog;
 import com.android.browser.GearsSettingsDialog;
+import com.android.browser.GearsShortcutDialog;
+import com.android.browser.GearsFilePickerDialog;
 
 /**
  * Native dialog Activity used by gears
@@ -55,12 +57,16 @@ public class GearsNativeDialog extends Activity {
   private int mDialogType;
   private final int SETTINGS_DIALOG = 1;
   private final int PERMISSION_DIALOG = 2;
-  private final int LOCATION_DIALOG = 3;
+  private final int SHORTCUT_DIALOG = 3;
+  private final int LOCATION_DIALOG = 4;
+  private final int FILEPICKER_DIALOG = 5;
 
   private final String VERSION_STRING = "version";
   private final String SETTINGS_DIALOG_STRING = "settings_dialog";
   private final String PERMISSION_DIALOG_STRING = "permissions_dialog";
+  private final String SHORTCUT_DIALOG_STRING = "shortcuts_dialog";
   private final String LOCATION_DIALOG_STRING = "locations_dialog";
+  private final String FILEPICKER_DIALOG_STRING = "filepicker_dialog";
 
   private boolean mDialogDismissed = false;
 
@@ -105,8 +111,14 @@ public class GearsNativeDialog extends Activity {
       case PERMISSION_DIALOG:
         dialog = new GearsPermissionsDialog(this, mHandler, mDialogArguments);
         break;
+      case SHORTCUT_DIALOG:
+        dialog = new GearsShortcutDialog(this, mHandler, mDialogArguments);
+        break;
       case LOCATION_DIALOG:
         dialog = new GearsPermissionsDialog(this, mHandler, mDialogArguments);
+        break;
+      case FILEPICKER_DIALOG:
+        dialog = new GearsFilePickerDialog(this, mHandler, mDialogArguments);
         break;
       default:
         dialog = new GearsBaseDialog(this, mHandler, mDialogArguments);
@@ -124,7 +136,7 @@ public class GearsNativeDialog extends Activity {
    */
   private void getArguments() {
     if (mDebug) {
-      mDialogType = LOCATION_DIALOG +1;
+      mDialogType = FILEPICKER_DIALOG +1;
       mockArguments();
 
       return;
@@ -146,8 +158,12 @@ public class GearsNativeDialog extends Activity {
       mGearsVersion = intent.getStringExtra(VERSION_STRING);
     } else if (dialogTypeString.equalsIgnoreCase(PERMISSION_DIALOG_STRING)) {
       mDialogType = PERMISSION_DIALOG;
+    } else if (dialogTypeString.equalsIgnoreCase(SHORTCUT_DIALOG_STRING)) {
+      mDialogType = SHORTCUT_DIALOG;
     } else if (dialogTypeString.equalsIgnoreCase(LOCATION_DIALOG_STRING)) {
       mDialogType = LOCATION_DIALOG;
+    } else if (dialogTypeString.equalsIgnoreCase(FILEPICKER_DIALOG_STRING)) {
+      mDialogType = FILEPICKER_DIALOG;
     }
   }
 
@@ -157,6 +173,17 @@ public class GearsNativeDialog extends Activity {
    * Set mock arguments.
    */
   private void mockArguments() {
+    String argumentsShortcuts = "{ locale: \"en-US\","
+        + "name: \"My Application\", link: \"http://www.google.com/\","
+        + "description: \"This application does things does things!\","
+        + "icon16x16: \"http://google-gears.googlecode.com/"
+        + "svn/trunk/gears/test/manual/shortcuts/16.png\","
+        + "icon32x32: \"http://google-gears.googlecode.com/"
+        + "svn/trunk/gears/test/manual/shortcuts/32.png\","
+        + "icon48x48: \"http://google-gears.googlecode.com/"
+        + "svn/trunk/gears/test/manual/shortcuts/48.png\","
+        + "icon128x128: \"http://google-gears.googlecode.com/"
+        + "svn/trunk/gears/test/manual/shortcuts/128.png\"}";
 
     String argumentsPermissions = "{ locale: \"en-US\", "
         + "origin: \"http://www.google.com\", dialogType: \"localData\","
@@ -188,7 +215,16 @@ public class GearsNativeDialog extends Activity {
         + "localStorage: { permissionState: 2 }, "
         + "locationData: { permissionState: 2 } } ] }";
 
+    String argumentsFilePicker = "{ \"cameraMode\" : \"OFF\", \"filters\""
+        + ": [ \"text/html\", \".txt\" ], \"mode\" : \"MULTIPLE_FILES\" }\"";
+
+    String argumentsFilePicker2 = "{ \"cameraMode\" : \"OFF\", \"filters\""
+        + ": [ \"text/html\", \".txt\" ], \"mode\" : \"SINGLE_FILE\" }\"";
+
     switch (mDialogType) {
+      case SHORTCUT_DIALOG:
+        mDialogArguments = argumentsShortcuts;
+        break;
       case PERMISSION_DIALOG:
         mDialogArguments = argumentsPermissions;
         break;
@@ -198,6 +234,8 @@ public class GearsNativeDialog extends Activity {
       case SETTINGS_DIALOG:
         mDialogArguments = argumentsSettings;
         break;
+      case FILEPICKER_DIALOG:
+        mDialogArguments = argumentsFilePicker2;
     }
   }
 

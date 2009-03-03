@@ -17,7 +17,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name">"Navigateur"</string>
     <string name="tab_bookmarks">"Favoris"</string>
-    <string name="tab_most_visited">"Les + visités"</string>
+    <string name="tab_most_visited">"Les plus consultés"</string>
     <string name="tab_history">"Historique"</string>
     <string name="added_to_bookmarks">"Ajouté aux favoris"</string>
     <string name="removed_from_bookmarks">"Supprimé des favoris"</string>
@@ -27,7 +27,7 @@
     <string name="action">"Se connecter"</string>
     <string name="cancel">"Annuler"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" résultat(s) correspondant(s )"</string>
+    <string name="matches_found">"résultats correspondants"</string>
     <string name="zero">"Non"</string>
     <string name="page_info">"Infos sur la page"</string>
     <string name="page_info_view">"Afficher les infos sur la page"</string>
@@ -64,7 +64,7 @@
     <string name="http">"http://"</string>
     <string name="save_to_bookmarks">"Favori"</string>
     <string name="edit_bookmark">"Modifier le favori"</string>
-    <string name="create_shortcut_bookmark">"Raccourci sur la page d\'accueil"</string>
+    <string name="create_shortcut_bookmark">"Ajouter un raccourci sur la page d\'accueil"</string>
     <string name="open_bookmark">"Ouverture"</string>
     <string name="remove_bookmark">"Supprimer le favori"</string>
     <string name="remove_history_item">"Supprimer de l\'historique"</string>
@@ -74,19 +74,19 @@
     <string name="empty_bookmark">"Impossible de créer un favori vide."</string>
     <string name="bookmark_url_not_valid">"L\'URL est incorrecte."</string>
     <string name="delete_bookmark">"Supprimer"</string>
-    <string name="bookmark_page">"Ajouter la dernière page consultée"</string>
-    <string name="current_page">"de "</string>
+    <string name="bookmark_page">"Dernière page de favori consultée"</string>
+    <string name="current_page">"de"</string>
     <string name="delete_bookmark_warning">"Le favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sera supprimé."</string>
-    <string name="open_in_new_window">"Nouvelle fenêtre"</string>
+    <string name="open_in_new_window">"Ouvrir dans une nouvelle fenêtre"</string>
     <string name="new_window">"Nouvelle fenêtre"</string>
-    <string name="goto_dot">"Recherche"</string>
+    <string name="goto_dot">"OK"</string>
     <string name="find_dot">"Rechercher sur la page"</string>
     <string name="select_dot">"Sélectionner le texte"</string>
     <string name="view_tabs">"Vue d\'ensemble des fenêtres"</string>
-    <string name="view_tabs_condensed">"Fenêtres"</string>
+    <string name="view_tabs_condensed">"Windows"</string>
     <string name="tab_picker_title">"Fenêtres actuelles"</string>
     <string name="tab_picker_view_tab">"Afficher"</string>
-    <string name="tab_picker_new_tab">"Nouv. fenêtre"</string>
+    <string name="tab_picker_new_tab">"Nouvelle fenêtre"</string>
     <string name="tab_picker_remove_tab">"Fermer"</string>
     <string name="tab_picker_bookmark">"Favori"</string>
     <string name="tab_picker_send_url">"Partager le lien"</string>
@@ -115,24 +115,24 @@
     <string name="pref_content_title">"Paramètres du contenu de la page"</string>
     <string name="pref_content_load_images">"Charger les images"</string>
     <string name="pref_content_load_images_summary">"Afficher les images des pages Web"</string>
-    <string name="pref_content_block_popups">"Bloquer les pop-up"</string>
+    <string name="pref_content_block_popups">"Bloquer les fenêtres pop-up"</string>
     <string name="pref_content_javascript">"Activer JavaScript"</string>
-    <string name="pref_content_open_in_background">"Ouvrir en arrière-plan"</string>
+    <string name="pref_content_open_in_background">"Ouvrir à l\'arrière-plan"</string>
     <string name="pref_content_open_in_background_summary">"Les nouvelles fenêtres s\'ouvrent derrière la fenêtre actuelle"</string>
     <string name="pref_content_homepage">"Configurer la page d\'accueil"</string>
-    <string name="pref_content_autofit">"Redimensionner les pages"</string>
+    <string name="pref_content_autofit">"Ajustement automatique des pages"</string>
     <string name="pref_content_autofit_summary">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
     <string name="pref_privacy_title">"Paramètres de confidentialité"</string>
     <string name="pref_privacy_clear_cache">"Effacer le cache"</string>
     <string name="pref_privacy_clear_cache_summary">"Supprimer tout le contenu de la page en cache"</string>
     <string name="pref_privacy_clear_cache_dlg">"Le cache sera effacé."</string>
-    <string name="pref_privacy_clear_cookies">"Effacer tous les cookies"</string>
+    <string name="pref_privacy_clear_cookies">"Effacer toutes les données de cookies"</string>
     <string name="pref_privacy_clear_cookies_summary">"Effacer tous les cookies du navigateur"</string>
     <string name="pref_privacy_clear_cookies_dlg">"Tous les cookies seront effacés."</string>
     <string name="pref_privacy_clear_history">"Effacer l\'historique"</string>
     <string name="pref_privacy_clear_history_summary">"Effacer l\'historique du navigateur"</string>
     <string name="pref_privacy_clear_history_dlg">"L\'historique du navigateur sera effacé."</string>
-    <string name="pref_privacy_clear_form_data">"Effacer données formulaire"</string>
+    <string name="pref_privacy_clear_form_data">"Effacer les données du formulaire"</string>
     <string name="pref_privacy_clear_form_data_summary">"Effacer toutes les données de formulaire enregistrées"</string>
     <string name="pref_privacy_clear_form_data_dlg">"Toutes les données de formulaire enregistrées seront effacées."</string>
     <string name="pref_privacy_clear_passwords">"Effacer les mots de passe"</string>
@@ -141,9 +141,9 @@
     <string name="pref_security_title">"Paramètres de sécurité"</string>
     <string name="pref_security_remember_passwords">"Mémoriser les mots de passe"</string>
     <string name="pref_security_remember_passwords_summary">"Enregistrer les noms d\'utilisateur et les mots de passe pour les sites Web"</string>
-    <string name="pref_security_save_form_data">"Mémoriser données formulaire"</string>
+    <string name="pref_security_save_form_data">"Mémoriser les données de formulaire"</string>
     <string name="pref_security_save_form_data_summary">"Mémoriser les données saisies dans les formulaires pour les utiliser ultérieurement"</string>
-    <string name="pref_security_show_security_warning">"Avertissements de sécurité"</string>
+    <string name="pref_security_show_security_warning">"Afficher les avertissements de sécurité"</string>
     <string name="pref_security_show_security_warning_summary">"Afficher un avertissement en cas de problème de sécurité d\'un site"</string>
     <string name="pref_security_accept_cookies">"Accepter les cookies"</string>
     <string name="pref_security_accept_cookies_summary">"Autoriser les sites à enregistrer et lire les données \"cookie\""</string>
@@ -163,7 +163,7 @@
     <string name="pref_plugin_installed">"Liste des plug-ins"</string>
     <string name="pref_plugin_installed_empty_list">"Aucun plug-in installé."</string>
     <string name="pref_extras_gears_settings_summary">"Applications étendant les fonctionnalités du navigateur"</string>
-    <string name="pref_extras_reset_default">"Rétablir valeurs par défaut"</string>
+    <string name="pref_extras_reset_default">"Rétablir les valeurs par défaut"</string>
     <string name="pref_extras_reset_default_summary">"Effacer toutes les données du navigateur et rétablir les paramètres par défaut"</string>
     <string name="pref_extras_reset_default_dlg">"Toutes les données du navigateur seront effacées et les paramètres par défaut rétablis."</string>
     <string name="pref_extras_reset_default_dlg_title">"Rétablir les valeurs par défaut"</string>
@@ -200,7 +200,7 @@
     <string name="browserFrameNetworkErrorLabel">"Problème de connectivité des données"</string>
     <string name="browserFrameFileErrorLabel">"Problème de fichier"</string>
     <string name="browserFrameFormResubmitLabel">"Confirmer"</string>
-    <string name="browserFrameFormResubmitMessage">"La page que vous tentez d\'afficher contient des données qui ont déjà été envoyées (\"POSTDATA\"). Si vous renvoyez les données, toute action effectuée par le formulaire sur la page exécutée (notamment les lancements de recherche ou les achats en ligne) sera répétée."</string>
+    <string name="browserFrameFormResubmitMessage">"La page que vous tentez d\'afficher contient des données qui ont déjà été envoyées (\"POSTDATA\"). Si vous renvoyez les données, toute action effectuée par le formulaire sur la page exécutée (notamment les lancements de recherche ou les achats en ligne) seront répétés."</string>
     <string name="loadSuspendedTitle">"Aucune connexion réseau"</string>
     <string name="loadSuspended">"Une fois la connexion rétablie, le chargement de la page reprendra."</string>
     <string name="clear_history">"Effacer l\'historique"</string>
@@ -235,14 +235,13 @@
     <string name="download_no_sdcard_dlg_title">"Aucune carte SD"</string>
     <string name="download_no_sdcard_dlg_msg">"Le téléchargement de <xliff:g id="FILENAME">%s</xliff:g> requiert une carte SD."</string>
     <string name="download_sdcard_busy_dlg_title">"Carte SD non disponible"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"La carte SD est occupée. Pour permettre les téléchargements, allez sur Page d\'accueil &gt; Paramètres &gt; Carte SD et stockage téléphone et décochez la case \"Utiliser pour le stockage USB\"."</string>
     <string name="download_no_application">"Impossible de trouver une application permettant d\'ouvrir ce fichier."</string>
     <string name="retry">"Réessayer"</string>
     <string name="no_downloads">"L\'historique de téléchargement est vide."</string>
     <string name="download_error">"Échec du téléchargement"</string>
     <string name="download_success">"Téléchargement de <xliff:g id="FILE">%s</xliff:g> terminé."</string>
-    <string name="download_running">"Téléchargement..."</string>
+    <string name="download_running">"Téléchargement en cours..."</string>
     <string name="download_pending">"Début du téléchargement..."</string>
     <string name="download_pending_network">"En attente d\'une connexion de données..."</string>
     <string name="download_running_paused">"En attente d\'une connexion de données..."</string>
@@ -253,9 +252,9 @@
     <string name="download_precondition_failed">"Téléchargement interrompu. Impossible de reprendre le téléchargement."</string>
     <string name="activity_instrumentation_test_runner">"Testeur de navigateur"</string>
     <string name="search_google">"Recherche Google"</string>
-    <string name="permlab_readHistoryBookmarks">"Lecture de l\'historique du navigateur et des favoris"</string>
+    <string name="permlab_readHistoryBookmarks">"lire l\'historique du navigateur et les favoris"</string>
     <string name="permdesc_readHistoryBookmarks">"Permet à l\'application de lire toutes les URL visitées par le navigateur et tous les favoris."</string>
-    <string name="permlab_writeHistoryBookmarks">"Enregistrement de l\'historique du navigateur et des favoris"</string>
+    <string name="permlab_writeHistoryBookmarks">"écrire l\'historique du navigateur et les favoris"</string>
     <string name="permdesc_writeHistoryBookmarks">"Permet à une application de modifier l\'historique du navigateur ou les favoris enregistrés sur votre téléphone. Des applications malveillantes peuvent utiliser cette fonction pour effacer ou modifier les données de votre navigateur."</string>
     <!-- no translation found for query_data_prompt (5474381240981604223) -->
     <skip />
@@ -263,7 +262,7 @@
     <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
+    <!-- no translation found for location_message (6790400729681341258) -->
     <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
@@ -275,7 +274,7 @@
     <!-- no translation found for image_message (5450245866521896891) -->
     <skip />
     <string name="settings_title">"Paramètres Google Gears"</string>
-    <string name="privacy_policy">"Lisez les règles de confidentialité du site pour voir comment votre emplacement sera utilisé."</string>
+    <string name="privacy_policy">"Lisez la politique de confidentialité du site pour voir comment votre emplacement sera utilisé."</string>
     <!-- no translation found for settings_storage_title (7089119630457156408) -->
     <skip />
     <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
@@ -294,7 +293,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />

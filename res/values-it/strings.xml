@@ -27,7 +27,7 @@
     <string name="action">"Accedi"</string>
     <string name="cancel">"Annulla"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" corrispondenze"</string>
+    <string name="matches_found">"corrispondenze"</string>
     <string name="zero">"No"</string>
     <string name="page_info">"Info pagina"</string>
     <string name="page_info_view">"Visualizza info pagina"</string>
@@ -59,23 +59,23 @@
     <string name="forward">"Avanti"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"Annulla"</string>
-    <string name="location">"URL"</string>
+    <string name="location">"Posizione"</string>
     <string name="name">"Nome"</string>
     <string name="http">"http://"</string>
     <string name="save_to_bookmarks">"Segnalibro"</string>
     <string name="edit_bookmark">"Modifica segnalibro"</string>
-    <string name="create_shortcut_bookmark">"Aggiungi scorciatoia Home"</string>
+    <string name="create_shortcut_bookmark">"Aggiungi collegamento a Home"</string>
     <string name="open_bookmark">"Apri"</string>
     <string name="remove_bookmark">"Elimina segnalibro"</string>
     <string name="remove_history_item">"Rimuovi da cronologia"</string>
     <string name="bookmark_saved">"Salvato nei segnalibri."</string>
     <string name="bookmark_needs_title">"Inserisci un nome per il segnalibro."</string>
-    <string name="bookmark_needs_url">"Inserisci un URL per il segnalibro."</string>
+    <string name="bookmark_needs_url">"Inserisci una posizione per il segnalibro."</string>
     <string name="empty_bookmark">"Impossibile creare un segnalibro vuoto."</string>
     <string name="bookmark_url_not_valid">"URL non valido."</string>
     <string name="delete_bookmark">"Elimina"</string>
     <string name="bookmark_page">"Aggiungi ultima pagina visualizzata in segnalibri"</string>
-    <string name="current_page">"da "</string>
+    <string name="current_page">"da"</string>
     <string name="delete_bookmark_warning">"Il segnalibro \"<xliff:g id="BOOKMARK">%s</xliff:g>\" verrà eliminato."</string>
     <string name="open_in_new_window">"Apri in nuova finestra"</string>
     <string name="new_window">"Nuova finestra"</string>
@@ -235,8 +235,7 @@
     <string name="download_no_sdcard_dlg_title">"Nessuna scheda SD"</string>
     <string name="download_no_sdcard_dlg_msg">"Per scaricare <xliff:g id="FILENAME">%s</xliff:g> occorre una scheda SD."</string>
     <string name="download_sdcard_busy_dlg_title">"Scheda SD non disponibile"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"La scheda SD è già in uso. Per consentire i download, vai a Home &gt; Impostazioni &gt; Scheda SD e archiviazione telefono e deseleziona la casella \"Usa per archiviazione USB\"."</string>
     <string name="download_no_application">"Impossibile trovare un\'applicazione in cui aprire questo file."</string>
     <string name="retry">"Riprova"</string>
     <string name="no_downloads">"La cronologia download è vuota."</string>
@@ -247,15 +246,15 @@
     <string name="download_pending_network">"In attesa di connessione dati..."</string>
     <string name="download_running_paused">"In attesa di connessione dati..."</string>
     <string name="download_canceled">"Download annullato."</string>
-    <string name="download_not_acceptable">"Impossibile effettuare il download. I contenuti non sono supportati dal telefono."</string>
+    <string name="download_not_acceptable">"Impossibile effettuare il download. Il contenuto non è supportato dal telefono."</string>
     <string name="download_file_error">"Impossibile terminare il download. Spazio insufficiente."</string>
     <string name="download_length_required">"Impossibile effettuare il download. Impossibile determinare le dimensioni dell\'elemento."</string>
     <string name="download_precondition_failed">"Download interrotto. Impossibile ripristinarlo."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
     <string name="search_google">"Cerca su Google"</string>
-    <string name="permlab_readHistoryBookmarks">"lettura cronologia e segnalibri del browser"</string>
+    <string name="permlab_readHistoryBookmarks">"leggere cronologia e segnalibri del browser"</string>
     <string name="permdesc_readHistoryBookmarks">"Consente all\'applicazione di leggere tutti gli URL visitati e tutti i segnalibri del browser."</string>
-    <string name="permlab_writeHistoryBookmarks">"creazione cronologia e segnalibri del browser"</string>
+    <string name="permlab_writeHistoryBookmarks">"creare cronologia e segnalibri del browser"</string>
     <string name="permdesc_writeHistoryBookmarks">"Consente a un\'applicazione di modificare la cronologia o i segnalibri del browser memorizzati sul telefono. Le applicazioni dannose possono sfruttare questa possibilità per cancellare o modificare i dati del browser."</string>
     <!-- no translation found for query_data_prompt (5474381240981604223) -->
     <skip />
@@ -263,7 +262,7 @@
     <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
+    <!-- no translation found for location_message (6790400729681341258) -->
     <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
@@ -294,7 +293,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />
