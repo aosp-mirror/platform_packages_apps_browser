@@ -27,7 +27,7 @@
     <string name="action">"登入"</string>
     <string name="cancel">"取消"</string>
     <string name="ok">"確定"</string>
-    <string name="matches_found">"個符合項目"</string>
+    <string name="matches_found">" 個符合項目"</string>
     <string name="zero">"否"</string>
     <string name="page_info">"頁面資訊"</string>
     <string name="page_info_view">"檢視頁面資訊"</string>
@@ -75,7 +75,7 @@
     <string name="bookmark_url_not_valid">"網址無效。"</string>
     <string name="delete_bookmark">"刪除"</string>
     <string name="bookmark_page">"最後瀏覽的書籤頁面"</string>
-    <string name="current_page">"來源"</string>
+    <string name="current_page">"來源 "</string>
     <string name="delete_bookmark_warning">"<xliff:g id="BOOKMARK">%s</xliff:g>"</string>
     <string name="open_in_new_window">"在新視窗開啟"</string>
     <string name="new_window">"新視窗"</string>
@@ -235,7 +235,8 @@
     <string name="download_no_sdcard_dlg_title">"沒有 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg">"需要 SD 卡下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title">"無法使用 SD 卡"</string>
-    <string name="download_sdcard_busy_dlg_msg">"SD 卡忙碌中。若要允許下載，請前往 [首頁] &gt; [設定] &gt; [SD 卡和電話儲存空間]，然後清除 [使用作為 USB 儲存空間] 核取方塊。"</string>
+    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
+    <skip />
     <string name="download_no_application">"找不到可以開啟這個檔案的應用程式。"</string>
     <string name="retry">"重試"</string>
     <string name="no_downloads">"下載記錄是空的。"</string>
@@ -262,7 +263,7 @@
     <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <!-- no translation found for location_message (6790400729681341258) -->
+    <!-- no translation found for location_message (1729456751935683242) -->
     <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
@@ -293,7 +294,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
+    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />

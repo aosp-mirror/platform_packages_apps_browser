@@ -527,7 +527,7 @@
     <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
-    <string name="download_sdcard_busy_dlg_msg">The SD card is busy. To allow downloads, go to Home > Settings > SD card &amp; phone storage and clear the \"Use for USB storage\" check box.</string>
+    <string name="download_sdcard_busy_dlg_msg">The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
  
     <!-- Message for a dialog informing the user that there is no application on
             the phone that can open the file that was downloaded  -->
@@ -585,6 +585,8 @@
     <string-array name="bookmarks" translatable="false">
         <item>Google</item>
         <item>http://www.google.com/</item>
+        <item>Picasa Web Albums</item>
+        <item>http://picasaweb.google.com/m/viewer?source=androidclient</item>
         <item>Yahoo!</item>
         <item>http://www.yahoo.com/</item>
         <item>MSN</item>

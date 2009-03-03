@@ -83,8 +83,7 @@ public class BrowserPreferencesPage extends PreferenceActivity
             if (needUpdate) {
                 value = value.trim().replace(" ", "%20");
             }
-            Uri path = Uri.parse(value);
-            if (path.getScheme() == null) {
+            if (value.length() != 0 && Uri.parse(value).getScheme() == null) {
                 value = "http://" + value;
                 needUpdate = true;
             }

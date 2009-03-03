@@ -27,7 +27,7 @@
     <string name="action">"Aanmelden"</string>
     <string name="cancel">"Annuleren"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">"overeenkomsten"</string>
+    <string name="matches_found">" overeenkomsten"</string>
     <string name="zero">"Nee"</string>
     <string name="page_info">"Pagina-informatie"</string>
     <string name="page_info_view">"Pagina-informatie weergeven"</string>
@@ -75,7 +75,7 @@
     <string name="bookmark_url_not_valid">"URL is ongeldig."</string>
     <string name="delete_bookmark">"Verwijderen"</string>
     <string name="bookmark_page">"Bladwijzer maken voor de laatst weergegeven pagina"</string>
-    <string name="current_page">"van"</string>
+    <string name="current_page">"van "</string>
     <string name="delete_bookmark_warning">"Bladwijzer \'<xliff:g id="BOOKMARK">%s</xliff:g>\' wordt verwijderd."</string>
     <string name="open_in_new_window">"Openen in een nieuw venster"</string>
     <string name="new_window">"Nieuw venster"</string>
@@ -200,7 +200,7 @@
     <string name="browserFrameNetworkErrorLabel">"Probleem met gegevensverbinding"</string>
     <string name="browserFrameFileErrorLabel">"Probleem met bestand"</string>
     <string name="browserFrameFormResubmitLabel">"Bevestigen"</string>
-    <string name="browserFrameFormResubmitMessage">"De pagina die u probeert te openen, bevat gegevens die al verzonden zijn (\'POSTDATA\'). Als u de gegevens opnieuw verzendt, wordt elke actie herhaald die het formulier op de pagina heeft uitgevoerd (zoals een zoekopdracht of online aankoop)."</string>
+    <string name="browserFrameFormResubmitMessage">"De pagina die u probeert te openen, bevat gegevens die al verzonden zijn (\'POSTDATA\'). Als u de gegevens opnieuw verzendt, wordt elke actie herhaald die het formulier op de pagina heeft uitgevoerd (zoals een zoekopdracht of online aanschaf)."</string>
     <string name="loadSuspendedTitle">"Geen netwerkverbinding"</string>
     <string name="loadSuspended">"De pagina wordt verder geladen zodra de verbinding is hersteld."</string>
     <string name="clear_history">"Geschiedenis wissen"</string>
@@ -235,7 +235,8 @@
     <string name="download_no_sdcard_dlg_title">"Geen SD-kaart"</string>
     <string name="download_no_sdcard_dlg_msg">"Een SD-kaart is vereist om <xliff:g id="FILENAME">%s</xliff:g> te kunnen downloaden."</string>
     <string name="download_sdcard_busy_dlg_title">"SD-kaart niet beschikbaar"</string>
-    <string name="download_sdcard_busy_dlg_msg">"De SD-kaart is in gebruik. Als u downloads wilt toestaan, gaat u naar de spartpagina en selecteert u \'Instellingen\' &gt; \'SD-kaart en telefoongeheugen\' en verwijdert u het vinkje uit het selectievakje \'Gebruiken voor USB-opslag\'."</string>
+    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
+    <skip />
     <string name="download_no_application">"Er is geen toepassing gevonden waarmee dit bestand kan worden geopend."</string>
     <string name="retry">"Opnieuw proberen"</string>
     <string name="no_downloads">"Downloadgeschiedenis is leeg."</string>
@@ -262,7 +263,7 @@
     <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <!-- no translation found for location_message (6790400729681341258) -->
+    <!-- no translation found for location_message (1729456751935683242) -->
     <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
@@ -293,7 +294,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
+    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />

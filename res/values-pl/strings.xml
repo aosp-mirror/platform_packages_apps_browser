@@ -15,7 +15,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="application_name">"Przeglądarka"</string>
+    <string name="application_name">"Internet"</string>
     <string name="tab_bookmarks">"Zakładki"</string>
     <string name="tab_most_visited">"Najczęściej odwiedzane"</string>
     <string name="tab_history">"Historia"</string>
@@ -27,13 +27,13 @@
     <string name="action">"Zaloguj się"</string>
     <string name="cancel">"Anuluj"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">"dopasowania"</string>
+    <string name="matches_found">" dopasowania"</string>
     <string name="zero">"Nie"</string>
     <string name="page_info">"Informacje o stronie"</string>
     <string name="page_info_view">"Informacje o stronie"</string>
     <string name="page_info_address">"Adres:"</string>
     <string name="ssl_warnings_header">"Są problemy z certyfikatem zabezpieczeń tej strony."</string>
-    <string name="ssl_continue">"Kontynuuj"</string>
+    <string name="ssl_continue">"Dalej"</string>
     <string name="security_warning">"Ostrzeżenie zabezpieczeń"</string>
     <string name="view_certificate">"Wyświetl certyfikat"</string>
     <string name="ssl_untrusted">"Ten certyfikat nie pochodzi od zaufanego urzędu."</string>
@@ -75,15 +75,15 @@
     <string name="bookmark_url_not_valid">"Adres URL jest nieprawidłowy."</string>
     <string name="delete_bookmark">"Usuń"</string>
     <string name="bookmark_page">"Dodaj do zakładek ostatnio wyświetlaną stronę"</string>
-    <string name="current_page">"z"</string>
+    <string name="current_page">"z "</string>
     <string name="delete_bookmark_warning">"Zakładka „<xliff:g id="BOOKMARK">%s</xliff:g>” zostanie usunięta."</string>
     <string name="open_in_new_window">"Otwórz w nowym oknie"</string>
     <string name="new_window">"Nowe okno"</string>
     <string name="goto_dot">"Idź"</string>
     <string name="find_dot">"Znajdź na stronie"</string>
-    <string name="select_dot">"Wybierz tekst"</string>
+    <string name="select_dot">"Zaznacz tekst"</string>
     <string name="view_tabs">"Przegląd okien"</string>
-    <string name="view_tabs_condensed">"Windows"</string>
+    <string name="view_tabs_condensed">"Okna"</string>
     <string name="tab_picker_title">"Bieżące okna"</string>
     <string name="tab_picker_view_tab">"Wyświetl"</string>
     <string name="tab_picker_new_tab">"Nowe okno"</string>
@@ -115,18 +115,18 @@
     <string name="pref_content_title">"Ustawienia zawartości stron"</string>
     <string name="pref_content_load_images">"Wczytuj obrazy"</string>
     <string name="pref_content_load_images_summary">"Wyświetlaj obrazy na stronach WWW"</string>
-    <string name="pref_content_block_popups">"Blokuj okienka wyskakujące"</string>
+    <string name="pref_content_block_popups">"Blokuj wyskakujące okna"</string>
     <string name="pref_content_javascript">"Włącz skrypty JavaScript"</string>
     <string name="pref_content_open_in_background">"Otwórz w tle"</string>
-    <string name="pref_content_open_in_background_summary">"Nowe okna są otwierane za bieżącym"</string>
+    <string name="pref_content_open_in_background_summary">"Nowe okna są otwierane w tle"</string>
     <string name="pref_content_homepage">"Ustaw stronę główną"</string>
-    <string name="pref_content_autofit">"Automatycznie dopasowuj strony"</string>
+    <string name="pref_content_autofit">"Autodopasowanie stron"</string>
     <string name="pref_content_autofit_summary">"Formatuj strony WWW, aby mieściły się na ekranie"</string>
     <string name="pref_privacy_title">"Ustawienia prywatności"</string>
     <string name="pref_privacy_clear_cache">"Wyczyść pamięć podręczną"</string>
     <string name="pref_privacy_clear_cache_summary">"Usuń całą zawartość stron z pamięci podręcznej"</string>
     <string name="pref_privacy_clear_cache_dlg">"Pamięć podręczna zostanie wyczyszczona."</string>
-    <string name="pref_privacy_clear_cookies">"Wyczyść wszystkie dane plików cookie"</string>
+    <string name="pref_privacy_clear_cookies">"Wyczyść wszystkie cookies"</string>
     <string name="pref_privacy_clear_cookies_summary">"Wyczyść pliki cookie przeglądarki"</string>
     <string name="pref_privacy_clear_cookies_dlg">"Wszystkie pliki cookie zostaną usunięte."</string>
     <string name="pref_privacy_clear_history">"Wyczyść historię"</string>
@@ -141,9 +141,9 @@
     <string name="pref_security_title">"Ustawienia zabezpieczeń"</string>
     <string name="pref_security_remember_passwords">"Zapamiętuj hasła"</string>
     <string name="pref_security_remember_passwords_summary">"Zapamiętuj nazwy użytkownika i hasła do stron WWW"</string>
-    <string name="pref_security_save_form_data">"Zapamiętaj dane formularza"</string>
+    <string name="pref_security_save_form_data">"Zapamiętuj wpisane dane"</string>
     <string name="pref_security_save_form_data_summary">"Zapamiętuj do późniejszego użycia dane, które wpisuję w formularzach"</string>
-    <string name="pref_security_show_security_warning">"Wyświetlaj ostrzeżenia zabezpieczeń"</string>
+    <string name="pref_security_show_security_warning">"Wyświetlaj ostrzeżenia"</string>
     <string name="pref_security_show_security_warning_summary">"Wyświetl ostrzeżenie w razie problemów z zabezpieczeniami strony"</string>
     <string name="pref_security_accept_cookies">"Akceptuj pliki cookie"</string>
     <string name="pref_security_accept_cookies_summary">"Zezwalaj witrynom na zapis i odczyt danych plików „cookie”."</string>
@@ -159,12 +159,12 @@
     <string name="pref_extras_title">"Ustawienia zaawansowane"</string>
     <string name="pref_extras_gears_enable">"Włącz technologię Gears"</string>
     <string name="pref_extras_gears_enable_summary">"Aplikacje rozszerzające zakres funkcji przeglądarki"</string>
-    <string name="pref_extras_gears_settings">"Gears — ustawienia"</string>
+    <string name="pref_extras_gears_settings">"Gears – ustawienia"</string>
     <string name="pref_plugin_installed">"Lista dodatków plug-in"</string>
     <string name="pref_plugin_installed_empty_list">"Brak zainstalowanych dodatków plug-in."</string>
     <string name="pref_extras_gears_settings_summary">"Aplikacje rozszerzające zakres funkcji przeglądarki"</string>
     <string name="pref_extras_reset_default">"Przywróć wartości domyślne"</string>
-    <string name="pref_extras_reset_default_summary">"Wyczyść wszystkie dane przeglądarki i przywróć wszystkie ustawienia do wartości domyślnych"</string>
+    <string name="pref_extras_reset_default_summary">"Wyczyść wszystkie dane przeglądarki i przywróć wszystkie ustawienia domyślne"</string>
     <string name="pref_extras_reset_default_dlg">"Wszystkie dane przeglądarki zostaną wyczyszczone, a ustawienia powrócą do wartości domyślnych."</string>
     <string name="pref_extras_reset_default_dlg_title">"Przywróć wartości domyślne"</string>
     <string name="pref_development_title">"Debugowanie"</string>
@@ -209,7 +209,7 @@
     <string name="add_new_bookmark">"Dodaj do zakładek..."</string>
     <string name="no_database">"Brak bazy danych!"</string>
     <string name="search_hint">"Wpisz adres WWW"</string>
-    <string name="search_button_text">"Idź"</string>
+    <string name="search_button_text">"Otwórz"</string>
     <string name="attention">"Uwaga"</string>
     <string name="popup_window_attempt">"Ta strona próbuje otworzyć okienko wyskakujące."</string>
     <string name="allow">"Zezwól"</string>
@@ -235,7 +235,8 @@
     <string name="download_no_sdcard_dlg_title">"Brak karty SD"</string>
     <string name="download_no_sdcard_dlg_msg">"Do pobrania pliku <xliff:g id="FILENAME">%s</xliff:g> potrzebna jest karta SD."</string>
     <string name="download_sdcard_busy_dlg_title">"Karta SD jest niedostępna"</string>
-    <string name="download_sdcard_busy_dlg_msg">"Karta SD jest zajęta. Aby zezwolić na pobieranie, przejdź do Strona główna &gt; Ustawienia &gt; Karta SD i pamięć telefonu, a następnie usuń zaznaczenie pola wyboru „Użyj dla pamięci USB”."</string>
+    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
+    <skip />
     <string name="download_no_application">"Nie można znaleźć pliku do otwarcia tego programu."</string>
     <string name="retry">"Spróbuj ponownie"</string>
     <string name="no_downloads">"Historia pobierania jest pusta."</string>
@@ -262,7 +263,7 @@
     <skip />
     <!-- no translation found for location_prompt (226262202057302423) -->
     <skip />
-    <!-- no translation found for location_message (6790400729681341258) -->
+    <!-- no translation found for location_message (1729456751935683242) -->
     <skip />
     <!-- no translation found for shortcut_prompt (437193299088893596) -->
     <skip />
@@ -273,7 +274,7 @@
     <skip />
     <!-- no translation found for image_message (5450245866521896891) -->
     <skip />
-    <string name="settings_title">"Gears — ustawienia"</string>
+    <string name="settings_title">"Gears – ustawienia"</string>
     <string name="privacy_policy">"Przeczytaj zasady zachowania poufności informacji witryny, aby dowiedzieć się, jak będą użyte informacje o twojej lokalizacji."</string>
     <!-- no translation found for settings_storage_title (7089119630457156408) -->
     <skip />
@@ -293,7 +294,7 @@
     <skip />
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
-    <!-- no translation found for settings_confirmation_remove (3214500052347860516) -->
+    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
     <skip />
     <!-- no translation found for storage_notification (6534213782873968255) -->
     <skip />

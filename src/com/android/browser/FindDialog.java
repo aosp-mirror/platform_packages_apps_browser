@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -66,9 +68,19 @@ import android.widget.TextView;
                 throw new AssertionError("No WebView for FindDialog::onClick");
             }
             mWebView.findNext(false);
+            hideSoftInput();
         }
     };
-    
+
+    /*
+     * Remove the soft keyboard from the screen.
+     */
+    private void hideSoftInput() {
+        InputMethodManager imm = (InputMethodManager)
+                mBrowserActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+    }
+
     private void disableButtons() {
         mPrevButton.setEnabled(false);
         mNextButton.setEnabled(false);
@@ -157,8 +169,9 @@ import android.widget.TextView;
             throw new AssertionError("No WebView for FindDialog::findNext");
         }
         mWebView.findNext(true);
+        hideSoftInput();
     }
-    
+
     public void show() {
         super.show();
         mEditText.requestFocus();

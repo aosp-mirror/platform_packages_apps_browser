@@ -1950,15 +1950,17 @@ public class BrowserActivity extends Activity
                             public void run() {
                                 // Remove the AnimatingView.
                                 mContentView.removeView(view);
-                                // Make newIndex visible.
-                                mTabOverview.setCurrentIndex(newIndex);
-                                // Restore the listener.
-                                mTabOverview.setListener(mTabListener);
-                                // Change the menu to TAB_MENU if the
-                                // ImageGrid is interactive.
-                                if (mTabOverview.isLive()) {
-                                    mMenuState = R.id.TAB_MENU;
-                                    mTabOverview.requestFocus();
+                                if (mTabOverview != null) {
+                                    // Make newIndex visible.
+                                    mTabOverview.setCurrentIndex(newIndex);
+                                    // Restore the listener.
+                                    mTabOverview.setListener(mTabListener);
+                                    // Change the menu to TAB_MENU if the
+                                    // ImageGrid is interactive.
+                                    if (mTabOverview.isLive()) {
+                                        mMenuState = R.id.TAB_MENU;
+                                        mTabOverview.requestFocus();
+                                    }
                                 }
                                 // If a remove was requested, remove the tab.
                                 if (remove) {
@@ -1976,10 +1978,12 @@ public class BrowserActivity extends Activity
                                     if (currentTab != tab) {
                                         mTabControl.setCurrentTab(currentTab);
                                     }
-                                    mTabOverview.remove(newIndex);
-                                    // Make the current tab visible.
-                                    mTabOverview.setCurrentIndex(
-                                            mTabControl.getCurrentIndex());
+                                    if (mTabOverview != null) {
+                                        mTabOverview.remove(newIndex);
+                                        // Make the current tab visible.
+                                        mTabOverview.setCurrentIndex(
+                                                mTabControl.getCurrentIndex());
+                                    }
                                 }
                             }
                         });

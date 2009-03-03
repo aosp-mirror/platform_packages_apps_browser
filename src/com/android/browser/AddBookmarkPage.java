@@ -119,16 +119,13 @@ public class AddBookmarkPage extends Activity {
         boolean emptyTitle = title.length() == 0;
         boolean emptyUrl = unfilteredUrl.trim().length() == 0;
         Resources r = getResources();
-        if (emptyTitle) {
+        if (emptyTitle || emptyUrl) {
+            if (emptyTitle) {
+                mTitle.setError(r.getText(R.string.bookmark_needs_title));
+            }
             if (emptyUrl) {
-                setTitle(r.getText(R.string.empty_bookmark));
-                return false;
-            }    
-            setTitle(r.getText(R.string.bookmark_needs_title));
-            return false;
-        }
-        if (emptyUrl) {
-            setTitle(r.getText(R.string.bookmark_needs_url));
+                mAddress.setError(r.getText(R.string.bookmark_needs_url));
+            }
             return false;
         }
         String url = unfilteredUrl;
@@ -138,11 +135,11 @@ public class AddBookmarkPage extends Activity {
             try {
                 address = new WebAddress(unfilteredUrl);
             } catch (ParseException e) {
-                setTitle(r.getText(R.string.bookmark_url_not_valid));
+                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
                 return false;
             }
             if (address.mHost.length() == 0) {
-                setTitle(r.getText(R.string.bookmark_url_not_valid));
+                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
                 return false;
             }
             url = address.toString();
