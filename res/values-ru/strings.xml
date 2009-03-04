@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_name">"Браузер"</string>
+    <string name="tab_bookmarks">"Закладки"</string>
+    <string name="tab_most_visited">"Часто посещаемые"</string>
+    <string name="tab_history">"История"</string>
+    <string name="added_to_bookmarks">"Добавлено в закладки"</string>
+    <string name="removed_from_bookmarks">"Удалено из закладок"</string>
+    <string name="sign_in_to">"Регистрация в <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="username">"Название"</string>
+    <string name="password">"Пароль"</string>
+    <string name="action">"Войти"</string>
+    <string name="cancel">"Отмена"</string>
+    <string name="ok">"ОК"</string>
+    <string name="matches_found">" совпадений(я)"</string>
+    <string name="zero">"Нет"</string>
+    <string name="page_info">"Сведения о странице"</string>
+    <string name="page_info_view">"Просмотреть сведения о странице"</string>
+    <string name="page_info_address">"Адрес:"</string>
+    <string name="ssl_warnings_header">"Есть проблемы с сертификатом безопасности для этого сайта."</string>
+    <string name="ssl_continue">"Продолжить"</string>
+    <string name="security_warning">"Предупреждение о безопасности"</string>
+    <string name="view_certificate">"Просмотреть сертификат"</string>
+    <string name="ssl_untrusted">"Этот сертификат получен из ненадежного центра сертификации."</string>
+    <string name="ssl_mismatch">"Название сайта не соответствует названию сертификата."</string>
+    <string name="ssl_expired">"Срок действия сертификата истек."</string>
+    <string name="ssl_not_yet_valid">"Этот сертификат пока не действителен."</string>
+    <string name="ssl_certificate">"Сертификат безопасности"</string>
+    <string name="ssl_certificate_is_valid">"Это действительный сертификат."</string>
+    <string name="issued_to">"Кому выдан:"</string>
+    <string name="common_name">"Обычное название:"</string>
+    <string name="org_name">"Организация:"</string>
+    <string name="org_unit">"Подразделение:"</string>
+    <string name="issued_by">"Кем выдан:"</string>
+    <string name="validity_period">"Срок действия:"</string>
+    <string name="issued_on">"Когда выдан:"</string>
+    <string name="expires_on">"Действителен до:"</string>
+    <string name="retrieving_creds_dlg_msg">"Получение сведений о входе…"</string>
+    <string name="close">"Закрыть"</string>
+    <string name="close_window">"Это окно будето закрыто."</string>
+    <string name="stopping">"Остановка загрузки…"</string>
+    <string name="stop">"Остановить"</string>
+    <string name="reload">"Обновить"</string>
+    <string name="forward">"Вперед"</string>
+    <string name="save">"ОК"</string>
+    <string name="do_not_save">"Отмена"</string>
+    <string name="location">"Адрес"</string>
+    <string name="name">"Название"</string>
+    <string name="http">"http://"</string>
+    <string name="save_to_bookmarks">"Добавить в закладки"</string>
+    <string name="edit_bookmark">"Изменить закладку"</string>
+    <string name="create_shortcut_bookmark">"Добавить ярлык на главный экран"</string>
+    <string name="open_bookmark">"Открыть"</string>
+    <string name="remove_bookmark">"Удалить закладку"</string>
+    <string name="remove_history_item">"Удалить из истории"</string>
+    <string name="bookmark_saved">"Сохранено в заклкдках."</string>
+    <string name="bookmark_needs_title">"У закладки должно быть название."</string>
+    <string name="bookmark_needs_url">"У закладки должен быть адрес."</string>
+    <string name="empty_bookmark">"Невозможно создать пустую закладку."</string>
+    <string name="bookmark_url_not_valid">"URL недействителен."</string>
+    <string name="delete_bookmark">"Удаление"</string>
+    <string name="bookmark_page">"Добавить в закладки последнюю просмотренную страницу"</string>
+    <string name="current_page">"из "</string>
+    <string name="delete_bookmark_warning">"Закладка \"<xliff:g id="BOOKMARK">%s</xliff:g>\" будет удалена."</string>
+    <string name="open_in_new_window">"Открыть в новом окне"</string>
+    <string name="new_window">"Новое окно"</string>
+    <string name="goto_dot">"Выбрать"</string>
+    <string name="find_dot">"Найти на странице"</string>
+    <string name="select_dot">"Выбрать текст"</string>
+    <string name="view_tabs">"Обзор окон"</string>
+    <string name="view_tabs_condensed">"Окна"</string>
+    <string name="tab_picker_title">"Текущие окна"</string>
+    <string name="tab_picker_view_tab">"Просмотреть"</string>
+    <string name="tab_picker_new_tab">"Новое окно"</string>
+    <string name="tab_picker_remove_tab">"Закрыть"</string>
+    <string name="tab_picker_bookmark">"Добавить в закладки"</string>
+    <string name="tab_picker_send_url">"Отправить ссылку"</string>
+    <string name="bookmarks">"Закладки"</string>
+    <string name="shortcut_bookmark">"Закладка"</string>
+    <string name="history">"История"</string>
+    <string name="menu_view_download">"Загрузки"</string>
+    <string name="share_page">"Отправить страницу"</string>
+    <string name="contextmenu_openlink">"Открыть"</string>
+    <string name="contextmenu_openlink_newwindow">"Открыть в новом окне"</string>
+    <string name="contextmenu_bookmark_thislink">"Добавить в закладки"</string>
+    <string name="contextmenu_savelink">"Сохранить ссылку"</string>
+    <string name="contextmenu_sharelink">"Отправить ссылку"</string>
+    <string name="contextmenu_copy">"Копировать"</string>
+    <string name="contextmenu_copylink">"Копировать ссылку"</string>
+    <string name="contextmenu_download_image">"Сохранить изображение"</string>
+    <string name="contextmenu_view_image">"Просмотреть изображение"</string>
+    <string name="contextmenu_dial_dot">"Вызвать…"</string>
+    <string name="contextmenu_add_contact">"Добавить в адресную книгу"</string>
+    <string name="contextmenu_send_mail">"Отправить сообщение электронной почты"</string>
+    <string name="contextmenu_map">"На карте"</string>
+    <string name="clear">"Очистка"</string>
+    <string name="replace">"Заменить"</string>
+    <string name="browser_bookmarks_page_bookmarks_text">"Закладки"</string>
+    <string name="menu_preferences">"Настройки"</string>
+    <string name="pref_content_title">"Настройки содержания страниц"</string>
+    <string name="pref_content_load_images">"Загружать изображения"</string>
+    <string name="pref_content_load_images_summary">"Показывать изображения на страницах"</string>
+    <string name="pref_content_block_popups">"Заблокировать всплывающие окна"</string>
+    <string name="pref_content_javascript">"Разрешить JavaScript"</string>
+    <string name="pref_content_open_in_background">"Открывать в фоновом режиме"</string>
+    <string name="pref_content_open_in_background_summary">"Новые окна открываются позади текущего"</string>
+    <string name="pref_content_homepage">"Выбрать главную страницу"</string>
+    <string name="pref_content_autofit">"Автоподбор размеров страниц"</string>
+    <string name="pref_content_autofit_summary">"Форматировать веб-страницы по размеру экрана"</string>
+    <string name="pref_privacy_title">"Настройки конфиденциальности"</string>
+    <string name="pref_privacy_clear_cache">"Очистить кэш"</string>
+    <string name="pref_privacy_clear_cache_summary">"Удалить все кэшированные страницы"</string>
+    <string name="pref_privacy_clear_cache_dlg">"Кэш будет очищен."</string>
+    <string name="pref_privacy_clear_cookies">"Удалить все данные cookie"</string>
+    <string name="pref_privacy_clear_cookies_summary">"Удалить все файлы cookie браузера"</string>
+    <string name="pref_privacy_clear_cookies_dlg">"Все cookie будут удалены."</string>
+    <string name="pref_privacy_clear_history">"Очистить историю"</string>
+    <string name="pref_privacy_clear_history_summary">"Очистить историю посещений браузера"</string>
+    <string name="pref_privacy_clear_history_dlg">"История посещений браузера будет удалена."</string>
+    <string name="pref_privacy_clear_form_data">"Удалить данные форм"</string>
+    <string name="pref_privacy_clear_form_data_summary">"Удалить все сохраненные данные форм"</string>
+    <string name="pref_privacy_clear_form_data_dlg">"Все сохраненные данные форм будут удалены."</string>
+    <string name="pref_privacy_clear_passwords">"Удалить пароли"</string>
+    <string name="pref_privacy_clear_passwords_summary">"Удалить все сохраненные пароли"</string>
+    <string name="pref_privacy_clear_passwords_dlg">"Все сохраненные пароли будут удалены."</string>
+    <string name="pref_security_title">"Настройки безопасности"</string>
+    <string name="pref_security_remember_passwords">"Запоминать пароли"</string>
+    <string name="pref_security_remember_passwords_summary">"Сохранять имена пользователя и пароли для веб-сайтов"</string>
+    <string name="pref_security_save_form_data">"Запоминать данные форм"</string>
+    <string name="pref_security_save_form_data_summary">"Запоминать данные форм для дальнейшего использования"</string>
+    <string name="pref_security_show_security_warning">"Показывать предупреждения о безопасности"</string>
+    <string name="pref_security_show_security_warning_summary">"Показывать предупреждение при наличии проблем с безопасностью сайта"</string>
+    <string name="pref_security_accept_cookies">"Разрешить cookie"</string>
+    <string name="pref_security_accept_cookies_summary">"Разрешить сайтам сохранять и считывать данные cookie"</string>
+    <string name="pref_text_size">"Выбрать размер текста"</string>
+  <string-array name="pref_text_size_choices">
+    <item>"Очень мелкий"</item>
+    <item>"Мелкий"</item>
+    <item>"Обычный"</item>
+    <item>"Крупный"</item>
+    <item>"Очень крупный"</item>
+  </string-array>
+    <string name="pref_text_size_dialogtitle">"Размер текста"</string>
+    <string name="pref_extras_title">"Дополнительные настройки"</string>
+    <string name="pref_extras_gears_enable">"Включить Gears"</string>
+    <string name="pref_extras_gears_enable_summary">"Приложения, расширяющие возможности браузера"</string>
+    <string name="pref_extras_gears_settings">"Настройки Gears"</string>
+    <string name="pref_plugin_installed">"Список плагинов"</string>
+    <string name="pref_plugin_installed_empty_list">"Нет установленных плагинов."</string>
+    <string name="pref_extras_gears_settings_summary">"Приложения, расширяющие возможности браузера"</string>
+    <string name="pref_extras_reset_default">"Восстановить значения по умолчанию"</string>
+    <string name="pref_extras_reset_default_summary">"Удалить все данные браузера и восстановить настройки по умолчанию"</string>
+    <string name="pref_extras_reset_default_dlg">"Все данные бразуера будут удалены, а для настроек будут восстановлены значения по умолчанию."</string>
+    <string name="pref_extras_reset_default_dlg_title">"Восстановить значения по умолчанию"</string>
+    <string name="pref_development_title">"Отладка"</string>
+    <string name="pref_development_viewport">"Use wide viewport"</string>
+    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
+    <string name="pref_development_normal_rendering">"Normal rendering"</string>
+    <string name="pref_development_trace">"Enable tracing"</string>
+    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
+    <string name="pref_development_search_url">"Set search URL"</string>
+    <string name="pref_development_uastring">"UAString"</string>
+  <string-array name="pref_development_ua_choices">
+    <item>"Android"</item>
+    <item>"Desktop"</item>
+    <item>"iPhone"</item>
+  </string-array>
+  <string-array name="pref_development_ua_values">
+    <item>"0"</item>
+    <item>"1"</item>
+    <item>"2"</item>
+  </string-array>
+    <string name="pref_default_text_encoding">"Выбрать кодировку текста"</string>
+  <string-array name="pref_default_text_encoding_choices">
+    <item>"Латиница-1 (ISO-8859-1)"</item>
+    <item>"Юникод (UTF-8)"</item>
+    <item>"Японская (ISO-2022-JP)"</item>
+    <item>"Японская (SHIFT_JIS)"</item>
+    <item>"Японская (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle">"Кодировка текста"</string>
+    <string name="pref_default_text_encoding_default">"Латиница-1"</string>
+    <string name="browserFrameRedirect">"Перенаправление"</string>
+    <string name="browserFrame307Post">"С этой веб-страницы выполняется перенаправление. Отправить введенные данные формы по новому адресу?"</string>
+    <string name="browserFrameNetworkErrorLabel">"Неполадка подключения для передачи данных"</string>
+    <string name="browserFrameFileErrorLabel">"Проблема с файлом"</string>
+    <string name="browserFrameFormResubmitLabel">"Подтверждение"</string>
+    <string name="browserFrameFormResubmitMessage">"Страница, которую вы пытаетесь просмотреть, содержит отправленные ранее данные (\"POSTDATA\"). При повторной отправке данных выполняемое формой действие (например поиск или онлайн-покупка) будет повторено."</string>
+    <string name="loadSuspendedTitle">"Нет сетевого подключения"</string>
+    <string name="loadSuspended">"Загрузка страницы будет продолжена после восстановления подключения."</string>
+    <string name="clear_history">"Очистить историю"</string>
+    <string name="browser_history">"Недавно посещенные страницы"</string>
+    <string name="empty_history">"История бразуера пуста."</string>
+    <string name="add_new_bookmark">"Добавить закладку…"</string>
+    <string name="no_database">"Нет базы данных!"</string>
+    <string name="search_hint">"Введите веб-адрес"</string>
+    <string name="search_button_text">"Перейти"</string>
+    <string name="attention">"Внимание"</string>
+    <string name="popup_window_attempt">"Этот сайт пытается открыть всплывающее окно."</string>
+    <string name="allow">"Разрешить"</string>
+    <string name="block">"Заблокировать"</string>
+    <string name="too_many_windows_dialog_title">"Предельное количество окон"</string>
+    <string name="too_many_windows_dialog_message">"Открыть новое окно невозможно, потому что открыто максимальное количество окон."</string>
+    <string name="too_many_subwindows_dialog_title">"Всплывающее окно уже открыто"</string>
+    <string name="too_many_subwindows_dialog_message">"Не удалось открыть всплывающее окно, потому что нельзя открыть больше одного такого окна одновременно."</string>
+    <string name="download_title">"История загрузок"</string>
+    <string name="download_unknown_filename">"&lt;Неизвестно&gt;"</string>
+    <string name="download_menu_open">"Открыть"</string>
+    <string name="download_menu_clear">"Удалить из списка"</string>
+    <string name="download_menu_cancel">"Отменить загрузку"</string>
+    <string name="download_menu_cancel_all">"Отменить все загрузки"</string>
+    <string name="download_menu_clear_all">"Очистить список"</string>
+    <string name="download_clear_dlg_title">"Очистка"</string>
+    <string name="download_clear_dlg_msg">"Все элементы будут удалены из списка и кэша браузера."</string>
+    <string name="download_cancel_dlg_title">"Отмена загрузок"</string>
+    <string name="download_cancel_dlg_msg">"Все загрузки (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) будут отменены и удалены из истории загрузок."</string>
+    <string name="download_file_error_dlg_title">"Недостаточно места"</string>
+    <string name="download_file_error_dlg_msg">"Не удалось загрузить <xliff:g id="FILENAME">%s</xliff:g>."\n"Освободите пространство на телефоне и повторите попытку."</string>
+    <string name="download_failed_generic_dlg_title">"Загрузка не удалась"</string>
+    <string name="download_no_sdcard_dlg_title">"Нет карты SD"</string>
+    <string name="download_no_sdcard_dlg_msg">"Для загрузки файла <xliff:g id="FILENAME">%s</xliff:g> нужна карта SD."</string>
+    <string name="download_sdcard_busy_dlg_title">"Карта SD недоступна"</string>
+    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
+    <skip />
+    <string name="download_no_application">"Не удалось найти приложение для открытия этого файла."</string>
+    <string name="retry">"Повторить"</string>
+    <string name="no_downloads">"История загрузок пуста."</string>
+    <string name="download_error">"Загрузка безуспешна."</string>
+    <string name="download_success">"Загрузка файла <xliff:g id="FILE">%s</xliff:g> завершена."</string>
+    <string name="download_running">"Выполняется загрузка…"</string>
+    <string name="download_pending">"Загрузка начинается…"</string>
+    <string name="download_pending_network">"Ожидание подключения для передачи данных…"</string>
+    <string name="download_running_paused">"Ожидание подключения для передачи данных…"</string>
+    <string name="download_canceled">"Загрузка отменена."</string>
+    <string name="download_not_acceptable">"Загрузка невозможна. Содержание не поддерживается телефоном."</string>
+    <string name="download_file_error">"Невозможно завершить загрузку. Недостаточно места."</string>
+    <string name="download_length_required">"Загрузка невозможна. Не удается определить размер элемента."</string>
+    <string name="download_precondition_failed">"Загрузка прервана и не может быть продолжена."</string>
+    <string name="activity_instrumentation_test_runner">"Проверка браузера"</string>
+    <string name="search_google">"Поиск в Google"</string>
+    <string name="permlab_readHistoryBookmarks">"считывать историю и закладки браузера"</string>
+    <string name="permdesc_readHistoryBookmarks">"Позволяет приложению считывать все URL, открытые через браузер, и все закладки браузера."</string>
+    <string name="permlab_writeHistoryBookmarks">"записывать историю и закладки браузера"</string>
+    <string name="permdesc_writeHistoryBookmarks">"Позволяет приложению изменять сохраненные в телефоне историю и закладки браузера. Вредоносное ПО сможет стирать или изменять данные браузера."</string>
+    <!-- no translation found for query_data_prompt (5474381240981604223) -->
+    <skip />
+    <!-- no translation found for query_data_message (8789381063185445197) -->
+    <skip />
+    <!-- no translation found for location_prompt (226262202057302423) -->
+    <skip />
+    <!-- no translation found for location_message (1729456751935683242) -->
+    <skip />
+    <!-- no translation found for shortcut_prompt (437193299088893596) -->
+    <skip />
+    <!-- no translation found for shortcut_message (4793042709293755892) -->
+    <skip />
+    <string name="settings_message">"В таблице ниже показаны разрешения, которые вы дали сайтам, пытавшимся использовать Gears."</string>
+    <!-- no translation found for filepicker_message (4929726371602896039) -->
+    <skip />
+    <!-- no translation found for image_message (5450245866521896891) -->
+    <skip />
+    <string name="settings_title">"Настройки Gears"</string>
+    <string name="privacy_policy">"Прочитайте политику конфиденциальности сайта, чтобы узнать, как будут использованы данные о вашем местоположении."</string>
+    <!-- no translation found for settings_storage_title (7089119630457156408) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
+    <skip />
+    <!-- no translation found for settings_location_title (4953062923509886651) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
+    <skip />
+    <!-- no translation found for settings_remove_site (1822247070226589958) -->
+    <skip />
+    <!-- no translation found for settings_empty (2008952224378583146) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <skip />
+    <!-- no translation found for storage_notification (6534213782873968255) -->
+    <skip />
+    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
+    <skip />
+    <!-- no translation found for location_notification (3495804750470905804) -->
+    <skip />
+    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
+    <skip />
+    <!-- no translation found for shortcut_notification (1659700220868444568) -->
+    <skip />
+    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
+    <skip />
+    <!-- no translation found for permission_button_allow (7301874925704148242) -->
+    <skip />
+    <!-- no translation found for permission_button_deny (104712269725153018) -->
+    <skip />
+    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
+    <skip />
+    <string name="shortcut_button_allow">"ОК"</string>
+    <string name="shortcut_button_deny">"Отмена"</string>
+    <string name="settings_button_allow">"Применить"</string>
+    <string name="settings_button_deny">"Отмена"</string>
+    <string name="filepicker_button_allow">"ОК"</string>
+    <string name="filepicker_button_deny">"Отмена"</string>
+    <string name="filepicker_path">"путь:"</string>
+    <string name="filepicker_no_files_selected">"Файлы не выбраны"</string>
+    <string name="filepicker_one_file_selected">"Выбран один файл"</string>
+    <string name="filepicker_some_files_selected">"файлов выбрано"</string>
+    <string name="remove">"Удалить"</string>
+    <string name="local_storage">"Локальное хранение"</string>
+    <string name="allowed">"Разрешено"</string>
+    <string name="denied">"Запрещено"</string>
+    <string name="unrecognized_dialog_message">"Неизвестный тип диалога"</string>
+    <string name="default_button">"ОК"</string>
+    <string name="zoom_overview_button_text">"Обзор"</string>
+</resources>
