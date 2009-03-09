@@ -423,6 +423,8 @@ class TabControl {
         // Create a new tab and add it to the tab list
         Tab t = new Tab(w, closeOnExit);
         mTabs.add(t);
+        // Initially put the tab in the background.
+        putTabInBackground(t);
         return t;
     }
 

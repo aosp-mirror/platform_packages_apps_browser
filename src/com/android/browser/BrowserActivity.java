@@ -1289,13 +1289,12 @@ public class BrowserActivity extends Activity
     }
 
     /**
-     * Overriding this forces the search key to launch global search.  The difference
-     * is the final "true" which requests global search.
+     * Overriding this to insert a local information bundle
      */
     @Override
     public boolean onSearchRequested() {
         startSearch(null, false,
-                createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHKEY), true);
+                createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHKEY), false);
         return true;
     }
 

@@ -1,7 +1,7 @@
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_MODULE_TAGS := user development
+LOCAL_MODULE_TAGS := user
 
 # TODO: Remove dependency of application on the test runner (android.test.runner) 
 # library.
