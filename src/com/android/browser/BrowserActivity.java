@@ -1713,22 +1713,11 @@ public class BrowserActivity extends Activity
         }
     }
 
-    // Used by attachTabToContentView for the WebView's ZoomControl widget.
-    private static final FrameLayout.LayoutParams ZOOM_PARAMS =
-            new FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.FILL_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    Gravity.BOTTOM);
-
     // Attach the given tab to the content view.
     private void attachTabToContentView(TabControl.Tab t) {
         final WebView main = t.getWebView();
         // Attach the main WebView.
         mContentView.addView(main, COVER_SCREEN_PARAMS);
-        // Attach the Zoom control widget and hide it.
-        final View zoom = main.getZoomControls();
-        mContentView.addView(zoom, ZOOM_PARAMS);
-        zoom.setVisibility(View.GONE);
         // Attach the sub window if necessary
         attachSubWindow(t);
         // Request focus on the top window.
@@ -1748,8 +1737,7 @@ public class BrowserActivity extends Activity
 
     // Remove the given tab from the content view.
     private void removeTabFromContentView(TabControl.Tab t) {
-        // Remove the Zoom widget and the main WebView.
-        mContentView.removeView(t.getWebView().getZoomControls());
+        // Remove the main WebView.
         mContentView.removeView(t.getWebView());
         // Remove the sub window if it exists.
         if (t.getSubWebView() != null) {
@@ -2183,8 +2171,6 @@ public class BrowserActivity extends Activity
         }
         resetTitleAndIcon(current);
         int progress = current.getProgress();
-        mInLoad = (progress != 100);
-        updateInLoadMenuItems();
         mWebChromeClient.onProgressChanged(current, progress);
     }
 
@@ -2708,7 +2694,7 @@ public class BrowserActivity extends Activity
             updateLockIconImage(mLockIconType);
 
             // Performance probe
-             if (false) {
+            if (false) {
                 long[] sysCpu = new long[7];
                 if (Process.readProcFile("/proc/stat", SYSTEM_CPU_FORMAT, null,
                         sysCpu, null)) {
@@ -2801,11 +2787,6 @@ public class BrowserActivity extends Activity
                         mWakeLock.release();
                     }
                 }
-            }
-
-            if (mInLoad) {
-                mInLoad = false;
-                updateInLoadMenuItems();
             }
 
             mHandler.removeMessages(CHECK_MEMORY);
@@ -3265,6 +3246,18 @@ public class BrowserActivity extends Activity
                 // onPageFinished() is only called for the main frame. sync
                 // cookie and cache promptly here.
                 CookieSyncManager.getInstance().sync();
+                if (mInLoad) {
+                    mInLoad = false;
+                    updateInLoadMenuItems();
+                }
+            } else {
+                // onPageFinished may have already been called but a subframe
+                // is still loading and updating the progress. Reset mInLoad
+                // and update the menu items.
+                if (!mInLoad) {
+                    mInLoad = true;
+                    updateInLoadMenuItems();
+                }
             }
         }
 
