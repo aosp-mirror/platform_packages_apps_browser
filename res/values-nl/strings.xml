@@ -51,8 +51,6 @@
     <string name="issued_on">"Uitgegeven op:"</string>
     <string name="expires_on">"Verloopt op:"</string>
     <string name="retrieving_creds_dlg_msg">"Aanmeldingsgegevens ophalen..."</string>
-    <string name="close">"Sluiten"</string>
-    <string name="close_window">"Dit venster wordt gesloten."</string>
     <string name="stopping">"Stoppen..."</string>
     <string name="stop">"Stoppen"</string>
     <string name="reload">"Vernieuwen"</string>

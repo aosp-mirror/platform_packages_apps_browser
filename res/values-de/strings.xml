@@ -51,8 +51,6 @@
     <string name="issued_on">"Ausgegeben am:"</string>
     <string name="expires_on">"Läuft ab am:"</string>
     <string name="retrieving_creds_dlg_msg">"Anmeldedetails werden abgerufen…"</string>
-    <string name="close">"Schließen"</string>
-    <string name="close_window">"Dieses Fenster wird geschlossen."</string>
     <string name="stopping">"Wird angehalten..."</string>
     <string name="stop">"Anhalten"</string>
     <string name="reload">"Aktualisieren"</string>

@@ -231,20 +231,7 @@ public class ImageAdapter implements ListAdapter {
         if (l == null) {
             return;
         }
-        DialogInterface.OnClickListener confirm =
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                            int whichButton) {
-                        l.remove(position);
-                    }
-                };
-        new AlertDialog.Builder(mContext)
-                .setTitle(R.string.close)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage(R.string.close_window)
-                .setPositiveButton(R.string.ok, confirm)
-                .setNegativeButton(R.string.cancel, null)
-                .show();
+        l.remove(position);
     }
 
     /* (non-Javadoc)

@@ -51,8 +51,6 @@
     <string name="issued_on">"发布时间："</string>
     <string name="expires_on">"有效期至："</string>
     <string name="retrieving_creds_dlg_msg">"正在检索登录详细信息..."</string>
-    <string name="close">"关闭"</string>
-    <string name="close_window">"该窗口会关闭。"</string>
     <string name="stopping">"正在停止..."</string>
     <string name="stop">"停止"</string>
     <string name="reload">"刷新"</string>

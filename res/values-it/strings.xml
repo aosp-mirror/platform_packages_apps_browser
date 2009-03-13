@@ -51,8 +51,6 @@
     <string name="issued_on">"Rilasciato il:"</string>
     <string name="expires_on">"Scade il:"</string>
     <string name="retrieving_creds_dlg_msg">"Recupero dettagli di accesso..."</string>
-    <string name="close">"Chiudi"</string>
-    <string name="close_window">"Questa finestra verrà chiusa."</string>
     <string name="stopping">"Interruzione..."</string>
     <string name="stop">"Interrompi"</string>
     <string name="reload">"Aggiorna"</string>

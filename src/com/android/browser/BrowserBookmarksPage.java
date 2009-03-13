@@ -212,8 +212,13 @@ public class BrowserBookmarksPage extends Activity implements
 
     private Intent createShortcutIntent(String url, String title) {
         final Intent i = new Intent();
-        i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(url)));
+        final Intent shortcutIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(url));
+        long urlHash = url.hashCode();
+        long uniqueId = (urlHash << 32) | shortcutIntent.hashCode();
+        shortcutIntent.putExtra(Browser.EXTRA_APPLICATION_ID,
+                Long.toString(uniqueId));
+        i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
         i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
                 Intent.ShortcutIconResource.fromContext(BrowserBookmarksPage.this,

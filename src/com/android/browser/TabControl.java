@@ -174,11 +174,19 @@ class TabControl {
         private Vector<Tab> mChildTabs;
 
         private Boolean mCloseOnExit;
+        // Application identifier used to find tabs that another application
+        // wants to reuse.
+        private String mAppId;
+        // Keep the original url around to avoid killing the old WebView if the
+        // url has not changed.
+        private String mOriginalUrl;
 
         // Construct a new tab
-        private Tab(WebView w, boolean closeOnExit) {
+        private Tab(WebView w, boolean closeOnExit, String appId, String url) {
             mMainView = w;
             mCloseOnExit = closeOnExit;
+            mAppId = appId;
+            mOriginalUrl = url;
         }
 
         /**
@@ -403,29 +411,31 @@ class TabControl {
     }
 
     /**
-     * Create a new tab and display the new tab immediately.
+     * Create a new tab.
      * @return The newly createTab or null if we have reached the maximum
      *         number of open tabs.
      */
-    Tab createNewTab(boolean closeOnExit) {
+    Tab createNewTab(boolean closeOnExit, String appId, String url) {
         int size = mTabs.size();
         // Return false if we have maxed out on tabs
         if (MAX_TABS == size) {
             return null;
         }
-        // Create a new WebView
-        WebView w = new WebView(mActivity);
-        w.setMapTrackballToArrowKeys(false); // use trackball directly
-        // Add this WebView to the settings observer list and update the
-        // settings
-        final BrowserSettings s = BrowserSettings.getInstance();
-        s.addObserver(w.getSettings()).update(s, null);
+        final WebView w = createNewWebView();
         // Create a new tab and add it to the tab list
-        Tab t = new Tab(w, closeOnExit);
+        Tab t = new Tab(w, closeOnExit, appId, url);
         mTabs.add(t);
         // Initially put the tab in the background.
         putTabInBackground(t);
         return t;
+    }
+
+    /**
+     * Create a new tab with default values for closeOnExit(false),
+     * appId(null), and url(null).
+     */
+    Tab createNewTab() {
+        return createNewTab(false, null, null);
     }
 
     /**
@@ -536,6 +546,8 @@ class TabControl {
     private static final String CURRTITLE = "currentTitle";
     private static final String CLOSEONEXIT = "closeonexit";
     private static final String PARENTTAB = "parentTab";
+    private static final String APPID = "appid";
+    private static final String ORIGINALURL = "originalUrl";
 
     /**
      * Save the state of all the Tabs.
@@ -569,7 +581,7 @@ class TabControl {
             final int currentTab = inState.getInt(CURRTAB, -1);
             for (int i = 0; i < numTabs; i++) {
                 if (i == currentTab) {
-                    Tab t = createNewTab(false);
+                    Tab t = createNewTab();
                     // Me must set the current tab before restoring the state
                     // so that all the client classes are set.
                     setCurrentTab(t);
@@ -581,11 +593,15 @@ class TabControl {
                 } else {
                     // Create a new tab and don't restore the state yet, add it
                     // to the tab list
-                    Tab t = new Tab(null, false);
+                    Tab t = new Tab(null, false, null, null);
                     t.mSavedState = inState.getBundle(WEBVIEW + i);
                     if (t.mSavedState != null) {
                         t.mUrl = t.mSavedState.getString(CURRURL);
                         t.mTitle = t.mSavedState.getString(CURRTITLE);
+                        // Need to maintain the app id and original url so we
+                        // can possibly reuse this tab.
+                        t.mAppId = t.mSavedState.getString(APPID);
+                        t.mOriginalUrl = t.mSavedState.getString(ORIGINALURL);
                     }
                     mTabs.add(t);
                     mTabQueue.add(t);
@@ -727,13 +743,92 @@ class TabControl {
     }
 
     /**
+     * Return the tab with the matching application id.
+     * @param id The application identifier.
+     */
+    Tab getTabFromId(String id) {
+        if (id == null) {
+            return null;
+        }
+        final int size = getTabCount();
+        for (int i = 0; i < size; i++) {
+            final Tab t = getTab(i);
+            if (id.equals(t.mAppId)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Recreate the main WebView of the given tab. Returns true if the WebView
+     * was deleted.
+     */
+    boolean recreateWebView(Tab t, String url) {
+        final WebView w = t.mMainView;
+        if (w != null) {
+            if (url != null && url.equals(t.mOriginalUrl)) {
+                // The original url matches the current url. Just go back to the
+                // first history item so we can load it faster than if we
+                // rebuilt the WebView.
+                final WebBackForwardList list = w.copyBackForwardList();
+                if (list != null) {
+                    w.goBackOrForward(-list.getCurrentIndex());
+                    w.clearHistory(); // maintains the current page.
+                    return false;
+                }
+            }
+            // Remove the settings object from the global settings and destroy
+            // the WebView.
+            BrowserSettings.getInstance().deleteObserver(
+                    t.mMainView.getSettings());
+            t.mMainView.destroy();
+        }
+        // Create a new WebView. If this tab is the current tab, we need to put
+        // back all the clients so force it to be the current tab.
+        t.mMainView = createNewWebView();
+        if (getCurrentTab() == t) {
+            setCurrentTab(t, true);
+        }
+        // Clear the saved state except for the app id and close-on-exit
+        // values.
+        t.mSavedState = null;
+        t.mUrl = null;
+        t.mTitle = null;
+        // Save the new url in order to avoid deleting the WebView.
+        t.mOriginalUrl = url;
+        return true;
+    }
+
+    /**
+     * Creates a new WebView and registers it with the global settings.
+     */
+    private WebView createNewWebView() {
+        // Create a new WebView
+        WebView w = new WebView(mActivity);
+        w.setMapTrackballToArrowKeys(false); // use trackball directly
+        // Add this WebView to the settings observer list and update the
+        // settings
+        final BrowserSettings s = BrowserSettings.getInstance();
+        s.addObserver(w.getSettings()).update(s, null);
+        return w;
+    }
+
+    /**
      * Put the current tab in the background and set newTab as the current tab.
      * @param newTab The new tab. If newTab is null, the current tab is not
      *               set.
      */
     boolean setCurrentTab(Tab newTab) {
+        return setCurrentTab(newTab, false);
+    }
+
+    /**
+     * If force is true, this method skips the check for newTab == current.
+     */
+    private boolean setCurrentTab(Tab newTab, boolean force) {
         Tab current = getTab(mCurrentTab);
-        if (current == newTab) {
+        if (current == newTab && !force) {
             return true;
         }
         if (current != null) {
@@ -761,13 +856,7 @@ class TabControl {
         boolean needRestore = (mainView == null);
         if (needRestore) {
             // Same work as in createNewTab() except don't do new Tab()
-            newTab.mMainView = mainView = new WebView(mActivity);
-            mainView.setMapTrackballToArrowKeys(false); // use t-ball directly
-
-            // Add this WebView to the settings observer list and update the
-            // settings
-            final BrowserSettings s = BrowserSettings.getInstance();
-            s.addObserver(mainView.getSettings()).update(s, null);
+            newTab.mMainView = mainView = createNewWebView();
         }
         mainView.setWebViewClient(mActivity.getWebViewClient());
         mainView.setWebChromeClient(mActivity.getWebChromeClient());
@@ -900,6 +989,12 @@ class TabControl {
                 b.putString(CURRTITLE, t.mTitle);
             }
             b.putBoolean(CLOSEONEXIT, t.mCloseOnExit);
+            if (t.mAppId != null) {
+                b.putString(APPID, t.mAppId);
+            }
+            if (t.mOriginalUrl != null) {
+                b.putString(ORIGINALURL, t.mOriginalUrl);
+            }
 
             // Remember the parent tab so the relationship can be restored.
             if (t.mParentTab != null) {
@@ -920,6 +1015,15 @@ class TabControl {
         if (b == null) {
             return false;
         }
+        // Restore the internal state even if the WebView fails to restore.
+        // This will maintain the app id, original url and close-on-exit values.
+        t.mSavedState = null;
+        t.mUrl = null;
+        t.mTitle = null;
+        t.mCloseOnExit = b.getBoolean(CLOSEONEXIT);
+        t.mAppId = b.getString(APPID);
+        t.mOriginalUrl = b.getString(ORIGINALURL);
+
         final WebView w = t.mMainView;
         final WebBackForwardList list = w.restoreState(b);
         if (list == null) {
@@ -930,10 +1034,6 @@ class TabControl {
             w.restorePicture(b, f);
             f.delete();
         }
-        t.mSavedState = null;
-        t.mUrl = null;
-        t.mTitle = null;
-        t.mCloseOnExit = b.getBoolean(CLOSEONEXIT);
         return true;
     }
 }

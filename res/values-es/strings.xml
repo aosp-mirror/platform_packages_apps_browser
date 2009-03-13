@@ -51,8 +51,6 @@
     <string name="issued_on">"Fecha de emisión:"</string>
     <string name="expires_on">"Fecha de caducidad:"</string>
     <string name="retrieving_creds_dlg_msg">"Recuperando detalles de acceso..."</string>
-    <string name="close">"Cerrar"</string>
-    <string name="close_window">"Se cerrará esta ventana."</string>
     <string name="stopping">"Deteniendo..."</string>
     <string name="stop">"Detener"</string>
     <string name="reload">"Actualizar"</string>

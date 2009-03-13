@@ -51,8 +51,6 @@
     <string name="issued_on">"Utstedt:"</string>
     <string name="expires_on">"Går ut:"</string>
     <string name="retrieving_creds_dlg_msg">"Henter innloggingsinformasjon…"</string>
-    <string name="close">"Lukk"</string>
-    <string name="close_window">"Dette vinduet vil bli lukket."</string>
     <string name="stopping">"Avbryter…"</string>
     <string name="stop">"Avbryt"</string>
     <string name="reload">"Last på nytt"</string>

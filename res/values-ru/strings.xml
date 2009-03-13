@@ -51,8 +51,6 @@
     <string name="issued_on">"Когда выдан:"</string>
     <string name="expires_on">"Действителен до:"</string>
     <string name="retrieving_creds_dlg_msg">"Получение сведений о входе…"</string>
-    <string name="close">"Закрыть"</string>
-    <string name="close_window">"Это окно будето закрыто."</string>
     <string name="stopping">"Остановка загрузки…"</string>
     <string name="stop">"Остановить"</string>
     <string name="reload">"Обновить"</string>

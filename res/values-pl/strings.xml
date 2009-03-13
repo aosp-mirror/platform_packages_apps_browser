@@ -51,8 +51,6 @@
     <string name="issued_on">"Data wystawienia:"</string>
     <string name="expires_on">"Wygasa:"</string>
     <string name="retrieving_creds_dlg_msg">"Pobieranie szczegółów logowania…"</string>
-    <string name="close">"Zamknij"</string>
-    <string name="close_window">"To okno zostanie zamknięte."</string>
     <string name="stopping">"Trwa zatrzymywanie…"</string>
     <string name="stop">"Zatrzymaj"</string>
     <string name="reload">"Odśwież"</string>

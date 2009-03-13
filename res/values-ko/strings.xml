@@ -51,8 +51,6 @@
     <string name="issued_on">"발급일:"</string>
     <string name="expires_on">"만료일:"</string>
     <string name="retrieving_creds_dlg_msg">"로그인 세부정보를 가져오는 중..."</string>
-    <string name="close">"닫기"</string>
-    <string name="close_window">"창이 닫힙니다."</string>
     <string name="stopping">"중지하는 중..."</string>
     <string name="stop">"중지"</string>
     <string name="reload">"새로고침"</string>

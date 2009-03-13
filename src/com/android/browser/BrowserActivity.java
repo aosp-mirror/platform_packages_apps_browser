@@ -686,9 +686,11 @@ public class BrowserActivity extends Activity
             // If the intent is ACTION_VIEW and data is not null, the Browser is
             // invoked to view the content by another application. In this case,
             // the tab will be close when exit.
+            String url = getUrlFromIntent(intent);
             final TabControl.Tab t = mTabControl.createNewTab(
                     Intent.ACTION_VIEW.equals(intent.getAction()) &&
-                    intent.getData() != null);
+                    intent.getData() != null,
+                    intent.getStringExtra(Browser.EXTRA_APPLICATION_ID), url);
             mTabControl.setCurrentTab(t);
             // This is one of the only places we call attachTabToContentView
             // without animating from the tab picker.
@@ -710,7 +712,6 @@ public class BrowserActivity extends Activity
             }
             copyPlugins(true);
 
-            String url = getUrlFromIntent(intent);
             if (url == null || url.length() == 0) {
                 if (mSettings.isLoginInitialized()) {
                     webView.loadUrl(mSettings.getHomePage());
@@ -778,11 +779,44 @@ public class BrowserActivity extends Activity
             }
             if (Intent.ACTION_VIEW.equals(action) &&
                     (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+                final String appId =
+                        intent.getStringExtra(Browser.EXTRA_APPLICATION_ID);
+                final TabControl.Tab appTab = mTabControl.getTabFromId(appId);
+                if (appTab != null) {
+                    Log.i(LOGTAG, "Reusing tab for " + appId);
+                    // Dismiss the subwindow if applicable.
+                    dismissSubWindow(appTab);
+                    // Since we might kill the WebView, remove it from the
+                    // content view first.
+                    removeTabFromContentView(appTab);
+                    // Recreate the main WebView after destroying the old one.
+                    // If the WebView has the same original url and is on that
+                    // page, it can be reused.
+                    boolean needsLoad =
+                            mTabControl.recreateWebView(appTab, url);
+                    if (current != appTab) {
+                        showTab(appTab, needsLoad ? url : null);
+                    } else {
+                        if (mTabOverview != null && mAnimationCount == 0) {
+                            sendAnimateFromOverview(appTab, false,
+                                    needsLoad ? url : null, TAB_OVERVIEW_DELAY,
+                                    null);
+                        } else {
+                            // If the tab was the current tab, we have to attach
+                            // it to the view system again.
+                            attachTabToContentView(appTab);
+                            if (needsLoad) {
+                                appTab.getWebView().loadUrl(url);
+                            }
+                        }
+                    }
+                    return;
+                }
                 // if FLAG_ACTIVITY_BROUGHT_TO_FRONT flag is on, the url will be
                 // opened in a new tab unless we have reached MAX_TABS. Then the
                 // url will be opened in the current tab. If a new tab is
                 // created, it will have "true" for exit on close.
-                openTabAndShow(url, null, true);
+                openTabAndShow(url, null, true, appId);
             } else {
                 if ("about:debug".equals(url)) {
                     mSettings.toggleDebugSettings();
@@ -1329,7 +1363,7 @@ public class BrowserActivity extends Activity
 
             case R.id.windows_menu_id:
                 if (mTabControl.getTabCount() == 1) {
-                    openTabAndShow(mSettings.getHomePage(), null, false);
+                    openTabAndShow(mSettings.getHomePage(), null, false, null);
                 } else {
                     tabPicker(true, mTabControl.getCurrentIndex(), false);
                 }
@@ -1808,6 +1842,10 @@ public class BrowserActivity extends Activity
 
     // Called by TabControl when a tab is requesting focus
     /* package */ void showTab(TabControl.Tab t) {
+        showTab(t, null);
+    }
+
+    private void showTab(TabControl.Tab t, String url) {
         // Disallow focus change during a tab animation.
         if (mAnimationCount > 0) {
             return;
@@ -1819,7 +1857,7 @@ public class BrowserActivity extends Activity
             delay = TAB_ANIMATION_DURATION + TAB_OVERVIEW_DELAY;
             tabPicker(false, mTabControl.getTabIndex(t), false);
         }
-        sendAnimateFromOverview(t, false, null, delay, null);
+        sendAnimateFromOverview(t, false, url, delay, null);
     }
 
     // This method does a ton of stuff. It will attempt to create a new tab
@@ -1831,7 +1869,7 @@ public class BrowserActivity extends Activity
     // method is called from TabListener.onClick(), the method will animate
     // away from the tab overview.
     private void openTabAndShow(String url, final Message msg,
-            boolean closeOnExit) {
+            boolean closeOnExit, String appId) {
         final boolean newTab = mTabControl.getTabCount() != TabControl.MAX_TABS;
         final TabControl.Tab currentTab = mTabControl.getCurrentTab();
         if (newTab) {
@@ -1859,8 +1897,9 @@ public class BrowserActivity extends Activity
                 }
                 // Animate from the Tab overview after any animations have
                 // finished.
-                sendAnimateFromOverview(mTabControl.createNewTab(closeOnExit),
-                        true, url, delay, msg);
+                sendAnimateFromOverview(
+                        mTabControl.createNewTab(closeOnExit, appId, url), true,
+                        url, delay, msg);
             }
         } else if (url != null) {
             // We should not have a msg here.
@@ -2093,12 +2132,12 @@ public class BrowserActivity extends Activity
 
     private void openTab(String url) {
         if (mSettings.openInBackground()) {
-            TabControl.Tab t = mTabControl.createNewTab(false);
+            TabControl.Tab t = mTabControl.createNewTab();
             if (t != null) {
                 t.getWebView().loadUrl(url);
             }
         } else {
-            openTabAndShow(url, null, false);
+            openTabAndShow(url, null, false, null);
         }
     }
 
@@ -2512,7 +2551,7 @@ public class BrowserActivity extends Activity
                     // the method relies on the value being 0 to start the next
                     // animation.
                     mAnimationCount--;
-                    openTabAndShow((String) msg.obj, null, false);
+                    openTabAndShow((String) msg.obj, null, false, null);
                     break;
 
                 case FOCUS_NODE_HREF:
@@ -3130,7 +3169,7 @@ public class BrowserActivity extends Activity
                 // openTabAndShow will dispatch the message after creating the
                 // new WebView. This will prevent another request from coming
                 // in during the animation.
-                openTabAndShow(null, msg, false);
+                openTabAndShow(null, msg, false, null);
                 parent.addChildTab(mTabControl.getCurrentTab());
                 WebView.WebViewTransport transport =
                         (WebView.WebViewTransport) msg.obj;
@@ -4052,7 +4091,7 @@ public class BrowserActivity extends Activity
                 // If the user removes the last tab, act like the New Tab item
                 // was clicked on.
                 if (mTabControl.getTabCount() == 0) {
-                    current = mTabControl.createNewTab(false);
+                    current = mTabControl.createNewTab();
                     sendAnimateFromOverview(current, true,
                             mSettings.getHomePage(), TAB_OVERVIEW_DELAY, null);
                 } else {
@@ -4092,7 +4131,7 @@ public class BrowserActivity extends Activity
 
             // NEW_TAB means that the "New Tab" cell was clicked on.
             if (index == ImageGrid.NEW_TAB) {
-                openTabAndShow(mSettings.getHomePage(), null, false);
+                openTabAndShow(mSettings.getHomePage(), null, false, null);
             } else {
                 sendAnimateFromOverview(mTabControl.getTab(index),
                         false, null, 0, null);

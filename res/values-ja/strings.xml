@@ -51,8 +51,6 @@
     <string name="issued_on">"発行:"</string>
     <string name="expires_on">"有効期限:"</string>
     <string name="retrieving_creds_dlg_msg">"ログイン詳細を取得中..."</string>
-    <string name="close">"閉じる"</string>
-    <string name="close_window">"このウィンドウを閉じます。"</string>
     <string name="stopping">"停止中..."</string>
     <string name="stop">"停止"</string>
     <string name="reload">"再読み込み"</string>

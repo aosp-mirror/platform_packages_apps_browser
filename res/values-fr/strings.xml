@@ -51,8 +51,6 @@
     <string name="issued_on">"Émis le :"</string>
     <string name="expires_on">"Expire le :"</string>
     <string name="retrieving_creds_dlg_msg">"Récupération des données de connexion..."</string>
-    <string name="close">"Fermer"</string>
-    <string name="close_window">"La fenêtre sera fermée."</string>
     <string name="stopping">"Arrêt..."</string>
     <string name="stop">"Interrompre"</string>
     <string name="reload">"Actualiser"</string>

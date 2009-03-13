@@ -106,10 +106,6 @@
 
     <!-- Dialog that is shown while we are retrieving the login creds from the system -->
     <string name="retrieving_creds_dlg_msg">Retrieving sign-in details\u2026</string>
-    <!-- Menu item in a context menu for closing a browser window. -->
-    <string name="close">Close</string>
-    <!-- Confirmation dialog message stating that a browser window will be closed -->
-    <string name="close_window">This window will be closed.</string>
     <!-- Toast informing the user that loading has stopped for the current page. -->
     <string name="stopping">Stopping\u2026</string>
     <!-- Menu item to stop the current page from loading. -->

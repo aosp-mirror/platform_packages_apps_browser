@@ -51,8 +51,6 @@
     <string name="issued_on">"Datum vydání:"</string>
     <string name="expires_on">"Platnost vyprší:"</string>
     <string name="retrieving_creds_dlg_msg">"Načítání podrobností pro přihlášení..."</string>
-    <string name="close">"Zavřít"</string>
-    <string name="close_window">"Toto okno bude zavřeno."</string>
     <string name="stopping">"Zastavuji..."</string>
     <string name="stop">"Zastavit"</string>
     <string name="reload">"Obnovit"</string>
