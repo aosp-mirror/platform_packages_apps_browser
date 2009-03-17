@@ -48,8 +48,8 @@ public class AddBookmarkPage extends Activity {
     private Bundle      mMap;
     
     private static final String[]   mProjection = 
-        { "_id", "url", "bookmark", "created", "title" };
-    private static final String     WHERE_CLAUSE = "url = ? AND bookmark = 0";
+        { "_id", "url", "bookmark", "created", "title", "visits" };
+    private static final String     WHERE_CLAUSE = "url = ?";
     private final String[]          SELECTION_ARGS = new String[1];
 
     private View.OnClickListener mSaveBookmark = new View.OnClickListener() {
@@ -119,16 +119,13 @@ public class AddBookmarkPage extends Activity {
         boolean emptyTitle = title.length() == 0;
         boolean emptyUrl = unfilteredUrl.trim().length() == 0;
         Resources r = getResources();
-        if (emptyTitle) {
+        if (emptyTitle || emptyUrl) {
+            if (emptyTitle) {
+                mTitle.setError(r.getText(R.string.bookmark_needs_title));
+            }
             if (emptyUrl) {
-                setTitle(r.getText(R.string.empty_bookmark));
-                return false;
-            }    
-            setTitle(r.getText(R.string.bookmark_needs_title));
-            return false;
-        }
-        if (emptyUrl) {
-            setTitle(r.getText(R.string.bookmark_needs_url));
+                mAddress.setError(r.getText(R.string.bookmark_needs_url));
+            }
             return false;
         }
         String url = unfilteredUrl;
@@ -138,11 +135,11 @@ public class AddBookmarkPage extends Activity {
             try {
                 address = new WebAddress(unfilteredUrl);
             } catch (ParseException e) {
-                setTitle(r.getText(R.string.bookmark_url_not_valid));
+                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
                 return false;
             }
             if (address.mHost.length() == 0) {
-                setTitle(r.getText(R.string.bookmark_url_not_valid));
+                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
                 return false;
             }
             url = address.toString();
@@ -163,25 +160,58 @@ public class AddBookmarkPage extends Activity {
                         WHERE_CLAUSE,
                         SELECTION_ARGS,
                         null);
-                if (c.moveToFirst()) {
-                    // This means we have been to this site, so convert the 
-                    // history item to a bookmark.
-                    ContentValues map = new ContentValues();
+                ContentValues map = new ContentValues();
+                if (c.moveToFirst() && c.getInt(c.getColumnIndexOrThrow(
+                        Browser.BookmarkColumns.BOOKMARK)) == 0) {
+                    // This means we have been to this site but not bookmarked
+                    // it, so convert the history item to a bookmark                    
                     map.put(Browser.BookmarkColumns.CREATED, creationTime);
                     map.put(Browser.BookmarkColumns.TITLE, title);
                     map.put(Browser.BookmarkColumns.BOOKMARK, 1);
                     cr.update(Browser.BOOKMARKS_URI, map, 
                             "_id = " + c.getInt(0), null);
                 } else {
-                    // Adding a bookmark for a site the user has not been to.
-                    ContentValues map = new ContentValues();
-                    map.put(Browser.BookmarkColumns.TITLE, title);
-                    map.put(Browser.BookmarkColumns.URL, url);
-                    map.put(Browser.BookmarkColumns.CREATED, creationTime);
-                    map.put(Browser.BookmarkColumns.BOOKMARK, 1);
-                    map.put(Browser.BookmarkColumns.DATE, 0);
-                    map.put(Browser.BookmarkColumns.VISITS, 0);
-                    cr.insert(Browser.BOOKMARKS_URI, map);
+                    int count = c.getCount();
+                    boolean matchedTitle = false;
+                    for (int i = 0; i < count; i++) {
+                        // One or more bookmarks already exist for this site.
+                        // Check the names of each
+                        c.moveToPosition(i);
+                        if (c.getString(c.getColumnIndexOrThrow(
+                                Browser.BookmarkColumns.TITLE)).equals(title)) {
+                            // The old bookmark has the same name.
+                            // Update its creation time.
+                            map.put(Browser.BookmarkColumns.CREATED,
+                                    creationTime);
+                            cr.update(Browser.BOOKMARKS_URI, map, 
+                                    "_id = " + c.getInt(0), null);
+                            matchedTitle = true;
+                        }
+                    }
+                    if (!matchedTitle) {
+                        // Adding a bookmark for a site the user has visited,
+                        // or a new bookmark (with a different name) for a site
+                        // the user has visited
+                        map.put(Browser.BookmarkColumns.TITLE, title);
+                        map.put(Browser.BookmarkColumns.URL, url);
+                        map.put(Browser.BookmarkColumns.CREATED, creationTime);
+                        map.put(Browser.BookmarkColumns.BOOKMARK, 1);
+                        map.put(Browser.BookmarkColumns.DATE, 0);
+                        int visits = 0;
+                        if (count > 0) {
+                            // The user has already bookmarked, and possibly
+                            // visited this site.  However, they are creating
+                            // a new bookmark with the same url but a different
+                            // name.  The new bookmark should have the same
+                            // number of visits as the already created bookmark.
+                            visits = c.getInt(c.getColumnIndexOrThrow(
+                                    Browser.BookmarkColumns.VISITS));
+                        }
+                        // Bookmark starts with 3 extra visits so that it will
+                        // bubble up in the most visited and goto search box
+                        map.put(Browser.BookmarkColumns.VISITS, visits + 3);
+                        cr.insert(Browser.BOOKMARKS_URI, map);
+                    }
                 }
                 WebIconDatabase.getInstance().retainIconForPageUrl(url);
                 c.deactivate();

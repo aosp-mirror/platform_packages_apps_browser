@@ -17,22 +17,23 @@
  */
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:paddingBottom="10dip">
 
   <LinearLayout
+    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/content_border"
-    android:padding="1px">
+    android:paddingTop="10dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:layout_height="wrap_content">
 
     <LinearLayout
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/content_background"
-      android:padding="4dip">
+      android:orientation="horizontal">
 
       <ImageView
         android:id="@+id/origin_icon"
@@ -57,8 +58,8 @@
           android:visibility="gone"
           android:textStyle="bold"
           android:gravity="left"
-          android:textSize="13dip"
-          android:textColor="@color/black"/>
+          android:textSize="16dip"
+          android:textColor="@color/white"/>
 
         <TextView
           android:id="@+id/origin_subtitle"
@@ -67,7 +68,7 @@
           android:visibility="gone"
           android:gravity="left"
           android:textSize="13dip"
-          android:textColor="@color/black"/>
+          android:textColor="@color/white"/>
 
         <TextView
           android:id="@+id/origin_message"
@@ -77,24 +78,34 @@
           android:paddingTop="10dip"
           android:gravity="left"
           android:textSize="13dip"
-          android:textColor="@color/black"/>
+          android:textColor="@color/white"/>
 
       </LinearLayout>
 
     </LinearLayout>
 
+    <TextView
+      android:id="@+id/privacy_policy_label"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="10dip"
+      android:gravity="center_horizontal"
+      android:textSize="13dip"
+      android:textStyle="italic"
+      android:textColor="@color/white"
+      android:visibility="gone"
+      android:text="@string/privacy_policy" />
+
+    <TextView
+      android:id="@+id/permission_dialog_message"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="4dip"
+      android:paddingTop="10dip"
+      android:gravity="left"
+      android:textSize="16dip"
+      android:textColor="@color/white"/>
+
   </LinearLayout>
 
-  <TextView
-    android:id="@+id/privacy_policy_label"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="10dip"
-    android:gravity="center_horizontal"
-    android:textSize="13dip"
-    android:textStyle="italic"
-    android:textColor="@color/black"
-    android:visibility="gone"
-    android:text="@string/privacy_policy" />
-
-</LinearLayout>
+</ScrollView>

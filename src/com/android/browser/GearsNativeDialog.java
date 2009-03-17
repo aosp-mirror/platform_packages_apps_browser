@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,17 +25,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Config;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import android.webkit.gears.NativeDialog;
 
 import com.android.browser.GearsBaseDialog;
 import com.android.browser.GearsPermissionsDialog;
 import com.android.browser.GearsSettingsDialog;
-import com.android.browser.GearsShortcutDialog;
-import com.android.browser.GearsFilePickerDialog;
 
 /**
  * Native dialog Activity used by gears
@@ -54,16 +55,12 @@ public class GearsNativeDialog extends Activity {
   private int mDialogType;
   private final int SETTINGS_DIALOG = 1;
   private final int PERMISSION_DIALOG = 2;
-  private final int SHORTCUT_DIALOG = 3;
-  private final int LOCATION_DIALOG = 4;
-  private final int FILEPICKER_DIALOG = 5;
+  private final int LOCATION_DIALOG = 3;
 
   private final String VERSION_STRING = "version";
   private final String SETTINGS_DIALOG_STRING = "settings_dialog";
   private final String PERMISSION_DIALOG_STRING = "permissions_dialog";
-  private final String SHORTCUT_DIALOG_STRING = "shortcuts_dialog";
   private final String LOCATION_DIALOG_STRING = "locations_dialog";
-  private final String FILEPICKER_DIALOG_STRING = "filepicker_dialog";
 
   private boolean mDialogDismissed = false;
 
@@ -90,10 +87,15 @@ public class GearsNativeDialog extends Activity {
 
   @Override
   public void onCreate(Bundle icicle) {
-    super.onCreate(icicle);
-    requestWindowFeature(Window.FEATURE_NO_TITLE);
-    setContentView(R.layout.gears_dialog);
     getArguments();
+    if (mDialogType == SETTINGS_DIALOG) {
+      setTheme(android.R.style.Theme);
+    }
+    super.onCreate(icicle);
+    if (mDialogType != SETTINGS_DIALOG) {
+      requestWindowFeature(Window.FEATURE_NO_TITLE);
+      setContentView(R.layout.gears_dialog);
+    }
 
     switch (mDialogType) {
       case SETTINGS_DIALOG:
@@ -103,14 +105,8 @@ public class GearsNativeDialog extends Activity {
       case PERMISSION_DIALOG:
         dialog = new GearsPermissionsDialog(this, mHandler, mDialogArguments);
         break;
-      case SHORTCUT_DIALOG:
-        dialog = new GearsShortcutDialog(this, mHandler, mDialogArguments);
-        break;
       case LOCATION_DIALOG:
         dialog = new GearsPermissionsDialog(this, mHandler, mDialogArguments);
-        break;
-      case FILEPICKER_DIALOG:
-        dialog = new GearsFilePickerDialog(this, mHandler, mDialogArguments);
         break;
       default:
         dialog = new GearsBaseDialog(this, mHandler, mDialogArguments);
@@ -128,7 +124,7 @@ public class GearsNativeDialog extends Activity {
    */
   private void getArguments() {
     if (mDebug) {
-      mDialogType = FILEPICKER_DIALOG +1;
+      mDialogType = LOCATION_DIALOG +1;
       mockArguments();
 
       return;
@@ -150,12 +146,8 @@ public class GearsNativeDialog extends Activity {
       mGearsVersion = intent.getStringExtra(VERSION_STRING);
     } else if (dialogTypeString.equalsIgnoreCase(PERMISSION_DIALOG_STRING)) {
       mDialogType = PERMISSION_DIALOG;
-    } else if (dialogTypeString.equalsIgnoreCase(SHORTCUT_DIALOG_STRING)) {
-      mDialogType = SHORTCUT_DIALOG;
     } else if (dialogTypeString.equalsIgnoreCase(LOCATION_DIALOG_STRING)) {
       mDialogType = LOCATION_DIALOG;
-    } else if (dialogTypeString.equalsIgnoreCase(FILEPICKER_DIALOG_STRING)) {
-      mDialogType = FILEPICKER_DIALOG;
     }
   }
 
@@ -165,17 +157,6 @@ public class GearsNativeDialog extends Activity {
    * Set mock arguments.
    */
   private void mockArguments() {
-    String argumentsShortcuts = "{ locale: \"en-US\","
-        + "name: \"My Application\", link: \"http://www.google.com/\","
-        + "description: \"This application does things does things!\","
-        + "icon16x16: \"http://google-gears.googlecode.com/"
-        + "svn/trunk/gears/test/manual/shortcuts/16.png\","
-        + "icon32x32: \"http://google-gears.googlecode.com/"
-        + "svn/trunk/gears/test/manual/shortcuts/32.png\","
-        + "icon48x48: \"http://google-gears.googlecode.com/"
-        + "svn/trunk/gears/test/manual/shortcuts/48.png\","
-        + "icon128x128: \"http://google-gears.googlecode.com/"
-        + "svn/trunk/gears/test/manual/shortcuts/128.png\"}";
 
     String argumentsPermissions = "{ locale: \"en-US\", "
         + "origin: \"http://www.google.com\", dialogType: \"localData\","
@@ -184,6 +165,9 @@ public class GearsNativeDialog extends Activity {
         + "customName: \"My Application\","
         + "customMessage: \"Press the button to enable my "
         + "application to run offline!\" };";
+
+    String argumentsPermissions2 = "{ locale: \"en-US\", "
+        + "origin: \"http://www.google.com\", dialogType: \"localData\" };";
 
     String argumentsLocation = "{ locale: \"en-US\", "
         + "origin: \"http://www.google.com\", dialogType: \"locationData\","
@@ -195,8 +179,8 @@ public class GearsNativeDialog extends Activity {
 
     String argumentsSettings = "{ locale: \"en-US\", permissions: [ { "
         + "name: \"http://www.google.com\", "
-        + "localStorage: { permissionState: 1 }, "
-        + "locationData: { permissionState: 0 } }, "
+        + "localStorage: { permissionState: 0 }, "
+        + "locationData: { permissionState: 1 } }, "
         + "{ name: \"http://www.aaronboodman.com\", "
         + "localStorage: { permissionState: 1 }, "
         + "locationData: { permissionState: 2 } }, "
@@ -205,9 +189,6 @@ public class GearsNativeDialog extends Activity {
         + "locationData: { permissionState: 2 } } ] }";
 
     switch (mDialogType) {
-      case SHORTCUT_DIALOG:
-        mDialogArguments = argumentsShortcuts;
-        break;
       case PERMISSION_DIALOG:
         mDialogArguments = argumentsPermissions;
         break;
@@ -216,6 +197,7 @@ public class GearsNativeDialog extends Activity {
         break;
       case SETTINGS_DIALOG:
         mDialogArguments = argumentsSettings;
+        break;
     }
   }
 
@@ -232,6 +214,14 @@ public class GearsNativeDialog extends Activity {
     NativeDialog.closeDialog(ret);
     notifyEndOfDialog();
     finish();
+
+    // If the dialog sets a notification, we display it.
+    int notification = dialog.notification();
+    if (notification != 0) {
+      Toast toast = Toast.makeText(this, notification, Toast.LENGTH_LONG);
+      toast.setGravity(Gravity.BOTTOM, 0, 0);
+      toast.show();
+    }
   }
 
   @Override
@@ -265,10 +255,26 @@ public class GearsNativeDialog extends Activity {
    * NativeDialog that we are done.
    */
   public boolean dispatchKeyEvent(KeyEvent event) {
-    if (event.getKeyCode() ==  KeyEvent.KEYCODE_BACK && event.isDown()) {
-      closeDialog(GearsBaseDialog.CANCEL);
+    if ((event.getKeyCode() == KeyEvent.KEYCODE_BACK)
+      && (event.getAction() == KeyEvent.ACTION_DOWN)) {
+      if (!dialog.handleBackButton()) {
+        // if the dialog doesn't do anything with the back button
+        closeDialog(GearsBaseDialog.CANCEL);
+      }
+      return true; // event consumed
     }
     return super.dispatchKeyEvent(event);
+  }
+
+  /**
+   * If the dialog call showDialog() on ourself, we let
+   * it handle the creation of this secondary dialog.
+   * It is used in GearsSettingsDialog, to create the confirmation
+   * dialog when the user click on "Remove this site from Gears"
+   */
+  @Override
+  protected Dialog onCreateDialog(int id) {
+    return dialog.onCreateDialog(id);
   }
 
 }

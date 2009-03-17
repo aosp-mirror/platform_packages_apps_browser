@@ -34,10 +34,12 @@ import android.util.Log;
  */
 public class FakeWebView extends ImageView {
     private TabControl.Tab mTab;
+    private Picture        mPicture;
     private boolean        mUsesResource;
 
     private class Listener implements WebView.PictureListener {
         public void onNewPicture(WebView view, Picture p) {
+            FakeWebView.this.mPicture = p;
             FakeWebView.this.invalidate();
         }
     };
@@ -69,13 +71,12 @@ public class FakeWebView extends ImageView {
             if (mTab != null) {
                 final WebView w = mTab.getTopWindow();
                 if (w != null) {
-                    Picture p = w.capturePicture();
-                    if (p != null) {
+                    if (mPicture != null) {
                         canvas.save();
                         float scale = getWidth() * w.getScale() / w.getWidth();
                         canvas.scale(scale, scale);
                         canvas.translate(-w.getScrollX(), -w.getScrollY());
-                        canvas.drawPicture(p);
+                        canvas.drawPicture(mPicture);
                         canvas.restore();
                     }
                 }
@@ -99,10 +100,12 @@ public class FakeWebView extends ImageView {
         mTab = t;
         if (t != null && t.getWebView() != null) {
             Listener l = new Listener();
-            t.getWebView().setPictureListener(l);
             if (t.getSubWebView() != null) {
                 t.getSubWebView().setPictureListener(l);
+            } else {
+                t.getWebView().setPictureListener(l);
             }
+            mPicture = mTab.getTopWindow().capturePicture();
         }
     }
 }

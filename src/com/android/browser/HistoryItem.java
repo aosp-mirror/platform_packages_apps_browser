@@ -17,26 +17,31 @@
  
 package com.android.browser;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.PaintDrawable;
-import android.view.LayoutInflater;
-import android.widget.LinearLayout;
+import android.net.Uri;
+import android.provider.Browser;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebIconDatabase;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Date;
 
 /**
  *  Layout representing a history item in the classic history viewer.
  */
-/* package */ class HistoryItem extends LinearLayout {
+/* package */ class HistoryItem extends BookmarkItem {
 
-    private TextView    mTitleView; // Truncated Title
-    private String      mUrl;       // Full Url
-    private TextView    mUrlText;   // Truncated Url
-    
+    private CompoundButton  mStar;      // Star for bookmarking
+    private CompoundButton.OnCheckedChangeListener  mListener;
     /**
      *  Create a new HistoryItem.
      *  @param context  Context for this HistoryItem.
@@ -44,83 +49,79 @@ import android.widget.TextView;
     /* package */ HistoryItem(Context context) {
         super(context);
 
-        setWillNotDraw(false);
-        LayoutInflater factory = LayoutInflater.from(context);
-        factory.inflate(R.layout.history_item, this);
-        mTitleView = (TextView) findViewById(R.id.title);
-        mUrlText = (TextView) findViewById(R.id.url);
+        mStar = (CompoundButton) findViewById(R.id.star);
+        mStar.setVisibility(View.VISIBLE);
+        mListener = new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView,
+                    boolean isChecked) {
+                ContentResolver cr = mContext.getContentResolver();
+                Cursor cursor = cr.query(
+                        Browser.BOOKMARKS_URI,
+                        Browser.HISTORY_PROJECTION,
+                        "url = ?",
+                        new String[] { mUrl },
+                        null);
+                boolean first = cursor.moveToFirst();
+                // Should be in the database no matter what
+                if (!first) {
+                    throw new AssertionError("URL is not in the database!");
+                }
+                if (isChecked) {
+                    // Add to bookmarks
+                    // FIXME: Share code with AddBookmarkPage.java
+                    ContentValues map = new ContentValues();
+                    map.put(Browser.BookmarkColumns.CREATED,
+                            new Date().getTime());
+                    map.put(Browser.BookmarkColumns.TITLE, getName());
+                    map.put(Browser.BookmarkColumns.BOOKMARK, 1);
+                    try {
+                        cr.update(Browser.BOOKMARKS_URI, map, 
+                                "_id = " + cursor.getInt(0), null);
+                    } catch (IllegalStateException e) {
+                        Log.e("HistoryItem", "no database!");
+                    }
+                    WebIconDatabase.getInstance().retainIconForPageUrl(mUrl);
+                    // catch IllegalStateException?
+                    Toast.makeText(mContext, R.string.added_to_bookmarks,
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    // Remove from bookmarks
+                    // FIXME: This code should be shared with
+                    // BrowserBookmarksAdapter.java
+                    WebIconDatabase.getInstance().releaseIconForPageUrl(mUrl);
+                    Uri uri = ContentUris.withAppendedId(Browser.BOOKMARKS_URI,
+                            cursor.getInt(Browser.HISTORY_PROJECTION_ID_INDEX));
+                    // It is no longer a bookmark, but it is still a visited
+                    // site.
+                    ContentValues values = new ContentValues();
+                    values.put(Browser.BookmarkColumns.BOOKMARK, 0);
+                    try {
+                        cr.update(uri, values, null, null);
+                    } catch (IllegalStateException e) {
+                        Log.e("HistoryItem", "no database!");
+                    }
+                    Toast.makeText(mContext, R.string.removed_from_bookmarks,
+                            Toast.LENGTH_LONG).show();
+                }
+                cursor.deactivate();
+            }
+        };
     }
     
     void copyTo(HistoryItem item) {
-        item.mTitleView.setText(mTitleView.getText());
+        item.mTextView.setText(mTextView.getText());
         item.mUrlText.setText(mUrlText.getText());
-    }
-    
-    /**
-     * Return the name of this HistoryItem.
-     * @return  String name of this HistoryItem.
-     /
-    /* package */ String getName() {
-        return mTitleView.getText().toString();
+        item.setIsBookmark(mStar.isChecked());
+        item.mImageView.setImageDrawable(mImageView.getDrawable());
     }
 
     /**
-     * Return the url of this HistoryItem.
-     * @return  String url of this HistoryItem.
-     /
-    /* package */ String getUrl() {
-        return mUrl;
-    }
-
-    /**
-     *  Set the favicon for this item.
-     *
-     *  @param b    The new bitmap for this item.
-     *              If it is null, will use the default.
+     *  Set whether or not this represents a bookmark, and make sure the star
+     *  behaves appropriately.
      */
-    /* package */ void setFavicon(Bitmap b) {
-        Drawable[] array = new Drawable[2];
-        PaintDrawable p = new PaintDrawable(Color.WHITE);
-        p.setCornerRadius(3f);
-        array[0] = p;
-        if (b != null) {
-            array[1] = new BitmapDrawable(b);
-        } else {
-            array[1] = new BitmapDrawable(mContext.getResources().
-                    openRawResource(R.drawable.app_web_browser_sm));
-        }
-        LayerDrawable d = new LayerDrawable(array);
-        d.setLayerInset(1, 2, 2, 2, 2);
-        d.setBounds(0, 0, 20, 20);
-        mTitleView.setCompoundDrawables(d, null, null, null);
-    }
-    
-    /**
-     *  Set the name for this HistoryItem.
-     *  If the name is longer that BrowserSettings.MAX_TEXTVIEW_LEN characters, 
-     *  the name is truncated to BrowserSettings.MAX_TEXTVIEW_LEN characters. 
-     *  The History activity does not expose a UI element that can show the 
-     *  full title.
-     *  @param  name String representing new name for this HistoryItem.
-     */
-    /* package */ void setName(String name) {
-        if (name != null && name.length() > BrowserSettings.MAX_TEXTVIEW_LEN) {
-            name = name.substring(0, BrowserSettings.MAX_TEXTVIEW_LEN);
-        }
-        mTitleView.setText(name);
-    }
-    
-    /**
-     *  Set the url for this HistoryItem.
-     *  @param  url String representing new url for this HistoryItem.
-     */
-    /* package */ void setUrl(String url) {
-        mUrl = url;
-        // Truncate the url for the screen
-        if (url.length() > BrowserSettings.MAX_TEXTVIEW_LEN) {
-            mUrlText.setText(url.substring(0, BrowserSettings.MAX_TEXTVIEW_LEN));
-        } else {
-            mUrlText.setText(url);
-        }
+    void setIsBookmark(boolean isBookmark) {
+        mStar.setOnCheckedChangeListener(null);
+        mStar.setChecked(isBookmark);
+        mStar.setOnCheckedChangeListener(mListener);
     }
 }

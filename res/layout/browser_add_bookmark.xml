@@ -42,10 +42,8 @@
             android:id="@+id/title"
             android:layout_height="wrap_content"
             android:layout_width="250dip"
-            android:singleLine="true"
-            android:autoText="false"
-            android:capitalize="sentences"
             android:gravity="fill_horizontal"
+            android:inputType="textCapSentences"
             android:selectAllOnFocus="true"
             android:textAppearance="?android:attr/textAppearanceMedium" />
                 
@@ -63,11 +61,9 @@
             android:id="@+id/address"
             android:layout_height="wrap_content"
             android:layout_width="250dip"
-            android:singleLine="true"
-            android:autoText="false"
-            android:capitalize="none"
             android:hint="@string/http"
             android:gravity="fill_horizontal"
+            android:inputType="textUri"
             android:selectAllOnFocus="true"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>

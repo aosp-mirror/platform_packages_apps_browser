@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_name">"Nettleser"</string>
+    <string name="tab_bookmarks">"Bokmerker"</string>
+    <string name="tab_most_visited">"Mest besøkt"</string>
+    <string name="tab_history">"Historie"</string>
+    <string name="added_to_bookmarks">"Lagt til bokmerker"</string>
+    <string name="removed_from_bookmarks">"Fjernet fra bokmerker"</string>
+    <string name="sign_in_to">"Logg inn på <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="username">"Brukernavn"</string>
+    <string name="password">"Passord"</string>
+    <string name="action">"Logg inn"</string>
+    <string name="cancel">"Avbryt"</string>
+    <string name="ok">"OK"</string>
+    <string name="matches_found">" treff"</string>
+    <string name="zero">"Ingen"</string>
+    <string name="page_info">"Sideinformasjon"</string>
+    <string name="page_info_view">"Vis sideinformasjon"</string>
+    <string name="page_info_address">"Adresse:"</string>
+    <string name="ssl_warnings_header">"Det er problemer med sertifikatet for denne siden."</string>
+    <string name="ssl_continue">"Fortsett"</string>
+    <string name="security_warning">"Sikkerhetsadvarsel"</string>
+    <string name="view_certificate">"Se på sertifikat"</string>
+    <string name="ssl_untrusted">"Dette sertifikatet er ikke fra en autoritet du stoler på."</string>
+    <string name="ssl_mismatch">"Navnet på siden stemmer ikke med navnet på sertifikatet."</string>
+    <string name="ssl_expired">"Sertifikatet har gått ut."</string>
+    <string name="ssl_not_yet_valid">"Sertifikatet er ikke gyldig ennå."</string>
+    <string name="ssl_certificate">"Sikkerhetssertifikat"</string>
+    <string name="ssl_certificate_is_valid">"Sertifikatet er gyldig."</string>
+    <string name="issued_to">"Utstedt til:"</string>
+    <string name="common_name">"Navn:"</string>
+    <string name="org_name">"Organisasjon:"</string>
+    <string name="org_unit">"Organisasjonsenhet:"</string>
+    <string name="issued_by">"Utstedt av:"</string>
+    <string name="validity_period">"Gyldighet:"</string>
+    <string name="issued_on">"Utstedt:"</string>
+    <string name="expires_on">"Går ut:"</string>
+    <string name="retrieving_creds_dlg_msg">"Henter innloggingsinformasjon…"</string>
+    <string name="stopping">"Avbryter…"</string>
+    <string name="stop">"Avbryt"</string>
+    <string name="reload">"Last på nytt"</string>
+    <string name="forward">"Forover"</string>
+    <string name="save">"OK"</string>
+    <string name="do_not_save">"Avbryt"</string>
+    <string name="location">"Adresse"</string>
+    <string name="name">"Navn"</string>
+    <string name="http">"http://"</string>
+    <string name="save_to_bookmarks">"Bokmerke"</string>
+    <string name="edit_bookmark">"Rediger bokmerke"</string>
+    <string name="create_shortcut_bookmark">"Lag snarvei på skrivebordet"</string>
+    <string name="open_bookmark">"Åpne"</string>
+    <string name="remove_bookmark">"Slett bokmerke"</string>
+    <string name="remove_history_item">"Fjern fra loggen"</string>
+    <string name="bookmark_saved">"Bokmerke lagret."</string>
+    <string name="bookmark_needs_title">"Bokmerket må ha et navn."</string>
+    <string name="bookmark_needs_url">"Bokmerket må ha en adresse."</string>
+    <string name="empty_bookmark">"Kan ikke lage tomt bokmerke."</string>
+    <string name="bookmark_url_not_valid">"Adressen er ikke gyldig."</string>
+    <string name="delete_bookmark">"Slett"</string>
+    <string name="bookmark_page">"Legg til bokmerke for sist sette side"</string>
+    <string name="current_page">"Gjeldende side: "</string>
+    <string name="delete_bookmark_warning">"Bokmerket \"<xliff:g id="BOOKMARK">%s</xliff:g>\" vil bli slettet."</string>
+    <string name="open_in_new_window">"Åpne i nytt vindu"</string>
+    <string name="new_window">"Nytt vindu"</string>
+    <string name="goto_dot">"Gå til URL"</string>
+    <string name="find_dot">"Finn på siden"</string>
+    <string name="select_dot">"Velg tekst"</string>
+    <string name="view_tabs">"Vindusoversikt"</string>
+    <string name="view_tabs_condensed">"Vinduer"</string>
+    <string name="tab_picker_title">"Gjeldende vinduer"</string>
+    <string name="tab_picker_view_tab">"Vis"</string>
+    <string name="tab_picker_new_tab">"Nytt vindu"</string>
+    <string name="tab_picker_remove_tab">"Lukk"</string>
+    <string name="tab_picker_bookmark">"Legg til bokmerke"</string>
+    <string name="tab_picker_send_url">"Del lenke"</string>
+    <string name="bookmarks">"Bokmerker"</string>
+    <string name="shortcut_bookmark">"Bokmerker"</string>
+    <string name="history">"Logg"</string>
+    <string name="menu_view_download">"Nedlastinger"</string>
+    <string name="share_page">"Del side"</string>
+    <string name="contextmenu_openlink">"Åpne"</string>
+    <string name="contextmenu_openlink_newwindow">"Åpne i nytt vindu"</string>
+    <string name="contextmenu_bookmark_thislink">"Legg til lenke i bokmerker"</string>
+    <string name="contextmenu_savelink">"Lagre lenke"</string>
+    <string name="contextmenu_sharelink">"Del lenke"</string>
+    <string name="contextmenu_copy">"Kopier"</string>
+    <string name="contextmenu_copylink">"Kopier lenke-URL"</string>
+    <string name="contextmenu_download_image">"Lagre bilde"</string>
+    <string name="contextmenu_view_image">"Vis bilde"</string>
+    <string name="contextmenu_dial_dot">"Ring…"</string>
+    <string name="contextmenu_add_contact">"Legg til kontakt"</string>
+    <string name="contextmenu_send_mail">"Send e-post"</string>
+    <string name="contextmenu_map">"Kart"</string>
+    <string name="clear">"Nullstill"</string>
+    <string name="replace">"Erstatt"</string>
+    <string name="browser_bookmarks_page_bookmarks_text">"Bokmerker"</string>
+    <string name="menu_preferences">"Innstillinger"</string>
+    <string name="pref_content_title">"Sideinnhold"</string>
+    <string name="pref_content_load_images">"Last bilder"</string>
+    <string name="pref_content_load_images_summary">"Vis bilder på nettsider"</string>
+    <string name="pref_content_block_popups">"Blokker sprettoppvinduer"</string>
+    <string name="pref_content_javascript">"Slå på JavaScript"</string>
+    <string name="pref_content_open_in_background">"Åpne i bakgrunnen"</string>
+    <string name="pref_content_open_in_background_summary">"La vinduer åpnes bak dette"</string>
+    <string name="pref_content_homepage">"Sett hjemmeside"</string>
+    <string name="pref_content_autofit">"Tilpass sider"</string>
+    <string name="pref_content_autofit_summary">"Tilpass nettsider så de passer på skjermen"</string>
+    <string name="pref_privacy_title">"Personvernsinnstillinger"</string>
+    <string name="pref_privacy_clear_cache">"Nullstill hurtiglager"</string>
+    <string name="pref_privacy_clear_cache_summary">"Slett alt hurtiglagret nettinnhold"</string>
+    <string name="pref_privacy_clear_cache_dlg">"Hurtiglageret vil nullstilles."</string>
+    <string name="pref_privacy_clear_cookies">"Fjern alle informasjonskapsler"</string>
+    <string name="pref_privacy_clear_cookies_summary">"Fjern alle informasjonskapsler lagret i nettleseren"</string>
+    <string name="pref_privacy_clear_cookies_dlg">"Alle informasjonskapsler vil bli slettet."</string>
+    <string name="pref_privacy_clear_history">"Slett loggen"</string>
+    <string name="pref_privacy_clear_history_summary">"Slett navigeringsloggen"</string>
+    <string name="pref_privacy_clear_history_dlg">"Nettleserens navigeringslogg vil bli slettet."</string>
+    <string name="pref_privacy_clear_form_data">"Slett skjemadata"</string>
+    <string name="pref_privacy_clear_form_data_summary">"Slett alt lagret skjemadata"</string>
+    <string name="pref_privacy_clear_form_data_dlg">"Alt lagret skjemadata vil bli slettet."</string>
+    <string name="pref_privacy_clear_passwords">"Slett passord"</string>
+    <string name="pref_privacy_clear_passwords_summary">"Slett alle lagrede passord"</string>
+    <string name="pref_privacy_clear_passwords_dlg">"Alle lagrede passord vil bli slettet."</string>
+    <string name="pref_security_title">"Sikkerhetsinnstillinger"</string>
+    <string name="pref_security_remember_passwords">"Husk passord"</string>
+    <string name="pref_security_remember_passwords_summary">"Lagre brukernavn og passord for nettsider"</string>
+    <string name="pref_security_save_form_data">"Husk skjemadata"</string>
+    <string name="pref_security_save_form_data_summary">"Husk data skrevet inn i skjemaer til senere"</string>
+    <string name="pref_security_show_security_warning">"Vis sikkerhetsadvarsler"</string>
+    <string name="pref_security_show_security_warning_summary">"Vis advarsel hvis det er et problem med sikkerheten på en side"</string>
+    <string name="pref_security_accept_cookies">"Godta informasjonskapsler"</string>
+    <string name="pref_security_accept_cookies_summary">"Tillat nettsteder å lagre og lese informasjonskapsler"</string>
+    <string name="pref_text_size">"Sett tekststørrelse"</string>
+  <string-array name="pref_text_size_choices">
+    <item>"Bitteliten"</item>
+    <item>"Liten"</item>
+    <item>"Vanlig"</item>
+    <item>"Stor"</item>
+    <item>"Kjempestor"</item>
+  </string-array>
+    <string name="pref_text_size_dialogtitle">"Tekststørrelse"</string>
+    <string name="pref_extras_title">"Avanserte innstillinger"</string>
+    <string name="pref_extras_gears_enable">"Aktiver Gears"</string>
+    <string name="pref_extras_gears_enable_summary">"Applikasjoner som utvider nettleserfunksjonaliteten"</string>
+    <string name="pref_extras_gears_settings">"Gears-innstillinger"</string>
+    <string name="pref_plugin_installed">"Liste over utvidelser"</string>
+    <string name="pref_plugin_installed_empty_list">"Ingen installerte utvidelser."</string>
+    <string name="pref_extras_gears_settings_summary">"Applikasjoner som utvider nettleserfunksjonaliteten"</string>
+    <string name="pref_extras_reset_default">"Nullstill"</string>
+    <string name="pref_extras_reset_default_summary">"Fjern alle data fra nettleseren og nullstill alle innstillinger"</string>
+    <string name="pref_extras_reset_default_dlg">"Alle data vil bli fjernet fra nettleseren, og alle innstillinger vil bli nullstilt."</string>
+    <string name="pref_extras_reset_default_dlg_title">"Nullstill"</string>
+    <string name="pref_development_title">"Avlusing"</string>
+    <string name="pref_development_viewport">"Use wide viewport"</string>
+    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
+    <string name="pref_development_normal_rendering">"Normal rendering"</string>
+    <string name="pref_development_trace">"Enable tracing"</string>
+    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
+    <string name="pref_development_search_url">"Set search URL"</string>
+    <string name="pref_development_uastring">"UAString"</string>
+  <string-array name="pref_development_ua_choices">
+    <item>"Android"</item>
+    <item>"Desktop"</item>
+    <item>"iPhone"</item>
+  </string-array>
+  <string-array name="pref_development_ua_values">
+    <item>"0"</item>
+    <item>"1"</item>
+    <item>"2"</item>
+  </string-array>
+    <string name="pref_default_text_encoding">"Velg tekstkoding"</string>
+  <string-array name="pref_default_text_encoding_choices">
+    <item>"Latin-1 (ISO-8859-1)"</item>
+    <item>"Unicode (UTF-8)"</item>
+    <item>"Japansk (ISO-2022-JP)"</item>
+    <item>"Japansk (SHIFT_JIS)"</item>
+    <item>"Japansk (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle">"Tekstkoding"</string>
+    <string name="pref_default_text_encoding_default">"Latin-1"</string>
+    <string name="browserFrameRedirect">"Videresending"</string>
+    <string name="browserFrame307Post">"Denne nettsiden blir videresendt. Send skjemadataene videre til den nye siden?"</string>
+    <string name="browserFrameNetworkErrorLabel">"Tilkoblingsproblem"</string>
+    <string name="browserFrameFileErrorLabel">"Problem med fil"</string>
+    <string name="browserFrameFormResubmitLabel">"Bekreft"</string>
+    <string name="browserFrameFormResubmitMessage">"Siden du prøver å se, inneholder data som allerede er blitt sendt inn (\"POSTDATA\"). Hvis du sender dataene på nytt, kan det skjemaet på siden gjorde bli gjort på nytt."</string>
+    <string name="loadSuspendedTitle">"Ingen nettverkstilkobling"</string>
+    <string name="loadSuspended">"Siden vil fortsette å laste etter at tilkoblingen er blitt gjenopprettet."</string>
+    <string name="clear_history">"Slett logg"</string>
+    <string name="browser_history">"Nylig besøkte sider"</string>
+    <string name="empty_history">"Nettleserens logg er tom."</string>
+    <string name="add_new_bookmark">"Nytt bokmerke"</string>
+    <string name="no_database">"Ingen database!"</string>
+    <string name="search_hint">"Skriv inn nettadresse"</string>
+    <string name="search_button_text">"Gå"</string>
+    <string name="attention">"Obs"</string>
+    <string name="popup_window_attempt">"Denne siden prøver å åpne et sprettoppvindu."</string>
+    <string name="allow">"Tillat"</string>
+    <string name="block">"Blokker"</string>
+    <string name="too_many_windows_dialog_title">"Vindusgrense nådd"</string>
+    <string name="too_many_windows_dialog_message">"Kunne ikke åpne et nytt vindu fordi du allerede har maksialt antall åpnet."</string>
+    <string name="too_many_subwindows_dialog_title">"Sprettoppvindu allerede åpnet"</string>
+    <string name="too_many_subwindows_dialog_message">"Kunne ikke åpne et nytt sprettoppvindu, fordi det bare kan være ett åpent av gangen."</string>
+    <string name="download_title">"Nedlastingslogg"</string>
+    <string name="download_unknown_filename">"&lt;Ukjent&gt;"</string>
+    <string name="download_menu_open">"Åpne"</string>
+    <string name="download_menu_clear">"Fjern fra listen"</string>
+    <string name="download_menu_cancel">"Avbryt nedlasting"</string>
+    <string name="download_menu_cancel_all">"Avbryt alle nedlastinger"</string>
+    <string name="download_menu_clear_all">"Tøm listen"</string>
+    <string name="download_clear_dlg_title">"Tøm"</string>
+    <string name="download_clear_dlg_msg">"Alle nedlastinger vil bli fjernet fra listen samt fjernet fra nettleserens hurtiglager."</string>
+    <string name="download_cancel_dlg_title">"Avbryt nedlastinger"</string>
+    <string name="download_cancel_dlg_msg">"Alle <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> nedlastinger vil bli avbrutt og fjernet fra nedlastingsloggen."</string>
+    <string name="download_file_error_dlg_title">"Tom for plass"</string>
+    <string name="download_file_error_dlg_msg">"Kunne ikke laste ned <xliff:g id="FILENAME">%s</xliff:g>."\n"Frigjør plass på telefonen og prøv igjen."</string>
+    <string name="download_failed_generic_dlg_title">"Feil ved nedlasting"</string>
+    <string name="download_no_sdcard_dlg_title">"Mangler minnekort"</string>
+    <string name="download_no_sdcard_dlg_msg">"Du trenger et minnekort for å laste ned <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_sdcard_busy_dlg_title">"Minnekort utilgjengelig"</string>
+    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
+    <skip />
+    <string name="download_no_application">"Fant ingen applikasjon som kunne åpne denne filen."</string>
+    <string name="retry">"Prøv igjen"</string>
+    <string name="no_downloads">"Nedlastingsloggen er tom."</string>
+    <string name="download_error">"Feil ved nedlasting."</string>
+    <string name="download_success">"<xliff:g id="FILE">%s</xliff:g> Nedlasting ferdig."</string>
+    <string name="download_running">"Laster ned…"</string>
+    <string name="download_pending">"Starter nedlasting…"</string>
+    <string name="download_pending_network">"Venter på datatilkobling…"</string>
+    <string name="download_running_paused">"Venter på datatilkobling…"</string>
+    <string name="download_canceled">"Nedlastingen ble avbrutt."</string>
+    <string name="download_not_acceptable">"Kan ikke laste ned. Innholdet er ikke støttet av telefonen."</string>
+    <string name="download_file_error">"Kan ikke fullføre nedlastingen. Det er ikke nok plass."</string>
+    <string name="download_length_required">"Kan ikke laste ned. Klarte ikke bestemme størrelsen på filen."</string>
+    <string name="download_precondition_failed">"Nedlastingen ble avbrutt. Den kan ikke fortsettes."</string>
+    <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
+    <string name="search_google">"Søk på Google"</string>
+    <string name="permlab_readHistoryBookmarks">"read Browser\'s history and bookmarks"</string>
+    <string name="permdesc_readHistoryBookmarks">"Allows the application to read all the URLs that the Browser has visited, and all of the Browser\'s bookmarks."</string>
+    <string name="permlab_writeHistoryBookmarks">"write Browser\'s history and bookmarks"</string>
+    <string name="permdesc_writeHistoryBookmarks">"Allows an application to modify the Browser\'s history or bookmarks stored on your phone. Malicious applications can use this to erase or modify your Browser\'s data."</string>
+    <!-- no translation found for query_data_prompt (5474381240981604223) -->
+    <skip />
+    <string name="query_data_message">"Nettsiden under ønsker å lagre informasjon på datamaskinen ved hjelp av Gears."</string>
+    <!-- no translation found for location_prompt (226262202057302423) -->
+    <skip />
+    <string name="location_message">"Nettsiden under ønsker å finne ut hvor du er ved hjelp av Gears."</string>
+    <!-- no translation found for shortcut_prompt (437193299088893596) -->
+    <skip />
+    <string name="shortcut_message">"Denne nettsiden ønsker å lage en snarvei på datamaskinen. Ønsker du å tillate dette?"</string>
+    <string name="settings_message">"Tabellen under viser rettighetent du har gitt til hver side som har prøvd å bruke Gears."</string>
+    <string name="filepicker_message">"Gears filplukker"</string>
+    <!-- no translation found for image_message (5450245866521896891) -->
+    <skip />
+    <string name="settings_title">"Gears-innstillinger"</string>
+    <string name="privacy_policy">"Les sidens personvernspolicy for å se hvordan informasjonen vil bli brukt."</string>
+    <!-- no translation found for settings_storage_title (7089119630457156408) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
+    <skip />
+    <!-- no translation found for settings_location_title (4953062923509886651) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
+    <skip />
+    <!-- no translation found for settings_remove_site (1822247070226589958) -->
+    <skip />
+    <!-- no translation found for settings_empty (2008952224378583146) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <skip />
+    <!-- no translation found for storage_notification (6534213782873968255) -->
+    <skip />
+    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
+    <skip />
+    <!-- no translation found for location_notification (3495804750470905804) -->
+    <skip />
+    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
+    <skip />
+    <!-- no translation found for shortcut_notification (1659700220868444568) -->
+    <skip />
+    <string name="permission_button_alwaysdeny">"Aldri tillat for denne siden"</string>
+    <string name="permission_button_allow">"Tillat"</string>
+    <string name="permission_button_deny">"Nekt"</string>
+    <string name="shortcut_button_alwaysdeny">"Aldri tillat denne snarveien"</string>
+    <string name="shortcut_button_allow">"OK"</string>
+    <string name="shortcut_button_deny">"Avbryt"</string>
+    <string name="settings_button_allow">"Bruk"</string>
+    <string name="settings_button_deny">"Avbryt"</string>
+    <string name="filepicker_button_allow">"OK"</string>
+    <string name="filepicker_button_deny">"Avbryt"</string>
+    <string name="filepicker_path">"sti:"</string>
+    <string name="filepicker_no_files_selected">"Ingen fil valgt"</string>
+    <string name="filepicker_one_file_selected">"En fil valgt"</string>
+    <string name="filepicker_some_files_selected">"filer valgt"</string>
+    <string name="remove">"Fjern"</string>
+    <string name="local_storage">"Lokal lagring"</string>
+    <string name="allowed">"Tillatt"</string>
+    <string name="denied">"Nektet"</string>
+    <string name="unrecognized_dialog_message">"Ukjent meldingstype"</string>
+    <string name="default_button">"OK"</string>
+    <string name="zoom_overview_button_text">"Oversikt"</string>
+</resources>

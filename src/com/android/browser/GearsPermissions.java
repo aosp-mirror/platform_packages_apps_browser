@@ -49,35 +49,35 @@ class GearsPermissions {
     public static final int PERMISSION_DENIED = 2;
 
     String mName;
-    int mRowRsc;
-    int mAllowedButtonRsc;
-    int mDeniedButtonRsc;
+    int mTitleRsc;
+    int mSubtitleOnRsc;
+    int mSubtitleOffRsc;
 
     PermissionType(String name) {
       mName = name;
     }
 
-    public void setResources(int rowRsc, int allowedButtonRsc,
-        int deniedButtonRsc) {
-      mRowRsc = rowRsc;
-      mAllowedButtonRsc = allowedButtonRsc;
-      mDeniedButtonRsc = deniedButtonRsc;
-    }
-
-    public int getRowRsc() {
-      return mRowRsc;
-    }
-
-    public int getAllowedButtonRsc() {
-      return mAllowedButtonRsc;
-    }
-
-    public int getDeniedButtonRsc() {
-      return mDeniedButtonRsc;
+    public void setResources(int titleRsc,
+        int subtitleOnRsc, int subtitleOffRsc) {
+      mTitleRsc = titleRsc;
+      mSubtitleOnRsc = subtitleOnRsc;
+      mSubtitleOffRsc = subtitleOffRsc;
     }
 
     public String getName() {
       return mName;
+    }
+
+    public int getTitleRsc() {
+      return mTitleRsc;
+    }
+
+    public int getSubtitleOnRsc() {
+      return mSubtitleOnRsc;
+    }
+
+    public int getSubtitleOffRsc() {
+      return mSubtitleOffRsc;
     }
 
   }

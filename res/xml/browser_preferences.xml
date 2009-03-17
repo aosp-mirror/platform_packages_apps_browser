@@ -67,6 +67,8 @@
         <com.android.browser.BrowserHomepagePreference
                 android:key="homepage" 
                 android:title="@string/pref_content_homepage"
+                android:hint="@string/http"
+                android:inputType="textUri"
                 android:singleLine="true" />
 
     </PreferenceCategory>
