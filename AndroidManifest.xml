@@ -28,6 +28,9 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- Needed by the ZoomRingController to set the bit saying we've already shown the
+         tutorial toast. -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
 
@@ -127,9 +130,16 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="CombinedBookmarkHistoryActivity" android:label=""
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+        </activity>
+
         <activity android:name="BrowserBookmarksPage" android:label="@string/bookmarks"
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
+
+        <activity android:name="MostVisitedActivity" android:label=""
+                android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>
 
         <activity-alias android:name="ShortcutBookmarksPage"
             android:targetActivity="BrowserBookmarksPage"
@@ -146,7 +156,7 @@
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
-        <activity android:name="BrowserPreferencesPage" android:label=""
+        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
@@ -177,7 +187,7 @@
         </service>
 
         <activity android:name="AddBookmarkPage" android:label="Save bookmark" android:theme="@android:style/Theme.Dialog"
-                  android:configChanges="orientation|keyboardHidden">
+                  android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />

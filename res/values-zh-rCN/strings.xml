@@ -15,15 +15,19 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for application_name (1935869255545976415) -->
-    <skip />
+    <string name="application_name">"浏览器"</string>
+    <string name="tab_bookmarks">"书签"</string>
+    <string name="tab_most_visited">"访问最多的网站"</string>
+    <string name="tab_history">"历史记录"</string>
+    <string name="added_to_bookmarks">"添加到书签"</string>
+    <string name="removed_from_bookmarks">"从书签中删除"</string>
     <string name="sign_in_to">"登录至 <xliff:g id="HOSTNAME">%s1</xliff:g>“<xliff:g id="REALM">%s2</xliff:g>”"</string>
     <string name="username">"名称"</string>
     <string name="password">"密码"</string>
     <string name="action">"登录"</string>
     <string name="cancel">"取消"</string>
     <string name="ok">"确定"</string>
-    <string name="matches_found">"匹配项"</string>
+    <string name="matches_found">" 匹配项"</string>
     <string name="zero">"否"</string>
     <string name="page_info">"页面信息"</string>
     <string name="page_info_view">"查看页面信息"</string>
@@ -47,12 +51,9 @@
     <string name="issued_on">"发布时间："</string>
     <string name="expires_on">"有效期至："</string>
     <string name="retrieving_creds_dlg_msg">"正在检索登录详细信息..."</string>
-    <string name="close">"关闭"</string>
-    <string name="close_window">"该窗口会关闭。"</string>
     <string name="stopping">"正在停止..."</string>
     <string name="stop">"停止"</string>
     <string name="reload">"刷新"</string>
-    <string name="back">"返回"</string>
     <string name="forward">"前进"</string>
     <string name="save">"确定"</string>
     <string name="do_not_save">"取消"</string>
@@ -72,15 +73,13 @@
     <string name="bookmark_url_not_valid">"网址无效。"</string>
     <string name="delete_bookmark">"删除"</string>
     <string name="bookmark_page">"将上次查看过的页面加为书签"</string>
-    <string name="current_page">"当前页面："</string>
+    <string name="current_page">"来源 "</string>
     <string name="delete_bookmark_warning">"会删除书签“<xliff:g id="BOOKMARK">%s</xliff:g>”。"</string>
     <string name="open_in_new_window">"在新窗口中打开"</string>
     <string name="new_window">"新窗口"</string>
-    <string name="goto_dot">"转至网址"</string>
+    <string name="goto_dot">"开始"</string>
     <string name="find_dot">"在页面上查找"</string>
-    <!-- no translation found for select_dot (6299170761900561967) -->
-    <skip />
-    <string name="homepage">"主页"</string>
+    <string name="select_dot">"选择文本"</string>
     <string name="view_tabs">"窗口概述"</string>
     <string name="view_tabs_condensed">"窗口"</string>
     <string name="tab_picker_title">"当前窗口"</string>
@@ -93,10 +92,7 @@
     <string name="shortcut_bookmark">"书签"</string>
     <string name="history">"历史记录"</string>
     <string name="menu_view_download">"下载"</string>
-    <string name="menu_bookmark_page">"书签页面"</string>
     <string name="share_page">"共享页面"</string>
-    <string name="menu_zoom">"缩放"</string>
-    <string name="menu_flip_orientation">"反转方向"</string>
     <string name="contextmenu_openlink">"打开"</string>
     <string name="contextmenu_openlink_newwindow">"在新窗口中打开"</string>
     <string name="contextmenu_bookmark_thislink">"书签链接"</string>
@@ -208,10 +204,9 @@
     <string name="clear_history">"清除历史记录"</string>
     <string name="browser_history">"最近访问过的页面"</string>
     <string name="empty_history">"浏览器历史记录为空。"</string>
-    <string name="add_new_bookmark">"新建书签"</string>
+    <string name="add_new_bookmark">"添加书签..."</string>
     <string name="no_database">"没有数据库！"</string>
     <string name="search_hint">"键入网址"</string>
-    <string name="search">"搜索"</string>
     <string name="search_button_text">"转至"</string>
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"该网站正试图打开一个弹出窗口。"</string>
@@ -238,7 +233,8 @@
     <string name="download_no_sdcard_dlg_title">"无 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg">"需要 SD 卡才能下载 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title">"SD 卡不可用"</string>
-    <string name="download_sdcard_busy_dlg_msg">"SD 卡正忙。要允许下载，请访问“主页”&gt;“设置”&gt;“SD 卡和手机存储”，然后取消选中“用于 USB 存储”复选框。"</string>
+    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
+    <skip />
     <string name="download_no_application">"无法找到可打开此文件的应用程序。"</string>
     <string name="retry">"重试"</string>
     <string name="no_downloads">"下载历史记录为空。"</string>
@@ -254,50 +250,68 @@
     <string name="download_length_required">"无法下载。无法确定该项的大小。"</string>
     <string name="download_precondition_failed">"下载中断，无法重新开始。"</string>
     <string name="activity_instrumentation_test_runner">"浏览器测试运行器"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.cn/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Wikipedia"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"易趣"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"纽约时报"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"卓越亚马逊"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
+    <string name="search_google">"使用 Google 进行搜索"</string>
     <string name="permlab_readHistoryBookmarks">"读取浏览器的历史记录和书签"</string>
     <string name="permdesc_readHistoryBookmarks">"允许应用程序读取浏览器访问过的所有网址以及浏览器的所有书签。"</string>
     <string name="permlab_writeHistoryBookmarks">"写入浏览器的历史记录和书签"</string>
     <string name="permdesc_writeHistoryBookmarks">"允许应用程序修改您手机中存储的浏览器的历史记录或书签。恶意应用程序可能会利用此权限清除或修改您浏览器的数据。"</string>
-    <string name="query_data_message">"下面的网站想要使用 Gears 在您的计算机上存储信息。"</string>
-    <string name="location_message">"下面的网站想要使用 Gears 访问关于您的位置的信息。"</string>
-    <string name="shortcut_message">"该网站想要在您的计算机上创建快捷方式。是否允许创建？"</string>
+    <!-- no translation found for query_data_prompt (5474381240981604223) -->
+    <skip />
+    <!-- no translation found for query_data_message (8789381063185445197) -->
+    <skip />
+    <!-- no translation found for location_prompt (226262202057302423) -->
+    <skip />
+    <!-- no translation found for location_message (1729456751935683242) -->
+    <skip />
+    <!-- no translation found for shortcut_prompt (437193299088893596) -->
+    <skip />
+    <!-- no translation found for shortcut_message (4793042709293755892) -->
+    <skip />
     <string name="settings_message">"下表显示了您授予尝试使用 Gears 的各个网站的权限。"</string>
-    <string name="filepicker_message">"Gears 文件选择器"</string>
-    <string name="image_message">"选定图片"</string>
+    <!-- no translation found for filepicker_message (4929726371602896039) -->
+    <skip />
+    <!-- no translation found for image_message (5450245866521896891) -->
+    <skip />
     <string name="settings_title">"Gears 设置"</string>
     <string name="privacy_policy">"阅读网站的隐私政策，以了解会如何使用您的位置。"</string>
-    <string name="permission_button_alwaysdeny">"始终拒绝该网站"</string>
-    <string name="permission_button_allow">"允许"</string>
-    <string name="permission_button_deny">"拒绝"</string>
-    <string name="shortcut_button_alwaysdeny">"始终拒绝使用该快捷方式"</string>
+    <!-- no translation found for settings_storage_title (7089119630457156408) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
+    <skip />
+    <!-- no translation found for settings_location_title (4953062923509886651) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
+    <skip />
+    <!-- no translation found for settings_remove_site (1822247070226589958) -->
+    <skip />
+    <!-- no translation found for settings_empty (2008952224378583146) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <skip />
+    <!-- no translation found for storage_notification (6534213782873968255) -->
+    <skip />
+    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
+    <skip />
+    <!-- no translation found for location_notification (3495804750470905804) -->
+    <skip />
+    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
+    <skip />
+    <!-- no translation found for shortcut_notification (1659700220868444568) -->
+    <skip />
+    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
+    <skip />
+    <!-- no translation found for permission_button_allow (7301874925704148242) -->
+    <skip />
+    <!-- no translation found for permission_button_deny (104712269725153018) -->
+    <skip />
+    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
+    <skip />
     <string name="shortcut_button_allow">"确定"</string>
     <string name="shortcut_button_deny">"取消"</string>
     <string name="settings_button_allow">"应用"</string>
@@ -314,4 +328,5 @@
     <string name="denied">"已拒绝"</string>
     <string name="unrecognized_dialog_message">"未识别的对话类型"</string>
     <string name="default_button">"确定"</string>
+    <string name="zoom_overview_button_text">"概览"</string>
 </resources>

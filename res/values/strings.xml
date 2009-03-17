@@ -18,6 +18,16 @@
     <!-- The name of the application. -->
     <string name="application_name">Browser</string>
 
+    <!-- Name of tab containing bookmarks -->
+    <string name="tab_bookmarks">Bookmarks</string>
+    <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+    <string name="tab_most_visited">Most visited</string>
+    <!-- Name of tab containing the user's complete history, organized by time of last visit -->
+    <string name="tab_history">History</string>
+    <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+    <string name="added_to_bookmarks">Added to bookmarks</string>
+    <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+    <string name="removed_from_bookmarks">Removed from bookmarks</string>
     <!-- Sign-in dialog -->
     <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
@@ -96,18 +106,12 @@
 
     <!-- Dialog that is shown while we are retrieving the login creds from the system -->
     <string name="retrieving_creds_dlg_msg">Retrieving sign-in details\u2026</string>
-    <!-- Menu item in a context menu for closing a browser window. -->
-    <string name="close">Close</string>
-    <!-- Confirmation dialog message stating that a browser window will be closed -->
-    <string name="close_window">This window will be closed.</string>
     <!-- Toast informing the user that loading has stopped for the current page. -->
     <string name="stopping">Stopping\u2026</string>
     <!-- Menu item to stop the current page from loading. -->
     <string name="stop">Stop</string>
     <!-- Menu item to reload or refresh the current page. -->
     <string name="reload">Refresh</string>
-    <!-- Menu item to go back to the previous page. -->
-    <string name="back">Back</string>
     <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
     <string name="forward">Forward</string>
     <!-- Button label to confirm saving a bookmark. -->
@@ -154,7 +158,7 @@
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
-    <string name="current_page">Current page:\u0020</string>
+    <string name="current_page">from\u0020</string>
     <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
     <string name="delete_bookmark_warning">Bookmark \"<xliff:g id="bookmark">%s</xliff:g>\" will be deleted.</string>
@@ -163,15 +167,13 @@
     <!-- Appears in Current windows screen as label on blank + window; user 
             selects this window to open a new browser window -->
     <string name="new_window">New window</string>
-    <!-- Menu item to open a dialog which allows the user to enter a url-->
-    <string name="goto_dot">Go to URL</string>
+    <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
+    <string name="goto_dot">Go</string>
     <!-- Menu item that opens up a dialog which allows the user to provide a
             string and search for it on the page. -->
     <string name="find_dot">Find on page</string>
     <!-- Menu item to switch to text selection mode for copy and paste. -->
     <string name="select_dot">Select text</string>
-    <!-- Menu item to go to the home page, as stored in settings -->
-    <string name="homepage">Home page</string>
     <!-- Menu item which opens a screen which shows all the currently open
             windows, and also allows them to create a new one. -->
     <string name="view_tabs">Window overview</string>
@@ -202,15 +204,8 @@
     <string name="history">History</string>
     <!-- Menu item for viewing downloads from the browser -->
     <string name="menu_view_download">Downloads</string>
-    <!-- Menu item to display the bookmark page.  This is a longer version shown
-            without an icon next to it -->
-    <string name="menu_bookmark_page">Bookmark page</string>
     <!-- Menu item -->
     <string name="share_page">Share page</string>
-    <!-- Menu item to bring up the zoom controls -->
-    <string name="menu_zoom">Zoom</string>
-    <!-- Menu item to flip the orientation of the screen.-->
-    <string name="menu_flip_orientation">Flip orientation</string>
     <!-- Context Menu item open the currently selected link in the current
             window.-->
     <string name="contextmenu_openlink">Open</string>
@@ -447,8 +442,8 @@
     <string name="browser_history">Recently-visited pages</string>
     <!-- Appears on History screen if no history is found -->
     <string name="empty_history">Browser history is empty.</string>
-    <!-- Menu item -->
-    <string name="add_new_bookmark">New bookmark</string>
+    <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+    <string name="add_new_bookmark">Add bookmark\u2026</string>
     <!-- Add bookmark dialog sets its title to this if we have no database.
             This is an error case -->
     <string name="no_database">No database!</string>
@@ -459,8 +454,6 @@
     <!-- This string is for the browser "Go To" UI. -->
     <!-- This is the hint text shown in the Go To widget, before text is entered. -->
     <string name="search_hint">Type Web address</string>
-    <!-- Menu item -->
-    <string name="search">Search</string>
     <!-- This string is for the browser "Go To" UI. -->
     <!-- This is the button label in the "Go To" UI. -->
     <string name="search_button_text">Go</string>
@@ -530,7 +523,7 @@
     <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
-    <string name="download_sdcard_busy_dlg_msg">The SD card is busy. To allow downloads, go to Home > Settings > SD card &amp; phone storage and clear the \"Use for USB storage\" check box.</string>
+    <string name="download_sdcard_busy_dlg_msg">The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
  
     <!-- Message for a dialog informing the user that there is no application on
             the phone that can open the file that was downloaded  -->
@@ -588,6 +581,8 @@
     <string-array name="bookmarks" translatable="false">
         <item>Google</item>
         <item>http://www.google.com/</item>
+        <item>Picasa Web Albums</item>
+        <item>http://picasaweb.google.com/m/viewer?source=androidclient</item>
         <item>Yahoo!</item>
         <item>http://www.yahoo.com/</item>
         <item>MSN</item>
@@ -623,6 +618,9 @@
     <string name="google_search_base" translatable="false">
         http://www.google.com/m?hl=%1$s&amp;gl=%2$s&amp;</string>
 
+    <!-- Used in Goto to indicate Google search -->
+    <string name="search_google">Search Google</string>
+
     <!-- Title of an application permission, listed so the user can choose whether 
         they want to allow the application to do this. -->
     <string name="permlab_readHistoryBookmarks">read Browser\'s history and bookmarks</string>
@@ -641,21 +639,43 @@
         can use this to erase or modify your Browser\'s data.</string>
 
     <!-- Gears Dialogs -->
-    <string name="query_data_message">The Web site below wants to store information on your computer using Gears.</string>
-    <string name="location_message">The Web site below wants to access information about your location using Gears.</string>
-    <string name="shortcut_message">This Web site wants to create a shortcut on your computer. Do you want to allow this?</string>
+    <string name="query_data_prompt">Allow storage</string>
+    <string name="query_data_message">This web site would like to store information on your phone.</string>
+    <string name="location_prompt">Access your location</string>
+    <string name="location_message">This web site would like to have access to your location.</string>
+    <string name="shortcut_prompt">Create a shortcut</string>
+    <string name="shortcut_message">This web site would like to create a shortcut to this page on your home screen.</string>
     <string name="settings_message">The table below shows the permissions you have granted to each site that has attempted to use Gears.</string>
-    <string name="filepicker_message">Gears File Picker</string>
-    <string name="image_message">Selected image</string>
+    <string name="filepicker_message">File Picker</string>
+    <string name="image_message">Choosen Image</string>
 
     <string name="settings_title">Gears settings</string>
     <string name="privacy_policy">Read the site\'s privacy policy to see how your location will be used.</string>
+    <string name="settings_storage_title">Allow Local Storage</string>
+    <string name="settings_storage_subtitle_on">This site can save information to your phone</string>
+    <string name="settings_storage_subtitle_off">This site cannot save information to your phone</string>
 
-    <string name="permission_button_alwaysdeny">Never allow this site</string>
-    <string name="permission_button_allow">Allow</string>
-    <string name="permission_button_deny">Deny</string>
+    <string name="settings_location_title">Allow Location Detection</string>
+    <string name="settings_location_subtitle_on">This site can read your current location</string>
+    <string name="settings_location_subtitle_off">This site cannot read your current location</string>
 
-    <string name="shortcut_button_alwaysdeny">Never allow this shortcut</string>
+    <string name="settings_remove_site">Remove this site from Gears</string>
+    <string name="settings_empty">No permissions set</string>
+
+    <string name="settings_confirmation_remove_title">Remove this site</string>
+    <string name="settings_confirmation_remove">All permissions will be cleared, and any data stored on your phone by the site will be deleted.</string>
+
+    <string name="storage_notification">This site will store information on this phone.\n Change this setting in:\n Settings -> Gears Settings</string>
+    <string name="storage_notification_alwaysdeny">This site will never store information on this phone.\n Change this setting in:\n Settings -> Gears Settings</string>
+    <string name="location_notification">This site can access your current location.\n Change this setting in:\n Settings -> Gears Settings</string>
+    <string name="location_notification_alwaysdeny">This site will not access your current location.\n Change this setting in:\n Settings -> Gears Settings</string>
+    <string name="shortcut_notification">Shortcut created</string>
+
+    <string name="permission_button_alwaysdeny">Never Allow</string>
+    <string name="permission_button_allow">OK</string>
+    <string name="permission_button_deny">Cancel</string>
+
+    <string name="shortcut_button_alwaysdeny">Never Allow</string>
     <string name="shortcut_button_allow">OK</string>
     <string name="shortcut_button_deny">Cancel</string>
 
@@ -677,4 +697,7 @@
     <string name="unrecognized_dialog_message">Unrecognized dialog type</string>
     <string name="default_button">OK</string>
 
+    <!-- Zoom-related strings --><skip />
+    <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->
+    <string name="zoom_overview_button_text">Overview</string>
 </resources>

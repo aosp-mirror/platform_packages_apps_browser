@@ -16,23 +16,26 @@
 
 package com.android.browser;
 
+import android.app.ISearchManager;
 import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.AbstractCursor;
-import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.os.SystemProperties;
 import android.provider.Browser;
 import android.util.Log;
+import android.server.search.SearchableInfo;
 import android.text.util.Regex;
 
 public class BrowserProvider extends ContentProvider {
@@ -40,21 +43,40 @@ public class BrowserProvider extends ContentProvider {
     private SQLiteOpenHelper mOpenHelper;
     private static final String sDatabaseName = "browser.db";
     private static final String TAG = "BrowserProvider";
-    private static final String ORDER_BY = "date DESC";
+    private static final String ORDER_BY = "visits DESC, date DESC";
 
     private static final String[] TABLE_NAMES = new String[] {
         "bookmarks", "searches"
     };
-    private static final String[] SUGGEST_PROJECTION = new String [] {
-        "0 AS " + SearchManager.SUGGEST_COLUMN_FORMAT,
-        "url AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA,
-        "url AS " + SearchManager.SUGGEST_COLUMN_TEXT_1,
-        "title AS " + SearchManager.SUGGEST_COLUMN_TEXT_2,
-        "_id"
+    private static final String[] SUGGEST_PROJECTION = new String[] {
+            "_id", "url", "title", "bookmark"
     };
     private static final String SUGGEST_SELECTION = 
             "url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ?";
     private String[] SUGGEST_ARGS = new String[4];
+
+    // shared suggestion array index, make sure to match COLUMNS
+    private static final int SUGGEST_COLUMN_INTENT_ACTION_ID = 1;
+    private static final int SUGGEST_COLUMN_INTENT_DATA_ID = 2;
+    private static final int SUGGEST_COLUMN_TEXT_1_ID = 3;
+    private static final int SUGGEST_COLUMN_TEXT_2_ID = 4;
+    private static final int SUGGEST_COLUMN_ICON_1_ID = 5;
+    private static final int SUGGEST_COLUMN_ICON_2_ID = 6;
+    private static final int SUGGEST_COLUMN_QUERY_ID = 7;
+
+    // shared suggestion columns
+    private static final String[] COLUMNS = new String[] {
+            "_id",
+            SearchManager.SUGGEST_COLUMN_INTENT_ACTION,
+            SearchManager.SUGGEST_COLUMN_INTENT_DATA,
+            SearchManager.SUGGEST_COLUMN_TEXT_1,
+            SearchManager.SUGGEST_COLUMN_TEXT_2,
+            SearchManager.SUGGEST_COLUMN_ICON_1,
+            SearchManager.SUGGEST_COLUMN_ICON_2,
+            SearchManager.SUGGEST_COLUMN_QUERY};
+
+    private static final int MAX_SUGGESTION_SHORT_ENTRIES = 3;
+    private static final int MAX_SUGGESTION_LONG_ENTRIES = 6;
 
     // make sure that these match the index of TABLE_NAMES
     private static final int URI_MATCH_BOOKMARKS = 0;
@@ -206,220 +228,194 @@ public class BrowserProvider extends ContentProvider {
     }
 
     /*
-     * Subclass AbstractCursor so we can add "Google Search"
+     * Subclass AbstractCursor so we can combine multiple Cursors and add
+     * "Google Search".
+     * Here are the rules.
+     * 1. We only have MAX_SUGGESTION_LONG_ENTRIES in the list plus 
+     *      "Google Search";
+     * 2. If bookmark/history entries are less than 
+     *      (MAX_SUGGESTION_SHORT_ENTRIES -1), we include Google suggest.
      */
     private class MySuggestionCursor extends AbstractCursor {
-        private Cursor  mCursor;
+        private Cursor  mHistoryCursor;
+        private Cursor  mSuggestCursor;
+        private int     mHistoryCount;
+        private int     mSuggestionCount;
         private boolean mBeyondCursor;
         private String  mString;
-        private Uri     mNotifyUri;
-        private ContentResolver mContentResolver;
-        private AbstractCursor.SelfContentObserver mObserver;
-        private final Object mObserverLock = new Object();
 
-        public MySuggestionCursor(Cursor c, String string) {
-            mCursor = c;
-            if (Regex.WEB_URL_PATTERN.matcher(string).matches()) {
-                mString = "";
-            } else {
-                mString = string;
+        public MySuggestionCursor(Cursor hc, Cursor sc, String string) {
+            mHistoryCursor = hc;
+            mSuggestCursor = sc;
+            mHistoryCount = hc.getCount();
+            mSuggestionCount = sc != null ? sc.getCount() : 0;
+            if (mSuggestionCount > (MAX_SUGGESTION_LONG_ENTRIES - mHistoryCount)) {
+                mSuggestionCount = MAX_SUGGESTION_LONG_ENTRIES - mHistoryCount;
             }
+            mString = string;
             mBeyondCursor = false;
         }
 
+        @Override
         public boolean onMove(int oldPosition, int newPosition) {
-            if (mCursor.getCount() == newPosition) {
-                mBeyondCursor = true;
-            } else {
-                mCursor.moveToPosition(newPosition);
+            if (mHistoryCursor == null) {
+                return false;
+            }
+            if (mHistoryCount > newPosition) {
+                mHistoryCursor.moveToPosition(newPosition);
                 mBeyondCursor = false;
+            } else if (mHistoryCount + mSuggestionCount > newPosition) {
+                mSuggestCursor.moveToPosition(newPosition - mHistoryCount);
+                mBeyondCursor = false;
+            } else {
+                mBeyondCursor = true;
             }
             return true;
         }
 
+        @Override
         public int getCount() {
             if (mString.length() > 0) {
-                return mCursor.getCount() + 1;
+                return mHistoryCount + mSuggestionCount + 1;
             } else {
-                return mCursor.getCount();
+                return mHistoryCount + mSuggestionCount;
             }
         }
 
-        public boolean deleteRow() {
-            return !mBeyondCursor && mCursor.deleteRow();
-        }
-
+        @Override
         public String[] getColumnNames() {
-            return mCursor.getColumnNames();
+            return COLUMNS;
         }
 
-        public int getColumnCount() {
-            return mCursor.getColumnCount();
-        }
-
+        @Override
         public String getString(int columnIndex) {
-            if (!mBeyondCursor) {
-                return mCursor.getString(columnIndex);
+            if ((mPos != -1 && mHistoryCursor != null)) {
+                switch(columnIndex) {
+                    case SUGGEST_COLUMN_INTENT_ACTION_ID:
+                        if (mHistoryCount > mPos) {
+                            return Intent.ACTION_VIEW;
+                        } else {
+                            return Intent.ACTION_SEARCH;
+                        }
+
+                    case SUGGEST_COLUMN_INTENT_DATA_ID:
+                        if (mHistoryCount > mPos) {
+                            return mHistoryCursor.getString(1);
+                        } else {
+                            return null;
+                        }
+
+                    case SUGGEST_COLUMN_TEXT_1_ID:
+                        if (mHistoryCount > mPos) {
+                            return mHistoryCursor.getString(1);
+                        } else if (!mBeyondCursor) {
+                            return mSuggestCursor.getString(1);
+                        } else {
+                            return mString;
+                        }
+
+                    case SUGGEST_COLUMN_TEXT_2_ID:
+                        if (mHistoryCount > mPos) {
+                            return mHistoryCursor.getString(2);
+                        } else if (!mBeyondCursor) {
+                            return mSuggestCursor.getString(2);
+                        } else {
+                            return getContext().getString(R.string.search_google);
+                        }
+
+                    case SUGGEST_COLUMN_ICON_1_ID:
+                        if (mHistoryCount > mPos) {
+                            if (mHistoryCursor.getInt(3) == 1) {
+                                return new Integer(
+                                        R.drawable.ic_search_category_bookmark)
+                                        .toString();
+                            } else {
+                                return new Integer(
+                                        R.drawable.ic_search_category_history)
+                                        .toString();
+                            }
+                        } else {
+                            return new Integer(
+                                    R.drawable.ic_search_category_suggest)
+                                    .toString();
+                        }
+
+                    case SUGGEST_COLUMN_ICON_2_ID:
+                        return new String("0");
+
+                    case SUGGEST_COLUMN_QUERY_ID:
+                        if (mHistoryCount > mPos) {
+                            return null;
+                        } else if (!mBeyondCursor) {
+                            return mSuggestCursor.getString(3);
+                        } else {
+                            return mString;
+                        }
+                }
             }
-            switch (columnIndex) {
-                case 2: // SearchManager.SUGGEST_COLUMN_TEXT_1
-                    return "Google Search for \"" + mString + "\"";
-                case 1: // SearchManager.SUGGEST_COLUMN_INTENT_DATA
-                    return BrowserActivity.composeSearchUrl(mString);
-                case 3: // SearchManager.SUGGEST_COLUMN_TEXT_2
-                default:
-                    return "";
+            return null;
+        }
+
+        @Override
+        public double getDouble(int column) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public float getFloat(int column) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int getInt(int column) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public long getLong(int column) {
+            if ((mPos != -1) && column == 0) {
+                return mPos;        // use row# as the _Id
             }
+            throw new UnsupportedOperationException();
         }
 
-        public short getShort(int columnIndex) {
-            if (!mBeyondCursor) {
-                return mCursor.getShort(columnIndex);
-            }
-            if (0 == columnIndex) {
-                return 0;
-            }
-            return -1;
+        @Override
+        public short getShort(int column) {
+            throw new UnsupportedOperationException();
         }
 
-        public int getInt(int columnIndex) {
-            if (!mBeyondCursor) {
-                return mCursor.getInt(columnIndex);
-            }
-            if (0 == columnIndex) {
-                return 0;
-            }
-            return -1;
-        }
-
-        public long getLong(int columnIndex) {
-            if (!mBeyondCursor) {
-                return mCursor.getLong(columnIndex);
-            }
-            if (0 == columnIndex) {
-                return 0;
-            }
-            return -1;
-        }
-
-        public float getFloat(int columnIndex) {
-            if (!mBeyondCursor) {
-                return mCursor.getFloat(columnIndex);
-            }
-            if (0 == columnIndex) {
-                return 0f;
-            }
-            return -1f;
-        }
-
-        public double getDouble(int columnIndex) {
-            if (!mBeyondCursor) {
-                return mCursor.getDouble(columnIndex);
-            }
-            if (0 == columnIndex) {
-                return 0.0;
-            }
-            return -1.0;
-        }
-
-        public boolean isNull(int columnIndex) {
-            return mCursor.isNull(columnIndex);
-        }
-
-        public boolean supportsUpdates() {
-            return false;
-        }
-
-        public boolean hasUpdates() {
-            return false;
-        }
-
-        public boolean updateString(int columnIndex, String value) {
-            return false;
-        }
-
-        public boolean updateShort(int columnIndex, short value) {
-            return false;
-        }
-
-        public boolean updateInt(int columnIndex, int value) {
-            return false;
-        }
-
-        public boolean updateLong(int columnIndex, long value) {
-            return false;
-        }
-
-        public boolean updateFloat(int columnIndex, float value) {
-            return false;
-        }
-
-        public boolean updateDouble(int columnIndex, double value) {
-            return false;
+        @Override
+        public boolean isNull(int column) {
+            throw new UnsupportedOperationException();
         }
 
         // TODO Temporary change, finalize after jq's changes go in
         public void deactivate() {
-            if (mCursor != null) {
-                mCursor.deactivate();
+            if (mHistoryCursor != null) {
+                mHistoryCursor.deactivate();
+            }
+            if (mSuggestCursor != null) {
+                mSuggestCursor.deactivate();
             }
             super.deactivate();
         }
 
         public boolean requery() {
-            return mCursor.requery();
+            return (mHistoryCursor != null ? mHistoryCursor.requery() : false) |
+                    (mSuggestCursor != null ? mSuggestCursor.requery() : false);
         }
 
         // TODO Temporary change, finalize after jq's changes go in
         public void close() {
             super.close();
-            if (mCursor != null) {
-                mCursor.close();
-                mCursor = null;
+            if (mHistoryCursor != null) {
+                mHistoryCursor.close();
+                mHistoryCursor = null;
             }
-        }
-
-        public void registerContentObserver(ContentObserver observer) {
-            super.registerContentObserver(observer);
-        }
-
-        public void unregisterContentObserver(ContentObserver observer) {
-            super.unregisterContentObserver(observer);
-        }
-
-        public void registerDataSetObserver(DataSetObserver observer) {
-            super.registerDataSetObserver(observer);
-        }
-
-        public void unregisterDataSetObserver(DataSetObserver observer) {
-            super.unregisterDataSetObserver(observer);
-        }
-
-        protected void onChange(boolean selfChange) {
-            synchronized (mObserverLock) {
-                super.onChange(selfChange);
-                if (mNotifyUri != null && selfChange) {
-                    mContentResolver.notifyChange(mNotifyUri, mObserver);
-                }
+            if (mSuggestCursor != null) {
+                mSuggestCursor.close();
+                mSuggestCursor = null;
             }
-        }
-
-        public void setNotificationUri(ContentResolver cr, Uri uri) {
-            synchronized (mObserverLock) {
-                if (mObserver != null) {
-                    cr.unregisterContentObserver(mObserver);
-                }
-                mObserver = new AbstractCursor.SelfContentObserver(this);
-                cr.registerContentObserver(uri, true, mObserver);
-                mCursor.setNotificationUri(cr, uri);
-                super.setNotificationUri(cr, uri);
-                mContentResolver = cr;
-                mNotifyUri = uri;
-            }
-        }
-
-        public boolean getWantsAllOnMoveCalls() {
-            return mCursor.getWantsAllOnMoveCalls();
         }
     }
 
@@ -455,13 +451,58 @@ public class BrowserProvider extends ContentProvider {
                     suggestSelection = SUGGEST_SELECTION;
                 }
             }
-            // Suggestions are always performed with the default sort order:
-            // date ASC.
+
             Cursor c = db.query(TABLE_NAMES[URI_MATCH_BOOKMARKS],
                     SUGGEST_PROJECTION, suggestSelection, myArgs, null, null,
-                    ORDER_BY, null);
-            c.setNotificationUri(getContext().getContentResolver(), url);
-            return new MySuggestionCursor(c, selectionArgs[0]);
+                    ORDER_BY,
+                    (new Integer(MAX_SUGGESTION_LONG_ENTRIES)).toString());
+
+            if (Regex.WEB_URL_PATTERN.matcher(selectionArgs[0]).matches()) {
+                return new MySuggestionCursor(c, null, "");
+            } else {
+                // get Google suggest if there is still space in the list
+                if (myArgs != null && myArgs.length > 1
+                        && c.getCount() < (MAX_SUGGESTION_SHORT_ENTRIES - 1)) {
+                    ISearchManager sm = ISearchManager.Stub
+                            .asInterface(ServiceManager
+                                    .getService(Context.SEARCH_SERVICE));
+                    SearchableInfo si = null;
+                    try {
+                        // use the global search to get Google suggest provider
+                        si = sm.getSearchableInfo(new ComponentName(
+                                getContext(), "com.android.browser"), true);
+
+                        // similar to the getSuggestions() in SearchDialog.java
+                        StringBuilder uriStr = new StringBuilder("content://");
+                        uriStr.append(si.getSuggestAuthority());
+                        // if content path provided, insert it now
+                        final String contentPath = si.getSuggestPath();
+                        if (contentPath != null) {
+                            uriStr.append('/');
+                            uriStr.append(contentPath);
+                        }
+                        // append standard suggestion query path 
+                        uriStr.append('/' + SearchManager.SUGGEST_URI_PATH_QUERY);
+                        // inject query, either as selection args or inline
+                        String[] selArgs = null;
+                        if (si.getSuggestSelection() != null) {
+                            selArgs = new String[] {selectionArgs[0]};
+                        } else {
+                            uriStr.append('/');
+                            uriStr.append(Uri.encode(selectionArgs[0]));
+                        }
+
+                        // finally, make the query
+                        Cursor sc = getContext().getContentResolver().query(
+                                Uri.parse(uriStr.toString()), null,
+                                si.getSuggestSelection(), selArgs, null);
+
+                        return new MySuggestionCursor(c, sc, selectionArgs[0]);
+                    } catch (RemoteException e) {
+                    }
+                }
+                return new MySuggestionCursor(c, null, selectionArgs[0]);
+            }
         }
 
         String[] projection = null;

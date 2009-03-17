@@ -15,15 +15,19 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for application_name (1935869255545976415) -->
-    <skip />
+    <string name="application_name">"Browser"</string>
+    <string name="tab_bookmarks">"Segnalibri"</string>
+    <string name="tab_most_visited">"I più visitati"</string>
+    <string name="tab_history">"Cronologia"</string>
+    <string name="added_to_bookmarks">"Aggiunto a segnalibri"</string>
+    <string name="removed_from_bookmarks">"Rimosso da segnalibri"</string>
     <string name="sign_in_to">"Accedi a <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username">"Nome"</string>
     <string name="password">"Password"</string>
     <string name="action">"Accedi"</string>
     <string name="cancel">"Annulla"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">"corrispondenze"</string>
+    <string name="matches_found">" corrispondenze"</string>
     <string name="zero">"No"</string>
     <string name="page_info">"Info pagina"</string>
     <string name="page_info_view">"Visualizza info pagina"</string>
@@ -47,40 +51,35 @@
     <string name="issued_on">"Rilasciato il:"</string>
     <string name="expires_on">"Scade il:"</string>
     <string name="retrieving_creds_dlg_msg">"Recupero dettagli di accesso..."</string>
-    <string name="close">"Chiudi"</string>
-    <string name="close_window">"Questa finestra verrà chiusa."</string>
     <string name="stopping">"Interruzione..."</string>
     <string name="stop">"Interrompi"</string>
     <string name="reload">"Aggiorna"</string>
-    <string name="back">"Indietro"</string>
     <string name="forward">"Avanti"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"Annulla"</string>
-    <string name="location">"Posizione"</string>
+    <string name="location">"URL"</string>
     <string name="name">"Nome"</string>
     <string name="http">"http://"</string>
     <string name="save_to_bookmarks">"Segnalibro"</string>
     <string name="edit_bookmark">"Modifica segnalibro"</string>
-    <string name="create_shortcut_bookmark">"Aggiungi collegamento a Home"</string>
+    <string name="create_shortcut_bookmark">"Aggiungi scorciatoia Home"</string>
     <string name="open_bookmark">"Apri"</string>
     <string name="remove_bookmark">"Elimina segnalibro"</string>
     <string name="remove_history_item">"Rimuovi da cronologia"</string>
     <string name="bookmark_saved">"Salvato nei segnalibri."</string>
     <string name="bookmark_needs_title">"Inserisci un nome per il segnalibro."</string>
-    <string name="bookmark_needs_url">"Inserisci una posizione per il segnalibro."</string>
+    <string name="bookmark_needs_url">"Inserisci un URL per il segnalibro."</string>
     <string name="empty_bookmark">"Impossibile creare un segnalibro vuoto."</string>
     <string name="bookmark_url_not_valid">"URL non valido."</string>
     <string name="delete_bookmark">"Elimina"</string>
     <string name="bookmark_page">"Aggiungi ultima pagina visualizzata in segnalibri"</string>
-    <string name="current_page">"Pagina corrente:"</string>
+    <string name="current_page">"da "</string>
     <string name="delete_bookmark_warning">"Il segnalibro \"<xliff:g id="BOOKMARK">%s</xliff:g>\" verrà eliminato."</string>
     <string name="open_in_new_window">"Apri in nuova finestra"</string>
     <string name="new_window">"Nuova finestra"</string>
-    <string name="goto_dot">"Vai a URL"</string>
+    <string name="goto_dot">"Vai"</string>
     <string name="find_dot">"Trova nella pagina"</string>
-    <!-- no translation found for select_dot (6299170761900561967) -->
-    <skip />
-    <string name="homepage">"Home page"</string>
+    <string name="select_dot">"Seleziona testo"</string>
     <string name="view_tabs">"Anteprima finestre"</string>
     <string name="view_tabs_condensed">"Finestre"</string>
     <string name="tab_picker_title">"Finestre correnti"</string>
@@ -93,10 +92,7 @@
     <string name="shortcut_bookmark">"Segnalibro"</string>
     <string name="history">"Cronologia"</string>
     <string name="menu_view_download">"Download"</string>
-    <string name="menu_bookmark_page">"Pagina segnalibri"</string>
     <string name="share_page">"Condividi pagina"</string>
-    <string name="menu_zoom">"Zoom"</string>
-    <string name="menu_flip_orientation">"Capovolgi orientamento"</string>
     <string name="contextmenu_openlink">"Apri"</string>
     <string name="contextmenu_openlink_newwindow">"Apri in nuova finestra"</string>
     <string name="contextmenu_bookmark_thislink">"Aggiungi link in segnalibri"</string>
@@ -208,10 +204,9 @@
     <string name="clear_history">"Cancella cronologia"</string>
     <string name="browser_history">"Pagine visitate di recente"</string>
     <string name="empty_history">"La cronologia del browser è vuota."</string>
-    <string name="add_new_bookmark">"Nuovo segnalibro"</string>
+    <string name="add_new_bookmark">"Aggiungi segnalibro…"</string>
     <string name="no_database">"Nessun database"</string>
     <string name="search_hint">"Digita l\'indirizzo web"</string>
-    <string name="search">"Cerca"</string>
     <string name="search_button_text">"Vai"</string>
     <string name="attention">"Attenzione"</string>
     <string name="popup_window_attempt">"Il sito sta tentando di aprire una finestra pop-up."</string>
@@ -238,7 +233,8 @@
     <string name="download_no_sdcard_dlg_title">"Nessuna scheda SD"</string>
     <string name="download_no_sdcard_dlg_msg">"Per scaricare <xliff:g id="FILENAME">%s</xliff:g> occorre una scheda SD."</string>
     <string name="download_sdcard_busy_dlg_title">"Scheda SD non disponibile"</string>
-    <string name="download_sdcard_busy_dlg_msg">"La scheda SD è già in uso. Per consentire i download, vai a Home &gt; Impostazioni &gt; Scheda SD e archiviazione telefono e deseleziona la casella \"Usa per archiviazione USB\"."</string>
+    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
+    <skip />
     <string name="download_no_application">"Impossibile trovare un\'applicazione in cui aprire questo file."</string>
     <string name="retry">"Riprova"</string>
     <string name="no_downloads">"La cronologia download è vuota."</string>
@@ -249,55 +245,73 @@
     <string name="download_pending_network">"In attesa di connessione dati..."</string>
     <string name="download_running_paused">"In attesa di connessione dati..."</string>
     <string name="download_canceled">"Download annullato."</string>
-    <string name="download_not_acceptable">"Impossibile effettuare il download. Il contenuto non è supportato dal telefono."</string>
+    <string name="download_not_acceptable">"Impossibile effettuare il download. I contenuti non sono supportati dal telefono."</string>
     <string name="download_file_error">"Impossibile terminare il download. Spazio insufficiente."</string>
     <string name="download_length_required">"Impossibile effettuare il download. Impossibile determinare le dimensioni dell\'elemento."</string>
     <string name="download_precondition_failed">"Download interrotto. Impossibile ripristinarlo."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.com/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Wikipedia"</item>
-    <item>"http://www.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
-    <string name="permlab_readHistoryBookmarks">"leggere cronologia e segnalibri del browser"</string>
+    <string name="search_google">"Cerca su Google"</string>
+    <string name="permlab_readHistoryBookmarks">"lettura cronologia e segnalibri del browser"</string>
     <string name="permdesc_readHistoryBookmarks">"Consente all\'applicazione di leggere tutti gli URL visitati e tutti i segnalibri del browser."</string>
-    <string name="permlab_writeHistoryBookmarks">"creare cronologia e segnalibri del browser"</string>
+    <string name="permlab_writeHistoryBookmarks">"creazione cronologia e segnalibri del browser"</string>
     <string name="permdesc_writeHistoryBookmarks">"Consente a un\'applicazione di modificare la cronologia o i segnalibri del browser memorizzati sul telefono. Le applicazioni dannose possono sfruttare questa possibilità per cancellare o modificare i dati del browser."</string>
-    <string name="query_data_message">"Il sito web sotto desidera memorizzare informazioni sul computer tramite Gears."</string>
-    <string name="location_message">"Il sito web sotto desidera accedere alle informazioni sulla tua posizione tramite Gears."</string>
-    <string name="shortcut_message">"Il sito web desidera creare un collegamento sul computer. Consenti questa operazione?"</string>
+    <!-- no translation found for query_data_prompt (5474381240981604223) -->
+    <skip />
+    <!-- no translation found for query_data_message (8789381063185445197) -->
+    <skip />
+    <!-- no translation found for location_prompt (226262202057302423) -->
+    <skip />
+    <!-- no translation found for location_message (1729456751935683242) -->
+    <skip />
+    <!-- no translation found for shortcut_prompt (437193299088893596) -->
+    <skip />
+    <!-- no translation found for shortcut_message (4793042709293755892) -->
+    <skip />
     <string name="settings_message">"Nella tabella che segue vengono riportate le autorizzazioni concesse a ogni sito che ha provato a usare Gears."</string>
-    <string name="filepicker_message">"Selettore file Gears"</string>
-    <string name="image_message">"Immagine selezionata"</string>
+    <!-- no translation found for filepicker_message (4929726371602896039) -->
+    <skip />
+    <!-- no translation found for image_message (5450245866521896891) -->
+    <skip />
     <string name="settings_title">"Impostazioni Gears"</string>
     <string name="privacy_policy">"Per conoscere la modalità di utilizzo della tua posizione, leggi le norme sulla privacy del sito."</string>
-    <string name="permission_button_alwaysdeny">"Non consentire mai il sito"</string>
-    <string name="permission_button_allow">"Consenti"</string>
-    <string name="permission_button_deny">"Nega"</string>
-    <string name="shortcut_button_alwaysdeny">"Non consentire mai il collegamento"</string>
+    <!-- no translation found for settings_storage_title (7089119630457156408) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
+    <skip />
+    <!-- no translation found for settings_location_title (4953062923509886651) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
+    <skip />
+    <!-- no translation found for settings_remove_site (1822247070226589958) -->
+    <skip />
+    <!-- no translation found for settings_empty (2008952224378583146) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <skip />
+    <!-- no translation found for storage_notification (6534213782873968255) -->
+    <skip />
+    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
+    <skip />
+    <!-- no translation found for location_notification (3495804750470905804) -->
+    <skip />
+    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
+    <skip />
+    <!-- no translation found for shortcut_notification (1659700220868444568) -->
+    <skip />
+    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
+    <skip />
+    <!-- no translation found for permission_button_allow (7301874925704148242) -->
+    <skip />
+    <!-- no translation found for permission_button_deny (104712269725153018) -->
+    <skip />
+    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
+    <skip />
     <string name="shortcut_button_allow">"OK"</string>
     <string name="shortcut_button_deny">"Annulla"</string>
     <string name="settings_button_allow">"Applica"</string>
@@ -314,4 +328,5 @@
     <string name="denied">"Negato"</string>
     <string name="unrecognized_dialog_message">"Tipo di finestra non riconosciuto"</string>
     <string name="default_button">"OK"</string>
+    <string name="zoom_overview_button_text">"Panoramica"</string>
 </resources>

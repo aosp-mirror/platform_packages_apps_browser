@@ -35,6 +35,7 @@ class GearsPermissionsDialog extends GearsBaseDialog {
   private static final String TAG = "GearsPermissionsDialog";
 
   private String mDialogType;
+  private int mNotification = 0;
 
   public GearsPermissionsDialog(Activity activity,
                                 Handler handler,
@@ -47,15 +48,6 @@ class GearsPermissionsDialog extends GearsBaseDialog {
     setupButtons(R.string.permission_button_alwaysdeny,
                  R.string.permission_button_allow,
                  R.string.permission_button_deny);
-
-    View contentBorder = findViewById(R.id.content_border);
-    if (contentBorder != null) {
-      contentBorder.setBackgroundResource(R.color.permission_border);
-    }
-    View contentBackground = findViewById(R.id.content_background);
-    if (contentBackground != null) {
-      contentBackground.setBackgroundResource(R.color.permission_background);
-    }
 
     try {
       JSONObject json = new JSONObject(mDialogArguments);
@@ -84,6 +76,16 @@ class GearsPermissionsDialog extends GearsBaseDialog {
         downloadIcon(iconUrl);
       }
 
+      View msg = findViewById(R.id.permission_dialog_message);
+      if (msg != null) {
+        TextView dialogMessage = (TextView) msg;
+        if (mDialogType.equalsIgnoreCase(LOCAL_DATA_STRING)) {
+          dialogMessage.setText(R.string.query_data_message);
+        } else if (mDialogType.equalsIgnoreCase(LOCATION_DATA_STRING)) {
+          dialogMessage.setText(R.string.location_message);
+        }
+      }
+
     } catch (JSONException e) {
       Log.e(TAG, "JSON exception ", e);
     }
@@ -91,15 +93,11 @@ class GearsPermissionsDialog extends GearsBaseDialog {
 
   public void setupDialog(TextView message, ImageView icon) {
     if (mDialogType.equalsIgnoreCase(LOCAL_DATA_STRING)) {
-      message.setText(R.string.query_data_message);
-      icon.setImageResource(R.drawable.gears_local_data);
+      message.setText(R.string.query_data_prompt);
+      icon.setImageResource(android.R.drawable.ic_popup_disk_full);
     } else if (mDialogType.equalsIgnoreCase(LOCATION_DATA_STRING)) {
-      message.setText(R.string.location_message);
-      icon.setImageResource(R.drawable.gears_location_data);
-      View privacyPolicyLabel = findViewById(R.id.privacy_policy_label);
-      if (privacyPolicyLabel != null) {
-        privacyPolicyLabel.setVisibility(View.VISIBLE);
-      }
+      message.setText(R.string.location_prompt);
+      icon.setImageResource(R.drawable.ic_dialog_menu_generic);
     }
   }
 
@@ -108,9 +106,19 @@ class GearsPermissionsDialog extends GearsBaseDialog {
     switch (closingType) {
       case ALWAYS_DENY:
         ret = "{\"allow\": false, \"permanently\": true }";
+        if (mDialogType.equalsIgnoreCase(LOCAL_DATA_STRING)) {
+          mNotification = R.string.storage_notification_alwaysdeny;
+        } else if (mDialogType.equalsIgnoreCase(LOCATION_DATA_STRING)) {
+          mNotification = R.string.location_notification_alwaysdeny;
+        }
         break;
       case ALLOW:
         ret = "{\"allow\": true, \"permanently\": true }";
+        if (mDialogType.equalsIgnoreCase(LOCAL_DATA_STRING)) {
+          mNotification = R.string.storage_notification;
+        } else if (mDialogType.equalsIgnoreCase(LOCATION_DATA_STRING)) {
+          mNotification = R.string.location_notification;
+        }
         break;
       case DENY:
         ret = "{\"allow\": false, \"permanently\": false }";
@@ -119,4 +127,7 @@ class GearsPermissionsDialog extends GearsBaseDialog {
     return ret;
   }
 
+  public int notification() {
+    return mNotification;
+  }
 }
