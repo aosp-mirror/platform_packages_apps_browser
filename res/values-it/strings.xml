@@ -72,7 +72,7 @@
     <string name="empty_bookmark">"Impossibile creare un segnalibro vuoto."</string>
     <string name="bookmark_url_not_valid">"URL non valido."</string>
     <string name="delete_bookmark">"Elimina"</string>
-    <string name="bookmark_page">"Aggiungi ultima pagina visualizzata in segnalibri"</string>
+    <string name="bookmark_page">"Aggiungi ultima pagina visualizzata ai segnalibri"</string>
     <string name="current_page">"da "</string>
     <string name="delete_bookmark_warning">"Il segnalibro \"<xliff:g id="BOOKMARK">%s</xliff:g>\" verrà eliminato."</string>
     <string name="open_in_new_window">"Apri in nuova finestra"</string>
@@ -166,23 +166,6 @@
     <string name="pref_extras_reset_default_dlg">"Verranno cancellati tutti i dati del browser e ripristinate le impostazioni predefinite."</string>
     <string name="pref_extras_reset_default_dlg_title">"Ripristina valori predefiniti"</string>
     <string name="pref_development_title">"Debug"</string>
-    <string name="pref_development_viewport">"Use wide viewport"</string>
-    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
-    <string name="pref_development_normal_rendering">"Normal rendering"</string>
-    <string name="pref_development_trace">"Enable tracing"</string>
-    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
-    <string name="pref_development_search_url">"Set search URL"</string>
-    <string name="pref_development_uastring">"UAString"</string>
-  <string-array name="pref_development_ua_choices">
-    <item>"Android"</item>
-    <item>"Desktop"</item>
-    <item>"iPhone"</item>
-  </string-array>
-  <string-array name="pref_development_ua_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
-  </string-array>
     <string name="pref_default_text_encoding">"Imposta codifica testo"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>

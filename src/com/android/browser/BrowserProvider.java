@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import java.util.Date;
+
 import android.app.ISearchManager;
 import android.app.SearchManager;
 import android.content.ComponentName;
@@ -24,7 +26,9 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.UriMatcher;
+import android.content.SharedPreferences.Editor;
 import android.database.AbstractCursor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -33,6 +37,7 @@ import android.net.Uri;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
+import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.util.Log;
 import android.server.search.SearchableInfo;
@@ -44,6 +49,9 @@ public class BrowserProvider extends ContentProvider {
     private static final String sDatabaseName = "browser.db";
     private static final String TAG = "BrowserProvider";
     private static final String ORDER_BY = "visits DESC, date DESC";
+
+    private static final String PICASA_URL = "http://picasaweb.google.com/m/" +
+            "viewer?source=androidclient";
 
     private static final String[] TABLE_NAMES = new String[] {
         "bookmarks", "searches"
@@ -223,8 +231,43 @@ public class BrowserProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new DatabaseHelper(getContext());
+        final Context context = getContext();
+        mOpenHelper = new DatabaseHelper(context);
+        // we added "picasa web album" into default bookmarks for version 19. 
+        // To avoid erasing the bookmark table, we added it explicitly for
+        // version 18 and 19 as in the other cases, we will erase the table.
+        if (DATABASE_VERSION == 18 || DATABASE_VERSION == 19) {
+            SharedPreferences p = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            boolean fix = p.getBoolean("fix_picasa", true);
+            if (fix) {
+                fixPicasaBookmark();
+                Editor ed = p.edit();
+                ed.putBoolean("fix_picasa", false);
+                ed.commit();
+            }
+        }
         return true;
+    }
+
+    private void fixPicasaBookmark() {
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT _id FROM bookmarks WHERE " +
+                "bookmark = 1 AND url = ?", new String[] { PICASA_URL });
+        try {
+            if (!cursor.moveToFirst()) {
+                // set "created" so that it will be on the top of the list
+                db.execSQL("INSERT INTO bookmarks (title, url, visits, " +
+                        "date, created, bookmark)" + " VALUES('" +
+                        getContext().getString(R.string.picasa) + "', '"
+                        + PICASA_URL + "', 0, 0, " + new Date().getTime()
+                        + ", 1);");
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
     /*

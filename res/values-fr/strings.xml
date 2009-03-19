@@ -166,23 +166,6 @@
     <string name="pref_extras_reset_default_dlg">"Toutes les données du navigateur seront effacées et les paramètres par défaut rétablis."</string>
     <string name="pref_extras_reset_default_dlg_title">"Rétablir les valeurs par défaut"</string>
     <string name="pref_development_title">"Débogage"</string>
-    <string name="pref_development_viewport">"Use wide viewport"</string>
-    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
-    <string name="pref_development_normal_rendering">"Normal rendering"</string>
-    <string name="pref_development_trace">"Activer le suivi"</string>
-    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
-    <string name="pref_development_search_url">"Set search URL"</string>
-    <string name="pref_development_uastring">"UAString"</string>
-  <string-array name="pref_development_ua_choices">
-    <item>"Android"</item>
-    <item>"Desktop"</item>
-    <item>"iPhone"</item>
-  </string-array>
-  <string-array name="pref_development_ua_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
-  </string-array>
     <string name="pref_default_text_encoding">"Définir le codage du texte"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>

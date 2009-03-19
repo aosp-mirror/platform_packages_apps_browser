@@ -166,23 +166,6 @@
     <string name="pref_extras_reset_default_dlg">"모든 브라우저 데이터가 지워지고 설정이 기본값으로 돌아갑니다."</string>
     <string name="pref_extras_reset_default_dlg_title">"기본값으로 재설정"</string>
     <string name="pref_development_title">"디버그"</string>
-    <string name="pref_development_viewport">"Use wide viewport"</string>
-    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
-    <string name="pref_development_normal_rendering">"Normal rendering"</string>
-    <string name="pref_development_trace">"Enable tracing"</string>
-    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
-    <string name="pref_development_search_url">"검색 URL 설정"</string>
-    <string name="pref_development_uastring">"UAString"</string>
-  <string-array name="pref_development_ua_choices">
-    <item>"Android"</item>
-    <item>"Desktop"</item>
-    <item>"iPhone"</item>
-  </string-array>
-  <string-array name="pref_development_ua_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
-  </string-array>
     <string name="pref_default_text_encoding">"텍스트 인코딩 설정"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"라틴어-1(ISO-8859-1)"</item>

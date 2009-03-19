@@ -114,7 +114,7 @@
     <string name="pref_content_load_images">"画像のロード"</string>
     <string name="pref_content_load_images_summary">"ウェブページに画像を表示"</string>
     <string name="pref_content_block_popups">"ポップアップウィンドウをブロック"</string>
-    <string name="pref_content_javascript">"JavaScript有効"</string>
+    <string name="pref_content_javascript">"JavaScriptを有効にする"</string>
     <string name="pref_content_open_in_background">"バックグラウンドで開く"</string>
     <string name="pref_content_open_in_background_summary">"新しいウィンドウを現在のウィンドウの後ろに開きます"</string>
     <string name="pref_content_homepage">"ホームページ設定"</string>
@@ -155,7 +155,7 @@
   </string-array>
     <string name="pref_text_size_dialogtitle">"文字サイズ"</string>
     <string name="pref_extras_title">"詳細な設定"</string>
-    <string name="pref_extras_gears_enable">"Gears有効"</string>
+    <string name="pref_extras_gears_enable">"Gearsを有効にする"</string>
     <string name="pref_extras_gears_enable_summary">"ブラウザの機能を拡張するアプリケーションです"</string>
     <string name="pref_extras_gears_settings">"Gears設定"</string>
     <string name="pref_plugin_installed">"プラグインリスト"</string>
@@ -166,23 +166,6 @@
     <string name="pref_extras_reset_default_dlg">"ブラウザデータをすべて消去して初期設定に戻します。"</string>
     <string name="pref_extras_reset_default_dlg_title">"初期設定にリセット"</string>
     <string name="pref_development_title">"デバッグ"</string>
-    <string name="pref_development_viewport">"Use wide viewport"</string>
-    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
-    <string name="pref_development_normal_rendering">"Normal rendering"</string>
-    <string name="pref_development_trace">"Enable tracing"</string>
-    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
-    <string name="pref_development_search_url">"Set search URL"</string>
-    <string name="pref_development_uastring">"UAString"</string>
-  <string-array name="pref_development_ua_choices">
-    <item>"Android"</item>
-    <item>"Desktop"</item>
-    <item>"iPhone"</item>
-  </string-array>
-  <string-array name="pref_development_ua_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
-  </string-array>
     <string name="pref_default_text_encoding">"テキストエンコードを設定"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>

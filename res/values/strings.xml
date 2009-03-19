@@ -340,7 +340,7 @@
     <!-- Title of dialog for setting the text size -->
     <string name="pref_text_size_dialogtitle">Text size</string>
     <!-- Do not translate -->
-    <string-array name="pref_text_size_values">
+    <string-array name="pref_text_size_values" translatable="false">
         <item><xliff:g>SMALLEST</xliff:g></item>
         <item><xliff:g>SMALLER</xliff:g></item>
         <item><xliff:g>NORMAL</xliff:g></item>
@@ -371,27 +371,27 @@
     <!-- Title for a group of settings -->
     <string name="pref_development_title">Debug</string>
     <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_viewport">Use wide viewport</string>
+    <string name="pref_development_viewport" translatable="false">Use wide viewport</string>
     <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_single_column_rendering">Single column rendering</string>
+    <string name="pref_development_single_column_rendering" translatable="false">Single column rendering</string>
     <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_normal_rendering">Normal rendering</string>
+    <string name="pref_development_normal_rendering" translatable="false">Normal rendering</string>
     <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_trace">Enable tracing</string>
+    <string name="pref_development_trace" translatable="false">Enable tracing</string>
     <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_nav_dump">Enable nav cache dump</string>
+    <string name="pref_development_nav_dump" translatable="false">Enable nav cache dump</string>
     <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_search_url">Set search URL</string>
+    <string name="pref_development_search_url" translatable="false">Set search URL</string>
     <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_uastring">UAString</string>
+    <string name="pref_development_uastring" translatable="false">UAString</string>
     <!-- Do not tranlsate.  Development option -->
-    <string-array name="pref_development_ua_choices">
+    <string-array name="pref_development_ua_choices" translatable="false">
         <item>Android</item>
         <item>Desktop</item>
         <item>iPhone</item>
     </string-array>
     <!-- Do not tranlsate.  Development option -->
-    <string-array name="pref_development_ua_values">
+    <string-array name="pref_development_ua_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -410,7 +410,7 @@
     <!-- Dialog box title -->
     <string name="pref_default_text_encoding_dialogtitle">Text encoding</string>
     <!-- Do not translate. Actual encoding values. Must be valid text encodings understandable from WebKit. -->
-    <string-array name="pref_default_text_encoding_values">
+    <string-array name="pref_default_text_encoding_values" translatable="false">
         <item>Latin-1</item>
         <item>UTF-8</item>
         <item>ISO-2022-JP</item>
@@ -450,7 +450,7 @@
     
     <!-- This string is for the browser "Go To" UI. -->
     <!-- Do not translate.  This string is not displayed in UI (no badge is selected for go to). -->
-    <string name="search_label">Browser</string>
+    <string name="search_label" translatable="false">Browser</string>
     <!-- This string is for the browser "Go To" UI. -->
     <!-- This is the hint text shown in the Go To widget, before text is entered. -->
     <string name="search_hint">Type Web address</string>
@@ -573,15 +573,15 @@
 
     <string name="activity_instrumentation_test_runner">Browser Test Runner</string>
     <!-- Do not translate.  Testing only -->
-    <string name="activity_instrumentation_functional_test_runner">Browser Functional Test Runner</string>
+    <string name="activity_instrumentation_functional_test_runner" translatable="false">Browser Functional Test Runner</string>
     <!-- Do not translate.  Testing only -->
-    <string name="dump_nav">Dump navigation cache</string>
+    <string name="dump_nav" translatable="false">Dump navigation cache</string>
 
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">
         <item>Google</item>
         <item>http://www.google.com/</item>
-        <item>Picasa Web Albums</item>
+        <item>Picasa</item>
         <item>http://picasaweb.google.com/m/viewer?source=androidclient</item>
         <item>Yahoo!</item>
         <item>http://www.yahoo.com/</item>
@@ -608,6 +608,9 @@
         <item>BBC</item>
         <item>http://www.bbc.co.uk/</item>
     </string-array>
+
+    <!-- Bookmark name for Picasa website -->
+    <string name="picasa" translatable="false">Picasa</string>
 
     <!-- Note that this is the standard search url.  It uses the current locale for language -->
     <!-- (%1$s) and country (%2$s) and shouldn't need to be replaced by locale or mcc selected -->

@@ -166,23 +166,6 @@
     <string name="pref_extras_reset_default_dlg">"Alle browsergegevens worden gewist en de standaardinstellingen worden hersteld."</string>
     <string name="pref_extras_reset_default_dlg_title">"Standaardinstellingen herstellen"</string>
     <string name="pref_development_title">"Foutopsporing"</string>
-    <string name="pref_development_viewport">"Use wide viewport"</string>
-    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
-    <string name="pref_development_normal_rendering">"Normaal gerenderd"</string>
-    <string name="pref_development_trace">"Traceren inschakelen"</string>
-    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
-    <string name="pref_development_search_url">"Set search URL"</string>
-    <string name="pref_development_uastring">"UAString"</string>
-  <string-array name="pref_development_ua_choices">
-    <item>"Android"</item>
-    <item>"Desktop"</item>
-    <item>"iPhone"</item>
-  </string-array>
-  <string-array name="pref_development_ua_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
-  </string-array>
     <string name="pref_default_text_encoding">"Tekstcodering instellen"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latijn-1 (ISO-8859-1)"</item>

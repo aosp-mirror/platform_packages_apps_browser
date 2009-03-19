@@ -166,23 +166,6 @@
     <string name="pref_extras_reset_default_dlg">"会清除所有浏览器数据并且设置会恢复为默认值。"</string>
     <string name="pref_extras_reset_default_dlg_title">"重置为默认值"</string>
     <string name="pref_development_title">"调试"</string>
-    <string name="pref_development_viewport">"使用宽视口"</string>
-    <string name="pref_development_single_column_rendering">"单列呈现"</string>
-    <string name="pref_development_normal_rendering">"正常呈现"</string>
-    <string name="pref_development_trace">"启用跟踪"</string>
-    <string name="pref_development_nav_dump">"启用导航缓存转储"</string>
-    <string name="pref_development_search_url">"设置搜索网址"</string>
-    <string name="pref_development_uastring">"UAString"</string>
-  <string-array name="pref_development_ua_choices">
-    <item>"Android"</item>
-    <item>"桌面"</item>
-    <item>"iPhone"</item>
-  </string-array>
-  <string-array name="pref_development_ua_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
-  </string-array>
     <string name="pref_default_text_encoding">"设置文字编码"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
