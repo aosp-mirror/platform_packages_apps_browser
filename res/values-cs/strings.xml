@@ -27,8 +27,6 @@
     <string name="action">"Přihlásit se"</string>
     <string name="cancel">"Zrušit"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" shod"</string>
-    <string name="zero">"Ne"</string>
     <string name="page_info">"Informace o stránce"</string>
     <string name="page_info_view">"Zobrazit informace o stránce"</string>
     <string name="page_info_address">"Adresa:"</string>

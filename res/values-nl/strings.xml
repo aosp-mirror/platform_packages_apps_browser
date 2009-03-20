@@ -27,8 +27,6 @@
     <string name="action">"Aanmelden"</string>
     <string name="cancel">"Annuleren"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" overeenkomsten"</string>
-    <string name="zero">"Nee"</string>
     <string name="page_info">"Pagina-informatie"</string>
     <string name="page_info_view">"Pagina-informatie weergeven"</string>
     <string name="page_info_address">"Adres:"</string>

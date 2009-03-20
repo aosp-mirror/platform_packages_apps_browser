@@ -27,8 +27,10 @@
     <string name="action">"ログイン"</string>
     <string name="cancel">"キャンセル"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" 件一致"</string>
-    <string name="zero">"いいえ"</string>
+    <!-- no translation found for matches_found:zero (6242659159545399963) -->
+    <!-- no translation found for matches_found:one (4352019729062956802) -->
+    <!-- no translation found for matches_found:few (5544267486978946555) -->
+    <!-- no translation found for matches_found:other (6616125067364315405) -->
     <string name="page_info">"ページ情報"</string>
     <string name="page_info_view">"ページ情報を表示"</string>
     <string name="page_info_address">"アドレス:"</string>
@@ -73,13 +75,13 @@
     <string name="bookmark_url_not_valid">"無効なURLです。"</string>
     <string name="delete_bookmark">"削除"</string>
     <string name="bookmark_page">"最後に表示したページをブックマークする"</string>
-    <string name="current_page">"ブックマークするページ "</string>
+    <string name="current_page">"URL "</string>
     <string name="delete_bookmark_warning">"ブックマーク「<xliff:g id="BOOKMARK">%s</xliff:g>」を削除します。"</string>
     <string name="open_in_new_window">"新しいウィンドウで開く"</string>
     <string name="new_window">"新規ウィンドウ"</string>
     <string name="goto_dot">"移動"</string>
-    <string name="find_dot">"このページの検索"</string>
-    <string name="select_dot">"テキストを選択"</string>
+    <string name="find_dot">"ページ内検索"</string>
+    <string name="select_dot">"テキストを選択してコピー"</string>
     <string name="view_tabs">"ウィンドウリスト"</string>
     <string name="view_tabs_condensed">"ウィンドウ"</string>
     <string name="tab_picker_title">"現在のウィンドウ"</string>
@@ -111,41 +113,41 @@
     <string name="browser_bookmarks_page_bookmarks_text">"ブックマーク"</string>
     <string name="menu_preferences">"設定"</string>
     <string name="pref_content_title">"ページコンテンツ設定"</string>
-    <string name="pref_content_load_images">"画像のロード"</string>
-    <string name="pref_content_load_images_summary">"ウェブページに画像を表示"</string>
+    <string name="pref_content_load_images">"画像の読み込み"</string>
+    <string name="pref_content_load_images_summary">"ウェブページに画像を表示する"</string>
     <string name="pref_content_block_popups">"ポップアップウィンドウをブロック"</string>
     <string name="pref_content_javascript">"JavaScriptを有効にする"</string>
     <string name="pref_content_open_in_background">"バックグラウンドで開く"</string>
     <string name="pref_content_open_in_background_summary">"新しいウィンドウを現在のウィンドウの後ろに開きます"</string>
     <string name="pref_content_homepage">"ホームページ設定"</string>
     <string name="pref_content_autofit">"ページの自動調整"</string>
-    <string name="pref_content_autofit_summary">"ウェブページの大きさを画面に合わせて表示します"</string>
+    <string name="pref_content_autofit_summary">"画面に合わせてウェブページの表示やサイズを自動調整する"</string>
     <string name="pref_privacy_title">"プライバシー設定"</string>
     <string name="pref_privacy_clear_cache">"キャッシュを消去"</string>
-    <string name="pref_privacy_clear_cache_summary">"キャッシュされたページコンテンツをすべて削除します"</string>
+    <string name="pref_privacy_clear_cache_summary">"キャッシュしたコンテンツをすべて削除する"</string>
     <string name="pref_privacy_clear_cache_dlg">"キャッシュを消去します。"</string>
-    <string name="pref_privacy_clear_cookies">"Cookieデータを全消去"</string>
-    <string name="pref_privacy_clear_cookies_summary">"ブラウザのCookieをすべて消去します"</string>
+    <string name="pref_privacy_clear_cookies">"Cookieをすべて消去"</string>
+    <string name="pref_privacy_clear_cookies_summary">"保存されているCookieをすべて消去する"</string>
     <string name="pref_privacy_clear_cookies_dlg">"Cookieをすべて消去します。"</string>
     <string name="pref_privacy_clear_history">"履歴消去"</string>
     <string name="pref_privacy_clear_history_summary">"ブラウザの閲覧履歴を消去します"</string>
     <string name="pref_privacy_clear_history_dlg">"ブラウザの閲覧履歴を消去します。"</string>
-    <string name="pref_privacy_clear_form_data">"フォームデータをクリア"</string>
+    <string name="pref_privacy_clear_form_data">"フォームデータを消去"</string>
     <string name="pref_privacy_clear_form_data_summary">"保存されているフォームデータをすべて消去します"</string>
     <string name="pref_privacy_clear_form_data_dlg">"保存されているフォームデータをすべて消去します。"</string>
     <string name="pref_privacy_clear_passwords">"パスワードを消去"</string>
-    <string name="pref_privacy_clear_passwords_summary">"保存されているパスワードをすべて消去します"</string>
+    <string name="pref_privacy_clear_passwords_summary">"保存されているパスワードをすべて消去する"</string>
     <string name="pref_privacy_clear_passwords_dlg">"保存されているパスワードをすべて消去します。"</string>
     <string name="pref_security_title">"セキュリティ設定"</string>
     <string name="pref_security_remember_passwords">"パスワードを保存"</string>
-    <string name="pref_security_remember_passwords_summary">"ウェブサイトのユーザー名とパスワードを保存します"</string>
+    <string name="pref_security_remember_passwords_summary">"サイトのユーザー名とパスワードを保存する"</string>
     <string name="pref_security_save_form_data">"フォームデータを保存"</string>
-    <string name="pref_security_save_form_data_summary">"フォームに入力したデータを保存して後で再利用します"</string>
-    <string name="pref_security_show_security_warning">"セキュリティ警告を表示"</string>
-    <string name="pref_security_show_security_warning_summary">"サイトの安全性に問題がある場合に警告を表示"</string>
-    <string name="pref_security_accept_cookies">"Cookieの受け入れ"</string>
-    <string name="pref_security_accept_cookies_summary">"サイトによるCookieデータの保存と読み取りを許可します"</string>
-    <string name="pref_text_size">"テキストサイズを設定"</string>
+    <string name="pref_security_save_form_data_summary">"フォームに入力したデータを保存して後で呼び出せるようにする"</string>
+    <string name="pref_security_show_security_warning">"セキュリティ警告"</string>
+    <string name="pref_security_show_security_warning_summary">"サイトの安全性に問題がある場合に警告を表示する"</string>
+    <string name="pref_security_accept_cookies">"Cookieを受け入れる"</string>
+    <string name="pref_security_accept_cookies_summary">"サイトによるCookieの保存と読み取りを許可する"</string>
+    <string name="pref_text_size">"文字サイズを選択"</string>
   <string-array name="pref_text_size_choices">
     <item>"最小"</item>
     <item>"小"</item>
@@ -154,19 +156,19 @@
     <item>"最大"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"文字サイズ"</string>
-    <string name="pref_extras_title">"詳細な設定"</string>
+    <string name="pref_extras_title">"詳細設定"</string>
     <string name="pref_extras_gears_enable">"Gearsを有効にする"</string>
-    <string name="pref_extras_gears_enable_summary">"ブラウザの機能を拡張するアプリケーションです"</string>
-    <string name="pref_extras_gears_settings">"Gears設定"</string>
+    <string name="pref_extras_gears_enable_summary">"ブラウザの機能拡張を許可する"</string>
+    <string name="pref_extras_gears_settings">"Gearsの設定"</string>
     <string name="pref_plugin_installed">"プラグインリスト"</string>
     <string name="pref_plugin_installed_empty_list">"プラグインはインストールされていません。"</string>
     <string name="pref_extras_gears_settings_summary">"ブラウザの機能を拡張するアプリケーション"</string>
     <string name="pref_extras_reset_default">"初期設定にリセット"</string>
-    <string name="pref_extras_reset_default_summary">"ブラウザデータを消去して初期設定に戻します"</string>
+    <string name="pref_extras_reset_default_summary">"ブラウザデータをすべて消去して出荷時の初期設定に戻す"</string>
     <string name="pref_extras_reset_default_dlg">"ブラウザデータをすべて消去して初期設定に戻します。"</string>
     <string name="pref_extras_reset_default_dlg_title">"初期設定にリセット"</string>
     <string name="pref_development_title">"デバッグ"</string>
-    <string name="pref_default_text_encoding">"テキストエンコードを設定"</string>
+    <string name="pref_default_text_encoding">"エンコードを選択"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
@@ -187,9 +189,9 @@
     <string name="clear_history">"履歴消去"</string>
     <string name="browser_history">"最近閲覧したページ"</string>
     <string name="empty_history">"ブラウザ履歴はありません。"</string>
-    <string name="add_new_bookmark">"ブックマークを追加..."</string>
+    <string name="add_new_bookmark">"現在のページをブックマーク"</string>
     <string name="no_database">"データベースがありません。"</string>
-    <string name="search_hint">"ウェブアドレスを入力してください"</string>
+    <string name="search_hint">"ウェブアドレスを入力"</string>
     <string name="search_button_text">"移動"</string>
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"このサイトはポップアップウィンドウを開こうとしています。"</string>
@@ -255,7 +257,7 @@
     <skip />
     <!-- no translation found for image_message (5450245866521896891) -->
     <skip />
-    <string name="settings_title">"Gears設定"</string>
+    <string name="settings_title">"Gearsの設定"</string>
     <string name="privacy_policy">"サイトのプライバシーポリシーを読んで、現在地の情報がどのように使用されるのか確認してください。"</string>
     <!-- no translation found for settings_storage_title (7089119630457156408) -->
     <skip />
@@ -271,8 +273,7 @@
     <skip />
     <!-- no translation found for settings_remove_site (1822247070226589958) -->
     <skip />
-    <!-- no translation found for settings_empty (2008952224378583146) -->
-    <skip />
+    <string name="settings_empty">"設定されている権限はありません"</string>
     <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
     <skip />
     <!-- no translation found for settings_confirmation_remove (585560170733446898) -->

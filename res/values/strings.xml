@@ -44,13 +44,18 @@
     <!-- Label for a confirm button.  Used in multiple contexts. -->
     <string name="ok">OK</string>
 
-    <!--The find dialog -->
-    <!-- Displayed on the Find Dialog, stating "X matches" where X is the
-            number of matches found in the current page -->
-    <string name="matches_found">\u0020matches</string>
-    <!-- Displayed on the Find Dialog, stating that there are "zero
-            matches" -->
-    <string name="zero">No</string>
+    <!-- Displayed on the Find dialog to display the number of matches
+         found in the current page. -->
+    <plurals name="matches_found">
+        <!-- Case of no matches -->
+        <item quantity="zero">No matches</item>
+        <!-- Case of one match -->
+        <item quantity="one">1 match</item>
+        <!-- Case of "few" (two) matches -->
+        <item quantity="few"><xliff:g id="number" example="2">%d</xliff:g> matches</item>
+        <!-- Case of several matches -->
+        <item quantity="other"><xliff:g id="number" example="137">%d</xliff:g> matches</item>
+    </plurals>
     
     <!-- Menu item -->
     <string name="page_info">Page info</string>
