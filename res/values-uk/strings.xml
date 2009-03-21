@@ -1,317 +1,703 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-
+  
           http://www.apache.org/licenses/LICENSE-2.0
-
+  
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for application_name (1935869255545976415) -->
-    <skip />
-    <string name="sign_in_to">"Реєстрація в <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- The name of the application. -->
+    <string name="application_name">"Браузер"</string>
+
+    <!-- Name of tab containing bookmarks -->
+    <string name="tab_bookmarks">"Закладки"</string>
+    <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+    <string name="tab_most_visited">"Часто відвідувані"</string>
+    <!-- Name of tab containing the user's complete history, organized by time of last visit -->
+    <string name="tab_history">"Історія"</string>
+    <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+    <string name="added_to_bookmarks">"Додано до закладок"</string>
+    <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+    <string name="removed_from_bookmarks">"Видалено із закладок"</string>
+    <!-- Sign-in dialog -->
+    <!-- This is used as the title of a dialog which is used to sign in to a secure site.
+            "%s1"is replaced with the host and "%s2" with realm -->
+    <string name="sign_in_to">"Реєстрація в <xliff:g id="hostname">%s1</xliff:g> \"<xliff:g id="realm">%s2</xliff:g>\""</string>
+    <!-- Prompt for an input box that allows the user to enter their login name -->
     <string name="username">"Назва"</string>
+    <!-- Prompt for an input box that allows the user to enter their password -->
     <string name="password">"Пароль"</string>
+    <!-- The label on the "sign in" button -->
     <string name="action">"Увійти"</string>
-    <string name="cancel">"Відміна"</string>
+
+    <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+    <string name="cancel">"Відмінити"</string>
+    <!-- Label for a confirm button.  Used in multiple contexts. -->
     <string name="ok">"ОК"</string>
-    <string name="matches_found">"співпадіннь(я)"</string>
-    <string name="zero">"Нема"</string>
-    <string name="page_info">"Відомості про сторінку"</string>
-    <string name="page_info_view">"Переглянути відомості про сторінку"</string>
+
+    <!--The find dialog -->
+    <!-- Displayed on the Find Dialog, stating "X matches" where X is the
+            number of matches found in the current page -->
+    <string name="matches_found">"\u0020збіг"</string>
+    <!-- Displayed on the Find Dialog, stating that there are "zero
+            matches" -->
+    <string name="zero">"Ні"</string>
+    
+    <!-- Menu item -->
+    <string name="page_info">"Дані про сторінку"</string>
+    <!-- Label for a button on an SSL error dialog that allows the user to see
+        Page info screen for the current page -->
+    <string name="page_info_view">"Переглянути дані про сторінку"</string>
+    <!-- Page Info dialog strings -->
+    <!-- Noun.  The url for the current page. Displayed on the Page Info
+            screen. -->
     <string name="page_info_address">"Адреса:"</string>
-    <string name="ssl_warnings_header">"Є проблеми з сертифікатом безпеки для цього сайту."</string>
+
+    <!-- SSL Error dialogs -->
+    <string name="ssl_warnings_header">"Є проблеми із сертифікатом безпеки для цього сайту."</string>
+    <!-- Label for a button on an SSL error dialog that lets the user continue
+            and view the page despite the error -->
     <string name="ssl_continue">"Продовжити"</string>
-    <string name="security_warning">"Попердеження про безопеку"</string>
+    <!-- Title for an SSL error dialog  -->
+    <string name="security_warning">"Попередження про безпеку"</string>
+    <!-- Label for a button on an SSL error dialog that lets the user view the
+        certificate -->
     <string name="view_certificate">"Переглянути сертифікат"</string>
+
+    <!-- Message in an SSL Error dialog -->
     <string name="ssl_untrusted">"Цей сертифікат отримано з ненадійного центру сертифікації."</string>
-    <string name="ssl_mismatch">"Назва сайту не відповідає назві сертификату."</string>
-    <string name="ssl_expired">"Термін дії сертифікату закінчився."</string>
-    <string name="ssl_not_yet_valid">"Цей сертивікати покищо не дійсний."</string>
+    <!-- Message in an SSL Error dialog -->
+    <string name="ssl_mismatch">"Назва сайту не збігається з назвою сертифікату."</string>
+    <!-- Message in an SSL Error dialog -->
+    <string name="ssl_expired">"Термін дії сертифікату вичерпано."</string>
+    <!-- Message in an SSL Error dialog -->
+    <string name="ssl_not_yet_valid">"Цей сертифікат ще не дійсний."</string>
+    
+    <!-- SSL Certificate dialogs -->
+    <!-- Title for an SSL Certificate dialog -->
     <string name="ssl_certificate">"Сертифікат безпеки"</string>
-    <string name="ssl_certificate_is_valid">"Це дійсний сертифікат."</string>
+    <!-- Message on an SSL Certificate dialog -->
+    <string name="ssl_certificate_is_valid">"Цей сертифікат дійсний."</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="issued_to">"Кому виданий:"</string>
-    <string name="common_name">"Звичайна назва:"</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
+    <string name="common_name">"Загальна назва:"</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
     <string name="org_name">"Організація:"</string>
-    <string name="org_unit">"Подразделение:"</string>
-    <string name="issued_by">"Кем выдан:"</string>
-    <string name="validity_period">"Срок действия:"</string>
-    <string name="issued_on">"Когда выдан:"</string>
-    <string name="expires_on">"Действителен до:"</string>
-    <string name="retrieving_creds_dlg_msg">"Получение сведений о входе…"</string>
-    <string name="close">"Закрыть"</string>
-    <string name="close_window">"Это окно будето закрыто."</string>
-    <string name="stopping">"Остановка загрузки…"</string>
-    <string name="stop">"Остановить"</string>
-    <string name="reload">"Обновить"</string>
-    <string name="back">"Назад"</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
+    <string name="org_unit">"Підрозділ:"</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
+    <string name="issued_by">"Ким видано:"</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
+    <string name="validity_period">"Термін дії:"</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
+    <string name="issued_on">"Коли видано:"</string>
+    <!-- Label for an information field on an SSL Certificate Dialog -->
+    <string name="expires_on">"Дійсний до:"</string>
+
+    <!-- Dialog that is shown while we are retrieving the login creds from the system -->
+    <string name="retrieving_creds_dlg_msg">"Отримання даних про вхід\u2026"</string>
+    <!-- Toast informing the user that loading has stopped for the current page. -->
+    <string name="stopping">"Зупинка завантаження\u2026"</string>
+    <!-- Menu item to stop the current page from loading. -->
+    <string name="stop">"Зупинити"</string>
+    <!-- Menu item to reload or refresh the current page. -->
+    <string name="reload">"Оновити"</string>
+    <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
     <string name="forward">"Вперед"</string>
+    <!-- Button label to confirm saving a bookmark. -->
     <string name="save">"ОК"</string>
-    <string name="do_not_save">"Отмена"</string>
-    <string name="location">"Адрес"</string>
-    <string name="name">"Название"</string>
+    <!-- Button label to cancel saving a bookmark. -->
+    <string name="do_not_save">"Відмінити"</string>
+    <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+    <string name="location">"Адреса"</string>
+    <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
+    <string name="name">"Назва"</string>
+    <!-- Initial value in Location field in Bookmark dialog box -->
     <string name="http">"http://"</string>
-    <string name="save_to_bookmarks">"Добавить в закладки"</string>
-    <string name="edit_bookmark">"Изменить закладку"</string>
-    <string name="create_shortcut_bookmark">"Добавить ярлык на главный экран"</string>
-    <string name="open_bookmark">"Открыть"</string>
-    <string name="remove_bookmark">"Удалить закладку"</string>
-    <string name="remove_history_item">"Удалить из истории"</string>
-    <string name="bookmark_saved">"Сохранено в заклкдках."</string>
-    <string name="bookmark_needs_title">"У закладки должно быть название."</string>
-    <string name="bookmark_needs_url">"У закладки должен быть адрес."</string>
-    <string name="empty_bookmark">"Невозможно создать пустую закладку."</string>
-    <string name="bookmark_url_not_valid">"URL недействителен."</string>
-    <string name="delete_bookmark">"Удаление"</string>
-    <string name="bookmark_page">"Добавить в закладки последнюю просмотренную страницу"</string>
-    <string name="current_page">"Текущая страница:"</string>
-    <string name="delete_bookmark_warning">"Закладка \"<xliff:g id="BOOKMARK">%s</xliff:g>\" будет удалена."</string>
-    <string name="open_in_new_window">"Открыть в новом окне"</string>
-    <string name="new_window">"Новое окно"</string>
-    <string name="goto_dot">"Перейти к URL"</string>
-    <string name="find_dot">"Найти на странице"</string>
-    <!-- no translation found for select_dot (6299170761900561967) -->
-    <skip />
-    <string name="homepage">"Главная страница"</string>
-    <string name="view_tabs">"Обзор окон"</string>
-    <string name="view_tabs_condensed">"Окна"</string>
-    <string name="tab_picker_title">"Текущие окна"</string>
-    <string name="tab_picker_view_tab">"Просмотреть"</string>
-    <string name="tab_picker_new_tab">"Новое окно"</string>
-    <string name="tab_picker_remove_tab">"Закрыть"</string>
-    <string name="tab_picker_bookmark">"Добавить в закладки"</string>
-    <string name="tab_picker_send_url">"Отправить ссылку"</string>
+    <!-- Menu item that opens a dialog to save a bookmark, initialized with the current page -->
+    <string name="save_to_bookmarks">"Закладки"</string>
+    <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+    <string name="edit_bookmark">"Редагувати закладку"</string>
+    <!-- Context menu item to create a shortcut to the bookmark on the desktop -->
+    <string name="create_shortcut_bookmark">"Добавити ярлик на головний екран"</string>
+    <!-- Context menu item to open the currently highlighted bookmark -->	
+    <string name="open_bookmark">"Відкрити"</string>
+    <!-- Menu item to remove the currently highlighted bookmark-->
+    <string name="remove_bookmark">"Видалити закладку"</string>
+    <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
+    <string name="remove_history_item">"Видалити з історії"</string>
+    <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+    <string name="bookmark_saved">"Збережено в закладках."</string>
+    <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+    <string name="bookmark_needs_title">"У закладки повинна бути назва."</string>
+        <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+    <string name="bookmark_needs_url">"У закладки повиннен бути адрес."</string>
+        <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name & Location fields -->
+    <string name="empty_bookmark">"Неможливо створити пусту закладку."</string>
+        <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+    <string name="bookmark_url_not_valid">"URL недійсний."</string>
+        <!-- Title of a confirmation dialog when the user deletes a bookmark-->
+    <string name="delete_bookmark">"Видалення"</string>
+    <!-- Menu item in the page that displays all bookmarks. It brings up a
+            dialog that allows the user to bookmark the page that the browser is
+            currently on, but is not visible because the bookmarks page is 
+            showing. -->
+    <string name="bookmark_page">"Добавити в закладки останню переглянуту сторінку"</string>
+    <!-- Summary text under the New Bookmark item on the Bookmarks screen.
+            Tells the user that if they select this item, it will bring up a
+            dialog to bookmark the page that the browser is currently viewing,
+            though it is not currently being displayed, since they are viewing
+            the bookmarks screen. -->
+    <string name="current_page">"з\u0020"</string>
+    <!-- Confirmation dialog message confirming that the user wishes to delete
+            the bookmark they selected for deletion -->
+    <string name="delete_bookmark_warning">"Закладку \"<xliff:g id="bookmark">%s</xliff:g>\" буде видалено."</string>
+    <!-- Context Menu item to open the selected link in a new window -->
+    <string name="open_in_new_window">"Відкрити в новому вікні"</string>
+    <!-- Appears in Current windows screen as label on blank + window; user 
+            selects this window to open a new browser window -->
+    <string name="new_window">"Нове вікно"</string>
+    <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
+    <string name="goto_dot">"Перейти до"</string>
+    <!-- Menu item that opens up a dialog which allows the user to provide a
+            string and search for it on the page. -->
+    <string name="find_dot">"Знайти на сторінці"</string>
+    <!-- Menu item to switch to text selection mode for copy and paste. -->
+    <string name="select_dot">"Вибрати текст"</string>
+    <!-- Menu item which opens a screen which shows all the currently open
+            windows, and also allows them to create a new one. -->
+    <string name="view_tabs">"Огляд вікон"</string>
+    <!-- Menu item which opens a screen which shows all the currently open
+            windows, and also allows them to create a new one. This is a shorter
+            alternate version of "view_tabs"-->
+    <string name="view_tabs_condensed">"Вікна"</string>
+    <!-- Title of current windows screen; appears in title bar -->
+    <string name="tab_picker_title">"Поточні вікна"</string>
+    <!-- Context Menu item to view the selected window on the window picker
+            screen -->
+    <string name="tab_picker_view_tab">"Переглянути"</string>
+    <!-- Menu item on the window picker screen to open a new window -->
+    <string name="tab_picker_new_tab">"Нове вікно"</string>
+    <!-- Context Menu item to close the currently selected window -->
+    <string name="tab_picker_remove_tab">"Закрити"</string>
+    <!-- Context Menu item to bookmark the currently selected window -->
+    <string name="tab_picker_bookmark">"Добавити в закладки"</string>
+    <!-- Context Menu item from the bookmarks page to share the selected
+            bookmark  -->
+    <string name="tab_picker_send_url">"Відправити посилання"</string>
+    <!-- Menu item to open the bookmarks page. This is a shorter version that
+            is displayed with an icon -->
     <string name="bookmarks">"Закладки"</string>
+    <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
     <string name="shortcut_bookmark">"Закладка"</string>
-    <string name="history">"История"</string>
-    <string name="menu_view_download">"Загрузки"</string>
-    <string name="menu_bookmark_page">"Страница закладок"</string>
-    <string name="share_page">"Отправить страницу"</string>
-    <string name="menu_zoom">"Масштаб"</string>
-    <string name="menu_flip_orientation">"Изменить ориентацию"</string>
-    <string name="contextmenu_openlink">"Открыть"</string>
-    <string name="contextmenu_openlink_newwindow">"Открыть в новом окне"</string>
-    <string name="contextmenu_bookmark_thislink">"Добавить в закладки"</string>
-    <string name="contextmenu_savelink">"Сохранить ссылку"</string>
-    <string name="contextmenu_sharelink">"Отправить ссылку"</string>
-    <string name="contextmenu_copy">"Копировать"</string>
-    <string name="contextmenu_copylink">"Копировать ссылку"</string>
-    <string name="contextmenu_download_image">"Сохранить изображение"</string>
-    <string name="contextmenu_view_image">"Просмотреть изображение"</string>
-    <string name="contextmenu_dial_dot">"Вызвать…"</string>
-    <string name="contextmenu_add_contact">"Добавить в адресную книгу"</string>
-    <string name="contextmenu_send_mail">"Отправить сообщение электронной почты"</string>
-    <string name="contextmenu_map">"На карте"</string>
+    <!-- Menu item to display the History of previously visited pages -->
+    <string name="history">"Історія"</string>
+    <!-- Menu item for viewing downloads from the browser -->
+    <string name="menu_view_download">"Завантаження"</string>
+    <!-- Menu item -->
+    <string name="share_page">"Відправити сторінку"</string>
+    <!-- Context Menu item open the currently selected link in the current
+            window.-->
+    <string name="contextmenu_openlink">"Відкрити"</string>
+    <!-- Context Menu item to open the currently selected link in a new
+            window. -->
+    <string name="contextmenu_openlink_newwindow">"Відкрити в новому вікні"</string>
+    <!-- Context Menu item to create a bookmark for the url of the currently
+            selected link. -->
+    <string name="contextmenu_bookmark_thislink">"Добавити в закладки"</string>
+    <!-- Context Menu item to save the webpage referred to by this link to the
+            SD card (external storage) -->
+    <string name="contextmenu_savelink">"Зберегти посилання"</string>
+    <!-- Context Menu item to send the url of the selected link to someone else,
+            via Gmail or another app -->
+    <string name="contextmenu_sharelink">"Відправити посилання"</string>
+    <!-- Context Menu item -->
+    <string name="contextmenu_copy">"Копіювати"</string>
+    <!-- Context Menu item to copy the url of the selected link to the
+            clipboard -->
+    <string name="contextmenu_copylink">"Копіювати посилання"</string>
+    <!-- Context Menu item to save the image to external storage -->
+    <string name="contextmenu_download_image">"Зберегти картинку"</string>
+    <!-- Context Menu item to view the image by itself in the browser -->
+    <string name="contextmenu_view_image">"Переглянути картинку"</string>
+    <!-- Context Menu item to open the dialer app with the selected phone number
+            -->
+    <string name="contextmenu_dial_dot">"Викликати\u2026"</string>
+    <!-- Context Menu item to add the selected phone number to the address book.
+            -->
+    <string name="contextmenu_add_contact">"Добавити до адресної книги"</string>
+    <!-- Context Menu item to send an email using the selected email address.-->
+    <string name="contextmenu_send_mail">"Відправити повідомлення електронної пошти"</string>
+    <!-- Context Menu item to show the currently selected address in the Maps
+            application -->
+    <string name="contextmenu_map">"Карта"</string>
+ 
+    <!-- Used as the title of dialogs in the Browser Settings confirming that
+            the user wants to clear (cache, history, or cookie data) -->
     <string name="clear">"Очистка"</string>
-    <string name="replace">"Заменить"</string>
+
+    <!-- Part of a sentence that says "Replace <url of existing bookmark> with
+            <url of new bookmark>?" -->
+    <string name="replace">"Замінити"</string>
+
+    <!-- Title displayed when the bookmarks page is shown -->
     <string name="browser_bookmarks_page_bookmarks_text">"Закладки"</string>
-    <string name="menu_preferences">"Настройки"</string>
-    <string name="pref_content_title">"Настройки содержания страниц"</string>
-    <string name="pref_content_load_images">"Загружать изображения"</string>
-    <string name="pref_content_load_images_summary">"Показывать изображения на страницах"</string>
-    <string name="pref_content_block_popups">"Заблокировать всплывающие окна"</string>
-    <string name="pref_content_javascript">"Разрешить JavaScript"</string>
-    <string name="pref_content_open_in_background">"Открывать в фоновом режиме"</string>
-    <string name="pref_content_open_in_background_summary">"Новые окна открываются позади текущего"</string>
-    <string name="pref_content_homepage">"Выбрать главную страницу"</string>
-    <string name="pref_content_autofit">"Автоподбор размеров страниц"</string>
-    <string name="pref_content_autofit_summary">"Форматировать веб-страницы по размеру экрана"</string>
-    <string name="pref_privacy_title">"Настройки конфиденциальности"</string>
-    <string name="pref_privacy_clear_cache">"Очистить кэш"</string>
-    <string name="pref_privacy_clear_cache_summary">"Удалить все кэшированные страницы"</string>
-    <string name="pref_privacy_clear_cache_dlg">"Кэш будет очищен."</string>
-    <string name="pref_privacy_clear_cookies">"Удалить все данные cookie"</string>
-    <string name="pref_privacy_clear_cookies_summary">"Удалить все файлы cookie браузера"</string>
-    <string name="pref_privacy_clear_cookies_dlg">"Все cookie будут удалены."</string>
-    <string name="pref_privacy_clear_history">"Очистить историю"</string>
-    <string name="pref_privacy_clear_history_summary">"Очистить историю посещений браузера"</string>
-    <string name="pref_privacy_clear_history_dlg">"История посещений браузера будет удалена."</string>
-    <string name="pref_privacy_clear_form_data">"Удалить данные форм"</string>
-    <string name="pref_privacy_clear_form_data_summary">"Удалить все сохраненные данные форм"</string>
-    <string name="pref_privacy_clear_form_data_dlg">"Все сохраненные данные форм будут удалены."</string>
-    <string name="pref_privacy_clear_passwords">"Удалить пароли"</string>
-    <string name="pref_privacy_clear_passwords_summary">"Удалить все сохраненные пароли"</string>
-    <string name="pref_privacy_clear_passwords_dlg">"Все сохраненные пароли будут удалены."</string>
-    <string name="pref_security_title">"Настройки безопасности"</string>
-    <string name="pref_security_remember_passwords">"Запоминать пароли"</string>
-    <string name="pref_security_remember_passwords_summary">"Сохранять имена пользователя и пароли для веб-сайтов"</string>
-    <string name="pref_security_save_form_data">"Запоминать данные форм"</string>
-    <string name="pref_security_save_form_data_summary">"Запоминать данные форм для дальнейшего использования"</string>
-    <string name="pref_security_show_security_warning">"Показывать предупреждения о безопасности"</string>
-    <string name="pref_security_show_security_warning_summary">"Показывать предупреждение при наличии проблем с безопасностью сайта"</string>
-    <string name="pref_security_accept_cookies">"Разрешить cookie"</string>
-    <string name="pref_security_accept_cookies_summary">"Разрешить сайтам сохранять и считывать данные cookie"</string>
-    <string name="pref_text_size">"Выбрать размер текста"</string>
-  <string-array name="pref_text_size_choices">
-    <item>"Очень мелкий"</item>
-    <item>"Мелкий"</item>
-    <item>"Обычный"</item>
-    <item>"Крупный"</item>
-    <item>"Очень крупный"</item>
-  </string-array>
-    <string name="pref_text_size_dialogtitle">"Размер текста"</string>
-    <string name="pref_extras_title">"Дополнительные настройки"</string>
-    <string name="pref_extras_gears_enable">"Включить Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"Приложения, расширяющие возможности браузера"</string>
-    <string name="pref_extras_gears_settings">"Настройки Gears"</string>
-    <string name="pref_plugin_installed">"Список плагинов"</string>
-    <string name="pref_plugin_installed_empty_list">"Нет установленных плагинов."</string>
-    <string name="pref_extras_gears_settings_summary">"Приложения, расширяющие возможности браузера"</string>
-    <string name="pref_extras_reset_default">"Восстановить значения по умолчанию"</string>
-    <string name="pref_extras_reset_default_summary">"Удалить все данные браузера и восстановить настройки по умолчанию"</string>
-    <string name="pref_extras_reset_default_dlg">"Все данные бразуера будут удалены, а для настроек будут восстановлены значения по умолчанию."</string>
-    <string name="pref_extras_reset_default_dlg_title">"Восстановить значения по умолчанию"</string>
-    <string name="pref_development_title">"Отладка"</string>
+
+
+    <!-- Settings screen strings -->
+    <!-- Menu item to open the Settings screen -->
+    <string name="menu_preferences">"Налаштування"</string>
+    <!-- Settings screen, section title -->
+    <string name="pref_content_title">"Налаштування вмісту сторінок"</string>
+    <!-- Settings label -->
+    <string name="pref_content_load_images">"Завантажити картинку"</string>
+    <!-- Settings label -->
+    <string name="pref_content_load_images_summary">"Показувати картинку на сторінках"</string>
+    <!-- Settings label -->
+    <string name="pref_content_block_popups">"Заблокувати випливаючі вікна"</string>
+    <!-- Settings label -->
+    <string name="pref_content_javascript">"Дозволити JavaScript"</string>
+    <!-- Settings label -->
+    <string name="pref_content_open_in_background">"Відкривати в фоновому режимі"</string>
+    <!-- Settings summary -->
+    <string name="pref_content_open_in_background_summary">"Нові вікна відкриваються позаду поточного"</string>
+    <!-- Settings label -->
+    <string name="pref_content_homepage">"Вибрати домашню сторінку"</string>
+    <!-- Settings label -->
+    <string name="pref_content_autofit">"Автопідбір розміру сторінок"</string>
+    <!-- Settings summary -->
+    <string name="pref_content_autofit_summary">"Форматувати веб-сторінки за розміром екрану"</string>
+    <!-- Settings screen, section title -->
+    <string name="pref_privacy_title">"Налаштування конфіденційності"</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_cache">"Очистити кеш"</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_cache_summary">"Видалити всі кешировані сторінки"</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_cache_dlg">"Кеш буде очищено."</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_cookies">"Видалити всі дані cookie"</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_cookies_summary">"Видалити всі файли cookie браузера"</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_cookies_dlg">"Всі cookie будуть видалені."</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_history">"Очистити історію"</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_history_summary">"Очистити історію навідувань браузера"</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_history_dlg">"Історію навідувань браузера буде видалено."</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_form_data">"Видалити дані форм"</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_form_data_summary">"Видалити всі збережені дані форм"</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_form_data_dlg">"Всі збережені дані форм будуть видалені."</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_passwords">"Видалити паролі"</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_passwords_summary">"Видалити всі збережені паролі"</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_passwords_dlg">"Всі збережені паролі будуть видалені."</string>
+    <!-- Settings screen, section title -->
+    <string name="pref_security_title">"Налаштування безпеки"</string>
+    <!-- Settings label -->
+    <string name="pref_security_remember_passwords">"Запам'ятати паролі"</string>
+    <!-- Settings summary -->
+    <string name="pref_security_remember_passwords_summary">"Зберігати ім'я користувача і паролі для веб-сайтів"</string>
+    <!-- Settings label -->
+    <string name="pref_security_save_form_data">"Запам'ятати дані форм"</string>
+    <!-- Settings summary -->
+    <string name="pref_security_save_form_data_summary">"Запам'ятати дані форм для подальшого використання"</string>
+    <!-- Settings label -->
+    <string name="pref_security_show_security_warning">"Показати попередження про безпеку"</string>
+    <!-- Settings summary -->
+    <string name="pref_security_show_security_warning_summary">"Показати попередження при наявності проблем з безпекою сайту"</string>
+    <!-- Settings label -->
+    <string name="pref_security_accept_cookies">"Дозволити cookie"</string>
+    <!-- Settings summary -->
+    <string name="pref_security_accept_cookies_summary">"Дозволити сайтам зберігати  і зчитувати дані cookie"</string>
+    <!-- Settings label -->
+    <string name="pref_text_size">"Вибрати розмір тексту"</string>
+    <!-- Settings text size options; appear in Text size dialog box -->
+    <string-array name="pref_text_size_choices">
+        <item>"Дуже маленький"</item>
+        <item>"Дрібний"</item>
+        <item>"Звичайний"</item>
+        <item>"Звичайний"</item>
+        <item>"Дуже великий"</item>
+    </string-array>
+    <!-- Title of dialog for setting the text size -->
+    <string name="pref_text_size_dialogtitle">"Розмір тексту"</string>
+    <!-- Do not translate -->
+    <string-array name="pref_text_size_values">
+        <item><xliff:g>"Найменший"</xliff:g></item>
+        <item><xliff:g>"Дрібний"</xliff:g></item>
+        <item><xliff:g>"Звичайний"</xliff:g></item>
+        <item><xliff:g>"Звичайний"</xliff:g></item>
+        <item><xliff:g>"Найбільший"</xliff:g></item>
+    </string-array>
+    <!-- Settings screen, section title -->
+    <string name="pref_extras_title">"Додаткові налаштування"</string>
+    <!-- Settings label -->
+    <string name="pref_extras_gears_enable">"Увімкнути Gears"</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_gears_enable_summary">"Програми, розширяючі можливості браузера"</string>
+    <!-- Settings label -->
+    <string name="pref_extras_gears_settings">"Налаштування Gears"</string>
+    <!-- Settings summary -->
+    <string name="pref_plugin_installed">"Список плагінів"</string>
+    <!-- Settings summary -->
+    <string name="pref_plugin_installed_empty_list">"Немає встановлених плагінів."</string>
+    <string name="pref_extras_gears_settings_summary">"Програми, розширяючі можливості браузера"</string>
+    <!-- Settings label -->
+    <string name="pref_extras_reset_default">"Відновити значення за замовчуванням"</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_reset_default_summary">"Видалити всі дані браузера і відновити налаштування за замовчуванням"</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_extras_reset_default_dlg">"Всі дані браузера будуть видалені, а для налаштувань будуть відновленні значення за замовчуванням."</string>
+    <!-- Confirmation dialog title -->
+    <string name="pref_extras_reset_default_dlg_title">"Відновити значення за замовчуванням"</string>
+    <!-- Title for a group of settings -->
+    <string name="pref_development_title">"Відлагодження"</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_viewport">"Use wide viewport"</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_single_column_rendering">"Single column rendering"</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_normal_rendering">"Normal rendering"</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_trace">"Enable tracing"</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_search_url">"Set search URL"</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_uastring">"UAString"</string>
-  <string-array name="pref_development_ua_choices">
-    <item>"Android"</item>
-    <item>"Desktop"</item>
-    <item>"iPhone"</item>
-  </string-array>
-  <string-array name="pref_development_ua_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
-  </string-array>
-    <string name="pref_default_text_encoding">"Выбрать кодировку текста"</string>
-  <string-array name="pref_default_text_encoding_choices">
-    <item>"Латиница-1 (ISO-8859-1)"</item>
-    <item>"Юникод (UTF-8)"</item>
-    <item>"Японская (ISO-2022-JP)"</item>
-    <item>"Японская (SHIFT_JIS)"</item>
-    <item>"Японская (EUC-JP)"</item>
-  </string-array>
-    <string name="pref_default_text_encoding_dialogtitle">"Кодировка текста"</string>
-    <string name="pref_default_text_encoding_default">"Латиница-1"</string>
-    <string name="browserFrameRedirect">"Перенаправление"</string>
-    <string name="browserFrame307Post">"С этой веб-страницы выполняется перенаправление. Отправить введенные данные формы по новому адресу?"</string>
-    <string name="browserFrameNetworkErrorLabel">"Неполадка подключения для передачи данных"</string>
-    <string name="browserFrameFileErrorLabel">"Проблема с файлом"</string>
-    <string name="browserFrameFormResubmitLabel">"Подтверждение"</string>
-    <string name="browserFrameFormResubmitMessage">"Страница, которую вы пытаетесь просмотреть, содержит отправленные ранее данные (\"POSTDATA\"). При повторной отправке данных выполняемое формой действие (например поиск или онлайн-покупка) будет повторено."</string>
-    <string name="loadSuspendedTitle">"Нет сетевого подключения"</string>
-    <string name="loadSuspended">"Загрузка страницы будет продолжена после восстановления подключения."</string>
-    <string name="clear_history">"Очистить историю"</string>
-    <string name="browser_history">"Недавно посещенные страницы"</string>
-    <string name="empty_history">"История бразуера пуста."</string>
-    <string name="add_new_bookmark">"Создать закладку"</string>
-    <string name="no_database">"Нет базы данных!"</string>
-    <string name="search_hint">"Введите веб-адрес"</string>
-    <string name="search">"Поиск"</string>
+    <!-- Do not tranlsate.  Development option -->
+    <string-array name="pref_development_ua_choices">
+        <item>"Android"</item>
+        <item>"Desktop"</item>
+        <item>"iPhone"</item>
+    </string-array>
+    <!-- Do not tranlsate.  Development option -->
+    <string-array name="pref_development_ua_values">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+    </string-array>
+    <!-- Settings screen, setting option name -->
+    <string name="pref_default_text_encoding">"Вибрати кодування тексту"</string>
+    <!-- Options in the Default encoding dialog box -->
+    <string-array name="pref_default_text_encoding_choices">
+        <item>"Латиниця-1 (ISO-8859-1)"</item>
+        <item>"Юнікод (UTF-8)"</item>
+        <item>"Японска (ISO-2022-JP)"</item>
+        <item>"Японска (SHIFT_JIS)"</item>
+        <item>"Японска (EUC-JP)"</item>
+        <!-- TODO: We should add a lot more encodings.  -->
+    </string-array>
+    <!-- Dialog box title -->
+    <string name="pref_default_text_encoding_dialogtitle">"Кодування тексту"</string>
+    <!-- Do not translate. Actual encoding values. Must be valid text encodings understandable from WebKit. -->
+    <string-array name="pref_default_text_encoding_values">
+        <item>"Latin-1"</item>
+        <item>"UTF-8"</item>
+        <item>"ISO-2022-JP"</item>
+        <item>"SHIFT_JIS"</item>
+        <item>"EUC-JP"</item>
+    </string-array>
+    <string name="pref_default_text_encoding_default">"Latin-1"</string>
+    <!-- Dialog box title -->
+    <string name="browserFrameRedirect">"Переадресація"</string>
+    <!-- Dialog box message -->
+    <string name="browserFrame307Post">"З цієї веб-сторінки виконується переадресація. Відправити введені дані форми за новою адресою?"</string>
+    <!-- Title for a dialog displayed when the browser has a data connectivity
+            problem -->
+    <string name="browserFrameNetworkErrorLabel"> "Пошкодження підключення для передачі даних"</string>
+    <!-- Title for a dialog displayed when the browser runs into a file label
+            error -->
+    <string name="browserFrameFileErrorLabel"> "Проблема з файлом"</string>
+    <!-- Dialog box title -->
+    <string name="browserFrameFormResubmitLabel">"Підтвердження"</string>
+    <!-- Dialog box message -->
+    <string name="browserFrameFormResubmitMessage">"Сторінка, яку ви намагаєтесь переглянути, містить відправлені раніше дані (\"POSTDATA\"). При повторній відправці даних виконуване формою дію (наприклад пошук або онлайн-купівля) буде повторено."</string>
+    <!-- Dialog box title -->
+    <string name="loadSuspendedTitle">"Немає мережевого підключення"</string>
+    <!-- Dialog box message -->
+    <string name="loadSuspended"> "Завантаження сторінки буде продовжена після відновлення підключення."</string>
+    <!-- Menu item -->
+    <string name="clear_history">"Очистити історію"</string>
+    <!-- History screen title; appears in title bar -->
+    <string name="browser_history">"Нещодавно переглянуті сторінки"</string>
+    <!-- Appears on History screen if no history is found -->
+    <string name="empty_history">"Історія бразуера пуста."</string>
+    <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+    <string name="add_new_bookmark">"Створити закладку"</string>
+    <!-- Add bookmark dialog sets its title to this if we have no database.
+            This is an error case -->
+    <string name="no_database">"Немає бази даних!"</string>
+    
+    <!-- This string is for the browser "Go To" UI. -->
+    <!-- Do not translate.  This string is not displayed in UI (no badge is selected for go to). -->
+    <string name="search_label">"Браузер"</string>
+    <!-- This string is for the browser "Go To" UI. -->
+    <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+    <string name="search_hint">"Введіте веб-адрес"</string>
+    <!-- This string is for the browser "Go To" UI. -->
+    <!-- This is the button label in the "Go To" UI. -->
     <string name="search_button_text">"Перейти"</string>
-    <string name="attention">"Внимание"</string>
-    <string name="popup_window_attempt">"Этот сайт пытается открыть всплывающее окно."</string>
-    <string name="allow">"Разрешить"</string>
-    <string name="block">"Заблокировать"</string>
-    <string name="too_many_windows_dialog_title">"Предельное количество окон"</string>
-    <string name="too_many_windows_dialog_message">"Открыть новое окно невозможно, потому что открыто максимальное количество окон."</string>
-    <string name="too_many_subwindows_dialog_title">"Всплывающее окно уже открыто"</string>
-    <string name="too_many_subwindows_dialog_message">"Не удалось открыть всплывающее окно, потому что нельзя открыть больше одного такого окна одновременно."</string>
-    <string name="download_title">"История загрузок"</string>
-    <string name="download_unknown_filename">"&lt;Неизвестно&gt;"</string>
-    <string name="download_menu_open">"Открыть"</string>
-    <string name="download_menu_clear">"Удалить из списка"</string>
-    <string name="download_menu_cancel">"Отменить загрузку"</string>
-    <string name="download_menu_cancel_all">"Отменить все загрузки"</string>
-    <string name="download_menu_clear_all">"Очистить список"</string>
+
+    <!-- Pop-up window dialog -->
+    <!-- Title for a dialog informing the user that the site is attempting to
+            display a popup window -->
+    <string name="attention">"Увага"</string>
+    <!-- Message for a dialog informing the user that the site is attempting to
+            display a popup window -->
+    <string name="popup_window_attempt">"Цей сайт намагається відкрити 
+      випливаюче вікно."</string>
+    <!-- Label for a button to allow a particular popup window to open -->
+    <string name="allow">"Дозволити"</string>
+    <!-- Label for a button to disallow a particular popup from opening -->
+    <string name="block">"Заблокувати"</string>
+
+    <!-- Title for a dialog informing the user that they cannot open any more
+            windows because the limit has been reached. -->
+    <string name="too_many_windows_dialog_title">"Обмежена кількість вікон"</string>
+    <!-- Message in a dialog telling the user that they cannot open any more
+            windows because the limit has been reached. -->
+    <string name="too_many_windows_dialog_message">"Відкрити нове вікно неможливо, тому що відкрито максимальну кількість вікон."</string>
+    <!-- Title for a dialog informing the user that they cannot open a subwindow
+            because only one can be open at a time. -->
+    <string name="too_many_subwindows_dialog_title">"Випливаюче вікно вже відкрито"</string>
+    <!-- Message for a dialog informing the user that they cannot open a
+            subwindow because only one can be open at a time. -->
+    <string name="too_many_subwindows_dialog_message">"Не вдалося відкрити випливаюче вікно, тому що неможна відкрити більше одного такого вікна 
+      одночасно."</string>
+
+    <!-- Download History UI strings -->
+    <string name="download_title">"Історія завантажень"</string>
+    <!-- Download history screen string-->
+    <string name="download_unknown_filename">"&lt;Невідомо&gt;"</string>
+    <!-- Context menu item on Download history screen -->
+    <string name="download_menu_open">"Відкрити"</string>
+    <!-- Context menu item on Download history screen -->
+    <string name="download_menu_clear">"Видалити зі списку"</string>
+    <!-- Context menu item in Download history screen -->
+    <string name="download_menu_cancel">"Відмінити завантаження"</string>
+    <!-- Menu item -->
+    <string name="download_menu_cancel_all">"Відмінити всі завантаження"</string>
+    <!-- Menu item -->
+    <string name="download_menu_clear_all">"Очистити список"</string>
+    <!-- Confirmation dialog title -->
     <string name="download_clear_dlg_title">"Очистка"</string>
-    <string name="download_clear_dlg_msg">"Все элементы будут удалены из списка и кэша браузера."</string>
-    <string name="download_cancel_dlg_title">"Отмена загрузок"</string>
-    <string name="download_cancel_dlg_msg">"Все загрузки (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) будут отменены и удалены из истории загрузок."</string>
-    <string name="download_file_error_dlg_title">"Недостаточно места"</string>
-    <string name="download_file_error_dlg_msg">"Не удалось загрузить <xliff:g id="FILENAME">%s</xliff:g>."\n"Освободите пространство на телефоне и повторите попытку."</string>
-    <string name="download_failed_generic_dlg_title">"Загрузка не удалась"</string>
-    <string name="download_no_sdcard_dlg_title">"Нет карты SD"</string>
-    <string name="download_no_sdcard_dlg_msg">"Для загрузки файла <xliff:g id="FILENAME">%s</xliff:g> нужна карта SD."</string>
+    <!-- Confirmation dialog message -->
+    <string name="download_clear_dlg_msg">"Всі елементи будуть видалені із списку і кешу браузера."</string>
+    <!-- Confirmation dialog title -->
+    <string name="download_cancel_dlg_title">"Відміна завантаження"</string>
+    <!-- Confirmation dialog message -->
+    <string name="download_cancel_dlg_msg">"Всі завантаження(<xliff:g id="download_count">%d</xliff:g>) будуть відмінені і видалені  із історії завантажень."</string>
+    <!-- Dialog title -->
+    <string name="download_file_error_dlg_title">"Недостатньо місця"</string>
+    <!-- Dialog message -->
+    <string name="download_file_error_dlg_msg">"Не вдалося завантажити <xliff:g id="filename">%s</xliff:g>."\n"Звільніть місце на телефоні і повторіть спробу."</string>
+    <!-- Title for a dialog informing the user that the download has failed -->
+    <string name="download_failed_generic_dlg_title">"Завантаження не вдалося"</string>
+    <!-- Dialog title -->
+    <string name="download_no_sdcard_dlg_title">"Немає карти SD"</string>
+    <!-- Dialog message -->
+    <string name="download_no_sdcard_dlg_msg">"Для завантаження файлу <xliff:g id="filename">%s</xliff:g> потрібна карта SD."</string>
+    <!-- Title for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything -->
     <string name="download_sdcard_busy_dlg_title">"Карта SD недоступна"</string>
-    <string name="download_sdcard_busy_dlg_msg">"Карта SD занята. Чтобы разрешить загрузки, выберите Главный экран &gt; Настройки &gt; Карта SD &gt; Хранилище телефона и снимите флажок \"Использовать в качестве USB-хранилища\"."</string>
-    <string name="download_no_application">"Не удалось найти приложение для открытия этого файла."</string>
-    <string name="retry">"Повторить"</string>
-    <string name="no_downloads">"История загрузок пуста."</string>
-    <string name="download_error">"Загрузка безуспешна."</string>
-    <string name="download_success">"Загрузка файла <xliff:g id="FILE">%s</xliff:g> завершена."</string>
-    <string name="download_running">"Выполняется загрузка…"</string>
-    <string name="download_pending">"Загрузка начинается…"</string>
-    <string name="download_pending_network">"Ожидание подключения для передачи данных…"</string>
-    <string name="download_running_paused">"Ожидание подключения для передачи данных…"</string>
-    <string name="download_canceled">"Загрузка отменена."</string>
-    <string name="download_not_acceptable">"Загрузка невозможна. Содержание не поддерживается телефоном."</string>
-    <string name="download_file_error">"Невозможно завершить загрузку. Недостаточно места."</string>
-    <string name="download_length_required">"Загрузка невозможна. Не удается определить размер элемента."</string>
-    <string name="download_precondition_failed">"Загрузка прервана и не может быть продолжена."</string>
-    <string name="activity_instrumentation_test_runner">"Проверка браузера"</string>
-  <string-array name="bookmarks">
-    <item>"Google"</item>
-    <item>"http://www.google.ru/"</item>
-    <item>"Yahoo!"</item>
-    <item>"http://www.yahoo.com/"</item>
-    <item>"MSN"</item>
-    <item>"http://www.msn.com/"</item>
-    <item>"MySpace"</item>
-    <item>"http://www.myspace.com/"</item>
-    <item>"Facebook"</item>
-    <item>"http://www.facebook.com/"</item>
-    <item>"Википедия"</item>
-    <item>"http://ru.wikipedia.org/"</item>
-    <item>"eBay"</item>
-    <item>"http://www.ebay.com/"</item>
-    <item>"CNN"</item>
-    <item>"http://www.cnn.com/"</item>
-    <item>"New York Times"</item>
-    <item>"http://www.nytimes.com/"</item>
-    <item>"ESPN"</item>
-    <item>"http://espn.go.com/"</item>
-    <item>"Amazon"</item>
-    <item>"http://www.amazon.com/"</item>
-    <item>"Weather Channel"</item>
-    <item>"http://www.weather.com/"</item>
-    <item>"BBC"</item>
-    <item>"http://www.bbc.co.uk/"</item>
-  </string-array>
-    <string name="permlab_readHistoryBookmarks">"считывать историю и закладки браузера"</string>
-    <string name="permdesc_readHistoryBookmarks">"Позволяет приложению считывать все URL, открытые через браузер, и все закладки браузера."</string>
-    <string name="permlab_writeHistoryBookmarks">"записывать историю и закладки браузера"</string>
-    <string name="permdesc_writeHistoryBookmarks">"Позволяет приложению изменять сохраненные в телефоне историю и закладки браузера. Вредоносное ПО сможет стирать или изменять данные браузера."</string>
-    <string name="query_data_message">"Указанный ниже веб-сайт пытается сохранить данные на вашем компьютере с помощью Gears."</string>
-    <string name="location_message">"Указанный ниже веб-сайт пытается получить данные о вашем местоположении с помощью Gears."</string>
-    <string name="shortcut_message">"Этот веб-сайт пытается создать ярлык на вашем компьютере. Разрешить?"</string>
-    <string name="settings_message">"В таблице ниже показаны разрешения, которые вы дали сайтам, пытавшимся использовать Gears."</string>
-    <string name="filepicker_message">"Выбор файлов Gears"</string>
-    <string name="image_message">"Выбранное изображение"</string>
-    <string name="settings_title">"Настройки Gears"</string>
-    <string name="privacy_policy">"Прочитайте политику конфиденциальности сайта, чтобы узнать, как будут использованы данные о вашем местоположении."</string>
-    <string name="permission_button_alwaysdeny">"Никогда для этого сайта"</string>
-    <string name="permission_button_allow">"Разрешить"</string>
-    <string name="permission_button_deny">"Запретить"</string>
-    <string name="shortcut_button_alwaysdeny">"Никогда для этого ярлыка"</string>
+    <!-- Message for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything.  Informs
+            the user how to enable SD card storage -->
+    <string name="download_sdcard_busy_dlg_msg">"Карта SD використовується. Для завантаження, оберіть \"Вимкніть USB пам'ять\" в сповіщенні."</string>
+ 
+    <!-- Message for a dialog informing the user that there is no application on
+            the phone that can open the file that was downloaded  -->
+    <string name="download_no_application">"Не вдалося знайти програму для відкриття цього файлу."</string>
+    <!-- Label for a button to re-attempt downloading a file -->
+    <string name="retry">"Повторити"</string>
+    <!-- Appears in Download history screen if there is no history -->
+    <string name="no_downloads">"Історія завантажень пуста."</string>
+    <!-- the following download_xxxx matches the download manager state, ie Downloads.Status -->
+    <string name="download_error">"Завантаження не вдалося."</string>
+    <!-- Appears in Download history screen after an item has downloaded, included item size -->
+    <string name="download_success">"Завантаження файлу <xliff:g id="file">%s</xliff:g> завершено."</string>
+    <!-- Appears in Download history screen while an item is being downloaded -->
+    <string name="download_running">"Виконується завантаження\u2026"</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download has not
+            yet begun -->
+    <string name="download_pending">"Завантаження починаєтся\u2026"</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download is
+            waiting for a network connection to continue -->
+    <string name="download_pending_network">"Очікування підключення для передачі даних\u2026"</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download has
+            paused to wait for a network connection -->
+    <string name="download_running_paused">"Очікування підключення для передачі даних\u2026"</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download has
+            been canceled -->
+    <string name="download_canceled">"Завантаження відмінено."</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download will
+            not happen because the content is not supported by the phone -->
+    <string name="download_not_acceptable">"Завантаження неможливе. Ємність не підтримується телефоном."</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download did not
+            finish because there is not enough storage for the file -->
+    <string name="download_file_error">"Неможливо закінчити завантаження. Недостатньо місця."</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the item cannot be
+            downloaded because it cannot determine the length of the item -->
+    <string name="download_length_required">"Завантаження неможливе. Не вдається визначити розмір елементу."</string>
+    <!-- Message in the list of items which have received download requests
+            telling their status.  This message states that the download was
+            interrupted and cannot be resumed -->
+    <string name="download_precondition_failed">"Завантаження перервано і не може бути продовжено."</string>
+
+    <string name="activity_instrumentation_test_runner">"Перевірка браузера"</string>
+    <!-- Do not translate.  Testing only -->
+    <string name="activity_instrumentation_functional_test_runner">"Browser Functional Test Runner"</string>
+    <!-- Do not translate.  Testing only -->
+    <string name="dump_nav">"Dump navigation cache"</string>
+
+    <!-- Bookmarks -->
+    <string-array name="bookmarks" translatable="false">
+        <item>"Google"</item>
+        <item>"http://www.google.com/"</item>
+        <item>"Picasa Web Albums"</item>
+        <item>"http://picasaweb.google.com/m/viewer?source=androidclient"</item>
+        <item>"Yahoo!"</item>
+        <item>"http://www.yahoo.com/"</item>
+        <item>"MSN"</item>
+        <item>"http://www.msn.com/"</item>
+        <item>"MySpace"</item>
+        <item>"http://www.myspace.com/"</item>
+        <item>"Facebook"</item>
+        <item>"http://www.facebook.com/"</item>
+        <item>"Wikipedia"</item>
+        <item>"http://www.wikipedia.org/"</item>
+        <item>"eBay"</item>
+        <item>"http://www.ebay.com/"</item>
+        <item>"CNN"</item>
+        <item>"http://www.cnn.com/"</item>
+        <item>"New York Times"</item>
+        <item>"http://www.nytimes.com/"</item>
+        <item>"ESPN"</item>
+        <item>"http://espn.go.com/"</item>
+        <item>"Amazon"</item>
+        <item>"http://www.amazon.com/"</item>
+        <item>"Weather Channel"</item>
+        <item>"http://www.weather.com/"</item>
+        <item>"BBC"</item>
+        <item>"http://www.bbc.co.uk/"</item>
+    </string-array>
+
+    <!-- Note that this is the standard search url.  It uses the current locale for language -->
+    <!-- (%1$s) and country (%2$s) and shouldn't need to be replaced by locale or mcc selected -->
+    <!-- resources. -->
+    <!-- Any changes to this (especially in terms of adding/removing the MCC-specific flavors) -->
+    <!-- should be mirrored by changes in apps/GoogleSearch. -->
+    <!-- Do not translate.  This string is an internal URI, not seen in the UI. -->
+    <string name="google_search_base" translatable="false">
+        "http://www.google.com/m?hl=%1$s&amp;gl=%2$s&amp;"</string>
+
+    <!-- Used in Goto to indicate Google search -->
+    <string name="search_google">"Пошук Google"</string>
+
+    <!-- Title of an application permission, listed so the user can choose whether 
+        they want to allow the application to do this. -->
+    <string name="permlab_readHistoryBookmarks">"Зчитування історії і закладок Браузера"</string>
+    <!-- Description of an application permission, listed so the user can choose whether
+        they want to allow the application to do this. -->
+    <string name="permdesc_readHistoryBookmarks">"Дозволяє програмам зчитувати усі URL, 
+        відкриті браузером, і усі його закладки."</string>
+
+    <!-- Title of an application permission, listed so the user can choose whether 
+        they want to allow the application to do this. -->
+    <string name="permlab_writeHistoryBookmarks">"Запис історії і закладок браузера"</string>
+    <!-- Description of an application permission, listed so the user can choose whether
+        they want to allow the application to do this. -->
+    <string name="permdesc_writeHistoryBookmarks">"Дозволяє програмі змінювати історію і закладки браузера,
+        що збережені у телефоні.
+        Шкідливі програми можуть використати це для видалення або зміни даних браузера.</string>
+
+    <!-- Gears Dialogs -->
+    <string name="query_data_prompt">Дозволити зберігання"</string>
+    <string name="query_data_message">"Цей веб сайт бажає зберегти інформацію на вашому телефоні."</string>
+    <string name="location_prompt">"Дозволити ваше місцезнаходження"</string>
+    <string name="location_message">"Цей веб сайт бажає мати доступ до вашого місцезнаходження."</string>
+    <string name="shortcut_prompt">"Створити ярлик"</string>
+    <string name="shortcut_message">"Цей веб сайт бажає створити ярлик до цієї сторінки на головному екрані."</string>
+    <string name="settings_message">"В таблиці нижче показані дозволи, які ви дали сайтам, що намагалися використовувати Gears."</string>
+    <string name="filepicker_message">"Піднімач файлів"</string>
+    <string name="image_message">"Обрана картинка"</string>
+
+    <string name="settings_title">"Налаштування Gears"</string>
+    <string name="privacy_policy">"Прочитайте політику конфіденційності сайту, щоб дізнатися, як будуть використані дані про ваше місцезнаходження."</string>
+    <string name="settings_storage_title">"Дозволити місцеве зберігання"</string>
+    <string name="settings_storage_subtitle_on">"Цей сайт може зберігати інформацію в телефоні"</string>
+    <string name="settings_storage_subtitle_off">"Цей сайт не може зберігати інформацію в телефоні"</string>
+
+    <string name="settings_location_title">"Дозволити визначення місцезнаходження"</string>
+    <string name="settings_location_subtitle_on">"Цей сайт може зчитати ваше місцезнаходження"</string>
+    <string name="settings_location_subtitle_off">"Цей сайт не може зчитати ваше місцезнаходження"</string>
+
+    <string name="settings_remove_site">"Видалити цей сайт з Gears"</string>
+    <string name="settings_empty">"Немає встановленого дозволу"</string>
+
+    <string name="settings_confirmation_remove_title">"Видалити цей сайт"</string>
+    <string name="settings_confirmation_remove">"Будуть очищені всі дозволи і усі збереженні дані у телефоні будуть видалені."</string>
+
+    <string name="storage_notification">"Цей сайт буде зберігати інформацію у вашому телефоні."\n" Змініть ці налаштування у:"\n" Налаштування -> Gears Налаштування"</string>
+    <string name="storage_notification_alwaysdeny">"Цей сайт не буде зберігати інформацію у вашому телефоні.\n Змініть ці налаштування у:"\n" Налаштування -> Gears Налаштування"</string>
+    <string name="location_notification">"Цей сайт має доступ до вашого місцезнаходження."\n" Змініть ці налаштування у:"\n" Налаштування -> Gears Налаштування</string>
+    <string name="location_notification_alwaysdeny">"Цей сайт не має доступу до вашого місцезнаходження."\n" Змініть ці налаштування у:"\n" Налаштування -> Gears Налаштування"</string>
+    <string name="shortcut_notification">"Ярлик створено"</string>
+
+    <string name="permission_button_alwaysdeny">"Ніколи не дозволяти"</string>
     <string name="shortcut_button_allow">"ОК"</string>
-    <string name="shortcut_button_deny">"Отмена"</string>
-    <string name="settings_button_allow">"Применить"</string>
-    <string name="settings_button_deny">"Отмена"</string>
+    <string name="shortcut_button_deny">"Відмінити"</string>
+
+    <string name="permission_button_alwaysdeny">"Ніколи не дозволяти"</string>
+    <string name="shortcut_button_allow">"ОК"</string>
+    <string name="shortcut_button_deny">"Відмінити"</string>
+
+    <string name="settings_button_allow">"Застосувати"</string>
+    <string name="settings_button_deny">"Відмінити"</string>
+
     <string name="filepicker_button_allow">"ОК"</string>
-    <string name="filepicker_button_deny">"Отмена"</string>
-    <string name="filepicker_path">"путь:"</string>
-    <string name="filepicker_no_files_selected">"Файлы не выбраны"</string>
-    <string name="filepicker_one_file_selected">"Выбран один файл"</string>
-    <string name="filepicker_some_files_selected">"файлов выбрано"</string>
-    <string name="remove">"Удалить"</string>
-    <string name="local_storage">"Локальное хранение"</string>
-    <string name="allowed">"Разрешено"</string>
-    <string name="denied">"Запрещено"</string>
-    <string name="unrecognized_dialog_message">"Неизвестный тип диалога"</string>
+    <string name="filepicker_button_deny">"Відмінити"</string>
+    <string name="filepicker_path">"шлях:"</string>
+    <string name="filepicker_no_files_selected">"Файли не вибрані"</string>
+    <string name="filepicker_one_file_selected">"Вибрано один файл"</string>
+    <string name="filepicker_some_files_selected">"файли вибрано"</string>
+
+    <string name="remove">"Видалити"</string>
+    <string name="local_storage">"Місцевий сховок"</string>
+    <string name="allowed">"Дозволено"</string>
+    <string name="denied">"Заборонено"</string>
+
+    <string name="unrecognized_dialog_message">"Невідомий тип діалогу"</string>
     <string name="default_button">"ОК"</string>
+
+    <!-- Zoom-related strings --><skip />
+    <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->
+    <string name="zoom_overview_button_text">"Огляд"</string>
 </resources>
