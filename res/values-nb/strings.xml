@@ -27,6 +27,10 @@
     <string name="action">"Logg inn"</string>
     <string name="cancel">"Avbryt"</string>
     <string name="ok">"OK"</string>
+    <!-- no translation found for matches_found:zero (6242659159545399963) -->
+    <!-- no translation found for matches_found:one (4352019729062956802) -->
+    <!-- no translation found for matches_found:few (5544267486978946555) -->
+    <!-- no translation found for matches_found:other (6616125067364315405) -->
     <string name="page_info">"Sideinformasjon"</string>
     <string name="page_info_view">"Vis sideinformasjon"</string>
     <string name="page_info_address">"Adresse:"</string>
@@ -214,8 +218,7 @@
     <string name="download_no_sdcard_dlg_title">"Mangler minnekort"</string>
     <string name="download_no_sdcard_dlg_msg">"Du trenger et minnekort for å laste ned <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title">"Minnekort utilgjengelig"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"Minnekortet er opptatt. For å tillate nedlasting, velg \"Slå av USB-lagring\" i varslingen."</string>
     <string name="download_no_application">"Fant ingen applikasjon som kunne åpne denne filen."</string>
     <string name="retry">"Prøv igjen"</string>
     <string name="no_downloads">"Nedlastingsloggen er tom."</string>
@@ -236,51 +239,32 @@
     <string name="permdesc_readHistoryBookmarks">"Allows the application to read all the URLs that the Browser has visited, and all of the Browser\'s bookmarks."</string>
     <string name="permlab_writeHistoryBookmarks">"write Browser\'s history and bookmarks"</string>
     <string name="permdesc_writeHistoryBookmarks">"Allows an application to modify the Browser\'s history or bookmarks stored on your phone. Malicious applications can use this to erase or modify your Browser\'s data."</string>
-    <!-- no translation found for query_data_prompt (5474381240981604223) -->
-    <skip />
+    <string name="query_data_prompt">"Tillat lagring"</string>
     <string name="query_data_message">"Nettsiden under ønsker å lagre informasjon på datamaskinen ved hjelp av Gears."</string>
-    <!-- no translation found for location_prompt (226262202057302423) -->
-    <skip />
+    <string name="location_prompt">"Få tilgang til plassering"</string>
     <string name="location_message">"Nettsiden under ønsker å finne ut hvor du er ved hjelp av Gears."</string>
-    <!-- no translation found for shortcut_prompt (437193299088893596) -->
-    <skip />
+    <string name="shortcut_prompt">"Lag snarvei"</string>
     <string name="shortcut_message">"Denne nettsiden ønsker å lage en snarvei på datamaskinen. Ønsker du å tillate dette?"</string>
     <string name="settings_message">"Tabellen under viser rettighetent du har gitt til hver side som har prøvd å bruke Gears."</string>
     <string name="filepicker_message">"Gears filplukker"</string>
-    <!-- no translation found for image_message (5450245866521896891) -->
-    <skip />
+    <string name="image_message">"Valgt bilde"</string>
     <string name="settings_title">"Gears-innstillinger"</string>
     <string name="privacy_policy">"Les sidens personvernspolicy for å se hvordan informasjonen vil bli brukt."</string>
-    <!-- no translation found for settings_storage_title (7089119630457156408) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
-    <skip />
-    <!-- no translation found for settings_location_title (4953062923509886651) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
-    <skip />
-    <!-- no translation found for settings_remove_site (1822247070226589958) -->
-    <skip />
-    <!-- no translation found for settings_empty (2008952224378583146) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
-    <skip />
-    <!-- no translation found for storage_notification (6534213782873968255) -->
-    <skip />
-    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
-    <skip />
-    <!-- no translation found for location_notification (3495804750470905804) -->
-    <skip />
-    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
-    <skip />
-    <!-- no translation found for shortcut_notification (1659700220868444568) -->
-    <skip />
+    <string name="settings_storage_title">"Tillat lokal lagring"</string>
+    <string name="settings_storage_subtitle_on">"Denne siden kan lagre informasjon i telefonen"</string>
+    <string name="settings_storage_subtitle_off">"Denne siden kan ikke lagre informasjon i telefonen"</string>
+    <string name="settings_location_title">"Tillat deteksjon av plassering"</string>
+    <string name="settings_location_subtitle_on">"Siden får vite hvor du befinner deg"</string>
+    <string name="settings_location_subtitle_off">"Siden får ikke vite hvor du befinner deg"</string>
+    <string name="settings_remove_site">"Fjern denne siden fra Gears"</string>
+    <string name="settings_empty">"Ingen rettigheter satt"</string>
+    <string name="settings_confirmation_remove_title">"Fjern denne siden"</string>
+    <string name="settings_confirmation_remove">"Alle rettigheter vil bli nullstilt, og alle data lagret av siden i telefonen vil bli slettet."</string>
+    <string name="storage_notification">"Siden vil lagre informasjon i telefonen."\n" Endre dette i:"\n" Innstillinger -&gt; Gears-innstillinger"</string>
+    <string name="storage_notification_alwaysdeny">"Siden vil aldri lagre informasjon i telefonen."\n" Endre dette i:"\n" Innstillinger -&gt; Gears-innstillinger"</string>
+    <string name="location_notification">"Siden får ikke vite hvor du befinner deg."\n" Endre dette i:"\n" Innstillinger -&gt; Gears-innstillinger"</string>
+    <string name="location_notification_alwaysdeny">"Siden vil ikke få vite hvor du befinner deg."\n" Endre dette i:"\n" Innstillinger -&gt; Gears-innstillinger"</string>
+    <string name="shortcut_notification">"Snarvei opprettet"</string>
     <string name="permission_button_alwaysdeny">"Aldri tillat for denne siden"</string>
     <string name="permission_button_allow">"Tillat"</string>
     <string name="permission_button_deny">"Nekt"</string>

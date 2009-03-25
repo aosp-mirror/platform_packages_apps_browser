@@ -27,6 +27,10 @@
     <string name="action">"登录"</string>
     <string name="cancel">"取消"</string>
     <string name="ok">"确定"</string>
+    <!-- no translation found for matches_found:zero (6242659159545399963) -->
+    <!-- no translation found for matches_found:one (4352019729062956802) -->
+    <!-- no translation found for matches_found:few (5544267486978946555) -->
+    <!-- no translation found for matches_found:other (6616125067364315405) -->
     <string name="page_info">"页面信息"</string>
     <string name="page_info_view">"查看页面信息"</string>
     <string name="page_info_address">"地址："</string>
@@ -214,8 +218,7 @@
     <string name="download_no_sdcard_dlg_title">"无 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg">"需要 SD 卡才能下载 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title">"SD 卡不可用"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"SD 卡正忙。要允许下载，请在通知中选择“关闭 USB 存储”。"</string>
     <string name="download_no_application">"无法找到可打开此文件的应用程序。"</string>
     <string name="retry">"重试"</string>
     <string name="no_downloads">"下载历史记录为空。"</string>
@@ -236,63 +239,36 @@
     <string name="permdesc_readHistoryBookmarks">"允许应用程序读取浏览器访问过的所有网址以及浏览器的所有书签。"</string>
     <string name="permlab_writeHistoryBookmarks">"写入浏览器的历史记录和书签"</string>
     <string name="permdesc_writeHistoryBookmarks">"允许应用程序修改您手机中存储的浏览器的历史记录或书签。恶意应用程序可能会利用此权限清除或修改您浏览器的数据。"</string>
-    <!-- no translation found for query_data_prompt (5474381240981604223) -->
-    <skip />
-    <!-- no translation found for query_data_message (8789381063185445197) -->
-    <skip />
-    <!-- no translation found for location_prompt (226262202057302423) -->
-    <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
-    <skip />
-    <!-- no translation found for shortcut_prompt (437193299088893596) -->
-    <skip />
-    <!-- no translation found for shortcut_message (4793042709293755892) -->
-    <skip />
+    <string name="query_data_prompt">"允许存储"</string>
+    <string name="query_data_message">"此网站要将信息存储在您的手机上。"</string>
+    <string name="location_prompt">"访问您所在的位置"</string>
+    <string name="location_message">"此网站要访问您所在的位置。"</string>
+    <string name="shortcut_prompt">"创建快捷方式"</string>
+    <string name="shortcut_message">"此网站要在您的主屏幕上创建此网页的快捷方式。"</string>
     <string name="settings_message">"下表显示了您授予尝试使用 Gears 的各个网站的权限。"</string>
-    <!-- no translation found for filepicker_message (4929726371602896039) -->
-    <skip />
-    <!-- no translation found for image_message (5450245866521896891) -->
-    <skip />
+    <string name="filepicker_message">"文件选择器"</string>
+    <string name="image_message">"选择的图片"</string>
     <string name="settings_title">"Gears 设置"</string>
     <string name="privacy_policy">"阅读网站的隐私政策，以了解会如何使用您的位置。"</string>
-    <!-- no translation found for settings_storage_title (7089119630457156408) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
-    <skip />
-    <!-- no translation found for settings_location_title (4953062923509886651) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
-    <skip />
-    <!-- no translation found for settings_remove_site (1822247070226589958) -->
-    <skip />
-    <!-- no translation found for settings_empty (2008952224378583146) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
-    <skip />
-    <!-- no translation found for storage_notification (6534213782873968255) -->
-    <skip />
-    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
-    <skip />
-    <!-- no translation found for location_notification (3495804750470905804) -->
-    <skip />
-    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
-    <skip />
-    <!-- no translation found for shortcut_notification (1659700220868444568) -->
-    <skip />
-    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
-    <skip />
-    <!-- no translation found for permission_button_allow (7301874925704148242) -->
-    <skip />
-    <!-- no translation found for permission_button_deny (104712269725153018) -->
-    <skip />
-    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
-    <skip />
+    <string name="settings_storage_title">"允许本地存储"</string>
+    <string name="settings_storage_subtitle_on">"此网站可以将信息保存到您的手机上"</string>
+    <string name="settings_storage_subtitle_off">"此网站无法将信息保存到您的手机上"</string>
+    <string name="settings_location_title">"允许位置检测"</string>
+    <string name="settings_location_subtitle_on">"此网站可以读取您当前所在的位置"</string>
+    <string name="settings_location_subtitle_off">"此网站无法读取您当前所在的位置"</string>
+    <string name="settings_remove_site">"从 Gears 删除此网站"</string>
+    <string name="settings_empty">"未设置权限"</string>
+    <string name="settings_confirmation_remove_title">"删除此网站"</string>
+    <string name="settings_confirmation_remove">"所有权限将会清除，而且此网站存储在您手机上的所有数据也会删除。"</string>
+    <string name="storage_notification">"此网站要将信息存储在此手机上。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
+    <string name="storage_notification_alwaysdeny">"此网站决不会将信息存储在此手机上。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
+    <string name="location_notification">"此网站可以访问您当前所在的位置。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
+    <string name="location_notification_alwaysdeny">"此网站不会访问您当前所在的位置。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
+    <string name="shortcut_notification">"快捷方式已创建"</string>
+    <string name="permission_button_alwaysdeny">"不允许"</string>
+    <string name="permission_button_allow">"确定"</string>
+    <string name="permission_button_deny">"取消"</string>
+    <string name="shortcut_button_alwaysdeny">"不允许"</string>
     <string name="shortcut_button_allow">"确定"</string>
     <string name="shortcut_button_deny">"取消"</string>
     <string name="settings_button_allow">"应用"</string>
