@@ -222,7 +222,7 @@ public class BrowserBookmarksPage extends Activity implements
         i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
         i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
                 Intent.ShortcutIconResource.fromContext(BrowserBookmarksPage.this,
-                        R.drawable.ic_launcher_browser_favorite));
+                        R.drawable.ic_launcher_shortcut_browser_bookmark));
         // Do not allow duplicate items
         i.putExtra("duplicate", false);
         return i;
