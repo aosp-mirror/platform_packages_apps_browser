@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import com.google.android.providers.GoogleSettings.Partner;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -65,8 +67,7 @@ class BrowserSettings extends Observable {
     private boolean saveFormData = true;
     private boolean openInBackground = false;
     private String defaultTextEncodingName;
-    private String homeUrl = "http://www.google.com/m?client=ms-" +
-        SystemProperties.get("persist.sys.com.google.clientid", "unknown");
+    private String homeUrl = "http://www.google.com/m?client=ms-";
     private boolean loginInitialized = false;
     private boolean autoFitPage = true;
     private boolean showDebugSettings = false;
@@ -198,6 +199,8 @@ class BrowserSettings extends Observable {
         // local directory.
         pluginsPath = ctx.getDir("plugins", 0).getPath();
 
+        homeUrl += Partner.getString(ctx.getContentResolver(), Partner.CLIENT_ID);
+
         // Load the defaults from the xml
         // This call is TOO SLOW, need to manually keep the defaults
         // in sync
@@ -206,8 +209,10 @@ class BrowserSettings extends Observable {
     }
 
     /* package */ void syncSharedPreferences(SharedPreferences p) {
+
         homeUrl =
             p.getString(PREF_HOMEPAGE, homeUrl);
+
         loadsImagesAutomatically = p.getBoolean("load_images",
                 loadsImagesAutomatically);
         javaScriptEnabled = p.getBoolean("enable_javascript",
