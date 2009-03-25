@@ -27,8 +27,6 @@
     <string name="action">"로그인"</string>
     <string name="cancel">"취소"</string>
     <string name="ok">"확인"</string>
-    <string name="matches_found">" 개 일치"</string>
-    <string name="zero">"없음"</string>
     <string name="page_info">"페이지 정보"</string>
     <string name="page_info_view">"페이지 정보 보기"</string>
     <string name="page_info_address">"주소:"</string>

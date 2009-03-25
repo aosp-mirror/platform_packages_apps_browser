@@ -179,7 +179,7 @@ import android.widget.TextView;
         Spannable span = (Spannable) mEditText.getText();
         span.setSpan(this, 0, span.length(), 
                      Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        mMatches.setText(R.string.zero);
+        setMatchesFound(0);
         disableButtons();
     }
     
@@ -206,11 +206,11 @@ import android.widget.TextView;
         } else {
             mMatchesView.setVisibility(View.VISIBLE);
             int found = mWebView.findAll(find.toString());
-            mMatches.setText(Integer.toString(found));
+            setMatchesFound(found);
             if (found < 2) {
                 disableButtons();
                 if (found == 0) {
-                    mMatches.setText(R.string.zero);
+                    setMatchesFound(0);
                 }
             } else {
                 mPrevButton.setFocusable(true);
@@ -219,6 +219,13 @@ import android.widget.TextView;
                 mNextButton.setEnabled(true);
             }
         }
+    }
+
+    private void setMatchesFound(int found) {
+        String template = mBrowserActivity.getResources().
+                getQuantityString(R.plurals.matches_found, found, found);
+
+        mMatches.setText(template);
     }
 
     public void afterTextChanged(Editable s) {

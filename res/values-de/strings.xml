@@ -27,8 +27,6 @@
     <string name="action">"Anmelden"</string>
     <string name="cancel">"Abbrechen"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" Treffer"</string>
-    <string name="zero">"Nein"</string>
     <string name="page_info">"Seiten-Info"</string>
     <string name="page_info_view">"Seiten-Info anzeigen"</string>
     <string name="page_info_address">"Adresse:"</string>

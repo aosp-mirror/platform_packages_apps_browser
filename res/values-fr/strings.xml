@@ -27,8 +27,6 @@
     <string name="action">"Se connecter"</string>
     <string name="cancel">"Annuler"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" résultat(s) correspondant(s )"</string>
-    <string name="zero">"Non"</string>
     <string name="page_info">"Infos sur la page"</string>
     <string name="page_info_view">"Afficher les infos sur la page"</string>
     <string name="page_info_address">"Adresse :"</string>

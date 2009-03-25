@@ -27,8 +27,6 @@
     <string name="action">"Logg inn"</string>
     <string name="cancel">"Avbryt"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" treff"</string>
-    <string name="zero">"Ingen"</string>
     <string name="page_info">"Sideinformasjon"</string>
     <string name="page_info_view">"Vis sideinformasjon"</string>
     <string name="page_info_address">"Adresse:"</string>

@@ -27,8 +27,6 @@
     <string name="action">"ログイン"</string>
     <string name="cancel">"キャンセル"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" 件一致"</string>
-    <string name="zero">"いいえ"</string>
     <string name="page_info">"ページ情報"</string>
     <string name="page_info_view">"ページ情報を表示"</string>
     <string name="page_info_address">"アドレス:"</string>
