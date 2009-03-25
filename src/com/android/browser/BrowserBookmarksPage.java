@@ -21,6 +21,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -87,7 +92,7 @@ public class BrowserBookmarksPage extends Activity implements
             break;
         case R.id.shortcut_context_menu_id:
             final Intent send = createShortcutIntent(getUrl(i.position),
-                    getBookmarkTitle(i.position));
+                    getBookmarkTitle(i.position), getFavicon(i.position));
             send.setAction(INSTALL_SHORTCUT);
             sendBroadcast(send);
             break;
@@ -203,14 +208,15 @@ public class BrowserBookmarksPage extends Activity implements
                 }
             } else {
                 final Intent intent = createShortcutIntent(getUrl(position),
-                        getBookmarkTitle(position));
+                        getBookmarkTitle(position), getFavicon(position));
                 setResultToParent(RESULT_OK, intent);
                 finish();
             }
         }
     };
 
-    private Intent createShortcutIntent(String url, String title) {
+    private Intent createShortcutIntent(String url, String title,
+            Bitmap favicon) {
         final Intent i = new Intent();
         final Intent shortcutIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(url));
@@ -220,9 +226,42 @@ public class BrowserBookmarksPage extends Activity implements
                 Long.toString(uniqueId));
         i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
-        i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                Intent.ShortcutIconResource.fromContext(BrowserBookmarksPage.this,
-                        R.drawable.ic_launcher_shortcut_browser_bookmark));
+        if (favicon == null) {
+            i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                    Intent.ShortcutIconResource.fromContext(
+                            BrowserBookmarksPage.this,
+                            R.drawable.ic_launcher_shortcut_browser_bookmark));
+        } else {
+            Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.ic_launcher_shortcut_browser_bookmark);
+
+            // Make a copy of the regular icon so we can modify the pixels.
+            Bitmap copy = icon.copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvas = new Canvas(copy);
+
+            // Make a Paint for the white background rectangle and for
+            // filtering the favicon.
+            Paint p = new Paint(Paint.ANTI_ALIAS_FLAG
+                    | Paint.FILTER_BITMAP_FLAG);
+            p.setStyle(Paint.Style.FILL_AND_STROKE);
+            p.setColor(Color.WHITE);
+
+            // Create a rectangle that is slightly wider than the favicon
+            final float iconSize = 16; // 16x16 favicon
+            final float padding = 2;   // white padding around icon
+            final float rectSize = iconSize + 2 * padding;
+            final float y = icon.getHeight() - rectSize;
+            RectF r = new RectF(0, y, rectSize, y + rectSize);
+
+            // Draw a white rounded rectangle behind the favicon
+            canvas.drawRoundRect(r, 2, 2, p);
+
+            // Draw the favicon in the same rectangle as the rounded rectangle
+            // but inset by the padding (results in a 16x16 favicon).
+            r.inset(padding, padding);
+            canvas.drawBitmap(favicon, null, r, p);
+            i.putExtra(Intent.EXTRA_SHORTCUT_ICON, copy);
+        }
         // Do not allow duplicate items
         i.putExtra("duplicate", false);
         return i;
@@ -347,6 +386,13 @@ public class BrowserBookmarksPage extends Activity implements
      */
     public String getUrl(int position) {
         return mBookmarksAdapter.getUrl(position);
+    }
+
+    /**
+     * Return the favicon of the currently highlighted row.
+     */
+    public Bitmap getFavicon(int position) {
+        return mBookmarksAdapter.getFavicon(position);
     }
 
     private void copy(CharSequence text) {

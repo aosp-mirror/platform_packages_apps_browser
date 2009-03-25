@@ -472,6 +472,21 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     }
 
     /**
+     * Return the favicon for this item in the list.
+     */
+    public Bitmap getFavicon(int position) {
+        if (position < mExtraOffset || position > mCount) {
+            return null;
+        }
+        mCursor.moveToPosition(position - mExtraOffset);
+        byte[] data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
+        if (data == null) {
+            return null;
+        }
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
+    }
+
+    /**
      * Private helper function to return the title or url.
      */
     private String getString(int cursorIndex, int position) {
