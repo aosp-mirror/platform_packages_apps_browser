@@ -4384,7 +4384,7 @@ public class BrowserActivity extends Activity
       return 0;
     }
 
-    static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
+    protected static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
             "(?i)" + // switch on case insensitive matching
             "(" +    // begin group for schema
             "(?:http|https|file):\\/\\/" +

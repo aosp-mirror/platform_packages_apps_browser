@@ -50,8 +50,8 @@ public class BrowserHomepagePreference extends EditTextPreference implements
         if (dialog != null) {
             String url = s.toString();
             dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(
-                    url.length() == 0 || url.equals("about:blank") ||
-                    Regex.WEB_URL_PATTERN.matcher(url).matches());
+                url.length() == 0 || 
+                BrowserActivity.ACCEPTED_URI_SCHEMA.matcher(url).matches());
         }
     }
 
