@@ -623,6 +623,9 @@ public class BrowserActivity extends Activity
     }
 
     @Override public void onCreate(Bundle icicle) {
+        Log.d(LOGTAG, "onCreate start");
+        long start = Process.getElapsedCpuTime();
+
         if (Config.LOGV) {
             Log.v(LOGTAG, this + " onStart");
         }
@@ -745,10 +748,14 @@ public class BrowserActivity extends Activity
                     }
                 }
             };
+            Log.d(LOGTAG, "onCreate used " + (Process.getElapsedCpuTime() - start) + " ms");
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
+        Log.d(LOGTAG, "onNewIntent start");
+        long start = Process.getElapsedCpuTime();
+
         TabControl.Tab current = mTabControl.getCurrentTab();
         // When a tab is closed on exit, the current tab index is set to -1.
         // Reset before proceed as Browser requires the current tab to be set.
@@ -757,6 +764,7 @@ public class BrowserActivity extends Activity
             current = mTabControl.getTab(0);
             if (current == null) {
                 // No tabs at all so just ignore this intent.
+                Log.d(LOGTAG, "onNewIntent no tab");
                 return;
             }
             mTabControl.setCurrentTab(current);
@@ -835,6 +843,7 @@ public class BrowserActivity extends Activity
                 }
             }
         }
+        Log.d(LOGTAG, "onNewIntent used " + (Process.getElapsedCpuTime() - start) + " ms");
     }
 
     private String getUrlFromIntent(Intent intent) {
@@ -989,6 +998,9 @@ public class BrowserActivity extends Activity
     };
 
     @Override protected void onResume() {
+        Log.d(LOGTAG, "onResume start");
+        long start = Process.getElapsedCpuTime();
+
         super.onResume();
         if (Config.LOGV) {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
@@ -1029,6 +1041,8 @@ public class BrowserActivity extends Activity
         } else {
             mSensorManager = null;
         }
+
+        Log.d(LOGTAG, "onResume used " + (Process.getElapsedCpuTime() - start) + " ms");
     }
 
     /**
