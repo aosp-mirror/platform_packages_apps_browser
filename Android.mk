@@ -9,6 +9,8 @@ LOCAL_JAVA_LIBRARIES := android.test.runner
 
 LOCAL_STATIC_JAVA_LIBRARIES := googlelogin-client
 
+LOCAL_STATIC_JAVA_LIBRARIES += google-framework
+
 LOCAL_SRC_FILES := $(call all-subdir-java-files)
 
 LOCAL_PACKAGE_NAME := Browser

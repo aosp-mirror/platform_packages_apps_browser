@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import com.google.android.providers.GoogleSettings.Partner;
 import java.util.Date;
 
 import android.app.ISearchManager;
@@ -23,6 +24,7 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentUris;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +44,7 @@ import android.provider.Browser;
 import android.util.Log;
 import android.server.search.SearchableInfo;
 import android.text.util.Regex;
+
 
 public class BrowserProvider extends ContentProvider {
 
@@ -134,9 +137,12 @@ public class BrowserProvider extends ContentProvider {
     }
   
 
-    private static CharSequence replaceSystemPropertyInString(CharSequence srcString) {
+    private static CharSequence replaceSystemPropertyInString(Context context, CharSequence srcString) {
         StringBuffer sb = new StringBuffer();
         int lastCharLoc = 0;
+        
+        final String client_id = Partner.getString(context.getContentResolver(), Partner.CLIENT_ID);
+
         for (int i = 0; i < srcString.length(); ++i) {
             char c = srcString.charAt(i);
             if (c == '{') {
@@ -147,16 +153,10 @@ public class BrowserProvider extends ContentProvider {
                     char k = srcString.charAt(j);
                     if (k == '}') {
                         String propertyKeyValue = srcString.subSequence(i + 1, j).toString();
-                        // See if the propertyKeyValue specifies a default value
-                        int defaultOffset = propertyKeyValue.indexOf(':');
-                        if (defaultOffset == -1) {
-                            sb.append(SystemProperties.get(propertyKeyValue));
+                        if (propertyKeyValue.equals("CLIENT_ID")) {
+                            sb.append(client_id);
                         } else {
-                            String propertyKey = propertyKeyValue.substring(0, defaultOffset);
-                            String defaultValue = 
-                                    propertyKeyValue.substring(defaultOffset + 1, 
-                                                               propertyKeyValue.length());
-                            sb.append(SystemProperties.get(propertyKey, defaultValue));
+                            sb.append("unknown");
                         }
                         lastCharLoc = j + 1;
                         i = j;
@@ -199,7 +199,7 @@ public class BrowserProvider extends ContentProvider {
             int size = bookmarks.length;
             try {
                 for (int i = 0; i < size; i = i + 2) {
-                    CharSequence bookmarkDestination = replaceSystemPropertyInString(bookmarks[i + 1]);
+                    CharSequence bookmarkDestination = replaceSystemPropertyInString(mContext, bookmarks[i + 1]);
                     db.execSQL("INSERT INTO bookmarks (title, url, visits, " +
                             "date, created, bookmark)" + " VALUES('" +
                             bookmarks[i] + "', '" + bookmarkDestination + 

@@ -18,6 +18,7 @@ package com.android.browser;
 
 import com.google.android.googleapps.IGoogleLoginService;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
+import com.google.android.providers.GoogleSettings.Partner;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -203,7 +204,7 @@ public class BrowserActivity extends Activity
                     if (googleUser == null || !hostedUser.equals(googleUser)) {
                         String domain = hostedUser.substring(hostedUser.lastIndexOf('@')+1);
                         homepage = "http://www.google.com/m/a/" + domain + "?client=ms-" +
-                            SystemProperties.get("persist.sys.com.google.clientid", "unknown");
+                            Partner.getString(BrowserActivity.this.getContentResolver(), Partner.CLIENT_ID);
                     }
                 } catch (RemoteException ignore) {
                     // Login service died; carry on
@@ -4485,7 +4486,7 @@ public class BrowserActivity extends Activity
                     R.string.google_search_base, l.getLanguage(),
                     l.getCountry().toLowerCase())
                     + "client=ms-"
-                    + SystemProperties.get("persist.sys.com.google.clientid", "unknown")
+                    + Partner.getString(this.getContentResolver(), Partner.CLIENT_ID)
                     + "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&q=%s";
         } else {
             QuickSearch_G = url;
