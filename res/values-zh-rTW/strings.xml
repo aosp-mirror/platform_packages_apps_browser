@@ -27,6 +27,10 @@
     <string name="action">"登入"</string>
     <string name="cancel">"取消"</string>
     <string name="ok">"確定"</string>
+    <!-- no translation found for matches_found:zero (6242659159545399963) -->
+    <!-- no translation found for matches_found:one (4352019729062956802) -->
+    <!-- no translation found for matches_found:few (5544267486978946555) -->
+    <!-- no translation found for matches_found:other (6616125067364315405) -->
     <string name="page_info">"頁面資訊"</string>
     <string name="page_info_view">"檢視頁面資訊"</string>
     <string name="page_info_address">"位址："</string>
@@ -214,8 +218,7 @@
     <string name="download_no_sdcard_dlg_title">"沒有 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg">"需要 SD 卡下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title">"無法使用 SD 卡"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"SD 記憶卡忙碌中。若要允許下載，請選取通知區域中的 [停用 USB 儲存裝置]。"</string>
     <string name="download_no_application">"找不到可以開啟這個檔案的應用程式。"</string>
     <string name="retry">"重試"</string>
     <string name="no_downloads">"下載記錄是空的。"</string>
@@ -236,63 +239,36 @@
     <string name="permdesc_readHistoryBookmarks">"允許應用程式讀取瀏覽器造訪過的所有 URL 和瀏覽器所有的書籤。"</string>
     <string name="permlab_writeHistoryBookmarks">"寫入瀏覽器的瀏覽記錄和書籤"</string>
     <string name="permdesc_writeHistoryBookmarks">"允許應用程式修改儲存在電話上的瀏覽器記錄或書籤。惡意應用程式可能會使用此選項來清除或修改您瀏覽器的資料。"</string>
-    <!-- no translation found for query_data_prompt (5474381240981604223) -->
-    <skip />
-    <!-- no translation found for query_data_message (8789381063185445197) -->
-    <skip />
-    <!-- no translation found for location_prompt (226262202057302423) -->
-    <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
-    <skip />
-    <!-- no translation found for shortcut_prompt (437193299088893596) -->
-    <skip />
-    <!-- no translation found for shortcut_message (4793042709293755892) -->
-    <skip />
+    <string name="query_data_prompt">"允許儲存"</string>
+    <string name="query_data_message">"此網站要在您的手機上儲存資訊。"</string>
+    <string name="location_prompt">"存取您的位置資訊"</string>
+    <string name="location_message">"此網站要存取您的位置資訊。"</string>
+    <string name="shortcut_prompt">"建立捷徑"</string>
+    <string name="shortcut_message">"此網站要在您的主畫面上建立網頁捷徑。"</string>
     <string name="settings_message">"下表列出您為每個想要使用 Gears 之網站所授予的權限。"</string>
-    <!-- no translation found for filepicker_message (4929726371602896039) -->
-    <skip />
-    <!-- no translation found for image_message (5450245866521896891) -->
-    <skip />
+    <string name="filepicker_message">"檔案挑選程式"</string>
+    <string name="image_message">"選擇的影像"</string>
     <string name="settings_title">"裝置設定"</string>
     <string name="privacy_policy">"讀取網站的隱私權政策，以瞭解網站將如何使用您的位置資訊。"</string>
-    <!-- no translation found for settings_storage_title (7089119630457156408) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
-    <skip />
-    <!-- no translation found for settings_location_title (4953062923509886651) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
-    <skip />
-    <!-- no translation found for settings_remove_site (1822247070226589958) -->
-    <skip />
-    <!-- no translation found for settings_empty (2008952224378583146) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
-    <skip />
-    <!-- no translation found for storage_notification (6534213782873968255) -->
-    <skip />
-    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
-    <skip />
-    <!-- no translation found for location_notification (3495804750470905804) -->
-    <skip />
-    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
-    <skip />
-    <!-- no translation found for shortcut_notification (1659700220868444568) -->
-    <skip />
-    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
-    <skip />
-    <!-- no translation found for permission_button_allow (7301874925704148242) -->
-    <skip />
-    <!-- no translation found for permission_button_deny (104712269725153018) -->
-    <skip />
-    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
-    <skip />
+    <string name="settings_storage_title">"允許本機儲存"</string>
+    <string name="settings_storage_subtitle_on">"此網站可以在您的手機上儲存資訊"</string>
+    <string name="settings_storage_subtitle_off">"此網站無法在您的手機上儲存資訊"</string>
+    <string name="settings_location_title">"允許偵測位置"</string>
+    <string name="settings_location_subtitle_on">"此網站可以讀取您目前的位置資訊"</string>
+    <string name="settings_location_subtitle_off">"此網站無法讀取您目前的位置資訊"</string>
+    <string name="settings_remove_site">"從 Gears 移除此網站"</string>
+    <string name="settings_empty">"未設定任何權限"</string>
+    <string name="settings_confirmation_remove_title">"移除此網站"</string>
+    <string name="settings_confirmation_remove">"系統將清除所有權限，並且將刪除此網站儲存在手機上的所有資料。"</string>
+    <string name="storage_notification">"此網站將會在您的手機上儲存資訊。"\n"您可以透過以下操作變更此設定："\n"[設定] -&gt; [Gears 設定]"</string>
+    <string name="storage_notification_alwaysdeny">"此網站永遠不會在您的手機上儲存資訊。"\n"您可以透過以下操作變更此設定："\n"[設定] -&gt; [Gears 設定]"</string>
+    <string name="location_notification">"此網站可以存取您目前的位置資訊。"\n"您可以透過以下操作變更此設定："\n"[設定] -&gt; [Gears 設定]"</string>
+    <string name="location_notification_alwaysdeny">"此網站不會存取您目前的位置資訊。"\n"您可以透過以下操作變更此設定："\n"[設定] -&gt; [Gears 設定]"</string>
+    <string name="shortcut_notification">"捷徑已建立"</string>
+    <string name="permission_button_alwaysdeny">"永不允許"</string>
+    <string name="permission_button_allow">"確定"</string>
+    <string name="permission_button_deny">"取消"</string>
+    <string name="shortcut_button_alwaysdeny">"永不允許"</string>
     <string name="shortcut_button_allow">"確定"</string>
     <string name="shortcut_button_deny">"取消"</string>
     <string name="settings_button_allow">"套用"</string>
