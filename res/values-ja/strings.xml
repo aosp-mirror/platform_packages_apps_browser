@@ -185,7 +185,7 @@
     <string name="browserFrameFormResubmitLabel">"確認"</string>
     <string name="browserFrameFormResubmitMessage">"表示しようとしているページには、送信済みのデータ (「POSTDATA」) があります。データを再送すると、以前このページのフォームで実行した操作 (検索やオンライン購入など) が繰り返されます。"</string>
     <string name="loadSuspendedTitle">"ネットワークに接続していません"</string>
-    <string name="loadSuspended">"再接続時にロードを続行します。"</string>
+    <string name="loadSuspended">"接続が回復次第ページを表示します。"</string>
     <string name="clear_history">"履歴消去"</string>
     <string name="browser_history">"最近閲覧したページ"</string>
     <string name="empty_history">"ブラウザ履歴はありません。"</string>
