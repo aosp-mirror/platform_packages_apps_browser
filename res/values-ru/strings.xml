@@ -27,8 +27,6 @@
     <string name="action">"Войти"</string>
     <string name="cancel">"Отмена"</string>
     <string name="ok">"ОК"</string>
-    <string name="matches_found">" совпадений(я)"</string>
-    <string name="zero">"Нет"</string>
     <string name="page_info">"Сведения о странице"</string>
     <string name="page_info_view">"Просмотреть сведения о странице"</string>
     <string name="page_info_address">"Адрес:"</string>

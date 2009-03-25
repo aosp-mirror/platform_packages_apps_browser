@@ -27,8 +27,6 @@
     <string name="action">"登入"</string>
     <string name="cancel">"取消"</string>
     <string name="ok">"確定"</string>
-    <string name="matches_found">" 個符合項目"</string>
-    <string name="zero">"否"</string>
     <string name="page_info">"頁面資訊"</string>
     <string name="page_info_view">"檢視頁面資訊"</string>
     <string name="page_info_address">"位址："</string>

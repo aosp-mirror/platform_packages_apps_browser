@@ -27,8 +27,6 @@
     <string name="action">"Accedi"</string>
     <string name="cancel">"Annulla"</string>
     <string name="ok">"OK"</string>
-    <string name="matches_found">" corrispondenze"</string>
-    <string name="zero">"No"</string>
     <string name="page_info">"Info pagina"</string>
     <string name="page_info_view">"Visualizza info pagina"</string>
     <string name="page_info_address">"Indirizzo:"</string>
