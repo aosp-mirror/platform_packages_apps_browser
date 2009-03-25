@@ -36,6 +36,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
@@ -231,6 +232,9 @@ public class BrowserProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+        Log.d(TAG, "onCreate start");
+        long start = Process.getElapsedCpuTime();
+
         final Context context = getContext();
         mOpenHelper = new DatabaseHelper(context);
         // we added "picasa web album" into default bookmarks for version 19. 
@@ -247,6 +251,7 @@ public class BrowserProvider extends ContentProvider {
                 ed.commit();
             }
         }
+        Log.d(TAG, "onCreate used " + (Process.getElapsedCpuTime() - start) + " ms");
         return true;
     }
 
