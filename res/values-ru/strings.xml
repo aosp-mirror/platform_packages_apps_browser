@@ -27,8 +27,10 @@
     <string name="action">"Войти"</string>
     <string name="cancel">"Отмена"</string>
     <string name="ok">"ОК"</string>
-    <string name="matches_found">" совпадений(я)"</string>
-    <string name="zero">"Нет"</string>
+    <!-- no translation found for matches_found:zero (6242659159545399963) -->
+    <!-- no translation found for matches_found:one (4352019729062956802) -->
+    <!-- no translation found for matches_found:few (5544267486978946555) -->
+    <!-- no translation found for matches_found:other (6616125067364315405) -->
     <string name="page_info">"Сведения о странице"</string>
     <string name="page_info_view">"Просмотреть сведения о странице"</string>
     <string name="page_info_address">"Адрес:"</string>
@@ -166,23 +168,6 @@
     <string name="pref_extras_reset_default_dlg">"Все данные бразуера будут удалены, а для настроек будут восстановлены значения по умолчанию."</string>
     <string name="pref_extras_reset_default_dlg_title">"Восстановить значения по умолчанию"</string>
     <string name="pref_development_title">"Отладка"</string>
-    <string name="pref_development_viewport">"Use wide viewport"</string>
-    <string name="pref_development_single_column_rendering">"Single column rendering"</string>
-    <string name="pref_development_normal_rendering">"Normal rendering"</string>
-    <string name="pref_development_trace">"Enable tracing"</string>
-    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
-    <string name="pref_development_search_url">"Set search URL"</string>
-    <string name="pref_development_uastring">"UAString"</string>
-  <string-array name="pref_development_ua_choices">
-    <item>"Android"</item>
-    <item>"Desktop"</item>
-    <item>"iPhone"</item>
-  </string-array>
-  <string-array name="pref_development_ua_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
-  </string-array>
     <string name="pref_default_text_encoding">"Выбрать кодировку текста"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Латиница-1 (ISO-8859-1)"</item>
@@ -233,8 +218,7 @@
     <string name="download_no_sdcard_dlg_title">"Нет карты SD"</string>
     <string name="download_no_sdcard_dlg_msg">"Для загрузки файла <xliff:g id="FILENAME">%s</xliff:g> нужна карта SD."</string>
     <string name="download_sdcard_busy_dlg_title">"Карта SD недоступна"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"Карта SD занята. Чтобы разрешить загрузки, выберите \"Выключить USB-накопитель\" в уведомлении."</string>
     <string name="download_no_application">"Не удалось найти приложение для открытия этого файла."</string>
     <string name="retry">"Повторить"</string>
     <string name="no_downloads">"История загрузок пуста."</string>
@@ -255,63 +239,36 @@
     <string name="permdesc_readHistoryBookmarks">"Позволяет приложению считывать все URL, открытые через браузер, и все закладки браузера."</string>
     <string name="permlab_writeHistoryBookmarks">"записывать историю и закладки браузера"</string>
     <string name="permdesc_writeHistoryBookmarks">"Позволяет приложению изменять сохраненные в телефоне историю и закладки браузера. Вредоносное ПО сможет стирать или изменять данные браузера."</string>
-    <!-- no translation found for query_data_prompt (5474381240981604223) -->
-    <skip />
-    <!-- no translation found for query_data_message (8789381063185445197) -->
-    <skip />
-    <!-- no translation found for location_prompt (226262202057302423) -->
-    <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
-    <skip />
-    <!-- no translation found for shortcut_prompt (437193299088893596) -->
-    <skip />
-    <!-- no translation found for shortcut_message (4793042709293755892) -->
-    <skip />
+    <string name="query_data_prompt">"Разрешить сохранение"</string>
+    <string name="query_data_message">"Этот веб-сайт пытается сохранить данные на вашем телефоне."</string>
+    <string name="location_prompt">"Доступ к вашему местоположению"</string>
+    <string name="location_message">"Этот веб-сайт пытается получить доступ к данным о вашем местоположении."</string>
+    <string name="shortcut_prompt">"Создать ярлык"</string>
+    <string name="shortcut_message">"Этот веб-сайт пытается создать ярлык данной страницы на главном экране телефона."</string>
     <string name="settings_message">"В таблице ниже показаны разрешения, которые вы дали сайтам, пытавшимся использовать Gears."</string>
-    <!-- no translation found for filepicker_message (4929726371602896039) -->
-    <skip />
-    <!-- no translation found for image_message (5450245866521896891) -->
-    <skip />
+    <string name="filepicker_message">"Выбор файлов"</string>
+    <string name="image_message">"Выбранное изображение"</string>
     <string name="settings_title">"Настройки Gears"</string>
     <string name="privacy_policy">"Прочитайте политику конфиденциальности сайта, чтобы узнать, как будут использованы данные о вашем местоположении."</string>
-    <!-- no translation found for settings_storage_title (7089119630457156408) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
-    <skip />
-    <!-- no translation found for settings_location_title (4953062923509886651) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
-    <skip />
-    <!-- no translation found for settings_remove_site (1822247070226589958) -->
-    <skip />
-    <!-- no translation found for settings_empty (2008952224378583146) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
-    <skip />
-    <!-- no translation found for storage_notification (6534213782873968255) -->
-    <skip />
-    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
-    <skip />
-    <!-- no translation found for location_notification (3495804750470905804) -->
-    <skip />
-    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
-    <skip />
-    <!-- no translation found for shortcut_notification (1659700220868444568) -->
-    <skip />
-    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
-    <skip />
-    <!-- no translation found for permission_button_allow (7301874925704148242) -->
-    <skip />
-    <!-- no translation found for permission_button_deny (104712269725153018) -->
-    <skip />
-    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
-    <skip />
+    <string name="settings_storage_title">"Разрешить сохранение в памяти"</string>
+    <string name="settings_storage_subtitle_on">"Этот сайт может сохранять данные на вашем телефоне"</string>
+    <string name="settings_storage_subtitle_off">"Этот сайт не может сохранять данные на вашем телефоне"</string>
+    <string name="settings_location_title">"Разрешить определение местоположения"</string>
+    <string name="settings_location_subtitle_on">"У этого сайта есть доступ к данным о вашем местоположении"</string>
+    <string name="settings_location_subtitle_off">"У этого сайта нет доступа к данным о вашем местоположении"</string>
+    <string name="settings_remove_site">"Удалить этот сайт из Gears"</string>
+    <string name="settings_empty">"Разрешения не заданы"</string>
+    <string name="settings_confirmation_remove_title">"Удалить этот сайт"</string>
+    <string name="settings_confirmation_remove">"Все разрешения будут сняты, а все данные, сохраненные этим сайтом на вашем телефоне, будут удалены."</string>
+    <string name="storage_notification">"Этот сайт будет сохранять данные на вашем телефоне."\n" Чтобы изменить эту настройку, выберите"\n" Настройки -&gt; Настройки Gears"</string>
+    <string name="storage_notification_alwaysdeny">"Этот сайт не будет сохранять данные на вашем телефоне."\n" Чтобы изменить эту настройку, выберите"\n" Настройки -&gt; Настройки Gears"</string>
+    <string name="location_notification">"У этого сайта есть доступ к данным о вашем местоположении."\n" Чтобы изменить эту настройку, выберите"\n" Настройки -&gt; Настройки Gears"</string>
+    <string name="location_notification_alwaysdeny">"Этот веб-сайт не будет пытаться получить доступ к данным о вашем местоположении."\n" Чтобы изменить эту настройку, выберите"\n" Настройки -&gt; Настройки Gears"</string>
+    <string name="shortcut_notification">"Ярлык создан"</string>
+    <string name="permission_button_alwaysdeny">"Не разрешать"</string>
+    <string name="permission_button_allow">"ОК"</string>
+    <string name="permission_button_deny">"Отмена"</string>
+    <string name="shortcut_button_alwaysdeny">"Не разрешать"</string>
     <string name="shortcut_button_allow">"ОК"</string>
     <string name="shortcut_button_deny">"Отмена"</string>
     <string name="settings_button_allow">"Применить"</string>

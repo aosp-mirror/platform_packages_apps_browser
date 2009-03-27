@@ -16,15 +16,21 @@
 
 package com.android.browser;
 
+import com.google.android.providers.GoogleSettings.Partner;
+import java.util.Date;
+
 import android.app.ISearchManager;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentUris;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.UriMatcher;
+import android.content.SharedPreferences.Editor;
 import android.database.AbstractCursor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -33,10 +39,12 @@ import android.net.Uri;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
+import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.util.Log;
 import android.server.search.SearchableInfo;
 import android.text.util.Regex;
+
 
 public class BrowserProvider extends ContentProvider {
 
@@ -44,6 +52,9 @@ public class BrowserProvider extends ContentProvider {
     private static final String sDatabaseName = "browser.db";
     private static final String TAG = "BrowserProvider";
     private static final String ORDER_BY = "visits DESC, date DESC";
+
+    private static final String PICASA_URL = "http://picasaweb.google.com/m/" +
+            "viewer?source=androidclient";
 
     private static final String[] TABLE_NAMES = new String[] {
         "bookmarks", "searches"
@@ -126,9 +137,12 @@ public class BrowserProvider extends ContentProvider {
     }
   
 
-    private static CharSequence replaceSystemPropertyInString(CharSequence srcString) {
+    private static CharSequence replaceSystemPropertyInString(Context context, CharSequence srcString) {
         StringBuffer sb = new StringBuffer();
         int lastCharLoc = 0;
+        
+        final String client_id = Partner.getString(context.getContentResolver(), Partner.CLIENT_ID);
+
         for (int i = 0; i < srcString.length(); ++i) {
             char c = srcString.charAt(i);
             if (c == '{') {
@@ -139,16 +153,10 @@ public class BrowserProvider extends ContentProvider {
                     char k = srcString.charAt(j);
                     if (k == '}') {
                         String propertyKeyValue = srcString.subSequence(i + 1, j).toString();
-                        // See if the propertyKeyValue specifies a default value
-                        int defaultOffset = propertyKeyValue.indexOf(':');
-                        if (defaultOffset == -1) {
-                            sb.append(SystemProperties.get(propertyKeyValue));
+                        if (propertyKeyValue.equals("CLIENT_ID")) {
+                            sb.append(client_id);
                         } else {
-                            String propertyKey = propertyKeyValue.substring(0, defaultOffset);
-                            String defaultValue = 
-                                    propertyKeyValue.substring(defaultOffset + 1, 
-                                                               propertyKeyValue.length());
-                            sb.append(SystemProperties.get(propertyKey, defaultValue));
+                            sb.append("unknown");
                         }
                         lastCharLoc = j + 1;
                         i = j;
@@ -191,7 +199,7 @@ public class BrowserProvider extends ContentProvider {
             int size = bookmarks.length;
             try {
                 for (int i = 0; i < size; i = i + 2) {
-                    CharSequence bookmarkDestination = replaceSystemPropertyInString(bookmarks[i + 1]);
+                    CharSequence bookmarkDestination = replaceSystemPropertyInString(mContext, bookmarks[i + 1]);
                     db.execSQL("INSERT INTO bookmarks (title, url, visits, " +
                             "date, created, bookmark)" + " VALUES('" +
                             bookmarks[i] + "', '" + bookmarkDestination + 
@@ -223,8 +231,43 @@ public class BrowserProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new DatabaseHelper(getContext());
+        final Context context = getContext();
+        mOpenHelper = new DatabaseHelper(context);
+        // we added "picasa web album" into default bookmarks for version 19. 
+        // To avoid erasing the bookmark table, we added it explicitly for
+        // version 18 and 19 as in the other cases, we will erase the table.
+        if (DATABASE_VERSION == 18 || DATABASE_VERSION == 19) {
+            SharedPreferences p = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            boolean fix = p.getBoolean("fix_picasa", true);
+            if (fix) {
+                fixPicasaBookmark();
+                Editor ed = p.edit();
+                ed.putBoolean("fix_picasa", false);
+                ed.commit();
+            }
+        }
         return true;
+    }
+
+    private void fixPicasaBookmark() {
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT _id FROM bookmarks WHERE " +
+                "bookmark = 1 AND url = ?", new String[] { PICASA_URL });
+        try {
+            if (!cursor.moveToFirst()) {
+                // set "created" so that it will be on the top of the list
+                db.execSQL("INSERT INTO bookmarks (title, url, visits, " +
+                        "date, created, bookmark)" + " VALUES('" +
+                        getContext().getString(R.string.picasa) + "', '"
+                        + PICASA_URL + "', 0, 0, " + new Date().getTime()
+                        + ", 1);");
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
     /*

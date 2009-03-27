@@ -18,6 +18,7 @@ package com.android.browser;
 
 import com.google.android.googleapps.IGoogleLoginService;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
+import com.google.android.providers.GoogleSettings.Partner;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -137,7 +138,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -203,7 +204,7 @@ public class BrowserActivity extends Activity
                     if (googleUser == null || !hostedUser.equals(googleUser)) {
                         String domain = hostedUser.substring(hostedUser.lastIndexOf('@')+1);
                         homepage = "http://www.google.com/m/a/" + domain + "?client=ms-" +
-                            SystemProperties.get("persist.sys.com.google.clientid", "unknown");
+                            Partner.getString(BrowserActivity.this.getContentResolver(), Partner.CLIENT_ID);
                     }
                 } catch (RemoteException ignore) {
                     // Login service died; carry on
@@ -2938,6 +2939,73 @@ public class BrowserActivity extends Activity
                 .show();
         }
 
+        // Container class for the next error dialog that needs to be
+        // displayed.
+        class ErrorDialog {
+            public final int mTitle;
+            public final String mDescription;
+            public final int mError;
+            ErrorDialog(int title, String desc, int error) {
+                mTitle = title;
+                mDescription = desc;
+                mError = error;
+            }
+        };
+
+        private void processNextError() {
+            if (mQueuedErrors == null) {
+                return;
+            }
+            // The first one is currently displayed so just remove it.
+            mQueuedErrors.removeFirst();
+            if (mQueuedErrors.size() == 0) {
+                mQueuedErrors = null;
+                return;
+            }
+            showError(mQueuedErrors.getFirst());
+        }
+
+        private DialogInterface.OnDismissListener mDialogListener =
+                new DialogInterface.OnDismissListener() {
+                    public void onDismiss(DialogInterface d) {
+                        processNextError();
+                    }
+                };
+        private LinkedList<ErrorDialog> mQueuedErrors;
+
+        private void queueError(int err, String desc) {
+            if (mQueuedErrors == null) {
+                mQueuedErrors = new LinkedList<ErrorDialog>();
+            }
+            for (ErrorDialog d : mQueuedErrors) {
+                if (d.mError == err) {
+                    // Already saw a similar error, ignore the new one.
+                    return;
+                }
+            }
+            ErrorDialog errDialog = new ErrorDialog(
+                    err == EventHandler.FILE_NOT_FOUND_ERROR ?
+                    R.string.browserFrameFileErrorLabel :
+                    R.string.browserFrameNetworkErrorLabel,
+                    desc, err);
+            mQueuedErrors.addLast(errDialog);
+
+            // Show the dialog now if the queue was empty.
+            if (mQueuedErrors.size() == 1) {
+                showError(errDialog);
+            }
+        }
+
+        private void showError(ErrorDialog errDialog) {
+            AlertDialog d = new AlertDialog.Builder(BrowserActivity.this)
+                    .setTitle(errDialog.mTitle)
+                    .setMessage(errDialog.mDescription)
+                    .setPositiveButton(R.string.ok, null)
+                    .create();
+            d.setOnDismissListener(mDialogListener);
+            d.show();
+        }
+
         /**
          * Show a dialog informing the user of the network error reported by
          * WebCore.
@@ -2950,15 +3018,10 @@ public class BrowserActivity extends Activity
                     errorCode != EventHandler.ERROR_BAD_URL &&
                     errorCode != EventHandler.ERROR_UNSUPPORTED_SCHEME &&
                     errorCode != EventHandler.FILE_ERROR) {
-                new AlertDialog.Builder(BrowserActivity.this)
-                        .setTitle((errorCode == EventHandler.FILE_NOT_FOUND_ERROR) ?
-                                         R.string.browserFrameFileErrorLabel :
-                                         R.string.browserFrameNetworkErrorLabel)
-                        .setMessage(description)
-                        .setPositiveButton(R.string.ok, null)
-                        .show();
+                queueError(errorCode, description);
             }
-            Log.e(LOGTAG, "onReceivedError code:"+errorCode+" "+description);
+            Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
+                    + " " + description);
 
             // We need to reset the title after an error.
             resetTitleAndRevertLockIcon();
@@ -4423,7 +4486,7 @@ public class BrowserActivity extends Activity
                     R.string.google_search_base, l.getLanguage(),
                     l.getCountry().toLowerCase())
                     + "client=ms-"
-                    + SystemProperties.get("persist.sys.com.google.clientid", "unknown")
+                    + Partner.getString(this.getContentResolver(), Partner.CLIENT_ID)
                     + "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&q=%s";
         } else {
             QuickSearch_G = url;

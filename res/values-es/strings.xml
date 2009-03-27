@@ -27,8 +27,10 @@
     <string name="action">"Acceder"</string>
     <string name="cancel">"Cancelar"</string>
     <string name="ok">"Aceptar"</string>
-    <string name="matches_found">" coincidencias"</string>
-    <string name="zero">"No"</string>
+    <!-- no translation found for matches_found:zero (6242659159545399963) -->
+    <!-- no translation found for matches_found:one (4352019729062956802) -->
+    <!-- no translation found for matches_found:few (5544267486978946555) -->
+    <!-- no translation found for matches_found:other (6616125067364315405) -->
     <string name="page_info">"Información de página"</string>
     <string name="page_info_view">"Ver información de página"</string>
     <string name="page_info_address">"Dirección:"</string>
@@ -166,23 +168,6 @@
     <string name="pref_extras_reset_default_dlg">"Se borrarán todos los datos del navegador y se restablecerá la configuración predeterminada."</string>
     <string name="pref_extras_reset_default_dlg_title">"Restablecer valores predeterminados"</string>
     <string name="pref_development_title">"Depurar"</string>
-    <string name="pref_development_viewport">"Use wide viewport"</string>
-    <string name="pref_development_single_column_rendering">"Representación en una columna"</string>
-    <string name="pref_development_normal_rendering">"Normal rendering"</string>
-    <string name="pref_development_trace">"Enable tracing"</string>
-    <string name="pref_development_nav_dump">"Enable nav cache dump"</string>
-    <string name="pref_development_search_url">"Establecer URL de búsqueda"</string>
-    <string name="pref_development_uastring">"UAString"</string>
-  <string-array name="pref_development_ua_choices">
-    <item>"Android"</item>
-    <item>"Desktop"</item>
-    <item>"iPhone"</item>
-  </string-array>
-  <string-array name="pref_development_ua_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
-  </string-array>
     <string name="pref_default_text_encoding">"Establecer codificación de texto"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latín-1 (ISO-8859-1)"</item>
@@ -233,8 +218,7 @@
     <string name="download_no_sdcard_dlg_title">"Falta la tarjeta SD"</string>
     <string name="download_no_sdcard_dlg_msg">"Para descargar <xliff:g id="FILENAME">%s</xliff:g> se necesita una tarjeta SD."</string>
     <string name="download_sdcard_busy_dlg_title">"Tarjeta SD no disponible"</string>
-    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
-    <skip />
+    <string name="download_sdcard_busy_dlg_msg">"La tarjeta SD está ocupada. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
     <string name="download_no_application">"No se ha encontrado ninguna aplicación que permita abrir este archivo."</string>
     <string name="retry">"Reintentar"</string>
     <string name="no_downloads">"El historial de descargas está vacío."</string>
@@ -255,63 +239,36 @@
     <string name="permdesc_readHistoryBookmarks">"Permite que la aplicación lea todas las URL que ha visitado el navegador y todos sus marcadores."</string>
     <string name="permlab_writeHistoryBookmarks">"escribir en marcadores y en el historial del navegador"</string>
     <string name="permdesc_writeHistoryBookmarks">"Permite que una aplicación modifique la información de los marcadores o del historial del navegador almacenada en el teléfono. Las aplicaciones malintencionadas pueden utilizar este permiso para borrar o modificar los datos del navegador."</string>
-    <!-- no translation found for query_data_prompt (5474381240981604223) -->
-    <skip />
-    <!-- no translation found for query_data_message (8789381063185445197) -->
-    <skip />
-    <!-- no translation found for location_prompt (226262202057302423) -->
-    <skip />
-    <!-- no translation found for location_message (1729456751935683242) -->
-    <skip />
-    <!-- no translation found for shortcut_prompt (437193299088893596) -->
-    <skip />
-    <!-- no translation found for shortcut_message (4793042709293755892) -->
-    <skip />
+    <string name="query_data_prompt">"Permitir almacenamiento"</string>
+    <string name="query_data_message">"Este sitio web desea almacenar información en el teléfono."</string>
+    <string name="location_prompt">"Acceso a tu ubicación"</string>
+    <string name="location_message">"Este sitio web desea tener acceso a tu ubicación."</string>
+    <string name="shortcut_prompt">"Crear un acceso directo"</string>
+    <string name="shortcut_message">"Este sitio web desea crear un acceso directo a esta página en tu página principal."</string>
     <string name="settings_message">"En la tabla que aparece a continuación se muestran los permisos que has concedido a los distintos sitios web que han intentado utilizar Gears."</string>
-    <!-- no translation found for filepicker_message (4929726371602896039) -->
-    <skip />
-    <!-- no translation found for image_message (5450245866521896891) -->
-    <skip />
+    <string name="filepicker_message">"Selector de archivos"</string>
+    <string name="image_message">"Imagen seleccionada"</string>
     <string name="settings_title">"Configuración de Gears"</string>
     <string name="privacy_policy">"Lee la política de privacidad del sitio para saber cómo se utilizará tu ubicación."</string>
-    <!-- no translation found for settings_storage_title (7089119630457156408) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
-    <skip />
-    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
-    <skip />
-    <!-- no translation found for settings_location_title (4953062923509886651) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
-    <skip />
-    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
-    <skip />
-    <!-- no translation found for settings_remove_site (1822247070226589958) -->
-    <skip />
-    <!-- no translation found for settings_empty (2008952224378583146) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
-    <skip />
-    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
-    <skip />
-    <!-- no translation found for storage_notification (6534213782873968255) -->
-    <skip />
-    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
-    <skip />
-    <!-- no translation found for location_notification (3495804750470905804) -->
-    <skip />
-    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
-    <skip />
-    <!-- no translation found for shortcut_notification (1659700220868444568) -->
-    <skip />
-    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
-    <skip />
-    <!-- no translation found for permission_button_allow (7301874925704148242) -->
-    <skip />
-    <!-- no translation found for permission_button_deny (104712269725153018) -->
-    <skip />
-    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
-    <skip />
+    <string name="settings_storage_title">"Permitir almacenamiento local"</string>
+    <string name="settings_storage_subtitle_on">"Este sitio puede guardar información en el teléfono."</string>
+    <string name="settings_storage_subtitle_off">"Este sitio no puede guardar información en el teléfono."</string>
+    <string name="settings_location_title">"Permitir detección de ubicación"</string>
+    <string name="settings_location_subtitle_on">"Este sitio puede leer tu ubicación actual."</string>
+    <string name="settings_location_subtitle_off">"Este sitio no puede leer tu ubicación actual."</string>
+    <string name="settings_remove_site">"Eliminar este sitio de Gears"</string>
+    <string name="settings_empty">"No hay permisos establecidos."</string>
+    <string name="settings_confirmation_remove_title">"Eliminar este sitio"</string>
+    <string name="settings_confirmation_remove">"Se borrarán todos los permisos y se eliminarán todos los datos que el sitio haya almacenado en el teléfono."</string>
+    <string name="storage_notification">"Este sitio puede almacenar información en el teléfono."\n" Puedes modificar esta opción en:"\n" Configuración -&gt; Configuración de Gears."</string>
+    <string name="storage_notification_alwaysdeny">"Este sitio no puede almacenar nunca información en el teléfono."\n" Puedes modificar esta opción en:"\n" Configuración -&gt; Configuración de Gears."</string>
+    <string name="location_notification">"Este sitio puede acceder a tu ubicación actual."\n" Puedes modificar esta opción en:"\n" Configuración -&gt; Configuración de Gears."</string>
+    <string name="location_notification_alwaysdeny">"Este sitio no puede acceder a tu ubicación actual."\n" Puedes modificar esta opción en:"\n" Configuración -&gt; Configuración de Gears."</string>
+    <string name="shortcut_notification">"Acceso directo creado"</string>
+    <string name="permission_button_alwaysdeny">"No permitir nunca"</string>
+    <string name="permission_button_allow">"Aceptar"</string>
+    <string name="permission_button_deny">"Cancelar"</string>
+    <string name="shortcut_button_alwaysdeny">"No permitir nunca"</string>
     <string name="shortcut_button_allow">"Aceptar"</string>
     <string name="shortcut_button_deny">"Cancelar"</string>
     <string name="settings_button_allow">"Aplicar"</string>
