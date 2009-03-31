@@ -70,6 +70,7 @@ class BrowserSettings extends Observable {
     private String homeUrl = "http://www.google.com/m?client=ms-";
     private boolean loginInitialized = false;
     private boolean autoFitPage = true;
+    private boolean landscapeOnly = false;
     private boolean showDebugSettings = false;
 
     // Development settings
@@ -237,6 +238,14 @@ class BrowserSettings extends Observable {
         textSize = WebSettings.TextSize.valueOf(
                 p.getString(PREF_TEXT_SIZE, textSize.name()));
         autoFitPage = p.getBoolean("autofit_pages", autoFitPage);
+        boolean landscapeOnlyTemp =
+                p.getBoolean("landscape_only", landscapeOnly);
+        if (landscapeOnlyTemp != landscapeOnly) {
+            landscapeOnly = landscapeOnlyTemp;
+            mTabControl.getBrowserActivity().setRequestedOrientation(
+                    landscapeOnly ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                    : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        }
         useWideViewPort = true; // use wide view port for either setting
         if (autoFitPage) {
             layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS;

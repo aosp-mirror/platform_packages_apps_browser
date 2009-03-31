@@ -282,6 +282,10 @@
     <string name="pref_content_autofit">Auto-fit pages</string>
     <!-- Settings summary -->
     <string name="pref_content_autofit_summary">Format Web pages to fit the screen</string>
+    <!-- Settings label for enabling a mode where the browser is always set to landscape mode -->
+    <string name="pref_content_landscape_only">Landscape only display</string>
+    <!-- Settings summary -->
+    <string name="pref_content_landscape_only_summary">Always read pages in the wider, landscape screen orientation</string>
     <!-- Settings screen, section title -->
     <string name="pref_privacy_title">Privacy settings</string>
     <!-- Settings label -->
