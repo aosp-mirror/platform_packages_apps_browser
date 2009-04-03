@@ -481,7 +481,8 @@ public class BrowserProvider extends ContentProvider {
                 myArgs = null;
             } else {
                 String like = selectionArgs[0] + "%";
-                if (selectionArgs[0].startsWith("http")) {
+                if (selectionArgs[0].startsWith("http")
+                        || selectionArgs[0].startsWith("file")) {
                     myArgs = new String[1];
                     myArgs[0] = like;
                     suggestSelection = selection;
