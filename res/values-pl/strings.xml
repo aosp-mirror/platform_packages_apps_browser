@@ -27,10 +27,12 @@
     <string name="action">"Zaloguj się"</string>
     <string name="cancel">"Anuluj"</string>
     <string name="ok">"OK"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"Brak wyników"</item>
+    <item quantity="one">"1 wynik"</item>
+    <item quantity="few">"Wyników: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item quantity="other">"Wyników: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="page_info">"Informacje o stronie"</string>
     <string name="page_info_view">"Informacje o stronie"</string>
     <string name="page_info_address">"Adres:"</string>
