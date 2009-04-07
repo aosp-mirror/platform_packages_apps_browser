@@ -27,10 +27,12 @@
     <string name="action">"Acceder"</string>
     <string name="cancel">"Cancelar"</string>
     <string name="ok">"Aceptar"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"No hay coincidencias"</item>
+    <item quantity="one">"Una coincidencia"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> coincidencias"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> coincidencias"</item>
+  </plurals>
     <string name="page_info">"Información de página"</string>
     <string name="page_info_view">"Ver información de página"</string>
     <string name="page_info_address">"Dirección:"</string>

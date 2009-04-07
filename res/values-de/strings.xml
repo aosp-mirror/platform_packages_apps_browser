@@ -27,10 +27,12 @@
     <string name="action">"Anmelden"</string>
     <string name="cancel">"Abbrechen"</string>
     <string name="ok">"OK"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"Keine Übereinstimmungen"</item>
+    <item quantity="one">"1 Übereinstimmung"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> Übereinstimmungen"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> Übereinstimmungen"</item>
+  </plurals>
     <string name="page_info">"Seiten-Info"</string>
     <string name="page_info_view">"Seiten-Info anzeigen"</string>
     <string name="page_info_address">"Adresse:"</string>
@@ -83,7 +85,7 @@
     <string name="find_dot">"Auf Seite suchen"</string>
     <string name="select_dot">"Text auswählen"</string>
     <string name="view_tabs">"Fensterübersicht"</string>
-    <string name="view_tabs_condensed">"Windows"</string>
+    <string name="view_tabs_condensed">"Fenster"</string>
     <string name="tab_picker_title">"Aktuelle Fenster"</string>
     <string name="tab_picker_view_tab">"Anzeigen"</string>
     <string name="tab_picker_new_tab">"Neues Fenster"</string>
@@ -115,7 +117,7 @@
     <string name="pref_content_title">"Einstellungen für Seiteninhalt"</string>
     <string name="pref_content_load_images">"Bilder laden"</string>
     <string name="pref_content_load_images_summary">"Bilder auf Webseiten anzeigen"</string>
-    <string name="pref_content_block_popups">"Popup-Fenster blockieren"</string>
+    <string name="pref_content_block_popups">"Popupfenster blockieren"</string>
     <string name="pref_content_javascript">"JavaScript aktivieren"</string>
     <string name="pref_content_open_in_background">"Im Hintergrund öffnen"</string>
     <string name="pref_content_open_in_background_summary">"Neue Fenster hinter dem aktuellen Fenster öffnen"</string>
@@ -144,7 +146,7 @@
     <string name="pref_security_save_form_data">"Formulardaten merken"</string>
     <string name="pref_security_save_form_data_summary">"Daten in Formularen zur späteren Verwendung merken"</string>
     <string name="pref_security_show_security_warning">"Sicherheitswarnungen"</string>
-    <string name="pref_security_show_security_warning_summary">"Warnung anzeigen, wenn ein Problem mit der Sicherheit der Website besteht"</string>
+    <string name="pref_security_show_security_warning_summary">"Bei Problemen mit der Sicherheit der Website Warnung anzeigen"</string>
     <string name="pref_security_accept_cookies">"Cookies akzeptieren"</string>
     <string name="pref_security_accept_cookies_summary">"Speichern und Lesen von \"Cookie\"-Daten zulassen"</string>
     <string name="pref_text_size">"Textgröße einstellen"</string>
@@ -164,7 +166,7 @@
     <string name="pref_plugin_installed_empty_list">"Keine Plug-Ins installiert."</string>
     <string name="pref_extras_gears_settings_summary">"Vom Browser nicht unterstützte Anwendungen"</string>
     <string name="pref_extras_reset_default">"Auf Standard zurücksetzen"</string>
-    <string name="pref_extras_reset_default_summary">"Alle Browserdaten löschen und alle Einstellungen auf Standardeinstellung zurücksetzen"</string>
+    <string name="pref_extras_reset_default_summary">"Alle Browserdaten löschen und Einstellungen auf Standard zurücksetzen"</string>
     <string name="pref_extras_reset_default_dlg">"Alle Browserdaten werden gelöscht. Alle Einstellungen werden auf die Standardeinstellung zurückgesetzt."</string>
     <string name="pref_extras_reset_default_dlg_title">"Auf Standardeinstellung zurücksetzen"</string>
     <string name="pref_development_title">"Debuggen"</string>
