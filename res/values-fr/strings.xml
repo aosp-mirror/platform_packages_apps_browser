@@ -122,7 +122,7 @@
     <string name="pref_content_open_in_background">"Ouvrir en arrière-plan"</string>
     <string name="pref_content_open_in_background_summary">"Les nouvelles fenêtres s\'ouvrent derrière la fenêtre actuelle"</string>
     <string name="pref_content_homepage">"Configurer la page d\'accueil"</string>
-    <string name="pref_content_autofit">"Redimensionner les pages"</string>
+    <string name="pref_content_autofit">"Redimensionner"</string>
     <string name="pref_content_autofit_summary">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
     <string name="pref_privacy_title">"Paramètres de confidentialité"</string>
     <string name="pref_privacy_clear_cache">"Effacer le cache"</string>

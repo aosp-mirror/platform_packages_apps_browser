@@ -117,12 +117,12 @@
     <string name="pref_content_title">"Configuración de contenido de la página"</string>
     <string name="pref_content_load_images">"Cargar imágenes"</string>
     <string name="pref_content_load_images_summary">"Mostrar imágenes en páginas web"</string>
-    <string name="pref_content_block_popups">"Bloquear ventanas emergentes"</string>
+    <string name="pref_content_block_popups">"Bloquear ventanas emer."</string>
     <string name="pref_content_javascript">"Habilitar JavaScript"</string>
     <string name="pref_content_open_in_background">"Abrir en segundo plano"</string>
     <string name="pref_content_open_in_background_summary">"Nuevas ventanas abiertas detrás de la actual"</string>
     <string name="pref_content_homepage">"Establecer página principal"</string>
-    <string name="pref_content_autofit">"Ajustar páginas automáticamente"</string>
+    <string name="pref_content_autofit">"Ajustar páginas automát."</string>
     <string name="pref_content_autofit_summary">"Configurar las páginas web para ajustarlas a la pantalla"</string>
     <string name="pref_privacy_title">"Configuración de privacidad"</string>
     <string name="pref_privacy_clear_cache">"Borrar caché"</string>
@@ -143,9 +143,9 @@
     <string name="pref_security_title">"Configuración de seguridad"</string>
     <string name="pref_security_remember_passwords">"Recordar contraseñas"</string>
     <string name="pref_security_remember_passwords_summary">"Guardar nombres de usuario y contraseñas de sitios web"</string>
-    <string name="pref_security_save_form_data">"Recordar datos de formulario"</string>
+    <string name="pref_security_save_form_data">"Recordar formularios"</string>
     <string name="pref_security_save_form_data_summary">"Recordar datos introducidos en formularios"</string>
-    <string name="pref_security_show_security_warning">"Mostrar advertencias de seguridad"</string>
+    <string name="pref_security_show_security_warning">"Mostrar advertencias"</string>
     <string name="pref_security_show_security_warning_summary">"Mostrar advertencia si hay algún problema con la seguridad del sitio"</string>
     <string name="pref_security_accept_cookies">"Aceptar cookies"</string>
     <string name="pref_security_accept_cookies_summary">"Permitir que los sitios guarden y lean datos de cookies"</string>
@@ -165,12 +165,12 @@
     <string name="pref_plugin_installed">"Lista de complementos"</string>
     <string name="pref_plugin_installed_empty_list">"Ningún complemento instalado"</string>
     <string name="pref_extras_gears_settings_summary">"Aplicaciones que amplían las funciones del navegador"</string>
-    <string name="pref_extras_reset_default">"Restablecer valores predeterminados"</string>
+    <string name="pref_extras_reset_default">"Restablecer valores pred."</string>
     <string name="pref_extras_reset_default_summary">"Borrar todos los datos del navegador y restablecer la configuración predeterminada"</string>
     <string name="pref_extras_reset_default_dlg">"Se borrarán todos los datos del navegador y se restablecerá la configuración predeterminada."</string>
     <string name="pref_extras_reset_default_dlg_title">"Restablecer valores predeterminados"</string>
     <string name="pref_development_title">"Depurar"</string>
-    <string name="pref_default_text_encoding">"Establecer codificación de texto"</string>
+    <string name="pref_default_text_encoding">"Codificación de texto"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latín-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
