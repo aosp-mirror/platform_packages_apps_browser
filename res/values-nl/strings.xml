@@ -27,10 +27,12 @@
     <string name="action">"Aanmelden"</string>
     <string name="cancel">"Annuleren"</string>
     <string name="ok">"OK"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"Geen overeenkomsten"</item>
+    <item quantity="one">"1 overeenkomst"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> overeenkomsten"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> overeenkomsten"</item>
+  </plurals>
     <string name="page_info">"Pagina-informatie"</string>
     <string name="page_info_view">"Pagina-informatie weergeven"</string>
     <string name="page_info_address">"Adres:"</string>
@@ -83,7 +85,7 @@
     <string name="find_dot">"Zoeken op pagina"</string>
     <string name="select_dot">"Tekst selecteren"</string>
     <string name="view_tabs">"Vensteroverzicht"</string>
-    <string name="view_tabs_condensed">"Windows"</string>
+    <string name="view_tabs_condensed">"Vensters"</string>
     <string name="tab_picker_title">"Huidige vensters"</string>
     <string name="tab_picker_view_tab">"Weergeven"</string>
     <string name="tab_picker_new_tab">"Nieuw venster"</string>
@@ -105,7 +107,7 @@
     <string name="contextmenu_download_image">"Afbeelding opslaan"</string>
     <string name="contextmenu_view_image">"Afbeelding weergeven"</string>
     <string name="contextmenu_dial_dot">"Bellen..."</string>
-    <string name="contextmenu_add_contact">"Contactpersoon toevoegen"</string>
+    <string name="contextmenu_add_contact">"Contact toevoegen"</string>
     <string name="contextmenu_send_mail">"E-mail verzenden"</string>
     <string name="contextmenu_map">"Kaart"</string>
     <string name="clear">"Wissen"</string>
@@ -145,7 +147,7 @@
     <string name="pref_security_save_form_data_summary">"Gegevens die ik typ in formulieren, onthouden voor later gebruik."</string>
     <string name="pref_security_show_security_warning">"Beveiligingswaarschuwingen weergeven"</string>
     <string name="pref_security_show_security_warning_summary">"Waarschuwen als er een beveiligingsprobleem is met een site"</string>
-    <string name="pref_security_accept_cookies">"Cookies accepteren"</string>
+    <string name="pref_security_accept_cookies">"Cookies toelaten"</string>
     <string name="pref_security_accept_cookies_summary">"Sites toestaan cookiegegevens te lezen en schrijven"</string>
     <string name="pref_text_size">"Tekengrootte instellen"</string>
   <string-array name="pref_text_size_choices">
@@ -170,14 +172,14 @@
     <string name="pref_development_title">"Foutopsporing"</string>
     <string name="pref_default_text_encoding">"Tekstcodering instellen"</string>
   <string-array name="pref_default_text_encoding_choices">
-    <item>"Latijn-1 (ISO-8859-1)"</item>
+    <item>"Latijns-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
     <item>"Japans (ISO-2022-JP)"</item>
     <item>"Japans (SHIFT_JIS)"</item>
     <item>"Japans (EUC-JP)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle">"Tekstcodering"</string>
-    <string name="pref_default_text_encoding_default">"Latijn-1"</string>
+    <string name="pref_default_text_encoding_default">"Latijns-1"</string>
     <string name="browserFrameRedirect">"Omleiden"</string>
     <string name="browserFrame307Post">"Deze webpagina wordt omgeleid. Wilt u uw ingevulde formuliergegevens doorsturen naar de nieuwe locatie?"</string>
     <string name="browserFrameNetworkErrorLabel">"Probleem met gegevensverbinding"</string>
@@ -219,7 +221,7 @@
     <string name="download_no_sdcard_dlg_msg">"Een SD-kaart is vereist om <xliff:g id="FILENAME">%s</xliff:g> te kunnen downloaden."</string>
     <string name="download_sdcard_busy_dlg_title">"SD-kaart niet beschikbaar"</string>
     <string name="download_sdcard_busy_dlg_msg">"De SD-kaart wordt gebruikt. Als u downloads wilt toestaan, selecteert u \'USB-opslag uitschakelen\' in de melding."</string>
-    <string name="download_no_application">"Er is geen toepassing gevonden waarmee dit bestand kan worden geopend."</string>
+    <string name="download_no_application">"Geen toepassing gevonden om dit bestand te openen"</string>
     <string name="retry">"Opnieuw proberen"</string>
     <string name="no_downloads">"Downloadgeschiedenis is leeg."</string>
     <string name="download_error">"Downloaden is mislukt."</string>
@@ -227,7 +229,7 @@
     <string name="download_running">"Downloaden..."</string>
     <string name="download_pending">"Downloaden starten..."</string>
     <string name="download_pending_network">"Wachten op gegevensverbinding..."</string>
-    <string name="download_running_paused">"Wachten op gegevensverbinding..."</string>
+    <string name="download_running_paused">"Wachten op dataverbinding"</string>
     <string name="download_canceled">"Download is geannuleerd."</string>
     <string name="download_not_acceptable">"Kan niet downloaden. De inhoud wordt niet ondersteund door de telefoon."</string>
     <string name="download_file_error">"Kan download niet voltooien. Er is niet genoeg ruimte."</string>
