@@ -17,7 +17,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name">"Prohlížeč"</string>
     <string name="tab_bookmarks">"Záložky"</string>
-    <string name="tab_most_visited">"Nejčastěji navštěvované"</string>
+    <string name="tab_most_visited">"Často navštěvované"</string>
     <string name="tab_history">"Historie"</string>
     <string name="added_to_bookmarks">"Přidáno k záložkám"</string>
     <string name="removed_from_bookmarks">"Odstraněno ze záložek"</string>
@@ -27,10 +27,12 @@
     <string name="action">"Přihlásit se"</string>
     <string name="cancel">"Zrušit"</string>
     <string name="ok">"OK"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"Žádné shody"</item>
+    <item quantity="one">"1 shoda"</item>
+    <item quantity="few">"Počet shod: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item quantity="other">"Počet shod: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="page_info">"Informace o stránce"</string>
     <string name="page_info_view">"Zobrazit informace o stránce"</string>
     <string name="page_info_address">"Adresa:"</string>
@@ -59,7 +61,7 @@
     <string name="forward">"Předat dál"</string>
     <string name="save">"OK"</string>
     <string name="do_not_save">"Zrušit"</string>
-    <string name="location">"Lokalita"</string>
+    <string name="location">"Umístění"</string>
     <string name="name">"Název"</string>
     <string name="http">"http://"</string>
     <string name="save_to_bookmarks">"Přidat do záložek"</string>
@@ -83,7 +85,7 @@
     <string name="find_dot">"Vyhledat na stránce"</string>
     <string name="select_dot">"Označit text"</string>
     <string name="view_tabs">"Přehled okna"</string>
-    <string name="view_tabs_condensed">"Windows"</string>
+    <string name="view_tabs_condensed">"Okna"</string>
     <string name="tab_picker_title">"Aktuální okna"</string>
     <string name="tab_picker_view_tab">"Zobrazit"</string>
     <string name="tab_picker_new_tab">"Nové okno"</string>
@@ -101,7 +103,7 @@
     <string name="contextmenu_savelink">"Uložit odkaz"</string>
     <string name="contextmenu_sharelink">"Sdílet odkaz"</string>
     <string name="contextmenu_copy">"Kopírovat"</string>
-    <string name="contextmenu_copylink">"Kopírovat adresu URL odkazu"</string>
+    <string name="contextmenu_copylink">"Kopírovat URL odkazu"</string>
     <string name="contextmenu_download_image">"Uložit obrázek"</string>
     <string name="contextmenu_view_image">"Zobrazit obrázek"</string>
     <string name="contextmenu_dial_dot">"Volat..."</string>
@@ -113,18 +115,18 @@
     <string name="browser_bookmarks_page_bookmarks_text">"Záložky"</string>
     <string name="menu_preferences">"Nastavení"</string>
     <string name="pref_content_title">"Nastavení obsahu stránky"</string>
-    <string name="pref_content_load_images">"Načíst obrázky"</string>
+    <string name="pref_content_load_images">"Načítat obrázky"</string>
     <string name="pref_content_load_images_summary">"Zobrazovat obrázky na webových stránkách"</string>
     <string name="pref_content_block_popups">"Blokovat vyskakovací okna"</string>
     <string name="pref_content_javascript">"Povolit JavaScript"</string>
     <string name="pref_content_open_in_background">"Otevřít na pozadí"</string>
-    <string name="pref_content_open_in_background_summary">"Nová okna budou otevřena za aktuálním"</string>
+    <string name="pref_content_open_in_background_summary">"Nová okna budou otevřena za aktuálním oknem"</string>
     <string name="pref_content_homepage">"Nastavit domovskou stránku"</string>
     <string name="pref_content_autofit">"Automaticky přizpůsobit stránky"</string>
     <string name="pref_content_autofit_summary">"Přizpůsobit velikost webových stránek obrazovce"</string>
     <string name="pref_privacy_title">"Nastavení ochrany osobních údajů"</string>
     <string name="pref_privacy_clear_cache">"Vymazat mezipaměť"</string>
-    <string name="pref_privacy_clear_cache_summary">"Smazat veškerý obsah stránek v mezipaměti"</string>
+    <string name="pref_privacy_clear_cache_summary">"Smazat veškerý obsah stránek z mezipaměti"</string>
     <string name="pref_privacy_clear_cache_dlg">"Mezipaměť bude vymazána."</string>
     <string name="pref_privacy_clear_cookies">"Vymazat všechny soubory cookie"</string>
     <string name="pref_privacy_clear_cookies_summary">"Vymazat všechny soubory cookie prohlížeče"</string>
@@ -142,18 +144,18 @@
     <string name="pref_security_remember_passwords">"Zapamatovat hesla"</string>
     <string name="pref_security_remember_passwords_summary">"Ukládat uživatelská jména a hesla na webových stránkách"</string>
     <string name="pref_security_save_form_data">"Zapamatovat data formuláře"</string>
-    <string name="pref_security_save_form_data_summary">"Zapamatovat si data, která zadám do formulářů, pro další použití"</string>
+    <string name="pref_security_save_form_data_summary">"Zapamatovat si data zadaná do formulářů pro další použití"</string>
     <string name="pref_security_show_security_warning">"Zobrazit upozornění zabezpečení"</string>
     <string name="pref_security_show_security_warning_summary">"Zobrazit upozornění, pokud dojde k problému se zabezpečením webu"</string>
     <string name="pref_security_accept_cookies">"Přijímat soubory cookie"</string>
     <string name="pref_security_accept_cookies_summary">"Povolit webům ukládat a číst soubory cookie"</string>
     <string name="pref_text_size">"Nastavení velikosti textu"</string>
   <string-array name="pref_text_size_choices">
-    <item>"Malá"</item>
+    <item>"Velmi malé"</item>
     <item>"Malé"</item>
     <item>"Běžné"</item>
     <item>"Velké"</item>
-    <item>"Velké"</item>
+    <item>"Velmi velké"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"Velikost textu"</string>
     <string name="pref_extras_title">"Upřesnit nastavení"</string>

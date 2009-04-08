@@ -27,10 +27,12 @@
     <string name="action">"로그인"</string>
     <string name="cancel">"취소"</string>
     <string name="ok">"확인"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"검색결과 없음"</item>
+    <item quantity="one">"검색결과 1개"</item>
+    <item quantity="few">"검색결과 <xliff:g id="NUMBER">%d</xliff:g>개"</item>
+    <item quantity="other">"검색결과 <xliff:g id="NUMBER">%d</xliff:g>개"</item>
+  </plurals>
     <string name="page_info">"페이지 정보"</string>
     <string name="page_info_view">"페이지 정보 보기"</string>
     <string name="page_info_address">"주소:"</string>

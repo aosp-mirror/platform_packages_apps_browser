@@ -27,10 +27,12 @@
     <string name="action">"Accedi"</string>
     <string name="cancel">"Annulla"</string>
     <string name="ok">"OK"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"Nessuna corrispondenza"</item>
+    <item quantity="one">"1 corrispondenza"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> corrispondenze"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> corrispondenze"</item>
+  </plurals>
     <string name="page_info">"Info pagina"</string>
     <string name="page_info_view">"Visualizza info pagina"</string>
     <string name="page_info_address">"Indirizzo:"</string>
