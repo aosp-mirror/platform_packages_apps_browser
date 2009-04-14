@@ -108,7 +108,7 @@
     <string name="contextmenu_view_image">"Wyświetl obraz"</string>
     <string name="contextmenu_dial_dot">"Wybierz numer…"</string>
     <string name="contextmenu_add_contact">"Dodaj kontakt"</string>
-    <string name="contextmenu_send_mail">"Wyślij wiadomość e-mail"</string>
+    <string name="contextmenu_send_mail">"Wyślij e-mail"</string>
     <string name="contextmenu_map">"Mapa"</string>
     <string name="clear">"Wyczyść"</string>
     <string name="replace">"Zastąp adres"</string>
