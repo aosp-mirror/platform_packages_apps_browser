@@ -1871,7 +1871,7 @@ public class BrowserActivity extends Activity
     // the given Message. If the tab overview is already showing (i.e. this
     // method is called from TabListener.onClick(), the method will animate
     // away from the tab overview.
-    private void openTabAndShow(String url, final Message msg,
+    private TabControl.Tab openTabAndShow(String url, final Message msg,
             boolean closeOnExit, String appId) {
         final boolean newTab = mTabControl.getTabCount() != TabControl.MAX_TABS;
         final TabControl.Tab currentTab = mTabControl.getCurrentTab();
@@ -1900,9 +1900,10 @@ public class BrowserActivity extends Activity
                 }
                 // Animate from the Tab overview after any animations have
                 // finished.
-                sendAnimateFromOverview(
-                        mTabControl.createNewTab(closeOnExit, appId, url), true,
-                        url, delay, msg);
+                final TabControl.Tab tab = mTabControl.createNewTab(
+                        closeOnExit, appId, url);
+                sendAnimateFromOverview(tab, true, url, delay, msg);
+                return tab;
             }
         } else if (url != null) {
             // We should not have a msg here.
@@ -1917,6 +1918,7 @@ public class BrowserActivity extends Activity
                 currentTab.getWebView().loadUrl(url);
             }
         }
+        return currentTab;
     }
 
     private Animation createTabAnimation(final AnimatingView view,
@@ -2133,14 +2135,15 @@ public class BrowserActivity extends Activity
         mTabListener = null;
     }
 
-    private void openTab(String url) {
+    private TabControl.Tab openTab(String url) {
         if (mSettings.openInBackground()) {
             TabControl.Tab t = mTabControl.createNewTab();
             if (t != null) {
                 t.getWebView().loadUrl(url);
             }
+            return t;
         } else {
-            openTabAndShow(url, null, false, null);
+            return openTabAndShow(url, null, false, null);
         }
     }
 
@@ -2574,7 +2577,12 @@ public class BrowserActivity extends Activity
                             loadURL(getTopWindow(), url);
                             break;
                         case R.id.open_newtab_context_menu_id:
-                            openTab(url);
+                            final TabControl.Tab parent = mTabControl
+                                    .getCurrentTab();
+                            final TabControl.Tab newTab = openTab(url);
+                            if (newTab != parent) {
+                                parent.addChildTab(newTab);
+                            }
                             break;
                         case R.id.bookmark_context_menu_id:
                             Intent intent = new Intent(BrowserActivity.this,
@@ -3234,8 +3242,11 @@ public class BrowserActivity extends Activity
                 // openTabAndShow will dispatch the message after creating the
                 // new WebView. This will prevent another request from coming
                 // in during the animation.
-                openTabAndShow(null, msg, false, null);
-                parent.addChildTab(mTabControl.getCurrentTab());
+                final TabControl.Tab newTab = openTabAndShow(null, msg, false,
+                        null);
+                if (newTab != parent) {
+                    parent.addChildTab(newTab);
+                }
                 WebView.WebViewTransport transport =
                         (WebView.WebViewTransport) msg.obj;
                 transport.setWebView(mTabControl.getCurrentWebView());
