@@ -27,10 +27,12 @@
     <string name="action">"Se connecter"</string>
     <string name="cancel">"Annuler"</string>
     <string name="ok">"OK"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"Aucune correspondance"</item>
+    <item quantity="one">"1 correspondance"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> correspondances"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> correspondances"</item>
+  </plurals>
     <string name="page_info">"Infos sur la page"</string>
     <string name="page_info_view">"Afficher les infos sur la page"</string>
     <string name="page_info_address">"Adresse :"</string>
@@ -120,11 +122,11 @@
     <string name="pref_content_open_in_background">"Ouvrir en arrière-plan"</string>
     <string name="pref_content_open_in_background_summary">"Les nouvelles fenêtres s\'ouvrent derrière la fenêtre actuelle"</string>
     <string name="pref_content_homepage">"Configurer la page d\'accueil"</string>
-    <string name="pref_content_autofit">"Redimensionner les pages"</string>
+    <string name="pref_content_autofit">"Redimensionner"</string>
     <string name="pref_content_autofit_summary">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
     <string name="pref_privacy_title">"Paramètres de confidentialité"</string>
     <string name="pref_privacy_clear_cache">"Effacer le cache"</string>
-    <string name="pref_privacy_clear_cache_summary">"Supprimer tout le contenu de la page en cache"</string>
+    <string name="pref_privacy_clear_cache_summary">"Supprimer toutes les pages en cache"</string>
     <string name="pref_privacy_clear_cache_dlg">"Le cache sera effacé."</string>
     <string name="pref_privacy_clear_cookies">"Effacer tous les cookies"</string>
     <string name="pref_privacy_clear_cookies_summary">"Effacer tous les cookies du navigateur"</string>
@@ -146,7 +148,7 @@
     <string name="pref_security_show_security_warning">"Avertissements de sécurité"</string>
     <string name="pref_security_show_security_warning_summary">"Afficher un avertissement en cas de problème de sécurité d\'un site"</string>
     <string name="pref_security_accept_cookies">"Accepter les cookies"</string>
-    <string name="pref_security_accept_cookies_summary">"Autoriser les sites à enregistrer et lire les données \"cookie\""</string>
+    <string name="pref_security_accept_cookies_summary">"Autoriser les sites à enregistrer et lire les données des cookies"</string>
     <string name="pref_text_size">"Définir la taille du texte"</string>
   <string-array name="pref_text_size_choices">
     <item>"Très petite"</item>

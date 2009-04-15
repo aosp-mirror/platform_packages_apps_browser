@@ -17,7 +17,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name">"ブラウザ"</string>
     <string name="tab_bookmarks">"ブックマーク"</string>
-    <string name="tab_most_visited">"よくアクセスするサイト"</string>
+    <string name="tab_most_visited">"よく使用"</string>
     <string name="tab_history">"履歴"</string>
     <string name="added_to_bookmarks">"ブックマークに追加しました"</string>
     <string name="removed_from_bookmarks">"ブックマークから削除しました"</string>
@@ -27,10 +27,12 @@
     <string name="action">"ログイン"</string>
     <string name="cancel">"キャンセル"</string>
     <string name="ok">"OK"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"該当なし"</item>
+    <item quantity="one">"1件一致"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g>件一致"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g>件一致"</item>
+  </plurals>
     <string name="page_info">"ページ情報"</string>
     <string name="page_info_view">"ページ情報を表示"</string>
     <string name="page_info_address">"アドレス:"</string>

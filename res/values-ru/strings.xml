@@ -27,10 +27,12 @@
     <string name="action">"Войти"</string>
     <string name="cancel">"Отмена"</string>
     <string name="ok">"ОК"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"Совпадений нет"</item>
+    <item quantity="one">"1 совпадение"</item>
+    <item quantity="few">"Совпадений: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item quantity="other">"Совпадений: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="page_info">"Сведения о странице"</string>
     <string name="page_info_view">"Просмотреть сведения о странице"</string>
     <string name="page_info_address">"Адрес:"</string>
