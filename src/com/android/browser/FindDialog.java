@@ -143,23 +143,14 @@ import android.widget.TextView;
         mBrowserActivity.closeFind();
         mWebView.clearMatches();
     }
-    
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        int code = event.getKeyCode();
-        boolean up = event.getAction() == KeyEvent.ACTION_UP;
-        switch (code) {
-            case KeyEvent.KEYCODE_DPAD_CENTER:
-            case KeyEvent.KEYCODE_ENTER:
-                if (!mEditText.hasFocus()) {
-                    break;
-                }
-                if (up) {
-                    findNext();
-                }
-                return true;
-            default:
-                break;
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER
+                && event.getAction() == KeyEvent.ACTION_UP
+                && mEditText.hasFocus()) {
+            findNext();
+            return true;
         }
         return super.dispatchKeyEvent(event);
     }
