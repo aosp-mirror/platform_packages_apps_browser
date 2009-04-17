@@ -72,6 +72,9 @@ class BrowserSettings extends Observable {
     private boolean autoFitPage = true;
     private boolean landscapeOnly = false;
     private boolean showDebugSettings = false;
+    // The Browser always enables Application Caches.
+    private boolean appCacheEnabled = true;
+    private String appCachePath;  // default value set in loadFromDb().
 
     // Development settings
     public WebSettings.LayoutAlgorithm layoutAlgorithm =
@@ -180,6 +183,9 @@ class BrowserSettings extends Observable {
             s.setSupportMultipleWindows(true);
             // Turn off file access
             s.setAllowFileAccess(false);
+            // Turn on Application Caches.
+            s.setAppCachePath(b.appCachePath);
+            s.setAppCacheEnabled(b.appCacheEnabled);
         }
     }
 
@@ -199,6 +205,8 @@ class BrowserSettings extends Observable {
         // Set the default value for the plugins path to the application's
         // local directory.
         pluginsPath = ctx.getDir("plugins", 0).getPath();
+        // Set the default value for the Application Caches path.
+        appCachePath = ctx.getDir("appcache", 0).getPath();
 
         homeUrl += Partner.getString(ctx.getContentResolver(), Partner.CLIENT_ID);
 
@@ -221,6 +229,9 @@ class BrowserSettings extends Observable {
         pluginsEnabled = p.getBoolean("enable_plugins",
                 pluginsEnabled);
         pluginsPath = p.getString("plugins_path", pluginsPath);
+        appCacheEnabled = p.getBoolean("enable_appcache",
+            appCacheEnabled);
+        appCachePath = p.getString("appcache_path", appCachePath);
         javaScriptCanOpenWindowsAutomatically = !p.getBoolean(
             "block_popup_windows",
             !javaScriptCanOpenWindowsAutomatically);
