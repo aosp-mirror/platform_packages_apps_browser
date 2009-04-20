@@ -407,6 +407,9 @@ class TabControl {
      * @return index of Tab or -1 if not found
      */
     int getTabIndex(Tab tab) {
+        if (tab == null) {
+            return -1;
+        }
         return mTabs.indexOf(tab);
     }
 

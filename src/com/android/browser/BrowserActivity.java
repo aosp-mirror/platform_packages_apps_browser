@@ -4232,13 +4232,19 @@ public class BrowserActivity extends Activity
         AnimatingView(Context ctxt, TabControl.Tab t) {
             super(ctxt);
             mTab = t;
-            // Use the top window in the animation since the tab overview will
-            // display the top window in each cell.
-            final WebView w = t.getTopWindow();
-            mPicture = w.capturePicture();
-            mScale = w.getScale() / w.getWidth();
-            mScrollX = w.getScrollX();
-            mScrollY = w.getScrollY();
+            if (t != null && t.getTopWindow() != null) {
+                // Use the top window in the animation since the tab overview
+                // will display the top window in each cell.
+                final WebView w = t.getTopWindow();
+                mPicture = w.capturePicture();
+                mScale = w.getScale() / w.getWidth();
+                mScrollX = w.getScrollX();
+                mScrollY = w.getScrollY();
+            } else {
+                mPicture = null;
+                mScale = 1.0f;
+                mScrollX = mScrollY = 0;
+            }
         }
 
         @Override
