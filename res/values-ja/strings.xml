@@ -66,7 +66,7 @@
     <string name="http">"http://"</string>
     <string name="save_to_bookmarks">"ブックマーク"</string>
     <string name="edit_bookmark">"ブックマークを編集"</string>
-    <string name="create_shortcut_bookmark">"ショートカットをホームに追加"</string>
+    <string name="create_shortcut_bookmark">"ショートカットを作成"</string>
     <string name="open_bookmark">"開く"</string>
     <string name="remove_bookmark">"ブックマークを削除"</string>
     <string name="remove_history_item">"履歴から消去"</string>
@@ -103,7 +103,7 @@
     <string name="contextmenu_savelink">"リンクを保存"</string>
     <string name="contextmenu_sharelink">"リンクを共有"</string>
     <string name="contextmenu_copy">"コピー"</string>
-    <string name="contextmenu_copylink">"リンクのURLをコピー"</string>
+    <string name="contextmenu_copylink">"URLをコピー"</string>
     <string name="contextmenu_download_image">"画像を保存"</string>
     <string name="contextmenu_view_image">"画像を表示"</string>
     <string name="contextmenu_dial_dot">"発信..."</string>
