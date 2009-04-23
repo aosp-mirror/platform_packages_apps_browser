@@ -27,7 +27,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -73,20 +72,8 @@ public class ImageAdapter implements ListAdapter {
      * Clear the internal WebViews and remove their picture listeners.
      */
     public void clear() {
-        for (TabControl.Tab t : mItems) {
-            clearPictureListeners(t);
-        }
         mItems.clear();
         notifyObservers();
-    }
-
-    private void clearPictureListeners(TabControl.Tab t) {
-        if (t.getWebView() != null) {
-            t.getWebView().setPictureListener(null);
-            if (t.getSubWebView() != null) {
-                t.getSubWebView().setPictureListener(null);
-            }
-        }
     }
 
     /**
@@ -113,7 +100,6 @@ public class ImageAdapter implements ListAdapter {
      */
     public void remove(int index) {
         if (index >= 0 && index < mItems.size()) {
-            clearPictureListeners(mItems.remove(index));
             notifyObservers();
             mMaxedOut = false;
         }
