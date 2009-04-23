@@ -20,7 +20,6 @@ import android.content.Context;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Message;
-import android.util.Config;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -126,7 +125,7 @@ class TabControl {
         }
         @Override
         public void onCloseWindow(WebView window) {
-            if (Config.DEBUG && window != mTab.mSubView) {
+            if (Browser.DEBUG && window != mTab.mSubView) {
                 throw new AssertionError("Can't close the window");
             }
             mActivity.dismissSubWindow(mTab);

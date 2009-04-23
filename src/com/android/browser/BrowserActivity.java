@@ -86,7 +86,6 @@ import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.util.Regex;
-import android.util.Config;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -150,6 +149,13 @@ public class BrowserActivity extends Activity
     implements KeyTracker.OnKeyTracker,
         View.OnCreateContextMenuListener,
         DownloadListener {
+
+    /* Define some aliases to make these debugging flags easier to refer to.
+     * This file imports android.provider.Browser, so we can't just refer to "Browser.DEBUG".
+     */
+    private final static boolean DEBUG = com.android.browser.Browser.DEBUG;
+    private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
+    private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
 
     private IGoogleLoginService mGls = null;
     private ServiceConnection mGlsConnection = null;
@@ -373,7 +379,7 @@ public class BrowserActivity extends Activity
                 s.loadFromDb(mContext);
                 pluginsPath = s.getPluginsPath();
             }
-            if (Config.LOGV) {
+            if (LOGV_ENABLED) {
                 Log.v(TAG, "Plugin path: " + pluginsPath);
             }
         }
@@ -400,7 +406,7 @@ public class BrowserActivity extends Activity
          * We delete the directory, then recreate it.
          */
         public void cleanPluginsDirectory() {
-          if (Config.LOGV) {
+          if (LOGV_ENABLED) {
             Log.v(TAG, "delete plugins directory: " + pluginsPath);
           }
           File pluginsDirectory = new File(pluginsPath);
@@ -416,7 +422,7 @@ public class BrowserActivity extends Activity
          */
         public void copyBuildInfos() {
           try {
-            if (Config.LOGV) {
+            if (LOGV_ENABLED) {
               Log.v(TAG, "Copy build infos to the plugins directory");
             }
             File buildInfoFile = new File(SYSTEM_BUILD_INFOS_FILE);
@@ -448,7 +454,7 @@ public class BrowserActivity extends Activity
             File buildInfoFile = new File(SYSTEM_BUILD_INFOS_FILE);
             File buildInfoPlugins = new File(pluginsPath, BUILD_INFOS_FILE);
             if (!buildInfoPlugins.exists()) {
-              if (Config.LOGV) {
+              if (LOGV_ENABLED) {
                 Log.v(TAG, "build.prop in plugins directory " + pluginsPath
                   + " does not exist, therefore it's a new system image");
               }
@@ -458,7 +464,7 @@ public class BrowserActivity extends Activity
               String buildInfoPlugin = contentsOfFile(buildInfoPlugins);
               if (buildInfo == null || buildInfoPlugin == null
                   || buildInfo.compareTo(buildInfoPlugin) != 0) {
-                if (Config.LOGV) {
+                if (LOGV_ENABLED) {
                   Log.v(TAG, "build.prop are different, "
                     + " therefore it's a new system image");
                 }
@@ -491,7 +497,7 @@ public class BrowserActivity extends Activity
               String path = entry.getName().substring(zipFilterLength);
               File outputFile = new File(pluginsPath, path);
               if (!outputFile.exists()) {
-                if (Config.LOGV) {
+                if (LOGV_ENABLED) {
                   Log.v(TAG, "checkIsDifferentVersions(): extracted file "
                     + path + " does not exist, we have a different version");
                 }
@@ -536,7 +542,7 @@ public class BrowserActivity extends Activity
                     outputFile.getParentFile().mkdirs();
 
                     if (outputFile.exists() && !mDoOverwrite) {
-                        if (Config.LOGV) {
+                        if (LOGV_ENABLED) {
                             Log.v(TAG, path + " already extracted.");
                         }
                     } else {
@@ -548,7 +554,7 @@ public class BrowserActivity extends Activity
                                 path + TEMPORARY_EXTENSION);
                         }
                         FileOutputStream fos = new FileOutputStream(outputFile);
-                        if (Config.LOGV) {
+                        if (LOGV_ENABLED) {
                             Log.v(TAG, "copy " + entry + " to "
                                 + pluginsPath + "/" + path);
                         }
@@ -563,7 +569,7 @@ public class BrowserActivity extends Activity
                     File renamedFile = (File) elems.nextElement();
                     File sourceFile = new File(renamedFile.getPath()
                         + TEMPORARY_EXTENSION);
-                    if (Config.LOGV) {
+                    if (LOGV_ENABLED) {
                         Log.v(TAG, "rename " + sourceFile.getPath()
                             + " to " + renamedFile.getPath());
                     }
@@ -623,7 +629,7 @@ public class BrowserActivity extends Activity
     }
 
     @Override public void onCreate(Bundle icicle) {
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, this + " onStart");
         }
         super.onCreate(icicle);
@@ -990,7 +996,7 @@ public class BrowserActivity extends Activity
 
     @Override protected void onResume() {
         super.onResume();
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
         }
 
@@ -1037,7 +1043,7 @@ public class BrowserActivity extends Activity
      *  the saved state.
      */
     @Override protected void onSaveInstanceState(Bundle outState) {
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onSaveInstanceState: this=" + this);
         }
         // the default implementation requires each view to have an id. As the
@@ -1083,7 +1089,7 @@ public class BrowserActivity extends Activity
     }
 
     @Override protected void onDestroy() {
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
@@ -2351,7 +2357,7 @@ public class BrowserActivity extends Activity
     private void revertLockIcon() {
         mLockIconType = mPrevLockType;
 
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.revertLockIcon:" +
                   " revert lock icon to " + mLockIconType);
         }
@@ -2751,7 +2757,7 @@ public class BrowserActivity extends Activity
                     String uiInfo = "UI thread used "
                             + (SystemClock.currentThreadTimeMillis() - mUiStart)
                             + " ms";
-                    if (Config.LOGD) {
+                    if (LOGD_ENABLED) {
                         Log.d(LOGTAG, uiInfo);
                     }
                     //The string that gets written to the log
@@ -2768,7 +2774,7 @@ public class BrowserActivity extends Activity
                             + " ms and irq took "
                             + (sysCpu[4] + sysCpu[5] + sysCpu[6] - mIrqStart)
                             * 10 + " ms, " + uiInfo;
-                    if (Config.LOGD) {
+                    if (LOGD_ENABLED) {
                         Log.d(LOGTAG, performanceString + "\nWebpage: " + url);
                     }
                     if (url != null) {
@@ -2783,7 +2789,7 @@ public class BrowserActivity extends Activity
                         } else if (newUrl.startsWith("https://")) {
                             newUrl = newUrl.substring(8);
                         }
-                        if (Config.LOGD) {
+                        if (LOGD_ENABLED) {
                             Log.d(LOGTAG, newUrl + " loaded");
                         }
                         /*
@@ -2915,7 +2921,7 @@ public class BrowserActivity extends Activity
                     // If NOT a 'safe' url, change the lock to mixed content!
                     if (!(URLUtil.isHttpsUrl(url) || URLUtil.isDataUrl(url) || URLUtil.isAboutUrl(url))) {
                         mLockIconType = LOCK_ICON_MIXED;
-                        if (Config.LOGV) {
+                        if (LOGV_ENABLED) {
                             Log.v(LOGTAG, "BrowserActivity.updateLockIcon:" +
                                   " updated lock icon to " + mLockIconType + " due to " + url);
                         }
@@ -3401,7 +3407,7 @@ public class BrowserActivity extends Activity
                 Cursor c = mResolver.query(Browser.BOOKMARKS_URI,
                     Browser.HISTORY_PROJECTION, where, selArgs, null);
                 if (c.moveToFirst()) {
-                    if (Config.LOGV) {
+                    if (LOGV_ENABLED) {
                         Log.v(LOGTAG, "updating cursor");
                     }
                     // Current implementation of database only has one entry per
@@ -3451,7 +3457,7 @@ public class BrowserActivity extends Activity
                     startActivity(intent);
                     return;
                 } catch (ActivityNotFoundException ex) {
-                    if (Config.LOGD) {
+                    if (LOGD_ENABLED) {
                         Log.d(LOGTAG, "activity not found for " + mimetype
                                 + " over " + Uri.parse(url).getScheme(), ex);
                     }
@@ -3575,7 +3581,7 @@ public class BrowserActivity extends Activity
         mLockIconType = LOCK_ICON_UNSECURE;
         if (URLUtil.isHttpsUrl(url)) {
             mLockIconType = LOCK_ICON_SECURE;
-            if (Config.LOGV) {
+            if (LOGV_ENABLED) {
                 Log.v(LOGTAG, "BrowserActivity.resetLockIcon:" +
                       " reset lock icon to " + mLockIconType);
             }
@@ -3595,7 +3601,7 @@ public class BrowserActivity extends Activity
 
         mLockIconType = LOCK_ICON_UNSECURE;
 
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
           Log.v(LOGTAG, "BrowserActivity.resetLockIcon:" +
                 " reset lock icon to " + mLockIconType);
         }
@@ -4153,7 +4159,7 @@ public class BrowserActivity extends Activity
     private class TabListener implements ImageGrid.Listener {
         public void remove(int position) {
             // Note: Remove is not enabled if we have only one tab.
-            if (Config.DEBUG && mTabControl.getTabCount() == 1) {
+            if (DEBUG && mTabControl.getTabCount() == 1) {
                 throw new AssertionError();
             }
 
