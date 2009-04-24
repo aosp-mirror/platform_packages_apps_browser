@@ -202,7 +202,7 @@
     <string name="too_many_windows_dialog_title">"ウィンドウの数が最大です"</string>
     <string name="too_many_windows_dialog_message">"既にウィンドウの数が最大なので、新しいウィンドウを開けません。"</string>
     <string name="too_many_subwindows_dialog_title">"ポップアップが既に開いています"</string>
-    <string name="too_many_subwindows_dialog_message">"一度に開けるポップアップウィンドウは1つだけなので、新しいポップアップウィンドウを開けませんでした。"</string>
+    <string name="too_many_subwindows_dialog_message">"一度に1つのポップアップウィンドウしか開けません。"</string>
     <string name="download_title">"ダウンロード履歴"</string>
     <string name="download_unknown_filename">"&lt;不明&gt;"</string>
     <string name="download_menu_open">"開く"</string>

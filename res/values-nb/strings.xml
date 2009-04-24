@@ -27,10 +27,12 @@
     <string name="action">"Logg inn"</string>
     <string name="cancel">"Avbryt"</string>
     <string name="ok">"OK"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"Ingen treff"</item>
+    <item quantity="one">"Ett treff"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> treff"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> treff"</item>
+  </plurals>
     <string name="page_info">"Sideinformasjon"</string>
     <string name="page_info_view">"Vis sideinformasjon"</string>
     <string name="page_info_address">"Adresse:"</string>
