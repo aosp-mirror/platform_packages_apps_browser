@@ -18,8 +18,14 @@
 ** limitations under the License.
 */
 -->
-
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/list"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"/>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListView 
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <ViewStub 
+        android:id="@+id/empty"
+        android:layout="@layout/no_downloads"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+</merge>

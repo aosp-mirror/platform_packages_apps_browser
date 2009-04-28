@@ -35,6 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewStub;
 
 import java.util.Vector;
 
@@ -50,8 +51,7 @@ public class MostVisitedActivity extends ListActivity {
                 .addListener(new IconReceiver());
         setListAdapter(mAdapter);
         ListView list = getListView();
-        LayoutInflater factory = LayoutInflater.from(this);
-        View v = factory.inflate(R.layout.empty_history, null);
+        View v = new ViewStub(this, R.layout.empty_history);
         addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT));
         list.setEmptyView(v);

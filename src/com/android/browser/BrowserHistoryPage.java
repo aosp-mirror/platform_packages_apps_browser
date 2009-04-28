@@ -41,6 +41,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.ViewStub;
 import android.webkit.DateSorter;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.AdapterView;
@@ -110,8 +111,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         setListAdapter(mAdapter);
         final ExpandableListView list = getExpandableListView();
         list.setOnCreateContextMenuListener(this);
-        LayoutInflater factory = LayoutInflater.from(this);
-        View v = factory.inflate(R.layout.empty_history, null);
+        View v = new ViewStub(this, R.layout.empty_history);
         addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT));
         list.setEmptyView(v);
