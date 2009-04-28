@@ -100,6 +100,7 @@ public class ImageAdapter implements ListAdapter {
      */
     public void remove(int index) {
         if (index >= 0 && index < mItems.size()) {
+            mItems.remove(index);
             notifyObservers();
             mMaxedOut = false;
         }
