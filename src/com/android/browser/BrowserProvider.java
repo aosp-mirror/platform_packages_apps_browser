@@ -97,6 +97,7 @@ public class BrowserProvider extends ContentProvider {
     private static final int URI_MATCH_SEARCHES_ID = 11;
     //
     private static final int URI_MATCH_SUGGEST = 20;
+    private static final int URI_MATCH_BOOKMARKS_SUGGEST = 21;
 
     private static final UriMatcher URI_MATCHER;
 
@@ -112,6 +113,9 @@ public class BrowserProvider extends ContentProvider {
                 URI_MATCH_SEARCHES_ID);
         URI_MATCHER.addURI("browser", SearchManager.SUGGEST_URI_PATH_QUERY,
                 URI_MATCH_SUGGEST);
+        URI_MATCHER.addURI("browser",
+                TABLE_NAMES[URI_MATCH_BOOKMARKS] + "/" + SearchManager.SUGGEST_URI_PATH_QUERY,
+                URI_MATCH_BOOKMARKS_SUGGEST);
     }
 
     // 1 -> 2 add cache table
@@ -473,7 +477,7 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
 
-        if (match == URI_MATCH_SUGGEST) {
+        if (match == URI_MATCH_SUGGEST || match == URI_MATCH_BOOKMARKS_SUGGEST) {
             String suggestSelection;
             String [] myArgs;
             if (selectionArgs[0] == null || selectionArgs[0].equals("")) {
@@ -500,7 +504,8 @@ public class BrowserProvider extends ContentProvider {
                     ORDER_BY,
                     (new Integer(MAX_SUGGESTION_LONG_ENTRIES)).toString());
 
-            if (Regex.WEB_URL_PATTERN.matcher(selectionArgs[0]).matches()) {
+            if (match == URI_MATCH_BOOKMARKS_SUGGEST
+                    || Regex.WEB_URL_PATTERN.matcher(selectionArgs[0]).matches()) {
                 return new MySuggestionCursor(c, null, "");
             } else {
                 // get Google suggest if there is still space in the list
