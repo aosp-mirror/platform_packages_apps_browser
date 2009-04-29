@@ -249,7 +249,10 @@ class TabControl {
          * @return The WebView's url or null.
          */
         public String getUrl() {
-            return mPickerData.mUrl;
+            if (mPickerData != null) {
+                return mPickerData.mUrl;
+            }
+            return null;
         }
 
         /**
@@ -260,7 +263,10 @@ class TabControl {
          * @return The WebView's title (or url) or null.
          */
         public String getTitle() {
-            return mPickerData.mTitle;
+            if (mPickerData != null) {
+                return mPickerData.mTitle;
+            }
+            return null;
         }
 
         /**
