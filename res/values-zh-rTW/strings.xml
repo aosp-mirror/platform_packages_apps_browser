@@ -27,10 +27,12 @@
     <string name="action">"登入"</string>
     <string name="cancel">"取消"</string>
     <string name="ok">"確定"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"沒有相配項"</item>
+    <item quantity="one">"1 個相配項"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> 個相配項"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> 個相配項"</item>
+  </plurals>
     <string name="page_info">"頁面資訊"</string>
     <string name="page_info_view">"檢視頁面資訊"</string>
     <string name="page_info_address">"位址："</string>
