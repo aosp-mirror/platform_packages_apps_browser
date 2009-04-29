@@ -2136,6 +2136,9 @@ public class BrowserActivity extends Activity
                     .setVisibility(View.VISIBLE);
         }
         mContentView.removeView(mTabOverview);
+        // Clear all the data for tab picker so next time it will be
+        // recreated.
+        mTabControl.wipeAllPickerData();
         mTabOverview.clear();
         mTabOverview = null;
         mTabListener = null;
@@ -4206,10 +4209,6 @@ public class BrowserActivity extends Activity
                     index = mTabControl.getTabCount() - 1;
                 }
             }
-
-            // Clear all the data for tab picker so next time it will be
-            // recreated.
-            mTabControl.wipeAllPickerData();
 
             // NEW_TAB means that the "New Tab" cell was clicked on.
             if (index == ImageGrid.NEW_TAB) {
