@@ -507,43 +507,15 @@ public class BrowserProvider extends ContentProvider {
                 // get Google suggest if there is still space in the list
                 if (myArgs != null && myArgs.length > 1
                         && c.getCount() < (MAX_SUGGESTION_SHORT_ENTRIES - 1)) {
-                    ISearchManager sm = ISearchManager.Stub
-                            .asInterface(ServiceManager
-                                    .getService(Context.SEARCH_SERVICE));
-                    SearchableInfo si = null;
-                    try {
-                        // use the global search to get Google suggest provider
-                        si = sm.getSearchableInfo(new ComponentName(
-                                getContext(), "com.android.browser"), true);
-
-                        // similar to the getSuggestions() in SearchDialog.java
-                        StringBuilder uriStr = new StringBuilder("content://");
-                        uriStr.append(si.getSuggestAuthority());
-                        // if content path provided, insert it now
-                        final String contentPath = si.getSuggestPath();
-                        if (contentPath != null) {
-                            uriStr.append('/');
-                            uriStr.append(contentPath);
-                        }
-                        // append standard suggestion query path 
-                        uriStr.append('/' + SearchManager.SUGGEST_URI_PATH_QUERY);
-                        // inject query, either as selection args or inline
-                        String[] selArgs = null;
-                        if (si.getSuggestSelection() != null) {
-                            selArgs = new String[] {selectionArgs[0]};
-                        } else {
-                            uriStr.append('/');
-                            uriStr.append(Uri.encode(selectionArgs[0]));
-                        }
-
-                        // finally, make the query
-                        Cursor sc = getContext().getContentResolver().query(
-                                Uri.parse(uriStr.toString()), null,
-                                si.getSuggestSelection(), selArgs, null);
-
-                        return new MySuggestionCursor(c, sc, selectionArgs[0]);
-                    } catch (RemoteException e) {
-                    }
+                    // TODO: This shouldn't be hard-coded. Instead, it should use the
+                    // default web search provider. But the API for that is not implemented yet.
+                    ComponentName googleSearchComponent = 
+                            new ComponentName("com.android.googlesearch", 
+                                    "com.android.googlesearch.GoogleSearch");
+                    SearchableInfo si = 
+                            SearchManager.getSearchableInfo(googleSearchComponent, false);
+                    Cursor sc = SearchManager.getSuggestions(getContext(), si, selectionArgs[0]);
+                    return new MySuggestionCursor(c, sc, selectionArgs[0]);
                 }
                 return new MySuggestionCursor(c, null, selectionArgs[0]);
             }
