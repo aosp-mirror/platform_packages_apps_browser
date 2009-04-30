@@ -115,6 +115,7 @@ import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebIconDatabase;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -3431,6 +3432,34 @@ public class BrowserActivity extends Activity
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
             updateIcon(view.getUrl(), icon);
+        }
+
+        /**
+         * The origin has exceeded it's database quota.
+         * @param url the URL that exceeded the quota
+         * @param databaseIdentifier the identifier of the database on
+         *     which the transaction that caused the quota overflow was run
+         * @param currentQuota the current quota for the origin.
+         * @param quotaUpdater The callback to run when a decision to allow or
+         *     deny quota has been made. Don't forget to call this!
+         */
+        @Override
+        public void onExceededDatabaseQuota(String url,
+            String databaseIdentifier, long currentQuota,
+            WebStorage.QuotaUpdater quotaUpdater) {
+            if(LOGV_ENABLED) {
+                Log.v(LOGTAG,
+                      "BrowserActivity received onExceededDatabaseQuota for "
+                      + url +
+                      ":"
+                      + databaseIdentifier +
+                      "(current quota: "
+                      + currentQuota +
+                      ")");
+            }
+            // Give the origin an extra megabyte to play with.
+            // TODO: This should show a prompt to the user, really :)
+            quotaUpdater.updateQuota(currentQuota + 1024 * 1024);
         }
     };
 

@@ -74,6 +74,8 @@ class BrowserSettings extends Observable {
     private boolean autoFitPage = true;
     private boolean landscapeOnly = false;
     private boolean showDebugSettings = false;
+    private String databasePath; // default value set in loadFromDb()
+    private boolean databaseEnabled = true;
     // The Browser always enables Application Caches.
     private boolean appCacheEnabled = true;
     private String appCachePath;  // default value set in loadFromDb().
@@ -185,6 +187,10 @@ class BrowserSettings extends Observable {
             s.setSupportMultipleWindows(true);
             // Turn off file access
             s.setAllowFileAccess(false);
+
+            s.setDatabasePath(b.databasePath);
+            s.setDatabaseEnabled(b.databaseEnabled);
+
             // Turn on Application Caches.
             s.setAppCachePath(b.appCachePath);
             s.setAppCacheEnabled(b.appCacheEnabled);
@@ -209,6 +215,8 @@ class BrowserSettings extends Observable {
         pluginsPath = ctx.getDir("plugins", 0).getPath();
         // Set the default value for the Application Caches path.
         appCachePath = ctx.getDir("appcache", 0).getPath();
+        // Set the default value for the Database path.
+        databasePath = ctx.getDir("databases", 0).getPath();
 
         homeUrl = DEFAULT_HOME_URL +
                 Partner.getString(ctx.getContentResolver(), Partner.CLIENT_ID);
@@ -232,6 +240,8 @@ class BrowserSettings extends Observable {
         pluginsEnabled = p.getBoolean("enable_plugins",
                 pluginsEnabled);
         pluginsPath = p.getString("plugins_path", pluginsPath);
+        databasePath = p.getString("database_path", databasePath);
+        databaseEnabled = p.getBoolean("enable_database", databaseEnabled);
         appCacheEnabled = p.getBoolean("enable_appcache",
             appCacheEnabled);
         appCachePath = p.getString("appcache_path", appCachePath);
