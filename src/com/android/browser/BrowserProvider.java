@@ -17,14 +17,11 @@
 package com.android.browser;
 
 import com.google.android.providers.GoogleSettings.Partner;
-import java.util.Date;
 
-import android.app.ISearchManager;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentUris;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -33,17 +30,16 @@ import android.content.UriMatcher;
 import android.content.SharedPreferences.Editor;
 import android.database.AbstractCursor;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.os.RemoteException;
-import android.os.ServiceManager;
-import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
-import android.util.Log;
 import android.server.search.SearchableInfo;
 import android.text.util.Regex;
+import android.util.Log;
+
+import java.util.Date;
 
 
 public class BrowserProvider extends ContentProvider {
