@@ -169,7 +169,7 @@
     <string name="pref_extras_reset_default_summary">"清除瀏覽器所有資料，並還原至初始設定"</string>
     <string name="pref_extras_reset_default_dlg">"瀏覽器所有資料會被清除， 並還原至初始設定。"</string>
     <string name="pref_extras_reset_default_dlg_title">"還原至初始設定"</string>
-    <string name="pref_development_title">"除錯"</string>
+    <string name="pref_development_title">"偵錯"</string>
     <string name="pref_default_text_encoding">"設定文字編碼"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
@@ -220,7 +220,7 @@
     <string name="download_no_sdcard_dlg_title">"沒有 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg">"需要 SD 卡下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title">"無法使用 SD 卡"</string>
-    <string name="download_sdcard_busy_dlg_msg">"SD 記憶卡忙碌中。若要允許下載，請選取通知區域中的 [停用 USB 儲存裝置]。"</string>
+    <string name="download_sdcard_busy_dlg_msg">"SD 記憶卡忙碌中。如要允許下載，請選取通知中的 [停用 USB 儲存裝置]。"</string>
     <string name="download_no_application">"找不到可以開啟這個檔案的應用程式。"</string>
     <string name="retry">"重試"</string>
     <string name="no_downloads">"下載記錄是空的。"</string>
@@ -250,7 +250,7 @@
     <string name="settings_message">"下表列出您為每個想要使用 Gears 之網站所授予的權限。"</string>
     <string name="filepicker_message">"檔案挑選程式"</string>
     <string name="image_message">"選擇的影像"</string>
-    <string name="settings_title">"裝置設定"</string>
+    <string name="settings_title">"Gears 設定"</string>
     <string name="privacy_policy">"讀取網站的隱私權政策，以瞭解網站將如何使用您的位置資訊。"</string>
     <string name="settings_storage_title">"允許本機儲存"</string>
     <string name="settings_storage_subtitle_on">"此網站可以在您的手機上儲存資訊"</string>
