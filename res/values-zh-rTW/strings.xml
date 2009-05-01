@@ -70,7 +70,7 @@
     <string name="open_bookmark">"開啟"</string>
     <string name="remove_bookmark">"刪除書籤"</string>
     <string name="remove_history_item">"從記錄中移除"</string>
-    <string name="bookmark_saved">"儲存至書籤。"</string>
+    <string name="bookmark_saved">"已儲存至書籤。"</string>
     <string name="bookmark_needs_title">"請輸入書籤名稱。"</string>
     <string name="bookmark_needs_url">"請選取書籤位置。"</string>
     <string name="empty_bookmark">"無法建立空白書籤。"</string>
@@ -185,7 +185,7 @@
     <string name="browserFrameNetworkErrorLabel">"資料連線問題"</string>
     <string name="browserFrameFileErrorLabel">"檔案有問題"</string>
     <string name="browserFrameFormResubmitLabel">"確認"</string>
-    <string name="browserFrameFormResubmitMessage">"您正在瀏覽的頁面包含已傳送的 (「POSTDATA」)，若重新送出資料，此頁表單中的資料會重複 (例如：搜尋結果、線上購物狀態)。"</string>
+    <string name="browserFrameFormResubmitMessage">"您想瀏覽的頁面包含已傳送的 (「POSTDATA」)，如重新送出資料，此頁表單上執行的操作將會重複 (包括搜尋或線上購物等)。"</string>
     <string name="loadSuspendedTitle">"沒有網路連線"</string>
     <string name="loadSuspended">"連線恢復後，此頁面會繼續載入。"</string>
     <string name="clear_history">"清除記錄"</string>
@@ -220,7 +220,7 @@
     <string name="download_no_sdcard_dlg_title">"沒有 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg">"需要 SD 卡下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title">"無法使用 SD 卡"</string>
-    <string name="download_sdcard_busy_dlg_msg">"SD 記憶卡忙碌中。如要允許下載，請選取通知中的 [停用 USB 儲存裝置]。"</string>
+    <string name="download_sdcard_busy_dlg_msg">"SD 記憶卡忙碌。如要允許下載，請選取通知中的 [停用 USB 儲存裝置]。"</string>
     <string name="download_no_application">"找不到可以開啟這個檔案的應用程式。"</string>
     <string name="retry">"重試"</string>
     <string name="no_downloads">"下載記錄是空的。"</string>
@@ -240,7 +240,7 @@
     <string name="permlab_readHistoryBookmarks">"讀取瀏覽器的瀏覽記錄和書籤"</string>
     <string name="permdesc_readHistoryBookmarks">"允許應用程式讀取瀏覽器造訪過的所有 URL 和瀏覽器所有的書籤。"</string>
     <string name="permlab_writeHistoryBookmarks">"寫入瀏覽器的瀏覽記錄和書籤"</string>
-    <string name="permdesc_writeHistoryBookmarks">"允許應用程式修改儲存在電話上的瀏覽記錄或書籤。惡意應用程式可能會使用此選項來清除或修改您瀏覽器的資料。"</string>
+    <string name="permdesc_writeHistoryBookmarks">"允許應用程式修改儲存在電話上的瀏覽記錄或書籤。請注意：惡意應用程式可能會使用此選項來清除或修改您瀏覽器的資料。"</string>
     <string name="query_data_prompt">"允許儲存"</string>
     <string name="query_data_message">"此網站要在您的手機上儲存資訊。"</string>
     <string name="location_prompt">"存取您的位置資訊"</string>
