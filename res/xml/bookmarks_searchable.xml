@@ -21,6 +21,7 @@
     android:inputType="textUri"
     android:imeOptions="actionGo"
 
+    android:includeInGlobalSearch="true"
     android:searchSuggestAuthority="browser"
     android:searchSuggestPath="bookmarks"
     android:searchSuggestSelection="url LIKE ?"
