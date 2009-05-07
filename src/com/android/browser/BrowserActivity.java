@@ -4535,9 +4535,26 @@ public class BrowserActivity extends Activity
              * mcc-specific xml files.)
              */
             Locale l = Locale.getDefault();
+            String language = l.getLanguage();
+            String country = l.getCountry().toLowerCase();
+            // Chinese and Portuguese have two langauge variants.
+            if ("zh".equals(language)) {
+                if ("cn".equals(country)) {
+                    language = "zh-CN";
+                } else if ("tw".equals(country)) {
+                    language = "zh-TW";
+                }
+            } else if ("pt".equals(language)) {
+                if ("br".equals(country)) {
+                    language = "pt-BR";
+                } else if ("pt".equals(country)) {
+                    language = "pt-PT";
+                }
+            }
             QuickSearch_G = getResources().getString(
-                    R.string.google_search_base, l.getLanguage(),
-                    l.getCountry().toLowerCase())
+                    R.string.google_search_base,
+                    language,
+                    country)
                     + "client=ms-"
                     + Partner.getString(this.getContentResolver(), Partner.CLIENT_ID)
                     + "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&q=%s";
