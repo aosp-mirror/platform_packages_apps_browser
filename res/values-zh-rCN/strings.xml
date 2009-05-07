@@ -15,6 +15,10 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Do not translate.  This string is an internal URI, not seen in the UI. -->
+    <string name="google_search_base" translatable="false">
+        http://www.google.cn/m?hl=%1$s&amp;gl=%2$s&amp;</string>
+
     <string name="application_name">"浏览器"</string>
     <string name="tab_bookmarks">"书签"</string>
     <string name="tab_most_visited">"访问最多的网站"</string>
