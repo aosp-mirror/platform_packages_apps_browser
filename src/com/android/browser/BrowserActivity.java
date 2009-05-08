@@ -3397,6 +3397,8 @@ public class BrowserActivity extends Activity
                 url.length() >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
                 return;
             }
+            // See if we can find the current url in our history database and
+            // add the new title to it.
             if (url.startsWith("http://www.")) {
                 url = url.substring(11);
             } else if (url.startsWith("http://")) {
@@ -3411,15 +3413,12 @@ public class BrowserActivity extends Activity
                 Cursor c = mResolver.query(Browser.BOOKMARKS_URI,
                     Browser.HISTORY_PROJECTION, where, selArgs, null);
                 if (c.moveToFirst()) {
-                    if (LOGV_ENABLED) {
-                        Log.v(LOGTAG, "updating cursor");
-                    }
                     // Current implementation of database only has one entry per
                     // url.
-                    int titleIndex =
-                            c.getColumnIndex(Browser.BookmarkColumns.TITLE);
-                    c.updateString(titleIndex, title);
-                    c.commitUpdates();
+                    ContentValues map = new ContentValues();
+                    map.put(Browser.BookmarkColumns.TITLE, title);
+                    mResolver.update(Browser.BOOKMARKS_URI, map,
+                            "_id = " + c.getInt(0), null);
                 }
                 c.close();
             } catch (IllegalStateException e) {
