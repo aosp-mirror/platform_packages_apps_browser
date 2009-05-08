@@ -48,9 +48,11 @@ public class AddBookmarkPage extends Activity {
     private Bundle      mMap;
     
     private static final String[]   mProjection = 
-        { "_id", "url", "bookmark", "created", "title", "visits" };
-    private static final String     WHERE_CLAUSE = "url = ?";
-    private final String[]          SELECTION_ARGS = new String[1];
+            { "_id", "url", "bookmark", "created", "title", "visits" };
+    private static final String     WHERE_CLAUSE
+            = "url = ? OR url = ? OR url = ? OR url = ?";
+    private static final String     WHERE_CLAUSE_SECURE = "url = ? OR url = ?";
+    private String[]                SELECTION_ARGS;
 
     private View.OnClickListener mSaveBookmark = new View.OnClickListener() {
         public void onClick(View v) {
@@ -153,11 +155,35 @@ public class AddBookmarkPage extends Activity {
             } else {
                 // Want to append to the beginning of the list
                 long creationTime = new Date().getTime();
-                SELECTION_ARGS[0] = url;
+                // First we check to see if the user has already visited this
+                // site.  They may have bookmarked it in a different way from
+                // how it's stored in the database, so allow different combos
+                // to map to the same url.
+                boolean secure = false;
+                if (url.startsWith("http://")) {
+                    url = url.substring(7);
+                } else if (url.startsWith("https://")) {
+                    url = url.substring(8);
+                    secure = true;
+                }
+                if (url.startsWith("www.")) {
+                    url = url.substring(4);
+                }
+                if (secure) {
+                    SELECTION_ARGS = new String[2];
+                    SELECTION_ARGS[0] = "https://" + url;
+                    SELECTION_ARGS[1] = "https://www." + url;
+                } else {
+                    SELECTION_ARGS = new String[4];
+                    SELECTION_ARGS[0] = url;
+                    SELECTION_ARGS[1] = "www." + url;
+                    SELECTION_ARGS[2] = "http://" + url;
+                    SELECTION_ARGS[3] = "http://" + SELECTION_ARGS[1];
+                }
                 ContentResolver cr = getContentResolver();
                 Cursor c = cr.query(Browser.BOOKMARKS_URI,
                         mProjection,
-                        WHERE_CLAUSE,
+                        secure ? WHERE_CLAUSE_SECURE : WHERE_CLAUSE,
                         SELECTION_ARGS,
                         null);
                 ContentValues map = new ContentValues();
@@ -186,6 +212,7 @@ public class AddBookmarkPage extends Activity {
                             cr.update(Browser.BOOKMARKS_URI, map, 
                                     "_id = " + c.getInt(0), null);
                             matchedTitle = true;
+                            break;
                         }
                     }
                     if (!matchedTitle) {
