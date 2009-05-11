@@ -17,18 +17,27 @@
 package com.android.browser;
 
 import java.util.List;
+import java.util.Vector;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
+import android.util.Log;
+import android.webkit.Plugin;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.Plugin;
 
 public class BrowserPreferencesPage extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener, 
         Preference.OnPreferenceClickListener {
+
+    String TAG = "BrowserPreferencesPage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +69,23 @@ public class BrowserPreferencesPage extends PreferenceActivity
         
         e = findPreference(BrowserSettings.PREF_GEARS_SETTINGS);
         e.setOnPreferenceClickListener(this);
+
+        PreferenceScreen s = (PreferenceScreen)
+            findPreference(BrowserSettings.PREF_WEBSTORAGE_SETTINGS);
+
+        Vector origins = WebStorage.getInstance().getOrigins();
+        if (origins != null) {
+            for (int i = 0;  i < origins.size(); i++) {
+                OriginSettings origin =
+                    new OriginSettings(this, (String) origins.get(i));
+                PreferenceScreen screen =
+                    getPreferenceManager().createPreferenceScreen(this);
+                origin.setScreen(screen);
+                origin.setRootScreen(s);
+                origin.setup();
+                s.addPreference(screen);
+            }
+        }
     }
 
     @Override

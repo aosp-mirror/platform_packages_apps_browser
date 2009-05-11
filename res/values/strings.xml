@@ -365,6 +365,31 @@
     <!-- Settings summary -->
     <string name="pref_extras_gears_enable_summary">Applications that extend browser functionality</string>
     <!-- Settings label -->
+    <string name="pref_extras_webstorage_settings">Local Storage</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_webstorage_settings_summary">Allow websites to store information on your phone</string>
+    <!-- Settings label -->
+    <string name="pref_extras_webstorage_enable">Enable Database Storage</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_webstorage_enable_summary">Allow websites to store informatin in a local database</string>
+    <!-- Settings label -->
+    <string name="pref_extras_webstorage_set_location">Set Databases Location</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_webstorage_set_location_summary">Define where the databases are stored</string>
+    <!-- Settings label -->
+    <string name="pref_extras_webstorage_set_quota">Set Default Quota</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_webstorage_set_quota_summary">The amount of storage new websites can use without your permission</string>
+    <!-- Settings label -->
+    <string name="pref_extras_webstorage_manage_databases">Manage Databases</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_webstorage_manage_databases_summary">Configure existing databases</string>
+    <!-- Settings label -->
+    <string name="pref_extras_webstorage_clear_databases">Clear All Existing Databases</string>
+    <!-- Settings summary -->
+    <string name="pref_extras_webstorage_clear_databases_summary">Clear all data stored in local databases</string>
+    <string name="pref_extras_webstorage_clear_databases_dlg">All existing databases will be cleared</string>
+    <!-- Settings label -->
     <string name="pref_extras_gears_settings">Gears settings</string>
     <!-- Settings summary -->
     <string name="pref_plugin_installed">Plugins list</string>
@@ -655,6 +680,9 @@
     <!-- Gears Dialogs -->
     <string name="query_data_prompt">Allow storage</string>
     <string name="query_data_message">This web site would like to store information on your phone.</string>
+    <string name="query_storage_quota_prompt">Increase storage quota</string>
+    <string name="query_storage_quota_message">This web site is over its current
+      storage limit. Would you like to increase its quota limit ?</string>
     <string name="location_prompt">Access your location</string>
     <string name="location_message">This web site would like to have access to your location.</string>
     <string name="shortcut_prompt">Create a shortcut</string>
@@ -710,6 +738,22 @@
 
     <string name="unrecognized_dialog_message">Unrecognized dialog type</string>
     <string name="default_button">OK</string>
+
+    <!-- HTML5 dialogs -->
+    <!-- Used as a toast notification after the user close the html5 webstorage permission dialog -->
+    <string name="webstorage_notification">The quota for this site can be changed in the Local Storage section of the Browser settings</string>
+    <!-- Used in the Browser Settings -->
+    <string name="webstorage_manage_quota_title">Manage Quota</string>
+    <string name="webstorage_manage_quota_summary">Set a new size quota</string>
+    <string name="webstorage_clear_data_title">Clear All Data</string>
+    <string name="webstorage_clear_data_summary">Remove all databases associated with this website</string>
+    <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+    <string name="webstorage_clear_data_dialog_title">Clear All Data</string>
+    <string name="webstorage_clear_data_dialog_message">All stored data by this origin will be deleted</string>
+    <!-- Strings used in the summary of origins -->
+    <string name="webstorage_origin_summary_mb_used">MB used</string>
+    <string name="webstorage_origin_summary_no_quota_left">no allowed quota left</string>
+    <string name="webstorage_origin_summary_mb_left">MB left in the quota</string>
 
     <!-- Zoom-related strings --><skip />
     <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->

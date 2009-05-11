@@ -171,6 +171,11 @@
                   android:theme="@android:style/Theme.Dialog">
         </activity>
 
+        <activity android:name="PermissionDialog"
+                  android:configChanges="orientation|keyboardHidden"
+                  android:theme="@android:style/Theme.Dialog">
+        </activity>
+
         <activity android:name="GearsNativeDialog"
                   android:configChanges="orientation|keyboardHidden"
                   android:theme="@android:style/Theme.Dialog">

@@ -163,6 +163,8 @@ public class BrowserActivity extends Activity
 
     private SensorManager mSensorManager = null;
 
+    private WebStorage.QuotaUpdater mWebStorageQuotaUpdater = null;
+
     /* Whitelisted webpages
     private static HashSet<String> sWhiteList;
 
@@ -3456,9 +3458,14 @@ public class BrowserActivity extends Activity
                       + currentQuota +
                       ")");
             }
-            // Give the origin an extra megabyte to play with.
-            // TODO: This should show a prompt to the user, really :)
-            quotaUpdater.updateQuota(currentQuota + 1024 * 1024);
+            mWebStorageQuotaUpdater = quotaUpdater;
+            String DIALOG_PACKAGE = "com.android.browser";
+            String DIALOG_CLASS = DIALOG_PACKAGE + ".PermissionDialog";
+            Intent intent = new Intent();
+            intent.setClassName(DIALOG_PACKAGE, DIALOG_CLASS);
+            intent.putExtra(PermissionDialog.PARAM_ORIGIN, url);
+            intent.putExtra(PermissionDialog.PARAM_QUOTA, currentQuota);
+            startActivityForResult(intent, WEBSTORAGE_QUOTA_DIALOG);
         }
     };
 
@@ -4165,6 +4172,14 @@ public class BrowserActivity extends Activity
                     }
                 }
                 break;
+            case WEBSTORAGE_QUOTA_DIALOG:
+                long currentQuota = 0;
+                if (resultCode == RESULT_OK && intent != null) {
+                    currentQuota = intent.getLongExtra(
+                        PermissionDialog.PARAM_QUOTA, currentQuota);
+                }
+                mWebStorageQuotaUpdater.updateQuota(currentQuota);
+                break;
             default:
                 break;
         }
@@ -4721,9 +4736,10 @@ public class BrowserActivity extends Activity
     private BroadcastReceiver mNetworkStateIntentReceiver;
 
     // activity requestCode
-    final static int COMBO_PAGE             = 1;
-    final static int DOWNLOAD_PAGE          = 2;
-    final static int PREFERENCES_PAGE       = 3;
+    final static int COMBO_PAGE                 = 1;
+    final static int DOWNLOAD_PAGE              = 2;
+    final static int PREFERENCES_PAGE           = 3;
+    final static int WEBSTORAGE_QUOTA_DIALOG    = 4;
 
     // the frenquency of checking whether system memory is low
     final static int CHECK_MEMORY_INTERVAL = 30000;     // 30 seconds

@@ -25,6 +25,9 @@ import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.SystemProperties;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
+import android.util.Log;
 import android.view.WindowManager;
 import android.webkit.CacheManager;
 import android.webkit.CookieManager;
@@ -32,6 +35,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
+import android.webkit.WebStorage;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 
@@ -76,9 +80,12 @@ class BrowserSettings extends Observable {
     private boolean showDebugSettings = false;
     private String databasePath; // default value set in loadFromDb()
     private boolean databaseEnabled = true;
+    private long webStorageDefaultQuota = 5 * 1024 * 1024;
     // The Browser always enables Application Caches.
     private boolean appCacheEnabled = true;
     private String appCachePath;  // default value set in loadFromDb().
+
+    private final static String TAG = "BrowserSettings";
 
     // Development settings
     public WebSettings.LayoutAlgorithm layoutAlgorithm =
@@ -108,10 +115,19 @@ class BrowserSettings extends Observable {
             "privacy_clear_form_data";
     public final static String PREF_CLEAR_PASSWORDS =
             "privacy_clear_passwords";
+    public final static String PREF_CLEAR_DATABASES =
+            "webstorage_clear_databases";
+    public final static String PREF_CLEAR_ALL_DATA =
+            "webstorage_clear_all_data";
+    public final static String PREF_MANAGE_QUOTA =
+            "webstorage_manage_quota";
+    public final static String PREF_DEFAULT_QUOTA =
+            "webstorage_default_quota";
     public final static String PREF_EXTRAS_RESET_DEFAULTS =
             "reset_default_preferences";
     public final static String PREF_DEBUG_SETTINGS = "debug_menu";
     public final static String PREF_GEARS_SETTINGS = "gears_settings";
+    public final static String PREF_WEBSTORAGE_SETTINGS = "webstorage_manage_databases";
     public final static String PREF_TEXT_SIZE = "text_size";
     public final static String PREF_DEFAULT_TEXT_ENCODING =
             "default_text_encoding";
@@ -190,6 +206,7 @@ class BrowserSettings extends Observable {
 
             s.setDatabasePath(b.databasePath);
             s.setDatabaseEnabled(b.databaseEnabled);
+            s.setWebStorageDefaultQuota(b.webStorageDefaultQuota);
 
             // Turn on Application Caches.
             s.setAppCachePath(b.appCachePath);
@@ -242,6 +259,8 @@ class BrowserSettings extends Observable {
         pluginsPath = p.getString("plugins_path", pluginsPath);
         databasePath = p.getString("database_path", databasePath);
         databaseEnabled = p.getBoolean("enable_database", databaseEnabled);
+        webStorageDefaultQuota = Long.parseLong(p.getString(PREF_DEFAULT_QUOTA,
+                String.valueOf(webStorageDefaultQuota)));
         appCacheEnabled = p.getBoolean("enable_appcache",
             appCacheEnabled);
         appCachePath = p.getString("appcache_path", appCachePath);
@@ -464,6 +483,15 @@ class BrowserSettings extends Observable {
         WebViewDatabase db = WebViewDatabase.getInstance(context);
         db.clearUsernamePassword();
         db.clearHttpAuthUsernamePassword();
+    }
+
+    /*package*/ void clearDatabases(Context context) {
+        WebStorage.getInstance().deleteAllDatabases();
+        // Remove all listed databases from the preferences
+        PreferenceActivity activity = (PreferenceActivity) context;
+        PreferenceScreen screen = (PreferenceScreen)
+            activity.findPreference(BrowserSettings.PREF_WEBSTORAGE_SETTINGS);
+        screen.removeAll();
     }
 
     /*package*/ void resetDefaultPreferences(Context ctx) {
