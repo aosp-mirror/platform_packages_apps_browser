@@ -128,6 +128,7 @@ class BrowserSettings extends Observable {
     public final static String PREF_DEBUG_SETTINGS = "debug_menu";
     public final static String PREF_GEARS_SETTINGS = "gears_settings";
     public final static String PREF_WEBSTORAGE_SETTINGS = "webstorage_manage_databases";
+    public final static String PREF_WEBSTORAGE_CLEAR_ALL = "webstorage_clear_databases";
     public final static String PREF_TEXT_SIZE = "text_size";
     public final static String PREF_DEFAULT_TEXT_ENCODING =
             "default_text_encoding";
@@ -492,6 +493,7 @@ class BrowserSettings extends Observable {
         PreferenceScreen screen = (PreferenceScreen)
             activity.findPreference(BrowserSettings.PREF_WEBSTORAGE_SETTINGS);
         screen.removeAll();
+        screen.setEnabled(false);
     }
 
     /*package*/ void resetDefaultPreferences(Context ctx) {

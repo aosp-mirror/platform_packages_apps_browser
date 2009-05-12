@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebStorage;
 
+import java.util.Vector;
+
 /**
  * Utility class to display and manage the choosen quota
  * for an origin (HTML5 WebStorage feature)
@@ -44,25 +46,41 @@ class BrowserQuotaPreference extends ListPreference {
         mOrigin = origin;
     }
 
-    public void setCurrentIndex () {
+    /**
+     * Find the minimum quota fitting the current usage
+     * and only show larger quotas in the list
+     */
+    public void setQuotaList () {
+        CharSequence[] entries = getEntries();
         CharSequence[] values = getEntryValues();
-        long quota = 0;
+        Vector<CharSequence> listEntries = new Vector<CharSequence>();
+        Vector<CharSequence> listValues = new Vector<CharSequence>();
+        long usage = 0;
         if (mOrigin != null) {
-            quota = mOrigin.getQuota();
+          usage = mOrigin.getUsage();
         }
         for (int i = 0; i < values.length; i++) {
             long value = Long.parseLong(values[i].toString());
             value *= sOneMB; // the string array is expressed in MB
-            if (value >= quota) {
-                setValueIndex(i);
-                break;
+            if (value >= usage) {
+                listEntries.add(entries[i]);
+                listValues.add(values[i]);
             }
         }
+        CharSequence[] newEntries = new CharSequence[listEntries.size()];
+        CharSequence[] newValues = new CharSequence[listValues.size()];
+        for (int i = 0; i < listEntries.size(); i++) {
+            newEntries[i] = listEntries.get(i);
+            newValues[i] = listValues.get(i);
+        }
+        setEntries(newEntries);
+        setEntryValues(newValues);
+        setValueIndex(0);
     }
 
     @Override
     protected View onCreateDialogView() {
-        setCurrentIndex();
+        setQuotaList();
         return super.onCreateDialogView();
     }
 

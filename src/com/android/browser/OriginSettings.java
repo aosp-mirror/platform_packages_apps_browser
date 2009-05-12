@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
@@ -61,6 +62,10 @@ class OriginSettings {
 
     public long getQuota() {
         return mQuota;
+    }
+
+    public long getUsage() {
+        return mUsage;
     }
 
     public void setScreen(PreferenceScreen screen) {
@@ -130,5 +135,12 @@ class OriginSettings {
         mInfoScreen.removeAll();
         mRootScreen.removePreference(mInfoScreen);
         mInfoScreen.getDialog().dismiss();
+        if (mRootScreen.getPreferenceCount() == 0) {
+            mRootScreen.getDialog().dismiss();
+            mRootScreen.setEnabled(false);
+            Preference clearDatabases = mActivity.findPreference(
+                    BrowserSettings.PREF_WEBSTORAGE_CLEAR_ALL);
+            clearDatabases.setEnabled(false);
+        }
     }
 }

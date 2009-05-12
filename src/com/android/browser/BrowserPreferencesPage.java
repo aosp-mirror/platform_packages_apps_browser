@@ -70,20 +70,29 @@ public class BrowserPreferencesPage extends PreferenceActivity
         e = findPreference(BrowserSettings.PREF_GEARS_SETTINGS);
         e.setOnPreferenceClickListener(this);
 
-        PreferenceScreen s = (PreferenceScreen)
+        PreferenceScreen manageDatabases = (PreferenceScreen)
             findPreference(BrowserSettings.PREF_WEBSTORAGE_SETTINGS);
 
+        Preference clearDatabases =
+            findPreference(BrowserSettings.PREF_WEBSTORAGE_CLEAR_ALL);
+
         Vector origins = WebStorage.getInstance().getOrigins();
+        manageDatabases.setEnabled(false);
+        clearDatabases.setEnabled(false);
         if (origins != null) {
+            if (origins.size() > 0) {
+                manageDatabases.setEnabled(true);
+                clearDatabases.setEnabled(true);
+            }
             for (int i = 0;  i < origins.size(); i++) {
                 OriginSettings origin =
                     new OriginSettings(this, (String) origins.get(i));
                 PreferenceScreen screen =
                     getPreferenceManager().createPreferenceScreen(this);
                 origin.setScreen(screen);
-                origin.setRootScreen(s);
+                origin.setRootScreen(manageDatabases);
                 origin.setup();
-                s.addPreference(screen);
+                manageDatabases.addPreference(screen);
             }
         }
     }
