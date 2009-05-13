@@ -36,6 +36,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.server.search.SearchableInfo;
+import android.text.TextUtils;
 import android.text.util.Regex;
 import android.util.Log;
 
@@ -329,7 +330,7 @@ public class BrowserProvider extends ContentProvider {
         public String[] getColumnNames() {
             return COLUMNS;
         }
-
+        
         @Override
         public String getString(int columnIndex) {
             if ((mPos != -1 && mHistoryCursor != null)) {
@@ -350,18 +351,18 @@ public class BrowserProvider extends ContentProvider {
 
                     case SUGGEST_COLUMN_TEXT_1_ID:
                         if (mHistoryCount > mPos) {
-                            return mHistoryCursor.getString(1);
+                            return getTitle(mHistoryCursor);
                         } else if (!mBeyondCursor) {
-                            return mSuggestCursor.getString(1);
+                            return getTitle(mSuggestCursor);
                         } else {
                             return mString;
                         }
 
                     case SUGGEST_COLUMN_TEXT_2_ID:
                         if (mHistoryCount > mPos) {
-                            return mHistoryCursor.getString(2);
+                            return getSubtitle(mHistoryCursor);
                         } else if (!mBeyondCursor) {
-                            return mSuggestCursor.getString(2);
+                            return getSubtitle(mSuggestCursor);
                         } else {
                             return getContext().getString(R.string.search_google);
                         }
@@ -459,6 +460,48 @@ public class BrowserProvider extends ContentProvider {
                 mSuggestCursor.close();
                 mSuggestCursor = null;
             }
+        }
+        
+        /**
+         * Provides the title (text line 1) for a browser suggestion, which should be the
+         * webpage title. If the webpage title is empty, returns the stripped url instead.
+         * 
+         * @param cursor a history cursor or suggest cursor
+         * @return the title string to use
+         */
+        private String getTitle(Cursor cursor) {
+            String title = cursor.getString(2 /* webpage title */);
+            if (TextUtils.isEmpty(title) || TextUtils.getTrimmedLength(title) == 0) {
+                title = stripUrl(cursor.getString(1 /* url */));
+            }
+            return title;
+        }
+        
+        /**
+         * Provides the subtitle (text line 2) for a browser suggestion, which should be the
+         * webpage url. If the webpage title is empty, then the url should go in the title
+         * instead, and the subtitle should be empty, so this would return null.
+         * 
+         * @param cursor a history cursor or suggest cursor
+         * @return the subtitle string to use, or null if none
+         */
+        private String getSubtitle(Cursor cursor) {
+            String title = cursor.getString(2 /* webpage title */);
+            if (TextUtils.isEmpty(title) || TextUtils.getTrimmedLength(title) == 0) {
+                return null;
+            } else {
+                return stripUrl(cursor.getString(1 /* url */));
+            }
+        }
+        
+        /**
+         * Strips "http://" from the beginning of a url.
+         */
+        private String stripUrl(String url) {
+            if (url.startsWith("http://")) {
+                url = url.substring(7);
+            }
+            return url;
         }
     }
 
