@@ -236,7 +236,6 @@
     <string name="download_length_required">"無法下載。物件大小無法估計。"</string>
     <string name="download_precondition_failed">"下載中斷。無法續傳。"</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="search_google">"搜尋 Google"</string>
     <string name="permlab_readHistoryBookmarks">"讀取瀏覽器的瀏覽記錄和書籤"</string>
     <string name="permdesc_readHistoryBookmarks">"允許應用程式讀取瀏覽器造訪過的所有 URL 和瀏覽器所有的書籤。"</string>
     <string name="permlab_writeHistoryBookmarks">"寫入瀏覽器的瀏覽記錄和書籤"</string>

@@ -236,7 +236,6 @@
     <string name="download_length_required">"Téléchargement impossible. La taille de l\'élément n\'a pas pu être déterminée."</string>
     <string name="download_precondition_failed">"Téléchargement interrompu. Impossible de reprendre le téléchargement."</string>
     <string name="activity_instrumentation_test_runner">"Testeur de navigateur"</string>
-    <string name="search_google">"Recherche Google"</string>
     <string name="permlab_readHistoryBookmarks">"Lecture de l\'historique du navigateur et des favoris"</string>
     <string name="permdesc_readHistoryBookmarks">"Permet à l\'application de lire toutes les URL visitées par le navigateur et tous les favoris."</string>
     <string name="permlab_writeHistoryBookmarks">"Enregistrement de l\'historique du navigateur et des favoris"</string>

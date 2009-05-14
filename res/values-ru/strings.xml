@@ -236,7 +236,6 @@
     <string name="download_length_required">"Загрузка невозможна. Не удается определить размер элемента."</string>
     <string name="download_precondition_failed">"Загрузка прервана и не может быть продолжена."</string>
     <string name="activity_instrumentation_test_runner">"Проверка браузера"</string>
-    <string name="search_google">"Поиск в Google"</string>
     <string name="permlab_readHistoryBookmarks">"считывать историю и закладки браузера"</string>
     <string name="permdesc_readHistoryBookmarks">"Позволяет приложению считывать все URL, открытые через браузер, и все закладки браузера."</string>
     <string name="permlab_writeHistoryBookmarks">"записывать историю и закладки браузера"</string>

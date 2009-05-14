@@ -236,7 +236,6 @@
     <string name="download_length_required">"Impossibile effettuare il download. Impossibile determinare le dimensioni dell\'elemento."</string>
     <string name="download_precondition_failed">"Download interrotto. Impossibile ripristinarlo."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="search_google">"Cerca su Google"</string>
     <string name="permlab_readHistoryBookmarks">"lettura cronologia e segnalibri del browser"</string>
     <string name="permdesc_readHistoryBookmarks">"Consente all\'applicazione di leggere tutti gli URL visitati e tutti i segnalibri del browser."</string>
     <string name="permlab_writeHistoryBookmarks">"creazione cronologia e segnalibri del browser"</string>

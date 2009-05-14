@@ -236,7 +236,6 @@
     <string name="download_length_required">"Nelze stáhnout. Velikost položky nelze určit."</string>
     <string name="download_precondition_failed">"Stahování bylo přerušeno a nelze v něm pokračovat."</string>
     <string name="activity_instrumentation_test_runner">"Testovací verze prohlížeče"</string>
-    <string name="search_google">"Prohledat Google"</string>
     <string name="permlab_readHistoryBookmarks">"čtení historie a záložek prohlížeče"</string>
     <string name="permdesc_readHistoryBookmarks">"Umožňuje aplikaci číst všechny navštívené adresy URL a záložky prohlížeče."</string>
     <string name="permlab_writeHistoryBookmarks">"zápis historie a záložek prohlížeče"</string>

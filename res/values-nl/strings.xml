@@ -236,7 +236,6 @@
     <string name="download_length_required">"Kan niet downloaden. De grootte van het item kan niet worden vastgesteld."</string>
     <string name="download_precondition_failed">"Download is onderbroken. Deze kan niet worden voortgezet."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="search_google">"Zoeken met Google"</string>
     <string name="permlab_readHistoryBookmarks">"browsergeschiedenis en bladwijzers lezen"</string>
     <string name="permdesc_readHistoryBookmarks">"Hiermee kan een toepassing de URL\'s lezen die u via de browser heeft bezocht, evenals alle bladwijzers van de browser."</string>
     <string name="permlab_writeHistoryBookmarks">"browsergeschiedenis en bladwijzers schrijven"</string>

@@ -236,7 +236,6 @@
     <string name="download_length_required">"Pobieranie niemożliwe. Nie można ustalić rozmiaru elementu."</string>
     <string name="download_precondition_failed">"Pobieranie zostało przerwane. Nie można go wznowić."</string>
     <string name="activity_instrumentation_test_runner">"Uruchamianie testów przeglądarki"</string>
-    <string name="search_google">"Szukanie Google"</string>
     <string name="permlab_readHistoryBookmarks">"odczytywanie historii i zakładek przeglądarki"</string>
     <string name="permdesc_readHistoryBookmarks">"Zezwala aplikacji na odczytanie wszystkich adresów URL odwiedzonych przy użyciu przeglądarki oraz wszystkich zakładek przeglądarki."</string>
     <string name="permlab_writeHistoryBookmarks">"zapisać historię i zakładki przeglądarki"</string>
