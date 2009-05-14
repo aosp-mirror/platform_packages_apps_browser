@@ -238,7 +238,6 @@
     <string name="download_length_required">"无法下载。无法确定该项的大小。"</string>
     <string name="download_precondition_failed">"下载中断，无法重新开始。"</string>
     <string name="activity_instrumentation_test_runner">"浏览器测试运行器"</string>
-    <string name="search_google">"使用 Google 进行搜索"</string>
     <string name="permlab_readHistoryBookmarks">"读取浏览器的历史记录和书签"</string>
     <string name="permdesc_readHistoryBookmarks">"允许应用程序读取浏览器访问过的所有网址以及浏览器的所有书签。"</string>
     <string name="permlab_writeHistoryBookmarks">"写入浏览器的历史记录和书签"</string>

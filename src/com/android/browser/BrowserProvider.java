@@ -71,6 +71,7 @@ public class BrowserProvider extends ContentProvider {
     private static final int SUGGEST_COLUMN_ICON_1_ID = 5;
     private static final int SUGGEST_COLUMN_ICON_2_ID = 6;
     private static final int SUGGEST_COLUMN_QUERY_ID = 7;
+    private static final int SUGGEST_COLUMN_FORMAT = 8;
 
     // shared suggestion columns
     private static final String[] COLUMNS = new String[] {
@@ -81,7 +82,8 @@ public class BrowserProvider extends ContentProvider {
             SearchManager.SUGGEST_COLUMN_TEXT_2,
             SearchManager.SUGGEST_COLUMN_ICON_1,
             SearchManager.SUGGEST_COLUMN_ICON_2,
-            SearchManager.SUGGEST_COLUMN_QUERY};
+            SearchManager.SUGGEST_COLUMN_QUERY,
+            SearchManager.SUGGEST_COLUMN_FORMAT};
 
     private static final int MAX_SUGGESTION_SHORT_ENTRIES = 3;
     private static final int MAX_SUGGESTION_LONG_ENTRIES = 6;
@@ -351,20 +353,20 @@ public class BrowserProvider extends ContentProvider {
 
                     case SUGGEST_COLUMN_TEXT_1_ID:
                         if (mHistoryCount > mPos) {
-                            return getTitle(mHistoryCursor);
+                            return getHistoryTitle();
                         } else if (!mBeyondCursor) {
-                            return getTitle(mSuggestCursor);
+                            return mSuggestCursor.getString(1);
                         } else {
                             return mString;
                         }
 
                     case SUGGEST_COLUMN_TEXT_2_ID:
                         if (mHistoryCount > mPos) {
-                            return getSubtitle(mHistoryCursor);
+                            return getHistorySubtitle();
                         } else if (!mBeyondCursor) {
-                            return getSubtitle(mSuggestCursor);
+                            return mSuggestCursor.getString(2);
                         } else {
-                            return getContext().getString(R.string.search_google);
+                            return getContext().getString(R.string.search_the_web);
                         }
 
                     case SUGGEST_COLUMN_ICON_1_ID:
@@ -395,6 +397,9 @@ public class BrowserProvider extends ContentProvider {
                         } else {
                             return mString;
                         }
+                        
+                    case SUGGEST_COLUMN_FORMAT:
+                        return "html";
                 }
             }
             return null;
@@ -466,13 +471,12 @@ public class BrowserProvider extends ContentProvider {
          * Provides the title (text line 1) for a browser suggestion, which should be the
          * webpage title. If the webpage title is empty, returns the stripped url instead.
          * 
-         * @param cursor a history cursor or suggest cursor
          * @return the title string to use
          */
-        private String getTitle(Cursor cursor) {
-            String title = cursor.getString(2 /* webpage title */);
+        private String getHistoryTitle() {
+            String title = mHistoryCursor.getString(2 /* webpage title */);
             if (TextUtils.isEmpty(title) || TextUtils.getTrimmedLength(title) == 0) {
-                title = stripUrl(cursor.getString(1 /* url */));
+                title = beautifyUrl(mHistoryCursor.getString(1 /* url */));
             }
             return title;
         }
@@ -482,26 +486,25 @@ public class BrowserProvider extends ContentProvider {
          * webpage url. If the webpage title is empty, then the url should go in the title
          * instead, and the subtitle should be empty, so this would return null.
          * 
-         * @param cursor a history cursor or suggest cursor
          * @return the subtitle string to use, or null if none
          */
-        private String getSubtitle(Cursor cursor) {
-            String title = cursor.getString(2 /* webpage title */);
+        private String getHistorySubtitle() {
+            String title = mHistoryCursor.getString(2 /* webpage title */);
             if (TextUtils.isEmpty(title) || TextUtils.getTrimmedLength(title) == 0) {
                 return null;
             } else {
-                return stripUrl(cursor.getString(1 /* url */));
+                return beautifyUrl(mHistoryCursor.getString(1 /* url */));
             }
         }
         
         /**
-         * Strips "http://" from the beginning of a url.
+         * Strips "http://" from the beginning of a url and adds html formatting to make it green.
          */
-        private String stripUrl(String url) {
+        private String beautifyUrl(String url) {
             if (url.startsWith("http://")) {
                 url = url.substring(7);
             }
-            return url;
+            return "<font color=\"green\">" + url + "</font>";
         }
     }
 

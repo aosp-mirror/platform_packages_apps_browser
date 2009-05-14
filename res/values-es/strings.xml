@@ -236,7 +236,6 @@
     <string name="download_length_required">"No se puede realizar la descarga, porque no es posible determinar el tamaño del elemento."</string>
     <string name="download_precondition_failed">"La descarga se ha interrumpido y no se puede reanudar."</string>
     <string name="activity_instrumentation_test_runner">"Realizador de pruebas del navegador"</string>
-    <string name="search_google">"Búsqueda de Google"</string>
     <string name="permlab_readHistoryBookmarks">"leer información de marcadores y del historial del navegador"</string>
     <string name="permdesc_readHistoryBookmarks">"Permite que la aplicación lea todas las URL que ha visitado el navegador y todos sus marcadores."</string>
     <string name="permlab_writeHistoryBookmarks">"escribir en marcadores y en el historial del navegador"</string>
