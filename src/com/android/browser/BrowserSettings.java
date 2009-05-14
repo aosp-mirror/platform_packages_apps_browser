@@ -184,7 +184,6 @@ class BrowserSettings extends Observable {
             s.setLoadsImagesAutomatically(b.loadsImagesAutomatically);
             s.setJavaScriptEnabled(b.javaScriptEnabled);
             s.setPluginsEnabled(b.pluginsEnabled);
-            s.setPluginsPath(b.pluginsPath);
             s.setJavaScriptCanOpenWindowsAutomatically(
                     b.javaScriptCanOpenWindowsAutomatically);
             s.setDefaultTextEncodingName(b.defaultTextEncodingName);

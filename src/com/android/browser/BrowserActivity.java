@@ -36,6 +36,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
@@ -110,6 +111,7 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
 import android.webkit.HttpAuthHandler;
+import android.webkit.PluginManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
@@ -580,11 +582,6 @@ public class BrowserActivity extends Activity
                 }
 
                 copyBuildInfos();
-
-                // Refresh the plugin list.
-                if (mTabControl.getCurrentWebView() != null) {
-                    mTabControl.getCurrentWebView().refreshPlugins(false);
-                }
             } catch (IOException e) {
                 Log.e(TAG, "IO Exception: " + e);
             }
@@ -754,6 +751,52 @@ public class BrowserActivity extends Activity
                     }
                 }
             };
+
+        IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addDataScheme("package");
+        mPackageInstallationReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                final String action = intent.getAction();
+                final String packageName = intent.getData()
+                        .getSchemeSpecificPart();
+                final boolean replacing = intent.getBooleanExtra(
+                        Intent.EXTRA_REPLACING, false);
+                if (Intent.ACTION_PACKAGE_REMOVED.equals(action) && replacing) {
+                    // if it is replacing, refreshPlugins() when adding
+                    return;
+                }
+                PackageManager pm = BrowserActivity.this.getPackageManager();
+                PackageInfo pkgInfo = null;
+                try {
+                    pkgInfo = pm.getPackageInfo(packageName,
+                            PackageManager.GET_PERMISSIONS);
+                } catch (PackageManager.NameNotFoundException e) {
+                    return;
+                }
+                if (pkgInfo != null) {
+                    String permissions[] = pkgInfo.requestedPermissions;
+                    if (permissions == null) {
+                        return;
+                    }
+                    boolean permissionOk = false;
+                    for (String permit : permissions) {
+                        if (PluginManager.PLUGIN_PERMISSION.equals(permit)) {
+                            permissionOk = true;
+                            break;
+                        }
+                    }
+                    if (permissionOk) {
+                        PluginManager.getInstance(BrowserActivity.this)
+                                .refreshPlugins(
+                                        Intent.ACTION_PACKAGE_ADDED
+                                                .equals(action));
+                    }
+                }
+            }
+        };
+        registerReceiver(mPackageInstallationReceiver, filter);
     }
 
     @Override
@@ -1119,6 +1162,8 @@ public class BrowserActivity extends Activity
         //        "com.android.masfproxyservice",
         //        "com.android.masfproxyservice.MasfProxyService"));
         //stopService(proxyServiceIntent);
+
+        unregisterReceiver(mPackageInstallationReceiver);
     }
 
     @Override
@@ -4734,6 +4779,8 @@ public class BrowserActivity extends Activity
     // monitor platform changes
     private IntentFilter mNetworkStateChangedFilter;
     private BroadcastReceiver mNetworkStateIntentReceiver;
+
+    private BroadcastReceiver mPackageInstallationReceiver;
 
     // activity requestCode
     final static int COMBO_PAGE                 = 1;
