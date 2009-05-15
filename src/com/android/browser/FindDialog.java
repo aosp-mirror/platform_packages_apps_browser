@@ -42,7 +42,6 @@ import android.widget.TextView;
     private BrowserActivity mBrowserActivity;
     
     // Views with which the user can interact.
-    private View            mOk;
     private EditText        mEditText;
     private View            mNextButton;
     private View            mPrevButton;
@@ -129,7 +128,6 @@ import android.widget.TextView;
         
         button = findViewById(R.id.done);
         button.setOnClickListener(mFindCancelListener);
-        mOk = button;
         
         mMatches = (TextView) findViewById(R.id.matches);
         mMatchesView = findViewById(R.id.matches_view);
