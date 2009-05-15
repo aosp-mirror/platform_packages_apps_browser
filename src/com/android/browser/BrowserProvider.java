@@ -39,8 +39,11 @@ import android.server.search.SearchableInfo;
 import android.text.TextUtils;
 import android.text.util.Regex;
 import android.util.Log;
+import android.util.TypedValue;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class BrowserProvider extends ContentProvider {
@@ -135,6 +138,15 @@ public class BrowserProvider extends ContentProvider {
     // 17 -> 18 Added favicon in bookmarks table for Home shortcuts
     // 18 -> 19 Remove labels table
     private static final int DATABASE_VERSION = 19;
+    
+    // Regular expression which matches http://, followed by some stuff, followed by
+    // optionally a trailing slash, all matched as separate groups.
+    private static final Pattern STRIP_URL_PATTERN = Pattern.compile("^(http://)(.*?)(/$)?");
+    
+    // The hex color string to be applied to urls of website suggestions, as derived from
+    // the current theme. This is not set until/unless beautifyUrl is called, at which point
+    // this variable caches the color value.
+    private static String mSearchUrlColorHex;
 
     public BrowserProvider() {
     }
@@ -498,13 +510,23 @@ public class BrowserProvider extends ContentProvider {
         }
         
         /**
-         * Strips "http://" from the beginning of a url and adds html formatting to make it green.
+         * Strips "http://" from the beginning of a url and "/" from the end,
+         * and adds html formatting to make it green.
          */
         private String beautifyUrl(String url) {
-            if (url.startsWith("http://")) {
-                url = url.substring(7);
+            if (mSearchUrlColorHex == null) {
+                // Get the color used for this purpose from the current theme.
+                TypedValue colorValue = new TypedValue();
+                getContext().getTheme().resolveAttribute(
+                        com.android.internal.R.attr.textColorSearchUrl, colorValue, true);
+                int color = getContext().getResources().getColor(colorValue.resourceId);
+                
+                // Convert the int color value into a hex string, and strip the first two
+                // characters which will be the alpha transparency (html doesn't want this).
+                mSearchUrlColorHex = Integer.toHexString(color).substring(2);
             }
-            return "<font color=\"green\">" + url + "</font>";
+            
+            return "<font color=\"#" + mSearchUrlColorHex + "\">" + stripUrl(url) + "</font>";
         }
     }
 
@@ -714,4 +736,26 @@ public class BrowserProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(url, null);
         return ret;
     }
+    
+    /**
+     * Strips the provided url of preceding "http://" and any trailing "/". Does not
+     * strip "https://". If the provided string cannot be stripped, the original string
+     * is returned.
+     * 
+     * TODO: Put this in TextUtils to be used by other packages doing something similar.
+     * 
+     * @param url a url to strip, like "http://www.google.com/"
+     * @return a stripped url like "www.google.com", or the original string if it could
+     *         not be stripped
+     */
+    private static String stripUrl(String url) {
+        if (url == null) return null;
+        Matcher m = STRIP_URL_PATTERN.matcher(url);
+        if (m.matches() && m.groupCount() == 3) {
+            return m.group(2);
+        } else {
+            return url;
+        }
+    }
+
 }
