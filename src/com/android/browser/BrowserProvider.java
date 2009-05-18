@@ -90,6 +90,8 @@ public class BrowserProvider extends ContentProvider {
 
     private static final int MAX_SUGGESTION_SHORT_ENTRIES = 3;
     private static final int MAX_SUGGESTION_LONG_ENTRIES = 6;
+    private static final String MAX_SUGGESTION_LONG_ENTRIES_STRING =
+            Integer.valueOf(MAX_SUGGESTION_LONG_ENTRIES).toString();
 
     // make sure that these match the index of TABLE_NAMES
     private static final int URI_MATCH_BOOKMARKS = 0;
@@ -384,22 +386,22 @@ public class BrowserProvider extends ContentProvider {
                     case SUGGEST_COLUMN_ICON_1_ID:
                         if (mHistoryCount > mPos) {
                             if (mHistoryCursor.getInt(3) == 1) {
-                                return new Integer(
+                                return Integer.valueOf(
                                         R.drawable.ic_search_category_bookmark)
                                         .toString();
                             } else {
-                                return new Integer(
+                                return Integer.valueOf(
                                         R.drawable.ic_search_category_history)
                                         .toString();
                             }
                         } else {
-                            return new Integer(
+                            return Integer.valueOf(
                                     R.drawable.ic_search_category_suggest)
                                     .toString();
                         }
 
                     case SUGGEST_COLUMN_ICON_2_ID:
-                        return new String("0");
+                        return "0";
 
                     case SUGGEST_COLUMN_QUERY_ID:
                         if (mHistoryCount > mPos) {
@@ -566,8 +568,7 @@ public class BrowserProvider extends ContentProvider {
 
             Cursor c = db.query(TABLE_NAMES[URI_MATCH_BOOKMARKS],
                     SUGGEST_PROJECTION, suggestSelection, myArgs, null, null,
-                    ORDER_BY,
-                    (new Integer(MAX_SUGGESTION_LONG_ENTRIES)).toString());
+                    ORDER_BY, MAX_SUGGESTION_LONG_ENTRIES_STRING);
 
             if (match == URI_MATCH_BOOKMARKS_SUGGEST
                     || Regex.WEB_URL_PATTERN.matcher(selectionArgs[0]).matches()) {
