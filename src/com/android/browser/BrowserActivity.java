@@ -4414,14 +4414,14 @@ public class BrowserActivity extends Activity
 
         Matcher matcher = ACCEPTED_URI_SCHEMA.matcher(inUrl);
         if (matcher.matches()) {
-            if (hasSpace) {
-                inUrl = inUrl.replace(" ", "%20");
-            }
             // force scheme to lowercase
             String scheme = matcher.group(1);
             String lcScheme = scheme.toLowerCase();
             if (!lcScheme.equals(scheme)) {
-                return lcScheme + matcher.group(2);
+                inUrl = lcScheme + matcher.group(2);
+            }
+            if (hasSpace) {
+                inUrl = inUrl.replace(" ", "%20");
             }
             return inUrl;
         }
