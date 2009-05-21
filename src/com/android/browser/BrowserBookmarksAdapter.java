@@ -40,8 +40,6 @@ import java.io.ByteArrayOutputStream;
 
 class BrowserBookmarksAdapter extends BaseAdapter {
 
-    private final String            LOGTAG = "Bookmarks";
-
     private String                  mCurrentPage;
     private Cursor                  mCursor;
     private int                     mCount;
