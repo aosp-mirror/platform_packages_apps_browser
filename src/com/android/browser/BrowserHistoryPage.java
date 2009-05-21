@@ -267,18 +267,25 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         
         // Array for each of our bins.  Each entry represents how many items are
         // in that bin.
-        int mItemMap[];
+        private int mItemMap[];
         // This is our GroupCount.  We will have at most DateSorter.DAY_COUNT
         // bins, less if the user has no items in one or more bins.
-        int mNumberOfBins;
-        Vector<DataSetObserver> mObservers;
-        Cursor mCursor;
+        private int mNumberOfBins;
+        private Vector<DataSetObserver> mObservers;
+        private Cursor mCursor;
         
         HistoryAdapter() {
             mObservers = new Vector<DataSetObserver>();
             
-            String whereClause = Browser.BookmarkColumns.VISITS + " > 0 ";
-            String orderBy = Browser.BookmarkColumns.DATE + " DESC";
+            final String whereClause = Browser.BookmarkColumns.VISITS + " > 0"
+                    // In AddBookmarkPage, where we save new bookmarks, we add
+                    // three visits to newly created bookmarks, so that
+                    // bookmarks that have not been visited will show up in the
+                    // most visited, and higher in the goto search box.
+                    // However, this puts the site in the history, unless we
+                    // ignore sites with a DATE of 0, which the next line does.
+                    + " AND " + Browser.BookmarkColumns.DATE + " > 0";
+            final String orderBy = Browser.BookmarkColumns.DATE + " DESC";
            
             mCursor = managedQuery(
                     Browser.BOOKMARKS_URI,
