@@ -84,9 +84,9 @@ public class MostVisitedActivity extends ListActivity {
         private Vector<DataSetObserver> mObservers;
         private Cursor mCursor;
         // These correspond with projection below.
-        private final int mUrlIndex = 0;
-        private final int mTitleIndex = 1;
-        private final int mBookmarkIndex = 2;
+        private static final int mUrlIndex = 0;
+        private static final int mTitleIndex = 1;
+        private static final int mBookmarkIndex = 2;
 
         MyAdapter() {
             mObservers = new Vector<DataSetObserver>();
