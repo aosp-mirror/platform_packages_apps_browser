@@ -67,7 +67,7 @@ class BrowserSettings extends Observable {
     private boolean saveFormData = true;
     private boolean openInBackground = false;
     private String defaultTextEncodingName;
-    private String homeUrl = "http://www.google.com/m?client=ms-";
+    private String homeUrl = "";
     private boolean loginInitialized = false;
     private boolean autoFitPage = true;
     private boolean showDebugSettings = false;
@@ -199,7 +199,7 @@ class BrowserSettings extends Observable {
         // local directory.
         pluginsPath = ctx.getDir("plugins", 0).getPath();
 
-        homeUrl += Partner.getString(ctx.getContentResolver(), Partner.CLIENT_ID);
+        homeUrl = getFactoryResetHomeUrl(ctx);
 
         // Load the defaults from the xml
         // This call is TOO SLOW, need to manually keep the defaults
@@ -439,6 +439,17 @@ class BrowserSettings extends Observable {
         p.edit().clear().commit();
         PreferenceManager.setDefaultValues(context, R.xml.browser_preferences,
                 true);
+        // reset homeUrl
+        setHomePage(context, getFactoryResetHomeUrl(context));
+    }
+
+    private String getFactoryResetHomeUrl(Context context) {
+        String url = context.getResources().getString(R.string.homepage_base);
+        if (url.indexOf("{CID}") != -1) {
+            url = url.replace("{CID}", Partner.getString(context
+                    .getContentResolver(), Partner.CLIENT_ID));
+        }
+        return url;
     }
 
     // Private constructor that does nothing.
