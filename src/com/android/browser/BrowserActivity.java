@@ -195,6 +195,9 @@ public class BrowserActivity extends Activity
                 try {
                     if (mGls == null) return;
 
+                    if (!homepage.startsWith("http://www.google.")) return;
+                    if (homepage.indexOf('?') == -1) return;
+
                     String hostedUser = mGls.getAccount(GoogleLoginServiceConstants.PREFER_HOSTED);
                     String googleUser = mGls.getAccount(GoogleLoginServiceConstants.REQUIRE_GOOGLE);
 
@@ -214,8 +217,7 @@ public class BrowserActivity extends Activity
 
                     if (googleUser == null || !hostedUser.equals(googleUser)) {
                         String domain = hostedUser.substring(hostedUser.lastIndexOf('@')+1);
-                        homepage = "http://www.google.com/m/a/" + domain + "?client=ms-" +
-                            Partner.getString(BrowserActivity.this.getContentResolver(), Partner.CLIENT_ID);
+                        homepage = homepage.replace("?", "/a/" + domain + "?");
                     }
                 } catch (RemoteException ignore) {
                     // Login service died; carry on

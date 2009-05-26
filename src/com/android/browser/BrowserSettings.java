@@ -57,8 +57,6 @@ import java.util.Observable;
  */
 class BrowserSettings extends Observable {
 
-    private static final String DEFAULT_HOME_URL =
-            "http://www.google.com/m?client=ms-";
     // Private variables for settings
     // NOTE: these defaults need to be kept in sync with the XML
     // until the performance of PreferenceManager.setDefaultValues()
@@ -73,7 +71,7 @@ class BrowserSettings extends Observable {
     private boolean saveFormData = true;
     private boolean openInBackground = false;
     private String defaultTextEncodingName;
-    private String homeUrl;
+    private String homeUrl = "";
     private boolean loginInitialized = false;
     private boolean autoFitPage = true;
     private boolean landscapeOnly = false;
@@ -235,8 +233,7 @@ class BrowserSettings extends Observable {
         // Set the default value for the Database path.
         databasePath = ctx.getDir("databases", 0).getPath();
 
-        homeUrl = DEFAULT_HOME_URL +
-                Partner.getString(ctx.getContentResolver(), Partner.CLIENT_ID);
+        homeUrl = getFactoryResetHomeUrl(ctx);
 
         // Load the defaults from the xml
         // This call is TOO SLOW, need to manually keep the defaults
@@ -501,8 +498,17 @@ class BrowserSettings extends Observable {
         p.edit().clear().commit();
         PreferenceManager.setDefaultValues(ctx, R.xml.browser_preferences,
                 true);
-        setHomePage(ctx, DEFAULT_HOME_URL +
-                Partner.getString(ctx.getContentResolver(), Partner.CLIENT_ID));
+        // reset homeUrl
+        setHomePage(ctx, getFactoryResetHomeUrl(ctx));
+    }
+
+    private String getFactoryResetHomeUrl(Context context) {
+        String url = context.getResources().getString(R.string.homepage_base);
+        if (url.indexOf("{CID}") != -1) {
+            url = url.replace("{CID}", Partner.getString(context
+                    .getContentResolver(), Partner.CLIENT_ID));
+        }
+        return url;
     }
 
     // Private constructor that does nothing.
