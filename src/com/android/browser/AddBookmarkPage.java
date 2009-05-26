@@ -160,24 +160,25 @@ public class AddBookmarkPage extends Activity {
                 // how it's stored in the database, so allow different combos
                 // to map to the same url.
                 boolean secure = false;
-                if (url.startsWith("http://")) {
-                    url = url.substring(7);
-                } else if (url.startsWith("https://")) {
-                    url = url.substring(8);
+                String compareString = url;
+                if (compareString.startsWith("http://")) {
+                    compareString = compareString.substring(7);
+                } else if (compareString.startsWith("https://")) {
+                    compareString = compareString.substring(8);
                     secure = true;
                 }
-                if (url.startsWith("www.")) {
-                    url = url.substring(4);
+                if (compareString.startsWith("www.")) {
+                    compareString = compareString.substring(4);
                 }
                 if (secure) {
                     SELECTION_ARGS = new String[2];
-                    SELECTION_ARGS[0] = "https://" + url;
-                    SELECTION_ARGS[1] = "https://www." + url;
+                    SELECTION_ARGS[0] = "https://" + compareString;
+                    SELECTION_ARGS[1] = "https://www." + compareString;
                 } else {
                     SELECTION_ARGS = new String[4];
-                    SELECTION_ARGS[0] = url;
-                    SELECTION_ARGS[1] = "www." + url;
-                    SELECTION_ARGS[2] = "http://" + url;
+                    SELECTION_ARGS[0] = compareString;
+                    SELECTION_ARGS[1] = "www." + compareString;
+                    SELECTION_ARGS[2] = "http://" + compareString;
                     SELECTION_ARGS[3] = "http://" + SELECTION_ARGS[1];
                 }
                 ContentResolver cr = getContentResolver();
