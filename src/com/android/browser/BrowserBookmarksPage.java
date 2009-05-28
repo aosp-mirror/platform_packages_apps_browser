@@ -44,6 +44,7 @@ import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  *  View showing the user's bookmarks in the browser.
@@ -107,7 +108,13 @@ public class BrowserBookmarksPage extends Activity implements
             break;
         case R.id.copy_url_context_menu_id:
             copy(getUrl(i.position));
-            
+            break;
+        case R.id.homepage_context_menu_id:
+            BrowserSettings.getInstance().setHomePage(this,
+                    getUrl(i.position));
+            Toast.makeText(this, R.string.homepage_set,
+                    Toast.LENGTH_LONG).show();
+            break;
         default:
             return super.onContextItemSelected(item);
         }

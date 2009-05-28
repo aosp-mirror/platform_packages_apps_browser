@@ -49,6 +49,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Vector;
@@ -221,6 +222,11 @@ public class BrowserHistoryPage extends ExpandableListActivity {
             case R.id.delete_context_menu_id:
                 Browser.deleteFromHistory(getContentResolver(), url);
                 mAdapter.refreshData();
+                return true;
+            case R.id.homepage_context_menu_id:
+                BrowserSettings.getInstance().setHomePage(this, url);
+                Toast.makeText(this, R.string.homepage_set,
+                    Toast.LENGTH_LONG).show();
                 return true;
             default:
                 break;

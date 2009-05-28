@@ -34,5 +34,7 @@
       android:title="@string/contextmenu_copylink"/>
     <item android:id="@+id/delete_context_menu_id"
       android:title="@string/remove_bookmark"/>
+    <item android:id="@+id/homepage_context_menu_id"
+      android:title="@string/set_as_homepage"/>
   </group>
 </menu>

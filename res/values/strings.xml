@@ -143,8 +143,12 @@
     <string name="remove_bookmark">Delete bookmark</string>
     <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
     <string name="remove_history_item">Remove from history</string>
+    <!-- Context menu item for setting the bookmark/history item as the homepage -->
+    <string name="set_as_homepage">Set as homepage</string>
     <!-- Toast informing the user that their action to save a bookmark has succeeded -->
     <string name="bookmark_saved">Saved to bookmarks.</string>
+    <!-- Toast confirming that the homepage has been set -->
+    <string name="homepage_set">Homepage set</string>
     <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
     <string name="bookmark_needs_title">"Bookmark must have a name."</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
