@@ -1091,8 +1091,9 @@ public class BrowserActivity extends Activity
             return;
         }
 
+        mTabControl.resumeCurrentTab();
         mActivityInPause = false;
-        resumeWebView();
+        resumeWebViewTimers();
 
         if (mWakeLock.isHeld()) {
             mHandler.removeMessages(RELEASE_WAKELOCK);
@@ -1150,8 +1151,9 @@ public class BrowserActivity extends Activity
             return;
         }
 
+        mTabControl.pauseCurrentTab();
         mActivityInPause = true;
-        if (mTabControl.getCurrentIndex() >= 0 && !pauseWebView()) {
+        if (mTabControl.getCurrentIndex() >= 0 && !pauseWebViewTimers()) {
             mWakeLock.acquire();
             mHandler.sendMessageDelayed(mHandler
                     .obtainMessage(RELEASE_WAKELOCK), WAKELOCK_TIMEOUT);
@@ -1252,7 +1254,7 @@ public class BrowserActivity extends Activity
         mTabControl.freeMemory();
     }
 
-    private boolean resumeWebView() {
+    private boolean resumeWebViewTimers() {
         if ((!mActivityInPause && !mPageStarted) ||
                 (mActivityInPause && mPageStarted)) {
             CookieSyncManager.getInstance().startSync();
@@ -1266,7 +1268,7 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private boolean pauseWebView() {
+    private boolean pauseWebViewTimers() {
         if (mActivityInPause && !mPageStarted) {
             CookieSyncManager.getInstance().stopSync();
             WebView w = mTabControl.getCurrentWebView();
@@ -2510,9 +2512,9 @@ public class BrowserActivity extends Activity
                         finish();
                         return;
                     }
-                    // call pauseWebView() now, we won't be able to call it in
-                    // onPause() as the WebView won't be valid.
-                    pauseWebView();
+                    // call pauseWebViewTimers() now, we won't be able to call
+                    // it in onPause() as the WebView won't be valid.
+                    pauseWebViewTimers();
                     removeTabFromContentView(current);
                     mTabControl.removeTab(current);
                 }
@@ -2808,8 +2810,9 @@ public class BrowserActivity extends Activity
 
             if (!mPageStarted) {
                 mPageStarted = true;
-                // if onResume() has been called, resumeWebView() does nothing.
-                resumeWebView();
+                // if onResume() has been called, resumeWebViewTimers() does
+                // nothing.
+                resumeWebViewTimers();
             }
 
             // reset sync timer to avoid sync starts during loading a page
@@ -2930,9 +2933,9 @@ public class BrowserActivity extends Activity
 
             if (mPageStarted) {
                 mPageStarted = false;
-                // pauseWebView() will do nothing and return false if onPause()
-                // is not called yet.
-                if (pauseWebView()) {
+                // pauseWebViewTimers() will do nothing and return false if
+                // onPause() is not called yet.
+                if (pauseWebViewTimers()) {
                     if (mWakeLock.isHeld()) {
                         mHandler.removeMessages(RELEASE_WAKELOCK);
                         mWakeLock.release();

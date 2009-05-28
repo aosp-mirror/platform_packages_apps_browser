@@ -867,6 +867,48 @@ class TabControl {
         return setCurrentTab(newTab, false);
     }
 
+    /*package*/ void pauseCurrentTab() {
+        Tab t = getCurrentTab();
+        if (t != null) {
+            t.mMainView.onPause();
+            if (t.mSubView != null) {
+                t.mSubView.onPause();
+            }
+        }
+    }
+
+    /*package*/ void resumeCurrentTab() {
+        Tab t = getCurrentTab();
+        if (t != null) {
+            t.mMainView.onResume();
+            if (t.mSubView != null) {
+                t.mSubView.onResume();
+            }
+        }
+    }
+
+    private void putViewInForeground(WebView v, WebViewClient vc,
+                                     WebChromeClient cc) {
+        v.setWebViewClient(vc);
+        v.setWebChromeClient(cc);
+        v.setOnCreateContextMenuListener(mActivity);
+        v.setDownloadListener(mActivity);
+        v.onResume();
+    }
+
+    private void putViewInBackground(WebView v) {
+        // Set an empty callback so that default actions are not triggered.
+        v.setWebViewClient(mEmptyClient);
+        v.setWebChromeClient(mBackgroundChromeClient);
+        v.setOnCreateContextMenuListener(null);
+        // Leave the DownloadManager attached so that downloads can start in
+        // a non-active window. This can happen when going to a site that does
+        // a redirect after a period of time. The user could have switched to
+        // another tab while waiting for the download to start.
+        v.setDownloadListener(mActivity);
+        v.onPause();
+    }
+
     /**
      * If force is true, this method skips the check for newTab == current.
      */
@@ -892,7 +934,6 @@ class TabControl {
         mTabQueue.add(newTab);
 
         WebView mainView;
-        WebView subView;
 
         // Display the new current tab
         mCurrentTab = mTabs.indexOf(newTab);
@@ -902,17 +943,12 @@ class TabControl {
             // Same work as in createNewTab() except don't do new Tab()
             newTab.mMainView = mainView = createNewWebView();
         }
-        mainView.setWebViewClient(mActivity.getWebViewClient());
-        mainView.setWebChromeClient(mActivity.getWebChromeClient());
-        mainView.setOnCreateContextMenuListener(mActivity);
-        mainView.setDownloadListener(mActivity);
+        putViewInForeground(mainView, mActivity.getWebViewClient(),
+                            mActivity.getWebChromeClient());
         // Add the subwindow if it exists
         if (newTab.mSubViewContainer != null) {
-            subView = newTab.mSubView;
-            subView.setWebViewClient(newTab.mSubViewClient);
-            subView.setWebChromeClient(newTab.mSubViewChromeClient);
-            subView.setOnCreateContextMenuListener(mActivity);
-            subView.setDownloadListener(mActivity);
+            putViewInForeground(newTab.mSubView, newTab.mSubViewClient,
+                                newTab.mSubViewChromeClient);
         }
         if (needRestore) {
             // Have to finish setCurrentTab work before calling restoreState
@@ -927,23 +963,9 @@ class TabControl {
      * Put the tab in the background using all the empty/background clients.
      */
     private void putTabInBackground(Tab t) {
-        WebView mainView = t.mMainView;
-        // Set an empty callback so that default actions are not triggered.
-        mainView.setWebViewClient(mEmptyClient);
-        mainView.setWebChromeClient(mBackgroundChromeClient);
-        mainView.setOnCreateContextMenuListener(null);
-        // Leave the DownloadManager attached so that downloads can start in
-        // a non-active window. This can happen when going to a site that does
-        // a redirect after a period of time. The user could have switched to
-        // another tab while waiting for the download to start.
-        mainView.setDownloadListener(mActivity);
-        WebView subView = t.mSubView;
-        if (subView != null) {
-            // Set an empty callback so that default actions are not triggered.
-            subView.setWebViewClient(mEmptyClient);
-            subView.setWebChromeClient(mBackgroundChromeClient);
-            subView.setOnCreateContextMenuListener(null);
-            subView.setDownloadListener(mActivity);
+        putViewInBackground(t.mMainView);
+        if (t.mSubView != null) {
+            putViewInBackground(t.mSubView);
         }
     }
 
