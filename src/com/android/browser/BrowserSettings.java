@@ -506,7 +506,7 @@ class BrowserSettings extends Observable {
         String url = context.getResources().getString(R.string.homepage_base);
         if (url.indexOf("{CID}") != -1) {
             url = url.replace("{CID}", Partner.getString(context
-                    .getContentResolver(), Partner.CLIENT_ID));
+                    .getContentResolver(), Partner.CLIENT_ID, "unknown"));
         }
         return url;
     }
