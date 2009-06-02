@@ -82,6 +82,7 @@ class BrowserSettings extends Observable {
     // The Browser always enables Application Caches.
     private boolean appCacheEnabled = true;
     private String appCachePath;  // default value set in loadFromDb().
+    private boolean domStorageEnabled = true;
 
     private final static String TAG = "BrowserSettings";
 
@@ -204,6 +205,7 @@ class BrowserSettings extends Observable {
 
             s.setDatabasePath(b.databasePath);
             s.setDatabaseEnabled(b.databaseEnabled);
+            s.setDomStorageEnabled(b.domStorageEnabled);
             s.setWebStorageDefaultQuota(b.webStorageDefaultQuota);
 
             // Turn on Application Caches.
@@ -259,7 +261,9 @@ class BrowserSettings extends Observable {
         webStorageDefaultQuota = Long.parseLong(p.getString(PREF_DEFAULT_QUOTA,
                 String.valueOf(webStorageDefaultQuota)));
         appCacheEnabled = p.getBoolean("enable_appcache",
-            appCacheEnabled);
+                appCacheEnabled);
+        domStorageEnabled = p.getBoolean("enable_domstorage",
+                domStorageEnabled);
         appCachePath = p.getString("appcache_path", appCachePath);
         javaScriptCanOpenWindowsAutomatically = !p.getBoolean(
             "block_popup_windows",
