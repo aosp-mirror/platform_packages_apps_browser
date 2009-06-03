@@ -39,7 +39,7 @@
     <!-- The label on the "sign in" button -->
     <string name="action">Sign in</string>
     <!-- The name of the bookmarks and history search suggestion source.  -->
-    <string name="bookmarks_search">Bookmarks &amp; history</string>
+    <string name="bookmarks_search">Browser</string>
 
     <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
     <string name="cancel">Cancel</string>
