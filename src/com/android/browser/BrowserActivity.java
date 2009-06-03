@@ -3693,6 +3693,17 @@ public class BrowserActivity extends Activity
             intent.putExtra(PermissionDialog.PARAM_QUOTA, currentQuota);
             startActivityForResult(intent, WEBSTORAGE_QUOTA_DIALOG);
         }
+
+        /* Adds a JavaScript error message to the system log.
+         * @param message The error message to report.
+         * @param lineNumber The line number of the error.
+         * @param sourceID The name of the source file that caused the error.
+         */
+        @Override
+        public void addMessageToConsole(String message, int lineNumber, String sourceID) {
+            Log.w(LOGTAG, "Console: " + message + " (" + sourceID + ":" + lineNumber + ")");
+        }
+
     };
 
     /**
