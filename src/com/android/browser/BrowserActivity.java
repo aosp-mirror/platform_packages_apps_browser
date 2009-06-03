@@ -170,6 +170,13 @@ public class BrowserActivity extends Activity
 
     private WebStorage.QuotaUpdater mWebStorageQuotaUpdater = null;
 
+    // These are single-character shortcuts for searching popular sources.
+    private static final int SHORTCUT_INVALID = 0;
+    private static final int SHORTCUT_GOOGLE_SEARCH = 1;
+    private static final int SHORTCUT_WIKIPEDIA_SEARCH = 2;
+    private static final int SHORTCUT_DICTIONARY_SEARCH = 3;
+    private static final int SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH = 4;
+
     /* Whitelisted webpages
     private static HashSet<String> sWhiteList;
 
@@ -687,6 +694,12 @@ public class BrowserActivity extends Activity
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
 
+        // If this was a web search request, pass it on to the default web search provider.
+        if (handleWebSearchIntent(getIntent())) {
+            moveTaskToBack(true);
+            return;
+        }
+
         if (!mTabControl.restoreState(icicle)) {
             // clear up the thumbnail directory if we can't restore the state as
             // none of the files in the directory are referenced any more.
@@ -836,6 +849,12 @@ public class BrowserActivity extends Activity
                 || Intent.ACTION_SEARCH.equals(action)
                 || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
                 || Intent.ACTION_WEB_SEARCH.equals(action)) {
+            // If this was a search request (e.g. search query directly typed into the address bar),
+            // pass it on to the default web search provider.
+            if (handleWebSearchIntent(intent)) {
+                return;
+            }
+
             String url = getUrlFromIntent(intent);
             if (url == null || url.length() == 0) {
                 url = mSettings.getHomePage();
@@ -902,6 +921,71 @@ public class BrowserActivity extends Activity
                 }
             }
         }
+    }
+
+    private int parseUrlShortcut(String url) {
+        if (url == null) return SHORTCUT_INVALID;
+
+        // FIXME: quick search, need to be customized by setting
+        if (url.length() > 2 && url.charAt(1) == ' ') {
+            switch (url.charAt(0)) {
+            case 'g': return SHORTCUT_GOOGLE_SEARCH;
+            case 'w': return SHORTCUT_WIKIPEDIA_SEARCH;
+            case 'd': return SHORTCUT_DICTIONARY_SEARCH;
+            case 'l': return SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH;
+            }
+        }
+        return SHORTCUT_INVALID;
+    }
+
+    /**
+     * Launches the default web search activity with the query parameters if the given intent's data
+     * are identified as plain search terms and not URLs/shortcuts.
+     * @return true if the intent was handled and web search activity was launched, false if not.
+     */
+    private boolean handleWebSearchIntent(Intent intent) {
+        if (intent == null) return false;
+
+        String url = null;
+        final String action = intent.getAction();
+        if (Intent.ACTION_VIEW.equals(action)) {
+            url = intent.getData().toString();
+        } else if (Intent.ACTION_SEARCH.equals(action)
+                || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
+                || Intent.ACTION_WEB_SEARCH.equals(action)) {
+            url = intent.getStringExtra(SearchManager.QUERY);
+        }
+        return handleWebSearchRequest(url);
+    }
+
+    /**
+     * Launches the default web search activity with the query parameters if the given url string
+     * was identified as plain search terms and not URL/shortcut.
+     * @return true if the request was handled and web search activity was launched, false if not.
+     */
+    private boolean handleWebSearchRequest(String inUrl) {
+        if (inUrl == null) return false;
+
+        // In general, we shouldn't modify URL from Intent.
+        // But currently, we get the user-typed URL from search box as well.
+        String url = fixUrl(inUrl).trim();
+
+        // URLs and site specific search shortcuts are handled by the regular flow of control, so
+        // return early.
+        if (Regex.WEB_URL_PATTERN.matcher(url).matches()
+                || parseUrlShortcut(url) != SHORTCUT_INVALID) {
+            return false;
+        }
+
+        Browser.updateVisitedHistory(mResolver, url, false);
+        Browser.addSearchUrl(mResolver, url);
+
+        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.putExtra(SearchManager.QUERY, url);
+        startActivity(intent);
+
+        return true;
     }
 
     private String getUrlFromIntent(Intent intent) {
@@ -4581,34 +4665,22 @@ public class BrowserActivity extends Activity
             return inUrl;
         }
         if (hasSpace) {
-            // FIXME: quick search, need to be customized by setting
-            if (inUrl.length() > 2 && inUrl.charAt(1) == ' ') {
-                // FIXME: Is this the correct place to add to searches?
-                // what if someone else calls this function?
-                char char0 = inUrl.charAt(0);
-
-                if (char0 == 'g') {
-                    Browser.addSearchUrl(mResolver, inUrl);
-                    return composeSearchUrl(inUrl.substring(2));
-
-                } else if (char0 == 'w') {
-                    Browser.addSearchUrl(mResolver, inUrl);
-                    return URLUtil.composeSearchUrl(inUrl.substring(2),
-                            QuickSearch_W,
-                            QUERY_PLACE_HOLDER);
-
-                } else if (char0 == 'd') {
-                    Browser.addSearchUrl(mResolver, inUrl);
-                    return URLUtil.composeSearchUrl(inUrl.substring(2),
-                            QuickSearch_D,
-                            QUERY_PLACE_HOLDER);
-
-                } else if (char0 == 'l') {
-                    Browser.addSearchUrl(mResolver, inUrl);
+            // FIXME: Is this the correct place to add to searches?
+            // what if someone else calls this function?
+            int shortcut = parseUrlShortcut(inUrl);
+            if (shortcut != SHORTCUT_INVALID) {
+                Browser.addSearchUrl(mResolver, inUrl);
+                String query = inUrl.substring(2);
+                switch (shortcut) {
+                case SHORTCUT_GOOGLE_SEARCH:
+                    return composeSearchUrl(query);
+                case SHORTCUT_WIKIPEDIA_SEARCH:
+                    return URLUtil.composeSearchUrl(query, QuickSearch_W, QUERY_PLACE_HOLDER);
+                case SHORTCUT_DICTIONARY_SEARCH:
+                    return URLUtil.composeSearchUrl(query, QuickSearch_D, QUERY_PLACE_HOLDER);
+                case SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH:
                     // FIXME: we need location in this case
-                    return URLUtil.composeSearchUrl(inUrl.substring(2),
-                            QuickSearch_L,
-                            QUERY_PLACE_HOLDER);
+                    return URLUtil.composeSearchUrl(query, QuickSearch_L, QUERY_PLACE_HOLDER);
                 }
             }
         } else {

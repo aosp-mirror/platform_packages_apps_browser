@@ -53,9 +53,9 @@
              (android.test) library. -->
         <uses-library android:name="android.test.runner" />
 
-        <provider android:name="BrowserProvider" 
-                  android:authorities="browser" 
-                  android:multiprocess="true" 
+        <provider android:name="BrowserProvider"
+                  android:authorities="browser"
+                  android:multiprocess="true"
                   android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
                   android:writePermission="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
         <activity android:name="BrowserActivity"
@@ -112,7 +112,6 @@
                 <data android:scheme="https" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.WEB_SEARCH" />
                 <action android:name="android.intent.action.MEDIA_SEARCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -149,7 +148,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-        </activity-alias>        
+        </activity-alias>
 
         <activity android:name="BrowserDownloadPage" android:label=""
                   android:configChanges="orientation|keyboardHidden">
