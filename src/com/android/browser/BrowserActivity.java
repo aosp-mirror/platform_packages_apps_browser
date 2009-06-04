@@ -3566,7 +3566,7 @@ public class BrowserActivity extends Activity
 
         @Override
         public void onReceivedTitle(WebView view, String title) {
-            String url = view.getOriginalUrl();
+            String url = view.getUrl();
 
             // here, if url is null, we want to reset the title
             setUrlTitle(url, title);
