@@ -640,16 +640,23 @@ public class BrowserActivity extends Activity
         }
     }
 
+    // Flag to enable the touchable browser bar with buttons
+    private final boolean CUSTOM_BROWSER_BAR = true;
+
     @Override public void onCreate(Bundle icicle) {
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, this + " onStart");
         }
         super.onCreate(icicle);
-        this.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-        this.requestWindowFeature(Window.FEATURE_RIGHT_ICON);
-        this.requestWindowFeature(Window.FEATURE_PROGRESS);
-        this.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
+        if (CUSTOM_BROWSER_BAR) {
+            this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            mTitleBar = new TitleBar(this);
+        } else {
+            this.requestWindowFeature(Window.FEATURE_LEFT_ICON);
+            this.requestWindowFeature(Window.FEATURE_RIGHT_ICON);
+            this.requestWindowFeature(Window.FEATURE_PROGRESS);
+            this.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        }
         // test the browser in OpenGL
         // requestWindowFeature(Window.FEATURE_OPENGL);
 
@@ -677,8 +684,25 @@ public class BrowserActivity extends Activity
         mGenericFavicon = getResources().getDrawable(
                 R.drawable.app_web_browser_sm);
 
-        mContentView = (FrameLayout) getWindow().getDecorView().findViewById(
-                com.android.internal.R.id.content);
+        FrameLayout frameLayout = (FrameLayout) getWindow().getDecorView()
+                .findViewById(com.android.internal.R.id.content);
+        if (CUSTOM_BROWSER_BAR) {
+            mContentView = new FrameLayout(this);
+            // This LinearLayout will hold the title bar and a FrameLayout, which
+            // holds everything else.
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.addView(mTitleBar, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            linearLayout.addView(mContentView, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.FILL_PARENT));
+
+            frameLayout.addView(linearLayout, COVER_SCREEN_PARAMS);
+        } else {
+            mContentView = frameLayout;
+        }
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);
@@ -2430,7 +2454,11 @@ public class BrowserActivity extends Activity
         // While the tab overview is animating or being shown, block changes
         // to the title.
         if (mAnimationCount == 0 && mTabOverview == null) {
-            setTitle(buildUrlTitle(url, title));
+            if (CUSTOM_BROWSER_BAR) {
+                mTitleBar.setTitleAndUrl(title, url);
+            } else {
+                setTitle(buildUrlTitle(url, title));
+            }
         }
     }
 
@@ -2507,18 +2535,34 @@ public class BrowserActivity extends Activity
         if (mAnimationCount > 0 || mTabOverview != null) {
             return;
         }
-        Drawable[] array = new Drawable[2];
-        PaintDrawable p = new PaintDrawable(Color.WHITE);
-        p.setCornerRadius(3f);
-        array[0] = p;
-        if (icon == null) {
-            array[1] = mGenericFavicon;
+        if (CUSTOM_BROWSER_BAR) {
+            Drawable[] array = new Drawable[3];
+            array[0] = new PaintDrawable(Color.BLACK);
+            PaintDrawable p = new PaintDrawable(Color.WHITE);
+            array[1] = p;
+            if (icon == null) {
+                array[2] = mGenericFavicon;
+            } else {
+                array[2] = new BitmapDrawable(icon);
+            }
+            LayerDrawable d = new LayerDrawable(array);
+            d.setLayerInset(1, 1, 1, 1, 1);
+            d.setLayerInset(2, 2, 2, 2, 2);
+            mTitleBar.setFavicon(d);
         } else {
-            array[1] = new BitmapDrawable(icon);
+            Drawable[] array = new Drawable[2];
+            PaintDrawable p = new PaintDrawable(Color.WHITE);
+            p.setCornerRadius(3f);
+            array[0] = p;
+            if (icon == null) {
+                array[1] = mGenericFavicon;
+            } else {
+                array[1] = new BitmapDrawable(icon);
+            }
+            LayerDrawable d = new LayerDrawable(array);
+            d.setLayerInset(1, 2, 2, 2, 2);
+            getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, d);
         }
-        LayerDrawable d = new LayerDrawable(array);
-        d.setLayerInset(1, 2, 2, 2, 2);
-        getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, d);
     }
 
     /**
@@ -3540,8 +3584,13 @@ public class BrowserActivity extends Activity
             // Block progress updates to the title bar while the tab overview
             // is animating or being displayed.
             if (mAnimationCount == 0 && mTabOverview == null) {
-                getWindow().setFeatureInt(Window.FEATURE_PROGRESS,
-                        newProgress * 100);
+                if (CUSTOM_BROWSER_BAR) {
+                    mTitleBar.setProgress(newProgress);
+                } else {
+                    getWindow().setFeatureInt(Window.FEATURE_PROGRESS,
+                            newProgress * 100);
+
+                }
             }
 
             if (newProgress == 100) {
@@ -3836,7 +3885,11 @@ public class BrowserActivity extends Activity
         // If the tab overview is animating or being shown, do not update the
         // lock icon.
         if (mAnimationCount == 0 && mTabOverview == null) {
-            getWindow().setFeatureDrawable(Window.FEATURE_RIGHT_ICON, d);
+            if (CUSTOM_BROWSER_BAR) {
+                mTitleBar.setLock(d);
+            } else {
+                getWindow().setFeatureDrawable(Window.FEATURE_RIGHT_ICON, d);
+            }
         }
     }
 
@@ -4543,11 +4596,15 @@ public class BrowserActivity extends Activity
         mAnimationCount++;
         // Always change the title bar to the window overview title while
         // animating.
-        getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, null);
-        getWindow().setFeatureDrawable(Window.FEATURE_RIGHT_ICON, null);
-        getWindow().setFeatureInt(Window.FEATURE_PROGRESS,
-                Window.PROGRESS_VISIBILITY_OFF);
-        setTitle(R.string.tab_picker_title);
+        if (CUSTOM_BROWSER_BAR) {
+            mTitleBar.setToTabPicker();
+        } else {
+            getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, null);
+            getWindow().setFeatureDrawable(Window.FEATURE_RIGHT_ICON, null);
+            getWindow().setFeatureInt(Window.FEATURE_PROGRESS,
+                    Window.PROGRESS_VISIBILITY_OFF);
+            setTitle(R.string.tab_picker_title);
+        }
         // Make the menu empty until the animation completes.
         mMenuState = EMPTY_MENU;
     }
@@ -4884,6 +4941,8 @@ public class BrowserActivity extends Activity
     private final static int WAKELOCK_TIMEOUT = 5 * 60 * 1000; // 5 minutes
 
     private Toast mStopToast;
+
+    private TitleBar mTitleBar;
 
     // Used during animations to prevent other animations from being triggered.
     // A count is used since the animation to and from the Window overview can

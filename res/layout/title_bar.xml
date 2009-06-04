@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:background="@drawable/background_titlebar"
+    android:layout_height="45dip">
+    <ImageView android:id="@+id/favicon"
+        android:layout_height="20dip"
+        android:layout_width="20dip"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+        android:layout_gravity="center_vertical"
+        />
+    <!-- layout which contains the title, progress bar, and url -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dip"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <!-- This part contains the favicon and the progress bar -->
+        <RelativeLayout
+            android:layout_marginTop="3dip"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="3dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <ProgressBar android:id="@+id/progress_horizontal"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:max="100" />
+                <ProgressBar android:id="@+id/progress_circular"
+                    style="?android:attr/progressBarStyleSmallTitle"
+                    android:layout_marginLeft="3dip"
+                    android:layout_gravity="center_vertical"
+                    android:max="100"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <!-- need to make this no wider than the horizontal progress bar -->
+            <TextView android:id="@+id/url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dip"
+                android:layout_marginLeft="6dip"
+                android:textSize="12dip"
+                android:textColor="#ff333333"
+                android:singleLine="true"
+                />
+            <TextView android:id="@+id/title"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="6dip"
+                android:layout_below="@id/url"
+                android:textSize="14dip"
+                android:textColor="#ff333333"
+                android:textStyle="bold"
+                android:singleLine="true"
+                />
+            <ImageView android:id="@+id/lock_icon"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_alignBottom="@id/title"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <!-- divider -->
+    <View
+        android:layout_height="fill_parent"
+        android:layout_width="2dip"
+        android:background="@drawable/button_line"/>
+    <!-- These buttons will change look/functionality -->
+    <ImageView android:id="@+id/zoom_in"
+        android:layout_width="52dip"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_titlebar_zoom"/>
+    <!-- divider -->
+    <View android:id="@+id/divider"
+        android:layout_height="fill_parent"
+        android:layout_width="2dip"
+        android:background="@drawable/button_line"/>
+    <ImageView android:id="@+id/zoom_out"
+        android:layout_width="52dip"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_titlebar_zoom_out"/>
+</LinearLayout>

@@ -58,7 +58,10 @@
         <!-- Case of several matches -->
         <item quantity="other"><xliff:g id="number" example="137">%d</xliff:g> matches</item>
     </plurals>
-    
+
+    <!-- Displayed on the title bar while the page is loading -->
+    <string name="title_bar_loading">Loading\u2026</string>
+
     <!-- Menu item -->
     <string name="page_info">Page info</string>
     <!-- Label for a button on an SSL error dialog that allows the user to see
