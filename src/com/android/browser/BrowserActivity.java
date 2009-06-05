@@ -1501,6 +1501,9 @@ public class BrowserActivity extends Activity
         mCanChord = true;
         int id = item.getItemId();
         final WebView webView = getTopWindow();
+        if (null == webView) {
+            return false;
+        }
         final HashMap hrefMap = new HashMap();
         hrefMap.put("webview", webView);
         final Message msg = mHandler.obtainMessage(
@@ -1554,6 +1557,9 @@ public class BrowserActivity extends Activity
         if (!mCanChord) {
             // The user has already fired a shortcut with this hold down of the
             // menu key.
+            return false;
+        }
+        if (null == mTabOverview && null == getTopWindow()) {
             return false;
         }
         switch (item.getItemId()) {
