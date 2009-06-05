@@ -997,6 +997,7 @@ public class BrowserActivity extends Activity
         // URLs and site specific search shortcuts are handled by the regular flow of control, so
         // return early.
         if (Regex.WEB_URL_PATTERN.matcher(url).matches()
+                || ACCEPTED_URI_SCHEMA.matcher(url).matches()
                 || parseUrlShortcut(url) != SHORTCUT_INVALID) {
             return false;
         }
