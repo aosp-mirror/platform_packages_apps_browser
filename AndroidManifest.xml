@@ -49,9 +49,6 @@
                    android:label="@string/application_name"
                    android:icon="@drawable/ic_launcher_browser"
                    android:taskAffinity="android.task.browser" >
-        <!-- TODO: Remove dependency of application on the test runner
-             (android.test) library. -->
-        <uses-library android:name="android.test.runner" />
 
         <provider android:name="BrowserProvider"
                   android:authorities="browser"
@@ -216,24 +213,6 @@
 
 
     </application>
-
-    <!-- Browser tests.  Invoke with: -->
-    <!--      adb shell am instrument -w com.android.browser/.BrowserTestRunner -->
-    <instrumentation android:name="BrowserTestRunner"
-        android:targetPackage="com.android.browser"
-        android:label="@string/activity_instrumentation_test_runner"
-    />
-    <!-- Browser tests.  Invoke with: -->
-    <!--      adb shell am instrument -w com.android.browser/.BrowserFunctionalTestRunner -->
-    <instrumentation android:name="BrowserFunctionalTestRunner"
-        android:targetPackage="com.android.browser"
-        android:label="@string/activity_instrumentation_functional_test_runner"
-    />
-
-    <instrumentation android:name="BrowserLaunchPerformance"
-        android:targetPackage="com.android.browser"
-        android:label="Browser Launch Performance"
-    />
 
 </manifest>
 
