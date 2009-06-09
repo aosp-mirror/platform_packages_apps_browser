@@ -59,23 +59,23 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <!-- need to make this no wider than the horizontal progress bar -->
-            <TextView android:id="@+id/url"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dip"
-                android:layout_marginLeft="6dip"
-                android:textSize="12dip"
-                android:textColor="#ff333333"
-                android:singleLine="true"
-                />
             <TextView android:id="@+id/title"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="6dip"
-                android:layout_below="@id/url"
+                android:layout_marginTop="4dip"
                 android:textSize="14dip"
-                android:textColor="#ff333333"
+                android:textColor="@color/white"
                 android:textStyle="bold"
+                android:singleLine="true"
+                />
+            <TextView android:id="@+id/url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dip"
+                android:layout_below="@id/title"
+                android:textSize="12dip"
+                android:textColor="@color/white"
                 android:singleLine="true"
                 />
             <ImageView android:id="@+id/lock_icon"
@@ -86,23 +86,20 @@
                 android:visibility="gone"/>
         </RelativeLayout>
     </LinearLayout>
-    <!-- divider -->
-    <View
-        android:layout_height="fill_parent"
-        android:layout_width="2dip"
-        android:background="@drawable/button_line"/>
     <!-- These buttons will change look/functionality -->
-    <ImageView android:id="@+id/zoom_in"
+    <ImageView android:id="@+id/lft_button"
         android:layout_width="52dip"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_titlebar_zoom"/>
+        android:layout_gravity="center_vertical"
+        android:src="@android:drawable/btn_star"/>
     <!-- divider -->
     <View android:id="@+id/divider"
         android:layout_height="fill_parent"
         android:layout_width="2dip"
         android:background="@drawable/button_line"/>
-    <ImageView android:id="@+id/zoom_out"
+    <ImageView android:id="@+id/rt_button"
         android:layout_width="52dip"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_titlebar_zoom_out"/>
+        android:layout_gravity="center_vertical"
+        android:src="@*android:drawable/btn_browser_zoom_page_overview"/>
 </LinearLayout>
