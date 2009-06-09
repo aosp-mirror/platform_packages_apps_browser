@@ -13,15 +13,17 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:width="2dip">
-            <solid android:color="#ff000000"/>
-        </shape>
-    </item>
-    <item android:left="1dip" android:width="1dip">
-        <shape>
-            <solid android:color="#ffffffff"/>
-        </shape>
-    </item>
-</layer-list>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    >
+    <com.android.browser.TitleBar android:id="@+id/title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+    <FrameLayout android:id="@+id/main_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:foreground="?android:attr/windowContentOverlay"
+        />
+</LinearLayout>

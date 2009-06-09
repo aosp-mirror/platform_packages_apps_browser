@@ -650,7 +650,6 @@ public class BrowserActivity extends Activity
         super.onCreate(icicle);
         if (CUSTOM_BROWSER_BAR) {
             this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            mTitleBar = new TitleBar(this);
         } else {
             this.requestWindowFeature(Window.FEATURE_LEFT_ICON);
             this.requestWindowFeature(Window.FEATURE_RIGHT_ICON);
@@ -687,18 +686,14 @@ public class BrowserActivity extends Activity
         FrameLayout frameLayout = (FrameLayout) getWindow().getDecorView()
                 .findViewById(com.android.internal.R.id.content);
         if (CUSTOM_BROWSER_BAR) {
-            mContentView = new FrameLayout(this);
             // This LinearLayout will hold the title bar and a FrameLayout, which
             // holds everything else.
-            LinearLayout linearLayout = new LinearLayout(this);
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
-            linearLayout.addView(mTitleBar, new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.FILL_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            linearLayout.addView(mContentView, new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.FILL_PARENT,
-                    ViewGroup.LayoutParams.FILL_PARENT));
-
+            LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(this)
+                    .inflate(R.layout.custom_screen, null);
+            mTitleBar = (TitleBar) linearLayout.findViewById(R.id.title_bar);
+            mTitleBar.setBrowserActivity(this);
+            mContentView = (FrameLayout) linearLayout.findViewById(
+                    R.id.main_content);
             frameLayout.addView(linearLayout, COVER_SCREEN_PARAMS);
         } else {
             mContentView = frameLayout;
@@ -4627,7 +4622,7 @@ public class BrowserActivity extends Activity
         mMenuState = EMPTY_MENU;
     }
 
-    private void bookmarksOrHistoryPicker(boolean startWithHistory) {
+    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory) {
         WebView current = mTabControl.getCurrentWebView();
         if (current == null) {
             return;
