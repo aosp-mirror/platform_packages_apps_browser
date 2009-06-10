@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for application_name (1935869255545976415) -->
+    <skip />
+    <!-- no translation found for tab_bookmarks (2305793036003473653) -->
+    <skip />
+    <!-- no translation found for tab_most_visited (1077402532455000703) -->
+    <skip />
+    <!-- no translation found for tab_history (1979267558744613746) -->
+    <skip />
+    <!-- no translation found for added_to_bookmarks (1020224130695956728) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (6063705902028438800) -->
+    <skip />
+    <string name="sign_in_to">"Fazer login em <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="username">"Nome"</string>
+    <string name="password">"Senha"</string>
+    <string name="action">"Fazer login"</string>
+    <string name="cancel">"Cancelar"</string>
+    <string name="ok">"OK"</string>
+    <!-- no translation found for matches_found:zero (6242659159545399963) -->
+    <!-- no translation found for matches_found:one (4352019729062956802) -->
+    <!-- no translation found for matches_found:few (5544267486978946555) -->
+    <!-- no translation found for matches_found:other (6616125067364315405) -->
+    <string name="page_info">"Informações da página"</string>
+    <string name="page_info_view">"Visualizar informações da página"</string>
+    <string name="page_info_address">"Endereço:"</string>
+    <string name="ssl_warnings_header">"Existem problemas no certificado de segurança deste site."</string>
+    <string name="ssl_continue">"Continuar"</string>
+    <string name="security_warning">"Aviso de segurança"</string>
+    <string name="view_certificate">"Visualizar certificado"</string>
+    <string name="ssl_untrusted">"Este certificado não é de uma autoridade confiável."</string>
+    <string name="ssl_mismatch">"O nome do site não coincide com o nome do certificado."</string>
+    <string name="ssl_expired">"Este certificado expirou."</string>
+    <string name="ssl_not_yet_valid">"Este certificado ainda não é válido."</string>
+    <string name="ssl_certificate">"Certificado de segurança"</string>
+    <string name="ssl_certificate_is_valid">"Este certificado é válido."</string>
+    <string name="issued_to">"Emitido para:"</string>
+    <string name="common_name">"Nome comum:"</string>
+    <string name="org_name">"Organização:"</string>
+    <string name="org_unit">"Unidade organizacional:"</string>
+    <string name="issued_by">"Emitido por:"</string>
+    <string name="validity_period">"Validade:"</string>
+    <string name="issued_on">"Emitido em:"</string>
+    <string name="expires_on">"Expira em:"</string>
+    <string name="retrieving_creds_dlg_msg">"Recuperando detalhes de login..."</string>
+    <string name="stopping">"Parando..."</string>
+    <string name="stop">"Parar"</string>
+    <string name="reload">"Atualizar"</string>
+    <string name="forward">"Encaminhar"</string>
+    <string name="save">"OK"</string>
+    <string name="do_not_save">"Cancelar"</string>
+    <string name="location">"Local"</string>
+    <string name="name">"Nome"</string>
+    <string name="http">"http://"</string>
+    <string name="save_to_bookmarks">"Favorito"</string>
+    <string name="edit_bookmark">"Editar favorito"</string>
+    <string name="create_shortcut_bookmark">"Adicionar atalho à página inicial"</string>
+    <string name="open_bookmark">"Abrir"</string>
+    <string name="remove_bookmark">"Excluir favorito"</string>
+    <string name="remove_history_item">"Remover do histórico"</string>
+    <string name="bookmark_saved">"Salvo nos favoritos."</string>
+    <string name="bookmark_needs_title">"O favorito deve ter um nome."</string>
+    <string name="bookmark_needs_url">"O favorito deve ter um local."</string>
+    <string name="empty_bookmark">"Não é possível criar um favorito vazio."</string>
+    <string name="bookmark_url_not_valid">"O URL não é válido."</string>
+    <string name="delete_bookmark">"Excluir"</string>
+    <string name="bookmark_page">"Página do último favorito visualizado"</string>
+    <!-- no translation found for current_page (7510129573681663135) -->
+    <skip />
+    <string name="delete_bookmark_warning">"O favorito \"<xliff:g id="BOOKMARK">%s</xliff:g>\" será excluído."</string>
+    <string name="open_in_new_window">"Abrir em nova janela"</string>
+    <string name="new_window">"Nova janela"</string>
+    <!-- no translation found for goto_dot (3895839050522602723) -->
+    <skip />
+    <string name="find_dot">"Localizar na página"</string>
+    <!-- no translation found for select_dot (6299170761900561967) -->
+    <skip />
+    <string name="view_tabs">"Visão geral da janela"</string>
+    <string name="view_tabs_condensed">"Janelas"</string>
+    <string name="tab_picker_title">"Janelas atuais"</string>
+    <string name="tab_picker_view_tab">"Visualizar"</string>
+    <string name="tab_picker_new_tab">"Nova janela"</string>
+    <string name="tab_picker_remove_tab">"Fechar"</string>
+    <string name="tab_picker_bookmark">"Favorito"</string>
+    <string name="tab_picker_send_url">"Compartilhar link"</string>
+    <string name="bookmarks">"Favoritos"</string>
+    <string name="shortcut_bookmark">"Favorito"</string>
+    <string name="history">"Histórico"</string>
+    <string name="menu_view_download">"Downloads"</string>
+    <string name="share_page">"Compartilhar página"</string>
+    <string name="contextmenu_openlink">"Abrir"</string>
+    <string name="contextmenu_openlink_newwindow">"Abrir em nova janela"</string>
+    <string name="contextmenu_bookmark_thislink">"Link do favorito"</string>
+    <string name="contextmenu_savelink">"Salvar link"</string>
+    <string name="contextmenu_sharelink">"Compartilhar link"</string>
+    <string name="contextmenu_copy">"Copiar"</string>
+    <string name="contextmenu_copylink">"Copiar URL do link"</string>
+    <string name="contextmenu_download_image">"Salvar imagem"</string>
+    <string name="contextmenu_view_image">"Visualizar imagem"</string>
+    <string name="contextmenu_dial_dot">"Discar..."</string>
+    <string name="contextmenu_add_contact">"Adicionar contato"</string>
+    <string name="contextmenu_send_mail">"Enviar e-mail"</string>
+    <string name="contextmenu_map">"Mapa"</string>
+    <string name="clear">"Limpar"</string>
+    <string name="replace">"Substituir"</string>
+    <string name="browser_bookmarks_page_bookmarks_text">"Favoritos"</string>
+    <string name="menu_preferences">"Configurações"</string>
+    <string name="pref_content_title">"Configurações do conteúdo da página"</string>
+    <string name="pref_content_load_images">"Carregar imagens"</string>
+    <string name="pref_content_load_images_summary">"Exibir imagens nas páginas da web"</string>
+    <string name="pref_content_block_popups">"Bloquear janelas pop-up"</string>
+    <string name="pref_content_javascript">"Ativar JavaScript"</string>
+    <string name="pref_content_open_in_background">"Abrir em segundo plano"</string>
+    <string name="pref_content_open_in_background_summary">"As novas janelas são abertas atrás da atual"</string>
+    <string name="pref_content_homepage">"Definir página inicial"</string>
+    <string name="pref_content_autofit">"Ajustar páginas automaticamente"</string>
+    <string name="pref_content_autofit_summary">"Formatar páginas da web para ajustá-las à tela"</string>
+    <string name="pref_privacy_title">"Configurações de privacidade"</string>
+    <string name="pref_privacy_clear_cache">"Limpar cache"</string>
+    <string name="pref_privacy_clear_cache_summary">"Excluir todo o conteúdo da página em cache"</string>
+    <string name="pref_privacy_clear_cache_dlg">"O cache será limpo."</string>
+    <string name="pref_privacy_clear_cookies">"Apagar todos os dados de cookies"</string>
+    <string name="pref_privacy_clear_cookies_summary">"Apagar todos os cookies do navegador"</string>
+    <string name="pref_privacy_clear_cookies_dlg">"Todos os cookies serão apagados."</string>
+    <string name="pref_privacy_clear_history">"Limpar histórico"</string>
+    <string name="pref_privacy_clear_history_summary">"Apagar o histórico de navegação do navegador"</string>
+    <string name="pref_privacy_clear_history_dlg">"O histórico de navegação do navegador será apagado."</string>
+    <string name="pref_privacy_clear_form_data">"Apagar dados de formulário"</string>
+    <string name="pref_privacy_clear_form_data_summary">"Apagar todos os dados de formulário salvos"</string>
+    <string name="pref_privacy_clear_form_data_dlg">"Todos os dados de formulário salvos serão apagados."</string>
+    <string name="pref_privacy_clear_passwords">"Apagar senhas"</string>
+    <string name="pref_privacy_clear_passwords_summary">"Apagar todas as senhas salvas"</string>
+    <string name="pref_privacy_clear_passwords_dlg">"Todas as senhas salvas serão apagadas."</string>
+    <string name="pref_security_title">"Configurações de segurança"</string>
+    <string name="pref_security_remember_passwords">"Lembrar senhas"</string>
+    <string name="pref_security_remember_passwords_summary">"Salvar nomes de usuário e senhas de sites"</string>
+    <string name="pref_security_save_form_data">"Lembrar dados de formulário"</string>
+    <string name="pref_security_save_form_data_summary">"Lembrar dados digitados para uso futuro"</string>
+    <string name="pref_security_show_security_warning">"Mostrar avisos de segurança"</string>
+    <string name="pref_security_show_security_warning_summary">"Mostrar aviso se houver um problema com a segurança de um site"</string>
+    <string name="pref_security_accept_cookies">"Aceitar cookies"</string>
+    <string name="pref_security_accept_cookies_summary">"Permitir que os sites salvem e leiam dados de \"cookie\""</string>
+    <string name="pref_text_size">"Definir tamanho do texto"</string>
+  <string-array name="pref_text_size_choices">
+    <item>"Bem pequeno"</item>
+    <item>"Pequeno"</item>
+    <item>"Normal"</item>
+    <item>"Grande"</item>
+    <item>"Grande"</item>
+  </string-array>
+    <string name="pref_text_size_dialogtitle">"Tamanho do texto"</string>
+    <string name="pref_extras_title">"Configurações avançadas"</string>
+    <string name="pref_extras_gears_enable">"Ativar Google Gears"</string>
+    <string name="pref_extras_gears_enable_summary">"Aplicativos que ampliam a funcionalidade do navegador"</string>
+    <string name="pref_extras_gears_settings">"Configurações do Google Gears"</string>
+    <string name="pref_plugin_installed">"Lista de plug-ins"</string>
+    <string name="pref_plugin_installed_empty_list">"Nenhum plug-in instalado."</string>
+    <string name="pref_extras_gears_settings_summary">"Aplicativos que ampliam a funcionalidade do navegador"</string>
+    <string name="pref_extras_reset_default">"Voltar aos valores padrão"</string>
+    <string name="pref_extras_reset_default_summary">"Apagar todos os dados do navegador e redefinir todas as configurações para os valores padrão"</string>
+    <string name="pref_extras_reset_default_dlg">"Todos os dados do navegador serão apagados e as configurações voltarão aos valores padrão."</string>
+    <string name="pref_extras_reset_default_dlg_title">"Voltar aos valores padrão"</string>
+    <string name="pref_development_title">"Depurar"</string>
+    <string name="pref_default_text_encoding">"Definir codificação do texto"</string>
+  <string-array name="pref_default_text_encoding_choices">
+    <item>"Latim-1 (ISO-8859-1)"</item>
+    <item>"Unicode (UTF-8)"</item>
+    <item>"Japonês (ISO-2022-JP)"</item>
+    <item>"Japonês (SHIFT_JIS)"</item>
+    <item>"Japonês (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle">"Codificação do texto"</string>
+    <string name="pref_default_text_encoding_default">"Latim-1"</string>
+    <string name="browserFrameRedirect">"Redirecionar"</string>
+    <string name="browserFrame307Post">"de formulário Esta página da web está sendo redirecionada. Deseja reenviar os dados de formulário digitados para o novo local?"</string>
+    <string name="browserFrameNetworkErrorLabel">"Problema de conectividade dos dados"</string>
+    <string name="browserFrameFileErrorLabel">"Problema com arquivo"</string>
+    <string name="browserFrameFormResubmitLabel">"Confirmar"</string>
+    <string name="browserFrameFormResubmitMessage">"A página que você está tentando visualizar contém dados que já foram enviados (\"POSTDATA\"). Se os dados forem reenviados, qualquer ação realizada na página (como uma pesquisa ou compra on-line) será repetida."</string>
+    <string name="loadSuspendedTitle">"Sem conexão de rede"</string>
+    <string name="loadSuspended">"A página continuará sendo carregada assim que a conexão for restaurada."</string>
+    <string name="clear_history">"Limpar histórico"</string>
+    <string name="browser_history">"Páginas visitadas recentemente"</string>
+    <string name="empty_history">"O histórico do navegador está vazio."</string>
+    <!-- no translation found for add_new_bookmark (8086367791400349049) -->
+    <skip />
+    <string name="no_database">"Nenhum banco de dados."</string>
+    <string name="search_hint">"Digite o endereço da web"</string>
+    <string name="search_button_text">"Ir"</string>
+    <string name="attention">"Atenção"</string>
+    <string name="popup_window_attempt">"Este site está tentando abrir uma janela pop-up."</string>
+    <string name="allow">"Permitir"</string>
+    <string name="block">"Bloquear"</string>
+    <string name="too_many_windows_dialog_title">"Limite da janela atingido"</string>
+    <string name="too_many_windows_dialog_message">"Não foi possível abrir uma nova janela porque você já abriu o número máximo permitido."</string>
+    <string name="too_many_subwindows_dialog_title">"Pop-up já aberto"</string>
+    <string name="too_many_subwindows_dialog_message">"Não foi possível abrir uma nova janela pop-up porque apenas uma pode ser aberta por vez."</string>
+    <string name="download_title">"Histórico de downloads"</string>
+    <string name="download_unknown_filename">"&lt;Desconhecido&gt;"</string>
+    <string name="download_menu_open">"Abrir"</string>
+    <string name="download_menu_clear">"Apagar da lista"</string>
+    <string name="download_menu_cancel">"Cancelar download"</string>
+    <string name="download_menu_cancel_all">"Cancelar todos os dowloads"</string>
+    <string name="download_menu_clear_all">"Limpar lista"</string>
+    <string name="download_clear_dlg_title">"Limpar"</string>
+    <string name="download_clear_dlg_msg">"Todos os itens serão apagados da lista e removidos do cache do navegador."</string>
+    <string name="download_cancel_dlg_title">"Cancelar dowloads"</string>
+    <string name="download_cancel_dlg_msg">"Todos os <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> downloads serão cancelados e apagados do histórico de downloads."</string>
+    <string name="download_file_error_dlg_title">"Sem espaço"</string>
+    <string name="download_file_error_dlg_msg">"Não foi possível fazer o download de <xliff:g id="FILENAME">%s</xliff:g>."\n"Libere algum espaço no telefone e tente novamente."</string>
+    <string name="download_failed_generic_dlg_title">"Falha de download"</string>
+    <string name="download_no_sdcard_dlg_title">"Sem cartão SD"</string>
+    <string name="download_no_sdcard_dlg_msg">"Para fazer download de <xliff:g id="FILENAME">%s</xliff:g>, é necessário um cartão SD."</string>
+    <string name="download_sdcard_busy_dlg_title">"O cartão SD não está disponível"</string>
+    <!-- no translation found for download_sdcard_busy_dlg_msg (3473883538192835204) -->
+    <skip />
+    <string name="download_no_application">"Não foi possível encontrar nenhum aplicativo para abrir este arquivo."</string>
+    <string name="retry">"Tentar novamente"</string>
+    <string name="no_downloads">"O histórico de downloads está vazio."</string>
+    <string name="download_error">"Falha de download."</string>
+    <string name="download_success">"<xliff:g id="FILE">%s</xliff:g> Download concluído."</string>
+    <string name="download_running">"Fazendo download..."</string>
+    <string name="download_pending">"Iniciando download..."</string>
+    <string name="download_pending_network">"Aguardando conexão dos dados..."</string>
+    <string name="download_running_paused">"Aguardando conexão dos dados..."</string>
+    <string name="download_canceled">"Download cancelado."</string>
+    <string name="download_not_acceptable">"Não é possível fazer download. O conteúdo não é compatível com o telefone."</string>
+    <string name="download_file_error">"Não é possível finalizar o download. Não há espaço suficiente."</string>
+    <string name="download_length_required">"Não é possível fazer download. O tamanho do item não pode ser determinado."</string>
+    <string name="download_precondition_failed">"Download interrompido. Não é possível restaurá-lo."</string>
+    <string name="activity_instrumentation_test_runner">"Executor de testes de navegador"</string>
+    <!-- no translation found for search_google (1231765426260855357) -->
+    <skip />
+    <string name="permlab_readHistoryBookmarks">"ler histórico e favoritos do navegador"</string>
+    <string name="permdesc_readHistoryBookmarks">"Permite que o aplicativo leia todos os URLs visitados pelo navegador, bem como todos os seus favoritos."</string>
+    <string name="permlab_writeHistoryBookmarks">"gravar histórico e favoritos do navegador"</string>
+    <string name="permdesc_writeHistoryBookmarks">"Permite que um aplicativo modifique o histórico ou os favoritos do navegador armazenados no seu telefone. Aplicativos maliciosos podem usar isso para apagar ou modificar os dados do navegador."</string>
+    <!-- no translation found for query_data_prompt (5474381240981604223) -->
+    <skip />
+    <!-- no translation found for query_data_message (8789381063185445197) -->
+    <skip />
+    <!-- no translation found for location_prompt (226262202057302423) -->
+    <skip />
+    <!-- no translation found for location_message (1729456751935683242) -->
+    <skip />
+    <!-- no translation found for shortcut_prompt (437193299088893596) -->
+    <skip />
+    <!-- no translation found for shortcut_message (4793042709293755892) -->
+    <skip />
+    <string name="settings_message">"A tabela a seguir mostra as permissões que você concedeu a cada site que realizou uma tentativa de utilizar o Google Gears."</string>
+    <!-- no translation found for filepicker_message (4929726371602896039) -->
+    <skip />
+    <!-- no translation found for image_message (5450245866521896891) -->
+    <skip />
+    <string name="settings_title">"Configurações do Google Gears"</string>
+    <string name="privacy_policy">"Leia a política de privacidade do site para saber como sua localização será utilizada."</string>
+    <!-- no translation found for settings_storage_title (7089119630457156408) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_on (2733295483569432111) -->
+    <skip />
+    <!-- no translation found for settings_storage_subtitle_off (1338039396087898813) -->
+    <skip />
+    <!-- no translation found for settings_location_title (4953062923509886651) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_on (1496219621849158879) -->
+    <skip />
+    <!-- no translation found for settings_location_subtitle_off (5216466051810596189) -->
+    <skip />
+    <!-- no translation found for settings_remove_site (1822247070226589958) -->
+    <skip />
+    <!-- no translation found for settings_empty (2008952224378583146) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove_title (5360857296753219635) -->
+    <skip />
+    <!-- no translation found for settings_confirmation_remove (585560170733446898) -->
+    <skip />
+    <!-- no translation found for storage_notification (6534213782873968255) -->
+    <skip />
+    <!-- no translation found for storage_notification_alwaysdeny (5473208033665783513) -->
+    <skip />
+    <!-- no translation found for location_notification (3495804750470905804) -->
+    <skip />
+    <!-- no translation found for location_notification_alwaysdeny (6184925953783312629) -->
+    <skip />
+    <!-- no translation found for shortcut_notification (1659700220868444568) -->
+    <skip />
+    <!-- no translation found for permission_button_alwaysdeny (3837055994905214848) -->
+    <skip />
+    <!-- no translation found for permission_button_allow (7301874925704148242) -->
+    <skip />
+    <!-- no translation found for permission_button_deny (104712269725153018) -->
+    <skip />
+    <!-- no translation found for shortcut_button_alwaysdeny (4172277731325126605) -->
+    <skip />
+    <string name="shortcut_button_allow">"OK"</string>
+    <string name="shortcut_button_deny">"Cancelar"</string>
+    <string name="settings_button_allow">"Aplicar"</string>
+    <string name="settings_button_deny">"Cancelar"</string>
+    <string name="filepicker_button_allow">"OK"</string>
+    <string name="filepicker_button_deny">"Cancelar"</string>
+    <string name="filepicker_path">"caminho:"</string>
+    <string name="filepicker_no_files_selected">"Nenhum arquivo selecionado"</string>
+    <string name="filepicker_one_file_selected">"Um arquivo selecionado"</string>
+    <string name="filepicker_some_files_selected">"arquivos selecionados"</string>
+    <string name="remove">"Remover"</string>
+    <string name="local_storage">"Armazenamento local"</string>
+    <string name="allowed">"Permitido"</string>
+    <string name="denied">"Rejeitado"</string>
+    <string name="unrecognized_dialog_message">"Tipo de caixa de diálogo desconhecido"</string>
+    <string name="default_button">"OK"</string>
+    <!-- no translation found for zoom_overview_button_text (4146579940085488881) -->
+    <skip />
+</resources>
