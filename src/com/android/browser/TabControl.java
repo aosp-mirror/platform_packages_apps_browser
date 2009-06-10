@@ -684,11 +684,11 @@ class TabControl {
             return;
         }
 
-        // free the WebView cache
-        Log.w(LOGTAG, "Free WebView cache");
+        // free the WebView's unused memory (this includes the cache)
+        Log.w(LOGTAG, "Free WebView's unused memory and cache");
         WebView view = getCurrentWebView();
         if (view != null) {
-            view.clearCache(false);
+            view.freeMemory();
         }
         // force a gc
         System.gc();
