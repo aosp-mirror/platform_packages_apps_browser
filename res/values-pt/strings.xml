@@ -31,6 +31,8 @@
     <string name="username">"Nome"</string>
     <string name="password">"Senha"</string>
     <string name="action">"Fazer login"</string>
+    <!-- no translation found for bookmarks_search (5229596268214362873) -->
+    <skip />
     <string name="cancel">"Cancelar"</string>
     <string name="ok">"OK"</string>
     <!-- no translation found for matches_found:zero (6242659159545399963) -->
@@ -245,7 +247,9 @@
     <string name="download_length_required">"Não é possível fazer download. O tamanho do item não pode ser determinado."</string>
     <string name="download_precondition_failed">"Download interrompido. Não é possível restaurá-lo."</string>
     <string name="activity_instrumentation_test_runner">"Executor de testes de navegador"</string>
-    <!-- no translation found for search_google (1231765426260855357) -->
+    <!-- no translation found for homepage_base (7888126987935305566) -->
+    <skip />
+    <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
     <string name="permlab_readHistoryBookmarks">"ler histórico e favoritos do navegador"</string>
     <string name="permdesc_readHistoryBookmarks">"Permite que o aplicativo leia todos os URLs visitados pelo navegador, bem como todos os seus favoritos."</string>
