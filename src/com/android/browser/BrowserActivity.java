@@ -2518,7 +2518,7 @@ public class BrowserActivity extends Activity
      * or an empty string if, for example, the URL in question is a
      * file:// URL with no hostname.
      */
-    private static String buildTitleUrl(String url) {
+    /* package */ static String buildTitleUrl(String url) {
         String titleUrl = null;
 
         if (url != null) {

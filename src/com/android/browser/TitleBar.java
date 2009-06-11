@@ -137,7 +137,7 @@ public class TitleBar extends LinearLayout {
         } else {
             mTitle.setText(title);
         }
-        mUrl.setText(url);
+        mUrl.setText(BrowserActivity.buildTitleUrl(url.toString()));
     }
 
     /* package */ void setToTabPicker() {
