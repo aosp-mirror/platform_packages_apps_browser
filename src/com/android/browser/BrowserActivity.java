@@ -730,11 +730,12 @@ public class BrowserActivity extends Activity
             // If the intent is ACTION_VIEW and data is not null, the Browser is
             // invoked to view the content by another application. In this case,
             // the tab will be close when exit.
-            String url = getUrlFromIntent(intent);
+            UrlData urlData = getUrlDataFromIntent(intent);
+
             final TabControl.Tab t = mTabControl.createNewTab(
                     Intent.ACTION_VIEW.equals(intent.getAction()) &&
                     intent.getData() != null,
-                    intent.getStringExtra(Browser.EXTRA_APPLICATION_ID), url);
+                    intent.getStringExtra(Browser.EXTRA_APPLICATION_ID), urlData.mUrl);
             mTabControl.setCurrentTab(t);
             // This is one of the only places we call attachTabToContentView
             // without animating from the tab picker.
@@ -756,7 +757,7 @@ public class BrowserActivity extends Activity
             }
             copyPlugins(true);
 
-            if (url == null || url.length() == 0) {
+            if (urlData.isEmpty()) {
                 if (mSettings.isLoginInitialized()) {
                     webView.loadUrl(mSettings.getHomePage());
                 } else {
@@ -765,9 +766,9 @@ public class BrowserActivity extends Activity
             } else {
                 byte[] postData = getLocationData(intent);
                 if (postData != null) {
-                    webView.postUrl(url, postData);
+                    webView.postUrl(urlData.mUrl, postData);
                 } else {
-                    webView.loadUrl(url);
+                    urlData.loadIn(webView);
                 }
             }
         } else {
@@ -874,10 +875,11 @@ public class BrowserActivity extends Activity
                 return;
             }
 
-            String url = getUrlFromIntent(intent);
-            if (url == null || url.length() == 0) {
-                url = mSettings.getHomePage();
+            UrlData urlData = getUrlDataFromIntent(intent);
+            if (urlData.isEmpty()) {
+                urlData = new UrlData(mSettings.getHomePage());
             }
+
             if (Intent.ACTION_VIEW.equals(action) &&
                     (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
                 final String appId =
@@ -894,20 +896,21 @@ public class BrowserActivity extends Activity
                     // If the WebView has the same original url and is on that
                     // page, it can be reused.
                     boolean needsLoad =
-                            mTabControl.recreateWebView(appTab, url);
+                            mTabControl.recreateWebView(appTab, urlData.mUrl);
+                    
                     if (current != appTab) {
-                        showTab(appTab, needsLoad ? url : null);
+                        showTab(appTab, needsLoad ? urlData : EMPTY_URL_DATA);
                     } else {
                         if (mTabOverview != null && mAnimationCount == 0) {
                             sendAnimateFromOverview(appTab, false,
-                                    needsLoad ? url : null, null,
+                                    needsLoad ? urlData : EMPTY_URL_DATA, null,
                                     TAB_OVERVIEW_DELAY, null);
                         } else {
                             // If the tab was the current tab, we have to attach
                             // it to the view system again.
                             attachTabToContentView(appTab);
                             if (needsLoad) {
-                                appTab.getWebView().loadUrl(url);
+                                urlData.loadIn(appTab.getWebView());
                             }
                         }
                     }
@@ -917,9 +920,9 @@ public class BrowserActivity extends Activity
                 // opened in a new tab unless we have reached MAX_TABS. Then the
                 // url will be opened in the current tab. If a new tab is
                 // created, it will have "true" for exit on close.
-                openTabAndShow(url, null, true, appId);
+                openTabAndShow(urlData, null, true, appId);
             } else {
-                if ("about:debug".equals(url)) {
+                if ("about:debug".equals(urlData.mUrl)) {
                     mSettings.toggleDebugSettings();
                     return;
                 }
@@ -927,15 +930,15 @@ public class BrowserActivity extends Activity
                 // If the Window overview is up and we are not in the midst of
                 // an animation, animate away from the Window overview.
                 if (mTabOverview != null && mAnimationCount == 0) {
-                    sendAnimateFromOverview(current, false, url,
+                    sendAnimateFromOverview(current, false, urlData,
                             postData, TAB_OVERVIEW_DELAY, null);
                 } else {
                     // Get rid of the subwindow if it exists
                     dismissSubWindow(current);
                     if (postData != null) {
-                        current.getWebView().postUrl(url, postData);
+                        current.getWebView().postUrl(urlData.mUrl, postData);
                     } else {
-                        current.getWebView().loadUrl(url);
+                        urlData.loadIn(current.getWebView());
                     }
                 }
             }
@@ -1008,7 +1011,7 @@ public class BrowserActivity extends Activity
         return true;
     }
 
-    private String getUrlFromIntent(Intent intent) {
+    private UrlData getUrlDataFromIntent(Intent intent) {
         String url = null;
         if (intent != null) {
             final String action = intent.getAction();
@@ -1020,6 +1023,13 @@ public class BrowserActivity extends Activity
                     if (mimeType != null) {
                         url += "?" + mimeType;
                     }
+                }
+                if ("inline:".equals(url)) {
+                    return new InlinedUrlData(
+                            intent.getStringExtra(Browser.EXTRA_INLINE_CONTENT),
+                            intent.getType(),
+                            intent.getStringExtra(Browser.EXTRA_INLINE_ENCODING),
+                            intent.getStringExtra(Browser.EXTRA_INLINE_FAILURL));
                 }
             } else if (Intent.ACTION_SEARCH.equals(action)
                     || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
@@ -1051,7 +1061,7 @@ public class BrowserActivity extends Activity
                 }
             }
         }
-        return url;
+        return new UrlData(url);
     }
 
     byte[] getLocationData(Intent intent) {
@@ -2004,7 +2014,7 @@ public class BrowserActivity extends Activity
 
     // Send the ANIMTE_FROM_OVERVIEW message after changing the current tab.
     private void sendAnimateFromOverview(final TabControl.Tab tab,
-            final boolean newTab, final String url, final byte[] postData,
+            final boolean newTab, final UrlData urlData, final byte[] postData,
             final int delay, final Message msg) {
         // Set the current tab.
         mTabControl.setCurrentTab(tab);
@@ -2028,12 +2038,12 @@ public class BrowserActivity extends Activity
         // Load the url after the AnimatingView has captured the picture. This
         // prevents any bad layout or bad scale from being used during
         // animation.
-        if (url != null) {
+        if (!urlData.isEmpty()) {
             dismissSubWindow(tab);
             if (postData != null) {
-                tab.getWebView().postUrl(url, postData);
+                tab.getWebView().postUrl(urlData.mUrl, postData);
             } else {
-                tab.getWebView().loadUrl(url);
+                urlData.loadIn(tab.getWebView());
             }
         }
         map.put("msg", msg);
@@ -2058,7 +2068,7 @@ public class BrowserActivity extends Activity
         showTab(t, null);
     }
 
-    private void showTab(TabControl.Tab t, String url) {
+    private void showTab(TabControl.Tab t, UrlData urlData) {
         // Disallow focus change during a tab animation.
         if (mAnimationCount > 0) {
             return;
@@ -2070,7 +2080,14 @@ public class BrowserActivity extends Activity
             delay = TAB_ANIMATION_DURATION + TAB_OVERVIEW_DELAY;
             tabPicker(false, mTabControl.getTabIndex(t), false);
         }
-        sendAnimateFromOverview(t, false, url, null, delay, null);
+        sendAnimateFromOverview(t, false, urlData, null, delay, null);
+    }
+
+    // A wrapper function of {@link #openTabAndShow(UrlData, Message, boolean, String)}
+    // that accepts url as string.
+    private TabControl.Tab openTabAndShow(String url, final Message msg,
+            boolean closeOnExit, String appId) {
+        return openTabAndShow(new UrlData(url), msg, closeOnExit, appId);
     }
 
     // This method does a ton of stuff. It will attempt to create a new tab
@@ -2081,7 +2098,7 @@ public class BrowserActivity extends Activity
     // the given Message. If the tab overview is already showing (i.e. this
     // method is called from TabListener.onClick(), the method will animate
     // away from the tab overview.
-    private TabControl.Tab openTabAndShow(String url, final Message msg,
+    private TabControl.Tab openTabAndShow(UrlData urlData, final Message msg,
             boolean closeOnExit, String appId) {
         final boolean newTab = mTabControl.getTabCount() != TabControl.MAX_TABS;
         final TabControl.Tab currentTab = mTabControl.getCurrentTab();
@@ -2090,14 +2107,14 @@ public class BrowserActivity extends Activity
             // If the tab overview is up and there are animations, just load
             // the url.
             if (mTabOverview != null && mAnimationCount > 0) {
-                if (url != null) {
+                if (!urlData.isEmpty()) {
                     // We should not have a msg here since onCreateWindow
                     // checks the animation count and every other caller passes
                     // null.
                     assert msg == null;
                     // just dismiss the subwindow and load the given url.
                     dismissSubWindow(currentTab);
-                    currentTab.getWebView().loadUrl(url);
+                    urlData.loadIn(currentTab.getWebView());
                 }
             } else {
                 // show mTabOverview if it is not there.
@@ -2111,21 +2128,21 @@ public class BrowserActivity extends Activity
                 // Animate from the Tab overview after any animations have
                 // finished.
                 final TabControl.Tab tab = mTabControl.createNewTab(
-                        closeOnExit, appId, url);
-                sendAnimateFromOverview(tab, true, url, null, delay, msg);
+                        closeOnExit, appId, urlData.mUrl);
+                sendAnimateFromOverview(tab, true, urlData, null, delay, msg);
                 return tab;
             }
-        } else if (url != null) {
+        } else if (!urlData.isEmpty()) {
             // We should not have a msg here.
             assert msg == null;
             if (mTabOverview != null && mAnimationCount == 0) {
-                sendAnimateFromOverview(currentTab, false, url, null,
+                sendAnimateFromOverview(currentTab, false, urlData, null,
                         TAB_OVERVIEW_DELAY, null);
             } else {
                 // Get rid of the subwindow if it exists
                 dismissSubWindow(currentTab);
                 // Load the given url.
-                currentTab.getWebView().loadUrl(url);
+                urlData.loadIn(currentTab.getWebView());
             }
         }
         return currentTab;
@@ -3476,7 +3493,7 @@ public class BrowserActivity extends Activity
                 // openTabAndShow will dispatch the message after creating the
                 // new WebView. This will prevent another request from coming
                 // in during the animation.
-                final TabControl.Tab newTab = openTabAndShow(null, msg, false,
+                final TabControl.Tab newTab = openTabAndShow((String) null, msg, false,
                         null);
                 if (newTab != parent) {
                     parent.addChildTab(newTab);
@@ -4403,7 +4420,7 @@ public class BrowserActivity extends Activity
                         // middle of an animation, animate away from it to the
                         // current tab.
                         if (mTabOverview != null && mAnimationCount == 0) {
-                            sendAnimateFromOverview(currentTab, false, data,
+                            sendAnimateFromOverview(currentTab, false, new UrlData(data),
                                     null, TAB_OVERVIEW_DELAY, null);
                         } else {
                             dismissSubWindow(currentTab);
@@ -4463,7 +4480,7 @@ public class BrowserActivity extends Activity
                 if (mTabControl.getTabCount() == 0) {
                     current = mTabControl.createNewTab();
                     sendAnimateFromOverview(current, true,
-                            mSettings.getHomePage(), null, TAB_OVERVIEW_DELAY,
+                            new UrlData(mSettings.getHomePage()), null, TAB_OVERVIEW_DELAY,
                             null);
                 } else {
                     final int index = position > 0 ? (position - 1) : 0;
@@ -4702,7 +4719,7 @@ public class BrowserActivity extends Activity
             "(?i)" + // switch on case insensitive matching
             "(" +    // begin group for schema
             "(?:http|https|file):\\/\\/" +
-            "|(?:data|about|content|javascript):" +
+            "|(?:inline|data|about|content|javascript):" +
             ")" +
             "(.*)" );
 
@@ -4984,4 +5001,50 @@ public class BrowserActivity extends Activity
 
     // the frenquency of checking whether system memory is low
     final static int CHECK_MEMORY_INTERVAL = 30000;     // 30 seconds
+
+    /**
+     * A UrlData class to abstract how the content will be set to WebView.
+     * This base class uses loadUrl to show the content.
+     */
+    private static class UrlData {
+        String mUrl;
+        
+        UrlData(String url) {
+            this.mUrl = url;
+        }
+        
+        boolean isEmpty() {
+            return mUrl == null || mUrl.length() == 0;
+        }
+
+        private void loadIn(WebView webView) {
+            webView.loadUrl(mUrl);
+        }
+    };
+
+    /**
+     * A subclass of UrlData class that can display inlined content using
+     * {@link WebView#loadDataWithBaseURL(String, String, String, String, String)}.
+     */
+    private static class InlinedUrlData extends UrlData {
+        InlinedUrlData(String inlined, String mimeType, String encoding, String failUrl) {
+            super(failUrl);
+            mInlined = inlined;
+            mMimeType = mimeType;
+            mEncoding = encoding;
+        }
+        String mMimeType;
+        String mInlined;
+        String mEncoding;
+        
+        boolean isEmpty() {
+            return mInlined == null || mInlined.length() == 0 || super.isEmpty(); 
+        }
+
+        void loadIn(WebView webView) {
+            webView.loadDataWithBaseURL(null, mInlined, mMimeType, mEncoding, mUrl);
+        }
+    }
+
+    private static final UrlData EMPTY_URL_DATA = new UrlData(null);
 }
