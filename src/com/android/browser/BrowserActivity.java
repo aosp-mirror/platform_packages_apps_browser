@@ -1947,12 +1947,12 @@ public class BrowserActivity extends Activity
     }
 
     // 500ms animation with 800ms delay
-    private static final int TAB_ANIMATION_DURATION = 500;
-    private static final int TAB_OVERVIEW_DELAY     = 800;
+    private static final int TAB_ANIMATION_DURATION = 200;
+    private static final int TAB_OVERVIEW_DELAY     = 500;
 
     // Called by TabControl when a tab is requesting focus
     /* package */ void showTab(TabControl.Tab t) {
-        showTab(t, null);
+        showTab(t, EMPTY_URL_DATA);
     }
 
     private void showTab(TabControl.Tab t, UrlData urlData) {
@@ -2481,7 +2481,7 @@ public class BrowserActivity extends Activity
         // Change to the parent tab
         final TabControl.Tab tab = mTabControl.getTab(indexToShow);
         if (tab != null) {
-            sendAnimateFromOverview(tab, false, null, delay, null);
+            sendAnimateFromOverview(tab, false, EMPTY_URL_DATA, delay, null);
         } else {
             // Increment this here so that no other animations can happen in
             // between the end of the tab picker transition and the beginning
@@ -3351,7 +3351,7 @@ public class BrowserActivity extends Activity
                 // openTabAndShow will dispatch the message after creating the
                 // new WebView. This will prevent another request from coming
                 // in during the animation.
-                openTabAndShow((String) null, msg, false, null);
+                openTabAndShow(EMPTY_URL_DATA, msg, false, null);
                 parent.addChildTab(mTabControl.getCurrentTab());
                 WebView.WebViewTransport transport =
                         (WebView.WebViewTransport) msg.obj;
@@ -4312,7 +4312,7 @@ public class BrowserActivity extends Activity
                 openTabAndShow(mSettings.getHomePage(), null, false, null);
             } else {
                 sendAnimateFromOverview(mTabControl.getTab(index),
-                        false, null, 0, null);
+                        false, EMPTY_URL_DATA, 0, null);
             }
         }
     }
