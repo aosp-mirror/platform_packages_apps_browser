@@ -18,18 +18,14 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.net.ParseException;
 import android.net.WebAddress;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.view.View;
 import android.view.Window;
-import android.webkit.WebIconDatabase;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,13 +42,6 @@ public class AddBookmarkPage extends Activity {
     private View        mCancelButton;
     private boolean     mEditingExisting;
     private Bundle      mMap;
-    
-    private static final String[]   mProjection = 
-            { "_id", "url", "bookmark", "created", "title", "visits" };
-    private static final String     WHERE_CLAUSE
-            = "url = ? OR url = ? OR url = ? OR url = ?";
-    private static final String     WHERE_CLAUSE_SECURE = "url = ? OR url = ?";
-    private String[]                SELECTION_ARGS;
 
     private View.OnClickListener mSaveBookmark = new View.OnClickListener() {
         public void onClick(View v) {
@@ -153,96 +142,7 @@ public class AddBookmarkPage extends Activity {
                 setResult(RESULT_OK, (new Intent()).setAction(
                         getIntent().toString()).putExtras(mMap));
             } else {
-                // Want to append to the beginning of the list
-                long creationTime = new Date().getTime();
-                // First we check to see if the user has already visited this
-                // site.  They may have bookmarked it in a different way from
-                // how it's stored in the database, so allow different combos
-                // to map to the same url.
-                boolean secure = false;
-                String compareString = url;
-                if (compareString.startsWith("http://")) {
-                    compareString = compareString.substring(7);
-                } else if (compareString.startsWith("https://")) {
-                    compareString = compareString.substring(8);
-                    secure = true;
-                }
-                if (compareString.startsWith("www.")) {
-                    compareString = compareString.substring(4);
-                }
-                if (secure) {
-                    SELECTION_ARGS = new String[2];
-                    SELECTION_ARGS[0] = "https://" + compareString;
-                    SELECTION_ARGS[1] = "https://www." + compareString;
-                } else {
-                    SELECTION_ARGS = new String[4];
-                    SELECTION_ARGS[0] = compareString;
-                    SELECTION_ARGS[1] = "www." + compareString;
-                    SELECTION_ARGS[2] = "http://" + compareString;
-                    SELECTION_ARGS[3] = "http://" + SELECTION_ARGS[1];
-                }
-                ContentResolver cr = getContentResolver();
-                Cursor c = cr.query(Browser.BOOKMARKS_URI,
-                        mProjection,
-                        secure ? WHERE_CLAUSE_SECURE : WHERE_CLAUSE,
-                        SELECTION_ARGS,
-                        null);
-                ContentValues map = new ContentValues();
-                if (c.moveToFirst() && c.getInt(c.getColumnIndexOrThrow(
-                        Browser.BookmarkColumns.BOOKMARK)) == 0) {
-                    // This means we have been to this site but not bookmarked
-                    // it, so convert the history item to a bookmark                    
-                    map.put(Browser.BookmarkColumns.CREATED, creationTime);
-                    map.put(Browser.BookmarkColumns.TITLE, title);
-                    map.put(Browser.BookmarkColumns.BOOKMARK, 1);
-                    cr.update(Browser.BOOKMARKS_URI, map, 
-                            "_id = " + c.getInt(0), null);
-                } else {
-                    int count = c.getCount();
-                    boolean matchedTitle = false;
-                    for (int i = 0; i < count; i++) {
-                        // One or more bookmarks already exist for this site.
-                        // Check the names of each
-                        c.moveToPosition(i);
-                        if (c.getString(c.getColumnIndexOrThrow(
-                                Browser.BookmarkColumns.TITLE)).equals(title)) {
-                            // The old bookmark has the same name.
-                            // Update its creation time.
-                            map.put(Browser.BookmarkColumns.CREATED,
-                                    creationTime);
-                            cr.update(Browser.BOOKMARKS_URI, map, 
-                                    "_id = " + c.getInt(0), null);
-                            matchedTitle = true;
-                            break;
-                        }
-                    }
-                    if (!matchedTitle) {
-                        // Adding a bookmark for a site the user has visited,
-                        // or a new bookmark (with a different name) for a site
-                        // the user has visited
-                        map.put(Browser.BookmarkColumns.TITLE, title);
-                        map.put(Browser.BookmarkColumns.URL, url);
-                        map.put(Browser.BookmarkColumns.CREATED, creationTime);
-                        map.put(Browser.BookmarkColumns.BOOKMARK, 1);
-                        map.put(Browser.BookmarkColumns.DATE, 0);
-                        int visits = 0;
-                        if (count > 0) {
-                            // The user has already bookmarked, and possibly
-                            // visited this site.  However, they are creating
-                            // a new bookmark with the same url but a different
-                            // name.  The new bookmark should have the same
-                            // number of visits as the already created bookmark.
-                            visits = c.getInt(c.getColumnIndexOrThrow(
-                                    Browser.BookmarkColumns.VISITS));
-                        }
-                        // Bookmark starts with 3 extra visits so that it will
-                        // bubble up in the most visited and goto search box
-                        map.put(Browser.BookmarkColumns.VISITS, visits + 3);
-                        cr.insert(Browser.BOOKMARKS_URI, map);
-                    }
-                }
-                WebIconDatabase.getInstance().retainIconForPageUrl(url);
-                c.deactivate();
+                Bookmarks.addBookmark(null, getContentResolver(), url, title);
                 setResult(RESULT_OK);
             }
         } catch (IllegalStateException e) {
