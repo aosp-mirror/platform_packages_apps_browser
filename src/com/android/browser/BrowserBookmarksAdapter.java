@@ -179,18 +179,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         }
         mCursor.moveToPosition(position- mExtraOffset);
         String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
-        WebIconDatabase.getInstance().releaseIconForPageUrl(url);
-        Uri uri = ContentUris.withAppendedId(Browser.BOOKMARKS_URI, mCursor
-                .getInt(Browser.HISTORY_PROJECTION_ID_INDEX));
-        int numVisits = mCursor.getInt(Browser.HISTORY_PROJECTION_VISITS_INDEX);
-        if (0 == numVisits) {
-            mContentResolver.delete(uri, null, null);
-        } else {
-            // It is no longer a bookmark, but it is still a visited site.
-            ContentValues values = new ContentValues();
-            values.put(Browser.BookmarkColumns.BOOKMARK, 0);
-            mContentResolver.update(uri, values, null, null);
-        }
+        Bookmarks.removeFromBookmarks(null, mContentResolver, url);
         refreshList();
     }
     
