@@ -31,12 +31,15 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.AbstractCursor;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
+import android.provider.Settings;
 import android.server.search.SearchableInfo;
 import android.text.TextUtils;
 import android.text.util.Regex;
@@ -267,7 +270,63 @@ public class BrowserProvider extends ContentProvider {
                 ed.commit();
             }
         }
+        mShowWebSuggestionsSettingChangeObserver
+            = new ShowWebSuggestionsSettingChangeObserver();
+        context.getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(
+                        Settings.System.SHOW_WEB_SUGGESTIONS),
+                true, mShowWebSuggestionsSettingChangeObserver);
+        updateShowWebSuggestions();
         return true;
+    }
+
+    /**
+     * This Observer will ensure that if the user changes the system
+     * setting of whether to display web suggestions, we will
+     * change accordingly.
+     */
+    /* package */ class ShowWebSuggestionsSettingChangeObserver
+            extends ContentObserver {
+        public ShowWebSuggestionsSettingChangeObserver() {
+            super(new Handler());
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            updateShowWebSuggestions();
+        }
+    }
+
+    private ShowWebSuggestionsSettingChangeObserver
+            mShowWebSuggestionsSettingChangeObserver;
+
+    // If non-null, then the system is set to show web suggestions,
+    // and this is the SearchableInfo to use to get them.
+    private SearchableInfo mSearchableInfo;
+
+    /**
+     * Check the system settings to see whether web suggestions are
+     * allowed.  If so, store the SearchableInfo to grab suggestions
+     * while the user is typing.
+     */
+    private void updateShowWebSuggestions() {
+        mSearchableInfo = null;
+        Context context = getContext();
+        if (Settings.System.getInt(context.getContentResolver(),
+                Settings.System.SHOW_WEB_SUGGESTIONS,
+                1 /* default on */) == 1) {
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            ResolveInfo info = context.getPackageManager().resolveActivity(
+                    intent, PackageManager.MATCH_DEFAULT_ONLY);
+            if (info != null) {
+                ComponentName googleSearchComponent =
+                        new ComponentName(info.activityInfo.packageName,
+                                info.activityInfo.name);
+                mSearchableInfo = SearchManager.getSearchableInfo(
+                        googleSearchComponent, false);
+            }
+        }
     }
 
     private void fixPicasaBookmark() {
@@ -603,21 +662,11 @@ public class BrowserProvider extends ContentProvider {
             } else {
                 // get Google suggest if there is still space in the list
                 if (myArgs != null && myArgs.length > 1
+                        && mSearchableInfo != null
                         && c.getCount() < (MAX_SUGGESTION_SHORT_ENTRIES - 1)) {
-                    Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                    intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    ResolveInfo info = getContext().getPackageManager().resolveActivity(
-                            intent, PackageManager.MATCH_DEFAULT_ONLY);
-                    if (info != null) {
-                        ComponentName googleSearchComponent =
-                                new ComponentName(info.activityInfo.packageName,
-                                        info.activityInfo.name);
-                        SearchableInfo si =
-                                SearchManager.getSearchableInfo(googleSearchComponent, false);
-                        Cursor sc = SearchManager.getSuggestions(
-                                getContext(), si, selectionArgs[0]);
-                        return new MySuggestionCursor(c, sc, selectionArgs[0]);
-                    }
+                    Cursor sc = SearchManager.getSuggestions(
+                            getContext(), mSearchableInfo, selectionArgs[0]);
+                    return new MySuggestionCursor(c, sc, selectionArgs[0]);
                 }
                 return new MySuggestionCursor(c, null, selectionArgs[0]);
             }
