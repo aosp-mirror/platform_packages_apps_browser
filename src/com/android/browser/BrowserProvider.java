@@ -68,8 +68,9 @@ public class BrowserProvider extends ContentProvider {
             "_id", "url", "title", "bookmark"
     };
     private static final String SUGGEST_SELECTION =
-            "url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ?";
-    private String[] SUGGEST_ARGS = new String[4];
+            "url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ?"
+                + " OR title LIKE ?";
+    private String[] SUGGEST_ARGS = new String[5];
 
     // shared suggestion array index, make sure to match COLUMNS
     private static final int SUGGEST_COLUMN_INTENT_ACTION_ID = 1;
@@ -641,6 +642,8 @@ public class BrowserProvider extends ContentProvider {
                     SUGGEST_ARGS[1] = "http://www." + like;
                     SUGGEST_ARGS[2] = "https://" + like;
                     SUGGEST_ARGS[3] = "https://www." + like;
+                    // To match against titles.
+                    SUGGEST_ARGS[4] = like;
                     myArgs = SUGGEST_ARGS;
                     suggestSelection = SUGGEST_SELECTION;
                 }
