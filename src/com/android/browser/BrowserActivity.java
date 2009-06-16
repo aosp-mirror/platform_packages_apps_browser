@@ -4835,7 +4835,7 @@ public class BrowserActivity extends Activity
             return mUrl == null || mUrl.length() == 0;
         }
 
-        private void loadIn(WebView webView) {
+        public void loadIn(WebView webView) {
             if (mPostData != null) {
                 webView.postUrl(mUrl, mPostData);
             } else {
@@ -4858,12 +4858,13 @@ public class BrowserActivity extends Activity
         String mMimeType;
         String mInlined;
         String mEncoding;
-        
+        @Override
         boolean isEmpty() {
             return mInlined == null || mInlined.length() == 0 || super.isEmpty(); 
         }
 
-        void loadIn(WebView webView) {
+        @Override
+        public void loadIn(WebView webView) {
             webView.loadDataWithBaseURL(null, mInlined, mMimeType, mEncoding, mUrl);
         }
     }
