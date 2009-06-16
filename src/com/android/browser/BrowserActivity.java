@@ -57,6 +57,8 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.WebAddress;
@@ -81,6 +83,7 @@ import android.provider.Browser;
 import android.provider.Contacts;
 import android.provider.Downloads;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.provider.Contacts.Intents.Insert;
 import android.text.IClipboard;
 import android.text.TextUtils;
@@ -742,6 +745,7 @@ public class BrowserActivity extends Activity
                     waitForCredentials();
                 }
             } else {
+                urlData.setPostData(getLocationData(intent));
                 urlData.loadIn(webView);
             }
         } else {
@@ -806,6 +810,7 @@ public class BrowserActivity extends Activity
             if (urlData.isEmpty()) {
                 urlData = new UrlData(mSettings.getHomePage());
             }
+            urlData.setPostData(getLocationData(intent));
 
             if (Intent.ACTION_VIEW.equals(action) &&
                     (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
@@ -984,6 +989,37 @@ public class BrowserActivity extends Activity
             }
         }
         return new UrlData(url);
+    }
+
+    byte[] getLocationData(Intent intent) {
+        byte[] postData = null;
+        if (intent != null) {
+            final String action = intent.getAction();
+            if (Intent.ACTION_VIEW.equals(action)
+                    && intent.getBooleanExtra(Browser.EXTRA_APPEND_LOCATION,
+                            false)) {
+                ContentResolver cr = getContentResolver();
+                int use = Settings.Gservices.getInt(cr,
+                        Settings.Gservices.USE_LOCATION_FOR_SERVICES, -1);
+                if (use == -1) {
+                    // TODO: bring up the consent dialog
+                } else if (use == 1
+                        && Settings.Secure.isLocationProviderEnabled(cr,
+                                LocationManager.NETWORK_PROVIDER)) {
+                    Location location = ((LocationManager) getSystemService(
+                            Context.LOCATION_SERVICE)).getLastKnownLocation(
+                                    LocationManager.NETWORK_PROVIDER);
+                    if (location != null) {
+                        StringBuilder str = new StringBuilder(
+                                "action=devloc&sll=");
+                        str.append(location.getLatitude()).append(',').append(
+                                location.getLongitude());
+                        postData = str.toString().getBytes();
+                    }
+                }
+            }
+        }
+        return postData;
     }
 
     /* package */ static String fixUrl(String inUrl) {
@@ -4785,17 +4821,26 @@ public class BrowserActivity extends Activity
      */
     private static class UrlData {
         String mUrl;
-        
+        byte[] mPostData;
+
         UrlData(String url) {
             this.mUrl = url;
         }
-        
+
+        void setPostData(byte[] postData) {
+            mPostData = postData;
+        }
+
         boolean isEmpty() {
             return mUrl == null || mUrl.length() == 0;
         }
 
         private void loadIn(WebView webView) {
-            webView.loadUrl(mUrl);
+            if (mPostData != null) {
+                webView.postUrl(mUrl, mPostData);
+            } else {
+                webView.loadUrl(mUrl);
+            }
         }
     };
 
