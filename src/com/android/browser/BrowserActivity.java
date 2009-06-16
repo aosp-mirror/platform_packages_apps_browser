@@ -764,12 +764,8 @@ public class BrowserActivity extends Activity
                     waitForCredentials();
                 }
             } else {
-                byte[] postData = getLocationData(intent);
-                if (postData != null) {
-                    webView.postUrl(urlData.mUrl, postData);
-                } else {
-                    urlData.loadIn(webView);
-                }
+                urlData.setPostData(getLocationData(intent));
+                urlData.loadIn(webView);
             }
         } else {
             // TabControl.restoreState() will create a new tab even if
@@ -879,6 +875,7 @@ public class BrowserActivity extends Activity
             if (urlData.isEmpty()) {
                 urlData = new UrlData(mSettings.getHomePage());
             }
+            urlData.setPostData(getLocationData(intent));
 
             if (Intent.ACTION_VIEW.equals(action) &&
                     (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
@@ -903,7 +900,7 @@ public class BrowserActivity extends Activity
                     } else {
                         if (mTabOverview != null && mAnimationCount == 0) {
                             sendAnimateFromOverview(appTab, false,
-                                    needsLoad ? urlData : EMPTY_URL_DATA, null,
+                                    needsLoad ? urlData : EMPTY_URL_DATA,
                                     TAB_OVERVIEW_DELAY, null);
                         } else {
                             // If the tab was the current tab, we have to attach
@@ -926,20 +923,15 @@ public class BrowserActivity extends Activity
                     mSettings.toggleDebugSettings();
                     return;
                 }
-                byte[] postData = getLocationData(intent);
                 // If the Window overview is up and we are not in the midst of
                 // an animation, animate away from the Window overview.
                 if (mTabOverview != null && mAnimationCount == 0) {
                     sendAnimateFromOverview(current, false, urlData,
-                            postData, TAB_OVERVIEW_DELAY, null);
+                            TAB_OVERVIEW_DELAY, null);
                 } else {
                     // Get rid of the subwindow if it exists
                     dismissSubWindow(current);
-                    if (postData != null) {
-                        current.getWebView().postUrl(urlData.mUrl, postData);
-                    } else {
-                        urlData.loadIn(current.getWebView());
-                    }
+                    urlData.loadIn(current.getWebView());
                 }
             }
         }
@@ -1068,21 +1060,27 @@ public class BrowserActivity extends Activity
         byte[] postData = null;
         if (intent != null) {
             final String action = intent.getAction();
-            if ((Intent.ACTION_SEARCH.equals(action)
-                    || Intent.ACTION_WEB_SEARCH.equals(action))
-                    && Settings.Secure.isLocationProviderEnabled(
-                            getContentResolver(),
-                            LocationManager.NETWORK_PROVIDER)) {
-                // Attempt to get location info
-                LocationManager locationManager = (LocationManager)
-                        getSystemService(Context.LOCATION_SERVICE);
-                Location location = locationManager
-                        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                if (location != null) {
-                    StringBuilder str = new StringBuilder("sll=");
-                    str.append(location.getLatitude()).append(",").append(
-                            location.getLongitude());
-                    postData = str.toString().getBytes();
+            if (Intent.ACTION_VIEW.equals(action)
+                    && intent.getBooleanExtra(Browser.EXTRA_APPEND_LOCATION,
+                            false)) {
+                ContentResolver cr = getContentResolver();
+                int use = Settings.Gservices.getInt(cr,
+                        Settings.Gservices.USE_LOCATION_FOR_SERVICES, -1);
+                if (use == -1) {
+                    // TODO: bring up the consent dialog
+                } else if (use == 1
+                        && Settings.Secure.isLocationProviderEnabled(cr,
+                                LocationManager.NETWORK_PROVIDER)) {
+                    Location location = ((LocationManager) getSystemService(
+                            Context.LOCATION_SERVICE)).getLastKnownLocation(
+                                    LocationManager.NETWORK_PROVIDER);
+                    if (location != null) {
+                        StringBuilder str = new StringBuilder(
+                                "action=devloc&sll=");
+                        str.append(location.getLatitude()).append(',').append(
+                                location.getLongitude());
+                        postData = str.toString().getBytes();
+                    }
                 }
             }
         }
@@ -2014,8 +2012,8 @@ public class BrowserActivity extends Activity
 
     // Send the ANIMTE_FROM_OVERVIEW message after changing the current tab.
     private void sendAnimateFromOverview(final TabControl.Tab tab,
-            final boolean newTab, final UrlData urlData, final byte[] postData,
-            final int delay, final Message msg) {
+            final boolean newTab, final UrlData urlData, final int delay,
+            final Message msg) {
         // Set the current tab.
         mTabControl.setCurrentTab(tab);
         // Attach the WebView so it will layout.
@@ -2040,11 +2038,7 @@ public class BrowserActivity extends Activity
         // animation.
         if (!urlData.isEmpty()) {
             dismissSubWindow(tab);
-            if (postData != null) {
-                tab.getWebView().postUrl(urlData.mUrl, postData);
-            } else {
-                urlData.loadIn(tab.getWebView());
-            }
+            urlData.loadIn(tab.getWebView());
         }
         map.put("msg", msg);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(
@@ -2080,7 +2074,7 @@ public class BrowserActivity extends Activity
             delay = TAB_ANIMATION_DURATION + TAB_OVERVIEW_DELAY;
             tabPicker(false, mTabControl.getTabIndex(t), false);
         }
-        sendAnimateFromOverview(t, false, urlData, null, delay, null);
+        sendAnimateFromOverview(t, false, urlData, delay, null);
     }
 
     // A wrapper function of {@link #openTabAndShow(UrlData, Message, boolean, String)}
@@ -2129,14 +2123,14 @@ public class BrowserActivity extends Activity
                 // finished.
                 final TabControl.Tab tab = mTabControl.createNewTab(
                         closeOnExit, appId, urlData.mUrl);
-                sendAnimateFromOverview(tab, true, urlData, null, delay, msg);
+                sendAnimateFromOverview(tab, true, urlData, delay, msg);
                 return tab;
             }
         } else if (!urlData.isEmpty()) {
             // We should not have a msg here.
             assert msg == null;
             if (mTabOverview != null && mAnimationCount == 0) {
-                sendAnimateFromOverview(currentTab, false, urlData, null,
+                sendAnimateFromOverview(currentTab, false, urlData,
                         TAB_OVERVIEW_DELAY, null);
             } else {
                 // Get rid of the subwindow if it exists
@@ -2617,8 +2611,7 @@ public class BrowserActivity extends Activity
         // Change to the parent tab
         final TabControl.Tab tab = mTabControl.getTab(indexToShow);
         if (tab != null) {
-            sendAnimateFromOverview(tab, false, EMPTY_URL_DATA, null, delay,
-                    null);
+            sendAnimateFromOverview(tab, false, EMPTY_URL_DATA, delay, null);
         } else {
             // Increment this here so that no other animations can happen in
             // between the end of the tab picker transition and the beginning
@@ -4421,8 +4414,8 @@ public class BrowserActivity extends Activity
                         // middle of an animation, animate away from it to the
                         // current tab.
                         if (mTabOverview != null && mAnimationCount == 0) {
-                            sendAnimateFromOverview(currentTab, false, new UrlData(data),
-                                    null, TAB_OVERVIEW_DELAY, null);
+                            sendAnimateFromOverview(currentTab, false,
+                                    new UrlData(data), TAB_OVERVIEW_DELAY, null);
                         } else {
                             dismissSubWindow(currentTab);
                             if (data != null && data.length() != 0) {
@@ -4480,9 +4473,8 @@ public class BrowserActivity extends Activity
                 // was clicked on.
                 if (mTabControl.getTabCount() == 0) {
                     current = mTabControl.createNewTab();
-                    sendAnimateFromOverview(current, true,
-                            new UrlData(mSettings.getHomePage()), null, TAB_OVERVIEW_DELAY,
-                            null);
+                    sendAnimateFromOverview(current, true, new UrlData(
+                            mSettings.getHomePage()), TAB_OVERVIEW_DELAY, null);
                 } else {
                     final int index = position > 0 ? (position - 1) : 0;
                     current = mTabControl.getTab(index);
@@ -4518,8 +4510,8 @@ public class BrowserActivity extends Activity
             if (index == ImageGrid.NEW_TAB) {
                 openTabAndShow(mSettings.getHomePage(), null, false, null);
             } else {
-                sendAnimateFromOverview(mTabControl.getTab(index),
-                        false, EMPTY_URL_DATA, null, 0, null);
+                sendAnimateFromOverview(mTabControl.getTab(index), false,
+                        EMPTY_URL_DATA, 0, null);
             }
         }
     }
@@ -4824,8 +4816,6 @@ public class BrowserActivity extends Activity
                     country)
                     + "client=ms-"
                     + Partner.getString(this.getContentResolver(), Partner.CLIENT_ID)
-                    // FIXME, remove this when GEOLOCATION team make their move
-                    + "&action=devloc"
                     + "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&q=%s";
         } else {
             QuickSearch_G = url;
@@ -5009,17 +4999,26 @@ public class BrowserActivity extends Activity
      */
     private static class UrlData {
         String mUrl;
-        
+        byte[] mPostData;
+
         UrlData(String url) {
             this.mUrl = url;
         }
-        
+
+        void setPostData(byte[] postData) {
+            mPostData = postData;
+        }
+
         boolean isEmpty() {
             return mUrl == null || mUrl.length() == 0;
         }
 
         private void loadIn(WebView webView) {
-            webView.loadUrl(mUrl);
+            if (mPostData != null) {
+                webView.postUrl(mUrl, mPostData);
+            } else {
+                webView.loadUrl(mUrl);
+            }
         }
     };
 
