@@ -137,6 +137,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -3117,16 +3118,26 @@ public class BrowserActivity extends Activity
                 }
             }
 
-            Uri uri;
+            // The "about:" schemes are internal to the browser; don't
+            // want these to be dispatched to other apps.
+            if (url.startsWith("about:")) {
+                return false;
+            }
+            
+            Intent intent;
+            
+            // perform generic parsing of the URI to turn it into an Intent.
             try {
-                uri = Uri.parse(url);
-            } catch (IllegalArgumentException ex) {
+                intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+            } catch (URISyntaxException ex) {
+                Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
                 return false;
             }
 
-            // check whether other activities want to handle this url
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            // sanitize the Intent, ensuring web pages can not bypass browser
+            // security (only access to BROWSABLE activities).
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setComponent(null);
             try {
                 if (startActivityIfNeeded(intent, -1)) {
                     return true;
