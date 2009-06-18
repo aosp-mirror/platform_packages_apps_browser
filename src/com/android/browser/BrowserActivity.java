@@ -29,6 +29,7 @@ import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -130,6 +131,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -2988,6 +2990,47 @@ public class BrowserActivity extends Activity
 
             // Update the lock icon image only once we are done loading
             updateLockIconImage(mLockIconType);
+
+            // If this is a bookmarked site, add a screenshot to the database.
+            // FIXME: When should we update?  Every time?
+            if (url != null) {
+                // copied from BrowserBookmarksAdapter
+                int query = url.indexOf('?');
+                String noQuery = url;
+                if (query != -1) {
+                    noQuery = url.substring(0, query);
+                }
+                String URL = noQuery + '?';
+                String[] selArgs = new String[] { noQuery, URL };
+                final String where = "(url == ? OR url GLOB ? || '*') AND bookmark == 1";
+                final String[] projection = new String[] { Browser.BookmarkColumns._ID };
+                ContentResolver cr = getContentResolver();
+                final Cursor c = cr.query(Browser.BOOKMARKS_URI, projection, where, selArgs, null);
+                boolean succeed = c.moveToFirst();
+                ContentValues values = null;
+                while (succeed) {
+                    if (values == null) {
+                        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+                        Picture thumbnail = view.capturePicture();
+                        // Height was arbitrarily chosen
+                        Bitmap bm = Bitmap.createBitmap(100, 100,
+                                Bitmap.Config.ARGB_4444);
+                        Canvas canvas = new Canvas(bm);
+                        // Scale chosen to be about one third, since we want
+                        // roughly three rows/columns for bookmark page
+                        canvas.scale(.3f, .3f);
+                        thumbnail.draw(canvas);
+                        bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+                        values = new ContentValues();
+                        values.put(Browser.BookmarkColumns.THUMBNAIL,
+                                os.toByteArray());
+                    }
+                    cr.update(ContentUris.withAppendedId(Browser.BOOKMARKS_URI,
+                            c.getInt(0)), values, null, null);
+                    succeed = c.moveToNext();
+                }
+                c.close();
+            }
 
             // Performance probe
             if (false) {

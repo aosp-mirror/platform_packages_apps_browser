@@ -84,7 +84,7 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         Resources resources = getResources();
 
         getIconListenerSet(getContentResolver());
-        Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
+        Intent bookmarksIntent = new Intent(this, BookmarkGridPage.class);
         bookmarksIntent.putExtras(extras);
         tabHost.addTab(tabHost.newTabSpec(BOOKMARKS_TAB)
                 .setIndicator(resources.getString(R.string.tab_bookmarks),

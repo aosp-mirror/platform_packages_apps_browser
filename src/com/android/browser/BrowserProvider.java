@@ -145,7 +145,8 @@ public class BrowserProvider extends ContentProvider {
     // 15 -> 17 Set it up for the SearchManager
     // 17 -> 18 Added favicon in bookmarks table for Home shortcuts
     // 18 -> 19 Remove labels table
-    private static final int DATABASE_VERSION = 19;
+    // 19 -> 20 Added thumbnail
+    private static final int DATABASE_VERSION = 20;
 
     // Regular expression which matches http://, followed by some stuff, followed by
     // optionally a trailing slash, all matched as separate groups.
@@ -214,7 +215,8 @@ public class BrowserProvider extends ContentProvider {
                     "created LONG," +
                     "description TEXT," +
                     "bookmark INTEGER," +
-                    "favicon BLOB DEFAULT NULL" +
+                    "favicon BLOB DEFAULT NULL," +
+                    "thumbnail BLOB DEFAULT NULL" +
                     ");");
 
             final CharSequence[] bookmarks = mContext.getResources()
@@ -241,9 +243,12 @@ public class BrowserProvider extends ContentProvider {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-                    + newVersion + ", which will destroy all old data");
+                    + newVersion);
             if (oldVersion == 18) {
                 db.execSQL("DROP TABLE IF EXISTS labels");
+            }
+            if (oldVersion <= 19) {
+                db.execSQL("ALTER TABLE bookmarks ADD COLUMN thumbnail BLOB DEFAULT NULL;");
             } else {
                 db.execSQL("DROP TABLE IF EXISTS bookmarks");
                 db.execSQL("DROP TABLE IF EXISTS searches");
