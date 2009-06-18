@@ -21,7 +21,7 @@
     android:background="@color/white">
 
     <ImageView android:id="@+id/thumb"
-        android:src="@android:drawable/app_web_browser_sm"
+        android:src="@drawable/app_web_browser_sm"
         android:scaleType="center"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
