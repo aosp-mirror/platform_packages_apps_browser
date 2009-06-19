@@ -71,29 +71,25 @@ public class BrowserPreferencesPage extends PreferenceActivity
         e.setOnPreferenceClickListener(this);
 
         PreferenceScreen manageDatabases = (PreferenceScreen)
-            findPreference(BrowserSettings.PREF_WEBSTORAGE_SETTINGS);
+            findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
+        Intent intent = new Intent(this, WebsiteSettingsActivity.class);
+        manageDatabases.setIntent(intent);
+    }
 
-        Preference clearDatabases =
-            findPreference(BrowserSettings.PREF_WEBSTORAGE_CLEAR_ALL);
-
-        Vector origins = WebStorage.getInstance().getOrigins();
+    /*
+     * We need to set the manageDatabases PreferenceScreen state
+     * in the onResume(), as the number of origins with databases
+     * could have changed after calling the WebsiteSettingsActivity.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PreferenceScreen manageDatabases = (PreferenceScreen)
+            findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
         manageDatabases.setEnabled(false);
-        clearDatabases.setEnabled(false);
-        if (origins != null) {
-            if (origins.size() > 0) {
-                manageDatabases.setEnabled(true);
-                clearDatabases.setEnabled(true);
-            }
-            for (int i = 0;  i < origins.size(); i++) {
-                OriginSettings origin =
-                    new OriginSettings(this, (String) origins.get(i));
-                PreferenceScreen screen =
-                    getPreferenceManager().createPreferenceScreen(this);
-                origin.setScreen(screen);
-                origin.setRootScreen(manageDatabases);
-                origin.setup();
-                manageDatabases.addPreference(screen);
-            }
+        Vector origins = WebStorage.getInstance().getOrigins();
+        if ((origins != null) && (origins.size() > 0)) {
+            manageDatabases.setEnabled(true);
         }
     }
 

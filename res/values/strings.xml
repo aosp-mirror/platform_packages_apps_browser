@@ -300,9 +300,9 @@
     <!-- Settings label -->
     <string name="pref_privacy_clear_cache">Clear cache</string>
     <!-- Settings summary -->
-    <string name="pref_privacy_clear_cache_summary">Delete all cached page content</string>
+    <string name="pref_privacy_clear_cache_summary">Clear locally cached content and databases</string>
     <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_cache_dlg">The cache will be cleared.</string>
+    <string name="pref_privacy_clear_cache_dlg">Locally cached content and databases will be cleared.</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_cookies">Clear all cookie data</string>
     <!-- Settings summary -->
@@ -327,6 +327,16 @@
     <string name="pref_privacy_clear_passwords_summary">Clear all the saved passwords</string>
     <!-- Confirmation dialog message -->
     <string name="pref_privacy_clear_passwords_dlg">All saved passwords will be cleared.</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_request_location">Enable location</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_request_location_summary">Allow sites to request access to your location</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_location_requests">Clear location access</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_location_requests_summary">Clear location access for all websites</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_location_requests_dlg">Clear all previous location requests</string>
     <!-- Settings screen, section title -->
     <string name="pref_security_title">Security settings</string>
     <!-- Settings label -->
@@ -372,30 +382,9 @@
     <!-- Settings summary -->
     <string name="pref_extras_gears_enable_summary">Applications that extend browser functionality</string>
     <!-- Settings label -->
-    <string name="pref_extras_webstorage_settings">Local Storage</string>
+    <string name="pref_extras_website_settings">Website Settings</string>
     <!-- Settings summary -->
-    <string name="pref_extras_webstorage_settings_summary">Allow websites to store information on your phone</string>
-    <!-- Settings label -->
-    <string name="pref_extras_webstorage_enable">Enable Database Storage</string>
-    <!-- Settings summary -->
-    <string name="pref_extras_webstorage_enable_summary">Allow websites to store informatin in a local database</string>
-    <!-- Settings label -->
-    <string name="pref_extras_webstorage_set_location">Set Databases Location</string>
-    <!-- Settings summary -->
-    <string name="pref_extras_webstorage_set_location_summary">Define where the databases are stored</string>
-    <!-- Settings label -->
-    <string name="pref_extras_webstorage_set_quota">Set Default Quota</string>
-    <!-- Settings summary -->
-    <string name="pref_extras_webstorage_set_quota_summary">The amount of storage new websites can use without your permission</string>
-    <!-- Settings label -->
-    <string name="pref_extras_webstorage_manage_databases">Manage Databases</string>
-    <!-- Settings summary -->
-    <string name="pref_extras_webstorage_manage_databases_summary">Configure existing databases</string>
-    <!-- Settings label -->
-    <string name="pref_extras_webstorage_clear_databases">Clear All Existing Databases</string>
-    <!-- Settings summary -->
-    <string name="pref_extras_webstorage_clear_databases_summary">Clear all data stored in local databases</string>
-    <string name="pref_extras_webstorage_clear_databases_dlg">All existing databases will be cleared</string>
+    <string name="pref_extras_website_settings_summary">View advanced settings for individual websites</string>
     <!-- Settings label -->
     <string name="pref_extras_gears_settings">Gears settings</string>
     <!-- Settings summary -->
@@ -756,17 +745,15 @@
     <!-- Used as a toast notification after the user close the html5 webstorage permission dialog -->
     <string name="webstorage_notification">The quota for this site can be changed in the Local Storage section of the Browser settings</string>
     <!-- Used in the Browser Settings -->
-    <string name="webstorage_manage_quota_title">Manage Quota</string>
-    <string name="webstorage_manage_quota_summary">Set a new size quota</string>
-    <string name="webstorage_clear_data_title">Clear All Data</string>
+    <string name="webstorage_clear_data_title">Clear Stored Data</string>
     <string name="webstorage_clear_data_summary">Remove all databases associated with this website</string>
     <!-- Confirmation dialog when the user ask to clear all data for an origin -->
     <string name="webstorage_clear_data_dialog_title">Clear All Data</string>
     <string name="webstorage_clear_data_dialog_message">All stored data by this origin will be deleted</string>
+    <string name="webstorage_clear_data_dialog_ok_button">Clear All</string>
+    <string name="webstorage_clear_data_dialog_cancel_button">Cancel</string>
     <!-- Strings used in the summary of origins -->
-    <string name="webstorage_origin_summary_mb_used">MB used</string>
-    <string name="webstorage_origin_summary_no_quota_left">no allowed quota left</string>
-    <string name="webstorage_origin_summary_mb_left">MB left in the quota</string>
+    <string name="webstorage_origin_summary_mb_stored">MB stored on your phone</string>
 
     <!-- Zoom-related strings --><skip />
     <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->

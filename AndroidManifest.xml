@@ -164,6 +164,10 @@
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
+        <activity android:name="WebsiteSettingsActivity" android:label=""
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+
         <activity android:name="GearsDialog" android:process=":dialog"
                   android:configChanges="orientation|keyboardHidden"
                   android:theme="@android:style/Theme.Dialog">

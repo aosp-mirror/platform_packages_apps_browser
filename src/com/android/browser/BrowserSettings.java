@@ -114,20 +114,13 @@ class BrowserSettings extends Observable {
             "privacy_clear_form_data";
     public final static String PREF_CLEAR_PASSWORDS =
             "privacy_clear_passwords";
-    public final static String PREF_CLEAR_DATABASES =
-            "webstorage_clear_databases";
-    public final static String PREF_CLEAR_ALL_DATA =
-            "webstorage_clear_all_data";
-    public final static String PREF_MANAGE_QUOTA =
-            "webstorage_manage_quota";
     public final static String PREF_DEFAULT_QUOTA =
             "webstorage_default_quota";
     public final static String PREF_EXTRAS_RESET_DEFAULTS =
             "reset_default_preferences";
     public final static String PREF_DEBUG_SETTINGS = "debug_menu";
     public final static String PREF_GEARS_SETTINGS = "gears_settings";
-    public final static String PREF_WEBSTORAGE_SETTINGS = "webstorage_manage_databases";
-    public final static String PREF_WEBSTORAGE_CLEAR_ALL = "webstorage_clear_databases";
+    public final static String PREF_WEBSITE_SETTINGS = "website_settings";
     public final static String PREF_TEXT_SIZE = "text_size";
     public final static String PREF_DEFAULT_TEXT_ENCODING =
             "default_text_encoding";
@@ -491,7 +484,7 @@ class BrowserSettings extends Observable {
         // Remove all listed databases from the preferences
         PreferenceActivity activity = (PreferenceActivity) context;
         PreferenceScreen screen = (PreferenceScreen)
-            activity.findPreference(BrowserSettings.PREF_WEBSTORAGE_SETTINGS);
+            activity.findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
         screen.removeAll();
         screen.setEnabled(false);
     }

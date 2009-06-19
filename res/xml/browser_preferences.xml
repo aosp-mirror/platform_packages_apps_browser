@@ -126,6 +126,24 @@
                 android:dialogTitle="@string/clear" 
                 android:dialogIcon="@android:drawable/ic_dialog_alert"/>
 
+        <!-- below preferences will be shown when html5 location is implemented -->
+        <!--
+
+        <CheckBoxPreference
+                android:key="request_location"
+                android:defaultValue="true"
+                android:title="@string/pref_privacy_request_location"
+                android:summary="@string/pref_privacy_request_location_summary" />
+
+        <com.android.browser.BrowserYesNoPreference
+                android:key="privacy_clear_location_requests"
+                android:title="@string/pref_privacy_clear_location_requests"
+                android:summary="@string/pref_privacy_clear_location_requests_summary"
+                android:dialogMessage="@string/pref_privacy_clear_location_requests_dlg"
+                android:dialogTitle="@string/clear"
+                android:dialogIcon="@android:drawable/ic_dialog_alert"/>
+        -->
+
     </PreferenceCategory>
     
         <PreferenceCategory
@@ -172,40 +190,9 @@
                     android:summary="@string/pref_extras_gears_settings_summary" />
 
             <PreferenceScreen
-                    android:key="webstorage_settings"
-                    android:title="@string/pref_extras_webstorage_settings"
-                    android:summary="@string/pref_extras_webstorage_settings_summary">
-
-                  <CheckBoxPreference
-                        android:key="enable_database"
-                        android:defaultValue="true"
-                        android:title="@string/pref_extras_webstorage_enable"
-                        android:summary="@string/pref_extras_webstorage_enable_summary" />
-
-                  <ListPreference
-                        android:key="webstorage_default_quota"
-                        android:dependency="enable_database"
-                        android:title="@string/pref_extras_webstorage_set_quota"
-                        android:summary="@string/pref_extras_webstorage_set_quota_summary"
-                        android:entries="@array/webstorage_quota_entries"
-                        android:entryValues="@array/webstorage_quota_entries_values" />
-
-                  <PreferenceScreen
-                        android:key="webstorage_manage_databases"
-                        android:dependency="enable_database"
-                        android:title="@string/pref_extras_webstorage_manage_databases"
-                        android:summary="@string/pref_extras_webstorage_manage_databases_summary" />
-
-                  <com.android.browser.BrowserYesNoPreference
-                        android:key="webstorage_clear_databases"
-                        android:dependency="enable_database"
-                        android:title="@string/pref_extras_webstorage_clear_databases"
-                        android:summary="@string/pref_extras_webstorage_clear_databases_summary"
-                        android:dialogMessage="@string/pref_extras_webstorage_clear_databases_dlg"
-                        android:dialogTitle="@string/clear"
-                        android:dialogIcon="@android:drawable/ic_dialog_alert" />
-
-            </PreferenceScreen>
+                  android:key="website_settings"
+                  android:title="@string/pref_extras_website_settings"
+                  android:summary="@string/pref_extras_website_settings_summary" />
 
             <com.android.browser.BrowserYesNoPreference
                     android:key="reset_default_preferences"

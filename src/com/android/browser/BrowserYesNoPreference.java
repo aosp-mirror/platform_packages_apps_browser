@@ -23,19 +23,9 @@ import android.util.AttributeSet;
 
 class BrowserYesNoPreference extends YesNoPreference {
 
-    // This is used for the HTML5 pref UI, where we construct
-    // BrowserYesNoPreference objects on the fly and where we need
-    // to save the corresponding origin.
-    OriginSettings mOrigin = null;
-
     // This is the constructor called by the inflater
     public BrowserYesNoPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public BrowserYesNoPreference(Context context, OriginSettings origin) {
-        super(context);
-        mOrigin = origin;
     }
 
     @Override
@@ -48,6 +38,7 @@ class BrowserYesNoPreference extends YesNoPreference {
             Context context = getContext();
             if (BrowserSettings.PREF_CLEAR_CACHE.equals(getKey())) {
                 BrowserSettings.getInstance().clearCache(context);
+                BrowserSettings.getInstance().clearDatabases(context);
             } else if (BrowserSettings.PREF_CLEAR_COOKIES.equals(getKey())) {
                 BrowserSettings.getInstance().clearCookies(context);
             } else if (BrowserSettings.PREF_CLEAR_HISTORY.equals(getKey())) {
@@ -56,12 +47,6 @@ class BrowserYesNoPreference extends YesNoPreference {
                 BrowserSettings.getInstance().clearFormData(context);
             } else if (BrowserSettings.PREF_CLEAR_PASSWORDS.equals(getKey())) {
                 BrowserSettings.getInstance().clearPasswords(context);
-            } else if (BrowserSettings.PREF_CLEAR_DATABASES.equals(getKey())) {
-                BrowserSettings.getInstance().clearDatabases(context);
-            } else if (BrowserSettings.PREF_CLEAR_ALL_DATA.equals(getKey())) {
-                if (mOrigin != null) {
-                    mOrigin.delete();
-                }
             } else if (BrowserSettings.PREF_EXTRAS_RESET_DEFAULTS.equals(
                     getKey())) {
                 BrowserSettings.getInstance().resetDefaultPreferences(context);
