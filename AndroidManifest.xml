@@ -44,6 +44,10 @@
         android:description="@string/permdesc_writeHistoryBookmarks"
         android:protectionLevel="dangerous" />
 
+    <supports-density android:density="160" />
+    <supports-density android:density="240" />
+    <expandable />
+
     <application   android:name="Browser"
                    android:label="@string/application_name"
                    android:icon="@drawable/ic_launcher_browser"
