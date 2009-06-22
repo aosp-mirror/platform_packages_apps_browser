@@ -1000,10 +1000,15 @@ public class BrowserActivity extends Activity
                     && intent.getBooleanExtra(Browser.EXTRA_APPEND_LOCATION,
                             false)) {
                 ContentResolver cr = getContentResolver();
-                int use = Settings.Gservices.getInt(cr,
-                        Settings.Gservices.USE_LOCATION_FOR_SERVICES, -1);
+                int use = Settings.Secure.getInt(cr,
+                        Settings.Secure.USE_LOCATION_FOR_SERVICES, -1);
                 if (use == -1) {
-                    // TODO: bring up the consent dialog
+                    // bring up the consent dialog if it is undefined. And we
+                    // will not send the location info for this query.
+                    Intent consent = new Intent(
+                            Settings.ACTION_SECURITY_SETTINGS);
+                    consent.putExtra("SHOW_USE_LOCATION", true);
+                    startActivity(consent);
                 } else if (use == 1
                         && Settings.Secure.isLocationProviderEnabled(cr,
                                 LocationManager.NETWORK_PROVIDER)) {
