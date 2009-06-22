@@ -709,8 +709,9 @@ class TabControl {
             t = mTabQueue.get(i++);
         } while (i < queueSize && t != null && t.mMainView == null);
 
-        // Don't do anything if the last remaining tab is the current one.
-        if (t == getCurrentTab()) {
+        // Don't do anything if the last remaining tab is the current one or if
+        // the last tab has been freed already.
+        if (t == getCurrentTab() || t.mMainView == null) {
             return null;
         }
 
