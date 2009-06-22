@@ -149,6 +149,8 @@ public class BrowserProvider extends ContentProvider {
     // optionally a trailing slash, all matched as separate groups.
     private static final Pattern STRIP_URL_PATTERN = Pattern.compile("^(http://)(.*?)(/$)?");
 
+    private SearchManager mSearchManager;
+
     // The hex color string to be applied to urls of website suggestions, as derived from
     // the current theme. This is not set until/unless beautifyUrl is called, at which point
     // this variable caches the color value.
@@ -268,6 +270,7 @@ public class BrowserProvider extends ContentProvider {
                 ed.commit();
             }
         }
+        mSearchManager = (SearchManager) context.getSystemService(Context.SEARCH_SERVICE);
         mShowWebSuggestionsSettingChangeObserver
             = new ShowWebSuggestionsSettingChangeObserver();
         context.getContentResolver().registerContentObserver(
@@ -321,7 +324,7 @@ public class BrowserProvider extends ContentProvider {
                 ComponentName googleSearchComponent =
                         new ComponentName(info.activityInfo.packageName,
                                 info.activityInfo.name);
-                mSearchableInfo = SearchManager.getSearchableInfo(
+                mSearchableInfo = mSearchManager.getSearchableInfo(
                         googleSearchComponent, false);
             }
         }
@@ -662,8 +665,7 @@ public class BrowserProvider extends ContentProvider {
                 if (myArgs != null && myArgs.length > 1
                         && mSearchableInfo != null
                         && c.getCount() < (MAX_SUGGESTION_SHORT_ENTRIES - 1)) {
-                    Cursor sc = SearchManager.getSuggestions(
-                            getContext(), mSearchableInfo, selectionArgs[0]);
+                    Cursor sc = mSearchManager.getSuggestions(mSearchableInfo, selectionArgs[0]);
                     return new MySuggestionCursor(c, sc, selectionArgs[0]);
                 }
                 return new MySuggestionCursor(c, null, selectionArgs[0]);
