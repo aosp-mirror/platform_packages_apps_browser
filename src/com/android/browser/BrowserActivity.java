@@ -905,7 +905,7 @@ public class BrowserActivity extends Activity
                 || Intent.ACTION_WEB_SEARCH.equals(action)) {
             url = intent.getStringExtra(SearchManager.QUERY);
         }
-        return handleWebSearchRequest(url);
+        return handleWebSearchRequest(url, intent.getBundleExtra(SearchManager.APP_DATA));
     }
 
     /**
@@ -913,7 +913,7 @@ public class BrowserActivity extends Activity
      * was identified as plain search terms and not URL/shortcut.
      * @return true if the request was handled and web search activity was launched, false if not.
      */
-    private boolean handleWebSearchRequest(String inUrl) {
+    private boolean handleWebSearchRequest(String inUrl, Bundle appData) {
         if (inUrl == null) return false;
 
         // In general, we shouldn't modify URL from Intent.
@@ -934,6 +934,9 @@ public class BrowserActivity extends Activity
         Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.putExtra(SearchManager.QUERY, url);
+        if (appData != null) {
+            intent.putExtra(SearchManager.APP_DATA, appData);
+        }
         startActivity(intent);
 
         return true;
