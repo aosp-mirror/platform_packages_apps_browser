@@ -496,7 +496,11 @@ public class BrowserProvider extends ContentProvider {
 
                     case SUGGEST_COLUMN_QUERY_ID:
                         if (mHistoryCount > mPos) {
-                            return null;
+                            // Return the url in the intent query column. This is ignored
+                            // within the browser because our searchable is set to
+                            // android:searchMode="queryRewriteFromData", but it is used by
+                            // global search for query rewriting.
+                            return mHistoryCursor.getString(1);
                         } else if (!mBeyondCursor) {
                             if (mSuggestQueryId == -1) return null;
                             return mSuggestCursor.getString(mSuggestQueryId);
