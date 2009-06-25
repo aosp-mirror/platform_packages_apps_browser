@@ -356,7 +356,7 @@
     <!-- Settings summary -->
     <string name="pref_security_accept_cookies_summary">Allow sites to save and read \"cookie\" data</string>
     <!-- Settings label -->
-    <string name="pref_text_size">Set text size</string>
+    <string name="pref_text_size">Text size</string>
     <!-- Settings text size options; appear in Text size dialog box -->
     <string-array name="pref_text_size_choices">
         <item>Tiny</item>
@@ -374,6 +374,22 @@
         <item><xliff:g>NORMAL</xliff:g></item>
         <item><xliff:g>LARGER</xliff:g></item>
         <item><xliff:g>LARGEST</xliff:g></item>
+    </string-array>
+    <!-- Settings label -->
+    <string name="pref_default_zoom">Default zoom</string>
+    <!-- Settings default zoom options; appear in default zoom dialog box -->
+    <string-array name="pref_default_zoom_choices">
+        <item>Far</item>
+        <item>Medium</item>
+        <item>Close</item>
+    </string-array>
+    <!-- Title of dialog for setting the default zoom -->
+    <string name="pref_default_zoom_dialogtitle">Default zoom</string>
+    <!-- Do not translate -->
+    <string-array name="pref_default_zoom_values" translatable="false">
+        <item><xliff:g>FAR</xliff:g></item>
+        <item><xliff:g>MEDIUM</xliff:g></item>
+        <item><xliff:g>CLOSE</xliff:g></item>
     </string-array>
     <!-- Settings screen, section title -->
     <string name="pref_extras_title">Advanced settings</string>
@@ -429,7 +445,7 @@
         <item>2</item>
     </string-array>
     <!-- Settings screen, setting option name -->
-    <string name="pref_default_text_encoding">Set text encoding</string>
+    <string name="pref_default_text_encoding">Text encoding</string>
     <!-- Options in the Default encoding dialog box -->
     <string-array name="pref_default_text_encoding_choices">
         <item>Latin-1 (ISO-8859-1)</item>
