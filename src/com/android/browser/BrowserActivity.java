@@ -3044,6 +3044,21 @@ public class BrowserActivity extends Activity
                 return false;
             }
 
+            // check whether the intent can be resolved. If not, we will see
+            // whether we can download it from the Market.
+            if (getPackageManager().resolveActivity(intent, 0) == null) {
+                String packagename = intent.getPackage();
+                if (packagename != null) {
+                    intent = new Intent(Intent.ACTION_VIEW, Uri
+                            .parse("market://search?q=pname:" + packagename));
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    startActivity(intent);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
             // sanitize the Intent, ensuring web pages can not bypass browser
             // security (only access to BROWSABLE activities).
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
