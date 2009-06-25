@@ -90,6 +90,8 @@ class BrowserSettings extends Observable {
     private static int defaultFixedFontSize = 13;
     private static WebSettings.TextSize textSize =
         WebSettings.TextSize.NORMAL;
+    private static WebSettings.ZoomDensity zoomDensity =
+        WebSettings.ZoomDensity.MEDIUM;
 
     // Preference keys that are used outside this class
     public final static String PREF_CLEAR_CACHE = "privacy_clear_cache";
@@ -105,6 +107,7 @@ class BrowserSettings extends Observable {
     public final static String PREF_DEBUG_SETTINGS = "debug_menu";
     public final static String PREF_GEARS_SETTINGS = "gears_settings";
     public final static String PREF_TEXT_SIZE = "text_size";
+    public final static String PREF_DEFAULT_ZOOM = "default_zoom";
     public final static String PREF_DEFAULT_TEXT_ENCODING =
             "default_text_encoding";
 
@@ -169,6 +172,7 @@ class BrowserSettings extends Observable {
             s.setDefaultFixedFontSize(b.defaultFixedFontSize);
             s.setNavDump(b.navDump);
             s.setTextSize(b.textSize);
+            s.setDefaultZoom(b.zoomDensity);
             s.setLightTouchEnabled(b.lightTouch);
             s.setSaveFormData(b.saveFormData);
             s.setSavePassword(b.rememberPasswords);
@@ -236,6 +240,8 @@ class BrowserSettings extends Observable {
         loginInitialized = p.getBoolean("login_initialized", loginInitialized);
         textSize = WebSettings.TextSize.valueOf(
                 p.getString(PREF_TEXT_SIZE, textSize.name()));
+        zoomDensity = WebSettings.ZoomDensity.valueOf(
+                p.getString(PREF_DEFAULT_ZOOM, zoomDensity.name()));
         autoFitPage = p.getBoolean("autofit_pages", autoFitPage);
         useWideViewPort = true; // use wide view port for either setting
         if (autoFitPage) {
@@ -308,6 +314,10 @@ class BrowserSettings extends Observable {
 
     public WebSettings.TextSize getTextSize() {
         return textSize;
+    }
+
+    public WebSettings.ZoomDensity getDefaultZoom() {
+        return zoomDensity;
     }
 
     public boolean openInBackground() {
