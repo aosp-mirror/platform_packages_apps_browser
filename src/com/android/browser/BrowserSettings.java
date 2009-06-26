@@ -129,12 +129,12 @@ class BrowserSettings extends Observable {
             "default_text_encoding";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
-            "U; Intel Mac OS X 10_5_5; en-us) AppleWebKit/525.18 (KHTML, " +
-            "like Gecko) Version/3.1.2 Safari/525.20.1";
+            "U; Intel Mac OS X 10_5_7; en-us) AppleWebKit/530.17 (KHTML, " +
+            "like Gecko) Version/4.0 Safari/530.17";
 
     private static final String IPHONE_USERAGENT = "Mozilla/5.0 (iPhone; U; " +
-            "CPU iPhone OS 2_2 like Mac OS X; en-us) AppleWebKit/525.18.1 " +
-            "(KHTML, like Gecko) Version/3.1.1 Mobile/5G77 Safari/525.20";
+            "CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 " +
+            "(KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16";
 
     // Value to truncate strings when adding them to a TextView within
     // a ListView
