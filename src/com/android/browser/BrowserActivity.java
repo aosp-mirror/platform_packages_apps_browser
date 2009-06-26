@@ -703,7 +703,7 @@ public class BrowserActivity extends Activity
             frameLayout.addView(browserFrameLayout, COVER_SCREEN_PARAMS);
         } else {
             mCustomViewContainer = new FrameLayout(this);
-            mCustomViewContainer.setBackgroundColor(Color.DKGRAY);
+            mCustomViewContainer.setBackgroundColor(Color.BLACK);
             mContentView = new FrameLayout(this);
             frameLayout.addView(mCustomViewContainer, COVER_SCREEN_PARAMS);
             frameLayout.addView(mContentView, COVER_SCREEN_PARAMS);
