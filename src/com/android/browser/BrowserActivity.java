@@ -689,17 +689,24 @@ public class BrowserActivity extends Activity
         FrameLayout frameLayout = (FrameLayout) getWindow().getDecorView()
                 .findViewById(com.android.internal.R.id.content);
         if (CUSTOM_BROWSER_BAR) {
-            // This LinearLayout will hold the title bar and a FrameLayout, which
+            // This FrameLayout will hold the custom FrameLayout and a LinearLayout
+            // that contains the title bar and a FrameLayout, which
             // holds everything else.
-            LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(this)
+            FrameLayout browserFrameLayout = (FrameLayout) LayoutInflater.from(this)
                     .inflate(R.layout.custom_screen, null);
-            mTitleBar = (TitleBar) linearLayout.findViewById(R.id.title_bar);
+            mTitleBar = (TitleBar) browserFrameLayout.findViewById(R.id.title_bar);
             mTitleBar.setBrowserActivity(this);
-            mContentView = (FrameLayout) linearLayout.findViewById(
+            mContentView = (FrameLayout) browserFrameLayout.findViewById(
                     R.id.main_content);
-            frameLayout.addView(linearLayout, COVER_SCREEN_PARAMS);
+            mCustomViewContainer = (FrameLayout) browserFrameLayout
+                    .findViewById(R.id.fullscreen_custom_content);
+            frameLayout.addView(browserFrameLayout, COVER_SCREEN_PARAMS);
         } else {
-            mContentView = frameLayout;
+            mCustomViewContainer = new FrameLayout(this);
+            mCustomViewContainer.setBackgroundColor(Color.DKGRAY);
+            mContentView = new FrameLayout(this);
+            frameLayout.addView(mCustomViewContainer, COVER_SCREEN_PARAMS);
+            frameLayout.addView(mContentView, COVER_SCREEN_PARAMS);
         }
 
         // Create the tab control and our initial tab
@@ -2692,10 +2699,15 @@ public class BrowserActivity extends Activity
         // because of accumulated key events,
         // we should ignore it as browser is not active any more.
         WebView topWindow = getTopWindow();
-        if (topWindow == null)
+        if (topWindow == null && mCustomView == null)
             return KeyTracker.State.NOT_TRACKING;
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // Check if a custom view is currently showing and, if it is, hide it.
+            if (mCustomView != null) {
+                mWebChromeClient.onHideCustomView();
+                return KeyTracker.State.DONE_TRACKING;
+            }
             // During animations, block the back key so that other animations
             // are not triggered and so that we don't end up destroying all the
             // WebViews before finishing the animation.
@@ -3750,6 +3762,37 @@ public class BrowserActivity extends Activity
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
             updateIcon(view.getUrl(), icon);
+        }
+
+        @Override
+        public void onShowCustomView(View view) {
+            if (mCustomView != null)
+                return;
+
+            // Add the custom view to its container.
+            mCustomViewContainer.addView(view, COVER_SCREEN_GRAVITY_CENTER);
+            mCustomView = view;
+            // Save the menu state and set it to empty while the custom
+            // view is showing.
+            mOldMenuState = mMenuState;
+            mMenuState = EMPTY_MENU;
+            // Finally show the custom view container.
+             mCustomViewContainer.setVisibility(View.VISIBLE);
+             mCustomViewContainer.bringToFront();
+        }
+
+        @Override
+        public void onHideCustomView() {
+            if (mCustomView == null)
+                return;
+
+            // Remove the custom view from its container.
+            mCustomViewContainer.removeView(mCustomView);
+            mCustomView = null;
+            // Reset the old menu state.
+            mMenuState = mOldMenuState;
+            mOldMenuState = EMPTY_MENU;
+            mCustomViewContainer.setVisibility(View.GONE);
         }
 
         /**
@@ -4913,11 +4956,14 @@ public class BrowserActivity extends Activity
     private ContentResolver mResolver;
     private FrameLayout     mContentView;
     private ImageGrid       mTabOverview;
+    private View            mCustomView;
+    private FrameLayout     mCustomViewContainer;
 
     // FIXME, temp address onPrepareMenu performance problem. When we move everything out of
     // view, we should rewrite this.
     private int mCurrentMenuState = 0;
     private int mMenuState = R.id.MAIN_MENU;
+    private int mOldMenuState = EMPTY_MENU;
     private static final int EMPTY_MENU = -1;
     private Menu mMenu;
 
@@ -5008,6 +5054,11 @@ public class BrowserActivity extends Activity
                                             new FrameLayout.LayoutParams(
                                             ViewGroup.LayoutParams.FILL_PARENT,
                                             ViewGroup.LayoutParams.FILL_PARENT);
+    /*package*/ static final FrameLayout.LayoutParams COVER_SCREEN_GRAVITY_CENTER =
+                                            new FrameLayout.LayoutParams(
+                                            ViewGroup.LayoutParams.FILL_PARENT,
+                                            ViewGroup.LayoutParams.FILL_PARENT,
+                                            Gravity.CENTER);
     // We may provide UI to customize these
     // Google search from the browser
     static String QuickSearch_G;
