@@ -83,6 +83,7 @@ class BrowserSettings extends Observable {
     private boolean appCacheEnabled = true;
     private String appCachePath;  // default value set in loadFromDb().
     private boolean domStorageEnabled = true;
+    private String jsFlags = "";
 
     private final static String TAG = "BrowserSettings";
 
@@ -94,6 +95,7 @@ class BrowserSettings extends Observable {
     private boolean tracing = false;
     private boolean lightTouch = false;
     private boolean navDump = false;
+
     // Browser only settings
     private boolean doFlick = false;
 
@@ -327,7 +329,9 @@ class BrowserSettings extends Observable {
             mTabControl.getBrowserActivity().setBaseSearchUrl(
                     p.getString("search_url", ""));
         }
-        update();
+        // JS flags is loaded from DB even if showDebugSettings is false,
+        // so that it can be set once and be effective all the time.
+        jsFlags = p.getString("js_engine_flags", "");
     }
 
     public String getPluginsPath() {
@@ -336,6 +340,10 @@ class BrowserSettings extends Observable {
 
     public String getHomePage() {
         return homeUrl;
+    }
+
+    public String getJsFlags() {
+        return jsFlags;
     }
 
     public void setHomePage(Context context, String url) {

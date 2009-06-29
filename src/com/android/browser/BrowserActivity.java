@@ -783,6 +783,11 @@ public class BrowserActivity extends Activity
             // are not animating from the tab picker.
             attachTabToContentView(mTabControl.getCurrentTab());
         }
+        // Read JavaScript flags if it exists.
+        String jsFlags = mSettings.getJsFlags();
+        if (jsFlags.trim().length() != 0) {
+            mTabControl.getCurrentWebView().setJsFlags(jsFlags);
+        }
 
         /* enables registration for changes in network status from
            http stack */

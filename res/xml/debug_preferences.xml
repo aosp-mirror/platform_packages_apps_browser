@@ -51,9 +51,14 @@
             android:title="@string/pref_development_nav_dump" />
 
         <com.android.browser.BrowserSearchpagePreference
-                android:key="search_url" 
-                android:title="@string/pref_development_search_url"
-                android:singleLine="true" />
+            android:key="search_url"
+            android:title="@string/pref_development_search_url"
+            android:singleLine="true" />
+
+        <EditTextPreference
+            android:key="js_engine_flags"
+            android:title="@string/js_engine_flags"
+            android:singleLine="true" />
 
         <ListPreference
             android:key="user_agent"
