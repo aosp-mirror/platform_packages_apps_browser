@@ -404,8 +404,6 @@
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_nav_dump" translatable="false">Enable nav cache dump</string>
     <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_search_url" translatable="false">Set search URL</string>
-    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_uastring" translatable="false">UAString</string>
     <!-- Do not tranlsate.  Development option -->
     <string-array name="pref_development_ua_choices" translatable="false">
