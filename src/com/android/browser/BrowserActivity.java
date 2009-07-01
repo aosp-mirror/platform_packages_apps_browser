@@ -18,7 +18,6 @@ package com.android.browser;
 
 import com.google.android.googleapps.IGoogleLoginService;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
-import com.google.android.providers.GoogleSettings.Partner;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -59,8 +58,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.WebAddress;
@@ -79,13 +76,10 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
-import android.os.SystemProperties;
-import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Contacts;
 import android.provider.Downloads;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.provider.Contacts.Intents.Insert;
 import android.text.IClipboard;
 import android.text.TextUtils;
@@ -147,7 +141,6 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -665,9 +658,6 @@ public class BrowserActivity extends Activity
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         mResolver = getContentResolver();
-
-        setBaseSearchUrl(PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("search_url", ""));
 
         //
         // start MASF proxy service
@@ -4848,7 +4838,7 @@ public class BrowserActivity extends Activity
                 String query = inUrl.substring(2);
                 switch (shortcut) {
                 case SHORTCUT_GOOGLE_SEARCH:
-                    return composeSearchUrl(query);
+                    return URLUtil.composeSearchUrl(query, QuickSearch_G, QUERY_PLACE_HOLDER);
                 case SHORTCUT_WIKIPEDIA_SEARCH:
                     return URLUtil.composeSearchUrl(query, QuickSearch_W, QUERY_PLACE_HOLDER);
                 case SHORTCUT_DICTIONARY_SEARCH:
@@ -4865,56 +4855,7 @@ public class BrowserActivity extends Activity
         }
 
         Browser.addSearchUrl(mResolver, inUrl);
-        return composeSearchUrl(inUrl);
-    }
-
-    /* package */ String composeSearchUrl(String search) {
-        return URLUtil.composeSearchUrl(search, QuickSearch_G,
-                QUERY_PLACE_HOLDER);
-    }
-
-    /* package */void setBaseSearchUrl(String url) {
-        if (url == null || url.length() == 0) {
-            /*
-             * get the google search url based on the SIM. Default is US. NOTE:
-             * This code uses resources to optionally select the search Uri,
-             * based on the MCC value from the SIM. The default string will most
-             * likely be fine. It is parameterized to accept info from the
-             * Locale, the language code is the first parameter (%1$s) and the
-             * country code is the second (%2$s). This code must function in the
-             * same way as a similar lookup in
-             * com.android.googlesearch.SuggestionProvider#onCreate(). If you
-             * change either of these functions, change them both. (The same is
-             * true for the underlying resource strings, which are stored in
-             * mcc-specific xml files.)
-             */
-            Locale l = Locale.getDefault();
-            String language = l.getLanguage();
-            String country = l.getCountry().toLowerCase();
-            // Chinese and Portuguese have two langauge variants.
-            if ("zh".equals(language)) {
-                if ("cn".equals(country)) {
-                    language = "zh-CN";
-                } else if ("tw".equals(country)) {
-                    language = "zh-TW";
-                }
-            } else if ("pt".equals(language)) {
-                if ("br".equals(country)) {
-                    language = "pt-BR";
-                } else if ("pt".equals(country)) {
-                    language = "pt-PT";
-                }
-            }
-            QuickSearch_G = getResources().getString(
-                    R.string.google_search_base,
-                    language,
-                    country)
-                    + "client=ms-"
-                    + Partner.getString(this.getContentResolver(), Partner.CLIENT_ID)
-                    + "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&q=%s";
-        } else {
-            QuickSearch_G = url;
-        }
+        return URLUtil.composeSearchUrl(inUrl, QuickSearch_G, QUERY_PLACE_HOLDER);
     }
 
     private final static int LOCK_ICON_UNSECURE = 0;
@@ -5032,9 +4973,8 @@ public class BrowserActivity extends Activity
                                             ViewGroup.LayoutParams.FILL_PARENT,
                                             ViewGroup.LayoutParams.FILL_PARENT,
                                             Gravity.CENTER);
-    // We may provide UI to customize these
-    // Google search from the browser
-    static String QuickSearch_G;
+    // Google search
+    final static String QuickSearch_G = "http://www.google.com/m?q=%s";
     // Wikipedia search
     final static String QuickSearch_W = "http://en.wikipedia.org/w/index.php?search=%s&go=Go";
     // Dictionary search

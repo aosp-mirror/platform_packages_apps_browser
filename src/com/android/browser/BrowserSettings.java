@@ -18,18 +18,13 @@ package com.android.browser;
 
 import com.google.android.providers.GoogleSettings.Partner;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.SystemProperties;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.util.Log;
-import android.view.WindowManager;
-import android.webkit.CacheManager;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
@@ -326,8 +321,6 @@ class BrowserSettings extends Observable {
             navDump = p.getBoolean("enable_nav_dump", navDump);
             doFlick = p.getBoolean("enable_flick", doFlick);
             userAgent = Integer.parseInt(p.getString("user_agent", "0"));
-            mTabControl.getBrowserActivity().setBaseSearchUrl(
-                    p.getString("search_url", ""));
         }
         // JS flags is loaded from DB even if showDebugSettings is false,
         // so that it can be set once and be effective all the time.
