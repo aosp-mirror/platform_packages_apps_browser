@@ -164,7 +164,8 @@ public class BrowserProvider extends ContentProvider {
         StringBuffer sb = new StringBuffer();
         int lastCharLoc = 0;
 
-        final String client_id = Partner.getString(context.getContentResolver(), Partner.CLIENT_ID);
+        final String client_id = Partner.getString(context.getContentResolver(),
+                                                    Partner.CLIENT_ID, "android-google");
 
         for (int i = 0; i < srcString.length(); ++i) {
             char c = srcString.charAt(i);
