@@ -91,6 +91,10 @@ class BrowserSettings extends Observable {
     private boolean lightTouch = false;
     private boolean navDump = false;
 
+    // By default the error console is shown once the user navigates to about:debug.
+    // The setting can be then toggled from the settings menu.
+    private boolean showConsole = true;
+
     // Browser only settings
     private boolean doFlick = false;
 
@@ -205,6 +209,10 @@ class BrowserSettings extends Observable {
             // Turn on Application Caches.
             s.setAppCachePath(b.appCachePath);
             s.setAppCacheEnabled(b.appCacheEnabled);
+
+            // Enable/Disable the error console.
+            b.mTabControl.getBrowserActivity().setShouldShowErrorConsole(
+                    b.showDebugSettings && b.showConsole);
         }
     }
 
@@ -325,6 +333,15 @@ class BrowserSettings extends Observable {
         // JS flags is loaded from DB even if showDebugSettings is false,
         // so that it can be set once and be effective all the time.
         jsFlags = p.getString("js_engine_flags", "");
+
+        // Read the setting for showing/hiding the JS Console always so that should the
+        // user enable debug settings, we already know if we should show the console.
+        // The user will never see the console unless they navigate to about:debug,
+        // regardless of the setting we read here. This setting is only used after debug
+        // is enabled.
+        showConsole = p.getBoolean("javascript_console", showConsole);
+        mTabControl.getBrowserActivity().setShouldShowErrorConsole(
+                showDebugSettings && showConsole);
     }
 
     public String getPluginsPath() {

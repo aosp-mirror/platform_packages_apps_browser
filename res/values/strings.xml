@@ -447,6 +447,7 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string name="pref_development_error_console" translatable="false">Show JavaScript Console</string>
     <!-- Settings screen, setting option name -->
     <string name="pref_default_text_encoding">Text encoding</string>
     <!-- Options in the Default encoding dialog box -->
@@ -780,4 +781,9 @@
     <!-- Zoom-related strings --><skip />
     <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->
     <string name="zoom_overview_button_text">Overview</string>
+
+    <string name="error_console_header_text_minimized" translatable="false">Show JavaScript Console</string>
+    <string name="error_console_header_text_maximized" translatable="false">JavaScript Console</string>
+    <string name="error_console_eval_text_hint" translatable="false">Evaluate JavaScript</string>
+    <string name="error_console_eval_button_text" translatable="false">Evaluate</string>
 </resources>

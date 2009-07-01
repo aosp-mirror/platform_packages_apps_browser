@@ -689,6 +689,8 @@ public class BrowserActivity extends Activity
             mTitleBar.setBrowserActivity(this);
             mContentView = (FrameLayout) browserFrameLayout.findViewById(
                     R.id.main_content);
+            mErrorConsoleContainer = (LinearLayout) browserFrameLayout.findViewById(
+                    R.id.error_console);
             mCustomViewContainer = (FrameLayout) browserFrameLayout
                     .findViewById(R.id.fullscreen_custom_content);
             frameLayout.addView(browserFrameLayout, COVER_SCREEN_PARAMS);
@@ -696,8 +698,15 @@ public class BrowserActivity extends Activity
             mCustomViewContainer = new FrameLayout(this);
             mCustomViewContainer.setBackgroundColor(Color.BLACK);
             mContentView = new FrameLayout(this);
+
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            mErrorConsoleContainer = new LinearLayout(this);
+            linearLayout.addView(mErrorConsoleContainer, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            linearLayout.addView(mContentView, COVER_SCREEN_PARAMS);
             frameLayout.addView(mCustomViewContainer, COVER_SCREEN_PARAMS);
-            frameLayout.addView(mContentView, COVER_SCREEN_PARAMS);
+            frameLayout.addView(linearLayout, COVER_SCREEN_PARAMS);
         }
 
         // Create the tab control and our initial tab
@@ -904,7 +913,7 @@ public class BrowserActivity extends Activity
                     // page, it can be reused.
                     boolean needsLoad =
                             mTabControl.recreateWebView(appTab, urlData.mUrl);
-                    
+
                     if (current != appTab) {
                         showTab(appTab, needsLoad ? urlData : EMPTY_URL_DATA);
                     } else {
@@ -1979,6 +1988,20 @@ public class BrowserActivity extends Activity
         final WebView main = t.getWebView();
         // Attach the main WebView.
         mContentView.addView(main, COVER_SCREEN_PARAMS);
+
+        if (mShouldShowErrorConsole) {
+            ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(true);
+            if (errorConsole.numberOfErrors() == 0) {
+                errorConsole.showConsole(ErrorConsoleView.SHOW_NONE);
+            } else {
+                errorConsole.showConsole(ErrorConsoleView.SHOW_MINIMIZED);
+            }
+
+            mErrorConsoleContainer.addView(errorConsole,
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                                                  ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+
         // Attach the sub window if necessary
         attachSubWindow(t);
         // Request focus on the top window.
@@ -2000,6 +2023,11 @@ public class BrowserActivity extends Activity
     private void removeTabFromContentView(TabControl.Tab t) {
         // Remove the main WebView.
         mContentView.removeView(t.getWebView());
+
+        if (mTabControl.getCurrentErrorConsole(false) != null) {
+            mErrorConsoleContainer.removeView(mTabControl.getCurrentErrorConsole(false));
+        }
+
         // Remove the sub window if it exists.
         if (t.getSubWebView() != null) {
             mContentView.removeView(t.getSubWebViewContainer());
@@ -2977,6 +3005,15 @@ public class BrowserActivity extends Activity
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             resetLockIcon(url);
             setUrlTitle(url, null);
+
+            ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(false);
+            if (errorConsole != null) {
+                errorConsole.clearErrorMessages();
+                if (mShouldShowErrorConsole) {
+                    errorConsole.showConsole(ErrorConsoleView.SHOW_NONE);
+                }
+            }
+
             // Call updateIcon instead of setFavicon so the bookmark
             // database can be updated.
             updateIcon(url, favicon);
@@ -3197,9 +3234,9 @@ public class BrowserActivity extends Activity
             if (url.startsWith("about:")) {
                 return false;
             }
-            
+
             Intent intent;
-            
+
             // perform generic parsing of the URI to turn it into an Intent.
             try {
                 intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
@@ -3852,9 +3889,14 @@ public class BrowserActivity extends Activity
          */
         @Override
         public void addMessageToConsole(String message, int lineNumber, String sourceID) {
-            Log.w(LOGTAG, "Console: " + message + " (" + sourceID + ":" + lineNumber + ")");
+            ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(true);
+            errorConsole.addErrorMessage(message, sourceID, lineNumber);
+                if (mShouldShowErrorConsole &&
+                        errorConsole.getShowState() != ErrorConsoleView.SHOW_MAXIMIZED) {
+                    errorConsole.showConsole(ErrorConsoleView.SHOW_MINIMIZED);
+                }
+            Log.w(LOGTAG, "Console: " + message + " " + sourceID + ":" + lineNumber);
         }
-
     };
 
     /**
@@ -4922,6 +4964,34 @@ public class BrowserActivity extends Activity
         return URLUtil.composeSearchUrl(inUrl, QuickSearch_G, QUERY_PLACE_HOLDER);
     }
 
+    /* package */ void setShouldShowErrorConsole(boolean flag) {
+        if (flag == mShouldShowErrorConsole) {
+            // Nothing to do.
+            return;
+        }
+
+        mShouldShowErrorConsole = flag;
+
+        ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(true);
+
+        if (flag) {
+            // Setting the show state of the console will cause it's the layout to be inflated.
+            if (errorConsole.numberOfErrors() > 0) {
+                errorConsole.showConsole(ErrorConsoleView.SHOW_MINIMIZED);
+            } else {
+                errorConsole.showConsole(ErrorConsoleView.SHOW_NONE);
+            }
+
+            // Now we can add it to the main view.
+            mErrorConsoleContainer.addView(errorConsole,
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                                                  ViewGroup.LayoutParams.WRAP_CONTENT));
+        } else {
+            mErrorConsoleContainer.removeView(errorConsole);
+        }
+
+    }
+
     private final static int LOCK_ICON_UNSECURE = 0;
     private final static int LOCK_ICON_SECURE   = 1;
     private final static int LOCK_ICON_MIXED    = 2;
@@ -5073,6 +5143,9 @@ public class BrowserActivity extends Activity
 
     private TitleBar mTitleBar;
 
+    private LinearLayout mErrorConsoleContainer = null;
+    private boolean mShouldShowErrorConsole = false;
+
     // Used during animations to prevent other animations from being triggered.
     // A count is used since the animation to and from the Window overview can
     // overlap. A count of 0 means no animation where a count of > 0 means
@@ -5146,7 +5219,7 @@ public class BrowserActivity extends Activity
         String mEncoding;
         @Override
         boolean isEmpty() {
-            return mInlined == null || mInlined.length() == 0 || super.isEmpty(); 
+            return mInlined == null || mInlined.length() == 0 || super.isEmpty();
         }
 
         @Override

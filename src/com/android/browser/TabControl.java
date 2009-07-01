@@ -195,6 +195,8 @@ class TabControl {
         // url has not changed.
         private String mOriginalUrl;
 
+        private ErrorConsoleView mErrorConsole;
+
         // Construct a new tab
         private Tab(WebView w, boolean closeOnExit, String appId, String url) {
             mMainView = w;
@@ -385,6 +387,28 @@ class TabControl {
             return null;
         }
         return t.mMainView;
+    }
+
+    /**
+     * Return the current tab's error console. Creates the console if createIfNEcessary
+     * is true and we haven't already created the console.
+     * @param createIfNecessary Flag to indicate if the console should be created if it has
+     *                          not been already.
+     * @return The current tab's error console, or null if one has not been created and
+     *         createIfNecessary is false.
+     */
+    ErrorConsoleView getCurrentErrorConsole(boolean createIfNecessary) {
+        Tab t = getTab(mCurrentTab);
+        if (t == null) {
+            return null;
+        }
+
+        if (createIfNecessary && t.mErrorConsole == null) {
+            t.mErrorConsole = new ErrorConsoleView(mActivity);
+            t.mErrorConsole.setWebView(t.mMainView);
+        }
+
+        return t.mErrorConsole;
     }
 
     /**

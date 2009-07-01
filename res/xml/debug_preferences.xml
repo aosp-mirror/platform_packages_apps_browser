@@ -19,6 +19,13 @@
     <PreferenceCategory
         android:title="@string/pref_development_title" 
         android:key="debug_menu" >
+
+        <!-- The javascript console is enabled by default when the user has
+             also enabled debug mode by navigating to about:debug. -->
+        <CheckBoxPreference
+            android:key="javascript_console"
+            android:defaultValue="true"
+            android:title="@string/pref_development_error_console" />
                         
         <CheckBoxPreference
             android:key="small_screen"
