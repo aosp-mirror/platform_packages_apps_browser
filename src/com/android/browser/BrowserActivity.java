@@ -774,7 +774,10 @@ public class BrowserActivity extends Activity
                     waitForCredentials();
                 }
             } else {
-                urlData.setPostData(getLocationData(intent));
+                if (extra != null) {
+                    urlData.setPostData(extra
+                            .getByteArray(Browser.EXTRA_POST_DATA));
+                }
                 urlData.loadIn(webView);
             }
         } else {
@@ -890,7 +893,8 @@ public class BrowserActivity extends Activity
             if (urlData.isEmpty()) {
                 urlData = new UrlData(mSettings.getHomePage());
             }
-            urlData.setPostData(getLocationData(intent));
+            urlData.setPostData(intent
+                    .getByteArrayExtra(Browser.EXTRA_POST_DATA));
 
             if (Intent.ACTION_VIEW.equals(action) &&
                     (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
@@ -1072,42 +1076,6 @@ public class BrowserActivity extends Activity
             }
         }
         return new UrlData(url);
-    }
-
-    byte[] getLocationData(Intent intent) {
-        byte[] postData = null;
-        if (intent != null) {
-            final String action = intent.getAction();
-            if (Intent.ACTION_VIEW.equals(action)
-                    && intent.getBooleanExtra(Browser.EXTRA_APPEND_LOCATION,
-                            false)) {
-                ContentResolver cr = getContentResolver();
-                int use = Settings.Secure.getInt(cr,
-                        Settings.Secure.USE_LOCATION_FOR_SERVICES, -1);
-                if (use == -1) {
-                    // bring up the consent dialog if it is undefined. And we
-                    // will not send the location info for this query.
-                    Intent consent = new Intent(
-                            Settings.ACTION_SECURITY_SETTINGS);
-                    consent.putExtra("SHOW_USE_LOCATION", true);
-                    startActivity(consent);
-                } else if (use == 1
-                        && Settings.Secure.isLocationProviderEnabled(cr,
-                                LocationManager.NETWORK_PROVIDER)) {
-                    Location location = ((LocationManager) getSystemService(
-                            Context.LOCATION_SERVICE)).getLastKnownLocation(
-                                    LocationManager.NETWORK_PROVIDER);
-                    if (location != null) {
-                        StringBuilder str = new StringBuilder(
-                                "action=devloc&sll=");
-                        str.append(location.getLatitude()).append(',').append(
-                                location.getLongitude());
-                        postData = str.toString().getBytes();
-                    }
-                }
-            }
-        }
-        return postData;
     }
 
     /* package */ static String fixUrl(String inUrl) {
