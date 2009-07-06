@@ -40,6 +40,7 @@ import java.util.ArrayList;
 
 public class BookmarkGridPage extends Activity {
     private final static int SPACING = 10;
+    private static final int BOOKMARKS_SAVE = 1;
     private BookmarkGrid mGridView;
     private BookmarkGridAdapter mAdapter;
 
@@ -58,6 +59,20 @@ public class BookmarkGridPage extends Activity {
         mGridView.setHorizontalSpacing(SPACING);
         setContentView(mGridView);
         mGridView.requestFocus();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        switch(requestCode) {
+            case BOOKMARKS_SAVE:
+                if (resultCode == RESULT_OK) {
+                    mAdapter.refreshData();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private class BookmarkGrid extends GridView {
@@ -91,6 +106,15 @@ public class BookmarkGridPage extends Activity {
                     new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent, View v,
                         int position, long id) {
+                    if (0 == position) {
+                        // Launch the add bookmark activity
+                        Intent i = new Intent(BookmarkGridPage.this,
+                                AddBookmarkPage.class);
+                        i.putExtras(getIntent());
+                        startActivityForResult(i, BOOKMARKS_SAVE);
+                        return;
+                    }
+                    position--;
                     mCursor.moveToPosition(position);
                     String url = mCursor.getString(
                             Browser.HISTORY_PROJECTION_URL_INDEX);
@@ -179,6 +203,20 @@ public class BookmarkGridPage extends Activity {
             ImageView thumb = (ImageView) v.findViewById(R.id.thumb);
             TextView tv = (TextView) v.findViewById(R.id.label);
 
+            ViewGroup.LayoutParams lp = thumb.getLayoutParams();
+            if (lp.height != mThumbHeight) {
+                lp.height = mThumbHeight;
+                thumb.requestLayout();
+            }
+
+            if (0 == position) {
+                // This is to create a bookmark for the current page.
+                tv.setText(R.string.add_new_bookmark);
+                thumb.setImageResource(
+                        R.drawable.ic_tab_browser_bookmark_selected);
+                return v;
+            }
+            position--;
             mCursor.moveToPosition(position);
             tv.setText(mCursor.getString(
                     Browser.HISTORY_PROJECTION_TITLE_INDEX));
@@ -198,11 +236,6 @@ public class BookmarkGridPage extends Activity {
             } else {
                 thumb.setImageResource(R.drawable.app_web_browser_sm);
                 thumb.setScaleType(ImageView.ScaleType.CENTER);
-            }
-            ViewGroup.LayoutParams lp = thumb.getLayoutParams();
-            if (lp.height != mThumbHeight) {
-                lp.height = mThumbHeight;
-                thumb.requestLayout();
             }
             return v;
         }
