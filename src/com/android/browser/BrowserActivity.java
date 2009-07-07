@@ -113,6 +113,7 @@ import android.webkit.PluginManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
+import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebStorage;
@@ -3729,20 +3730,23 @@ public class BrowserActivity extends Activity
         }
 
         @Override
-        public void onShowCustomView(View view) {
+        public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
             if (mCustomView != null)
                 return;
 
             // Add the custom view to its container.
             mCustomViewContainer.addView(view, COVER_SCREEN_GRAVITY_CENTER);
             mCustomView = view;
+            mCustomViewCallback = callback;
             // Save the menu state and set it to empty while the custom
             // view is showing.
             mOldMenuState = mMenuState;
             mMenuState = EMPTY_MENU;
+            // Hide the content view.
+            mContentView.setVisibility(View.GONE);
             // Finally show the custom view container.
-             mCustomViewContainer.setVisibility(View.VISIBLE);
-             mCustomViewContainer.bringToFront();
+            mCustomViewContainer.setVisibility(View.VISIBLE);
+            mCustomViewContainer.bringToFront();
         }
 
         @Override
@@ -3750,6 +3754,8 @@ public class BrowserActivity extends Activity
             if (mCustomView == null)
                 return;
 
+            // Hide the custom view.
+            mCustomView.setVisibility(View.GONE);
             // Remove the custom view from its container.
             mCustomViewContainer.removeView(mCustomView);
             mCustomView = null;
@@ -3757,6 +3763,9 @@ public class BrowserActivity extends Activity
             mMenuState = mOldMenuState;
             mOldMenuState = EMPTY_MENU;
             mCustomViewContainer.setVisibility(View.GONE);
+            mCustomViewCallback.onCustomViewHidden();
+            // Show the content view.
+            mContentView.setVisibility(View.VISIBLE);
         }
 
         /**
@@ -4873,6 +4882,7 @@ public class BrowserActivity extends Activity
     private ImageGrid       mTabOverview;
     private View            mCustomView;
     private FrameLayout     mCustomViewContainer;
+    private WebChromeClient.CustomViewCallback mCustomViewCallback;
 
     // FIXME, temp address onPrepareMenu performance problem. When we move everything out of
     // view, we should rewrite this.
