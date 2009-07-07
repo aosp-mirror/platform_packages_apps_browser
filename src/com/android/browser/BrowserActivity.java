@@ -2978,12 +2978,13 @@ public class BrowserActivity extends Activity
 
             // If this is a bookmarked site, add a screenshot to the database.
             // FIXME: When should we update?  Every time?
-            if (url != null) {
+            String original = view.getOriginalUrl();
+            if (original != null) {
                 // copied from BrowserBookmarksAdapter
-                int query = url.indexOf('?');
-                String noQuery = url;
+                int query = original.indexOf('?');
+                String noQuery = original;
                 if (query != -1) {
-                    noQuery = url.substring(0, query);
+                    noQuery = original.substring(0, query);
                 }
                 String URL = noQuery + '?';
                 String[] selArgs = new String[] { noQuery, URL };
