@@ -18,19 +18,29 @@
     android:layout_width="fill_parent"
     android:orientation="vertical"
     android:padding="4dip"
-    android:background="@color/white">
+    >
 
     <ImageView android:id="@+id/thumb"
-        android:src="@drawable/app_web_browser_sm"
+        android:src="@drawable/blank"
         android:scaleType="center"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        />
+
+<!--
+    <ImageView android:id="@+id/fav"
+        android:scaleType="center"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        />
+-->
 
     <TextView android:id="@+id/label"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:maxLines="1"
         android:paddingTop="3dip"
@@ -38,5 +48,6 @@
         android:paddingLeft="2dip"
         android:paddingRight="2dip"
         android:scrollHorizontally="true"
-        android:background="#CC000000"/>
+        android:ellipsize="marquee"
+        />
 </LinearLayout>

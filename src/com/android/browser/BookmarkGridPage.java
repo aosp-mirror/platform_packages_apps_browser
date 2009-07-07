@@ -201,6 +201,8 @@ public class BookmarkGridPage extends Activity {
                 v = factory.inflate(R.layout.bookmark_thumbnail, null);
             }
             ImageView thumb = (ImageView) v.findViewById(R.id.thumb);
+            // Favicon disabled for now.
+            //ImageView fav = (ImageView) v.findViewById(R.id.fav);
             TextView tv = (TextView) v.findViewById(R.id.label);
 
             ViewGroup.LayoutParams lp = thumb.getLayoutParams();
@@ -223,20 +225,23 @@ public class BookmarkGridPage extends Activity {
             byte[] data = mCursor.getBlob(
                     Browser.HISTORY_PROJECTION_THUMBNAIL_INDEX);
             if (data == null) {
-                // Backup is to show the favicon
-                data = mCursor.getBlob(
-                        Browser.HISTORY_PROJECTION_FAVICON_INDEX);
-                thumb.setScaleType(ImageView.ScaleType.CENTER);
+                // Backup is to just show white
+                thumb.setImageResource(R.drawable.blank);
             } else {
-                thumb.setScaleType(ImageView.ScaleType.FIT_XY);
-            }
-            if (data != null) {
                 thumb.setImageBitmap(
                         BitmapFactory.decodeByteArray(data, 0, data.length));
-            } else {
-                thumb.setImageResource(R.drawable.app_web_browser_sm);
-                thumb.setScaleType(ImageView.ScaleType.CENTER);
             }
+/*
+            // Now show the favicon
+            data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
+            if (data == null) {
+                fav.setVisibility(View.GONE);
+            } else {
+                fav.setVisibility(View.VISIBLE);
+                fav.setImageBitmap(
+                        BitmapFactory.decodeByteArray(data, 0, data.length));
+            }
+*/
             return v;
         }
 
