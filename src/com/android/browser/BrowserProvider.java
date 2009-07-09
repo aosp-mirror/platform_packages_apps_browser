@@ -151,10 +151,10 @@ public class BrowserProvider extends ContentProvider {
 
     private SearchManager mSearchManager;
 
-    // The hex color string to be applied to urls of website suggestions, as derived from
+    // The ID of the ColorStateList to be applied to urls of website suggestions, as derived from
     // the current theme. This is not set until/unless beautifyUrl is called, at which point
     // this variable caches the color value.
-    private static String mSearchUrlColorHex;
+    private static String mSearchUrlColorId;
 
     public BrowserProvider() {
     }
@@ -606,19 +606,15 @@ public class BrowserProvider extends ContentProvider {
          * and adds html formatting to make it green.
          */
         private String beautifyUrl(String url) {
-            if (mSearchUrlColorHex == null) {
+            if (mSearchUrlColorId == null) {
                 // Get the color used for this purpose from the current theme.
                 TypedValue colorValue = new TypedValue();
                 getContext().getTheme().resolveAttribute(
                         com.android.internal.R.attr.textColorSearchUrl, colorValue, true);
-                int color = getContext().getResources().getColor(colorValue.resourceId);
-
-                // Convert the int color value into a hex string, and strip the first two
-                // characters which will be the alpha transparency (html doesn't want this).
-                mSearchUrlColorHex = Integer.toHexString(color).substring(2);
+                mSearchUrlColorId = Integer.toString(colorValue.resourceId);
             }
 
-            return "<font color=\"#" + mSearchUrlColorHex + "\">" + stripUrl(url) + "</font>";
+            return "<font color=\"@" + mSearchUrlColorId + "\">" + stripUrl(url) + "</font>";
         }
     }
 
