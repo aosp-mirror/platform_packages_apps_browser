@@ -1437,7 +1437,8 @@ public class BrowserActivity extends Activity
      */
     @Override
     public boolean onSearchRequested() {
-        startSearch(null, false,
+        String url = getTopWindow().getUrl();
+        startSearch(mSettings.getHomePage().equals(url) ? null : url, false,
                 createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHKEY), false);
         return true;
     }
