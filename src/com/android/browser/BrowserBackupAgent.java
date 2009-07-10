@@ -104,6 +104,8 @@ public class BrowserBackupAgent extends BackupAgent {
                 sb.append(cursor.getString(4));
                 sb.append("'");
                 out.write(sb.toString().getBytes());
+
+                cursor.moveToNext();
             }
             out.close();
             /*
