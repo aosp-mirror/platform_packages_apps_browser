@@ -25,14 +25,16 @@ import android.database.Cursor;
 import android.os.ParcelFileDescriptor;
 import android.provider.Browser;
 import android.provider.Browser.BookmarkColumns;
+import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
+import java.util.ArrayList;
 import java.util.zip.CRC32;
 
 /**
@@ -40,9 +42,16 @@ import java.util.zip.CRC32;
  * stored is the set of bookmarks.  It's okay if I/O exceptions are thrown
  * out of the agent; the calling code handles it and the backup operation
  * simply fails.
+ *
+ * @hide
  */
 public class BrowserBackupAgent extends BackupAgent {
+    static final String TAG = "BrowserBookmarkAgent";
+    static final boolean DEBUG = true;
+
     static final String BOOKMARK_KEY = "_bookmarks_";
+    /** this version num MUST be incremented if the flattened-file schema ever changes */
+    static final int BACKUP_AGENT_VERSION = 0;
 
     /**
      * In order to determine whether the bookmark set has changed since the
@@ -51,6 +60,7 @@ public class BrowserBackupAgent extends BackupAgent {
      *
      * 1. the size of the flattened bookmark file
      * 2. the CRC32 of that file
+     * 3. the agent version number [relevant following an OTA]
      *
      * After we flatten the bookmarks file here in onBackup, we compare its
      * metrics with the values from the saved state.  If they match, it means
@@ -63,6 +73,7 @@ public class BrowserBackupAgent extends BackupAgent {
             ParcelFileDescriptor newState) throws IOException {
         long savedFileSize = -1;
         long savedCrc = -1;
+        int savedVersion = -1;
 
         // Extract the previous bookmark file size & CRC from the saved state
         DataInputStream in = new DataInputStream(
@@ -70,59 +81,28 @@ public class BrowserBackupAgent extends BackupAgent {
         try {
             savedFileSize = in.readLong();
             savedCrc = in.readLong();
+            savedVersion = in.readInt();
         } catch (EOFException e) {
             // It means we had no previous state; that's fine
         }
 
-        // TODO: BUILD THE FLATTENED BOOKMARK FILE FROM THE DB (into tmpfile)
-        File tmpfile = getFilesDir().createTempFile("bkp", null);
-        CRC32 crc = new CRC32();
+        // Build a flattened representation of the bookmarks table
+        File tmpfile = File.createTempFile("bkp", null, getCacheDir());
         try {
-            Cursor cursor = getContentResolver().query(Browser.BOOKMARKS_URI,
-                    new String[] { BookmarkColumns.URL, BookmarkColumns.VISITS,
-                    BookmarkColumns.DATE, BookmarkColumns.CREATED,
-                    BookmarkColumns.TITLE },
-                    BookmarkColumns.BOOKMARK + " == 1 ", null, null);
-            int count = cursor.getCount();
-            FileOutputStream out = new FileOutputStream(tmpfile);
-            for (int i = 0; i < count; i++) {
-                StringBuilder sb = new StringBuilder();
-                // URL
-                sb.append("'");
-                sb.append(cursor.getString(0));
-                sb.append("','");
-                // VISITS
-                sb.append(cursor.getInt(1));
-                sb.append("','");
-                // DATE
-                sb.append(cursor.getLong(2));
-                sb.append("','");
-                // CREATED
-                sb.append(cursor.getLong(3));
-                sb.append("','");
-                // TITLE
-                sb.append(cursor.getString(4));
-                sb.append("'");
-                out.write(sb.toString().getBytes());
+            FileOutputStream outfstream = new FileOutputStream(tmpfile);
+            long newCrc = buildBookmarkFile(outfstream);
+            outfstream.close();
 
-                cursor.moveToNext();
-            }
-            out.close();
-            /*
-                    android.util.Log.d("s", "backing up data" +
-                            getContentResolver().openFileDescriptor(Browser.BOOKMARKS_URI, "r").toString());
-             */
-            // NOTE: feed the flattened data through the crc engine on the fly
-            // to save re-reading it later just to checksum it
-
-            // Once the file is built, compare its metrics with the saved ones
-            if ((crc.getValue() != savedCrc) || (tmpfile.length() != savedFileSize)) {
+            // Any changes since the last backup?
+            if ((savedVersion != BACKUP_AGENT_VERSION)
+                    || (newCrc != savedCrc)
+                    || (tmpfile.length() != savedFileSize)) {
                 // Different checksum or different size, so we need to back it up
                 copyFileToBackup(BOOKMARK_KEY, tmpfile, data);
             }
 
-            // Last, record the metrics of the bookmark file that we just stored
-            writeBackupState(tmpfile.length(), crc.getValue(), newState);
+            // Record our backup state and we're done
+            writeBackupState(tmpfile.length(), newCrc, newState);
         } finally {
             // Make sure to tidy up when we're done
             tmpfile.delete();
@@ -138,14 +118,60 @@ public class BrowserBackupAgent extends BackupAgent {
     public void onRestore(BackupDataInput data, int appVersionCode,
             ParcelFileDescriptor newState) throws IOException {
         long crc = -1;
-        File tmpfile = getFilesDir().createTempFile("rst", null);
+        File tmpfile = File.createTempFile("rst", null, getFilesDir());
         try {
             while (data.readNextHeader()) {
                 if (BOOKMARK_KEY.equals(data.getKey())) {
                     // Read the flattened bookmark data into a temp file
                     crc = copyBackupToFile(data, tmpfile, data.getDataSize());
 
-                    // TODO: READ THE FLAT BOOKMARKS FILE 'tmpfile' AND REBUILD THE DB TABLE
+                    FileInputStream infstream = new FileInputStream(tmpfile);
+                    DataInputStream in = new DataInputStream(infstream);
+
+                    try {
+                        int count = in.readInt();
+                        ArrayList<Bookmark> bookmarks = new ArrayList<Bookmark>(count);
+
+                        // Read all the bookmarks, then process later -- if we can't read
+                        // all the data successfully, we don't touch the bookmarks table
+                        for (int i = 0; i < count; i++) {
+                            Bookmark mark = new Bookmark();
+                            mark.url = in.readUTF();
+                            mark.visits = in.readInt();
+                            mark.date = in.readLong();
+                            mark.created = in.readLong();
+                            mark.title = in.readUTF();
+                            bookmarks.add(mark);
+                        }
+
+                        // Okay, we have all the bookmarks -- now see if we need to add
+                        // them to the browser's database
+                        int N = bookmarks.size();
+                        if (DEBUG) Log.v(TAG, "Restoring " + N + " bookmarks");
+                        String[] urlCol = new String[] { BookmarkColumns.URL };
+                        for (int i = 0; i < N; i++) {
+                            Bookmark mark = bookmarks.get(i);
+
+                            // Does this URL exist in the bookmark table?
+                            Cursor cursor = getContentResolver().query(Browser.BOOKMARKS_URI,
+                                    urlCol,  BookmarkColumns.URL + " == '" + mark.url + "' AND " +
+                                    BookmarkColumns.BOOKMARK + " == 1 ", null, null);
+                            // if not, insert it
+                            if (cursor.getCount() <= 0) {
+                                Log.v(TAG, "Did not see url: " + mark.url);
+                                // Right now we do not reconstruct the db entry in its
+                                // entirety; we just add a new bookmark with the same data
+                                Bookmarks.addBookmark(null, getContentResolver(),
+                                        mark.url, mark.title, false);
+                            } else {
+                                Log.v(TAG, "Skipping extant url: " + mark.url);
+                            }
+                            cursor.close();
+                        }
+                    } catch (IOException ioe) {
+                        Log.w(TAG, "Bad backup data; not restoring");
+                        crc = -1;
+                    }
                 }
 
                 // Last, write the state we just restored from so we can discern
@@ -158,9 +184,66 @@ public class BrowserBackupAgent extends BackupAgent {
         }
     }
 
+    class Bookmark {
+        public String url;
+        public int visits;
+        public long date;
+        public long created;
+        public String title;
+    }
     /*
      * Utility functions
      */
+
+    // Flatten the bookmarks table into the given file, calculating its CRC in the process
+    private long buildBookmarkFile(FileOutputStream outfstream) throws IOException {
+        CRC32 crc = new CRC32();
+        ByteArrayOutputStream bufstream = new ByteArrayOutputStream(512);
+        DataOutputStream bout = new DataOutputStream(bufstream);
+
+        Cursor cursor = getContentResolver().query(Browser.BOOKMARKS_URI,
+                new String[] { BookmarkColumns.URL, BookmarkColumns.VISITS,
+                BookmarkColumns.DATE, BookmarkColumns.CREATED,
+                BookmarkColumns.TITLE },
+                BookmarkColumns.BOOKMARK + " == 1 ", null, null);
+
+        // The first thing in the file is the row count...
+        int count = cursor.getCount();
+        if (DEBUG) Log.v(TAG, "Backing up " + count + " bookmarks");
+        bout.writeInt(count);
+        byte[] record = bufstream.toByteArray();
+        crc.update(record);
+        outfstream.write(record);
+
+        // ... followed by the data for each row
+        for (int i = 0; i < count; i++) {
+            cursor.moveToNext();
+
+            String url = cursor.getString(0);
+            int visits = cursor.getInt(1);
+            long date = cursor.getLong(2);
+            long created = cursor.getLong(3);
+            String title = cursor.getString(4);
+
+            // construct the flattened record in a byte array
+            bufstream.reset();
+            bout.writeUTF(url);
+            bout.writeInt(visits);
+            bout.writeLong(date);
+            bout.writeLong(created);
+            bout.writeUTF(title);
+
+            // Update the CRC and write the record to the temp file
+            record = bufstream.toByteArray();
+            crc.update(record);
+            outfstream.write(record);
+
+            if (DEBUG) Log.v(TAG, "   wrote url " + url);
+        }
+
+        cursor.close();
+        return crc.getValue();
+    }
 
     // Write the file to backup as a single record under the given key
     private void copyFileToBackup(String key, File file, BackupDataOutput data)
@@ -187,13 +270,16 @@ public class BrowserBackupAgent extends BackupAgent {
         final int CHUNK = 8192;
         byte[] buf = new byte[CHUNK];
         CRC32 crc = new CRC32();
+        FileOutputStream out = new FileOutputStream(file);
 
         while (toRead > 0) {
             int numRead = data.readEntityData(buf, 0, CHUNK);
             crc.update(buf, 0, numRead);
+            out.write(buf, 0, numRead);
             toRead -= numRead;
         }
 
+        out.close();
         return crc.getValue();
     }
 
@@ -204,5 +290,6 @@ public class BrowserBackupAgent extends BackupAgent {
                 new FileOutputStream(stateFile.getFileDescriptor()));
         out.writeLong(fileSize);
         out.writeLong(crc);
+        out.writeInt(BACKUP_AGENT_VERSION);
     }
 }

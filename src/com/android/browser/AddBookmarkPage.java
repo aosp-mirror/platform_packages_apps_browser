@@ -142,7 +142,7 @@ public class AddBookmarkPage extends Activity {
                 setResult(RESULT_OK, (new Intent()).setAction(
                         getIntent().toString()).putExtras(mMap));
             } else {
-                Bookmarks.addBookmark(null, getContentResolver(), url, title);
+                Bookmarks.addBookmark(null, getContentResolver(), url, title, true);
                 setResult(RESULT_OK);
             }
         } catch (IllegalStateException e) {

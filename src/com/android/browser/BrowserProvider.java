@@ -19,6 +19,7 @@ package com.android.browser;
 import com.google.android.providers.GoogleSettings.Partner;
 
 import android.app.SearchManager;
+import android.backup.BackupManager;
 import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -54,6 +55,7 @@ import java.util.regex.Pattern;
 public class BrowserProvider extends ContentProvider {
 
     private SQLiteOpenHelper mOpenHelper;
+    private BackupManager mBackupManager;
     private static final String sDatabaseName = "browser.db";
     private static final String TAG = "BrowserProvider";
     private static final String ORDER_BY = "visits DESC, date DESC";
@@ -264,6 +266,7 @@ public class BrowserProvider extends ContentProvider {
     public boolean onCreate() {
         final Context context = getContext();
         mOpenHelper = new DatabaseHelper(context);
+        mBackupManager = new BackupManager(context);
         // we added "picasa web album" into default bookmarks for version 19.
         // To avoid erasing the bookmark table, we added it explicitly for
         // version 18 and 19 as in the other cases, we will erase the table.
@@ -736,6 +739,7 @@ public class BrowserProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri url, ContentValues initialValues) {
+        boolean isBookmarkTable = false;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
         int match = URI_MATCHER.match(url);
@@ -749,6 +753,7 @@ public class BrowserProvider extends ContentProvider {
                     uri = ContentUris.withAppendedId(Browser.BOOKMARKS_URI,
                             rowID);
                 }
+                isBookmarkTable = true;
                 break;
             }
 
@@ -771,6 +776,11 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
         getContext().getContentResolver().notifyChange(uri, null);
+
+        // back up the new bookmark set if we just inserted one
+        if (isBookmarkTable) {
+            mBackupManager.dataChanged();
+        }
         return uri;
     }
 
@@ -783,7 +793,10 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
 
-        if (match == URI_MATCH_BOOKMARKS_ID || match == URI_MATCH_SEARCHES_ID) {
+        // need to know whether it's the bookmarks table for a couple fo reasons
+        boolean isBookmarkTable = (match == URI_MATCH_BOOKMARKS_ID);
+
+        if (isBookmarkTable || match == URI_MATCH_SEARCHES_ID) {
             StringBuilder sb = new StringBuilder();
             if (where != null && where.length() > 0) {
                 sb.append("( ");
@@ -797,6 +810,11 @@ public class BrowserProvider extends ContentProvider {
 
         int count = db.delete(TABLE_NAMES[match % 10], where, whereArgs);
         getContext().getContentResolver().notifyChange(url, null);
+
+        // back up the new bookmark set if we just deleted one
+        if (isBookmarkTable) {
+            mBackupManager.dataChanged();
+        }
         return count;
     }
 
@@ -810,7 +828,9 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
 
-        if (match == URI_MATCH_BOOKMARKS_ID || match == URI_MATCH_SEARCHES_ID) {
+        boolean isBookmarkTable = (match == URI_MATCH_BOOKMARKS_ID);
+
+        if (isBookmarkTable || match == URI_MATCH_SEARCHES_ID) {
             StringBuilder sb = new StringBuilder();
             if (where != null && where.length() > 0) {
                 sb.append("( ");
@@ -824,6 +844,11 @@ public class BrowserProvider extends ContentProvider {
 
         int ret = db.update(TABLE_NAMES[match % 10], values, where, whereArgs);
         getContext().getContentResolver().notifyChange(url, null);
+
+        // back up the new bookmark set if we just changed one
+        if (isBookmarkTable) {
+            mBackupManager.dataChanged();
+        }
         return ret;
     }
 
