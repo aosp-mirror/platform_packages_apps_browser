@@ -22,6 +22,7 @@
     android:imeOptions="actionGo"
 
     android:includeInGlobalSearch="true"
+    android:searchSettingsDescription="@string/search_settings_description"
     android:searchSuggestAuthority="browser"
     android:searchSuggestPath="bookmarks"
     android:searchSuggestSelection="url LIKE ?"
