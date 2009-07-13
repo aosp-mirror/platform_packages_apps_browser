@@ -1462,6 +1462,13 @@ public class BrowserActivity extends Activity
         if (null == mTabOverview && null == getTopWindow()) {
             return false;
         }
+        if (mMenuIsDown) {
+            // The shortcut action consumes the MENU. Even if it is still down,
+            // it won't trigger the next shortcut action. In the case of the
+            // shortcut action triggering a new activity, like Bookmarks, we
+            // won't get onKeyUp for MENU. So it is important to reset it here.
+            mMenuIsDown = false;
+        }
         switch (item.getItemId()) {
             // -- Main menu
             case R.id.goto_menu_id: {
@@ -2592,6 +2599,11 @@ public class BrowserActivity extends Activity
     @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU) {
             mMenuIsDown = true;
+        } else if (mMenuIsDown) {
+            // The default key mode is DEFAULT_KEYS_SEARCH_LOCAL. As the MENU is
+            // still down, we don't want to trigger the search. Pretend to
+            // consume the key and do nothing.
+            return true;
         }
         boolean handled =  mKeyTracker.doKeyDown(keyCode, event);
         if (!handled) {
