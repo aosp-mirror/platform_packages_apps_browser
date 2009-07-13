@@ -17,7 +17,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name">"Internet"</string>
     <string name="tab_bookmarks">"Zakładki"</string>
-    <string name="tab_most_visited">"Najczęściej odwiedzane"</string>
+    <string name="tab_most_visited">"Popularne"</string>
     <string name="tab_history">"Historia"</string>
     <string name="added_to_bookmarks">"Dodano do zakładek"</string>
     <string name="removed_from_bookmarks">"Usunięto z zakładek"</string>
@@ -25,6 +25,7 @@
     <string name="username">"Nazwa"</string>
     <string name="password">"Hasło"</string>
     <string name="action">"Zaloguj się"</string>
+    <string name="bookmarks_search">"Przeglądarka"</string>
     <string name="cancel">"Anuluj"</string>
     <string name="ok">"OK"</string>
   <plurals name="matches_found">
@@ -81,7 +82,7 @@
     <string name="delete_bookmark_warning">"Zakładka „<xliff:g id="BOOKMARK">%s</xliff:g>” zostanie usunięta."</string>
     <string name="open_in_new_window">"Otwórz w nowym oknie"</string>
     <string name="new_window">"Nowe okno"</string>
-    <string name="goto_dot">"Idź"</string>
+    <string name="goto_dot">"Przejdź"</string>
     <string name="find_dot">"Znajdź na stronie"</string>
     <string name="select_dot">"Zaznacz tekst"</string>
     <string name="view_tabs">"Przegląd okien"</string>
@@ -108,7 +109,7 @@
     <string name="contextmenu_view_image">"Wyświetl obraz"</string>
     <string name="contextmenu_dial_dot">"Wybierz numer…"</string>
     <string name="contextmenu_add_contact">"Dodaj kontakt"</string>
-    <string name="contextmenu_send_mail">"Wyślij wiadomość e-mail"</string>
+    <string name="contextmenu_send_mail">"Wyślij e-mail"</string>
     <string name="contextmenu_map">"Mapa"</string>
     <string name="clear">"Wyczyść"</string>
     <string name="replace">"Zastąp adres"</string>
@@ -128,7 +129,7 @@
     <string name="pref_privacy_clear_cache">"Wyczyść pamięć podręczną"</string>
     <string name="pref_privacy_clear_cache_summary">"Usuń całą zawartość stron z pamięci podręcznej"</string>
     <string name="pref_privacy_clear_cache_dlg">"Pamięć podręczna zostanie wyczyszczona."</string>
-    <string name="pref_privacy_clear_cookies">"Wyczyść wszystkie cookies"</string>
+    <string name="pref_privacy_clear_cookies">"Wyczyść wszystkie pliki cookie"</string>
     <string name="pref_privacy_clear_cookies_summary">"Wyczyść pliki cookie przeglądarki"</string>
     <string name="pref_privacy_clear_cookies_dlg">"Wszystkie pliki cookie zostaną usunięte."</string>
     <string name="pref_privacy_clear_history">"Wyczyść historię"</string>
@@ -141,15 +142,15 @@
     <string name="pref_privacy_clear_passwords_summary">"Wyczyść wszystkie zapamiętane hasła"</string>
     <string name="pref_privacy_clear_passwords_dlg">"Wszystkie zapamiętane hasła zostaną wyczyszczone."</string>
     <string name="pref_security_title">"Ustawienia zabezpieczeń"</string>
-    <string name="pref_security_remember_passwords">"Zapamiętuj hasła"</string>
+    <string name="pref_security_remember_passwords">"Pamiętaj hasła"</string>
     <string name="pref_security_remember_passwords_summary">"Zapamiętuj nazwy użytkownika i hasła do stron WWW"</string>
-    <string name="pref_security_save_form_data">"Zapamiętuj wpisane dane"</string>
+    <string name="pref_security_save_form_data">"Pamiętaj wpisane dane"</string>
     <string name="pref_security_save_form_data_summary">"Zapamiętuj do późniejszego użycia dane, które wpisuję w formularzach"</string>
     <string name="pref_security_show_security_warning">"Wyświetlaj ostrzeżenia"</string>
     <string name="pref_security_show_security_warning_summary">"Wyświetl ostrzeżenie w razie problemów z zabezpieczeniami strony"</string>
     <string name="pref_security_accept_cookies">"Akceptuj pliki cookie"</string>
-    <string name="pref_security_accept_cookies_summary">"Zezwalaj witrynom na zapis i odczyt danych plików „cookie”."</string>
-    <string name="pref_text_size">"Ustaw rozmiar tekstu"</string>
+    <string name="pref_security_accept_cookies_summary">"Zezwalaj witrynom na zapis i odczyt danych w plikach cookie"</string>
+    <string name="pref_text_size">"Rozmiar tekstu"</string>
   <string-array name="pref_text_size_choices">
     <item>"Bardzo mały"</item>
     <item>"Mały"</item>
@@ -158,10 +159,17 @@
     <item>"Bardzo duży"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"Rozmiar tekstu"</string>
+    <string name="pref_default_zoom">"Powiększenie domyślne"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item>"Małe"</item>
+    <item>"Średnie"</item>
+    <item>"Duże"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle">"Powiększenie domyślne"</string>
     <string name="pref_extras_title">"Ustawienia zaawansowane"</string>
-    <string name="pref_extras_gears_enable">"Włącz technologię Gears"</string>
+    <string name="pref_extras_gears_enable">"Włącz dodatek Gears"</string>
     <string name="pref_extras_gears_enable_summary">"Aplikacje rozszerzające zakres funkcji przeglądarki"</string>
-    <string name="pref_extras_gears_settings">"Gears – ustawienia"</string>
+    <string name="pref_extras_gears_settings">"Ustawienia dodatku Gears"</string>
     <string name="pref_plugin_installed">"Lista dodatków plug-in"</string>
     <string name="pref_plugin_installed_empty_list">"Brak zainstalowanych dodatków plug-in."</string>
     <string name="pref_extras_gears_settings_summary">"Aplikacje rozszerzające zakres funkcji przeglądarki"</string>
@@ -170,7 +178,7 @@
     <string name="pref_extras_reset_default_dlg">"Wszystkie dane przeglądarki zostaną wyczyszczone, a ustawienia powrócą do wartości domyślnych."</string>
     <string name="pref_extras_reset_default_dlg_title">"Przywróć wartości domyślne"</string>
     <string name="pref_development_title">"Debugowanie"</string>
-    <string name="pref_default_text_encoding">"Ustaw kodowanie tekstu"</string>
+    <string name="pref_default_text_encoding">"Kodowanie tekstu"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
@@ -195,6 +203,8 @@
     <string name="no_database">"Brak bazy danych!"</string>
     <string name="search_hint">"Wpisz adres WWW"</string>
     <string name="search_button_text">"Otwórz"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
     <string name="attention">"Uwaga"</string>
     <string name="popup_window_attempt">"Ta strona próbuje otworzyć okienko wyskakujące."</string>
     <string name="allow">"Zezwól"</string>
@@ -236,20 +246,18 @@
     <string name="download_length_required">"Pobieranie niemożliwe. Nie można ustalić rozmiaru elementu."</string>
     <string name="download_precondition_failed">"Pobieranie zostało przerwane. Nie można go wznowić."</string>
     <string name="activity_instrumentation_test_runner">"Uruchamianie testów przeglądarki"</string>
-    <string name="permlab_readHistoryBookmarks">"odczytywanie historii i zakładek przeglądarki"</string>
-    <string name="permdesc_readHistoryBookmarks">"Zezwala aplikacji na odczytanie wszystkich adresów URL odwiedzonych przy użyciu przeglądarki oraz wszystkich zakładek przeglądarki."</string>
-    <string name="permlab_writeHistoryBookmarks">"zapisać historię i zakładki przeglądarki"</string>
-    <string name="permdesc_writeHistoryBookmarks">"Pozwala aplikacji na zmianę historii lub zakładek przeglądarki zapisanych w telefonie. Szkodliwe aplikacje mogą to wykorzystać, aby usunąć lub zmienić dane przeglądarki."</string>
+    <string name="homepage_base">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="search_the_web">"Szukaj w internecie"</string>
     <string name="query_data_prompt">"Zezwól na zapis"</string>
     <string name="query_data_message">"Ta witryna internetowa chce zapisać informacje w telefonie."</string>
     <string name="location_prompt">"Dostęp do informacji o Twojej lokalizacji"</string>
     <string name="location_message">"Ta witryna internetowa chce uzyskać dostęp do informacji o Twojej lokalizacji."</string>
     <string name="shortcut_prompt">"Utwórz skrót"</string>
     <string name="shortcut_message">"Ta witryna internetowa chce utworzyć skrót do tej strony na Twoim ekranie głównym."</string>
-    <string name="settings_message">"W poniższej tabeli przedstawiono uprawnienia udzielone każdej z witryn próbujących użyć Gears."</string>
+    <string name="settings_message">"W poniższej tabeli przedstawiono uprawnienia udzielone każdej z witryn próbujących użyć dodatku Gears."</string>
     <string name="filepicker_message">"Wybór plików"</string>
     <string name="image_message">"Wybrany obraz"</string>
-    <string name="settings_title">"Gears – ustawienia"</string>
+    <string name="settings_title">"Ustawienia dodatku Gears"</string>
     <string name="privacy_policy">"Przeczytaj zasady zachowania poufności informacji witryny, aby dowiedzieć się, jak będą użyte informacje o twojej lokalizacji."</string>
     <string name="settings_storage_title">"Zezwól na zapis lokalnie"</string>
     <string name="settings_storage_subtitle_on">"Ta witryna może zapisać informacje w telefonie"</string>
