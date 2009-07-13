@@ -25,6 +25,7 @@
     <string name="username">"Nom"</string>
     <string name="password">"Mot de passe"</string>
     <string name="action">"Se connecter"</string>
+    <string name="bookmarks_search">"Navigateur"</string>
     <string name="cancel">"Annuler"</string>
     <string name="ok">"OK"</string>
   <plurals name="matches_found">
@@ -122,7 +123,7 @@
     <string name="pref_content_open_in_background">"Ouvrir en arrière-plan"</string>
     <string name="pref_content_open_in_background_summary">"Les nouvelles fenêtres s\'ouvrent derrière la fenêtre actuelle"</string>
     <string name="pref_content_homepage">"Configurer la page d\'accueil"</string>
-    <string name="pref_content_autofit">"Redimensionner les pages"</string>
+    <string name="pref_content_autofit">"Redimensionner"</string>
     <string name="pref_content_autofit_summary">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
     <string name="pref_privacy_title">"Paramètres de confidentialité"</string>
     <string name="pref_privacy_clear_cache">"Effacer le cache"</string>
@@ -134,22 +135,22 @@
     <string name="pref_privacy_clear_history">"Effacer l\'historique"</string>
     <string name="pref_privacy_clear_history_summary">"Effacer l\'historique du navigateur"</string>
     <string name="pref_privacy_clear_history_dlg">"L\'historique du navigateur sera effacé."</string>
-    <string name="pref_privacy_clear_form_data">"Effacer données formulaire"</string>
+    <string name="pref_privacy_clear_form_data">"Eff. données formulaires"</string>
     <string name="pref_privacy_clear_form_data_summary">"Effacer toutes les données de formulaire enregistrées"</string>
     <string name="pref_privacy_clear_form_data_dlg">"Toutes les données de formulaire enregistrées seront effacées."</string>
     <string name="pref_privacy_clear_passwords">"Effacer les mots de passe"</string>
     <string name="pref_privacy_clear_passwords_summary">"Effacer tous les mots de passe enregistrés"</string>
     <string name="pref_privacy_clear_passwords_dlg">"Tous les mots de passe enregistrés seront effacés."</string>
     <string name="pref_security_title">"Paramètres de sécurité"</string>
-    <string name="pref_security_remember_passwords">"Mémoriser les mots de passe"</string>
+    <string name="pref_security_remember_passwords">"Mém. mots de passe"</string>
     <string name="pref_security_remember_passwords_summary">"Enregistrer les noms d\'utilisateur et les mots de passe pour les sites Web"</string>
-    <string name="pref_security_save_form_data">"Mémoriser données formulaire"</string>
-    <string name="pref_security_save_form_data_summary">"Mémoriser les données saisies dans les formulaires pour les utiliser ultérieurement"</string>
-    <string name="pref_security_show_security_warning">"Avertissements de sécurité"</string>
+    <string name="pref_security_save_form_data">"Mém. données formulaire"</string>
+    <string name="pref_security_save_form_data_summary">"Mémoriser les données saisies dans les formulaires pour les réutiliser"</string>
+    <string name="pref_security_show_security_warning">"Avertiss. de sécurité"</string>
     <string name="pref_security_show_security_warning_summary">"Afficher un avertissement en cas de problème de sécurité d\'un site"</string>
     <string name="pref_security_accept_cookies">"Accepter les cookies"</string>
     <string name="pref_security_accept_cookies_summary">"Autoriser les sites à enregistrer et lire les données des cookies"</string>
-    <string name="pref_text_size">"Définir la taille du texte"</string>
+    <string name="pref_text_size">"Taille de la police"</string>
   <string-array name="pref_text_size_choices">
     <item>"Très petite"</item>
     <item>"Petite"</item>
@@ -158,6 +159,13 @@
     <item>"Très grande"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"Taille de la police"</string>
+    <string name="pref_default_zoom">"Zoom par défaut"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item>"Éloigné"</item>
+    <item>"Moyen"</item>
+    <item>"Proche"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle">"Zoom par défaut"</string>
     <string name="pref_extras_title">"Paramètres avancés"</string>
     <string name="pref_extras_gears_enable">"Activer Gears"</string>
     <string name="pref_extras_gears_enable_summary">"Applications étendant les fonctionnalités du navigateur"</string>
@@ -170,7 +178,7 @@
     <string name="pref_extras_reset_default_dlg">"Toutes les données du navigateur seront effacées et les paramètres par défaut rétablis."</string>
     <string name="pref_extras_reset_default_dlg_title">"Rétablir les valeurs par défaut"</string>
     <string name="pref_development_title">"Débogage"</string>
-    <string name="pref_default_text_encoding">"Définir le codage du texte"</string>
+    <string name="pref_default_text_encoding">"Codage du texte"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
@@ -195,6 +203,8 @@
     <string name="no_database">"Aucune base de données !"</string>
     <string name="search_hint">"Saisir l\'adresse Web"</string>
     <string name="search_button_text">"Aller"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
     <string name="attention">"Attention"</string>
     <string name="popup_window_attempt">"Le site tente d\'ouvrir une fenêtre contextuelle."</string>
     <string name="allow">"Autoriser"</string>
@@ -236,21 +246,19 @@
     <string name="download_length_required">"Téléchargement impossible. La taille de l\'élément n\'a pas pu être déterminée."</string>
     <string name="download_precondition_failed">"Téléchargement interrompu. Impossible de reprendre le téléchargement."</string>
     <string name="activity_instrumentation_test_runner">"Testeur de navigateur"</string>
-    <string name="permlab_readHistoryBookmarks">"Lecture de l\'historique du navigateur et des favoris"</string>
-    <string name="permdesc_readHistoryBookmarks">"Permet à l\'application de lire toutes les URL visitées par le navigateur et tous les favoris."</string>
-    <string name="permlab_writeHistoryBookmarks">"Enregistrement de l\'historique du navigateur et des favoris"</string>
-    <string name="permdesc_writeHistoryBookmarks">"Permet à une application de modifier l\'historique du navigateur ou les favoris enregistrés sur votre téléphone. Des applications malveillantes peuvent utiliser cette fonction pour effacer ou modifier les données de votre navigateur."</string>
+    <string name="homepage_base">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="search_the_web">"Rechercher sur le Web"</string>
     <string name="query_data_prompt">"Autoriser le stockage"</string>
     <string name="query_data_message">"Ce site souhaite enregistrer des informations sur votre téléphone."</string>
-    <string name="location_prompt">"Afficher votre position"</string>
+    <string name="location_prompt">"Afficher ma position"</string>
     <string name="location_message">"Ce site souhaite afficher votre position."</string>
     <string name="shortcut_prompt">"Créer un raccourci"</string>
-    <string name="shortcut_message">"Le site souhaite créer un raccourci vers cette page sur votre page d\'accueil."</string>
+    <string name="shortcut_message">"Le site souhaite créer un raccourci vers cette page sur votre écran d\'accueil."</string>
     <string name="settings_message">"Le tableau ci-dessous indique les fonctions que vous avez autorisées pour chaque site ayant tenté d\'utiliser Google Gears."</string>
     <string name="filepicker_message">"Sélecteur de fichier"</string>
     <string name="image_message">"Image sélectionnée"</string>
     <string name="settings_title">"Paramètres Google Gears"</string>
-    <string name="privacy_policy">"Lisez les règles de confidentialité du site pour voir comment votre emplacement sera utilisé."</string>
+    <string name="privacy_policy">"Lisez les règles de confidentialité du site pour savoir comment les informations sur votre localisation seront utilisées."</string>
     <string name="settings_storage_title">"Autoriser le stockage local"</string>
     <string name="settings_storage_subtitle_on">"Ce site peut enregistrer des informations sur votre téléphone."</string>
     <string name="settings_storage_subtitle_off">"Ce site ne peut enregistrer aucune information sur votre téléphone."</string>
@@ -263,7 +271,7 @@
     <string name="settings_confirmation_remove">"Toutes les autorisations seront effacées et toutes les données enregistrées par le site sur votre téléphone seront supprimées."</string>
     <string name="storage_notification">"Ce site enregistrera des informations sur votre téléphone."\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
     <string name="storage_notification_alwaysdeny">"Ce site n\'enregistrera jamais aucune information sur votre téléphone."\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
-    <string name="location_notification">"Ce site peut afficher votre emplacement actuel. "\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
+    <string name="location_notification">"Ce site peut afficher votre position actuelle. "\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
     <string name="location_notification_alwaysdeny">"Ce site n\'affichera pas votre position actuelle."\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
     <string name="shortcut_notification">"Raccourci créé"</string>
     <string name="permission_button_alwaysdeny">"Ne jamais autoriser"</string>

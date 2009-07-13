@@ -25,6 +25,7 @@
     <string name="username">"Name"</string>
     <string name="password">"Passwort"</string>
     <string name="action">"Anmelden"</string>
+    <string name="bookmarks_search">"Browser"</string>
     <string name="cancel">"Abbrechen"</string>
     <string name="ok">"OK"</string>
   <plurals name="matches_found">
@@ -149,7 +150,7 @@
     <string name="pref_security_show_security_warning_summary">"Bei Problemen mit der Sicherheit der Website Warnung anzeigen"</string>
     <string name="pref_security_accept_cookies">"Cookies akzeptieren"</string>
     <string name="pref_security_accept_cookies_summary">"Speichern und Lesen von \"Cookie\"-Daten zulassen"</string>
-    <string name="pref_text_size">"Textgröße einstellen"</string>
+    <string name="pref_text_size">"Textgröße"</string>
   <string-array name="pref_text_size_choices">
     <item>"Sehr klein"</item>
     <item>"Klein"</item>
@@ -158,6 +159,13 @@
     <item>"Sehr groß"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"Textgröße"</string>
+    <string name="pref_default_zoom">"Standard-Zoom"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item>"Entfernt"</item>
+    <item>"Mittel"</item>
+    <item>"Schließen"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle">"Standard-Zoom"</string>
     <string name="pref_extras_title">"Erweiterte Einstellungen"</string>
     <string name="pref_extras_gears_enable">"Gears aktivieren"</string>
     <string name="pref_extras_gears_enable_summary">"Anwendungen, die die Browserfunktionen erweitern"</string>
@@ -170,7 +178,7 @@
     <string name="pref_extras_reset_default_dlg">"Alle Browserdaten werden gelöscht. Alle Einstellungen werden auf die Standardeinstellung zurückgesetzt."</string>
     <string name="pref_extras_reset_default_dlg_title">"Auf Standardeinstellung zurücksetzen"</string>
     <string name="pref_development_title">"Debuggen"</string>
-    <string name="pref_default_text_encoding">"Textcodierung einstellen"</string>
+    <string name="pref_default_text_encoding">"Textcodierung"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
@@ -195,6 +203,8 @@
     <string name="no_database">"Keine Datenbank!"</string>
     <string name="search_hint">"Webadresse eingeben"</string>
     <string name="search_button_text">"Los"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
     <string name="attention">"Achtung"</string>
     <string name="popup_window_attempt">"Diese Website versucht, ein Pop-up-Fenster zu öffnen."</string>
     <string name="allow">"Zulassen"</string>
@@ -236,10 +246,8 @@
     <string name="download_length_required">"Download kann nicht gestartet werden, da die Größe des Elements nicht bestimmt werden kann."</string>
     <string name="download_precondition_failed">"Download wurde unterbrochen und kann nicht fortgesetzt werden."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="permlab_readHistoryBookmarks">"Browserverlauf und Lesezeichen lesen"</string>
-    <string name="permdesc_readHistoryBookmarks">"Ermöglicht der Anwendung, alle URLs, die mit dem Browser besucht wurden, sowie alle Lesezeichen des Browsers zu lesen."</string>
-    <string name="permlab_writeHistoryBookmarks">"Browserverlauf und Lesezeichen schreiben"</string>
-    <string name="permdesc_writeHistoryBookmarks">"Ermöglicht einer Anwendung, den auf Ihrem Telefon gespeicherten Browserverlauf und die Lesezeichen zu ändern. Schädliche Anwendungen können so Ihre Browserdaten löschen oder ändern."</string>
+    <string name="homepage_base">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="search_the_web">"Web durchsuchen"</string>
     <string name="query_data_prompt">"Speicher zulassen"</string>
     <string name="query_data_message">"Diese Website möchte Informationen auf Ihrem Telefon speichern."</string>
     <string name="location_prompt">"Zugriff auf Ihren Standort"</string>
