@@ -124,9 +124,6 @@
         <activity android:name="BrowserBookmarksPage" android:label="@string/bookmarks"
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
-        <activity android:name="BookmarkGridPage" android:label="@string/bookmarks"
-                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>
-
         <activity android:name="MostVisitedActivity" android:label=""
                 android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>
 

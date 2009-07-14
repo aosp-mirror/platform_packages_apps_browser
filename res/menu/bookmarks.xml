@@ -18,4 +18,6 @@
     <item android:id="@+id/new_context_menu_id"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/bookmark_page" />
+    <item android:id="@+id/switch_mode_menu_id"
+        android:title="@string/switch_mode"/>
 </menu>

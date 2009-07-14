@@ -47,17 +47,7 @@ class AddNewBookmark extends LinearLayout {
         mUrlText = (TextView) findViewById(R.id.url);
         mImageView = (ImageView) findViewById(R.id.favicon);
     }
-    
-    /**
-     *  Copy this BookmarkItem to item.
-     *  @param item BookmarkItem to receive the info from this BookmarkItem.
-     */
-    /* package */ void copyTo(AddNewBookmark item) {
-        item.mTextView.setText(mTextView.getText());
-        item.mUrlText.setText(mUrlText.getText());
-        item.mImageView.setImageDrawable(mImageView.getDrawable());
-    }
-    
+
     /**
      *  Set the new url for the bookmark item.
      *  @param url  The new url for the bookmark item.

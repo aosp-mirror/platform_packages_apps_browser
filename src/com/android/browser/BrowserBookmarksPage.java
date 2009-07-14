@@ -36,6 +36,7 @@ import android.text.IClipboard;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -52,6 +53,9 @@ import android.widget.Toast;
 public class BrowserBookmarksPage extends Activity implements 
         View.OnCreateContextMenuListener {
 
+    private boolean                 mGridMode;
+    private BookmarkGridPage        mGridPage;
+    private View                    mVerticalList;
     private BrowserBookmarksAdapter mBookmarksAdapter;
     private static final int        BOOKMARKS_SAVE = 1;
     private boolean                 mMaxTabsOpen;
@@ -138,25 +142,29 @@ public class BrowserBookmarksPage extends Activity implements
                     ((ViewGroup) mAddHeader.getParent()).
                             removeView(mAddHeader);
                 }
-                ((AddNewBookmark) i.targetView).copyTo(mAddHeader);
+                mAddHeader.setUrl(getIntent().getStringExtra("url"));
                 menu.setHeaderView(mAddHeader);
                 return;
             }
             menu.setGroupVisible(R.id.ADD_MENU, false);
-            BookmarkItem b = (BookmarkItem) i.targetView;
+            if (mMaxTabsOpen) {
+                menu.findItem(R.id.new_window_context_menu_id).setVisible(
+                        false);
+            }
             if (mContextHeader == null) {
                 mContextHeader = new BookmarkItem(BrowserBookmarksPage.this);
             } else if (mContextHeader.getParent() != null) {
                 ((ViewGroup) mContextHeader.getParent()).
                         removeView(mContextHeader);
             }
-            b.copyTo(mContextHeader);
-            menu.setHeaderView(mContextHeader);
-
-            if (mMaxTabsOpen) {
-                menu.findItem(R.id.new_window_context_menu_id).setVisible(
-                        false);
+            if (mGridMode) {
+                mBookmarksAdapter.populateBookmarkItem(mContextHeader,
+                        i.position);
+            } else {
+                BookmarkItem b = (BookmarkItem) i.targetView;
+                b.copyTo(mContextHeader);
             }
+            menu.setHeaderView(mContextHeader);
         }
 
     /**
@@ -166,25 +174,52 @@ public class BrowserBookmarksPage extends Activity implements
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        setContentView(R.layout.browser_bookmarks_page);
-        setTitle(R.string.browser_bookmarks_page_bookmarks_text);
-
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             mCreateShortcut = true;
         }
-
-        mBookmarksAdapter = new BrowserBookmarksAdapter(this, 
-                getIntent().getStringExtra("url"), mCreateShortcut);
         mMaxTabsOpen = getIntent().getBooleanExtra("maxTabsOpen", false);
 
-        ListView listView = (ListView) findViewById(R.id.list);
-        listView.setAdapter(mBookmarksAdapter);
-        listView.setDrawSelectorOnTop(false);
-        listView.setVerticalScrollBarEnabled(true);
-        listView.setOnItemClickListener(mListener);
+        setTitle(R.string.browser_bookmarks_page_bookmarks_text);
+        mBookmarksAdapter = new BrowserBookmarksAdapter(this,
+                        getIntent().getStringExtra("url"), mCreateShortcut);
+        mGridMode = true;
+        switchViewMode(mGridMode);
+    }
 
-        if (!mCreateShortcut) {
-            listView.setOnCreateContextMenuListener(this);
+    /**
+     *  Set the ContentView to be either the grid of thumbnails or the vertical
+     *  list.  Pass true to set it to the grid.
+     */
+    private void switchViewMode(boolean gridMode) {
+        mGridMode = gridMode;
+        mBookmarksAdapter.switchViewMode(gridMode);
+        if (mGridMode) {
+            if (mGridPage == null) {
+                mGridPage = new BookmarkGridPage(this, mBookmarksAdapter);
+                mGridPage.setOnItemClickListener(mListener);
+                if (!mCreateShortcut) {
+                    mGridPage.setOnCreateContextMenuListener(this);
+                }
+            }
+            setContentView(mGridPage);
+        } else {
+            if (null == mVerticalList) {
+                LayoutInflater factory = LayoutInflater.from(this);
+                mVerticalList = factory.inflate(R.layout.browser_bookmarks_page,
+                        null);
+
+                ListView listView
+                        = (ListView) mVerticalList.findViewById(R.id.list);
+                listView.setAdapter(mBookmarksAdapter);
+                listView.setDrawSelectorOnTop(false);
+                listView.setVerticalScrollBarEnabled(true);
+                listView.setOnItemClickListener(mListener);
+
+                if (!mCreateShortcut) {
+                    listView.setOnCreateContextMenuListener(this);
+                }
+            }
+            setContentView(mVerticalList);
         }
     }
 
@@ -203,7 +238,7 @@ public class BrowserBookmarksPage extends Activity implements
             // It is possible that the view has been canceled when we get to
             // this point as back has a higher priority 
             if (mCanceled) {
-                android.util.Log.e("browser", "item clicked when dismising");
+                android.util.Log.e(LOGTAG, "item clicked when dismissing");
                 return;
             }
             if (!mCreateShortcut) {
@@ -301,12 +336,16 @@ public class BrowserBookmarksPage extends Activity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.new_context_menu_id:
-                saveCurrentPage();
-                break;
-                
-            default:
-                return super.onOptionsItemSelected(item);
+        case R.id.new_context_menu_id:
+            saveCurrentPage();
+            break;
+
+        case R.id.switch_mode_menu_id:
+            switchViewMode(!mGridMode);
+            break;
+
+        default:
+            return super.onOptionsItemSelected(item);
         }
         return true;
     }
@@ -377,7 +416,7 @@ public class BrowserBookmarksPage extends Activity implements
     /**
      *  Refresh the shown list after the database has changed.
      */
-    public void refreshList() {
+    private void refreshList() {
         mBookmarksAdapter.refreshList();
     }
     

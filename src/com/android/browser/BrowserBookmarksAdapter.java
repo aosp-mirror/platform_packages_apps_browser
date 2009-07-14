@@ -30,11 +30,14 @@ import android.os.Handler;
 import android.provider.Browser;
 import android.provider.Browser.BookmarkColumns;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 
@@ -43,14 +46,13 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     private String                  mCurrentPage;
     private Cursor                  mCursor;
     private int                     mCount;
-    private String                  mLastWhereClause;
-    private String[]                mLastSelectionArgs;
-    private String                  mLastOrderBy;
     private BrowserBookmarksPage    mBookmarksPage;
     private ContentResolver         mContentResolver;
-    private ChangeObserver          mChangeObserver;
-    private DataSetObserver         mDataSetObserver;
     private boolean                 mDataValid;
+
+    // The following variables are used for the grid mode
+    private boolean                 mGridMode;
+    private int                     mThumbHeight;
 
     // When true, this adapter is used to pick a bookmark to create a shortcut
     private boolean mCreateShortcut;
@@ -91,11 +93,21 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         mCurrentPage = b.getResources().getString(R.string.current_page) + 
                 curPage;
         mContentResolver = b.getContentResolver();
-        mLastOrderBy = Browser.BookmarkColumns.CREATED + " DESC";
-        mChangeObserver = new ChangeObserver();
-        mDataSetObserver = new MyDataSetObserver();
+        mGridMode = false;
+
         // FIXME: Should have a default sort order that the user selects.
-        search(null);
+        String whereClause = Browser.BookmarkColumns.BOOKMARK + " != 0";
+        String orderBy = Browser.BookmarkColumns.VISITS + " DESC";
+        mCursor = b.managedQuery(Browser.BOOKMARKS_URI,
+                Browser.HISTORY_PROJECTION, whereClause, null, orderBy);
+        mCursor.registerContentObserver(new ChangeObserver());
+        mCursor.registerDataSetObserver(new MyDataSetObserver());
+
+        mDataValid = true;
+        notifyDataSetChanged();
+
+        mCount = mCursor.getCount() + mExtraOffset;
+
         // FIXME: This requires another query of the database after the
         // initial search(null). Can we optimize this?
         Browser.requestAllIcons(mContentResolver,
@@ -240,52 +252,9 @@ class BrowserBookmarksAdapter extends BaseAdapter {
      *  Refresh list to recognize a change in the database.
      */
     public void refreshList() {
-        // FIXME: consider using requery().
-        // Need to do more work to get it to function though.
-        searchInternal(mLastWhereClause, mLastSelectionArgs, mLastOrderBy);
-    }
-
-    /**
-     *  Search the database for bookmarks that match the input string.
-     *  @param like String to use to search the database.  Strings with spaces 
-     *              are treated as having multiple search terms using the
-     *              OR operator.  Search both the title and url.
-     */
-    public void search(String like) {
-        String whereClause = Browser.BookmarkColumns.BOOKMARK + " == 1";
-        String[] selectionArgs = null;
-        if (like != null) {
-            String[] likes = like.split(" ");
-            int count = 0;
-            boolean firstTerm = true;
-            StringBuilder andClause = new StringBuilder(256);
-            for (int j = 0; j < likes.length; j++) {
-                if (likes[j].length() > 0) {
-                    if (firstTerm) {
-                        firstTerm = false;
-                    } else {
-                        andClause.append(" OR ");
-                    }
-                    andClause.append(Browser.BookmarkColumns.TITLE
-                            + " LIKE ? OR " + Browser.BookmarkColumns.URL
-                            + " LIKE ? ");
-                    count += 2;
-                }
-            }
-            if (count > 0) {
-                selectionArgs = new String[count];
-                count = 0;
-                for (int j = 0; j < likes.length; j++) {
-                    if (likes[j].length() > 0) {
-                        like = "%" + likes[j] + "%";
-                        selectionArgs[count++] = like;
-                        selectionArgs[count++] = like;
-                    }
-                }
-                whereClause += " AND (" + andClause + ")";
-            }
-        }
-        searchInternal(whereClause, selectionArgs, mLastOrderBy);
+        mCursor.requery();
+        mCount = mCursor.getCount() + mExtraOffset;
+        notifyDataSetChanged();
     }
 
     /**
@@ -335,46 +304,6 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     }
 
     /**
-     *  This sorts alphabetically, with non-capitalized titles before 
-     *  capitalized.
-     */
-    public void sortAlphabetical() {
-        searchInternal(mLastWhereClause, mLastSelectionArgs,
-                Browser.BookmarkColumns.TITLE + " COLLATE UNICODE ASC");
-    }
-
-    /**
-     *  Internal function used in search, sort, and refreshList.
-     */
-    private void searchInternal(String whereClause, String[] selectionArgs,
-            String orderBy) {
-        if (mCursor != null) {
-            mCursor.unregisterContentObserver(mChangeObserver);
-            mCursor.unregisterDataSetObserver(mDataSetObserver);
-            mBookmarksPage.stopManagingCursor(mCursor);
-            mCursor.deactivate();
-        }
-
-        mLastWhereClause = whereClause;
-        mLastSelectionArgs = selectionArgs;
-        mLastOrderBy = orderBy;
-        mCursor = mContentResolver.query(
-            Browser.BOOKMARKS_URI,
-            Browser.HISTORY_PROJECTION,
-            whereClause,
-            selectionArgs, 
-            orderBy);
-        mCursor.registerContentObserver(mChangeObserver);
-        mCursor.registerDataSetObserver(mDataSetObserver);
-        mBookmarksPage.startManagingCursor(mCursor);
-
-        mDataValid = true;
-        notifyDataSetChanged();
-
-        mCount = mCursor.getCount() + mExtraOffset;
-    }
-
-    /**
      * How many items should be displayed in the list.
      * @return Count of items.
      */
@@ -412,6 +341,24 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         return position;
     }
 
+    /* package */ void heightChanged(int newHeight) {
+        mThumbHeight = newHeight;
+    }
+
+    /* package */ void switchViewMode(boolean toGrid) {
+        mGridMode = toGrid;
+    }
+
+    /* package */ void populateBookmarkItem(BookmarkItem b, int position) {
+        mCursor.moveToPosition(position - mExtraOffset);
+        b.setUrl(mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX));
+        b.setName(mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX));
+        byte[] data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
+        Bitmap bitmap = (null == data) ? null :
+                BitmapFactory.decodeByteArray(data, 0, data.length);
+        b.setFavicon(bitmap);
+    }
+
     /**
      * Get a View that displays the data at the specified position
      * in the list.
@@ -427,6 +374,57 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             throw new AssertionError(
                     "BrowserBookmarksAdapter tried to get a view out of range");
         }
+        if (mGridMode) {
+            if (convertView == null || convertView instanceof AddNewBookmark
+                    || convertView instanceof BookmarkItem) {
+                LayoutInflater factory = LayoutInflater.from(mBookmarksPage);
+                convertView
+                        = factory.inflate(R.layout.bookmark_thumbnail, null);
+            }
+            ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
+            // Favicon disabled for now.
+            //ImageView fav = (ImageView) convertView.findViewById(R.id.fav);
+            TextView tv = (TextView) convertView.findViewById(R.id.label);
+
+            ViewGroup.LayoutParams lp = thumb.getLayoutParams();
+            if (lp.height != mThumbHeight) {
+                lp.height = mThumbHeight;
+                thumb.requestLayout();
+            }
+
+            if (0 == position && !mCreateShortcut) {
+                // This is to create a bookmark for the current page.
+                tv.setText(R.string.add_new_bookmark);
+                thumb.setImageResource(
+                        R.drawable.ic_tab_browser_bookmark_selected);
+                return convertView;
+            }
+            mCursor.moveToPosition(position - mExtraOffset);
+            tv.setText(mCursor.getString(
+                    Browser.HISTORY_PROJECTION_TITLE_INDEX));
+            byte[] data = mCursor.getBlob(
+                    Browser.HISTORY_PROJECTION_THUMBNAIL_INDEX);
+            if (data == null) {
+                // Backup is to just show white
+                thumb.setImageResource(R.drawable.blank);
+            } else {
+                thumb.setImageBitmap(
+                        BitmapFactory.decodeByteArray(data, 0, data.length));
+            }
+/*
+            // Now show the favicon
+            data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
+            if (data == null) {
+                fav.setVisibility(View.GONE);
+            } else {
+                fav.setVisibility(View.VISIBLE);
+                fav.setImageBitmap(
+                        BitmapFactory.decodeByteArray(data, 0, data.length));
+            }
+*/
+            return convertView;
+
+        }
         if (position == 0 && !mCreateShortcut) {
             AddNewBookmark b;
             if (convertView instanceof AddNewBookmark) {
@@ -437,7 +435,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             b.setUrl(mCurrentPage);
             return b;
         }
-        if (convertView == null || convertView instanceof AddNewBookmark) {
+        if (convertView == null || !(convertView instanceof BookmarkItem)) {
             convertView = new BookmarkItem(mBookmarksPage);
         }
         bind((BookmarkItem)convertView, position);

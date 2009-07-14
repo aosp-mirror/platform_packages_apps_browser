@@ -16,266 +16,32 @@
 
 package com.android.browser;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.ContentObserver;
-import android.database.DataSetObserver;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Browser;
-import android.provider.Browser.BookmarkColumns;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class BookmarkGridPage extends Activity {
-    private final static int SPACING = 10;
-    private static final int BOOKMARKS_SAVE = 1;
-    private BookmarkGrid mGridView;
-    private BookmarkGridAdapter mAdapter;
+public class BookmarkGridPage extends GridView {
+    private final static int            SPACING = 10;
+    private BrowserBookmarksAdapter     mAdapter;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mGridView = new BookmarkGrid(this);
-        mGridView.setNumColumns(3);
-        mAdapter = new BookmarkGridAdapter(this);
-        mGridView.setAdapter(mAdapter);
-        mGridView.setFocusable(true);
-        mGridView.setFocusableInTouchMode(true);
-        mGridView.setSelector(android.R.drawable.gallery_thumb);
-        mGridView.setVerticalSpacing(SPACING);
-        mGridView.setHorizontalSpacing(SPACING);
-        setContentView(mGridView);
-        mGridView.requestFocus();
+    public BookmarkGridPage(Context context, BrowserBookmarksAdapter adapter) {
+        super(context);
+        setNumColumns(3);
+        mAdapter = adapter;
+        setAdapter(mAdapter);
+        setFocusable(true);
+        setFocusableInTouchMode(true);
+        setSelector(android.R.drawable.gallery_thumb);
+        setVerticalSpacing(SPACING);
+        setHorizontalSpacing(SPACING);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
-        switch(requestCode) {
-            case BOOKMARKS_SAVE:
-                if (resultCode == RESULT_OK) {
-                    mAdapter.refreshData();
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    private class BookmarkGrid extends GridView {
-        public BookmarkGrid(Context context) {
-            super(context);
-        }
-        @Override
-        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-            int thumbHeight = (h - 2 * (SPACING + getListPaddingTop()
-                    + getListPaddingBottom())) / 3;
-            mAdapter.heightChanged(thumbHeight);
-            super.onSizeChanged(w, h, oldw, oldh);
-        }
-    }
-
-    private class BookmarkGridAdapter implements ListAdapter {
-        private ArrayList<DataSetObserver> mDataObservers;
-        private Context mContext;  // Context to use to inflate views
-        private Cursor  mCursor;
-        private int mThumbHeight;
-
-        public BookmarkGridAdapter(Context context) {
-            mContext = context;
-            mDataObservers = new ArrayList<DataSetObserver>();
-            String whereClause = Browser.BookmarkColumns.BOOKMARK + " != 0";
-            String orderBy = Browser.BookmarkColumns.VISITS + " DESC";
-            mCursor = managedQuery(Browser.BOOKMARKS_URI,
-                    Browser.HISTORY_PROJECTION, whereClause, null, orderBy);
-            mCursor.registerContentObserver(new ChangeObserver());
-            mGridView.setOnItemClickListener(
-                    new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView parent, View v,
-                        int position, long id) {
-                    if (0 == position) {
-                        // Launch the add bookmark activity
-                        Intent i = new Intent(BookmarkGridPage.this,
-                                AddBookmarkPage.class);
-                        i.putExtras(getIntent());
-                        startActivityForResult(i, BOOKMARKS_SAVE);
-                        return;
-                    }
-                    position--;
-                    mCursor.moveToPosition(position);
-                    String url = mCursor.getString(
-                            Browser.HISTORY_PROJECTION_URL_INDEX);
-                    Intent intent = (new Intent()).setAction(url);
-                    getParent().setResult(RESULT_OK, intent);
-                    finish();
-                }});
-        }
-
-        void heightChanged(int newHeight) {
-            mThumbHeight = newHeight;
-        }
-
-        private class ChangeObserver extends ContentObserver {
-            public ChangeObserver() {
-                super(new Handler());
-            }
-
-            @Override
-            public boolean deliverSelfNotifications() {
-                return true;
-            }
-
-            @Override
-            public void onChange(boolean selfChange) {
-                BookmarkGridAdapter.this.refreshData();
-            }
-        }
-
-        void refreshData() {
-            mCursor.requery();
-            for (DataSetObserver o : mDataObservers) {
-                o.onChanged();
-            }
-        }
-
-        /* (non-Javadoc)
-         * @see android.widget.ListAdapter#areAllItemsSelectable()
-         */
-        public boolean areAllItemsEnabled() {
-            return true;
-        }
-
-        /* (non-Javadoc)
-         * @see android.widget.ListAdapter#isSelectable(int)
-         */
-        public boolean isEnabled(int position) {
-            if (position >= 0 && position < mCursor.getCount()) {
-                return true;
-            }
-            return false;
-        }
-
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#getCount()
-         */
-        public int getCount() {
-            return mCursor.getCount();
-        }
-
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#getItem(int)
-         */
-        public Object getItem(int position) {
-            return null;
-        }
-
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#getItemId(int)
-         */
-        public long getItemId(int position) {
-            return position;
-        }
-
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
-         */
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View v = null;
-            if (convertView != null) {
-                v = convertView;
-            } else {
-                LayoutInflater factory = LayoutInflater.from(mContext);
-                v = factory.inflate(R.layout.bookmark_thumbnail, null);
-            }
-            ImageView thumb = (ImageView) v.findViewById(R.id.thumb);
-            // Favicon disabled for now.
-            //ImageView fav = (ImageView) v.findViewById(R.id.fav);
-            TextView tv = (TextView) v.findViewById(R.id.label);
-
-            ViewGroup.LayoutParams lp = thumb.getLayoutParams();
-            if (lp.height != mThumbHeight) {
-                lp.height = mThumbHeight;
-                thumb.requestLayout();
-            }
-
-            if (0 == position) {
-                // This is to create a bookmark for the current page.
-                tv.setText(R.string.add_new_bookmark);
-                thumb.setImageResource(
-                        R.drawable.ic_tab_browser_bookmark_selected);
-                return v;
-            }
-            position--;
-            mCursor.moveToPosition(position);
-            tv.setText(mCursor.getString(
-                    Browser.HISTORY_PROJECTION_TITLE_INDEX));
-            byte[] data = mCursor.getBlob(
-                    Browser.HISTORY_PROJECTION_THUMBNAIL_INDEX);
-            if (data == null) {
-                // Backup is to just show white
-                thumb.setImageResource(R.drawable.blank);
-            } else {
-                thumb.setImageBitmap(
-                        BitmapFactory.decodeByteArray(data, 0, data.length));
-            }
-/*
-            // Now show the favicon
-            data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
-            if (data == null) {
-                fav.setVisibility(View.GONE);
-            } else {
-                fav.setVisibility(View.VISIBLE);
-                fav.setImageBitmap(
-                        BitmapFactory.decodeByteArray(data, 0, data.length));
-            }
-*/
-            return v;
-        }
-
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#registerDataSetObserver(android.database.DataSetObserver)
-         */
-        public void registerDataSetObserver(DataSetObserver observer) {
-            mDataObservers.add(observer);
-        }
-
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#hasStableIds()
-         */
-        public boolean hasStableIds() {
-            return true;
-        }
-
-        /* (non-Javadoc)
-         * @see android.widget.Adapter#unregisterDataSetObserver(android.database.DataSetObserver)
-         */
-        public void unregisterDataSetObserver(DataSetObserver observer) {
-            mDataObservers.remove(observer);
-        }
-
-        public int getItemViewType(int position) {
-            return 0;
-        }
-
-        public int getViewTypeCount() {
-            return 1;
-        }
-
-        public boolean isEmpty() {
-            return getCount() == 0;
-        }
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        int thumbHeight = (h - 2 * (SPACING + getListPaddingTop()
+                + getListPaddingBottom())) / 3;
+        mAdapter.heightChanged(thumbHeight);
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 }
