@@ -1066,6 +1066,11 @@ class TabControl {
         data.mScale = w.getScale();
         data.mScrollX = w.getScrollX();
         data.mScrollY = w.getScrollY();
+
+        // Remember the old picture if possible.
+        if (t.mPickerData != null) {
+            data.mPicture = t.mPickerData.mPicture;
+        }
         t.mPickerData = data;
     }
     

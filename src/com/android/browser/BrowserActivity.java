@@ -4514,7 +4514,17 @@ public class BrowserActivity extends Activity
                     String data = intent.getAction();
                     Bundle extras = intent.getExtras();
                     if (extras != null && extras.getBoolean("new_window", false)) {
-                        openTab(data);
+                        final TabControl.Tab newTab = openTab(data);
+                        if (mSettings.openInBackground() &&
+                                newTab != null && mTabOverview != null) {
+                            mTabControl.populatePickerData(newTab);
+                            mTabControl.setCurrentTab(newTab);
+                            mTabOverview.add(newTab);
+                            mTabOverview.setCurrentIndex(
+                                    mTabControl.getCurrentIndex());
+                            sendAnimateFromOverview(newTab, false,
+                                    EMPTY_URL_DATA, TAB_OVERVIEW_DELAY, null);
+                        }
                     } else {
                         final TabControl.Tab currentTab =
                                 mTabControl.getCurrentTab();
