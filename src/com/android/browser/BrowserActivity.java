@@ -1195,8 +1195,10 @@ public class BrowserActivity extends Activity
         super.onDestroy();
         // Remove the current tab and sub window
         TabControl.Tab t = mTabControl.getCurrentTab();
-        dismissSubWindow(t);
-        removeTabFromContentView(t);
+        if (t != null) {
+            dismissSubWindow(t);
+            removeTabFromContentView(t);
+        }
         // Destroy all the tabs
         mTabControl.destroy();
         WebIconDatabase.getInstance().close();
