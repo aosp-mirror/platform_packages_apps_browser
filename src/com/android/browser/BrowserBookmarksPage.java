@@ -44,6 +44,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -54,7 +55,7 @@ public class BrowserBookmarksPage extends Activity implements
         View.OnCreateContextMenuListener {
 
     private boolean                 mGridMode;
-    private BookmarkGridPage        mGridPage;
+    private GridView                mGridPage;
     private View                    mVerticalList;
     private BrowserBookmarksAdapter mBookmarksAdapter;
     private static final int        BOOKMARKS_SAVE = 1;
@@ -181,9 +182,9 @@ public class BrowserBookmarksPage extends Activity implements
 
         setTitle(R.string.browser_bookmarks_page_bookmarks_text);
         mBookmarksAdapter = new BrowserBookmarksAdapter(this,
-                        getIntent().getStringExtra("url"), mCreateShortcut);
-        mGridMode = true;
-        switchViewMode(mGridMode);
+                        getIntent().getStringExtra("url"),
+                        getIntent().getStringExtra("title"), mCreateShortcut);
+        switchViewMode(true);
     }
 
     /**
@@ -195,8 +196,17 @@ public class BrowserBookmarksPage extends Activity implements
         mBookmarksAdapter.switchViewMode(gridMode);
         if (mGridMode) {
             if (mGridPage == null) {
-                mGridPage = new BookmarkGridPage(this, mBookmarksAdapter);
+                mGridPage = new GridView(this);
+                mGridPage.setAdapter(mBookmarksAdapter);
                 mGridPage.setOnItemClickListener(mListener);
+                mGridPage.setNumColumns(GridView.AUTO_FIT);
+                // Keep this in sync with bookmark_thumb and
+                // BrowserActivity.updateScreenshot
+                mGridPage.setColumnWidth(100);
+                mGridPage.setFocusable(true);
+                mGridPage.setFocusableInTouchMode(true);
+                mGridPage.setSelector(android.R.drawable.gallery_thumb);
+                mGridPage.setVerticalSpacing(10);
                 if (!mCreateShortcut) {
                     mGridPage.setOnCreateContextMenuListener(this);
                 }

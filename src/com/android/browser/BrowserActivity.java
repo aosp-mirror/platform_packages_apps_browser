@@ -2878,6 +2878,58 @@ public class BrowserActivity extends Activity
         }
     };
 
+    private void updateScreenshot(WebView view) {
+        // If this is a bookmarked site, add a screenshot to the database.
+        // FIXME: When should we update?  Every time?
+        // FIXME: Would like to make sure there is actually something to
+        // draw, but the API for that (WebViewCore.pictureReady()) is not
+        // currently accessible here.
+        String original = view.getOriginalUrl();
+        if (original != null) {
+            // copied from BrowserBookmarksAdapter
+            int query = original.indexOf('?');
+            String noQuery = original;
+            if (query != -1) {
+                noQuery = original.substring(0, query);
+            }
+            String URL = noQuery + '?';
+            String[] selArgs = new String[] { noQuery, URL };
+            final String where
+                    = "(url == ? OR url GLOB ? || '*') AND bookmark == 1";
+            final String[] projection
+                    = new String[] { Browser.BookmarkColumns._ID };
+            ContentResolver cr = getContentResolver();
+            final Cursor c = cr.query(Browser.BOOKMARKS_URI, projection,
+                    where, selArgs, null);
+            boolean succeed = c.moveToFirst();
+            ContentValues values = null;
+            while (succeed) {
+                if (values == null) {
+                    final ByteArrayOutputStream os
+                            = new ByteArrayOutputStream();
+                    Picture thumbnail = view.capturePicture();
+                    // Keep width and height in sync with BrowserBookmarksPage
+                    // and bookmark_thumb
+                    Bitmap bm = Bitmap.createBitmap(100, 80,
+                            Bitmap.Config.ARGB_4444);
+                    Canvas canvas = new Canvas(bm);
+                    // May need to tweak these values to determine what is the
+                    // best scale factor
+                    canvas.scale(.5f, .5f);
+                    thumbnail.draw(canvas);
+                    bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+                    values = new ContentValues();
+                    values.put(Browser.BookmarkColumns.THUMBNAIL,
+                            os.toByteArray());
+                }
+                cr.update(ContentUris.withAppendedId(Browser.BOOKMARKS_URI,
+                        c.getInt(0)), values, null, null);
+                succeed = c.moveToNext();
+            }
+            c.close();
+        }
+    }
+
     // -------------------------------------------------------------------------
     // WebViewClient implementation.
     //-------------------------------------------------------------------------
@@ -2989,48 +3041,7 @@ public class BrowserActivity extends Activity
 
             // Update the lock icon image only once we are done loading
             updateLockIconImage(mLockIconType);
-
-            // If this is a bookmarked site, add a screenshot to the database.
-            // FIXME: When should we update?  Every time?
-            String original = view.getOriginalUrl();
-            if (original != null) {
-                // copied from BrowserBookmarksAdapter
-                int query = original.indexOf('?');
-                String noQuery = original;
-                if (query != -1) {
-                    noQuery = original.substring(0, query);
-                }
-                String URL = noQuery + '?';
-                String[] selArgs = new String[] { noQuery, URL };
-                final String where = "(url == ? OR url GLOB ? || '*') AND bookmark == 1";
-                final String[] projection = new String[] { Browser.BookmarkColumns._ID };
-                ContentResolver cr = getContentResolver();
-                final Cursor c = cr.query(Browser.BOOKMARKS_URI, projection, where, selArgs, null);
-                boolean succeed = c.moveToFirst();
-                ContentValues values = null;
-                while (succeed) {
-                    if (values == null) {
-                        final ByteArrayOutputStream os = new ByteArrayOutputStream();
-                        Picture thumbnail = view.capturePicture();
-                        // Height was arbitrarily chosen
-                        Bitmap bm = Bitmap.createBitmap(100, 100,
-                                Bitmap.Config.ARGB_4444);
-                        Canvas canvas = new Canvas(bm);
-                        // Scale chosen to be about one third, since we want
-                        // roughly three rows/columns for bookmark page
-                        canvas.scale(.3f, .3f);
-                        thumbnail.draw(canvas);
-                        bm.compress(Bitmap.CompressFormat.PNG, 100, os);
-                        values = new ContentValues();
-                        values.put(Browser.BookmarkColumns.THUMBNAIL,
-                                os.toByteArray());
-                    }
-                    cr.update(ContentUris.withAppendedId(Browser.BOOKMARKS_URI,
-                            c.getInt(0)), values, null, null);
-                    succeed = c.moveToNext();
-                }
-                c.close();
-            }
+            updateScreenshot(view);
 
             // Performance probe
             if (false) {
