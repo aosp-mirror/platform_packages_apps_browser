@@ -44,15 +44,13 @@ import java.io.ByteArrayOutputStream;
 class BrowserBookmarksAdapter extends BaseAdapter {
 
     private String                  mCurrentPage;
+    private String                  mCurrentTitle;
     private Cursor                  mCursor;
     private int                     mCount;
     private BrowserBookmarksPage    mBookmarksPage;
     private ContentResolver         mContentResolver;
     private boolean                 mDataValid;
-
-    // The following variables are used for the grid mode
     private boolean                 mGridMode;
-    private int                     mThumbHeight;
 
     // When true, this adapter is used to pick a bookmark to create a shortcut
     private boolean mCreateShortcut;
@@ -70,28 +68,19 @@ class BrowserBookmarksAdapter extends BaseAdapter {
 
     /**
      *  Create a new BrowserBookmarksAdapter.
-     *  @param b        BrowserBookmarksPage that instantiated this.  
-     *                  Necessary so it will adjust its focus
-     *                  appropriately after a search.
-     */
-    public BrowserBookmarksAdapter(BrowserBookmarksPage b, String curPage) {
-        this(b, curPage, false);
-    }
-
-    /**
-     *  Create a new BrowserBookmarksAdapter.
      *  @param b        BrowserBookmarksPage that instantiated this.
      *                  Necessary so it will adjust its focus
      *                  appropriately after a search.
      */
     public BrowserBookmarksAdapter(BrowserBookmarksPage b, String curPage,
-            boolean createShortcut) {
+            String curTitle, boolean createShortcut) {
         mDataValid = false;
         mCreateShortcut = createShortcut;
         mExtraOffset = createShortcut ? 0 : 1;
         mBookmarksPage = b;
-        mCurrentPage = b.getResources().getString(R.string.current_page) + 
-                curPage;
+        mCurrentPage = b.getResources().getString(R.string.current_page)
+                + curPage;
+        mCurrentTitle = curTitle;
         mContentResolver = b.getContentResolver();
         mGridMode = false;
 
@@ -109,7 +98,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         mCount = mCursor.getCount() + mExtraOffset;
 
         // FIXME: This requires another query of the database after the
-        // initial search(null). Can we optimize this?
+        // managedQuery. Can we optimize this?
         Browser.requestAllIcons(mContentResolver,
                 Browser.BookmarkColumns.FAVICON + " is NULL AND " +
                 Browser.BookmarkColumns.BOOKMARK + " == 1", mIconReceiver);
@@ -341,10 +330,6 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         return position;
     }
 
-    /* package */ void heightChanged(int newHeight) {
-        mThumbHeight = newHeight;
-    }
-
     /* package */ void switchViewMode(boolean toGrid) {
         mGridMode = toGrid;
     }
@@ -381,24 +366,21 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                 convertView
                         = factory.inflate(R.layout.bookmark_thumbnail, null);
             }
+            View holder = convertView.findViewById(R.id.holder);
             ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
-            // Favicon disabled for now.
-            //ImageView fav = (ImageView) convertView.findViewById(R.id.fav);
+            ImageView fav = (ImageView) convertView.findViewById(R.id.fav);
             TextView tv = (TextView) convertView.findViewById(R.id.label);
-
-            ViewGroup.LayoutParams lp = thumb.getLayoutParams();
-            if (lp.height != mThumbHeight) {
-                lp.height = mThumbHeight;
-                thumb.requestLayout();
-            }
 
             if (0 == position && !mCreateShortcut) {
                 // This is to create a bookmark for the current page.
-                tv.setText(R.string.add_new_bookmark);
-                thumb.setImageResource(
-                        R.drawable.ic_tab_browser_bookmark_selected);
+                holder.setVisibility(View.VISIBLE);
+                fav.setVisibility(View.GONE);
+                tv.setText(mCurrentTitle);
+                // FIXME: Want to show the screenshot of the current page
+                thumb.setImageResource(R.drawable.blank);
                 return convertView;
             }
+            holder.setVisibility(View.GONE);
             mCursor.moveToPosition(position - mExtraOffset);
             tv.setText(mCursor.getString(
                     Browser.HISTORY_PROJECTION_TITLE_INDEX));
@@ -411,7 +393,6 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                 thumb.setImageBitmap(
                         BitmapFactory.decodeByteArray(data, 0, data.length));
             }
-/*
             // Now show the favicon
             data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
             if (data == null) {
@@ -421,7 +402,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                 fav.setImageBitmap(
                         BitmapFactory.decodeByteArray(data, 0, data.length));
             }
-*/
+
             return convertView;
 
         }
