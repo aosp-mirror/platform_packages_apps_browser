@@ -891,7 +891,7 @@ public class BrowserActivity extends Activity
                     (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
                 final String appId =
                         intent.getStringExtra(Browser.EXTRA_APPLICATION_ID);
-                final TabControl.Tab appTab = mTabControl.getTabFromId(appId);
+                TabControl.Tab appTab = mTabControl.getTabFromId(appId);
                 if (appTab != null) {
                     Log.i(LOGTAG, "Reusing tab for " + appId);
                     // Dismiss the subwindow if applicable.
@@ -922,12 +922,32 @@ public class BrowserActivity extends Activity
                         }
                     }
                     return;
+                } else {
+                    // No matching application tab, try to find a regular tab
+                    // with a matching url.
+                    appTab = mTabControl.findUnusedTabWithUrl(urlData.mUrl);
+                    if (appTab != null) {
+                        if (current != appTab) {
+                            // Use EMPTY_URL_DATA so we do not reload the page
+                            showTab(appTab, EMPTY_URL_DATA);
+                        } else {
+                            if (mTabOverview != null && mAnimationCount == 0) {
+                                sendAnimateFromOverview(appTab, false,
+                                        EMPTY_URL_DATA, TAB_OVERVIEW_DELAY,
+                                        null);
+                            }
+                            // Don't do anything here since we are on the
+                            // correct page.
+                        }
+                    } else {
+                        // if FLAG_ACTIVITY_BROUGHT_TO_FRONT flag is on, the url
+                        // will be opened in a new tab unless we have reached
+                        // MAX_TABS. Then the url will be opened in the current
+                        // tab. If a new tab is created, it will have "true" for
+                        // exit on close.
+                        openTabAndShow(urlData, null, true, appId);
+                    }
                 }
-                // if FLAG_ACTIVITY_BROUGHT_TO_FRONT flag is on, the url will be
-                // opened in a new tab unless we have reached MAX_TABS. Then the
-                // url will be opened in the current tab. If a new tab is
-                // created, it will have "true" for exit on close.
-                openTabAndShow(urlData, null, true, appId);
             } else {
                 if ("about:debug".equals(urlData.mUrl)) {
                     mSettings.toggleDebugSettings();

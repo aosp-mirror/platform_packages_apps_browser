@@ -804,6 +804,45 @@ class TabControl {
         return null;
     }
 
+    // This method checks if a non-app tab (one created within the browser)
+    // matches the given url.
+    private boolean tabMatchesUrl(Tab t, String url) {
+        if (t.mAppId != null) {
+            return false;
+        } else if (t.mMainView == null) {
+            return false;
+        } else if (url.equals(t.mMainView.getUrl()) ||
+                url.equals(t.mMainView.getOriginalUrl())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Return the tab that has no app id associated with it and the url of the
+     * tab matches the given url.
+     * @param url The url to search for.
+     */
+    Tab findUnusedTabWithUrl(String url) {
+        if (url == null) {
+            return null;
+        }
+        // Check the current tab first.
+        Tab t = getCurrentTab();
+        if (t != null && tabMatchesUrl(t, url)) {
+            return t;
+        }
+        // Now check all the rest.
+        final int size = getTabCount();
+        for (int i = 0; i < size; i++) {
+            t = getTab(i);
+            if (tabMatchesUrl(t, url)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
     /**
      * Recreate the main WebView of the given tab. Returns true if the WebView
      * was deleted.
