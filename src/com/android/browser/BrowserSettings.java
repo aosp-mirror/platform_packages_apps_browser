@@ -342,6 +342,8 @@ class BrowserSettings extends Observable {
         showConsole = p.getBoolean("javascript_console", showConsole);
         mTabControl.getBrowserActivity().setShouldShowErrorConsole(
                 showDebugSettings && showConsole);
+
+        update();
     }
 
     public String getPluginsPath() {
