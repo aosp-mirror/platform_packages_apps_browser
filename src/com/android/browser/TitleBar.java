@@ -39,6 +39,7 @@ public class TitleBar extends LinearLayout {
     private ImageView       mFavicon;
     private ImageView       mLockIcon;
     private boolean         mInLoad;
+    private boolean         mTitleSet;
 
     public TitleBar(Context context) {
         this(context, null);
@@ -112,6 +113,11 @@ public class TitleBar extends LinearLayout {
             mRtButton.setVisibility(View.VISIBLE);
             mLftButton.setImageDrawable(mBookmarkDrawable);
             mInLoad = false;
+            if (!mTitleSet) {
+                mTitle.setText(mUrl.getText());
+                mUrl.setText(null);
+                mTitleSet = true;
+            }
         } else {
             mCircularProgress.setProgress(newProgress);
             mHorizontalProgress.setProgress(newProgress);
@@ -132,13 +138,24 @@ public class TitleBar extends LinearLayout {
     }
 
     /* package */ void setTitleAndUrl(CharSequence title, CharSequence url) {
-        if (null == title) {
-            mTitle.setText(R.string.title_bar_loading);
-        } else {
-            mTitle.setText(title);
-        }
         if (url != null) {
             url = BrowserActivity.buildTitleUrl(url.toString());
+        }
+        if (null == title) {
+            if (mInLoad) {
+                mTitleSet = false;
+                mTitle.setText(R.string.title_bar_loading);
+            } else {
+                // If the page has no title, put the url in the title space
+                // and leave the url blank.
+                mTitle.setText(url);
+                mUrl.setText(null);
+                mTitleSet = true;
+                return;
+            }
+        } else {
+            mTitle.setText(title);
+            mTitleSet = true;
         }
         mUrl.setText(url);
     }
