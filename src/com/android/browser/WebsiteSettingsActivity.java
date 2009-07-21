@@ -108,10 +108,11 @@ public class WebsiteSettingsActivity extends ListActivity {
 
             // Get the list of origins we want to display
             HashMap<String, Site> uris = new HashMap<String, Site>();
-            Vector origins = WebStorage.getInstance().getOrigins();
+            Set origins = WebStorage.getInstance().getOrigins();
             if (origins != null) {
-                for (int i = 0;  i < origins.size(); i++) {
-                    String origin = (String) origins.get(i);
+                Iterator<String> iter = origins.iterator();
+                while (iter.hasNext()) {
+                    String origin = iter.next();
                     Site site = new Site(origin, origin, null);
                     uris.put(Uri.parse(origin).getHost(), site);
                 }
