@@ -303,6 +303,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }
         
         void refreshData() {
+            if (mCursor.isClosed()) {
+                return;
+            }
             mCursor.requery();
             buildMap();
             for (DataSetObserver o : mObservers) {
