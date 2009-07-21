@@ -3557,10 +3557,10 @@ public class BrowserActivity extends Activity
                     }
                     // Current implementation of database only has one entry per
                     // url.
-                    int titleIndex =
-                            c.getColumnIndex(Browser.BookmarkColumns.TITLE);
-                    c.updateString(titleIndex, title);
-                    c.commitUpdates();
+                    ContentValues map = new ContentValues();
+                    map.put(Browser.BookmarkColumns.TITLE, title);
+                    mResolver.update(Browser.BOOKMARKS_URI, map,
+                            "_id = " + c.getInt(0), null);
                 }
                 c.close();
             } catch (IllegalStateException e) {
