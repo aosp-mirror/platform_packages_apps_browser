@@ -401,7 +401,7 @@
     <!-- Settings summary -->
     <string name="pref_extras_gears_enable_summary">Applications that extend browser functionality</string>
     <!-- Settings label -->
-    <string name="pref_extras_website_settings">Website Settings</string>
+    <string name="pref_extras_website_settings">Website settings</string>
     <!-- Settings summary -->
     <string name="pref_extras_website_settings_summary">View advanced settings for individual websites</string>
     <!-- Settings label -->
@@ -768,11 +768,11 @@
     <!-- Used as a toast notification after the user close the html5 webstorage permission dialog -->
     <string name="webstorage_notification">The quota for this site can be changed in the Local Storage section of the Browser settings</string>
     <!-- Used in the Browser Settings -->
-    <string name="webstorage_clear_data_title">Clear Stored Data</string>
+    <string name="webstorage_clear_data_title">Clear stored data</string>
     <string name="webstorage_clear_data_summary">Remove all databases associated with this website</string>
     <!-- Confirmation dialog when the user ask to clear all data for an origin -->
-    <string name="webstorage_clear_data_dialog_title">Clear All Data</string>
-    <string name="webstorage_clear_data_dialog_message">All stored data by this origin will be deleted</string>
+    <string name="webstorage_clear_data_dialog_title">Clear stored data</string>
+    <string name="webstorage_clear_data_dialog_message">All data stored by this website will be deleted</string>
     <string name="webstorage_clear_data_dialog_ok_button">Clear All</string>
     <string name="webstorage_clear_data_dialog_cancel_button">Cancel</string>
     <!-- Strings used in the summary of origins -->
