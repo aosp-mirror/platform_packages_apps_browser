@@ -510,7 +510,7 @@ class BrowserSettings extends Observable {
     }
 
     /*package*/ void clearDatabases(Context context) {
-        WebStorage.getInstance().deleteAllDatabases();
+        WebStorage.getInstance().deleteAllData();
         // Remove all listed databases from the preferences
         PreferenceActivity activity = (PreferenceActivity) context;
         PreferenceScreen screen = (PreferenceScreen)

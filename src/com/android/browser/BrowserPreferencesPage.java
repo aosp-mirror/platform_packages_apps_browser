@@ -18,6 +18,7 @@ package com.android.browser;
 
 import java.util.List;
 import java.util.Vector;
+import java.util.Set;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -93,7 +94,7 @@ public class BrowserPreferencesPage extends PreferenceActivity
         PreferenceScreen manageDatabases = (PreferenceScreen)
             findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
         manageDatabases.setEnabled(false);
-        Vector origins = WebStorage.getInstance().getOrigins();
+        Set origins = WebStorage.getInstance().getOrigins();
         if ((origins != null) && (origins.size() > 0)) {
             manageDatabases.setEnabled(true);
         }
