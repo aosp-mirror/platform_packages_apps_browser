@@ -25,6 +25,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.os.StatFs;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
@@ -77,6 +78,7 @@ class BrowserSettings extends Observable {
     // The Browser always enables Application Caches.
     private boolean appCacheEnabled = true;
     private String appCachePath;  // default value set in loadFromDb().
+    private long appCacheMaxSize = Long.MAX_VALUE;
     private boolean domStorageEnabled = true;
     private String jsFlags = "";
 
@@ -209,6 +211,7 @@ class BrowserSettings extends Observable {
             // Turn on Application Caches.
             s.setAppCachePath(b.appCachePath);
             s.setAppCacheEnabled(b.appCacheEnabled);
+            s.setAppCacheMaxSize(b.appCacheMaxSize);
 
             // Enable/Disable the error console.
             b.mTabControl.getBrowserActivity().setShouldShowErrorConsole(
@@ -234,6 +237,8 @@ class BrowserSettings extends Observable {
         pluginsPath = ctx.getDir("plugins", 0).getPath();
         // Set the default value for the Application Caches path.
         appCachePath = ctx.getDir("appcache", 0).getPath();
+        // Determine the maximum size of the application cache.
+        appCacheMaxSize = getAppCacheMaxSize();
         // Set the default value for the Database path.
         databasePath = ctx.getDir("databases", 0).getPath();
 
@@ -536,6 +541,35 @@ class BrowserSettings extends Observable {
                     .getContentResolver(), Partner.CLIENT_ID, "android-google"));
         }
         return url;
+    }
+
+    private long getAppCacheMaxSize() {
+        StatFs dataPartition = new StatFs(appCachePath);
+        long freeSpace = dataPartition.getAvailableBlocks()
+            * dataPartition.getBlockSize();
+        long fileSystemSize = dataPartition.getBlockCount()
+            * dataPartition.getBlockSize();
+        return calculateAppCacheMaxSize(fileSystemSize, freeSpace);
+    }
+
+    /*package*/ static long calculateAppCacheMaxSize(long fileSystemSizeBytes,
+            long freeSpaceBytes) {
+        if (fileSystemSizeBytes <= 0
+                || freeSpaceBytes <= 0
+                || freeSpaceBytes > fileSystemSizeBytes) {
+            return 0;
+        }
+
+        long fileSystemSizeRatio =
+            4 << ((int) Math.floor(Math.log10(fileSystemSizeBytes / (1024 * 1024))));
+        long maxSizeBytes = (long) Math.min(Math.floor(fileSystemSizeBytes / fileSystemSizeRatio),
+                Math.floor(freeSpaceBytes / 4));
+        // Round maxSizeBytes up to a multiple of 512KB (except when freeSpaceBytes < 1MB).
+        long maxSizeStepBytes = 512 * 1024;
+        if (freeSpaceBytes < maxSizeStepBytes * 2) {
+            return 0;
+        }
+        return (maxSizeStepBytes * ((maxSizeBytes / maxSizeStepBytes) + 1));
     }
 
     // Private constructor that does nothing.
