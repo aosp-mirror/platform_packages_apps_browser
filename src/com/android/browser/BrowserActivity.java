@@ -18,7 +18,6 @@ package com.android.browser;
 
 import com.google.android.googleapps.IGoogleLoginService;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
-import com.google.android.providers.GoogleSettings.Partner;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -75,8 +74,6 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
-import android.os.SystemProperties;
-import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Contacts;
 import android.provider.Downloads;
@@ -86,7 +83,6 @@ import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.util.Regex;
-import android.util.Config;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -132,6 +128,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -139,7 +136,6 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -151,10 +147,24 @@ public class BrowserActivity extends Activity
         View.OnCreateContextMenuListener,
         DownloadListener {
 
+    /* Define some aliases to make these debugging flags easier to refer to.
+     * This file imports android.provider.Browser, so we can't just refer to "Browser.DEBUG".
+     */
+    private final static boolean DEBUG = com.android.browser.Browser.DEBUG;
+    private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
+    private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
+
     private IGoogleLoginService mGls = null;
     private ServiceConnection mGlsConnection = null;
 
     private SensorManager mSensorManager = null;
+
+    // These are single-character shortcuts for searching popular sources.
+    private static final int SHORTCUT_INVALID = 0;
+    private static final int SHORTCUT_GOOGLE_SEARCH = 1;
+    private static final int SHORTCUT_WIKIPEDIA_SEARCH = 2;
+    private static final int SHORTCUT_DICTIONARY_SEARCH = 3;
+    private static final int SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH = 4;
 
     /* Whitelisted webpages
     private static HashSet<String> sWhiteList;
@@ -184,6 +194,9 @@ public class BrowserActivity extends Activity
                 try {
                     if (mGls == null) return;
 
+                    if (!homepage.startsWith("http://www.google.")) return;
+                    if (homepage.indexOf('?') == -1) return;
+
                     String hostedUser = mGls.getAccount(GoogleLoginServiceConstants.PREFER_HOSTED);
                     String googleUser = mGls.getAccount(GoogleLoginServiceConstants.REQUIRE_GOOGLE);
 
@@ -203,8 +216,7 @@ public class BrowserActivity extends Activity
 
                     if (googleUser == null || !hostedUser.equals(googleUser)) {
                         String domain = hostedUser.substring(hostedUser.lastIndexOf('@')+1);
-                        homepage = "http://www.google.com/m/a/" + domain + "?client=ms-" +
-                            Partner.getString(BrowserActivity.this.getContentResolver(), Partner.CLIENT_ID);
+                        homepage = homepage.replace("?", "/a/" + domain + "?");
                     }
                 } catch (RemoteException ignore) {
                     // Login service died; carry on
@@ -373,7 +385,7 @@ public class BrowserActivity extends Activity
                 s.loadFromDb(mContext);
                 pluginsPath = s.getPluginsPath();
             }
-            if (Config.LOGV) {
+            if (LOGV_ENABLED) {
                 Log.v(TAG, "Plugin path: " + pluginsPath);
             }
         }
@@ -400,7 +412,7 @@ public class BrowserActivity extends Activity
          * We delete the directory, then recreate it.
          */
         public void cleanPluginsDirectory() {
-          if (Config.LOGV) {
+          if (LOGV_ENABLED) {
             Log.v(TAG, "delete plugins directory: " + pluginsPath);
           }
           File pluginsDirectory = new File(pluginsPath);
@@ -416,7 +428,7 @@ public class BrowserActivity extends Activity
          */
         public void copyBuildInfos() {
           try {
-            if (Config.LOGV) {
+            if (LOGV_ENABLED) {
               Log.v(TAG, "Copy build infos to the plugins directory");
             }
             File buildInfoFile = new File(SYSTEM_BUILD_INFOS_FILE);
@@ -448,7 +460,7 @@ public class BrowserActivity extends Activity
             File buildInfoFile = new File(SYSTEM_BUILD_INFOS_FILE);
             File buildInfoPlugins = new File(pluginsPath, BUILD_INFOS_FILE);
             if (!buildInfoPlugins.exists()) {
-              if (Config.LOGV) {
+              if (LOGV_ENABLED) {
                 Log.v(TAG, "build.prop in plugins directory " + pluginsPath
                   + " does not exist, therefore it's a new system image");
               }
@@ -458,7 +470,7 @@ public class BrowserActivity extends Activity
               String buildInfoPlugin = contentsOfFile(buildInfoPlugins);
               if (buildInfo == null || buildInfoPlugin == null
                   || buildInfo.compareTo(buildInfoPlugin) != 0) {
-                if (Config.LOGV) {
+                if (LOGV_ENABLED) {
                   Log.v(TAG, "build.prop are different, "
                     + " therefore it's a new system image");
                 }
@@ -491,7 +503,7 @@ public class BrowserActivity extends Activity
               String path = entry.getName().substring(zipFilterLength);
               File outputFile = new File(pluginsPath, path);
               if (!outputFile.exists()) {
-                if (Config.LOGV) {
+                if (LOGV_ENABLED) {
                   Log.v(TAG, "checkIsDifferentVersions(): extracted file "
                     + path + " does not exist, we have a different version");
                 }
@@ -536,7 +548,7 @@ public class BrowserActivity extends Activity
                     outputFile.getParentFile().mkdirs();
 
                     if (outputFile.exists() && !mDoOverwrite) {
-                        if (Config.LOGV) {
+                        if (LOGV_ENABLED) {
                             Log.v(TAG, path + " already extracted.");
                         }
                     } else {
@@ -548,7 +560,7 @@ public class BrowserActivity extends Activity
                                 path + TEMPORARY_EXTENSION);
                         }
                         FileOutputStream fos = new FileOutputStream(outputFile);
-                        if (Config.LOGV) {
+                        if (LOGV_ENABLED) {
                             Log.v(TAG, "copy " + entry + " to "
                                 + pluginsPath + "/" + path);
                         }
@@ -563,7 +575,7 @@ public class BrowserActivity extends Activity
                     File renamedFile = (File) elems.nextElement();
                     File sourceFile = new File(renamedFile.getPath()
                         + TEMPORARY_EXTENSION);
-                    if (Config.LOGV) {
+                    if (LOGV_ENABLED) {
                         Log.v(TAG, "rename " + sourceFile.getPath()
                             + " to " + renamedFile.getPath());
                     }
@@ -623,7 +635,7 @@ public class BrowserActivity extends Activity
     }
 
     @Override public void onCreate(Bundle icicle) {
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, this + " onStart");
         }
         super.onCreate(icicle);
@@ -638,9 +650,6 @@ public class BrowserActivity extends Activity
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         mResolver = getContentResolver();
-
-        setBaseSearchUrl(PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("search_url", ""));
 
         //
         // start MASF proxy service
@@ -676,6 +685,12 @@ public class BrowserActivity extends Activity
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
 
+        // If this was a web search request, pass it on to the default web search provider.
+        if (handleWebSearchIntent(getIntent())) {
+            moveTaskToBack(true);
+            return;
+        }
+
         if (!mTabControl.restoreState(icicle)) {
             // clear up the thumbnail directory if we can't restore the state as
             // none of the files in the directory are referenced any more.
@@ -687,11 +702,12 @@ public class BrowserActivity extends Activity
             // If the intent is ACTION_VIEW and data is not null, the Browser is
             // invoked to view the content by another application. In this case,
             // the tab will be close when exit.
-            String url = getUrlFromIntent(intent);
+            UrlData urlData = getUrlDataFromIntent(intent);
+
             final TabControl.Tab t = mTabControl.createNewTab(
                     Intent.ACTION_VIEW.equals(intent.getAction()) &&
                     intent.getData() != null,
-                    intent.getStringExtra(Browser.EXTRA_APPLICATION_ID), url);
+                    intent.getStringExtra(Browser.EXTRA_APPLICATION_ID), urlData.mUrl);
             mTabControl.setCurrentTab(t);
             // This is one of the only places we call attachTabToContentView
             // without animating from the tab picker.
@@ -713,14 +729,18 @@ public class BrowserActivity extends Activity
             }
             copyPlugins(true);
 
-            if (url == null || url.length() == 0) {
+            if (urlData.isEmpty()) {
                 if (mSettings.isLoginInitialized()) {
                     webView.loadUrl(mSettings.getHomePage());
                 } else {
                     waitForCredentials();
                 }
             } else {
-                webView.loadUrl(url);
+                if (extra != null) {
+                    urlData.setPostData(extra
+                            .getByteArray(Browser.EXTRA_POST_DATA));
+                }
+                urlData.loadIn(webView);
             }
         } else {
             // TabControl.restoreState() will create a new tab even if
@@ -774,10 +794,19 @@ public class BrowserActivity extends Activity
                 || Intent.ACTION_SEARCH.equals(action)
                 || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
                 || Intent.ACTION_WEB_SEARCH.equals(action)) {
-            String url = getUrlFromIntent(intent);
-            if (url == null || url.length() == 0) {
-                url = mSettings.getHomePage();
+            // If this was a search request (e.g. search query directly typed into the address bar),
+            // pass it on to the default web search provider.
+            if (handleWebSearchIntent(intent)) {
+                return;
             }
+
+            UrlData urlData = getUrlDataFromIntent(intent);
+            if (urlData.isEmpty()) {
+                urlData = new UrlData(mSettings.getHomePage());
+            }
+            urlData.setPostData(intent
+                    .getByteArrayExtra(Browser.EXTRA_POST_DATA));
+
             if (Intent.ACTION_VIEW.equals(action) &&
                     (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
                 final String appId =
@@ -794,20 +823,21 @@ public class BrowserActivity extends Activity
                     // If the WebView has the same original url and is on that
                     // page, it can be reused.
                     boolean needsLoad =
-                            mTabControl.recreateWebView(appTab, url);
+                            mTabControl.recreateWebView(appTab, urlData.mUrl);
+                    
                     if (current != appTab) {
-                        showTab(appTab, needsLoad ? url : null);
+                        showTab(appTab, needsLoad ? urlData : EMPTY_URL_DATA);
                     } else {
                         if (mTabOverview != null && mAnimationCount == 0) {
                             sendAnimateFromOverview(appTab, false,
-                                    needsLoad ? url : null, TAB_OVERVIEW_DELAY,
+                                    needsLoad ? urlData : EMPTY_URL_DATA, TAB_OVERVIEW_DELAY,
                                     null);
                         } else {
                             // If the tab was the current tab, we have to attach
                             // it to the view system again.
                             attachTabToContentView(appTab);
                             if (needsLoad) {
-                                appTab.getWebView().loadUrl(url);
+                                urlData.loadIn(appTab.getWebView());
                             }
                         }
                     }
@@ -817,27 +847,96 @@ public class BrowserActivity extends Activity
                 // opened in a new tab unless we have reached MAX_TABS. Then the
                 // url will be opened in the current tab. If a new tab is
                 // created, it will have "true" for exit on close.
-                openTabAndShow(url, null, true, appId);
+                openTabAndShow(urlData, null, true, appId);
             } else {
-                if ("about:debug".equals(url)) {
+                if ("about:debug".equals(urlData.mUrl)) {
                     mSettings.toggleDebugSettings();
                     return;
                 }
                 // If the Window overview is up and we are not in the midst of
                 // an animation, animate away from the Window overview.
                 if (mTabOverview != null && mAnimationCount == 0) {
-                    sendAnimateFromOverview(current, false, url,
+                    sendAnimateFromOverview(current, false, urlData,
                             TAB_OVERVIEW_DELAY, null);
                 } else {
                     // Get rid of the subwindow if it exists
                     dismissSubWindow(current);
-                    current.getWebView().loadUrl(url);
+                    urlData.loadIn(current.getWebView());
                 }
             }
         }
     }
 
-    private String getUrlFromIntent(Intent intent) {
+    private int parseUrlShortcut(String url) {
+        if (url == null) return SHORTCUT_INVALID;
+
+        // FIXME: quick search, need to be customized by setting
+        if (url.length() > 2 && url.charAt(1) == ' ') {
+            switch (url.charAt(0)) {
+            case 'g': return SHORTCUT_GOOGLE_SEARCH;
+            case 'w': return SHORTCUT_WIKIPEDIA_SEARCH;
+            case 'd': return SHORTCUT_DICTIONARY_SEARCH;
+            case 'l': return SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH;
+            }
+        }
+        return SHORTCUT_INVALID;
+    }
+
+    /**
+     * Launches the default web search activity with the query parameters if the given intent's data
+     * are identified as plain search terms and not URLs/shortcuts.
+     * @return true if the intent was handled and web search activity was launched, false if not.
+     */
+    private boolean handleWebSearchIntent(Intent intent) {
+        if (intent == null) return false;
+
+        String url = null;
+        final String action = intent.getAction();
+        if (Intent.ACTION_VIEW.equals(action)) {
+            url = intent.getData().toString();
+        } else if (Intent.ACTION_SEARCH.equals(action)
+                || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
+                || Intent.ACTION_WEB_SEARCH.equals(action)) {
+            url = intent.getStringExtra(SearchManager.QUERY);
+        }
+        return handleWebSearchRequest(url, intent.getBundleExtra(SearchManager.APP_DATA));
+    }
+
+    /**
+     * Launches the default web search activity with the query parameters if the given url string
+     * was identified as plain search terms and not URL/shortcut.
+     * @return true if the request was handled and web search activity was launched, false if not.
+     */
+    private boolean handleWebSearchRequest(String inUrl, Bundle appData) {
+        if (inUrl == null) return false;
+
+        // In general, we shouldn't modify URL from Intent.
+        // But currently, we get the user-typed URL from search box as well.
+        String url = fixUrl(inUrl).trim();
+
+        // URLs and site specific search shortcuts are handled by the regular flow of control, so
+        // return early.
+        if (Regex.WEB_URL_PATTERN.matcher(url).matches()
+                || ACCEPTED_URI_SCHEMA.matcher(url).matches()
+                || parseUrlShortcut(url) != SHORTCUT_INVALID) {
+            return false;
+        }
+
+        Browser.updateVisitedHistory(mResolver, url, false);
+        Browser.addSearchUrl(mResolver, url);
+
+        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.putExtra(SearchManager.QUERY, url);
+        if (appData != null) {
+            intent.putExtra(SearchManager.APP_DATA, appData);
+        }
+        startActivity(intent);
+
+        return true;
+    }
+
+    private UrlData getUrlDataFromIntent(Intent intent) {
         String url = null;
         if (intent != null) {
             final String action = intent.getAction();
@@ -849,6 +948,13 @@ public class BrowserActivity extends Activity
                     if (mimeType != null) {
                         url += "?" + mimeType;
                     }
+                }
+                if ("inline:".equals(url)) {
+                    return new InlinedUrlData(
+                            intent.getStringExtra(Browser.EXTRA_INLINE_CONTENT),
+                            intent.getType(),
+                            intent.getStringExtra(Browser.EXTRA_INLINE_ENCODING),
+                            intent.getStringExtra(Browser.EXTRA_INLINE_FAILURL));
                 }
             } else if (Intent.ACTION_SEARCH.equals(action)
                     || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
@@ -880,7 +986,7 @@ public class BrowserActivity extends Activity
                 }
             }
         }
-        return url;
+        return new UrlData(url);
     }
 
     /* package */ static String fixUrl(String inUrl) {
@@ -990,7 +1096,7 @@ public class BrowserActivity extends Activity
 
     @Override protected void onResume() {
         super.onResume();
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
         }
 
@@ -1037,7 +1143,7 @@ public class BrowserActivity extends Activity
      *  the saved state.
      */
     @Override protected void onSaveInstanceState(Bundle outState) {
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onSaveInstanceState: this=" + this);
         }
         // the default implementation requires each view to have an id. As the
@@ -1083,7 +1189,7 @@ public class BrowserActivity extends Activity
     }
 
     @Override protected void onDestroy() {
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
@@ -1294,6 +1400,9 @@ public class BrowserActivity extends Activity
         mCanChord = true;
         int id = item.getItemId();
         final WebView webView = getTopWindow();
+        if (null == webView) {
+            return false;
+        }
         final HashMap hrefMap = new HashMap();
         hrefMap.put("webview", webView);
         final Message msg = mHandler.obtainMessage(
@@ -1347,6 +1456,9 @@ public class BrowserActivity extends Activity
         if (!mCanChord) {
             // The user has already fired a shortcut with this hold down of the
             // menu key.
+            return false;
+        }
+        if (null == mTabOverview && null == getTopWindow()) {
             return false;
         }
         switch (item.getItemId()) {
@@ -1796,7 +1908,7 @@ public class BrowserActivity extends Activity
 
     // Send the ANIMTE_FROM_OVERVIEW message after changing the current tab.
     private void sendAnimateFromOverview(final TabControl.Tab tab,
-            final boolean newTab, final String url, final int delay,
+            final boolean newTab, final UrlData urlData, final int delay,
             final Message msg) {
         // Set the current tab.
         mTabControl.setCurrentTab(tab);
@@ -1820,9 +1932,9 @@ public class BrowserActivity extends Activity
         // Load the url after the AnimatingView has captured the picture. This
         // prevents any bad layout or bad scale from being used during
         // animation.
-        if (url != null) {
+        if (!urlData.isEmpty()) {
             dismissSubWindow(tab);
-            tab.getWebView().loadUrl(url);
+            urlData.loadIn(tab.getWebView());
         }
         map.put("msg", msg);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(
@@ -1838,15 +1950,15 @@ public class BrowserActivity extends Activity
     }
 
     // 500ms animation with 800ms delay
-    private static final int TAB_ANIMATION_DURATION = 500;
-    private static final int TAB_OVERVIEW_DELAY     = 800;
+    private static final int TAB_ANIMATION_DURATION = 200;
+    private static final int TAB_OVERVIEW_DELAY     = 500;
 
     // Called by TabControl when a tab is requesting focus
     /* package */ void showTab(TabControl.Tab t) {
-        showTab(t, null);
+        showTab(t, EMPTY_URL_DATA);
     }
 
-    private void showTab(TabControl.Tab t, String url) {
+    private void showTab(TabControl.Tab t, UrlData urlData) {
         // Disallow focus change during a tab animation.
         if (mAnimationCount > 0) {
             return;
@@ -1858,7 +1970,14 @@ public class BrowserActivity extends Activity
             delay = TAB_ANIMATION_DURATION + TAB_OVERVIEW_DELAY;
             tabPicker(false, mTabControl.getTabIndex(t), false);
         }
-        sendAnimateFromOverview(t, false, url, delay, null);
+        sendAnimateFromOverview(t, false, urlData, delay, null);
+    }
+
+    // A wrapper function of {@link #openTabAndShow(UrlData, Message, boolean, String)}
+    // that accepts url as string.
+    private void openTabAndShow(String url, final Message msg,
+            boolean closeOnExit, String appId) {
+        openTabAndShow(new UrlData(url), msg, closeOnExit, appId);
     }
 
     // This method does a ton of stuff. It will attempt to create a new tab
@@ -1869,7 +1988,7 @@ public class BrowserActivity extends Activity
     // the given Message. If the tab overview is already showing (i.e. this
     // method is called from TabListener.onClick(), the method will animate
     // away from the tab overview.
-    private void openTabAndShow(String url, final Message msg,
+    private void openTabAndShow(UrlData urlData, final Message msg,
             boolean closeOnExit, String appId) {
         final boolean newTab = mTabControl.getTabCount() != TabControl.MAX_TABS;
         final TabControl.Tab currentTab = mTabControl.getCurrentTab();
@@ -1878,14 +1997,14 @@ public class BrowserActivity extends Activity
             // If the tab overview is up and there are animations, just load
             // the url.
             if (mTabOverview != null && mAnimationCount > 0) {
-                if (url != null) {
+                if (!urlData.isEmpty()) {
                     // We should not have a msg here since onCreateWindow
                     // checks the animation count and every other caller passes
                     // null.
                     assert msg == null;
                     // just dismiss the subwindow and load the given url.
                     dismissSubWindow(currentTab);
-                    currentTab.getWebView().loadUrl(url);
+                    urlData.loadIn(currentTab.getWebView());
                 }
             } else {
                 // show mTabOverview if it is not there.
@@ -1899,20 +2018,20 @@ public class BrowserActivity extends Activity
                 // Animate from the Tab overview after any animations have
                 // finished.
                 sendAnimateFromOverview(
-                        mTabControl.createNewTab(closeOnExit, appId, url), true,
-                        url, delay, msg);
+                        mTabControl.createNewTab(closeOnExit, appId, urlData.mUrl), true,
+                        urlData, delay, msg);
             }
-        } else if (url != null) {
+        } else if (!urlData.isEmpty()) {
             // We should not have a msg here.
             assert msg == null;
             if (mTabOverview != null && mAnimationCount == 0) {
-                sendAnimateFromOverview(currentTab, false, url,
+                sendAnimateFromOverview(currentTab, false, urlData,
                         TAB_OVERVIEW_DELAY, null);
             } else {
                 // Get rid of the subwindow if it exists
                 dismissSubWindow(currentTab);
                 // Load the given url.
-                currentTab.getWebView().loadUrl(url);
+                urlData.loadIn(currentTab.getWebView());
             }
         }
     }
@@ -1959,10 +2078,12 @@ public class BrowserActivity extends Activity
         final Animation.AnimationListener l =
                 new Animation.AnimationListener() {
                     public void onAnimationStart(Animation a) {
-                        mTabOverview.requestFocus();
-                        // Clear the listener so we don't trigger a tab
-                        // selection.
-                        mTabOverview.setListener(null);
+                        if (mTabOverview != null) {
+                            mTabOverview.requestFocus();
+                            // Clear the listener so we don't trigger a tab
+                            // selection.
+                            mTabOverview.setListener(null);
+                        }
                     }
                     public void onAnimationRepeat(Animation a) {}
                     public void onAnimationEnd(Animation a) {
@@ -2126,6 +2247,9 @@ public class BrowserActivity extends Activity
                     .setVisibility(View.VISIBLE);
         }
         mContentView.removeView(mTabOverview);
+        // Clear all the data for tab picker so next time it will be
+        // recreated.
+        mTabControl.wipeAllPickerData();
         mTabOverview.clear();
         mTabOverview = null;
         mTabListener = null;
@@ -2346,7 +2470,7 @@ public class BrowserActivity extends Activity
     private void revertLockIcon() {
         mLockIconType = mPrevLockType;
 
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.revertLockIcon:" +
                   " revert lock icon to " + mLockIconType);
         }
@@ -2362,7 +2486,7 @@ public class BrowserActivity extends Activity
         // Change to the parent tab
         final TabControl.Tab tab = mTabControl.getTab(indexToShow);
         if (tab != null) {
-            sendAnimateFromOverview(tab, false, null, delay, null);
+            sendAnimateFromOverview(tab, false, EMPTY_URL_DATA, delay, null);
         } else {
             // Increment this here so that no other animations can happen in
             // between the end of the tab picker transition and the beginning
@@ -2741,7 +2865,7 @@ public class BrowserActivity extends Activity
                     String uiInfo = "UI thread used "
                             + (SystemClock.currentThreadTimeMillis() - mUiStart)
                             + " ms";
-                    if (Config.LOGD) {
+                    if (LOGD_ENABLED) {
                         Log.d(LOGTAG, uiInfo);
                     }
                     //The string that gets written to the log
@@ -2758,7 +2882,7 @@ public class BrowserActivity extends Activity
                             + " ms and irq took "
                             + (sysCpu[4] + sysCpu[5] + sysCpu[6] - mIrqStart)
                             * 10 + " ms, " + uiInfo;
-                    if (Config.LOGD) {
+                    if (LOGD_ENABLED) {
                         Log.d(LOGTAG, performanceString + "\nWebpage: " + url);
                     }
                     if (url != null) {
@@ -2773,7 +2897,7 @@ public class BrowserActivity extends Activity
                         } else if (newUrl.startsWith("https://")) {
                             newUrl = newUrl.substring(8);
                         }
-                        if (Config.LOGD) {
+                        if (LOGD_ENABLED) {
                             Log.d(LOGTAG, newUrl + " loaded");
                         }
                         /*
@@ -2862,16 +2986,41 @@ public class BrowserActivity extends Activity
                 }
             }
 
-            Uri uri;
+            // The "about:" schemes are internal to the browser; don't
+            // want these to be dispatched to other apps.
+            if (url.startsWith("about:")) {
+                return false;
+            }
+            
+            Intent intent;
+            
+            // perform generic parsing of the URI to turn it into an Intent.
             try {
-                uri = Uri.parse(url);
-            } catch (IllegalArgumentException ex) {
+                intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+            } catch (URISyntaxException ex) {
+                Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
                 return false;
             }
 
-            // check whether other activities want to handle this url
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            // check whether the intent can be resolved. If not, we will see
+            // whether we can download it from the Market.
+            if (getPackageManager().resolveActivity(intent, 0) == null) {
+                String packagename = intent.getPackage();
+                if (packagename != null) {
+                    intent = new Intent(Intent.ACTION_VIEW, Uri
+                            .parse("market://search?q=pname:" + packagename));
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    startActivity(intent);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            // sanitize the Intent, ensuring web pages can not bypass browser
+            // security (only access to BROWSABLE activities).
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setComponent(null);
             try {
                 if (startActivityIfNeeded(intent, -1)) {
                     return true;
@@ -2905,7 +3054,7 @@ public class BrowserActivity extends Activity
                     // If NOT a 'safe' url, change the lock to mixed content!
                     if (!(URLUtil.isHttpsUrl(url) || URLUtil.isDataUrl(url) || URLUtil.isAboutUrl(url))) {
                         mLockIconType = LOCK_ICON_MIXED;
-                        if (Config.LOGV) {
+                        if (LOGV_ENABLED) {
                             Log.v(LOGTAG, "BrowserActivity.updateLockIcon:" +
                                   " updated lock icon to " + mLockIconType + " due to " + url);
                         }
@@ -3232,7 +3381,7 @@ public class BrowserActivity extends Activity
                 // openTabAndShow will dispatch the message after creating the
                 // new WebView. This will prevent another request from coming
                 // in during the animation.
-                openTabAndShow(null, msg, false, null);
+                openTabAndShow(EMPTY_URL_DATA, msg, false, null);
                 parent.addChildTab(mTabControl.getCurrentTab());
                 WebView.WebViewTransport transport =
                         (WebView.WebViewTransport) msg.obj;
@@ -3365,7 +3514,7 @@ public class BrowserActivity extends Activity
 
         @Override
         public void onReceivedTitle(WebView view, String title) {
-            String url = view.getOriginalUrl();
+            String url = view.getUrl();
 
             // here, if url is null, we want to reset the title
             setUrlTitle(url, title);
@@ -3388,7 +3537,7 @@ public class BrowserActivity extends Activity
                 Cursor c = mResolver.query(Browser.BOOKMARKS_URI,
                     Browser.HISTORY_PROJECTION, where, selArgs, null);
                 if (c.moveToFirst()) {
-                    if (Config.LOGV) {
+                    if (LOGV_ENABLED) {
                         Log.v(LOGTAG, "updating cursor");
                     }
                     // Current implementation of database only has one entry per
@@ -3438,7 +3587,7 @@ public class BrowserActivity extends Activity
                     startActivity(intent);
                     return;
                 } catch (ActivityNotFoundException ex) {
-                    if (Config.LOGD) {
+                    if (LOGD_ENABLED) {
                         Log.d(LOGTAG, "activity not found for " + mimetype
                                 + " over " + Uri.parse(url).getScheme(), ex);
                     }
@@ -3562,7 +3711,7 @@ public class BrowserActivity extends Activity
         mLockIconType = LOCK_ICON_UNSECURE;
         if (URLUtil.isHttpsUrl(url)) {
             mLockIconType = LOCK_ICON_SECURE;
-            if (Config.LOGV) {
+            if (LOGV_ENABLED) {
                 Log.v(LOGTAG, "BrowserActivity.resetLockIcon:" +
                       " reset lock icon to " + mLockIconType);
             }
@@ -3582,7 +3731,7 @@ public class BrowserActivity extends Activity
 
         mLockIconType = LOCK_ICON_UNSECURE;
 
-        if (Config.LOGV) {
+        if (LOGV_ENABLED) {
           Log.v(LOGTAG, "BrowserActivity.resetLockIcon:" +
                 " reset lock icon to " + mLockIconType);
         }
@@ -4104,7 +4253,7 @@ public class BrowserActivity extends Activity
                         // middle of an animation, animate away from it to the
                         // current tab.
                         if (mTabOverview != null && mAnimationCount == 0) {
-                            sendAnimateFromOverview(currentTab, false, data,
+                            sendAnimateFromOverview(currentTab, false, new UrlData(data),
                                     TAB_OVERVIEW_DELAY, null);
                         } else {
                             dismissSubWindow(currentTab);
@@ -4140,7 +4289,7 @@ public class BrowserActivity extends Activity
     private class TabListener implements ImageGrid.Listener {
         public void remove(int position) {
             // Note: Remove is not enabled if we have only one tab.
-            if (Config.DEBUG && mTabControl.getTabCount() == 1) {
+            if (DEBUG && mTabControl.getTabCount() == 1) {
                 throw new AssertionError();
             }
 
@@ -4156,7 +4305,7 @@ public class BrowserActivity extends Activity
                 if (mTabControl.getTabCount() == 0) {
                     current = mTabControl.createNewTab();
                     sendAnimateFromOverview(current, true,
-                            mSettings.getHomePage(), TAB_OVERVIEW_DELAY, null);
+                            new UrlData(mSettings.getHomePage()), TAB_OVERVIEW_DELAY, null);
                 } else {
                     final int index = position > 0 ? (position - 1) : 0;
                     current = mTabControl.getTab(index);
@@ -4188,16 +4337,12 @@ public class BrowserActivity extends Activity
                 }
             }
 
-            // Clear all the data for tab picker so next time it will be
-            // recreated.
-            mTabControl.wipeAllPickerData();
-
             // NEW_TAB means that the "New Tab" cell was clicked on.
             if (index == ImageGrid.NEW_TAB) {
                 openTabAndShow(mSettings.getHomePage(), null, false, null);
             } else {
                 sendAnimateFromOverview(mTabControl.getTab(index),
-                        false, null, 0, null);
+                        false, EMPTY_URL_DATA, 0, null);
             }
         }
     }
@@ -4388,7 +4533,7 @@ public class BrowserActivity extends Activity
             "(?i)" + // switch on case insensitive matching
             "(" +    // begin group for schema
             "(?:http|https|file):\\/\\/" +
-            "|(?:data|about|content|javascript):" +
+            "|(?:inline|data|about|content|javascript):" +
             ")" +
             "(.*)" );
 
@@ -4409,46 +4554,34 @@ public class BrowserActivity extends Activity
 
         Matcher matcher = ACCEPTED_URI_SCHEMA.matcher(inUrl);
         if (matcher.matches()) {
-            if (hasSpace) {
-                inUrl = inUrl.replace(" ", "%20");
-            }
             // force scheme to lowercase
             String scheme = matcher.group(1);
             String lcScheme = scheme.toLowerCase();
             if (!lcScheme.equals(scheme)) {
-                return lcScheme + matcher.group(2);
+                inUrl = lcScheme + matcher.group(2);
+            }
+            if (hasSpace) {
+                inUrl = inUrl.replace(" ", "%20");
             }
             return inUrl;
         }
         if (hasSpace) {
-            // FIXME: quick search, need to be customized by setting
-            if (inUrl.length() > 2 && inUrl.charAt(1) == ' ') {
-                // FIXME: Is this the correct place to add to searches?
-                // what if someone else calls this function?
-                char char0 = inUrl.charAt(0);
-
-                if (char0 == 'g') {
-                    Browser.addSearchUrl(mResolver, inUrl);
-                    return composeSearchUrl(inUrl.substring(2));
-
-                } else if (char0 == 'w') {
-                    Browser.addSearchUrl(mResolver, inUrl);
-                    return URLUtil.composeSearchUrl(inUrl.substring(2),
-                            QuickSearch_W,
-                            QUERY_PLACE_HOLDER);
-
-                } else if (char0 == 'd') {
-                    Browser.addSearchUrl(mResolver, inUrl);
-                    return URLUtil.composeSearchUrl(inUrl.substring(2),
-                            QuickSearch_D,
-                            QUERY_PLACE_HOLDER);
-
-                } else if (char0 == 'l') {
-                    Browser.addSearchUrl(mResolver, inUrl);
+            // FIXME: Is this the correct place to add to searches?
+            // what if someone else calls this function?
+            int shortcut = parseUrlShortcut(inUrl);
+            if (shortcut != SHORTCUT_INVALID) {
+                Browser.addSearchUrl(mResolver, inUrl);
+                String query = inUrl.substring(2);
+                switch (shortcut) {
+                case SHORTCUT_GOOGLE_SEARCH:
+                    return URLUtil.composeSearchUrl(query, QuickSearch_G, QUERY_PLACE_HOLDER);
+                case SHORTCUT_WIKIPEDIA_SEARCH:
+                    return URLUtil.composeSearchUrl(query, QuickSearch_W, QUERY_PLACE_HOLDER);
+                case SHORTCUT_DICTIONARY_SEARCH:
+                    return URLUtil.composeSearchUrl(query, QuickSearch_D, QUERY_PLACE_HOLDER);
+                case SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH:
                     // FIXME: we need location in this case
-                    return URLUtil.composeSearchUrl(inUrl.substring(2),
-                            QuickSearch_L,
-                            QUERY_PLACE_HOLDER);
+                    return URLUtil.composeSearchUrl(query, QuickSearch_L, QUERY_PLACE_HOLDER);
                 }
             }
         } else {
@@ -4458,39 +4591,7 @@ public class BrowserActivity extends Activity
         }
 
         Browser.addSearchUrl(mResolver, inUrl);
-        return composeSearchUrl(inUrl);
-    }
-
-    /* package */ String composeSearchUrl(String search) {
-        return URLUtil.composeSearchUrl(search, QuickSearch_G,
-                QUERY_PLACE_HOLDER);
-    }
-
-    /* package */void setBaseSearchUrl(String url) {
-        if (url == null || url.length() == 0) {
-            /*
-             * get the google search url based on the SIM. Default is US. NOTE:
-             * This code uses resources to optionally select the search Uri,
-             * based on the MCC value from the SIM. The default string will most
-             * likely be fine. It is parameterized to accept info from the
-             * Locale, the language code is the first parameter (%1$s) and the
-             * country code is the second (%2$s). This code must function in the
-             * same way as a similar lookup in
-             * com.android.googlesearch.SuggestionProvider#onCreate(). If you
-             * change either of these functions, change them both. (The same is
-             * true for the underlying resource strings, which are stored in
-             * mcc-specific xml files.)
-             */
-            Locale l = Locale.getDefault();
-            QuickSearch_G = getResources().getString(
-                    R.string.google_search_base, l.getLanguage(),
-                    l.getCountry().toLowerCase())
-                    + "client=ms-"
-                    + Partner.getString(this.getContentResolver(), Partner.CLIENT_ID)
-                    + "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&q=%s";
-        } else {
-            QuickSearch_G = url;
-        }
+        return URLUtil.composeSearchUrl(inUrl, QuickSearch_G, QUERY_PLACE_HOLDER);
     }
 
     private final static int LOCK_ICON_UNSECURE = 0;
@@ -4600,9 +4701,8 @@ public class BrowserActivity extends Activity
                                             new FrameLayout.LayoutParams(
                                             ViewGroup.LayoutParams.FILL_PARENT,
                                             ViewGroup.LayoutParams.FILL_PARENT);
-    // We may provide UI to customize these
-    // Google search from the browser
-    static String QuickSearch_G;
+    // Google search
+    final static String QuickSearch_G = "http://www.google.com/m?q=%s";
     // Wikipedia search
     final static String QuickSearch_W = "http://en.wikipedia.org/w/index.php?search=%s&go=Go";
     // Dictionary search
@@ -4658,4 +4758,60 @@ public class BrowserActivity extends Activity
 
     // the frenquency of checking whether system memory is low
     final static int CHECK_MEMORY_INTERVAL = 30000;     // 30 seconds
+
+    /**
+     * A UrlData class to abstract how the content will be set to WebView.
+     * This base class uses loadUrl to show the content.
+     */
+    private static class UrlData {
+        String mUrl;
+        byte[] mPostData;
+
+        UrlData(String url) {
+            this.mUrl = url;
+        }
+
+        void setPostData(byte[] postData) {
+            mPostData = postData;
+        }
+
+        boolean isEmpty() {
+            return mUrl == null || mUrl.length() == 0;
+        }
+
+        public void loadIn(WebView webView) {
+            if (mPostData != null) {
+                webView.postUrl(mUrl, mPostData);
+            } else {
+                webView.loadUrl(mUrl);
+            }
+        }
+    };
+
+    /**
+     * A subclass of UrlData class that can display inlined content using
+     * {@link WebView#loadDataWithBaseURL(String, String, String, String, String)}.
+     */
+    private static class InlinedUrlData extends UrlData {
+        InlinedUrlData(String inlined, String mimeType, String encoding, String failUrl) {
+            super(failUrl);
+            mInlined = inlined;
+            mMimeType = mimeType;
+            mEncoding = encoding;
+        }
+        String mMimeType;
+        String mInlined;
+        String mEncoding;
+        @Override
+        boolean isEmpty() {
+            return mInlined == null || mInlined.length() == 0 || super.isEmpty(); 
+        }
+
+        @Override
+        public void loadIn(WebView webView) {
+            webView.loadDataWithBaseURL(null, mInlined, mMimeType, mEncoding, mUrl);
+        }
+    }
+
+    private static final UrlData EMPTY_URL_DATA = new UrlData(null);
 }

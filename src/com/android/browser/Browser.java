@@ -16,7 +16,6 @@
 
 package com.android.browser;
 
-import android.util.Config;
 import android.util.Log;
 
 import android.app.Application;
@@ -30,6 +29,15 @@ public class Browser extends Application {
 
     private final static String LOGTAG = "browser";
 
+    // Set to true to enable extra debugging.
+    final static boolean DEBUG = false;
+    
+    // Set to true to enable verbose logging.
+    final static boolean LOGV_ENABLED = DEBUG;
+
+    // Set to true to enable extra debug logging.
+    final static boolean LOGD_ENABLED = true;
+
     /**
      * Specifies a heap utilization ratio that works better
      * for the browser than the default ratio does.
@@ -40,7 +48,7 @@ public class Browser extends Application {
     }
 
     public void onCreate() {
-        if (Config.LOGV)
+        if (LOGV_ENABLED)
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
         // Fix heap utilization for better heap size characteristics.
         VMRuntime.getRuntime().setTargetHeapUtilization(

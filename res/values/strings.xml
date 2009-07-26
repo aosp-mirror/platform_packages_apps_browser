@@ -38,6 +38,8 @@
     <string name="password">Password</string>
     <!-- The label on the "sign in" button -->
     <string name="action">Sign in</string>
+    <!-- The name of the bookmarks and history search suggestion source.  -->
+    <string name="bookmarks_search">Browser</string>
 
     <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
     <string name="cancel">Cancel</string>
@@ -333,7 +335,7 @@
     <!-- Settings summary -->
     <string name="pref_security_accept_cookies_summary">Allow sites to save and read \"cookie\" data</string>
     <!-- Settings label -->
-    <string name="pref_text_size">Set text size</string>
+    <string name="pref_text_size">Text size</string>
     <!-- Settings text size options; appear in Text size dialog box -->
     <string-array name="pref_text_size_choices">
         <item>Tiny</item>
@@ -351,6 +353,22 @@
         <item><xliff:g>NORMAL</xliff:g></item>
         <item><xliff:g>LARGER</xliff:g></item>
         <item><xliff:g>LARGEST</xliff:g></item>
+    </string-array>
+    <!-- Settings label -->
+    <string name="pref_default_zoom">Default zoom</string>
+    <!-- Settings default zoom options; appear in default zoom dialog box -->
+    <string-array name="pref_default_zoom_choices">
+        <item>Far</item>
+        <item>Medium</item>
+        <item>Close</item>
+    </string-array>
+    <!-- Title of dialog for setting the default zoom -->
+    <string name="pref_default_zoom_dialogtitle">Default zoom</string>
+    <!-- Do not translate -->
+    <string-array name="pref_default_zoom_values" translatable="false">
+        <item><xliff:g>FAR</xliff:g></item>
+        <item><xliff:g>MEDIUM</xliff:g></item>
+        <item><xliff:g>CLOSE</xliff:g></item>
     </string-array>
     <!-- Settings screen, section title -->
     <string name="pref_extras_title">Advanced settings</string>
@@ -386,8 +404,6 @@
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_nav_dump" translatable="false">Enable nav cache dump</string>
     <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_search_url" translatable="false">Set search URL</string>
-    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_uastring" translatable="false">UAString</string>
     <!-- Do not tranlsate.  Development option -->
     <string-array name="pref_development_ua_choices" translatable="false">
@@ -402,7 +418,7 @@
         <item>2</item>
     </string-array>
     <!-- Settings screen, setting option name -->
-    <string name="pref_default_text_encoding">Set text encoding</string>
+    <string name="pref_default_text_encoding">Text encoding</string>
     <!-- Options in the Default encoding dialog box -->
     <string-array name="pref_default_text_encoding_choices">
         <item>Latin-1 (ISO-8859-1)</item>
@@ -462,6 +478,8 @@
     <!-- This string is for the browser "Go To" UI. -->
     <!-- This is the button label in the "Go To" UI. -->
     <string name="search_button_text">Go</string>
+    <!-- The string used to describe the browser as a searchable item within system search settings. -->
+    <string name="search_settings_description">Bookmarks and web history</string>
 
     <!-- Pop-up window dialog -->
     <!-- Title for a dialog informing the user that the site is attempting to
@@ -582,6 +600,11 @@
     <!-- Do not translate.  Testing only -->
     <string name="dump_nav" translatable="false">Dump navigation cache</string>
 
+    <!-- The default homepage. If it starts with "http://www.google" and the
+            user signs up the device with a Google sites account, the site's
+            domain will be appended. -->
+    <string name="homepage_base">http://www.google.com/m?client=ms-{CID}</string>
+
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">
         <item>Google</item>
@@ -625,23 +648,22 @@
     <!-- Do not translate.  This string is an internal URI, not seen in the UI. -->
     <string name="google_search_base" translatable="false">
         http://www.google.com/m?hl=%1$s&amp;gl=%2$s&amp;</string>
+    
+    <!-- The description of the suggestion that lets the user search the web for the query currently
+         in the text field. -->
+    <string name="search_the_web">Search the web</string>
 
-    <!-- Used in Goto to indicate Google search -->
-    <string name="search_google">Search Google</string>
-
-    <!-- Title of an application permission, listed so the user can choose whether 
-        they want to allow the application to do this. -->
+    <!-- FIXME: the next four strings(read/write history permissions) should be removed.
+         At the moment actually removing them requires manually deleting all of the
+         existing translations. -->
+    <!-- Do not translate -->
     <string name="permlab_readHistoryBookmarks">read Browser\'s history and bookmarks</string>
-    <!-- Description of an application permission, listed so the user can choose whether
-        they want to allow the application to do this. -->
-    <string name="permdesc_readHistoryBookmarks">Allows the application to read all 
+    <!-- Do not translate -->
+    <string name="permdesc_readHistoryBookmarks">Allows the application to read all
         the URLs that the Browser has visited, and all of the Browser\'s bookmarks.</string>
-
-    <!-- Title of an application permission, listed so the user can choose whether 
-        they want to allow the application to do this. -->
+    <!-- Do not translate -->
     <string name="permlab_writeHistoryBookmarks">write Browser\'s history and bookmarks</string>
-    <!-- Description of an application permission, listed so the user can choose whether
-        they want to allow the application to do this. -->
+    <!-- Do not translate -->
     <string name="permdesc_writeHistoryBookmarks">Allows an application to modify the
         Browser\'s history or bookmarks stored on your phone. Malicious applications 
         can use this to erase or modify your Browser\'s data.</string>

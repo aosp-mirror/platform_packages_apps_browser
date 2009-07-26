@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<!-- Copyright (C) 2009 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,21 +14,16 @@
      limitations under the License.
 -->
 
-<!-- Note:  This defines the UI for the "Go To" UI, which uses the search manager UI, but
-     is actually used to enter Uri's to load and display. -->
-     
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
-    android:icon="@drawable/ic_search_category_browser"
-    android:label="@string/search_label"
-    android:hint="@string/search_hint"
+    android:label="@string/bookmarks_search"
     android:searchButtonText="@string/search_button_text"
     android:searchMode="queryRewriteFromData"
-    android:voiceSearchMode="showVoiceSearchButton|launchWebSearch"
     android:inputType="textUri"
     android:imeOptions="actionGo"
-    
-    android:searchSettingsDescription="@string/search_settings_description"
+
+    android:includeInGlobalSearch="true"
     android:searchSuggestAuthority="browser"
+    android:searchSuggestPath="bookmarks"
     android:searchSuggestSelection="url LIKE ?"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
 />

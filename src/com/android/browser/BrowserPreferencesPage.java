@@ -51,6 +51,12 @@ public class BrowserPreferencesPage extends PreferenceActivity
                 getPreferenceScreen().getSharedPreferences()
                 .getString(BrowserSettings.PREF_TEXT_SIZE, null)) );
         
+        e = findPreference(BrowserSettings.PREF_DEFAULT_ZOOM);
+        e.setOnPreferenceChangeListener(this);
+        e.setSummary(getVisualDefaultZoomName(
+                getPreferenceScreen().getSharedPreferences()
+                .getString(BrowserSettings.PREF_DEFAULT_ZOOM, null)) );
+
         e = findPreference(BrowserSettings.PREF_DEFAULT_TEXT_ENCODING);
         e.setOnPreferenceChangeListener(this);
         
@@ -104,6 +110,9 @@ public class BrowserPreferencesPage extends PreferenceActivity
         } else if (pref.getKey().equals(BrowserSettings.PREF_TEXT_SIZE)) {
             pref.setSummary(getVisualTextSizeName((String) objValue));
             return true;
+        } else if (pref.getKey().equals(BrowserSettings.PREF_DEFAULT_ZOOM)) {
+            pref.setSummary(getVisualDefaultZoomName((String) objValue));
+            return true;
         } else if (pref.getKey().equals(
                 BrowserSettings.PREF_DEFAULT_TEXT_ENCODING)) {
             pref.setSummary((String) objValue);
@@ -126,24 +135,44 @@ public class BrowserPreferencesPage extends PreferenceActivity
         }
         return true;
     }
-    
+
     private CharSequence getVisualTextSizeName(String enumName) {
-        CharSequence[] visualNames = 
-                getResources().getTextArray(R.array.pref_text_size_choices);
-        CharSequence[] enumNames = 
-                getResources().getTextArray(R.array.pref_text_size_values);
-        
+        CharSequence[] visualNames = getResources().getTextArray(
+                R.array.pref_text_size_choices);
+        CharSequence[] enumNames = getResources().getTextArray(
+                R.array.pref_text_size_values);
+
         // Sanity check
         if (visualNames.length != enumNames.length) {
             return "";
         }
-        
+
         for (int i = 0; i < enumNames.length; i++) {
             if (enumNames[i].equals(enumName)) {
                 return visualNames[i];
             }
         }
-        
+
+        return "";
+    }
+
+    private CharSequence getVisualDefaultZoomName(String enumName) {
+        CharSequence[] visualNames = getResources().getTextArray(
+                R.array.pref_default_zoom_choices);
+        CharSequence[] enumNames = getResources().getTextArray(
+                R.array.pref_default_zoom_values);
+
+        // Sanity check
+        if (visualNames.length != enumNames.length) {
+            return "";
+        }
+
+        for (int i = 0; i < enumNames.length; i++) {
+            if (enumNames[i].equals(enumName)) {
+                return visualNames[i];
+            }
+        }
+
         return "";
     }
 }

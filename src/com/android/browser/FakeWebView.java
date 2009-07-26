@@ -33,16 +33,8 @@ import android.util.Log;
  *  overrides ImageView so it can be used for the new tab image as well.
  */
 public class FakeWebView extends ImageView {
-    private TabControl.Tab mTab;
-    private Picture        mPicture;
+    private TabControl.PickerData mPickerData;
     private boolean        mUsesResource;
-
-    private class Listener implements WebView.PictureListener {
-        public void onNewPicture(WebView view, Picture p) {
-            FakeWebView.this.mPicture = p;
-            FakeWebView.this.invalidate();
-        }
-    };
 
     public FakeWebView(Context context) {
         this(context, null);
@@ -68,17 +60,21 @@ public class FakeWebView extends ImageView {
             // would be nice to know if the picture is empty so we can avoid
             // drawing white.
             canvas.drawColor(Color.WHITE);
-            if (mTab != null) {
-                final WebView w = mTab.getTopWindow();
-                if (w != null) {
-                    if (mPicture != null) {
-                        canvas.save();
-                        float scale = getWidth() * w.getScale() / w.getWidth();
-                        canvas.scale(scale, scale);
-                        canvas.translate(-w.getScrollX(), -w.getScrollY());
-                        canvas.drawPicture(mPicture);
-                        canvas.restore();
+            if (mPickerData != null) {
+                final Picture p = mPickerData.mPicture;
+                if (p != null) {
+                    canvas.save();
+                    float scale = getWidth() * mPickerData.mScale
+                            / mPickerData.mWidth;
+                    // Check for NaN and infinity.
+                    if (Float.isNaN(scale) || Float.isInfinite(scale)) {
+                        scale = 1.0f;
                     }
+                    canvas.scale(scale, scale);
+                    canvas.translate(-mPickerData.mScrollX,
+                            -mPickerData.mScrollY);
+                    canvas.drawPicture(p);
+                    canvas.restore();
                 }
             }
         }
@@ -87,25 +83,24 @@ public class FakeWebView extends ImageView {
     @Override
     public void setImageResource(int resId) {
         mUsesResource = true;
-        mTab = null;
+        mPickerData = null;
         super.setImageResource(resId);
     }
 
     /**
      *  Set a WebView for this FakeWebView to represent.
-     *  @param  v WebView whose picture and other data will be used in onDraw.
+     *  @param  t The tab whose picture and other data will be used in onDraw.
      */
     public void setTab(TabControl.Tab t) {
         mUsesResource = false;
-        mTab = t;
-        if (t != null && t.getWebView() != null) {
-            Listener l = new Listener();
-            if (t.getSubWebView() != null) {
-                t.getSubWebView().setPictureListener(l);
-            } else {
-                t.getWebView().setPictureListener(l);
-            }
-            mPicture = mTab.getTopWindow().capturePicture();
+        if (mPickerData != null) {
+            // Clear the old tab's view first
+            mPickerData.mFakeWebView = null;
+        }
+        mPickerData = null;
+        if (t != null && t.getPickerData() != null) {
+            mPickerData = t.getPickerData();
+            mPickerData.mFakeWebView = this;
         }
     }
 }

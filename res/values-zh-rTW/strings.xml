@@ -18,7 +18,7 @@
     <string name="application_name">"瀏覽器"</string>
     <string name="tab_bookmarks">"書籤"</string>
     <string name="tab_most_visited">"常用網頁"</string>
-    <string name="tab_history">"紀錄"</string>
+    <string name="tab_history">"記錄"</string>
     <string name="added_to_bookmarks">"已加入書籤"</string>
     <string name="removed_from_bookmarks">"已自書籤中移除"</string>
     <string name="sign_in_to">"登入到 <xliff:g id="HOSTNAME">%s1</xliff:g>「<xliff:g id="REALM">%s2</xliff:g>」"</string>
@@ -27,10 +27,12 @@
     <string name="action">"登入"</string>
     <string name="cancel">"取消"</string>
     <string name="ok">"確定"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"沒有相配項"</item>
+    <item quantity="one">"1 個相配項"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> 個相配項"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> 個相配項"</item>
+  </plurals>
     <string name="page_info">"頁面資訊"</string>
     <string name="page_info_view">"檢視頁面資訊"</string>
     <string name="page_info_address">"位址："</string>
@@ -67,16 +69,16 @@
     <string name="create_shortcut_bookmark">"新增捷徑至首頁"</string>
     <string name="open_bookmark">"開啟"</string>
     <string name="remove_bookmark">"刪除書籤"</string>
-    <string name="remove_history_item">"從紀錄中移除"</string>
-    <string name="bookmark_saved">"儲存至書籤。"</string>
-    <string name="bookmark_needs_title">"請輸入書籤名字。"</string>
+    <string name="remove_history_item">"從記錄中移除"</string>
+    <string name="bookmark_saved">"已儲存至書籤。"</string>
+    <string name="bookmark_needs_title">"請輸入書籤名稱。"</string>
     <string name="bookmark_needs_url">"請選取書籤位置。"</string>
     <string name="empty_bookmark">"無法建立空白書籤。"</string>
     <string name="bookmark_url_not_valid">"網址無效。"</string>
     <string name="delete_bookmark">"刪除"</string>
-    <string name="bookmark_page">"最後瀏覽的書籤頁面"</string>
+    <string name="bookmark_page">"將最後瀏覽的網頁加入書籤"</string>
     <string name="current_page">"來源 "</string>
-    <string name="delete_bookmark_warning">"<xliff:g id="BOOKMARK">%s</xliff:g>"</string>
+    <string name="delete_bookmark_warning">"刪除「<xliff:g id="BOOKMARK">%s</xliff:g>」書籤？"</string>
     <string name="open_in_new_window">"在新視窗開啟"</string>
     <string name="new_window">"新視窗"</string>
     <string name="goto_dot">"前往"</string>
@@ -88,16 +90,16 @@
     <string name="tab_picker_view_tab">"檢視"</string>
     <string name="tab_picker_new_tab">"新視窗"</string>
     <string name="tab_picker_remove_tab">"關閉"</string>
-    <string name="tab_picker_bookmark">"書籤"</string>
+    <string name="tab_picker_bookmark">"加入書籤"</string>
     <string name="tab_picker_send_url">"分享連結"</string>
     <string name="bookmarks">"書籤"</string>
     <string name="shortcut_bookmark">"書籤"</string>
-    <string name="history">"紀錄"</string>
+    <string name="history">"記錄"</string>
     <string name="menu_view_download">"下載"</string>
     <string name="share_page">"分享網頁"</string>
     <string name="contextmenu_openlink">"開啟"</string>
     <string name="contextmenu_openlink_newwindow">"在新視窗開啟"</string>
-    <string name="contextmenu_bookmark_thislink">"書籤連結"</string>
+    <string name="contextmenu_bookmark_thislink">"將連結加入書籤"</string>
     <string name="contextmenu_savelink">"儲存連結"</string>
     <string name="contextmenu_sharelink">"分享連結"</string>
     <string name="contextmenu_copy">"複製"</string>
@@ -105,7 +107,7 @@
     <string name="contextmenu_download_image">"儲存圖片"</string>
     <string name="contextmenu_view_image">"檢視圖片"</string>
     <string name="contextmenu_dial_dot">"撥打…"</string>
-    <string name="contextmenu_add_contact">"新增連絡人"</string>
+    <string name="contextmenu_add_contact">"新增聯絡人"</string>
     <string name="contextmenu_send_mail">"傳送電子郵件"</string>
     <string name="contextmenu_map">"地圖"</string>
     <string name="clear">"清除"</string>
@@ -114,14 +116,14 @@
     <string name="menu_preferences">"設定"</string>
     <string name="pref_content_title">"頁面內容設定"</string>
     <string name="pref_content_load_images">"載入圖片"</string>
-    <string name="pref_content_load_images_summary">"在網頁上顯示圖片"</string>
-    <string name="pref_content_block_popups">"阻擋快顯視窗"</string>
+    <string name="pref_content_load_images_summary">"顯示網頁上的圖片"</string>
+    <string name="pref_content_block_popups">"封鎖快顯視窗"</string>
     <string name="pref_content_javascript">"啟用 JavaScript"</string>
-    <string name="pref_content_open_in_background">"在背景開啟"</string>
-    <string name="pref_content_open_in_background_summary">"新分頁開在目前頁面後面"</string>
+    <string name="pref_content_open_in_background">"在背景中開啟"</string>
+    <string name="pref_content_open_in_background_summary">"在目前頁面後面開啟新分頁"</string>
     <string name="pref_content_homepage">"設定首頁"</string>
     <string name="pref_content_autofit">"自動調整頁面"</string>
-    <string name="pref_content_autofit_summary">"將網頁調整至適合螢幕大小"</string>
+    <string name="pref_content_autofit_summary">"將網頁調整至適合螢幕的大小"</string>
     <string name="pref_privacy_title">"隱私設定"</string>
     <string name="pref_privacy_clear_cache">"清除快取"</string>
     <string name="pref_privacy_clear_cache_summary">"刪除所有快取頁面內容"</string>
@@ -129,19 +131,19 @@
     <string name="pref_privacy_clear_cookies">"清除所有 cookie"</string>
     <string name="pref_privacy_clear_cookies_summary">"清除所有 cookie"</string>
     <string name="pref_privacy_clear_cookies_dlg">"所有 cookie 會被清除。"</string>
-    <string name="pref_privacy_clear_history">"清除紀錄"</string>
+    <string name="pref_privacy_clear_history">"清除記錄"</string>
     <string name="pref_privacy_clear_history_summary">"清除瀏覽記錄"</string>
-    <string name="pref_privacy_clear_history_dlg">"瀏覽記錄會被清除。"</string>
-    <string name="pref_privacy_clear_form_data">"清除表單資訊"</string>
+    <string name="pref_privacy_clear_history_dlg">"瀏覽記錄將被清除。"</string>
+    <string name="pref_privacy_clear_form_data">"清除表單資料"</string>
     <string name="pref_privacy_clear_form_data_summary">"清除所有表單"</string>
     <string name="pref_privacy_clear_form_data_dlg">"所有儲存的資料會被清除。"</string>
     <string name="pref_privacy_clear_passwords">"清除密碼"</string>
-    <string name="pref_privacy_clear_passwords_summary">"清除所有儲存密碼"</string>
+    <string name="pref_privacy_clear_passwords_summary">"清除所有儲存的密碼"</string>
     <string name="pref_privacy_clear_passwords_dlg">"所有儲存密碼會被清除"</string>
     <string name="pref_security_title">"安全性設定"</string>
     <string name="pref_security_remember_passwords">"記住密碼"</string>
     <string name="pref_security_remember_passwords_summary">"儲存網站使用者名稱與密碼"</string>
-    <string name="pref_security_save_form_data">"儲存表單資訊"</string>
+    <string name="pref_security_save_form_data">"儲存表單資料"</string>
     <string name="pref_security_save_form_data_summary">"儲存輸入的表單資料"</string>
     <string name="pref_security_show_security_warning">"顯示安全性警告"</string>
     <string name="pref_security_show_security_warning_summary">"當網站安全性有問題時，顯示警告訊息"</string>
@@ -149,25 +151,25 @@
     <string name="pref_security_accept_cookies_summary">"允許網站存取 cookie"</string>
     <string name="pref_text_size">"設定文字大小"</string>
   <string-array name="pref_text_size_choices">
-    <item>"極小"</item>
+    <item>"最小"</item>
     <item>"小"</item>
-    <item>"一般"</item>
+    <item>"適中"</item>
     <item>"大"</item>
-    <item>"特大"</item>
+    <item>"最大"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"文字大小"</string>
     <string name="pref_extras_title">"進階設定"</string>
-    <string name="pref_extras_gears_enable">"啟用裝置"</string>
+    <string name="pref_extras_gears_enable">"啟用 Gears"</string>
     <string name="pref_extras_gears_enable_summary">"可擴充瀏覽器功能的應用程式"</string>
-    <string name="pref_extras_gears_settings">"裝置設定"</string>
+    <string name="pref_extras_gears_settings">"Gears 設定"</string>
     <string name="pref_plugin_installed">"外掛程式清單"</string>
     <string name="pref_plugin_installed_empty_list">"未安裝外掛程式。"</string>
     <string name="pref_extras_gears_settings_summary">"可擴充瀏覽器功能的應用程式"</string>
-    <string name="pref_extras_reset_default">"回復初始設定"</string>
-    <string name="pref_extras_reset_default_summary">"清除瀏覽器所有資料，並回復初始設定"</string>
-    <string name="pref_extras_reset_default_dlg">"瀏覽器所有資料會被清除， 並回復初始設定。"</string>
-    <string name="pref_extras_reset_default_dlg_title">"回復初始設定"</string>
-    <string name="pref_development_title">"除錯"</string>
+    <string name="pref_extras_reset_default">"還原至初始設定"</string>
+    <string name="pref_extras_reset_default_summary">"清除瀏覽器所有資料，並還原至初始設定"</string>
+    <string name="pref_extras_reset_default_dlg">"瀏覽器所有資料會被清除， 並還原至初始設定。"</string>
+    <string name="pref_extras_reset_default_dlg_title">"還原至初始設定"</string>
+    <string name="pref_development_title">"偵錯"</string>
     <string name="pref_default_text_encoding">"設定文字編碼"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
@@ -183,10 +185,10 @@
     <string name="browserFrameNetworkErrorLabel">"資料連線問題"</string>
     <string name="browserFrameFileErrorLabel">"檔案有問題"</string>
     <string name="browserFrameFormResubmitLabel">"確認"</string>
-    <string name="browserFrameFormResubmitMessage">"您正在瀏覽的頁面包含已傳送的 (「POSTDATA」)，若重新送出資料，此頁表單中的資料會重複 (例如：搜尋結果、線上購物狀態)。"</string>
+    <string name="browserFrameFormResubmitMessage">"您想瀏覽的頁面包含已傳送的 (「POSTDATA」)，如重新送出資料，此頁表單上執行的操作將會重複 (包括搜尋或線上購物等)。"</string>
     <string name="loadSuspendedTitle">"沒有網路連線"</string>
     <string name="loadSuspended">"連線恢復後，此頁面會繼續載入。"</string>
-    <string name="clear_history">"清除紀錄"</string>
+    <string name="clear_history">"清除記錄"</string>
     <string name="browser_history">"最近瀏覽的頁面"</string>
     <string name="empty_history">"瀏覽記錄是空的。"</string>
     <string name="add_new_bookmark">"加入書籤…"</string>
@@ -196,7 +198,7 @@
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"此網站試圖開啟快顯視窗。"</string>
     <string name="allow">"允許"</string>
-    <string name="block">"阻擋"</string>
+    <string name="block">"封鎖"</string>
     <string name="too_many_windows_dialog_title">"已達視窗數量限制"</string>
     <string name="too_many_windows_dialog_message">"已達最大視窗數量限制，無法開啟新視窗。"</string>
     <string name="too_many_subwindows_dialog_title">"已開啟快顯視窗"</string>
@@ -218,7 +220,7 @@
     <string name="download_no_sdcard_dlg_title">"沒有 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg">"需要 SD 卡下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title">"無法使用 SD 卡"</string>
-    <string name="download_sdcard_busy_dlg_msg">"SD 記憶卡忙碌中。若要允許下載，請選取通知區域中的 [停用 USB 儲存裝置]。"</string>
+    <string name="download_sdcard_busy_dlg_msg">"SD 記憶卡忙碌。如要允許下載，請選取通知中的 [停用 USB 儲存裝置]。"</string>
     <string name="download_no_application">"找不到可以開啟這個檔案的應用程式。"</string>
     <string name="retry">"重試"</string>
     <string name="no_downloads">"下載記錄是空的。"</string>
@@ -234,11 +236,10 @@
     <string name="download_length_required">"無法下載。物件大小無法估計。"</string>
     <string name="download_precondition_failed">"下載中斷。無法續傳。"</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="search_google">"搜尋 Google"</string>
     <string name="permlab_readHistoryBookmarks">"讀取瀏覽器的瀏覽記錄和書籤"</string>
     <string name="permdesc_readHistoryBookmarks">"允許應用程式讀取瀏覽器造訪過的所有 URL 和瀏覽器所有的書籤。"</string>
     <string name="permlab_writeHistoryBookmarks">"寫入瀏覽器的瀏覽記錄和書籤"</string>
-    <string name="permdesc_writeHistoryBookmarks">"允許應用程式修改儲存在電話上的瀏覽器記錄或書籤。惡意應用程式可能會使用此選項來清除或修改您瀏覽器的資料。"</string>
+    <string name="permdesc_writeHistoryBookmarks">"允許應用程式修改儲存在電話上的瀏覽記錄或書籤。請注意：惡意應用程式可能會使用此選項來清除或修改您瀏覽器的資料。"</string>
     <string name="query_data_prompt">"允許儲存"</string>
     <string name="query_data_message">"此網站要在您的手機上儲存資訊。"</string>
     <string name="location_prompt">"存取您的位置資訊"</string>
@@ -248,7 +249,7 @@
     <string name="settings_message">"下表列出您為每個想要使用 Gears 之網站所授予的權限。"</string>
     <string name="filepicker_message">"檔案挑選程式"</string>
     <string name="image_message">"選擇的影像"</string>
-    <string name="settings_title">"裝置設定"</string>
+    <string name="settings_title">"Gears 設定"</string>
     <string name="privacy_policy">"讀取網站的隱私權政策，以瞭解網站將如何使用您的位置資訊。"</string>
     <string name="settings_storage_title">"允許本機儲存"</string>
     <string name="settings_storage_subtitle_on">"此網站可以在您的手機上儲存資訊"</string>

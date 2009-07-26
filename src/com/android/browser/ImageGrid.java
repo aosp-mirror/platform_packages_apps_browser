@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.util.Config;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -109,7 +108,7 @@ class ImageGrid extends GridView implements OnItemClickListener,
      * @param index Window to remove, from 0 to MAX_TABS-1
      */
     public void remove(int index) {
-        if (Config.DEBUG && (index < 0 || index >= TabControl.MAX_TABS)) {
+        if (Browser.DEBUG && (index < 0 || index >= TabControl.MAX_TABS)) {
             throw new AssertionError();
         }
         mAdapter.remove(index);

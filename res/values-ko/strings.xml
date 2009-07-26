@@ -236,7 +236,6 @@
     <string name="download_length_required">"항목의 크기를 확인할 수 없으므로 다운로드할 수 없습니다."</string>
     <string name="download_precondition_failed">"다운로드 중단됨. 다시 시작할 수 없습니다."</string>
     <string name="activity_instrumentation_test_runner">"브라우저 테스트 실행기"</string>
-    <string name="search_google">"Google 검색"</string>
     <string name="permlab_readHistoryBookmarks">"브라우저의 기록 및 북마크 읽기"</string>
     <string name="permdesc_readHistoryBookmarks">"응용프로그램이 브라우저에서 방문한 모든 URL과 브라우저의 북마크를 모두 읽을 수 있습니다."</string>
     <string name="permlab_writeHistoryBookmarks">"브라우저의 기록 및 북마크 쓰기"</string>

@@ -236,7 +236,6 @@
     <string name="download_length_required">"Download kann nicht gestartet werden, da die Größe des Elements nicht bestimmt werden kann."</string>
     <string name="download_precondition_failed">"Download wurde unterbrochen und kann nicht fortgesetzt werden."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="search_google">"In Google suchen"</string>
     <string name="permlab_readHistoryBookmarks">"Browserverlauf und Lesezeichen lesen"</string>
     <string name="permdesc_readHistoryBookmarks">"Ermöglicht der Anwendung, alle URLs, die mit dem Browser besucht wurden, sowie alle Lesezeichen des Browsers zu lesen."</string>
     <string name="permlab_writeHistoryBookmarks">"Browserverlauf und Lesezeichen schreiben"</string>

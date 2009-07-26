@@ -27,12 +27,10 @@
     <string name="action">"Logg inn"</string>
     <string name="cancel">"Avbryt"</string>
     <string name="ok">"OK"</string>
-  <plurals name="matches_found">
-    <item quantity="zero">"Ingen treff"</item>
-    <item quantity="one">"Ett treff"</item>
-    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> treff"</item>
-    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> treff"</item>
-  </plurals>
+    <!-- no translation found for matches_found:zero (6242659159545399963) -->
+    <!-- no translation found for matches_found:one (4352019729062956802) -->
+    <!-- no translation found for matches_found:few (5544267486978946555) -->
+    <!-- no translation found for matches_found:other (6616125067364315405) -->
     <string name="page_info">"Sideinformasjon"</string>
     <string name="page_info_view">"Vis sideinformasjon"</string>
     <string name="page_info_address">"Adresse:"</string>
@@ -236,7 +234,6 @@
     <string name="download_length_required">"Kan ikke laste ned. Klarte ikke bestemme størrelsen på filen."</string>
     <string name="download_precondition_failed">"Nedlastingen ble avbrutt. Den kan ikke fortsettes."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="search_google">"Søk på Google"</string>
     <string name="permlab_readHistoryBookmarks">"read Browser\'s history and bookmarks"</string>
     <string name="permdesc_readHistoryBookmarks">"Allows the application to read all the URLs that the Browser has visited, and all of the Browser\'s bookmarks."</string>
     <string name="permlab_writeHistoryBookmarks">"write Browser\'s history and bookmarks"</string>

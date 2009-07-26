@@ -28,36 +28,23 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
-    <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
+    <uses-permission android:name="android.permission.READ_HISTORY_BOOKMARKS"/>
+    <uses-permission android:name="android.permission.WRITE_HISTORY_BOOKMARKS"/>
 
-    <!-- Allows an application to read the user Browser's history and bookmarks. -->
-    <permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
-        android:permissionGroup="android.permission-group.PERSONAL_INFO"
-        android:label="@string/permlab_readHistoryBookmarks"
-        android:description="@string/permdesc_readHistoryBookmarks"
-        android:protectionLevel="dangerous" />
-
-    <!-- Allows an application to write (but not read) the user Browser's history and bookmarks. -->
-    <permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"
-        android:permissionGroup="android.permission-group.PERSONAL_INFO"
-        android:label="@string/permlab_writeHistoryBookmarks"
-        android:description="@string/permdesc_writeHistoryBookmarks"
-        android:protectionLevel="dangerous" />
+    <supports-density android:density="160" />
+    <supports-density android:density="240" />
+    <expandable />
 
     <application   android:name="Browser"
                    android:label="@string/application_name"
                    android:icon="@drawable/ic_launcher_browser"
                    android:taskAffinity="android.task.browser" >
-        <!-- TODO: Remove dependency of application on the test runner
-             (android.test) library. -->
-        <uses-library android:name="android.test.runner" />
 
-        <provider android:name="BrowserProvider" 
-                  android:authorities="browser" 
-                  android:multiprocess="true" 
-                  android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
-                  android:writePermission="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
+        <provider android:name="BrowserProvider"
+                  android:authorities="browser"
+                  android:multiprocess="true"
+                  android:readPermission="android.permission.READ_HISTORY_BOOKMARKS"
+                  android:writePermission="android.permission.WRITE_HISTORY_BOOKMARKS"/>
         <activity android:name="BrowserActivity"
                   android:label="@string/application_name"
                   android:launchMode="singleTask"
@@ -82,6 +69,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="http" />
                 <data android:scheme="https" />
+                <data android:scheme="inline" />
                 <data android:mimeType="text/html"/>
                 <data android:mimeType="text/plain"/>
                 <data android:mimeType="application/xhtml+xml"/>
@@ -111,7 +99,6 @@
                 <data android:scheme="https" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.WEB_SEARCH" />
                 <action android:name="android.intent.action.MEDIA_SEARCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -148,7 +135,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-        </activity-alias>        
+        </activity-alias>
 
         <activity android:name="BrowserDownloadPage" android:label=""
                   android:configChanges="orientation|keyboardHidden">
@@ -176,6 +163,19 @@
                   android:theme="@android:style/Theme.Dialog">
         </activity>
 
+        <activity android:name="BookmarkSearch"
+                  android:label="@string/bookmarks_search"
+                  android:stateNotNeeded="true"
+                  android:theme="@android:style/Theme.NoDisplay"
+                  android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                    android:resource="@xml/bookmarks_searchable" />
+        </activity>
+
         <service android:name="GearsDialogService"
                  android:process=":dialog"
                  android:exported="false">
@@ -198,24 +198,6 @@
 
 
     </application>
-
-    <!-- Browser tests.  Invoke with: -->
-    <!--      adb shell am instrument -w com.android.browser/.BrowserTestRunner -->
-    <instrumentation android:name="BrowserTestRunner"
-        android:targetPackage="com.android.browser"
-        android:label="@string/activity_instrumentation_test_runner"
-    />
-    <!-- Browser tests.  Invoke with: -->
-    <!--      adb shell am instrument -w com.android.browser/.BrowserFunctionalTestRunner -->
-    <instrumentation android:name="BrowserFunctionalTestRunner"
-        android:targetPackage="com.android.browser"
-        android:label="@string/activity_instrumentation_functional_test_runner"
-    />
-
-    <instrumentation android:name="BrowserLaunchPerformance"
-        android:targetPackage="com.android.browser"
-        android:label="Browser Launch Performance"
-    />
 
 </manifest>
 

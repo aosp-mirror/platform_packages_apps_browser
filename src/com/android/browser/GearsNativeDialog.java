@@ -23,7 +23,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Config;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -137,7 +136,7 @@ public class GearsNativeDialog extends Activity {
       return;
     }
 
-    if (Config.LOGV) {
+    if (Browser.LOGV_ENABLED) {
       Log.v(TAG, "dialogtype: " + dialogTypeString);
     }
 
