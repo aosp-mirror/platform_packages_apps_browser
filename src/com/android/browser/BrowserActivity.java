@@ -165,8 +165,6 @@ public class BrowserActivity extends Activity
 
     private SensorManager mSensorManager = null;
 
-    private WebStorage.QuotaUpdater mWebStorageQuotaUpdater = null;
-
     // These are single-character shortcuts for searching popular sources.
     private static final int SHORTCUT_INVALID = 0;
     private static final int SHORTCUT_GOOGLE_SEARCH = 1;
@@ -3850,36 +3848,38 @@ public class BrowserActivity extends Activity
         }
 
         /**
-         * The origin has exceeded it's database quota.
+         * The origin has exceeded its database quota.
          * @param url the URL that exceeded the quota
          * @param databaseIdentifier the identifier of the database on
          *     which the transaction that caused the quota overflow was run
          * @param currentQuota the current quota for the origin.
+         * @param totalUsedQuota is the sum of all origins' quota.
          * @param quotaUpdater The callback to run when a decision to allow or
          *     deny quota has been made. Don't forget to call this!
          */
         @Override
         public void onExceededDatabaseQuota(String url,
-            String databaseIdentifier, long currentQuota,
+            String databaseIdentifier, long currentQuota, long totalUsedQuota,
             WebStorage.QuotaUpdater quotaUpdater) {
-            if(LOGV_ENABLED) {
-                Log.v(LOGTAG,
-                      "BrowserActivity received onExceededDatabaseQuota for "
-                      + url +
-                      ":"
-                      + databaseIdentifier +
-                      "(current quota: "
-                      + currentQuota +
-                      ")");
-            }
-            mWebStorageQuotaUpdater = quotaUpdater;
-            String DIALOG_PACKAGE = "com.android.browser";
-            String DIALOG_CLASS = DIALOG_PACKAGE + ".PermissionDialog";
-            Intent intent = new Intent();
-            intent.setClassName(DIALOG_PACKAGE, DIALOG_CLASS);
-            intent.putExtra(PermissionDialog.PARAM_ORIGIN, url);
-            intent.putExtra(PermissionDialog.PARAM_QUOTA, currentQuota);
-            startActivityForResult(intent, WEBSTORAGE_QUOTA_DIALOG);
+            mSettings.getWebStorageSizeManager().onExceededDatabaseQuota(
+                    url, databaseIdentifier, currentQuota, totalUsedQuota,
+                    quotaUpdater);
+        }
+
+        /**
+         * The Application Cache has exceeded its max size.
+         * @param spaceNeeded is the amount of disk space that would be needed
+         * in order for the last appcache operation to succeed.
+         * @param totalUsedQuota is the sum of all origins' quota.
+         * @param quotaUpdater A callback to inform the WebCore thread that a new
+         * app cache size is available. This callback must always be executed at
+         * some point to ensure that the sleeping WebCore thread is woken up.
+         */
+        @Override
+        public void onReachedMaxAppCacheSize(long spaceNeeded,
+                long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
+            mSettings.getWebStorageSizeManager().onReachedMaxAppCacheSize(
+                    spaceNeeded, totalUsedQuota, quotaUpdater);
         }
 
         /* Adds a JavaScript error message to the system log.
@@ -4616,14 +4616,6 @@ public class BrowserActivity extends Activity
                     }
                 }
                 break;
-            case WEBSTORAGE_QUOTA_DIALOG:
-                long currentQuota = 0;
-                if (resultCode == RESULT_OK && intent != null) {
-                    currentQuota = intent.getLongExtra(
-                        PermissionDialog.PARAM_QUOTA, currentQuota);
-                }
-                mWebStorageQuotaUpdater.updateQuota(currentQuota);
-                break;
             default:
                 break;
         }
@@ -5169,7 +5161,6 @@ public class BrowserActivity extends Activity
     final static int COMBO_PAGE                 = 1;
     final static int DOWNLOAD_PAGE              = 2;
     final static int PREFERENCES_PAGE           = 3;
-    final static int WEBSTORAGE_QUOTA_DIALOG    = 4;
 
     // the frenquency of checking whether system memory is low
     final static int CHECK_MEMORY_INTERVAL = 30000;     // 30 seconds

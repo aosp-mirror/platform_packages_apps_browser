@@ -20,69 +20,69 @@ import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 
 /**
- * This is a series of unit tests for the BrowserSettings class.
+ * This is a series of unit tests for the WebStorageSizeManager class.
  *
  */
 @MediumTest
-public class BrowserSettingsUnitTests extends AndroidTestCase {
+public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
 
     /**
      * Test the application caches max size calculator.
      */
-    public void testCalculateAppCacheMaxSize() {
+    public void testCalculateGlobalLimit() {
         long fileSystemSize = 78643200;  // 75 MB
         long freeSpaceSize = 25165824;  // 24 MB
-        long maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
-        assertEquals(6815744, maxSize);  // 6.5MB
+        long maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
+        assertEquals(12582912, maxSize);  // 12MB
 
         fileSystemSize = 78643200;  // 75 MB
         freeSpaceSize = 60 * 1024 * 1024;  // 60MB
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
-        assertEquals(9961472, maxSize);  // 9.5MB
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
+        assertEquals(19922944, maxSize);  // 19MB
 
         fileSystemSize = 8589934592L;  // 8 GB
         freeSpaceSize = 4294967296L;  // 4 GB
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
-        assertEquals(268959744L, maxSize);  // 256.5 MB
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
+        assertEquals(536870912L, maxSize);  // 512 MB
 
         fileSystemSize = -14;
         freeSpaceSize = 21;
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
         assertEquals(0, maxSize);
 
         fileSystemSize = 100;
         freeSpaceSize = 101;
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
         assertEquals(0, maxSize);
 
         fileSystemSize = 3774873; // ~4.2 MB
         freeSpaceSize = 2560000;  // ~2.4 MB
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
-        assertEquals(1048576, maxSize);  // 1 MB
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
+        assertEquals(2097152, maxSize);  // 2 MB
 
         fileSystemSize = 4404019; // ~4.2 MB
         freeSpaceSize = 3774873;  // ~3.6 MB
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
-        assertEquals(1048576, maxSize);  // 1 MB
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
+        assertEquals(2097152, maxSize);  // 2 MB
 
         fileSystemSize = 4404019; // ~4.2 MB
         freeSpaceSize = 4404019;  // ~4.2 MB
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
-        assertEquals(1572864, maxSize);  // 1.5 MB
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
+        assertEquals(3145728, maxSize);  // 3 MB
 
         fileSystemSize = 1048576; // 1 MB
         freeSpaceSize = 1048575;  // 1 MB - 1 byte
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
         assertEquals(0, maxSize);
-
-        fileSystemSize = 1048576; // 1 MB
-        freeSpaceSize = 1048576;  // 1 MB
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
-        assertEquals(524288, maxSize);  // 512KB
 
         fileSystemSize = 3774873; // ~3.6 MB
         freeSpaceSize = 2097151;  // 2 MB - 1 byte
-        maxSize = BrowserSettings.calculateAppCacheMaxSize(fileSystemSize, freeSpaceSize);
-        assertEquals(524288, maxSize);  // 512KB
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
+        assertEquals(0, maxSize);
+
+        fileSystemSize = 3774873; // ~3.6 MB
+        freeSpaceSize = 2097151;  // 2 MB
+        maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
+        assertEquals(0, maxSize);
     }
 }
