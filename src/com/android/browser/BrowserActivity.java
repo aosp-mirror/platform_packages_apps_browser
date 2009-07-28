@@ -807,10 +807,11 @@ public class BrowserActivity extends Activity
             urlData.setPostData(intent
                     .getByteArrayExtra(Browser.EXTRA_POST_DATA));
 
-            if (Intent.ACTION_VIEW.equals(action) &&
-                    (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-                final String appId =
-                        intent.getStringExtra(Browser.EXTRA_APPLICATION_ID);
+            final String appId = intent
+                    .getStringExtra(Browser.EXTRA_APPLICATION_ID);
+            if (Intent.ACTION_VIEW.equals(action)
+                    && !getPackageName().equals(appId)
+                    && (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
                 final TabControl.Tab appTab = mTabControl.getTabFromId(appId);
                 if (appTab != null) {
                     Log.i(LOGTAG, "Reusing tab for " + appId);
@@ -931,6 +932,7 @@ public class BrowserActivity extends Activity
         if (appData != null) {
             intent.putExtra(SearchManager.APP_DATA, appData);
         }
+        intent.putExtra(Browser.EXTRA_APPLICATION_ID, getPackageName());
         startActivity(intent);
 
         return true;
