@@ -40,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
@@ -116,19 +117,36 @@ public class WebsiteSettingsActivity extends ListActivity {
             clear();
 
             // Get the list of origins we want to display
-            HashMap<String, Site> uris = new HashMap<String, Site>();
             Set origins = WebStorage.getInstance().getOrigins();
+            Set sites = new HashSet<Site>();
             if (origins != null) {
                 Iterator<String> iter = origins.iterator();
                 while (iter.hasNext()) {
                     String origin = iter.next();
                     Site site = new Site(origin);
-                    uris.put(Uri.parse(origin).getHost(), site);
+                    sites.add(site);
                 }
             }
 
-            // Check the bookmark db -- if one of our origin matches,
-            // we set its title and favicon
+            // Create a map from host to origin. This is used to add metadata
+            // (title, icon) for this origin from the bookmarks DB.
+            HashMap hosts = new HashMap<String, Set<Site> >();
+            Iterator<Site> sitesIter = sites.iterator();
+            while (sitesIter.hasNext()) {
+                Site site = sitesIter.next();
+                String host = Uri.parse(site.getOrigin()).getHost();
+                Set hostSites = null;
+                if (hosts.containsKey(host)) {
+                    hostSites = (Set) hosts.get(host);
+                } else {
+                    hostSites = new HashSet<Site>();
+                    hosts.put(host, hostSites);
+                }
+                hostSites.add(site);
+            }
+
+            // Check the bookmark DB. If we have data for a host used by any of
+            // our origins, use it to set their title and favicon
             Cursor c = getContext().getContentResolver().query(Browser.BOOKMARKS_URI,
                     new String[] { Browser.BookmarkColumns.URL, Browser.BookmarkColumns.TITLE,
                     Browser.BookmarkColumns.FAVICON }, "bookmark = 1", null, null);
@@ -140,13 +158,18 @@ public class WebsiteSettingsActivity extends ListActivity {
                 do {
                     String url = c.getString(urlIndex);
                     String host = Uri.parse(url).getHost();
-                    if (uris.containsKey(host)) {
+                    if (hosts.containsKey(host)) {
                         String title = c.getString(titleIndex);
-                        Site site = uris.get(host);
-                        site.setTitle(title);
+                        Bitmap bmp = null;
                         byte[] data = c.getBlob(faviconIndex);
                         if (data != null) {
-                            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                            bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        }
+                        Set matchingSites = (Set) hosts.get(host);
+                        sitesIter = matchingSites.iterator();
+                        while (sitesIter.hasNext()) {
+                            Site site = sitesIter.next();
+                            site.setTitle(title);
                             if (bmp != null) {
                                 site.setIcon(bmp);
                             }
@@ -156,11 +179,9 @@ public class WebsiteSettingsActivity extends ListActivity {
             }
 
             // We can now simply populate our array with Site instances
-            Set keys = uris.keySet();
-            Iterator iter = keys.iterator();
-            while (iter.hasNext()) {
-                String origin = (String) iter.next();
-                Site site = uris.get(origin);
+            sitesIter = sites.iterator();
+            while (sitesIter.hasNext()) {
+                Site site = sitesIter.next();
                 add(site);
             }
 
