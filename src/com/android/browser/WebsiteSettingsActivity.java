@@ -59,10 +59,10 @@ public class WebsiteSettingsActivity extends ListActivity {
         private String mTitle;
         private Bitmap mIcon;
 
-        public Site(String origin, String title, Bitmap icon) {
+        public Site(String origin) {
             mOrigin = origin;
-            mTitle = title;
-            mIcon = icon;
+            mTitle = null;
+            mIcon = null;
         }
 
         public String getOrigin() {
@@ -73,16 +73,25 @@ public class WebsiteSettingsActivity extends ListActivity {
             mTitle = title;
         }
 
-        public String getTitle() {
-            return mTitle;
-        }
-
         public void setIcon(Bitmap icon) {
             mIcon = icon;
         }
 
         public Bitmap getIcon() {
             return mIcon;
+        }
+
+        public String getPrettyOrigin() {
+            return mTitle == null ? null : hideHttp(mOrigin);
+        }
+
+        public String getPrettyTitle() {
+            return mTitle == null ? hideHttp(mOrigin) : mTitle;
+        }
+
+        private String hideHttp(String str) {
+            Uri uri = Uri.parse(str);
+            return "http".equals(uri.getScheme()) ?  str.substring(7) : str;
         }
     }
 
@@ -113,7 +122,7 @@ public class WebsiteSettingsActivity extends ListActivity {
                 Iterator<String> iter = origins.iterator();
                 while (iter.hasNext()) {
                     String origin = iter.next();
-                    Site site = new Site(origin, origin, null);
+                    Site site = new Site(origin);
                     uris.put(Uri.parse(origin).getHost(), site);
                 }
             }
@@ -211,8 +220,8 @@ public class WebsiteSettingsActivity extends ListActivity {
 
             if (mCurrentSite == null) {
                 Site site = getItem(position);
-                title.setText(site.getTitle());
-                subtitle.setText(site.getOrigin());
+                title.setText(site.getPrettyTitle());
+                subtitle.setText(site.getPrettyOrigin());
                 icon.setVisibility(View.VISIBLE);
                 Bitmap bmp = site.getIcon();
                 if (bmp == null) {
