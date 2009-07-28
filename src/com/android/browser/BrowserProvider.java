@@ -22,6 +22,7 @@ import android.app.SearchManager;
 import android.backup.BackupManager;
 import android.content.ComponentName;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -41,6 +42,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Settings;
+import android.provider.Browser.BookmarkColumns;
 import android.server.search.SearchableInfo;
 import android.text.TextUtils;
 import android.text.util.Regex;
@@ -777,8 +779,12 @@ public class BrowserProvider extends ContentProvider {
         }
         getContext().getContentResolver().notifyChange(uri, null);
 
-        // back up the new bookmark set if we just inserted one
-        if (isBookmarkTable) {
+        // Back up the new bookmark set if we just inserted one.
+        // A row created when bookmarks are added from scratch will have
+        // bookmark=1 in the initial value set.
+        if (isBookmarkTable
+                && initialValues.containsKey(BookmarkColumns.BOOKMARK)
+                && initialValues.getAsInteger(BookmarkColumns.BOOKMARK) != 0) {
             mBackupManager.dataChanged();
         }
         return uri;
@@ -793,8 +799,9 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
 
-        // need to know whether it's the bookmarks table for a couple fo reasons
+        // need to know whether it's the bookmarks table for a couple of reasons
         boolean isBookmarkTable = (match == URI_MATCH_BOOKMARKS_ID);
+        String id = null;
 
         if (isBookmarkTable || match == URI_MATCH_SEARCHES_ID) {
             StringBuilder sb = new StringBuilder();
@@ -803,18 +810,30 @@ public class BrowserProvider extends ContentProvider {
                 sb.append(where);
                 sb.append(" ) AND ");
             }
+            id = url.getPathSegments().get(1);
             sb.append("_id = ");
-            sb.append(url.getPathSegments().get(1));
+            sb.append(id);
             where = sb.toString();
         }
 
-        int count = db.delete(TABLE_NAMES[match % 10], where, whereArgs);
-        getContext().getContentResolver().notifyChange(url, null);
+        ContentResolver cr = getContext().getContentResolver();
 
-        // back up the new bookmark set if we just deleted one
+        // we'lll need to back up the bookmark set if we are about to delete one
         if (isBookmarkTable) {
-            mBackupManager.dataChanged();
+            Cursor cursor = cr.query(Browser.BOOKMARKS_URI,
+                    new String[] { BookmarkColumns.BOOKMARK },
+                    "_id = " + id, null, null);
+            if (cursor.moveToNext()) {
+                if (cursor.getInt(0) != 0) {
+                    // yep, this record is a bookmark
+                    mBackupManager.dataChanged();
+                }
+            }
+            cursor.close();
         }
+
+        int count = db.delete(TABLE_NAMES[match % 10], where, whereArgs);
+        cr.notifyChange(url, null);
         return count;
     }
 
@@ -828,7 +847,9 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
 
+        String id = null;
         boolean isBookmarkTable = (match == URI_MATCH_BOOKMARKS_ID);
+        boolean changingBookmarks = false;
 
         if (isBookmarkTable || match == URI_MATCH_SEARCHES_ID) {
             StringBuilder sb = new StringBuilder();
@@ -837,18 +858,48 @@ public class BrowserProvider extends ContentProvider {
                 sb.append(where);
                 sb.append(" ) AND ");
             }
+            id = url.getPathSegments().get(1);
             sb.append("_id = ");
-            sb.append(url.getPathSegments().get(1));
+            sb.append(id);
             where = sb.toString();
         }
 
-        int ret = db.update(TABLE_NAMES[match % 10], values, where, whereArgs);
-        getContext().getContentResolver().notifyChange(url, null);
+        ContentResolver cr = getContext().getContentResolver();
 
-        // back up the new bookmark set if we just changed one
+        // Not all bookmark-table updates should be backed up.  Look to see
+        // whether we changed the title, url, or "is a bookmark" state, and
+        // request a backup if so.
         if (isBookmarkTable) {
-            mBackupManager.dataChanged();
+            // Alterations to the bookmark field inherently change the bookmark
+            // set, so we don't need to query the record; we know a priori that
+            // we will need to back up this change.
+            if (values.containsKey(BookmarkColumns.BOOKMARK)) {
+                changingBookmarks = true;
+            }
+            // changing the title or URL of a bookmark record requires a backup,
+            // but we don't know wether such an update is on a bookmark without
+            // querying the record
+            if (!changingBookmarks &&
+                    (values.containsKey(BookmarkColumns.TITLE)
+                     || values.containsKey(BookmarkColumns.URL))) {
+                // when isBookmarkTable is true, the 'id' var was assigned above
+                Cursor cursor = cr.query(Browser.BOOKMARKS_URI,
+                        new String[] { BookmarkColumns.BOOKMARK },
+                        "_id = " + id, null, null);
+                if (cursor.moveToNext()) {
+                    changingBookmarks = (cursor.getInt(0) != 0);
+                }
+                cursor.close();
+            }
+
+            // if this *is* a bookmark row we're altering, we need to back it up.
+            if (changingBookmarks) {
+                mBackupManager.dataChanged();
+            }
         }
+
+        int ret = db.update(TABLE_NAMES[match % 10], values, where, whereArgs);
+        cr.notifyChange(url, null);
         return ret;
     }
 
