@@ -47,9 +47,13 @@ import java.util.Date;
      *  @param cr The ContentResolver being used to add the bookmark to the db.
      *  @param url URL of the website to be bookmarked.
      *  @param name Provided name for the bookmark.
+     *  @param retainIcon Whether to retain the page's icon in the icon database.
+     *          This will usually be <code>true</code> except when bookmarks are
+     *          added by a settings restore agent.
      */
     /* package */ static void addBookmark(Context context,
-            ContentResolver cr, String url, String name) {
+            ContentResolver cr, String url, String name,
+            boolean retainIcon) {
         // Want to append to the beginning of the list
         long creationTime = new Date().getTime();
         // First we check to see if the user has already visited this
@@ -137,7 +141,9 @@ import java.util.Date;
                 cr.insert(Browser.BOOKMARKS_URI, map);
             }
         }
-        WebIconDatabase.getInstance().retainIconForPageUrl(url);
+        if (retainIcon) {
+            WebIconDatabase.getInstance().retainIconForPageUrl(url);
+        }
         cursor.deactivate();
         if (context != null) {
             Toast.makeText(context, R.string.added_to_bookmarks,
