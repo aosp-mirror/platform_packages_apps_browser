@@ -144,6 +144,8 @@
     <string name="open_bookmark">Open</string>
     <!-- Menu item to remove the currently highlighted bookmark-->
     <string name="remove_bookmark">Delete bookmark</string>
+    <!-- Context menu item to remove a history item from bookmarks -->
+    <string name="remove_from_bookmarks">Remove from bookmarks</string>
     <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
     <string name="remove_history_item">Remove from history</string>
     <!-- Context menu item for setting the bookmark/history item as the homepage -->

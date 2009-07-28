@@ -55,7 +55,7 @@ import android.widget.TextView;
         };
     }
     
-    void copyTo(HistoryItem item) {
+    /* package */ void copyTo(HistoryItem item) {
         item.mTextView.setText(mTextView.getText());
         item.mUrlText.setText(mUrlText.getText());
         item.setIsBookmark(mStar.isChecked());
@@ -63,10 +63,17 @@ import android.widget.TextView;
     }
 
     /**
+     * Whether or not this item represents a bookmarked site
+     */
+    /* package */ boolean isBookmark() {
+        return mStar.isChecked();
+    }
+
+    /**
      *  Set whether or not this represents a bookmark, and make sure the star
      *  behaves appropriately.
      */
-    void setIsBookmark(boolean isBookmark) {
+    /* package */ void setIsBookmark(boolean isBookmark) {
         mStar.setOnCheckedChangeListener(null);
         mStar.setChecked(isBookmark);
         mStar.setOnCheckedChangeListener(mListener);

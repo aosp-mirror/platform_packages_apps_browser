@@ -62,6 +62,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     private HistoryAdapter          mAdapter;
     private DateSorter              mDateSorter;
     private boolean                 mMaxTabsOpen;
+    private HistoryItem             mContextHeader;
 
     private final static String LOGTAG = "browser";
 
@@ -166,7 +167,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }  
         return super.onOptionsItemSelected(item);
     }
-    
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
@@ -181,12 +182,25 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.historycontext, menu);
 
+        HistoryItem historyItem = (HistoryItem) i.targetView;
+
         // Setup the header
-        menu.setHeaderTitle(((HistoryItem)i.targetView).getUrl());
+        if (mContextHeader == null) {
+            mContextHeader = new HistoryItem(this);
+        } else if (mContextHeader.getParent() != null) {
+            ((ViewGroup) mContextHeader.getParent()).removeView(mContextHeader);
+        }
+        historyItem.copyTo(mContextHeader);
+        menu.setHeaderView(mContextHeader);
 
         // Only show open in new tab if we have not maxed out available tabs
         menu.findItem(R.id.new_window_context_menu_id).setVisible(!mMaxTabsOpen);
         
+        // For a bookmark, provide the option to remove it from bookmarks
+        if (historyItem.isBookmark()) {
+            MenuItem item = menu.findItem(R.id.save_to_bookmarks_menu_id);
+            item.setTitle(R.string.remove_from_bookmarks);
+        }
         // decide whether to show the share link option
         PackageManager pm = getPackageManager();
         Intent send = new Intent(Intent.ACTION_SEND);
@@ -201,8 +215,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     public boolean onContextItemSelected(MenuItem item) {
         ExpandableListContextMenuInfo i = 
             (ExpandableListContextMenuInfo) item.getMenuInfo();
-        String url = ((HistoryItem)i.targetView).getUrl();
-        String title = ((HistoryItem)i.targetView).getName();
+        HistoryItem historyItem = (HistoryItem) i.targetView;
+        String url = historyItem.getUrl();
+        String title = historyItem.getName();
         switch (item.getItemId()) {
             case R.id.open_context_menu_id:
                 loadUrl(url, false);
@@ -211,7 +226,12 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 loadUrl(url, true);
                 return true;
             case R.id.save_to_bookmarks_menu_id:
-                Browser.saveBookmark(this, title, url);
+                if (historyItem.isBookmark()) {
+                    Bookmarks.removeFromBookmarks(this, getContentResolver(),
+                            url);
+                } else {
+                    Browser.saveBookmark(this, title, url);
+                }
                 return true;
             case R.id.share_link_context_menu_id:
                 Browser.sendString(this, url);
