@@ -28,11 +28,12 @@
         />
 
     <ImageView android:id="@+id/fav"
-        android:scaleType="center"
+        android:scaleType="fitCenter"
         android:layout_width="20dip"
         android:layout_height="20dip"
+        android:padding="2dip"
         android:layout_alignBottom="@+id/thumb"
-        android:background="@color/white"
+        android:background="@drawable/fav_icn_background"
         />
     <LinearLayout android:id="@+id/holder"
         android:layout_height="wrap_content"
