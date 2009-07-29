@@ -238,8 +238,10 @@ class BrowserSettings extends Observable {
         // Set the default value for the Application Caches path.
         appCachePath = ctx.getDir("appcache", 0).getPath();
         // Determine the maximum size of the application cache.
-        webStorageSizeManager = WebStorageSizeManager.getInstance(appCachePath,
-                ctx);
+        webStorageSizeManager = new WebStorageSizeManager(
+                ctx,
+                new WebStorageSizeManager.StatFsDiskInfo(appCachePath),
+                new WebStorageSizeManager.WebKitAppCacheInfo(appCachePath));
         appCacheMaxSize = webStorageSizeManager.getAppCacheMaxSize();
         // Set the default value for the Database path.
         databasePath = ctx.getDir("databases", 0).getPath();

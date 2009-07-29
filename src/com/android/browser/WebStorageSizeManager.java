@@ -92,34 +92,98 @@ class WebStorageSizeManager {
     private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
     private final static String LOGTAG = "browser";
     // The default quota value for an origin.
-    private final static long ORIGIN_DEFAULT_QUOTA = 4 * 1024 * 1024;  // 4MB
+    public final static long ORIGIN_DEFAULT_QUOTA = 3 * 1024 * 1024;  // 3MB
     // The default value for quota increases.
-    private final static long QUOTA_INCREASE_STEP = 2 * 1024 * 1024;  // 2MB
-    // The name of the application cache file. Keep in sync with
-    // WebCore/loader/appcache/ApplicationCacheStorage.cpp
-    private final static String APPCACHE_FILE = "ApplicationCache.db";
-    // The WebStorageSizeManager singleton.
-    private static WebStorageSizeManager mManager;
+    public final static long QUOTA_INCREASE_STEP = 1 * 1024 * 1024;  // 1MB
     // The application context.
-    private Context mContext;
+    private final Context mContext;
     // The global Web storage limit.
-    private long mGlobalLimit;
+    private final long mGlobalLimit;
     // The maximum size of the application cache file.
     private long mAppCacheMaxSize;
 
     /**
-     * Factory method.
-     * @param path is a path on the partition where the app cache data is kept.
-     * @param ctx is the browser application context.
-     * @param storage is the WebStorage singleton.
-     *
+     * Interface used by the WebStorageSizeManager to obtain information
+     * about the underlying file system. This functionality is separated
+     * into its own interface mainly for testing purposes.
      */
-    public static WebStorageSizeManager getInstance(String appCachePath,
-            Context ctx) {
-       if (mManager == null) {
-           mManager = new WebStorageSizeManager(appCachePath, ctx);
-       }
-       return mManager;
+    public interface DiskInfo {
+        /**
+         * @return the size of the free space in the file system.
+         */
+        public long getFreeSpaceSizeBytes();
+
+        /**
+         * @return the total size of the file system.
+         */
+        public long getTotalSizeBytes();
+    };
+
+    private DiskInfo mDiskInfo;
+    // For convenience, we provide a DiskInfo implementation that uses StatFs.
+    public static class StatFsDiskInfo implements DiskInfo {
+        private StatFs mFs;
+
+        public StatFsDiskInfo(String path) {
+            mFs = new StatFs(path);
+        }
+
+        public long getFreeSpaceSizeBytes() {
+            return mFs.getAvailableBlocks() * mFs.getBlockSize();
+        }
+
+        public long getTotalSizeBytes() {
+            return mFs.getBlockCount() * mFs.getBlockSize();
+        }
+    };
+
+    /**
+     * Interface used by the WebStorageSizeManager to obtain information
+     * about the appcache file. This functionality is separated into its own
+     * interface mainly for testing purposes.
+     */
+    public interface AppCacheInfo {
+        /**
+         * @return the current size of the appcache file.
+         */
+        public long getAppCacheSizeBytes();
+    };
+
+    // For convenience, we provide an AppCacheInfo implementation.
+    public static class WebKitAppCacheInfo implements AppCacheInfo {
+        // The name of the application cache file. Keep in sync with
+        // WebCore/loader/appcache/ApplicationCacheStorage.cpp
+        private final static String APPCACHE_FILE = "ApplicationCache.db";
+        private String mAppCachePath;
+
+        public WebKitAppCacheInfo(String path) {
+            mAppCachePath = path;
+        }
+
+        public long getAppCacheSizeBytes() {
+            File file = new File(mAppCachePath
+                    + File.separator
+                    + APPCACHE_FILE);
+            return file.length();
+        }
+    };
+
+    /**
+     * Public ctor
+     * @param ctx is the application context
+     * @param diskInfo is the DiskInfo instance used to query the file system.
+     * @param appCacheInfo is the AppCacheInfo used to query info about the
+     * appcache file.
+     */
+    public WebStorageSizeManager(Context ctx, DiskInfo diskInfo,
+            AppCacheInfo appCacheInfo) {
+        mContext = ctx;
+        mDiskInfo = diskInfo;
+        mGlobalLimit = getGlobalLimit();
+        // The initial max size of the app cache is either 25% of the global
+        // limit or the current size of the app cache file, whichever is bigger.
+        mAppCacheMaxSize = Math.max(mGlobalLimit / 4,
+                appCacheInfo.getAppCacheSizeBytes());
     }
 
     /**
@@ -150,11 +214,13 @@ class WebStorageSizeManager {
                   + databaseIdentifier
                   + "(current quota: "
                   + currentQuota
+                  + ", total used quota: "
+                  + totalUsedQuota
                   + ")");
         }
         long totalUnusedQuota = mGlobalLimit - totalUsedQuota - mAppCacheMaxSize;
 
-        if (totalUnusedQuota < QUOTA_INCREASE_STEP) {
+        if (totalUnusedQuota <= 0) {
             // There definitely isn't any more space. Fire notifications
             // and exit.
             scheduleOutOfSpaceNotification();
@@ -167,8 +233,7 @@ class WebStorageSizeManager {
         // We have enough space inside mGlobalLimit.
         long newOriginQuota = currentQuota;
         if (newOriginQuota == 0) {
-            // This is a new origin. It wants an initial quota. It is guaranteed
-            // to get at least ORIGIN_INCREASE_STEP bytes.
+            // This is a new origin. It wants an initial quota.
             newOriginQuota =
                 Math.min(ORIGIN_DEFAULT_QUOTA, totalUnusedQuota);
         } else {
@@ -225,19 +290,10 @@ class WebStorageSizeManager {
 
     // Computes the global limit as a function of the size of the data
     // partition and the amount of free space on that partition.
-    private long getGlobalLimit(String path) {
-        StatFs dataPartition = new StatFs(path);
-        long freeSpace = dataPartition.getAvailableBlocks()
-            * dataPartition.getBlockSize();
-        long fileSystemSize = dataPartition.getBlockCount()
-            * dataPartition.getBlockSize();
+    private long getGlobalLimit() {
+        long freeSpace = mDiskInfo.getFreeSpaceSizeBytes();
+        long fileSystemSize = mDiskInfo.getTotalSizeBytes();
         return calculateGlobalLimit(fileSystemSize, freeSpace);
-    }
-
-    // Returns the current size (in bytes) of the application cache file.
-    private long getCurrentAppCacheSize(String path) {
-        File file = new File(path + File.separator + APPCACHE_FILE);
-        return file.length();
     }
 
     /*package*/ static long calculateGlobalLimit(long fileSystemSizeBytes,
@@ -269,14 +325,5 @@ class WebStorageSizeManager {
     // activity when clicked.
     private void scheduleOutOfSpaceNotification() {
         // TODO(andreip): implement.
-    }
-    // Private ctor.
-    private WebStorageSizeManager(String appCachePath, Context ctx) {
-        mContext = ctx;
-        mGlobalLimit = getGlobalLimit(appCachePath);
-        // The initial max size of the app cache is either 25% of the global
-        // limit or the current size of the app cache file, whichever is bigger.
-        mAppCacheMaxSize = Math.max(mGlobalLimit / 4,
-                getCurrentAppCacheSize(appCachePath));
     }
 }

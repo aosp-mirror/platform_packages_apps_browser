@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 The Android Open Source Project
+ * Copyright (C) 2009 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
+import android.webkit.WebStorage;
 
 /**
  * This is a series of unit tests for the WebStorageSizeManager class.
@@ -25,7 +26,138 @@ import android.test.suitebuilder.annotation.MediumTest;
  */
 @MediumTest
 public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
+    // Used for testing the out-of-space callbacks.
+    private long mNewQuota;
+    // Callback functor that sets a new quota in case of out-of-space scenarios.
+    private class MockQuotaUpdater implements WebStorage.QuotaUpdater {
+        public void updateQuota(long newQuota) {
+            mNewQuota = newQuota;
+        }
+    }
 
+    // Mock the DiskInfo.
+    private class MockDiskInfo implements WebStorageSizeManager.DiskInfo {
+        private long mFreeSize;
+        private long mTotalSize;
+
+        public long getFreeSpaceSizeBytes() {
+            return mFreeSize;
+        }
+
+        public long getTotalSizeBytes() {
+            return mTotalSize;
+        }
+
+        public void setFreeSpaceSizeBytes(long freeSize) {
+            mFreeSize = freeSize;
+        }
+
+        public void setTotalSizeBytes(long totalSize) {
+            mTotalSize = totalSize;
+        }
+    }
+
+    // Mock the AppCacheInfo
+    public class MockAppCacheInfo implements WebStorageSizeManager.AppCacheInfo {
+        private long mAppCacheSize;
+
+        public long getAppCacheSizeBytes() {
+            return mAppCacheSize;
+        }
+
+        public void setAppCacheSizeBytes(long appCacheSize) {
+            mAppCacheSize = appCacheSize;
+        }
+    }
+
+    private MockQuotaUpdater mQuotaUpdater = new MockQuotaUpdater();
+    private final MockDiskInfo mDiskInfo = new MockDiskInfo();
+    private final MockAppCacheInfo mAppCacheInfo = new MockAppCacheInfo();
+    // Utility for making size computations easier to read.
+    private long bytes(double megabytes) {
+        return (new Double(megabytes * 1024 * 1024)).longValue();
+    }
+    /**
+     * Test the onExceededDatabaseQuota and onReachedMaxAppCacheSize callbacks
+     */
+    public void testCallbacks() {
+        long totalUsedQuota = 0;
+        final long defaultQuota = WebStorageSizeManager.ORIGIN_DEFAULT_QUOTA;  // 3MB
+        final long quotaIncrease = WebStorageSizeManager.QUOTA_INCREASE_STEP;  // 1MB
+        // We have 75 MB total, 24MB free so the global limit will be 12 MB.
+        mDiskInfo.setTotalSizeBytes(bytes(75));
+        mDiskInfo.setFreeSpaceSizeBytes(bytes(24));
+        // We have an appcache file size of 0 MB.
+        mAppCacheInfo.setAppCacheSizeBytes(0);
+        // Create the manager.
+        WebStorageSizeManager manager = new WebStorageSizeManager(null, mDiskInfo, mAppCacheInfo);
+        // We add origin 1.
+        long origin1Quota = 0;
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, totalUsedQuota, mQuotaUpdater);
+        assertEquals(defaultQuota, mNewQuota);
+        origin1Quota = mNewQuota;
+        totalUsedQuota += origin1Quota;
+
+        // We add origin 2.
+        long origin2Quota = 0;
+        manager.onExceededDatabaseQuota("2", "2", origin2Quota, totalUsedQuota, mQuotaUpdater);
+        assertEquals(defaultQuota, mNewQuota);
+        origin2Quota = mNewQuota;
+        totalUsedQuota += origin2Quota;
+
+        // Origin 1 runs out of space.
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, totalUsedQuota, mQuotaUpdater);
+        assertEquals(defaultQuota + quotaIncrease, mNewQuota);
+        totalUsedQuota -= origin1Quota;
+        origin1Quota = mNewQuota;
+        totalUsedQuota += origin1Quota;
+
+        // Origin 2 runs out of space.
+        manager.onExceededDatabaseQuota("2", "2", origin2Quota, totalUsedQuota, mQuotaUpdater);
+        assertEquals(defaultQuota + quotaIncrease, mNewQuota);
+        totalUsedQuota -= origin2Quota;
+        origin2Quota = mNewQuota;
+        totalUsedQuota += origin2Quota;
+
+        // We add origin 3. TotalUsedQuota is 8 (3 + 3 + 1 + 1). AppCacheMaxSize is 3 (12 / 4).
+        // So we have 1 MB free.
+        long origin3Quota = 0;
+        manager.onExceededDatabaseQuota("3", "3", origin3Quota, totalUsedQuota, mQuotaUpdater);
+        assertEquals(bytes(1), mNewQuota);  // 1MB
+        origin3Quota = mNewQuota;
+        totalUsedQuota += origin3Quota;
+
+        // Origin 1 runs out of space again. We're also out of space so we can't give it more.
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, totalUsedQuota, mQuotaUpdater);
+        assertEquals(origin1Quota, mNewQuota);
+
+        // We try adding a new origin. Which will fail.
+        manager.onExceededDatabaseQuota("4", "4", 0, totalUsedQuota, mQuotaUpdater);
+        assertEquals(0, mNewQuota);
+
+        // AppCache size increases to 2MB...
+        mAppCacheInfo.setAppCacheSizeBytes(bytes(2));
+        // ... and wants 2MB more. Fail.
+        manager.onReachedMaxAppCacheSize(bytes(2), totalUsedQuota, mQuotaUpdater);
+        assertEquals(0, mNewQuota);
+
+        // The user nukes origin 2
+        totalUsedQuota -= origin2Quota;
+        origin2Quota = 0;
+        // TotalUsedQuota is 5 (9 - 4). AppCacheMaxSize is 3. AppCacheSize is 2.
+        // AppCache wants 1.5MB more
+        manager.onReachedMaxAppCacheSize(bytes(1.5), totalUsedQuota, mQuotaUpdater);
+        mAppCacheInfo.setAppCacheSizeBytes(mAppCacheInfo.getAppCacheSizeBytes() + bytes(2.5));
+        assertEquals(mAppCacheInfo.getAppCacheSizeBytes(), mNewQuota);
+
+        // We try adding a new origin. This time we succeed.
+        // TotalUsedQuota is 5. AppCacheMaxSize is 4.5. So we have 12 - 9.5 = 2.5 available.
+        long origin4Quota = 0;
+        manager.onExceededDatabaseQuota("4", "4", origin4Quota, totalUsedQuota, mQuotaUpdater);
+        assertEquals(bytes(2.5), mNewQuota);
+        origin4Quota = mNewQuota;
+        totalUsedQuota += origin4Quota;
+    }
     /**
      * Test the application caches max size calculator.
      */
