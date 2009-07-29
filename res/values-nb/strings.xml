@@ -25,12 +25,16 @@
     <string name="username">"Brukernavn"</string>
     <string name="password">"Passord"</string>
     <string name="action">"Logg inn"</string>
+    <!-- no translation found for bookmarks_search (5229596268214362873) -->
+    <skip />
     <string name="cancel">"Avbryt"</string>
     <string name="ok">"OK"</string>
-    <!-- no translation found for matches_found:zero (6242659159545399963) -->
-    <!-- no translation found for matches_found:one (4352019729062956802) -->
-    <!-- no translation found for matches_found:few (5544267486978946555) -->
-    <!-- no translation found for matches_found:other (6616125067364315405) -->
+  <plurals name="matches_found">
+    <item quantity="zero">"Ingen treff"</item>
+    <item quantity="one">"Ett treff"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> treff"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> treff"</item>
+  </plurals>
     <string name="page_info">"Sideinformasjon"</string>
     <string name="page_info_view">"Vis sideinformasjon"</string>
     <string name="page_info_address">"Adresse:"</string>
@@ -147,7 +151,8 @@
     <string name="pref_security_show_security_warning_summary">"Vis advarsel hvis det er et problem med sikkerheten på en side"</string>
     <string name="pref_security_accept_cookies">"Godta informasjonskapsler"</string>
     <string name="pref_security_accept_cookies_summary">"Tillat nettsteder å lagre og lese informasjonskapsler"</string>
-    <string name="pref_text_size">"Sett tekststørrelse"</string>
+    <!-- no translation found for pref_text_size (3827031324346612208) -->
+    <skip />
   <string-array name="pref_text_size_choices">
     <item>"Bitteliten"</item>
     <item>"Liten"</item>
@@ -156,6 +161,13 @@
     <item>"Kjempestor"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"Tekststørrelse"</string>
+    <!-- no translation found for pref_default_zoom (8076142259097187395) -->
+    <skip />
+    <!-- no translation found for pref_default_zoom_choices:0 (549583171195154919) -->
+    <!-- no translation found for pref_default_zoom_choices:1 (5619034257768161024) -->
+    <!-- no translation found for pref_default_zoom_choices:2 (3840999588443167001) -->
+    <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
+    <skip />
     <string name="pref_extras_title">"Avanserte innstillinger"</string>
     <string name="pref_extras_gears_enable">"Aktiver Gears"</string>
     <string name="pref_extras_gears_enable_summary">"Applikasjoner som utvider nettleserfunksjonaliteten"</string>
@@ -168,7 +180,8 @@
     <string name="pref_extras_reset_default_dlg">"Alle data vil bli fjernet fra nettleseren, og alle innstillinger vil bli nullstilt."</string>
     <string name="pref_extras_reset_default_dlg_title">"Nullstill"</string>
     <string name="pref_development_title">"Avlusing"</string>
-    <string name="pref_default_text_encoding">"Velg tekstkoding"</string>
+    <!-- no translation found for pref_default_text_encoding (5742965543955558478) -->
+    <skip />
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
@@ -193,6 +206,8 @@
     <string name="no_database">"Ingen database!"</string>
     <string name="search_hint">"Skriv inn nettadresse"</string>
     <string name="search_button_text">"Gå"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
     <string name="attention">"Obs"</string>
     <string name="popup_window_attempt">"Denne siden prøver å åpne et sprettoppvindu."</string>
     <string name="allow">"Tillat"</string>
@@ -234,10 +249,10 @@
     <string name="download_length_required">"Kan ikke laste ned. Klarte ikke bestemme størrelsen på filen."</string>
     <string name="download_precondition_failed">"Nedlastingen ble avbrutt. Den kan ikke fortsettes."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="permlab_readHistoryBookmarks">"read Browser\'s history and bookmarks"</string>
-    <string name="permdesc_readHistoryBookmarks">"Allows the application to read all the URLs that the Browser has visited, and all of the Browser\'s bookmarks."</string>
-    <string name="permlab_writeHistoryBookmarks">"write Browser\'s history and bookmarks"</string>
-    <string name="permdesc_writeHistoryBookmarks">"Allows an application to modify the Browser\'s history or bookmarks stored on your phone. Malicious applications can use this to erase or modify your Browser\'s data."</string>
+    <!-- no translation found for homepage_base (7888126987935305566) -->
+    <skip />
+    <!-- no translation found for search_the_web (6046130189241962337) -->
+    <skip />
     <string name="query_data_prompt">"Tillat lagring"</string>
     <string name="query_data_message">"Nettsiden under ønsker å lagre informasjon på datamaskinen ved hjelp av Gears."</string>
     <string name="location_prompt">"Få tilgang til plassering"</string>

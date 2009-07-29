@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_name">"Πρόγραμμα περιήγησης"</string>
+    <string name="tab_bookmarks">"Σελιδοδείκτες"</string>
+    <string name="tab_most_visited">"Οι πιο δημοφιλείς"</string>
+    <string name="tab_history">"Ιστορικό"</string>
+    <string name="added_to_bookmarks">"Έγινε προσθήκη στους σελιδοδείκτες"</string>
+    <string name="removed_from_bookmarks">"Κατάργηση από τους σελιδοδείκτες"</string>
+    <string name="sign_in_to">"Σύνδεση στο <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="username">"Όνομα"</string>
+    <string name="password">"Κωδικός πρόσβασης"</string>
+    <string name="action">"Σύνδεση"</string>
+    <!-- no translation found for bookmarks_search (5229596268214362873) -->
+    <skip />
+    <string name="cancel">"Ακύρωση"</string>
+    <string name="ok">"OK"</string>
+  <plurals name="matches_found">
+    <item quantity="zero">"Δεν υπάρχουν αποτελέσματα"</item>
+    <item quantity="one">"1 αποτέλεσμα"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> αποτελέσματα"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> αποτελέσματα"</item>
+  </plurals>
+    <string name="page_info">"Πληροφορίες σελίδας"</string>
+    <string name="page_info_view">"Προβολή πληροφοριών σελίδας"</string>
+    <string name="page_info_address">"Διεύθυνση:"</string>
+    <string name="ssl_warnings_header">"Παρουσιάστηκαν προβλήματα με το πιστοποιητικό ασφαλείας αυτού του ιστότοπου."</string>
+    <string name="ssl_continue">"Συνέχεια"</string>
+    <string name="security_warning">"Προειδοποίηση ασφαλείας"</string>
+    <string name="view_certificate">"Προβολή πιστοποιητικού"</string>
+    <string name="ssl_untrusted">"Αυτό το πιστοποιητικό δεν είναι από έμπιστη αρχή."</string>
+    <string name="ssl_mismatch">"Το όνομα του ιστότοπου δεν αντιστοιχεί στο όνομα του πιστοποιητικού."</string>
+    <string name="ssl_expired">"Αυτό το πιστοποιητικό έχει λήξει."</string>
+    <string name="ssl_not_yet_valid">"Αυτό το πιστοποιητικό δεν είναι έγκυρο ακόμα."</string>
+    <string name="ssl_certificate">"Πιστοποιητικό ασφαλείας"</string>
+    <string name="ssl_certificate_is_valid">"Αυτό το πιστοποιητικό είναι έγκυρο."</string>
+    <string name="issued_to">"Εκδόθηκε στις:"</string>
+    <string name="common_name">"Κοινό όνομα:"</string>
+    <string name="org_name">"Οργανισμός:"</string>
+    <string name="org_unit">"Μονάδα οργάνωσης:"</string>
+    <string name="issued_by">"Εκδόθηκε:"</string>
+    <string name="validity_period">"Ισχύς:"</string>
+    <string name="issued_on">"Εκδόθηκε στις:"</string>
+    <string name="expires_on">"Λήγει:"</string>
+    <string name="retrieving_creds_dlg_msg">"Ανάκτηση λεπτομερειών σύνδεσης..."</string>
+    <string name="stopping">"Διακοπή..."</string>
+    <string name="stop">"Διακοπή"</string>
+    <string name="reload">"Ανανέωση"</string>
+    <string name="forward">"Εμπρός"</string>
+    <string name="save">"OK"</string>
+    <string name="do_not_save">"Ακύρωση"</string>
+    <string name="location">"Τοποθεσία"</string>
+    <string name="name">"Όνομα"</string>
+    <string name="http">"http://"</string>
+    <string name="save_to_bookmarks">"Σελιδοδείκτης"</string>
+    <string name="edit_bookmark">"Επεξεργασία σελιδοδείκτη"</string>
+    <string name="create_shortcut_bookmark">"Προσθήκη συντόμευσης στην αρχική οθόνη"</string>
+    <string name="open_bookmark">"Άνοιγμα"</string>
+    <string name="remove_bookmark">"Διαγραφή σελιδοδείκτη"</string>
+    <string name="remove_history_item">"Κατάργηση από το ιστορικό"</string>
+    <string name="bookmark_saved">"Αποθηκεύτηκε στους σελιδοδείκτες."</string>
+    <string name="bookmark_needs_title">"Ο σελιδοδείκτης πρέπει να έχει ένα όνομα."</string>
+    <string name="bookmark_needs_url">"Ο σελιδοδείκτης πρέπει να έχει μια τοποθεσία."</string>
+    <string name="empty_bookmark">"Δεν είναι δυνατή η δημιουργία κενού σελιδοδείκτη."</string>
+    <string name="bookmark_url_not_valid">"Μη έγκυρη διεύθυνση URL."</string>
+    <string name="delete_bookmark">"Διαγραφή"</string>
+    <string name="bookmark_page">"Προσθήκη της τελευταίας σελίδας που προβλήθηκε στους σελιδοδείκτες"</string>
+    <string name="current_page">"από "</string>
+    <string name="delete_bookmark_warning">"Ο σελιδοδείκτης \"<xliff:g id="BOOKMARK">%s</xliff:g>\" θα διαγραφεί."</string>
+    <string name="open_in_new_window">"Άνοιγμα σε νέο παράθυρο"</string>
+    <string name="new_window">"Νέο παράθυρο"</string>
+    <string name="goto_dot">"Μετάβαση"</string>
+    <string name="find_dot">"Εύρεση στη σελίδα"</string>
+    <string name="select_dot">"Επιλογή κειμένου"</string>
+    <string name="view_tabs">"Προεπισκόπηση παραθύρου"</string>
+    <string name="view_tabs_condensed">"Παράθυρα"</string>
+    <string name="tab_picker_title">"Τρέχοντα παράθυρα"</string>
+    <string name="tab_picker_view_tab">"Προβολή"</string>
+    <string name="tab_picker_new_tab">"Νέο παράθυρο"</string>
+    <string name="tab_picker_remove_tab">"Κλείσιμο"</string>
+    <string name="tab_picker_bookmark">"Σελιδοδείκτης"</string>
+    <string name="tab_picker_send_url">"Κοινή χρήση συνδέσμου"</string>
+    <string name="bookmarks">"Σελιδοδείκτες"</string>
+    <string name="shortcut_bookmark">"Σελιδοδείκτης"</string>
+    <string name="history">"Ιστορικό"</string>
+    <string name="menu_view_download">"Λήψεις"</string>
+    <string name="share_page">"Κοινή χρήση σελίδας"</string>
+    <string name="contextmenu_openlink">"Άνοιγμα"</string>
+    <string name="contextmenu_openlink_newwindow">"Άνοιγμα σε νέο παράθυρο"</string>
+    <string name="contextmenu_bookmark_thislink">"Πρόσθεση συνδέσμου στους σελιδοδείκτες"</string>
+    <string name="contextmenu_savelink">"Αποθήκευση συνδέσμου"</string>
+    <string name="contextmenu_sharelink">"Κοινή χρήση συνδέσμου"</string>
+    <string name="contextmenu_copy">"Αντιγραφή"</string>
+    <string name="contextmenu_copylink">"Αντιγραφή συνδέσμου διεύθυνσης URL"</string>
+    <string name="contextmenu_download_image">"Αποθήκευση εικόνας"</string>
+    <string name="contextmenu_view_image">"Προβολή εικόνας"</string>
+    <string name="contextmenu_dial_dot">"Κλήση..."</string>
+    <string name="contextmenu_add_contact">"Προσθήκη επαφής"</string>
+    <string name="contextmenu_send_mail">"Αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου"</string>
+    <string name="contextmenu_map">"Χάρτης"</string>
+    <string name="clear">"Εκκαθάριση"</string>
+    <string name="replace">"Αντικατάσταση"</string>
+    <string name="browser_bookmarks_page_bookmarks_text">"Σελιδοδείκτες"</string>
+    <string name="menu_preferences">"Ρυθμίσεις"</string>
+    <string name="pref_content_title">"Ρυθμίσεις περιεχομένου σελίδας"</string>
+    <string name="pref_content_load_images">"Φόρτωση εικόνων"</string>
+    <string name="pref_content_load_images_summary">"Προβολή εικόνων στις ιστοσελίδες"</string>
+    <string name="pref_content_block_popups">"Αποκλεισμός αναδυόμενων παραθύρων"</string>
+    <string name="pref_content_javascript">"Ενεργοποίηση JavaScript"</string>
+    <string name="pref_content_open_in_background">"Άνοιγμα στο παρασκήνιο"</string>
+    <string name="pref_content_open_in_background_summary">"Τα νέα παράθυρα ανοίγουν πίσω από το τρέχον"</string>
+    <string name="pref_content_homepage">"Ορισμός ως αρχική σελίδα"</string>
+    <string name="pref_content_autofit">"Αυτόματη προσαρμογή σελίδων"</string>
+    <string name="pref_content_autofit_summary">"Μορφοποίηση ιστοσελίδων για την προσαρμογή τους στο μέγεθος της οθόνης"</string>
+    <string name="pref_privacy_title">"Ρυθμίσεις απορρήτου"</string>
+    <string name="pref_privacy_clear_cache">"Εκκαθάριση προσωρινής μνήμης"</string>
+    <string name="pref_privacy_clear_cache_summary">"Διαγραφή όλου του περιεχομένου των προσωρινά αποθηκευμένων σελίδων"</string>
+    <string name="pref_privacy_clear_cache_dlg">"Θα γίνει εκκαθάριση της προσωρινής μνήμης."</string>
+    <string name="pref_privacy_clear_cookies">"Εκκαθάριση όλων των δεδομένων cookie"</string>
+    <string name="pref_privacy_clear_cookies_summary">"Εκκαθάριση όλων των cookie του προγράμματος περιήγησης"</string>
+    <string name="pref_privacy_clear_cookies_dlg">"Θα γίνει εκκαθάριση όλων των cookie."</string>
+    <string name="pref_privacy_clear_history">"Εκκαθάριση ιστορικού"</string>
+    <string name="pref_privacy_clear_history_summary">"Εκκαθάριση ιστορικού πλοήγησης προγράμματος περιήγησης"</string>
+    <string name="pref_privacy_clear_history_dlg">"Θα γίνει εκκαθάριση του ιστορικού πλοήγησης του προγράμματος περιήγησης."</string>
+    <string name="pref_privacy_clear_form_data">"Εκκαθάριση δεδομένων φόρμας"</string>
+    <string name="pref_privacy_clear_form_data_summary">"Εκκαθάριση όλων των αποθηκευμένων δεδομένων φόρμας"</string>
+    <string name="pref_privacy_clear_form_data_dlg">"Θα γίνει εκκαθάριση όλων των αποθηκευμένων δεδομένων φόρμας."</string>
+    <string name="pref_privacy_clear_passwords">"Εκκαθάριση κωδικών πρόσβασης"</string>
+    <string name="pref_privacy_clear_passwords_summary">"Εκκαθάριση όλων των αποθηκευμένων κωδικών πρόσβασης"</string>
+    <string name="pref_privacy_clear_passwords_dlg">"Θα γίνει εκκαθάριση όλων των αποθηκευμένων κωδικών πρόσβασης."</string>
+    <string name="pref_security_title">"Ρυθμίσεις ασφαλείας"</string>
+    <string name="pref_security_remember_passwords">"Απομνημόνευση κωδικών πρόσβασης"</string>
+    <string name="pref_security_remember_passwords_summary">"Αποθήκευση ονομάτων χρήστη και κωδικών πρόσβασης για τους ιστότοπους"</string>
+    <string name="pref_security_save_form_data">"Απομνημόνευση δεδομένων φόρμας"</string>
+    <string name="pref_security_save_form_data_summary">"Να γίνεται απομνημόνευση των δεδομένων που εισάγω σε φόρμες για μελλοντική χρήση"</string>
+    <string name="pref_security_show_security_warning">"Εμφάνιση προειδοποιήσεων ασφαλείας"</string>
+    <string name="pref_security_show_security_warning_summary">"Να εμφανίζεται προειδοποίηση εάν υπάρχει πρόβλημα με την ασφάλεια ενός ιστότοπου"</string>
+    <string name="pref_security_accept_cookies">"Αποδοχή cookie"</string>
+    <string name="pref_security_accept_cookies_summary">"Να επιτρέπεται η αποθήκευση και η ανάγνωση δεδομένων \"cookie\" από τους ιστότοπους"</string>
+    <!-- no translation found for pref_text_size (3827031324346612208) -->
+    <skip />
+  <string-array name="pref_text_size_choices">
+    <item>"Πολύ μικρό"</item>
+    <item>"Μικρό"</item>
+    <item>"Κανονικό"</item>
+    <item>"Μεγάλο"</item>
+    <item>"Πολύ μεγάλο"</item>
+  </string-array>
+    <string name="pref_text_size_dialogtitle">"Μέγεθος κειμένου"</string>
+    <!-- no translation found for pref_default_zoom (8076142259097187395) -->
+    <skip />
+    <!-- no translation found for pref_default_zoom_choices:0 (549583171195154919) -->
+    <!-- no translation found for pref_default_zoom_choices:1 (5619034257768161024) -->
+    <!-- no translation found for pref_default_zoom_choices:2 (3840999588443167001) -->
+    <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
+    <skip />
+    <string name="pref_extras_title">"Σύνθετες ρυθμίσεις"</string>
+    <string name="pref_extras_gears_enable">"Ενεργοποίηση Gears"</string>
+    <string name="pref_extras_gears_enable_summary">"Εφαρμογές που επεκτείνουν τις δυνατότητες του προγράμματος περιήγησης"</string>
+    <string name="pref_extras_gears_settings">"Ρυθμίσεις Gears"</string>
+    <string name="pref_plugin_installed">"Λίστα προσθηκών"</string>
+    <string name="pref_plugin_installed_empty_list">"Δεν υπάρχουν εγκατεστημένες προσθήκες."</string>
+    <string name="pref_extras_gears_settings_summary">"Εφαρμογές που επεκτείνουν τις δυνατότητες του προγράμματος περιήγησης"</string>
+    <string name="pref_extras_reset_default">"Επαναφορά προεπιλογών"</string>
+    <string name="pref_extras_reset_default_summary">"Εκκαθάριση όλων των δεδομένων του προγράμματος περιήγησης και επαναφορά όλων των ρυθμίσεων στις προεπιλεγμένες ρυθμίσεις"</string>
+    <string name="pref_extras_reset_default_dlg">"Θα γίνει εκκαθάριση όλων των δεδομένων του προγράμματος περιήγησης και επαναφορά των ρυθμίσεων στις προεπιλεγμένες τιμές."</string>
+    <string name="pref_extras_reset_default_dlg_title">"Επαναφορά προεπιλογών"</string>
+    <string name="pref_development_title">"Εντοπισμός σφαλμάτων"</string>
+    <!-- no translation found for pref_default_text_encoding (5742965543955558478) -->
+    <skip />
+  <string-array name="pref_default_text_encoding_choices">
+    <item>"Latin-1 (ISO-8859-1)"</item>
+    <item>"Unicode (UTF-8)"</item>
+    <item>"Ιαπωνικά (ISO-2022-JP)"</item>
+    <item>"Ιαπωνικά (SHIFT_JIS)"</item>
+    <item>"Ιαπωνικά (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle">"Κωδικοποίηση κειμένου"</string>
+    <string name="pref_default_text_encoding_default">"Latin-1"</string>
+    <string name="browserFrameRedirect">"Ανακατεύθυνση"</string>
+    <string name="browserFrame307Post">"Γίνεται ανακατεύθυνση αυτής της ιστοσελίδας. Να αποσταλούν ξανά τα δεδομένα φόρμας που έχετε εισάγει, στην νέα τοποθεσία;"</string>
+    <string name="browserFrameNetworkErrorLabel">"Πρόβλημα σύνδεσης δεδομένων"</string>
+    <string name="browserFrameFileErrorLabel">"Υπάρχει πρόβλημα με το αρχείο"</string>
+    <string name="browserFrameFormResubmitLabel">"Επιβεβαίωση"</string>
+    <string name="browserFrameFormResubmitMessage">"Η σελίδα που προσπαθείτε να προβάλλετε, περιέχει δεδομένα που έχουν ήδη υποβληθεί (\"POSTDATA\"). Εάν αποστείλετε ξανά τα δεδομένα, όλες οι ενέργειες που εκτελέστηκαν από τη φόρμα στη σελίδα (όπως μια αναζήτηση ή μια αγορά στο διαδίκτυο) θα επαναληφθούν."</string>
+    <string name="loadSuspendedTitle">"Δεν υπάρχει σύνδεση δικτύου"</string>
+    <string name="loadSuspended">"Η φόρτωση της σελίδας θα συνεχιστεί μετά την επαναφορά της σύνδεσης."</string>
+    <string name="clear_history">"Εκκαθάριση ιστορικού"</string>
+    <string name="browser_history">"Σελίδες που έχετε επισκεφθεί πρόσφατα"</string>
+    <string name="empty_history">"Το ιστορικό του προγράμματος περιήγησης είναι κενό."</string>
+    <string name="add_new_bookmark">"Προσθήκη σελιδοδείκτη..."</string>
+    <string name="no_database">"Δεν υπάρχει βάση δεδομένων!"</string>
+    <string name="search_hint">"Πληκτρολογήστε τη διεύθυνση ιστού"</string>
+    <string name="search_button_text">"Μετάβαση"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
+    <string name="attention">"Προσοχή"</string>
+    <string name="popup_window_attempt">"Αυτός ο ιστότοπος επιχειρεί να ανοίξει ένα αναδυόμενο παράθυρο."</string>
+    <string name="allow">"Να επιτρέπεται"</string>
+    <string name="block">"Αποκλεισμός"</string>
+    <string name="too_many_windows_dialog_title">"Το όριο παραθύρων εξαντλήθηκε"</string>
+    <string name="too_many_windows_dialog_message">"Δεν ήταν δυνατό το άνοιγμα νέου παραθύρου, επειδή έχετε ήδη ανοίξει τον μέγιστο αριθμό παραθύρων."</string>
+    <string name="too_many_subwindows_dialog_title">"Το αναδυόμενο παράθυρο είναι ήδη ανοιχτό"</string>
+    <string name="too_many_subwindows_dialog_message">"Δεν είναι δυνατό το άνοιγμα ενός νέου αναδυόμενου παράθυρου, επειδή επιτρέπεται το άνοιγμα μόνο ενός παράθυρου κάθε φορά."</string>
+    <string name="download_title">"Ιστορικό λήψης"</string>
+    <string name="download_unknown_filename">"&lt;Άγνωστο&gt;"</string>
+    <string name="download_menu_open">"Άνοιγμα"</string>
+    <string name="download_menu_clear">"Εκκαθάριση από τη λίστα"</string>
+    <string name="download_menu_cancel">"Ακύρωση λήψης"</string>
+    <string name="download_menu_cancel_all">"Ακύρωση όλων των λήψεων"</string>
+    <string name="download_menu_clear_all">"Εκκαθάριση λίστας"</string>
+    <string name="download_clear_dlg_title">"Εκκαθάριση"</string>
+    <string name="download_clear_dlg_msg">"Θα γίνει εκκαθάριση όλων των στοιχείων από τη λίστα και κατάργηση από την προσωρινή μνήμη του προγράμματος περιήγησης."</string>
+    <string name="download_cancel_dlg_title">"Ακύρωση λήψεων"</string>
+    <string name="download_cancel_dlg_msg">"Οι <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> λήψεις θα ακυρωθούν και θα γίνει εκκαθάρισή τους από το ιστορικό λήψεων."</string>
+    <string name="download_file_error_dlg_title">"Εξαντλήθηκε ο χώρος"</string>
+    <string name="download_file_error_dlg_msg">"Δεν ήταν δυνατή η λήψη του <xliff:g id="FILENAME">%s</xliff:g>."\n"Απελευθερώστε λίγο χώρο στο τηλέφωνό σας και δοκιμάστε ξανά."</string>
+    <string name="download_failed_generic_dlg_title">"Ανεπιτυχής λήψη"</string>
+    <string name="download_no_sdcard_dlg_title">"Δεν υπάρχει κάρτα SD"</string>
+    <string name="download_no_sdcard_dlg_msg">"Για τη λήψη του <xliff:g id="FILENAME">%s</xliff:g> απαιτείται κάρτα SD."</string>
+    <string name="download_sdcard_busy_dlg_title">"Η κάρτα SD δεν είναι διαθέσιμη"</string>
+    <string name="download_sdcard_busy_dlg_msg">"Η κάρτα SD είναι απασχολημένη. Για να επιτρέψετε τις λήψεις, στην ειδοποίηση επιλέξτε \"Απενεργοποίηση χώρου αποθήκευσης USB\"."</string>
+    <string name="download_no_application">"Δεν βρέθηκε εφαρμογή για το άνοιγμα αυτού του αρχείου."</string>
+    <string name="retry">"Επανάληψη"</string>
+    <string name="no_downloads">"Το ιστορικό λήψεων του προγράμματος περιήγησης είναι κενό."</string>
+    <string name="download_error">"Ανεπιτυχής λήψη."</string>
+    <string name="download_success">"<xliff:g id="FILE">%s</xliff:g> Ολοκλήρωση λήψης."</string>
+    <string name="download_running">"Λήψη..."</string>
+    <string name="download_pending">"Έναρξη λήψης..."</string>
+    <string name="download_pending_network">"Αναμονή για σύνδεση δεδομένων…"</string>
+    <string name="download_running_paused">"Αναμονή για σύνδεση δεδομένων…"</string>
+    <string name="download_canceled">"Η λήψη ακυρώθηκε."</string>
+    <string name="download_not_acceptable">"Δεν είναι δυνατή η λήψη. Το περιεχόμενο δεν υποστηρίζεται από το τηλέφωνο."</string>
+    <string name="download_file_error">"Δεν είναι δυνατή η ολοκλήρωση της λήψης. Δεν υπάρχει αρκετός διαθέσιμος χώρος."</string>
+    <string name="download_length_required">"Δεν είναι δυνατή η λήψη. Δεν είναι δυνατός ο προσδιορισμός του μεγέθους του στοιχείου."</string>
+    <string name="download_precondition_failed">"Η λήψη διακόπηκε. Δεν είναι δυνατή η συνέχισή της."</string>
+    <string name="activity_instrumentation_test_runner">"Πρόγραμμα εκτέλεσης δοκιμών προγράμματος περιήγησης"</string>
+    <!-- no translation found for homepage_base (7888126987935305566) -->
+    <skip />
+    <!-- no translation found for search_the_web (6046130189241962337) -->
+    <skip />
+    <string name="query_data_prompt">"Να επιτρέπεται η αποθήκευση"</string>
+    <string name="query_data_message">"Αυτός ο ιστότοπος θέλει να αποθηκεύσει πληροφορίες στο τηλέφωνό σας."</string>
+    <string name="location_prompt">"Πρόσβαση στην τοποθεσία σας"</string>
+    <string name="location_message">"Αυτός ο ιστότοπος θέλει να αποκτήσει πρόσβαση στην τοποθεσία σας."</string>
+    <string name="shortcut_prompt">"Δημιουργία συντόμευσης"</string>
+    <string name="shortcut_message">"Αυτός ο ιστότοπος θέλει να δημιουργήσει μια συντόμευση αυτής της σελίδας στην αρχική σας οθόνη."</string>
+    <string name="settings_message">"Ο παρακάτω πίνακας εμφανίζει τα δικαιώματα που έχετε παραχωρήσει σε κάθε ιστότοπο που προσπάθησε να χρησιμοποιήσει το Gears."</string>
+    <string name="filepicker_message">"Πρόγραμμα επιλογής αρχείων"</string>
+    <string name="image_message">"Επιλεγμένη εικόνα"</string>
+    <string name="settings_title">"Ρυθμίσεις Gears"</string>
+    <string name="privacy_policy">"Διαβάστε την πολιτική απορρήτου αυτού του ιστότοπου για να μάθετε πώς θα χρησιμοποιηθεί η τοποθεσία σας."</string>
+    <string name="settings_storage_title">"Να επιτρέπεται η τοπική αποθήκευση"</string>
+    <string name="settings_storage_subtitle_on">"Αυτός ο ιστότοπος μπορεί να αποθηκεύσει πληροφορίες στο τηλέφωνό σας"</string>
+    <string name="settings_storage_subtitle_off">"Αυτός ο ιστότοπος δεν μπορεί να αποθηκεύσει πληροφορίες στο τηλέφωνό σας"</string>
+    <string name="settings_location_title">"Να επιτρέπεται ο εντοπισμός τοποθεσίας"</string>
+    <string name="settings_location_subtitle_on">"Είναι δυνατή η ανάγνωση της τοποθεσίας σας από αυτόν τον ιστότοπο"</string>
+    <string name="settings_location_subtitle_off">"Δεν είναι δυνατή η ανάγνωση της τοποθεσίας σας από αυτόν τον ιστότοπο"</string>
+    <string name="settings_remove_site">"Κατάργηση αυτού του ιστότοπου από το Gears"</string>
+    <string name="settings_empty">"Δεν έχουν οριστεί δικαιώματα"</string>
+    <string name="settings_confirmation_remove_title">"Κατάργηση αυτού του ιστότοπου"</string>
+    <string name="settings_confirmation_remove">"Θα γίνει εκκαθάριση όλων των δικαιωμάτων και τα δεδομένα που έχουν αποθηκευτεί στο τηλέφωνό σας από τον ιστότοπο, θα διαγραφούν."</string>
+    <string name="storage_notification">"Αυτός ο ιστότοπος θα αποθηκεύσει πληροφορίες στο τηλέφωνό σας."\n" Αλλάξτε αυτήν τη ρύθμιση στο μενού:"\n" Ρυθμίσεις -&gt; Ρυθμίσεις Gears"</string>
+    <string name="storage_notification_alwaysdeny">"Αυτός ο ιστότοπος δεν θα αποθηκεύσει ποτέ πληροφορίες στο τηλέφωνό σας."\n" Αλλάξτε αυτήν τη ρύθμιση στο μενού:"\n" Ρυθμίσεις -&gt; Ρυθμίσεις Gears"</string>
+    <string name="location_notification">"Αυτός ο ιστότοπος μπορεί να αποκτήσει πρόσβαση στην τρέχουσα τοποθεσία σας."\n" Αλλάξτε αυτήν τη ρύθμιση στο μενού:"\n" Ρυθμίσεις -&gt; Ρυθμίσεις Gears"</string>
+    <string name="location_notification_alwaysdeny">"Αυτός ο ιστότοπος δεν θα έχει πρόσβαση στην τοποθεσία σας."\n" Αλλάξτε αυτήν τη ρύθμιση από το μενού:"\n" Ρυθμίσεις -&gt; Ρυθμίσεις Gears"</string>
+    <string name="shortcut_notification">"Η συντόμευση δημιουργήθηκε"</string>
+    <string name="permission_button_alwaysdeny">"Να μην επιτρέπεται ποτέ"</string>
+    <string name="permission_button_allow">"OK"</string>
+    <string name="permission_button_deny">"Ακύρωση"</string>
+    <string name="shortcut_button_alwaysdeny">"Να μην επιτρέπεται ποτέ"</string>
+    <string name="shortcut_button_allow">"OK"</string>
+    <string name="shortcut_button_deny">"Ακύρωση"</string>
+    <string name="settings_button_allow">"Εφαρμογή"</string>
+    <string name="settings_button_deny">"Ακύρωση"</string>
+    <string name="filepicker_button_allow">"OK"</string>
+    <string name="filepicker_button_deny">"Ακύρωση"</string>
+    <string name="filepicker_path">"διαδρομή:"</string>
+    <string name="filepicker_no_files_selected">"Δεν έχουν επιλεχθεί αρχεία"</string>
+    <string name="filepicker_one_file_selected">"Επιλέχθηκε ένα αρχείο"</string>
+    <string name="filepicker_some_files_selected">"επιλεγμένα αρχεία"</string>
+    <string name="remove">"Κατάργηση"</string>
+    <string name="local_storage">"Τοπικός χώρος αποθήκευσης"</string>
+    <string name="allowed">"Επιτρέπεται"</string>
+    <string name="denied">"Απορρίφθηκε"</string>
+    <string name="unrecognized_dialog_message">"Άγνωστος τύπος πλαισίου διαλόγου"</string>
+    <string name="default_button">"OK"</string>
+    <string name="zoom_overview_button_text">"Επισκόπηση"</string>
+</resources>

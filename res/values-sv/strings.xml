@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_name">"Webbläsare"</string>
+    <string name="tab_bookmarks">"Bokmärken"</string>
+    <string name="tab_most_visited">"Mest besökta"</string>
+    <string name="tab_history">"Historik"</string>
+    <string name="added_to_bookmarks">"Har lagts till i Bokmärken"</string>
+    <string name="removed_from_bookmarks">"Har tagits bort från Bokmärken"</string>
+    <string name="sign_in_to">"Logga in på <xliff:g id="HOSTNAME">%s1</xliff:g> <xliff:g id="REALM">%s2</xliff:g>"</string>
+    <string name="username">"Namn"</string>
+    <string name="password">"Lösenord"</string>
+    <string name="action">"Logga in"</string>
+    <!-- no translation found for bookmarks_search (5229596268214362873) -->
+    <skip />
+    <string name="cancel">"Avbryt"</string>
+    <string name="ok">"OK"</string>
+  <plurals name="matches_found">
+    <item quantity="zero">"Inga träffar"</item>
+    <item quantity="one">"1 träff"</item>
+    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> träffar"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> träffar"</item>
+  </plurals>
+    <string name="page_info">"Sidinformation"</string>
+    <string name="page_info_view">"Visa sidinformation"</string>
+    <string name="page_info_address">"Adress:"</string>
+    <string name="ssl_warnings_header">"Det har uppstått problem med säkerhetscertifikatet för den här webbplatsen."</string>
+    <string name="ssl_continue">"Fortsätt"</string>
+    <string name="security_warning">"Säkerhetsvarning"</string>
+    <string name="view_certificate">"Visa certifikat"</string>
+    <string name="ssl_untrusted">"Detta certifikat kommer inte från en betrodd utfärdare."</string>
+    <string name="ssl_mismatch">"Webbplatsens namn stämmer inte med namnet på certifikatet."</string>
+    <string name="ssl_expired">"Certifikatet har upphört att gälla."</string>
+    <string name="ssl_not_yet_valid">"Certifikatet är inte giltigt än."</string>
+    <string name="ssl_certificate">"Säkerhetscertifikat"</string>
+    <string name="ssl_certificate_is_valid">"Detta certifikat är giltigt."</string>
+    <string name="issued_to">"Utfärdat till:"</string>
+    <string name="common_name">"Nätverksnamn:"</string>
+    <string name="org_name">"Organisation:"</string>
+    <string name="org_unit">"Organisationsenhet:"</string>
+    <string name="issued_by">"Utfärdat av:"</string>
+    <string name="validity_period">"Giltighet:"</string>
+    <string name="issued_on">"Utfärdat den:"</string>
+    <string name="expires_on">"Upphör att gälla:"</string>
+    <string name="retrieving_creds_dlg_msg">"Hämtar inloggningsuppgifter…"</string>
+    <string name="stopping">"Avbryter…"</string>
+    <string name="stop">"Stoppa"</string>
+    <string name="reload">"Uppdatera"</string>
+    <string name="forward">"Vidarebefordra"</string>
+    <string name="save">"OK"</string>
+    <string name="do_not_save">"Avbryt"</string>
+    <string name="location">"Plats"</string>
+    <string name="name">"Namn"</string>
+    <string name="http">"http://"</string>
+    <string name="save_to_bookmarks">"Bokmärke"</string>
+    <string name="edit_bookmark">"Redigera bokmärke"</string>
+    <string name="create_shortcut_bookmark">"Lägg till genväg till startsidan"</string>
+    <string name="open_bookmark">"Öppna"</string>
+    <string name="remove_bookmark">"Ta bort bokmärke"</string>
+    <string name="remove_history_item">"Ta bort från historiken"</string>
+    <string name="bookmark_saved">"Bokmärke sparat."</string>
+    <string name="bookmark_needs_title">"Du måste ange ett namn på bokmärket."</string>
+    <string name="bookmark_needs_url">"Du måste ange en plats för bokmärket."</string>
+    <string name="empty_bookmark">"Det går inte att skapa tomma bokmärken."</string>
+    <string name="bookmark_url_not_valid">"Webbadressen är ogiltig."</string>
+    <string name="delete_bookmark">"Ta bort"</string>
+    <string name="bookmark_page">"Skapa bokmärke för den senast visade sidan"</string>
+    <string name="current_page">"från "</string>
+    <string name="delete_bookmark_warning">"Bokmärket <xliff:g id="BOOKMARK">%s</xliff:g> tas bort."</string>
+    <string name="open_in_new_window">"Öppna i nytt fönster"</string>
+    <string name="new_window">"Nytt fönster"</string>
+    <string name="goto_dot">"Kör"</string>
+    <string name="find_dot">"Sök på sidan"</string>
+    <string name="select_dot">"Markera text"</string>
+    <string name="view_tabs">"Översikt över fönster"</string>
+    <string name="view_tabs_condensed">"Fönster"</string>
+    <string name="tab_picker_title">"Aktuellt fönster"</string>
+    <string name="tab_picker_view_tab">"Visa"</string>
+    <string name="tab_picker_new_tab">"Nytt fönster"</string>
+    <string name="tab_picker_remove_tab">"Stäng"</string>
+    <string name="tab_picker_bookmark">"Bokmärke"</string>
+    <string name="tab_picker_send_url">"Dela länk"</string>
+    <string name="bookmarks">"Bokmärken"</string>
+    <string name="shortcut_bookmark">"Bokmärke"</string>
+    <string name="history">"Historik"</string>
+    <string name="menu_view_download">"Hämtningar"</string>
+    <string name="share_page">"Dela sida"</string>
+    <string name="contextmenu_openlink">"Öppna"</string>
+    <string name="contextmenu_openlink_newwindow">"Öppna i nytt fönster"</string>
+    <string name="contextmenu_bookmark_thislink">"Skapa ett bokmärke av länken"</string>
+    <string name="contextmenu_savelink">"Spara länk"</string>
+    <string name="contextmenu_sharelink">"Dela länk"</string>
+    <string name="contextmenu_copy">"Kopiera"</string>
+    <string name="contextmenu_copylink">"Kopiera länkens webbadress"</string>
+    <string name="contextmenu_download_image">"Spara bild"</string>
+    <string name="contextmenu_view_image">"Visa bild"</string>
+    <string name="contextmenu_dial_dot">"Ring..."</string>
+    <string name="contextmenu_add_contact">"Lägg till kontakt"</string>
+    <string name="contextmenu_send_mail">"Skicka e-post"</string>
+    <string name="contextmenu_map">"Karta"</string>
+    <string name="clear">"Rensa"</string>
+    <string name="replace">"Ersätt"</string>
+    <string name="browser_bookmarks_page_bookmarks_text">"Bokmärken"</string>
+    <string name="menu_preferences">"Inställningar"</string>
+    <string name="pref_content_title">"Inställningar för sidinnehåll"</string>
+    <string name="pref_content_load_images">"Överför bilder"</string>
+    <string name="pref_content_load_images_summary">"Visa bilder på webbsidor"</string>
+    <string name="pref_content_block_popups">"Blockera popup-fönster"</string>
+    <string name="pref_content_javascript">"Aktivera JavaScript"</string>
+    <string name="pref_content_open_in_background">"Öppen i bakgrunden"</string>
+    <string name="pref_content_open_in_background_summary">"Ett nytt fönster öppnas bakom det aktuella"</string>
+    <string name="pref_content_homepage">"Ange startsida"</string>
+    <string name="pref_content_autofit">"Autoanpassa sidor"</string>
+    <string name="pref_content_autofit_summary">"Anpassa webbsidor efter skärmen"</string>
+    <string name="pref_privacy_title">"Sekretessinställningar"</string>
+    <string name="pref_privacy_clear_cache">"Rensa cacheminne"</string>
+    <string name="pref_privacy_clear_cache_summary">"Ta bort allt cachelagrat sidinnehåll"</string>
+    <string name="pref_privacy_clear_cache_dlg">"Cacheminnet kommer att rensas."</string>
+    <string name="pref_privacy_clear_cookies">"Ta bort alla cookie-data"</string>
+    <string name="pref_privacy_clear_cookies_summary">"Ta bort alla webbläsarens cookies"</string>
+    <string name="pref_privacy_clear_cookies_dlg">"Alla cookies tas bort."</string>
+    <string name="pref_privacy_clear_history">"Rensa historik"</string>
+    <string name="pref_privacy_clear_history_summary">"Rensa webbläsarhistoriken"</string>
+    <string name="pref_privacy_clear_history_dlg">"Webbläsarhistoriken kommer att tas bort."</string>
+    <string name="pref_privacy_clear_form_data">"Rensa data i formulär"</string>
+    <string name="pref_privacy_clear_form_data_summary">"Rensa data från alla sparade formulär"</string>
+    <string name="pref_privacy_clear_form_data_dlg">"Alla sparade formulär kommer att rensas."</string>
+    <string name="pref_privacy_clear_passwords">"Ta bort lösenord"</string>
+    <string name="pref_privacy_clear_passwords_summary">"Ta bort alla sparade lösenord"</string>
+    <string name="pref_privacy_clear_passwords_dlg">"Alla sparade lösenord tas bort."</string>
+    <string name="pref_security_title">"Säkerhetsinställningar"</string>
+    <string name="pref_security_remember_passwords">"Kom ihåg lösenord"</string>
+    <string name="pref_security_remember_passwords_summary">"Spara användarnamn och lösenord på webbplatser"</string>
+    <string name="pref_security_save_form_data">"Spara data i formulär"</string>
+    <string name="pref_security_save_form_data_summary">"Kom ihåg data som jag anger i formulär för senare bruk"</string>
+    <string name="pref_security_show_security_warning">"Visa säkerhetsvarningar"</string>
+    <string name="pref_security_show_security_warning_summary">"Visa varningar om det uppstår problem med en webbplats säkerhet"</string>
+    <string name="pref_security_accept_cookies">"Acceptera cookies"</string>
+    <string name="pref_security_accept_cookies_summary">"Tillåt att webbplatser sparar och läser cookie-data"</string>
+    <!-- no translation found for pref_text_size (3827031324346612208) -->
+    <skip />
+  <string-array name="pref_text_size_choices">
+    <item>"Pytteliten"</item>
+    <item>"Liten"</item>
+    <item>"Normal"</item>
+    <item>"Stor"</item>
+    <item>"Mycket stor"</item>
+  </string-array>
+    <string name="pref_text_size_dialogtitle">"Textstorlek"</string>
+    <!-- no translation found for pref_default_zoom (8076142259097187395) -->
+    <skip />
+    <!-- no translation found for pref_default_zoom_choices:0 (549583171195154919) -->
+    <!-- no translation found for pref_default_zoom_choices:1 (5619034257768161024) -->
+    <!-- no translation found for pref_default_zoom_choices:2 (3840999588443167001) -->
+    <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
+    <skip />
+    <string name="pref_extras_title">"Avancerade inställningar"</string>
+    <string name="pref_extras_gears_enable">"Aktivera Gears"</string>
+    <string name="pref_extras_gears_enable_summary">"Program som ger utökade webbläsarfunktioner"</string>
+    <string name="pref_extras_gears_settings">"Inställningar för Gears"</string>
+    <string name="pref_plugin_installed">"Lista över insticksprogram"</string>
+    <string name="pref_plugin_installed_empty_list">"Inga insticksprogram har installerats."</string>
+    <string name="pref_extras_gears_settings_summary">"Program som ger utökade webbläsarfunktioner"</string>
+    <string name="pref_extras_reset_default">"Återställ standardinställningarna"</string>
+    <string name="pref_extras_reset_default_summary">"Ta bort alla data i webbläsaren och återställ standardinställningarna"</string>
+    <string name="pref_extras_reset_default_dlg">"Alla data i webbläsaren tas bort och standardinställningarna återställs."</string>
+    <string name="pref_extras_reset_default_dlg_title">"Återställ standardinställningarna"</string>
+    <string name="pref_development_title">"Felsökning"</string>
+    <!-- no translation found for pref_default_text_encoding (5742965543955558478) -->
+    <skip />
+  <string-array name="pref_default_text_encoding_choices">
+    <item>"Latin-1 (ISO-8859-1)"</item>
+    <item>"Unicode (UTF-8)"</item>
+    <item>"Japansk (ISO-2022-JP)"</item>
+    <item>"Japansk (SHIFT_JIS)"</item>
+    <item>"Japansk (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle">"Textkodning"</string>
+    <string name="pref_default_text_encoding_default">"Latin-1"</string>
+    <string name="browserFrameRedirect">"Omdirigera"</string>
+    <string name="browserFrame307Post">"Den här webbsidan omdirigeras. Vill du skicka uppgifterna i formuläret till den nya platsen?"</string>
+    <string name="browserFrameNetworkErrorLabel">"Problem med dataanslutning"</string>
+    <string name="browserFrameFileErrorLabel">"Problem med filen"</string>
+    <string name="browserFrameFormResubmitLabel">"Bekräfta"</string>
+    <string name="browserFrameFormResubmitMessage">"Sidan du försöker öppna innehåller data som redan har skickats (POSTDATA). Om du skickar uppgifterna igen kommer alla åtgärder i formuläret på sidan (till exempel sökningar eller onlineköp) att utföras en gång till."</string>
+    <string name="loadSuspendedTitle">"Ingen nätverksanslutning"</string>
+    <string name="loadSuspended">"Sidan fortsätter att läsas in när anslutningen har återställts."</string>
+    <string name="clear_history">"Rensa historik"</string>
+    <string name="browser_history">"Nyligen besökta sidor"</string>
+    <string name="empty_history">"Det finns ingen webbläsarhistorik."</string>
+    <string name="add_new_bookmark">"Lägg till bokmärke…"</string>
+    <string name="no_database">"Ingen databas!"</string>
+    <string name="search_hint">"Ange webbadress"</string>
+    <string name="search_button_text">"Kör"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
+    <string name="attention">"Obs!"</string>
+    <string name="popup_window_attempt">"Webbplatsen försöker öppna ett popup-fönster."</string>
+    <string name="allow">"Tillåt"</string>
+    <string name="block">"Blockera"</string>
+    <string name="too_many_windows_dialog_title">"Det går inte att öppna fler fönster"</string>
+    <string name="too_many_windows_dialog_message">"Det gick inte att öppna ett nytt fönster. Högsta antalet fönster är redan öppna."</string>
+    <string name="too_many_subwindows_dialog_title">"Ett popup-fönster är redan öppet"</string>
+    <string name="too_many_subwindows_dialog_message">"Det gick inte att öppna ett nytt popup-fönster. Endast ett fönster i taget kan vara öppet."</string>
+    <string name="download_title">"Hämtningshistorik"</string>
+    <string name="download_unknown_filename">"&lt;Okänd&gt;"</string>
+    <string name="download_menu_open">"Öppna"</string>
+    <string name="download_menu_clear">"Ta bort från listan"</string>
+    <string name="download_menu_cancel">"Avbryt hämtning"</string>
+    <string name="download_menu_cancel_all">"Avbryt alla hämtningar"</string>
+    <string name="download_menu_clear_all">"Rensa listan"</string>
+    <string name="download_clear_dlg_title">"Rensa"</string>
+    <string name="download_clear_dlg_msg">"Alla objekt tas bort från listan och från webbläsarens cacheminne."</string>
+    <string name="download_cancel_dlg_title">"Avbryt hämtningar"</string>
+    <string name="download_cancel_dlg_msg">"Alla <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> hämtningar avbryts och tas bort från hämtningshistoriken."</string>
+    <string name="download_file_error_dlg_title">"Slut på ledigt diskutrymme"</string>
+    <string name="download_file_error_dlg_msg">"<xliff:g id="FILENAME">%s</xliff:g> gick inte att hämta."\n"Frigör lite utrymme i telefonen och försök igen."</string>
+    <string name="download_failed_generic_dlg_title">"Det gick inte att hämta"</string>
+    <string name="download_no_sdcard_dlg_title">"Inget SD-kort"</string>
+    <string name="download_no_sdcard_dlg_msg">"Du behöver ett SD-kort för att hämta <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_sdcard_busy_dlg_title">"SD-kortet är inte tillgängligt"</string>
+    <string name="download_sdcard_busy_dlg_msg">"SD-kortet är upptaget. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i meddelandet."</string>
+    <string name="download_no_application">"Vi hittade inget program som kunde öppna filen."</string>
+    <string name="retry">"Försök igen"</string>
+    <string name="no_downloads">"Det finns ingen hämtningshistorik."</string>
+    <string name="download_error">"Det gick inte att hämta."</string>
+    <string name="download_success">"<xliff:g id="FILE">%s</xliff:g> har hämtats."</string>
+    <string name="download_running">"Hämtar..."</string>
+    <string name="download_pending">"Startar hämtning…"</string>
+    <string name="download_pending_network">"Väntar på dataanslutning…"</string>
+    <string name="download_running_paused">"Väntar på dataanslutning…"</string>
+    <string name="download_canceled">"Hämtningen avbröts."</string>
+    <string name="download_not_acceptable">"Det gick inte att hämta. Innehållet stöds inte på telefonen."</string>
+    <string name="download_file_error">"Det går inte att hämta. Det finns inte tillräckligt med utrymme."</string>
+    <string name="download_length_required">"Det går inte att hämta eftersom objektets storlek inte kan avläsas."</string>
+    <string name="download_precondition_failed">"Hämtningen avbröts. Den kan inte återupptas."</string>
+    <string name="activity_instrumentation_test_runner">"Testprogram för webbläsaren"</string>
+    <!-- no translation found for homepage_base (7888126987935305566) -->
+    <skip />
+    <!-- no translation found for search_the_web (6046130189241962337) -->
+    <skip />
+    <string name="query_data_prompt">"Tillåt lagring"</string>
+    <string name="query_data_message">"Den här webbplatsen vill spara information i din telefon."</string>
+    <string name="location_prompt">"Få åtkomst till din plats"</string>
+    <string name="location_message">"Webbplatsen vill ha åtkomst till din plats."</string>
+    <string name="shortcut_prompt">"Skapa en genväg"</string>
+    <string name="shortcut_message">"Webbplatsen vill skapa en genväg till den här sidan på din startsida."</string>
+    <string name="settings_message">"Tabellen nedan visar vilka behörigheter du har beviljat webbplatserna som har försökt använda Gears."</string>
+    <string name="filepicker_message">"Filväljaren"</string>
+    <string name="image_message">"Vald bild"</string>
+    <string name="settings_title">"Inställningar för Gears"</string>
+    <string name="privacy_policy">"Läs webbplatsens sekretesspolicy om du vill veta hur din plats kommer att användas."</string>
+    <string name="settings_storage_title">"Tillåt lokal lagring"</string>
+    <string name="settings_storage_subtitle_on">"Webbplatsen kan spara information i din telefon"</string>
+    <string name="settings_storage_subtitle_off">"Webbplatsen kan inte spara information i din telefon"</string>
+    <string name="settings_location_title">"Tillåt identifiering av plats"</string>
+    <string name="settings_location_subtitle_on">"Webbplatsen kan läsa din aktuella plats"</string>
+    <string name="settings_location_subtitle_off">"Webbplatsen kan inte läsa din aktuella plats"</string>
+    <string name="settings_remove_site">"Ta bort webbplatsen från Gears"</string>
+    <string name="settings_empty">"Ingen behörighet har angetts"</string>
+    <string name="settings_confirmation_remove_title">"Ta bort webbplatsen"</string>
+    <string name="settings_confirmation_remove">"Alla behörigheter och alla data som webbplatsen sparat i telefonen tas bort."</string>
+    <string name="storage_notification">"Webbplatsen sparar information på den här telefonen."\n" Ändra inställningen i:"\n" Inställningar -&gt; Inställningar för Gears"</string>
+    <string name="storage_notification_alwaysdeny">"Webbplatsen sparar aldrig information på den här telefonen."\n" Ändra inställningen i:"\n" Inställningar -&gt; Inställningar för Gears"</string>
+    <string name="location_notification">"Webbplatsen har åtkomst till din aktuella plats."\n" Ändra inställningen i:"\n" Inställningar -&gt; Inställningar för Gears"</string>
+    <string name="location_notification_alwaysdeny">"Webbplatsen har inte åtkomst till din aktuella plats."\n" Ändra inställningen i:"\n" Inställningar -&gt; Inställningar för Gears"</string>
+    <string name="shortcut_notification">"Genväg har skapats"</string>
+    <string name="permission_button_alwaysdeny">"Tillåt aldrig"</string>
+    <string name="permission_button_allow">"OK"</string>
+    <string name="permission_button_deny">"Avbryt"</string>
+    <string name="shortcut_button_alwaysdeny">"Tillåt aldrig"</string>
+    <string name="shortcut_button_allow">"OK"</string>
+    <string name="shortcut_button_deny">"Avbryt"</string>
+    <string name="settings_button_allow">"Tillämpa"</string>
+    <string name="settings_button_deny">"Avbryt"</string>
+    <string name="filepicker_button_allow">"OK"</string>
+    <string name="filepicker_button_deny">"Avbryt"</string>
+    <string name="filepicker_path">"sökväg:"</string>
+    <string name="filepicker_no_files_selected">"Inga filer har valts"</string>
+    <string name="filepicker_one_file_selected">"En fil har valts"</string>
+    <string name="filepicker_some_files_selected">"valda filer"</string>
+    <string name="remove">"Ta bort"</string>
+    <string name="local_storage">"Lokal lagring"</string>
+    <string name="allowed">"Tillåts"</string>
+    <string name="denied">"Nekad"</string>
+    <string name="unrecognized_dialog_message">"Okänd dialogtyp"</string>
+    <string name="default_button">"OK"</string>
+    <string name="zoom_overview_button_text">"Översikt"</string>
+</resources>

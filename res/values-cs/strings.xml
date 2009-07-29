@@ -25,6 +25,7 @@
     <string name="username">"Název"</string>
     <string name="password">"Heslo"</string>
     <string name="action">"Přihlásit se"</string>
+    <string name="bookmarks_search">"Prohlížeč"</string>
     <string name="cancel">"Zrušit"</string>
     <string name="ok">"OK"</string>
   <plurals name="matches_found">
@@ -149,7 +150,7 @@
     <string name="pref_security_show_security_warning_summary">"Zobrazit upozornění, pokud dojde k problému se zabezpečením webu"</string>
     <string name="pref_security_accept_cookies">"Přijímat soubory cookie"</string>
     <string name="pref_security_accept_cookies_summary">"Povolit webům ukládat a číst soubory cookie"</string>
-    <string name="pref_text_size">"Nastavení velikosti textu"</string>
+    <string name="pref_text_size">"Velikost textu"</string>
   <string-array name="pref_text_size_choices">
     <item>"Velmi malé"</item>
     <item>"Malé"</item>
@@ -158,6 +159,13 @@
     <item>"Velmi velké"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"Velikost textu"</string>
+    <string name="pref_default_zoom">"Výchozí přiblížení"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item>"Daleko"</item>
+    <item>"Střední"</item>
+    <item>"Zavřít"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle">"Výchozí přiblížení"</string>
     <string name="pref_extras_title">"Upřesnit nastavení"</string>
     <string name="pref_extras_gears_enable">"Povolit službu Gears"</string>
     <string name="pref_extras_gears_enable_summary">"Aplikace, které rozšiřují funkce prohlížeče"</string>
@@ -170,7 +178,7 @@
     <string name="pref_extras_reset_default_dlg">"Všechna data prohlížeče budou vymazána a bude použito výchozí nastavení."</string>
     <string name="pref_extras_reset_default_dlg_title">"Obnovit výchozí"</string>
     <string name="pref_development_title">"Ladit"</string>
-    <string name="pref_default_text_encoding">"Nastavení kódování textu"</string>
+    <string name="pref_default_text_encoding">"Kódování textu"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
@@ -195,6 +203,8 @@
     <string name="no_database">"Databáze neexistuje."</string>
     <string name="search_hint">"Zadejte webovou adresu"</string>
     <string name="search_button_text">"Přejít"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
     <string name="attention">"Upozornění"</string>
     <string name="popup_window_attempt">"Tato stránka se pokouší otevřít vyskakovací okno."</string>
     <string name="allow">"Povolit"</string>
@@ -236,10 +246,8 @@
     <string name="download_length_required">"Nelze stáhnout. Velikost položky nelze určit."</string>
     <string name="download_precondition_failed">"Stahování bylo přerušeno a nelze v něm pokračovat."</string>
     <string name="activity_instrumentation_test_runner">"Testovací verze prohlížeče"</string>
-    <string name="permlab_readHistoryBookmarks">"čtení historie a záložek prohlížeče"</string>
-    <string name="permdesc_readHistoryBookmarks">"Umožňuje aplikaci číst všechny navštívené adresy URL a záložky prohlížeče."</string>
-    <string name="permlab_writeHistoryBookmarks">"zápis historie a záložek prohlížeče"</string>
-    <string name="permdesc_writeHistoryBookmarks">"Umožní aplikaci změnit historii či záložky prohlížeče uložené v telefonu. Škodlivé aplikace mohou pomocí tohoto nastavení vymazat či pozměnit data prohlížeče."</string>
+    <string name="homepage_base">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="search_the_web">"Vyhledat na webu"</string>
     <string name="query_data_prompt">"Povolit úložiště"</string>
     <string name="query_data_message">"Tyto webové stránky chtějí uložit informace do vašeho telefonu."</string>
     <string name="location_prompt">"Přistupovat k poloze"</string>

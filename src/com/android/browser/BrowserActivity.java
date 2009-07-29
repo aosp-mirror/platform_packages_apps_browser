@@ -1195,8 +1195,10 @@ public class BrowserActivity extends Activity
         super.onDestroy();
         // Remove the current tab and sub window
         TabControl.Tab t = mTabControl.getCurrentTab();
-        dismissSubWindow(t);
-        removeTabFromContentView(t);
+        if (t != null) {
+            dismissSubWindow(t);
+            removeTabFromContentView(t);
+        }
         // Destroy all the tabs
         mTabControl.destroy();
         WebIconDatabase.getInstance().close();
@@ -1437,7 +1439,8 @@ public class BrowserActivity extends Activity
      */
     @Override
     public boolean onSearchRequested() {
-        startSearch(null, false,
+        String url = getTopWindow().getUrl();
+        startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
                 createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHKEY), false);
         return true;
     }
@@ -1460,6 +1463,13 @@ public class BrowserActivity extends Activity
         }
         if (null == mTabOverview && null == getTopWindow()) {
             return false;
+        }
+        if (mMenuIsDown) {
+            // The shortcut action consumes the MENU. Even if it is still down,
+            // it won't trigger the next shortcut action. In the case of the
+            // shortcut action triggering a new activity, like Bookmarks, we
+            // won't get onKeyUp for MENU. So it is important to reset it here.
+            mMenuIsDown = false;
         }
         switch (item.getItemId()) {
             // -- Main menu
@@ -1975,9 +1985,9 @@ public class BrowserActivity extends Activity
 
     // A wrapper function of {@link #openTabAndShow(UrlData, Message, boolean, String)}
     // that accepts url as string.
-    private void openTabAndShow(String url, final Message msg,
+    private TabControl.Tab openTabAndShow(String url, final Message msg,
             boolean closeOnExit, String appId) {
-        openTabAndShow(new UrlData(url), msg, closeOnExit, appId);
+        return openTabAndShow(new UrlData(url), msg, closeOnExit, appId);
     }
 
     // This method does a ton of stuff. It will attempt to create a new tab
@@ -1988,7 +1998,7 @@ public class BrowserActivity extends Activity
     // the given Message. If the tab overview is already showing (i.e. this
     // method is called from TabListener.onClick(), the method will animate
     // away from the tab overview.
-    private void openTabAndShow(UrlData urlData, final Message msg,
+    private TabControl.Tab openTabAndShow(UrlData urlData, final Message msg,
             boolean closeOnExit, String appId) {
         final boolean newTab = mTabControl.getTabCount() != TabControl.MAX_TABS;
         final TabControl.Tab currentTab = mTabControl.getCurrentTab();
@@ -2017,9 +2027,10 @@ public class BrowserActivity extends Activity
                 }
                 // Animate from the Tab overview after any animations have
                 // finished.
-                sendAnimateFromOverview(
-                        mTabControl.createNewTab(closeOnExit, appId, urlData.mUrl), true,
-                        urlData, delay, msg);
+                final TabControl.Tab tab = mTabControl.createNewTab(
+                        closeOnExit, appId, urlData.mUrl);
+                sendAnimateFromOverview(tab, true, urlData, delay, msg);
+                return tab;
             }
         } else if (!urlData.isEmpty()) {
             // We should not have a msg here.
@@ -2034,6 +2045,7 @@ public class BrowserActivity extends Activity
                 urlData.loadIn(currentTab.getWebView());
             }
         }
+        return currentTab;
     }
 
     private Animation createTabAnimation(final AnimatingView view,
@@ -2255,14 +2267,15 @@ public class BrowserActivity extends Activity
         mTabListener = null;
     }
 
-    private void openTab(String url) {
+    private TabControl.Tab openTab(String url) {
         if (mSettings.openInBackground()) {
             TabControl.Tab t = mTabControl.createNewTab();
             if (t != null) {
                 t.getWebView().loadUrl(url);
             }
+            return t;
         } else {
-            openTabAndShow(url, null, false, null);
+            return openTabAndShow(url, null, false, null);
         }
     }
 
@@ -2591,6 +2604,11 @@ public class BrowserActivity extends Activity
     @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU) {
             mMenuIsDown = true;
+        } else if (mMenuIsDown) {
+            // The default key mode is DEFAULT_KEYS_SEARCH_LOCAL. As the MENU is
+            // still down, we don't want to trigger the search. Pretend to
+            // consume the key and do nothing.
+            return true;
         }
         boolean handled =  mKeyTracker.doKeyDown(keyCode, event);
         if (!handled) {
@@ -2696,7 +2714,12 @@ public class BrowserActivity extends Activity
                             loadURL(getTopWindow(), url);
                             break;
                         case R.id.open_newtab_context_menu_id:
-                            openTab(url);
+                            final TabControl.Tab parent = mTabControl
+                                    .getCurrentTab();
+                            final TabControl.Tab newTab = openTab(url);
+                            if (newTab != parent) {
+                                parent.addChildTab(newTab);
+                            }
                             break;
                         case R.id.bookmark_context_menu_id:
                             Intent intent = new Intent(BrowserActivity.this,
@@ -3381,8 +3404,11 @@ public class BrowserActivity extends Activity
                 // openTabAndShow will dispatch the message after creating the
                 // new WebView. This will prevent another request from coming
                 // in during the animation.
-                openTabAndShow(EMPTY_URL_DATA, msg, false, null);
-                parent.addChildTab(mTabControl.getCurrentTab());
+                final TabControl.Tab newTab =
+                        openTabAndShow(EMPTY_URL_DATA, msg, false, null);
+                if (newTab != parent) {
+                    parent.addChildTab(newTab);
+                }
                 WebView.WebViewTransport transport =
                         (WebView.WebViewTransport) msg.obj;
                 transport.setWebView(mTabControl.getCurrentWebView());
@@ -3542,10 +3568,10 @@ public class BrowserActivity extends Activity
                     }
                     // Current implementation of database only has one entry per
                     // url.
-                    int titleIndex =
-                            c.getColumnIndex(Browser.BookmarkColumns.TITLE);
-                    c.updateString(titleIndex, title);
-                    c.commitUpdates();
+                    ContentValues map = new ContentValues();
+                    map.put(Browser.BookmarkColumns.TITLE, title);
+                    mResolver.update(Browser.BOOKMARKS_URI, map,
+                            "_id = " + c.getInt(0), null);
                 }
                 c.close();
             } catch (IllegalStateException e) {

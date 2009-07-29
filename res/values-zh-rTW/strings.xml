@@ -25,6 +25,7 @@
     <string name="username">"名字"</string>
     <string name="password">"密碼"</string>
     <string name="action">"登入"</string>
+    <string name="bookmarks_search">"瀏覽器"</string>
     <string name="cancel">"取消"</string>
     <string name="ok">"確定"</string>
   <plurals name="matches_found">
@@ -149,7 +150,7 @@
     <string name="pref_security_show_security_warning_summary">"當網站安全性有問題時，顯示警告訊息"</string>
     <string name="pref_security_accept_cookies">"接受 cookie"</string>
     <string name="pref_security_accept_cookies_summary">"允許網站存取 cookie"</string>
-    <string name="pref_text_size">"設定文字大小"</string>
+    <string name="pref_text_size">"文字大小"</string>
   <string-array name="pref_text_size_choices">
     <item>"最小"</item>
     <item>"小"</item>
@@ -158,6 +159,13 @@
     <item>"最大"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"文字大小"</string>
+    <string name="pref_default_zoom">"預設縮放"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item>"遠"</item>
+    <item>"中"</item>
+    <item>"近"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle">"預設縮放"</string>
     <string name="pref_extras_title">"進階設定"</string>
     <string name="pref_extras_gears_enable">"啟用 Gears"</string>
     <string name="pref_extras_gears_enable_summary">"可擴充瀏覽器功能的應用程式"</string>
@@ -170,7 +178,7 @@
     <string name="pref_extras_reset_default_dlg">"瀏覽器所有資料會被清除， 並還原至初始設定。"</string>
     <string name="pref_extras_reset_default_dlg_title">"還原至初始設定"</string>
     <string name="pref_development_title">"偵錯"</string>
-    <string name="pref_default_text_encoding">"設定文字編碼"</string>
+    <string name="pref_default_text_encoding">"文字編碼"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
@@ -195,6 +203,8 @@
     <string name="no_database">"沒有資料！"</string>
     <string name="search_hint">"輸入網頁位址"</string>
     <string name="search_button_text">"前往"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"此網站試圖開啟快顯視窗。"</string>
     <string name="allow">"允許"</string>
@@ -214,7 +224,7 @@
     <string name="download_clear_dlg_msg">"所有清單中的項目會被清除，並從快取中移除。"</string>
     <string name="download_cancel_dlg_title">"取消下載"</string>
     <string name="download_cancel_dlg_msg">"所有 (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) 下載會取消並從下載記錄中清除。"</string>
-    <string name="download_file_error_dlg_title">"超出空間"</string>
+    <string name="download_file_error_dlg_title">"空間不足"</string>
     <string name="download_file_error_dlg_msg">"無法下載 <xliff:g id="FILENAME">%s</xliff:g>。"\n" 請清除手機上的空間或再試一次。"</string>
     <string name="download_failed_generic_dlg_title">"下載失敗"</string>
     <string name="download_no_sdcard_dlg_title">"沒有 SD 卡"</string>
@@ -236,10 +246,8 @@
     <string name="download_length_required">"無法下載。物件大小無法估計。"</string>
     <string name="download_precondition_failed">"下載中斷。無法續傳。"</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="permlab_readHistoryBookmarks">"讀取瀏覽器的瀏覽記錄和書籤"</string>
-    <string name="permdesc_readHistoryBookmarks">"允許應用程式讀取瀏覽器造訪過的所有 URL 和瀏覽器所有的書籤。"</string>
-    <string name="permlab_writeHistoryBookmarks">"寫入瀏覽器的瀏覽記錄和書籤"</string>
-    <string name="permdesc_writeHistoryBookmarks">"允許應用程式修改儲存在電話上的瀏覽記錄或書籤。請注意：惡意應用程式可能會使用此選項來清除或修改您瀏覽器的資料。"</string>
+    <string name="homepage_base">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="search_the_web">"搜尋網頁"</string>
     <string name="query_data_prompt">"允許儲存"</string>
     <string name="query_data_message">"此網站要在您的手機上儲存資訊。"</string>
     <string name="location_prompt">"存取您的位置資訊"</string>

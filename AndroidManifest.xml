@@ -44,7 +44,10 @@
                   android:authorities="browser"
                   android:multiprocess="true"
                   android:readPermission="android.permission.READ_HISTORY_BOOKMARKS"
-                  android:writePermission="android.permission.WRITE_HISTORY_BOOKMARKS"/>
+                  android:writePermission="android.permission.WRITE_HISTORY_BOOKMARKS">
+            <path-permission android:path="/bookmarks/search_suggest_query"
+                    android:readPermission="android.permission.GLOBAL_SEARCH" />
+        </provider>
         <activity android:name="BrowserActivity"
                   android:label="@string/application_name"
                   android:launchMode="singleTask"

@@ -25,6 +25,7 @@
     <string name="username">"Naam"</string>
     <string name="password">"Wachtwoord"</string>
     <string name="action">"Aanmelden"</string>
+    <string name="bookmarks_search">"Browser"</string>
     <string name="cancel">"Annuleren"</string>
     <string name="ok">"OK"</string>
   <plurals name="matches_found">
@@ -149,7 +150,7 @@
     <string name="pref_security_show_security_warning_summary">"Waarschuwen als er een beveiligingsprobleem is met een site"</string>
     <string name="pref_security_accept_cookies">"Cookies toelaten"</string>
     <string name="pref_security_accept_cookies_summary">"Sites toestaan cookiegegevens te lezen en schrijven"</string>
-    <string name="pref_text_size">"Tekengrootte instellen"</string>
+    <string name="pref_text_size">"Tekengrootte"</string>
   <string-array name="pref_text_size_choices">
     <item>"Minuscuul"</item>
     <item>"Klein"</item>
@@ -158,6 +159,13 @@
     <item>"Enorm"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"Tekengrootte"</string>
+    <string name="pref_default_zoom">"Standaardzoom"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item>"Ver"</item>
+    <item>"Gemiddeld"</item>
+    <item>"Sluiten"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle">"Standaardzoom"</string>
     <string name="pref_extras_title">"Geavanceerde instellingen"</string>
     <string name="pref_extras_gears_enable">"Gears inschakelen"</string>
     <string name="pref_extras_gears_enable_summary">"Toepassingen die de functionaliteit van de browser vergroten"</string>
@@ -170,7 +178,7 @@
     <string name="pref_extras_reset_default_dlg">"Alle browsergegevens worden gewist en de standaardinstellingen worden hersteld."</string>
     <string name="pref_extras_reset_default_dlg_title">"Standaardinstellingen herstellen"</string>
     <string name="pref_development_title">"Foutopsporing"</string>
-    <string name="pref_default_text_encoding">"Tekstcodering instellen"</string>
+    <string name="pref_default_text_encoding">"Tekstcodering"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latijns-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
@@ -195,6 +203,8 @@
     <string name="no_database">"Geen database."</string>
     <string name="search_hint">"Typ het webadres"</string>
     <string name="search_button_text">"Ga"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
     <string name="attention">"Opgelet"</string>
     <string name="popup_window_attempt">"Deze site probeert een pop-upvenster te openen."</string>
     <string name="allow">"Toestaan"</string>
@@ -236,10 +246,8 @@
     <string name="download_length_required">"Kan niet downloaden. De grootte van het item kan niet worden vastgesteld."</string>
     <string name="download_precondition_failed">"Download is onderbroken. Deze kan niet worden voortgezet."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="permlab_readHistoryBookmarks">"browsergeschiedenis en bladwijzers lezen"</string>
-    <string name="permdesc_readHistoryBookmarks">"Hiermee kan een toepassing de URL\'s lezen die u via de browser heeft bezocht, evenals alle bladwijzers van de browser."</string>
-    <string name="permlab_writeHistoryBookmarks">"browsergeschiedenis en bladwijzers schrijven"</string>
-    <string name="permdesc_writeHistoryBookmarks">"Hiermee kan een toepassing de op uw telefoon opgeslagen browsergeschiedenis of bladwijzers wijzigen. Schadelijke toepassingen kunnen hiermee uw browsergegevens verwijderen of wijzigen."</string>
+    <string name="homepage_base">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="search_the_web">"Zoeken op internet"</string>
     <string name="query_data_prompt">"Opslag toestaan"</string>
     <string name="query_data_message">"Deze website wil informatie opslaan op uw telefoon."</string>
     <string name="location_prompt">"Toegang tot uw locatie"</string>

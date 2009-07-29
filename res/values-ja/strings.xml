@@ -25,6 +25,8 @@
     <string name="username">"名前"</string>
     <string name="password">"パスワード"</string>
     <string name="action">"ログイン"</string>
+    <!-- no translation found for bookmarks_search (5229596268214362873) -->
+    <skip />
     <string name="cancel">"キャンセル"</string>
     <string name="ok">"OK"</string>
   <plurals name="matches_found">
@@ -65,10 +67,10 @@
     <string name="name">"名前"</string>
     <string name="http">"http://"</string>
     <string name="save_to_bookmarks">"ブックマーク"</string>
-    <string name="edit_bookmark">"ブックマークを編集"</string>
-    <string name="create_shortcut_bookmark">"ショートカットをホームに追加"</string>
+    <string name="edit_bookmark">"編集"</string>
+    <string name="create_shortcut_bookmark">"ショートカットを作成"</string>
     <string name="open_bookmark">"開く"</string>
-    <string name="remove_bookmark">"ブックマークを削除"</string>
+    <string name="remove_bookmark">"削除"</string>
     <string name="remove_history_item">"履歴から消去"</string>
     <string name="bookmark_saved">"ブックマークを保存しました。"</string>
     <string name="bookmark_needs_title">"名前を指定してください。"</string>
@@ -95,7 +97,7 @@
     <string name="bookmarks">"ブックマーク"</string>
     <string name="shortcut_bookmark">"ブックマーク"</string>
     <string name="history">"履歴"</string>
-    <string name="menu_view_download">"ダウンロード"</string>
+    <string name="menu_view_download">"ダウンロード履歴"</string>
     <string name="share_page">"ページを共有"</string>
     <string name="contextmenu_openlink">"開く"</string>
     <string name="contextmenu_openlink_newwindow">"新しいウィンドウで開く"</string>
@@ -103,7 +105,7 @@
     <string name="contextmenu_savelink">"リンクを保存"</string>
     <string name="contextmenu_sharelink">"リンクを共有"</string>
     <string name="contextmenu_copy">"コピー"</string>
-    <string name="contextmenu_copylink">"リンクのURLをコピー"</string>
+    <string name="contextmenu_copylink">"URLをコピー"</string>
     <string name="contextmenu_download_image">"画像を保存"</string>
     <string name="contextmenu_view_image">"画像を表示"</string>
     <string name="contextmenu_dial_dot">"発信..."</string>
@@ -149,7 +151,7 @@
     <string name="pref_security_show_security_warning_summary">"サイトの安全性に問題がある場合に警告を表示する"</string>
     <string name="pref_security_accept_cookies">"Cookieを受け入れる"</string>
     <string name="pref_security_accept_cookies_summary">"サイトによるCookieの保存と読み取りを許可する"</string>
-    <string name="pref_text_size">"文字サイズを選択"</string>
+    <string name="pref_text_size">"テキストサイズ"</string>
   <string-array name="pref_text_size_choices">
     <item>"最小"</item>
     <item>"小"</item>
@@ -158,6 +160,13 @@
     <item>"最大"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle">"文字サイズ"</string>
+    <!-- no translation found for pref_default_zoom (8076142259097187395) -->
+    <skip />
+    <!-- no translation found for pref_default_zoom_choices:0 (549583171195154919) -->
+    <!-- no translation found for pref_default_zoom_choices:1 (5619034257768161024) -->
+    <!-- no translation found for pref_default_zoom_choices:2 (3840999588443167001) -->
+    <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
+    <skip />
     <string name="pref_extras_title">"詳細設定"</string>
     <string name="pref_extras_gears_enable">"Gearsを有効にする"</string>
     <string name="pref_extras_gears_enable_summary">"ブラウザの機能拡張を許可する"</string>
@@ -170,7 +179,8 @@
     <string name="pref_extras_reset_default_dlg">"ブラウザデータをすべて消去して初期設定に戻します。"</string>
     <string name="pref_extras_reset_default_dlg_title">"初期設定にリセット"</string>
     <string name="pref_development_title">"デバッグ"</string>
-    <string name="pref_default_text_encoding">"エンコードを選択"</string>
+    <!-- no translation found for pref_default_text_encoding (5742965543955558478) -->
+    <skip />
   <string-array name="pref_default_text_encoding_choices">
     <item>"Latin-1 (ISO-8859-1)"</item>
     <item>"Unicode (UTF-8)"</item>
@@ -179,7 +189,7 @@
     <item>"日本語 (EUC-JP)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle">"テキストエンコード"</string>
-    <string name="pref_default_text_encoding_default">"Latin-1"</string>
+    <string name="pref_default_text_encoding_default">"SHIFT_JIS"</string>
     <string name="browserFrameRedirect">"リダイレクト"</string>
     <string name="browserFrame307Post">"このウェブページはリダイレクトされます。入力したフォームデータをリダイレクト先に送信しますか？"</string>
     <string name="browserFrameNetworkErrorLabel">"データアクセスエラー"</string>
@@ -195,6 +205,8 @@
     <string name="no_database">"データベースがありません。"</string>
     <string name="search_hint">"ウェブアドレスを入力"</string>
     <string name="search_button_text">"移動"</string>
+    <!-- no translation found for search_settings_description (1422401062529014107) -->
+    <skip />
     <string name="attention">"注意"</string>
     <string name="popup_window_attempt">"このサイトはポップアップウィンドウを開こうとしています。"</string>
     <string name="allow">"許可"</string>
@@ -202,7 +214,7 @@
     <string name="too_many_windows_dialog_title">"ウィンドウの数が最大です"</string>
     <string name="too_many_windows_dialog_message">"既にウィンドウの数が最大なので、新しいウィンドウを開けません。"</string>
     <string name="too_many_subwindows_dialog_title">"ポップアップが既に開いています"</string>
-    <string name="too_many_subwindows_dialog_message">"一度に開けるポップアップウィンドウは1つだけなので、新しいポップアップウィンドウを開けませんでした。"</string>
+    <string name="too_many_subwindows_dialog_message">"一度に1つのポップアップウィンドウしか開けません。"</string>
     <string name="download_title">"ダウンロード履歴"</string>
     <string name="download_unknown_filename">"&lt;不明&gt;"</string>
     <string name="download_menu_open">"開く"</string>
@@ -236,10 +248,10 @@
     <string name="download_length_required">"項目のサイズを特定できないため、ダウンロードできません。"</string>
     <string name="download_precondition_failed">"ダウンロードが中断されました。再開できません。"</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <string name="permlab_readHistoryBookmarks">"ブラウザの履歴とブックマークの読み取り"</string>
-    <string name="permdesc_readHistoryBookmarks">"ブラウザでアクセスしたすべてのURLとブックマークの読み取りをアプリケーションに許可します。"</string>
-    <string name="permlab_writeHistoryBookmarks">"ブラウザの履歴とブックマークの書き込み"</string>
-    <string name="permdesc_writeHistoryBookmarks">"携帯電話に保存されたブラウザの履歴やブックマークの変更をアプリケーションに許可します。これにより悪意のあるアプリケーションが、ブラウザのデータを消去または変更する恐れがあります。"</string>
+    <!-- no translation found for homepage_base (7888126987935305566) -->
+    <skip />
+    <!-- no translation found for search_the_web (6046130189241962337) -->
+    <skip />
     <string name="query_data_prompt">"保存を許可"</string>
     <string name="query_data_message">"このサイトは携帯電話に情報を保存しようとしています。"</string>
     <string name="location_prompt">"現在地情報にアクセス"</string>
