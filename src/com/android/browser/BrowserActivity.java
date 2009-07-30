@@ -732,6 +732,9 @@ public class BrowserActivity extends Activity
             // none of the files in the directory are referenced any more.
             new ClearThumbnails().execute(
                     mTabControl.getThumbnailDir().listFiles());
+            // there is no quit on Android. But if we can't restore the state,
+            // we can treat it as a new Browser, remove the old session cookies.
+            CookieManager.getInstance().removeSessionCookie();
             final Intent intent = getIntent();
             final Bundle extra = intent.getExtras();
             // Create an initial tab.
