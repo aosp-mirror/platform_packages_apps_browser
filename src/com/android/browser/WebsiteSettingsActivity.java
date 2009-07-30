@@ -31,6 +31,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebStorage;
 import android.widget.ArrayAdapter;
@@ -68,8 +69,9 @@ public class WebsiteSettingsActivity extends ListActivity {
         // variable with value equal to the current value of FEATURE_COUNT, then
         // increment FEATURE_COUNT.
         private final static int FEATURE_WEB_STORAGE = 0;
+        private final static int FEATURE_GEOLOCATION = 1;
         // The number of features available.
-        private final static int FEATURE_COUNT = 1;
+        private final static int FEATURE_COUNT = 2;
 
         public Site(String origin) {
             mOrigin = origin;
@@ -102,7 +104,7 @@ public class WebsiteSettingsActivity extends ListActivity {
          * The return value is a feature ID - one of the FEATURE_XXX values.
          * This is required to determine which feature is displayed at a given
          * position in the list of features for this site. This is used both
-         * when populateing the view and when responding to clicks on the list.
+         * when populating the view and when responding to clicks on the list.
          */
         public int getFeatureByIndex(int n) {
             int j = -1;
@@ -193,6 +195,13 @@ public class WebsiteSettingsActivity extends ListActivity {
                 Iterator<String> iter = origins.iterator();
                 while (iter.hasNext()) {
                     addFeatureToSite(sites, iter.next(), Site.FEATURE_WEB_STORAGE);
+                }
+            }
+            origins = GeolocationPermissions.getInstance().getOrigins();
+            if (origins != null) {
+                Iterator<String> iter = origins.iterator();
+                while (iter.hasNext()) {
+                    addFeatureToSite(sites, iter.next(), Site.FEATURE_GEOLOCATION);
                 }
             }
 
@@ -335,6 +344,13 @@ public class WebsiteSettingsActivity extends ListActivity {
                         title.setText(R.string.webstorage_clear_data_title);
                         subtitle.setText(usage);
                         break;
+                    case Site.FEATURE_GEOLOCATION:
+                        title.setText(R.string.geolocation_settings_page_title);
+                        boolean allowed = GeolocationPermissions.getInstance().getAllowed(origin);
+                        subtitle.setText(allowed ?
+                                         R.string.geolocation_settings_page_summary_allowed :
+                                         R.string.geolocation_settings_page_summary_not_allowed);
+                        break;
                 }
             }
 
@@ -360,6 +376,22 @@ public class WebsiteSettingsActivity extends ListActivity {
                                     notifyDataSetChanged();
                                 }})
                             .setNegativeButton(R.string.webstorage_clear_data_dialog_cancel_button, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                        break;
+                    case Site.FEATURE_GEOLOCATION:
+                        new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.geolocation_settings_page_dialog_title)
+                            .setMessage(R.string.geolocation_settings_page_dialog_message)
+                            .setPositiveButton(R.string.geolocation_settings_page_dialog_ok_button,
+                                               new AlertDialog.OnClickListener() {
+                                public void onClick(DialogInterface dlg, int which) {
+                                    GeolocationPermissions.getInstance().clear(mCurrentSite.getOrigin());
+                                    mCurrentSite = null;
+                                    populateOrigins();
+                                    notifyDataSetChanged();
+                                }})
+                            .setNegativeButton(R.string.geolocation_settings_page_dialog_cancel_button, null)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                         break;

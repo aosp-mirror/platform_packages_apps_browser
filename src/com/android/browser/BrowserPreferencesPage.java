@@ -29,10 +29,10 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+import android.webkit.GeolocationPermissions;
 import android.webkit.Plugin;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
-import android.webkit.Plugin;
 
 public class BrowserPreferencesPage extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener, 
@@ -69,35 +69,36 @@ public class BrowserPreferencesPage extends PreferenceActivity
 
         e = findPreference(BrowserSettings.PREF_DEFAULT_TEXT_ENCODING);
         e.setOnPreferenceChangeListener(this);
-        
+
         if (BrowserSettings.getInstance().showDebugSettings()) {
             addPreferencesFromResource(R.xml.debug_preferences);
         }
-        
+
         e = findPreference(BrowserSettings.PREF_GEARS_SETTINGS);
         e.setOnPreferenceClickListener(this);
 
-        PreferenceScreen manageDatabases = (PreferenceScreen)
+        PreferenceScreen websiteSettings = (PreferenceScreen)
             findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
         Intent intent = new Intent(this, WebsiteSettingsActivity.class);
-        manageDatabases.setIntent(intent);
+        websiteSettings.setIntent(intent);
     }
 
     /*
-     * We need to set the manageDatabases PreferenceScreen state
-     * in the onResume(), as the number of origins with databases
-     * could have changed after calling the WebsiteSettingsActivity.
+     * We need to set the PreferenceScreen state in onResume(), as the number of
+     * origins with active features (WebStorage, Geolocation etc) could have
+     * changed after calling the WebsiteSettingsActivity.
      */
     @Override
     protected void onResume() {
         super.onResume();
-        PreferenceScreen manageDatabases = (PreferenceScreen)
+        PreferenceScreen websiteSettings = (PreferenceScreen)
             findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
-        manageDatabases.setEnabled(false);
-        Set origins = WebStorage.getInstance().getOrigins();
-        if ((origins != null) && (origins.size() > 0)) {
-            manageDatabases.setEnabled(true);
-        }
+        Set webStorageOrigins = WebStorage.getInstance().getOrigins();
+        Set geolocationOrigins =
+            GeolocationPermissions.getInstance().getOrigins();
+        websiteSettings.setEnabled(
+            ((webStorageOrigins != null) && !webStorageOrigins.isEmpty()) ||
+            ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()));
     }
 
     @Override

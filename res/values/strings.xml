@@ -333,15 +333,15 @@
     <!-- Confirmation dialog message -->
     <string name="pref_privacy_clear_passwords_dlg">All saved passwords will be cleared.</string>
     <!-- Settings label -->
-    <string name="pref_privacy_request_location">Enable location</string>
+    <string name="pref_privacy_enable_geolocation">Enable location</string>
     <!-- Settings summary -->
-    <string name="pref_privacy_request_location_summary">Allow sites to request access to your location</string>
+    <string name="pref_privacy_enable_geolocation_summary">Allow sites to request access to your location</string>
     <!-- Settings label -->
-    <string name="pref_privacy_clear_location_requests">Clear location access</string>
+    <string name="pref_privacy_clear_geolocation_access">Clear location access</string>
     <!-- Settings summary -->
-    <string name="pref_privacy_clear_location_requests_summary">Clear location access for all websites</string>
+    <string name="pref_privacy_clear_geolocation_access_summary">Clear location access for all websites</string>
     <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_location_requests_dlg">Clear all previous location requests</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg">Clear location access for all websites</string>
     <!-- Settings screen, section title -->
     <string name="pref_security_title">Security settings</string>
     <!-- Settings label -->
@@ -767,6 +767,8 @@
     <string name="default_button">OK</string>
 
     <!-- HTML5 dialogs -->
+
+    <!-- Database -->
     <!-- Used as a toast notification after the user close the html5 webstorage permission dialog -->
     <string name="webstorage_notification">The quota for this site can be changed in the Local Storage section of the Browser settings</string>
     <!-- Used in the Browser Settings -->
@@ -780,6 +782,17 @@
     <!-- Strings used in the summary of origins -->
     <string name="webstorage_origin_summary_mb_stored">MB stored on your phone</string>
 
+    <!-- Geolocation -->
+    <!-- Settings page, Advanced Settings -> Website settings -> <origin> -->
+    <string name="geolocation_settings_page_title">Clear location access</string>
+    <string name="geolocation_settings_page_summary_allowed">This site can currently access your location</string>
+    <string name="geolocation_settings_page_summary_not_allowed">This site cannot currently access your location</string>
+    <!-- Settings page dialog -->
+    <string name="geolocation_settings_page_dialog_title">Clear location access</string>
+    <string name="geolocation_settings_page_dialog_message">Location access for this website will be cleared</string>
+    <string name="geolocation_settings_page_dialog_ok_button">Clear access</string>
+    <string name="geolocation_settings_page_dialog_cancel_button">Cancel</string>
+
     <!-- Zoom-related strings --><skip />
     <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->
     <string name="zoom_overview_button_text">Overview</string>
@@ -788,4 +801,5 @@
     <string name="error_console_header_text_maximized" translatable="false">JavaScript Console</string>
     <string name="error_console_eval_text_hint" translatable="false">Evaluate JavaScript</string>
     <string name="error_console_eval_button_text" translatable="false">Evaluate</string>
+
 </resources>

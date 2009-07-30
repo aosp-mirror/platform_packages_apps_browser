@@ -26,6 +26,7 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.webkit.CookieManager;
+import android.webkit.GeolocationPermissions;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
 import android.webkit.WebIconDatabase;
@@ -34,6 +35,7 @@ import android.webkit.WebStorage;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 
+import java.util.Set;
 import java.util.HashMap;
 import java.util.Observable;
 
@@ -81,6 +83,7 @@ class BrowserSettings extends Observable {
     private WebStorageSizeManager webStorageSizeManager;
     private boolean domStorageEnabled = true;
     private String jsFlags = "";
+    private boolean geolocationEnabled = true;
 
     private final static String TAG = "BrowserSettings";
 
@@ -130,6 +133,8 @@ class BrowserSettings extends Observable {
     public final static String PREF_DEFAULT_ZOOM = "default_zoom";
     public final static String PREF_DEFAULT_TEXT_ENCODING =
             "default_text_encoding";
+    public final static String PREF_CLEAR_LOCATION_ACCESS =
+            "privacy_clear_location_access";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_5_7; en-us) AppleWebKit/530.17 (KHTML, " +
@@ -216,6 +221,10 @@ class BrowserSettings extends Observable {
             // Enable/Disable the error console.
             b.mTabControl.getBrowserActivity().setShouldShowErrorConsole(
                     b.showDebugSettings && b.showConsole);
+
+            // Configure the Geolocation permissions manager to deny all
+            // permission requests if Geolocation is disabled in the browser.
+            // TODO(steveblock): Implement
         }
     }
 
@@ -351,6 +360,8 @@ class BrowserSettings extends Observable {
         showConsole = p.getBoolean("javascript_console", showConsole);
         mTabControl.getBrowserActivity().setShouldShowErrorConsole(
                 showDebugSettings && showConsole);
+
+        geolocationEnabled = p.getBoolean("enable_geolocation", geolocationEnabled);
 
         update();
     }
@@ -522,14 +533,27 @@ class BrowserSettings extends Observable {
         db.clearHttpAuthUsernamePassword();
     }
 
+    private void maybeDisableWebsiteSettings(Context context) {
+        Set webStorageOrigins = WebStorage.getInstance().getOrigins();
+        Set geolocationOrigins =
+                 GeolocationPermissions.getInstance().getOrigins();
+        if (((webStorageOrigins == null) || webStorageOrigins.isEmpty()) &&
+            ((geolocationOrigins == null) || geolocationOrigins.isEmpty())) {
+            PreferenceActivity activity = (PreferenceActivity) context;
+            PreferenceScreen screen = (PreferenceScreen)
+                activity.findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
+            screen.setEnabled(false);
+        }
+    }
+
     /*package*/ void clearDatabases(Context context) {
         WebStorage.getInstance().deleteAllData();
-        // Remove all listed databases from the preferences
-        PreferenceActivity activity = (PreferenceActivity) context;
-        PreferenceScreen screen = (PreferenceScreen)
-            activity.findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
-        screen.removeAll();
-        screen.setEnabled(false);
+        maybeDisableWebsiteSettings(context);
+    }
+
+    /*package*/ void clearLocationAccess(Context context) {
+        GeolocationPermissions.getInstance().clearAll();
+        maybeDisableWebsiteSettings(context);
     }
 
     /*package*/ void resetDefaultPreferences(Context ctx) {

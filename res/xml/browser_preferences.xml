@@ -134,23 +134,20 @@
                 android:dialogTitle="@string/clear" 
                 android:dialogIcon="@android:drawable/ic_dialog_alert"/>
 
-        <!-- below preferences will be shown when html5 location is implemented -->
-        <!--
-
         <CheckBoxPreference
-                android:key="request_location"
+                android:key="enable_geolocation"
                 android:defaultValue="true"
-                android:title="@string/pref_privacy_request_location"
-                android:summary="@string/pref_privacy_request_location_summary" />
+                android:title="@string/pref_privacy_enable_geolocation"
+                android:summary="@string/pref_privacy_enable_geolocation_summary" />
 
         <com.android.browser.BrowserYesNoPreference
-                android:key="privacy_clear_location_requests"
-                android:title="@string/pref_privacy_clear_location_requests"
-                android:summary="@string/pref_privacy_clear_location_requests_summary"
-                android:dialogMessage="@string/pref_privacy_clear_location_requests_dlg"
+                android:key="privacy_clear_geolocation_access"
+                android:dependency="enable_geolocation"
+                android:title="@string/pref_privacy_clear_geolocation_access"
+                android:summary="@string/pref_privacy_clear_geolocation_access_summary"
+                android:dialogMessage="@string/pref_privacy_clear_geolocation_access_dlg"
                 android:dialogTitle="@string/clear"
                 android:dialogIcon="@android:drawable/ic_dialog_alert"/>
-        -->
 
     </PreferenceCategory>
     
