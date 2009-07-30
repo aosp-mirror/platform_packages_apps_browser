@@ -38,5 +38,7 @@
     <color name="permission_border">#f1cc1d</color>
     <color name="permission_background">#faefb8</color>
     <color name="dialog_link">#ff0000ff</color>
+
+    <color name="geolocation_permissions_prompt_background">#CC888888</color>
 </resources>
 

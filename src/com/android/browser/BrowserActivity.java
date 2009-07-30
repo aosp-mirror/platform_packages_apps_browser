@@ -107,6 +107,7 @@ import android.view.animation.TranslateAnimation;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
+import android.webkit.GeolocationPermissions;
 import android.webkit.HttpAuthHandler;
 import android.webkit.PluginManager;
 import android.webkit.SslErrorHandler;
@@ -1988,9 +1989,9 @@ public class BrowserActivity extends Activity
 
     // Attach the given tab to the content view.
     private void attachTabToContentView(TabControl.Tab t) {
-        final WebView main = t.getWebView();
-        // Attach the main WebView.
-        mContentView.addView(main, COVER_SCREEN_PARAMS);
+        // Attach the container that contains the main WebView and any other UI
+        // associated with the tab.
+        mContentView.addView(t.getContainer(), COVER_SCREEN_PARAMS);
 
         if (mShouldShowErrorConsole) {
             ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(true);
@@ -2024,8 +2025,8 @@ public class BrowserActivity extends Activity
 
     // Remove the given tab from the content view.
     private void removeTabFromContentView(TabControl.Tab t) {
-        // Remove the main WebView.
-        mContentView.removeView(t.getWebView());
+        // Remove the container that contains the main WebView.
+        mContentView.removeView(t.getContainer());
 
         if (mTabControl.getCurrentErrorConsole(false) != null) {
             mErrorConsoleContainer.removeView(mTabControl.getCurrentErrorConsole(false));
@@ -3871,6 +3872,29 @@ public class BrowserActivity extends Activity
                 long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
             mSettings.getWebStorageSizeManager().onReachedMaxAppCacheSize(
                     spaceNeeded, totalUsedQuota, quotaUpdater);
+        }
+
+        /**
+         * Instructs the browser to show a prompt to ask the user to set the
+         * Geolocation permission state for the specified origin.
+         * @param origin The origin for which Geolocation permissions are
+         *     requested.
+         * @param callback The callback to call once the user has set the
+         *     Geolocation permission state.
+         */
+        @Override
+        public void onGeolocationPermissionsShowPrompt(String origin,
+                GeolocationPermissions.Callback callback) {
+            mTabControl.getCurrentTab().getGeolocationPermissionsPrompt().show(
+                    origin, callback);
+        }
+
+        /**
+         * Instructs the browser to hide the Geolocation permissions prompt.
+         */
+        @Override
+        public void onGeolocationPermissionsHidePrompt() {
+            mTabControl.getCurrentTab().getGeolocationPermissionsPrompt().hide();
         }
 
         /* Adds a JavaScript error message to the system log.

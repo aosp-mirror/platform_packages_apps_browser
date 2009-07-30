@@ -38,6 +38,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -162,6 +163,9 @@ class TabControl {
      * Private class for maintaining Tabs with a main WebView and a subwindow.
      */
     public class Tab implements WebView.PictureListener {
+        // The Geolocation permissions prompt
+        private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
+        private View mContainer;
         // Main WebView
         private WebView mMainView;
         // Subwindow WebView
@@ -198,11 +202,47 @@ class TabControl {
         private ErrorConsoleView mErrorConsole;
 
         // Construct a new tab
-        private Tab(WebView w, boolean closeOnExit, String appId, String url) {
-            mMainView = w;
+        private Tab(WebView w, boolean closeOnExit, String appId, String url, Context context) {
             mCloseOnExit = closeOnExit;
             mAppId = appId;
             mOriginalUrl = url;
+
+            // The tab consists of a container view, which contains the main
+            // WebView, as well as any other UI elements associated with the tab.
+            //
+            // FIXME: Fix the interaction between this layout and the animation
+            // used when switching to and from the tab picker. This may not be
+            // required if the tab selection UI is redesigned.
+            LayoutInflater factory = LayoutInflater.from(context);
+            mContainer = factory.inflate(R.layout.tab, null);
+
+            mGeolocationPermissionsPrompt =
+                (GeolocationPermissionsPrompt) mContainer.findViewById(
+                    R.id.geolocation_permissions_prompt);
+
+            setWebView(w);
+        }
+
+        /**
+         * Sets the WebView for this tab, correctly removing the old WebView
+         * from, and inserting the new WebView into, the container view.
+         */
+        public void setWebView(WebView w) {
+            if (mMainView == w) {
+                return;
+            }
+            // If the WebView is changing, the page will be reloaded, so any ongoing Geolocation
+            // permission requests are void.
+            mGeolocationPermissionsPrompt.hide();
+
+            FrameLayout wrapper = (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
+            if (mMainView != null) {
+                wrapper.removeView(mMainView);
+            }
+            mMainView = w;
+            if (mMainView != null) {
+                wrapper.addView(mMainView);
+            }
         }
 
         /**
@@ -225,6 +265,20 @@ class TabControl {
          */
         public WebView getWebView() {
             return mMainView;
+        }
+
+        /**
+         * @return The container for this tab.
+         */
+        public View getContainer() {
+            return mContainer;
+        }
+
+        /**
+         * @return The geolocation permissions prompt for this tab.
+         */
+        public GeolocationPermissionsPrompt getGeolocationPermissionsPrompt() {
+            return mGeolocationPermissionsPrompt;
         }
 
         /**
@@ -488,8 +542,9 @@ class TabControl {
             return null;
         }
         final WebView w = createNewWebView();
+
         // Create a new tab and add it to the tab list
-        Tab t = new Tab(w, closeOnExit, appId, url);
+        Tab t = new Tab(w, closeOnExit, appId, url, mActivity);
         mTabs.add(t);
         // Initially put the tab in the background.
         putTabInBackground(t);
@@ -528,7 +583,7 @@ class TabControl {
                     t.mMainView.getSettings());
             // Destroy the main view and subview
             t.mMainView.destroy();
-            t.mMainView = null;
+            t.setWebView(null);
         }
         // clear it's references to parent and children
         t.removeFromTree();
@@ -589,7 +644,7 @@ class TabControl {
                 dismissSubWindow(t);
                 s.deleteObserver(t.mMainView.getSettings());
                 t.mMainView.destroy();
-                t.mMainView = null;
+                t.setWebView(null);
             }
         }
         mTabs.clear();
@@ -661,7 +716,7 @@ class TabControl {
                 } else {
                     // Create a new tab and don't restore the state yet, add it
                     // to the tab list
-                    Tab t = new Tab(null, false, null, null);
+                    Tab t = new Tab(null, false, null, null, mActivity);
                     t.mSavedState = inState.getBundle(WEBVIEW + i);
                     if (t.mSavedState != null) {
                         populatePickerDataFromSavedState(t);
@@ -758,7 +813,7 @@ class TabControl {
         // observers.
         BrowserSettings.getInstance().deleteObserver(t.mMainView.getSettings());
         t.mMainView.destroy();
-        t.mMainView = null;
+        t.setWebView(null);
     }
 
     /**
@@ -896,7 +951,7 @@ class TabControl {
         }
         // Create a new WebView. If this tab is the current tab, we need to put
         // back all the clients so force it to be the current tab.
-        t.mMainView = createNewWebView();
+        t.setWebView(createNewWebView());
         if (getCurrentTab() == t) {
             setCurrentTab(t, true);
         }
@@ -1008,7 +1063,8 @@ class TabControl {
         boolean needRestore = (mainView == null);
         if (needRestore) {
             // Same work as in createNewTab() except don't do new Tab()
-            newTab.mMainView = mainView = createNewWebView();
+            mainView = createNewWebView();
+            newTab.setWebView(mainView);
         }
         putViewInForeground(mainView, mActivity.getWebViewClient(),
                             mActivity.getWebChromeClient());
