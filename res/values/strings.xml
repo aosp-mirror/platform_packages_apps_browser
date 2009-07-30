@@ -510,7 +510,7 @@
     <string name="search_label" translatable="false">Browser</string>
     <!-- This string is for the browser "Go To" UI. -->
     <!-- This is the hint text shown in the Go To widget, before text is entered. -->
-    <string name="search_hint">Type Web address</string>
+    <string name="search_hint">Search or type URL</string>
     <!-- This string is for the browser "Go To" UI. -->
     <!-- This is the button label in the "Go To" UI. -->
     <string name="search_button_text">Go</string>
