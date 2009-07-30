@@ -16,7 +16,11 @@
 
 package com.android.browser;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.StatFs;
 import android.util.Log;
 import android.webkit.WebStorage;
@@ -84,7 +88,6 @@ import java.util.Set;
  * a system notification that will guide the user to the WebSettings UI. There,
  * the user can free some of the Web storage space by deleting all the data used
  * by an origin.
- * TODO(andreip): implement the notification.
  */
 class WebStorageSizeManager {
     // Logging flags.
@@ -95,6 +98,14 @@ class WebStorageSizeManager {
     public final static long ORIGIN_DEFAULT_QUOTA = 3 * 1024 * 1024;  // 3MB
     // The default value for quota increases.
     public final static long QUOTA_INCREASE_STEP = 1 * 1024 * 1024;  // 1MB
+    // Extra padding space for appcache maximum size increases. This is needed
+    // because WebKit sends us an estimate of the amount of space needed
+    // but this estimate may, currently, be slightly less than what is actually
+    // needed. We therefore add some 'padding'.
+    // TODO(andreip): fix this in WebKit.
+    public final static long APPCACHE_MAXSIZE_PADDING = 512 * 1024; // 512KB
+    // The system status bar notification id.
+    private final static int OUT_OF_SPACE_ID = 1;
     // The application context.
     private final Context mContext;
     // The global Web storage limit.
@@ -222,8 +233,16 @@ class WebStorageSizeManager {
 
         if (totalUnusedQuota <= 0) {
             // There definitely isn't any more space. Fire notifications
-            // and exit.
-            scheduleOutOfSpaceNotification();
+            // if needed and exit.
+            if (totalUsedQuota > 0) {
+                // We only fire the notification if there are some other websites
+                // using some of the quota. This avoids the degenerate case where
+                // the first ever website to use Web storage tries to use more
+                // data than it is actually available. In such a case, showing
+                // the notification would not help at all since there is nothing
+                // the user can do.
+                scheduleOutOfSpaceNotification();
+            }
             quotaUpdater.updateQuota(currentQuota);
             if(LOGV_ENABLED) {
                 Log.v(LOGTAG, "onExceededDatabaseQuota: out of space.");
@@ -268,10 +287,18 @@ class WebStorageSizeManager {
 
         long totalUnusedQuota = mGlobalLimit - totalUsedQuota - mAppCacheMaxSize;
 
-        if (totalUnusedQuota < spaceNeeded) {
+        if (totalUnusedQuota < spaceNeeded + APPCACHE_MAXSIZE_PADDING) {
             // There definitely isn't any more space. Fire notifications
-            // and exit.
-            scheduleOutOfSpaceNotification();
+            // if needed and exit.
+            if (totalUsedQuota > 0) {
+                // We only fire the notification if there are some other websites
+                // using some of the quota. This avoids the degenerate case where
+                // the first ever website to use Web storage tries to use more
+                // data than it is actually available. In such a case, showing
+                // the notification would not help at all since there is nothing
+                // the user can do.
+                scheduleOutOfSpaceNotification();
+            }
             quotaUpdater.updateQuota(0);
             if(LOGV_ENABLED) {
                 Log.v(LOGTAG, "onReachedMaxAppCacheSize: out of space.");
@@ -279,7 +306,7 @@ class WebStorageSizeManager {
             return;
         }
         // There is enough space to accommodate spaceNeeded bytes.
-        mAppCacheMaxSize += spaceNeeded;
+        mAppCacheMaxSize += spaceNeeded + APPCACHE_MAXSIZE_PADDING;
         quotaUpdater.updateQuota(mAppCacheMaxSize);
 
         if(LOGV_ENABLED) {
@@ -324,6 +351,32 @@ class WebStorageSizeManager {
     // Schedules a system notification that takes the user to the WebSettings
     // activity when clicked.
     private void scheduleOutOfSpaceNotification() {
-        // TODO(andreip): implement.
+        if(LOGV_ENABLED) {
+            Log.v(LOGTAG, "scheduleOutOfSpaceNotification called.");
+        }
+        if (mContext == null) {
+            // mContext can be null if we're running unit tests.
+            return;
+        }
+        // setup the notification boilerplate.
+        int icon = R.drawable.ic_launcher_browser;
+        CharSequence title = mContext.getString(
+                R.string.webstorage_outofspace_notification_title);
+        CharSequence text = mContext.getString(
+                R.string.webstorage_outofspace_notification_text);
+        long when = System.currentTimeMillis();
+        Intent intent = new Intent(mContext, WebsiteSettingsActivity.class);
+        PendingIntent contentIntent =
+            PendingIntent.getActivity(mContext, 0, intent, 0);
+        Notification notification = new Notification(icon, title, when);
+        notification.setLatestEventInfo(mContext, title, text, contentIntent);
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        // Fire away.
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager mgr =
+            (NotificationManager) mContext.getSystemService(ns);
+        if (mgr != null) {
+            mgr.notify(OUT_OF_SPACE_ID, notification);
+        }
     }
 }

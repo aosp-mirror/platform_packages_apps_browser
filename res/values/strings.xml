@@ -767,10 +767,9 @@
     <string name="default_button">OK</string>
 
     <!-- HTML5 dialogs -->
-
-    <!-- Database -->
-    <!-- Used as a toast notification after the user close the html5 webstorage permission dialog -->
-    <string name="webstorage_notification">The quota for this site can be changed in the Local Storage section of the Browser settings</string>
+    <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+    <string name="webstorage_outofspace_notification_title">Browser storage full</string>
+    <string name="webstorage_outofspace_notification_text">Click to free up space.</string>
     <!-- Used in the Browser Settings -->
     <string name="webstorage_clear_data_title">Clear stored data</string>
     <string name="webstorage_clear_data_summary">Remove all databases associated with this website</string>
