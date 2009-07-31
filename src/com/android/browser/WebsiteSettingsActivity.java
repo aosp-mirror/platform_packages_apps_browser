@@ -321,6 +321,8 @@ public class WebsiteSettingsActivity extends ListActivity {
             icon = (ImageView) view.findViewById(R.id.icon);
 
             if (mCurrentSite == null) {
+                setTitle(getString(R.string.pref_extras_website_settings));
+
                 Site site = getItem(position);
                 title.setText(site.getPrettyTitle());
                 subtitle.setText(site.getPrettyOrigin());
@@ -334,6 +336,7 @@ public class WebsiteSettingsActivity extends ListActivity {
                 // so that we can get it in onItemClick()
                 view.setTag(site);
             } else {
+                setTitle(mCurrentSite.getPrettyTitle());
                 icon.setVisibility(View.GONE);
                 String origin = mCurrentSite.getOrigin();
                 switch (mCurrentSite.getFeatureByIndex(position)) {
