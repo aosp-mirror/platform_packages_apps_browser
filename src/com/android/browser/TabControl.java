@@ -698,8 +698,10 @@ class TabControl {
      * WebView cache;
      */
     void freeMemory() {
+        if (getTabCount() == 0) return;
+
         // free the least frequently used background tab
-        Tab t = getLeastUsedTab();
+        Tab t = getLeastUsedTab(getCurrentTab().getParentTab());
         if (t != null) {
             Log.w(LOGTAG, "Free a tab in the browser");
             freeTab(t);
@@ -718,7 +720,7 @@ class TabControl {
         System.gc();
     }
 
-    private Tab getLeastUsedTab() {
+    private Tab getLeastUsedTab(Tab currentParent) {
         // Don't do anything if we only have 1 tab.
         if (getTabCount() == 1) {
             return null;
@@ -734,7 +736,8 @@ class TabControl {
         }
         do {
             t = mTabQueue.get(i++);
-        } while (i < queueSize && t != null && t.mMainView == null);
+        } while (i < queueSize
+                && ((t != null && t.mMainView == null) || t == currentParent));
 
         // Don't do anything if the last remaining tab is the current one or if
         // the last tab has been freed already.

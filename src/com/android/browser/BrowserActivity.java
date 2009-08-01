@@ -20,7 +20,6 @@ import com.google.android.googleapps.IGoogleLoginService;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -2831,8 +2830,7 @@ public class BrowserActivity extends Activity
     private static final int ANIMATE_FROM_OVERVIEW   = 104;
     private static final int ANIMATE_TO_OVERVIEW     = 105;
     private static final int OPEN_TAB_AND_SHOW       = 106;
-    private static final int CHECK_MEMORY            = 107;
-    private static final int RELEASE_WAKELOCK        = 108;
+    private static final int RELEASE_WAKELOCK        = 107;
 
     // Private handler for handling javascript and saving passwords
     private Handler mHandler = new Handler() {
@@ -2911,14 +2909,6 @@ public class BrowserActivity extends Activity
 
                 case CANCEL_CREDS_REQUEST:
                     resumeAfterCredentials();
-                    break;
-
-                case CHECK_MEMORY:
-                    // reschedule to check memory condition
-                    mHandler.removeMessages(CHECK_MEMORY);
-                    mHandler.sendMessageDelayed(mHandler.obtainMessage
-                            (CHECK_MEMORY), CHECK_MEMORY_INTERVAL);
-                    checkMemory();
                     break;
 
                 case RELEASE_WAKELOCK:
@@ -3088,10 +3078,6 @@ public class BrowserActivity extends Activity
                     view.setNetworkAvailable(false);
                 }
             }
-
-            // schedule to check memory condition
-            mHandler.sendMessageDelayed(mHandler.obtainMessage(CHECK_MEMORY),
-                    CHECK_MEMORY_INTERVAL);
         }
 
         @Override
@@ -3199,9 +3185,6 @@ public class BrowserActivity extends Activity
                     }
                 }
             }
-
-            mHandler.removeMessages(CHECK_MEMORY);
-            checkMemory();
         }
 
         // return true if want to hijack the url to let another app to handle it
@@ -4865,21 +4848,6 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private void checkMemory() {
-        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-        ((ActivityManager) getSystemService(ACTIVITY_SERVICE))
-                .getMemoryInfo(mi);
-        // FIXME: mi.lowMemory is too aggressive, use (mi.availMem <
-        // mi.threshold) for now
-        //        if (mi.lowMemory) {
-        if (mi.availMem < mi.threshold) {
-            Log.w(LOGTAG, "Browser is freeing memory now because: available="
-                            + (mi.availMem / 1024) + "K threshold="
-                            + (mi.threshold / 1024) + "K");
-            mTabControl.freeMemory();
-        }
-    }
-
     private String smartUrlFilter(Uri inUri) {
         if (inUri != null) {
             return smartUrlFilter(inUri.toString());
@@ -5167,9 +5135,6 @@ public class BrowserActivity extends Activity
     final static int COMBO_PAGE                 = 1;
     final static int DOWNLOAD_PAGE              = 2;
     final static int PREFERENCES_PAGE           = 3;
-
-    // the frenquency of checking whether system memory is low
-    final static int CHECK_MEMORY_INTERVAL = 30000;     // 30 seconds
 
     /**
      * A UrlData class to abstract how the content will be set to WebView.
