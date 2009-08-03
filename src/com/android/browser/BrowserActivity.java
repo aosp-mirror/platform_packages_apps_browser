@@ -721,6 +721,69 @@ public class BrowserActivity extends Activity
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
 
+        /* enables registration for changes in network status from
+           http stack */
+        mNetworkStateChangedFilter = new IntentFilter();
+        mNetworkStateChangedFilter.addAction(
+                ConnectivityManager.CONNECTIVITY_ACTION);
+        mNetworkStateIntentReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if (intent.getAction().equals(
+                            ConnectivityManager.CONNECTIVITY_ACTION)) {
+                        boolean down = intent.getBooleanExtra(
+                                ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+                        onNetworkToggle(!down);
+                    }
+                }
+            };
+
+        IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addDataScheme("package");
+        mPackageInstallationReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                final String action = intent.getAction();
+                final String packageName = intent.getData()
+                        .getSchemeSpecificPart();
+                final boolean replacing = intent.getBooleanExtra(
+                        Intent.EXTRA_REPLACING, false);
+                if (Intent.ACTION_PACKAGE_REMOVED.equals(action) && replacing) {
+                    // if it is replacing, refreshPlugins() when adding
+                    return;
+                }
+                PackageManager pm = BrowserActivity.this.getPackageManager();
+                PackageInfo pkgInfo = null;
+                try {
+                    pkgInfo = pm.getPackageInfo(packageName,
+                            PackageManager.GET_PERMISSIONS);
+                } catch (PackageManager.NameNotFoundException e) {
+                    return;
+                }
+                if (pkgInfo != null) {
+                    String permissions[] = pkgInfo.requestedPermissions;
+                    if (permissions == null) {
+                        return;
+                    }
+                    boolean permissionOk = false;
+                    for (String permit : permissions) {
+                        if (PluginManager.PLUGIN_PERMISSION.equals(permit)) {
+                            permissionOk = true;
+                            break;
+                        }
+                    }
+                    if (permissionOk) {
+                        PluginManager.getInstance(BrowserActivity.this)
+                                .refreshPlugins(
+                                        Intent.ACTION_PACKAGE_ADDED
+                                                .equals(action));
+                    }
+                }
+            }
+        };
+        registerReceiver(mPackageInstallationReceiver, filter);
+
         // If this was a web search request, pass it on to the default web search provider.
         if (handleWebSearchIntent(getIntent())) {
             moveTaskToBack(true);
@@ -787,74 +850,12 @@ public class BrowserActivity extends Activity
             // are not animating from the tab picker.
             attachTabToContentView(mTabControl.getCurrentTab());
         }
+
         // Read JavaScript flags if it exists.
         String jsFlags = mSettings.getJsFlags();
         if (jsFlags.trim().length() != 0) {
             mTabControl.getCurrentWebView().setJsFlags(jsFlags);
         }
-
-        /* enables registration for changes in network status from
-           http stack */
-        mNetworkStateChangedFilter = new IntentFilter();
-        mNetworkStateChangedFilter.addAction(
-                ConnectivityManager.CONNECTIVITY_ACTION);
-        mNetworkStateIntentReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    if (intent.getAction().equals(
-                            ConnectivityManager.CONNECTIVITY_ACTION)) {
-                        boolean down = intent.getBooleanExtra(
-                                ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-                        onNetworkToggle(!down);
-                    }
-                }
-            };
-
-        IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        filter.addDataScheme("package");
-        mPackageInstallationReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                final String action = intent.getAction();
-                final String packageName = intent.getData()
-                        .getSchemeSpecificPart();
-                final boolean replacing = intent.getBooleanExtra(
-                        Intent.EXTRA_REPLACING, false);
-                if (Intent.ACTION_PACKAGE_REMOVED.equals(action) && replacing) {
-                    // if it is replacing, refreshPlugins() when adding
-                    return;
-                }
-                PackageManager pm = BrowserActivity.this.getPackageManager();
-                PackageInfo pkgInfo = null;
-                try {
-                    pkgInfo = pm.getPackageInfo(packageName,
-                            PackageManager.GET_PERMISSIONS);
-                } catch (PackageManager.NameNotFoundException e) {
-                    return;
-                }
-                if (pkgInfo != null) {
-                    String permissions[] = pkgInfo.requestedPermissions;
-                    if (permissions == null) {
-                        return;
-                    }
-                    boolean permissionOk = false;
-                    for (String permit : permissions) {
-                        if (PluginManager.PLUGIN_PERMISSION.equals(permit)) {
-                            permissionOk = true;
-                            break;
-                        }
-                    }
-                    if (permissionOk) {
-                        PluginManager.getInstance(BrowserActivity.this)
-                                .refreshPlugins(
-                                        Intent.ACTION_PACKAGE_ADDED
-                                                .equals(action));
-                    }
-                }
-            }
-        };
-        registerReceiver(mPackageInstallationReceiver, filter);
     }
 
     @Override
