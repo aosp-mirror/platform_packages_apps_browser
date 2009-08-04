@@ -25,6 +25,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
@@ -97,8 +100,7 @@ public class BrowserBookmarksPage extends Activity implements
             editBookmark(i.position);
             break;
         case R.id.shortcut_context_menu_id:
-            final Intent send = createShortcutIntent(getUrl(i.position),
-                    getBookmarkTitle(i.position), getFavicon(i.position));
+            final Intent send = createShortcutIntent(i.position);
             send.setAction(INSTALL_SHORTCUT);
             sendBroadcast(send);
             break;
@@ -259,16 +261,18 @@ public class BrowserBookmarksPage extends Activity implements
                     loadUrl(position);
                 }
             } else {
-                final Intent intent = createShortcutIntent(getUrl(position),
-                        getBookmarkTitle(position), getFavicon(position));
+                final Intent intent = createShortcutIntent(position);
                 setResultToParent(RESULT_OK, intent);
                 finish();
             }
         }
     };
 
-    private Intent createShortcutIntent(String url, String title,
-            Bitmap favicon) {
+    private Intent createShortcutIntent(int position) {
+        String url = getUrl(position);
+        String title = getBookmarkTitle(position);
+        Bitmap touchIcon = getTouchIcon(position);
+
         final Intent i = new Intent();
         final Intent shortcutIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(url));
@@ -278,41 +282,65 @@ public class BrowserBookmarksPage extends Activity implements
                 Long.toString(uniqueId));
         i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
-        if (favicon == null) {
-            i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                    Intent.ShortcutIconResource.fromContext(
-                            BrowserBookmarksPage.this,
-                            R.drawable.ic_launcher_shortcut_browser_bookmark));
-        } else {
-            Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.ic_launcher_shortcut_browser_bookmark);
-
-            // Make a copy of the regular icon so we can modify the pixels.
-            Bitmap copy = icon.copy(Bitmap.Config.ARGB_8888, true);
+        // Use the apple-touch-icon if available
+        if (touchIcon != null) {
+            // Make a copy so we can modify the pixels.
+            Bitmap copy = touchIcon.copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvas = new Canvas(copy);
 
-            // Make a Paint for the white background rectangle and for
-            // filtering the favicon.
-            Paint p = new Paint(Paint.ANTI_ALIAS_FLAG
-                    | Paint.FILTER_BITMAP_FLAG);
-            p.setStyle(Paint.Style.FILL_AND_STROKE);
-            p.setColor(Color.WHITE);
+            // Construct a path from a round rect. This will allow drawing with
+            // an inverse fill so we can punch a hole using the round rect.
+            Path path = new Path();
+            path.setFillType(Path.FillType.INVERSE_WINDING);
+            path.addRoundRect(new RectF(0, 0, touchIcon.getWidth(),
+                    touchIcon.getHeight()), 8f, 8f, Path.Direction.CW);
 
-            // Create a rectangle that is slightly wider than the favicon
-            final float iconSize = 16; // 16x16 favicon
-            final float padding = 2;   // white padding around icon
-            final float rectSize = iconSize + 2 * padding;
-            final float y = icon.getHeight() - rectSize;
-            RectF r = new RectF(0, y, rectSize, y + rectSize);
+            // Construct a paint that clears the outside of the rectangle and
+            // draw.
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+            canvas.drawPath(path, paint);
 
-            // Draw a white rounded rectangle behind the favicon
-            canvas.drawRoundRect(r, 2, 2, p);
-
-            // Draw the favicon in the same rectangle as the rounded rectangle
-            // but inset by the padding (results in a 16x16 favicon).
-            r.inset(padding, padding);
-            canvas.drawBitmap(favicon, null, r, p);
             i.putExtra(Intent.EXTRA_SHORTCUT_ICON, copy);
+        } else {
+            Bitmap favicon = getFavicon(position);
+            if (favicon == null) {
+                i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                        Intent.ShortcutIconResource.fromContext(
+                                BrowserBookmarksPage.this,
+                                R.drawable.ic_launcher_shortcut_browser_bookmark));
+            } else {
+                Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.ic_launcher_shortcut_browser_bookmark);
+
+                // Make a copy of the regular icon so we can modify the pixels.
+                Bitmap copy = icon.copy(Bitmap.Config.ARGB_8888, true);
+                Canvas canvas = new Canvas(copy);
+
+                // Make a Paint for the white background rectangle and for
+                // filtering the favicon.
+                Paint p = new Paint(Paint.ANTI_ALIAS_FLAG
+                        | Paint.FILTER_BITMAP_FLAG);
+                p.setStyle(Paint.Style.FILL_AND_STROKE);
+                p.setColor(Color.WHITE);
+
+                // Create a rectangle that is slightly wider than the favicon
+                final float iconSize = 16; // 16x16 favicon
+                final float padding = 2;   // white padding around icon
+                final float rectSize = iconSize + 2 * padding;
+                final float y = icon.getHeight() - rectSize;
+                RectF r = new RectF(0, y, rectSize, y + rectSize);
+
+                // Draw a white rounded rectangle behind the favicon
+                canvas.drawRoundRect(r, 2, 2, p);
+
+                // Draw the favicon in the same rectangle as the rounded
+                // rectangle but inset by the padding
+                // (results in a 16x16 favicon).
+                r.inset(padding, padding);
+                canvas.drawBitmap(favicon, null, r, p);
+                i.putExtra(Intent.EXTRA_SHORTCUT_ICON, copy);
+            }
         }
         // Do not allow duplicate items
         i.putExtra("duplicate", false);
@@ -457,6 +485,10 @@ public class BrowserBookmarksPage extends Activity implements
      */
     public Bitmap getFavicon(int position) {
         return mBookmarksAdapter.getFavicon(position);
+    }
+
+    private Bitmap getTouchIcon(int position) {
+        return mBookmarksAdapter.getTouchIcon(position);
     }
 
     private void copy(CharSequence text) {

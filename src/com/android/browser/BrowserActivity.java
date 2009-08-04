@@ -2926,23 +2926,10 @@ public class BrowserActivity extends Activity
         // FIXME: Would like to make sure there is actually something to
         // draw, but the API for that (WebViewCore.pictureReady()) is not
         // currently accessible here.
-        String original = view.getOriginalUrl();
-        if (original != null) {
-            // copied from BrowserBookmarksAdapter
-            int query = original.indexOf('?');
-            String noQuery = original;
-            if (query != -1) {
-                noQuery = original.substring(0, query);
-            }
-            String URL = noQuery + '?';
-            String[] selArgs = new String[] { noQuery, URL };
-            final String where
-                    = "(url == ? OR url GLOB ? || '*') AND bookmark == 1";
-            final String[] projection
-                    = new String[] { Browser.BookmarkColumns._ID };
-            ContentResolver cr = getContentResolver();
-            final Cursor c = cr.query(Browser.BOOKMARKS_URI, projection,
-                    where, selArgs, null);
+        ContentResolver cr = getContentResolver();
+        final Cursor c = BrowserBookmarksAdapter.queryBookmarksForUrl(
+                cr, view.getOriginalUrl(), view.getUrl());
+        if (c != null) {
             boolean succeed = c.moveToFirst();
             ContentValues values = null;
             while (succeed) {
@@ -2986,10 +2973,10 @@ public class BrowserActivity extends Activity
         return mWebViewClient;
     }
 
-    private void updateIcon(String url, Bitmap icon) {
+    private void updateIcon(WebView view, Bitmap icon) {
         if (icon != null) {
             BrowserBookmarksAdapter.updateBookmarkFavicon(mResolver,
-                    url, icon);
+                    view, icon);
         }
         setFavicon(icon);
     }
@@ -3010,7 +2997,7 @@ public class BrowserActivity extends Activity
 
             // Call updateIcon instead of setFavicon so the bookmark
             // database can be updated.
-            updateIcon(url, favicon);
+            updateIcon(view, favicon);
 
             if (mSettings.isTracing() == true) {
                 // FIXME: we should save the trace file somewhere other than data.
@@ -3794,7 +3781,22 @@ public class BrowserActivity extends Activity
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
-            updateIcon(view.getUrl(), icon);
+            updateIcon(view, icon);
+        }
+
+        @Override
+        public void onReceivedTouchIconUrl(WebView view, String url) {
+            final ContentResolver cr = getContentResolver();
+            final Cursor c =
+                    BrowserBookmarksAdapter.queryBookmarksForUrl(cr,
+                            view.getOriginalUrl(), view.getUrl());
+            if (c != null) {
+                if (c.getCount() > 0) {
+                    new DownloadTouchIcon(cr, c, view).execute(url);
+                } else {
+                    c.close();
+                }
+            }
         }
 
         @Override
@@ -4830,6 +4832,7 @@ public class BrowserActivity extends Activity
         intent.putExtra("url", url);
         intent.putExtra("maxTabsOpen",
                 mTabControl.getTabCount() >= TabControl.MAX_TABS);
+        intent.putExtra("touch_icon_url", current.getTouchIconUrl());
         if (startWithHistory) {
             intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_TAB,
                     CombinedBookmarkHistoryActivity.HISTORY_TAB);

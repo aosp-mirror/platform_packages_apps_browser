@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.net.ParseException;
 import android.net.WebAddress;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class AddBookmarkPage extends Activity {
     private View        mCancelButton;
     private boolean     mEditingExisting;
     private Bundle      mMap;
+    private String      mTouchIconUrl;
 
     private View.OnClickListener mSaveBookmark = new View.OnClickListener() {
         public void onClick(View v) {
@@ -78,6 +80,7 @@ public class AddBookmarkPage extends Activity {
             }
             title = mMap.getString("title");
             url = mMap.getString("url");
+            mTouchIconUrl = mMap.getString("touch_icon_url");
         }
 
         mTitle = (EditText) findViewById(R.id.title);
@@ -142,7 +145,15 @@ public class AddBookmarkPage extends Activity {
                 setResult(RESULT_OK, (new Intent()).setAction(
                         getIntent().toString()).putExtras(mMap));
             } else {
-                Bookmarks.addBookmark(null, getContentResolver(), url, title, true);
+                final ContentResolver cr = getContentResolver();
+                Bookmarks.addBookmark(null, cr, url, title, true);
+                if (mTouchIconUrl != null) {
+                    final Cursor c =
+                            BrowserBookmarksAdapter.queryBookmarksForUrl(
+                                    cr, null, url);
+                    new DownloadTouchIcon(cr, c, url)
+                            .execute(mTouchIconUrl);
+                }
                 setResult(RESULT_OK);
             }
         } catch (IllegalStateException e) {

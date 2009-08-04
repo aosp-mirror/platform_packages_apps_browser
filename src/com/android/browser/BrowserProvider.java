@@ -150,7 +150,8 @@ public class BrowserProvider extends ContentProvider {
     // 17 -> 18 Added favicon in bookmarks table for Home shortcuts
     // 18 -> 19 Remove labels table
     // 19 -> 20 Added thumbnail
-    private static final int DATABASE_VERSION = 20;
+    // 20 -> 21 Added touch_icon
+    private static final int DATABASE_VERSION = 21;
 
     // Regular expression which matches http://, followed by some stuff, followed by
     // optionally a trailing slash, all matched as separate groups.
@@ -223,7 +224,8 @@ public class BrowserProvider extends ContentProvider {
                     "description TEXT," +
                     "bookmark INTEGER," +
                     "favicon BLOB DEFAULT NULL," +
-                    "thumbnail BLOB DEFAULT NULL" +
+                    "thumbnail BLOB DEFAULT NULL," +
+                    "touch_icon BLOB DEFAULT NULL" +
                     ");");
 
             final CharSequence[] bookmarks = mContext.getResources()
@@ -256,6 +258,9 @@ public class BrowserProvider extends ContentProvider {
             }
             if (oldVersion <= 19) {
                 db.execSQL("ALTER TABLE bookmarks ADD COLUMN thumbnail BLOB DEFAULT NULL;");
+            }
+            if (oldVersion < 21) {
+                db.execSQL("ALTER TABLE bookmarks ADD COLUMN touch_icon BLOB DEFAULT NULL;");
             } else {
                 db.execSQL("DROP TABLE IF EXISTS bookmarks");
                 db.execSQL("DROP TABLE IF EXISTS searches");

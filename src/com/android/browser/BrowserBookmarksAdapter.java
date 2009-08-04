@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,7 +60,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     // Implementation of WebIconDatabase.IconListener
     private class IconReceiver implements IconListener {
         public void onReceivedIcon(String url, Bitmap icon) {
-            updateBookmarkFavicon(mContentResolver, url, icon);
+            updateBookmarkFavicon(mContentResolver, null, url, icon);
         }
     }
 
@@ -247,35 +248,26 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     }
 
     /**
-     * Update the bookmark's favicon.
+     * Update the bookmark's favicon. This is a convenience method for updating
+     * a bookmark favicon for the originalUrl and url of the passed in WebView.
      * @param cr The ContentResolver to use.
-     * @param url The url of the bookmark to update.
+     * @param WebView The WebView containing the url to update.
      * @param favicon The favicon bitmap to write to the db.
      */
     /* package */ static void updateBookmarkFavicon(ContentResolver cr,
-            String url, Bitmap favicon) {
-        if (url == null || favicon == null) {
+            WebView view, Bitmap favicon) {
+        if (view != null) {
+            updateBookmarkFavicon(cr, view.getOriginalUrl(), view.getUrl(),
+                    favicon);
+        }
+    }
+
+    private static void updateBookmarkFavicon(ContentResolver cr,
+            String originalUrl, String url, Bitmap favicon) {
+        final Cursor c = queryBookmarksForUrl(cr, originalUrl, url);
+        if (c == null) {
             return;
         }
-        // Strip the query.
-        int query = url.indexOf('?');
-        String noQuery = url;
-        if (query != -1) {
-            noQuery = url.substring(0, query);
-        }
-        url = noQuery + '?';
-        // Use noQuery to search for the base url (i.e. if the url is
-        // http://www.yahoo.com/?rs=1, search for http://www.yahoo.com)
-        // Use url to match the base url with other queries (i.e. if the url is
-        // http://www.google.com/m, search for
-        // http://www.google.com/m?some_query)
-        final String[] selArgs = new String[] { noQuery, url };
-        final String where = "(" + Browser.BookmarkColumns.URL + " == ? OR "
-                + Browser.BookmarkColumns.URL + " GLOB ? || '*') AND "
-                + Browser.BookmarkColumns.BOOKMARK + " == 1";
-        final String[] projection = new String[] { Browser.BookmarkColumns._ID };
-        final Cursor c = cr.query(Browser.BOOKMARKS_URI, projection, where,
-                selArgs, null);
         boolean succeed = c.moveToFirst();
         ContentValues values = null;
         while (succeed) {
@@ -290,6 +282,55 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             succeed = c.moveToNext();
         }
         c.close();
+    }
+
+    /* package */ static Cursor queryBookmarksForUrl(ContentResolver cr,
+            String originalUrl, String url) {
+        if (cr == null || url == null) {
+            return null;
+        }
+
+        // If originalUrl is null, just set it to url.
+        if (originalUrl == null) {
+            originalUrl = url;
+        }
+
+        // Look for both the original url and the actual url. This takes in to
+        // account redirects.
+        String originalUrlNoQuery = removeQuery(originalUrl);
+        String urlNoQuery = removeQuery(url);
+        originalUrl = originalUrlNoQuery + '?';
+        url = urlNoQuery + '?';
+
+        // Use NoQuery to search for the base url (i.e. if the url is
+        // http://www.yahoo.com/?rs=1, search for http://www.yahoo.com)
+        // Use url to match the base url with other queries (i.e. if the url is
+        // http://www.google.com/m, search for
+        // http://www.google.com/m?some_query)
+        final String[] selArgs = new String[] {
+            originalUrlNoQuery, urlNoQuery, originalUrl, url };
+        final String where = "(" + BookmarkColumns.URL + " == ? OR "
+                + BookmarkColumns.URL + " == ? OR "
+                + BookmarkColumns.URL + " GLOB ? || '*' OR "
+                + BookmarkColumns.URL + " GLOB ? || '*') AND "
+                + BookmarkColumns.BOOKMARK + " == 1";
+        final String[] projection =
+                new String[] { Browser.BookmarkColumns._ID };
+        return cr.query(Browser.BOOKMARKS_URI, projection, where, selArgs,
+                null);
+    }
+
+    // Strip the query from the given url.
+    private static String removeQuery(String url) {
+        if (url == null) {
+            return null;
+        }
+        int query = url.indexOf('?');
+        String noQuery = url;
+        if (query != -1) {
+            noQuery = url.substring(0, query);
+        }
+        return noQuery;
     }
 
     /**
@@ -430,11 +471,19 @@ class BrowserBookmarksAdapter extends BaseAdapter {
      * Return the favicon for this item in the list.
      */
     public Bitmap getFavicon(int position) {
+        return getBitmap(Browser.HISTORY_PROJECTION_FAVICON_INDEX, position);
+    }
+
+    public Bitmap getTouchIcon(int position) {
+        return getBitmap(Browser.HISTORY_PROJECTION_TOUCH_ICON_INDEX, position);
+    }
+
+    private Bitmap getBitmap(int cursorIndex, int position) {
         if (position < mExtraOffset || position > mCount) {
             return null;
         }
         mCursor.moveToPosition(position - mExtraOffset);
-        byte[] data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
+        byte[] data = mCursor.getBlob(cursorIndex);
         if (data == null) {
             return null;
         }
