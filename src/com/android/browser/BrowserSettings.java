@@ -73,17 +73,19 @@ class BrowserSettings extends Observable {
     private boolean autoFitPage = true;
     private boolean landscapeOnly = false;
     private boolean showDebugSettings = false;
-    private String databasePath; // default value set in loadFromDb()
-    private boolean databaseEnabled = true;
-    private long webStorageDefaultQuota = 5 * 1024 * 1024;
-    // The Browser always enables Application Caches.
+    // HTML5 API flags
     private boolean appCacheEnabled = true;
-    private String appCachePath;  // default value set in loadFromDb().
-    private long appCacheMaxSize = Long.MAX_VALUE;
-    private WebStorageSizeManager webStorageSizeManager;
+    private boolean databaseEnabled = true;
     private boolean domStorageEnabled = true;
-    private String jsFlags = "";
     private boolean geolocationEnabled = true;
+    private boolean workersEnabled = true;  // only affects V8. JSC does not have a similar setting
+    // HTML5 API configuration params
+    private long appCacheMaxSize = Long.MAX_VALUE;
+    private String appCachePath;  // default value set in loadFromDb().
+    private String databasePath; // default value set in loadFromDb()
+    private WebStorageSizeManager webStorageSizeManager;
+
+    private String jsFlags = "";
 
     private final static String TAG = "BrowserSettings";
 
@@ -122,8 +124,6 @@ class BrowserSettings extends Observable {
             "privacy_clear_form_data";
     public final static String PREF_CLEAR_PASSWORDS =
             "privacy_clear_passwords";
-    public final static String PREF_DEFAULT_QUOTA =
-            "webstorage_default_quota";
     public final static String PREF_EXTRAS_RESET_DEFAULTS =
             "reset_default_preferences";
     public final static String PREF_DEBUG_SETTINGS = "debug_menu";
@@ -208,15 +208,16 @@ class BrowserSettings extends Observable {
             // Turn off file access
             s.setAllowFileAccess(false);
 
-            s.setDatabasePath(b.databasePath);
+            // HTML5 API flags
+            s.setAppCacheEnabled(b.appCacheEnabled);
             s.setDatabaseEnabled(b.databaseEnabled);
             s.setDomStorageEnabled(b.domStorageEnabled);
-            s.setWebStorageDefaultQuota(b.webStorageDefaultQuota);
+            s.setWorkersEnabled(b.workersEnabled);  // This only affects V8.
 
-            // Turn on Application Caches.
-            s.setAppCachePath(b.appCachePath);
-            s.setAppCacheEnabled(b.appCacheEnabled);
+            // HTML5 configuration parameters.
             s.setAppCacheMaxSize(b.appCacheMaxSize);
+            s.setAppCachePath(b.appCachePath);
+            s.setDatabasePath(b.databasePath);
 
             // Enable/Disable the error console.
             b.mTabControl.getBrowserActivity().setShouldShowErrorConsole(
@@ -276,15 +277,6 @@ class BrowserSettings extends Observable {
         pluginsEnabled = p.getBoolean("enable_plugins",
                 pluginsEnabled);
         pluginsPath = p.getString("plugins_path", pluginsPath);
-        databasePath = p.getString("database_path", databasePath);
-        databaseEnabled = p.getBoolean("enable_database", databaseEnabled);
-        webStorageDefaultQuota = Long.parseLong(p.getString(PREF_DEFAULT_QUOTA,
-                String.valueOf(webStorageDefaultQuota)));
-        appCacheEnabled = p.getBoolean("enable_appcache",
-                appCacheEnabled);
-        domStorageEnabled = p.getBoolean("enable_domstorage",
-                domStorageEnabled);
-        appCachePath = p.getString("appcache_path", appCachePath);
         javaScriptCanOpenWindowsAutomatically = !p.getBoolean(
             "block_popup_windows",
             !javaScriptCanOpenWindowsAutomatically);
@@ -361,7 +353,15 @@ class BrowserSettings extends Observable {
         mTabControl.getBrowserActivity().setShouldShowErrorConsole(
                 showDebugSettings && showConsole);
 
+        // HTML5 API flags
+        appCacheEnabled = p.getBoolean("enable_appcache", appCacheEnabled);
+        databaseEnabled = p.getBoolean("enable_database", databaseEnabled);
+        domStorageEnabled = p.getBoolean("enable_domstorage", domStorageEnabled);
         geolocationEnabled = p.getBoolean("enable_geolocation", geolocationEnabled);
+        workersEnabled = p.getBoolean("enable_workers", workersEnabled);
+        // HTML 5 configuration params
+        appCachePath = p.getString("appcache_path", appCachePath);
+        databasePath = p.getString("database_path", databasePath);
 
         update();
     }
