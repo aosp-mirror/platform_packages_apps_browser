@@ -368,13 +368,11 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             }
             View holder = convertView.findViewById(R.id.holder);
             ImageView thumb = (ImageView) convertView.findViewById(R.id.thumb);
-            ImageView fav = (ImageView) convertView.findViewById(R.id.fav);
             TextView tv = (TextView) convertView.findViewById(R.id.label);
 
             if (0 == position && !mCreateShortcut) {
                 // This is to create a bookmark for the current page.
                 holder.setVisibility(View.VISIBLE);
-                fav.setVisibility(View.GONE);
                 tv.setText(mCurrentTitle);
                 // FIXME: Want to show the screenshot of the current page
                 thumb.setImageResource(R.drawable.blank);
@@ -391,15 +389,6 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                 thumb.setImageResource(R.drawable.blank);
             } else {
                 thumb.setImageBitmap(
-                        BitmapFactory.decodeByteArray(data, 0, data.length));
-            }
-            // Now show the favicon
-            data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
-            if (data == null) {
-                fav.setVisibility(View.GONE);
-            } else {
-                fav.setVisibility(View.VISIBLE);
-                fav.setImageBitmap(
                         BitmapFactory.decodeByteArray(data, 0, data.length));
             }
 

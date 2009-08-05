@@ -344,6 +344,14 @@ public class BrowserBookmarksPage extends Activity implements
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.switch_mode_menu_id).setTitle(
+                mGridMode ? R.string.switch_to_list
+                : R.string.switch_to_thumbnails);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.new_context_menu_id:

@@ -27,6 +27,9 @@ import android.provider.Browser;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 
 import java.util.HashMap;
@@ -77,40 +80,39 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.tabs);
-        TabHost tabHost = getTabHost();
-        tabHost.setOnTabChangedListener(this);
+        getTabHost().setOnTabChangedListener(this);
 
         Bundle extras = getIntent().getExtras();
         Resources resources = getResources();
 
         getIconListenerSet(getContentResolver());
+
         Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
         bookmarksIntent.putExtras(extras);
-        tabHost.addTab(tabHost.newTabSpec(BOOKMARKS_TAB)
-                .setIndicator(resources.getString(R.string.tab_bookmarks),
-                resources.getDrawable(R.drawable.browser_bookmark_tab))
-                .setContent(bookmarksIntent));
+        createTab(bookmarksIntent, R.string.tab_bookmarks, BOOKMARKS_TAB);
 
         Intent visitedIntent = new Intent(this, MostVisitedActivity.class);
         visitedIntent.putExtras(extras);
-        tabHost.addTab(tabHost.newTabSpec(VISITED_TAB)
-                .setIndicator(resources.getString(R.string.tab_most_visited),
-                resources.getDrawable(R.drawable.browser_visited_tab))
-                .setContent(visitedIntent));
+        createTab(visitedIntent, R.string.tab_most_visited, VISITED_TAB);
 
         Intent historyIntent = new Intent(this, BrowserHistoryPage.class);
         historyIntent.putExtras(extras);
-        tabHost.addTab(tabHost.newTabSpec(HISTORY_TAB)
-                .setIndicator(resources.getString(R.string.tab_history),
-                resources.getDrawable(R.drawable.
-                browser_history_tab)).setContent(historyIntent));
+        createTab(historyIntent, R.string.tab_history, HISTORY_TAB);
 
         String defaultTab = extras.getString(STARTING_TAB);
         if (defaultTab != null) {
-            tabHost.setCurrentTab(2);
+            getTabHost().setCurrentTab(2);
         }
     }
 
+    private void createTab(Intent intent, int labelResId, String tab) {
+        LayoutInflater factory = LayoutInflater.from(this);
+        View tabHeader = factory.inflate(R.layout.tab_header, null);
+        TextView textView = (TextView) tabHeader.findViewById(R.id.tab_label);
+        textView.setText(labelResId);
+        TabHost tabHost = getTabHost();
+        tabHost.addTab(tabHost.newTabSpec(tab).setIndicator(tabHeader).setContent(intent));
+    }
     // Copied from DialTacts Activity
     /** {@inheritDoc} */
     public void onTabChanged(String tabId) {

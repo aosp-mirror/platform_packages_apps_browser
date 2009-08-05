@@ -20,21 +20,36 @@
     android:padding="4dip"
     >
 
+    <!-- Keep the width in sync with BrowserBookmarksPage and
+            BrowserActivity.updateScreenshot -->
+    <TextView android:id="@+id/label"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        android:paddingTop="3dip"
+        android:paddingBottom="3dip"
+        android:paddingLeft="2dip"
+        android:paddingRight="2dip"
+        android:scrollHorizontally="true"
+        android:ellipsize="marquee"
+        />
+
     <ImageView android:id="@+id/thumb"
         android:src="@drawable/blank"
         android:scaleType="center"
         android:layout_width="100dip"
         android:layout_height="80dip"
+        android:background="@drawable/bookmark_shadow"
+        android:layout_below="@+id/label"
         />
 
-    <ImageView android:id="@+id/fav"
-        android:scaleType="fitCenter"
-        android:layout_width="20dip"
-        android:layout_height="20dip"
-        android:padding="2dip"
-        android:layout_alignBottom="@+id/thumb"
-        android:background="@drawable/fav_icn_background"
-        />
+    <!-- FIXME: Want to have a gradient over the thumb -->
+
+    <!-- This holds the star for addbookmark -->
     <LinearLayout android:id="@+id/holder"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
@@ -59,22 +74,4 @@
             android:text="@string/add_bookmark_short"
             />
     </LinearLayout>
-    <!-- Keep the width in sync with BrowserBookmarksPage and
-            BrowserActivity.updateScreenshot -->
-    <TextView android:id="@+id/label"
-        android:layout_width="100dip"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/thumb"
-        android:layout_gravity="bottom"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:maxLines="1"
-        android:paddingTop="3dip"
-        android:paddingBottom="3dip"
-        android:paddingLeft="2dip"
-        android:paddingRight="2dip"
-        android:scrollHorizontally="true"
-        android:ellipsize="marquee"
-        />
 </RelativeLayout>

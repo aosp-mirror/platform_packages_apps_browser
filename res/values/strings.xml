@@ -169,9 +169,12 @@
             currently on, but is not visible because the bookmarks page is 
             showing. -->
     <string name="bookmark_page">Bookmark last-viewed page</string>
-    <!-- Menu item in the page that displays all bookmarks.  Switches between
-            a vertical list view and a grid view which shows thumbnails -->
-    <string name="switch_mode">Switch viewing mode</string>
+    <!-- Menu item in the page that displays all bookmarks.  Switches to
+            a grid view which shows thumbnails -->
+    <string name="switch_to_thumbnails">Thumbnail view</string>
+    <!-- Menu item in the page that displays all bookmarks.  Switches to a
+            list view which shows titles -->
+    <string name="switch_to_list">List view</string>
     <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
