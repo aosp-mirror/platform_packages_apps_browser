@@ -150,7 +150,7 @@ public class AddBookmarkPage extends Activity {
                 if (mTouchIconUrl != null) {
                     final Cursor c =
                             BrowserBookmarksAdapter.queryBookmarksForUrl(
-                                    cr, null, url);
+                                    cr, null, url, true);
                     new DownloadTouchIcon(cr, c, url)
                             .execute(mTouchIconUrl);
                 }

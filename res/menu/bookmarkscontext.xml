@@ -28,8 +28,8 @@
       android:title="@string/edit_bookmark"/>
     <item android:id="@+id/shortcut_context_menu_id"
       android:title="@string/create_shortcut_bookmark"/>
-    <item android:id="@+id/send_context_menu_id"
-      android:title="@string/tab_picker_send_url"/>
+    <item android:id="@+id/share_link_context_menu_id"
+      android:title="@string/contextmenu_sharelink"/>
     <item android:id="@+id/copy_url_context_menu_id"
       android:title="@string/contextmenu_copylink"/>
     <item android:id="@+id/delete_context_menu_id"

@@ -45,6 +45,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewStub;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -67,6 +69,8 @@ public class BrowserBookmarksPage extends Activity implements
     private AddNewBookmark          mAddHeader;
     private boolean                 mCanceled = false;
     private boolean                 mCreateShortcut;
+    private boolean                 mMostVisited;
+    private View                    mEmptyView;
     // XXX: There is no public string defining this intent so if Home changes
     // the value, we have to update this string.
     private static final String     INSTALL_SHORTCUT =
@@ -105,12 +109,18 @@ public class BrowserBookmarksPage extends Activity implements
             sendBroadcast(send);
             break;
         case R.id.delete_context_menu_id:
-            displayRemoveBookmarkDialog(i.position);
+            if (mMostVisited) {
+                Browser.deleteFromHistory(getContentResolver(),
+                        getUrl(i.position));
+                refreshList();
+            } else {
+                displayRemoveBookmarkDialog(i.position);
+            }
             break;
         case R.id.new_window_context_menu_id:
             openInNewWindow(i.position);
             break;
-        case R.id.send_context_menu_id:
+        case R.id.share_link_context_menu_id:
             Browser.sendString(BrowserBookmarksPage.this, getUrl(i.position));
             break;
         case R.id.copy_url_context_menu_id:
@@ -121,6 +131,19 @@ public class BrowserBookmarksPage extends Activity implements
                     getUrl(i.position));
             Toast.makeText(this, R.string.homepage_set,
                     Toast.LENGTH_LONG).show();
+            break;
+        // Only for the Most visited page
+        case R.id.save_to_bookmarks_menu_id:
+            HistoryItem historyItem = ((HistoryItem) i.targetView);
+            // If the site is bookmarked, the item becomes remove from
+            // bookmarks.
+            if (historyItem.isBookmark()) {
+                Bookmarks.removeFromBookmarks(this, getContentResolver(),
+                            historyItem.getUrl());
+            } else {
+                Browser.saveBookmark(this, historyItem.getName(),
+                        historyItem.getUrl());
+            }
             break;
         default:
             return super.onContextItemSelected(item);
@@ -135,9 +158,13 @@ public class BrowserBookmarksPage extends Activity implements
                     (AdapterView.AdapterContextMenuInfo) menuInfo;
 
             MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.bookmarkscontext, menu);
+            if (mMostVisited) {
+                inflater.inflate(R.menu.historycontext, menu);
+            } else {
+                inflater.inflate(R.menu.bookmarkscontext, menu);
+            }
 
-            if (0 == i.position) {
+            if (0 == i.position && !mMostVisited) {
                 menu.setGroupVisible(R.id.CONTEXT_MENU, false);
                 if (mAddHeader == null) {
                     mAddHeader = new AddNewBookmark(BrowserBookmarksPage.this);
@@ -149,7 +176,17 @@ public class BrowserBookmarksPage extends Activity implements
                 menu.setHeaderView(mAddHeader);
                 return;
             }
-            menu.setGroupVisible(R.id.ADD_MENU, false);
+            if (mMostVisited) {
+                if ((!mGridMode && ((HistoryItem) i.targetView).isBookmark())
+                        || mBookmarksAdapter.getIsBookmark(i.position)) {
+                    MenuItem item = menu.findItem(
+                            R.id.save_to_bookmarks_menu_id);
+                    item.setTitle(R.string.remove_from_bookmarks);
+                }
+            } else {
+                // The historycontext menu has no ADD_MENU group.
+                menu.setGroupVisible(R.id.ADD_MENU, false);
+            }
             if (mMaxTabsOpen) {
                 menu.findItem(R.id.new_window_context_menu_id).setVisible(
                         false);
@@ -181,11 +218,18 @@ public class BrowserBookmarksPage extends Activity implements
             mCreateShortcut = true;
         }
         mMaxTabsOpen = getIntent().getBooleanExtra("maxTabsOpen", false);
+        mMostVisited = getIntent().getBooleanExtra("mostVisited", false);
 
-        setTitle(R.string.browser_bookmarks_page_bookmarks_text);
+        if (mCreateShortcut) {
+            setTitle(R.string.browser_bookmarks_page_bookmarks_text);
+        }
         mBookmarksAdapter = new BrowserBookmarksAdapter(this,
                         getIntent().getStringExtra("url"),
-                        getIntent().getStringExtra("title"), mCreateShortcut);
+                        getIntent().getStringExtra("title"), mCreateShortcut,
+                        mMostVisited);
+        if (mMostVisited) {
+            mEmptyView = new ViewStub(this, R.layout.empty_history);
+        }
         switchViewMode(true);
     }
 
@@ -209,6 +253,9 @@ public class BrowserBookmarksPage extends Activity implements
                 mGridPage.setFocusableInTouchMode(true);
                 mGridPage.setSelector(android.R.drawable.gallery_thumb);
                 mGridPage.setVerticalSpacing(10);
+                if (mMostVisited) {
+                    mGridPage.setEmptyView(mEmptyView);
+                }
                 if (!mCreateShortcut) {
                     mGridPage.setOnCreateContextMenuListener(this);
                 }
@@ -226,12 +273,19 @@ public class BrowserBookmarksPage extends Activity implements
                 listView.setDrawSelectorOnTop(false);
                 listView.setVerticalScrollBarEnabled(true);
                 listView.setOnItemClickListener(mListener);
+                if (mMostVisited) {
+                    listView.setEmptyView(mEmptyView);
+                }
 
                 if (!mCreateShortcut) {
                     listView.setOnCreateContextMenuListener(this);
                 }
             }
             setContentView(mVerticalList);
+        }
+        if (mMostVisited) {
+            addContentView(mEmptyView, new LayoutParams(
+                    LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
         }
     }
 
@@ -254,7 +308,7 @@ public class BrowserBookmarksPage extends Activity implements
                 return;
             }
             if (!mCreateShortcut) {
-                if (0 == position) {
+                if (0 == position && !mMostVisited) {
                     // XXX: Work-around for a framework issue.
                     mHandler.sendEmptyMessage(SAVE_CURRENT_PAGE);
                 } else {
@@ -366,6 +420,9 @@ public class BrowserBookmarksPage extends Activity implements
         if (!mCreateShortcut) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.bookmarks, menu);
+            // Most visited page does not have an option to bookmark the last
+            // viewed page.
+            menu.findItem(R.id.new_context_menu_id).setVisible(!mMostVisited);
             return true;
         }
         return result;
@@ -373,6 +430,10 @@ public class BrowserBookmarksPage extends Activity implements
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mBookmarksAdapter.getCount() == 0) {
+            // No need to show the menu if there are no items.
+            return false;
+        }
         menu.findItem(R.id.switch_mode_menu_id).setTitle(
                 mGridMode ? R.string.switch_to_list
                 : R.string.switch_to_thumbnails);

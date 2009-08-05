@@ -236,7 +236,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
             case R.id.share_link_context_menu_id:
                 Browser.sendString(this, url);
                 return true;
-            case R.id.copy_context_menu_id:
+            case R.id.copy_url_context_menu_id:
                 copy(url);
                 return true;
             case R.id.delete_context_menu_id:

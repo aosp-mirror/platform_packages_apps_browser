@@ -2929,7 +2929,7 @@ public class BrowserActivity extends Activity
         // currently accessible here.
         ContentResolver cr = getContentResolver();
         final Cursor c = BrowserBookmarksAdapter.queryBookmarksForUrl(
-                cr, view.getOriginalUrl(), view.getUrl());
+                cr, view.getOriginalUrl(), view.getUrl(), false);
         if (c != null) {
             boolean succeed = c.moveToFirst();
             ContentValues values = null;
@@ -3790,7 +3790,7 @@ public class BrowserActivity extends Activity
             final ContentResolver cr = getContentResolver();
             final Cursor c =
                     BrowserBookmarksAdapter.queryBookmarksForUrl(cr,
-                            view.getOriginalUrl(), view.getUrl());
+                            view.getOriginalUrl(), view.getUrl(), true);
             if (c != null) {
                 if (c.getCount() > 0) {
                     new DownloadTouchIcon(cr, c, view).execute(url);

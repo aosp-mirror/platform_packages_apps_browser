@@ -23,7 +23,7 @@
         android:title="@string/save_to_bookmarks"/>   
     <item android:id="@+id/share_link_context_menu_id"
         android:title="@string/contextmenu_sharelink"/>
-    <item android:id="@+id/copy_context_menu_id"
+    <item android:id="@+id/copy_url_context_menu_id"
         android:title="@string/contextmenu_copylink"/> 
     <item android:id="@+id/delete_context_menu_id"
         android:title="@string/remove_history_item"/>

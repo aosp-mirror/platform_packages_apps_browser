@@ -91,8 +91,12 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         bookmarksIntent.putExtras(extras);
         createTab(bookmarksIntent, R.string.tab_bookmarks, BOOKMARKS_TAB);
 
-        Intent visitedIntent = new Intent(this, MostVisitedActivity.class);
-        visitedIntent.putExtras(extras);
+        Intent visitedIntent = new Intent(this, BrowserBookmarksPage.class);
+        // Need to copy extras so the bookmarks activity and this one will be
+        // different
+        Bundle visitedExtras = new Bundle(extras);
+        visitedExtras.putBoolean("mostVisited", true);
+        visitedIntent.putExtras(visitedExtras);
         createTab(visitedIntent, R.string.tab_most_visited, VISITED_TAB);
 
         Intent historyIntent = new Intent(this, BrowserHistoryPage.class);
