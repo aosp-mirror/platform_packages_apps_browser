@@ -399,6 +399,10 @@
         <item><xliff:g>MEDIUM</xliff:g></item>
         <item><xliff:g>CLOSE</xliff:g></item>
     </string-array>
+    <!-- Settings label -->
+    <string name="pref_content_load_page">When a page loads:</string>
+    <!-- Settings summary -->
+    <string name="pref_content_load_page_summary">Show overview of the page</string>
     <!-- Settings screen, section title -->
     <string name="pref_extras_title">Advanced settings</string>
     <!-- Settings label -->

@@ -72,6 +72,7 @@ class BrowserSettings extends Observable {
     private boolean loginInitialized = false;
     private boolean autoFitPage = true;
     private boolean landscapeOnly = false;
+    private boolean loadsPageInOverviewMode = true;
     private boolean showDebugSettings = false;
     // HTML5 API flags
     private boolean appCacheEnabled = true;
@@ -200,6 +201,7 @@ class BrowserSettings extends Observable {
             s.setLightTouchEnabled(b.lightTouch);
             s.setSaveFormData(b.saveFormData);
             s.setSavePassword(b.rememberPasswords);
+            s.setLoadWithOverviewMode(b.loadsPageInOverviewMode);
 
             // WebView inside Browser doesn't want initial focus to be set.
             s.setNeedInitialFocus(false);
@@ -296,6 +298,8 @@ class BrowserSettings extends Observable {
         zoomDensity = WebSettings.ZoomDensity.valueOf(
                 p.getString(PREF_DEFAULT_ZOOM, zoomDensity.name()));
         autoFitPage = p.getBoolean("autofit_pages", autoFitPage);
+        loadsPageInOverviewMode = p.getBoolean("load_page",
+                loadsPageInOverviewMode);
         boolean landscapeOnlyTemp =
                 p.getBoolean("landscape_only", landscapeOnly);
         if (landscapeOnlyTemp != landscapeOnly) {
