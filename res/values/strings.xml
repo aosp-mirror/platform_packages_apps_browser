@@ -122,6 +122,8 @@
     <string name="stop">Stop</string>
     <!-- Menu item to reload or refresh the current page. -->
     <string name="reload">Refresh</string>
+    <!-- Menu item to go back to the previous page -->
+    <string name="back">Back</string>
     <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
     <string name="forward">Forward</string>
     <!-- Button label to confirm saving a bookmark. -->

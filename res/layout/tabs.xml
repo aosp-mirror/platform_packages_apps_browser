@@ -13,29 +13,40 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/tabhost"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <LinearLayout
-        android:orientation="vertical"
+    android:layout_height="fill_parent"
+    >
+    <TextView android:id="@+id/search"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search"
+        android:singleLine="true"
+        />
+    <TabHost
+        android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <TabWidget android:id="@android:id/tabs"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="1dip"
-            android:paddingRight="1dip"
-            android:paddingTop="4dip"
-        />
+            android:layout_height="fill_parent">
 
-        <FrameLayout android:id="@android:id/tabcontent"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-        />
-    </LinearLayout>
-</TabHost>
+            <TabWidget android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="1dip"
+                android:paddingRight="1dip"
+                android:paddingTop="4dip"
+            />
+
+            <FrameLayout android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+            />
+        </LinearLayout>
+    </TabHost>
+</LinearLayout>

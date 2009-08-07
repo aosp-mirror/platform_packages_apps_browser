@@ -833,7 +833,7 @@ public class BrowserActivity extends Activity
 
             if (urlData.isEmpty()) {
                 if (mSettings.isLoginInitialized()) {
-                    webView.loadUrl(mSettings.getHomePage());
+                    bookmarksOrHistoryPicker(false);
                 } else {
                     waitForCredentials();
                 }
@@ -1590,20 +1590,13 @@ public class BrowserActivity extends Activity
         }
         switch (item.getItemId()) {
             // -- Main menu
-            case R.id.goto_menu_id: {
-                String url = getTopWindow().getUrl();
-                startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
-                        createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_GOTO), false);
-                }
-                break;
-
-            case R.id.bookmarks_menu_id:
+            case R.id.goto_menu_id:
                 bookmarksOrHistoryPicker(false);
                 break;
 
             case R.id.windows_menu_id:
                 if (mTabControl.getTabCount() == 1) {
-                    openTabAndShow(mSettings.getHomePage(), null, false, null);
+                    openTabAndShow(EMPTY_URL_DATA, null, false, null);
                 } else {
                     tabPicker(true, mTabControl.getCurrentIndex(), false);
                 }
@@ -2078,8 +2071,10 @@ public class BrowserActivity extends Activity
         // Load the url after the AnimatingView has captured the picture. This
         // prevents any bad layout or bad scale from being used during
         // animation.
-        if (!urlData.isEmpty()) {
-            dismissSubWindow(tab);
+        dismissSubWindow(tab);
+        if (urlData.isEmpty()) {
+            bookmarksOrHistoryPicker(false);
+        } else {
             urlData.loadIn(tab.getWebView());
         }
         map.put("msg", msg);
@@ -2143,7 +2138,9 @@ public class BrowserActivity extends Activity
             // If the tab overview is up and there are animations, just load
             // the url.
             if (mTabOverview != null && mAnimationCount > 0) {
-                if (!urlData.isEmpty()) {
+                if (urlData.isEmpty()) {
+                    bookmarksOrHistoryPicker(false);
+                } else {
                     // We should not have a msg here since onCreateWindow
                     // checks the animation count and every other caller passes
                     // null.
@@ -2168,7 +2165,7 @@ public class BrowserActivity extends Activity
                 sendAnimateFromOverview(tab, true, urlData, delay, msg);
                 return tab;
             }
-        } else if (!urlData.isEmpty()) {
+        } else {
             // We should not have a msg here.
             assert msg == null;
             if (mTabOverview != null && mAnimationCount == 0) {
@@ -2177,8 +2174,12 @@ public class BrowserActivity extends Activity
             } else {
                 // Get rid of the subwindow if it exists
                 dismissSubWindow(currentTab);
-                // Load the given url.
-                urlData.loadIn(currentTab.getWebView());
+                if (!urlData.isEmpty()) {
+                    // Load the given url.
+                    urlData.loadIn(currentTab.getWebView());
+                } else {
+                    bookmarksOrHistoryPicker(false);
+                }
             }
         }
         return currentTab;
@@ -2665,7 +2666,7 @@ public class BrowserActivity extends Activity
             // Send a message to open a new tab.
             mHandler.sendMessageDelayed(
                     mHandler.obtainMessage(OPEN_TAB_AND_SHOW,
-                        mSettings.getHomePage()), delay);
+                        null), delay);
         }
     }
 
@@ -4613,6 +4614,8 @@ public class BrowserActivity extends Activity
                             sendAnimateFromOverview(newTab, false,
                                     EMPTY_URL_DATA, TAB_OVERVIEW_DELAY, null);
                         }
+                    } else if (intent.getBooleanExtra("open_search", false)) {
+                        onSearchRequested();
                     } else {
                         final TabControl.Tab currentTab =
                                 mTabControl.getCurrentTab();
@@ -4671,8 +4674,8 @@ public class BrowserActivity extends Activity
                 // was clicked on.
                 if (mTabControl.getTabCount() == 0) {
                     current = mTabControl.createNewTab();
-                    sendAnimateFromOverview(current, true, new UrlData(
-                            mSettings.getHomePage()), TAB_OVERVIEW_DELAY, null);
+                    sendAnimateFromOverview(current, true, EMPTY_URL_DATA,
+                            TAB_OVERVIEW_DELAY, null);
                 } else {
                     final int index = position > 0 ? (position - 1) : 0;
                     current = mTabControl.getTab(index);
@@ -4706,7 +4709,7 @@ public class BrowserActivity extends Activity
 
             // NEW_TAB means that the "New Tab" cell was clicked on.
             if (index == ImageGrid.NEW_TAB) {
-                openTabAndShow(mSettings.getHomePage(), null, false, null);
+                openTabAndShow(EMPTY_URL_DATA, null, false, null);
             } else {
                 sendAnimateFromOverview(mTabControl.getTab(index), false,
                         EMPTY_URL_DATA, 0, null);

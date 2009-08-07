@@ -20,17 +20,17 @@
             android:title="@string/goto_dot" 
             android:alphabeticShortcut="l" 
             android:icon="@android:drawable/ic_menu_search"/>
-        <item android:id="@+id/bookmarks_menu_id"
-            android:title="@string/bookmarks" 
-            android:alphabeticShortcut="b" 
-            android:icon="@drawable/ic_menu_bookmark" />
+        <item android:id="@+id/stop_reload_menu_id"
+            android:alphabeticShortcut="r" />
         <item android:id="@+id/windows_menu_id"
             android:title="@string/view_tabs" 
             android:alphabeticShortcut="t" 
             android:titleCondensed="@string/view_tabs_condensed"
             android:icon="@drawable/ic_menu_windows" />
-        <item android:id="@+id/stop_reload_menu_id"
-            android:alphabeticShortcut="r" />
+        <item android:id="@+id/back_menu_id"
+            android:title="@string/back"
+            android:drawable="@*android:drawable/ic_menu_back"
+            android:alphabeticShortcut="j" />
         <item android:id="@+id/forward_menu_id"
             android:title="@string/forward" 
             android:alphabeticShortcut="k"
@@ -57,8 +57,6 @@
             android:visible="false" />
     </group>
     <group android:id="@+id/MAIN_SHORTCUT_MENU" android:visible="false">
-        <item android:id="@+id/back_menu_id"
-            android:alphabeticShortcut="j" />
         <item android:id="@+id/close_menu_id"
             android:alphabeticShortcut="w" />
         <item android:id="@+id/homepage_menu_id"

@@ -80,6 +80,18 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.tabs);
+
+        TextView searchBar = (TextView) findViewById(R.id.search);
+        searchBar.setText(getIntent().getStringExtra("url"));
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent openSearchIntent = new Intent();
+                openSearchIntent.putExtra("open_search", true);
+                setResult(RESULT_OK, openSearchIntent);
+                finish();
+            }
+        });
+
         getTabHost().setOnTabChangedListener(this);
 
         Bundle extras = getIntent().getExtras();
