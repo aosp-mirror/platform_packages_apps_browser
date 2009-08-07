@@ -2823,6 +2823,20 @@ public class BrowserActivity extends Activity
         }
 
         @Override
+        public void onChangeViewingMode(boolean toZoomedOut) {
+            if (!CUSTOM_BROWSER_BAR) {
+                return;
+            }
+            if (toZoomedOut) {
+                // FIXME: animate the title bar into view
+                mTitleBar.setVisibility(View.VISIBLE);
+            } else {
+                // FXIME: animate the title bar out of view
+                mTitleBar.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
         public boolean onCreateWindow(WebView view, final boolean dialog,
                 final boolean userGesture, final Message resultMsg) {
             // Short-circuit if we can't create any more tabs or sub windows.
