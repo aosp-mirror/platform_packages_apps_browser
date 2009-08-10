@@ -18,7 +18,7 @@
     android:fitsSystemWindows="true"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:background="@drawable/background_titlebar"
+    android:background="@drawable/tab_selected"
     android:layout_height="45dip">
     <ImageView android:id="@+id/favicon"
         android:layout_height="20dip"
@@ -34,22 +34,37 @@
         android:layout_weight="1"
         android:layout_height="wrap_content">
         <!-- This part contains the favicon and the progress bar -->
-        <RelativeLayout
-            android:layout_marginTop="3dip"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="0dip"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             >
+            <!-- need to make this no wider than the horizontal progress bar -->
+            <TextView android:id="@+id/title"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="6dip"
+                android:layout_marginTop="0dip"
+                android:textSize="14dip"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:singleLine="true"
+                android:padding="0dip"
+                />
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_marginTop="3dip"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
-                <ProgressBar android:id="@+id/progress_horizontal"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dip"
-                    android:layout_weight="1"
+                <TextView android:id="@+id/url"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:max="100" />
+                    android:layout_marginLeft="6dip"
+                    android:textSize="11dip"
+                    android:padding="0dip"
+                    android:textColor="@color/white"
+                    android:singleLine="true"
+                    />
                 <ProgressBar android:id="@+id/progress_circular"
                     style="?android:attr/progressBarStyleSmallTitle"
                     android:layout_marginLeft="3dip"
@@ -57,49 +72,25 @@
                     android:max="100"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            </LinearLayout>
-            <!-- need to make this no wider than the horizontal progress bar -->
-            <TextView android:id="@+id/title"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="6dip"
-                android:layout_marginTop="4dip"
-                android:textSize="14dip"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:singleLine="true"
-                />
-            <TextView android:id="@+id/url"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dip"
-                android:layout_below="@id/title"
-                android:textSize="12dip"
-                android:textColor="@color/white"
-                android:singleLine="true"
-                />
             <ImageView android:id="@+id/lock_icon"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_alignBottom="@id/title"
                 android:layout_alignParentRight="true"
                 android:visibility="gone"/>
-        </RelativeLayout>
+            </LinearLayout>
+            <ProgressBar android:id="@+id/progress_horizontal"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:layout_height="5dip"
+                android:max="100" />
+        </LinearLayout>
     </LinearLayout>
-    <!-- These buttons will change look/functionality -->
-    <ImageView android:id="@+id/lft_button"
-        android:layout_width="52dip"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:src="@android:drawable/btn_star"/>
-    <!-- divider -->
-    <View android:id="@+id/divider"
-        android:layout_height="fill_parent"
-        android:layout_width="2dip"
-        android:background="@drawable/button_line"/>
+    <!-- This buttons will change look/functionality -->
     <ImageView android:id="@+id/rt_button"
         android:layout_width="52dip"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:src="@*android:drawable/btn_browser_zoom_page_overview"/>
+        android:src="@drawable/ic_close_tab"/>
 </LinearLayout>

@@ -150,7 +150,7 @@ class TabControl {
         public void onRequestFocus(WebView view) {
             Tab t = getTabFromView(view);
             if (t != getCurrentTab()) {
-                mActivity.showTab(t);
+                mActivity.switchToTab(getTabIndex(t));
             }
         }
     }

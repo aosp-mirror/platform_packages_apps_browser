@@ -22,11 +22,9 @@
             android:icon="@android:drawable/ic_menu_search"/>
         <item android:id="@+id/stop_reload_menu_id"
             android:alphabeticShortcut="r" />
-        <item android:id="@+id/windows_menu_id"
-            android:title="@string/view_tabs" 
-            android:alphabeticShortcut="t" 
-            android:titleCondensed="@string/view_tabs_condensed"
-            android:icon="@drawable/ic_menu_windows" />
+        <item android:id="@+id/add_bookmark_menu_id"
+            android:title="@string/save_to_bookmarks"
+            android:icon="@drawable/ic_dialog_bookmark" />
         <item android:id="@+id/back_menu_id"
             android:title="@string/back"
             android:drawable="@*android:drawable/ic_menu_back"
@@ -83,20 +81,6 @@
             android:alphabeticShortcut="7" />
         <item android:id="@+id/window_eight_menu_id"
             android:alphabeticShortcut="8" />
-    </group>
-    <group android:id="@+id/TAB_MENU">
-        <item android:id="@+id/new_tab_menu_id"
-            android:title="@string/tab_picker_new_tab"
-            android:alphabeticShortcut="t" 
-            android:icon="@android:drawable/ic_menu_add" />
-        <item android:id="@+id/bookmarks_tab_menu_id"
-            android:title="@string/bookmarks" 
-            android:alphabeticShortcut="b" 
-            android:icon="@drawable/ic_menu_bookmark" />
-        <item android:id="@+id/history_tab_menu_id"
-            android:title="@string/history"
-            android:alphabeticShortcut="h" 
-            android:icon="@android:drawable/ic_menu_recent_history" />
     </group>
     <!-- these items are toggled in and out of @+id/stop_reload_menu_id -->
     <item android:id="@+id/stop_menu_id"

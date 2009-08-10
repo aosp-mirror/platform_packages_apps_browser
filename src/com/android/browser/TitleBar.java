@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -27,75 +28,75 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+/**
+ * This class represents a title bar for a particular "tab" or "window" in the
+ * browser.
+ */
 public class TitleBar extends LinearLayout {
     private TextView        mTitle;
     private TextView        mUrl;
-    private ImageView       mLftButton;
-    private Drawable        mBookmarkDrawable;
-    private View            mRtButton;
-    private View            mDivider;
+    private Drawable        mCloseDrawable;
+    private ImageView       mRtButton;
     private ProgressBar     mCircularProgress;
     private ProgressBar     mHorizontalProgress;
     private ImageView       mFavicon;
-    private ImageView       mLockIcon;
+    private ImageView       mLockIcon;  // FIXME: Needs to be below the favicon
     private boolean         mInLoad;
     private boolean         mTitleSet;
+    private WebView         mWebView;
 
-    public TitleBar(Context context) {
-        this(context, null);
-    }
-
-    public TitleBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public TitleBar(Context context, WebView webview) {
+        super(context, null);
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.title_bar, this);
 
         mTitle = (TextView) findViewById(R.id.title);
         mUrl = (TextView) findViewById(R.id.url);
 
-        mLftButton = (ImageView) findViewById(R.id.lft_button);
-        mRtButton = findViewById(R.id.rt_button);
+        mRtButton = (ImageView) findViewById(R.id.rt_button);
 
         mCircularProgress = (ProgressBar) findViewById(R.id.progress_circular);
         mHorizontalProgress = (ProgressBar) findViewById(
                 R.id.progress_horizontal);
         mFavicon = (ImageView) findViewById(R.id.favicon);
         mLockIcon = (ImageView) findViewById(R.id.lock_icon);
-        mDivider = findViewById(R.id.divider);
+        mWebView = webview;
     }
 
-    /* package */ void setBrowserActivity(final BrowserActivity activity) {
-        mLftButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        if (mInLoad) {
-                            WebView webView = activity.getTopWindow();
-                            if (webView != null) {
-                                webView.stopLoading();
-                            }
-                        } else {
-                            activity.bookmarksOrHistoryPicker(false);
-                        }
-                    }
-                });
-        mRtButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        WebView webView = activity.getTopWindow();
-                        if (webView != null) {
-                            webView.zoomScrollOut();
-                        }
-                    }
-                });
-        setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                activity.onSearchRequested();
-            }
-        });
+    /**
+     * Return the WebView associated with this TitleBar.
+     */
+    /* package */ WebView getWebView() {
+        return mWebView;
     }
 
+    /**
+     * Determine whether a point (from a touch) hits the right button.
+     */
+    /* package */ boolean hitRightButton(int x, int y) {
+        Rect hitRect = new Rect();
+        mRtButton.getHitRect(hitRect);
+        return hitRect.contains(x - getLeft(), y - getTop());
+    }
+
+    /**
+     * Return whether the associated WebView is currently loading.  Needed to
+     * determine whether a click should stop the load or close the tab.
+     */
+    /* package */ boolean isInLoad() {
+        return mInLoad;
+    }
+
+    /**
+     * Set a new Drawable for the Favicon.
+     */
     /* package */ void setFavicon(Drawable d) {
         mFavicon.setImageDrawable(d);
     }
 
+    /**
+     * Set the Drawable for the lock icon, or null to hide it.
+     */
     /* package */ void setLock(Drawable d) {
         if (d == null) {
             mLockIcon.setVisibility(View.GONE);
@@ -105,13 +106,18 @@ public class TitleBar extends LinearLayout {
         }
     }
 
+    /**
+     * Update the progress, from 0 to 100.
+     */
     /* package */ void setProgress(int newProgress) {
         if (newProgress == mCircularProgress.getMax()) {
             mCircularProgress.setVisibility(View.GONE);
             mHorizontalProgress.setVisibility(View.GONE);
-            mDivider.setVisibility(View.VISIBLE);
             mRtButton.setVisibility(View.VISIBLE);
-            mLftButton.setImageDrawable(mBookmarkDrawable);
+            mUrl.setVisibility(View.VISIBLE);
+            if (mCloseDrawable != null) {
+                mRtButton.setImageDrawable(mCloseDrawable);
+            }
             mInLoad = false;
             if (!mTitleSet) {
                 mTitle.setText(mUrl.getText());
@@ -123,20 +129,22 @@ public class TitleBar extends LinearLayout {
             mHorizontalProgress.setProgress(newProgress);
             mCircularProgress.setVisibility(View.VISIBLE);
             mHorizontalProgress.setVisibility(View.VISIBLE);
-            mDivider.setVisibility(View.GONE);
-            mRtButton.setVisibility(View.GONE);
-            if (mBookmarkDrawable == null) {
+            mUrl.setVisibility(View.VISIBLE);
+            if (mCloseDrawable == null) {
                 // The drawable was assigned in the xml file, so it already
                 // exists.  Keep a pointer to it when we switch to the resource
                 // so we can easily switch back.
-                mBookmarkDrawable = mLftButton.getDrawable();
+                mCloseDrawable = mRtButton.getDrawable();
             }
-            mLftButton.setImageResource(
+            mRtButton.setImageResource(
                     com.android.internal.R.drawable.ic_menu_stop);
             mInLoad = true;
         }
     }
 
+    /**
+     * Update the title and url.
+     */
     /* package */ void setTitleAndUrl(CharSequence title, CharSequence url) {
         if (url != null) {
             url = BrowserActivity.buildTitleUrl(url.toString());
@@ -166,5 +174,6 @@ public class TitleBar extends LinearLayout {
         setLock(null);
         mCircularProgress.setVisibility(View.GONE);
         mHorizontalProgress.setVisibility(View.GONE);
+        mUrl.setVisibility(View.INVISIBLE);
     }
 }

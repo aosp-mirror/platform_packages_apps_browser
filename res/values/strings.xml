@@ -137,7 +137,7 @@
     <!-- Initial value in Location field in Bookmark dialog box -->
     <string name="http">http://</string>
     <!-- Menu item that opens a dialog to save a bookmark, initialized with the current page -->
-    <string name="save_to_bookmarks">Bookmark</string>
+    <string name="save_to_bookmarks">Add bookmark</string>
     <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
     <string name="edit_bookmark">Edit bookmark</string>
     <!-- Context menu item to create a shortcut to the bookmark on the desktop -->
