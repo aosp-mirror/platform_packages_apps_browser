@@ -290,7 +290,7 @@ public class BrowserActivity extends Activity
         final static String BUILD_INFOS_FILE = "build.prop";
         final static String SYSTEM_BUILD_INFOS_FILE = "/system/"
                               + BUILD_INFOS_FILE;
-        final int BUFSIZE = 4096;
+        final static int BUFSIZE = 4096;
         boolean mDoOverwrite = false;
         String pluginsPath;
         Context mContext;
