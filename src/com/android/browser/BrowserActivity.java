@@ -281,7 +281,7 @@ public class BrowserActivity extends Activity
      * Anything that is in this directory will be copied over to the
      * user data partition in app_plugins.
      */
-    private class CopyPlugins implements Runnable {
+    private static class CopyPlugins implements Runnable {
         final static String TAG = "PluginsInstaller";
         final static String ZIP_FILTER = "assets/plugins/";
         final static String APK_PATH = "/system/app/Browser.apk";
@@ -621,7 +621,7 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private class ClearThumbnails extends AsyncTask<File, Void, Void> {
+    private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
         public Void doInBackground(File... files) {
             if (files != null) {

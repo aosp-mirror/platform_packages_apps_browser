@@ -69,7 +69,7 @@ class TabControl {
     private final LayoutInflater mInflateService;
     // Subclass of WebViewClient used in subwindows to notify the main
     // WebViewClient of certain WebView activities.
-    private class SubWindowClient extends WebViewClient {
+    private static class SubWindowClient extends WebViewClient {
         // The main WebViewClient.
         private final WebViewClient mClient;
 
