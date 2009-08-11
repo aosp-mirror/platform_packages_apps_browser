@@ -52,14 +52,14 @@ public class GearsNativeDialog extends Activity {
   private boolean mDebug = false;
 
   private int mDialogType;
-  private final int SETTINGS_DIALOG = 1;
-  private final int PERMISSION_DIALOG = 2;
-  private final int LOCATION_DIALOG = 3;
+  private static final int SETTINGS_DIALOG = 1;
+  private static final int PERMISSION_DIALOG = 2;
+  private static final int LOCATION_DIALOG = 3;
 
-  private final String VERSION_STRING = "version";
-  private final String SETTINGS_DIALOG_STRING = "settings_dialog";
-  private final String PERMISSION_DIALOG_STRING = "permissions_dialog";
-  private final String LOCATION_DIALOG_STRING = "locations_dialog";
+  private static final String VERSION_STRING = "version";
+  private static final String SETTINGS_DIALOG_STRING = "settings_dialog";
+  private static final String PERMISSION_DIALOG_STRING = "permissions_dialog";
+  private static final String LOCATION_DIALOG_STRING = "locations_dialog";
 
   private boolean mDialogDismissed = false;
 

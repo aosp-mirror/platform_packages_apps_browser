@@ -56,7 +56,7 @@ class GearsBaseDialog {
   protected String mDialogArguments;
 
   private Bitmap mIcon;
-  private final int MAX_ICON_SIZE = 64;
+  private static final int MAX_ICON_SIZE = 64;
   protected int mChoosenIconSize;
 
   // Dialog closing types
@@ -341,7 +341,6 @@ class GearsBaseDialog {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoInput(true);
         connection.connect();
-        int length = connection.getContentLength();
         InputStream is = connection.getInputStream();
         Bitmap customIcon = BitmapFactory.decodeStream(is);
         if (customIcon != null) {
