@@ -80,7 +80,6 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
         }
 
         HttpResponse response;
-        Boolean succeeded = true;
         String mimeType = null;
         try {
             response = client.execute(request);
