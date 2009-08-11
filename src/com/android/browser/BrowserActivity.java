@@ -431,16 +431,34 @@ public class BrowserActivity extends Activity
          * BUILD_INFOS_FILE in the plugins directory.
          */
         public void copyBuildInfos() {
+          FileInputStream iStream = null;
+          FileOutputStream oStream = null;
           try {
             if (LOGV_ENABLED) {
               Log.v(TAG, "Copy build infos to the plugins directory");
             }
             File buildInfoFile = new File(SYSTEM_BUILD_INFOS_FILE);
             File buildInfoPlugins = new File(pluginsPath, BUILD_INFOS_FILE);
-            copyStreams(new FileInputStream(buildInfoFile),
-                        new FileOutputStream(buildInfoPlugins));
+            iStream = new FileInputStream(buildInfoFile);
+            oStream = new FileOutputStream(buildInfoPlugins);
+            copyStreams(iStream, oStream);
           } catch (IOException e) {
             Log.e(TAG, "Exception while copying the build infos: " + e);
+          } finally {
+            try {
+              if (iStream != null) {
+                iStream.close();
+              }
+            } catch (IOException e2) {
+              Log.e(TAG, "Exception while closing the input stream: " + e2);
+            }
+            try {
+              if (oStream != null) {
+                oStream.close();
+              }
+            } catch (IOException e3) {
+              Log.e(TAG, "Exception while closing the output stream: " + e3);
+            }
           }
         }
 
