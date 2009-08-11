@@ -294,8 +294,6 @@ public class BrowserActivity extends Activity
         boolean mDoOverwrite = false;
         String pluginsPath;
         Context mContext;
-        File pluginsDir;
-        AssetManager manager;
 
         public CopyPlugins (boolean overwrite, Context context) {
             mDoOverwrite = overwrite;
