@@ -105,6 +105,16 @@ class TabControl {
                 String description, String failingUrl) {
             mClient.onReceivedError(view, errorCode, description, failingUrl);
         }
+        @Override
+        public boolean shouldOverrideKeyEvent(WebView view,
+                android.view.KeyEvent event) {
+            return mClient.shouldOverrideKeyEvent(view, event);
+        }
+        @Override
+        public void onUnhandledKeyEvent(WebView view,
+                android.view.KeyEvent event) {
+            mClient.onUnhandledKeyEvent(view, event);
+        }
     }
     // Subclass of WebChromeClient to display javascript dialogs.
     private class SubWindowChromeClient extends WebChromeClient {
