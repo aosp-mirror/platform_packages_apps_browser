@@ -279,7 +279,9 @@ public class BrowserActivity extends Activity
         public Void doInBackground(File... files) {
             if (files != null) {
                 for (File f : files) {
-                    f.delete();
+                    if (!f.delete()) {
+                      Log.e(LOGTAG, f.getPath() + " was not deleted");
+                    }
                 }
             }
             return null;
