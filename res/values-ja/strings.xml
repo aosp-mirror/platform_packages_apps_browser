@@ -245,7 +245,7 @@
     <string name="download_length_required" msgid="9038605488460437406">"項目のサイズを特定できないため、ダウンロードできません。"</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"ダウンロードが中断されました。再開できません。"</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Browser Test Runner"</string>
-    <string name="homepage_base" msgid="7888126987935305566">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="homepage_base" msgid="7888126987935305566">"http://www.google.co.jp/m?client=ms-{CID}"</string>
     <string name="search_the_web" msgid="6046130189241962337">"ウェブを検索します"</string>
     <string name="query_data_prompt" msgid="5474381240981604223">"保存を許可"</string>
     <string name="query_data_message" msgid="8789381063185445197">"このサイトは携帯電話に情報を保存しようとしています。"</string>
