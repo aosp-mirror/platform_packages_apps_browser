@@ -3017,31 +3017,18 @@ public class BrowserActivity extends Activity
             // database can be updated.
             updateIcon(view, favicon);
 
-            if (mSettings.isTracing() == true) {
-                // FIXME: we should save the trace file somewhere other than data.
-                // I can't use "/tmp" as it competes for system memory.
-                File file = getDir("browserTrace", 0);
-                String baseDir = file.getPath();
-                if (!baseDir.endsWith(File.separator)) baseDir += File.separator;
+            if (mSettings.isTracing()) {
                 String host;
                 try {
                     WebAddress uri = new WebAddress(url);
                     host = uri.mHost;
                 } catch (android.net.ParseException ex) {
-                    host = "unknown_host";
+                    host = "browser";
                 }
                 host = host.replace('.', '_');
-                baseDir = baseDir + host;
-                file = new File(baseDir+".data");
-                if (file.exists() == true) {
-                    file.delete();
-                }
-                file = new File(baseDir+".key");
-                if (file.exists() == true) {
-                    file.delete();
-                }
+                host += ".trace";
                 mInTrace = true;
-                Debug.startMethodTracing(baseDir, 8 * 1024 * 1024);
+                Debug.startMethodTracing(host, 20 * 1024 * 1024);
             }
 
             // Performance probe
