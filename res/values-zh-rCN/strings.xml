@@ -168,12 +168,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"高级设置"</string>
-    <string name="pref_extras_gears_enable">"启用 Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"扩展浏览器功能的应用程序"</string>
-    <string name="pref_extras_gears_settings">"Gears 设置"</string>
-    <string name="pref_plugin_installed">"插件列表"</string>
-    <string name="pref_plugin_installed_empty_list">"没有已安装的插件。"</string>
-    <string name="pref_extras_gears_settings_summary">"扩展浏览器功能的应用程序"</string>
     <string name="pref_extras_reset_default">"重置为默认值"</string>
     <string name="pref_extras_reset_default_summary">"清除所有浏览器数据并将所有设置重置为默认值"</string>
     <string name="pref_extras_reset_default_dlg">"将会清除所有浏览器数据并将设置恢复为默认值。"</string>
@@ -252,51 +246,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"允许存储"</string>
-    <string name="query_data_message">"此网站要将信息存储在您的手机上。"</string>
-    <string name="location_prompt">"访问您所在的位置"</string>
-    <string name="location_message">"此网站要访问您所在的位置。"</string>
-    <string name="shortcut_prompt">"创建快捷方式"</string>
-    <string name="shortcut_message">"此网站要在您的主屏幕上创建此网页的快捷方式。"</string>
-    <string name="settings_message">"下表显示了您已授予试图使用 Gears 的各个网站的权限。"</string>
-    <string name="filepicker_message">"文件选择器"</string>
-    <string name="image_message">"选择的图片"</string>
-    <string name="settings_title">"Gears 设置"</string>
-    <string name="privacy_policy">"阅读网站的隐私权政策，了解将会如何使用您的位置。"</string>
-    <string name="settings_storage_title">"允许本地存储"</string>
-    <string name="settings_storage_subtitle_on">"此网站可以将信息保存到您的手机上"</string>
-    <string name="settings_storage_subtitle_off">"此网站无法将信息保存到您的手机上"</string>
-    <string name="settings_location_title">"允许位置检测"</string>
-    <string name="settings_location_subtitle_on">"此网站可以读取您当前所在的位置"</string>
-    <string name="settings_location_subtitle_off">"此网站无法读取您当前所在的位置"</string>
-    <string name="settings_remove_site">"从 Gears 删除此网站"</string>
-    <string name="settings_empty">"未设置权限"</string>
-    <string name="settings_confirmation_remove_title">"删除此网站"</string>
-    <string name="settings_confirmation_remove">"所有权限将会清除，而且此网站存储在您手机上的所有数据也会删除。"</string>
-    <string name="storage_notification">"此网站要将信息存储在此手机上。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
-    <string name="storage_notification_alwaysdeny">"此网站决不会将信息存储在此手机上。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
-    <string name="location_notification">"此网站可以访问您当前所在的位置。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
-    <string name="location_notification_alwaysdeny">"此网站不会访问您当前所在的位置。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
-    <string name="shortcut_notification">"快捷方式已创建"</string>
-    <string name="permission_button_alwaysdeny">"不允许"</string>
-    <string name="permission_button_allow">"确定"</string>
-    <string name="permission_button_deny">"取消"</string>
-    <string name="shortcut_button_alwaysdeny">"不允许"</string>
-    <string name="shortcut_button_allow">"确定"</string>
-    <string name="shortcut_button_deny">"取消"</string>
-    <string name="settings_button_allow">"应用"</string>
-    <string name="settings_button_deny">"取消"</string>
-    <string name="filepicker_button_allow">"确定"</string>
-    <string name="filepicker_button_deny">"取消"</string>
-    <string name="filepicker_path">"路径："</string>
-    <string name="filepicker_no_files_selected">"未选定任何文件"</string>
-    <string name="filepicker_one_file_selected">"一个文件已选定"</string>
-    <string name="filepicker_some_files_selected">"个文件已选定"</string>
-    <string name="remove">"删除"</string>
-    <string name="local_storage">"本地存储"</string>
-    <string name="allowed">"允许"</string>
-    <string name="denied">"已拒绝"</string>
-    <string name="unrecognized_dialog_message">"无法识别的对话类型"</string>
-    <string name="default_button">"确定"</string>
     <string name="zoom_overview_button_text">"概览"</string>
 </resources>

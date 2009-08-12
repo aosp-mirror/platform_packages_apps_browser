@@ -168,12 +168,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"고급 설정"</string>
-    <string name="pref_extras_gears_enable">"Gears 사용"</string>
-    <string name="pref_extras_gears_enable_summary">"브라우저 기능을 확장하는 응용프로그램"</string>
-    <string name="pref_extras_gears_settings">"Gears 설정"</string>
-    <string name="pref_plugin_installed">"플러그인 목록"</string>
-    <string name="pref_plugin_installed_empty_list">"설치된 플러그인이 없습니다."</string>
-    <string name="pref_extras_gears_settings_summary">"브라우저 기능을 확장하는 응용프로그램"</string>
     <string name="pref_extras_reset_default">"기본값으로 재설정"</string>
     <string name="pref_extras_reset_default_summary">"모든 브라우저 데이터를 지우고 모든 설정을 기본값으로 재설정"</string>
     <string name="pref_extras_reset_default_dlg">"모든 브라우저 데이터가 지워지고 설정이 기본값으로 돌아갑니다."</string>
@@ -252,51 +246,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"저장소 허용"</string>
-    <string name="query_data_message">"웹사이트에서 휴대전화에 정보를 저장하려고 합니다."</string>
-    <string name="location_prompt">"사용자 위치에 액세스"</string>
-    <string name="location_message">"웹사이트가 사용자의 위치에 액세스하려고 합니다."</string>
-    <string name="shortcut_prompt">"바로가기 만들기"</string>
-    <string name="shortcut_message">"웹사이트가 홈 화면에 이 페이지의 바로가기를 만들려고 합니다."</string>
-    <string name="settings_message">"아래 표는 Gears를 사용하려는 각 사이트에 부여된 권한을 보여줍니다."</string>
-    <string name="filepicker_message">"파일 선택기"</string>
-    <string name="image_message">"선택한 이미지"</string>
-    <string name="settings_title">"Gears 설정"</string>
-    <string name="privacy_policy">"위치가 어떻게 사용되는지 보려면 사이트의 개인정보 보호정책을 읽어보세요."</string>
-    <string name="settings_storage_title">"로컬 저장소 허용"</string>
-    <string name="settings_storage_subtitle_on">"사이트에서 휴대전화에 정보를 저장할 수 있습니다."</string>
-    <string name="settings_storage_subtitle_off">"사이트에서 휴대전화에 정보를 저장할 수 없습니다."</string>
-    <string name="settings_location_title">"위치 확인 허용"</string>
-    <string name="settings_location_subtitle_on">"사이트에서 사용자의 현재 위치를 읽을 수 있습니다."</string>
-    <string name="settings_location_subtitle_off">"사이트에서 사용자의 현재 위치를 읽을 수 없습니다."</string>
-    <string name="settings_remove_site">"Gears에서 사이트 삭제"</string>
-    <string name="settings_empty">"설정된 권한이 없습니다."</string>
-    <string name="settings_confirmation_remove_title">"사이트 삭제"</string>
-    <string name="settings_confirmation_remove">"모든 권한이 지워지고 사이트에서 휴대전화에 저장한 모든 데이터가 삭제됩니다."</string>
-    <string name="storage_notification">"사이트에서 휴대전화에 정보를 저장합니다."\n" 설정을 변경하려면"\n" 설정 -&gt; Gears 설정으로 이동하세요."</string>
-    <string name="storage_notification_alwaysdeny">"사이트에서 휴대전화에 정보를 저장하지 않습니다."\n" 설정을 변경하려면"\n"설정 -&gt; Gears 설정으로 이동하세요."</string>
-    <string name="location_notification">"사이트에서 사용자의 현재 위치에 액세스할 수 있습니다."\n" 설정을 변경하려면"\n" 설정 -&gt; Gears 설정으로 이동하세요."</string>
-    <string name="location_notification_alwaysdeny">"사이트에서 사용자의 현재 위치에 액세스하지 않습니다."\n" 설정을 변경하려면"\n" 설정 -&gt; Gears 설정으로 이동하세요."</string>
-    <string name="shortcut_notification">"바로가기 생성됨"</string>
-    <string name="permission_button_alwaysdeny">"허용 안함"</string>
-    <string name="permission_button_allow">"확인"</string>
-    <string name="permission_button_deny">"취소"</string>
-    <string name="shortcut_button_alwaysdeny">"허용 안함"</string>
-    <string name="shortcut_button_allow">"확인"</string>
-    <string name="shortcut_button_deny">"취소"</string>
-    <string name="settings_button_allow">"적용"</string>
-    <string name="settings_button_deny">"취소"</string>
-    <string name="filepicker_button_allow">"확인"</string>
-    <string name="filepicker_button_deny">"취소"</string>
-    <string name="filepicker_path">"경로:"</string>
-    <string name="filepicker_no_files_selected">"선택한 파일 없음"</string>
-    <string name="filepicker_one_file_selected">"하나의 파일이 선택됨"</string>
-    <string name="filepicker_some_files_selected">"파일을 선택함"</string>
-    <string name="remove">"삭제"</string>
-    <string name="local_storage">"로컬 저장소"</string>
-    <string name="allowed">"허용됨"</string>
-    <string name="denied">"거부됨"</string>
-    <string name="unrecognized_dialog_message">"인식할 수 없는 대화 유형"</string>
-    <string name="default_button">"확인"</string>
     <string name="zoom_overview_button_text">"전체보기"</string>
 </resources>

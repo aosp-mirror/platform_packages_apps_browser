@@ -169,12 +169,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"Definições avançadas"</string>
-    <string name="pref_extras_gears_enable">"Activar o Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"Aplicações que aumentam a funcionalidade do browser"</string>
-    <string name="pref_extras_gears_settings">"Definições do Gears"</string>
-    <string name="pref_plugin_installed">"Lista de plug-ins"</string>
-    <string name="pref_plugin_installed_empty_list">"Nenhum plug-in instalado."</string>
-    <string name="pref_extras_gears_settings_summary">"Aplicações que aumentam a funcionalidade do browser"</string>
     <string name="pref_extras_reset_default">"Repor as predefinições"</string>
     <string name="pref_extras_reset_default_summary">"Limpar todos os dados do browser e repor todas as predefinições"</string>
     <string name="pref_extras_reset_default_dlg">"Todos os dados do browser serão limpos e as definições serão repostas para os valores predefinidos."</string>
@@ -253,51 +247,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"Permitir armazenamento"</string>
-    <string name="query_data_message">"Este Web site pretende armazenar informações no seu telefone."</string>
-    <string name="location_prompt">"Aceder à sua localização"</string>
-    <string name="location_message">"Este Web site pretende ter acesso à sua localização."</string>
-    <string name="shortcut_prompt">"Criar um atalho"</string>
-    <string name="shortcut_message">"Este Web site pretende criar um atalho para esta página no seu ecrã inicial."</string>
-    <string name="settings_message">"A tabela seguinte mostra as permissões concedidas a cada site que tenha tentado utilizar o Gears."</string>
-    <string name="filepicker_message">"Seleccionador de ficheiros"</string>
-    <string name="image_message">"Imagem escolhida"</string>
-    <string name="settings_title">"Definições do Gears"</string>
-    <string name="privacy_policy">"Leia a política de privacidade do site para saber que uso será dado à sua localização."</string>
-    <string name="settings_storage_title">"Permitir armazenamento local"</string>
-    <string name="settings_storage_subtitle_on">"Este site pode guardar informações no seu telefone"</string>
-    <string name="settings_storage_subtitle_off">"Este site não consegue guardar informações no seu telefone"</string>
-    <string name="settings_location_title">"Permitir detecção de localização"</string>
-    <string name="settings_location_subtitle_on">"Este site não consegue ler a sua localização actual"</string>
-    <string name="settings_location_subtitle_off">"Este site não consegue ler a sua localização actual"</string>
-    <string name="settings_remove_site">"Remover este site do Gears"</string>
-    <string name="settings_empty">"Sem permissões definidas"</string>
-    <string name="settings_confirmation_remove_title">"Remover este site"</string>
-    <string name="settings_confirmation_remove">"Todas as permissões serão limpas e quaisquer dados armazenados no telefone pelo site serão eliminados."</string>
-    <string name="storage_notification">"Este site irá armazenar informações neste telefone. "\n" Altere esta definição em:"\n" Definições -&gt; Definições do Gears"</string>
-    <string name="storage_notification_alwaysdeny">"Este site nunca irá armazenar informações neste telefone. "\n" Altere esta definição em:"\n" Definições -&gt; Definições do Gears"</string>
-    <string name="location_notification">"Este site tem acesso à sua localização actual. "\n" Altere esta definição em: "\n" Definições -&gt; Definições do Gears"</string>
-    <string name="location_notification_alwaysdeny">"Este site não irá aceder à sua localização actual."\n" Altere esta definição em: "\n" Definições -&gt; Definições do Gears"</string>
-    <string name="shortcut_notification">"Atalho criado"</string>
-    <string name="permission_button_alwaysdeny">"Nunca permitir"</string>
-    <string name="permission_button_allow">"OK"</string>
-    <string name="permission_button_deny">"Cancelar"</string>
-    <string name="shortcut_button_alwaysdeny">"Nunca permitir"</string>
-    <string name="shortcut_button_allow">"OK"</string>
-    <string name="shortcut_button_deny">"Cancelar"</string>
-    <string name="settings_button_allow">"Aplicar"</string>
-    <string name="settings_button_deny">"Cancelar"</string>
-    <string name="filepicker_button_allow">"OK"</string>
-    <string name="filepicker_button_deny">"Cancelar"</string>
-    <string name="filepicker_path">"caminho:"</string>
-    <string name="filepicker_no_files_selected">"Nenhum ficheiro seleccionado"</string>
-    <string name="filepicker_one_file_selected">"Um ficheiro seleccionado"</string>
-    <string name="filepicker_some_files_selected">"ficheiros seleccionados"</string>
-    <string name="remove">"Remover"</string>
-    <string name="local_storage">"Armazenamento local"</string>
-    <string name="allowed">"Permitido"</string>
-    <string name="denied">"Negado"</string>
-    <string name="unrecognized_dialog_message">"Tipo de diálogo desconhecido"</string>
-    <string name="default_button">"OK"</string>
     <string name="zoom_overview_button_text">"Visão geral"</string>
 </resources>

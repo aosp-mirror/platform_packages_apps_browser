@@ -168,12 +168,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"Gelişmiş ayarlar"</string>
-    <string name="pref_extras_gears_enable">"Gears\'ı Etkinleştir"</string>
-    <string name="pref_extras_gears_enable_summary">"Tarayıcınızın işlevini artıran uygulamalar"</string>
-    <string name="pref_extras_gears_settings">"Gears ayarları"</string>
-    <string name="pref_plugin_installed">"Eklenti listesi"</string>
-    <string name="pref_plugin_installed_empty_list">"Yüklenmiş eklenti yok."</string>
-    <string name="pref_extras_gears_settings_summary">"Tarayıcınızın işlevini artıran uygulamalar"</string>
     <string name="pref_extras_reset_default">"Varsayılana sıfırla"</string>
     <string name="pref_extras_reset_default_summary">"Tüm tarayıcı verilerini temizle ve tüm ayarları varsayılana sıfırla"</string>
     <string name="pref_extras_reset_default_dlg">"Tüm tarayıcı verileri temizlenecek ve ayarlar varsayılan değerlere geri döndürülecek."</string>
@@ -252,51 +246,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"Depolamaya izin ver"</string>
-    <string name="query_data_message">"Bu web sitesi telefonunuzda bilgi depolamak istiyor."</string>
-    <string name="location_prompt">"Konumunuza erişin"</string>
-    <string name="location_message">"Bu web sitesi konumunuza erişmek istiyor."</string>
-    <string name="shortcut_prompt">"Kısayol oluştur"</string>
-    <string name="shortcut_message">"Bu web sitesi ana ekranınızda bu sayfaya kısayol oluşturmak istiyor."</string>
-    <string name="settings_message">"Aşağıdaki tabloda Gears\'ı kullanmaya çalışan her siteye vermiş olduğunuz izinler gösterilmektedir."</string>
-    <string name="filepicker_message">"Dosya Toplayıcı"</string>
-    <string name="image_message">"Seçilen Görsel"</string>
-    <string name="settings_title">"Gears ayarları"</string>
-    <string name="privacy_policy">"Konumunuzun nasıl kullanılacağını görmek için sitenin gizlilik politikasını okuyun."</string>
-    <string name="settings_storage_title">"Yerel Depolamaya İzin Ver"</string>
-    <string name="settings_storage_subtitle_on">"Bu site telefonunuza bilgi kaydedebilir"</string>
-    <string name="settings_storage_subtitle_off">"Bu site telefonunuza bilgi kaydedemez"</string>
-    <string name="settings_location_title">"Konum Tespitine İzin Ver"</string>
-    <string name="settings_location_subtitle_on">"Bu site geçerli konumunuzu okuyabilir"</string>
-    <string name="settings_location_subtitle_off">"Bu site geçerli konumunuzu okuyamaz"</string>
-    <string name="settings_remove_site">"Bu siteyi Gears\'tan kaldır"</string>
-    <string name="settings_empty">"Hiçbir izin ayarlanmadı"</string>
-    <string name="settings_confirmation_remove_title">"Bu siteyi kaldır"</string>
-    <string name="settings_confirmation_remove">"Tüm izinler kaldırılacak ve site tarafından telefonunuzda depolanmış tüm veriler silinecek."</string>
-    <string name="storage_notification">"Bu site bu telefona bilgi depolayacak."\n" Bu ayarları şuradan değiştirin:"\n" Ayarlar -&gt; Gears Ayarları"</string>
-    <string name="storage_notification_alwaysdeny">"Bu site bu telefona asla bilgi depolamayacak."\n" Bu ayarları şuradan değiştirin:"\n" Ayarlar -&gt; Gears Ayarları"</string>
-    <string name="location_notification">"Bu site geçerli konumunuza erişebilir."\n" Bu ayarı şuradan değiştirin: "\n" Ayarlar -&gt; Gears Ayarları"</string>
-    <string name="location_notification_alwaysdeny">"Bu site geçerli konumunuza erişmeyecek. "\n" Bu ayarı şuradan değiştirin:"\n" Ayarlar -&gt; Gears Ayarları"</string>
-    <string name="shortcut_notification">"Kısayol oluşturuldu"</string>
-    <string name="permission_button_alwaysdeny">"Asla İzin Verme"</string>
-    <string name="permission_button_allow">"Tamam"</string>
-    <string name="permission_button_deny">"İptal"</string>
-    <string name="shortcut_button_alwaysdeny">"Asla İzin Verme"</string>
-    <string name="shortcut_button_allow">"Tamam"</string>
-    <string name="shortcut_button_deny">"İptal"</string>
-    <string name="settings_button_allow">"Uygula"</string>
-    <string name="settings_button_deny">"İptal"</string>
-    <string name="filepicker_button_allow">"Tamam"</string>
-    <string name="filepicker_button_deny">"İptal"</string>
-    <string name="filepicker_path">"yol:"</string>
-    <string name="filepicker_no_files_selected">"Seçili dosya yok"</string>
-    <string name="filepicker_one_file_selected">"Bir dosya seçildi"</string>
-    <string name="filepicker_some_files_selected">"dosyalar seçildi"</string>
-    <string name="remove">"Kaldır"</string>
-    <string name="local_storage">"Yerel depolama"</string>
-    <string name="allowed">"İzin Verildi"</string>
-    <string name="denied">"Reddedildi"</string>
-    <string name="unrecognized_dialog_message">"Tanınmayan iletişim türü"</string>
-    <string name="default_button">"Tamam"</string>
     <string name="zoom_overview_button_text">"Genel Bakış"</string>
 </resources>

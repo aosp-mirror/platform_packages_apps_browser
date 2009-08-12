@@ -30,13 +30,11 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.webkit.GeolocationPermissions;
-import android.webkit.Plugin;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 
 public class BrowserPreferencesPage extends PreferenceActivity
-        implements Preference.OnPreferenceChangeListener, 
-        Preference.OnPreferenceClickListener {
+        implements Preference.OnPreferenceChangeListener {
 
     String TAG = "BrowserPreferencesPage";
 
@@ -73,9 +71,6 @@ public class BrowserPreferencesPage extends PreferenceActivity
         if (BrowserSettings.getInstance().showDebugSettings()) {
             addPreferencesFromResource(R.xml.debug_preferences);
         }
-
-        e = findPreference(BrowserSettings.PREF_GEARS_SETTINGS);
-        e.setOnPreferenceClickListener(this);
 
         PreferenceScreen websiteSettings = (PreferenceScreen)
             findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
@@ -153,20 +148,6 @@ public class BrowserPreferencesPage extends PreferenceActivity
         }
         
         return false;
-    }
-    
-    public boolean onPreferenceClick(Preference pref) {
-        if (pref.getKey().equals(BrowserSettings.PREF_GEARS_SETTINGS)) {
-            List<Plugin> loadedPlugins = WebView.getPluginList().getList();
-            for(Plugin p : loadedPlugins) {
-                if (p.getName().equals("gears")) {
-                    p.dispatchClickEvent(this);
-                    return true;
-                }
-            }
-            
-        }
-        return true;
     }
 
     private CharSequence getVisualTextSizeName(String enumName) {

@@ -169,12 +169,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"Avancerade inställningar"</string>
-    <string name="pref_extras_gears_enable">"Aktivera Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"Program som ger utökade webbläsarfunktioner"</string>
-    <string name="pref_extras_gears_settings">"Inställningar för Gears"</string>
-    <string name="pref_plugin_installed">"Lista över insticksprogram"</string>
-    <string name="pref_plugin_installed_empty_list">"Inga insticksprogram har installerats."</string>
-    <string name="pref_extras_gears_settings_summary">"Program som ger utökade webbläsarfunktioner"</string>
     <string name="pref_extras_reset_default">"Återställ standardinställningarna"</string>
     <string name="pref_extras_reset_default_summary">"Ta bort alla data i webbläsaren och återställ standardinställningarna"</string>
     <string name="pref_extras_reset_default_dlg">"Alla data i webbläsaren tas bort och standardinställningarna återställs."</string>
@@ -253,51 +247,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"Tillåt lagring"</string>
-    <string name="query_data_message">"Den här webbplatsen vill spara information i din telefon."</string>
-    <string name="location_prompt">"Få åtkomst till din plats"</string>
-    <string name="location_message">"Webbplatsen vill ha åtkomst till din plats."</string>
-    <string name="shortcut_prompt">"Skapa en genväg"</string>
-    <string name="shortcut_message">"Webbplatsen vill skapa en genväg till den här sidan på din startsida."</string>
-    <string name="settings_message">"Tabellen nedan visar vilka behörigheter du har beviljat webbplatserna som har försökt använda Gears."</string>
-    <string name="filepicker_message">"Filväljaren"</string>
-    <string name="image_message">"Vald bild"</string>
-    <string name="settings_title">"Inställningar för Gears"</string>
-    <string name="privacy_policy">"Läs webbplatsens sekretesspolicy om du vill veta hur din plats kommer att användas."</string>
-    <string name="settings_storage_title">"Tillåt lokal lagring"</string>
-    <string name="settings_storage_subtitle_on">"Webbplatsen kan spara information i din telefon"</string>
-    <string name="settings_storage_subtitle_off">"Webbplatsen kan inte spara information i din telefon"</string>
-    <string name="settings_location_title">"Tillåt identifiering av plats"</string>
-    <string name="settings_location_subtitle_on">"Webbplatsen kan läsa din aktuella plats"</string>
-    <string name="settings_location_subtitle_off">"Webbplatsen kan inte läsa din aktuella plats"</string>
-    <string name="settings_remove_site">"Ta bort webbplatsen från Gears"</string>
-    <string name="settings_empty">"Ingen behörighet har angetts"</string>
-    <string name="settings_confirmation_remove_title">"Ta bort webbplatsen"</string>
-    <string name="settings_confirmation_remove">"Alla behörigheter och alla data som webbplatsen sparat i telefonen tas bort."</string>
-    <string name="storage_notification">"Webbplatsen sparar information på den här telefonen."\n" Ändra inställningen i:"\n" Inställningar -&gt; Inställningar för Gears"</string>
-    <string name="storage_notification_alwaysdeny">"Webbplatsen sparar aldrig information på den här telefonen."\n" Ändra inställningen i:"\n" Inställningar -&gt; Inställningar för Gears"</string>
-    <string name="location_notification">"Webbplatsen har åtkomst till din aktuella plats."\n" Ändra inställningen i:"\n" Inställningar -&gt; Inställningar för Gears"</string>
-    <string name="location_notification_alwaysdeny">"Webbplatsen har inte åtkomst till din aktuella plats."\n" Ändra inställningen i:"\n" Inställningar -&gt; Inställningar för Gears"</string>
-    <string name="shortcut_notification">"Genväg har skapats"</string>
-    <string name="permission_button_alwaysdeny">"Tillåt aldrig"</string>
-    <string name="permission_button_allow">"OK"</string>
-    <string name="permission_button_deny">"Avbryt"</string>
-    <string name="shortcut_button_alwaysdeny">"Tillåt aldrig"</string>
-    <string name="shortcut_button_allow">"OK"</string>
-    <string name="shortcut_button_deny">"Avbryt"</string>
-    <string name="settings_button_allow">"Tillämpa"</string>
-    <string name="settings_button_deny">"Avbryt"</string>
-    <string name="filepicker_button_allow">"OK"</string>
-    <string name="filepicker_button_deny">"Avbryt"</string>
-    <string name="filepicker_path">"sökväg:"</string>
-    <string name="filepicker_no_files_selected">"Inga filer har valts"</string>
-    <string name="filepicker_one_file_selected">"En fil har valts"</string>
-    <string name="filepicker_some_files_selected">"valda filer"</string>
-    <string name="remove">"Ta bort"</string>
-    <string name="local_storage">"Lokal lagring"</string>
-    <string name="allowed">"Tillåts"</string>
-    <string name="denied">"Nekad"</string>
-    <string name="unrecognized_dialog_message">"Okänd dialogtyp"</string>
-    <string name="default_button">"OK"</string>
     <string name="zoom_overview_button_text">"Översikt"</string>
 </resources>

@@ -184,21 +184,6 @@
     </PreferenceCategory>
     <PreferenceCategory
             android:title="@string/pref_extras_title">
-                     
-            <!-- This setting is named "Enable Gears" but is actually
-                 tied to enabling all plugins. -->
-            <CheckBoxPreference
-                    android:key="enable_plugins"
-                    android:defaultValue="true"
-                    android:title="@string/pref_extras_gears_enable"
-                    android:summary="@string/pref_extras_gears_enable_summary" />
-
-            <Preference
-                    android:key="gears_settings"
-                    android:persistent="false"
-                    android:dependency="enable_plugins"
-                    android:title="@string/pref_extras_gears_settings"
-                    android:summary="@string/pref_extras_gears_settings_summary" />
 
             <PreferenceScreen
                   android:key="website_settings"

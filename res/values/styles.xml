@@ -35,10 +35,6 @@
         <item name="android:popupBackground">@android:drawable/spinner_dropdown_background</item>
     </style>
 
-    <style name="gears_button">
-      <item name="android:background">@drawable/gears_button</item>
-    </style>
-
     <style name="FindDialog">
         <item name="android:windowEnterAnimation">@anim/find_dialog_enter</item>
         <item name="android:windowExitAnimation">@anim/find_dialog_exit</item>

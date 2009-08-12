@@ -157,21 +157,6 @@
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
-        <activity android:name="GearsDialog" android:process=":dialog"
-                  android:configChanges="orientation|keyboardHidden"
-                  android:theme="@android:style/Theme.Dialog">
-        </activity>
-
-        <activity android:name="PermissionDialog"
-                  android:configChanges="orientation|keyboardHidden"
-                  android:theme="@android:style/Theme.Dialog">
-        </activity>
-
-        <activity android:name="GearsNativeDialog"
-                  android:configChanges="orientation|keyboardHidden"
-                  android:theme="@android:style/Theme.Dialog">
-        </activity>
-
         <activity android:name="BookmarkSearch"
                   android:label="@string/bookmarks_search"
                   android:stateNotNeeded="true"
@@ -184,14 +169,6 @@
             <meta-data android:name="android.app.searchable"
                     android:resource="@xml/bookmarks_searchable" />
         </activity>
-
-        <service android:name="GearsDialogService"
-                 android:process=":dialog"
-                 android:exported="false">
-            <intent-filter>
-                <action android:name="com.android.browser.IGearsDialogService" />
-            </intent-filter>
-        </service>
 
         <activity android:name="AddBookmarkPage" android:label="Save bookmark" android:theme="@android:style/Theme.Dialog"
                   android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">

@@ -168,12 +168,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"Configuración avanzada"</string>
-    <string name="pref_extras_gears_enable">"Habilitar Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"Aplicaciones que amplían la funcionalidad del navegador"</string>
-    <string name="pref_extras_gears_settings">"Configuración de Gears"</string>
-    <string name="pref_plugin_installed">"Lista de complementos"</string>
-    <string name="pref_plugin_installed_empty_list">"No hay complementos instalados."</string>
-    <string name="pref_extras_gears_settings_summary">"Aplicaciones que amplían la funcionalidad del navegador"</string>
     <string name="pref_extras_reset_default">"Restablecer a los valores predeterminados"</string>
     <string name="pref_extras_reset_default_summary">"Borrar todos los datos del navegador y restablecer la configuración a los valores predeterminados"</string>
     <string name="pref_extras_reset_default_dlg">"Se borrarán todos los datos del navegador y la configuración volverá a los valores predeterminados."</string>
@@ -252,51 +246,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"Permitir almacenamiento"</string>
-    <string name="query_data_message">"Este sitio web desea almacenar información en tu teléfono."</string>
-    <string name="location_prompt">"Acceder a tu ubicación"</string>
-    <string name="location_message">"Este sitio web desea acceder a tu ubicación."</string>
-    <string name="shortcut_prompt">"Crear un acceso directo"</string>
-    <string name="shortcut_message">"Este sitio web desea crear un acceso directo a esta página en tu pantalla de inicio"</string>
-    <string name="settings_message">"En la siguiente tabla, se muestran los permisos que has otorgado a cada sitio que ha intentado utilizar Gears."</string>
-    <string name="filepicker_message">"File Picker"</string>
-    <string name="image_message">"Imagen seleccionada"</string>
-    <string name="settings_title">"Configuración de Gears"</string>
-    <string name="privacy_policy">"Lee la política de privacidad del sitio para ver cómo se utilizará tu ubicación."</string>
-    <string name="settings_storage_title">"Permitir almacenamiento local"</string>
-    <string name="settings_storage_subtitle_on">"Este sitio puede guardar información en tu teléfono"</string>
-    <string name="settings_storage_subtitle_off">"Este sitio no puede guardar información en tu teléfono"</string>
-    <string name="settings_location_title">"Permitir detección de ubicación"</string>
-    <string name="settings_location_subtitle_on">"Este sitio puede leer tu ubicación actual"</string>
-    <string name="settings_location_subtitle_off">"Este sitio no puede leer tu ubicación actual"</string>
-    <string name="settings_remove_site">"Suprimir este sitio de Gears"</string>
-    <string name="settings_empty">"No hay permisos definidos"</string>
-    <string name="settings_confirmation_remove_title">"Suprimir este sitio"</string>
-    <string name="settings_confirmation_remove">"Se borrarán todos los permisos y se eliminarán los datos del sitio almacenados en el teléfono."</string>
-    <string name="storage_notification">"Este sitio almacenará información en este teléfono. "\n" Cambia esta configuración en:"\n" Configuración -&gt; Configuración de Gears"</string>
-    <string name="storage_notification_alwaysdeny">"Este sitio nunca almacenará información en este teléfono. "\n" Cambia esta configuración en:"\n" Configuración -&gt; Configuración de Gears"</string>
-    <string name="location_notification">"Este sitio puede acceder a tu ubicación. "\n" Cambia esta configuración en:"\n" Configuración -&gt; Configuración de Gears"</string>
-    <string name="location_notification_alwaysdeny">"Este sitio no accederá a tu ubicación. "\n" Cambia esta configuración en:"\n" Configuración -&gt; Configuración de Gears"</string>
-    <string name="shortcut_notification">"Acceso directo creado"</string>
-    <string name="permission_button_alwaysdeny">"No permitir nunca"</string>
-    <string name="permission_button_allow">"Aceptar"</string>
-    <string name="permission_button_deny">"Cancelar"</string>
-    <string name="shortcut_button_alwaysdeny">"No permitir nunca"</string>
-    <string name="shortcut_button_allow">"Aceptar"</string>
-    <string name="shortcut_button_deny">"Cancelar"</string>
-    <string name="settings_button_allow">"Aplicar"</string>
-    <string name="settings_button_deny">"Cancelar"</string>
-    <string name="filepicker_button_allow">"Aceptar"</string>
-    <string name="filepicker_button_deny">"Cancelar"</string>
-    <string name="filepicker_path">"ruta:"</string>
-    <string name="filepicker_no_files_selected">"No hay archivos seleccionados"</string>
-    <string name="filepicker_one_file_selected">"Un archivo seleccionado"</string>
-    <string name="filepicker_some_files_selected">"archivo seleccionado"</string>
-    <string name="remove">"Eliminar"</string>
-    <string name="local_storage">"Almacenamiento local"</string>
-    <string name="allowed">"Permitido"</string>
-    <string name="denied">"Denegado"</string>
-    <string name="unrecognized_dialog_message">"Tipo de diálogo no reconocido"</string>
-    <string name="default_button">"Aceptar"</string>
     <string name="zoom_overview_button_text">"Descripción general"</string>
 </resources>

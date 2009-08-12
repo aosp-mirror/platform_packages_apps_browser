@@ -128,7 +128,6 @@ class BrowserSettings extends Observable {
     public final static String PREF_EXTRAS_RESET_DEFAULTS =
             "reset_default_preferences";
     public final static String PREF_DEBUG_SETTINGS = "debug_menu";
-    public final static String PREF_GEARS_SETTINGS = "gears_settings";
     public final static String PREF_WEBSITE_SETTINGS = "website_settings";
     public final static String PREF_TEXT_SIZE = "text_size";
     public final static String PREF_DEFAULT_ZOOM = "default_zoom";

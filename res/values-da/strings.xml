@@ -168,12 +168,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"Avancerede indstillinger"</string>
-    <string name="pref_extras_gears_enable">"Aktiver Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"Programmer, der udvider browserfunktionalitet"</string>
-    <string name="pref_extras_gears_settings">"Indstillinger for Gears"</string>
-    <string name="pref_plugin_installed">"Liste over plugins"</string>
-    <string name="pref_plugin_installed_empty_list">"Der er ingen installerede plugins."</string>
-    <string name="pref_extras_gears_settings_summary">"Programmer, der udvider browserfunktionalitet"</string>
     <string name="pref_extras_reset_default">"Nulstil til standard"</string>
     <string name="pref_extras_reset_default_summary">"Ryd alle browserdata, og nulstil alle indstillinger til standard"</string>
     <string name="pref_extras_reset_default_dlg">"Alle browserdata slettes, og indstillingerne vender tilbage til standardværdier."</string>
@@ -252,51 +246,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"Tillad lagring"</string>
-    <string name="query_data_message">"Dette websted ønsker at gemme oplysninger på din telefon."</string>
-    <string name="location_prompt">"Få adgang til din placering"</string>
-    <string name="location_message">"Dette websted ønsker at få adgang til din placering."</string>
-    <string name="shortcut_prompt">"Opret en genvej"</string>
-    <string name="shortcut_message">"Dette websted vil gerne oprette en genvej til denne side på din startskærm."</string>
-    <string name="settings_message">"Nedenstående tabel viser de tilladelser, du har givet til hvert websted, som har forsøgt at bruge Gears."</string>
-    <string name="filepicker_message">"Filsamler"</string>
-    <string name="image_message">"Valgt billede"</string>
-    <string name="settings_title">"Indstillinger for Gears"</string>
-    <string name="privacy_policy">"Læs webstedets fortrolighedspolitik for at se, hvordan din placering bruges."</string>
-    <string name="settings_storage_title">"Tillad lokal lagring"</string>
-    <string name="settings_storage_subtitle_on">"Dette websted kan gemme oplysninger på din telefon"</string>
-    <string name="settings_storage_subtitle_off">"Dette websted kan ikke gemme oplysninger på din telefon"</string>
-    <string name="settings_location_title">"Tillad lokaliseringsregistrering"</string>
-    <string name="settings_location_subtitle_on">"Dette websted kan læse din aktuelle placering"</string>
-    <string name="settings_location_subtitle_off">"Dette websted kan ikke læse din aktuelle placering"</string>
-    <string name="settings_remove_site">"Fjern dette websted fra Gears"</string>
-    <string name="settings_empty">"Der er ikke indstillet nogen tilladelser"</string>
-    <string name="settings_confirmation_remove_title">"Fjern dette websted"</string>
-    <string name="settings_confirmation_remove">"Alle tilladelser ryddes, og alle data, som er gemt på din telefon af webstedet, slettes."</string>
-    <string name="storage_notification">"Dette websted gemmer oplysninger på din telefon."\n" Skift denne indstilling i:"\n" Indstillinger-&gt; Indstillinger for Gears"</string>
-    <string name="storage_notification_alwaysdeny">"Dette websted gemmer aldrig oplysninger på din telefon."\n" Skift denne indstilling i:"\n" Indstillinger-&gt; Indstillinger for Gears"</string>
-    <string name="location_notification">"Dette websted har adgang til din aktuelle placering."\n" Skift denne indstilling i:"\n" Indstillinger -&gt; Indstillinger for Gears"</string>
-    <string name="location_notification_alwaysdeny">"Dette websted har ikke adgang til din aktuelle placering."\n" Skift denne indstilling i:"\n" Indstillinger -&gt; Indstillinger for Gears"</string>
-    <string name="shortcut_notification">"Genvej oprettet"</string>
-    <string name="permission_button_alwaysdeny">"Tillad aldrig"</string>
-    <string name="permission_button_allow">"OK"</string>
-    <string name="permission_button_deny">"Annuller"</string>
-    <string name="shortcut_button_alwaysdeny">"Tillad aldrig"</string>
-    <string name="shortcut_button_allow">"OK"</string>
-    <string name="shortcut_button_deny">"Annuller"</string>
-    <string name="settings_button_allow">"Anvend"</string>
-    <string name="settings_button_deny">"Annuller"</string>
-    <string name="filepicker_button_allow">"OK"</string>
-    <string name="filepicker_button_deny">"Annuller"</string>
-    <string name="filepicker_path">"sti:"</string>
-    <string name="filepicker_no_files_selected">"Der blev ikke valgt nogen filer"</string>
-    <string name="filepicker_one_file_selected">"Der er valgt én fil"</string>
-    <string name="filepicker_some_files_selected">"valgte filer"</string>
-    <string name="remove">"Fjern"</string>
-    <string name="local_storage">"Lokal lagring"</string>
-    <string name="allowed">"Tilladt"</string>
-    <string name="denied">"Afvist"</string>
-    <string name="unrecognized_dialog_message">"Ikke anerkendt dialogtype"</string>
-    <string name="default_button">"OK"</string>
     <string name="zoom_overview_button_text">"Oversigt"</string>
 </resources>

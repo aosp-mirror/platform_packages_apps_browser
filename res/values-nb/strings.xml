@@ -169,12 +169,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"Avanserte innstillinger"</string>
-    <string name="pref_extras_gears_enable">"Aktiver Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"Applikasjoner som utvider nettleserfunksjonaliteten"</string>
-    <string name="pref_extras_gears_settings">"Gears-innstillinger"</string>
-    <string name="pref_plugin_installed">"Liste over utvidelser"</string>
-    <string name="pref_plugin_installed_empty_list">"Ingen installerte utvidelser."</string>
-    <string name="pref_extras_gears_settings_summary">"Applikasjoner som utvider nettleserfunksjonaliteten"</string>
     <string name="pref_extras_reset_default">"Nullstill"</string>
     <string name="pref_extras_reset_default_summary">"Fjern alle data fra nettleseren og nullstill alle innstillinger"</string>
     <string name="pref_extras_reset_default_dlg">"Alle data vil bli fjernet fra nettleseren, og alle innstillinger vil bli nullstilt."</string>
@@ -253,51 +247,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"Tillat lagring"</string>
-    <string name="query_data_message">"Nettsiden under ønsker å lagre informasjon på datamaskinen ved hjelp av Gears."</string>
-    <string name="location_prompt">"Få tilgang til plassering"</string>
-    <string name="location_message">"Nettsiden under ønsker å finne ut hvor du er ved hjelp av Gears."</string>
-    <string name="shortcut_prompt">"Lag snarvei"</string>
-    <string name="shortcut_message">"Denne nettsiden ønsker å lage en snarvei på datamaskinen. Ønsker du å tillate dette?"</string>
-    <string name="settings_message">"Tabellen under viser rettighetent du har gitt til hver side som har prøvd å bruke Gears."</string>
-    <string name="filepicker_message">"Gears filplukker"</string>
-    <string name="image_message">"Valgt bilde"</string>
-    <string name="settings_title">"Gears-innstillinger"</string>
-    <string name="privacy_policy">"Les sidens personvernspolicy for å se hvordan informasjonen vil bli brukt."</string>
-    <string name="settings_storage_title">"Tillat lokal lagring"</string>
-    <string name="settings_storage_subtitle_on">"Denne siden kan lagre informasjon i telefonen"</string>
-    <string name="settings_storage_subtitle_off">"Denne siden kan ikke lagre informasjon i telefonen"</string>
-    <string name="settings_location_title">"Tillat deteksjon av plassering"</string>
-    <string name="settings_location_subtitle_on">"Siden får vite hvor du befinner deg"</string>
-    <string name="settings_location_subtitle_off">"Siden får ikke vite hvor du befinner deg"</string>
-    <string name="settings_remove_site">"Fjern denne siden fra Gears"</string>
-    <string name="settings_empty">"Ingen rettigheter satt"</string>
-    <string name="settings_confirmation_remove_title">"Fjern denne siden"</string>
-    <string name="settings_confirmation_remove">"Alle rettigheter vil bli nullstilt, og alle data lagret av siden i telefonen vil bli slettet."</string>
-    <string name="storage_notification">"Siden vil lagre informasjon i telefonen."\n" Endre dette i:"\n" Innstillinger -&gt; Gears-innstillinger"</string>
-    <string name="storage_notification_alwaysdeny">"Siden vil aldri lagre informasjon i telefonen."\n" Endre dette i:"\n" Innstillinger -&gt; Gears-innstillinger"</string>
-    <string name="location_notification">"Siden får ikke vite hvor du befinner deg."\n" Endre dette i:"\n" Innstillinger -&gt; Gears-innstillinger"</string>
-    <string name="location_notification_alwaysdeny">"Siden vil ikke få vite hvor du befinner deg."\n" Endre dette i:"\n" Innstillinger -&gt; Gears-innstillinger"</string>
-    <string name="shortcut_notification">"Snarvei opprettet"</string>
-    <string name="permission_button_alwaysdeny">"Aldri tillat for denne siden"</string>
-    <string name="permission_button_allow">"Tillat"</string>
-    <string name="permission_button_deny">"Nekt"</string>
-    <string name="shortcut_button_alwaysdeny">"Aldri tillat denne snarveien"</string>
-    <string name="shortcut_button_allow">"OK"</string>
-    <string name="shortcut_button_deny">"Avbryt"</string>
-    <string name="settings_button_allow">"Bruk"</string>
-    <string name="settings_button_deny">"Avbryt"</string>
-    <string name="filepicker_button_allow">"OK"</string>
-    <string name="filepicker_button_deny">"Avbryt"</string>
-    <string name="filepicker_path">"sti:"</string>
-    <string name="filepicker_no_files_selected">"Ingen fil valgt"</string>
-    <string name="filepicker_one_file_selected">"En fil valgt"</string>
-    <string name="filepicker_some_files_selected">"filer valgt"</string>
-    <string name="remove">"Fjern"</string>
-    <string name="local_storage">"Lokal lagring"</string>
-    <string name="allowed">"Tillatt"</string>
-    <string name="denied">"Nektet"</string>
-    <string name="unrecognized_dialog_message">"Ukjent meldingstype"</string>
-    <string name="default_button">"OK"</string>
     <string name="zoom_overview_button_text">"Oversikt"</string>
 </resources>

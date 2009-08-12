@@ -168,12 +168,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"詳細設定"</string>
-    <string name="pref_extras_gears_enable">"Gearsを有効にする"</string>
-    <string name="pref_extras_gears_enable_summary">"ブラウザの機能拡張を許可する"</string>
-    <string name="pref_extras_gears_settings">"Gearsの設定"</string>
-    <string name="pref_plugin_installed">"プラグインリスト"</string>
-    <string name="pref_plugin_installed_empty_list">"プラグインはインストールされていません。"</string>
-    <string name="pref_extras_gears_settings_summary">"ブラウザの機能を拡張するアプリケーション"</string>
     <string name="pref_extras_reset_default">"初期設定にリセット"</string>
     <string name="pref_extras_reset_default_summary">"ブラウザデータをすべて消去して出荷時の初期設定に戻す"</string>
     <string name="pref_extras_reset_default_dlg">"ブラウザデータをすべて消去して初期設定に戻します。"</string>
@@ -252,51 +246,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"保存を許可"</string>
-    <string name="query_data_message">"このサイトは携帯電話に情報を保存しようとしています。"</string>
-    <string name="location_prompt">"現在地情報にアクセス"</string>
-    <string name="location_message">"このサイトは現在地情報にアクセスしようとしています。"</string>
-    <string name="shortcut_prompt">"ショートカットを作成"</string>
-    <string name="shortcut_message">"このサイトはホーム画面にこのページへのショートカットを作成しようとしています。"</string>
-    <string name="settings_message">"Gearsを使用しようとしたサイトに許可した権限は、以下の表のとおりです。"</string>
-    <string name="filepicker_message">"ファイル選択"</string>
-    <string name="image_message">"選択した画像"</string>
-    <string name="settings_title">"Gearsの設定"</string>
-    <string name="privacy_policy">"サイトのプライバシーポリシーを読んで、現在地の情報がどのように使用されるのか確認してください。"</string>
-    <string name="settings_storage_title">"ローカル保存を許可"</string>
-    <string name="settings_storage_subtitle_on">"このサイトは携帯電話に情報を保存できます"</string>
-    <string name="settings_storage_subtitle_off">"このサイトは携帯電話に情報を保存できません"</string>
-    <string name="settings_location_title">"現在地の検出を許可"</string>
-    <string name="settings_location_subtitle_on">"このサイトは現在地情報を読み取ることができます"</string>
-    <string name="settings_location_subtitle_off">"このサイトは現在地情報を読み取ることができません"</string>
-    <string name="settings_remove_site">"このサイトをGearsから削除"</string>
-    <string name="settings_empty">"設定されている権限はありません"</string>
-    <string name="settings_confirmation_remove_title">"このサイトを削除"</string>
-    <string name="settings_confirmation_remove">"権限をすべて消去し、このサイトが携帯電話に保存した全データを削除します。"</string>
-    <string name="storage_notification">"このサイトは携帯電話に情報を保存します。"\n"設定変更:"\n"[設定]-&gt;[Gears設定]"</string>
-    <string name="storage_notification_alwaysdeny">"このサイトは携帯電話に情報を保存しません。"\n"設定変更:"\n"[設定]-&gt;[Gears設定]"</string>
-    <string name="location_notification">"このサイトは現在地情報にアクセスできます。"\n"設定変更:"\n"[設定]-&gt;[Gears設定]"</string>
-    <string name="location_notification_alwaysdeny">"このサイトは現在地情報にアクセスしません。"\n"設定変更:"\n"[設定]-&gt;[Gears設定]"</string>
-    <string name="shortcut_notification">"ショートカットを作成しました"</string>
-    <string name="permission_button_alwaysdeny">"許可しない"</string>
-    <string name="permission_button_allow">"OK"</string>
-    <string name="permission_button_deny">"キャンセル"</string>
-    <string name="shortcut_button_alwaysdeny">"許可しない"</string>
-    <string name="shortcut_button_allow">"OK"</string>
-    <string name="shortcut_button_deny">"キャンセル"</string>
-    <string name="settings_button_allow">"適用"</string>
-    <string name="settings_button_deny">"キャンセル"</string>
-    <string name="filepicker_button_allow">"OK"</string>
-    <string name="filepicker_button_deny">"キャンセル"</string>
-    <string name="filepicker_path">"パス:"</string>
-    <string name="filepicker_no_files_selected">"ファイルが選択されていません"</string>
-    <string name="filepicker_one_file_selected">"1ファイルが選択されています"</string>
-    <string name="filepicker_some_files_selected">"ファイルが選択されています"</string>
-    <string name="remove">"削除"</string>
-    <string name="local_storage">"ローカル保存容量"</string>
-    <string name="allowed">"許可"</string>
-    <string name="denied">"拒否されました"</string>
-    <string name="unrecognized_dialog_message">"不明な種類のダイアログです"</string>
-    <string name="default_button">"OK"</string>
     <string name="zoom_overview_button_text">"全体表示"</string>
 </resources>

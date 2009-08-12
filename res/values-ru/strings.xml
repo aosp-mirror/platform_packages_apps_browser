@@ -168,12 +168,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"Расширенные настройки"</string>
-    <string name="pref_extras_gears_enable">"Включить Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"Приложения, расширяющие возможности браузера"</string>
-    <string name="pref_extras_gears_settings">"Настройки Gears"</string>
-    <string name="pref_plugin_installed">"Список плагинов"</string>
-    <string name="pref_plugin_installed_empty_list">"Нет установленных плагинов."</string>
-    <string name="pref_extras_gears_settings_summary">"Приложения, расширяющие возможности браузера"</string>
     <string name="pref_extras_reset_default">"Восстановить настройки по умолчанию"</string>
     <string name="pref_extras_reset_default_summary">"Очистить все данные браузера и восстановить все настройки по умолчанию"</string>
     <string name="pref_extras_reset_default_dlg">"Все данные браузера будут удалены, настройки по умолчанию будут восстановлены."</string>
@@ -252,51 +246,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"Разрешить сохранение"</string>
-    <string name="query_data_message">"Этот веб-сайт пытается сохранить данные на вашем телефоне."</string>
-    <string name="location_prompt">"Доступ к вашему местоположению"</string>
-    <string name="location_message">"Этот веб-сайт пытается получить доступ к данным о вашем местоположении."</string>
-    <string name="shortcut_prompt">"Создать ярлык"</string>
-    <string name="shortcut_message">"Этот веб-сайт пытается создать ярлык данной страницы на главном экране телефона."</string>
-    <string name="settings_message">"В таблице ниже показаны разрешения, установленные вами для всех сайтов, пытавшихся использовать Gears."</string>
-    <string name="filepicker_message">"Выбор файлов"</string>
-    <string name="image_message">"Выбранное изображение"</string>
-    <string name="settings_title">"Настройки Gears"</string>
-    <string name="privacy_policy">"Ознакомьтесь с политикой конфиденциальности сайта, чтобы узнать, как будет использоваться информация о вашем местоположении."</string>
-    <string name="settings_storage_title">"Разрешить сохранение в памяти"</string>
-    <string name="settings_storage_subtitle_on">"Этот сайт может сохранять данные на вашем телефоне"</string>
-    <string name="settings_storage_subtitle_off">"Этот сайт не может сохранять данные на вашем телефоне"</string>
-    <string name="settings_location_title">"Разрешить определение местоположения"</string>
-    <string name="settings_location_subtitle_on">"У этого сайта есть доступ к данным о вашем местоположении"</string>
-    <string name="settings_location_subtitle_off">"У этого сайта нет доступа к данным о вашем местоположении"</string>
-    <string name="settings_remove_site">"Удалить этот сайт из Gears"</string>
-    <string name="settings_empty">"Разрешения не заданы"</string>
-    <string name="settings_confirmation_remove_title">"Удалить этот сайт"</string>
-    <string name="settings_confirmation_remove">"Все разрешения будут сняты, а все данные, сохраненные этим сайтом на вашем телефоне, будут удалены."</string>
-    <string name="storage_notification">"Этот сайт будет сохранять данные на вашем телефоне."\n" Чтобы изменить эту настройку, выберите"\n" Настройки -&gt; Настройки Gears"</string>
-    <string name="storage_notification_alwaysdeny">"Этот сайт не будет сохранять данные на вашем телефоне."\n" Чтобы изменить эту настройку, выберите"\n" Настройки -&gt; Настройки Gears"</string>
-    <string name="location_notification">"У этого сайта есть доступ к данным о вашем местоположении."\n" Чтобы изменить эту настройку, выберите"\n" Настройки -&gt; Настройки Gears"</string>
-    <string name="location_notification_alwaysdeny">"Этот веб-сайт не будет пытаться получить доступ к данным о вашем местоположении."\n" Чтобы изменить эту настройку, выберите"\n" Настройки -&gt; Настройки Gears"</string>
-    <string name="shortcut_notification">"Ярлык создан"</string>
-    <string name="permission_button_alwaysdeny">"Не разрешать"</string>
-    <string name="permission_button_allow">"ОК"</string>
-    <string name="permission_button_deny">"Отмена"</string>
-    <string name="shortcut_button_alwaysdeny">"Не разрешать"</string>
-    <string name="shortcut_button_allow">"ОК"</string>
-    <string name="shortcut_button_deny">"Отмена"</string>
-    <string name="settings_button_allow">"Применить"</string>
-    <string name="settings_button_deny">"Отмена"</string>
-    <string name="filepicker_button_allow">"ОК"</string>
-    <string name="filepicker_button_deny">"Отмена"</string>
-    <string name="filepicker_path">"путь:"</string>
-    <string name="filepicker_no_files_selected">"Файлы не выбраны"</string>
-    <string name="filepicker_one_file_selected">"Выбран один файл"</string>
-    <string name="filepicker_some_files_selected">"файл(ов) выбрано"</string>
-    <string name="remove">"Удалить"</string>
-    <string name="local_storage">"Сохранение в памяти"</string>
-    <string name="allowed">"Разрешенные"</string>
-    <string name="denied">"Запрещено"</string>
-    <string name="unrecognized_dialog_message">"Неизвестный тип диалога"</string>
-    <string name="default_button">"ОК"</string>
     <string name="zoom_overview_button_text">"Обзор"</string>
 </resources>

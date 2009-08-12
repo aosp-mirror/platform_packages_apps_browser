@@ -169,12 +169,6 @@
     <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
     <skip />
     <string name="pref_extras_title">"Σύνθετες ρυθμίσεις"</string>
-    <string name="pref_extras_gears_enable">"Ενεργοποίηση Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"Εφαρμογές που επεκτείνουν τις δυνατότητες του προγράμματος περιήγησης"</string>
-    <string name="pref_extras_gears_settings">"Ρυθμίσεις Gears"</string>
-    <string name="pref_plugin_installed">"Λίστα προσθηκών"</string>
-    <string name="pref_plugin_installed_empty_list">"Δεν υπάρχουν εγκατεστημένες προσθήκες."</string>
-    <string name="pref_extras_gears_settings_summary">"Εφαρμογές που επεκτείνουν τις δυνατότητες του προγράμματος περιήγησης"</string>
     <string name="pref_extras_reset_default">"Επαναφορά προεπιλογών"</string>
     <string name="pref_extras_reset_default_summary">"Εκκαθάριση όλων των δεδομένων του προγράμματος περιήγησης και επαναφορά όλων των ρυθμίσεων στις προεπιλεγμένες ρυθμίσεις"</string>
     <string name="pref_extras_reset_default_dlg">"Θα γίνει εκκαθάριση όλων των δεδομένων του προγράμματος περιήγησης και επαναφορά των ρυθμίσεων στις προεπιλεγμένες τιμές."</string>
@@ -253,51 +247,5 @@
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
-    <string name="query_data_prompt">"Να επιτρέπεται η αποθήκευση"</string>
-    <string name="query_data_message">"Αυτός ο ιστότοπος θέλει να αποθηκεύσει πληροφορίες στο τηλέφωνό σας."</string>
-    <string name="location_prompt">"Πρόσβαση στην τοποθεσία σας"</string>
-    <string name="location_message">"Αυτός ο ιστότοπος θέλει να αποκτήσει πρόσβαση στην τοποθεσία σας."</string>
-    <string name="shortcut_prompt">"Δημιουργία συντόμευσης"</string>
-    <string name="shortcut_message">"Αυτός ο ιστότοπος θέλει να δημιουργήσει μια συντόμευση αυτής της σελίδας στην αρχική σας οθόνη."</string>
-    <string name="settings_message">"Ο παρακάτω πίνακας εμφανίζει τα δικαιώματα που έχετε παραχωρήσει σε κάθε ιστότοπο που προσπάθησε να χρησιμοποιήσει το Gears."</string>
-    <string name="filepicker_message">"Πρόγραμμα επιλογής αρχείων"</string>
-    <string name="image_message">"Επιλεγμένη εικόνα"</string>
-    <string name="settings_title">"Ρυθμίσεις Gears"</string>
-    <string name="privacy_policy">"Διαβάστε την πολιτική απορρήτου αυτού του ιστότοπου για να μάθετε πώς θα χρησιμοποιηθεί η τοποθεσία σας."</string>
-    <string name="settings_storage_title">"Να επιτρέπεται η τοπική αποθήκευση"</string>
-    <string name="settings_storage_subtitle_on">"Αυτός ο ιστότοπος μπορεί να αποθηκεύσει πληροφορίες στο τηλέφωνό σας"</string>
-    <string name="settings_storage_subtitle_off">"Αυτός ο ιστότοπος δεν μπορεί να αποθηκεύσει πληροφορίες στο τηλέφωνό σας"</string>
-    <string name="settings_location_title">"Να επιτρέπεται ο εντοπισμός τοποθεσίας"</string>
-    <string name="settings_location_subtitle_on">"Είναι δυνατή η ανάγνωση της τοποθεσίας σας από αυτόν τον ιστότοπο"</string>
-    <string name="settings_location_subtitle_off">"Δεν είναι δυνατή η ανάγνωση της τοποθεσίας σας από αυτόν τον ιστότοπο"</string>
-    <string name="settings_remove_site">"Κατάργηση αυτού του ιστότοπου από το Gears"</string>
-    <string name="settings_empty">"Δεν έχουν οριστεί δικαιώματα"</string>
-    <string name="settings_confirmation_remove_title">"Κατάργηση αυτού του ιστότοπου"</string>
-    <string name="settings_confirmation_remove">"Θα γίνει εκκαθάριση όλων των δικαιωμάτων και τα δεδομένα που έχουν αποθηκευτεί στο τηλέφωνό σας από τον ιστότοπο, θα διαγραφούν."</string>
-    <string name="storage_notification">"Αυτός ο ιστότοπος θα αποθηκεύσει πληροφορίες στο τηλέφωνό σας."\n" Αλλάξτε αυτήν τη ρύθμιση στο μενού:"\n" Ρυθμίσεις -&gt; Ρυθμίσεις Gears"</string>
-    <string name="storage_notification_alwaysdeny">"Αυτός ο ιστότοπος δεν θα αποθηκεύσει ποτέ πληροφορίες στο τηλέφωνό σας."\n" Αλλάξτε αυτήν τη ρύθμιση στο μενού:"\n" Ρυθμίσεις -&gt; Ρυθμίσεις Gears"</string>
-    <string name="location_notification">"Αυτός ο ιστότοπος μπορεί να αποκτήσει πρόσβαση στην τρέχουσα τοποθεσία σας."\n" Αλλάξτε αυτήν τη ρύθμιση στο μενού:"\n" Ρυθμίσεις -&gt; Ρυθμίσεις Gears"</string>
-    <string name="location_notification_alwaysdeny">"Αυτός ο ιστότοπος δεν θα έχει πρόσβαση στην τοποθεσία σας."\n" Αλλάξτε αυτήν τη ρύθμιση από το μενού:"\n" Ρυθμίσεις -&gt; Ρυθμίσεις Gears"</string>
-    <string name="shortcut_notification">"Η συντόμευση δημιουργήθηκε"</string>
-    <string name="permission_button_alwaysdeny">"Να μην επιτρέπεται ποτέ"</string>
-    <string name="permission_button_allow">"OK"</string>
-    <string name="permission_button_deny">"Ακύρωση"</string>
-    <string name="shortcut_button_alwaysdeny">"Να μην επιτρέπεται ποτέ"</string>
-    <string name="shortcut_button_allow">"OK"</string>
-    <string name="shortcut_button_deny">"Ακύρωση"</string>
-    <string name="settings_button_allow">"Εφαρμογή"</string>
-    <string name="settings_button_deny">"Ακύρωση"</string>
-    <string name="filepicker_button_allow">"OK"</string>
-    <string name="filepicker_button_deny">"Ακύρωση"</string>
-    <string name="filepicker_path">"διαδρομή:"</string>
-    <string name="filepicker_no_files_selected">"Δεν έχουν επιλεχθεί αρχεία"</string>
-    <string name="filepicker_one_file_selected">"Επιλέχθηκε ένα αρχείο"</string>
-    <string name="filepicker_some_files_selected">"επιλεγμένα αρχεία"</string>
-    <string name="remove">"Κατάργηση"</string>
-    <string name="local_storage">"Τοπικός χώρος αποθήκευσης"</string>
-    <string name="allowed">"Επιτρέπεται"</string>
-    <string name="denied">"Απορρίφθηκε"</string>
-    <string name="unrecognized_dialog_message">"Άγνωστος τύπος πλαισίου διαλόγου"</string>
-    <string name="default_button">"OK"</string>
     <string name="zoom_overview_button_text">"Επισκόπηση"</string>
 </resources>
