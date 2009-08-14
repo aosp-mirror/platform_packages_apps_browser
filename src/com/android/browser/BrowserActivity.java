@@ -1657,6 +1657,9 @@ public class BrowserActivity extends Activity
             }
             removeTabFromContentView(currentTab);
             attachTabToContentView(tab);
+            // We must set the new tab as the current tab to reflect the old
+            // animation behavior.
+            mTabControl.setCurrentTab(tab);
             if (urlData.isEmpty()) {
                 bookmarksOrHistoryPicker(false);
             } else {
