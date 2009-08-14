@@ -24,7 +24,7 @@
             android:alphabeticShortcut="r" />
         <item android:id="@+id/add_bookmark_menu_id"
             android:title="@string/save_to_bookmarks"
-            android:icon="@drawable/ic_dialog_bookmark" />
+            android:icon="@drawable/ic_menu_bookmark" />
         <item android:id="@+id/back_menu_id"
             android:title="@string/back"
             android:drawable="@*android:drawable/ic_menu_back"
