@@ -194,7 +194,7 @@ public class TitleBarSet extends Gallery
                 mBrowserActivity.closeCurrentWindow();
             }
         } else {
-            mBrowserActivity.bookmarksOrHistoryPicker(false);
+            mBrowserActivity.bookmarksOrHistoryPicker(false, false);
         }
         return true;
     }
@@ -228,6 +228,7 @@ public class TitleBarSet extends Gallery
         View.OnClickListener listener = new View.OnClickListener() {
             public void onClick(View v) {
                 ba.openTabAndShow(BrowserActivity.EMPTY_URL_DATA, false, null);
+                ba.bookmarksOrHistoryPicker(false, true);
             }
         };
         mNewButton.findViewById(R.id.button).setOnClickListener(listener);

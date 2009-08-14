@@ -481,7 +481,7 @@ public class BrowserActivity extends Activity
             }
 
             if (urlData.isEmpty()) {
-                bookmarksOrHistoryPicker(false);
+                bookmarksOrHistoryPicker(false, true);
             } else {
                 if (extra != null) {
                     urlData.setPostData(extra
@@ -1212,12 +1212,17 @@ public class BrowserActivity extends Activity
     /**
      * Switch tabs.  Called by the TitleBarSet when sliding the title bar
      * results in changing tabs.
+     * @param index Index of the tab to change to, as defined by
+     *              mTabControl.getTabIndex(Tab t).
+     * @return boolean True if we successfully switched to a different tab.  If
+     *                 the indexth tab is null, or if that tab is the same as
+     *                 the current one, return false.
      */
-    /* package */ void switchToTab(int index) {
+    /* package */ boolean switchToTab(int index) {
         TabControl.Tab tab = mTabControl.getTab(index);
         TabControl.Tab currentTab = mTabControl.getCurrentTab();
         if (tab == null || tab == currentTab) {
-            return;
+            return false;
         }
         if (currentTab != null) {
             // currentTab may be null if it was just removed.  In that case,
@@ -1227,28 +1232,38 @@ public class BrowserActivity extends Activity
         removeTabFromContentView(tab);
         mTabControl.setCurrentTab(tab);
         attachTabToContentView(tab);
+        return true;
     }
 
     /* package */ void closeCurrentWindow() {
-        final int currentIndex = mTabControl.getCurrentIndex();
         final TabControl.Tab current = mTabControl.getCurrentTab();
+        if (mTabControl.getTabCount() == 1) {
+            // This is the last tab.  Open a new one, as well as the history
+            // picker, and close the current one.
+            TabControl.Tab newTab = openTabAndShow(
+                    BrowserActivity.EMPTY_URL_DATA, false, null);
+            bookmarksOrHistoryPicker(false, true);
+            closeTab(current);
+            mTabControl.setCurrentTab(newTab);
+            return;
+        }
         final TabControl.Tab parent = current.getParentTab();
-        // FIXME: With the new tabbed title bar, we will want to move to the
-        // next tab to the right
         int indexToShow = -1;
         if (parent != null) {
             indexToShow = mTabControl.getTabIndex(parent);
         } else {
-            // Get the last tab in the list. If it is the current tab,
-            // subtract 1 more.
-            indexToShow = mTabControl.getTabCount() - 1;
-            if (currentIndex == indexToShow) {
-                indexToShow--;
+            final int currentIndex = mTabControl.getCurrentIndex();
+            // Try to move to the tab to the right
+            indexToShow = currentIndex + 1;
+            if (indexToShow > mTabControl.getTabCount() - 1) {
+                // Try to move to the tab to the left
+                indexToShow = currentIndex - 1;
             }
         }
-        switchToTab(indexToShow);
-        // Close window
-        closeTab(current);
+        if (switchToTab(indexToShow)) {
+            // Close window
+            closeTab(current);
+        }
     }
 
     @Override
@@ -1271,7 +1286,7 @@ public class BrowserActivity extends Activity
         switch (item.getItemId()) {
             // -- Main menu
             case R.id.goto_menu_id:
-                bookmarksOrHistoryPicker(false);
+                bookmarksOrHistoryPicker(false, false);
                 break;
 
             case R.id.add_bookmark_menu_id:
@@ -1339,7 +1354,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.classic_history_menu_id:
-                bookmarksOrHistoryPicker(true);
+                bookmarksOrHistoryPicker(true, false);
                 break;
 
             case R.id.share_page_menu_id:
@@ -1660,9 +1675,7 @@ public class BrowserActivity extends Activity
             // We must set the new tab as the current tab to reflect the old
             // animation behavior.
             mTabControl.setCurrentTab(tab);
-            if (urlData.isEmpty()) {
-                bookmarksOrHistoryPicker(false);
-            } else {
+            if (!urlData.isEmpty()) {
                 urlData.loadIn(webview);
             }
             return tab;
@@ -1672,8 +1685,6 @@ public class BrowserActivity extends Activity
             if (!urlData.isEmpty()) {
                 // Load the given url.
                 urlData.loadIn(currentTab.getWebView());
-            } else {
-                bookmarksOrHistoryPicker(false);
             }
         }
         return currentTab;
@@ -1991,7 +2002,7 @@ public class BrowserActivity extends Activity
                 return KeyTracker.State.DONE_TRACKING;
             }
             if (stage == KeyTracker.Stage.LONG_REPEAT) {
-                bookmarksOrHistoryPicker(true);
+                bookmarksOrHistoryPicker(true, false);
                 return KeyTracker.State.DONE_TRACKING;
             } else if (stage == KeyTracker.Stage.UP) {
                 // FIXME: Currently, we do not have a notion of the
@@ -3819,12 +3830,25 @@ public class BrowserActivity extends Activity
                             getTopWindow().loadUrl(data);
                         }
                     }
+                } else if (resultCode == RESULT_CANCELED
+                        && mCancelGoPageMeansClose) {
+                    if (mTabControl.getTabCount() == 1) {
+                        // finish the Browser.  When the Browser opens up again,
+                        // we will go through onCreate and once again open up
+                        // the Go page.
+                        finish();
+                        return;
+                    }
+                    closeCurrentWindow();
                 }
                 break;
             default:
                 break;
         }
-        getTopWindow().requestFocus();
+        mCancelGoPageMeansClose = false;
+        if (getTopWindow() != null) {
+            getTopWindow().requestFocus();
+        }
     }
 
     /*
@@ -3840,7 +3864,20 @@ public class BrowserActivity extends Activity
 
     }
 
-    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory) {
+    // True if canceling the "Go" screen should result in closing the current
+    // window/browser.
+    private boolean mCancelGoPageMeansClose;
+
+    /**
+     * Open the Go page.
+     * @param startWithHistory If true, open starting on the history tab.
+     *                         Otherwise, start with the bookmarks tab.
+     * @param cancelGoPageMeansClose Set to true if this came from a new tab, or
+     *                               from the only tab, and canceling means to
+     *                               close the tab (and possibly the browser)
+     */
+    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory,
+            boolean cancelGoPageMeansClose) {
         WebView current = mTabControl.getCurrentWebView();
         if (current == null) {
             return;
@@ -3871,6 +3908,7 @@ public class BrowserActivity extends Activity
             intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_TAB,
                     CombinedBookmarkHistoryActivity.HISTORY_TAB);
         }
+        mCancelGoPageMeansClose = cancelGoPageMeansClose;
         startActivityForResult(intent, COMBO_PAGE);
     }
 
