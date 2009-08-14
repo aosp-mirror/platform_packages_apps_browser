@@ -154,9 +154,11 @@ public class TitleBarSet extends Gallery
      */
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        int selection = getSelectedItemPosition();
         // Need to make sure getView gets called again
-        // FIXME: This didn't seem to work
         setAdapter(mTitleAdapter);
+        // Stay on the same tab
+        setCurrentTab(selection);
     }
 
     /**
