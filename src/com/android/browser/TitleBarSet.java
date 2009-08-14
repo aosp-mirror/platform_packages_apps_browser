@@ -192,7 +192,7 @@ public class TitleBarSet extends Gallery
                 mBrowserActivity.closeCurrentWindow();
             }
         } else {
-            mBrowserActivity.onSearchRequested();
+            mBrowserActivity.bookmarksOrHistoryPicker(false);
         }
         return true;
     }
