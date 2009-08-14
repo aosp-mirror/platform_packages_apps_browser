@@ -134,15 +134,25 @@ public class BrowserBookmarksPage extends Activity implements
             break;
         // Only for the Most visited page
         case R.id.save_to_bookmarks_menu_id:
-            HistoryItem historyItem = ((HistoryItem) i.targetView);
+            boolean isBookmark;
+            String name;
+            String url;
+            if (mGridMode) {
+                isBookmark = mBookmarksAdapter.getIsBookmark(i.position);
+                name = mBookmarksAdapter.getTitle(i.position);
+                url = mBookmarksAdapter.getUrl(i.position);
+            } else {
+                HistoryItem historyItem = ((HistoryItem) i.targetView);
+                isBookmark = historyItem.isBookmark();
+                name = historyItem.getName();
+                url = historyItem.getUrl();
+            }
             // If the site is bookmarked, the item becomes remove from
             // bookmarks.
-            if (historyItem.isBookmark()) {
-                Bookmarks.removeFromBookmarks(this, getContentResolver(),
-                            historyItem.getUrl());
+            if (isBookmark) {
+                Bookmarks.removeFromBookmarks(this, getContentResolver(), url);
             } else {
-                Browser.saveBookmark(this, historyItem.getName(),
-                        historyItem.getUrl());
+                Browser.saveBookmark(this, name, url);
             }
             break;
         default:
