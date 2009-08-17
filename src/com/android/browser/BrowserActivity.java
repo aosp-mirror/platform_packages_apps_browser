@@ -3811,8 +3811,6 @@ public class BrowserActivity extends Activity
                                 mTitleBar.setCurrentTab(newIndex);
                             }
                         }
-                    } else if (intent.getBooleanExtra("open_search", false)) {
-                        onSearchRequested();
                     } else {
                         final TabControl.Tab currentTab =
                                 mTabControl.getCurrentTab();
