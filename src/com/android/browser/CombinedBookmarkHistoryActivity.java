@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.app.TabActivity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -82,13 +83,21 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         setContentView(R.layout.tabs);
 
         TextView searchBar = (TextView) findViewById(R.id.search);
-        searchBar.setText(getIntent().getStringExtra("url"));
+        String url = getIntent().getStringExtra("url");
+        // Check to see if the current page is the homepage.
+        // This works without calling loadFromDb because BrowserActivity has
+        // already done it for us.
+        if (BrowserSettings.getInstance().getHomePage().equals(url)) {
+            url = null;
+        }
+        searchBar.setText(url);
+        final String pageUrl = url;
         searchBar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent openSearchIntent = new Intent();
-                openSearchIntent.putExtra("open_search", true);
-                setResult(RESULT_OK, openSearchIntent);
-                finish();
+                Bundle bundle = new Bundle();
+                bundle.putString(SearchManager.SOURCE,
+                        BrowserActivity.GOOGLE_SEARCH_SOURCE_SEARCHKEY);
+                startSearch(pageUrl, true, bundle, false);
             }
         });
 
