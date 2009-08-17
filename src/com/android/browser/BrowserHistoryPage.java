@@ -61,7 +61,7 @@ import java.util.Vector;
 public class BrowserHistoryPage extends ExpandableListActivity {
     private HistoryAdapter          mAdapter;
     private DateSorter              mDateSorter;
-    private boolean                 mMaxTabsOpen;
+    private boolean                 mDisableNewWindow;
     private HistoryItem             mContextHeader;
 
     private final static String LOGTAG = "browser";
@@ -129,7 +129,8 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 }
             });
         }
-        mMaxTabsOpen = getIntent().getBooleanExtra("maxTabsOpen", false);
+        mDisableNewWindow = getIntent().getBooleanExtra("disable_new_window",
+                false);
         CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
                 .addListener(mIconReceiver);
         
@@ -193,9 +194,10 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         historyItem.copyTo(mContextHeader);
         menu.setHeaderView(mContextHeader);
 
-        // Only show open in new tab if we have not maxed out available tabs
-        menu.findItem(R.id.new_window_context_menu_id).setVisible(!mMaxTabsOpen);
-        
+        // Only show open in new tab if it was not explicitly disabled
+        if (mDisableNewWindow) {
+            menu.findItem(R.id.new_window_context_menu_id).setVisible(false);
+        }
         // For a bookmark, provide the option to remove it from bookmarks
         if (historyItem.isBookmark()) {
             MenuItem item = menu.findItem(R.id.save_to_bookmarks_menu_id);
