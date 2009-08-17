@@ -3901,8 +3901,11 @@ public class BrowserActivity extends Activity
         }
         intent.putExtra("title", title);
         intent.putExtra("url", url);
-        intent.putExtra("maxTabsOpen",
-                mTabControl.getTabCount() >= TabControl.MAX_TABS);
+        // If this is opening in a new window, then disable opening in a
+        // (different) new window.  Also disable it if we have maxed out the
+        // windows.
+        intent.putExtra("disable_new_window", cancelGoPageMeansClose
+                || mTabControl.getTabCount() >= TabControl.MAX_TABS);
         intent.putExtra("touch_icon_url", current.getTouchIconUrl());
         if (startWithHistory) {
             intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_TAB,

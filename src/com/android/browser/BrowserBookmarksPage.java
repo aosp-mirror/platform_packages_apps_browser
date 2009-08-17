@@ -64,7 +64,7 @@ public class BrowserBookmarksPage extends Activity implements
     private View                    mVerticalList;
     private BrowserBookmarksAdapter mBookmarksAdapter;
     private static final int        BOOKMARKS_SAVE = 1;
-    private boolean                 mMaxTabsOpen;
+    private boolean                 mDisableNewWindow;
     private BookmarkItem            mContextHeader;
     private AddNewBookmark          mAddHeader;
     private boolean                 mCanceled = false;
@@ -197,7 +197,7 @@ public class BrowserBookmarksPage extends Activity implements
                 // The historycontext menu has no ADD_MENU group.
                 menu.setGroupVisible(R.id.ADD_MENU, false);
             }
-            if (mMaxTabsOpen) {
+            if (mDisableNewWindow) {
                 menu.findItem(R.id.new_window_context_menu_id).setVisible(
                         false);
             }
@@ -227,7 +227,8 @@ public class BrowserBookmarksPage extends Activity implements
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             mCreateShortcut = true;
         }
-        mMaxTabsOpen = getIntent().getBooleanExtra("maxTabsOpen", false);
+        mDisableNewWindow = getIntent().getBooleanExtra("disable_new_window",
+                false);
         mMostVisited = getIntent().getBooleanExtra("mostVisited", false);
 
         if (mCreateShortcut) {
