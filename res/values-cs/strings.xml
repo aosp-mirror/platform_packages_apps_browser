@@ -84,7 +84,7 @@
     <string name="new_window" msgid="8117889615360211551">"Nové okno"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Přejít"</string>
     <string name="find_dot" msgid="6259312434696611957">"Vyhledat na stránce"</string>
-    <string name="select_dot" msgid="6299170761900561967">"Označit text"</string>
+    <string name="select_dot" msgid="6299170761900561967">"Vybrat text"</string>
     <string name="view_tabs" msgid="1119097492003550564">"Přehled okna"</string>
     <string name="view_tabs_condensed" msgid="5803955493821945369">"Okna"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Aktuální okna"</string>
@@ -117,7 +117,7 @@
     <string name="menu_preferences" msgid="6709237687234102240">"Nastavení"</string>
     <string name="pref_content_title" msgid="722227111894838633">"Nastavení obsahu stránky"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Načítat obrázky"</string>
-    <string name="pref_content_load_images_summary" msgid="5149716777459747214">"Zobrazovat obrázky na webových stránkách"</string>
+    <string name="pref_content_load_images_summary" msgid="5149716777459747214">"Zobrazovat na webových stránkách obrázky"</string>
     <string name="pref_content_block_popups" msgid="7808433807197256726">"Blokovat vyskakovací okna"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Povolit JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Otevřít na pozadí"</string>
@@ -130,7 +130,7 @@
     <string name="pref_privacy_clear_cache_summary" msgid="2969532045347184968">"Smazat veškerý obsah stránek z mezipaměti"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4791302446488696772">"Mezipaměť bude vymazána."</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Vymazat všechny soubory cookie"</string>
-    <string name="pref_privacy_clear_cookies_summary" msgid="8602064521480657942">"Vymazat všechny soubory cookie prohlížeče"</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="8602064521480657942">"Vymazat všechny cookies"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="5399971428430900904">"Všechny soubory cookie budou smazány."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Vymazat historii"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Vymazat historii stránek prohlížeče"</string>
@@ -152,18 +152,18 @@
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Povolit webům ukládat a číst soubory cookie"</string>
     <string name="pref_text_size" msgid="3827031324346612208">"Velikost textu"</string>
   <string-array name="pref_text_size_choices">
-    <item msgid="4952686548944739548">"Velmi malé"</item>
-    <item msgid="1950030433642671460">"Malé"</item>
-    <item msgid="4338347520133294584">"Běžné"</item>
-    <item msgid="5043128215356351184">"Velké"</item>
-    <item msgid="7201512237890458902">"Velmi velké"</item>
+    <item msgid="4952686548944739548">"Velmi malý"</item>
+    <item msgid="1950030433642671460">"Malý"</item>
+    <item msgid="4338347520133294584">"Normální"</item>
+    <item msgid="5043128215356351184">"Velký"</item>
+    <item msgid="7201512237890458902">"Velmi velký"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Velikost textu"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Výchozí přiblížení"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Daleko"</item>
     <item msgid="5619034257768161024">"Střední"</item>
-    <item msgid="3840999588443167001">"Zavřít"</item>
+    <item msgid="3840999588443167001">"Blízko"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Výchozí přiblížení"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Upřesnit nastavení"</string>
