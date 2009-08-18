@@ -1972,7 +1972,17 @@ public class BrowserActivity extends Activity
                     }
                     // call pauseWebViewTimers() now, we won't be able to call
                     // it in onPause() as the WebView won't be valid.
+                    // Temporarily change mActivityInPause to be true as
+                    // pauseWebViewTimers() will do nothing if mActivityInPause
+                    // is false.
+                    boolean savedState = mActivityInPause;
+                    if (savedState) {
+                        Log.e(LOGTAG, "BrowserActivity is already paused "
+                                + "while handing goBackOnePageOrQuit.");
+                    }
+                    mActivityInPause = true;
                     pauseWebViewTimers();
+                    mActivityInPause = savedState;
                     removeTabFromContentView(current);
                     mTabControl.removeTab(current);
                 }
