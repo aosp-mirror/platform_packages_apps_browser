@@ -1232,6 +1232,9 @@ public class BrowserActivity extends Activity
         removeTabFromContentView(tab);
         mTabControl.setCurrentTab(tab);
         attachTabToContentView(tab);
+        if (CUSTOM_BROWSER_BAR) {
+            mTitleBar.setCurrentTab(index);
+        }
         return true;
     }
 
@@ -1393,7 +1396,6 @@ public class BrowserActivity extends Activity
                             if (desiredTab != null &&
                                     desiredTab != mTabControl.getCurrentTab()) {
                                 switchToTab(id);
-                                mTitleBar.setCurrentTab(id);
                             }
                             break;
                         }
@@ -1933,7 +1935,9 @@ public class BrowserActivity extends Activity
      * Close the tab after removing its associated title bar.
      */
     private void closeTab(TabControl.Tab t) {
-        mTitleBar.removeTab(mTabControl.getTabIndex(t));
+        if (CUSTOM_BROWSER_BAR) {
+            mTitleBar.removeTab(mTabControl.getTabIndex(t));
+        }
         mTabControl.removeTab(t);
     }
 
