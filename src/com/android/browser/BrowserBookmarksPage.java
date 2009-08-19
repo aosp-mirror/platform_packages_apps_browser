@@ -441,9 +441,10 @@ public class BrowserBookmarksPage extends Activity implements
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mBookmarksAdapter.getCount() == 0) {
+        boolean result = super.onPrepareOptionsMenu(menu);
+        if (mCreateShortcut || mBookmarksAdapter.getCount() == 0) {
             // No need to show the menu if there are no items.
-            return false;
+            return result;
         }
         menu.findItem(R.id.switch_mode_menu_id).setTitle(
                 mGridMode ? R.string.switch_to_list
