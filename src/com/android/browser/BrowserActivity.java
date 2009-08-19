@@ -3844,6 +3844,12 @@ public class BrowserActivity extends Activity
                             getTopWindow().loadUrl(data);
                         }
                     }
+/*
+                FIXME: Removing this breaks the behavior of pressing BACK from
+                the Go page resulting in the window being closed.  However, it
+                needs to be removed so that the user can use the Search bar to
+                enter a URL.  Further, the Go behavior is going to change
+                drastically, so this behavior may not last anyway.
                 } else if (resultCode == RESULT_CANCELED
                         && mCancelGoPageMeansClose) {
                     if (mTabControl.getTabCount() == 1) {
@@ -3854,6 +3860,7 @@ public class BrowserActivity extends Activity
                         return;
                     }
                     closeCurrentWindow();
+*/
                 }
                 break;
             default:
