@@ -593,8 +593,11 @@ public class BrowserActivity extends Activity
                     // No matching application tab, try to find a regular tab
                     // with a matching url.
                     appTab = mTabControl.findUnusedTabWithUrl(urlData.mUrl);
-                    if (appTab != null && current != appTab) {
-                        switchToTab(mTabControl.getTabIndex(appTab));
+                    if (appTab != null) {
+                        if (current != appTab) {
+                            switchToTab(mTabControl.getTabIndex(appTab));
+                        }
+                        // Otherwise, we are already viewing the correct tab.
                     } else {
                         // if FLAG_ACTIVITY_BROUGHT_TO_FRONT flag is on, the url
                         // will be opened in a new tab unless we have reached
