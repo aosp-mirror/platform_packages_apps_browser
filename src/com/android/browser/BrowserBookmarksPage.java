@@ -238,9 +238,11 @@ public class BrowserBookmarksPage extends Activity implements
                         getIntent().getStringExtra("url"),
                         getIntent().getStringExtra("title"), mCreateShortcut,
                         mMostVisited);
-        if (mMostVisited) {
-            mEmptyView = new ViewStub(this, R.layout.empty_history);
-        }
+
+        setContentView(R.layout.empty_history);
+        mEmptyView = findViewById(R.id.empty_view);
+        mEmptyView.setVisibility(View.GONE);
+
         switchViewMode(true);
     }
 
@@ -271,15 +273,16 @@ public class BrowserBookmarksPage extends Activity implements
                     mGridPage.setOnCreateContextMenuListener(this);
                 }
             }
-            setContentView(mGridPage);
+            addContentView(mGridPage, FULL_SCREEN_PARAMS);
+            if (mVerticalList != null) {
+                ViewGroup parent = (ViewGroup) mVerticalList.getParent();
+                if (parent != null) {
+                    parent.removeView(mVerticalList);
+                }
+            }
         } else {
             if (null == mVerticalList) {
-                LayoutInflater factory = LayoutInflater.from(this);
-                mVerticalList = factory.inflate(R.layout.browser_bookmarks_page,
-                        null);
-
-                ListView listView
-                        = (ListView) mVerticalList.findViewById(R.id.list);
+                ListView listView = new ListView(this);
                 listView.setAdapter(mBookmarksAdapter);
                 listView.setDrawSelectorOnTop(false);
                 listView.setVerticalScrollBarEnabled(true);
@@ -287,18 +290,25 @@ public class BrowserBookmarksPage extends Activity implements
                 if (mMostVisited) {
                     listView.setEmptyView(mEmptyView);
                 }
-
                 if (!mCreateShortcut) {
                     listView.setOnCreateContextMenuListener(this);
                 }
+                mVerticalList = listView;
             }
-            setContentView(mVerticalList);
-        }
-        if (mMostVisited) {
-            addContentView(mEmptyView, new LayoutParams(
-                    LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+            addContentView(mVerticalList, FULL_SCREEN_PARAMS);
+            if (mGridPage != null) {
+                ViewGroup parent = (ViewGroup) mGridPage.getParent();
+                if (parent != null) {
+                    parent.removeView(mGridPage);
+                }
+            }
         }
     }
+
+    private static final ViewGroup.LayoutParams FULL_SCREEN_PARAMS
+            = new ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.FILL_PARENT,
+            ViewGroup.LayoutParams.FILL_PARENT);
 
     private static final int SAVE_CURRENT_PAGE = 1000;
     private final Handler mHandler = new Handler() {
