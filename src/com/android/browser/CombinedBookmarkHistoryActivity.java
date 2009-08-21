@@ -20,18 +20,23 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.app.TabActivity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.Browser;
+import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.webkit.WebIconDatabase.IconListener;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.Window;
 
 import java.util.HashMap;
 import java.util.Vector;
@@ -76,30 +81,81 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         return sIconListenerSet;
     }
 
+    /**
+     * This class is here solely to override dispatchKeyEventPreIme, which,
+     * when called on our TextView in the search bar, attempts to access its
+     * SearchDialog.  It does not have one, so it crashes.
+     */
+    public static class CustomViewGroup extends LinearLayout {
+        public CustomViewGroup(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        public boolean dispatchKeyEventPreIme(KeyEvent event) {
+            return false;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.tabs);
 
-        TextView searchBar = (TextView) findViewById(R.id.search);
+        LayoutInflater factory = LayoutInflater.from(this);
+        View search = factory.inflate(com.android.internal.R.layout.search_bar,
+                null);
+        View searchPlate = search.findViewById(
+                com.android.internal.R.id.search_plate);
+        // FIXME: There is some extra space at the top for some reason.
+        searchPlate.setPadding(12, 0, 12, 16);
+        // FIXME: Also want to remove this from the real search box in the
+        // browser.
+        View voiceButton = search.findViewById(
+                com.android.internal.R.id.search_voice_btn);
+        voiceButton.setVisibility(View.GONE);
+        final TextView go = (TextView) search.findViewById(
+                com.android.internal.R.id.search_go_btn);
+        go.setText(R.string.search_button_text);
+        View appIcon = search.findViewById(
+                com.android.internal.R.id.search_app_icon);
+        appIcon.setVisibility(View.GONE);
+
+        final ViewGroup holder = (ViewGroup) findViewById(R.id.holder);
+        holder.addView(search, 0);
+
+        final TextView entryField = (TextView) search.findViewById(
+                com.android.internal.R.id.search_src_text);
+
         String url = getIntent().getStringExtra("url");
         // Check to see if the current page is the homepage.
         // This works without calling loadFromDb because BrowserActivity has
         // already done it for us.
         if (BrowserSettings.getInstance().getHomePage().equals(url)) {
             url = null;
+            entryField.setHint(R.string.search_hint);
+        } else {
+            entryField.setText(url);
         }
-        searchBar.setText(url);
         final String pageUrl = url;
-        searchBar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString(SearchManager.SOURCE,
-                        BrowserActivity.GOOGLE_SEARCH_SOURCE_SEARCHKEY);
-                startSearch(pageUrl, true, bundle, false);
-            }
-        });
+        entryField.setFocusableInTouchMode(false);
+        entryField.setFocusable(false);
+        go.setFocusableInTouchMode(false);
+        go.setFocusable(false);
+        View.OnClickListener listener = new View.OnClickListener() {
+                public void onClick(View v) {
+                    if (v == entryField || go == v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(SearchManager.SOURCE,
+                                BrowserActivity.GOOGLE_SEARCH_SOURCE_SEARCHKEY);
+                        startSearch(pageUrl, true, bundle, false);
+                    }
+                }};
+        entryField.setOnClickListener(listener);
+        // FIXME: Maybe "Go" should just go, even though it is the site you
+        // are already on
+        go.setOnClickListener(listener);
 
         getTabHost().setOnTabChangedListener(this);
 

@@ -13,17 +13,13 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+    class="com.android.browser.CombinedBookmarkHistoryActivity$CustomViewGroup"
+    android:id="@+id/holder"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <TextView android:id="@+id/search"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/search"
-        android:singleLine="true"
-        />
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
@@ -49,4 +45,4 @@
             />
         </LinearLayout>
     </TabHost>
-</LinearLayout>
+</view>
