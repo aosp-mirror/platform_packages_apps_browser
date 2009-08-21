@@ -359,9 +359,6 @@ class BrowserSettings extends Observable {
         domStorageEnabled = p.getBoolean("enable_domstorage", domStorageEnabled);
         geolocationEnabled = p.getBoolean("enable_geolocation", geolocationEnabled);
         workersEnabled = p.getBoolean("enable_workers", workersEnabled);
-        // HTML 5 configuration params
-        appCachePath = p.getString("appcache_path", appCachePath);
-        databasePath = p.getString("database_path", databasePath);
 
         update();
     }
