@@ -1237,6 +1237,8 @@ public class BrowserActivity extends Activity
         attachTabToContentView(tab);
         if (CUSTOM_BROWSER_BAR) {
             mTitleBar.setCurrentTab(index);
+            WebView view = tab.getWebView();
+            view.slideIntoFocus();
         }
         return true;
     }
@@ -2298,6 +2300,9 @@ public class BrowserActivity extends Activity
             CookieSyncManager.getInstance().resetSync();
 
             mInLoad = true;
+            if (CUSTOM_BROWSER_BAR) {
+                mTitleBar.setVisibility(View.VISIBLE);
+            }
             updateInLoadMenuItems();
             if (!mIsNetworkUp) {
                 if ( mAlertDialog == null) {
@@ -2854,16 +2859,23 @@ public class BrowserActivity extends Activity
         }
 
         @Override
-        public void onChangeViewingMode(boolean toZoomedOut) {
-            if (!CUSTOM_BROWSER_BAR) {
+        public void onChangeViewingMode(WebView view, int newViewingMode) {
+            if (!CUSTOM_BROWSER_BAR || view != getTopWindow()) {
                 return;
             }
-            if (toZoomedOut) {
-                // FIXME: animate the title bar into view
+            switch (newViewingMode) {
+            case WebView.NO_VIEWING_MODE:
+                break;
+            case WebView.OVERVIEW_MODE:
+            case WebView.READING_MODE_WITH_TITLE_BAR:
+            case WebView.TITLE_BAR_DISMISS_MODE:
                 mTitleBar.setVisibility(View.VISIBLE);
-            } else {
-                // FXIME: animate the title bar out of view
+                break;
+            case WebView.READING_MODE:
                 mTitleBar.setVisibility(View.GONE);
+                break;
+            default:
+                break;
             }
         }
 
