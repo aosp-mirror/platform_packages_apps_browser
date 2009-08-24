@@ -51,7 +51,7 @@ class BrowserYesNoPreference extends YesNoPreference {
                     getKey())) {
                 BrowserSettings.getInstance().resetDefaultPreferences(context);
                 setEnabled(true);
-            } else if (BrowserSettings.PREF_CLEAR_LOCATION_ACCESS.equals(
+            } else if (BrowserSettings.PREF_CLEAR_GEOLOCATION_ACCESS.equals(
                     getKey())) {
                 BrowserSettings.getInstance().clearLocationAccess(context);
             }

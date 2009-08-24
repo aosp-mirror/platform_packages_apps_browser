@@ -133,8 +133,8 @@ class BrowserSettings extends Observable {
     public final static String PREF_DEFAULT_ZOOM = "default_zoom";
     public final static String PREF_DEFAULT_TEXT_ENCODING =
             "default_text_encoding";
-    public final static String PREF_CLEAR_LOCATION_ACCESS =
-            "privacy_clear_location_access";
+    public final static String PREF_CLEAR_GEOLOCATION_ACCESS =
+            "privacy_clear_geolocation_access";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_5_7; en-us) AppleWebKit/530.17 (KHTML, " +
