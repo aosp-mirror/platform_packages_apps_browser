@@ -214,6 +214,7 @@ class BrowserSettings extends Observable {
             s.setDatabaseEnabled(b.databaseEnabled);
             s.setDomStorageEnabled(b.domStorageEnabled);
             s.setWorkersEnabled(b.workersEnabled);  // This only affects V8.
+            s.setGeolocationEnabled(b.geolocationEnabled);
 
             // HTML5 configuration parameters.
             s.setAppCacheMaxSize(b.appCacheMaxSize);
@@ -223,10 +224,6 @@ class BrowserSettings extends Observable {
             // Enable/Disable the error console.
             b.mTabControl.getBrowserActivity().setShouldShowErrorConsole(
                     b.showDebugSettings && b.showConsole);
-
-            // Configure the Geolocation permissions manager to deny all
-            // permission requests if Geolocation is disabled in the browser.
-            // TODO(steveblock): Implement
         }
     }
 
