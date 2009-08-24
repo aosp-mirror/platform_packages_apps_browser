@@ -84,6 +84,7 @@ class BrowserSettings extends Observable {
     private long appCacheMaxSize = Long.MAX_VALUE;
     private String appCachePath;  // default value set in loadFromDb().
     private String databasePath; // default value set in loadFromDb()
+    private String geolocationDatabasePath; // default value set in loadFromDb()
     private WebStorageSizeManager webStorageSizeManager;
 
     private String jsFlags = "";
@@ -220,6 +221,7 @@ class BrowserSettings extends Observable {
             s.setAppCacheMaxSize(b.appCacheMaxSize);
             s.setAppCachePath(b.appCachePath);
             s.setDatabasePath(b.databasePath);
+            s.setGeolocationDatabasePath(b.geolocationDatabasePath);
 
             // Enable/Disable the error console.
             b.mTabControl.getBrowserActivity().setShouldShowErrorConsole(
@@ -253,6 +255,8 @@ class BrowserSettings extends Observable {
         appCacheMaxSize = webStorageSizeManager.getAppCacheMaxSize();
         // Set the default value for the Database path.
         databasePath = ctx.getDir("databases", 0).getPath();
+        // Set the default value for the Geolocation database path.
+        geolocationDatabasePath = ctx.getDir("geolocation", 0).getPath();
 
         homeUrl = getFactoryResetHomeUrl(ctx);
 
