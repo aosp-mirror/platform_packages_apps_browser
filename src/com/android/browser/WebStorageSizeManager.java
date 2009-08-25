@@ -72,17 +72,10 @@ import java.util.Set;
  * sum of all other origins' quota) and deciding if a quota increase for the
  * out-of-space origin is allowed or not.
  *
- * The default quota for an origin is min(ORIGIN_DEFAULT_QUOTA, unused_quota).
+ * The default quota for an origin is its estimated size. If we cannot satisfy
+ * the estimated size, then WebCore will not create the database.
  * Quota increases are done in steps, where the increase step is
  * min(QUOTA_INCREASE_STEP, unused_quota).
- *
- * This approach has the drawback that space may remain unused if there
- * are many websites that store a lot less content than ORIGIN_DEFAULT_QUOTA.
- * We deal with this by picking a value for ORIGIN_DEFAULT_QUOTA that is smaller
- * than what the HTML 5 spec recommends. At the same time, picking a very small
- * value for ORIGIN_DEFAULT_QUOTA may create performance problems since it's
- * more likely for origins to have to rollback and restart transactions as a
- * result of reaching the quota more often.
  *
  * When all the Web storage space is used, the WebStorageSizeManager creates
  * a system notification that will guide the user to the WebSettings UI. There,
@@ -215,8 +208,8 @@ class WebStorageSizeManager {
      *     deny quota has been made. Don't forget to call this!
      */
     public void onExceededDatabaseQuota(String url,
-        String databaseIdentifier, long currentQuota, long totalUsedQuota,
-        WebStorage.QuotaUpdater quotaUpdater) {
+        String databaseIdentifier, long currentQuota, long estimatedSize,
+        long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
         if(LOGV_ENABLED) {
             Log.v(LOGTAG,
                   "Received onExceededDatabaseQuota for "
@@ -252,9 +245,22 @@ class WebStorageSizeManager {
         // We have enough space inside mGlobalLimit.
         long newOriginQuota = currentQuota;
         if (newOriginQuota == 0) {
-            // This is a new origin. It wants an initial quota.
-            newOriginQuota =
-                Math.min(ORIGIN_DEFAULT_QUOTA, totalUnusedQuota);
+            // This is a new origin, give it the size it asked for if possible.
+            // If we cannot satisfy the estimatedSize, we should return 0 as
+            // returning a value less that what the site requested will lead
+            // to webcore not creating the database.
+            if (totalUnusedQuota >= estimatedSize) {
+                newOriginQuota = estimatedSize;
+            } else {
+                if (LOGV_ENABLED) {
+                    Log.v(LOGTAG,
+                          "onExceededDatabaseQuota: Unable to satisfy" +
+                          " estimatedSize for the new database " +
+                          " (estimatedSize: " + estimatedSize +
+                          ", unused quota: " + totalUnusedQuota);
+                }
+                newOriginQuota = 0;
+            }
         } else {
             // This is an origin we have seen before. It wants a quota
             // increase.
@@ -380,3 +386,4 @@ class WebStorageSizeManager {
         }
     }
 }
+
