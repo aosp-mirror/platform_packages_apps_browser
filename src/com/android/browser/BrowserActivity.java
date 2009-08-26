@@ -3088,17 +3088,18 @@ public class BrowserActivity extends Activity
          * @param databaseIdentifier the identifier of the database on
          *     which the transaction that caused the quota overflow was run
          * @param currentQuota the current quota for the origin.
+         * @param estimatedSize the estimated size of the database.
          * @param totalUsedQuota is the sum of all origins' quota.
          * @param quotaUpdater The callback to run when a decision to allow or
          *     deny quota has been made. Don't forget to call this!
          */
         @Override
         public void onExceededDatabaseQuota(String url,
-            String databaseIdentifier, long currentQuota, long totalUsedQuota,
-            WebStorage.QuotaUpdater quotaUpdater) {
+            String databaseIdentifier, long currentQuota, long estimatedSize,
+            long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
             mSettings.getWebStorageSizeManager().onExceededDatabaseQuota(
-                    url, databaseIdentifier, currentQuota, totalUsedQuota,
-                    quotaUpdater);
+                    url, databaseIdentifier, currentQuota, estimatedSize,
+                    totalUsedQuota, quotaUpdater);
         }
 
         /**

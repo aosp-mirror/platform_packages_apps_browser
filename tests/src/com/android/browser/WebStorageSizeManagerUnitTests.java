@@ -82,8 +82,8 @@ public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
      */
     public void testCallbacks() {
         long totalUsedQuota = 0;
-        final long defaultQuota = WebStorageSizeManager.ORIGIN_DEFAULT_QUOTA;  // 3MB
         final long quotaIncrease = WebStorageSizeManager.QUOTA_INCREASE_STEP;  // 1MB
+
         // We have 75 MB total, 24MB free so the global limit will be 12 MB.
         mDiskInfo.setTotalSizeBytes(bytes(75));
         mDiskInfo.setFreeSpaceSizeBytes(bytes(24));
@@ -93,46 +93,56 @@ public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
         WebStorageSizeManager manager = new WebStorageSizeManager(null, mDiskInfo, mAppCacheInfo);
         // We add origin 1.
         long origin1Quota = 0;
-        manager.onExceededDatabaseQuota("1", "1", origin1Quota, totalUsedQuota, mQuotaUpdater);
-        assertEquals(defaultQuota, mNewQuota);
+        long origin1EstimatedSize = bytes(3.5);
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, origin1EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        assertEquals(origin1EstimatedSize, mNewQuota);
         origin1Quota = mNewQuota;
         totalUsedQuota += origin1Quota;
 
         // We add origin 2.
         long origin2Quota = 0;
-        manager.onExceededDatabaseQuota("2", "2", origin2Quota, totalUsedQuota, mQuotaUpdater);
-        assertEquals(defaultQuota, mNewQuota);
+        long origin2EstimatedSize = bytes(2.5);
+        manager.onExceededDatabaseQuota("2", "2", origin2Quota, origin2EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        assertEquals(origin2EstimatedSize, mNewQuota);
         origin2Quota = mNewQuota;
         totalUsedQuota += origin2Quota;
 
         // Origin 1 runs out of space.
-        manager.onExceededDatabaseQuota("1", "1", origin1Quota, totalUsedQuota, mQuotaUpdater);
-        assertEquals(defaultQuota + quotaIncrease, mNewQuota);
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, origin1EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        assertEquals(origin1EstimatedSize + quotaIncrease, mNewQuota);
         totalUsedQuota -= origin1Quota;
         origin1Quota = mNewQuota;
         totalUsedQuota += origin1Quota;
 
         // Origin 2 runs out of space.
-        manager.onExceededDatabaseQuota("2", "2", origin2Quota, totalUsedQuota, mQuotaUpdater);
-        assertEquals(defaultQuota + quotaIncrease, mNewQuota);
+        manager.onExceededDatabaseQuota("2", "2", origin2Quota, origin2EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        assertEquals(origin2EstimatedSize + quotaIncrease, mNewQuota);
         totalUsedQuota -= origin2Quota;
         origin2Quota = mNewQuota;
         totalUsedQuota += origin2Quota;
 
-        // We add origin 3. TotalUsedQuota is 8 (3 + 3 + 1 + 1). AppCacheMaxSize is 3 (12 / 4).
+        // We add origin 3. TotalUsedQuota is 8 (3.5 + 2.5 + 1 + 1). AppCacheMaxSize is 3 (12 / 4).
         // So we have 1 MB free.
         long origin3Quota = 0;
-        manager.onExceededDatabaseQuota("3", "3", origin3Quota, totalUsedQuota, mQuotaUpdater);
-        assertEquals(bytes(1), mNewQuota);  // 1MB
+        long origin3EstimatedSize = bytes(5);
+        manager.onExceededDatabaseQuota("3", "3", origin3Quota, origin3EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        assertEquals(0, mNewQuota);  // We cannot satisfy the estimatedSize
         origin3Quota = mNewQuota;
         totalUsedQuota += origin3Quota;
 
-        // Origin 1 runs out of space again. We're also out of space so we can't give it more.
-        manager.onExceededDatabaseQuota("1", "1", origin1Quota, totalUsedQuota, mQuotaUpdater);
+        // Origin 1 runs out of space again. It should increase it's quota to take the last 1MB.
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, origin1EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        assertEquals(origin1Quota + quotaIncrease, mNewQuota);
+        totalUsedQuota -= origin1Quota;
+        origin1Quota = mNewQuota;
+        totalUsedQuota += origin1Quota;
+
+        // Origin 1 runs out of space again. It should inow fail to increase in size.
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, origin1EstimatedSize, totalUsedQuota, mQuotaUpdater);
         assertEquals(origin1Quota, mNewQuota);
 
         // We try adding a new origin. Which will fail.
-        manager.onExceededDatabaseQuota("4", "4", 0, totalUsedQuota, mQuotaUpdater);
+        manager.onExceededDatabaseQuota("4", "4", 0, bytes(1), totalUsedQuota, mQuotaUpdater);
         assertEquals(0, mNewQuota);
 
         // AppCache size increases to 2MB...
@@ -144,17 +154,18 @@ public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
         // The user nukes origin 2
         totalUsedQuota -= origin2Quota;
         origin2Quota = 0;
-        // TotalUsedQuota is 5 (9 - 4). AppCacheMaxSize is 3. AppCacheSize is 2.
+        // TotalUsedQuota is 5.5 (9 - 3.5). AppCacheMaxSize is 3. AppCacheSize is 2.
         // AppCache wants 1.5MB more
         manager.onReachedMaxAppCacheSize(bytes(1.5), totalUsedQuota, mQuotaUpdater);
         mAppCacheInfo.setAppCacheSizeBytes(mAppCacheInfo.getAppCacheSizeBytes() + bytes(2.5));
-        assertEquals(mAppCacheInfo.getAppCacheSizeBytes(), mNewQuota);
+        assertEquals(mAppCacheInfo.getAppCacheSizeBytes(), mNewQuota - WebStorageSizeManager.APPCACHE_MAXSIZE_PADDING);
 
         // We try adding a new origin. This time we succeed.
-        // TotalUsedQuota is 5. AppCacheMaxSize is 4.5. So we have 12 - 9.5 = 2.5 available.
+        // TotalUsedQuota is 5.5. AppCacheMaxSize is 5.0. So we have 12 - 10.5 = 1.5 available.
         long origin4Quota = 0;
-        manager.onExceededDatabaseQuota("4", "4", origin4Quota, totalUsedQuota, mQuotaUpdater);
-        assertEquals(bytes(2.5), mNewQuota);
+        long origin4EstimatedSize = bytes(1.5);
+        manager.onExceededDatabaseQuota("4", "4", origin4Quota, origin4EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        assertEquals(bytes(1.5), mNewQuota);
         origin4Quota = mNewQuota;
         totalUsedQuota += origin4Quota;
     }
