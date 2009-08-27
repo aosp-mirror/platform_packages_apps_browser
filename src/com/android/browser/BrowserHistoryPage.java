@@ -140,6 +140,13 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
+                .removeListener(mIconReceiver);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();

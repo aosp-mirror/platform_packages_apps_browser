@@ -43,18 +43,28 @@ public class MostVisitedActivity extends ListActivity {
 
     private MyAdapter   mAdapter;
 
+    // Instance of IconReceiver
+    private final IconReceiver mIconReceiver = new IconReceiver();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new MyAdapter();
         CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
-                .addListener(new IconReceiver());
+                .addListener(mIconReceiver);
         setListAdapter(mAdapter);
         ListView list = getListView();
         View v = new ViewStub(this, R.layout.empty_history);
         addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT));
         list.setEmptyView(v);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
+               .removeListener(mIconReceiver);
     }
 
     private class IconReceiver implements IconListener {
