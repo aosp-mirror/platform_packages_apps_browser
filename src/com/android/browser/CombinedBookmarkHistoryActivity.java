@@ -59,6 +59,9 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         public void addListener(IconListener listener) {
             mListeners.add(listener);
         }
+        public void removeListener(IconListener listener) {
+            mListeners.remove(listener);
+        }
         public Bitmap getFavicon(String url) {
             return (Bitmap) mUrlsToIcons.get(url);
         }
