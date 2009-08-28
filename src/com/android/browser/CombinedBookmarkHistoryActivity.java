@@ -36,6 +36,7 @@ import android.webkit.WebIconDatabase.IconListener;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TabWidget;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -163,7 +164,6 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         getTabHost().setOnTabChangedListener(this);
 
         Bundle extras = getIntent().getExtras();
-        Resources resources = getResources();
 
         getIconListenerSet(getContentResolver());
 
@@ -187,15 +187,28 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         if (defaultTab != null) {
             getTabHost().setCurrentTab(2);
         }
+        // For each of our tabs, reduce its height by setting the icon
+        // view to gone, and setting a height.
+        TabWidget widget = getTabWidget();
+        int count = widget.getTabCount();
+        for (int i = 0; i < count; i++) {
+            View header = widget.getChildTabViewAt(i);
+            if (null == header) break;
+            View icon = header.findViewById(android.R.id.icon);
+            if (null == icon) break;
+            icon.setVisibility(View.GONE);
+            LinearLayout.LayoutParams lp
+                = (LinearLayout.LayoutParams) header.getLayoutParams();
+            lp.height = 30;
+        }
+        widget.requestLayout();
     }
 
     private void createTab(Intent intent, int labelResId, String tab) {
-        LayoutInflater factory = LayoutInflater.from(this);
-        View tabHeader = factory.inflate(R.layout.tab_header, null);
-        TextView textView = (TextView) tabHeader.findViewById(R.id.tab_label);
-        textView.setText(labelResId);
+        Resources resources = getResources();
         TabHost tabHost = getTabHost();
-        tabHost.addTab(tabHost.newTabSpec(tab).setIndicator(tabHeader).setContent(intent));
+        tabHost.addTab(tabHost.newTabSpec(tab).setIndicator(
+                resources.getText(labelResId)).setContent(intent));
     }
     // Copied from DialTacts Activity
     /** {@inheritDoc} */
