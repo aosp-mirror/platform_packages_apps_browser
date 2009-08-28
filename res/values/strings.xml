@@ -719,7 +719,7 @@
 
     <!-- Geolocation -->
     <!-- Permissions prompt -->
-    <string name="geolocation_permissions_prompt_message">%s wants to know your location</string>
+    <string name="geolocation_permissions_prompt_message"><xliff:g id="webpage" example="Google Maps">%s</xliff:g> wants to know your location</string>
     <string name="geolocation_permissions_prompt_share">Share</string>
     <string name="geolocation_permissions_prompt_dont_share">Don\'t share</string>
     <string name="geolocation_permissions_prompt_remember">Remember</string>
