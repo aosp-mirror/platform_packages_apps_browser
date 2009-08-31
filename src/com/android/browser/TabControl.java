@@ -766,7 +766,7 @@ class TabControl {
         if (getTabCount() == 0) return;
 
         // free the least frequently used background tab
-        Tab t = getLeastUsedTab(getCurrentTab().getParentTab());
+        Tab t = getLeastUsedTab(getCurrentTab());
         if (t != null) {
             Log.w(LOGTAG, "Free a tab in the browser");
             freeTab(t);
@@ -785,9 +785,10 @@ class TabControl {
         System.gc();
     }
 
-    private Tab getLeastUsedTab(Tab currentParent) {
-        // Don't do anything if we only have 1 tab.
-        if (getTabCount() == 1) {
+    private Tab getLeastUsedTab(Tab current) {
+        // Don't do anything if we only have 1 tab or if the current tab is
+        // null.
+        if (getTabCount() == 1 || current == null) {
             return null;
         }
 
@@ -802,11 +803,12 @@ class TabControl {
         do {
             t = mTabQueue.get(i++);
         } while (i < queueSize
-                && ((t != null && t.mMainView == null) || t == currentParent));
+                && ((t != null && t.mMainView == null)
+                    || t == current.mParentTab));
 
         // Don't do anything if the last remaining tab is the current one or if
         // the last tab has been freed already.
-        if (t == getCurrentTab() || t.mMainView == null) {
+        if (t == current || t.mMainView == null) {
             return null;
         }
 
