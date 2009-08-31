@@ -16,23 +16,22 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/MAIN_MENU">
-        <item android:id="@+id/goto_menu_id"
-            android:title="@string/goto_dot" 
-            android:alphabeticShortcut="l" 
-            android:icon="@android:drawable/ic_menu_search"/>
         <item android:id="@+id/stop_reload_menu_id"
             android:alphabeticShortcut="r" />
-        <item android:id="@+id/add_bookmark_menu_id"
-            android:title="@string/save_to_bookmarks"
-            android:icon="@drawable/ic_menu_bookmark" />
-        <item android:id="@+id/back_menu_id"
-            android:title="@string/back"
-            android:drawable="@*android:drawable/ic_menu_back"
-            android:alphabeticShortcut="j" />
+        <item android:id="@+id/new_tab_menu_id"
+            android:title="@string/new_tab"
+            android:icon="@drawable/ic_add_tab" />
+        <item android:id="@+id/close_menu_id"
+            android:icon="@drawable/ic_btn_close_panel"
+            android:title="@string/tab_picker_remove_tab"
+            android:alphabeticShortcut="w" />
         <item android:id="@+id/forward_menu_id"
             android:title="@string/forward" 
             android:alphabeticShortcut="k"
             android:icon="@*android:drawable/ic_menu_forward" />
+        <item android:id="@+id/add_bookmark_menu_id"
+            android:title="@string/save_to_bookmarks"
+            android:icon="@drawable/ic_menu_bookmark" />
         <item android:id="@+id/find_menu_id"
             android:title="@string/find_dot" 
             android:alphabeticShortcut="f" />
@@ -55,8 +54,6 @@
             android:visible="false" />
     </group>
     <group android:id="@+id/MAIN_SHORTCUT_MENU" android:visible="false">
-        <item android:id="@+id/close_menu_id"
-            android:alphabeticShortcut="w" />
         <item android:id="@+id/homepage_menu_id"
             android:alphabeticShortcut="&#32;" />
         <item android:id="@+id/classic_history_menu_id"
@@ -81,15 +78,23 @@
             android:alphabeticShortcut="7" />
         <item android:id="@+id/window_eight_menu_id"
             android:alphabeticShortcut="8" />
+        <item android:id="@+id/back_menu_id"
+            android:title="@string/back"
+            android:drawable="@*android:drawable/ic_menu_back"
+            android:alphabeticShortcut="j" />
+        <item android:id="@+id/goto_menu_id"
+            android:title="@string/goto_dot"
+            android:alphabeticShortcut="l"
+            android:icon="@android:drawable/ic_menu_search"/>
     </group>
     <!-- these items are toggled in and out of @+id/stop_reload_menu_id -->
     <item android:id="@+id/stop_menu_id"
-        android:title="@string/stop" 
+        android:title="@string/stop"
         android:icon="@*android:drawable/ic_menu_stop"
         android:visible="false" />
     <item android:id="@+id/reload_menu_id"
-        android:title="@string/reload" 
-        android:icon="@*android:drawable/ic_menu_refresh" 
+        android:title="@string/reload"
+        android:icon="@*android:drawable/ic_menu_refresh"
         android:visible="false" />
 </menu>
  

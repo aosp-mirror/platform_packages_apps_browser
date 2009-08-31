@@ -39,7 +39,6 @@ public class TitleBarSet extends Gallery
         implements AdapterView.OnItemSelectedListener {
     private Vector<TitleBar>    mTitleBars;
     private BrowserActivity     mBrowserActivity;
-    private View                mNewButton;
     private int                 mCount;
     private TitleAdapter        mTitleAdapter;
     private boolean             mIgnoreSelectedListener;
@@ -53,9 +52,6 @@ public class TitleBarSet extends Gallery
         super(context, attrs);
         mTitleBars = new Vector<TitleBar>(TabControl.MAX_TABS);
         mCount = 0;
-        // Now create the Plus button that goes on the right.
-        LayoutInflater factory = LayoutInflater.from(context);
-        mNewButton = factory.inflate(R.layout.new_window_button, null);
         mTitleAdapter = new TitleAdapter();
         setAdapter(mTitleAdapter);
         setCallbackDuringFling(false);
@@ -76,12 +72,9 @@ public class TitleBarSet extends Gallery
             return;
         }
         int newSelection = mCount;
-        TitleBar titleBar = new TitleBar(getContext(), view);
+        TitleBar titleBar = new TitleBar(getContext(), view, mBrowserActivity);
         mTitleBars.add(titleBar);
         mCount++;
-        if (TabControl.MAX_TABS == mCount) {
-            mNewButton.setEnabled(false);
-        }
         // Need to refresh our list
         setAdapter(mTitleAdapter);
         mIgnoreSelectedListener = true;
@@ -167,7 +160,6 @@ public class TitleBarSet extends Gallery
      */
     public boolean performItemClick(View view, int position, long id) {
         if (!(view instanceof TitleBar)) {
-            // For new window button
             return super.performItemClick(view, position, id);
         }
         // If we have no mLastTouchUp, this was not called from onSingleTapUp,
@@ -181,21 +173,7 @@ public class TitleBarSet extends Gallery
         if (titleBar != getTitleBarAt(position)) {
             return false;
         }
-        if (titleBar.hitRightButton((int) mLastTouchUp.getX() - mScrollX,
-                (int) mLastTouchUp.getY() - mScrollY)) {
-            if (titleBar.isInLoad()) {
-                WebView webView = titleBar.getWebView();
-                if (null == webView) {
-                    // FIXME: How did we get into this situation?
-                    return false;
-                }
-                webView.stopLoading();
-            } else {
-                mBrowserActivity.closeCurrentWindow();
-            }
-        } else {
-            mBrowserActivity.bookmarksOrHistoryPicker(false, false);
-        }
+        mBrowserActivity.onSearchRequested();
         return true;
     }
 
@@ -203,9 +181,6 @@ public class TitleBarSet extends Gallery
      * Remove the tab at the given position.
      */
     /* package */ void removeTab(int position) {
-        if (TabControl.MAX_TABS == mCount) {
-            mNewButton.setEnabled(true);
-        }
         mTitleBars.remove(position);
         mCount--;
         // Need to refresh our list
@@ -221,17 +196,10 @@ public class TitleBarSet extends Gallery
 
     /**
      * Set the owning BrowserActivity.  Necessary so that we can call methods
-     * on it.
+     * on it.  Only called once before adding any title bars.
      */
-    /* package */ void setBrowserActivity(final BrowserActivity ba) {
+    /* package */ void init(final BrowserActivity ba) {
         mBrowserActivity = ba;
-        View.OnClickListener listener = new View.OnClickListener() {
-            public void onClick(View v) {
-                ba.openTabAndShow(BrowserActivity.EMPTY_URL_DATA, false, null);
-                ba.bookmarksOrHistoryPicker(false, true);
-            }
-        };
-        mNewButton.findViewById(R.id.button).setOnClickListener(listener);
     }
 
     /**
@@ -319,8 +287,7 @@ public class TitleBarSet extends Gallery
         public void registerDataSetObserver(DataSetObserver observer) {}
         public void unregisterDataSetObserver(DataSetObserver observer) {}
         public int getCount() {
-            // To account for new window
-            return mCount + 1;
+            return mCount;
         }
         public Object getItem(int position) {
             return null;
@@ -332,13 +299,9 @@ public class TitleBarSet extends Gallery
             return true;
         }
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (mCount == position) {
-                return mNewButton;
-            }
             TitleBar titleBar = getTitleBarAt(position);
             Gallery.LayoutParams lp;
-            int desiredWidth = TitleBarSet.this.getWidth()
-                    - (2 * mNewButton.getWidth());
+            int desiredWidth = TitleBarSet.this.getWidth();
             ViewGroup.LayoutParams old = titleBar.getLayoutParams();
             if (old == null || !(old instanceof Gallery.LayoutParams)) {
                 lp = new Gallery.LayoutParams(desiredWidth,

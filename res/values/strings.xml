@@ -18,6 +18,8 @@
     <!-- The name of the application. -->
     <string name="application_name">Browser</string>
 
+    <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
+    <string name="new_tab">New tab</string>
     <!-- Name of tab containing bookmarks -->
     <string name="tab_bookmarks">Bookmarks</string>
     <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
