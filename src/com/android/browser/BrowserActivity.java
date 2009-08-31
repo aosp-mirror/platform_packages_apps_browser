@@ -3172,23 +3172,36 @@ public class BrowserActivity extends Activity
         // if we're dealing wih A/V content that's not explicitly marked
         //     for download, check if it's streamable.
         if (contentDisposition == null
-                        || !contentDisposition.regionMatches(true, 0, "attachment", 0, 10)) {
+                || !contentDisposition.regionMatches(
+                        true, 0, "attachment", 0, 10)) {
             // query the package manager to see if there's a registered handler
             //     that matches.
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse(url), mimetype);
-            if (getPackageManager().resolveActivity(intent,
-                        PackageManager.MATCH_DEFAULT_ONLY) != null) {
-                // someone knows how to handle this mime type with this scheme, don't download.
-                try {
-                    startActivity(intent);
-                    return;
-                } catch (ActivityNotFoundException ex) {
-                    if (LOGD_ENABLED) {
-                        Log.d(LOGTAG, "activity not found for " + mimetype
-                                + " over " + Uri.parse(url).getScheme(), ex);
+            ResolveInfo info = getPackageManager().resolveActivity(intent,
+                    PackageManager.MATCH_DEFAULT_ONLY);
+            if (info != null) {
+                ComponentName myName = getComponentName();
+                // If we resolved to ourselves, we don't want to attempt to
+                // load the url only to try and download it again.
+                if (!myName.getPackageName().equals(
+                        info.activityInfo.packageName)
+                        || !myName.getClassName().equals(
+                                info.activityInfo.name)) {
+                    // someone (other than us) knows how to handle this mime
+                    // type with this scheme, don't download.
+                    try {
+                        startActivity(intent);
+                        return;
+                    } catch (ActivityNotFoundException ex) {
+                        if (LOGD_ENABLED) {
+                            Log.d(LOGTAG, "activity not found for " + mimetype
+                                    + " over " + Uri.parse(url).getScheme(),
+                                    ex);
+                        }
+                        // Best behavior is to fall back to a download in this
+                        // case
                     }
-                    // Best behavior is to fall back to a download in this case
                 }
             }
         }
