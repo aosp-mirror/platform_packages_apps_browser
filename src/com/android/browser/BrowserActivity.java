@@ -2601,7 +2601,7 @@ public class BrowserActivity extends Activity
                 }
             }
             ErrorDialog errDialog = new ErrorDialog(
-                    err == EventHandler.FILE_NOT_FOUND_ERROR ?
+                    err == WebViewClient.ERROR_FILE_NOT_FOUND ?
                     R.string.browserFrameFileErrorLabel :
                     R.string.browserFrameNetworkErrorLabel,
                     desc, err);
@@ -2630,11 +2630,11 @@ public class BrowserActivity extends Activity
         @Override
         public void onReceivedError(WebView view, int errorCode,
                 String description, String failingUrl) {
-            if (errorCode != EventHandler.ERROR_LOOKUP &&
-                    errorCode != EventHandler.ERROR_CONNECT &&
-                    errorCode != EventHandler.ERROR_BAD_URL &&
-                    errorCode != EventHandler.ERROR_UNSUPPORTED_SCHEME &&
-                    errorCode != EventHandler.FILE_ERROR) {
+            if (errorCode != WebViewClient.ERROR_HOST_LOOKUP &&
+                    errorCode != WebViewClient.ERROR_CONNECT &&
+                    errorCode != WebViewClient.ERROR_BAD_URL &&
+                    errorCode != WebViewClient.ERROR_UNSUPPORTED_SCHEME &&
+                    errorCode != WebViewClient.ERROR_FILE) {
                 queueError(errorCode, description);
             }
             Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
