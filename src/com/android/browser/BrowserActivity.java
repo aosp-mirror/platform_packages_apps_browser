@@ -1985,6 +1985,10 @@ public class BrowserActivity extends Activity
                 closeTab(current);
             } else {
                 if (current.closeOnExit()) {
+                    // force mPageStarted to be false as we are going to either
+                    // finish the activity or remove the tab. This will ensure
+                    // pauseWebView() taking action.
+                    mPageStarted = false;
                     if (mTabControl.getTabCount() == 1) {
                         finish();
                         return;
