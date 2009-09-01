@@ -496,13 +496,13 @@ public class BrowserActivity extends Activity
         }
 
         if (CUSTOM_BROWSER_BAR) {
+            mTitleBar.init(this);
             // Create title bars for all of the tabs that have been created
             for (int i = 0; i < mTabControl.getTabCount(); i ++) {
                 WebView view = mTabControl.getTab(i).getWebView();
                 mTitleBar.addTab(view, false);
             }
 
-            mTitleBar.setBrowserActivity(this);
             mTitleBar.setCurrentTab(mTabControl.getCurrentIndex());
         }
 
@@ -889,6 +889,12 @@ public class BrowserActivity extends Activity
         } else {
             mSensorManager = null;
         }
+    }
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        mTitleBar.setVisibility(View.VISIBLE);
+        return true;
     }
 
     /**
@@ -1293,6 +1299,11 @@ public class BrowserActivity extends Activity
         }
         switch (item.getItemId()) {
             // -- Main menu
+            case R.id.new_tab_menu_id:
+                openTabAndShow(EMPTY_URL_DATA, false, null);
+                bookmarksOrHistoryPicker(false, true);
+                break;
+
             case R.id.goto_menu_id:
                 bookmarksOrHistoryPicker(false, false);
                 break;
@@ -1462,6 +1473,9 @@ public class BrowserActivity extends Activity
 
                 menu.findItem(R.id.forward_menu_id)
                         .setEnabled(canGoForward);
+
+                menu.findItem(R.id.new_tab_menu_id).setEnabled(
+                        mTabControl.getTabCount() < TabControl.MAX_TABS);
 
                 // decide whether to show the share link option
                 PackageManager pm = getPackageManager();

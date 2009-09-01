@@ -34,32 +34,42 @@ import android.widget.TextView;
  */
 public class TitleBar extends LinearLayout {
     private TextView        mTitle;
-    private TextView        mUrl;
     private Drawable        mCloseDrawable;
     private ImageView       mRtButton;
     private ProgressBar     mCircularProgress;
     private ProgressBar     mHorizontalProgress;
-    private ImageView       mFavicon;
-    private ImageView       mLockIcon;  // FIXME: Needs to be below the favicon
+    private Drawable        mFavicon;
+    private Drawable        mLockIcon;
+    private Drawable        mStopDrawable;
+    private Drawable        mBookmarkDrawable;
     private boolean         mInLoad;
-    private boolean         mTitleSet;
     private WebView         mWebView;
+    private BrowserActivity mBrowserActivity;
 
-    public TitleBar(Context context, WebView webview) {
+    public TitleBar(Context context, WebView webview, BrowserActivity ba) {
         super(context, null);
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.title_bar, this);
+        mBrowserActivity = ba;
 
         mTitle = (TextView) findViewById(R.id.title);
-        mUrl = (TextView) findViewById(R.id.url);
+        mTitle.setCompoundDrawablePadding(5);
 
-        mRtButton = (ImageView) findViewById(R.id.rt_button);
-
+        mRtButton = (ImageView) findViewById(R.id.rt_btn);
+        mRtButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mInLoad) {
+                    if (mWebView != null) {
+                        mWebView.stopLoading();
+                    }
+                } else {
+                    mBrowserActivity.bookmarksOrHistoryPicker(false, false);
+                }
+            }
+        });
         mCircularProgress = (ProgressBar) findViewById(R.id.progress_circular);
         mHorizontalProgress = (ProgressBar) findViewById(
                 R.id.progress_horizontal);
-        mFavicon = (ImageView) findViewById(R.id.favicon);
-        mLockIcon = (ImageView) findViewById(R.id.lock_icon);
         mWebView = webview;
     }
 
@@ -68,15 +78,6 @@ public class TitleBar extends LinearLayout {
      */
     /* package */ WebView getWebView() {
         return mWebView;
-    }
-
-    /**
-     * Determine whether a point (from a touch) hits the right button.
-     */
-    /* package */ boolean hitRightButton(int x, int y) {
-        Rect hitRect = new Rect();
-        mRtButton.getHitRect(hitRect);
-        return hitRect.contains(x - getLeft(), y - getTop());
     }
 
     /**
@@ -91,19 +92,22 @@ public class TitleBar extends LinearLayout {
      * Set a new Drawable for the Favicon.
      */
     /* package */ void setFavicon(Drawable d) {
-        mFavicon.setImageDrawable(d);
+        if (d != null) {
+            d.setBounds(0, 0, 20, 20);
+        }
+        mTitle.setCompoundDrawables(d, null, mLockIcon, null);
+        mFavicon = d;
     }
 
     /**
      * Set the Drawable for the lock icon, or null to hide it.
      */
     /* package */ void setLock(Drawable d) {
-        if (d == null) {
-            mLockIcon.setVisibility(View.GONE);
-        } else {
-            mLockIcon.setImageDrawable(d);
-            mLockIcon.setVisibility(View.VISIBLE);
+        if (d != null) {
+            d.setBounds(0, 0, 20, 20);
         }
+        mTitle.setCompoundDrawables(mFavicon, null, d, null);
+        mLockIcon = d;
     }
 
     /**
@@ -113,31 +117,25 @@ public class TitleBar extends LinearLayout {
         if (newProgress == mCircularProgress.getMax()) {
             mCircularProgress.setVisibility(View.GONE);
             mHorizontalProgress.setVisibility(View.GONE);
-            mRtButton.setVisibility(View.VISIBLE);
-            mUrl.setVisibility(View.VISIBLE);
-            if (mCloseDrawable != null) {
-                mRtButton.setImageDrawable(mCloseDrawable);
+            if (mBookmarkDrawable != null) {
+                mRtButton.setImageDrawable(mBookmarkDrawable);
             }
             mInLoad = false;
-            if (!mTitleSet) {
-                mTitle.setText(mUrl.getText());
-                mUrl.setText(null);
-                mTitleSet = true;
-            }
         } else {
             mCircularProgress.setProgress(newProgress);
             mHorizontalProgress.setProgress(newProgress);
             mCircularProgress.setVisibility(View.VISIBLE);
             mHorizontalProgress.setVisibility(View.VISIBLE);
-            mUrl.setVisibility(View.VISIBLE);
-            if (mCloseDrawable == null) {
-                // The drawable was assigned in the xml file, so it already
-                // exists.  Keep a pointer to it when we switch to the resource
-                // so we can easily switch back.
-                mCloseDrawable = mRtButton.getDrawable();
+            if (mBookmarkDrawable == null) {
+                mBookmarkDrawable = mRtButton.getDrawable();
             }
-            mRtButton.setImageResource(
-                    com.android.internal.R.drawable.ic_menu_stop);
+            if (mStopDrawable == null) {
+                mRtButton.setImageResource(
+                        com.android.internal.R.drawable.ic_menu_stop);
+                mStopDrawable = mRtButton.getDrawable();
+            } else {
+                mRtButton.setImageDrawable(mStopDrawable);
+            }
             mInLoad = true;
         }
     }
@@ -146,26 +144,11 @@ public class TitleBar extends LinearLayout {
      * Update the title and url.
      */
     /* package */ void setTitleAndUrl(CharSequence title, CharSequence url) {
-        if (url != null) {
-            url = BrowserActivity.buildTitleUrl(url.toString());
-        }
-        if (null == title) {
-            if (mInLoad) {
-                mTitleSet = false;
-                mTitle.setText(R.string.title_bar_loading);
-            } else {
-                // If the page has no title, put the url in the title space
-                // and leave the url blank.
-                mTitle.setText(url);
-                mUrl.setText(null);
-                mTitleSet = true;
-                return;
-            }
+        if (url == null) {
+            mTitle.setText(R.string.title_bar_loading);
         } else {
-            mTitle.setText(title);
-            mTitleSet = true;
+            mTitle.setText(BrowserActivity.buildTitleUrl(url.toString()));
         }
-        mUrl.setText(url);
     }
 
     /* package */ void setToTabPicker() {
@@ -174,6 +157,5 @@ public class TitleBar extends LinearLayout {
         setLock(null);
         mCircularProgress.setVisibility(View.GONE);
         mHorizontalProgress.setVisibility(View.GONE);
-        mUrl.setVisibility(View.INVISIBLE);
     }
 }
