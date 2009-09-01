@@ -124,7 +124,7 @@ public class AddBookmarkPage extends Activity {
         }
         String url = unfilteredUrl;
         if (!(url.startsWith("about:") || url.startsWith("data:") || url
-                .startsWith("file:"))) {
+                .startsWith("file:") || url.startsWith("content:"))) {
             WebAddress address;
             try {
                 address = new WebAddress(unfilteredUrl);
