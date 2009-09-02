@@ -181,10 +181,12 @@ public class TitleBarSet extends Gallery
      * Remove the tab at the given position.
      */
     /* package */ void removeTab(int position) {
+        int selection = getSelectedItemPosition();
         mTitleBars.remove(position);
         mCount--;
         // Need to refresh our list
         setAdapter(mTitleAdapter);
+        setCurrentTab(selection);
     }
 
     /**
@@ -206,6 +208,7 @@ public class TitleBarSet extends Gallery
      * Change to the tab at the new position.
      */
     /* package */ void setCurrentTab(int position) {
+        if (position < 0 || position >= mCount) return;
         mIgnoreSelectedListener = true;
         setSelection(position);
         mIgnoreSelectedListener = false;
