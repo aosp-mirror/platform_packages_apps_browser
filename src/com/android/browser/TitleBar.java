@@ -147,7 +147,7 @@ public class TitleBar extends LinearLayout {
         if (url == null) {
             mTitle.setText(R.string.title_bar_loading);
         } else {
-            mTitle.setText(BrowserActivity.buildTitleUrl(url.toString()));
+            mTitle.setText(url.toString());
         }
     }
 
