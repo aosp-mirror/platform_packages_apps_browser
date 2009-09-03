@@ -336,7 +336,6 @@ public class BrowserActivity extends Activity
             // holds everything else.
             FrameLayout browserFrameLayout = (FrameLayout) LayoutInflater.from(this)
                     .inflate(R.layout.custom_screen, null);
-            mTitleBar = (TitleBarSet) browserFrameLayout.findViewById(R.id.title_bar);
             mContentView = (FrameLayout) browserFrameLayout.findViewById(
                     R.id.main_content);
             mErrorConsoleContainer = (LinearLayout) browserFrameLayout.findViewById(
@@ -344,6 +343,7 @@ public class BrowserActivity extends Activity
             mCustomViewContainer = (FrameLayout) browserFrameLayout
                     .findViewById(R.id.fullscreen_custom_content);
             frameLayout.addView(browserFrameLayout, COVER_SCREEN_PARAMS);
+            mTitleBar = new TitleBarSet(this);
         } else {
             mCustomViewContainer = new FrameLayout(this);
             mCustomViewContainer.setBackgroundColor(Color.BLACK);
@@ -1243,8 +1243,6 @@ public class BrowserActivity extends Activity
         attachTabToContentView(tab);
         if (CUSTOM_BROWSER_BAR) {
             mTitleBar.setCurrentTab(index);
-            WebView view = tab.getWebView();
-            view.slideIntoFocus();
         }
         return true;
     }
@@ -1624,6 +1622,8 @@ public class BrowserActivity extends Activity
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
+        WebView view = t.getWebView();
+        view.addTitleBar(mTitleBar);
         // Attach the sub window if necessary
         attachSubWindow(t);
         // Request focus on the top window.
@@ -1649,6 +1649,9 @@ public class BrowserActivity extends Activity
         if (mTabControl.getCurrentErrorConsole(false) != null) {
             mErrorConsoleContainer.removeView(mTabControl.getCurrentErrorConsole(false));
         }
+
+        WebView view = t.getWebView();
+        view.addTitleBar(null);
 
         // Remove the sub window if it exists.
         if (t.getSubWebView() != null) {
@@ -2318,9 +2321,6 @@ public class BrowserActivity extends Activity
             CookieSyncManager.getInstance().resetSync();
 
             mInLoad = true;
-            if (CUSTOM_BROWSER_BAR) {
-                mTitleBar.setVisibility(View.VISIBLE);
-            }
             updateInLoadMenuItems();
             if (!mIsNetworkUp) {
                 if ( mAlertDialog == null) {
@@ -2873,27 +2873,6 @@ public class BrowserActivity extends Activity
                         (WebView.WebViewTransport) msg.obj;
                 transport.setWebView(mTabControl.getCurrentWebView());
                 msg.sendToTarget();
-            }
-        }
-
-        @Override
-        public void onChangeViewingMode(WebView view, int newViewingMode) {
-            if (!CUSTOM_BROWSER_BAR || view != getTopWindow()) {
-                return;
-            }
-            switch (newViewingMode) {
-            case WebView.NO_VIEWING_MODE:
-                break;
-            case WebView.OVERVIEW_MODE:
-            case WebView.READING_MODE_WITH_TITLE_BAR:
-            case WebView.TITLE_BAR_DISMISS_MODE:
-                mTitleBar.setVisibility(View.VISIBLE);
-                break;
-            case WebView.READING_MODE:
-                mTitleBar.setVisibility(View.GONE);
-                break;
-            default:
-                break;
             }
         }
 
