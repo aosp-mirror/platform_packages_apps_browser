@@ -24,11 +24,6 @@
     <LinearLayout android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-        <com.android.browser.TitleBarSet android:id="@+id/title_bar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/tab_unselected"
-        />
 
         <LinearLayout android:id="@+id/error_console"
             android:layout_width="fill_parent"
