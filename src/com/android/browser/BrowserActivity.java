@@ -2701,6 +2701,17 @@ public class BrowserActivity extends Activity
             if (url.regionMatches(true, 0, "about:", 0, 6)) {
                 return;
             }
+            // remove "client" before updating it to the history so that it wont
+            // show up in the auto-complete list.
+            int index = url.indexOf("client=ms-");
+            if (index > 0 && url.contains(".google.")) {
+                int end = url.indexOf('&', index);
+                if (end > 0) {
+                    url = url.substring(0, index-1).concat(url.substring(end));
+                } else {
+                    url = url.substring(0, index-1);
+                }
+            }
             Browser.updateVisitedHistory(mResolver, url, true);
             WebIconDatabase.getInstance().retainIconForPageUrl(url);
         }
