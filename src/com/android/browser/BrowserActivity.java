@@ -685,6 +685,23 @@ public class BrowserActivity extends Activity
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
 
+        /* enables registration for changes in network status from
+           http stack */
+        mNetworkStateChangedFilter = new IntentFilter();
+        mNetworkStateChangedFilter.addAction(
+                ConnectivityManager.CONNECTIVITY_ACTION);
+        mNetworkStateIntentReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if (intent.getAction().equals(
+                            ConnectivityManager.CONNECTIVITY_ACTION)) {
+                        boolean down = intent.getBooleanExtra(
+                                ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+                        onNetworkToggle(!down);
+                    }
+                }
+            };
+
         // If this was a web search request, pass it on to the default web search provider.
         if (handleWebSearchIntent(getIntent())) {
             moveTaskToBack(true);
@@ -748,23 +765,6 @@ public class BrowserActivity extends Activity
             // are not animating from the tab picker.
             attachTabToContentView(mTabControl.getCurrentTab());
         }
-
-        /* enables registration for changes in network status from
-           http stack */
-        mNetworkStateChangedFilter = new IntentFilter();
-        mNetworkStateChangedFilter.addAction(
-                ConnectivityManager.CONNECTIVITY_ACTION);
-        mNetworkStateIntentReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    if (intent.getAction().equals(
-                            ConnectivityManager.CONNECTIVITY_ACTION)) {
-                        boolean down = intent.getBooleanExtra(
-                                ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-                        onNetworkToggle(!down);
-                    }
-                }
-            };
     }
 
     @Override
@@ -2544,8 +2544,17 @@ public class BrowserActivity extends Activity
                         return;
                     }
                     // call pauseWebView() now, we won't be able to call it in
-                    // onPause() as the WebView won't be valid.
+                    // onPause() as the WebView won't be valid. Temporarily
+                    // change mActivityInPause to be true as pauseWebView() will
+                    // do nothing if mActivityInPause is false.
+                    boolean savedState = mActivityInPause;
+                    if (savedState) {
+                        Log.e(LOGTAG, "BrowserActivity is already paused " +
+                                "while handing goBackOnePageOrQuit.");
+                    }
+                    mActivityInPause = true;
                     pauseWebView();
+                    mActivityInPause = savedState;
                     removeTabFromContentView(current);
                     mTabControl.removeTab(current);
                 }

@@ -15,284 +15,283 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="application_name">"Navigateur"</string>
-    <string name="tab_bookmarks">"Favoris"</string>
-    <string name="tab_most_visited">"Les + visités"</string>
-    <string name="tab_history">"Historique"</string>
-    <string name="added_to_bookmarks">"Ajouté aux favoris"</string>
-    <string name="removed_from_bookmarks">"Supprimé des favoris"</string>
-    <string name="sign_in_to">"Connectez-vous à <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
-    <string name="username">"Nom"</string>
-    <string name="password">"Mot de passe"</string>
-    <string name="action">"Se connecter"</string>
-    <string name="bookmarks_search">"Navigateur"</string>
-    <string name="cancel">"Annuler"</string>
-    <string name="ok">"OK"</string>
+    <string name="application_name" msgid="1935869255545976415">"Navigateur"</string>
+    <string name="tab_bookmarks" msgid="2305793036003473653">"Favoris"</string>
+    <string name="tab_most_visited" msgid="1077402532455000703">"Les + visités"</string>
+    <string name="tab_history" msgid="1979267558744613746">"Historique"</string>
+    <string name="added_to_bookmarks" msgid="1020224130695956728">"Ajouté aux favoris"</string>
+    <string name="removed_from_bookmarks" msgid="6063705902028438800">"Supprimé des favoris"</string>
+    <string name="sign_in_to" msgid="5939425800148759165">"Connectez-vous à <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="username" msgid="5057566336518215922">"Nom"</string>
+    <string name="password" msgid="1177138552305184404">"Mot de passe"</string>
+    <string name="action" msgid="183105774472071343">"Se connecter"</string>
+    <string name="bookmarks_search" msgid="5229596268214362873">"Navigateur"</string>
+    <string name="cancel" msgid="3017274947407233702">"Annuler"</string>
+    <string name="ok" msgid="1509280796718850364">"OK"</string>
   <plurals name="matches_found">
-    <item quantity="zero">"Aucune correspondance"</item>
-    <item quantity="one">"1 correspondance"</item>
-    <item quantity="few">"<xliff:g id="NUMBER">%d</xliff:g> correspondances"</item>
-    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> correspondances"</item>
+    <item quantity="zero" msgid="6242659159545399963">"Aucune correspondance"</item>
+    <item quantity="one" msgid="4352019729062956802">"1 correspondance"</item>
+    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> correspondances"</item>
+    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> correspondances"</item>
   </plurals>
-    <string name="page_info">"Infos sur la page"</string>
-    <string name="page_info_view">"Afficher les infos sur la page"</string>
-    <string name="page_info_address">"Adresse :"</string>
-    <string name="ssl_warnings_header">"Le certificat de sécurité pour ce site présente des problèmes."</string>
-    <string name="ssl_continue">"Continuer"</string>
-    <string name="security_warning">"Avertissement de sécurité"</string>
-    <string name="view_certificate">"Afficher le certificat"</string>
-    <string name="ssl_untrusted">"Ce certificat provient d\'une autorité non approuvée."</string>
-    <string name="ssl_mismatch">"Le nom du site ne correspond pas au nom indiqué dans le certificat."</string>
-    <string name="ssl_expired">"Le certificat a expiré."</string>
-    <string name="ssl_not_yet_valid">"Ce certificat n\'est pas encore valide."</string>
-    <string name="ssl_certificate">"Certificat de sécurité"</string>
-    <string name="ssl_certificate_is_valid">"Ce certificat est valide."</string>
-    <string name="issued_to">"Émis à :"</string>
-    <string name="common_name">"Nom commun :"</string>
-    <string name="org_name">"Organisation :"</string>
-    <string name="org_unit">"Unité d\'organisation :"</string>
-    <string name="issued_by">"Émis par :"</string>
-    <string name="validity_period">"Validité :"</string>
-    <string name="issued_on">"Émis le :"</string>
-    <string name="expires_on">"Expire le :"</string>
-    <string name="retrieving_creds_dlg_msg">"Récupération des données de connexion..."</string>
-    <string name="stopping">"Arrêt..."</string>
-    <string name="stop">"Interrompre"</string>
-    <string name="reload">"Actualiser"</string>
-    <string name="forward">"Suivant"</string>
-    <string name="save">"OK"</string>
-    <string name="do_not_save">"Annuler"</string>
-    <string name="location">"Emplacement"</string>
-    <string name="name">"Nom"</string>
-    <string name="http">"http://"</string>
-    <string name="save_to_bookmarks">"Favori"</string>
-    <string name="edit_bookmark">"Modifier le favori"</string>
-    <string name="create_shortcut_bookmark">"Raccourci sur la page d\'accueil"</string>
-    <string name="open_bookmark">"Ouverture"</string>
-    <string name="remove_bookmark">"Supprimer le favori"</string>
-    <string name="remove_history_item">"Supprimer de l\'historique"</string>
-    <string name="bookmark_saved">"Enregistré dans les favoris"</string>
-    <string name="bookmark_needs_title">"Vous devez attribuer un nom à votre favori."</string>
-    <string name="bookmark_needs_url">"Le favori doit disposer d\'un emplacement."</string>
-    <string name="empty_bookmark">"Impossible de créer un favori vide."</string>
-    <string name="bookmark_url_not_valid">"L\'URL est incorrecte."</string>
-    <string name="delete_bookmark">"Supprimer"</string>
-    <string name="bookmark_page">"Ajouter la dernière page consultée"</string>
-    <string name="current_page">"de "</string>
-    <string name="delete_bookmark_warning">"Le favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sera supprimé."</string>
-    <string name="open_in_new_window">"Nouvelle fenêtre"</string>
-    <string name="new_window">"Nouvelle fenêtre"</string>
-    <string name="goto_dot">"Recherche"</string>
-    <string name="find_dot">"Rechercher sur la page"</string>
-    <string name="select_dot">"Sélectionner le texte"</string>
-    <string name="view_tabs">"Vue d\'ensemble des fenêtres"</string>
-    <string name="view_tabs_condensed">"Fenêtres"</string>
-    <string name="tab_picker_title">"Fenêtres actuelles"</string>
-    <string name="tab_picker_view_tab">"Afficher"</string>
-    <string name="tab_picker_new_tab">"Nouv. fenêtre"</string>
-    <string name="tab_picker_remove_tab">"Fermer"</string>
-    <string name="tab_picker_bookmark">"Favori"</string>
-    <string name="tab_picker_send_url">"Partager le lien"</string>
-    <string name="bookmarks">"Favoris"</string>
-    <string name="shortcut_bookmark">"Favori"</string>
-    <string name="history">"Historique"</string>
-    <string name="menu_view_download">"Téléchargements"</string>
-    <string name="share_page">"Partager la page"</string>
-    <string name="contextmenu_openlink">"Ouvrir"</string>
-    <string name="contextmenu_openlink_newwindow">"Ouvrir une nouvelle fenêtre"</string>
-    <string name="contextmenu_bookmark_thislink">"Lien du favori"</string>
-    <string name="contextmenu_savelink">"Enregistrer le lien"</string>
-    <string name="contextmenu_sharelink">"Partager le lien"</string>
-    <string name="contextmenu_copy">"Copier"</string>
-    <string name="contextmenu_copylink">"Copier l\'URL du lien"</string>
-    <string name="contextmenu_download_image">"Enregistrer l\'image"</string>
-    <string name="contextmenu_view_image">"Afficher l\'image"</string>
-    <string name="contextmenu_dial_dot">"Composer..."</string>
-    <string name="contextmenu_add_contact">"Ajouter un contact"</string>
-    <string name="contextmenu_send_mail">"Envoyer un e-mail"</string>
-    <string name="contextmenu_map">"Plan"</string>
-    <string name="clear">"Effacer"</string>
-    <string name="replace">"Remplacer"</string>
-    <string name="browser_bookmarks_page_bookmarks_text">"Favoris"</string>
-    <string name="menu_preferences">"Paramètres"</string>
-    <string name="pref_content_title">"Paramètres du contenu de la page"</string>
-    <string name="pref_content_load_images">"Charger les images"</string>
-    <string name="pref_content_load_images_summary">"Afficher les images des pages Web"</string>
-    <string name="pref_content_block_popups">"Bloquer les pop-up"</string>
-    <string name="pref_content_javascript">"Activer JavaScript"</string>
-    <string name="pref_content_open_in_background">"Ouvrir en arrière-plan"</string>
-    <string name="pref_content_open_in_background_summary">"Les nouvelles fenêtres s\'ouvrent derrière la fenêtre actuelle"</string>
-    <string name="pref_content_homepage">"Configurer la page d\'accueil"</string>
-    <string name="pref_content_autofit">"Redimensionner"</string>
-    <string name="pref_content_autofit_summary">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
-    <string name="pref_privacy_title">"Paramètres de confidentialité"</string>
-    <string name="pref_privacy_clear_cache">"Effacer le cache"</string>
-    <string name="pref_privacy_clear_cache_summary">"Supprimer toutes les pages en cache"</string>
-    <string name="pref_privacy_clear_cache_dlg">"Le cache sera effacé."</string>
-    <string name="pref_privacy_clear_cookies">"Effacer tous les cookies"</string>
-    <string name="pref_privacy_clear_cookies_summary">"Effacer tous les cookies du navigateur"</string>
-    <string name="pref_privacy_clear_cookies_dlg">"Tous les cookies seront effacés."</string>
-    <string name="pref_privacy_clear_history">"Effacer l\'historique"</string>
-    <string name="pref_privacy_clear_history_summary">"Effacer l\'historique du navigateur"</string>
-    <string name="pref_privacy_clear_history_dlg">"L\'historique du navigateur sera effacé."</string>
-    <string name="pref_privacy_clear_form_data">"Eff. données formulaires"</string>
-    <string name="pref_privacy_clear_form_data_summary">"Effacer toutes les données de formulaire enregistrées"</string>
-    <string name="pref_privacy_clear_form_data_dlg">"Toutes les données de formulaire enregistrées seront effacées."</string>
-    <string name="pref_privacy_clear_passwords">"Effacer les mots de passe"</string>
-    <string name="pref_privacy_clear_passwords_summary">"Effacer tous les mots de passe enregistrés"</string>
-    <string name="pref_privacy_clear_passwords_dlg">"Tous les mots de passe enregistrés seront effacés."</string>
-    <string name="pref_security_title">"Paramètres de sécurité"</string>
-    <string name="pref_security_remember_passwords">"Mém. mots de passe"</string>
-    <string name="pref_security_remember_passwords_summary">"Enregistrer les noms d\'utilisateur et les mots de passe pour les sites Web"</string>
-    <string name="pref_security_save_form_data">"Mém. données formulaire"</string>
-    <string name="pref_security_save_form_data_summary">"Mémoriser les données saisies dans les formulaires pour les réutiliser"</string>
-    <string name="pref_security_show_security_warning">"Avertiss. de sécurité"</string>
-    <string name="pref_security_show_security_warning_summary">"Afficher un avertissement en cas de problème de sécurité d\'un site"</string>
-    <string name="pref_security_accept_cookies">"Accepter les cookies"</string>
-    <string name="pref_security_accept_cookies_summary">"Autoriser les sites à enregistrer et lire les données des cookies"</string>
-    <string name="pref_text_size">"Taille de la police"</string>
+    <string name="page_info" msgid="4048529256302257195">"Infos sur la page"</string>
+    <string name="page_info_view" msgid="5303490449842635158">"Afficher les infos sur la page"</string>
+    <string name="page_info_address" msgid="2222306609532903254">"Adresse :"</string>
+    <string name="ssl_warnings_header" msgid="79744901983636370">"Le certificat de sécurité pour ce site présente des problèmes."</string>
+    <string name="ssl_continue" msgid="8031515015829358457">"Continuer"</string>
+    <string name="security_warning" msgid="6607795404322797541">"Avertissement de sécurité"</string>
+    <string name="view_certificate" msgid="1472768887529093862">"Afficher le certificat"</string>
+    <string name="ssl_untrusted" msgid="5369967226521102194">"Ce certificat provient d\'une autorité non approuvée."</string>
+    <string name="ssl_mismatch" msgid="558688832420069896">"Le nom du site ne correspond pas au nom indiqué dans le certificat."</string>
+    <string name="ssl_expired" msgid="5739349389499575559">"Le certificat a expiré."</string>
+    <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Ce certificat n\'est pas encore valide."</string>
+    <string name="ssl_certificate" msgid="5226747157992111668">"Certificat de sécurité"</string>
+    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Ce certificat est valide."</string>
+    <string name="issued_to" msgid="9032338008819841339">"Émis à :"</string>
+    <string name="common_name" msgid="5745530093500062357">"Nom commun :"</string>
+    <string name="org_name" msgid="8868889052889991293">"Organisation :"</string>
+    <string name="org_unit" msgid="4489056376307768196">"Unité d\'organisation :"</string>
+    <string name="issued_by" msgid="6959484326943152487">"Émis par :"</string>
+    <string name="validity_period" msgid="57988851973181309">"Validité :"</string>
+    <string name="issued_on" msgid="2082890654801808368">"Émis le :"</string>
+    <string name="expires_on" msgid="8061200430557020704">"Expire le :"</string>
+    <string name="retrieving_creds_dlg_msg" msgid="9207671133094039879">"Récupération des données de connexion..."</string>
+    <string name="stopping" msgid="4839698519340302982">"Arrêt..."</string>
+    <string name="stop" msgid="5687251076030630074">"Interrompre"</string>
+    <string name="reload" msgid="8585220783228408062">"Actualiser"</string>
+    <string name="forward" msgid="4288210890526641577">"Suivant"</string>
+    <string name="save" msgid="5922311934992468496">"OK"</string>
+    <string name="do_not_save" msgid="6777633870113477714">"Annuler"</string>
+    <string name="location" msgid="969988560160364559">"Emplacement"</string>
+    <string name="name" msgid="5990326151488445481">"Nom"</string>
+    <string name="http" msgid="2163722670597250102">"http://"</string>
+    <string name="save_to_bookmarks" msgid="4680844117598293907">"Favori"</string>
+    <string name="edit_bookmark" msgid="5024089053490231905">"Modifier le favori"</string>
+    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Raccourci sur la page d\'accueil"</string>
+    <string name="open_bookmark" msgid="8473581305759935790">"Ouverture"</string>
+    <string name="remove_bookmark" msgid="8407495852801410891">"Supprimer le favori"</string>
+    <string name="remove_history_item" msgid="5021424935726728618">"Supprimer de l\'historique"</string>
+    <string name="bookmark_saved" msgid="2766434679871317557">"Enregistré dans les favoris"</string>
+    <string name="bookmark_needs_title" msgid="6245900436119218187">"Vous devez attribuer un nom à votre favori."</string>
+    <string name="bookmark_needs_url" msgid="7809876865972755158">"Le favori doit disposer d\'un emplacement."</string>
+    <string name="empty_bookmark" msgid="7008697085928540511">"Impossible de créer un favori vide."</string>
+    <string name="bookmark_url_not_valid" msgid="6719785633980202419">"L\'URL est incorrecte."</string>
+    <string name="delete_bookmark" msgid="2422989994934201992">"Supprimer"</string>
+    <string name="bookmark_page" msgid="6845189305130307274">"Ajouter la dernière page consultée"</string>
+    <string name="current_page" msgid="7510129573681663135">"de "</string>
+    <string name="delete_bookmark_warning" msgid="758043186202032205">"Le favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sera supprimé."</string>
+    <string name="open_in_new_window" msgid="6596775546468054510">"Nouvelle fenêtre"</string>
+    <string name="new_window" msgid="8117889615360211551">"Nouvelle fenêtre"</string>
+    <string name="goto_dot" msgid="3895839050522602723">"Recherche"</string>
+    <string name="find_dot" msgid="6259312434696611957">"Rechercher sur la page"</string>
+    <string name="select_dot" msgid="6299170761900561967">"Sélectionner le texte"</string>
+    <string name="view_tabs" msgid="1119097492003550564">"Vue d\'ensemble des fenêtres"</string>
+    <string name="view_tabs_condensed" msgid="5803955493821945369">"Fenêtres"</string>
+    <string name="tab_picker_title" msgid="864478399057782913">"Fenêtres actuelles"</string>
+    <string name="tab_picker_view_tab" msgid="2984342364915347656">"Afficher"</string>
+    <string name="tab_picker_new_tab" msgid="3080280018986866528">"Nouv. fenêtre"</string>
+    <string name="tab_picker_remove_tab" msgid="630087809802479397">"Fermer"</string>
+    <string name="tab_picker_bookmark" msgid="1084409404198995477">"Favori"</string>
+    <string name="tab_picker_send_url" msgid="9102803487525950021">"Partager le lien"</string>
+    <string name="bookmarks" msgid="1961279134885867815">"Favoris"</string>
+    <string name="shortcut_bookmark" msgid="3974876480401135895">"Favori"</string>
+    <string name="history" msgid="2451240511251410032">"Historique"</string>
+    <string name="menu_view_download" msgid="2124570321712995120">"Téléchargements"</string>
+    <string name="share_page" msgid="593756995297268343">"Partager la page"</string>
+    <string name="contextmenu_openlink" msgid="7237961252214188935">"Ouvrir"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Ouvrir une nouvelle fenêtre"</string>
+    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Lien du favori"</string>
+    <string name="contextmenu_savelink" msgid="5508554930832538184">"Enregistrer le lien"</string>
+    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Partager le lien"</string>
+    <string name="contextmenu_copy" msgid="398860586635404030">"Copier"</string>
+    <string name="contextmenu_copylink" msgid="5153657160294534270">"Copier l\'URL du lien"</string>
+    <string name="contextmenu_download_image" msgid="4243829645180686912">"Enregistrer l\'image"</string>
+    <string name="contextmenu_view_image" msgid="3870625602053600905">"Afficher l\'image"</string>
+    <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Composer..."</string>
+    <string name="contextmenu_add_contact" msgid="3183511922223645716">"Ajouter un contact"</string>
+    <string name="contextmenu_send_mail" msgid="1014513374828775660">"Envoyer un e-mail"</string>
+    <string name="contextmenu_map" msgid="7471390435434034912">"Plan"</string>
+    <string name="clear" msgid="7070043081700011461">"Effacer"</string>
+    <string name="replace" msgid="4843033491070384047">"Remplacer"</string>
+    <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Favoris"</string>
+    <string name="menu_preferences" msgid="6709237687234102240">"Paramètres"</string>
+    <string name="pref_content_title" msgid="722227111894838633">"Paramètres du contenu de la page"</string>
+    <string name="pref_content_load_images" msgid="2125616852957377561">"Charger les images"</string>
+    <string name="pref_content_load_images_summary" msgid="5149716777459747214">"Afficher les images des pages Web"</string>
+    <string name="pref_content_block_popups" msgid="7808433807197256726">"Bloquer les pop-up"</string>
+    <string name="pref_content_javascript" msgid="4570972030299516843">"Activer JavaScript"</string>
+    <string name="pref_content_open_in_background" msgid="824123779725118663">"Ouvrir en arrière-plan"</string>
+    <string name="pref_content_open_in_background_summary" msgid="1543556325431215041">"Les nouvelles fenêtres s\'ouvrent derrière la fenêtre actuelle"</string>
+    <string name="pref_content_homepage" msgid="6082437160778559806">"Configurer la page d\'accueil"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Redimensionner"</string>
+    <string name="pref_content_autofit_summary" msgid="2358178043889761026">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
+    <string name="pref_privacy_title" msgid="1052470980370846151">"Paramètres de confidentialité"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Effacer le cache"</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2969532045347184968">"Supprimer toutes les pages en cache"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4791302446488696772">"Le cache sera effacé."</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Effacer tous les cookies"</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="8602064521480657942">"Effacer tous les cookies du navigateur"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="5399971428430900904">"Tous les cookies seront effacés."</string>
+    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Effacer l\'historique"</string>
+    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Effacer l\'historique du navigateur"</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="1433519059550861064">"L\'historique du navigateur sera effacé."</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Eff. données formulaires"</string>
+    <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Effacer toutes les données de formulaire enregistrées"</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="567352105409238549">"Toutes les données de formulaire enregistrées seront effacées."</string>
+    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Effacer les mots de passe"</string>
+    <string name="pref_privacy_clear_passwords_summary" msgid="1267552159370789981">"Effacer tous les mots de passe enregistrés"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="8425666119003961466">"Tous les mots de passe enregistrés seront effacés."</string>
+    <string name="pref_security_title" msgid="5763978646932160021">"Paramètres de sécurité"</string>
+    <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Mém. mots de passe"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="6789880514358003065">"Enregistrer les noms d\'utilisateur et les mots de passe pour les sites Web"</string>
+    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Mém. données formulaire"</string>
+    <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Mémoriser les données saisies dans les formulaires pour les réutiliser"</string>
+    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Avertiss. de sécurité"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Afficher un avertissement en cas de problème de sécurité d\'un site"</string>
+    <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Accepter les cookies"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Autoriser les sites à enregistrer et lire les données des cookies"</string>
+    <string name="pref_text_size" msgid="3827031324346612208">"Taille de la police"</string>
   <string-array name="pref_text_size_choices">
-    <item>"Très petite"</item>
-    <item>"Petite"</item>
-    <item>"Normale"</item>
-    <item>"Grande"</item>
-    <item>"Très grande"</item>
+    <item msgid="4952686548944739548">"Très petite"</item>
+    <item msgid="1950030433642671460">"Petite"</item>
+    <item msgid="4338347520133294584">"Normale"</item>
+    <item msgid="5043128215356351184">"Grande"</item>
+    <item msgid="7201512237890458902">"Très grande"</item>
   </string-array>
-    <string name="pref_text_size_dialogtitle">"Taille de la police"</string>
-    <string name="pref_default_zoom">"Zoom par défaut"</string>
+    <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Taille de la police"</string>
+    <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom par défaut"</string>
   <string-array name="pref_default_zoom_choices">
-    <item>"Éloigné"</item>
-    <item>"Moyen"</item>
-    <item>"Proche"</item>
+    <item msgid="549583171195154919">"Éloigné"</item>
+    <item msgid="5619034257768161024">"Moyen"</item>
+    <item msgid="3840999588443167001">"Proche"</item>
   </string-array>
-    <string name="pref_default_zoom_dialogtitle">"Zoom par défaut"</string>
-    <string name="pref_extras_title">"Paramètres avancés"</string>
-    <string name="pref_extras_gears_enable">"Activer Gears"</string>
-    <string name="pref_extras_gears_enable_summary">"Applications étendant les fonctionnalités du navigateur"</string>
-    <string name="pref_extras_gears_settings">"Paramètres Gears"</string>
-    <string name="pref_plugin_installed">"Liste des plug-ins"</string>
-    <string name="pref_plugin_installed_empty_list">"Aucun plug-in installé."</string>
-    <string name="pref_extras_gears_settings_summary">"Applications étendant les fonctionnalités du navigateur"</string>
-    <string name="pref_extras_reset_default">"Rétablir valeurs par défaut"</string>
-    <string name="pref_extras_reset_default_summary">"Effacer toutes les données du navigateur et rétablir les paramètres par défaut"</string>
-    <string name="pref_extras_reset_default_dlg">"Toutes les données du navigateur seront effacées et les paramètres par défaut rétablis."</string>
-    <string name="pref_extras_reset_default_dlg_title">"Rétablir les valeurs par défaut"</string>
-    <string name="pref_development_title">"Débogage"</string>
-    <string name="pref_default_text_encoding">"Codage du texte"</string>
+    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom par défaut"</string>
+    <string name="pref_extras_title" msgid="3091250467679722382">"Paramètres avancés"</string>
+    <string name="pref_extras_gears_enable" msgid="7573987212735599444">"Activer Gears"</string>
+    <string name="pref_extras_gears_enable_summary" msgid="4008973536142399194">"Applications étendant les fonctionnalités du navigateur"</string>
+    <string name="pref_extras_gears_settings" msgid="1020697825071619889">"Paramètres Gears"</string>
+    <string name="pref_plugin_installed" msgid="6387683936112106178">"Liste des plug-ins"</string>
+    <string name="pref_plugin_installed_empty_list" msgid="6656686482480679665">"Aucun plug-in installé."</string>
+    <string name="pref_extras_gears_settings_summary" msgid="6230027090022456383">"Applications étendant les fonctionnalités du navigateur"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Rétablir valeurs par défaut"</string>
+    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Effacer toutes les données du navigateur et rétablir les paramètres par défaut"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="5332227004054477008">"Toutes les données du navigateur seront effacées et les paramètres par défaut rétablis."</string>
+    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Rétablir les valeurs par défaut"</string>
+    <string name="pref_development_title" msgid="3263854204533056480">"Débogage"</string>
+    <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codage du texte"</string>
   <string-array name="pref_default_text_encoding_choices">
-    <item>"Latin-1 (ISO-8859-1)"</item>
-    <item>"Unicode (UTF-8)"</item>
-    <item>"Japonais (ISO-2022-JP)"</item>
-    <item>"Japonais (SHIFT_JIS)"</item>
-    <item>"Japonais (EUC-JP)"</item>
+    <item msgid="7275223955790513818">"Latin-1 (ISO-8859-1)"</item>
+    <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
+    <item msgid="7143715548814380950">"Japonais (ISO-2022-JP)"</item>
+    <item msgid="5111312120564516587">"Japonais (SHIFT_JIS)"</item>
+    <item msgid="6545734186479713946">"Japonais (EUC-JP)"</item>
   </string-array>
-    <string name="pref_default_text_encoding_dialogtitle">"Codage du texte"</string>
-    <string name="pref_default_text_encoding_default">"Latin-1"</string>
-    <string name="browserFrameRedirect">"Rediriger"</string>
-    <string name="browserFrame307Post">"Cette page Web est en cours de redirection. Voulez-vous renvoyer les données de formulaire saisies vers le nouvel emplacement ?"</string>
-    <string name="browserFrameNetworkErrorLabel">"Problème de connectivité des données"</string>
-    <string name="browserFrameFileErrorLabel">"Problème de fichier"</string>
-    <string name="browserFrameFormResubmitLabel">"Confirmer"</string>
-    <string name="browserFrameFormResubmitMessage">"La page que vous tentez d\'afficher contient des données qui ont déjà été envoyées (\"POSTDATA\"). Si vous renvoyez les données, toute action effectuée par le formulaire sur la page exécutée (notamment les lancements de recherche ou les achats en ligne) sera répétée."</string>
-    <string name="loadSuspendedTitle">"Aucune connexion réseau"</string>
-    <string name="loadSuspended">"Une fois la connexion rétablie, le chargement de la page reprendra."</string>
-    <string name="clear_history">"Effacer l\'historique"</string>
-    <string name="browser_history">"Dernières pages consultées"</string>
-    <string name="empty_history">"L\'historique du navigateur est vide."</string>
-    <string name="add_new_bookmark">"Ajouter aux favoris..."</string>
-    <string name="no_database">"Aucune base de données !"</string>
-    <string name="search_hint">"Saisir l\'adresse Web"</string>
-    <string name="search_button_text">"Aller"</string>
-    <!-- no translation found for search_settings_description (1422401062529014107) -->
-    <skip />
-    <string name="attention">"Attention"</string>
-    <string name="popup_window_attempt">"Le site tente d\'ouvrir une fenêtre contextuelle."</string>
-    <string name="allow">"Autoriser"</string>
-    <string name="block">"Bloquer"</string>
-    <string name="too_many_windows_dialog_title">"Limite de fenêtres atteinte"</string>
-    <string name="too_many_windows_dialog_message">"Impossible d\'ouvrir une nouvelle fenêtre, car vous avez déjà ouvert le nombre maximum de fenêtres."</string>
-    <string name="too_many_subwindows_dialog_title">"Fenêtre contextuelle déjà ouverte"</string>
-    <string name="too_many_subwindows_dialog_message">"Impossible d\'ouvrir une nouvelle fenêtre. Une seule fenêtre peut être ouverte à la fois."</string>
-    <string name="download_title">"Historique de téléchargement"</string>
-    <string name="download_unknown_filename">"&lt;Inconnu&gt;"</string>
-    <string name="download_menu_open">"Ouvrir"</string>
-    <string name="download_menu_clear">"Effacer de la liste"</string>
-    <string name="download_menu_cancel">"Annuler le téléchargement"</string>
-    <string name="download_menu_cancel_all">"Annuler tous les téléchargements"</string>
-    <string name="download_menu_clear_all">"Effacer la liste"</string>
-    <string name="download_clear_dlg_title">"Effacer"</string>
-    <string name="download_clear_dlg_msg">"Tous les éléments seront effacés de la liste et supprimés du cache du navigateur."</string>
-    <string name="download_cancel_dlg_title">"Annuler les téléchargements"</string>
-    <string name="download_cancel_dlg_msg">"Les <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> téléchargements seront annulés et effacés de l\'historique des téléchargements."</string>
-    <string name="download_file_error_dlg_title">"Espace insuffisant"</string>
-    <string name="download_file_error_dlg_msg">"Impossible de télécharger <xliff:g id="FILENAME">%s</xliff:g>."\n"Libérez de l\'espace sur votre téléphone, puis réessayez."</string>
-    <string name="download_failed_generic_dlg_title">"Échec de téléchargement"</string>
-    <string name="download_no_sdcard_dlg_title">"Aucune carte SD"</string>
-    <string name="download_no_sdcard_dlg_msg">"Le téléchargement de <xliff:g id="FILENAME">%s</xliff:g> requiert une carte SD."</string>
-    <string name="download_sdcard_busy_dlg_title">"Carte SD non disponible"</string>
-    <string name="download_sdcard_busy_dlg_msg">"La carte SD est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver le stockage USB\" dans la notification."</string>
-    <string name="download_no_application">"Impossible de trouver une application permettant d\'ouvrir ce fichier."</string>
-    <string name="retry">"Réessayer"</string>
-    <string name="no_downloads">"L\'historique de téléchargement est vide."</string>
-    <string name="download_error">"Échec du téléchargement"</string>
-    <string name="download_success">"Téléchargement de <xliff:g id="FILE">%s</xliff:g> terminé."</string>
-    <string name="download_running">"Téléchargement..."</string>
-    <string name="download_pending">"Début du téléchargement..."</string>
-    <string name="download_pending_network">"En attente d\'une connexion de données..."</string>
-    <string name="download_running_paused">"En attente d\'une connexion de données..."</string>
-    <string name="download_canceled">"Téléchargement annulé"</string>
-    <string name="download_not_acceptable">"Impossible d\'effectuer le téléchargement. Le contenu n\'est pas pris en charge sur ce téléphone."</string>
-    <string name="download_file_error">"Téléchargement interrompu. Espace insuffisant."</string>
-    <string name="download_length_required">"Téléchargement impossible. La taille de l\'élément n\'a pas pu être déterminée."</string>
-    <string name="download_precondition_failed">"Téléchargement interrompu. Impossible de reprendre le téléchargement."</string>
-    <string name="activity_instrumentation_test_runner">"Testeur de navigateur"</string>
-    <string name="homepage_base">"http://www.google.com/m?client=ms-{CID}"</string>
-    <string name="search_the_web">"Rechercher sur le Web"</string>
-    <string name="query_data_prompt">"Autoriser le stockage"</string>
-    <string name="query_data_message">"Ce site souhaite enregistrer des informations sur votre téléphone."</string>
-    <string name="location_prompt">"Afficher ma position"</string>
-    <string name="location_message">"Ce site souhaite afficher votre position."</string>
-    <string name="shortcut_prompt">"Créer un raccourci"</string>
-    <string name="shortcut_message">"Le site souhaite créer un raccourci vers cette page sur votre écran d\'accueil."</string>
-    <string name="settings_message">"Le tableau ci-dessous indique les fonctions que vous avez autorisées pour chaque site ayant tenté d\'utiliser Google Gears."</string>
-    <string name="filepicker_message">"Sélecteur de fichier"</string>
-    <string name="image_message">"Image sélectionnée"</string>
-    <string name="settings_title">"Paramètres Google Gears"</string>
-    <string name="privacy_policy">"Lisez les règles de confidentialité du site pour savoir comment les informations sur votre localisation seront utilisées."</string>
-    <string name="settings_storage_title">"Autoriser le stockage local"</string>
-    <string name="settings_storage_subtitle_on">"Ce site peut enregistrer des informations sur votre téléphone."</string>
-    <string name="settings_storage_subtitle_off">"Ce site ne peut enregistrer aucune information sur votre téléphone."</string>
-    <string name="settings_location_title">"Autoriser la détection de ma position"</string>
-    <string name="settings_location_subtitle_on">"Ce site peut détecter votre position actuelle."</string>
-    <string name="settings_location_subtitle_off">"Ce site ne peut pas détecter votre position actuelle."</string>
-    <string name="settings_remove_site">"Supprimer ce site de Gears"</string>
-    <string name="settings_empty">"Aucune autorisation définie"</string>
-    <string name="settings_confirmation_remove_title">"Supprimer ce site"</string>
-    <string name="settings_confirmation_remove">"Toutes les autorisations seront effacées et toutes les données enregistrées par le site sur votre téléphone seront supprimées."</string>
-    <string name="storage_notification">"Ce site enregistrera des informations sur votre téléphone."\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
-    <string name="storage_notification_alwaysdeny">"Ce site n\'enregistrera jamais aucune information sur votre téléphone."\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
-    <string name="location_notification">"Ce site peut afficher votre position actuelle. "\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
-    <string name="location_notification_alwaysdeny">"Ce site n\'affichera pas votre position actuelle."\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
-    <string name="shortcut_notification">"Raccourci créé"</string>
-    <string name="permission_button_alwaysdeny">"Ne jamais autoriser"</string>
-    <string name="permission_button_allow">"OK"</string>
-    <string name="permission_button_deny">"Annuler"</string>
-    <string name="shortcut_button_alwaysdeny">"Ne jamais autoriser"</string>
-    <string name="shortcut_button_allow">"OK"</string>
-    <string name="shortcut_button_deny">"Annuler"</string>
-    <string name="settings_button_allow">"Appliquer"</string>
-    <string name="settings_button_deny">"Annuler"</string>
-    <string name="filepicker_button_allow">"OK"</string>
-    <string name="filepicker_button_deny">"Annuler"</string>
-    <string name="filepicker_path">"chemin :"</string>
-    <string name="filepicker_no_files_selected">"Aucun fichier sélectionné"</string>
-    <string name="filepicker_one_file_selected">"Un fichier sélectionné"</string>
-    <string name="filepicker_some_files_selected">"fichiers sélectionnés"</string>
-    <string name="remove">"Supprimer"</string>
-    <string name="local_storage">"Stockage local"</string>
-    <string name="allowed">"Autorisé"</string>
-    <string name="denied">"Refusé"</string>
-    <string name="unrecognized_dialog_message">"Type de boîte de dialogue inconnu"</string>
-    <string name="default_button">"OK"</string>
-    <string name="zoom_overview_button_text">"Présentation"</string>
+    <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codage du texte"</string>
+    <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"Latin-1"</string>
+    <string name="browserFrameRedirect" msgid="7049675479777828343">"Rediriger"</string>
+    <string name="browserFrame307Post" msgid="739650008647852203">"Cette page Web est en cours de redirection. Voulez-vous renvoyer les données de formulaire saisies vers le nouvel emplacement ?"</string>
+    <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problème de connectivité des données"</string>
+    <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problème de fichier"</string>
+    <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmer"</string>
+    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"La page que vous tentez d\'afficher contient des données qui ont déjà été envoyées (\"POSTDATA\"). Si vous renvoyez les données, toute action effectuée par le formulaire sur la page exécutée (notamment les lancements de recherche ou les achats en ligne) sera répétée."</string>
+    <string name="loadSuspendedTitle" msgid="675991625288706944">"Aucune connexion réseau"</string>
+    <string name="loadSuspended" msgid="1800165494398204523">"Une fois la connexion rétablie, le chargement de la page reprendra."</string>
+    <string name="clear_history" msgid="5998307092715979619">"Effacer l\'historique"</string>
+    <string name="browser_history" msgid="2979476257919939232">"Dernières pages consultées"</string>
+    <string name="empty_history" msgid="8738772352308207274">"L\'historique du navigateur est vide."</string>
+    <string name="add_new_bookmark" msgid="8086367791400349049">"Ajouter aux favoris..."</string>
+    <string name="no_database" msgid="2256698896757181084">"Aucune base de données !"</string>
+    <string name="search_hint" msgid="3385577802557697397">"Saisir l\'adresse Web"</string>
+    <string name="search_button_text" msgid="5235226933877634410">"Aller"</string>
+    <string name="search_settings_description" msgid="1422401062529014107">"Favoris et historique Web"</string>
+    <string name="attention" msgid="3473639060042811244">"Attention"</string>
+    <string name="popup_window_attempt" msgid="2673111696288657989">"Le site tente d\'ouvrir une fenêtre contextuelle."</string>
+    <string name="allow" msgid="1157313689171991335">"Autoriser"</string>
+    <string name="block" msgid="9172175889884707800">"Bloquer"</string>
+    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Limite de fenêtres atteinte"</string>
+    <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Impossible d\'ouvrir une nouvelle fenêtre, car vous avez déjà ouvert le nombre maximum de fenêtres."</string>
+    <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Fenêtre contextuelle déjà ouverte"</string>
+    <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Impossible d\'ouvrir une nouvelle fenêtre. Une seule fenêtre peut être ouverte à la fois."</string>
+    <string name="download_title" msgid="2122874021047565594">"Historique de téléchargement"</string>
+    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Inconnu&gt;"</string>
+    <string name="download_menu_open" msgid="4888327480367757513">"Ouvrir"</string>
+    <string name="download_menu_clear" msgid="6264454531553418124">"Effacer de la liste"</string>
+    <string name="download_menu_cancel" msgid="2545333007601851574">"Annuler le téléchargement"</string>
+    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Annuler tous les téléchargements"</string>
+    <string name="download_menu_clear_all" msgid="7423737413377703862">"Effacer la liste"</string>
+    <string name="download_clear_dlg_title" msgid="7961996329529777390">"Effacer"</string>
+    <string name="download_clear_dlg_msg" msgid="8056013815679757669">"Tous les éléments seront effacés de la liste et supprimés du cache du navigateur."</string>
+    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Annuler les téléchargements"</string>
+    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Les <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> téléchargements seront annulés et effacés de l\'historique des téléchargements."</string>
+    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Espace insuffisant"</string>
+    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossible de télécharger <xliff:g id="FILENAME">%s</xliff:g>."\n"Libérez de l\'espace sur votre téléphone, puis réessayez."</string>
+    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Échec de téléchargement"</string>
+    <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Aucune carte SD"</string>
+    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Le téléchargement de <xliff:g id="FILENAME">%s</xliff:g> requiert une carte SD."</string>
+    <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"Carte SD non disponible"</string>
+    <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"La carte SD est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver le stockage USB\" dans la notification."</string>
+    <string name="download_no_application" msgid="5054596425887523234">"Impossible de trouver une application permettant d\'ouvrir ce fichier."</string>
+    <string name="retry" msgid="1835923075542266721">"Réessayer"</string>
+    <string name="no_downloads" msgid="3947445710685021498">"L\'historique de téléchargement est vide."</string>
+    <string name="download_error" msgid="413496839831257187">"Échec du téléchargement"</string>
+    <string name="download_success" msgid="2279041638155595203">"Téléchargement de <xliff:g id="FILE">%s</xliff:g> terminé."</string>
+    <string name="download_running" msgid="2622942231322015059">"Téléchargement..."</string>
+    <string name="download_pending" msgid="2599683668575349559">"Début du téléchargement..."</string>
+    <string name="download_pending_network" msgid="6548714525679461053">"En attente d\'une connexion de données..."</string>
+    <string name="download_running_paused" msgid="6418029352085656495">"En attente d\'une connexion de données..."</string>
+    <string name="download_canceled" msgid="6057083743144492515">"Téléchargement annulé"</string>
+    <string name="download_not_acceptable" msgid="282108828207321357">"Impossible d\'effectuer le téléchargement. Le contenu n\'est pas pris en charge sur ce téléphone."</string>
+    <string name="download_file_error" msgid="1206648050615176113">"Téléchargement interrompu. Espace insuffisant."</string>
+    <string name="download_length_required" msgid="9038605488460437406">"Téléchargement impossible. La taille de l\'élément n\'a pas pu être déterminée."</string>
+    <string name="download_precondition_failed" msgid="8327584102874295580">"Téléchargement interrompu. Impossible de reprendre le téléchargement."</string>
+    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Testeur de navigateur"</string>
+    <string name="homepage_base" msgid="7888126987935305566">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Rechercher sur le Web"</string>
+    <string name="query_data_prompt" msgid="5474381240981604223">"Autoriser le stockage"</string>
+    <string name="query_data_message" msgid="8789381063185445197">"Ce site souhaite enregistrer des informations sur votre téléphone."</string>
+    <string name="location_prompt" msgid="226262202057302423">"Afficher ma position"</string>
+    <string name="location_message" msgid="1729456751935683242">"Ce site souhaite afficher votre position."</string>
+    <string name="shortcut_prompt" msgid="437193299088893596">"Créer un raccourci"</string>
+    <string name="shortcut_message" msgid="4793042709293755892">"Le site souhaite créer un raccourci vers cette page sur votre écran d\'accueil."</string>
+    <string name="settings_message" msgid="6171686603006325199">"Le tableau ci-dessous indique les fonctions que vous avez autorisées pour chaque site ayant tenté d\'utiliser Google Gears."</string>
+    <string name="filepicker_message" msgid="4929726371602896039">"Sélecteur de fichier"</string>
+    <string name="image_message" msgid="5450245866521896891">"Image sélectionnée"</string>
+    <string name="settings_title" msgid="3579144910187265022">"Paramètres Google Gears"</string>
+    <string name="privacy_policy" msgid="864201179110197308">"Lisez les règles de confidentialité du site pour savoir comment les informations sur votre localisation seront utilisées."</string>
+    <string name="settings_storage_title" msgid="7089119630457156408">"Autoriser le stockage local"</string>
+    <string name="settings_storage_subtitle_on" msgid="2733295483569432111">"Ce site peut enregistrer des informations sur votre téléphone."</string>
+    <string name="settings_storage_subtitle_off" msgid="1338039396087898813">"Ce site ne peut enregistrer aucune information sur votre téléphone."</string>
+    <string name="settings_location_title" msgid="4953062923509886651">"Autoriser la détection de ma position"</string>
+    <string name="settings_location_subtitle_on" msgid="1496219621849158879">"Ce site peut détecter votre position actuelle."</string>
+    <string name="settings_location_subtitle_off" msgid="5216466051810596189">"Ce site ne peut pas détecter votre position actuelle."</string>
+    <string name="settings_remove_site" msgid="1822247070226589958">"Supprimer ce site de Gears"</string>
+    <string name="settings_empty" msgid="2008952224378583146">"Aucune autorisation définie"</string>
+    <string name="settings_confirmation_remove_title" msgid="5360857296753219635">"Supprimer ce site"</string>
+    <string name="settings_confirmation_remove" msgid="585560170733446898">"Toutes les autorisations seront effacées et toutes les données enregistrées par le site sur votre téléphone seront supprimées."</string>
+    <string name="storage_notification" msgid="6534213782873968255">"Ce site enregistrera des informations sur votre téléphone."\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
+    <string name="storage_notification_alwaysdeny" msgid="5473208033665783513">"Ce site n\'enregistrera jamais aucune information sur votre téléphone."\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
+    <string name="location_notification" msgid="3495804750470905804">"Ce site peut afficher votre position actuelle. "\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
+    <string name="location_notification_alwaysdeny" msgid="6184925953783312629">"Ce site n\'affichera pas votre position actuelle."\n" Modifiez ce paramètre dans :"\n" Paramètres -&gt; Paramètres Gears."</string>
+    <string name="shortcut_notification" msgid="1659700220868444568">"Raccourci créé"</string>
+    <string name="permission_button_alwaysdeny" msgid="3837055994905214848">"Ne jamais autoriser"</string>
+    <string name="permission_button_allow" msgid="7301874925704148242">"OK"</string>
+    <string name="permission_button_deny" msgid="104712269725153018">"Annuler"</string>
+    <string name="shortcut_button_alwaysdeny" msgid="4172277731325126605">"Ne jamais autoriser"</string>
+    <string name="shortcut_button_allow" msgid="3106634184087569293">"OK"</string>
+    <string name="shortcut_button_deny" msgid="6054910540900054553">"Annuler"</string>
+    <string name="settings_button_allow" msgid="447817497759509841">"Appliquer"</string>
+    <string name="settings_button_deny" msgid="602496920123085858">"Annuler"</string>
+    <string name="filepicker_button_allow" msgid="2849120125810490391">"OK"</string>
+    <string name="filepicker_button_deny" msgid="1302975999145835953">"Annuler"</string>
+    <string name="filepicker_path" msgid="4680729728498981925">"chemin :"</string>
+    <string name="filepicker_no_files_selected" msgid="7859426670184432998">"Aucun fichier sélectionné"</string>
+    <string name="filepicker_one_file_selected" msgid="1451259953191434851">"Un fichier sélectionné"</string>
+    <string name="filepicker_some_files_selected" msgid="3859384664191734493">"fichiers sélectionnés"</string>
+    <string name="remove" msgid="7820112494467011374">"Supprimer"</string>
+    <string name="local_storage" msgid="6703332885937279085">"Stockage local"</string>
+    <string name="allowed" msgid="1599514934221911624">"Autorisé"</string>
+    <string name="denied" msgid="7470209521858372968">"Refusé"</string>
+    <string name="unrecognized_dialog_message" msgid="687399590684283989">"Type de boîte de dialogue inconnu"</string>
+    <string name="default_button" msgid="3901922329454578908">"OK"</string>
+    <string name="zoom_overview_button_text" msgid="4146579940085488881">"Présentation"</string>
 </resources>
