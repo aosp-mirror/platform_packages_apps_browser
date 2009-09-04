@@ -481,7 +481,11 @@ public class BrowserActivity extends Activity
             }
 
             if (urlData.isEmpty()) {
-                bookmarksOrHistoryPicker(false, true);
+                if (mSettings.isLoginInitialized()) {
+                    webView.loadUrl(mSettings.getHomePage());
+                } else {
+                    waitForCredentials();
+                }
             } else {
                 if (extra != null) {
                     urlData.setPostData(extra
@@ -1250,11 +1254,10 @@ public class BrowserActivity extends Activity
     /* package */ void closeCurrentWindow() {
         final TabControl.Tab current = mTabControl.getCurrentTab();
         if (mTabControl.getTabCount() == 1) {
-            // This is the last tab.  Open a new one, as well as the history
-            // picker, and close the current one.
+            // This is the last tab.  Open a new one, with the home
+            // page and close the current one.
             TabControl.Tab newTab = openTabAndShow(
-                    BrowserActivity.EMPTY_URL_DATA, false, null);
-            bookmarksOrHistoryPicker(false, true);
+                    mSettings.getHomePage(), false, null);
             closeTab(current);
             mTabControl.setCurrentTab(newTab);
             return;
@@ -1298,12 +1301,11 @@ public class BrowserActivity extends Activity
         switch (item.getItemId()) {
             // -- Main menu
             case R.id.new_tab_menu_id:
-                openTabAndShow(EMPTY_URL_DATA, false, null);
-                bookmarksOrHistoryPicker(false, true);
+                openTabAndShow(mSettings.getHomePage(), false, null);
                 break;
 
             case R.id.goto_menu_id:
-                bookmarksOrHistoryPicker(false, false);
+                bookmarksOrHistoryPicker(false);
                 break;
 
             case R.id.add_bookmark_menu_id:
@@ -1371,7 +1373,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.classic_history_menu_id:
-                bookmarksOrHistoryPicker(true, false);
+                bookmarksOrHistoryPicker(true);
                 break;
 
             case R.id.share_page_menu_id:
@@ -2042,7 +2044,7 @@ public class BrowserActivity extends Activity
                 return KeyTracker.State.DONE_TRACKING;
             }
             if (stage == KeyTracker.Stage.LONG_REPEAT) {
-                bookmarksOrHistoryPicker(true, false);
+                bookmarksOrHistoryPicker(true);
                 return KeyTracker.State.DONE_TRACKING;
             } else if (stage == KeyTracker.Stage.UP) {
                 // FIXME: Currently, we do not have a notion of the
@@ -3870,32 +3872,12 @@ public class BrowserActivity extends Activity
                             getTopWindow().loadUrl(data);
                         }
                     }
-/*
-                FIXME: Removing this breaks the behavior of pressing BACK from
-                the Go page resulting in the window being closed.  However, it
-                needs to be removed so that the user can use the Search bar to
-                enter a URL.  Further, the Go behavior is going to change
-                drastically, so this behavior may not last anyway.
-                } else if (resultCode == RESULT_CANCELED
-                        && mCancelGoPageMeansClose) {
-                    if (mTabControl.getTabCount() == 1) {
-                        // finish the Browser.  When the Browser opens up again,
-                        // we will go through onCreate and once again open up
-                        // the Go page.
-                        finish();
-                        return;
-                    }
-                    closeCurrentWindow();
-*/
                 }
                 break;
             default:
                 break;
         }
-        mCancelGoPageMeansClose = false;
-        if (getTopWindow() != null) {
-            getTopWindow().requestFocus();
-        }
+        getTopWindow().requestFocus();
     }
 
     /*
@@ -3911,20 +3893,12 @@ public class BrowserActivity extends Activity
 
     }
 
-    // True if canceling the "Go" screen should result in closing the current
-    // window/browser.
-    private boolean mCancelGoPageMeansClose;
-
     /**
      * Open the Go page.
      * @param startWithHistory If true, open starting on the history tab.
      *                         Otherwise, start with the bookmarks tab.
-     * @param cancelGoPageMeansClose Set to true if this came from a new tab, or
-     *                               from the only tab, and canceling means to
-     *                               close the tab (and possibly the browser)
      */
-    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory,
-            boolean cancelGoPageMeansClose) {
+    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory) {
         WebView current = mTabControl.getCurrentWebView();
         if (current == null) {
             return;
@@ -3948,17 +3922,14 @@ public class BrowserActivity extends Activity
         }
         intent.putExtra("title", title);
         intent.putExtra("url", url);
-        // If this is opening in a new window, then disable opening in a
-        // (different) new window.  Also disable it if we have maxed out the
-        // windows.
-        intent.putExtra("disable_new_window", cancelGoPageMeansClose
-                || mTabControl.getTabCount() >= TabControl.MAX_TABS);
+        // Disable opening in a new window if we have maxed out the windows
+        intent.putExtra("disable_new_window", mTabControl.getTabCount()
+                >= TabControl.MAX_TABS);
         intent.putExtra("touch_icon_url", current.getTouchIconUrl());
         if (startWithHistory) {
             intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_TAB,
                     CombinedBookmarkHistoryActivity.HISTORY_TAB);
         }
-        mCancelGoPageMeansClose = cancelGoPageMeansClose;
         startActivityForResult(intent, COMBO_PAGE);
     }
 
