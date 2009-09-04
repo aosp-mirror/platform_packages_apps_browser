@@ -1623,7 +1623,7 @@ public class BrowserActivity extends Activity
         }
 
         WebView view = t.getWebView();
-        view.addTitleBar(mTitleBar);
+        view.setEmbeddedTitleBar(mTitleBar);
         // Attach the sub window if necessary
         attachSubWindow(t);
         // Request focus on the top window.
@@ -1651,7 +1651,7 @@ public class BrowserActivity extends Activity
         }
 
         WebView view = t.getWebView();
-        view.addTitleBar(null);
+        view.setEmbeddedTitleBar(null);
 
         // Remove the sub window if it exists.
         if (t.getSubWebView() != null) {
