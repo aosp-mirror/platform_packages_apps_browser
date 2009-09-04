@@ -58,6 +58,8 @@ public class TitleBarSet extends Gallery
         setCallbackOnUnselectedItemClick(true);
         setSpacing(0);
         setOnItemSelectedListener(this);
+        setBackgroundResource(R.drawable.tab_browser_unselected);
+        setPadding(0,0,0,0);
     }
 
     /**
