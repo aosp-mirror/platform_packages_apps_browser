@@ -66,7 +66,7 @@ public class TitleBar extends LinearLayout {
                         mWebView.stopLoading();
                     }
                 } else {
-                    mBrowserActivity.bookmarksOrHistoryPicker(false, false);
+                    mBrowserActivity.bookmarksOrHistoryPicker(false);
                 }
             }
         });
