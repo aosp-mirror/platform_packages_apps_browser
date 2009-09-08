@@ -183,6 +183,12 @@
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
 
+        <activity android:name="android.webkit.PluginActivity">
+            <intent-filter>
+                <action android:name="android.intent.webkit.PLUGIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 
