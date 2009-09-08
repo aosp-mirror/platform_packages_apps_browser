@@ -187,8 +187,13 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         if (defaultTab != null) {
             getTabHost().setCurrentTab(2);
         }
+
         // For each of our tabs, reduce its height by setting the icon
         // view to gone, and setting a height.
+        // The minitabs are intended to be smaller than normal tabs.
+        // Arbitrarily choose 30, which is tall enough to account for the
+        // text, and scale it appropriately for the screen's density.
+        int height = (int)(30*getResources().getDisplayMetrics().density);
         TabWidget widget = getTabWidget();
         int count = widget.getTabCount();
         for (int i = 0; i < count; i++) {
@@ -199,7 +204,7 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
             icon.setVisibility(View.GONE);
             LinearLayout.LayoutParams lp
                 = (LinearLayout.LayoutParams) header.getLayoutParams();
-            lp.height = 30;
+            lp.height = height;
         }
         widget.requestLayout();
     }
