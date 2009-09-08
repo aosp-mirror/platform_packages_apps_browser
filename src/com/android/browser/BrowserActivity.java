@@ -1251,15 +1251,17 @@ public class BrowserActivity extends Activity
         return true;
     }
 
+    /* package */ TabControl.Tab openTabToHomePage() {
+        return openTabAndShow(mSettings.getHomePage(), false, null);
+    }
+
     /* package */ void closeCurrentWindow() {
         final TabControl.Tab current = mTabControl.getCurrentTab();
         if (mTabControl.getTabCount() == 1) {
             // This is the last tab.  Open a new one, with the home
             // page and close the current one.
-            TabControl.Tab newTab = openTabAndShow(
-                    mSettings.getHomePage(), false, null);
+            TabControl.Tab newTab = openTabToHomePage();
             closeTab(current);
-            mTabControl.setCurrentTab(newTab);
             return;
         }
         final TabControl.Tab parent = current.getParentTab();
@@ -1279,6 +1281,23 @@ public class BrowserActivity extends Activity
             // Close window
             closeTab(current);
         }
+    }
+
+    private ActiveTabsPage mActiveTabsPage;
+
+    /**
+     * Remove the active tabs page.
+     * @param needToAttach If true, the active tabs page did not attach a tab
+     *                     to the content view, so we need to do that here.
+     */
+    /* package */ void removeActiveTabPage(boolean needToAttach) {
+        mContentView.removeView(mActiveTabsPage);
+        mActiveTabsPage = null;
+        mMenuState = R.id.MAIN_MENU;
+        if (needToAttach) {
+            attachTabToContentView(mTabControl.getCurrentTab());
+        }
+        getTopWindow().requestFocus();
     }
 
     @Override
@@ -1301,11 +1320,19 @@ public class BrowserActivity extends Activity
         switch (item.getItemId()) {
             // -- Main menu
             case R.id.new_tab_menu_id:
-                openTabAndShow(mSettings.getHomePage(), false, null);
+                openTabToHomePage();
                 break;
 
             case R.id.goto_menu_id:
                 bookmarksOrHistoryPicker(false);
+                break;
+
+            case R.id.active_tabs_menu_id:
+                mActiveTabsPage = new ActiveTabsPage(this, mTabControl);
+                removeTabFromContentView(mTabControl.getCurrentTab());
+                mContentView.addView(mActiveTabsPage, COVER_SCREEN_PARAMS);
+                mActiveTabsPage.requestFocus();
+                mMenuState = EMPTY_MENU;
                 break;
 
             case R.id.add_bookmark_menu_id:
@@ -1696,7 +1723,11 @@ public class BrowserActivity extends Activity
             if (CUSTOM_BROWSER_BAR) {
                 mTitleBar.addTab(webview, true);
             }
-            removeTabFromContentView(currentTab);
+            // If the last tab was removed from the active tabs page, currentTab
+            // will be null.
+            if (currentTab != null) {
+                removeTabFromContentView(currentTab);
+            }
             attachTabToContentView(tab);
             // We must set the new tab as the current tab to reflect the old
             // animation behavior.
@@ -1956,13 +1987,20 @@ public class BrowserActivity extends Activity
     }
 
     /**
-     * Close the tab after removing its associated title bar.
+     * Close the tab, remove its associated title bar, and adjust mTabControl's
+     * current tab to a valid value.
      */
-    private void closeTab(TabControl.Tab t) {
+    /* package */ void closeTab(TabControl.Tab t) {
+        int currentIndex = mTabControl.getCurrentIndex();
+        int removeIndex = mTabControl.getTabIndex(t);
         if (CUSTOM_BROWSER_BAR) {
-            mTitleBar.removeTab(mTabControl.getTabIndex(t));
+            mTitleBar.removeTab(removeIndex);
         }
         mTabControl.removeTab(t);
+        if (currentIndex >= removeIndex && currentIndex != 0) {
+            currentIndex--;
+        }
+        mTabControl.setCurrentTab(mTabControl.getTab(currentIndex));
     }
 
     private void goBackOnePageOrQuit() {
@@ -2012,6 +2050,9 @@ public class BrowserActivity extends Activity
                     pauseWebViewTimers();
                     mActivityInPause = savedState;
                     removeTabFromContentView(current);
+                    if (CUSTOM_BROWSER_BAR) {
+                        mTitleBar.removeTab(mTabControl.getTabIndex(current));
+                    }
                     mTabControl.removeTab(current);
                 }
                 /*
