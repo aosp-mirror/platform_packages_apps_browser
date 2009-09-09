@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -74,7 +75,7 @@ public class TitleBarSet extends Gallery
             return;
         }
         int newSelection = mCount;
-        TitleBar titleBar = new TitleBar(getContext(), view, mBrowserActivity);
+        TitleBar titleBar = new TitleBar(mBrowserActivity, view);
         mTitleBars.add(titleBar);
         mCount++;
         // Need to refresh our list
@@ -118,9 +119,10 @@ public class TitleBarSet extends Gallery
         if (webview.getProgress() == 100) {
             titleBar.setProgress(100);
             titleBar.setTitleAndUrl(webview.getTitle(), webview.getUrl());
-            // FIXME: Pass in a bitmap, so we can always update the bitmap
-            // properly
-            //titleBar.setFavicon(webview.getFavicon());
+            // FIXME: BrowserActivity looks at the back forward list.  Is this
+            // better?
+            titleBar.setFavicon(webview.getFavicon());
+            mBrowserActivity.updateLockIconToLatest();
         }
     }
 
@@ -218,15 +220,15 @@ public class TitleBarSet extends Gallery
 
     /**
      * Update the Favicon of the currently selected tab.
-     * @param d The new Drawable for the Favicon
+     * @param icon The new bitmap for the favicon
      * @param topWindow The WebView which posted the update.  If it does not
      *                  match the WebView of the currently selected tab, do
      *                  nothing, since that tab is not being displayed.
      */
-    /* package */ void setFavicon(Drawable d, WebView topWindow) {
+    /* package */ void setFavicon(Bitmap icon, WebView topWindow) {
         TitleBar current = selectedTitleBar();
         if (current != null && current.getWebView() == topWindow) {
-            current.setFavicon(d);
+            current.setFavicon(icon);
         }
     }
 
