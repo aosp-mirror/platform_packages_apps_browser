@@ -31,6 +31,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 
 public class AddBookmarkPage extends Activity {
@@ -123,20 +125,26 @@ public class AddBookmarkPage extends Activity {
             return false;
         }
         String url = unfilteredUrl;
-        if (!(url.startsWith("about:") || url.startsWith("data:") || url
-                .startsWith("file:") || url.startsWith("content:"))) {
-            WebAddress address;
-            try {
-                address = new WebAddress(unfilteredUrl);
-            } catch (ParseException e) {
-                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
-                return false;
+        try {
+            URI uriObj = new URI(url);
+            String scheme = uriObj.getScheme();
+            if (!("about".equals(scheme) || "data".equals(scheme)
+                    || "javascript".equals(scheme)
+                    || "file".equals(scheme) || "content".equals(scheme))) {
+                WebAddress address;
+                try {
+                    address = new WebAddress(unfilteredUrl);
+                } catch (ParseException e) {
+                    throw new URISyntaxException("", "");
+                }
+                if (address.mHost.length() == 0) {
+                    throw new URISyntaxException("", "");
+                }
+                url = address.toString();
             }
-            if (address.mHost.length() == 0) {
-                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
-                return false;
-            }
-            url = address.toString();
+        } catch (URISyntaxException e) {
+            mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
+            return false;
         }
         try {
             if (mEditingExisting) {

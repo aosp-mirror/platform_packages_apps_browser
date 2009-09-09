@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -207,8 +208,6 @@ class BrowserSettings extends Observable {
             s.setNeedInitialFocus(false);
             // Browser supports multiple windows
             s.setSupportMultipleWindows(true);
-            // Turn off file access
-            s.setAllowFileAccess(false);
 
             // HTML5 API flags
             s.setAppCacheEnabled(b.appCacheEnabled);
