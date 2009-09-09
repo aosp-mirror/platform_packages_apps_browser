@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="webstorage_quota_entries">
+    <item msgid="5433313236875537673">"할당된 저장용량이 없습니다."</item>
+    <item msgid="7374272188672967690">"5MB"</item>
+    <item msgid="8699352701856136738">"10MB"</item>
+    <item msgid="2018822431469084862">"30MB"</item>
+    <item msgid="5383642976774534074">"100MB"</item>
+  </string-array>
+  <string-array name="webstorage_quota_entries_values">
+    <item msgid="7620410313725236055">"0"</item>
+    <item msgid="4302688814760304206">"5"</item>
+    <item msgid="7291990205847586165">"10"</item>
+    <item msgid="916913372287112423">"30"</item>
+    <item msgid="3437188301324229987">"100"</item>
+  </string-array>
+</resources>
