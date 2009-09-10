@@ -17,27 +17,17 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.app.SearchManager;
 import android.app.TabActivity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.Browser;
-import android.util.AttributeSet;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.WebIconDatabase.IconListener;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
-import android.widget.TabWidget;
-import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Vector;
@@ -85,81 +75,11 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         return sIconListenerSet;
     }
 
-    /**
-     * This class is here solely to override dispatchKeyEventPreIme, which,
-     * when called on our TextView in the search bar, attempts to access its
-     * SearchDialog.  It does not have one, so it crashes.
-     */
-    public static class CustomViewGroup extends LinearLayout {
-        public CustomViewGroup(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        @Override
-        public boolean dispatchKeyEventPreIme(KeyEvent event) {
-            return false;
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.tabs);
-
-        LayoutInflater factory = LayoutInflater.from(this);
-        View search = factory.inflate(com.android.internal.R.layout.search_bar,
-                null);
-        View searchPlate = search.findViewById(
-                com.android.internal.R.id.search_plate);
-        // FIXME: There is some extra space at the top for some reason.
-        searchPlate.setPadding(12, 0, 12, 16);
-        // FIXME: Also want to remove this from the real search box in the
-        // browser.
-        View voiceButton = search.findViewById(
-                com.android.internal.R.id.search_voice_btn);
-        voiceButton.setVisibility(View.GONE);
-        final TextView go = (TextView) search.findViewById(
-                com.android.internal.R.id.search_go_btn);
-        go.setText(R.string.search_button_text);
-        View appIcon = search.findViewById(
-                com.android.internal.R.id.search_app_icon);
-        appIcon.setVisibility(View.GONE);
-
-        final ViewGroup holder = (ViewGroup) findViewById(R.id.holder);
-        holder.addView(search, 0);
-
-        final TextView entryField = (TextView) search.findViewById(
-                com.android.internal.R.id.search_src_text);
-
-        String url = getIntent().getStringExtra("url");
-        // Check to see if the current page is the homepage.
-        // This works without calling loadFromDb because BrowserActivity has
-        // already done it for us.
-        if (BrowserSettings.getInstance().getHomePage().equals(url)) {
-            url = null;
-            entryField.setHint(R.string.search_hint);
-        } else {
-            entryField.setText(url);
-        }
-        final String pageUrl = url;
-        entryField.setFocusableInTouchMode(false);
-        entryField.setFocusable(false);
-        go.setFocusableInTouchMode(false);
-        go.setFocusable(false);
-        View.OnClickListener listener = new View.OnClickListener() {
-                public void onClick(View v) {
-                    if (v == entryField || go == v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(SearchManager.SOURCE,
-                                BrowserActivity.GOOGLE_SEARCH_SOURCE_SEARCHKEY);
-                        startSearch(pageUrl, true, bundle, false);
-                    }
-                }};
-        entryField.setOnClickListener(listener);
-        // FIXME: Maybe "Go" should just go, even though it is the site you
-        // are already on
-        go.setOnClickListener(listener);
 
         getTabHost().setOnTabChangedListener(this);
 
@@ -169,7 +89,8 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
 
         Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
         bookmarksIntent.putExtras(extras);
-        createTab(bookmarksIntent, R.string.tab_bookmarks, BOOKMARKS_TAB);
+        createTab(bookmarksIntent, R.string.tab_bookmarks,
+                R.drawable.browser_bookmark_tab, BOOKMARKS_TAB);
 
         Intent visitedIntent = new Intent(this, BrowserBookmarksPage.class);
         // Need to copy extras so the bookmarks activity and this one will be
@@ -177,43 +98,27 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         Bundle visitedExtras = new Bundle(extras);
         visitedExtras.putBoolean("mostVisited", true);
         visitedIntent.putExtras(visitedExtras);
-        createTab(visitedIntent, R.string.tab_most_visited, VISITED_TAB);
+        createTab(visitedIntent, R.string.tab_most_visited,
+                R.drawable.browser_visited_tab, VISITED_TAB);
 
         Intent historyIntent = new Intent(this, BrowserHistoryPage.class);
         historyIntent.putExtras(extras);
-        createTab(historyIntent, R.string.tab_history, HISTORY_TAB);
+        createTab(historyIntent, R.string.tab_history,
+                R.drawable.browser_history_tab, HISTORY_TAB);
 
         String defaultTab = extras.getString(STARTING_TAB);
         if (defaultTab != null) {
             getTabHost().setCurrentTab(2);
         }
-
-        // For each of our tabs, reduce its height by setting the icon
-        // view to gone, and setting a height.
-        // The minitabs are intended to be smaller than normal tabs.
-        // Arbitrarily choose 30, which is tall enough to account for the
-        // text, and scale it appropriately for the screen's density.
-        int height = (int)(30*getResources().getDisplayMetrics().density);
-        TabWidget widget = getTabWidget();
-        int count = widget.getTabCount();
-        for (int i = 0; i < count; i++) {
-            View header = widget.getChildTabViewAt(i);
-            if (null == header) break;
-            View icon = header.findViewById(android.R.id.icon);
-            if (null == icon) break;
-            icon.setVisibility(View.GONE);
-            LinearLayout.LayoutParams lp
-                = (LinearLayout.LayoutParams) header.getLayoutParams();
-            lp.height = height;
-        }
-        widget.requestLayout();
     }
 
-    private void createTab(Intent intent, int labelResId, String tab) {
+    private void createTab(Intent intent, int labelResId, int iconResId,
+            String tab) {
         Resources resources = getResources();
         TabHost tabHost = getTabHost();
         tabHost.addTab(tabHost.newTabSpec(tab).setIndicator(
-                resources.getText(labelResId)).setContent(intent));
+                resources.getText(labelResId), resources.getDrawable(iconResId))
+                .setContent(intent));
     }
     // Copied from DialTacts Activity
     /** {@inheritDoc} */
