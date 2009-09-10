@@ -21,10 +21,10 @@
         <item android:id="@+id/new_tab_menu_id"
             android:title="@string/new_tab"
             android:icon="@drawable/ic_add_tab" />
-        <item android:id="@+id/close_menu_id"
-            android:icon="@drawable/ic_btn_close_panel"
-            android:title="@string/tab_picker_remove_tab"
-            android:alphabeticShortcut="w" />
+        <item android:id="@+id/active_tabs_menu_id"
+            android:title="@string/active_tabs"
+            android:icon="@drawable/ic_menu_windows"
+            />
         <item android:id="@+id/forward_menu_id"
             android:title="@string/forward" 
             android:alphabeticShortcut="k"
@@ -86,6 +86,10 @@
             android:title="@string/goto_dot"
             android:alphabeticShortcut="l"
             android:icon="@android:drawable/ic_menu_search"/>
+        <item android:id="@+id/close_menu_id"
+            android:icon="@drawable/ic_btn_close_panel"
+            android:title="@string/tab_picker_remove_tab"
+            android:alphabeticShortcut="w" />
     </group>
     <!-- these items are toggled in and out of @+id/stop_reload_menu_id -->
     <item android:id="@+id/stop_menu_id"
