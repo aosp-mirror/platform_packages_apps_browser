@@ -278,14 +278,17 @@ public class WebsiteSettingsActivity extends ListActivity {
             return mCurrentSite.getFeatureCount();
         }
 
-        public String sizeValueToString(long value) {
-            float mb = (float) value / (1024.0F * 1024.0F);
-            int val = (int) (mb * 10);
-            float ret = (float) (val / 10.0F);
-            if (ret <= 0) {
+        public String sizeValueToString(long bytes) {
+            // We display the size in MB, to 1dp, rounding up to the next 0.1MB.
+            // bytes should always be greater than zero.
+            if (bytes <= 0) {
+                Log.e(LOGTAG, "sizeValueToString called with non-positive value");
                 return "0";
             }
-            return String.valueOf(ret);
+            float megabytes = (float) bytes / (1024.0F * 1024.0F);
+            int truncated = (int) Math.ceil(megabytes * 10.0F);
+            float result = (float) (truncated / 10.0F);
+            return String.valueOf(result);
         }
 
         /*
