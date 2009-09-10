@@ -46,6 +46,9 @@
             android:layout_weight="1.0"
             android:paddingLeft="8dip"
             android:paddingRight="6dip"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:ellipsize="end"
         />
