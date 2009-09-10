@@ -151,7 +151,8 @@ public class BrowserProvider extends ContentProvider {
     // 18 -> 19 Remove labels table
     // 19 -> 20 Added thumbnail
     // 20 -> 21 Added touch_icon
-    private static final int DATABASE_VERSION = 21;
+    // 21 -> 22 Remove "clientid"
+    private static final int DATABASE_VERSION = 22;
 
     // Regular expression which matches http://, followed by some stuff, followed by
     // optionally a trailing slash, all matched as separate groups.
@@ -261,6 +262,9 @@ public class BrowserProvider extends ContentProvider {
             }
             if (oldVersion < 21) {
                 db.execSQL("ALTER TABLE bookmarks ADD COLUMN touch_icon BLOB DEFAULT NULL;");
+            }
+            if (oldVersion < 22) {
+                db.execSQL("DELETE FROM bookmarks WHERE (bookmark = 0 AND url LIKE \"%.google.%client=ms-%\")");
             } else {
                 db.execSQL("DROP TABLE IF EXISTS bookmarks");
                 db.execSQL("DROP TABLE IF EXISTS searches");
