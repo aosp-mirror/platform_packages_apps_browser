@@ -747,6 +747,24 @@ public class BrowserActivity extends Activity
     }
 
     /* package */ static String fixUrl(String inUrl) {
+        // FIXME: Converting the url to lower case
+        // duplicates functionality in smartUrlFilter().
+        // However, changing all current callers of fixUrl to
+        // call smartUrlFilter in addition may have unwanted
+        // consequences, and is deferred for now.
+        int colon = inUrl.indexOf(':');
+        boolean allLower = true;
+        for (int index = 0; index < colon; index++) {
+            char ch = inUrl.charAt(index);
+            if (!Character.isLetter(ch)) {
+                break;
+            }
+            allLower &= Character.isLowerCase(ch);
+            if (index == colon - 1 && !allLower) {
+                inUrl = inUrl.substring(0, colon).toLowerCase()
+                        + inUrl.substring(colon);
+            }
+        }
         if (inUrl.startsWith("http://") || inUrl.startsWith("https://"))
             return inUrl;
         if (inUrl.startsWith("http:") ||
