@@ -17,10 +17,16 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.AttributeSet;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.PaintDrawable;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
@@ -46,12 +52,14 @@ public class TitleBar extends LinearLayout {
     private boolean         mInLoad;
     private WebView         mWebView;
     private BrowserActivity mBrowserActivity;
+    private Drawable        mGenericFavicon;
+    private int             mIconDimension;
 
-    public TitleBar(Context context, WebView webview, BrowserActivity ba) {
+    public TitleBar(BrowserActivity context, WebView webview) {
         super(context, null);
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.title_bar, this);
-        mBrowserActivity = ba;
+        mBrowserActivity = context;
 
         mTitle = (TextView) findViewById(R.id.title);
         mTitle.setCompoundDrawablePadding(5);
@@ -70,12 +78,18 @@ public class TitleBar extends LinearLayout {
                 }
             }
         });
-        mCircularProgress = (Drawable) context.getResources().getDrawable(
+        Resources resources = context.getResources();
+        mCircularProgress = (Drawable) resources.getDrawable(
                 com.android.internal.R.drawable.search_spinner);
-        mCircularProgress.setBounds(0,0,20,20);
+        mIconDimension = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 20f,
+                resources.getDisplayMetrics());
+        mCircularProgress.setBounds(0, 0, mIconDimension, mIconDimension);
         mHorizontalProgress = (ProgressBar) findViewById(
                 R.id.progress_horizontal);
         mWebView = webview;
+        mGenericFavicon = context.getResources().getDrawable(
+                R.drawable.app_web_browser_sm);
     }
 
     /**
@@ -94,12 +108,22 @@ public class TitleBar extends LinearLayout {
     }
 
     /**
-     * Set a new Drawable for the Favicon.
+     * Set a new Bitmap for the Favicon.
      */
-    /* package */ void setFavicon(Drawable d) {
-        if (d != null) {
-            d.setBounds(0, 0, 20, 20);
+    /* package */ void setFavicon(Bitmap icon) {
+        Drawable[] array = new Drawable[3];
+        array[0] = new PaintDrawable(Color.BLACK);
+        PaintDrawable p = new PaintDrawable(Color.WHITE);
+        array[1] = p;
+        if (icon == null) {
+            array[2] = mGenericFavicon;
+        } else {
+            array[2] = new BitmapDrawable(icon);
         }
+        LayerDrawable d = new LayerDrawable(array);
+        d.setLayerInset(1, 1, 1, 1, 1);
+        d.setLayerInset(2, 2, 2, 2, 2);
+        d.setBounds(0, 0, mIconDimension, mIconDimension);
         Drawable progress = mInLoad ? mCircularProgress : null;
         mTitle.setCompoundDrawables(d, null, progress, null);
         mFavicon = d;

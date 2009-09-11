@@ -46,15 +46,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.DrawFilter;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Picture;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.PaintDrawable;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
@@ -288,22 +286,18 @@ public class BrowserActivity extends Activity
         }
     }
 
-    // Flag to enable the touchable browser bar with buttons
-    private final boolean CUSTOM_BROWSER_BAR = true;
+    /**
+     * This layout holds everything you see below the status bar, including the
+     * error console, the custom view container, and the webviews.
+     */
+    private FrameLayout mBrowserFrameLayout;
 
     @Override public void onCreate(Bundle icicle) {
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, this + " onStart");
         }
         super.onCreate(icicle);
-        if (CUSTOM_BROWSER_BAR) {
-            this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        } else {
-            this.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-            this.requestWindowFeature(Window.FEATURE_RIGHT_ICON);
-            this.requestWindowFeature(Window.FEATURE_PROGRESS);
-            this.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        }
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         // test the browser in OpenGL
         // requestWindowFeature(Window.FEATURE_OPENGL);
 
@@ -325,39 +319,19 @@ public class BrowserActivity extends Activity
                 android.R.drawable.ic_secure);
         mMixLockIcon = Resources.getSystem().getDrawable(
                 android.R.drawable.ic_partial_secure);
-        mGenericFavicon = getResources().getDrawable(
-                R.drawable.app_web_browser_sm);
 
         FrameLayout frameLayout = (FrameLayout) getWindow().getDecorView()
                 .findViewById(com.android.internal.R.id.content);
-        if (CUSTOM_BROWSER_BAR) {
-            // This FrameLayout will hold the custom FrameLayout and a LinearLayout
-            // that contains the title bar and a FrameLayout, which
-            // holds everything else.
-            FrameLayout browserFrameLayout = (FrameLayout) LayoutInflater.from(this)
-                    .inflate(R.layout.custom_screen, null);
-            mContentView = (FrameLayout) browserFrameLayout.findViewById(
-                    R.id.main_content);
-            mErrorConsoleContainer = (LinearLayout) browserFrameLayout.findViewById(
-                    R.id.error_console);
-            mCustomViewContainer = (FrameLayout) browserFrameLayout
-                    .findViewById(R.id.fullscreen_custom_content);
-            frameLayout.addView(browserFrameLayout, COVER_SCREEN_PARAMS);
-            mTitleBar = new TitleBarSet(this);
-        } else {
-            mCustomViewContainer = new FrameLayout(this);
-            mCustomViewContainer.setBackgroundColor(Color.BLACK);
-            mContentView = new FrameLayout(this);
-
-            LinearLayout linearLayout = new LinearLayout(this);
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
-            mErrorConsoleContainer = new LinearLayout(this);
-            linearLayout.addView(mErrorConsoleContainer, new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            linearLayout.addView(mContentView, COVER_SCREEN_PARAMS);
-            frameLayout.addView(mCustomViewContainer, COVER_SCREEN_PARAMS);
-            frameLayout.addView(linearLayout, COVER_SCREEN_PARAMS);
-        }
+        mBrowserFrameLayout = (FrameLayout) LayoutInflater.from(this)
+                .inflate(R.layout.custom_screen, null);
+        mContentView = (FrameLayout) mBrowserFrameLayout.findViewById(
+                R.id.main_content);
+        mErrorConsoleContainer = (LinearLayout) mBrowserFrameLayout
+                .findViewById(R.id.error_console);
+        mCustomViewContainer = (FrameLayout) mBrowserFrameLayout
+                .findViewById(R.id.fullscreen_custom_content);
+        frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
+        mTitleBar = new TitleBarSet(this);
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);
@@ -499,16 +473,14 @@ public class BrowserActivity extends Activity
             attachTabToContentView(mTabControl.getCurrentTab());
         }
 
-        if (CUSTOM_BROWSER_BAR) {
-            mTitleBar.init(this);
-            // Create title bars for all of the tabs that have been created
-            for (int i = 0; i < mTabControl.getTabCount(); i ++) {
-                WebView view = mTabControl.getTab(i).getWebView();
-                mTitleBar.addTab(view, false);
-            }
-
-            mTitleBar.setCurrentTab(mTabControl.getCurrentIndex());
+        mTitleBar.init(this);
+        // Create title bars for all of the tabs that have been created
+        for (int i = 0; i < mTabControl.getTabCount(); i ++) {
+            WebView view = mTabControl.getTab(i).getWebView();
+            mTitleBar.addTab(view, false);
         }
+
+        mTitleBar.setCurrentTab(mTabControl.getCurrentIndex());
 
         // Read JavaScript flags if it exists.
         String jsFlags = mSettings.getJsFlags();
@@ -530,9 +502,7 @@ public class BrowserActivity extends Activity
                 return;
             }
             mTabControl.setCurrentTab(current);
-            if (CUSTOM_BROWSER_BAR) {
-                mTitleBar.setCurrentTab(mTabControl.getTabIndex(current));
-            }
+            mTitleBar.setCurrentTab(mTabControl.getTabIndex(current));
             attachTabToContentView(current);
             resetTitleAndIcon(current.getWebView());
         }
@@ -913,10 +883,119 @@ public class BrowserActivity extends Activity
         }
     }
 
+    /**
+     * Since the actual title bar is embedded in the WebView, and removing it
+     * would change its appearance, create a temporary title bar to go at
+     * the top of the screen while the menu is open.
+     */
+    private TitleBar mFakeTitleBar;
+
+    /**
+     * Keeps track of whether the options menu is open.  This is important in
+     * determining whether to show or hide the title bar overlay.
+     */
+    private boolean mOptionsMenuOpen;
+
+    /**
+     * Only meaningful when mOptionsMenuOpen is true.  This variable keeps track
+     * of whether the configuration has changed.  The first onMenuOpened call
+     * after a configuration change is simply a reopening of the same menu
+     * (i.e. mIconView did not change).
+     */
+    private boolean mConfigChanged;
+
+    /**
+     * Whether or not the options menu is in its smaller, icon menu form.  When
+     * true, we want the title bar overlay to be up.  When false, we do not.
+     * Only meaningful if mOptionsMenuOpen is true.
+     */
+    private boolean mIconView;
+
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
-        mTitleBar.setVisibility(View.VISIBLE);
+        if (Window.FEATURE_OPTIONS_PANEL == featureId) {
+            if (mOptionsMenuOpen) {
+                if (mConfigChanged) {
+                    // We do not need to make any changes to the state of the
+                    // title bar, since the only thing that happened was a
+                    // change in orientation
+                    mConfigChanged = false;
+                } else {
+                    if (mIconView) {
+                        // Switching the menu to expanded view, so hide the
+                        // title bar.
+                        hideFakeTitleBar();
+                        mIconView = false;
+                    } else {
+                        // Switching the menu back to icon view, so show the
+                        // title bar once again.
+                        showFakeTitleBar();
+                        mIconView = true;
+                    }
+                }
+            } else {
+                // The options menu is closed, so open it, and show the title
+                showFakeTitleBar();
+                mOptionsMenuOpen = true;
+                mConfigChanged = false;
+                mIconView = true;
+            }
+        }
         return true;
+    }
+
+    private void showFakeTitleBar() {
+        if (mFakeTitleBar == null) {
+            WebView webView = getTopWindow();
+            mFakeTitleBar = new TitleBar(this, webView);
+            mFakeTitleBar.setTitleAndUrl(null, webView.getUrl());
+            mFakeTitleBar.setProgress(webView.getProgress());
+            mFakeTitleBar.setFavicon(webView.getFavicon());
+            updateLockIconToLatest();
+            View title = mFakeTitleBar.findViewById(R.id.title);
+            title.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        onSearchRequested();
+                        closeOptionsMenu();
+                    }
+            });
+
+            WindowManager manager
+                    = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+
+            // Add the title bar to the window manager so it can receive touches
+            // while the menu is up
+            WindowManager.LayoutParams params
+                    = new WindowManager.LayoutParams(
+                    ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.OPAQUE);
+            params.gravity = Gravity.TOP;
+            params.windowAnimations = getTopWindow().getScrollY() == 0 ? 0
+                    : com.android.internal.R.style.Animation_DropDownDown;
+            // XXX : Without providing an offset, the fake title bar will be
+            // placed underneath the status bar.  Use the global visible rect
+            // of mBrowserFrameLayout to determine the bottom of the status bar
+            Rect rectangle = new Rect();
+            mBrowserFrameLayout.getGlobalVisibleRect(rectangle);
+            params.y = rectangle.top;
+            manager.addView(mFakeTitleBar, params);
+        }
+    }
+
+    @Override
+    public void onOptionsMenuClosed(Menu menu) {
+        mOptionsMenuOpen = false;
+        hideFakeTitleBar();
+    }
+    private void hideFakeTitleBar() {
+        if (mFakeTitleBar == null) return;
+        WindowManager manager
+                    = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        manager.removeView(mFakeTitleBar);
+        mFakeTitleBar = null;
     }
 
     /**
@@ -1013,6 +1092,7 @@ public class BrowserActivity extends Activity
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        mConfigChanged = true;
         super.onConfigurationChanged(newConfig);
 
         if (mPageInfoDialog != null) {
@@ -1271,9 +1351,7 @@ public class BrowserActivity extends Activity
         removeTabFromContentView(tab);
         mTabControl.setCurrentTab(tab);
         attachTabToContentView(tab);
-        if (CUSTOM_BROWSER_BAR) {
-            mTitleBar.setCurrentTab(index);
-        }
+        mTitleBar.setCurrentTab(index);
         return true;
     }
 
@@ -1746,9 +1824,7 @@ public class BrowserActivity extends Activity
             final TabControl.Tab tab = mTabControl.createNewTab(
                     closeOnExit, appId, urlData.mUrl);
             WebView webview = tab.getWebView();
-            if (CUSTOM_BROWSER_BAR) {
-                mTitleBar.addTab(webview, true);
-            }
+            mTitleBar.addTab(webview, true);
             // If the last tab was removed from the active tabs page, currentTab
             // will be null.
             if (currentTab != null) {
@@ -1778,9 +1854,7 @@ public class BrowserActivity extends Activity
             TabControl.Tab t = mTabControl.createNewTab();
             if (t != null) {
                 WebView view = t.getWebView();
-                if (CUSTOM_BROWSER_BAR) {
-                    mTitleBar.addTab(view, false);
-                }
+                mTitleBar.addTab(view, false);
                 view.loadUrl(url);
             }
             return t;
@@ -1882,40 +1956,10 @@ public class BrowserActivity extends Activity
         mUrl = url;
         mTitle = title;
 
-        if (CUSTOM_BROWSER_BAR) {
-            mTitleBar.setTitleAndUrl(title, url, view);
-        } else {
-            setTitle(buildUrlTitle(url, title));
+        mTitleBar.setTitleAndUrl(title, url, view);
+        if (mFakeTitleBar != null) {
+            mFakeTitleBar.setTitleAndUrl(title, url);
         }
-    }
-
-    /**
-     * Builds and returns the page title, which is some
-     * combination of the page URL and title.
-     * @param url The URL of the site being loaded.
-     * @param title The title of the site being loaded.
-     * @return The page title.
-     */
-    private String buildUrlTitle(String url, String title) {
-        String urlTitle = "";
-
-        if (url != null) {
-            String titleUrl = buildTitleUrl(url);
-
-            if (title != null && 0 < title.length()) {
-                if (titleUrl != null && 0 < titleUrl.length()) {
-                    urlTitle = titleUrl + ": " + title;
-                } else {
-                    urlTitle = title;
-                }
-            } else {
-                if (titleUrl != null) {
-                    urlTitle = titleUrl;
-                }
-            }
-        }
-
-        return urlTitle;
     }
 
     /**
@@ -1957,33 +2001,9 @@ public class BrowserActivity extends Activity
 
     // Set the favicon in the title bar.
     private void setFavicon(Bitmap icon) {
-        if (CUSTOM_BROWSER_BAR) {
-            Drawable[] array = new Drawable[3];
-            array[0] = new PaintDrawable(Color.BLACK);
-            PaintDrawable p = new PaintDrawable(Color.WHITE);
-            array[1] = p;
-            if (icon == null) {
-                array[2] = mGenericFavicon;
-            } else {
-                array[2] = new BitmapDrawable(icon);
-            }
-            LayerDrawable d = new LayerDrawable(array);
-            d.setLayerInset(1, 1, 1, 1, 1);
-            d.setLayerInset(2, 2, 2, 2, 2);
-            mTitleBar.setFavicon(d, getTopWindow());
-        } else {
-            Drawable[] array = new Drawable[2];
-            PaintDrawable p = new PaintDrawable(Color.WHITE);
-            p.setCornerRadius(3f);
-            array[0] = p;
-            if (icon == null) {
-                array[1] = mGenericFavicon;
-            } else {
-                array[1] = new BitmapDrawable(icon);
-            }
-            LayerDrawable d = new LayerDrawable(array);
-            d.setLayerInset(1, 2, 2, 2, 2);
-            getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, d);
+        mTitleBar.setFavicon(icon, getTopWindow());
+        if (mFakeTitleBar != null) {
+            mFakeTitleBar.setFavicon(icon);
         }
     }
 
@@ -2009,7 +2029,7 @@ public class BrowserActivity extends Activity
                   " revert lock icon to " + mLockIconType);
         }
 
-        updateLockIconImage(mLockIconType);
+        updateLockIconToLatest();
     }
 
     /**
@@ -2019,9 +2039,7 @@ public class BrowserActivity extends Activity
     /* package */ void closeTab(TabControl.Tab t) {
         int currentIndex = mTabControl.getCurrentIndex();
         int removeIndex = mTabControl.getTabIndex(t);
-        if (CUSTOM_BROWSER_BAR) {
-            mTitleBar.removeTab(removeIndex);
-        }
+        mTitleBar.removeTab(removeIndex);
         mTabControl.removeTab(t);
         if (currentIndex >= removeIndex && currentIndex != 0) {
             currentIndex--;
@@ -2076,9 +2094,7 @@ public class BrowserActivity extends Activity
                     pauseWebViewTimers();
                     mActivityInPause = savedState;
                     removeTabFromContentView(current);
-                    if (CUSTOM_BROWSER_BAR) {
-                        mTitleBar.removeTab(mTabControl.getTabIndex(current));
-                    }
+                    mTitleBar.removeTab(mTabControl.getTabIndex(current));
                     mTabControl.removeTab(current);
                 }
                 /*
@@ -2412,7 +2428,7 @@ public class BrowserActivity extends Activity
             resetTitleAndIcon(view);
 
             // Update the lock icon image only once we are done loading
-            updateLockIconImage(mLockIconType);
+            updateLockIconToLatest();
             updateScreenshot(view);
 
             // Performance probe
@@ -3031,11 +3047,9 @@ public class BrowserActivity extends Activity
 
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            if (CUSTOM_BROWSER_BAR) {
-                mTitleBar.setProgress(newProgress, view);
-            } else {
-                getWindow().setFeatureInt(Window.FEATURE_PROGRESS,
-                        newProgress * 100);
+            mTitleBar.setProgress(newProgress, view);
+            if (mFakeTitleBar != null) {
+                mFakeTitleBar.setProgress(newProgress);
             }
 
             if (newProgress == 100) {
@@ -3427,6 +3441,13 @@ public class BrowserActivity extends Activity
     }
 
     /**
+     * Update the lock icon to correspond to our latest state.
+     */
+    /* package */ void updateLockIconToLatest() {
+        updateLockIconImage(mLockIconType);
+    }
+
+    /**
      * Updates the lock-icon image in the title-bar.
      */
     private void updateLockIconImage(int lockIconType) {
@@ -3436,10 +3457,9 @@ public class BrowserActivity extends Activity
         } else if (lockIconType == LOCK_ICON_MIXED) {
             d = mMixLockIcon;
         }
-        if (CUSTOM_BROWSER_BAR) {
-            mTitleBar.setLock(d, getTopWindow());
-        } else {
-            getWindow().setFeatureDrawable(Window.FEATURE_RIGHT_ICON, d);
+        mTitleBar.setLock(d, getTopWindow());
+        if (mFakeTitleBar != null) {
+            mFakeTitleBar.setLock(d);
         }
     }
 
@@ -3938,9 +3958,7 @@ public class BrowserActivity extends Activity
                             mTabControl.populatePickerData(newTab);
                             mTabControl.setCurrentTab(newTab);
                             int newIndex = mTabControl.getCurrentIndex();
-                            if (CUSTOM_BROWSER_BAR) {
-                                mTitleBar.setCurrentTab(newIndex);
-                            }
+                            mTitleBar.setCurrentTab(newIndex);
                         }
                     } else {
                         final TabControl.Tab currentTab =
@@ -4198,7 +4216,6 @@ public class BrowserActivity extends Activity
 
     private Drawable    mMixLockIcon;
     private Drawable    mSecLockIcon;
-    private Drawable    mGenericFavicon;
 
     /* hold a ref so we can auto-cancel if necessary */
     private AlertDialog mAlertDialog;
