@@ -97,6 +97,7 @@ public class ActiveTabsPage extends LinearLayout {
             FakeWebView webView
                     = (FakeWebView) convertView.findViewById(R.id.screen_shot);
             View close = convertView.findViewById(R.id.close);
+            View divider = convertView.findViewById(R.id.divider);
 
             final int tabCount = mControl.getTabCount();
             if (tabCount < TabControl.MAX_TABS) {
@@ -104,15 +105,18 @@ public class ActiveTabsPage extends LinearLayout {
             }
             if (position == -1) {
                 title.setText(R.string.new_tab);
-                url.setText(R.string.http);
+                url.setVisibility(View.GONE);
                 webView.setImageResource(R.drawable.ic_add_tab);
                 close.setVisibility(View.GONE);
+                divider.setVisibility(View.GONE);
             } else {
                 TabControl.Tab tab = mControl.getTab(position);
                 mControl.populatePickerData(tab);
                 title.setText(tab.getTitle());
                 url.setText(tab.getUrl());
+                url.setVisibility(View.VISIBLE);
                 webView.setTab(tab);
+                divider.setVisibility(View.VISIBLE);
                 close.setVisibility(View.VISIBLE);
                 final int closePosition = position;
                 close.setOnClickListener(new View.OnClickListener() {

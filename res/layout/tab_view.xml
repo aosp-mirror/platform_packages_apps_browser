@@ -24,8 +24,8 @@
     <com.android.browser.FakeWebView android:id="@+id/screen_shot"
         android:layout_width="40dip"
         android:layout_height="40dip"
-        android:layout_marginLeft="4dip"
-        android:layout_marginRight="4dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
         />
     <LinearLayout
         android:layout_width="0dip"
@@ -50,11 +50,19 @@
             android:ellipsize="end"
             />
     </LinearLayout>
+    <View android:id="@+id/divider"
+        android:background="#ff313431"
+        android:layout_width="1dip"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="8dip"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="5dip"
+        />
     <ImageView android:id="@+id/close"
-        android:src="@drawable/ic_close_tab"
+        android:src="@drawable/ic_btn_close_panel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dip"
-        android:layout_marginRight="4dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
         />
 </LinearLayout>
