@@ -177,6 +177,18 @@ public class TitleBarSet extends Gallery
         if (titleBar != getTitleBarAt(position)) {
             return false;
         }
+        View textfield = titleBar.findViewById(R.id.title);
+        // Interpret all touches past the right edge of the search field as
+        // a touch on the icon on the right.
+        if ((int) mLastTouchUp.getX() > textfield.getRight()) {
+            WebView webView = titleBar.getWebView();
+            if (webView != null && webView.getProgress() < 100) {
+                webView.stopLoading();
+            } else {
+                mBrowserActivity.bookmarksOrHistoryPicker(false);
+            }
+            return true;
+        }
         mBrowserActivity.onSearchRequested();
         return true;
     }
