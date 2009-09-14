@@ -29,6 +29,9 @@ import android.provider.Browser;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.GeolocationPermissions;
@@ -432,5 +435,42 @@ public class WebsiteSettingsActivity extends ListActivity {
         mAdapter = new SiteAdapter(this, R.layout.application);
         setListAdapter(mAdapter);
         getListView().setOnItemClickListener(mAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.websitesettings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If we aren't listing any sites hide the clear all button (and hence the menu).
+        return mAdapter.getCount() > 0;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.website_settings_menu_clear_all:
+                // Show the prompt to clear all origins of their data and geolocation permissions.
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.website_settings_clear_all_dialog_title)
+                        .setMessage(R.string.website_settings_clear_all_dialog_message)
+                        .setPositiveButton(R.string.website_settings_clear_all_dialog_ok_button,
+                                new AlertDialog.OnClickListener() {
+                                    public void onClick(DialogInterface dlg, int which) {
+                                        WebStorage.getInstance().deleteAllData();
+                                        GeolocationPermissions.getInstance().clearAll();
+                                        mAdapter.populateOrigins();
+                                        mAdapter.notifyDataSetChanged();
+                                    }})
+                        .setNegativeButton(R.string.website_settings_clear_all_dialog_cancel_button, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                return true;
+        }
+        return false;
     }
 }
