@@ -973,8 +973,10 @@ public class BrowserActivity extends Activity
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                     PixelFormat.OPAQUE);
             params.gravity = Gravity.TOP;
-            params.windowAnimations = getTopWindow().getScrollY() == 0 ? 0
-                    : com.android.internal.R.style.Animation_DropDownDown;
+            WebView mainView = mTabControl.getCurrentWebView();
+            params.windowAnimations = mainView == null
+                    || mainView.getScrollY() != 0
+                    ? com.android.internal.R.style.Animation_DropDownDown : 0;
             // XXX : Without providing an offset, the fake title bar will be
             // placed underneath the status bar.  Use the global visible rect
             // of mBrowserFrameLayout to determine the bottom of the status bar
@@ -988,7 +990,14 @@ public class BrowserActivity extends Activity
     @Override
     public void onOptionsMenuClosed(Menu menu) {
         mOptionsMenuOpen = false;
-        hideFakeTitleBar();
+        if (!mInLoad) {
+            hideFakeTitleBar();
+        } else if (!mIconView) {
+            // The page is currently loading, and we are in expanded mode, so
+            // we were not showing the menu.  Show it once again.  It will be
+            // removed when the page finishes.
+            showFakeTitleBar();
+        }
     }
     private void hideFakeTitleBar() {
         if (mFakeTitleBar == null) return;
@@ -2406,6 +2415,11 @@ public class BrowserActivity extends Activity
             CookieSyncManager.getInstance().resetSync();
 
             mInLoad = true;
+            WebView currentWebView = mTabControl.getCurrentWebView();
+            if (currentWebView == null || currentWebView.getScrollY() != 0) {
+                // This page has begun to load, so show the title bar
+                showFakeTitleBar();
+            }
             updateInLoadMenuItems();
             if (!mIsNetworkUp) {
                 if ( mAlertDialog == null) {
@@ -3060,14 +3074,22 @@ public class BrowserActivity extends Activity
                 if (mInLoad) {
                     mInLoad = false;
                     updateInLoadMenuItems();
+                    // If the options menu is open, leave the title bar
+                    if (!mOptionsMenuOpen || !mIconView) {
+                        hideFakeTitleBar();
+                    }
                 }
-            } else {
+            } else if (!mInLoad) {
                 // onPageFinished may have already been called but a subframe
                 // is still loading and updating the progress. Reset mInLoad
                 // and update the menu items.
-                if (!mInLoad) {
-                    mInLoad = true;
-                    updateInLoadMenuItems();
+                mInLoad = true;
+                updateInLoadMenuItems();
+                WebView currentWebView = mTabControl.getCurrentWebView();
+                if ((currentWebView == null || currentWebView.getScrollY() != 0)
+                        && (!mOptionsMenuOpen || mIconView)) {
+                    // This page has begun to load, so show the title bar
+                    showFakeTitleBar();
                 }
             }
         }
