@@ -28,8 +28,9 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebView;
+import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -50,12 +51,12 @@ public class TitleBar extends LinearLayout {
     private Drawable        mStopDrawable;
     private Drawable        mBookmarkDrawable;
     private boolean         mInLoad;
-    private WebView         mWebView;
     private BrowserActivity mBrowserActivity;
     private Drawable        mGenericFavicon;
     private int             mIconDimension;
+    private View            mTitleBg;
 
-    public TitleBar(BrowserActivity context, WebView webview) {
+    public TitleBar(BrowserActivity context) {
         super(context, null);
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.title_bar, this);
@@ -64,6 +65,7 @@ public class TitleBar extends LinearLayout {
         mTitle = (TextView) findViewById(R.id.title);
         mTitle.setCompoundDrawablePadding(5);
 
+        mTitleBg = findViewById(R.id.title_bg);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mFavicon = (ImageView) findViewById(R.id.favicon);
 
@@ -77,16 +79,63 @@ public class TitleBar extends LinearLayout {
         mCircularProgress.setBounds(0, 0, mIconDimension, mIconDimension);
         mHorizontalProgress = (ProgressBar) findViewById(
                 R.id.progress_horizontal);
-        mWebView = webview;
         mGenericFavicon = context.getResources().getDrawable(
                 R.drawable.app_web_browser_sm);
     }
 
-    /**
-     * Return the WebView associated with this TitleBar.
-     */
-    /* package */ WebView getWebView() {
-        return mWebView;
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                // Make all touches hit either the textfield or the button,
+                // depending on which side of the right edge of the textfield
+                // they hit.
+                if ((int) event.getX() > mTitleBg.getRight()) {
+                    mRtButton.setPressed(true);
+                } else {
+                    mTitleBg.setPressed(true);
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int slop = ViewConfiguration.get(mBrowserActivity)
+                        .getScaledTouchSlop();
+                if ((int) event.getY() > getHeight() + slop) {
+                    // We only trigger the actions in ACTION_UP if one or the
+                    // other is pressed.  Since the user moved off the title
+                    // bar, mark both as not pressed.
+                    mTitleBg.setPressed(false);
+                    mRtButton.setPressed(false);
+                    break;
+                }
+                int x = (int) event.getX();
+                int titleRight = mTitleBg.getRight();
+                if (mTitleBg.isPressed() && x > titleRight + slop) {
+                    mTitleBg.setPressed(false);
+                } else if (mRtButton.isPressed() && x < titleRight - slop) {
+                    mRtButton.setPressed(false);
+                }
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                mRtButton.setPressed(false);
+                mTitleBg.setPressed(false);
+                break;
+            case MotionEvent.ACTION_UP:
+                if (mRtButton.isPressed()) {
+                    if (mInLoad) {
+                        mBrowserActivity.stopLoading();
+                    } else {
+                        mBrowserActivity.bookmarksOrHistoryPicker(false);
+                    }
+                    mRtButton.setPressed(false);
+                } else if (mTitleBg.isPressed()) {
+                    mBrowserActivity.onSearchRequested();
+                    mTitleBg.setPressed(false);
+                }
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     /**
