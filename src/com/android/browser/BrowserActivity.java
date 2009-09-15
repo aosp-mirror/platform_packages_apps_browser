@@ -960,6 +960,14 @@ public class BrowserActivity extends Activity
         }
         mCredsDlg = null;
 
+        // FIXME: This removes the active tabs page and resets the menu to
+        // MAIN_MENU.  A better solution might be to do this work in onNewIntent
+        // but then we would need to save it in onSaveInstanceState and restore
+        // it in onCreate/onRestoreInstanceState
+        if (mActiveTabsPage != null) {
+            removeActiveTabPage(true);
+        }
+
         cancelStopToast();
 
         // unregister network state listener
