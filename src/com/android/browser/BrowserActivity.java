@@ -1376,6 +1376,7 @@ public class BrowserActivity extends Activity
         mTabControl.setCurrentTab(tab);
         attachTabToContentView(tab);
         mTitleBar.setCurrentTab(index);
+        resetTitle();
         return true;
     }
 
