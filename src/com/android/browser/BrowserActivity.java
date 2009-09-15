@@ -946,7 +946,7 @@ public class BrowserActivity extends Activity
     }
 
     private void showFakeTitleBar() {
-        if (mFakeTitleBar == null) {
+        if (mFakeTitleBar == null || mActiveTabsPage != null) {
             final WebView webView = getTopWindow();
             mFakeTitleBar = new TitleBar(this, webView);
             mFakeTitleBar.setTitleAndUrl(null, webView.getUrl());
@@ -1459,6 +1459,7 @@ public class BrowserActivity extends Activity
             case R.id.active_tabs_menu_id:
                 mActiveTabsPage = new ActiveTabsPage(this, mTabControl);
                 removeTabFromContentView(mTabControl.getCurrentTab());
+                hideFakeTitleBar();
                 mContentView.addView(mActiveTabsPage, COVER_SCREEN_PARAMS);
                 mActiveTabsPage.requestFocus();
                 mMenuState = EMPTY_MENU;
