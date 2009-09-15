@@ -935,7 +935,8 @@ public class BrowserActivity extends Activity
     }
 
     private void showFakeTitleBar() {
-        if (mFakeTitleBar == null || mActiveTabsPage != null) {
+        if (mFakeTitleBar == null && mActiveTabsPage == null
+                && !mActivityInPause) {
             final WebView webView = getTopWindow();
             mFakeTitleBar = new TitleBar(this);
             mFakeTitleBar.setTitleAndUrl(null, webView.getUrl());
