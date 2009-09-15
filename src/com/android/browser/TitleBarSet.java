@@ -75,18 +75,13 @@ public class TitleBarSet extends Gallery
             return;
         }
         int newSelection = mCount;
+        int oldSelection = getSelectedItemPosition();
         TitleBar titleBar = new TitleBar(mBrowserActivity, view);
         mTitleBars.add(titleBar);
         mCount++;
         // Need to refresh our list
         setAdapter(mTitleAdapter);
-        mIgnoreSelectedListener = true;
-        // No need to call onItemSelected, since the Tab in BrowserActivity has
-        // already been changed.
-        if (selected) {
-            setSelection(newSelection);
-        }
-        mIgnoreSelectedListener = false;
+        setCurrentTab(selected ? newSelection : oldSelection);
     }
 
     /**
