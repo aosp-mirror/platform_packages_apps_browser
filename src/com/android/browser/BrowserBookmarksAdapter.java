@@ -51,7 +51,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     private BrowserBookmarksPage    mBookmarksPage;
     private ContentResolver         mContentResolver;
     private boolean                 mDataValid;
-    private boolean                 mGridMode;
+    private BookmarkViewMode        mViewMode;
     private boolean                 mMostVisited;
     private boolean                 mNeedsOffset;
     private int                     mExtraOffset;
@@ -82,7 +82,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                 + curPage;
         mCurrentTitle = curTitle;
         mContentResolver = b.getContentResolver();
-        mGridMode = false;
+        mViewMode = BookmarkViewMode.LIST;
 
         String whereClause;
         // FIXME: Should have a default sort order that the user selects.
@@ -377,8 +377,8 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         return position;
     }
 
-    /* package */ void switchViewMode(boolean toGrid) {
-        mGridMode = toGrid;
+    /* package */ void switchViewMode(BookmarkViewMode viewMode) {
+        mViewMode = viewMode;
     }
 
     /* package */ void populateBookmarkItem(BookmarkItem b, int position) {
@@ -406,7 +406,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             throw new AssertionError(
                     "BrowserBookmarksAdapter tried to get a view out of range");
         }
-        if (mGridMode) {
+        if (mViewMode == BookmarkViewMode.GRID) {
             if (convertView == null || convertView instanceof AddNewBookmark
                     || convertView instanceof BookmarkItem) {
                 LayoutInflater factory = LayoutInflater.from(mBookmarksPage);
