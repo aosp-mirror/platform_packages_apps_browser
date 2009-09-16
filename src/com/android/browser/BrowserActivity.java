@@ -297,7 +297,6 @@ public class BrowserActivity extends Activity
             Log.v(LOGTAG, this + " onStart");
         }
         super.onCreate(icicle);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         // test the browser in OpenGL
         // requestWindowFeature(Window.FEATURE_OPENGL);
 
