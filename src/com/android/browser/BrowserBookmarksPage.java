@@ -20,6 +20,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -53,13 +55,14 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+/*package*/ enum BookmarkViewMode { NONE, GRID, LIST }
 /**
  *  View showing the user's bookmarks in the browser.
  */
 public class BrowserBookmarksPage extends Activity implements 
         View.OnCreateContextMenuListener {
 
-    private boolean                 mGridMode;
+    private BookmarkViewMode        mViewMode = BookmarkViewMode.NONE;
     private GridView                mGridPage;
     private View                    mVerticalList;
     private BrowserBookmarksAdapter mBookmarksAdapter;
@@ -77,7 +80,8 @@ public class BrowserBookmarksPage extends Activity implements
             "com.android.launcher.action.INSTALL_SHORTCUT";
     
     private final static String LOGTAG = "browser";
-
+    private final static String PREF_BOOKMARK_VIEW_MODE = "pref_bookmark_view_mode";
+    private final static String PREF_MOST_VISITED_VIEW_MODE = "pref_most_visited_view_mode";
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -137,7 +141,7 @@ public class BrowserBookmarksPage extends Activity implements
             boolean isBookmark;
             String name;
             String url;
-            if (mGridMode) {
+            if (mViewMode == BookmarkViewMode.GRID) {
                 isBookmark = mBookmarksAdapter.getIsBookmark(i.position);
                 name = mBookmarksAdapter.getTitle(i.position);
                 url = mBookmarksAdapter.getUrl(i.position);
@@ -187,7 +191,8 @@ public class BrowserBookmarksPage extends Activity implements
                 return;
             }
             if (mMostVisited) {
-                if ((!mGridMode && ((HistoryItem) i.targetView).isBookmark())
+                if ((mViewMode == BookmarkViewMode.LIST
+                        && ((HistoryItem) i.targetView).isBookmark())
                         || mBookmarksAdapter.getIsBookmark(i.position)) {
                     MenuItem item = menu.findItem(
                             R.id.save_to_bookmarks_menu_id);
@@ -207,7 +212,7 @@ public class BrowserBookmarksPage extends Activity implements
                 ((ViewGroup) mContextHeader.getParent()).
                         removeView(mContextHeader);
             }
-            if (mGridMode) {
+            if (mViewMode == BookmarkViewMode.GRID) {
                 mBookmarksAdapter.populateBookmarkItem(mContextHeader,
                         i.position);
             } else {
@@ -243,17 +248,44 @@ public class BrowserBookmarksPage extends Activity implements
         mEmptyView = findViewById(R.id.empty_view);
         mEmptyView.setVisibility(View.GONE);
 
-        switchViewMode(true);
+        SharedPreferences p = getPreferences(MODE_PRIVATE);
+
+        // See if the user has set a preference for the view mode of their
+        // bookmarks. Otherwise default to grid mode.
+        BookmarkViewMode preference = BookmarkViewMode.NONE;
+        if (mMostVisited) {
+            preference = BookmarkViewMode.values()[p.getInt(
+                    PREF_MOST_VISITED_VIEW_MODE,
+                    BookmarkViewMode.GRID.ordinal())];
+        } else {
+            preference = BookmarkViewMode.values()[p.getInt(
+                    PREF_BOOKMARK_VIEW_MODE, BookmarkViewMode.GRID.ordinal())];
+        }
+        switchViewMode(preference);
     }
 
     /**
      *  Set the ContentView to be either the grid of thumbnails or the vertical
-     *  list.  Pass true to set it to the grid.
+     *  list.
      */
-    private void switchViewMode(boolean gridMode) {
-        mGridMode = gridMode;
+    private void switchViewMode(BookmarkViewMode gridMode) {
+        if (mViewMode == gridMode) {
+            return;
+        }
+
+        mViewMode = gridMode;
+
+        // Update the preferences to make the new view mode sticky.
+        Editor ed = getPreferences(MODE_PRIVATE).edit();
+        if (mMostVisited) {
+            ed.putInt(PREF_MOST_VISITED_VIEW_MODE, mViewMode.ordinal());
+        } else {
+            ed.putInt(PREF_BOOKMARK_VIEW_MODE, mViewMode.ordinal());
+        }
+        ed.commit();
+
         mBookmarksAdapter.switchViewMode(gridMode);
-        if (mGridMode) {
+        if (mViewMode == BookmarkViewMode.GRID) {
             if (mGridPage == null) {
                 mGridPage = new GridView(this);
                 mGridPage.setAdapter(mBookmarksAdapter);
@@ -457,7 +489,7 @@ public class BrowserBookmarksPage extends Activity implements
             return result;
         }
         menu.findItem(R.id.switch_mode_menu_id).setTitle(
-                mGridMode ? R.string.switch_to_list
+                mViewMode == BookmarkViewMode.GRID ? R.string.switch_to_list
                 : R.string.switch_to_thumbnails);
         return true;
     }
@@ -470,7 +502,11 @@ public class BrowserBookmarksPage extends Activity implements
             break;
 
         case R.id.switch_mode_menu_id:
-            switchViewMode(!mGridMode);
+            if (mViewMode == BookmarkViewMode.GRID) {
+                switchViewMode(BookmarkViewMode.LIST);
+            } else {
+                switchViewMode(BookmarkViewMode.GRID);
+            }
             break;
 
         default:
