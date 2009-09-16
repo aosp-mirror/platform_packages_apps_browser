@@ -113,7 +113,8 @@
         </activity>
 
         <activity android:name="CombinedBookmarkHistoryActivity" android:label=""
-                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"
+                  android:theme="@style/BookmarkTheme" >
         </activity>
 
         <activity android:name="BrowserBookmarksPage" android:label="@string/bookmarks"
