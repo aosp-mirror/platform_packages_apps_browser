@@ -56,6 +56,7 @@ import android.graphics.drawable.Drawable;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.WebAddress;
 import android.net.http.EventHandler;
@@ -356,9 +357,11 @@ public class BrowserActivity extends Activity
                 public void onReceive(Context context, Intent intent) {
                     if (intent.getAction().equals(
                             ConnectivityManager.CONNECTIVITY_ACTION)) {
-                        boolean down = intent.getBooleanExtra(
-                                ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-                        onNetworkToggle(!down);
+                        NetworkInfo info =
+                                (NetworkInfo) intent.getParcelableExtra(
+                                        ConnectivityManager.EXTRA_NETWORK_INFO);
+                        onNetworkToggle(
+                                (info != null) ? info.isConnected() : false);
                     }
                 }
             };
@@ -2430,13 +2433,7 @@ public class BrowserActivity extends Activity
             }
             updateInLoadMenuItems();
             if (!mIsNetworkUp) {
-                if ( mAlertDialog == null) {
-                    mAlertDialog = new AlertDialog.Builder(BrowserActivity.this)
-                        .setTitle(R.string.loadSuspendedTitle)
-                        .setMessage(R.string.loadSuspended)
-                        .setPositiveButton(R.string.ok, null)
-                        .show();
-                }
+                createAndShowNetworkDialog();
                 if (view != null) {
                     view.setNetworkAvailable(false);
                 }
@@ -3956,17 +3953,25 @@ public class BrowserActivity extends Activity
             }
         } else {
             mIsNetworkUp = false;
-            if (mInLoad && mAlertDialog == null) {
-                mAlertDialog = new AlertDialog.Builder(this)
-                        .setTitle(R.string.loadSuspendedTitle)
-                        .setMessage(R.string.loadSuspended)
-                        .setPositiveButton(R.string.ok, null)
-                        .show();
-            }
+            if (mInLoad) {
+                createAndShowNetworkDialog();
+           }
         }
         WebView w = mTabControl.getCurrentWebView();
         if (w != null) {
             w.setNetworkAvailable(up);
+        }
+    }
+
+    // This method shows the network dialog alerting the user that the net is
+    // down. It will only show the dialog if mAlertDialog is null.
+    private void createAndShowNetworkDialog() {
+        if (mAlertDialog == null) {
+            mAlertDialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.loadSuspendedTitle)
+                    .setMessage(R.string.loadSuspended)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
         }
     }
 

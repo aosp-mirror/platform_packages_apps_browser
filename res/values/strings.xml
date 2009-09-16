@@ -491,7 +491,8 @@
     <!-- Dialog box title -->
     <string name="loadSuspendedTitle">No network connection</string>
     <!-- Dialog box message -->
-    <string name="loadSuspended">The page will continue loading after connection has been restored.</string>
+    <string name="loadSuspended">The Browser cannot load this page because there
+      is no internet connection.</string>
     <!-- Menu item -->
     <string name="clear_history">Clear history</string>
     <!-- History screen title; appears in title bar -->
