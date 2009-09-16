@@ -181,7 +181,7 @@ public class TitleBar extends LinearLayout {
      * Update the progress, from 0 to 100.
      */
     /* package */ void setProgress(int newProgress) {
-        if (newProgress == mHorizontalProgress.getMax()) {
+        if (newProgress >= mHorizontalProgress.getMax()) {
             mTitle.setCompoundDrawables(null, null, null, null);
             ((Animatable) mCircularProgress).stop();
             mHorizontalProgress.setVisibility(View.INVISIBLE);
@@ -191,7 +191,11 @@ public class TitleBar extends LinearLayout {
             mInLoad = false;
         } else {
             mHorizontalProgress.setProgress(newProgress);
-            if (!mInLoad) {
+            if (!mInLoad && getWindowToken() != null) {
+                // checking the window token lets us be sure that we
+                // are attached to a window before starting the animation,
+                // preventing a potential race condition
+                // (fix for bug http://b/2115736)
                 mTitle.setCompoundDrawables(null, null, mCircularProgress,
                         null);
                 ((Animatable) mCircularProgress).start();
