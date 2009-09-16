@@ -39,8 +39,8 @@
         android:orientation="horizontal"
         >
 
-        <LinearLayout
-            android:background="@*android:drawable/textfield_default"
+        <LinearLayout android:id="@+id/title_bg"
+            android:background="@*android:drawable/edit_text"
             android:layout_width="0dip"
             android:layout_weight="1.0"
             android:layout_height="wrap_content"
