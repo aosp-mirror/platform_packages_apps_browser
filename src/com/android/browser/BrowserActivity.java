@@ -1365,10 +1365,10 @@ public class BrowserActivity extends Activity
             // we do not need to remove it
             removeTabFromContentView(currentTab);
         }
-        removeTabFromContentView(tab);
         mTabControl.setCurrentTab(tab);
         attachTabToContentView(tab);
-        resetTitle();
+        resetTitleIconAndProgress();
+        updateLockIconToLatest();
         return true;
     }
 
@@ -1774,6 +1774,11 @@ public class BrowserActivity extends Activity
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
+        if (t == mTabControl.getCurrentTab()) {
+            setLockIconType(t.getLockIconType());
+            setPrevLockType(t.getPrevLockIconType());
+        }
+
         WebView view = t.getWebView();
         view.setEmbeddedTitleBar(mTitleBar);
         // Attach the sub window if necessary
@@ -1810,6 +1815,11 @@ public class BrowserActivity extends Activity
         // Remove the sub window if it exists.
         if (t.getSubWebView() != null) {
             mContentView.removeView(t.getSubWebViewContainer());
+        }
+
+        if (t == mTabControl.getCurrentTab()) {
+            t.setLockIconType(getLockIconType());
+            t.setPrevLockIconType(getPrevLockType());
         }
     }
 
@@ -1850,10 +1860,10 @@ public class BrowserActivity extends Activity
             if (currentTab != null) {
                 removeTabFromContentView(currentTab);
             }
-            attachTabToContentView(tab);
             // We must set the new tab as the current tab to reflect the old
             // animation behavior.
             mTabControl.setCurrentTab(tab);
+            attachTabToContentView(tab);
             if (!urlData.isEmpty()) {
                 urlData.loadIn(webview);
             }
@@ -1917,15 +1927,6 @@ public class BrowserActivity extends Activity
         } catch (android.os.RemoteException e) {
             Log.e(LOGTAG, "Copy failed", e);
         }
-    }
-
-    /**
-     * Resets the browser title-view to whatever it must be (for example, if we
-     * load a page from history).
-     */
-    private void resetTitle() {
-        resetLockIcon();
-        resetTitleIconAndProgress();
     }
 
     /**
@@ -3451,23 +3452,20 @@ public class BrowserActivity extends Activity
         updateLockIconImage(LOCK_ICON_UNSECURE);
     }
 
-    /**
-     * Resets the lock icon.  This method is called when the icon needs to be
-     * reset but we do not know whether we are loading a secure or not secure
-     * page.
-     */
-    private void resetLockIcon() {
-        // Save the lock-icon state (we revert to it if the load gets cancelled)
-        saveLockIcon();
+    /* package */ void setLockIconType(int type) {
+        mLockIconType = type;
+    }
 
-        mLockIconType = LOCK_ICON_UNSECURE;
+    /* package */ int getLockIconType() {
+        return mLockIconType;
+    }
 
-        if (LOGV_ENABLED) {
-          Log.v(LOGTAG, "BrowserActivity.resetLockIcon:" +
-                " reset lock icon to " + mLockIconType);
-        }
+    /* package */ void setPrevLockType(int type) {
+        mPrevLockType = type;
+    }
 
-        updateLockIconImage(LOCK_ICON_UNSECURE);
+    /* package */ int getPrevLockType() {
+        return mPrevLockType;
     }
 
     /**
@@ -4173,9 +4171,9 @@ public class BrowserActivity extends Activity
 
     }
 
-    private final static int LOCK_ICON_UNSECURE = 0;
-    private final static int LOCK_ICON_SECURE   = 1;
-    private final static int LOCK_ICON_MIXED    = 2;
+    final static int LOCK_ICON_UNSECURE = 0;
+    final static int LOCK_ICON_SECURE   = 1;
+    final static int LOCK_ICON_MIXED    = 2;
 
     private int mLockIconType = LOCK_ICON_UNSECURE;
     private int mPrevLockType = LOCK_ICON_UNSECURE;
