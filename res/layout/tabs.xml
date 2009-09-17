@@ -26,9 +26,6 @@
         <TabWidget android:id="@android:id/tabs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="1dip"
-            android:paddingRight="1dip"
-            android:paddingTop="4dip"
         />
 
         <FrameLayout android:id="@android:id/tabcontent"
