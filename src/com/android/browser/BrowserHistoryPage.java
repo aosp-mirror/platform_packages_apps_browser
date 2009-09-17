@@ -25,6 +25,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ServiceManager;
@@ -131,7 +132,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }
         mDisableNewWindow = getIntent().getBooleanExtra("disable_new_window",
                 false);
-        CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
+        CombinedBookmarkHistoryActivity.getIconListenerSet()
                 .addListener(mIconReceiver);
         
         // initialize the result to canceled, so that if the user just presses
@@ -142,7 +143,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
+        CombinedBookmarkHistoryActivity.getIconListenerSet()
                 .removeListener(mIconReceiver);
     }
 
@@ -424,8 +425,14 @@ public class BrowserHistoryPage extends ExpandableListActivity {
             item.setName(mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX));
             String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
             item.setUrl(url);
-            item.setFavicon(CombinedBookmarkHistoryActivity.getIconListenerSet(
-                    getContentResolver()).getFavicon(url));
+            byte[] data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
+            if (data != null) {
+                item.setFavicon(BitmapFactory.decodeByteArray(data, 0,
+                        data.length));
+            } else {
+                item.setFavicon(CombinedBookmarkHistoryActivity
+                        .getIconListenerSet().getFavicon(url));
+            }
             item.setIsBookmark(1 ==
                     mCursor.getInt(Browser.HISTORY_PROJECTION_BOOKMARK_INDEX));
             return item;

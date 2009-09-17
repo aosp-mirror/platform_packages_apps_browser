@@ -383,11 +383,17 @@ class BrowserBookmarksAdapter extends BaseAdapter {
 
     /* package */ void populateBookmarkItem(BookmarkItem b, int position) {
         mCursor.moveToPosition(position - mExtraOffset);
-        b.setUrl(mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX));
+        String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
+        b.setUrl(url);
         b.setName(mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX));
         byte[] data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
-        Bitmap bitmap = (null == data) ? null :
-                BitmapFactory.decodeByteArray(data, 0, data.length);
+        Bitmap bitmap = null;
+        if (data == null) {
+            bitmap = CombinedBookmarkHistoryActivity.getIconListenerSet()
+                    .getFavicon(url);
+        } else {
+            bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+        }
         b.setFavicon(bitmap);
     }
 
@@ -544,7 +550,8 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         if (data != null) {
             b.setFavicon(BitmapFactory.decodeByteArray(data, 0, data.length));
         } else {
-            b.setFavicon(null);
+            b.setFavicon(CombinedBookmarkHistoryActivity.getIconListenerSet()
+                    .getFavicon(url));
         }
     }
 
