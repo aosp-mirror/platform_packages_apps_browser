@@ -26,6 +26,10 @@
         <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextView</item>
     </style>
 
+    <style name="BookmarkTheme" parent="@android:Theme.Black">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <style name="AutoCompleteTextView">
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
