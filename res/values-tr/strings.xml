@@ -16,7 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Tarayıcı"</string>
-    <!-- no translation found for new_tab (7971857320679510529) -->
+    <string name="new_tab" msgid="7971857320679510529">"Yeni sekme"</string>
+    <!-- no translation found for active_tabs (8423342514993323050) -->
     <skip />
     <string name="tab_bookmarks" msgid="2305793036003473653">"Favoriler"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"En çok ziyaret edilenler"</string>
@@ -209,7 +210,8 @@
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Doğrula"</string>
     <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Görüntülemeye çalıştığınız sayfa zaten gönderilmiş veriler (\"POSTDATA\") içeriyor. Verileri tekrar gönderirseniz sayfa üzerinde yapılmış tüm işlemler (arama veya çevrimiçi satın alma gibi) tekrarlanacaktır."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"Ağ bağlantısı yok"</string>
-    <string name="loadSuspended" msgid="1800165494398204523">"Bağlantı tekrar kurulduktan sonra sayfa yüklenmeye devam edecek."</string>
+    <!-- no translation found for loadSuspended (724674402736067146) -->
+    <skip />
     <string name="clear_history" msgid="5998307092715979619">"Geçmişi temizle"</string>
     <string name="browser_history" msgid="2979476257919939232">"Son ziyaret edilen sayfalar"</string>
     <string name="empty_history" msgid="8738772352308207274">"Tarayıcı geçmişi boş."</string>
@@ -271,8 +273,7 @@
     <string name="webstorage_clear_data_dialog_ok_button" msgid="5074037549893407416">"Tümünü Temizle"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"İptal"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Telefonunuzda depolanan MB"</string>
-    <!-- no translation found for geolocation_permissions_prompt_message (2412844044592274106) -->
-    <skip />
+    <string name="geolocation_permissions_prompt_message" msgid="2412844044592274106">"<xliff:g id="WEBPAGE">%s</xliff:g> konumunuzu bilmek istiyor"</string>
     <string name="geolocation_permissions_prompt_share" msgid="6908104491085328731">"Paylaş"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="5962677371200773835">"Paylaşma"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="5798300962802553043">"Anımsa"</string>
@@ -283,5 +284,15 @@
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Bu web sitesi için konum erişimi temizlenecek"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Erişimi temizle"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"İptal"</string>
+    <!-- no translation found for website_settings_clear_all (2073906304824388952) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_title (1975103796504323734) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_message (6545526672017530811) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_ok_button (3677457125416372255) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
+    <skip />
     <string name="zoom_overview_button_text" msgid="4146579940085488881">"Genel Bakış"</string>
 </resources>

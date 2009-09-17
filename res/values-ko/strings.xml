@@ -16,7 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"브라우저"</string>
-    <!-- no translation found for new_tab (7971857320679510529) -->
+    <string name="new_tab" msgid="7971857320679510529">"새 탭"</string>
+    <!-- no translation found for active_tabs (8423342514993323050) -->
     <skip />
     <string name="tab_bookmarks" msgid="2305793036003473653">"북마크"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"최다 방문 웹사이트"</string>
@@ -209,7 +210,8 @@
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"확인"</string>
     <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"보려는 페이지에 이미 제출된 데이터(\'POSTDATA\')가 있습니다. 해당 데이터를 다시 보내면 페이지의 양식에서 수행한 작업(예: 검색 또는 온라인 구매)이 반복됩니다."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"네트워크 연결 없음"</string>
-    <string name="loadSuspended" msgid="1800165494398204523">"연결이 복원된 후에 페이지 로드가 계속됩니다."</string>
+    <!-- no translation found for loadSuspended (724674402736067146) -->
+    <skip />
     <string name="clear_history" msgid="5998307092715979619">"기록 지우기"</string>
     <string name="browser_history" msgid="2979476257919939232">"최근에 방문한 페이지"</string>
     <string name="empty_history" msgid="8738772352308207274">"브라우저 기록이 비어 있습니다."</string>
@@ -271,8 +273,7 @@
     <string name="webstorage_clear_data_dialog_ok_button" msgid="5074037549893407416">"모두 지우기"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"취소"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"휴대전화에 저장된 용량(MB)"</string>
-    <!-- no translation found for geolocation_permissions_prompt_message (2412844044592274106) -->
-    <skip />
+    <string name="geolocation_permissions_prompt_message" msgid="2412844044592274106">"<xliff:g id="WEBPAGE">%s</xliff:g>에서 사용자의 위치를 확인하려고 합니다."</string>
     <string name="geolocation_permissions_prompt_share" msgid="6908104491085328731">"공유"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="5962677371200773835">"공유 안함"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="5798300962802553043">"저장"</string>
@@ -283,5 +284,15 @@
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"웹사이트의 위치 정보 액세스가 삭제됩니다."</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"액세스 삭제"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"취소"</string>
+    <!-- no translation found for website_settings_clear_all (2073906304824388952) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_title (1975103796504323734) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_message (6545526672017530811) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_ok_button (3677457125416372255) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
+    <skip />
     <string name="zoom_overview_button_text" msgid="4146579940085488881">"전체보기"</string>
 </resources>

@@ -16,7 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Браузер"</string>
-    <!-- no translation found for new_tab (7971857320679510529) -->
+    <string name="new_tab" msgid="7971857320679510529">"Новая вкладка"</string>
+    <!-- no translation found for active_tabs (8423342514993323050) -->
     <skip />
     <string name="tab_bookmarks" msgid="2305793036003473653">"Закладки"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Часто посещаемые"</string>
@@ -209,7 +210,8 @@
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Подтверждение"</string>
     <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Страница, которую вы пытаетесь просмотреть, содержит уже отправленные данные (\"POSTDATA\"). Если отправить их еще раз, произойдет повтор всех действий, которые форма выполнила на странице (например, поиск или покупка через Интернет)."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"Сетевое подключение отсутствует"</string>
-    <string name="loadSuspended" msgid="1800165494398204523">"Загрузка страницы продолжится после восстановления соединения."</string>
+    <!-- no translation found for loadSuspended (724674402736067146) -->
+    <skip />
     <string name="clear_history" msgid="5998307092715979619">"Очистить историю"</string>
     <string name="browser_history" msgid="2979476257919939232">"Недавно посещенные страницы"</string>
     <string name="empty_history" msgid="8738772352308207274">"История браузера пуста."</string>
@@ -271,8 +273,7 @@
     <string name="webstorage_clear_data_dialog_ok_button" msgid="5074037549893407416">"Удалить все"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Отмена"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Объем занятой памяти телефона (МБ)"</string>
-    <!-- no translation found for geolocation_permissions_prompt_message (2412844044592274106) -->
-    <skip />
+    <string name="geolocation_permissions_prompt_message" msgid="2412844044592274106">"<xliff:g id="WEBPAGE">%s</xliff:g> запрашивает данные о вашем местоположении"</string>
     <string name="geolocation_permissions_prompt_share" msgid="6908104491085328731">"Отправить"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="5962677371200773835">"Не отправлять"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="5798300962802553043">"Запомнить"</string>
@@ -283,5 +284,15 @@
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Данные доступа к местоположению для этого сайта будут удалены"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Удалить данные о доступе"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Отмена"</string>
+    <!-- no translation found for website_settings_clear_all (2073906304824388952) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_title (1975103796504323734) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_message (6545526672017530811) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_ok_button (3677457125416372255) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
+    <skip />
     <string name="zoom_overview_button_text" msgid="4146579940085488881">"Обзор"</string>
 </resources>
