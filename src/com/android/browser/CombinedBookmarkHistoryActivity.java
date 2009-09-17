@@ -67,10 +67,9 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         }
     }
     private static IconListenerSet sIconListenerSet;
-    static IconListenerSet getIconListenerSet(ContentResolver cr) {
+    static IconListenerSet getIconListenerSet() {
         if (null == sIconListenerSet) {
             sIconListenerSet = new IconListenerSet();
-            Browser.requestAllIcons(cr, null, sIconListenerSet);
         }
         return sIconListenerSet;
     }
@@ -84,7 +83,10 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
 
         Bundle extras = getIntent().getExtras();
 
-        getIconListenerSet(getContentResolver());
+        getIconListenerSet();
+        // Do this every time we create a new activity so that we get the
+        // newest icons.
+        Browser.requestAllIcons(getContentResolver(), null, sIconListenerSet);
 
         Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
         bookmarksIntent.putExtras(extras);
