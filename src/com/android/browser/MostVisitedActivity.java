@@ -23,6 +23,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Browser;
@@ -50,7 +51,7 @@ public class MostVisitedActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new MyAdapter();
-        CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
+        CombinedBookmarkHistoryActivity.getIconListenerSet()
                 .addListener(mIconReceiver);
         setListAdapter(mAdapter);
         ListView list = getListView();
@@ -63,7 +64,7 @@ public class MostVisitedActivity extends ListActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
+        CombinedBookmarkHistoryActivity.getIconListenerSet()
                .removeListener(mIconReceiver);
     }
 
@@ -97,13 +98,15 @@ public class MostVisitedActivity extends ListActivity {
         private static final int mUrlIndex = 0;
         private static final int mTitleIndex = 1;
         private static final int mBookmarkIndex = 2;
+        private static final int mFaviconIndex = 3;
 
         MyAdapter() {
             mObservers = new Vector<DataSetObserver>();
             String[] projection = new String[] {
                     Browser.BookmarkColumns.URL,
                     Browser.BookmarkColumns.TITLE,
-                    Browser.BookmarkColumns.BOOKMARK };
+                    Browser.BookmarkColumns.BOOKMARK,
+                    Browser.BookmarkColumns.FAVICON };
             String whereClause = Browser.BookmarkColumns.VISITS + " != 0";
             String orderBy = Browser.BookmarkColumns.VISITS + " DESC";
             mCursor = managedQuery(Browser.BOOKMARKS_URI, projection,
@@ -145,8 +148,14 @@ public class MostVisitedActivity extends ListActivity {
             item.setName(mCursor.getString(mTitleIndex));
             String url = mCursor.getString(mUrlIndex);
             item.setUrl(url);
-            item.setFavicon(CombinedBookmarkHistoryActivity.getIconListenerSet(
-                    getContentResolver()).getFavicon(url));
+            byte[] data = mCursor.getBlob(mFaviconIndex);
+            if (data != null) {
+                item.setFavicon(BitmapFactory.decodeByteArray(data, 0,
+                        data.length));
+            } else {
+                item.setFavicon(CombinedBookmarkHistoryActivity
+                        .getIconListenerSet().getFavicon(url));
+            }
             item.setIsBookmark(1 == mCursor.getInt(mBookmarkIndex));
             return item;
         }
