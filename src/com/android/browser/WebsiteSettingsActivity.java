@@ -155,6 +155,11 @@ public class WebsiteSettingsActivity extends ListActivity {
         private int mResource;
         private LayoutInflater mInflater;
         private Bitmap mDefaultIcon;
+        private Bitmap mUsageEmptyIcon;
+        private Bitmap mUsageLowIcon;
+        private Bitmap mUsageMediumIcon;
+        private Bitmap mUsageHighIcon;
+        private Bitmap mLocationIcon;
         private Site mCurrentSite;
 
         public SiteAdapter(Context context, int rsc) {
@@ -163,6 +168,16 @@ public class WebsiteSettingsActivity extends ListActivity {
             mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mDefaultIcon = BitmapFactory.decodeResource(getResources(),
                     R.drawable.ic_launcher_shortcut_browser_bookmark);
+            mUsageEmptyIcon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.usage_empty);
+            mUsageLowIcon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.usage_low);
+            mUsageMediumIcon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.usage_medium);
+            mUsageHighIcon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.usage_high);
+            mLocationIcon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.location);
             populateOrigins();
         }
 
@@ -315,6 +330,8 @@ public class WebsiteSettingsActivity extends ListActivity {
             TextView title;
             TextView subtitle;
             ImageView icon;
+            ImageView usageIcon;
+            ImageView locationIcon;
 
             if (convertView == null) {
                 view = mInflater.inflate(mResource, parent, false);
@@ -325,6 +342,10 @@ public class WebsiteSettingsActivity extends ListActivity {
             title = (TextView) view.findViewById(R.id.title);
             subtitle = (TextView) view.findViewById(R.id.subtitle);
             icon = (ImageView) view.findViewById(R.id.icon);
+            usageIcon = (ImageView) view.findViewById(R.id.usage_icon);
+            locationIcon = (ImageView) view.findViewById(R.id.location_icon);
+            usageIcon.setVisibility(View.GONE);
+            locationIcon.setVisibility(View.GONE);
 
             if (mCurrentSite == null) {
                 setTitle(getString(R.string.pref_extras_website_settings));
@@ -333,6 +354,8 @@ public class WebsiteSettingsActivity extends ListActivity {
                 title.setText(site.getPrettyTitle());
                 subtitle.setText(site.getPrettyOrigin());
                 icon.setVisibility(View.VISIBLE);
+                usageIcon.setVisibility(View.INVISIBLE);
+                locationIcon.setVisibility(View.INVISIBLE);
                 Bitmap bmp = site.getIcon();
                 if (bmp == null) {
                     bmp = mDefaultIcon;
@@ -341,6 +364,33 @@ public class WebsiteSettingsActivity extends ListActivity {
                 // We set the site as the view's tag,
                 // so that we can get it in onItemClick()
                 view.setTag(site);
+
+                if (site.hasFeature(Site.FEATURE_WEB_STORAGE)) {
+                  String origin = site.getOrigin();
+                  long usageInBytes = WebStorage.getInstance().getUsageForOrigin(origin);
+                  float usageInMegabytes = (float) usageInBytes / (1024.0F * 1024.0F);
+                  usageIcon.setVisibility(View.VISIBLE);
+
+                  // We set the correct icon:
+                  // 0 < empty < 0.1MB
+                  // 0.1MB < low < 3MB
+                  // 3MB < medium < 6MB
+                  // 6MB < high
+                  if (usageInMegabytes <= 0.1) {
+                    usageIcon.setImageBitmap(mUsageEmptyIcon);
+                  } else if (usageInMegabytes > 0.1 && usageInMegabytes <= 3) {
+                    usageIcon.setImageBitmap(mUsageLowIcon);
+                  } else if (usageInMegabytes > 3 && usageInMegabytes <= 6) {
+                    usageIcon.setImageBitmap(mUsageMediumIcon);
+                  } else if (usageInMegabytes > 6) {
+                    usageIcon.setImageBitmap(mUsageHighIcon);
+                  }
+                }
+
+                if (site.hasFeature(Site.FEATURE_GEOLOCATION)) {
+                  locationIcon.setVisibility(View.VISIBLE);
+                  locationIcon.setImageBitmap(mLocationIcon);
+                }
             } else {
                 setTitle(mCurrentSite.getPrettyTitle());
                 icon.setVisibility(View.GONE);
@@ -432,7 +482,7 @@ public class WebsiteSettingsActivity extends ListActivity {
         if (sMBStored == null) {
             sMBStored = getString(R.string.webstorage_origin_summary_mb_stored);
         }
-        mAdapter = new SiteAdapter(this, R.layout.application);
+        mAdapter = new SiteAdapter(this, R.layout.website_settings_row);
         setListAdapter(mAdapter);
         getListView().setOnItemClickListener(mAdapter);
     }
