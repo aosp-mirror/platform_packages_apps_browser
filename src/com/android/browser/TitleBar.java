@@ -45,7 +45,7 @@ public class TitleBar extends LinearLayout {
     private ImageView       mRtButton;
     private Drawable        mCircularProgress;
     private ProgressBar     mHorizontalProgress;
-    private Drawable        mFavicon;
+    private ImageView       mFavicon;
     private ImageView       mLockIcon;
     private Drawable        mStopDrawable;
     private Drawable        mBookmarkDrawable;
@@ -65,19 +65,9 @@ public class TitleBar extends LinearLayout {
         mTitle.setCompoundDrawablePadding(5);
 
         mLockIcon = (ImageView) findViewById(R.id.lock);
+        mFavicon = (ImageView) findViewById(R.id.favicon);
 
         mRtButton = (ImageView) findViewById(R.id.rt_btn);
-        mRtButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (mInLoad) {
-                    if (mWebView != null) {
-                        mWebView.stopLoading();
-                    }
-                } else {
-                    mBrowserActivity.bookmarksOrHistoryPicker(false);
-                }
-            }
-        });
         Resources resources = context.getResources();
         mCircularProgress = (Drawable) resources.getDrawable(
                 com.android.internal.R.drawable.search_spinner);
@@ -123,10 +113,7 @@ public class TitleBar extends LinearLayout {
         LayerDrawable d = new LayerDrawable(array);
         d.setLayerInset(1, 1, 1, 1, 1);
         d.setLayerInset(2, 2, 2, 2, 2);
-        d.setBounds(0, 0, mIconDimension, mIconDimension);
-        Drawable progress = mInLoad ? mCircularProgress : null;
-        mTitle.setCompoundDrawables(d, null, progress, null);
-        mFavicon = d;
+        mFavicon.setImageDrawable(d);
     }
 
     /**
@@ -146,7 +133,7 @@ public class TitleBar extends LinearLayout {
      */
     /* package */ void setProgress(int newProgress) {
         if (newProgress == mHorizontalProgress.getMax()) {
-            mTitle.setCompoundDrawables(mFavicon, null, null, null);
+            mTitle.setCompoundDrawables(null, null, null, null);
             ((Animatable) mCircularProgress).stop();
             mHorizontalProgress.setVisibility(View.INVISIBLE);
             if (mBookmarkDrawable != null) {
@@ -156,7 +143,7 @@ public class TitleBar extends LinearLayout {
         } else {
             mHorizontalProgress.setProgress(newProgress);
             if (!mInLoad) {
-                mTitle.setCompoundDrawables(mFavicon, null, mCircularProgress,
+                mTitle.setCompoundDrawables(null, null, mCircularProgress,
                         null);
                 ((Animatable) mCircularProgress).start();
                 mHorizontalProgress.setVisibility(View.VISIBLE);

@@ -90,6 +90,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -946,17 +947,31 @@ public class BrowserActivity extends Activity
 
     private void showFakeTitleBar() {
         if (mFakeTitleBar == null) {
-            WebView webView = getTopWindow();
+            final WebView webView = getTopWindow();
             mFakeTitleBar = new TitleBar(this, webView);
             mFakeTitleBar.setTitleAndUrl(null, webView.getUrl());
             mFakeTitleBar.setProgress(webView.getProgress());
             mFakeTitleBar.setFavicon(webView.getFavicon());
             updateLockIconToLatest();
-            View title = mFakeTitleBar.findViewById(R.id.title);
-            title.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        onSearchRequested();
-                        closeOptionsMenu();
+            final View title = mFakeTitleBar.findViewById(R.id.title);
+            mFakeTitleBar.setOnTouchListener(new View.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            if (event.getX() > title.getRight()) {
+                                if (webView != null
+                                        && webView.getProgress() < 100) {
+                                    if (webView != null) {
+                                        webView.stopLoading();
+                                    }
+                                } else {
+                                    bookmarksOrHistoryPicker(false);
+                                }
+                            } else {
+                                onSearchRequested();
+                            }
+                            closeOptionsMenu();
+                        }
+                        return true;
                     }
             });
 
