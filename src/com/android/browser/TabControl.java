@@ -210,12 +210,17 @@ class TabControl {
         private String mOriginalUrl;
 
         private ErrorConsoleView mErrorConsole;
+        // the lock icon type and previous lock icon type for the tab
+        private int mSavedLockIconType;
+        private int mSavedPrevLockIconType;
 
         // Construct a new tab
         private Tab(WebView w, boolean closeOnExit, String appId, String url, Context context) {
             mCloseOnExit = closeOnExit;
             mAppId = appId;
             mOriginalUrl = url;
+            mSavedLockIconType = BrowserActivity.LOCK_ICON_UNSECURE;
+            mSavedPrevLockIconType = BrowserActivity.LOCK_ICON_UNSECURE;
 
             // The tab consists of a container view, which contains the main
             // WebView, as well as any other UI elements associated with the tab.
@@ -412,6 +417,22 @@ class TabControl {
             if (mPickerData.mFakeWebView != null) {
                 mPickerData.mFakeWebView.invalidate();
             }
+        }
+
+        void setLockIconType(int type) {
+            mSavedLockIconType = type;
+        }
+
+        int getLockIconType() {
+            return mSavedLockIconType;
+        }
+
+        void setPrevLockIconType(int type) {
+            mSavedPrevLockIconType = type;
+        }
+
+        int getPrevLockIconType() {
+            return mSavedPrevLockIconType;
         }
     };
 
