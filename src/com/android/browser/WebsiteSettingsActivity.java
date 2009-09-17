@@ -275,6 +275,8 @@ public class WebsiteSettingsActivity extends ListActivity {
                 } while (c.moveToNext());
             }
 
+            c.close();
+
             // We can now simply populate our array with Site instances
             keys = sites.keySet();
             originIter = keys.iterator();
