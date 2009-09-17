@@ -90,7 +90,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -332,7 +331,7 @@ public class BrowserActivity extends Activity
         mCustomViewContainer = (FrameLayout) mBrowserFrameLayout
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
-        mTitleBar = new TitleBarSet(this);
+        mTitleBar = new TitleBar(this);
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);
@@ -474,15 +473,6 @@ public class BrowserActivity extends Activity
             attachTabToContentView(mTabControl.getCurrentTab());
         }
 
-        mTitleBar.init(this);
-        // Create title bars for all of the tabs that have been created
-        for (int i = 0; i < mTabControl.getTabCount(); i ++) {
-            WebView view = mTabControl.getTab(i).getWebView();
-            mTitleBar.addTab(view, false);
-        }
-
-        mTitleBar.setCurrentTab(mTabControl.getCurrentIndex());
-
         // Read JavaScript flags if it exists.
         String jsFlags = mSettings.getJsFlags();
         if (jsFlags.trim().length() != 0) {
@@ -503,7 +493,6 @@ public class BrowserActivity extends Activity
                 return;
             }
             mTabControl.setCurrentTab(current);
-            mTitleBar.setCurrentTab(mTabControl.getTabIndex(current));
             attachTabToContentView(current);
             resetTitleAndIcon(current.getWebView());
         }
@@ -948,32 +937,11 @@ public class BrowserActivity extends Activity
     private void showFakeTitleBar() {
         if (mFakeTitleBar == null || mActiveTabsPage != null) {
             final WebView webView = getTopWindow();
-            mFakeTitleBar = new TitleBar(this, webView);
+            mFakeTitleBar = new TitleBar(this);
             mFakeTitleBar.setTitleAndUrl(null, webView.getUrl());
             mFakeTitleBar.setProgress(webView.getProgress());
             mFakeTitleBar.setFavicon(webView.getFavicon());
             updateLockIconToLatest();
-            final View title = mFakeTitleBar.findViewById(R.id.title);
-            mFakeTitleBar.setOnTouchListener(new View.OnTouchListener() {
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_UP) {
-                            if (event.getX() > title.getRight()) {
-                                if (webView != null
-                                        && webView.getProgress() < 100) {
-                                    if (webView != null) {
-                                        webView.stopLoading();
-                                    }
-                                } else {
-                                    bookmarksOrHistoryPicker(false);
-                                }
-                            } else {
-                                onSearchRequested();
-                            }
-                            closeOptionsMenu();
-                        }
-                        return true;
-                    }
-            });
 
             WindowManager manager
                     = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -1337,6 +1305,7 @@ public class BrowserActivity extends Activity
      */
     @Override
     public boolean onSearchRequested() {
+        if (mOptionsMenuOpen) closeOptionsMenu();
         String url = (getTopWindow() == null) ? null : getTopWindow().getUrl();
         startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
                 createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHKEY), false);
@@ -1375,7 +1344,6 @@ public class BrowserActivity extends Activity
         removeTabFromContentView(tab);
         mTabControl.setCurrentTab(tab);
         attachTabToContentView(tab);
-        mTitleBar.setCurrentTab(index);
         resetTitle();
         return true;
     }
@@ -1852,7 +1820,6 @@ public class BrowserActivity extends Activity
             final TabControl.Tab tab = mTabControl.createNewTab(
                     closeOnExit, appId, urlData.mUrl);
             WebView webview = tab.getWebView();
-            mTitleBar.addTab(webview, true);
             // If the last tab was removed from the active tabs page, currentTab
             // will be null.
             if (currentTab != null) {
@@ -1882,7 +1849,6 @@ public class BrowserActivity extends Activity
             TabControl.Tab t = mTabControl.createNewTab();
             if (t != null) {
                 WebView view = t.getWebView();
-                mTitleBar.addTab(view, false);
                 view.loadUrl(url);
             }
             return t;
@@ -1967,10 +1933,10 @@ public class BrowserActivity extends Activity
     private void resetTitleAndIcon(WebView view) {
         WebHistoryItem item = view.copyBackForwardList().getCurrentItem();
         if (item != null) {
-            setUrlTitle(item.getUrl(), item.getTitle(), view);
+            setUrlTitle(item.getUrl(), item.getTitle());
             setFavicon(item.getFavicon());
         } else {
-            setUrlTitle(null, null, view);
+            setUrlTitle(null, null);
             setFavicon(null);
         }
     }
@@ -1980,11 +1946,11 @@ public class BrowserActivity extends Activity
      * @param url The URL of the site being loaded.
      * @param title The title of the site being loaded.
      */
-    private void setUrlTitle(String url, String title, WebView view) {
+    private void setUrlTitle(String url, String title) {
         mUrl = url;
         mTitle = title;
 
-        mTitleBar.setTitleAndUrl(title, url, view);
+        mTitleBar.setTitleAndUrl(title, url);
         if (mFakeTitleBar != null) {
             mFakeTitleBar.setTitleAndUrl(title, url);
         }
@@ -2029,7 +1995,7 @@ public class BrowserActivity extends Activity
 
     // Set the favicon in the title bar.
     private void setFavicon(Bitmap icon) {
-        mTitleBar.setFavicon(icon, getTopWindow());
+        mTitleBar.setFavicon(icon);
         if (mFakeTitleBar != null) {
             mFakeTitleBar.setFavicon(icon);
         }
@@ -2067,7 +2033,6 @@ public class BrowserActivity extends Activity
     /* package */ void closeTab(TabControl.Tab t) {
         int currentIndex = mTabControl.getCurrentIndex();
         int removeIndex = mTabControl.getTabIndex(t);
-        mTitleBar.removeTab(removeIndex);
         mTabControl.removeTab(t);
         if (currentIndex >= removeIndex && currentIndex != 0) {
             currentIndex--;
@@ -2122,7 +2087,6 @@ public class BrowserActivity extends Activity
                     pauseWebViewTimers();
                     mActivityInPause = savedState;
                     removeTabFromContentView(current);
-                    mTitleBar.removeTab(mTabControl.getTabIndex(current));
                     mTabControl.removeTab(current);
                 }
                 /*
@@ -2213,7 +2177,7 @@ public class BrowserActivity extends Activity
         return mKeyTracker.doKeyUp(keyCode, event) || super.onKeyUp(keyCode, event);
     }
 
-    private void stopLoading() {
+    /* package */ void stopLoading() {
         resetTitleAndRevertLockIcon();
         WebView w = getTopWindow();
         w.stopLoading();
@@ -2380,7 +2344,7 @@ public class BrowserActivity extends Activity
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             resetLockIcon(url);
-            setUrlTitle(url, null, view);
+            setUrlTitle(url, null);
 
             ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(false);
             if (errorConsole != null) {
@@ -3080,7 +3044,7 @@ public class BrowserActivity extends Activity
 
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            mTitleBar.setProgress(newProgress, view);
+            mTitleBar.setProgress(newProgress);
             if (mFakeTitleBar != null) {
                 mFakeTitleBar.setProgress(newProgress);
             }
@@ -3118,7 +3082,7 @@ public class BrowserActivity extends Activity
             String url = view.getUrl();
 
             // here, if url is null, we want to reset the title
-            setUrlTitle(url, title, view);
+            setUrlTitle(url, title);
 
             if (url == null ||
                 url.length() >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
@@ -3498,7 +3462,7 @@ public class BrowserActivity extends Activity
         } else if (lockIconType == LOCK_ICON_MIXED) {
             d = mMixLockIcon;
         }
-        mTitleBar.setLock(d, getTopWindow());
+        mTitleBar.setLock(d);
         if (mFakeTitleBar != null) {
             mFakeTitleBar.setLock(d);
         }
@@ -4329,7 +4293,7 @@ public class BrowserActivity extends Activity
 
     private Toast mStopToast;
 
-    private TitleBarSet mTitleBar;
+    private TitleBar mTitleBar;
 
     private LinearLayout mErrorConsoleContainer = null;
     private boolean mShouldShowErrorConsole = false;
