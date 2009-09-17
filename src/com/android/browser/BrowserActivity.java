@@ -1808,7 +1808,9 @@ public class BrowserActivity extends Activity
         }
 
         WebView view = t.getWebView();
-        view.setEmbeddedTitleBar(null);
+        if (view != null) {
+            view.setEmbeddedTitleBar(null);
+        }
 
         // Remove the sub window if it exists.
         if (t.getSubWebView() != null) {
