@@ -224,10 +224,6 @@ class TabControl {
 
             // The tab consists of a container view, which contains the main
             // WebView, as well as any other UI elements associated with the tab.
-            //
-            // FIXME: Fix the interaction between this layout and the animation
-            // used when switching to and from the tab picker. This may not be
-            // required if the tab selection UI is redesigned.
             LayoutInflater factory = LayoutInflater.from(context);
             mContainer = factory.inflate(R.layout.tab, null);
 
@@ -240,7 +236,7 @@ class TabControl {
 
         /**
          * Sets the WebView for this tab, correctly removing the old WebView
-         * from, and inserting the new WebView into, the container view.
+         * from the container view.
          */
         public void setWebView(WebView w) {
             if (mMainView == w) {
@@ -250,13 +246,65 @@ class TabControl {
             // permission requests are void.
             mGeolocationPermissionsPrompt.hide();
 
-            FrameLayout wrapper = (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
-            if (mMainView != null) {
-                wrapper.removeView(mMainView);
-            }
+            // Just remove the old one.
+            FrameLayout wrapper =
+                    (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
+            wrapper.removeView(mMainView);
             mMainView = w;
-            if (mMainView != null) {
-                wrapper.addView(mMainView);
+        }
+
+        /**
+         * This method attaches both the WebView and any sub window to the
+         * given content view.
+         */
+        public void attachTabToContentView(ViewGroup content) {
+            if (mMainView == null) {
+                return;
+            }
+
+            // Attach the WebView to the container and then attach the
+            // container to the content view.
+            FrameLayout wrapper =
+                    (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
+            wrapper.addView(mMainView);
+            content.addView(mContainer, BrowserActivity.COVER_SCREEN_PARAMS);
+            attachSubWindow(content);
+        }
+
+        /**
+         * Remove the WebView and any sub window from the given content view.
+         */
+        public void removeTabFromContentView(ViewGroup content) {
+            if (mMainView == null) {
+                return;
+            }
+
+            // Remove the container from the content and then remove the
+            // WebView from the container. This will trigger a focus change
+            // needed by WebView.
+            FrameLayout wrapper =
+                    (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
+            wrapper.removeView(mMainView);
+            content.removeView(mContainer);
+            removeSubWindow(content);
+        }
+
+        /**
+         * Attach the sub window to the content view.
+         */
+        public void attachSubWindow(ViewGroup content) {
+            if (mSubView != null) {
+                content.addView(mSubViewContainer,
+                        BrowserActivity.COVER_SCREEN_PARAMS);
+            }
+        }
+
+        /**
+         * Remove the sub window from the content view.
+         */
+        public void removeSubWindow(ViewGroup content) {
+            if (mSubView != null) {
+                content.removeView(mSubViewContainer);
             }
         }
 
@@ -283,13 +331,6 @@ class TabControl {
         }
 
         /**
-         * @return The container for this tab.
-         */
-        public View getContainer() {
-            return mContainer;
-        }
-
-        /**
          * @return The geolocation permissions prompt for this tab.
          */
         public GeolocationPermissionsPrompt getGeolocationPermissionsPrompt() {
@@ -302,15 +343,6 @@ class TabControl {
          */
         public WebView getSubWebView() {
             return mSubView;
-        }
-
-        /**
-         * Return the subwindow container of this tab or null if there is no
-         * subwindow.
-         * @return The subwindow's container View.
-         */
-        public View getSubWebViewContainer() {
-            return mSubViewContainer;
         }
 
         /**
@@ -612,9 +644,10 @@ class TabControl {
             // observers.
             BrowserSettings.getInstance().deleteObserver(
                     t.mMainView.getSettings());
-            // Destroy the main view and subview
-            t.mMainView.destroy();
+            WebView w = t.mMainView;
             t.setWebView(null);
+            // Destroy the main view
+            w.destroy();
         }
         // clear it's references to parent and children
         t.removeFromTree();
@@ -674,8 +707,9 @@ class TabControl {
             if (t.mMainView != null) {
                 dismissSubWindow(t);
                 s.deleteObserver(t.mMainView.getSettings());
-                t.mMainView.destroy();
+                WebView w = t.mMainView;
                 t.setWebView(null);
+                w.destroy();
             }
         }
         mTabs.clear();
@@ -845,8 +879,9 @@ class TabControl {
         // Remove the WebView's settings from the BrowserSettings list of
         // observers.
         BrowserSettings.getInstance().deleteObserver(t.mMainView.getSettings());
-        t.mMainView.destroy();
+        WebView w = t.mMainView;
         t.setWebView(null);
+        w.destroy();
     }
 
     /**
