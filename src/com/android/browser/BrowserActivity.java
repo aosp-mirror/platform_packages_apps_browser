@@ -1761,7 +1761,7 @@ public class BrowserActivity extends Activity
     private void attachTabToContentView(TabControl.Tab t) {
         // Attach the container that contains the main WebView and any other UI
         // associated with the tab.
-        mContentView.addView(t.getContainer(), COVER_SCREEN_PARAMS);
+        t.attachTabToContentView(mContentView);
 
         if (mShouldShowErrorConsole) {
             ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(true);
@@ -1783,27 +1783,20 @@ public class BrowserActivity extends Activity
 
         WebView view = t.getWebView();
         view.setEmbeddedTitleBar(mTitleBar);
-        // Attach the sub window if necessary
-        attachSubWindow(t);
         // Request focus on the top window.
         t.getTopWindow().requestFocus();
     }
 
     // Attach a sub window to the main WebView of the given tab.
     private void attachSubWindow(TabControl.Tab t) {
-        // If a sub window exists, attach it to the content view.
-        final WebView subView = t.getSubWebView();
-        if (subView != null) {
-            final View container = t.getSubWebViewContainer();
-            mContentView.addView(container, COVER_SCREEN_PARAMS);
-            subView.requestFocus();
-        }
+        t.attachSubWindow(mContentView);
+        getTopWindow().requestFocus();
     }
 
     // Remove the given tab from the content view.
     private void removeTabFromContentView(TabControl.Tab t) {
         // Remove the container that contains the main WebView.
-        mContentView.removeView(t.getContainer());
+        t.removeTabFromContentView(mContentView);
 
         if (mTabControl.getCurrentErrorConsole(false) != null) {
             mErrorConsoleContainer.removeView(mTabControl.getCurrentErrorConsole(false));
@@ -1812,11 +1805,6 @@ public class BrowserActivity extends Activity
         WebView view = t.getWebView();
         if (view != null) {
             view.setEmbeddedTitleBar(null);
-        }
-
-        // Remove the sub window if it exists.
-        if (t.getSubWebView() != null) {
-            mContentView.removeView(t.getSubWebViewContainer());
         }
 
         if (t == mTabControl.getCurrentTab()) {
@@ -1828,15 +1816,11 @@ public class BrowserActivity extends Activity
     // Remove the sub window if it exists. Also called by TabControl when the
     // user clicks the 'X' to dismiss a sub window.
     /* package */ void dismissSubWindow(TabControl.Tab t) {
-        final WebView mainView = t.getWebView();
-        if (t.getSubWebView() != null) {
-            // Remove the container view and request focus on the main WebView.
-            mContentView.removeView(t.getSubWebViewContainer());
-            mainView.requestFocus();
-            // Tell the TabControl to dismiss the subwindow. This will destroy
-            // the WebView.
-            mTabControl.dismissSubWindow(t);
-        }
+        t.removeSubWindow(mContentView);
+        // Tell the TabControl to dismiss the subwindow. This will destroy
+        // the WebView.
+        mTabControl.dismissSubWindow(t);
+        getTopWindow().requestFocus();
     }
 
     // A wrapper function of {@link #openTabAndShow(UrlData, boolean, String)}
