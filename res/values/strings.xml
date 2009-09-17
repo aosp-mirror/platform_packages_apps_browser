@@ -736,6 +736,13 @@
     <string name="geolocation_settings_page_dialog_message">Location access for this website will be cleared</string>
     <string name="geolocation_settings_page_dialog_ok_button">Clear access</string>
     <string name="geolocation_settings_page_dialog_cancel_button">Cancel</string>
+    <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+    <string name="website_settings_clear_all">Clear All</string>
+    <string name="website_settings_clear_all_dialog_title">Clear All Website Settings?</string>
+    <string name="website_settings_clear_all_dialog_message">All website data and Geolocation permissions will be deleted.</string>
+    <string name="website_settings_clear_all_dialog_ok_button">Delete All Data</string>
+    <string name="website_settings_clear_all_dialog_cancel_button">Cancel</string>
+
 
     <!-- Zoom-related strings --><skip />
     <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->
