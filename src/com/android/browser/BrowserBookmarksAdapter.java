@@ -432,8 +432,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             byte[] data = mCursor.getBlob(
                     Browser.HISTORY_PROJECTION_THUMBNAIL_INDEX);
             if (data == null) {
-                // Backup is to just show white
-                thumb.setImageResource(R.drawable.blank);
+                thumb.setImageResource(R.drawable.ic_launcher_shortcut_browser_bookmark);
             } else {
                 thumb.setImageBitmap(
                         BitmapFactory.decodeByteArray(data, 0, data.length));
