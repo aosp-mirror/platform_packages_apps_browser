@@ -3993,14 +3993,7 @@ public class BrowserActivity extends Activity
                     String data = intent.getAction();
                     Bundle extras = intent.getExtras();
                     if (extras != null && extras.getBoolean("new_window", false)) {
-                        final TabControl.Tab newTab = openTab(data);
-                        if (mSettings.openInBackground() &&
-                                newTab != null) {
-                            mTabControl.populatePickerData(newTab);
-                            mTabControl.setCurrentTab(newTab);
-                            int newIndex = mTabControl.getCurrentIndex();
-                            mTitleBar.setCurrentTab(newIndex);
-                        }
+                        openTab(data);
                     } else {
                         final TabControl.Tab currentTab =
                                 mTabControl.getCurrentTab();
