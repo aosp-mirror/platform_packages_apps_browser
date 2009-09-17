@@ -16,7 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"浏览器"</string>
-    <!-- no translation found for new_tab (7971857320679510529) -->
+    <string name="new_tab" msgid="7971857320679510529">"新标签"</string>
+    <!-- no translation found for active_tabs (8423342514993323050) -->
     <skip />
     <string name="tab_bookmarks" msgid="2305793036003473653">"书签"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"访问最多"</string>
@@ -152,11 +153,11 @@
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"清除密码"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="1267552159370789981">"清除所有保存的密码"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="8425666119003961466">"将会清除所有保存的密码。"</string>
-    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"启用地点信息功能"</string>
-    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"允许网站请求访问您的地点信息"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"清除地点信息访问权限"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"清除所有网站的地点信息访问权限"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"清除所有网站的地点信息访问权限"</string>
+    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"启用位置信息功能"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"允许网站访问您的位置信息"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"取消位置信息访问权限"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"取消所有网站的位置信息访问权限"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"取消所有网站的位置信息访问权限"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"安全设置"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"记住密码"</string>
     <string name="pref_security_remember_passwords_summary" msgid="6789880514358003065">"保存访问网站所用的用户名和密码"</string>
@@ -209,7 +210,8 @@
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"确认"</string>
     <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"您尝试查看的网页中包含已经提交的数据（“POSTDATA”）。如果您重新发送这些数据，系统会重复该网页上的表单所执行过的一切操作（如搜索或在线购买）。"</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"没有网络连接"</string>
-    <string name="loadSuspended" msgid="1800165494398204523">"连接恢复后网页会继续载入。"</string>
+    <!-- no translation found for loadSuspended (724674402736067146) -->
+    <skip />
     <string name="clear_history" msgid="5998307092715979619">"清除历史记录"</string>
     <string name="browser_history" msgid="2979476257919939232">"最近访问过的网页"</string>
     <string name="empty_history" msgid="8738772352308207274">"浏览器历史记录为空。"</string>
@@ -271,17 +273,26 @@
     <string name="webstorage_clear_data_dialog_ok_button" msgid="5074037549893407416">"全部清除"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"取消"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"您手机的存储空间 (MB)"</string>
-    <!-- no translation found for geolocation_permissions_prompt_message (2412844044592274106) -->
-    <skip />
+    <string name="geolocation_permissions_prompt_message" msgid="2412844044592274106">"<xliff:g id="WEBPAGE">%s</xliff:g>需要了解您的位置信息"</string>
     <string name="geolocation_permissions_prompt_share" msgid="6908104491085328731">"分享"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="5962677371200773835">"不分享"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="5798300962802553043">"记住"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"清除地点信息访问权限"</string>
-    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"此网站目前可访问您的地点信息"</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"此网站目前不能访问您的地点信息"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"清除地点信息访问权限"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"此时将清除此网站的地点信息访问权限"</string>
-    <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"清除访问权限"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"取消位置信息访问权限"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"此网站目前可访问您的位置信息"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"此网站目前不能访问您的位置信息"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"取消位置信息访问权限"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"此时将取消此网站的位置信息访问权限"</string>
+    <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"取消访问权限"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"取消"</string>
+    <!-- no translation found for website_settings_clear_all (2073906304824388952) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_title (1975103796504323734) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_message (6545526672017530811) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_ok_button (3677457125416372255) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
+    <skip />
     <string name="zoom_overview_button_text" msgid="4146579940085488881">"概览"</string>
 </resources>

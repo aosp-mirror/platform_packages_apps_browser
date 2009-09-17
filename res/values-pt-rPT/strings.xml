@@ -16,7 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Browser"</string>
-    <!-- no translation found for new_tab (7971857320679510529) -->
+    <string name="new_tab" msgid="7971857320679510529">"Novo separador"</string>
+    <!-- no translation found for active_tabs (8423342514993323050) -->
     <skip />
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcadores"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Os mais visitados"</string>
@@ -209,7 +210,8 @@
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmar"</string>
     <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"A página que está a tentar visualizar contém dados enviados anteriormente (\"REGISTDADOS\"). Se reenviar os dados, qualquer acção já tomada pelo formulário da página (como uma pesquisa ou compra on-line) será repetida."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"Sem ligação de rede"</string>
-    <string name="loadSuspended" msgid="1800165494398204523">"O carregamento desta página será retomado depois do restabelecimento da ligação."</string>
+    <!-- no translation found for loadSuspended (724674402736067146) -->
+    <skip />
     <string name="clear_history" msgid="5998307092715979619">"Limpar histórico"</string>
     <string name="browser_history" msgid="2979476257919939232">"Páginas visitadas recentemente"</string>
     <string name="empty_history" msgid="8738772352308207274">"O histórico do browser está vazio."</string>
@@ -271,8 +273,7 @@
     <string name="webstorage_clear_data_dialog_ok_button" msgid="5074037549893407416">"Limpar tudo"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Cancelar"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB armazenados no telefone"</string>
-    <!-- no translation found for geolocation_permissions_prompt_message (2412844044592274106) -->
-    <skip />
+    <string name="geolocation_permissions_prompt_message" msgid="2412844044592274106">"<xliff:g id="WEBPAGE">%s</xliff:g> pretende conhecer a sua localização"</string>
     <string name="geolocation_permissions_prompt_share" msgid="6908104491085328731">"Partilhar"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="5962677371200773835">"Não partilhar"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="5798300962802553043">"Lembrar"</string>
@@ -283,5 +284,15 @@
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"O acesso à localização para este Web site será limpo"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Limpar acesso"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Cancelar"</string>
+    <!-- no translation found for website_settings_clear_all (2073906304824388952) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_title (1975103796504323734) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_message (6545526672017530811) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_ok_button (3677457125416372255) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
+    <skip />
     <string name="zoom_overview_button_text" msgid="4146579940085488881">"Visão geral"</string>
 </resources>
