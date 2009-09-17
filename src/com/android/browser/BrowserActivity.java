@@ -891,7 +891,7 @@ public class BrowserActivity extends Activity
      */
     private FrameLayout.LayoutParams mFakeTitleBarParams
             = new FrameLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.FILL_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT);
     /**
      * Keeps track of whether the options menu is open.  This is important in
