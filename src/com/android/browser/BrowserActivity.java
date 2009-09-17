@@ -1758,6 +1758,7 @@ public class BrowserActivity extends Activity
     }
 
     // Attach the given tab to the content view.
+    // this should only be called for the current tab.
     private void attachTabToContentView(TabControl.Tab t) {
         // Attach the container that contains the main WebView and any other UI
         // associated with the tab.
@@ -1776,9 +1777,12 @@ public class BrowserActivity extends Activity
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
-        if (t == mTabControl.getCurrentTab()) {
-            setLockIconType(t.getLockIconType());
-            setPrevLockType(t.getPrevLockIconType());
+        setLockIconType(t.getLockIconType());
+        setPrevLockType(t.getPrevLockIconType());
+
+        // this is to match the code in removeTabFromContentView()
+        if (!mPageStarted && t.getTopWindow().getProgress() < 100) {
+            mPageStarted = true;
         }
 
         WebView view = t.getWebView();
@@ -1807,9 +1811,21 @@ public class BrowserActivity extends Activity
             view.setEmbeddedTitleBar(null);
         }
 
+        // unlike attachTabToContentView(), removeTabFromContentView() can be
+        // called for the non-current tab. Need to add the check.
         if (t == mTabControl.getCurrentTab()) {
             t.setLockIconType(getLockIconType());
             t.setPrevLockIconType(getPrevLockType());
+
+            // this is not a perfect solution. But currently there is one
+            // WebViewClient for all the WebView. if user switches from an
+            // in-load window to an already loaded window, mPageStarted will not
+            // be set to false. If user leaves the Browser, pauseWebViewTimers()
+            // won't do anything and leaves the timer running even Browser is in
+            // the background.
+            if (mPageStarted) {
+                mPageStarted = false;
+            }
         }
     }
 
