@@ -200,8 +200,7 @@ public class TitleBar extends LinearLayout {
                     mBookmarkDrawable = mRtButton.getDrawable();
                 }
                 if (mStopDrawable == null) {
-                    mRtButton.setImageResource(
-                            com.android.internal.R.drawable.ic_menu_stop);
+                    mRtButton.setImageResource(R.drawable.ic_btn_close_panel);
                     mStopDrawable = mRtButton.getDrawable();
                 } else {
                     mRtButton.setImageDrawable(mStopDrawable);
