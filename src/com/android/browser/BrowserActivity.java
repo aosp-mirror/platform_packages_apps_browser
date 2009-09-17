@@ -2350,9 +2350,10 @@ public class BrowserActivity extends Activity
         // FIXME: Would like to make sure there is actually something to
         // draw, but the API for that (WebViewCore.pictureReady()) is not
         // currently accessible here.
+
         ContentResolver cr = getContentResolver();
         final Cursor c = BrowserBookmarksAdapter.queryBookmarksForUrl(
-                cr, view.getOriginalUrl(), view.getUrl(), false);
+                cr, view.getOriginalUrl(), view.getUrl(), true);
         if (c != null) {
             boolean succeed = c.moveToFirst();
             ContentValues values = null;
@@ -2507,10 +2508,10 @@ public class BrowserActivity extends Activity
             // Reset the title and icon in case we stopped a provisional
             // load.
             resetTitleAndIcon(view);
+            updateScreenshot(view);
 
             // Update the lock icon image only once we are done loading
             updateLockIconToLatest();
-            updateScreenshot(view);
 
             // Performance probe
             if (false) {
@@ -2824,6 +2825,8 @@ public class BrowserActivity extends Activity
             Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
                     + " " + description);
 
+                mNeedExtraScreenShot = true;
+
             // We need to reset the title after an error.
             resetTitleAndRevertLockIcon();
         }
@@ -3134,9 +3137,16 @@ public class BrowserActivity extends Activity
             }
 
             if (newProgress == 100) {
-                // onProgressChanged() is called for sub-frame too while
-                // onPageFinished() is only called for the main frame. sync
-                // cookie and cache promptly here.
+                // onProgressChanged() may continue to be called after the main
+                // frame has finished loading, as any remaining sub frames
+                // continue to load. We'll only get called once though with
+                // newProgress as 100 when everything is loaded.
+                // (onPageFinished is called once when the main frame completes
+                // loading regardless of the state of any sub frames so calls
+                // to onProgressChanges may continue after onPageFinished has
+                // executed)
+
+                // sync cookies and cache promptly here.
                 CookieSyncManager.getInstance().sync();
                 if (mInLoad) {
                     mInLoad = false;
@@ -3145,6 +3155,14 @@ public class BrowserActivity extends Activity
                     if (!mOptionsMenuOpen || !mIconView) {
                         hideFakeTitleBar();
                     }
+                }
+                if (mNeedExtraScreenShot) {
+                    // if there was an error loading this page, capture a new
+                    // screenshot to ensure that we get the correct thumbnail
+                    // as onPageFinished may have been called before the error
+                    // page was displayed.
+                    updateScreenshot(view);
+                    mNeedExtraScreenShot = false;
                 }
             } else if (!mInLoad) {
                 // onPageFinished may have already been called but a subframe
@@ -4315,6 +4333,10 @@ public class BrowserActivity extends Activity
 
     private boolean mPageStarted;
     private boolean mActivityInPause = true;
+
+    // If the frame fails to load, we should snap a second screenshot
+    // to ensure that we get the right thumbnail (i.e. of the error page).
+    private boolean mNeedExtraScreenShot = false;
 
     private boolean mMenuIsDown;
 
