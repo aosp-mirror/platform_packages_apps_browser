@@ -881,6 +881,19 @@ public class BrowserActivity extends Activity
     private TitleBar mFakeTitleBar;
 
     /**
+     * Holder for the fake title bar.  It will have a foreground shadow, as well
+     * as a white background, so the fake title bar looks like the real one.
+     */
+    private ViewGroup mFakeTitleBarHolder;
+
+    /**
+     * Layout parameters for the fake title bar within mFakeTitleBarHolder
+     */
+    private FrameLayout.LayoutParams mFakeTitleBarParams
+            = new FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT);
+    /**
      * Keeps track of whether the options menu is open.  This is important in
      * determining whether to show or hide the title bar overlay.
      */
@@ -967,7 +980,16 @@ public class BrowserActivity extends Activity
             Rect rectangle = new Rect();
             mBrowserFrameLayout.getGlobalVisibleRect(rectangle);
             params.y = rectangle.top;
-            manager.addView(mFakeTitleBar, params);
+            // Add a holder for the title bar.  It is a FrameLayout, which
+            // allows it to have an overlay shadow.  It also has a white
+            // background, which is the same as the background when it is
+            // placed in a WebView.
+            if (mFakeTitleBarHolder == null) {
+                mFakeTitleBarHolder = (ViewGroup) LayoutInflater.from(this)
+                    .inflate(R.layout.title_bar_bg, null);
+            }
+            mFakeTitleBarHolder.addView(mFakeTitleBar, mFakeTitleBarParams);
+            manager.addView(mFakeTitleBarHolder, params);
         }
     }
 
@@ -987,7 +1009,8 @@ public class BrowserActivity extends Activity
         if (mFakeTitleBar == null) return;
         WindowManager manager
                     = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        manager.removeView(mFakeTitleBar);
+        mFakeTitleBarHolder.removeView(mFakeTitleBar);
+        manager.removeView(mFakeTitleBarHolder);
         mFakeTitleBar = null;
     }
 
