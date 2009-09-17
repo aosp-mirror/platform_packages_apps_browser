@@ -1440,6 +1440,7 @@ public class BrowserActivity extends Activity
                 WebView w = getTopWindow();
                 i.putExtra("url", w.getUrl());
                 i.putExtra("title", w.getTitle());
+                i.putExtra("touch_icon_url", w.getTouchIconUrl());
                 startActivity(i);
                 break;
 
