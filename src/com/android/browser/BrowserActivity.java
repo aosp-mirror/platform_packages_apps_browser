@@ -149,8 +149,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class BrowserActivity extends Activity
-    implements KeyTracker.OnKeyTracker,
-        View.OnCreateContextMenuListener,
+    implements View.OnCreateContextMenuListener,
         DownloadListener {
 
     /* Define some aliases to make these debugging flags easier to refer to.
@@ -2130,80 +2129,73 @@ public class BrowserActivity extends Activity
         }
     }
 
-    public KeyTracker.State onKeyTracker(int keyCode,
-                                         KeyEvent event,
-                                         KeyTracker.Stage stage,
-                                         int duration) {
-        // if onKeyTracker() is called after activity onStop()
-        // because of accumulated key events,
-        // we should ignore it as browser is not active any more.
-        WebView topWindow = getTopWindow();
-        if (topWindow == null && mCustomView == null)
-            return KeyTracker.State.NOT_TRACKING;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // The default key mode is DEFAULT_KEYS_SEARCH_LOCAL. As the MENU is
+        // still down, we don't want to trigger the search. Pretend to consume
+        // the key and do nothing.
+        if (mMenuIsDown) return true;
 
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            // Check if a custom view is currently showing and, if it is, hide it.
-            if (mCustomView != null) {
-                mWebChromeClient.onHideCustomView();
-                return KeyTracker.State.DONE_TRACKING;
-            }
-            if (stage == KeyTracker.Stage.LONG_REPEAT) {
-                bookmarksOrHistoryPicker(true);
-                return KeyTracker.State.DONE_TRACKING;
-            } else if (stage == KeyTracker.Stage.UP) {
-                // FIXME: Currently, we do not have a notion of the
-                // history picker for the subwindow, but maybe we
-                // should?
-                WebView subwindow = mTabControl.getCurrentSubWindow();
-                if (subwindow != null) {
-                    if (subwindow.canGoBack()) {
-                        subwindow.goBack();
-                    } else {
-                        dismissSubWindow(mTabControl.getCurrentTab());
-                    }
-                } else {
-                    goBackOnePageOrQuit();
+        switch(keyCode) {
+            case KeyEvent.KEYCODE_MENU:
+                mMenuIsDown = true;
+                break;
+            case KeyEvent.KEYCODE_SPACE:
+                // Browser's hidden shortcut key. Don't call super so that
+                // search won't be triggered.
+                return true;
+            case KeyEvent.KEYCODE_BACK:
+                if (event.getRepeatCount() == 0) {
+                    event.startTracking();
+                    return true;
+                } else if (mCustomView == null && mActiveTabsPage == null
+                        && event.isLongPress()) {
+                    bookmarksOrHistoryPicker(true);
+                    return true;
                 }
-                return KeyTracker.State.DONE_TRACKING;
-            }
-            return KeyTracker.State.KEEP_TRACKING;
+                break;
         }
-        return KeyTracker.State.NOT_TRACKING;
+        return super.onKeyDown(keyCode, event);
     }
 
-    @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_MENU) {
-            mMenuIsDown = true;
-        } else if (mMenuIsDown) {
-            // The default key mode is DEFAULT_KEYS_SEARCH_LOCAL. As the MENU is
-            // still down, we don't want to trigger the search. Pretend to
-            // consume the key and do nothing.
-            return true;
-        }
-        boolean handled =  mKeyTracker.doKeyDown(keyCode, event);
-        if (!handled) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_SPACE:
-                    if (event.isShiftPressed()) {
-                        getTopWindow().pageUp(false);
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch(keyCode) {
+            case KeyEvent.KEYCODE_MENU:
+                mMenuIsDown = false;
+                break;
+            case KeyEvent.KEYCODE_SPACE:
+                if (event.isShiftPressed()) {
+                    getTopWindow().pageUp(false);
+                } else {
+                    getTopWindow().pageDown(false);
+                }
+                return true;
+            case KeyEvent.KEYCODE_BACK:
+                if (event.isTracking() && !event.isCanceled()) {
+                    if (mCustomView != null) {
+                        // if a custom view is showing, hide it
+                        mWebChromeClient.onHideCustomView();
+                    } else if (mActiveTabsPage != null) {
+                        // if tab page is showing, hide it
+                        removeActiveTabPage(true);
                     } else {
-                        getTopWindow().pageDown(false);
+                        WebView subwindow = mTabControl.getCurrentSubWindow();
+                        if (subwindow != null) {
+                            if (subwindow.canGoBack()) {
+                                subwindow.goBack();
+                            } else {
+                                dismissSubWindow(mTabControl.getCurrentTab());
+                            }
+                        } else {
+                            goBackOnePageOrQuit();
+                        }
                     }
-                    handled = true;
-                    break;
-
-                default:
-                    break;
-            }
+                    return true;
+                }
+                break;
         }
-        return handled || super.onKeyDown(keyCode, event);
-    }
-
-    @Override public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_MENU) {
-            mMenuIsDown = false;
-        }
-        return mKeyTracker.doKeyUp(keyCode, event) || super.onKeyUp(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
     /* package */ void stopLoading() {
@@ -4243,11 +4235,6 @@ public class BrowserActivity extends Activity
     private boolean mActivityInPause = true;
 
     private boolean mMenuIsDown;
-
-    private final KeyTracker mKeyTracker = new KeyTracker(this);
-
-    // As trackball doesn't send repeat down, we have to track it ourselves
-    private boolean mTrackTrackball;
 
     private static boolean mInTrace;
 
