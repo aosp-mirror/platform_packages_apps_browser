@@ -721,6 +721,8 @@
     <string name="webstorage_clear_data_dialog_cancel_button">Cancel</string>
     <!-- Strings used in the summary of origins -->
     <string name="webstorage_origin_summary_mb_stored">MB stored on your phone</string>
+        <!-- String shown in a progress view while a video is loading, before it starts playing -->
+    <string name="loading_video">Loading video</string>
 
     <!-- Geolocation -->
     <!-- Permissions prompt -->
