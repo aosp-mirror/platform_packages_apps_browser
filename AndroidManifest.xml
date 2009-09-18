@@ -62,6 +62,7 @@
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:scheme="about" />
+                <data android:scheme="javascript" />
             </intent-filter>
             <!--  For these schemes where any of these particular MIME types
                   have been supplied, we are a good candidate. -->
