@@ -45,6 +45,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.DrawFilter;
 import android.graphics.Paint;
@@ -3274,6 +3275,38 @@ public class BrowserActivity extends Activity
                 }
             Log.w(LOGTAG, "Console: " + message + " " + sourceID + ":" + lineNumber);
         }
+
+        /**
+         * Ask the browser for an icon to represent a <video> element.
+         * This icon will be used if the Web page did not specify a poster attribute.
+         *
+         * @return Bitmap The icon or null if no such icon is available.
+         * @hide pending API Council approval
+         */
+        @Override
+        public Bitmap getDefaultVideoPoster() {
+            if (mDefaultVideoPoster == null) {
+                mDefaultVideoPoster = BitmapFactory.decodeResource(
+                        getResources(), R.drawable.default_video_poster);
+            }
+            return mDefaultVideoPoster;
+        }
+
+        /**
+         * Ask the host application for a custom progress view to show while
+         * a <video> is loading.
+         *
+         * @return View The progress view.
+         * @hide pending API Council approval
+         */
+        @Override
+        public View getVideoLoadingProgressView() {
+            if (mVideoProgressView == null) {
+                LayoutInflater inflater = LayoutInflater.from(BrowserActivity.this);
+                mVideoProgressView = inflater.inflate(R.layout.video_loading_progress, null);
+            }
+            return mVideoProgressView;
+        }
     };
 
     /**
@@ -4342,6 +4375,11 @@ public class BrowserActivity extends Activity
     final static int COMBO_PAGE                 = 1;
     final static int DOWNLOAD_PAGE              = 2;
     final static int PREFERENCES_PAGE           = 3;
+
+    // the default <video> poster
+    private Bitmap mDefaultVideoPoster;
+    // the video progress view
+    private View mVideoProgressView;
 
     /**
      * A UrlData class to abstract how the content will be set to WebView.
