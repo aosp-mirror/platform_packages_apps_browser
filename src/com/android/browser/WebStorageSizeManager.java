@@ -365,7 +365,7 @@ class WebStorageSizeManager {
             return;
         }
         // setup the notification boilerplate.
-        int icon = R.drawable.ic_launcher_browser;
+        int icon = android.R.drawable.stat_sys_warning;
         CharSequence title = mContext.getString(
                 R.string.webstorage_outofspace_notification_title);
         CharSequence text = mContext.getString(
