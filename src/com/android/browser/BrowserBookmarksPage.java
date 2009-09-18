@@ -401,8 +401,10 @@ public class BrowserBookmarksPage extends Activity implements
             // an inverse fill so we can punch a hole using the round rect.
             Path path = new Path();
             path.setFillType(Path.FillType.INVERSE_WINDING);
-            path.addRoundRect(new RectF(0, 0, touchIcon.getWidth(),
-                    touchIcon.getHeight()), 8f, 8f, Path.Direction.CW);
+            RectF rect = new RectF(0, 0, touchIcon.getWidth(),
+                    touchIcon.getHeight());
+            rect.inset(1, 1);
+            path.addRoundRect(rect, 8f, 8f, Path.Direction.CW);
 
             // Construct a paint that clears the outside of the rectangle and
             // draw.
