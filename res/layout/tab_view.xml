@@ -58,11 +58,13 @@
         android:layout_marginTop="5dip"
         android:layout_marginBottom="5dip"
         />
-    <ImageView android:id="@+id/close"
-        android:src="@drawable/ic_btn_close_panel"
+    <view class="com.android.browser.ActiveTabsPage$CloseHolder" android:id="@+id/close"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
+        android:layout_height="fill_parent"
+        android:paddingLeft="18dip"
+        android:paddingRight="18dip"
+        android:background="@drawable/close_background"
+        android:src="@drawable/ic_btn_close_panel"
+        android:scaleType="center"
         />
 </LinearLayout>
