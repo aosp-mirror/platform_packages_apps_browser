@@ -16,12 +16,15 @@
 
 package com.android.browser;
 
+import android.content.Context;
+import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -72,6 +75,26 @@ public class ActiveTabsPage extends LinearLayout {
             return true;
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    /**
+     * Special class to hold the close drawable.  Its sole purpose is to allow
+     * the parent to be pressed without being pressed itself.  This way the line
+     * of a tab can be pressed, but the close button itself is not.
+     */
+    private static class CloseHolder extends ImageView {
+        public CloseHolder(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        public void setPressed(boolean pressed) {
+            // If the parent is pressed, do not set to pressed.
+            if (pressed && ((View) getParent()).isPressed()) {
+                return;
+            }
+            super.setPressed(pressed);
+        }
     }
 
     private class TabsListAdapter extends BaseAdapter {
