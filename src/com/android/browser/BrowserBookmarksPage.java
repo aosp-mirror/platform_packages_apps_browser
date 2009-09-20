@@ -631,13 +631,12 @@ public class BrowserBookmarksPage extends Activity implements
     public void deleteBookmark(int position) {
         mBookmarksAdapter.deleteRow(position);
     }
-    
-    public boolean dispatchKeyEvent(KeyEvent event) {    
-        if (event.getKeyCode() ==  KeyEvent.KEYCODE_BACK && event.isDown()) {
-            setResultToParent(RESULT_CANCELED, null);
-            mCanceled = true;
-        }
-        return super.dispatchKeyEvent(event);
+
+    @Override
+    public void onBackPressed() {
+        setResultToParent(RESULT_CANCELED, null);
+        mCanceled = true;
+        super.onBackPressed();
     }
 
     // This Activity is generally a sub-Activity of CombinedHistoryActivity. In

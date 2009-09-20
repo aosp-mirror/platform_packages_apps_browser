@@ -68,15 +68,6 @@ public class ActiveTabsPage extends LinearLayout {
         });
     }
 
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            if (event.isDown()) return true;
-            mBrowserActivity.removeActiveTabPage(true);
-            return true;
-        }
-        return super.dispatchKeyEvent(event);
-    }
-
     /**
      * Special class to hold the close drawable.  Its sole purpose is to allow
      * the parent to be pressed without being pressed itself.  This way the line
