@@ -1466,6 +1466,7 @@ public class BrowserActivity extends Activity
                 i.putExtra("url", w.getUrl());
                 i.putExtra("title", w.getTitle());
                 i.putExtra("touch_icon_url", w.getTouchIconUrl());
+                i.putExtra("thumbnail", createScreenshot(w));
                 startActivity(i);
                 break;
 
@@ -2316,16 +2317,7 @@ public class BrowserActivity extends Activity
                 if (values == null) {
                     final ByteArrayOutputStream os
                             = new ByteArrayOutputStream();
-                    Picture thumbnail = view.capturePicture();
-                    // Keep width and height in sync with BrowserBookmarksPage
-                    // and bookmark_thumb
-                    Bitmap bm = Bitmap.createBitmap(100, 80,
-                            Bitmap.Config.ARGB_4444);
-                    Canvas canvas = new Canvas(bm);
-                    // May need to tweak these values to determine what is the
-                    // best scale factor
-                    canvas.scale(.5f, .5f);
-                    thumbnail.draw(canvas);
+                    Bitmap bm = createScreenshot(view);
                     bm.compress(Bitmap.CompressFormat.PNG, 100, os);
                     values = new ContentValues();
                     values.put(Browser.BookmarkColumns.THUMBNAIL,
@@ -2337,6 +2329,20 @@ public class BrowserActivity extends Activity
             }
             c.close();
         }
+    }
+
+    private Bitmap createScreenshot(WebView view) {
+        Picture thumbnail = view.capturePicture();
+        // Keep width and height in sync with BrowserBookmarksPage
+        // and bookmark_thumb
+        Bitmap bm = Bitmap.createBitmap(100, 80,
+                Bitmap.Config.ARGB_4444);
+        Canvas canvas = new Canvas(bm);
+        // May need to tweak these values to determine what is the
+        // best scale factor
+        canvas.scale(.5f, .5f);
+        thumbnail.draw(canvas);
+        return bm;
     }
 
     // -------------------------------------------------------------------------
@@ -4053,6 +4059,8 @@ public class BrowserActivity extends Activity
                 CombinedBookmarkHistoryActivity.class);
         String title = current.getTitle();
         String url = current.getUrl();
+        Bitmap thumbnail = createScreenshot(current);
+
         // Just in case the user opens bookmarks before a page finishes loading
         // so the current history item, and therefore the page, is null.
         if (null == url) {
@@ -4068,6 +4076,7 @@ public class BrowserActivity extends Activity
         }
         intent.putExtra("title", title);
         intent.putExtra("url", url);
+        intent.putExtra("thumbnail", thumbnail);
         // Disable opening in a new window if we have maxed out the windows
         intent.putExtra("disable_new_window", mTabControl.getTabCount()
                 >= TabControl.MAX_TABS);

@@ -46,6 +46,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
 
     private String                  mCurrentPage;
     private String                  mCurrentTitle;
+    private Bitmap                  mCurrentThumbnail;
     private Cursor                  mCursor;
     private int                     mCount;
     private BrowserBookmarksPage    mBookmarksPage;
@@ -73,7 +74,8 @@ class BrowserBookmarksAdapter extends BaseAdapter {
      *                  appropriately after a search.
      */
     public BrowserBookmarksAdapter(BrowserBookmarksPage b, String curPage,
-            String curTitle, boolean createShortcut, boolean mostVisited) {
+            String curTitle, Bitmap curThumbnail, boolean createShortcut,
+            boolean mostVisited) {
         mNeedsOffset = !(createShortcut || mostVisited);
         mMostVisited = mostVisited;
         mExtraOffset = mNeedsOffset ? 1 : 0;
@@ -81,6 +83,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         mCurrentPage = b.getResources().getString(R.string.current_page)
                 + curPage;
         mCurrentTitle = curTitle;
+        mCurrentThumbnail = curThumbnail;
         mContentResolver = b.getContentResolver();
         mViewMode = BookmarkViewMode.LIST;
 
@@ -427,8 +430,13 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                 // This is to create a bookmark for the current page.
                 holder.setVisibility(View.VISIBLE);
                 tv.setText(mCurrentTitle);
-                // FIXME: Want to show the screenshot of the current page
-                thumb.setImageResource(R.drawable.blank);
+
+                if (mCurrentThumbnail != null) {
+                    thumb.setImageBitmap(mCurrentThumbnail);
+                } else {
+                    thumb.setImageResource(
+                            R.drawable.ic_launcher_shortcut_browser_bookmark);
+                }
                 return convertView;
             }
             holder.setVisibility(View.GONE);
