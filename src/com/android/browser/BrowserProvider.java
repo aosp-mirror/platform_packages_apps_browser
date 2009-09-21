@@ -38,6 +38,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
@@ -49,6 +50,8 @@ import android.text.util.Regex;
 import android.util.Log;
 import android.util.TypedValue;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -265,11 +268,61 @@ public class BrowserProvider extends ContentProvider {
             }
             if (oldVersion < 22) {
                 db.execSQL("DELETE FROM bookmarks WHERE (bookmark = 0 AND url LIKE \"%.google.%client=ms-%\")");
+                removeGears();
             } else {
                 db.execSQL("DROP TABLE IF EXISTS bookmarks");
                 db.execSQL("DROP TABLE IF EXISTS searches");
                 onCreate(db);
             }
+        }
+
+        private void removeGears() {
+            AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+                public Void doInBackground(Void... unused) {
+                    String browserDataDirString = mContext.getApplicationInfo().dataDir;
+                    final String appPluginsDirString = "app_plugins";
+                    final String gearsPrefix = "gears";
+                    File appPluginsDir = new File(browserDataDirString + File.separator
+                            + appPluginsDirString);
+                    if (!appPluginsDir.exists()) {
+                        return null;
+                    }
+                    // Delete the Gears plugin files
+                    File[] gearsFiles = appPluginsDir.listFiles(new FilenameFilter() {
+                        public boolean accept(File dir, String filename) {
+                            return filename.startsWith(gearsPrefix);
+                        }
+                    });
+                    for (int i = 0; i < gearsFiles.length; ++i) {
+                        if (gearsFiles[i].isDirectory()) {
+                            deleteDirectory(gearsFiles[i]);
+                        } else {
+                            gearsFiles[i].delete();
+                        }
+                    }
+                    // Delete the Gears data files
+                    File gearsDataDir = new File(browserDataDirString + File.separator
+                            + gearsPrefix);
+                    if (!gearsDataDir.exists()) {
+                        return null;
+                    }
+                    deleteDirectory(gearsDataDir);
+                    return null;
+                }
+
+                private void deleteDirectory(File currentDir) {
+                    File[] files = currentDir.listFiles();
+                    for (int i = 0; i < files.length; ++i) {
+                        if (files[i].isDirectory()) {
+                            deleteDirectory(files[i]);
+                        }
+                        files[i].delete();
+                    }
+                    currentDir.delete();
+                }
+            };
+
+            task.execute();
         }
     }
 
