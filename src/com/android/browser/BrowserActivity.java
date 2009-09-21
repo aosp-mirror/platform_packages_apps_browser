@@ -972,27 +972,25 @@ public class BrowserActivity extends Activity
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                    PixelFormat.OPAQUE);
+                    PixelFormat.TRANSLUCENT);
             params.gravity = Gravity.TOP;
             WebView mainView = mTabControl.getCurrentWebView();
-            params.windowAnimations = mainView == null
-                    || mainView.getScrollY() != 0
-                    ? com.android.internal.R.style.Animation_DropDownDown : 0;
+            boolean atTop = mainView != null && mainView.getScrollY() == 0;
+            params.windowAnimations = atTop ? 0
+                    : com.android.internal.R.style.Animation_DropDownDown;
             // XXX : Without providing an offset, the fake title bar will be
             // placed underneath the status bar.  Use the global visible rect
             // of mBrowserFrameLayout to determine the bottom of the status bar
             Rect rectangle = new Rect();
             mBrowserFrameLayout.getGlobalVisibleRect(rectangle);
             params.y = rectangle.top;
-            // Add a holder for the title bar.  It is a FrameLayout, which
-            // allows it to have an overlay shadow.  It also has a white
-            // background, which is the same as the background when it is
-            // placed in a WebView.
+            // Add a holder for the title bar.  It also holds a shadow to show
+            // below the title bar.
             if (mFakeTitleBarHolder == null) {
                 mFakeTitleBarHolder = (ViewGroup) LayoutInflater.from(this)
                     .inflate(R.layout.title_bar_bg, null);
             }
-            mFakeTitleBarHolder.addView(mFakeTitleBar, mFakeTitleBarParams);
+            mFakeTitleBarHolder.addView(mFakeTitleBar, 0, mFakeTitleBarParams);
             manager.addView(mFakeTitleBarHolder, params);
         }
     }
