@@ -116,6 +116,8 @@
         <activity android:name="CombinedBookmarkHistoryActivity" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"
                   android:theme="@style/BookmarkTheme" >
+            <meta-data android:name="android.app.default_searchable"
+                    android:value=".BrowserActivity" />
         </activity>
 
         <activity android:name="BrowserBookmarksPage" android:label="@string/bookmarks"
