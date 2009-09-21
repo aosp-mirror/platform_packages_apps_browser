@@ -2362,7 +2362,15 @@ public class BrowserActivity extends Activity
     private void updateIcon(WebView view, Bitmap icon) {
         if (icon != null) {
             BrowserBookmarksAdapter.updateBookmarkFavicon(mResolver,
-                    view, icon);
+                    view.getOriginalUrl(), view.getUrl(), icon);
+        }
+        setFavicon(icon);
+    }
+
+    private void updateIcon(String url, Bitmap icon) {
+        if (icon != null) {
+            BrowserBookmarksAdapter.updateBookmarkFavicon(mResolver,
+                    null, url, icon);
         }
         setFavicon(icon);
     }
@@ -2383,7 +2391,7 @@ public class BrowserActivity extends Activity
 
             // Call updateIcon instead of setFavicon so the bookmark
             // database can be updated.
-            updateIcon(view, favicon);
+            updateIcon(url, favicon);
 
             if (mSettings.isTracing()) {
                 String host;
