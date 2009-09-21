@@ -22,41 +22,25 @@
 
     <!-- Keep the width in sync with BrowserBookmarksPage and
             BrowserActivity.updateScreenshot -->
-    <TextView android:id="@+id/label"
-        android:layout_width="100dip"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:maxLines="1"
-        android:paddingTop="3dip"
-        android:paddingBottom="3dip"
-        android:paddingLeft="2dip"
-        android:paddingRight="2dip"
-        android:scrollHorizontally="true"
-        android:ellipsize="marquee"
-        />
-
     <ImageView android:id="@+id/thumb"
         android:src="@drawable/ic_launcher_shortcut_browser_bookmark"
         android:scaleType="center"
         android:layout_width="100dip"
         android:layout_height="80dip"
         android:background="@drawable/bookmark_shadow"
-        android:layout_below="@+id/label"
         />
 
     <!-- FIXME: Want to have a gradient over the thumb -->
 
     <!-- This holds the star for addbookmark -->
     <LinearLayout android:id="@+id/holder"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         android:orientation="horizontal"
         android:background="#cc000000"
         android:gravity="center"
         android:layout_alignBottom="@+id/thumb"
+        android:layout_alignTop="@+id/thumb"
         >
         <ImageView
             android:layout_height="wrap_content"
@@ -74,4 +58,22 @@
             android:text="@string/add_bookmark_short"
             />
     </LinearLayout>
+
+    <TextView android:id="@+id/label"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        android:paddingTop="3dip"
+        android:paddingBottom="3dip"
+        android:paddingLeft="2dip"
+        android:paddingRight="2dip"
+        android:scrollHorizontally="true"
+        android:ellipsize="marquee"
+        android:layout_below="@+id/thumb"
+        />
+
 </RelativeLayout>
