@@ -194,6 +194,8 @@ import android.widget.TextView;
             mMatchesView.setVisibility(View.INVISIBLE);
         } else {
             mMatchesView.setVisibility(View.VISIBLE);
+            mWebView.setFindDialogHeight(
+                getWindow().getDecorView().getHeight());
             int found = mWebView.findAll(find.toString());
             setMatchesFound(found);
             if (found < 2) {
