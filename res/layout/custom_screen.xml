@@ -33,7 +33,6 @@
         <FrameLayout android:id="@+id/main_content"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:foreground="?android:attr/windowContentOverlay"
         />
     </LinearLayout>
 </FrameLayout>
