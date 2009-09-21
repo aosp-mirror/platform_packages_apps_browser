@@ -79,6 +79,8 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabs);
 
+        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+
         getTabHost().setOnTabChangedListener(this);
 
         Bundle extras = getIntent().getExtras();
