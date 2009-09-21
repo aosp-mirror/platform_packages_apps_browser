@@ -2425,11 +2425,7 @@ public class BrowserActivity extends Activity
             CookieSyncManager.getInstance().resetSync();
 
             mInLoad = true;
-            WebView currentWebView = mTabControl.getCurrentWebView();
-            if (currentWebView == null || currentWebView.getScrollY() != 0) {
-                // This page has begun to load, so show the title bar
-                showFakeTitleBar();
-            }
+            showFakeTitleBar();
             updateInLoadMenuItems();
             if (!mIsNetworkUp) {
                 createAndShowNetworkDialog();
@@ -3089,9 +3085,7 @@ public class BrowserActivity extends Activity
                 // and update the menu items.
                 mInLoad = true;
                 updateInLoadMenuItems();
-                WebView currentWebView = mTabControl.getCurrentWebView();
-                if ((currentWebView == null || currentWebView.getScrollY() != 0)
-                        && (!mOptionsMenuOpen || mIconView)) {
+                if (!mOptionsMenuOpen || mIconView) {
                     // This page has begun to load, so show the title bar
                     showFakeTitleBar();
                 }
