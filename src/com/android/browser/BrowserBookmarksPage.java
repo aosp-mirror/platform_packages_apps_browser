@@ -241,7 +241,9 @@ public class BrowserBookmarksPage extends Activity implements
         }
         mBookmarksAdapter = new BrowserBookmarksAdapter(this,
                         getIntent().getStringExtra("url"),
-                        getIntent().getStringExtra("title"), mCreateShortcut,
+                        getIntent().getStringExtra("title"),
+                        (Bitmap) getIntent().getParcelableExtra("thumbnail"),
+                        mCreateShortcut,
                         mMostVisited);
 
         setContentView(R.layout.empty_history);
