@@ -258,18 +258,11 @@ class BrowserBookmarksAdapter extends BaseAdapter {
      * Update the bookmark's favicon. This is a convenience method for updating
      * a bookmark favicon for the originalUrl and url of the passed in WebView.
      * @param cr The ContentResolver to use.
-     * @param WebView The WebView containing the url to update.
+     * @param originalUrl The original url before any redirects.
+     * @param url The current url.
      * @param favicon The favicon bitmap to write to the db.
      */
     /* package */ static void updateBookmarkFavicon(ContentResolver cr,
-            WebView view, Bitmap favicon) {
-        if (view != null) {
-            updateBookmarkFavicon(cr, view.getOriginalUrl(), view.getUrl(),
-                    favicon);
-        }
-    }
-
-    private static void updateBookmarkFavicon(ContentResolver cr,
             String originalUrl, String url, Bitmap favicon) {
         final Cursor c = queryBookmarksForUrl(cr, originalUrl, url, true);
         if (c == null) {
