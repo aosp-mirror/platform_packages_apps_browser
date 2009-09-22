@@ -88,6 +88,7 @@ public class BrowserProvider extends ContentProvider {
     private static final int SUGGEST_COLUMN_ICON_2_ID = 6;
     private static final int SUGGEST_COLUMN_QUERY_ID = 7;
     private static final int SUGGEST_COLUMN_FORMAT = 8;
+    private static final int SUGGEST_COLUMN_INTENT_EXTRA_DATA = 9;
 
     // shared suggestion columns
     private static final String[] COLUMNS = new String[] {
@@ -99,7 +100,8 @@ public class BrowserProvider extends ContentProvider {
             SearchManager.SUGGEST_COLUMN_ICON_1,
             SearchManager.SUGGEST_COLUMN_ICON_2,
             SearchManager.SUGGEST_COLUMN_QUERY,
-            SearchManager.SUGGEST_COLUMN_FORMAT};
+            SearchManager.SUGGEST_COLUMN_FORMAT,
+            SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA};
 
     private static final int MAX_SUGGESTION_SHORT_ENTRIES = 3;
     private static final int MAX_SUGGESTION_LONG_ENTRIES = 6;
@@ -444,6 +446,7 @@ public class BrowserProvider extends ContentProvider {
         private int     mSuggestText1Id;
         private int     mSuggestText2Id;
         private int     mSuggestQueryId;
+        private int     mSuggestIntentExtraDataId;
 
         public MySuggestionCursor(Cursor hc, Cursor sc, String string) {
             mHistoryCursor = hc;
@@ -463,6 +466,7 @@ public class BrowserProvider extends ContentProvider {
                 mSuggestText1Id = -1;
                 mSuggestText2Id = -1;
                 mSuggestQueryId = -1;
+                mSuggestIntentExtraDataId = -1;
             } else {
                 mSuggestText1Id = mSuggestCursor.getColumnIndex(
                                 SearchManager.SUGGEST_COLUMN_TEXT_1);
@@ -470,6 +474,8 @@ public class BrowserProvider extends ContentProvider {
                                 SearchManager.SUGGEST_COLUMN_TEXT_2);
                 mSuggestQueryId = mSuggestCursor.getColumnIndex(
                                 SearchManager.SUGGEST_COLUMN_QUERY);
+                mSuggestIntentExtraDataId = mSuggestCursor.getColumnIndex(
+                                SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA);
             }
         }
 
@@ -578,6 +584,16 @@ public class BrowserProvider extends ContentProvider {
 
                     case SUGGEST_COLUMN_FORMAT:
                         return "html";
+
+                    case SUGGEST_COLUMN_INTENT_EXTRA_DATA:
+                        if (mHistoryCount > mPos) {
+                            return null;
+                        } else if (!mBeyondCursor) {
+                            if (mSuggestIntentExtraDataId == -1) return null;
+                            return mSuggestCursor.getString(mSuggestIntentExtraDataId);
+                        } else {
+                            return null;
+                        }
                 }
             }
             return null;
