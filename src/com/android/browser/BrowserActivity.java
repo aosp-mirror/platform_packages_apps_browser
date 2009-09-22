@@ -2381,6 +2381,14 @@ public class BrowserActivity extends Activity
             resetLockIcon(url);
             setUrlTitle(url, null);
 
+            // If we start a touch icon load and then load a new page, we don't
+            // want to cancel the current touch icon loader. But, we do want to
+            // create a new one when the touch icon url is known.
+            if (mTouchIconLoader != null) {
+                mTouchIconLoader.mActivity = null;
+                mTouchIconLoader = null;
+            }
+
             ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(false);
             if (errorConsole != null) {
                 errorConsole.clearErrorMessages();
@@ -3148,14 +3156,26 @@ public class BrowserActivity extends Activity
         }
 
         @Override
-        public void onReceivedTouchIconUrl(WebView view, String url) {
+        public void onReceivedTouchIconUrl(WebView view, String url,
+                boolean precomposed) {
             final ContentResolver cr = getContentResolver();
             final Cursor c =
                     BrowserBookmarksAdapter.queryBookmarksForUrl(cr,
                             view.getOriginalUrl(), view.getUrl(), true);
             if (c != null) {
                 if (c.getCount() > 0) {
-                    new DownloadTouchIcon(cr, c, view).execute(url);
+                    // Let precomposed icons take precedence over non-composed
+                    // icons.
+                    if (precomposed && mTouchIconLoader != null) {
+                        mTouchIconLoader.cancel(false);
+                        mTouchIconLoader = null;
+                    }
+                    // Have only one async task at a time.
+                    if (mTouchIconLoader == null) {
+                        mTouchIconLoader = new DownloadTouchIcon(
+                                BrowserActivity.this, cr, c, view);
+                        mTouchIconLoader.execute(url);
+                    }
                 } else {
                     c.close();
                 }
@@ -4368,6 +4388,9 @@ public class BrowserActivity extends Activity
     private BroadcastReceiver mNetworkStateIntentReceiver;
 
     private BroadcastReceiver mPackageInstallationReceiver;
+
+    // AsyncTask for downloading touch icons
+    /* package */ DownloadTouchIcon mTouchIconLoader;
 
     // activity requestCode
     final static int COMBO_PAGE                 = 1;
