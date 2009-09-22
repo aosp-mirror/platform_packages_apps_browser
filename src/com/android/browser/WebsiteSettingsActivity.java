@@ -35,6 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.GeolocationPermissions;
+import android.webkit.ValueCallback;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebStorage;
 import android.widget.ArrayAdapter;
@@ -178,7 +179,7 @@ public class WebsiteSettingsActivity extends ListActivity {
                     R.drawable.usage_high);
             mLocationIcon = BitmapFactory.decodeResource(getResources(),
                     R.drawable.location);
-            populateOrigins();
+            askForOrigins();
         }
 
         /**
@@ -196,9 +197,7 @@ public class WebsiteSettingsActivity extends ListActivity {
             site.addFeature(feature);
         }
 
-        public void populateOrigins() {
-            clear();
-
+        public void askForOrigins() {
             // Get the list of origins we want to display.
             // All 'HTML 5 modules' (Database, Geolocation etc) form these
             // origin strings using WebCore::SecurityOrigin::toString(), so it's
@@ -207,22 +206,37 @@ public class WebsiteSettingsActivity extends ListActivity {
             // default for the protocol. Eg http://www.google.com and
             // http://www.google.com:80 both record a port of 0 and hence
             // toString() == 'http://www.google.com' for both.
-            Set origins = WebStorage.getInstance().getOrigins();
-            Map sites = new HashMap<String, Site>();
-            if (origins != null) {
-                Iterator<String> iter = origins.iterator();
-                while (iter.hasNext()) {
-                    addFeatureToSite(sites, iter.next(), Site.FEATURE_WEB_STORAGE);
-                }
-            }
-            origins = GeolocationPermissions.getInstance().getOrigins();
-            if (origins != null) {
-                Iterator<String> iter = origins.iterator();
-                while (iter.hasNext()) {
-                    addFeatureToSite(sites, iter.next(), Site.FEATURE_GEOLOCATION);
-                }
-            }
 
+            WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
+                public void onReceiveValue(Map origins) {
+                    Map sites = new HashMap<String, Site>();
+                    if (origins != null) {
+                        Iterator<String> iter = origins.keySet().iterator();
+                        while (iter.hasNext()) {
+                            addFeatureToSite(sites, iter.next(), Site.FEATURE_WEB_STORAGE);
+                        }
+                    }
+                    askForGeolocation(sites);
+                }
+            });
+        }
+
+        public void askForGeolocation(final Map sites) {
+            GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set>() {
+                public void onReceiveValue(Set origins) {
+                    if (origins != null) {
+                        Iterator<String> iter = origins.iterator();
+                        while (iter.hasNext()) {
+                            addFeatureToSite(sites, iter.next(), Site.FEATURE_GEOLOCATION);
+                        }
+                    }
+                    populateIcons(sites);
+                    populateOrigins(sites);
+                }
+            });
+        }
+
+        public void populateIcons(Map sites) {
             // Create a map from host to origin. This is used to add metadata
             // (title, icon) for this origin from the bookmarks DB.
             HashMap hosts = new HashMap<String, Set<Site> >();
@@ -276,15 +290,22 @@ public class WebsiteSettingsActivity extends ListActivity {
             }
 
             c.close();
+        }
+
+
+        public void populateOrigins(Map sites) {
+            clear();
 
             // We can now simply populate our array with Site instances
-            keys = sites.keySet();
-            originIter = keys.iterator();
+            Set keys = sites.keySet();
+            Iterator<String> originIter = keys.iterator();
             while (originIter.hasNext()) {
                 String origin = originIter.next();
                 Site site = (Site) sites.get(origin);
                 add(site);
             }
+
+            notifyDataSetChanged();
 
             if (getCount() == 0) {
                 finish(); // we close the screen
@@ -320,19 +341,43 @@ public class WebsiteSettingsActivity extends ListActivity {
         public boolean backKeyPressed() {
             if (mCurrentSite != null) {
                 mCurrentSite = null;
-                populateOrigins();
-                notifyDataSetChanged();
+                askForOrigins();
                 return true;
             }
             return false;
         }
 
+        /**
+         * @hide
+         * Utility function
+         * Set the icon according to the usage
+         */
+        public void setIconForUsage(ImageView usageIcon, long usageInBytes) {
+            float usageInMegabytes = (float) usageInBytes / (1024.0F * 1024.0F);
+            usageIcon.setVisibility(View.VISIBLE);
+
+            // We set the correct icon:
+            // 0 < empty < 0.1MB
+            // 0.1MB < low < 3MB
+            // 3MB < medium < 6MB
+            // 6MB < high
+            if (usageInMegabytes <= 0.1) {
+                usageIcon.setImageBitmap(mUsageEmptyIcon);
+            } else if (usageInMegabytes > 0.1 && usageInMegabytes <= 3) {
+                usageIcon.setImageBitmap(mUsageLowIcon);
+            } else if (usageInMegabytes > 3 && usageInMegabytes <= 6) {
+                usageIcon.setImageBitmap(mUsageMediumIcon);
+            } else if (usageInMegabytes > 6) {
+                usageIcon.setImageBitmap(mUsageHighIcon);
+            }
+        }
+
         public View getView(int position, View convertView, ViewGroup parent) {
             View view;
-            TextView title;
-            TextView subtitle;
+            final TextView title;
+            final TextView subtitle;
             ImageView icon;
-            ImageView usageIcon;
+            final ImageView usageIcon;
             ImageView locationIcon;
 
             if (convertView == null) {
@@ -369,24 +414,13 @@ public class WebsiteSettingsActivity extends ListActivity {
 
                 if (site.hasFeature(Site.FEATURE_WEB_STORAGE)) {
                   String origin = site.getOrigin();
-                  long usageInBytes = WebStorage.getInstance().getUsageForOrigin(origin);
-                  float usageInMegabytes = (float) usageInBytes / (1024.0F * 1024.0F);
-                  usageIcon.setVisibility(View.VISIBLE);
-
-                  // We set the correct icon:
-                  // 0 < empty < 0.1MB
-                  // 0.1MB < low < 3MB
-                  // 3MB < medium < 6MB
-                  // 6MB < high
-                  if (usageInMegabytes <= 0.1) {
-                    usageIcon.setImageBitmap(mUsageEmptyIcon);
-                  } else if (usageInMegabytes > 0.1 && usageInMegabytes <= 3) {
-                    usageIcon.setImageBitmap(mUsageLowIcon);
-                  } else if (usageInMegabytes > 3 && usageInMegabytes <= 6) {
-                    usageIcon.setImageBitmap(mUsageMediumIcon);
-                  } else if (usageInMegabytes > 6) {
-                    usageIcon.setImageBitmap(mUsageHighIcon);
-                  }
+                  WebStorage.getInstance().getUsageForOrigin(origin, new ValueCallback<Long>() {
+                      public void onReceiveValue(Long value) {
+                          if (value != null) {
+                              setIconForUsage(usageIcon, value.longValue());
+                          }
+                      }
+                  });
                 }
 
                 if (site.hasFeature(Site.FEATURE_GEOLOCATION)) {
@@ -399,18 +433,29 @@ public class WebsiteSettingsActivity extends ListActivity {
                 String origin = mCurrentSite.getOrigin();
                 switch (mCurrentSite.getFeatureByIndex(position)) {
                     case Site.FEATURE_WEB_STORAGE:
-                        long usageValue = WebStorage.getInstance().getUsageForOrigin(origin);
-                        String usage = sizeValueToString(usageValue) + " " + sMBStored;
-
-                        title.setText(R.string.webstorage_clear_data_title);
-                        subtitle.setText(usage);
+                        WebStorage.getInstance().getUsageForOrigin(origin, new ValueCallback<Long>() {
+                            public void onReceiveValue(Long value) {
+                                if (value != null) {
+                                    String usage = sizeValueToString(value.longValue()) + " " + sMBStored;
+                                    title.setText(R.string.webstorage_clear_data_title);
+                                    subtitle.setText(usage);
+                                }
+                            }
+                        });
                         break;
                     case Site.FEATURE_GEOLOCATION:
                         title.setText(R.string.geolocation_settings_page_title);
-                        boolean allowed = GeolocationPermissions.getInstance().getAllowed(origin);
-                        subtitle.setText(allowed ?
-                                         R.string.geolocation_settings_page_summary_allowed :
-                                         R.string.geolocation_settings_page_summary_not_allowed);
+                        GeolocationPermissions.getInstance().getAllowed(origin, new ValueCallback<Boolean>() {
+                            public void onReceiveValue(Boolean allowed) {
+                                if (allowed != null) {
+                                    if (allowed.booleanValue()) {
+                                        subtitle.setText(R.string.geolocation_settings_page_summary_allowed);
+                                    } else {
+                                        subtitle.setText(R.string.geolocation_settings_page_summary_not_allowed);
+                                    }
+                                }
+                            }
+                        });
                         break;
                 }
             }
@@ -433,8 +478,7 @@ public class WebsiteSettingsActivity extends ListActivity {
                                 public void onClick(DialogInterface dlg, int which) {
                                     WebStorage.getInstance().deleteOrigin(mCurrentSite.getOrigin());
                                     mCurrentSite = null;
-                                    populateOrigins();
-                                    notifyDataSetChanged();
+                                    askForOrigins();
                                 }})
                             .setNegativeButton(R.string.webstorage_clear_data_dialog_cancel_button, null)
                             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -449,8 +493,7 @@ public class WebsiteSettingsActivity extends ListActivity {
                                 public void onClick(DialogInterface dlg, int which) {
                                     GeolocationPermissions.getInstance().clear(mCurrentSite.getOrigin());
                                     mCurrentSite = null;
-                                    populateOrigins();
-                                    notifyDataSetChanged();
+                                    askForOrigins();
                                 }})
                             .setNegativeButton(R.string.geolocation_settings_page_dialog_cancel_button, null)
                             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -515,8 +558,8 @@ public class WebsiteSettingsActivity extends ListActivity {
                                     public void onClick(DialogInterface dlg, int which) {
                                         WebStorage.getInstance().deleteAllData();
                                         GeolocationPermissions.getInstance().clearAll();
-                                        mAdapter.populateOrigins();
-                                        mAdapter.notifyDataSetChanged();
+                                        mAdapter.askForOrigins();
+                                        finish();
                                     }})
                         .setNegativeButton(R.string.website_settings_clear_all_dialog_cancel_button, null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
