@@ -28,6 +28,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
 import android.webkit.WebIconDatabase;
@@ -36,8 +37,9 @@ import android.webkit.WebStorage;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 
-import java.util.Set;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.Observable;
 
 /*
@@ -534,16 +536,25 @@ class BrowserSettings extends Observable {
     }
 
     private void maybeDisableWebsiteSettings(Context context) {
-        Set webStorageOrigins = WebStorage.getInstance().getOrigins();
-        Set geolocationOrigins =
-                 GeolocationPermissions.getInstance().getOrigins();
-        if (((webStorageOrigins == null) || webStorageOrigins.isEmpty()) &&
-            ((geolocationOrigins == null) || geolocationOrigins.isEmpty())) {
-            PreferenceActivity activity = (PreferenceActivity) context;
-            PreferenceScreen screen = (PreferenceScreen)
-                activity.findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
-            screen.setEnabled(false);
-        }
+        PreferenceActivity activity = (PreferenceActivity) context;
+        final PreferenceScreen screen = (PreferenceScreen)
+            activity.findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
+        screen.setEnabled(false);
+        WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
+            public void onReceiveValue(Map webStorageOrigins) {
+                if ((webStorageOrigins != null) && !webStorageOrigins.isEmpty()) {
+                    screen.setEnabled(true);
+                }
+            }
+        });
+
+        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set>() {
+            public void onReceiveValue(Set geolocationOrigins) {
+                if ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()) {
+                    screen.setEnabled(true);
+                }
+            }
+        });
     }
 
     /*package*/ void clearDatabases(Context context) {
