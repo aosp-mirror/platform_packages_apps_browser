@@ -17,8 +17,9 @@
 package com.android.browser;
 
 import java.util.List;
-import java.util.Vector;
+import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -30,13 +31,14 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.webkit.GeolocationPermissions;
+import android.webkit.ValueCallback;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 
 public class BrowserPreferencesPage extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
-    String TAG = "BrowserPreferencesPage";
+    private String LOGTAG = "BrowserPreferencesPage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,14 +88,23 @@ public class BrowserPreferencesPage extends PreferenceActivity
     @Override
     protected void onResume() {
         super.onResume();
-        PreferenceScreen websiteSettings = (PreferenceScreen)
+        final PreferenceScreen websiteSettings = (PreferenceScreen)
             findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
-        Set webStorageOrigins = WebStorage.getInstance().getOrigins();
-        Set geolocationOrigins =
-            GeolocationPermissions.getInstance().getOrigins();
-        websiteSettings.setEnabled(
-            ((webStorageOrigins != null) && !webStorageOrigins.isEmpty()) ||
-            ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()));
+        websiteSettings.setEnabled(false);
+        WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
+            public void onReceiveValue(Map webStorageOrigins) {
+                if ((webStorageOrigins != null) && !webStorageOrigins.isEmpty()) {
+                    websiteSettings.setEnabled(true);
+                }
+            }
+        });
+        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set>() {
+            public void onReceiveValue(Set geolocationOrigins) {
+                if ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()) {
+                    websiteSettings.setEnabled(true);
+                }
+            }
+        });
     }
 
     @Override
