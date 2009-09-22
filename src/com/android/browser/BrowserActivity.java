@@ -76,10 +76,10 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.provider.Browser;
-import android.provider.Contacts;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Downloads;
 import android.provider.MediaStore;
-import android.provider.Contacts.Intents.Insert;
 import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -1701,7 +1701,7 @@ public class BrowserActivity extends Activity
                                 .parse(WebView.SCHEME_TEL + extra)));
                 Intent addIntent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
                 addIntent.putExtra(Insert.PHONE, Uri.decode(extra));
-                addIntent.setType(Contacts.People.CONTENT_ITEM_TYPE);
+                addIntent.setType(ContactsContract.Contacts.CONTENT_ITEM_TYPE);
                 menu.findItem(R.id.add_contact_context_menu_id).setIntent(
                         addIntent);
                 menu.findItem(R.id.copy_phone_context_menu_id).setOnMenuItemClickListener(
