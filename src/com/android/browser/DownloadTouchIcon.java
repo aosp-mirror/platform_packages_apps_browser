@@ -42,8 +42,11 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Bitmap> {
     private final String mOriginalUrl;
     private final String mUrl;
     private final String mUserAgent;
+    /* package */ BrowserActivity mActivity;
 
-    public DownloadTouchIcon(ContentResolver cr, Cursor c, WebView view) {
+    public DownloadTouchIcon(BrowserActivity activity, ContentResolver cr,
+            Cursor c, WebView view) {
+        mActivity = activity;
         mContentResolver = cr;
         mCursor = c;
         // Store these in case they change.
@@ -53,6 +56,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Bitmap> {
     }
 
     public DownloadTouchIcon(ContentResolver cr, Cursor c, String url) {
+        mActivity = null;
         mContentResolver = cr;
         mCursor = c;
         mOriginalUrl = null;
@@ -96,10 +100,24 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Bitmap> {
     }
 
     @Override
+    protected void onCancelled() {
+        if (mCursor != null) {
+            mCursor.close();
+        }
+    }
+
+    @Override
     public void onPostExecute(Bitmap icon) {
-        if (icon == null || mCursor == null) {
+        // Do this first in case the download failed.
+        if (mActivity != null) {
+            // Remove the touch icon loader from the BrowserActivity.
+            mActivity.mTouchIconLoader = null;
+        }
+
+        if (icon == null || mCursor == null || isCancelled()) {
             return;
         }
+
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         icon.compress(Bitmap.CompressFormat.PNG, 100, os);
         ContentValues values = new ContentValues();
