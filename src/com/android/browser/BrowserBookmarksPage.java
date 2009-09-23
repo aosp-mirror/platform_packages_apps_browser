@@ -293,9 +293,7 @@ public class BrowserBookmarksPage extends Activity implements
                 mGridPage.setAdapter(mBookmarksAdapter);
                 mGridPage.setOnItemClickListener(mListener);
                 mGridPage.setNumColumns(GridView.AUTO_FIT);
-                // Keep this in sync with bookmark_thumb and
-                // BrowserActivity.updateScreenshot
-                mGridPage.setColumnWidth(100);
+                mGridPage.setColumnWidth(BrowserActivity.THUMBNAIL_WIDTH);
                 mGridPage.setFocusable(true);
                 mGridPage.setFocusableInTouchMode(true);
                 mGridPage.setSelector(android.R.drawable.gallery_thumb);
