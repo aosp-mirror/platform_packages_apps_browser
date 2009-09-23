@@ -238,7 +238,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
             case R.id.save_to_bookmarks_menu_id:
                 if (historyItem.isBookmark()) {
                     Bookmarks.removeFromBookmarks(this, getContentResolver(),
-                            url);
+                            url, title);
                 } else {
                     Browser.saveBookmark(this, title, url);
                 }

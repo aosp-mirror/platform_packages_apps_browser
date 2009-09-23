@@ -154,7 +154,7 @@ public class BrowserBookmarksPage extends Activity implements
             // If the site is bookmarked, the item becomes remove from
             // bookmarks.
             if (isBookmark) {
-                Bookmarks.removeFromBookmarks(this, getContentResolver(), url);
+                Bookmarks.removeFromBookmarks(this, getContentResolver(), url, name);
             } else {
                 Browser.saveBookmark(this, name, url);
             }

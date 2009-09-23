@@ -49,7 +49,7 @@ import android.widget.TextView;
                             mContext.getContentResolver(), mUrl, getName(), true);
                 } else {
                     Bookmarks.removeFromBookmarks(mContext,
-                            mContext.getContentResolver(), mUrl);
+                            mContext.getContentResolver(), mUrl, getName());
                 }
             }
         };
