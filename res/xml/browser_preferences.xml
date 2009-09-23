@@ -77,7 +77,12 @@
                 android:key="enable_javascript"
                 android:defaultValue="true"
                 android:title="@string/pref_content_javascript" />     
-            
+
+        <CheckBoxPreference
+                android:key="enable_plugins"
+                android:defaultValue="true"
+                android:title="@string/pref_content_plugins" />
+
         <CheckBoxPreference
                 android:key="open_in_background"
                 android:defaultValue="false"

@@ -302,6 +302,8 @@
     <string name="pref_content_javascript">Enable JavaScript</string>
     <!-- Settings label -->
     <string name="pref_content_open_in_background">Open in background</string>
+    <!-- Settings label -->
+    <string name="pref_content_plugins">Enable plug-ins</string>
     <!-- Settings summary -->
     <string name="pref_content_open_in_background_summary">Open new windows behind the current one</string>
     <!-- Settings label -->
