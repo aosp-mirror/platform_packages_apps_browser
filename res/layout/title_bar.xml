@@ -39,7 +39,7 @@
         >
 
         <LinearLayout android:id="@+id/title_bg"
-            android:background="@*android:drawable/edit_text"
+            android:background="@drawable/title_text"
             android:layout_width="0dip"
             android:layout_weight="1.0"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dip"
             android:layout_marginTop="2dip"
-            android:background="@*android:drawable/btn_search_dialog_voice"
+            android:background="@drawable/btn_bookmark"
             android:src="@drawable/ic_btn_bookmark_browsertab"
         />
     </LinearLayout>
