@@ -2147,8 +2147,14 @@ public class BrowserActivity extends Activity
                 mMenuIsDown = true;
                 break;
             case KeyEvent.KEYCODE_SPACE:
-                // Browser's hidden shortcut key. Don't call super so that
-                // search won't be triggered.
+                // WebView/WebTextView handle the keys in the KeyDown. As
+                // the Activity's shortcut keys are only handled when WebView
+                // doesn't, have to do it in onKeyDown instead of onKeyUp.
+                if (event.isShiftPressed()) {
+                    getTopWindow().pageUp(false);
+                } else {
+                    getTopWindow().pageDown(false);
+                }
                 return true;
             case KeyEvent.KEYCODE_BACK:
                 if (event.getRepeatCount() == 0) {
@@ -2170,13 +2176,6 @@ public class BrowserActivity extends Activity
             case KeyEvent.KEYCODE_MENU:
                 mMenuIsDown = false;
                 break;
-            case KeyEvent.KEYCODE_SPACE:
-                if (event.isShiftPressed()) {
-                    getTopWindow().pageUp(false);
-                } else {
-                    getTopWindow().pageDown(false);
-                }
-                return true;
             case KeyEvent.KEYCODE_BACK:
                 if (event.isTracking() && !event.isCanceled()) {
                     if (mCustomView != null) {
