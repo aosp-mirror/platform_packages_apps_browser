@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Picture;
 import android.net.http.SslError;
 import android.os.Bundle;
@@ -159,20 +160,16 @@ class TabControl {
     public static class PickerData {
         String  mUrl;
         String  mTitle;
+        Bitmap  mFavicon;
         float   mScale;
         int     mScrollX;
         int     mScrollY;
-        int     mWidth;
-        Picture mPicture;
-        // This can be null. When a new picture comes in, this view should be
-        // invalidated to show the new picture.
-        FakeWebView mFakeWebView;
     }
 
     /**
      * Private class for maintaining Tabs with a main WebView and a subwindow.
      */
-    public class Tab implements WebView.PictureListener {
+    public class Tab {
         // The Geolocation permissions prompt
         private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
         private View mContainer;
@@ -372,11 +369,11 @@ class TabControl {
             return null;
         }
 
-        /**
-         * Returns the picker data.
-         */
-        public PickerData getPickerData() {
-            return mPickerData;
+        public Bitmap getFavicon() {
+            if (mPickerData != null) {
+                return mPickerData.mFavicon;
+            }
+            return null;
         }
 
         private void setParentTab(Tab parent) {
@@ -437,18 +434,6 @@ class TabControl {
          */
         public boolean closeOnExit() {
             return mCloseOnExit;
-        }
-
-        public void onNewPicture(WebView view, Picture p) {
-            if (mPickerData == null) {
-                return;
-            }
-
-            mPickerData.mPicture = p;
-            // Tell the FakeWebView to redraw.
-            if (mPickerData.mFakeWebView != null) {
-                mPickerData.mFakeWebView.invalidate();
-            }
         }
 
         void setLockIconType(int type) {
@@ -730,7 +715,6 @@ class TabControl {
     private static final String CURRTAB = "currentTab";
     private static final String CURRURL = "currentUrl";
     private static final String CURRTITLE = "currentTitle";
-    private static final String CURRWIDTH = "currentWidth";
     private static final String CURRPICTURE = "currentPicture";
     private static final String CLOSEONEXIT = "closeonexit";
     private static final String PARENTTAB = "parentTab";
@@ -1194,15 +1178,6 @@ class TabControl {
         final WebHistoryItem item =
                 list != null ? list.getCurrentItem() : null;
         populatePickerData(t, item);
-
-        // This method is only called during the tab picker creation. At this
-        // point we need to listen for new pictures since the WebView is still
-        // active.
-        final WebView w = t.getTopWindow();
-        w.setPictureListener(t);
-        // Capture the picture here instead of populatePickerData since it can
-        // be called when saving the state of a tab.
-        t.mPickerData.mPicture = w.capturePicture();
     }
 
     // Create the PickerData and populate it using the saved state of the tab.
@@ -1215,24 +1190,11 @@ class TabControl {
         final Bundle state = t.mSavedState;
         data.mUrl = state.getString(CURRURL);
         data.mTitle = state.getString(CURRTITLE);
-        data.mWidth = state.getInt(CURRWIDTH, 0);
         // XXX: These keys are from WebView.savePicture so if they change, this
         // will break.
         data.mScale = state.getFloat("scale", 1.0f);
         data.mScrollX = state.getInt("scrollX", 0);
         data.mScrollY = state.getInt("scrollY", 0);
-
-        if (state.containsKey(CURRPICTURE)) {
-            final File f = new File(t.mSavedState.getString(CURRPICTURE));
-            try {
-                final FileInputStream in = new FileInputStream(f);
-                data.mPicture = Picture.createFromStream(in);
-                in.close();
-            } catch (Exception ex) {
-                // Ignore any problems with inflating the picture. We just
-                // won't draw anything.
-            }
-        }
 
         // Set the tab's picker data.
         t.mPickerData = data;
@@ -1245,6 +1207,7 @@ class TabControl {
         if (item != null) {
             data.mUrl = item.getUrl();
             data.mTitle = item.getTitle();
+            data.mFavicon = item.getFavicon();
             if (data.mTitle == null) {
                 data.mTitle = data.mUrl;
             }
@@ -1252,15 +1215,10 @@ class TabControl {
         // We want to display the top window in the tab picker but use the url
         // and title of the main window.
         final WebView w = t.getTopWindow();
-        data.mWidth = w.getWidth();
         data.mScale = w.getScale();
         data.mScrollX = w.getScrollX();
         data.mScrollY = w.getScrollY();
 
-        // Remember the old picture if possible.
-        if (t.mPickerData != null) {
-            data.mPicture = t.mPickerData.mPicture;
-        }
         t.mPickerData = data;
     }
     
@@ -1273,13 +1231,6 @@ class TabControl {
             final Tab t = getTab(i);
             if (t != null && t.mSavedState == null) {
                 t.mPickerData = null;
-            }
-            if (t.mMainView != null) {
-                // Clear the picture listeners.
-                t.mMainView.setPictureListener(null);
-                if (t.mSubView != null) {
-                    t.mSubView.setPictureListener(null);
-                }
             }
         }
     }
@@ -1319,7 +1270,6 @@ class TabControl {
             if (data.mTitle != null) {
                 b.putString(CURRTITLE, data.mTitle);
             }
-            b.putInt(CURRWIDTH, data.mWidth);
             b.putBoolean(CLOSEONEXIT, t.mCloseOnExit);
             if (t.mAppId != null) {
                 b.putString(APPID, t.mAppId);
