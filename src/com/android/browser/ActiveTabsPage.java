@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -102,36 +103,44 @@ public class ActiveTabsPage extends LinearLayout {
         public long getItemId(int position) {
             return position;
         }
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = mFactory.inflate(R.layout.tab_view, null);
+        public int getViewTypeCount() {
+            return 2;
+        }
+        public int getItemViewType(int position) {
+            if (mControl.getTabCount() < TabControl.MAX_TABS) {
+                position--;
             }
-            TextView title = (TextView) convertView.findViewById(R.id.title);
-            TextView url = (TextView) convertView.findViewById(R.id.url);
-            FakeWebView webView
-                    = (FakeWebView) convertView.findViewById(R.id.screen_shot);
-            View close = convertView.findViewById(R.id.close);
-            View divider = convertView.findViewById(R.id.divider);
-
+            // Do not recycle the "add new tab" item.
+            return position == -1 ? IGNORE_ITEM_VIEW_TYPE : 1;
+        }
+        public View getView(int position, View convertView, ViewGroup parent) {
             final int tabCount = mControl.getTabCount();
             if (tabCount < TabControl.MAX_TABS) {
                 position--;
             }
-            if (position == -1) {
-                title.setText(R.string.new_tab);
-                url.setVisibility(View.GONE);
-                webView.setImageResource(R.drawable.ic_add_tab);
-                close.setVisibility(View.GONE);
-                divider.setVisibility(View.GONE);
-            } else {
+
+            if (convertView == null) {
+                convertView = mFactory.inflate(position == -1 ?
+                        R.layout.tab_view_add_tab : R.layout.tab_view, null);
+            }
+
+            if (position != -1) {
+                TextView title =
+                        (TextView) convertView.findViewById(R.id.title);
+                TextView url = (TextView) convertView.findViewById(R.id.url);
+                ImageView favicon =
+                        (ImageView) convertView.findViewById(R.id.favicon);
+                View close = convertView.findViewById(R.id.close);
                 TabControl.Tab tab = mControl.getTab(position);
                 mControl.populatePickerData(tab);
                 title.setText(tab.getTitle());
                 url.setText(tab.getUrl());
-                url.setVisibility(View.VISIBLE);
-                webView.setTab(tab);
-                divider.setVisibility(View.VISIBLE);
-                close.setVisibility(View.VISIBLE);
+                Bitmap icon = tab.getFavicon();
+                if (icon != null) {
+                    favicon.setImageBitmap(icon);
+                } else {
+                    favicon.setImageResource(R.drawable.app_web_browser_sm);
+                }
                 final int closePosition = position;
                 close.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
