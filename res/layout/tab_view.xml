@@ -21,12 +21,15 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     >
-    <com.android.browser.FakeWebView android:id="@+id/screen_shot"
-        android:layout_width="40dip"
-        android:layout_height="40dip"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
-        />
+    <!-- This ImageView has the same width as the ImageView in
+         tab_view_add_tab.xml. -->
+    <ImageView android:id="@+id/favicon"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        android:layout_marginLeft="18dip"
+        android:layout_marginRight="18dip"
+        android:background="@drawable/fav_icn_background"
+        android:padding="2dip"/>
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
