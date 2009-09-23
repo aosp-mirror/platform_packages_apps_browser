@@ -2071,6 +2071,7 @@ public class BrowserActivity extends Activity
             currentIndex--;
         }
         mTabControl.setCurrentTab(mTabControl.getTab(currentIndex));
+        resetTitleIconAndProgress();
     }
 
     private void goBackOnePageOrQuit() {
