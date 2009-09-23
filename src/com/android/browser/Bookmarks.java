@@ -162,17 +162,17 @@ import java.util.Date;
      *  @param url URL of the website to be removed.
      */
     /* package */ static void removeFromBookmarks(Context context,
-            ContentResolver cr, String url) {
+            ContentResolver cr, String url, String title) {
         Cursor cursor = cr.query(
                 Browser.BOOKMARKS_URI,
                 Browser.HISTORY_PROJECTION,
-                "url = ?",
-                new String[] { url },
+                "url = ? AND title = ?",
+                new String[] { url, title },
                 null);
         boolean first = cursor.moveToFirst();
         // Should be in the database no matter what
         if (!first) {
-            throw new AssertionError("URL is not in the database!");
+            throw new AssertionError("URL is not in the database! " + url + " " + title);
         }
         // Remove from bookmarks
         WebIconDatabase.getInstance().releaseIconForPageUrl(url);
