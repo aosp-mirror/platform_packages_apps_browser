@@ -294,11 +294,16 @@ public class BrowserBookmarksPage extends Activity implements
                 mGridPage.setAdapter(mBookmarksAdapter);
                 mGridPage.setOnItemClickListener(mListener);
                 mGridPage.setNumColumns(GridView.AUTO_FIT);
-                mGridPage.setColumnWidth(BrowserActivity.THUMBNAIL_WIDTH);
+                mGridPage.setColumnWidth(
+                        BrowserActivity.getDesiredThumbnailWidth(this));
                 mGridPage.setFocusable(true);
                 mGridPage.setFocusableInTouchMode(true);
                 mGridPage.setSelector(android.R.drawable.gallery_thumb);
-                mGridPage.setVerticalSpacing(10);
+                float density = getResources().getDisplayMetrics().density;
+                mGridPage.setVerticalSpacing((int) (14 * density));
+                mGridPage.setHorizontalSpacing((int) (8 * density));
+                mGridPage.setStretchMode(GridView.STRETCH_SPACING);
+                mGridPage.setDrawSelectorOnTop(true);
                 if (mMostVisited) {
                     mGridPage.setEmptyView(mEmptyView);
                 }
