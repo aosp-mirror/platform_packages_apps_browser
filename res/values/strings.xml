@@ -270,6 +270,11 @@
             application -->
     <string name="contextmenu_map">Map</string>
  
+     <!-- Title of the dialog used for selecting the application that should be
+            used for sharing a link (e.g. Gmail or another app). See also
+            contextmenu_sharelink above -->
+    <string name="choosertitle_sharevia">Share via</string>
+
     <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
     <string name="clear">Clear</string>

@@ -244,7 +244,8 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 }
                 return true;
             case R.id.share_link_context_menu_id:
-                Browser.sendString(this, url);
+                Browser.sendString(this, url,
+                        getText(R.string.choosertitle_sharevia).toString());
                 return true;
             case R.id.copy_url_context_menu_id:
                 copy(url);
