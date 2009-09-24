@@ -46,7 +46,7 @@ import android.widget.TextView;
                     boolean isChecked) {
                 if (isChecked) {
                     Bookmarks.addBookmark(mContext,
-                            mContext.getContentResolver(), mUrl, getName(), true);
+                            mContext.getContentResolver(), mUrl, getName(), null, true);
                 } else {
                     Bookmarks.removeFromBookmarks(mContext,
                             mContext.getContentResolver(), mUrl, getName());
