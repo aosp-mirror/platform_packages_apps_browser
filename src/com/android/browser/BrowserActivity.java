@@ -1544,7 +1544,8 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.share_page_menu_id:
-                Browser.sendString(this, getTopWindow().getUrl());
+                Browser.sendString(this, getTopWindow().getUrl(),
+                        getText(R.string.choosertitle_sharevia).toString());
                 break;
 
             case R.id.dump_nav_menu_id:
@@ -2282,7 +2283,8 @@ public class BrowserActivity extends Activity
                             startActivity(intent);
                             break;
                         case R.id.share_link_context_menu_id:
-                            Browser.sendString(BrowserActivity.this, url);
+                            Browser.sendString(BrowserActivity.this, url,
+                                    getText(R.string.choosertitle_sharevia).toString());
                             break;
                         case R.id.copy_link_context_menu_id:
                             copy(url);
