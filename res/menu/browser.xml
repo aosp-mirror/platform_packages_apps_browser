@@ -20,7 +20,7 @@
             android:alphabeticShortcut="r" />
         <item android:id="@+id/new_tab_menu_id"
             android:title="@string/new_tab"
-            android:icon="@drawable/ic_add_tab"
+            android:icon="@drawable/ic_menu_new_window"
             android:alphabeticShortcut="n" />
         <item android:id="@+id/active_tabs_menu_id"
             android:title="@string/active_tabs"
