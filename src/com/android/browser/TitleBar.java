@@ -26,8 +26,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.util.TypedValue;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -55,9 +59,13 @@ public class TitleBar extends LinearLayout {
     private Drawable        mGenericFavicon;
     private int             mIconDimension;
     private View            mTitleBg;
+    private MyHandler       mHandler;
+
+    private static int LONG_PRESS = 1;
 
     public TitleBar(BrowserActivity context) {
         super(context, null);
+        mHandler = new MyHandler();
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.title_bar, this);
         mBrowserActivity = context;
@@ -83,6 +91,26 @@ public class TitleBar extends LinearLayout {
                 R.drawable.app_web_browser_sm);
     }
 
+    private class MyHandler extends Handler {
+        public void handleMessage(Message msg) {
+            if (msg.what == LONG_PRESS) {
+                // Prevent the normal action from happening by setting the title
+                // bar's state to false.
+                mTitleBg.setPressed(false);
+                // Need to call a special method on BrowserActivity for when the
+                // fake title bar is up, because its ViewGroup does not show a
+                // context menu.
+                mBrowserActivity.showTitleBarContextMenu();
+            }
+        }
+    };
+
+    @Override
+    protected void onCreateContextMenu(ContextMenu menu) {
+        MenuInflater inflater = mBrowserActivity.getMenuInflater();
+        inflater.inflate(R.menu.title_context, menu);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -94,6 +122,9 @@ public class TitleBar extends LinearLayout {
                     mRtButton.setPressed(true);
                 } else {
                     mTitleBg.setPressed(true);
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(
+                            LONG_PRESS),
+                            ViewConfiguration.getLongPressTimeout());
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -105,12 +136,14 @@ public class TitleBar extends LinearLayout {
                     // bar, mark both as not pressed.
                     mTitleBg.setPressed(false);
                     mRtButton.setPressed(false);
+                    mHandler.removeMessages(LONG_PRESS);
                     break;
                 }
                 int x = (int) event.getX();
                 int titleRight = mTitleBg.getRight();
                 if (mTitleBg.isPressed() && x > titleRight + slop) {
                     mTitleBg.setPressed(false);
+                    mHandler.removeMessages(LONG_PRESS);
                 } else if (mRtButton.isPressed() && x < titleRight - slop) {
                     mRtButton.setPressed(false);
                 }
@@ -118,6 +151,7 @@ public class TitleBar extends LinearLayout {
             case MotionEvent.ACTION_CANCEL:
                 mRtButton.setPressed(false);
                 mTitleBg.setPressed(false);
+                mHandler.removeMessages(LONG_PRESS);
                 break;
             case MotionEvent.ACTION_UP:
                 if (mRtButton.isPressed()) {
@@ -128,6 +162,7 @@ public class TitleBar extends LinearLayout {
                     }
                     mRtButton.setPressed(false);
                 } else if (mTitleBg.isPressed()) {
+                    mHandler.removeMessages(LONG_PRESS);
                     mBrowserActivity.onSearchRequested();
                     mTitleBg.setPressed(false);
                 }

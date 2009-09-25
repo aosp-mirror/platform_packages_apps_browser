@@ -232,6 +232,9 @@
     <string name="history">History</string>
     <!-- Menu item for viewing downloads from the browser -->
     <string name="menu_view_download">Downloads</string>
+    <!-- Context menu item for copying the url of the current page from the
+            title bar -->
+    <string name="copy_page_url">Copy page url</string>
     <!-- Menu item -->
     <string name="share_page">Share page</string>
     <!-- Context Menu item open the currently selected link in the current

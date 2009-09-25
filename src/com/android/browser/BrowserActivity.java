@@ -1032,6 +1032,15 @@ public class BrowserActivity extends Activity
     }
 
     /**
+     * Special method for the fake title bar to call when displaying its context
+     * menu, since it is in its own Window, and its parent does not show a
+     * context menu.
+     */
+    /* package */ void showTitleBarContextMenu() {
+        openContextMenu(mTitleBar);
+    }
+
+    /**
      *  onSaveInstanceState(Bundle map)
      *  onSaveInstanceState is called right before onStop(). The map contains
      *  the saved state.
@@ -1311,15 +1320,20 @@ public class BrowserActivity extends Activity
         // options selector, so set mCanChord to true so we can access them.
         mCanChord = true;
         int id = item.getItemId();
-        final WebView webView = getTopWindow();
-        if (null == webView) {
-            return false;
-        }
-        final HashMap hrefMap = new HashMap();
-        hrefMap.put("webview", webView);
-        final Message msg = mHandler.obtainMessage(
-                FOCUS_NODE_HREF, id, 0, hrefMap);
         switch (id) {
+            // For the context menu from the title bar
+            case R.id.title_bar_share_page_url:
+            case R.id.title_bar_copy_page_url:
+                WebView mainView = mTabControl.getCurrentWebView();
+                if (null == mainView) {
+                    return false;
+                }
+                if (id == R.id.title_bar_share_page_url) {
+                    Browser.sendString(this, mainView.getUrl());
+                } else {
+                    copy(mainView.getUrl());
+                }
+                break;
             // -- Browser context menu
             case R.id.open_context_menu_id:
             case R.id.open_newtab_context_menu_id:
@@ -1327,6 +1341,14 @@ public class BrowserActivity extends Activity
             case R.id.save_link_context_menu_id:
             case R.id.share_link_context_menu_id:
             case R.id.copy_link_context_menu_id:
+                final WebView webView = getTopWindow();
+                if (null == webView) {
+                    return false;
+                }
+                final HashMap hrefMap = new HashMap();
+                hrefMap.put("webview", webView);
+                final Message msg = mHandler.obtainMessage(
+                        FOCUS_NODE_HREF, id, 0, hrefMap);
                 webView.requestFocusNodeHref(msg);
                 break;
 
