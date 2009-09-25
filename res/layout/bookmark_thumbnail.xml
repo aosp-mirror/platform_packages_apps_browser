@@ -16,15 +16,17 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:padding="0dip"
     >
 
     <ImageView android:id="@+id/thumb"
-        android:src="@drawable/ic_launcher_shortcut_browser_bookmark"
+        android:src="@drawable/browser_thumbnail"
         android:scaleType="center"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_gravity="center"
         />
 
     <!-- FIXME: Want to have a gradient over the thumb -->
@@ -67,10 +69,11 @@
         android:paddingTop="0dip"
         android:paddingBottom="0dip"
         android:layout_marginTop="0dip"
-        android:layout_marginBottom="16dip"
         android:scrollHorizontally="true"
         android:ellipsize="marquee"
         android:layout_below="@+id/thumb"
+        android:layout_alignLeft="@+id/thumb"
+        android:layout_alignRight="@+id/thumb"
         />
 
 </RelativeLayout>

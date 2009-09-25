@@ -2376,21 +2376,51 @@ public class BrowserActivity extends Activity
     }
 
     /**
-     * Constants for the size of the thumbnail created when taking a screenshot
+     * Values for the size of the thumbnail created when taking a screenshot.
+     * Lazily initialized.  Instead of using these directly, use
+     * getDesiredThumbnailWidth() or getDesiredThumbnailHeight().
      */
-    /* package */ static final int THUMBNAIL_WIDTH = 130;
-    /* package */ static final int THUMBNAIL_HEIGHT = 104;
+    private static int THUMBNAIL_WIDTH = 0;
+    private static int THUMBNAIL_HEIGHT = 0;
+
+    /**
+     * Return the desired width for thumbnail screenshots, which are stored in
+     * the database, and used on the bookmarks screen.
+     * @param context Context for finding out the density of the screen.
+     * @return int desired width for thumbnail screenshot.
+     */
+    /* package */ static int getDesiredThumbnailWidth(Context context) {
+        if (THUMBNAIL_WIDTH == 0) {
+            float density = context.getResources().getDisplayMetrics().density;
+            THUMBNAIL_WIDTH = (int) (90 * density);
+            THUMBNAIL_HEIGHT = (int) (80 * density);
+        }
+        return THUMBNAIL_WIDTH;
+    }
+
+    /**
+     * Return the desired height for thumbnail screenshots, which are stored in
+     * the database, and used on the bookmarks screen.
+     * @param context Context for finding out the density of the screen.
+     * @return int desired height for thumbnail screenshot.
+     */
+    /* package */ static int getDesiredThumbnailHeight(Context context) {
+        // To ensure that they are both initialized.
+        getDesiredThumbnailWidth(context);
+        return THUMBNAIL_HEIGHT;
+    }
 
     private Bitmap createScreenshot(WebView view) {
         Picture thumbnail = view.capturePicture();
-        Bitmap bm = Bitmap.createBitmap(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT,
-                Bitmap.Config.ARGB_4444);
+        Bitmap bm = Bitmap.createBitmap(getDesiredThumbnailWidth(this),
+                getDesiredThumbnailHeight(this), Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas(bm);
         // May need to tweak these values to determine what is the
         // best scale factor
         int contentWidth = view.getContentWidth();
         if (contentWidth > 0) {
-            float scaleFactor = (float) THUMBNAIL_WIDTH / (float) contentWidth;
+            float scaleFactor = (float) getDesiredThumbnailWidth(this)
+                    / (float) contentWidth;
             canvas.scale(scaleFactor, scaleFactor);
         }
         thumbnail.draw(canvas);

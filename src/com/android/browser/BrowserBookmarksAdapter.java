@@ -429,7 +429,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                     thumb.setImageBitmap(mCurrentThumbnail);
                 } else {
                     thumb.setImageResource(
-                            R.drawable.ic_launcher_shortcut_browser_bookmark);
+                            R.drawable.browser_thumbnail);
                 }
                 return convertView;
             }
@@ -439,7 +439,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                     Browser.HISTORY_PROJECTION_TITLE_INDEX));
             Bitmap thumbnail = getBitmap(Browser.HISTORY_PROJECTION_THUMBNAIL_INDEX, position);
             if (thumbnail == null) {
-                thumb.setImageResource(R.drawable.ic_launcher_shortcut_browser_bookmark);
+                thumb.setImageResource(R.drawable.browser_thumbnail);
             } else {
                 thumb.setImageBitmap(thumbnail);
             }
