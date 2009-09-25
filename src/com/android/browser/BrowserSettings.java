@@ -64,7 +64,6 @@ class BrowserSettings extends Observable {
     private boolean loadsImagesAutomatically = true;
     private boolean javaScriptEnabled = true;
     private boolean pluginsEnabled = true;
-    private String pluginsPath;  // default value set in loadFromDb().
     private boolean javaScriptCanOpenWindowsAutomatically = false;
     private boolean showSecurityWarnings = true;
     private boolean rememberPasswords = true;
@@ -242,10 +241,6 @@ class BrowserSettings extends Observable {
     public void loadFromDb(Context ctx) {
         SharedPreferences p =
                 PreferenceManager.getDefaultSharedPreferences(ctx);
-
-        // Set the default value for the plugins path to the application's
-        // local directory.
-        pluginsPath = ctx.getDir("plugins", 0).getPath();
         // Set the default value for the Application Caches path.
         appCachePath = ctx.getDir("appcache", 0).getPath();
         // Determine the maximum size of the application cache.
@@ -279,7 +274,6 @@ class BrowserSettings extends Observable {
                 javaScriptEnabled);
         pluginsEnabled = p.getBoolean("enable_plugins",
                 pluginsEnabled);
-        pluginsPath = p.getString("plugins_path", pluginsPath);
         javaScriptCanOpenWindowsAutomatically = !p.getBoolean(
             "block_popup_windows",
             !javaScriptCanOpenWindowsAutomatically);
@@ -366,10 +360,6 @@ class BrowserSettings extends Observable {
         workersEnabled = p.getBoolean("enable_workers", workersEnabled);
 
         update();
-    }
-
-    public String getPluginsPath() {
-        return pluginsPath;
     }
 
     public String getHomePage() {
