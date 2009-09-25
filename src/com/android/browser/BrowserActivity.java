@@ -2100,6 +2100,7 @@ public class BrowserActivity extends Activity
              * moveTaskToBack().
              */
             moveTaskToBack(true);
+            return;
         }
         WebView w = current.getWebView();
         if (w.canGoBack()) {
