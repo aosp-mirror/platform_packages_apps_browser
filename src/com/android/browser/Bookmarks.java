@@ -21,12 +21,14 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.Browser;
 import android.util.Log;
 import android.webkit.WebIconDatabase;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 /**
@@ -47,13 +49,14 @@ import java.util.Date;
      *  @param cr The ContentResolver being used to add the bookmark to the db.
      *  @param url URL of the website to be bookmarked.
      *  @param name Provided name for the bookmark.
+     *  @param thumbnail A thumbnail for the bookmark.
      *  @param retainIcon Whether to retain the page's icon in the icon database.
      *          This will usually be <code>true</code> except when bookmarks are
      *          added by a settings restore agent.
      */
     /* package */ static void addBookmark(Context context,
             ContentResolver cr, String url, String name,
-            boolean retainIcon) {
+            Bitmap thumbnail, boolean retainIcon) {
         // Want to append to the beginning of the list
         long creationTime = new Date().getTime();
         // First we check to see if the user has already visited this
@@ -95,6 +98,7 @@ import java.util.Date;
             map.put(Browser.BookmarkColumns.CREATED, creationTime);
             map.put(Browser.BookmarkColumns.TITLE, name);
             map.put(Browser.BookmarkColumns.BOOKMARK, 1);
+            map.put(Browser.BookmarkColumns.THUMBNAIL, bitmapToBytes(thumbnail));
             cr.update(Browser.BOOKMARKS_URI, map,
                     "_id = " + cursor.getInt(0), null);
         } else {
@@ -125,6 +129,7 @@ import java.util.Date;
                 map.put(Browser.BookmarkColumns.CREATED, creationTime);
                 map.put(Browser.BookmarkColumns.BOOKMARK, 1);
                 map.put(Browser.BookmarkColumns.DATE, 0);
+                map.put(Browser.BookmarkColumns.THUMBNAIL, bitmapToBytes(thumbnail));
                 int visits = 0;
                 if (count > 0) {
                     // The user has already bookmarked, and possibly
@@ -198,5 +203,15 @@ import java.util.Date;
                     Toast.LENGTH_LONG).show();
         }
         cursor.deactivate();
+    }
+
+    private static byte[] bitmapToBytes(Bitmap bm) {
+        if (bm == null) {
+            return null;
+        }
+
+        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+        return os.toByteArray();
     }
 }

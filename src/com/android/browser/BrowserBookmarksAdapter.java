@@ -437,13 +437,11 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             mCursor.moveToPosition(position - mExtraOffset);
             tv.setText(mCursor.getString(
                     Browser.HISTORY_PROJECTION_TITLE_INDEX));
-            byte[] data = mCursor.getBlob(
-                    Browser.HISTORY_PROJECTION_THUMBNAIL_INDEX);
-            if (data == null) {
+            Bitmap thumbnail = getBitmap(Browser.HISTORY_PROJECTION_THUMBNAIL_INDEX, position);
+            if (thumbnail == null) {
                 thumb.setImageResource(R.drawable.ic_launcher_shortcut_browser_bookmark);
             } else {
-                thumb.setImageBitmap(
-                        BitmapFactory.decodeByteArray(data, 0, data.length));
+                thumb.setImageBitmap(thumbnail);
             }
 
             return convertView;

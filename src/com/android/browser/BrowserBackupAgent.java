@@ -162,7 +162,7 @@ public class BrowserBackupAgent extends BackupAgent {
                                 // Right now we do not reconstruct the db entry in its
                                 // entirety; we just add a new bookmark with the same data
                                 Bookmarks.addBookmark(null, getContentResolver(),
-                                        mark.url, mark.title, false);
+                                        mark.url, mark.title, null, false);
                             } else {
                                 Log.v(TAG, "Skipping extant url: " + mark.url);
                             }
