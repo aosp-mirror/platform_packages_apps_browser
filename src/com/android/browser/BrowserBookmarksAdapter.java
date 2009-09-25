@@ -188,7 +188,8 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         }
         mCursor.moveToPosition(position- mExtraOffset);
         String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
-        Bookmarks.removeFromBookmarks(null, mContentResolver, url);
+        String title = mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX);
+        Bookmarks.removeFromBookmarks(null, mContentResolver, url, title);
         refreshList();
     }
     
