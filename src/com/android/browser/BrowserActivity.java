@@ -1013,8 +1013,18 @@ public class BrowserActivity extends Activity
     }
     private void hideFakeTitleBar() {
         if (mFakeTitleBar == null) return;
+        WindowManager.LayoutParams params = (WindowManager.LayoutParams)
+                mFakeTitleBarHolder.getLayoutParams();
+        WebView mainView = mTabControl.getCurrentWebView();
+        // Although we decided whether or not to animate based on the current
+        // scroll position, the scroll position may have changed since the
+        // fake title bar was displayed.  Make sure it has the appropriate
+        // animation/lack thereof before removing.
+        params.windowAnimations = mainView != null && mainView.getScrollY() == 0
+                ? 0 : com.android.internal.R.style.Animation_DropDownDown;
         WindowManager manager
                     = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        manager.updateViewLayout(mFakeTitleBarHolder, params);
         mFakeTitleBarHolder.removeView(mFakeTitleBar);
         manager.removeView(mFakeTitleBarHolder);
         mFakeTitleBar = null;
