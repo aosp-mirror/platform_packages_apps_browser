@@ -496,9 +496,18 @@ public class BrowserBookmarksPage extends Activity implements
             // No need to show the menu if there are no items.
             return result;
         }
-        menu.findItem(R.id.switch_mode_menu_id).setTitle(
-                mViewMode == BookmarkViewMode.GRID ? R.string.switch_to_list
-                : R.string.switch_to_thumbnails);
+        MenuItem switchItem = menu.findItem(R.id.switch_mode_menu_id);
+        int titleResId;
+        int iconResId;
+        if (mViewMode == BookmarkViewMode.GRID) {
+            titleResId = R.string.switch_to_list;
+            iconResId = R.drawable.ic_menu_list;
+        } else {
+            titleResId = R.string.switch_to_thumbnails;
+            iconResId = R.drawable.ic_menu_thumbnail;
+        }
+        switchItem.setTitle(titleResId);
+        switchItem.setIcon(iconResId);
         return true;
     }
 
