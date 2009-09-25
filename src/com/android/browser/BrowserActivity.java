@@ -305,6 +305,13 @@ public class BrowserActivity extends Activity
 
         mResolver = getContentResolver();
 
+        // If this was a web search request, pass it on to the default web
+        // search provider and finish this activity.
+        if (handleWebSearchIntent(getIntent())) {
+            finish();
+            return;
+        }
+
         //
         // start MASF proxy service
         //
@@ -411,12 +418,6 @@ public class BrowserActivity extends Activity
             }
         };
         registerReceiver(mPackageInstallationReceiver, filter);
-
-        // If this was a web search request, pass it on to the default web search provider.
-        if (handleWebSearchIntent(getIntent())) {
-            moveTaskToBack(true);
-            return;
-        }
 
         if (!mTabControl.restoreState(icicle)) {
             // clear up the thumbnail directory if we can't restore the state as
@@ -1095,6 +1096,9 @@ public class BrowserActivity extends Activity
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
+
+        if (mTabControl == null) return;
+
         // Remove the current tab and sub window
         TabControl.Tab t = mTabControl.getCurrentTab();
         if (t != null) {
