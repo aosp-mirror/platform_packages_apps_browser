@@ -84,6 +84,7 @@ import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.util.Regex;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -954,6 +955,36 @@ public class BrowserActivity extends Activity
         return true;
     }
 
+    /**
+     * Special class used exclusively for the shadow drawn underneath the fake
+     * title bar.  The shadow does not need to be drawn if the WebView
+     * underneath is scrolled to the top, because it will draw directly on top
+     * of the embedded shadow.
+     */
+    private static class Shadow extends View {
+        private WebView mWebView;
+
+        public Shadow(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public void setWebView(WebView view) {
+            mWebView = view;
+        }
+
+        @Override
+        public void draw(Canvas canvas) {
+            // In general onDraw is the method to override, but we care about
+            // whether or not the background gets drawn, which happens in draw()
+            if (mWebView == null || mWebView.getScrollY() > getHeight()) {
+                super.draw(canvas);
+            }
+            // Need to invalidate so that if the scroll position changes, we
+            // still draw as appropriate.
+            invalidate();
+        }
+    }
+
     private void showFakeTitleBar() {
         final View decor = getWindow().peekDecorView();
         if (mFakeTitleBar == null && mActiveTabsPage == null
@@ -995,6 +1026,9 @@ public class BrowserActivity extends Activity
                 mFakeTitleBarHolder = (ViewGroup) LayoutInflater.from(this)
                     .inflate(R.layout.title_bar_bg, null);
             }
+            Shadow shadow = (Shadow) mFakeTitleBarHolder.findViewById(
+                    R.id.shadow);
+            shadow.setWebView(mainView);
             mFakeTitleBarHolder.addView(mFakeTitleBar, 0, mFakeTitleBarParams);
             manager.addView(mFakeTitleBarHolder, params);
         }
