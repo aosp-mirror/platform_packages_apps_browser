@@ -2335,16 +2335,24 @@ public class BrowserActivity extends Activity
         }
     }
 
+    /**
+     * Constants for the size of the thumbnail created when taking a screenshot
+     */
+    /* package */ static final int THUMBNAIL_WIDTH = 130;
+    /* package */ static final int THUMBNAIL_HEIGHT = 104;
+
     private Bitmap createScreenshot(WebView view) {
         Picture thumbnail = view.capturePicture();
-        // Keep width and height in sync with BrowserBookmarksPage
-        // and bookmark_thumb
-        Bitmap bm = Bitmap.createBitmap(100, 80,
+        Bitmap bm = Bitmap.createBitmap(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT,
                 Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas(bm);
         // May need to tweak these values to determine what is the
         // best scale factor
-        canvas.scale(.5f, .5f);
+        int contentWidth = view.getContentWidth();
+        if (contentWidth > 0) {
+            float scaleFactor = (float) THUMBNAIL_WIDTH / (float) contentWidth;
+            canvas.scale(scaleFactor, scaleFactor);
+        }
         thumbnail.draw(canvas);
         return bm;
     }
