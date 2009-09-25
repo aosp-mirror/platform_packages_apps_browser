@@ -44,7 +44,7 @@
         <ImageView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:src="@drawable/ic_tab_browser_bookmark_selected"
+            android:src="@drawable/ic_list_bookmark"
             />
         <TextView
             android:layout_height="wrap_content"

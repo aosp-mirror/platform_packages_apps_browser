@@ -31,7 +31,7 @@
             android:layout_marginLeft="5dip"
             android:layout_marginRight="11dip"
             android:focusable="false"
-            android:src="@*android:drawable/sym_action_add"
+            android:src="@drawable/ic_list_bookmark"
             android:scaleType="fitCenter"
             />
     <LinearLayout
