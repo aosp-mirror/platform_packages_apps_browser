@@ -32,7 +32,7 @@
             android:icon="@*android:drawable/ic_menu_forward" />
         <item android:id="@+id/add_bookmark_menu_id"
             android:title="@string/save_to_bookmarks"
-            android:icon="@drawable/ic_menu_bookmark"
+            android:icon="@drawable/ic_menu_add_bookmark"
             android:alphabeticShortcut="a" />
         <item android:id="@+id/find_menu_id"
             android:title="@string/find_dot"
