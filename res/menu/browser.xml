@@ -16,16 +16,20 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/MAIN_MENU">
-        <item android:id="@+id/stop_reload_menu_id"
-            android:alphabeticShortcut="r" />
         <item android:id="@+id/new_tab_menu_id"
             android:title="@string/new_tab"
             android:icon="@drawable/ic_menu_new_window"
             android:alphabeticShortcut="n" />
+        <item android:id="@+id/bookmarks_menu_id"
+            android:title="@string/bookmarks"
+            android:alphabeticShortcut="b"
+            />
         <item android:id="@+id/active_tabs_menu_id"
             android:title="@string/active_tabs"
             android:icon="@drawable/ic_menu_windows"
             android:alphabeticShortcut="t" />
+        <item android:id="@+id/stop_reload_menu_id"
+            android:alphabeticShortcut="r" />
         <item android:id="@+id/forward_menu_id"
             android:title="@string/forward"
             android:alphabeticShortcut="k"
