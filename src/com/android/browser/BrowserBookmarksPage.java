@@ -303,6 +303,7 @@ public class BrowserBookmarksPage extends Activity implements
                 mGridPage.setVerticalSpacing((int) (14 * density));
                 mGridPage.setHorizontalSpacing((int) (8 * density));
                 mGridPage.setStretchMode(GridView.STRETCH_SPACING);
+                mGridPage.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
                 mGridPage.setDrawSelectorOnTop(true);
                 if (mMostVisited) {
                     mGridPage.setEmptyView(mEmptyView);
