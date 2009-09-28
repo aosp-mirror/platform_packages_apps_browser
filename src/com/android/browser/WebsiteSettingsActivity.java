@@ -558,6 +558,7 @@ public class WebsiteSettingsActivity extends ListActivity {
                                     public void onClick(DialogInterface dlg, int which) {
                                         WebStorage.getInstance().deleteAllData();
                                         GeolocationPermissions.getInstance().clearAll();
+                                        WebStorageSizeManager.resetLastOutOfSpaceNotificationTime();
                                         mAdapter.askForOrigins();
                                         finish();
                                     }})
