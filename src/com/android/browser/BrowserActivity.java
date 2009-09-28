@@ -2276,6 +2276,7 @@ public class BrowserActivity extends Activity
     }
 
     /* package */ void stopLoading() {
+        mDidStopLoad = true;
         resetTitleAndRevertLockIcon();
         WebView w = getTopWindow();
         w.stopLoading();
@@ -2557,6 +2558,7 @@ public class BrowserActivity extends Activity
             CookieSyncManager.getInstance().resetSync();
 
             mInLoad = true;
+            mDidStopLoad = false;
             showFakeTitleBar();
             updateInLoadMenuItems();
             if (!mIsNetworkUp) {
@@ -2572,7 +2574,12 @@ public class BrowserActivity extends Activity
             // Reset the title and icon in case we stopped a provisional
             // load.
             resetTitleAndIcon(view);
-            updateScreenshot(view);
+
+            if (!mDidStopLoad) {
+                // Only update the bookmark screenshot if the user did not
+                // cancel the load early.
+                updateScreenshot(view);
+            }
 
             // Update the lock icon image only once we are done loading
             updateLockIconToLatest();
@@ -4394,6 +4401,7 @@ public class BrowserActivity extends Activity
 
     private boolean mInLoad;
     private boolean mIsNetworkUp;
+    private boolean mDidStopLoad;
 
     private boolean mPageStarted;
     private boolean mActivityInPause = true;
