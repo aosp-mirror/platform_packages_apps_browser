@@ -1071,6 +1071,9 @@ public class BrowserActivity extends Activity
      * context menu.
      */
     /* package */ void showTitleBarContextMenu() {
+        if (null == mTitleBar.getParent()) {
+            return;
+        }
         openContextMenu(mTitleBar);
     }
 
