@@ -99,6 +99,12 @@ class WebStorageSizeManager {
     public final static long APPCACHE_MAXSIZE_PADDING = 512 * 1024; // 512KB
     // The system status bar notification id.
     private final static int OUT_OF_SPACE_ID = 1;
+    // The time of the last out of space notification
+    private static long mLastOutOfSpaceNotificationTime = -1;
+    // Delay between two notification in ms
+    private final static long NOTIFICATION_INTERVAL = 5 * 60 * 1000;
+    // Delay in ms used when resetting the notification time
+    private final static long RESET_NOTIFICATION_INTERVAL = 3 * 1000;
     // The application context.
     private final Context mContext;
     // The global Web storage limit.
@@ -321,6 +327,14 @@ class WebStorageSizeManager {
         }
     }
 
+    // Reset the notification time; we use this iff the user
+    // use clear all; we reset it to some time in the future instead
+    // of just setting it to -1, as the clear all method is asynchronous
+    static void resetLastOutOfSpaceNotificationTime() {
+        mLastOutOfSpaceNotificationTime = System.currentTimeMillis() -
+            NOTIFICATION_INTERVAL + RESET_NOTIFICATION_INTERVAL;
+    }
+
     // Computes the global limit as a function of the size of the data
     // partition and the amount of free space on that partition.
     private long getGlobalLimit() {
@@ -364,26 +378,29 @@ class WebStorageSizeManager {
             // mContext can be null if we're running unit tests.
             return;
         }
-        // setup the notification boilerplate.
-        int icon = android.R.drawable.stat_sys_warning;
-        CharSequence title = mContext.getString(
-                R.string.webstorage_outofspace_notification_title);
-        CharSequence text = mContext.getString(
-                R.string.webstorage_outofspace_notification_text);
-        long when = System.currentTimeMillis();
-        Intent intent = new Intent(mContext, WebsiteSettingsActivity.class);
-        PendingIntent contentIntent =
-            PendingIntent.getActivity(mContext, 0, intent, 0);
-        Notification notification = new Notification(icon, title, when);
-        notification.setLatestEventInfo(mContext, title, text, contentIntent);
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        // Fire away.
-        String ns = Context.NOTIFICATION_SERVICE;
-        NotificationManager mgr =
-            (NotificationManager) mContext.getSystemService(ns);
-        if (mgr != null) {
-            mgr.notify(OUT_OF_SPACE_ID, notification);
+        if ((mLastOutOfSpaceNotificationTime == -1) ||
+            (System.currentTimeMillis() - mLastOutOfSpaceNotificationTime > NOTIFICATION_INTERVAL)) {
+            // setup the notification boilerplate.
+            int icon = android.R.drawable.stat_sys_warning;
+            CharSequence title = mContext.getString(
+                    R.string.webstorage_outofspace_notification_title);
+            CharSequence text = mContext.getString(
+                    R.string.webstorage_outofspace_notification_text);
+            long when = System.currentTimeMillis();
+            Intent intent = new Intent(mContext, WebsiteSettingsActivity.class);
+            PendingIntent contentIntent =
+                PendingIntent.getActivity(mContext, 0, intent, 0);
+            Notification notification = new Notification(icon, title, when);
+            notification.setLatestEventInfo(mContext, title, text, contentIntent);
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            // Fire away.
+            String ns = Context.NOTIFICATION_SERVICE;
+            NotificationManager mgr =
+                (NotificationManager) mContext.getSystemService(ns);
+            if (mgr != null) {
+                mLastOutOfSpaceNotificationTime = System.currentTimeMillis();
+                mgr.notify(OUT_OF_SPACE_ID, notification);
+            }
         }
     }
 }
-
