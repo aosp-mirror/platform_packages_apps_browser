@@ -161,7 +161,7 @@ public class AddBookmarkPage extends Activity {
 
                 // Only use mThumbnail if url and mOriginalUrl are matches.
                 // Otherwise the user edited the url and the thumbnail no longer applies.
-                if (mOriginalUrl.equals(url)) {
+                if (url.equals(mOriginalUrl)) {
                     Bookmarks.addBookmark(null, cr, url, title, mThumbnail, true);
                 } else {
                     Bookmarks.addBookmark(null, cr, url, title, null, true);
