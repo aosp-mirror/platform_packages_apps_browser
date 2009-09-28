@@ -23,6 +23,7 @@
         <item android:id="@+id/bookmarks_menu_id"
             android:title="@string/bookmarks"
             android:alphabeticShortcut="b"
+            android:icon="@drawable/ic_menu_bookmarks"
             />
         <item android:id="@+id/active_tabs_menu_id"
             android:title="@string/active_tabs"
