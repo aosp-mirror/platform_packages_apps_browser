@@ -1521,6 +1521,10 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.goto_menu_id:
+                onSearchRequested();
+                break;
+
+            case R.id.bookmarks_menu_id:
                 bookmarksOrHistoryPicker(false);
                 break;
 
