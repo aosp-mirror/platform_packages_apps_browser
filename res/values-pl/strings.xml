@@ -262,7 +262,6 @@
     <string name="download_length_required" msgid="9038605488460437406">"Pobieranie niemożliwe. Nie można ustalić rozmiaru elementu."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Pobieranie zostało przerwane. Nie można go wznowić."</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Uruchamianie testów przeglądarki"</string>
-    <string name="homepage_base" msgid="7888126987935305566">"http://www.google.com/m?client=ms-{CID}"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Szukaj w internecie"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Pamięć przeglądarki jest pełna"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Kliknij, aby zwolnić miejsce."</string>

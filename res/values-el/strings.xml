@@ -262,7 +262,6 @@
     <string name="download_length_required" msgid="9038605488460437406">"Δεν είναι δυνατή η λήψη. Δεν είναι δυνατός ο προσδιορισμός του μεγέθους του στοιχείου."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Η λήψη διακόπηκε. Δεν είναι δυνατή η συνέχισή της."</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Πρόγραμμα εκτέλεσης δοκιμών προγράμματος περιήγησης"</string>
-    <string name="homepage_base" msgid="7888126987935305566">"http://www.google.com/m?client=ms-{CID}"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Αναζήτηση στον ιστό"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Χώρος αποθήκευσης προγράμματος περιήγησης πλήρης"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Κάντε κλικ για να αποδεσμεύσετε χώρο."</string>
