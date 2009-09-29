@@ -262,7 +262,6 @@
     <string name="download_length_required" msgid="9038605488460437406">"İndirilemiyor. Öğenin boyutu belirlenemiyor."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"İndirme işlemi kesintiye uğradı. Sürdürülemez."</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Tarayıcı Test Aracı"</string>
-    <string name="homepage_base" msgid="7888126987935305566">"http://www.google.com/m?client=ms-{CID}"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Web\'de ara"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Tarayıcı deposu dolu"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Alan açmak için tıklayın."</string>

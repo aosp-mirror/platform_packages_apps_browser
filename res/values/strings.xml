@@ -652,7 +652,8 @@
     <!-- The default homepage. If it starts with "http://www.google" and the
             user signs up the device with a Google sites account, the site's
             domain will be appended. -->
-    <string name="homepage_base">http://www.google.com/m?client=ms-{CID}&amp;source=android-home</string>
+    <string name="homepage_base" translatable="false">
+        http://www.google.com/m?client=ms-{CID}&amp;source=android-home</string>
 
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">
