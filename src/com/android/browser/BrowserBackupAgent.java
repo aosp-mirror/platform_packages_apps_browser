@@ -46,8 +46,8 @@ import java.util.zip.CRC32;
  * @hide
  */
 public class BrowserBackupAgent extends BackupAgent {
-    static final String TAG = "BrowserBookmarkAgent";
-    static final boolean DEBUG = true;
+    static final String TAG = "BrowserBackupAgent";
+    static final boolean DEBUG = false;
 
     static final String BOOKMARK_KEY = "_bookmarks_";
     /** this version num MUST be incremented if the flattened-file schema ever changes */
@@ -147,6 +147,7 @@ public class BrowserBackupAgent extends BackupAgent {
                         // Okay, we have all the bookmarks -- now see if we need to add
                         // them to the browser's database
                         int N = bookmarks.size();
+                        int nUnique = 0;
                         if (DEBUG) Log.v(TAG, "Restoring " + N + " bookmarks");
                         String[] urlCol = new String[] { BookmarkColumns.URL };
                         for (int i = 0; i < N; i++) {
@@ -158,16 +159,18 @@ public class BrowserBackupAgent extends BackupAgent {
                                     BookmarkColumns.BOOKMARK + " == 1 ", null, null);
                             // if not, insert it
                             if (cursor.getCount() <= 0) {
-                                Log.v(TAG, "Did not see url: " + mark.url);
+                                if (DEBUG) Log.v(TAG, "Did not see url: " + mark.url);
                                 // Right now we do not reconstruct the db entry in its
                                 // entirety; we just add a new bookmark with the same data
                                 Bookmarks.addBookmark(null, getContentResolver(),
                                         mark.url, mark.title, null, false);
+                                nUnique++;
                             } else {
-                                Log.v(TAG, "Skipping extant url: " + mark.url);
+                                if (DEBUG) Log.v(TAG, "Skipping extant url: " + mark.url);
                             }
                             cursor.close();
                         }
+                        Log.i(TAG, "Restored " + nUnique + " of " + N + " bookmarks");
                     } catch (IOException ioe) {
                         Log.w(TAG, "Bad backup data; not restoring");
                         crc = -1;
