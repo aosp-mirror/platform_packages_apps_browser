@@ -25,6 +25,8 @@ import android.graphics.Bitmap;
 import android.net.ParseException;
 import android.net.WebAddress;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Browser;
 import android.view.View;
 import android.view.Window;
@@ -50,12 +52,15 @@ public class AddBookmarkPage extends Activity {
     private Bitmap      mThumbnail;
     private String      mOriginalUrl;
 
+    // Message IDs
+    private static final int SAVE_BOOKMARK = 100;
+
+    private Handler mHandler;
+
     private View.OnClickListener mSaveBookmark = new View.OnClickListener() {
         public void onClick(View v) {
             if (save()) {
                 finish();
-                Toast.makeText(AddBookmarkPage.this, R.string.bookmark_saved,
-                        Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -94,7 +99,6 @@ public class AddBookmarkPage extends Activity {
         mAddress = (EditText) findViewById(R.id.address);
         mAddress.setText(url);
 
-
         View.OnClickListener accept = mSaveBookmark;
         mButton = (TextView) findViewById(R.id.OK);
         mButton.setOnClickListener(accept);
@@ -106,13 +110,59 @@ public class AddBookmarkPage extends Activity {
             mButton.requestFocus();
         }
     }
-    
+
+    private void createHandler() {
+        if (mHandler == null) {
+            mHandler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    switch (msg.what) {
+                        case SAVE_BOOKMARK:
+                            // Unbundle bookmark data.
+                            Bundle bundle = msg.getData();
+                            String title = bundle.getString("title");
+                            String url = bundle.getString("url");
+                            boolean invalidateThumbnail = bundle.getBoolean("invalidateThumbnail");
+                            Bitmap thumbnail = invalidateThumbnail
+                                    ? null : (Bitmap) bundle.getParcelable("thumbnail");
+                            String touchIconUrl = bundle.getString("touchIconUrl");
+
+                            // Save to the bookmarks DB.
+                            if (updateBookmarksDB(title, url, thumbnail, touchIconUrl)) {
+                                Toast.makeText(AddBookmarkPage.this, R.string.bookmark_saved,
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(AddBookmarkPage.this, R.string.bookmark_not_saved,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            break;
+                    }
+                }
+            };
+        }
+    }
+
+    private boolean updateBookmarksDB(String title, String url, Bitmap thumbnail, String touchIconUrl) {
+        try {
+            final ContentResolver cr = getContentResolver();
+            Bookmarks.addBookmark(null, cr, url, title, thumbnail, true);
+            if (touchIconUrl != null) {
+                final Cursor c =
+                        BrowserBookmarksAdapter.queryBookmarksForUrl(cr, null, url, true);
+                new DownloadTouchIcon(cr, c, url).execute(mTouchIconUrl);
+            }
+        } catch (IllegalStateException e) {
+            return false;
+        }
+        return true;
+    }
+
     /**
-     *  Save the data to the database. 
-     *  Also, change the view to dialog stating 
-     *  that the webpage has been saved.
+     * Parse the data entered in the dialog and post a message to update the bookmarks database.
      */
     boolean save() {
+        createHandler();
+
         String title = mTitle.getText().toString().trim();
         String unfilteredUrl = 
                 BrowserActivity.fixUrl(mAddress.getText().toString());
@@ -150,33 +200,25 @@ public class AddBookmarkPage extends Activity {
             mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
             return false;
         }
-        try {
-            if (mEditingExisting) {
-                mMap.putString("title", title);
-                mMap.putString("url", url);
-                setResult(RESULT_OK, (new Intent()).setAction(
-                        getIntent().toString()).putExtras(mMap));
-            } else {
-                final ContentResolver cr = getContentResolver();
 
-                // Only use mThumbnail if url and mOriginalUrl are matches.
-                // Otherwise the user edited the url and the thumbnail no longer applies.
-                if (url.equals(mOriginalUrl)) {
-                    Bookmarks.addBookmark(null, cr, url, title, mThumbnail, true);
-                } else {
-                    Bookmarks.addBookmark(null, cr, url, title, null, true);
-                }
-                if (mTouchIconUrl != null) {
-                    final Cursor c =
-                            BrowserBookmarksAdapter.queryBookmarksForUrl(
-                                    cr, null, url, true);
-                    new DownloadTouchIcon(cr, c, url).execute(mTouchIconUrl);
-                }
-                setResult(RESULT_OK);
-            }
-        } catch (IllegalStateException e) {
-            setTitle(r.getText(R.string.no_database));
-            return false;
+        if (mEditingExisting) {
+            mMap.putString("title", title);
+            mMap.putString("url", url);
+            mMap.putBoolean("invalidateThumbnail", !url.equals(mOriginalUrl));
+            setResult(RESULT_OK, (new Intent()).setAction(
+                    getIntent().toString()).putExtras(mMap));
+        } else {
+            // Post a message to write to the DB.
+            Bundle bundle = new Bundle();
+            bundle.putString("title", title);
+            bundle.putString("url", url);
+            bundle.putParcelable("thumbnail", mThumbnail);
+            bundle.putBoolean("invalidateThumbnail", !url.equals(mOriginalUrl));
+            bundle.putString("touchIconUrl", mTouchIconUrl);
+            Message msg = Message.obtain(mHandler, SAVE_BOOKMARK);
+            msg.setData(bundle);
+            mHandler.sendMessage(msg);
+            setResult(RESULT_OK);
         }
         return true;
     }
