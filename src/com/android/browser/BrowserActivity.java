@@ -2420,6 +2420,10 @@ public class BrowserActivity extends Activity
                     final ByteArrayOutputStream os
                             = new ByteArrayOutputStream();
                     Bitmap bm = createScreenshot(view);
+                    if (bm == null) {
+                        c.close();
+                        return;
+                    }
                     bm.compress(Bitmap.CompressFormat.PNG, 100, os);
                     values = new ContentValues();
                     values.put(Browser.BookmarkColumns.THUMBNAIL,
@@ -2470,6 +2474,9 @@ public class BrowserActivity extends Activity
 
     private Bitmap createScreenshot(WebView view) {
         Picture thumbnail = view.capturePicture();
+        if (thumbnail == null) {
+            return null;
+        }
         Bitmap bm = Bitmap.createBitmap(getDesiredThumbnailWidth(this),
                 getDesiredThumbnailHeight(this), Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas(bm);
