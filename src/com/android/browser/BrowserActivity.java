@@ -613,7 +613,8 @@ public class BrowserActivity extends Activity
         String url = null;
         final String action = intent.getAction();
         if (Intent.ACTION_VIEW.equals(action)) {
-            url = intent.getData().toString();
+            Uri data = intent.getData();
+            if (data != null) url = data.toString();
         } else if (Intent.ACTION_SEARCH.equals(action)
                 || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
                 || Intent.ACTION_WEB_SEARCH.equals(action)) {
