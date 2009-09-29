@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,8 @@ public class GeolocationPermissionsPrompt extends LinearLayout {
     public void show(String origin, GeolocationPermissions.Callback callback) {
         mOrigin = origin;
         mCallback = callback;
-        setMessage(mOrigin);
+        Uri uri = Uri.parse(mOrigin);
+        setMessage("http".equals(uri.getScheme()) ?  mOrigin.substring(7) : mOrigin);
         showDialog(true);
     }
 
