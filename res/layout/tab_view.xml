@@ -67,7 +67,7 @@
         android:paddingLeft="18dip"
         android:paddingRight="18dip"
         android:background="@drawable/close_background"
-        android:src="@drawable/ic_btn_close_panel"
+        android:src="@drawable/btn_close_window"
         android:scaleType="center"
         />
 </LinearLayout>
