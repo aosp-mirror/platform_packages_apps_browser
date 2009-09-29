@@ -990,6 +990,13 @@ public class BrowserActivity extends Activity
         if (mFakeTitleBar == null && mActiveTabsPage == null
                 && !mActivityInPause && decor != null
                 && decor.getWindowToken() != null) {
+            Rect visRect = new Rect();
+            if (!mBrowserFrameLayout.getGlobalVisibleRect(visRect)) {
+                if (LOGD_ENABLED) {
+                    Log.d(LOGTAG, "showFakeTitleBar visRect failed");
+                }
+                return;
+            }
             final WebView webView = getTopWindow();
             mFakeTitleBar = new TitleBar(this);
             mFakeTitleBar.setTitleAndUrl(null, webView.getUrl());
@@ -1017,9 +1024,7 @@ public class BrowserActivity extends Activity
             // XXX : Without providing an offset, the fake title bar will be
             // placed underneath the status bar.  Use the global visible rect
             // of mBrowserFrameLayout to determine the bottom of the status bar
-            Rect rectangle = new Rect();
-            mBrowserFrameLayout.getGlobalVisibleRect(rectangle);
-            params.y = rectangle.top;
+            params.y = visRect.top;
             // Add a holder for the title bar.  It also holds a shadow to show
             // below the title bar.
             if (mFakeTitleBarHolder == null) {
