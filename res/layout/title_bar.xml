@@ -22,7 +22,7 @@
     android:paddingLeft="8dip"
     android:paddingRight="12dip"
     android:paddingTop="2dip"
-    android:paddingBottom="0dip"
+    android:paddingBottom="1dip"
     android:background="@drawable/search_plate_browser" >
 
     <ProgressBar android:id="@+id/progress_horizontal"
@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginBottom="2dip"
             >
                 <ImageView android:id="@+id/favicon"
                     android:layout_width="20dip"
@@ -75,11 +74,12 @@
         <ImageView
             android:id="@+id/rt_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_marginLeft="8dip"
-            android:layout_marginTop="2dip"
+            android:scaleType="center"
+            android:layout_marginBottom="4dip"
             android:background="@drawable/btn_bookmark"
-            android:src="@drawable/ic_btn_bookmark_browsertab"
+            android:src="@drawable/ic_tab_bookmarks_unselected"
         />
     </LinearLayout>
 </LinearLayout>
