@@ -25,8 +25,7 @@
     <string name="username" msgid="5057566336518215922">"名称"</string>
     <string name="password" msgid="1177138552305184404">"密码"</string>
     <string name="action" msgid="183105774472071343">"登录"</string>
-    <!-- no translation found for bookmarks_search (5229596268214362873) -->
-    <skip />
+    <string name="bookmarks_search" msgid="5229596268214362873">"浏览器"</string>
     <string name="cancel" msgid="3017274947407233702">"取消"</string>
     <string name="ok" msgid="1509280796718850364">"确定"</string>
   <plurals name="matches_found">
@@ -160,13 +159,13 @@
     <item msgid="7201512237890458902">"超大"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"文字大小"</string>
-    <!-- no translation found for pref_default_zoom (8076142259097187395) -->
-    <skip />
-    <!-- no translation found for pref_default_zoom_choices:0 (549583171195154919) -->
-    <!-- no translation found for pref_default_zoom_choices:1 (5619034257768161024) -->
-    <!-- no translation found for pref_default_zoom_choices:2 (3840999588443167001) -->
-    <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
-    <skip />
+    <string name="pref_default_zoom" msgid="8076142259097187395">"默认缩放设置"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item msgid="549583171195154919">"远"</item>
+    <item msgid="5619034257768161024">"中"</item>
+    <item msgid="3840999588443167001">"关闭"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"默认缩放设置"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"高级设置"</string>
     <string name="pref_extras_gears_enable" msgid="7573987212735599444">"启用 Gears"</string>
     <string name="pref_extras_gears_enable_summary" msgid="4008973536142399194">"扩展浏览器功能的应用程序"</string>
@@ -179,8 +178,7 @@
     <string name="pref_extras_reset_default_dlg" msgid="5332227004054477008">"将会清除所有浏览器数据并将设置恢复为默认值。"</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"重置为默认值"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"调试"</string>
-    <!-- no translation found for pref_default_text_encoding (5742965543955558478) -->
-    <skip />
+    <string name="pref_default_text_encoding" msgid="5742965543955558478">"文字编码"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item msgid="7275223955790513818">"拉丁语-1 (ISO-8859-1)"</item>
     <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
@@ -205,8 +203,7 @@
     <string name="no_database" msgid="2256698896757181084">"没有数据库！"</string>
     <string name="search_hint" msgid="3385577802557697397">"输入网址"</string>
     <string name="search_button_text" msgid="5235226933877634410">"转至"</string>
-    <!-- no translation found for search_settings_description (1422401062529014107) -->
-    <skip />
+    <string name="search_settings_description" msgid="1422401062529014107">"书签和网络历史记录"</string>
     <string name="attention" msgid="3473639060042811244">"注意"</string>
     <string name="popup_window_attempt" msgid="2673111696288657989">"该网站试图打开一个弹出式窗口。"</string>
     <string name="allow" msgid="1157313689171991335">"允许"</string>
@@ -248,10 +245,8 @@
     <string name="download_length_required" msgid="9038605488460437406">"无法下载，无法确定该项的大小。"</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"下载中断，无法重新开始。"</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"浏览器测试运行程序"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
-    <skip />
-    <!-- no translation found for search_the_web (6046130189241962337) -->
-    <skip />
+    <string name="homepage_base" msgid="7888126987935305566">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="search_the_web" msgid="6046130189241962337">"搜索网页"</string>
     <string name="query_data_prompt" msgid="5474381240981604223">"允许存储"</string>
     <string name="query_data_message" msgid="8789381063185445197">"此网站要将信息存储在您的手机上。"</string>
     <string name="location_prompt" msgid="226262202057302423">"访问您所在的位置"</string>

@@ -25,8 +25,7 @@
     <string name="username" msgid="5057566336518215922">"Nombre"</string>
     <string name="password" msgid="1177138552305184404">"Contraseña"</string>
     <string name="action" msgid="183105774472071343">"Iniciar sesión"</string>
-    <!-- no translation found for bookmarks_search (5229596268214362873) -->
-    <skip />
+    <string name="bookmarks_search" msgid="5229596268214362873">"Navegador"</string>
     <string name="cancel" msgid="3017274947407233702">"Cancelar"</string>
     <string name="ok" msgid="1509280796718850364">"Aceptar"</string>
   <plurals name="matches_found">
@@ -160,13 +159,13 @@
     <item msgid="7201512237890458902">"Enorme"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Tamaño del texto"</string>
-    <!-- no translation found for pref_default_zoom (8076142259097187395) -->
-    <skip />
-    <!-- no translation found for pref_default_zoom_choices:0 (549583171195154919) -->
-    <!-- no translation found for pref_default_zoom_choices:1 (5619034257768161024) -->
-    <!-- no translation found for pref_default_zoom_choices:2 (3840999588443167001) -->
-    <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
-    <skip />
+    <string name="pref_default_zoom" msgid="8076142259097187395">"Predeterminar zoom"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item msgid="549583171195154919">"Lejos"</item>
+    <item msgid="5619034257768161024">"Mediano"</item>
+    <item msgid="3840999588443167001">"Cerrar"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Predeterminar zoom"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Configuración avanzada"</string>
     <string name="pref_extras_gears_enable" msgid="7573987212735599444">"Habilitar Gears"</string>
     <string name="pref_extras_gears_enable_summary" msgid="4008973536142399194">"Aplicaciones que amplían la funcionalidad del navegador"</string>
@@ -179,8 +178,7 @@
     <string name="pref_extras_reset_default_dlg" msgid="5332227004054477008">"Se borrarán todos los datos del navegador y la configuración volverá a los valores predeterminados."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Restablecer a los valores predeterminados"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Depurar"</string>
-    <!-- no translation found for pref_default_text_encoding (5742965543955558478) -->
-    <skip />
+    <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codificación de texto"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item msgid="7275223955790513818">"Latino-1 (ISO-8859-1)"</item>
     <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
@@ -205,8 +203,7 @@
     <string name="no_database" msgid="2256698896757181084">"No hay base de datos"</string>
     <string name="search_hint" msgid="3385577802557697397">"Escribe la dirección web"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Ir"</string>
-    <!-- no translation found for search_settings_description (1422401062529014107) -->
-    <skip />
+    <string name="search_settings_description" msgid="1422401062529014107">"Marcadores e historial web"</string>
     <string name="attention" msgid="3473639060042811244">"Atención"</string>
     <string name="popup_window_attempt" msgid="2673111696288657989">"Este sitio está intentando abrir una ventana emergente."</string>
     <string name="allow" msgid="1157313689171991335">"Permitir"</string>
@@ -248,10 +245,8 @@
     <string name="download_length_required" msgid="9038605488460437406">"No es posible realizar la descarga. No puede determinarse el tamaño del elemento."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Descarga interrumpida. No se puede retomar."</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Ejecutor de pruebas del navegador"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
-    <skip />
-    <!-- no translation found for search_the_web (6046130189241962337) -->
-    <skip />
+    <string name="homepage_base" msgid="7888126987935305566">"http://www.google.com/m?client=ms-{CID}"</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Buscar en Internet"</string>
     <string name="query_data_prompt" msgid="5474381240981604223">"Permitir almacenamiento"</string>
     <string name="query_data_message" msgid="8789381063185445197">"Este sitio web desea almacenar información en tu teléfono."</string>
     <string name="location_prompt" msgid="226262202057302423">"Acceder a tu ubicación"</string>
