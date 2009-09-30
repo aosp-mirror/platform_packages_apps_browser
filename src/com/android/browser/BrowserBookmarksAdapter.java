@@ -170,6 +170,10 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                 getString(Browser.HISTORY_PROJECTION_URL_INDEX))) {
             values.put(Browser.BookmarkColumns.URL, url);
         }
+
+        if (map.getBoolean("invalidateThumbnail") == true) {
+            values.put(Browser.BookmarkColumns.THUMBNAIL, new byte[0]);
+        }
         if (values.size() > 0
                 && mContentResolver.update(Browser.BOOKMARKS_URI, values,
                         "_id = " + id, null) != -1) {
