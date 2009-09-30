@@ -22,8 +22,8 @@
   android:padding="0dip">
 
   <ImageView android:id="@+id/icon"
-    android:layout_width="32px"
-    android:layout_height="32px"
+    android:layout_width="32dip"
+    android:layout_height="32dip"
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentBottom="true"
@@ -40,13 +40,13 @@
     android:layout_marginRight="2dip">
 
     <ImageView android:id="@+id/location_icon"
-      android:layout_width="32px"
-      android:layout_height="32px"
+      android:layout_width="32dip"
+      android:layout_height="32dip"
       android:padding="2dip" />
 
     <ImageView android:id="@+id/usage_icon"
-      android:layout_width="32px"
-      android:layout_height="32px"
+      android:layout_width="32dip"
+      android:layout_height="32dip"
       android:padding="2dip" />
 
   </LinearLayout>
