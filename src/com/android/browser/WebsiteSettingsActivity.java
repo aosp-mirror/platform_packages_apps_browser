@@ -158,9 +158,9 @@ public class WebsiteSettingsActivity extends ListActivity {
         private Bitmap mDefaultIcon;
         private Bitmap mUsageEmptyIcon;
         private Bitmap mUsageLowIcon;
-        private Bitmap mUsageMediumIcon;
         private Bitmap mUsageHighIcon;
-        private Bitmap mLocationIcon;
+        private Bitmap mLocationAllowedIcon;
+        private Bitmap mLocationDisallowedIcon;
         private Site mCurrentSite;
 
         public SiteAdapter(Context context, int rsc) {
@@ -170,15 +170,15 @@ public class WebsiteSettingsActivity extends ListActivity {
             mDefaultIcon = BitmapFactory.decodeResource(getResources(),
                     R.drawable.ic_launcher_shortcut_browser_bookmark);
             mUsageEmptyIcon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.usage_empty);
+                    R.drawable.ic_list_data_off);
             mUsageLowIcon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.usage_low);
-            mUsageMediumIcon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.usage_medium);
+                    R.drawable.ic_list_data_small);
             mUsageHighIcon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.usage_high);
-            mLocationIcon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.location);
+                    R.drawable.ic_list_data_large);
+            mLocationAllowedIcon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.ic_list_gps_on);
+            mLocationDisallowedIcon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.ic_list_gps_off);
             askForOrigins();
         }
 
@@ -358,16 +358,13 @@ public class WebsiteSettingsActivity extends ListActivity {
 
             // We set the correct icon:
             // 0 < empty < 0.1MB
-            // 0.1MB < low < 3MB
-            // 3MB < medium < 6MB
-            // 6MB < high
+            // 0.1MB < low < 5MB
+            // 5MB < high
             if (usageInMegabytes <= 0.1) {
                 usageIcon.setImageBitmap(mUsageEmptyIcon);
-            } else if (usageInMegabytes > 0.1 && usageInMegabytes <= 3) {
+            } else if (usageInMegabytes > 0.1 && usageInMegabytes <= 5) {
                 usageIcon.setImageBitmap(mUsageLowIcon);
-            } else if (usageInMegabytes > 3 && usageInMegabytes <= 6) {
-                usageIcon.setImageBitmap(mUsageMediumIcon);
-            } else if (usageInMegabytes > 6) {
+            } else if (usageInMegabytes > 5) {
                 usageIcon.setImageBitmap(mUsageHighIcon);
             }
         }
@@ -378,7 +375,7 @@ public class WebsiteSettingsActivity extends ListActivity {
             final TextView subtitle;
             ImageView icon;
             final ImageView usageIcon;
-            ImageView locationIcon;
+            final ImageView locationIcon;
 
             if (convertView == null) {
                 view = mInflater.inflate(mResource, parent, false);
@@ -412,20 +409,30 @@ public class WebsiteSettingsActivity extends ListActivity {
                 // so that we can get it in onItemClick()
                 view.setTag(site);
 
+                String origin = site.getOrigin();
                 if (site.hasFeature(Site.FEATURE_WEB_STORAGE)) {
-                  String origin = site.getOrigin();
-                  WebStorage.getInstance().getUsageForOrigin(origin, new ValueCallback<Long>() {
-                      public void onReceiveValue(Long value) {
-                          if (value != null) {
-                              setIconForUsage(usageIcon, value.longValue());
-                          }
-                      }
-                  });
+                    WebStorage.getInstance().getUsageForOrigin(origin, new ValueCallback<Long>() {
+                        public void onReceiveValue(Long value) {
+                            if (value != null) {
+                                setIconForUsage(usageIcon, value.longValue());
+                            }
+                        }
+                    });
                 }
 
                 if (site.hasFeature(Site.FEATURE_GEOLOCATION)) {
-                  locationIcon.setVisibility(View.VISIBLE);
-                  locationIcon.setImageBitmap(mLocationIcon);
+                    locationIcon.setVisibility(View.VISIBLE);
+                    GeolocationPermissions.getInstance().getAllowed(origin, new ValueCallback<Boolean>() {
+                        public void onReceiveValue(Boolean allowed) {
+                            if (allowed != null) {
+                                if (allowed.booleanValue()) {
+                                    locationIcon.setImageBitmap(mLocationAllowedIcon);
+                                } else {
+                                    locationIcon.setImageBitmap(mLocationDisallowedIcon);
+                                }
+                            }
+                        }
+                    });
                 }
             } else {
                 setTitle(mCurrentSite.getPrettyTitle());
