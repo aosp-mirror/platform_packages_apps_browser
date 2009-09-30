@@ -239,7 +239,7 @@ public class TitleBar extends LinearLayout {
                     mBookmarkDrawable = mRtButton.getDrawable();
                 }
                 if (mStopDrawable == null) {
-                    mRtButton.setImageResource(R.drawable.ic_btn_close_panel);
+                    mRtButton.setImageResource(R.drawable.ic_btn_stop_v2);
                     mStopDrawable = mRtButton.getDrawable();
                 } else {
                     mRtButton.setImageDrawable(mStopDrawable);
