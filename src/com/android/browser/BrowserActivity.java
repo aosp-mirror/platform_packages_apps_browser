@@ -113,6 +113,7 @@ import android.webkit.HttpAuthHandler;
 import android.webkit.PluginManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebHistoryItem;
@@ -3495,6 +3496,25 @@ public class BrowserActivity extends Activity
             }
             return mVideoProgressView;
         }
+
+        /**
+         * Deliver a list of already-visited URLs
+         * @hide pending API Council approval
+         */
+        @Override
+        public void getVisitedHistory(final ValueCallback<String[]> callback) {
+            AsyncTask<Void, Void, String[]> task = new AsyncTask<Void, Void, String[]>() {
+                public String[] doInBackground(Void... unused) {
+                    return Browser.getVisitedHistory(getContentResolver());
+                }
+
+                public void onPostExecute(String[] result) {
+                    callback.onReceiveValue(result);
+
+                };
+            };
+            task.execute();
+        };
     };
 
     /**
