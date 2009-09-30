@@ -1021,8 +1021,7 @@ public class BrowserActivity extends Activity
             params.gravity = Gravity.TOP;
             WebView mainView = mTabControl.getCurrentWebView();
             boolean atTop = mainView != null && mainView.getScrollY() == 0;
-            params.windowAnimations = atTop ? 0
-                    : com.android.internal.R.style.Animation_DropDownDown;
+            params.windowAnimations = atTop ? 0 : R.style.TitleBar;
             // XXX : Without providing an offset, the fake title bar will be
             // placed underneath the status bar.  Use the global visible rect
             // of mBrowserFrameLayout to determine the bottom of the status bar
@@ -1063,7 +1062,7 @@ public class BrowserActivity extends Activity
         // fake title bar was displayed.  Make sure it has the appropriate
         // animation/lack thereof before removing.
         params.windowAnimations = mainView != null && mainView.getScrollY() == 0
-                ? 0 : com.android.internal.R.style.Animation_DropDownDown;
+                ? 0 : R.style.TitleBar;
         WindowManager manager
                     = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         manager.updateViewLayout(mFakeTitleBarHolder, params);
