@@ -158,6 +158,8 @@
     <string name="set_as_homepage">Set as homepage</string>
     <!-- Toast informing the user that their action to save a bookmark has succeeded -->
     <string name="bookmark_saved">Saved to bookmarks.</string>
+    <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+    <string name="bookmark_not_saved">Unable to save bookmark.</string>
     <!-- Toast confirming that the homepage has been set -->
     <string name="homepage_set">Homepage set.</string>
     <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
@@ -514,9 +516,6 @@
     <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
     <string name="add_bookmark_short">Add</string>
-    <!-- Add bookmark dialog sets its title to this if we have no database.
-            This is an error case -->
-    <string name="no_database">No database!</string>
     
     <!-- This string is for the browser "Go To" UI. -->
     <!-- Do not translate.  This string is not displayed in UI (no badge is selected for go to). -->
