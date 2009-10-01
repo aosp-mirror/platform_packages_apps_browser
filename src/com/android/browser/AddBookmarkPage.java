@@ -76,7 +76,7 @@ public class AddBookmarkPage extends Activity {
         requestWindowFeature(Window.FEATURE_LEFT_ICON);
         setContentView(R.layout.browser_add_bookmark);
         setTitle(R.string.save_to_bookmarks);
-        getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_dialog_bookmark);
+        getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
         
         String title = null;
         String url = null;
