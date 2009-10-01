@@ -178,7 +178,7 @@ public class WebsiteSettingsActivity extends ListActivity {
             mLocationAllowedIcon = BitmapFactory.decodeResource(getResources(),
                     R.drawable.ic_list_gps_on);
             mLocationDisallowedIcon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.ic_list_gps_off);
+                    R.drawable.ic_list_gps_denied);
             askForOrigins();
         }
 
