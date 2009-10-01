@@ -79,7 +79,7 @@
             android:scaleType="center"
             android:layout_marginBottom="4dip"
             android:background="@drawable/btn_bookmark"
-            android:src="@drawable/ic_tab_bookmarks_unselected"
+            android:src="@drawable/ic_btn_bookmarks"
         />
     </LinearLayout>
 </LinearLayout>
