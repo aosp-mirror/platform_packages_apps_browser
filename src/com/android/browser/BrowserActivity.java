@@ -2316,12 +2316,15 @@ public class BrowserActivity extends Activity
     private static final int CANCEL_CREDS_REQUEST    = 103;
     private static final int RELEASE_WAKELOCK        = 107;
 
+    private static final int UPDATE_BOOKMARK_THUMBNAIL = 108;
+
     // Private handler for handling javascript and saving passwords
     private Handler mHandler = new Handler() {
 
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case FOCUS_NODE_HREF:
+                {
                     String url = (String) msg.getData().get("url");
                     if (url == null || url.length() == 0) {
                         break;
@@ -2364,6 +2367,7 @@ public class BrowserActivity extends Activity
                             break;
                     }
                     break;
+                }
 
                 case LOAD_URL:
                     loadURL(getTopWindow(), (String) msg.obj);
@@ -2380,6 +2384,13 @@ public class BrowserActivity extends Activity
                 case RELEASE_WAKELOCK:
                     if (mWakeLock.isHeld()) {
                         mWakeLock.release();
+                    }
+                    break;
+
+                case UPDATE_BOOKMARK_THUMBNAIL:
+                    WebView view = (WebView) msg.obj;
+                    if (view != null) {
+                        updateScreenshot(view);
                     }
                     break;
             }
@@ -2459,10 +2470,10 @@ public class BrowserActivity extends Activity
         Canvas canvas = new Canvas(bm);
         // May need to tweak these values to determine what is the
         // best scale factor
-        int contentWidth = view.getContentWidth();
-        if (contentWidth > 0) {
-            float scaleFactor = (float) getDesiredThumbnailWidth(this)
-                    / (float) contentWidth;
+        int thumbnailWidth = thumbnail.getWidth();
+        if (thumbnailWidth > 0) {
+            float scaleFactor = (float) getDesiredThumbnailWidth(this) /
+                    (float)thumbnailWidth;
             canvas.scale(scaleFactor, scaleFactor);
         }
         thumbnail.draw(canvas);
@@ -2504,6 +2515,12 @@ public class BrowserActivity extends Activity
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             resetLockIcon(url);
             setUrlTitle(url, null);
+
+            // We've started to load a new page. If there was a pending message
+            // to save a screenshot then we will now take the new page and
+            // save an incorrect screenshot. Therefore, remove any pending
+            // thumbnail messages from the queue.
+            mHandler.removeMessages(UPDATE_BOOKMARK_THUMBNAIL);
 
             // If we start a touch icon load and then load a new page, we don't
             // want to cancel the current touch icon loader. But, we do want to
@@ -2585,7 +2602,8 @@ public class BrowserActivity extends Activity
             if (!mDidStopLoad) {
                 // Only update the bookmark screenshot if the user did not
                 // cancel the load early.
-                updateScreenshot(view);
+                Message updateScreenshot = Message.obtain(mHandler, UPDATE_BOOKMARK_THUMBNAIL, view);
+                mHandler.sendMessageDelayed(updateScreenshot, 500);
             }
 
             // Update the lock icon image only once we are done loading
@@ -2902,8 +2920,6 @@ public class BrowserActivity extends Activity
             }
             Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
                     + " " + description);
-
-                mNeedExtraScreenShot = true;
 
             // We need to reset the title after an error.
             resetTitleAndRevertLockIcon();
@@ -3233,14 +3249,6 @@ public class BrowserActivity extends Activity
                     if (!mOptionsMenuOpen || !mIconView) {
                         hideFakeTitleBar();
                     }
-                }
-                if (mNeedExtraScreenShot) {
-                    // if there was an error loading this page, capture a new
-                    // screenshot to ensure that we get the correct thumbnail
-                    // as onPageFinished may have been called before the error
-                    // page was displayed.
-                    updateScreenshot(view);
-                    mNeedExtraScreenShot = false;
                 }
             } else if (!mInLoad) {
                 // onPageFinished may have already been called but a subframe
@@ -4412,10 +4420,6 @@ public class BrowserActivity extends Activity
 
     private boolean mPageStarted;
     private boolean mActivityInPause = true;
-
-    // If the frame fails to load, we should snap a second screenshot
-    // to ensure that we get the right thumbnail (i.e. of the error page).
-    private boolean mNeedExtraScreenShot = false;
 
     private boolean mMenuIsDown;
 
