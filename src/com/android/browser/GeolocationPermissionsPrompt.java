@@ -64,6 +64,8 @@ public class GeolocationPermissionsPrompt extends LinearLayout {
         mCallback = callback;
         Uri uri = Uri.parse(mOrigin);
         setMessage("http".equals(uri.getScheme()) ?  mOrigin.substring(7) : mOrigin);
+        // The checkbox should always be intially checked.
+        mRemember.setChecked(true);
         showDialog(true);
     }
 
