@@ -14,7 +14,6 @@
      limitations under the License.
 
      This is the layout for the Geolocation permissions prompt.
-     FIXME: Make this looks pretty.
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,6 +27,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/geolocation_permissions_prompt_background"
+        android:padding="6dip"
         android:visibility="gone">
 
         <!-- 'google.com wants to know your location' -->
@@ -35,7 +35,15 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="14dip"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
+
+        <!-- Checkbox -->
+        <CheckBox android:id="@+id/remember"
+            android:text="@string/geolocation_permissions_prompt_remember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dip"
+            android:textColor="@color/black" />
 
         <!-- Buttons -->
         <LinearLayout
@@ -43,21 +51,15 @@
             android:layout_height="wrap_content">
             <Button android:id="@+id/share_button"
                 android:text="@string/geolocation_permissions_prompt_share"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dip"
                 android:layout_height="wrap_content" />
             <Button android:id="@+id/dont_share_button"
                 android:text="@string/geolocation_permissions_prompt_dont_share"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dip"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-
-        <CheckBox android:id="@+id/remember"
-            android:text="@string/geolocation_permissions_prompt_remember"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dip"
-            android:textSize="16dip"
-            android:textColor="@color/white" />
 
     </LinearLayout>
 </LinearLayout>
