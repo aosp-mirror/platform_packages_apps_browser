@@ -26,40 +26,65 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/geolocation_permissions_prompt_background"
-        android:padding="6dip"
+        android:background="@color/black"
+        android:paddingTop="1px"
         android:visibility="gone">
 
-        <!-- 'google.com wants to know your location' -->
-        <TextView android:id="@+id/message"
+        <!-- White line -->
+        <View
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14dip"
-            android:textColor="@color/black" />
+            android:layout_height="1px"
+            android:background="@color/white" />
 
-        <!-- Checkbox -->
-        <CheckBox android:id="@+id/remember"
-            android:text="@string/geolocation_permissions_prompt_remember"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14dip"
-            android:textColor="@color/black" />
-
-        <!-- Buttons -->
+        <!-- Container for content -->
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-            <Button android:id="@+id/share_button"
-                android:text="@string/geolocation_permissions_prompt_share"
-                android:layout_weight="1"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content" />
-            <Button android:id="@+id/dont_share_button"
-                android:text="@string/geolocation_permissions_prompt_dont_share"
-                android:layout_weight="1"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:layout_height="fill_parent"
+            android:background="@color/geolocation_permissions_prompt_background"
+            android:padding="6dip">
 
+            <!-- 'google.com wants to know your location' -->
+            <TextView android:id="@+id/message"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dip"
+                android:textColor="@color/black" />
+
+            <!-- Checkbox -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <CheckBox android:id="@+id/remember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:paddingLeft="4dip"
+                    android:text="@string/geolocation_permissions_prompt_remember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dip"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <Button android:id="@+id/share_button"
+                    android:text="@string/geolocation_permissions_prompt_share"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content" />
+                <Button android:id="@+id/dont_share_button"
+                    android:text="@string/geolocation_permissions_prompt_dont_share"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
