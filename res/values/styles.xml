@@ -45,5 +45,10 @@
         <item name="android:windowEnterAnimation">@anim/find_dialog_enter</item>
         <item name="android:windowExitAnimation">@anim/find_dialog_exit</item>
     </style>
+
+    <style name="TitleBar">
+        <item name="android:windowEnterAnimation">@anim/title_bar_enter</item>
+        <item name="android:windowExitAnimation">@anim/title_bar_exit</item>
+    </style>
 </resources>
 
