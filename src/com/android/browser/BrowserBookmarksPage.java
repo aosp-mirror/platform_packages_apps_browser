@@ -440,9 +440,10 @@ public class BrowserBookmarksPage extends Activity implements
                 p.setStyle(Paint.Style.FILL_AND_STROKE);
                 p.setColor(Color.WHITE);
 
+                float density = getResources().getDisplayMetrics().density;
                 // Create a rectangle that is slightly wider than the favicon
-                final float iconSize = 16; // 16x16 favicon
-                final float padding = 2;   // white padding around icon
+                final float iconSize = 16 * density; // 16x16 favicon
+                final float padding = 2; // white padding around icon
                 final float rectSize = iconSize + 2 * padding;
                 final float y = icon.getHeight() - rectSize;
                 RectF r = new RectF(0, y, rectSize, y + rectSize);
