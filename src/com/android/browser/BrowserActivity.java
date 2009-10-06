@@ -341,6 +341,7 @@ public class BrowserActivity extends Activity
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
         mTitleBar = new TitleBar(this);
+        mFakeTitleBar = new TitleBar(this);
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);
@@ -885,8 +886,8 @@ public class BrowserActivity extends Activity
 
     /**
      * Since the actual title bar is embedded in the WebView, and removing it
-     * would change its appearance, create a temporary title bar to go at
-     * the top of the screen while the menu is open.
+     * would change its appearance, use a different TitleBar to show overlayed
+     * at the top of the screen, when the menu is open or the page is loading.
      */
     private TitleBar mFakeTitleBar;
 
@@ -989,7 +990,7 @@ public class BrowserActivity extends Activity
 
     private void showFakeTitleBar() {
         final View decor = getWindow().peekDecorView();
-        if (mFakeTitleBar == null && mActiveTabsPage == null
+        if (mFakeTitleBar.getParent() == null && mActiveTabsPage == null
                 && !mActivityInPause && decor != null
                 && decor.getWindowToken() != null) {
             Rect visRect = new Rect();
@@ -999,12 +1000,6 @@ public class BrowserActivity extends Activity
                 }
                 return;
             }
-            final WebView webView = getTopWindow();
-            mFakeTitleBar = new TitleBar(this);
-            mFakeTitleBar.setTitleAndUrl(null, webView.getUrl());
-            mFakeTitleBar.setProgress(webView.getProgress());
-            mFakeTitleBar.setFavicon(webView.getFavicon());
-            updateLockIconToLatest();
 
             WindowManager manager
                     = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -1053,7 +1048,7 @@ public class BrowserActivity extends Activity
         }
     }
     private void hideFakeTitleBar() {
-        if (mFakeTitleBar == null) return;
+        if (mFakeTitleBar.getParent() == null) return;
         WindowManager.LayoutParams params = (WindowManager.LayoutParams)
                 mFakeTitleBarHolder.getLayoutParams();
         WebView mainView = mTabControl.getCurrentWebView();
@@ -1068,7 +1063,6 @@ public class BrowserActivity extends Activity
         manager.updateViewLayout(mFakeTitleBarHolder, params);
         mFakeTitleBarHolder.removeView(mFakeTitleBar);
         manager.removeView(mFakeTitleBarHolder);
-        mFakeTitleBar = null;
     }
 
     /**
@@ -2068,9 +2062,7 @@ public class BrowserActivity extends Activity
         mTitle = title;
 
         mTitleBar.setTitleAndUrl(title, url);
-        if (mFakeTitleBar != null) {
-            mFakeTitleBar.setTitleAndUrl(title, url);
-        }
+        mFakeTitleBar.setTitleAndUrl(title, url);
     }
 
     /**
@@ -2113,9 +2105,7 @@ public class BrowserActivity extends Activity
     // Set the favicon in the title bar.
     private void setFavicon(Bitmap icon) {
         mTitleBar.setFavicon(icon);
-        if (mFakeTitleBar != null) {
-            mFakeTitleBar.setFavicon(icon);
-        }
+        mFakeTitleBar.setFavicon(icon);
     }
 
     /**
@@ -3239,9 +3229,7 @@ public class BrowserActivity extends Activity
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             mTitleBar.setProgress(newProgress);
-            if (mFakeTitleBar != null) {
-                mFakeTitleBar.setProgress(newProgress);
-            }
+            mFakeTitleBar.setProgress(newProgress);
 
             if (newProgress == 100) {
                 // onProgressChanged() may continue to be called after the main
@@ -3722,9 +3710,7 @@ public class BrowserActivity extends Activity
             d = mMixLockIcon;
         }
         mTitleBar.setLock(d);
-        if (mFakeTitleBar != null) {
-            mFakeTitleBar.setLock(d);
-        }
+        mFakeTitleBar.setLock(d);
     }
 
     /**
