@@ -78,8 +78,7 @@
     <string name="remove_history_item" msgid="5021424935726728618">"Suprimir del historial"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Definir como página principal"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Guardado en los marcadores."</string>
-    <!-- no translation found for bookmark_not_saved (700600955089376724) -->
-    <skip />
+    <string name="bookmark_not_saved" msgid="700600955089376724">"No se pudo agregar a favoritos."</string>
     <string name="homepage_set" msgid="8768087280310966395">"Configuración de página principal."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"El marcador debe tener un nombre."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"El marcador debe tener una ubicación."</string>
