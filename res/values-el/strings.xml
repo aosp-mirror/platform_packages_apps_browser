@@ -243,7 +243,6 @@
     <string name="download_length_required">"Δεν είναι δυνατή η λήψη. Δεν είναι δυνατός ο προσδιορισμός του μεγέθους του στοιχείου."</string>
     <string name="download_precondition_failed">"Η λήψη διακόπηκε. Δεν είναι δυνατή η συνέχισή της."</string>
     <string name="activity_instrumentation_test_runner">"Πρόγραμμα εκτέλεσης δοκιμών προγράμματος περιήγησης"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />

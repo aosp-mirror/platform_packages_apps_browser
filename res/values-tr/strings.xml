@@ -242,7 +242,6 @@
     <string name="download_length_required">"İndirilemiyor. Öğenin boyutu belirlenemiyor."</string>
     <string name="download_precondition_failed">"İndirme işlemi kesintiye uğradı. Sürdürülemez."</string>
     <string name="activity_instrumentation_test_runner">"Tarayıcı Test Aracı"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />

@@ -242,7 +242,6 @@
     <string name="download_length_required">"Загрузка невозможна. Размер файла не определен."</string>
     <string name="download_precondition_failed">"Загрузка прервана и не может быть возобновлена."</string>
     <string name="activity_instrumentation_test_runner">"Тестирование браузера"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />

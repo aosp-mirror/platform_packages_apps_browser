@@ -243,7 +243,6 @@
     <string name="download_length_required">"Kan ikke laste ned. Klarte ikke bestemme størrelsen på filen."</string>
     <string name="download_precondition_failed">"Nedlastingen ble avbrutt. Den kan ikke fortsettes."</string>
     <string name="activity_instrumentation_test_runner">"Browser Test Runner"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />

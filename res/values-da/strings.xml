@@ -242,7 +242,6 @@
     <string name="download_length_required">"Der kan ikke downloades. Størrelsen på elementet kan ikke afgøres."</string>
     <string name="download_precondition_failed">"Download blev afbrudt. Den kan ikke genoptages."</string>
     <string name="activity_instrumentation_test_runner">"Browsertestkørsel"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />

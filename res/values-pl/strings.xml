@@ -240,7 +240,6 @@
     <string name="download_length_required">"Pobieranie niemożliwe. Nie można ustalić rozmiaru elementu."</string>
     <string name="download_precondition_failed">"Pobieranie zostało przerwane. Nie można go wznowić."</string>
     <string name="activity_instrumentation_test_runner">"Uruchamianie testów przeglądarki"</string>
-    <string name="homepage_base">"http://www.google.com/m?client=ms-{CID}"</string>
     <string name="search_the_web">"Szukaj w internecie"</string>
     <string name="zoom_overview_button_text">"Widok ogólny"</string>
 </resources>

@@ -243,7 +243,6 @@
     <string name="download_length_required">"Não é possível transferir porque o tamanho do item é indeterminado."</string>
     <string name="download_precondition_failed">"A transferência foi interrompida e não pode ser retomada."</string>
     <string name="activity_instrumentation_test_runner">"Teste·de·browser"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />

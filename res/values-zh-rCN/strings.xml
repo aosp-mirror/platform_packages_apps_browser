@@ -242,7 +242,6 @@
     <string name="download_length_required">"无法下载，无法确定该项的大小。"</string>
     <string name="download_precondition_failed">"下载中断，无法重新开始。"</string>
     <string name="activity_instrumentation_test_runner">"浏览器测试运行程序"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
     <skip />
     <!-- no translation found for search_the_web (6046130189241962337) -->
     <skip />
