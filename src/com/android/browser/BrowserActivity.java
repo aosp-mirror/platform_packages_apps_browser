@@ -2975,8 +2975,10 @@ public class BrowserActivity extends Activity
             if (index > 0 && url.contains(".google.")) {
                 int end = url.indexOf('&', index);
                 if (end > 0) {
-                    url = url.substring(0, index-1).concat(url.substring(end));
+                    url = url.substring(0, index)
+                            .concat(url.substring(end + 1));
                 } else {
+                    // the url.charAt(index-1) should be either '?' or '&'
                     url = url.substring(0, index-1);
                 }
             }
