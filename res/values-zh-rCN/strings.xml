@@ -187,7 +187,7 @@
     <item msgid="6545734186479713946">"日文 (EUC-JP)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"文字编码"</string>
-    <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"拉丁语-1"</string>
+    <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"Latin-1"</string>
     <string name="browserFrameRedirect" msgid="7049675479777828343">"重定向"</string>
     <string name="browserFrame307Post" msgid="739650008647852203">"该网页正在进行重定向。是否要将您输入的表单数据重新发送到新位置？"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"数据连接性问题"</string>
