@@ -17,7 +17,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The name of the application. -->
     <string name="application_name">Browser</string>
-
+    <!-- Displayed with a file picker to choose a file to upload -->
+    <string name="choose_upload">Choose file for upload</string>
     <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
     <string name="new_tab">New window</string>
     <!-- Name of menu item which brings up a list of the currently active tabs -->
