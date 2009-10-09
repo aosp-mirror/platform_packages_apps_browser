@@ -106,9 +106,6 @@ class BrowserSettings extends Observable {
     // The setting can be then toggled from the settings menu.
     private boolean showConsole = true;
 
-    // Browser only settings
-    private boolean doFlick = false;
-
     // Private preconfigured values
     private static int minimumFontSize = 8;
     private static int minimumLogicalFontSize = 8;
@@ -336,7 +333,6 @@ class BrowserSettings extends Observable {
             tracing = p.getBoolean("enable_tracing", tracing);
             lightTouch = p.getBoolean("enable_light_touch", lightTouch);
             navDump = p.getBoolean("enable_nav_dump", navDump);
-            doFlick = p.getBoolean("enable_flick", doFlick);
             userAgent = Integer.parseInt(p.getString("user_agent", "0"));
         }
         // JS flags is loaded from DB even if showDebugSettings is false,
@@ -420,10 +416,6 @@ class BrowserSettings extends Observable {
 
     public boolean isNavDump() {
         return navDump;
-    }
-
-    public boolean doFlick() {
-        return doFlick;
     }
 
     public boolean showDebugSettings() {
