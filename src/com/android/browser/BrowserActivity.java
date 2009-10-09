@@ -130,8 +130,6 @@ import android.widget.Toast;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -1142,6 +1140,11 @@ public class BrowserActivity extends Activity
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
+
+        if (mUploadMessage != null) {
+            mUploadMessage.onReceiveValue(null);
+            mUploadMessage = null;
+        }
 
         if (mTabControl == null) return;
 
@@ -3490,6 +3493,18 @@ public class BrowserActivity extends Activity
             return mVideoProgressView;
         }
 
+        @Override
+        public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+            if (mUploadMessage != null) return;
+            mUploadMessage = uploadMsg;
+            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+            i.addCategory(Intent.CATEGORY_OPENABLE);
+            i.setType("*/*");
+            BrowserActivity.this.startActivityForResult(
+                    Intent.createChooser(i, getString(R.string.choose_upload)),
+                    FILE_SELECTED);
+        }
+
         /**
          * Deliver a list of already-visited URLs
          * @hide pending API Council approval
@@ -3509,6 +3524,11 @@ public class BrowserActivity extends Activity
             task.execute();
         };
     };
+
+    /*
+     * The Object used to inform the WebView of the file to upload.
+     */
+    private ValueCallback<Uri> mUploadMessage;
 
     /**
      * Notify the host application a download should be done, or that
@@ -4227,6 +4247,14 @@ public class BrowserActivity extends Activity
                     }
                 }
                 break;
+            // Choose a file from the file picker.
+            case FILE_SELECTED:
+                if (null == mUploadMessage) break;
+                Uri result = intent == null || resultCode != RESULT_OK ? null
+                        : intent.getData();
+                mUploadMessage.onReceiveValue(result);
+                mUploadMessage = null;
+                break;
             default:
                 break;
         }
@@ -4576,6 +4604,7 @@ public class BrowserActivity extends Activity
     final static int COMBO_PAGE                 = 1;
     final static int DOWNLOAD_PAGE              = 2;
     final static int PREFERENCES_PAGE           = 3;
+    final static int FILE_SELECTED              = 4;
 
     // the default <video> poster
     private Bitmap mDefaultVideoPoster;
