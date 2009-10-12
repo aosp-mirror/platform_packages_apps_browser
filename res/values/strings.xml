@@ -171,6 +171,8 @@
     <string name="empty_bookmark">"Cannot create empty bookmark."</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
     <string name="bookmark_url_not_valid">URL is not valid.</string>
+        <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+    <string name="bookmark_cannot_save_url">This URL cannot be bookmarked.</string>
         <!-- Title of a confirmation dialog when the user deletes a bookmark-->
     <string name="delete_bookmark">Delete</string>
     <!-- Menu item in the page that displays all bookmarks. It brings up a

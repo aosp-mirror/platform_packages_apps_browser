@@ -41,6 +41,18 @@ import java.util.Date;
 
     private static String[]         SELECTION_ARGS;
 
+    // We only want the user to be able to bookmark content that
+    // the browser can handle directly.
+    private static final String acceptableBookmarkSchemes[] = {
+            "http:",
+            "https:",
+            "about:",
+            "data:",
+            "javascript:",
+            "file:",
+            "content:"
+    };
+
     /**
      *  Add a bookmark to the database.
      *  @param context Context of the calling Activity.  This is used to make
@@ -213,5 +225,18 @@ import java.util.Date;
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, os);
         return os.toByteArray();
+    }
+
+    /* package */ static boolean urlHasAcceptableScheme(String url) {
+        if (url == null) {
+            return false;
+        }
+
+        for (int i = 0; i < acceptableBookmarkSchemes.length; i++) {
+            if (url.startsWith(acceptableBookmarkSchemes[i])) {
+                return true;
+            }
+        }
+        return false;
     }
 }
