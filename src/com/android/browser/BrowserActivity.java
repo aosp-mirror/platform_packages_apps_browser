@@ -2380,6 +2380,10 @@ public class BrowserActivity extends Activity
                 case RELEASE_WAKELOCK:
                     if (mWakeLock.isHeld()) {
                         mWakeLock.release();
+                        // if we reach here, Browser should be still in the
+                        // background loading after WAKELOCK_TIMEOUT (5-min).
+                        // To avoid burning the battery, stop loading.
+                        mTabControl.stopAllLoading();
                     }
                     break;
 

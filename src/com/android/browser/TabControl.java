@@ -938,6 +938,16 @@ class TabControl {
         return null;
     }
 
+    void stopAllLoading() {
+        final int size = getTabCount();
+        for (int i = 0; i < size; i++) {
+            final WebView webview = getTab(i).getTopWindow();
+            if (webview != null) {
+                webview.stopLoading();
+            }
+        }
+    }
+
     // This method checks if a non-app tab (one created within the browser)
     // matches the given url.
     private boolean tabMatchesUrl(Tab t, String url) {
