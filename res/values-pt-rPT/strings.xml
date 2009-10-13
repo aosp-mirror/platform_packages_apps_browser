@@ -118,18 +118,18 @@
     <string name="pref_content_title" msgid="722227111894838633">"Definições de conteúdo da página"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Carregar imagens"</string>
     <string name="pref_content_load_images_summary" msgid="5149716777459747214">"Apresentar imagens em páginas Web"</string>
-    <string name="pref_content_block_popups" msgid="7808433807197256726">"Bloquear janelas de pop-up"</string>
+    <string name="pref_content_block_popups" msgid="7808433807197256726">"Bloquear janelas pop-up"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Activar JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Abrir em segundo plano"</string>
     <string name="pref_content_open_in_background_summary" msgid="1543556325431215041">"As novas janelas serão abertas atrás da janela actual"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Definir página inicial"</string>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Ajustar páginas automaticamente"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Ajuste auto de páginas"</string>
     <string name="pref_content_autofit_summary" msgid="2358178043889761026">"Formatar páginas Web para se ajustarem ao ecrã"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Definições de privacidade"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Limpar cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2969532045347184968">"Eliminar todo o conteúdo de páginas em cache"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4791302446488696772">"A cache será limpa."</string>
-    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Limpar todos os dados de cookies"</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Limpar os dados de cookies"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="8602064521480657942">"Limpar todos os cookies do browser"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="5399971428430900904">"Todos os cookies serão limpos."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Limpar histórico"</string>
@@ -144,9 +144,9 @@
     <string name="pref_security_title" msgid="5763978646932160021">"Definições de segurança"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Lembrar palavras-passe"</string>
     <string name="pref_security_remember_passwords_summary" msgid="6789880514358003065">"Guardar nomes de utilizador e palavras-passe de Web sites"</string>
-    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Lembrar dados de formulário"</string>
+    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Lembrar dados formulário"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Lembrar dados introduzidos em formulários para utilização posterior"</string>
-    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Mostrar avisos de segurança"</string>
+    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Mostrar avisos segurança"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Mostrar aviso se ocorrer um problema com a segurança de um site"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Aceitar cookies"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Permitir que os sites guardem e leiam dados de \"cookies\""</string>

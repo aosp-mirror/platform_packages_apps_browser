@@ -118,23 +118,23 @@
     <string name="pref_content_title" msgid="722227111894838633">"Sideinnhold"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Last bilder"</string>
     <string name="pref_content_load_images_summary" msgid="5149716777459747214">"Vis bilder på nettsteder"</string>
-    <string name="pref_content_block_popups" msgid="7808433807197256726">"Blokker popup-vinduer"</string>
+    <string name="pref_content_block_popups" msgid="7808433807197256726">"Blokker forgrunnsvinduer"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Aktiver JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Åpne i bakgrunnen"</string>
     <string name="pref_content_open_in_background_summary" msgid="1543556325431215041">"Nye vinduer åpnes bak det gjeldende"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Angi startside"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Tilpass sider automatisk"</string>
     <string name="pref_content_autofit_summary" msgid="2358178043889761026">"Tilpass nettsteder til skjermen"</string>
-    <string name="pref_privacy_title" msgid="1052470980370846151">"Personvernsinnstillinger"</string>
-    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Fjern hurtiglager"</string>
-    <string name="pref_privacy_clear_cache_summary" msgid="2969532045347184968">"Slett alt hurtiglagret nettinnhold"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="4791302446488696772">"Hurtiglageret vil tømmes."</string>
-    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Fjern alle infokapsler"</string>
+    <string name="pref_privacy_title" msgid="1052470980370846151">"Personvern"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Fjern buffer"</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2969532045347184968">"Slett alt bufret nettinnhold"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4791302446488696772">"Bufferen vil tømme"</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Fjern alle info.kapsler"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="8602064521480657942">"Fjern alle informasjonskapsler"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="5399971428430900904">"Alle informasjonskapsler vil bli slettet."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Slett loggen"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Slett navigeringsloggen"</string>
-    <string name="pref_privacy_clear_history_dlg" msgid="1433519059550861064">"Nettleserens navigeringslogg vil bli slettet."</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="1433519059550861064">"Nettlesingsloggen vil bli slettet."</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Fjern skjemadata"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Slett alle lagrede skjemadata"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="567352105409238549">"Alle lagrede skjemadata vil bli slettet."</string>
@@ -148,9 +148,9 @@
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Husk data skrevet inn i skjemaer til senere"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Vis sikkerhetsadvarsler"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Vis advarsel hvis det er et problem med sikkerheten på et nettsted"</string>
-    <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Godta informasjonskapsler"</string>
+    <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Godta info.kapsler"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Tillat nettsteder å lagre og lese informasjonskapsler"</string>
-    <string name="pref_text_size" msgid="3827031324346612208">"Skriftstørrelse"</string>
+    <string name="pref_text_size" msgid="3827031324346612208">"Tekststørrelse"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Bitteliten"</item>
     <item msgid="1950030433642671460">"Liten"</item>
@@ -161,9 +161,9 @@
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Tekststørrelse"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Standardzoom"</string>
   <string-array name="pref_default_zoom_choices">
-    <item msgid="549583171195154919">"Langt unna"</item>
+    <item msgid="549583171195154919">"Avstand"</item>
     <item msgid="5619034257768161024">"Normal"</item>
-    <item msgid="3840999588443167001">"Nærme"</item>
+    <item msgid="3840999588443167001">"Nær"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Standardzoom"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Avanserte innstillinger"</string>

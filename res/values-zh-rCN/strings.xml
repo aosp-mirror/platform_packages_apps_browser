@@ -117,14 +117,14 @@
     <string name="menu_preferences" msgid="6709237687234102240">"设置"</string>
     <string name="pref_content_title" msgid="722227111894838633">"网页内容设置"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"载入图片"</string>
-    <string name="pref_content_load_images_summary" msgid="5149716777459747214">"在网页上显示图片"</string>
+    <string name="pref_content_load_images_summary" msgid="5149716777459747214">"显示网页上的图片"</string>
     <string name="pref_content_block_popups" msgid="7808433807197256726">"阻止弹出式窗口"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"启用 JavaScript"</string>
-    <string name="pref_content_open_in_background" msgid="824123779725118663">"在后台打开"</string>
-    <string name="pref_content_open_in_background_summary" msgid="1543556325431215041">"新窗口会在当前窗口后方打开"</string>
+    <string name="pref_content_open_in_background" msgid="824123779725118663">"在后方打开"</string>
+    <string name="pref_content_open_in_background_summary" msgid="1543556325431215041">"新窗口在当前窗口后方打开"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"设置主页"</string>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"自动调整为网页大小"</string>
-    <string name="pref_content_autofit_summary" msgid="2358178043889761026">"调整网页格式以适合屏幕大小"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"自动调整页面"</string>
+    <string name="pref_content_autofit_summary" msgid="2358178043889761026">"将网页调整至适合屏幕的大小"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"隐私权设置"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除缓存"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2969532045347184968">"删除所有缓存的网页内容"</string>
@@ -137,13 +137,13 @@
     <string name="pref_privacy_clear_history_dlg" msgid="1433519059550861064">"将会清除浏览器导航历史记录。"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"清除表单数据"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"清除所有已保存的表单数据"</string>
-    <string name="pref_privacy_clear_form_data_dlg" msgid="567352105409238549">"将会清除所有保存的表单数据。"</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="567352105409238549">"将会清除保存的所有表单数据。"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"清除密码"</string>
-    <string name="pref_privacy_clear_passwords_summary" msgid="1267552159370789981">"清除所有保存的密码"</string>
-    <string name="pref_privacy_clear_passwords_dlg" msgid="8425666119003961466">"将会清除所有保存的密码。"</string>
+    <string name="pref_privacy_clear_passwords_summary" msgid="1267552159370789981">"清除保存的所有密码"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="8425666119003961466">"将会清除保存的所有密码。"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"安全设置"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"记住密码"</string>
-    <string name="pref_security_remember_passwords_summary" msgid="6789880514358003065">"保存访问网站所用的用户名和密码"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="6789880514358003065">"保存在网站上输入的用户名和密码"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"记住表单数据"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"记住我在表单中输入的数据以便于以后使用"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"显示安全警告"</string>
@@ -163,7 +163,7 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"远"</item>
     <item msgid="5619034257768161024">"中"</item>
-    <item msgid="3840999588443167001">"关闭"</item>
+    <item msgid="3840999588443167001">"近"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"默认缩放设置"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"高级设置"</string>
@@ -173,10 +173,10 @@
     <string name="pref_plugin_installed" msgid="6387683936112106178">"插件列表"</string>
     <string name="pref_plugin_installed_empty_list" msgid="6656686482480679665">"没有已安装的插件。"</string>
     <string name="pref_extras_gears_settings_summary" msgid="6230027090022456383">"扩展浏览器功能的应用程序"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"重置为默认值"</string>
-    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"清除所有浏览器数据并将所有设置重置为默认值"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="5332227004054477008">"将会清除所有浏览器数据并将设置恢复为默认值。"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"重置为默认值"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"重置为默认设置"</string>
+    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"清除所有浏览器数据并恢复所有默认设置"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="5332227004054477008">"将会清除所有浏览器数据并恢复默认设置。"</string>
+    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"重置为默认设置"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"调试"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"文字编码"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -240,9 +240,9 @@
     <string name="download_pending_network" msgid="6548714525679461053">"正在等待数据连接..."</string>
     <string name="download_running_paused" msgid="6418029352085656495">"正在等待数据连接..."</string>
     <string name="download_canceled" msgid="6057083743144492515">"下载已取消。"</string>
-    <string name="download_not_acceptable" msgid="282108828207321357">"无法下载，手机不支持此内容。"</string>
+    <string name="download_not_acceptable" msgid="282108828207321357">"无法下载，因为手机不支持此内容。"</string>
     <string name="download_file_error" msgid="1206648050615176113">"无法完成下载，存储空间不足。"</string>
-    <string name="download_length_required" msgid="9038605488460437406">"无法下载，无法确定该项的大小。"</string>
+    <string name="download_length_required" msgid="9038605488460437406">"无法下载，因为无法确定该下载项的大小。"</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"下载中断，无法重新开始。"</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"浏览器测试运行程序"</string>
     <string name="homepage_base" msgid="7888126987935305566">"http://www.google.com/m?client=ms-{CID}"</string>
@@ -267,7 +267,7 @@
     <string name="settings_remove_site" msgid="1822247070226589958">"从 Gears 删除此网站"</string>
     <string name="settings_empty" msgid="2008952224378583146">"未设置权限"</string>
     <string name="settings_confirmation_remove_title" msgid="5360857296753219635">"删除此网站"</string>
-    <string name="settings_confirmation_remove" msgid="585560170733446898">"所有权限将会清除，而且此网站存储在您手机上的所有数据也会删除。"</string>
+    <string name="settings_confirmation_remove" msgid="585560170733446898">"所有权限都将被清除，而且此网站存储在您手机上的所有数据也都会被删除。"</string>
     <string name="storage_notification" msgid="6534213782873968255">"此网站要将信息存储在此手机上。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
     <string name="storage_notification_alwaysdeny" msgid="5473208033665783513">"此网站决不会将信息存储在此手机上。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>
     <string name="location_notification" msgid="3495804750470905804">"此网站可以访问您当前所在的位置。"\n"在以下位置更改此设置："\n"“设置”-&gt;“Gears 设置”"</string>

@@ -15,7 +15,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="application_name" msgid="1935869255545976415">"Πρόγραμμα περιήγησης"</string>
+    <string name="application_name" msgid="1935869255545976415">"Internet"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Σελιδοδείκτες"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Οι πιο δημοφιλείς"</string>
     <string name="tab_history" msgid="1979267558744613746">"Ιστορικό"</string>
@@ -25,7 +25,7 @@
     <string name="username" msgid="5057566336518215922">"Όνομα"</string>
     <string name="password" msgid="1177138552305184404">"Κωδικός πρόσβασης"</string>
     <string name="action" msgid="183105774472071343">"Σύνδεση"</string>
-    <string name="bookmarks_search" msgid="5229596268214362873">"Πρόγραμμα περιήγησης"</string>
+    <string name="bookmarks_search" msgid="5229596268214362873">"Internet"</string>
     <string name="cancel" msgid="3017274947407233702">"Ακύρωση"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
   <plurals name="matches_found">
@@ -133,7 +133,7 @@
     <string name="pref_privacy_clear_cookies_summary" msgid="8602064521480657942">"Εκκαθάριση όλων των cookie του προγράμματος περιήγησης"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="5399971428430900904">"Θα γίνει εκκαθάριση όλων των cookie."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Εκκαθάριση ιστορικού"</string>
-    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Εκκαθάριση ιστορικού πλοήγησης προγράμματος περιήγησης"</string>
+    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Εκκαθάριση του ιστορικού πλοήγησης του προγράμματος περιήγησης"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="1433519059550861064">"Θα γίνει εκκαθάριση του ιστορικού πλοήγησης του προγράμματος περιήγησης."</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Εκκαθάριση δεδομένων φόρμας"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Εκκαθάριση όλων των αποθηκευμένων δεδομένων φόρμας"</string>

@@ -15,7 +15,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="application_name" msgid="1935869255545976415">"Webbläs."</string>
+    <string name="application_name" msgid="1935869255545976415">"Webbläsare"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Bokmärken"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Mest besökta"</string>
     <string name="tab_history" msgid="1979267558744613746">"Historik"</string>
@@ -163,7 +163,7 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Lång"</item>
     <item msgid="5619034257768161024">"Medium"</item>
-    <item msgid="3840999588443167001">"Stäng"</item>
+    <item msgid="3840999588443167001">"Nära"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Standardinställning för zoom"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Avancerade inställningar"</string>

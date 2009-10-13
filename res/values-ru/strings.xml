@@ -161,9 +161,9 @@
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Размер текста"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Масштаб по умолчанию"</string>
   <string-array name="pref_default_zoom_choices">
-    <item msgid="549583171195154919">"Далеко"</item>
-    <item msgid="5619034257768161024">"Среднее положение"</item>
-    <item msgid="3840999588443167001">"Закрыть"</item>
+    <item msgid="549583171195154919">"Мелко"</item>
+    <item msgid="5619034257768161024">"Нормально"</item>
+    <item msgid="3840999588443167001">"Крупно"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Масштаб по умолчанию"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Расширенные настройки"</string>
@@ -193,7 +193,7 @@
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема с подключением"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема с файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Подтверждение"</string>
-    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Страница, которую вы пытаетесь просмотреть, содержит уже отправленные данные (\"POSTDATA\"). Если отправить их еще раз, произойдет повтор всех действий, которые форма выполнила на странице (например, поиск или покупка через Интернет)."</string>
+    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Страница, которую вы пытаетесь просмотреть, содержит уже отправленные данные (POSTDATA). Если отправить их еще раз, произойдет повтор всех действий, которые форма выполнила на странице (например поиск или покупка через Интернет)."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"Сетевое подключение отсутствует"</string>
     <string name="loadSuspended" msgid="1800165494398204523">"Загрузка страницы продолжится после восстановления соединения."</string>
     <string name="clear_history" msgid="5998307092715979619">"Очистить историю"</string>

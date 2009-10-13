@@ -123,19 +123,19 @@
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Abrir em segundo plano"</string>
     <string name="pref_content_open_in_background_summary" msgid="1543556325431215041">"As novas janelas abrem atrás da janela atual."</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Definir a página inicial"</string>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Ajustar páginas automaticamente"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Ajustar automaticamente"</string>
     <string name="pref_content_autofit_summary" msgid="2358178043889761026">"Formatar páginas da web para se ajustarem à tela"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Configurações de privacidade"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Limpar cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2969532045347184968">"Excluir todo conteúdo da página armazenado em cache"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4791302446488696772">"O cache será limpo."</string>
-    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Limpar todos os dados de cookie"</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Limpar dados de cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="8602064521480657942">"Limpar todos os cookies do navegador"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="5399971428430900904">"Todos os cookies serão limpos."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Limpar histórico"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Limpar o histórico de navegação do navegador"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="1433519059550861064">"O histórico de navegação do navegador será limpo."</string>
-    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Limpar dados do formulário"</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Limpar dados formulário"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Limpar todos os dados de formulário salvos"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="567352105409238549">"Todos os dados de formulário salvos serão limpos."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Limpar senhas"</string>
@@ -144,9 +144,9 @@
     <string name="pref_security_title" msgid="5763978646932160021">"Configurações de segurança"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Lembrar senhas"</string>
     <string name="pref_security_remember_passwords_summary" msgid="6789880514358003065">"Salvar nomes de usuário e senhas de sites"</string>
-    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Lembrar dados do formulário"</string>
+    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Lembrar dados formulário"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Lembrar os dados que digitei nos formulários para uso posterior."</string>
-    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Mostrar avisos de segurança"</string>
+    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Avisos de segurança"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Mostrar aviso se houver um problema com a segurança de um site."</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Aceitar cookies"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Permitir que os sites salvem e leiam dados de \"cookie\""</string>
