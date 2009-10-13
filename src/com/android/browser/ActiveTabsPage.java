@@ -49,7 +49,7 @@ public class ActiveTabsPage extends LinearLayout {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view,
                         int position, long id) {
-                    if (mControl.getTabCount() < TabControl.MAX_TABS) {
+                    if (mControl.canCreateNewTab()) {
                         position--;
                     }
                     boolean needToAttach = false;
@@ -92,7 +92,7 @@ public class ActiveTabsPage extends LinearLayout {
     private class TabsListAdapter extends BaseAdapter {
         public int getCount() {
             int count = mControl.getTabCount();
-            if (count < TabControl.MAX_TABS) {
+            if (mControl.canCreateNewTab()) {
                 count++;
             }
             return count;
@@ -107,7 +107,7 @@ public class ActiveTabsPage extends LinearLayout {
             return 2;
         }
         public int getItemViewType(int position) {
-            if (mControl.getTabCount() < TabControl.MAX_TABS) {
+            if (mControl.canCreateNewTab()) {
                 position--;
             }
             // Do not recycle the "add new tab" item.
@@ -115,7 +115,7 @@ public class ActiveTabsPage extends LinearLayout {
         }
         public View getView(int position, View convertView, ViewGroup parent) {
             final int tabCount = mControl.getTabCount();
-            if (tabCount < TabControl.MAX_TABS) {
+            if (mControl.canCreateNewTab()) {
                 position--;
             }
 
@@ -131,8 +131,8 @@ public class ActiveTabsPage extends LinearLayout {
                 ImageView favicon =
                         (ImageView) convertView.findViewById(R.id.favicon);
                 View close = convertView.findViewById(R.id.close);
-                TabControl.Tab tab = mControl.getTab(position);
-                mControl.populatePickerData(tab);
+                Tab tab = mControl.getTab(position);
+                tab.populatePickerData();
                 title.setText(tab.getTitle());
                 url.setText(tab.getUrl());
                 Bitmap icon = tab.getFavicon();
