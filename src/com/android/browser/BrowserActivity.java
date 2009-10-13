@@ -916,6 +916,14 @@ public class BrowserActivity extends Activity
         openContextMenu(mTitleBar);
     }
 
+    @Override
+    public void onContextMenuClosed(Menu menu) {
+        super.onContextMenuClosed(menu);
+        if (mInLoad) {
+            showFakeTitleBar();
+        }
+    }
+
     /**
      *  onSaveInstanceState(Bundle map)
      *  onSaveInstanceState is called right before onStop(). The map contains
@@ -1679,6 +1687,7 @@ public class BrowserActivity extends Activity
                 Log.w(LOGTAG, "We should not get here.");
                 break;
         }
+        hideFakeTitleBar();
     }
 
     // Attach the given tab to the content view.
