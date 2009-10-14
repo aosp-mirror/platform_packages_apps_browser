@@ -1664,6 +1664,8 @@ public class BrowserActivity extends Activity
                 // decide whether to show the open link in new tab option
                 menu.findItem(R.id.open_newtab_context_menu_id).setVisible(
                         mTabControl.canCreateNewTab());
+                menu.findItem(R.id.bookmark_context_menu_id).setVisible(
+                        Bookmarks.urlHasAcceptableScheme(extra));
                 PackageManager pm = getPackageManager();
                 Intent send = new Intent(Intent.ACTION_SEND);
                 send.setType("text/plain");
