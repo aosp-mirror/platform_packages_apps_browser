@@ -182,9 +182,14 @@ public class AddBookmarkPage extends Activity {
         try {
             URI uriObj = new URI(url);
             String scheme = uriObj.getScheme();
-            if (!("about".equals(scheme) || "data".equals(scheme)
-                    || "javascript".equals(scheme)
-                    || "file".equals(scheme) || "content".equals(scheme))) {
+            if (!Bookmarks.urlHasAcceptableScheme(url)) {
+                // If the scheme was non-null, let the user know that we
+                // can't save their bookmark. If it was null, we'll assume
+                // they meant http when we parse it in the WebAddress class.
+                if (scheme != null) {
+                    mAddress.setError(r.getText(R.string.bookmark_cannot_save_url));
+                    return false;
+                }
                 WebAddress address;
                 try {
                     address = new WebAddress(unfilteredUrl);
