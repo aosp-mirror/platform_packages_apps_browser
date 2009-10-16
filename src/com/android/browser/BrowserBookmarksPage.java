@@ -257,9 +257,8 @@ public class BrowserBookmarksPage extends Activity implements
         // bookmarks. Otherwise default to grid mode.
         BookmarkViewMode preference = BookmarkViewMode.NONE;
         if (mMostVisited) {
-            preference = BookmarkViewMode.values()[p.getInt(
-                    PREF_MOST_VISITED_VIEW_MODE,
-                    BookmarkViewMode.GRID.ordinal())];
+            // For the most visited page, only use list mode.
+            preference = BookmarkViewMode.LIST;
         } else {
             preference = BookmarkViewMode.values()[p.getInt(
                     PREF_BOOKMARK_VIEW_MODE, BookmarkViewMode.GRID.ordinal())];
@@ -480,12 +479,9 @@ public class BrowserBookmarksPage extends Activity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
-        if (!mCreateShortcut) {
+        if (!mCreateShortcut && !mMostVisited) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.bookmarks, menu);
-            // Most visited page does not have an option to bookmark the last
-            // viewed page.
-            menu.findItem(R.id.new_context_menu_id).setVisible(!mMostVisited);
             return true;
         }
         return result;
@@ -494,7 +490,8 @@ public class BrowserBookmarksPage extends Activity implements
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean result = super.onPrepareOptionsMenu(menu);
-        if (mCreateShortcut || mBookmarksAdapter.getCount() == 0) {
+        if (mCreateShortcut || mMostVisited
+                || mBookmarksAdapter.getCount() == 0) {
             // No need to show the menu if there are no items.
             return result;
         }
