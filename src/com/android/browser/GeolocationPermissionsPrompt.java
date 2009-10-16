@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
@@ -28,6 +29,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GeolocationPermissionsPrompt extends LinearLayout {
     private LinearLayout mInner;
@@ -97,8 +99,19 @@ public class GeolocationPermissionsPrompt extends LinearLayout {
      * Handles a click on one the buttons by invoking the callback.
      */
     private void handleButtonClick(boolean allow) {
-        boolean remember = mRemember.isChecked();
         showDialog(false);
+
+        boolean remember = mRemember.isChecked();
+        if (remember) {
+            Toast toast = Toast.makeText(
+                    getContext(),
+                    allow ? R.string.geolocation_permissions_prompt_toast_allowed :
+                            R.string.geolocation_permissions_prompt_toast_disallowed,
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM, 0, 0);
+            toast.show();
+        }
+
         mCallback.invoke(mOrigin, allow, remember);
     }
 
