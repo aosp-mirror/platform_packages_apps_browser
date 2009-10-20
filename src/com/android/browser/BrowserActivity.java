@@ -2300,11 +2300,30 @@ public class BrowserActivity extends Activity
         // May need to tweak these values to determine what is the
         // best scale factor
         int thumbnailWidth = thumbnail.getWidth();
+        int thumbnailHeight = thumbnail.getHeight();
+        float scaleFactorX = 1.0f;
+        float scaleFactorY = 1.0f;
         if (thumbnailWidth > 0) {
-            float scaleFactor = (float) getDesiredThumbnailWidth(this) /
+            scaleFactorX = (float) getDesiredThumbnailWidth(this) /
                     (float)thumbnailWidth;
-            canvas.scale(scaleFactor, scaleFactor);
+        } else {
+            return null;
         }
+
+        if (view.getWidth() > view.getHeight() &&
+                thumbnailHeight < view.getHeight() && thumbnailHeight > 0) {
+            // If the device is in landscape and the page is shorter
+            // than the height of the view, stretch the thumbnail to fill the
+            // space.
+            scaleFactorY = (float) getDesiredThumbnailHeight(this) /
+                    (float)thumbnailHeight;
+        } else {
+            // In the portrait case, this looks nice.
+            scaleFactorY = scaleFactorX;
+        }
+
+        canvas.scale(scaleFactorX, scaleFactorY);
+
         thumbnail.draw(canvas);
         return bm;
     }
