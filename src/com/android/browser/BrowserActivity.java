@@ -2560,6 +2560,7 @@ public class BrowserActivity extends Activity
         // Hide the content view.
         mContentView.setVisibility(View.GONE);
         // Finally show the custom view container.
+        setStatusBarVisibility(false);
         mCustomViewContainer.setVisibility(View.VISIBLE);
         mCustomViewContainer.bringToFront();
     }
@@ -2579,6 +2580,7 @@ public class BrowserActivity extends Activity
         mCustomViewContainer.setVisibility(View.GONE);
         mCustomViewCallback.onCustomViewHidden();
         // Show the content view.
+        setStatusBarVisibility(true);
         mContentView.setVisibility(View.VISIBLE);
     }
 
@@ -3498,6 +3500,11 @@ public class BrowserActivity extends Activity
 
     boolean shouldShowErrorConsole() {
         return mShouldShowErrorConsole;
+    }
+
+    private void setStatusBarVisibility(boolean visible) {
+        int flag = visible ? 0 : WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setFlags(flag, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     final static int LOCK_ICON_UNSECURE = 0;
