@@ -743,6 +743,9 @@
     <string name="geolocation_permissions_prompt_share">Share location</string>
     <string name="geolocation_permissions_prompt_dont_share">Decline</string>
     <string name="geolocation_permissions_prompt_remember">Remember preference</string>
+    <!-- Permissions prompt toast -->
+    <string name="geolocation_permissions_prompt_toast_allowed">This site can access your location. Change this in Settings -> Website settings</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed">This site cannot access your location. Change this in Settings -> Website settings</string>
     <!-- Settings page, Advanced Settings -> Website settings -> <origin> -->
     <string name="geolocation_settings_page_title">Clear location access</string>
     <string name="geolocation_settings_page_summary_allowed">This site can currently access your location</string>
