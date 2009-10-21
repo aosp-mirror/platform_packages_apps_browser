@@ -16,9 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Браузер"</string>
-    <string name="new_tab" msgid="7971857320679510529">"Новая вкладка"</string>
-    <!-- no translation found for active_tabs (8423342514993323050) -->
-    <skip />
+    <string name="new_tab" msgid="4505722538297295141">"Новое окно"</string>
+    <string name="active_tabs" msgid="3050623868203544623">"Окна"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Закладки"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Часто посещаемые"</string>
     <string name="tab_history" msgid="1979267558744613746">"История"</string>
@@ -79,7 +78,8 @@
     <string name="remove_history_item" msgid="5021424935726728618">"Удалить из истории"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Сделать главной страницей"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Сохранено в закладках."</string>
-    <string name="homepage_set" msgid="9127149128262321090">"Главная страница установлена"</string>
+    <string name="bookmark_not_saved" msgid="700600955089376724">"Не удалось сохранить закладку."</string>
+    <string name="homepage_set" msgid="8768087280310966395">"Главная страница установлена."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Необходимо указать имя закладки."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Необходимо указать место закладки."</string>
     <string name="empty_bookmark" msgid="7008697085928540511">"Невозможно создать пустую закладку."</string>
@@ -107,6 +107,7 @@
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Добавить в закладки"</string>
     <string name="history" msgid="2451240511251410032">"История"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Загрузки"</string>
+    <string name="copy_page_url" msgid="7635062169011319208">"Копировать URL страницы"</string>
     <string name="share_page" msgid="593756995297268343">"Отправить страницу"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Открыть"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Открыть в новом окне"</string>
@@ -121,38 +122,40 @@
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Добавить контакт"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"Отправить сообщение по электронной почте"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Карта"</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Способ отправки"</string>
     <string name="clear" msgid="7070043081700011461">"Очистить"</string>
     <string name="replace" msgid="4843033491070384047">"Заменить"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Закладки"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Настройки"</string>
     <string name="pref_content_title" msgid="722227111894838633">"Настройки содержания страницы"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Загружать картинки"</string>
-    <string name="pref_content_load_images_summary" msgid="5149716777459747214">"Показывать картинки на веб-страницах"</string>
+    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Показывать картинки на веб-страницах"</string>
     <string name="pref_content_block_popups" msgid="7808433807197256726">"Блокировать всплывающие окна"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Включить JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Открывать в фоновом режиме"</string>
-    <string name="pref_content_open_in_background_summary" msgid="1543556325431215041">"Новые окна открываются позади текущего окна"</string>
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Включить плагины"</string>
+    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Открывать новые окна позади текущего окна"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Выбрать главную страницу"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Подгонять страницы"</string>
-    <string name="pref_content_autofit_summary" msgid="2358178043889761026">"Подгонять веб-страницы под размер экрана"</string>
-    <string name="pref_content_landscape_only" msgid="5863539054484585534">"Только альбомная ориентация"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1128170515157691793">"Всегда показывать страницы в альбомной ориентации"</string>
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Подгонять веб-страницы под размер экрана"</string>
+    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Только альбомный вид"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Показывать страницы только в альбомной ориентации"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Настройки конфиденциальности"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Очистить кэш"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Очистить содержание и базы данных, сохраненные локально"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="1027868030632828913">"Содержание и базы данных, сохраненные локально, будут очищены"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Содержание и базы данных, сохраненные локально, будут удалены."</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Очистить все данные cookie"</string>
-    <string name="pref_privacy_clear_cookies_summary" msgid="8602064521480657942">"Удалить все cookie браузера"</string>
-    <string name="pref_privacy_clear_cookies_dlg" msgid="5399971428430900904">"Все cookie будут удалены."</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Удалить все файлы cookie браузера"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Все файлы cookie будут удалены."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Очистить историю"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Очистить историю браузера"</string>
-    <string name="pref_privacy_clear_history_dlg" msgid="1433519059550861064">"История браузера будет очищена."</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"История браузера будет очищена."</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Очистить данные формы"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Очистить все данные сохраненных форм"</string>
-    <string name="pref_privacy_clear_form_data_dlg" msgid="567352105409238549">"Все данные сохраненных форм будут удалены."</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Все данные сохраненных форм будут удалены."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Очистить пароли"</string>
-    <string name="pref_privacy_clear_passwords_summary" msgid="1267552159370789981">"Удалить все сохраненные пароли"</string>
-    <string name="pref_privacy_clear_passwords_dlg" msgid="8425666119003961466">"Все сохраненные пароли будут удалены."</string>
+    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Удалить все сохраненные пароли"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Все сохраненные пароли будут удалены."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Включить местоположение"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Разрешить сайтам запрашивать данные доступа к местоположению"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Удалить данные доступа к местоположению"</string>
@@ -160,7 +163,7 @@
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Удалить данные доступа к местоположению для всех сайтов"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Настройки безопасности"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Сохранять пароли"</string>
-    <string name="pref_security_remember_passwords_summary" msgid="6789880514358003065">"Сохранять имена пользователей и пароли для веб-сайтов"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Сохранять имена пользователей и пароли веб-сайтов"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Сохранять данные форм"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Запоминать введенные данные для дальнейшего использования"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Показывать предупреждения безопасности"</string>
@@ -178,19 +181,19 @@
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Размер текста"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Масштаб по умолчанию"</string>
   <string-array name="pref_default_zoom_choices">
-    <item msgid="549583171195154919">"Далеко"</item>
-    <item msgid="5619034257768161024">"Среднее положение"</item>
-    <item msgid="3840999588443167001">"Закрыть"</item>
+    <item msgid="549583171195154919">"Мелко"</item>
+    <item msgid="5619034257768161024">"Нормально"</item>
+    <item msgid="3840999588443167001">"Крупно"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Масштаб по умолчанию"</string>
-    <string name="pref_content_load_page" msgid="8834308472508060268">"При загрузке страницы:"</string>
-    <string name="pref_content_load_page_summary" msgid="3161792969308430976">"Показать общую информацию о странице"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Открывать страницы в обзоре окон"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Показывать обзор новых открытых страниц"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Расширенные настройки"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайта"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Просмотреть дополнительные настройки для отдельных сайтов"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Восстановить настройки по умолчанию"</string>
     <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Очистить все данные браузера и восстановить все настройки по умолчанию"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="5332227004054477008">"Все данные браузера будут удалены, настройки по умолчанию будут восстановлены."</string>
+    <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Все данные браузера будут удалены, настройки по умолчанию будут восстановлены."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Восстановить настройки по умолчанию"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Отладка"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Кодировка текста"</string>
@@ -204,20 +207,18 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Кодировка текста"</string>
     <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"Latin-1"</string>
     <string name="browserFrameRedirect" msgid="7049675479777828343">"Перенаправление"</string>
-    <string name="browserFrame307Post" msgid="739650008647852203">"Вы перенаправлены с этой страницы. Отправить ваши данные формы в новое место?"</string>
+    <string name="browserFrame307Post" msgid="1429094844669510768">"Вы перенаправлены с этой страницы. Отправить ваши данные формы в новое место?"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема с подключением"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема с файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Подтверждение"</string>
-    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Страница, которую вы пытаетесь просмотреть, содержит уже отправленные данные (\"POSTDATA\"). Если отправить их еще раз, произойдет повтор всех действий, которые форма выполнила на странице (например, поиск или покупка через Интернет)."</string>
+    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Страница, которую вы пытаетесь просмотреть, содержит уже отправленные данные (POSTDATA). Если отправить их еще раз, произойдет повтор всех действий, которые форма выполнила на странице (например поиск или покупка через Интернет)."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"Сетевое подключение отсутствует"</string>
-    <!-- no translation found for loadSuspended (724674402736067146) -->
-    <skip />
+    <string name="loadSuspended" msgid="3133656588880851273">"Браузер не может загрузить эту страницу, так как отсутствует подключение к Интернету."</string>
     <string name="clear_history" msgid="5998307092715979619">"Очистить историю"</string>
-    <string name="browser_history" msgid="2979476257919939232">"Недавно посещенные страницы"</string>
+    <string name="browser_history" msgid="1038987118290272525">"Недавно посещенные"</string>
     <string name="empty_history" msgid="8738772352308207274">"История браузера пуста."</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"Добавить закладку…"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Добавить"</string>
-    <string name="no_database" msgid="2256698896757181084">"База данных отсутствует!"</string>
     <string name="search_hint" msgid="4647356319916631820">"Введите условия поиска или URL-адрес"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Поиск"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Закладки и просмотренные страницы"</string>
@@ -257,7 +258,7 @@
     <string name="download_pending_network" msgid="6548714525679461053">"Ожидание подключения для передачи данных…"</string>
     <string name="download_running_paused" msgid="6418029352085656495">"Ожидание подключения для передачи данных…"</string>
     <string name="download_canceled" msgid="6057083743144492515">"Загрузка отменена."</string>
-    <string name="download_not_acceptable" msgid="282108828207321357">"Загрузка невозможна. Содержание не поддерживается телефоном."</string>
+    <string name="download_not_acceptable" msgid="313769696131563652">"Загрузка невозможна. Содержание не поддерживается телефоном."</string>
     <string name="download_file_error" msgid="1206648050615176113">"Невозможно завершить загрузку. Недостаточно места."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Загрузка невозможна. Размер файла не определен."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Загрузка прервана и не может быть возобновлена."</string>
@@ -269,13 +270,14 @@
     <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Удалить все базы данных, связанные с этим сайтом"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Удалить сохраненные данные"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Все данные, сохраненные этим веб-сайтом, будут удалены"</string>
-    <string name="webstorage_clear_data_dialog_ok_button" msgid="5074037549893407416">"Удалить все"</string>
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Удалить все"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Отмена"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Объем занятой памяти телефона (МБ)"</string>
-    <string name="geolocation_permissions_prompt_message" msgid="2412844044592274106">"<xliff:g id="WEBPAGE">%s</xliff:g> запрашивает данные о вашем местоположении"</string>
-    <string name="geolocation_permissions_prompt_share" msgid="6908104491085328731">"Отправить"</string>
-    <string name="geolocation_permissions_prompt_dont_share" msgid="5962677371200773835">"Не отправлять"</string>
-    <string name="geolocation_permissions_prompt_remember" msgid="5798300962802553043">"Запомнить"</string>
+    <string name="loading_video" msgid="4887871585216091096">"Загрузка видео"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> запрашивает данные о вашем местоположении"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Сообщить местоположение"</string>
+    <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Отклонить"</string>
+    <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Запомнить настройки"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Удалить данные доступа к местоположению"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Этот сайт сейчас имеет доступ к вашему местоположению"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Этот сайт в настоящее время не имеет доступа к вашему местоположению"</string>
@@ -283,15 +285,10 @@
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Данные доступа к местоположению для этого сайта будут удалены"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Удалить данные о доступе"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Отмена"</string>
-    <!-- no translation found for website_settings_clear_all (2073906304824388952) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_title (1975103796504323734) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_message (6545526672017530811) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_ok_button (3677457125416372255) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
-    <skip />
+    <string name="website_settings_clear_all" msgid="8739804325997655980">"Удалить все"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Удалить все настройки веб-сайтов?"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Все данные сайтов и разрешения относительно местоположения будут удалены."</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Удалить все данные"</string>
+    <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Отмена"</string>
     <string name="zoom_overview_button_text" msgid="4146579940085488881">"Обзор"</string>
 </resources>
