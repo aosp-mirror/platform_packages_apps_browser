@@ -996,6 +996,9 @@ public class BrowserActivity extends Activity
 
         if (mTabControl == null) return;
 
+        // Remove the fake title bar if it is there
+        hideFakeTitleBar();
+
         // Remove the current tab and sub window
         Tab t = mTabControl.getCurrentTab();
         if (t != null) {
