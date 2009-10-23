@@ -309,11 +309,9 @@ public class BrowserActivity extends Activity
                 public void onReceive(Context context, Intent intent) {
                     if (intent.getAction().equals(
                             ConnectivityManager.CONNECTIVITY_ACTION)) {
-                        NetworkInfo info =
-                                (NetworkInfo) intent.getParcelableExtra(
-                                        ConnectivityManager.EXTRA_NETWORK_INFO);
-                        onNetworkToggle(
-                                (info != null) ? info.isConnected() : false);
+                        boolean noConnectivity = intent.getBooleanExtra(
+                                ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+                        onNetworkToggle(!noConnectivity);
                     }
                 }
             };
