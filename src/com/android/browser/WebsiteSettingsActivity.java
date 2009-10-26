@@ -512,6 +512,10 @@ public class WebsiteSettingsActivity extends ListActivity {
                 notifyDataSetChanged();
             }
         }
+
+        public Site currentSite() {
+            return mCurrentSite;
+        }
     }
 
     /**
@@ -548,8 +552,9 @@ public class WebsiteSettingsActivity extends ListActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // If we aren't listing any sites hide the clear all button (and hence the menu).
-        return mAdapter.getCount() > 0;
+        // If we are not on the sites list (rather on the page for a specific site) or
+        // we aren't listing any sites hide the clear all button (and hence the menu).
+        return  mAdapter.currentSite() == null && mAdapter.getCount() > 0;
     }
 
     @Override
