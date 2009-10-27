@@ -109,6 +109,8 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -1681,6 +1683,8 @@ public class BrowserActivity extends Activity
                         new Intent(Intent.ACTION_VIEW, Uri.parse(extra)));
                 menu.findItem(R.id.download_context_menu_id).
                         setOnMenuItemClickListener(new Download(extra));
+                menu.findItem(R.id.set_wallpaper_context_menu_id).
+                        setOnMenuItemClickListener(new SetAsWallpaper(extra));
                 break;
 
             default:
@@ -1823,6 +1827,82 @@ public class BrowserActivity extends Activity
 
         public Download(String toDownload) {
             mText = toDownload;
+        }
+    }
+
+    private class SetAsWallpaper extends Thread implements
+            OnMenuItemClickListener, DialogInterface.OnCancelListener {
+        private URL mUrl;
+        private ProgressDialog mWallpaperProgress;
+        private boolean mCanceled = false;
+
+        public SetAsWallpaper(String url) {
+            try {
+                mUrl = new URL(url);
+            } catch (MalformedURLException e) {
+                mUrl = null;
+            }
+        }
+
+        public void onCancel(DialogInterface dialog) {
+            mCanceled = true;
+        }
+
+        public boolean onMenuItemClick(MenuItem item) {
+            if (mUrl != null) {
+                // The user may have tried to set a image with a large file size as their
+                // background so it may take a few moments to perform the operation. Display
+                // a progress spinner while it is working.
+                mWallpaperProgress = new ProgressDialog(BrowserActivity.this);
+                mWallpaperProgress.setIndeterminate(true);
+                mWallpaperProgress.setMessage(getText(R.string.progress_dialog_setting_wallpaper));
+                mWallpaperProgress.setCancelable(true);
+                mWallpaperProgress.setOnCancelListener(this);
+                mWallpaperProgress.show();
+                start();
+            }
+            return true;
+        }
+
+        public void run() {
+            Drawable oldWallpaper = BrowserActivity.this.getWallpaper();
+            try {
+                // TODO: This will cause the resource to be downloaded again, when we
+                // should in most cases be able to grab it from the cache. To fix this
+                // we should query WebCore to see if we can access a cached version and
+                // instead open an input stream on that. This pattern could also be used
+                // in the download manager where the same problem exists.
+                InputStream inputstream = mUrl.openStream();
+                if (inputstream != null) {
+                    setWallpaper(inputstream);
+                }
+            } catch (IOException e) {
+                Log.e(LOGTAG, "Unable to set new wallpaper");
+                // Act as though the user canceled the operation so we try to
+                // restore the old wallpaper.
+                mCanceled = true;
+            }
+
+            if (mCanceled) {
+                // Restore the old wallpaper if the user cancelled whilst we were setting
+                // the new wallpaper.
+                int width = oldWallpaper.getIntrinsicWidth();
+                int height = oldWallpaper.getIntrinsicHeight();
+                Bitmap bm = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+                Canvas canvas = new Canvas(bm);
+                oldWallpaper.setBounds(0, 0, width, height);
+                oldWallpaper.draw(canvas);
+                try {
+                    setWallpaper(bm);
+                } catch (IOException e) {
+                    Log.e(LOGTAG, "Unable to restore old wallpaper.");
+                }
+                mCanceled = false;
+            }
+
+            if (mWallpaperProgress.isShowing()) {
+                mWallpaperProgress.dismiss();
+            }
         }
     }
 

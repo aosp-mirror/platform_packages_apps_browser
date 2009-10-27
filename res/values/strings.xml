@@ -266,6 +266,9 @@
     <string name="contextmenu_download_image">Save image</string>
     <!-- Context Menu item to view the image by itself in the browser -->
     <string name="contextmenu_view_image">View image</string>
+    <!-- Context Menu item to set the image as the home screen wallpaper -->
+    <string name="contextmenu_set_wallpaper">Set as wallpaper</string>
+
     <!-- Context Menu item to open the dialer app with the selected phone number
             -->
     <string name="contextmenu_dial_dot">Dial\u2026</string>
@@ -766,6 +769,9 @@
     <!-- Zoom-related strings --><skip />
     <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->
     <string name="zoom_overview_button_text">Overview</string>
+
+    <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+    <string name="progress_dialog_setting_wallpaper">Setting wallpaper...</string>
 
     <string name="error_console_header_text_minimized" translatable="false">Show JavaScript console</string>
     <string name="error_console_header_text_maximized" translatable="false">JavaScript console</string>
