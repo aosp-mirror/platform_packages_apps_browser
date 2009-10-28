@@ -540,15 +540,8 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     private void bind(BookmarkItem b, int position) {
         mCursor.moveToPosition(position- mExtraOffset);
 
-        String title = mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX);
-        if (title.length() > BrowserSettings.MAX_TEXTVIEW_LEN) {
-            title = title.substring(0, BrowserSettings.MAX_TEXTVIEW_LEN);
-        }
-        b.setName(title);
+        b.setName(mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX));
         String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
-        if (url.length() > BrowserSettings.MAX_TEXTVIEW_LEN) {
-            url = url.substring(0, BrowserSettings.MAX_TEXTVIEW_LEN);
-        }
         b.setUrl(url);
         byte[] data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
         if (data != null) {
