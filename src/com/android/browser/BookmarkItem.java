@@ -33,6 +33,7 @@ class BookmarkItem extends LinearLayout {
     protected TextView    mUrlText;
     protected ImageView   mImageView;
     protected String      mUrl;
+    protected String      mTitle;
 
     /**
      *  Instantiate a bookmark item, including a default favicon.
@@ -65,7 +66,7 @@ class BookmarkItem extends LinearLayout {
      * Return the name assigned to this bookmark item.
      */
     /* package */ String getName() {
-        return mTextView.getText().toString();
+        return mTitle;
     }
 
     /**
@@ -99,6 +100,16 @@ class BookmarkItem extends LinearLayout {
      *  @param name The new name for the bookmark item.
      */
     /* package */ void setName(String name) {
+        if (name == null) {
+            return;
+        }
+
+        mTitle = name;
+
+        if (name.length() > BrowserSettings.MAX_TEXTVIEW_LEN) {
+            name = name.substring(0, BrowserSettings.MAX_TEXTVIEW_LEN);
+        }
+
         mTextView.setText(name);
     }
     
@@ -107,7 +118,16 @@ class BookmarkItem extends LinearLayout {
      *  @param url  The new url for the bookmark item.
      */
     /* package */ void setUrl(String url) {
-        mUrlText.setText(url);
+        if (url == null) {
+            return;
+        }
+
         mUrl = url;
+
+        if (url.length() > BrowserSettings.MAX_TEXTVIEW_LEN) {
+            url = url.substring(0, BrowserSettings.MAX_TEXTVIEW_LEN);
+        }
+
+        mUrlText.setText(url);
     }
 }
