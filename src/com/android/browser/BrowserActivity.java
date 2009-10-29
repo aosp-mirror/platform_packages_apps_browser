@@ -1051,9 +1051,6 @@ public class BrowserActivity extends Activity
             showHttpAuthentication(mHttpAuthHandler, null, null, title,
                     name, password, focusId);
         }
-        if (mFindDialog != null && mFindDialog.isShowing()) {
-            mFindDialog.onConfigurationChanged(newConfig);
-        }
     }
 
     @Override
