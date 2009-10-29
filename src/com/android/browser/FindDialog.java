@@ -18,7 +18,6 @@ package com.android.browser;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -95,13 +94,6 @@ import android.widget.TextView;
         super(context, R.style.FindDialogTheme);
         mBrowserActivity = context;
         setCanceledOnTouchOutside(true);
-    }
-
-    /* package */ void onConfigurationChanged(Configuration newConfig) {
-        // FIXME: Would like to call mWebView.findAll again, so that the
-        // matches would refresh, but the new picture has not yet been
-        // created, so it is too soon.
-        mEditText.getText().clear();
     }
 
     @Override
