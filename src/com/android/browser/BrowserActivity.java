@@ -2345,10 +2345,12 @@ public class BrowserActivity extends Activity
         resetLockIcon(url);
         setUrlTitle(url, null);
         setFavicon(favicon);
-        mInLoad = true;
+        // Keep this initial progress in sync with initialProgressValue (* 100)
+        // in ProgressTracker.cpp
+        // Show some progress so that the user knows the page is beginning to
+        // load
+        onProgressChanged(view, 10);
         mDidStopLoad = false;
-        showFakeTitleBar();
-        updateInLoadMenuItems();
         if (!mIsNetworkUp) createAndShowNetworkDialog();
 
         if (mSettings.isTracing()) {
