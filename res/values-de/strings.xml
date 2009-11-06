@@ -18,10 +18,8 @@
     <string name="application_name" msgid="1935869255545976415">"Browser"</string>
     <!-- no translation found for choose_upload (3649366287575002063) -->
     <skip />
-    <!-- no translation found for new_tab (4505722538297295141) -->
-    <skip />
-    <!-- no translation found for active_tabs (3050623868203544623) -->
-    <skip />
+    <string name="new_tab" msgid="4505722538297295141">"Neues Fenster"</string>
+    <string name="active_tabs" msgid="3050623868203544623">"Fenster"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Lesezeichen"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Meistbesucht"</string>
     <string name="tab_history" msgid="1979267558744613746">"Verlauf"</string>
@@ -82,14 +80,14 @@
     <string name="remove_history_item" msgid="5021424935726728618">"Aus Verlauf entfernen"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Als Startseite festlegen"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Gespeichert in Lesezeichen."</string>
-    <!-- no translation found for bookmark_not_saved (700600955089376724) -->
-    <skip />
-    <!-- no translation found for homepage_set (8768087280310966395) -->
-    <skip />
+    <string name="bookmark_not_saved" msgid="700600955089376724">"Lesezeichen kann nicht gespeichert werden."</string>
+    <string name="homepage_set" msgid="8768087280310966395">"Startseite festgelegt."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Das Lesezeichen muss über einen Namen verfügen."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Das Lesezeichen muss über einen Speicherort verfügen."</string>
     <string name="empty_bookmark" msgid="7008697085928540511">"Sie können kein leeres Lesezeichen erstellen."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"URL ist nicht gültig."</string>
+    <!-- no translation found for bookmark_cannot_save_url (791722768778386941) -->
+    <skip />
     <string name="delete_bookmark" msgid="2422989994934201992">"Löschen"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Lesezeichen für zuletzt besuchte Seite"</string>
     <string name="switch_to_thumbnails" msgid="5493351529609043151">"Miniaturansicht"</string>
@@ -113,8 +111,7 @@
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Lesezeichen"</string>
     <string name="history" msgid="2451240511251410032">"Verlauf"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Downloads"</string>
-    <!-- no translation found for copy_page_url (7635062169011319208) -->
-    <skip />
+    <string name="copy_page_url" msgid="7635062169011319208">"Seiten-URL kopieren"</string>
     <string name="share_page" msgid="593756995297268343">"Seitenlink weiterleiten"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Öffnen"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"In neuem Fenster öffnen"</string>
@@ -129,54 +126,40 @@
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Kontakt hinzufügen"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"E-Mail senden"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Karte"</string>
-    <!-- no translation found for choosertitle_sharevia (4600490613341909086) -->
-    <skip />
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Freigeben über"</string>
     <string name="clear" msgid="7070043081700011461">"Löschen"</string>
     <string name="replace" msgid="4843033491070384047">"Ersetzen"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Lesezeichen"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Einstellungen"</string>
     <string name="pref_content_title" msgid="722227111894838633">"Einstellungen für Seiteninhalt"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Bilder laden"</string>
-    <!-- no translation found for pref_content_load_images_summary (5055874125248398584) -->
-    <skip />
+    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Bilder auf Webseiten anzeigen"</string>
     <string name="pref_content_block_popups" msgid="7808433807197256726">"Popupfenster blockieren"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"JavaScript aktivieren"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Im Hintergrund öffnen"</string>
-    <!-- no translation found for pref_content_plugins (7231944644794301582) -->
-    <skip />
-    <!-- no translation found for pref_content_open_in_background_summary (1737664075721181678) -->
-    <skip />
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Plug-Ins aktivieren"</string>
+    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Neues Fenster hinter dem aktuellen Fenster öffnen"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Startseite festlegen"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Seiten autom. anpassen"</string>
-    <!-- no translation found for pref_content_autofit_summary (4587831659894879986) -->
-    <skip />
-    <!-- no translation found for pref_content_landscape_only (2022546812766219672) -->
-    <skip />
-    <!-- no translation found for pref_content_landscape_only_summary (1008238895535428855) -->
-    <skip />
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Webseiten an den Bildschirm anpassen"</string>
+    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Anzeige nur im Querformat"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Seiten nur im breiteren Querformat anzeigen"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Datenschutzeinstellungen"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Cache löschen"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Content und Datenbanken aus dem lokalen Cache löschen"</string>
-    <!-- no translation found for pref_privacy_clear_cache_dlg (5541011591300753881) -->
-    <skip />
+    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Content und Datenbanken werden aus dem lokalen Cache gelöscht."</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Alle Cookiedaten löschen"</string>
-    <!-- no translation found for pref_privacy_clear_cookies_summary (6962742063990677520) -->
-    <skip />
-    <!-- no translation found for pref_privacy_clear_cookies_dlg (552855688091432682) -->
-    <skip />
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Alle Browser-Cookies löschen"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Alle Cookies werden gelöscht."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Verlauf löschen"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Navigationsverlauf des Browsers löschen"</string>
-    <!-- no translation found for pref_privacy_clear_history_dlg (544903007914753853) -->
-    <skip />
+    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Der Navigationsverlauf des Browsers wird gelöscht."</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Formulardaten löschen"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Alle gespeicherten Formulardaten löschen"</string>
-    <!-- no translation found for pref_privacy_clear_form_data_dlg (4443621086781197928) -->
-    <skip />
+    <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Alle gespeicherten Formulardaten werden gelöscht."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Passwörter löschen"</string>
-    <!-- no translation found for pref_privacy_clear_passwords_summary (8856782718942903335) -->
-    <skip />
-    <!-- no translation found for pref_privacy_clear_passwords_dlg (2083869328824248255) -->
-    <skip />
+    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Alle gespeicherten Passwörter löschen"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Alle gespeicherten Passwörter werden gelöscht."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Standort aktivieren"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Zugriff auf Ihren Standort für Websites ermöglichen"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Standortzugriff löschen"</string>
@@ -184,8 +167,7 @@
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Standortzugriff für alle Websites löschen"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Sicherheitseinstellungen"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Passwörter merken"</string>
-    <!-- no translation found for pref_security_remember_passwords_summary (256388703356349137) -->
-    <skip />
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Benutzernamen und Passwörter für Websites speichern"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Formulardaten merken"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Daten in Formularen zur späteren Verwendung merken"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Sicherheitswarnungen"</string>
@@ -208,17 +190,14 @@
     <item msgid="3840999588443167001">"Schließen"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Standard-Zoom"</string>
-    <!-- no translation found for pref_content_load_page (2219810141690955452) -->
-    <skip />
-    <!-- no translation found for pref_content_load_page_summary (8792093504054149369) -->
-    <skip />
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Seiten in der Übersicht öffnen"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Übersicht über kürzlich geöffnete Seiten anzeigen"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Erweiterte Einstellungen"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Websiteeinstellungen"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Erweiterte Einstellungen für einzelne Websites anzeigen"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Auf Standard zurücksetzen"</string>
     <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Alle Browserdaten löschen und Einstellungen auf Standard zurücksetzen"</string>
-    <!-- no translation found for pref_extras_reset_default_dlg (6894807766578874830) -->
-    <skip />
+    <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Alle Browserdaten werden gelöscht. Alle Einstellungen werden auf die Standardeinstellung zurückgesetzt."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Auf Standardeinstellung zurücksetzen"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debuggen"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Textcodierung"</string>
@@ -232,18 +211,15 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Textcodierung"</string>
     <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"Latin-1"</string>
     <string name="browserFrameRedirect" msgid="7049675479777828343">"Redirect"</string>
-    <!-- no translation found for browserFrame307Post (1429094844669510768) -->
-    <skip />
+    <string name="browserFrame307Post" msgid="1429094844669510768">"Diese Webseite wird umgeleitet. Sollen Ihre eingegebenen Formulardaten an den neuen Standort gesendet werden?"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Datenverbindungsproblem"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem mit Datei"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Bestätigen"</string>
     <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Die Seite, die Sie anzuzeigen versuchen, enthält Daten, die bereits gesendet wurde (\"POST-DATEN\"). Wenn Sie die Daten erneut senden, wird jede Aktion, die das Formular auf der Seite ausgeführt hat, wiederholt (wie beispielsweise eine Suche oder ein Online-Kauf)."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"Keine Netzwerkverbindung"</string>
-    <!-- no translation found for loadSuspended (3133656588880851273) -->
-    <skip />
+    <string name="loadSuspended" msgid="3133656588880851273">"Der Browser kann diese Seite nicht laden, da keine Internetverbindung besteht."</string>
     <string name="clear_history" msgid="5998307092715979619">"Verlauf löschen"</string>
-    <!-- no translation found for browser_history (1038987118290272525) -->
-    <skip />
+    <string name="browser_history" msgid="1038987118290272525">"Kürzlich besuchte Seiten"</string>
     <string name="empty_history" msgid="8738772352308207274">"Browserverlauf ist leer."</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"Lesezeichen hinzufügen..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Hinzufügen"</string>
@@ -286,8 +262,7 @@
     <string name="download_pending_network" msgid="6548714525679461053">"Warten auf Datenverbindung..."</string>
     <string name="download_running_paused" msgid="6418029352085656495">"Warten auf Datenverbindung..."</string>
     <string name="download_canceled" msgid="6057083743144492515">"Download abgebrochen."</string>
-    <!-- no translation found for download_not_acceptable (313769696131563652) -->
-    <skip />
+    <string name="download_not_acceptable" msgid="313769696131563652">"Der Download kann nicht durchgeführt werden, da der Content auf diesem Telefon nicht unterstützt wird."</string>
     <string name="download_file_error" msgid="1206648050615176113">"Download kann nicht beendet werden, da nicht genügend Speicherplatz vorhanden ist."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Download kann nicht gestartet werden, da die Größe des Elements nicht bestimmt werden kann."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Download wurde unterbrochen und kann nicht fortgesetzt werden."</string>
@@ -299,19 +274,17 @@
     <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Alle mit dieser Website verknüpften Datenbanken entfernen"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Gespeicherte Daten löschen"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Alle von dieser Website gespeicherten Daten werden gelöscht."</string>
-    <!-- no translation found for webstorage_clear_data_dialog_ok_button (2516563534211898636) -->
-    <skip />
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Alles löschen"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Abbrechen"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Auf Ihrem Telefon gespeicherte MB"</string>
-    <!-- no translation found for loading_video (4887871585216091096) -->
+    <string name="loading_video" msgid="4887871585216091096">"Video wird geladen"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> möchte Ihren Standort in Erfahrung bringen."</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Standort freigeben"</string>
+    <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Ablehnen"</string>
+    <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Voreinstellung speichern"</string>
+    <!-- no translation found for geolocation_permissions_prompt_toast_allowed (987286072035125498) -->
     <skip />
-    <!-- no translation found for geolocation_permissions_prompt_message (356796102004052471) -->
-    <skip />
-    <!-- no translation found for geolocation_permissions_prompt_share (9084486342048347976) -->
-    <skip />
-    <!-- no translation found for geolocation_permissions_prompt_dont_share (6303025160237860300) -->
-    <skip />
-    <!-- no translation found for geolocation_permissions_prompt_remember (3118526300707348308) -->
+    <!-- no translation found for geolocation_permissions_prompt_toast_disallowed (7695100950212692515) -->
     <skip />
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Standortzugriff löschen"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Diese Website hat derzeit Zugriff auf Ihren Standort."</string>
@@ -320,15 +293,10 @@
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Der Standortzugriff für diese Website wird gelöscht."</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Zugriff löschen"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Abbrechen"</string>
-    <!-- no translation found for website_settings_clear_all (8739804325997655980) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_title (7791826325122461718) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_message (6150502090601476333) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_ok_button (6401582240627669431) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
-    <skip />
+    <string name="website_settings_clear_all" msgid="8739804325997655980">"Alles löschen"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Sollen alle Website-Einstellungen gelöscht werden?"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Alle Websitedaten und Standortberechtigungen werden gelöscht."</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Alle Daten löschen"</string>
+    <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Abbrechen"</string>
     <string name="zoom_overview_button_text" msgid="4146579940085488881">"Übersicht"</string>
 </resources>
