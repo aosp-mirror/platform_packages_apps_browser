@@ -86,6 +86,8 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"El marcador debe tener una ubicación."</string>
     <string name="empty_bookmark" msgid="7008697085928540511">"No es posible crear un marcador vacío."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"La URL no es válida."</string>
+    <!-- no translation found for bookmark_cannot_save_url (791722768778386941) -->
+    <skip />
     <string name="delete_bookmark" msgid="2422989994934201992">"Eliminar"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Última página vista del marcador"</string>
     <string name="switch_to_thumbnails" msgid="5493351529609043151">"Vista en miniatura"</string>
@@ -280,6 +282,10 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Compartir ubicación"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rechazar"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Recordar la preferencia"</string>
+    <!-- no translation found for geolocation_permissions_prompt_toast_allowed (987286072035125498) -->
+    <skip />
+    <!-- no translation found for geolocation_permissions_prompt_toast_disallowed (7695100950212692515) -->
+    <skip />
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Borrar acceso a la ubicación"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Este sitio puede acceder a tu ubicación actualmente"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Este sitio no puede acceder a tu ubicación actualmente"</string>
