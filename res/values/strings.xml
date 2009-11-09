@@ -429,7 +429,7 @@
     <!-- Settings label -->
     <string name="pref_extras_website_settings">Website settings</string>
     <!-- Settings summary -->
-    <string name="pref_extras_website_settings_summary">View advanced settings for individual websites</string>
+    <string name="pref_extras_website_settings_summary">Advanced settings for individual websites</string>
     <!-- Settings label -->
     <string name="pref_extras_reset_default">Reset to default</string>
     <!-- Settings summary -->
