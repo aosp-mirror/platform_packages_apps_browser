@@ -36,7 +36,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-class DownloadTouchIcon extends AsyncTask<String, Void, Bitmap> {
+class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     private final ContentResolver mContentResolver;
     private final Cursor mCursor;
     private final String mOriginalUrl;
@@ -64,7 +64,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Bitmap> {
     }
 
     @Override
-    public Bitmap doInBackground(String... values) {
+    public Void doInBackground(String... values) {
         String url = values[0];
 
         AndroidHttpClient client = AndroidHttpClient.newInstance(
@@ -84,7 +84,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Bitmap> {
                     if (content != null) {
                         Bitmap icon = BitmapFactory.decodeStream(
                                 content, null, null);
-                        return icon;
+                        storeIcon(icon);
                     }
                 }
             }
@@ -105,8 +105,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Bitmap> {
         }
     }
 
-    @Override
-    public void onPostExecute(Bitmap icon) {
+    private void storeIcon(Bitmap icon) {
         // Do this first in case the download failed.
         if (mTab != null) {
             // Remove the touch icon loader from the BrowserActivity.
