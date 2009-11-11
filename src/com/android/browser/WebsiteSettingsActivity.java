@@ -88,6 +88,10 @@ public class WebsiteSettingsActivity extends ListActivity {
             mFeatures |= (1 << feature);
         }
 
+        public void removeFeature(int feature) {
+            mFeatures &= ~(1 << feature);
+        }
+
         public boolean hasFeature(int feature) {
             return (mFeatures & (1 << feature)) != 0;
         }
@@ -168,7 +172,7 @@ public class WebsiteSettingsActivity extends ListActivity {
             mResource = rsc;
             mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mDefaultIcon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.ic_launcher_shortcut_browser_bookmark);
+                    R.drawable.app_web_browser_sm);
             mUsageEmptyIcon = BitmapFactory.decodeResource(getResources(),
                     R.drawable.ic_list_data_off);
             mUsageLowIcon = BitmapFactory.decodeResource(getResources(),
@@ -280,7 +284,16 @@ public class WebsiteSettingsActivity extends ListActivity {
                         Iterator<Site> sitesIter = matchingSites.iterator();
                         while (sitesIter.hasNext()) {
                             Site site = sitesIter.next();
-                            site.setTitle(title);
+                            // We should only set the title if the bookmark is for the root
+                            // (i.e. www.google.com), as website settings act on the origin
+                            // as a whole rather than a single page under that origin. If the
+                            // user has bookmarked a page under the root but *not* the root,
+                            // then we risk displaying the title of that page which may or
+                            // may not have any relevance to the origin.
+                            if (url.equals(site.getOrigin()) ||
+                                    (new String(site.getOrigin()+"/")).equals(url)) {
+                                site.setTitle(title);
+                            }
                             if (bmp != null) {
                                 site.setIcon(bmp);
                             }
@@ -323,7 +336,7 @@ public class WebsiteSettingsActivity extends ListActivity {
             // We display the size in MB, to 1dp, rounding up to the next 0.1MB.
             // bytes should always be greater than zero.
             if (bytes <= 0) {
-                Log.e(LOGTAG, "sizeValueToString called with non-positive value");
+                Log.e(LOGTAG, "sizeValueToString called with non-positive value: " + bytes);
                 return "0";
             }
             float megabytes = (float) bytes / (1024.0F * 1024.0F);
@@ -354,8 +367,6 @@ public class WebsiteSettingsActivity extends ListActivity {
          */
         public void setIconForUsage(ImageView usageIcon, long usageInBytes) {
             float usageInMegabytes = (float) usageInBytes / (1024.0F * 1024.0F);
-            usageIcon.setVisibility(View.VISIBLE);
-
             // We set the correct icon:
             // 0 < empty < 0.1MB
             // 0.1MB < low < 5MB
@@ -373,9 +384,10 @@ public class WebsiteSettingsActivity extends ListActivity {
             View view;
             final TextView title;
             final TextView subtitle;
-            ImageView icon;
+            final ImageView icon;
             final ImageView usageIcon;
             final ImageView locationIcon;
+            final ImageView featureIcon;
 
             if (convertView == null) {
                 view = mInflater.inflate(mResource, parent, false);
@@ -386,6 +398,7 @@ public class WebsiteSettingsActivity extends ListActivity {
             title = (TextView) view.findViewById(R.id.title);
             subtitle = (TextView) view.findViewById(R.id.subtitle);
             icon = (ImageView) view.findViewById(R.id.icon);
+            featureIcon = (ImageView) view.findViewById(R.id.feature_icon);
             usageIcon = (ImageView) view.findViewById(R.id.usage_icon);
             locationIcon = (ImageView) view.findViewById(R.id.location_icon);
             usageIcon.setVisibility(View.GONE);
@@ -396,10 +409,22 @@ public class WebsiteSettingsActivity extends ListActivity {
 
                 Site site = getItem(position);
                 title.setText(site.getPrettyTitle());
-                subtitle.setText(site.getPrettyOrigin());
+                String subtitleText = site.getPrettyOrigin();
+                if (subtitleText != null) {
+                    title.setMaxLines(1);
+                    title.setSingleLine(true);
+                    subtitle.setVisibility(View.VISIBLE);
+                    subtitle.setText(subtitleText);
+                } else {
+                    subtitle.setVisibility(View.GONE);
+                    title.setMaxLines(2);
+                    title.setSingleLine(false);
+                }
+
                 icon.setVisibility(View.VISIBLE);
                 usageIcon.setVisibility(View.INVISIBLE);
                 locationIcon.setVisibility(View.INVISIBLE);
+                featureIcon.setVisibility(View.GONE);
                 Bitmap bmp = site.getIcon();
                 if (bmp == null) {
                     bmp = mDefaultIcon;
@@ -415,6 +440,7 @@ public class WebsiteSettingsActivity extends ListActivity {
                         public void onReceiveValue(Long value) {
                             if (value != null) {
                                 setIconForUsage(usageIcon, value.longValue());
+                                usageIcon.setVisibility(View.VISIBLE);
                             }
                         }
                     });
@@ -435,8 +461,11 @@ public class WebsiteSettingsActivity extends ListActivity {
                     });
                 }
             } else {
-                setTitle(mCurrentSite.getPrettyTitle());
                 icon.setVisibility(View.GONE);
+                locationIcon.setVisibility(View.GONE);
+                usageIcon.setVisibility(View.GONE);
+                featureIcon.setVisibility(View.VISIBLE);
+                setTitle(mCurrentSite.getPrettyTitle());
                 String origin = mCurrentSite.getOrigin();
                 switch (mCurrentSite.getFeatureByIndex(position)) {
                     case Site.FEATURE_WEB_STORAGE:
@@ -446,6 +475,8 @@ public class WebsiteSettingsActivity extends ListActivity {
                                     String usage = sizeValueToString(value.longValue()) + " " + sMBStored;
                                     title.setText(R.string.webstorage_clear_data_title);
                                     subtitle.setText(usage);
+                                    subtitle.setVisibility(View.VISIBLE);
+                                    setIconForUsage(featureIcon, value.longValue());
                                 }
                             }
                         });
@@ -457,9 +488,12 @@ public class WebsiteSettingsActivity extends ListActivity {
                                 if (allowed != null) {
                                     if (allowed.booleanValue()) {
                                         subtitle.setText(R.string.geolocation_settings_page_summary_allowed);
+                                        featureIcon.setImageBitmap(mLocationAllowedIcon);
                                     } else {
                                         subtitle.setText(R.string.geolocation_settings_page_summary_not_allowed);
+                                        featureIcon.setImageBitmap(mLocationDisallowedIcon);
                                     }
+                                    subtitle.setVisibility(View.VISIBLE);
                                 }
                             }
                         });
@@ -484,8 +518,14 @@ public class WebsiteSettingsActivity extends ListActivity {
                                                new AlertDialog.OnClickListener() {
                                 public void onClick(DialogInterface dlg, int which) {
                                     WebStorage.getInstance().deleteOrigin(mCurrentSite.getOrigin());
-                                    mCurrentSite = null;
+                                    // If this site has no more features, then go back to the
+                                    // origins list.
+                                    mCurrentSite.removeFeature(Site.FEATURE_WEB_STORAGE);
+                                    if (mCurrentSite.getFeatureCount() == 0) {
+                                        mCurrentSite = null;
+                                    }
                                     askForOrigins();
+                                    notifyDataSetChanged();
                                 }})
                             .setNegativeButton(R.string.webstorage_clear_data_dialog_cancel_button, null)
                             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -499,8 +539,12 @@ public class WebsiteSettingsActivity extends ListActivity {
                                                new AlertDialog.OnClickListener() {
                                 public void onClick(DialogInterface dlg, int which) {
                                     GeolocationPermissions.getInstance().clear(mCurrentSite.getOrigin());
-                                    mCurrentSite = null;
+                                    mCurrentSite.removeFeature(Site.FEATURE_GEOLOCATION);
+                                    if (mCurrentSite.getFeatureCount() == 0) {
+                                        mCurrentSite = null;
+                                    }
                                     askForOrigins();
+                                    notifyDataSetChanged();
                                 }})
                             .setNegativeButton(R.string.geolocation_settings_page_dialog_cancel_button, null)
                             .setIcon(android.R.drawable.ic_dialog_alert)
