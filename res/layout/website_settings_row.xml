@@ -18,15 +18,16 @@
   android:drawingCacheQuality="auto"
   android:layout_width="fill_parent"
   android:layout_height="?android:attr/listPreferredItemHeight"
-  android:gravity="center"
+  android:gravity="center_vertical"
   android:padding="0dip">
 
   <ImageView android:id="@+id/icon"
-    android:layout_width="32dip"
-    android:layout_height="32dip"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentBottom="true"
+    android:layout_width="20dip"
+    android:layout_height="20dip"
+    android:layout_marginLeft="18dip"
+    android:layout_marginRight="18dip"
+    android:layout_centerVertical="true"
+    android:background="@drawable/fav_icn_background"
     android:padding="2dip" />
 
   <LinearLayout android:id="@+id/features"
@@ -49,27 +50,37 @@
       android:layout_height="32dip"
       android:padding="2dip" />
 
+    <ImageView android:id="@+id/feature_icon"
+      android:layout_width="32dip"
+      android:layout_height="32dip"
+      android:padding="2dip"
+      android:layout_centerVertical="true"
+      android:layout_alignParentRight="true"
+      android:visibility="gone" />
   </LinearLayout>
 
-  <TextView android:id="@+id/title"
+  <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
+    android:layout_toRightOf="@id/icon"
+    android:layout_toLeftOf="@id/features"
+    android:layout_centerVertical="true"
     android:layout_alignWithParentIfMissing="true"
-    android:layout_toRightOf="@id/icon"
-    android:layout_toLeftOf="@id/features"
-    android:layout_marginLeft="6dip"
-    android:layout_marginTop="6dip"
-    android:textAppearance="?android:attr/textAppearanceLarge"/>
+    android:orientation="vertical">
 
-  <TextView android:id="@+id/subtitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_toRightOf="@id/icon"
-    android:layout_toLeftOf="@id/features"
-    android:layout_below="@id/title"
-    android:layout_alignLeft="@id/title"
-    android:layout_marginBottom="2dip"
-    android:textAppearance="?android:attr/textAppearanceSmall"/>
+    <TextView android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:maxLines="2"
+      android:ellipsize="end" />
 
+    <TextView android:id="@+id/subtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:visibility="gone"
+      android:singleLine="true"
+      android:ellipsize="end" />
+  </LinearLayout>
 </RelativeLayout>
