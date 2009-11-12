@@ -520,6 +520,9 @@ class TabControl {
         // settings
         final BrowserSettings s = BrowserSettings.getInstance();
         s.addObserver(w.getSettings()).update(s, null);
+
+        // disable for now
+        //w.setDragTracker(new MeshTracker());
         return w;
     }
 
