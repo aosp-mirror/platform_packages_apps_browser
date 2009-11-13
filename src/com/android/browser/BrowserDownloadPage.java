@@ -66,34 +66,30 @@ public class BrowserDownloadPage extends Activity
         setTitle(getText(R.string.download_title));
 
         mListView = (ListView) findViewById(R.id.list);
-        LayoutInflater factory = LayoutInflater.from(this);
-        View v = factory.inflate(R.layout.no_downloads, null);
-        addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT));
-        mListView.setEmptyView(v);
+        mListView.setEmptyView(findViewById(R.id.empty));
         
         mDownloadCursor = managedQuery(Downloads.CONTENT_URI, 
-                new String [] {"_id", Downloads.TITLE, Downloads.STATUS,
-                Downloads.TOTAL_BYTES, Downloads.CURRENT_BYTES, 
-                Downloads._DATA, Downloads.DESCRIPTION, 
-                Downloads.MIMETYPE, Downloads.LAST_MODIFICATION,
-                Downloads.VISIBILITY}, 
+                new String [] {"_id", Downloads.COLUMN_TITLE, Downloads.COLUMN_STATUS,
+                Downloads.COLUMN_TOTAL_BYTES, Downloads.COLUMN_CURRENT_BYTES, 
+                Downloads._DATA, Downloads.COLUMN_DESCRIPTION, 
+                Downloads.COLUMN_MIME_TYPE, Downloads.COLUMN_LAST_MODIFICATION,
+                Downloads.COLUMN_VISIBILITY}, 
                 null, null);
         
         // only attach everything to the listbox if we can access
         // the download database. Otherwise, just show it empty
         if (mDownloadCursor != null) {
             mStatusColumnId = 
-                    mDownloadCursor.getColumnIndexOrThrow(Downloads.STATUS);
+                    mDownloadCursor.getColumnIndexOrThrow(Downloads.COLUMN_STATUS);
             mIdColumnId =
                     mDownloadCursor.getColumnIndexOrThrow(Downloads._ID);
             mTitleColumnId = 
-                    mDownloadCursor.getColumnIndexOrThrow(Downloads.TITLE);
+                    mDownloadCursor.getColumnIndexOrThrow(Downloads.COLUMN_TITLE);
             
             // Create a list "controller" for the data
             mDownloadAdapter = new BrowserDownloadAdapter(this, 
                     R.layout.browser_download_item, mDownloadCursor);
-            
+
             mListView.setAdapter(mDownloadAdapter);
             mListView.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
             mListView.setOnCreateContextMenuListener(this);
@@ -403,7 +399,7 @@ public class BrowserDownloadPage extends Activity
                 mDownloadCursor.getColumnIndexOrThrow(Downloads._DATA);
         String filename = mDownloadCursor.getString(filenameColumnId);
         int mimetypeColumnId =
-                mDownloadCursor.getColumnIndexOrThrow(Downloads.MIMETYPE);
+                mDownloadCursor.getColumnIndexOrThrow(Downloads.COLUMN_MIME_TYPE);
         String mimetype = mDownloadCursor.getString(mimetypeColumnId);
         Uri path = Uri.parse(filename);
         // If there is no scheme, then it must be a file
@@ -453,13 +449,13 @@ public class BrowserDownloadPage extends Activity
     private void hideCompletedDownload() {
         int status = mDownloadCursor.getInt(mStatusColumnId);
 
-        int visibilityColumn = mDownloadCursor.getColumnIndexOrThrow(Downloads.VISIBILITY);
+        int visibilityColumn = mDownloadCursor.getColumnIndexOrThrow(Downloads.COLUMN_VISIBILITY);
         int visibility = mDownloadCursor.getInt(visibilityColumn);
 
         if (Downloads.isStatusCompleted(status) &&
                 visibility == Downloads.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) {
             ContentValues values = new ContentValues();
-            values.put(Downloads.VISIBILITY, Downloads.VISIBILITY_VISIBLE);
+            values.put(Downloads.COLUMN_VISIBILITY, Downloads.VISIBILITY_VISIBLE);
             getContentResolver().update(
                     ContentUris.withAppendedId(Downloads.CONTENT_URI,
                     mDownloadCursor.getLong(mIdColumnId)), values, null, null);

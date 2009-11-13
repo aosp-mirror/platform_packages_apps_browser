@@ -38,6 +38,7 @@ class BrowserYesNoPreference extends YesNoPreference {
             Context context = getContext();
             if (BrowserSettings.PREF_CLEAR_CACHE.equals(getKey())) {
                 BrowserSettings.getInstance().clearCache(context);
+                BrowserSettings.getInstance().clearDatabases(context);
             } else if (BrowserSettings.PREF_CLEAR_COOKIES.equals(getKey())) {
                 BrowserSettings.getInstance().clearCookies(context);
             } else if (BrowserSettings.PREF_CLEAR_HISTORY.equals(getKey())) {
@@ -50,6 +51,9 @@ class BrowserYesNoPreference extends YesNoPreference {
                     getKey())) {
                 BrowserSettings.getInstance().resetDefaultPreferences(context);
                 setEnabled(true);
+            } else if (BrowserSettings.PREF_CLEAR_GEOLOCATION_ACCESS.equals(
+                    getKey())) {
+                BrowserSettings.getInstance().clearLocationAccess(context);
             }
         }
     }

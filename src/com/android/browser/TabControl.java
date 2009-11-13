@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Picture;
 import android.net.http.SslError;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,7 +70,7 @@ class TabControl {
     private final LayoutInflater mInflateService;
     // Subclass of WebViewClient used in subwindows to notify the main
     // WebViewClient of certain WebView activities.
-    private class SubWindowClient extends WebViewClient {
+    private static class SubWindowClient extends WebViewClient {
         // The main WebViewClient.
         private final WebViewClient mClient;
 
@@ -103,6 +105,16 @@ class TabControl {
         public void onReceivedError(WebView view, int errorCode,
                 String description, String failingUrl) {
             mClient.onReceivedError(view, errorCode, description, failingUrl);
+        }
+        @Override
+        public boolean shouldOverrideKeyEvent(WebView view,
+                android.view.KeyEvent event) {
+            return mClient.shouldOverrideKeyEvent(view, event);
+        }
+        @Override
+        public void onUnhandledKeyEvent(WebView view,
+                android.view.KeyEvent event) {
+            mClient.onUnhandledKeyEvent(view, event);
         }
     }
     // Subclass of WebChromeClient to display javascript dialogs.
@@ -139,7 +151,7 @@ class TabControl {
         public void onRequestFocus(WebView view) {
             Tab t = getTabFromView(view);
             if (t != getCurrentTab()) {
-                mActivity.showTab(t);
+                mActivity.switchToTab(getTabIndex(t));
             }
         }
     }
@@ -148,20 +160,19 @@ class TabControl {
     public static class PickerData {
         String  mUrl;
         String  mTitle;
+        Bitmap  mFavicon;
         float   mScale;
         int     mScrollX;
         int     mScrollY;
-        int     mWidth;
-        Picture mPicture;
-        // This can be null. When a new picture comes in, this view should be
-        // invalidated to show the new picture.
-        FakeWebView mFakeWebView;
     }
 
     /**
      * Private class for maintaining Tabs with a main WebView and a subwindow.
      */
-    public class Tab implements WebView.PictureListener {
+    public class Tab {
+        // The Geolocation permissions prompt
+        private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
+        private View mContainer;
         // Main WebView
         private WebView mMainView;
         // Subwindow WebView
@@ -195,12 +206,103 @@ class TabControl {
         // url has not changed.
         private String mOriginalUrl;
 
+        private ErrorConsoleView mErrorConsole;
+        // the lock icon type and previous lock icon type for the tab
+        private int mSavedLockIconType;
+        private int mSavedPrevLockIconType;
+
         // Construct a new tab
-        private Tab(WebView w, boolean closeOnExit, String appId, String url) {
-            mMainView = w;
+        private Tab(WebView w, boolean closeOnExit, String appId, String url, Context context) {
             mCloseOnExit = closeOnExit;
             mAppId = appId;
             mOriginalUrl = url;
+            mSavedLockIconType = BrowserActivity.LOCK_ICON_UNSECURE;
+            mSavedPrevLockIconType = BrowserActivity.LOCK_ICON_UNSECURE;
+
+            // The tab consists of a container view, which contains the main
+            // WebView, as well as any other UI elements associated with the tab.
+            LayoutInflater factory = LayoutInflater.from(context);
+            mContainer = factory.inflate(R.layout.tab, null);
+
+            mGeolocationPermissionsPrompt =
+                (GeolocationPermissionsPrompt) mContainer.findViewById(
+                    R.id.geolocation_permissions_prompt);
+
+            setWebView(w);
+        }
+
+        /**
+         * Sets the WebView for this tab, correctly removing the old WebView
+         * from the container view.
+         */
+        public void setWebView(WebView w) {
+            if (mMainView == w) {
+                return;
+            }
+            // If the WebView is changing, the page will be reloaded, so any ongoing Geolocation
+            // permission requests are void.
+            mGeolocationPermissionsPrompt.hide();
+
+            // Just remove the old one.
+            FrameLayout wrapper =
+                    (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
+            wrapper.removeView(mMainView);
+            mMainView = w;
+        }
+
+        /**
+         * This method attaches both the WebView and any sub window to the
+         * given content view.
+         */
+        public void attachTabToContentView(ViewGroup content) {
+            if (mMainView == null) {
+                return;
+            }
+
+            // Attach the WebView to the container and then attach the
+            // container to the content view.
+            FrameLayout wrapper =
+                    (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
+            wrapper.addView(mMainView);
+            content.addView(mContainer, BrowserActivity.COVER_SCREEN_PARAMS);
+            attachSubWindow(content);
+        }
+
+        /**
+         * Remove the WebView and any sub window from the given content view.
+         */
+        public void removeTabFromContentView(ViewGroup content) {
+            if (mMainView == null) {
+                return;
+            }
+
+            // Remove the container from the content and then remove the
+            // WebView from the container. This will trigger a focus change
+            // needed by WebView.
+            FrameLayout wrapper =
+                    (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
+            wrapper.removeView(mMainView);
+            content.removeView(mContainer);
+            removeSubWindow(content);
+        }
+
+        /**
+         * Attach the sub window to the content view.
+         */
+        public void attachSubWindow(ViewGroup content) {
+            if (mSubView != null) {
+                content.addView(mSubViewContainer,
+                        BrowserActivity.COVER_SCREEN_PARAMS);
+            }
+        }
+
+        /**
+         * Remove the sub window from the content view.
+         */
+        public void removeSubWindow(ViewGroup content) {
+            if (mSubView != null) {
+                content.removeView(mSubViewContainer);
+            }
         }
 
         /**
@@ -226,20 +328,18 @@ class TabControl {
         }
 
         /**
+         * @return The geolocation permissions prompt for this tab.
+         */
+        public GeolocationPermissionsPrompt getGeolocationPermissionsPrompt() {
+            return mGeolocationPermissionsPrompt;
+        }
+
+        /**
          * Return the subwindow of this tab or null if there is no subwindow.
          * @return The subwindow of this tab or null.
          */
         public WebView getSubWebView() {
             return mSubView;
-        }
-
-        /**
-         * Return the subwindow container of this tab or null if there is no
-         * subwindow.
-         * @return The subwindow's container View.
-         */
-        public View getSubWebViewContainer() {
-            return mSubViewContainer;
         }
 
         /**
@@ -269,11 +369,11 @@ class TabControl {
             return null;
         }
 
-        /**
-         * Returns the picker data.
-         */
-        public PickerData getPickerData() {
-            return mPickerData;
+        public Bitmap getFavicon() {
+            if (mPickerData != null) {
+                return mPickerData.mFavicon;
+            }
+            return null;
         }
 
         private void setParentTab(Tab parent) {
@@ -336,16 +436,20 @@ class TabControl {
             return mCloseOnExit;
         }
 
-        public void onNewPicture(WebView view, Picture p) {
-            if (mPickerData == null) {
-                return;
-            }
+        void setLockIconType(int type) {
+            mSavedLockIconType = type;
+        }
 
-            mPickerData.mPicture = p;
-            // Tell the FakeWebView to redraw.
-            if (mPickerData.mFakeWebView != null) {
-                mPickerData.mFakeWebView.invalidate();
-            }
+        int getLockIconType() {
+            return mSavedLockIconType;
+        }
+
+        void setPrevLockIconType(int type) {
+            mSavedPrevLockIconType = type;
+        }
+
+        int getPrevLockIconType() {
+            return mSavedPrevLockIconType;
         }
     };
 
@@ -385,6 +489,28 @@ class TabControl {
             return null;
         }
         return t.mMainView;
+    }
+
+    /**
+     * Return the current tab's error console. Creates the console if createIfNEcessary
+     * is true and we haven't already created the console.
+     * @param createIfNecessary Flag to indicate if the console should be created if it has
+     *                          not been already.
+     * @return The current tab's error console, or null if one has not been created and
+     *         createIfNecessary is false.
+     */
+    ErrorConsoleView getCurrentErrorConsole(boolean createIfNecessary) {
+        Tab t = getTab(mCurrentTab);
+        if (t == null) {
+            return null;
+        }
+
+        if (createIfNecessary && t.mErrorConsole == null) {
+            t.mErrorConsole = new ErrorConsoleView(mActivity);
+            t.mErrorConsole.setWebView(t.mMainView);
+        }
+
+        return t.mErrorConsole;
     }
 
     /**
@@ -446,6 +572,9 @@ class TabControl {
      * @return index of Tab or -1 if not found
      */
     int getTabIndex(Tab tab) {
+        if (tab == null) {
+            return -1;
+        }
         return mTabs.indexOf(tab);
     }
 
@@ -461,8 +590,9 @@ class TabControl {
             return null;
         }
         final WebView w = createNewWebView();
+
         // Create a new tab and add it to the tab list
-        Tab t = new Tab(w, closeOnExit, appId, url);
+        Tab t = new Tab(w, closeOnExit, appId, url, mActivity);
         mTabs.add(t);
         // Initially put the tab in the background.
         putTabInBackground(t);
@@ -499,9 +629,10 @@ class TabControl {
             // observers.
             BrowserSettings.getInstance().deleteObserver(
                     t.mMainView.getSettings());
-            // Destroy the main view and subview
-            t.mMainView.destroy();
-            t.mMainView = null;
+            WebView w = t.mMainView;
+            t.setWebView(null);
+            // Destroy the main view
+            w.destroy();
         }
         // clear it's references to parent and children
         t.removeFromTree();
@@ -561,8 +692,9 @@ class TabControl {
             if (t.mMainView != null) {
                 dismissSubWindow(t);
                 s.deleteObserver(t.mMainView.getSettings());
-                t.mMainView.destroy();
-                t.mMainView = null;
+                WebView w = t.mMainView;
+                t.setWebView(null);
+                w.destroy();
             }
         }
         mTabs.clear();
@@ -583,7 +715,6 @@ class TabControl {
     private static final String CURRTAB = "currentTab";
     private static final String CURRURL = "currentUrl";
     private static final String CURRTITLE = "currentTitle";
-    private static final String CURRWIDTH = "currentWidth";
     private static final String CURRPICTURE = "currentPicture";
     private static final String CLOSEONEXIT = "closeonexit";
     private static final String PARENTTAB = "parentTab";
@@ -634,7 +765,7 @@ class TabControl {
                 } else {
                     // Create a new tab and don't restore the state yet, add it
                     // to the tab list
-                    Tab t = new Tab(null, false, null, null);
+                    Tab t = new Tab(null, false, null, null, mActivity);
                     t.mSavedState = inState.getBundle(WEBVIEW + i);
                     if (t.mSavedState != null) {
                         populatePickerDataFromSavedState(t);
@@ -671,8 +802,10 @@ class TabControl {
      * WebView cache;
      */
     void freeMemory() {
+        if (getTabCount() == 0) return;
+
         // free the least frequently used background tab
-        Tab t = getLeastUsedTab();
+        Tab t = getLeastUsedTab(getCurrentTab());
         if (t != null) {
             Log.w(LOGTAG, "Free a tab in the browser");
             freeTab(t);
@@ -681,19 +814,20 @@ class TabControl {
             return;
         }
 
-        // free the WebView cache
-        Log.w(LOGTAG, "Free WebView cache");
+        // free the WebView's unused memory (this includes the cache)
+        Log.w(LOGTAG, "Free WebView's unused memory and cache");
         WebView view = getCurrentWebView();
         if (view != null) {
-            view.clearCache(false);
+            view.freeMemory();
         }
         // force a gc
         System.gc();
     }
 
-    private Tab getLeastUsedTab() {
-        // Don't do anything if we only have 1 tab.
-        if (getTabCount() == 1) {
+    private Tab getLeastUsedTab(Tab current) {
+        // Don't do anything if we only have 1 tab or if the current tab is
+        // null.
+        if (getTabCount() == 1 || current == null) {
             return null;
         }
 
@@ -707,11 +841,13 @@ class TabControl {
         }
         do {
             t = mTabQueue.get(i++);
-        } while (i < queueSize && t != null && t.mMainView == null);
+        } while (i < queueSize
+                && ((t != null && t.mMainView == null)
+                    || t == current.mParentTab));
 
         // Don't do anything if the last remaining tab is the current one or if
         // the last tab has been freed already.
-        if (t == getCurrentTab() || t.mMainView == null) {
+        if (t == current || t.mMainView == null) {
             return null;
         }
 
@@ -727,8 +863,9 @@ class TabControl {
         // Remove the WebView's settings from the BrowserSettings list of
         // observers.
         BrowserSettings.getInstance().deleteObserver(t.mMainView.getSettings());
-        t.mMainView.destroy();
-        t.mMainView = null;
+        WebView w = t.mMainView;
+        t.setWebView(null);
+        w.destroy();
     }
 
     /**
@@ -801,6 +938,45 @@ class TabControl {
         return null;
     }
 
+    // This method checks if a non-app tab (one created within the browser)
+    // matches the given url.
+    private boolean tabMatchesUrl(Tab t, String url) {
+        if (t.mAppId != null) {
+            return false;
+        } else if (t.mMainView == null) {
+            return false;
+        } else if (url.equals(t.mMainView.getUrl()) ||
+                url.equals(t.mMainView.getOriginalUrl())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Return the tab that has no app id associated with it and the url of the
+     * tab matches the given url.
+     * @param url The url to search for.
+     */
+    Tab findUnusedTabWithUrl(String url) {
+        if (url == null) {
+            return null;
+        }
+        // Check the current tab first.
+        Tab t = getCurrentTab();
+        if (t != null && tabMatchesUrl(t, url)) {
+            return t;
+        }
+        // Now check all the rest.
+        final int size = getTabCount();
+        for (int i = 0; i < size; i++) {
+            t = getTab(i);
+            if (tabMatchesUrl(t, url)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
     /**
      * Recreate the main WebView of the given tab. Returns true if the WebView
      * was deleted.
@@ -827,7 +1003,7 @@ class TabControl {
         }
         // Create a new WebView. If this tab is the current tab, we need to put
         // back all the clients so force it to be the current tab.
-        t.mMainView = createNewWebView();
+        t.setWebView(createNewWebView());
         if (getCurrentTab() == t) {
             setCurrentTab(t, true);
         }
@@ -846,6 +1022,8 @@ class TabControl {
     private WebView createNewWebView() {
         // Create a new WebView
         WebView w = new WebView(mActivity);
+        w.setScrollbarFadingEnabled(true);
+        w.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         w.setMapTrackballToArrowKeys(false); // use trackball directly
         // Enable the built-in zoom
         w.getSettings().setBuiltInZoomControls(true);
@@ -863,6 +1041,48 @@ class TabControl {
      */
     boolean setCurrentTab(Tab newTab) {
         return setCurrentTab(newTab, false);
+    }
+
+    /*package*/ void pauseCurrentTab() {
+        Tab t = getCurrentTab();
+        if (t != null) {
+            t.mMainView.onPause();
+            if (t.mSubView != null) {
+                t.mSubView.onPause();
+            }
+        }
+    }
+
+    /*package*/ void resumeCurrentTab() {
+        Tab t = getCurrentTab();
+        if (t != null) {
+            t.mMainView.onResume();
+            if (t.mSubView != null) {
+                t.mSubView.onResume();
+            }
+        }
+    }
+
+    private void putViewInForeground(WebView v, WebViewClient vc,
+                                     WebChromeClient cc) {
+        v.setWebViewClient(vc);
+        v.setWebChromeClient(cc);
+        v.setOnCreateContextMenuListener(mActivity);
+        v.setDownloadListener(mActivity);
+        v.onResume();
+    }
+
+    private void putViewInBackground(WebView v) {
+        // Set an empty callback so that default actions are not triggered.
+        v.setWebViewClient(mEmptyClient);
+        v.setWebChromeClient(mBackgroundChromeClient);
+        v.setOnCreateContextMenuListener(null);
+        // Leave the DownloadManager attached so that downloads can start in
+        // a non-active window. This can happen when going to a site that does
+        // a redirect after a period of time. The user could have switched to
+        // another tab while waiting for the download to start.
+        v.setDownloadListener(mActivity);
+        v.onPause();
     }
 
     /**
@@ -890,7 +1110,6 @@ class TabControl {
         mTabQueue.add(newTab);
 
         WebView mainView;
-        WebView subView;
 
         // Display the new current tab
         mCurrentTab = mTabs.indexOf(newTab);
@@ -898,19 +1117,15 @@ class TabControl {
         boolean needRestore = (mainView == null);
         if (needRestore) {
             // Same work as in createNewTab() except don't do new Tab()
-            newTab.mMainView = mainView = createNewWebView();
+            mainView = createNewWebView();
+            newTab.setWebView(mainView);
         }
-        mainView.setWebViewClient(mActivity.getWebViewClient());
-        mainView.setWebChromeClient(mActivity.getWebChromeClient());
-        mainView.setOnCreateContextMenuListener(mActivity);
-        mainView.setDownloadListener(mActivity);
+        putViewInForeground(mainView, mActivity.getWebViewClient(),
+                            mActivity.getWebChromeClient());
         // Add the subwindow if it exists
         if (newTab.mSubViewContainer != null) {
-            subView = newTab.mSubView;
-            subView.setWebViewClient(newTab.mSubViewClient);
-            subView.setWebChromeClient(newTab.mSubViewChromeClient);
-            subView.setOnCreateContextMenuListener(mActivity);
-            subView.setDownloadListener(mActivity);
+            putViewInForeground(newTab.mSubView, newTab.mSubViewClient,
+                                newTab.mSubViewChromeClient);
         }
         if (needRestore) {
             // Have to finish setCurrentTab work before calling restoreState
@@ -925,23 +1140,9 @@ class TabControl {
      * Put the tab in the background using all the empty/background clients.
      */
     private void putTabInBackground(Tab t) {
-        WebView mainView = t.mMainView;
-        // Set an empty callback so that default actions are not triggered.
-        mainView.setWebViewClient(mEmptyClient);
-        mainView.setWebChromeClient(mBackgroundChromeClient);
-        mainView.setOnCreateContextMenuListener(null);
-        // Leave the DownloadManager attached so that downloads can start in
-        // a non-active window. This can happen when going to a site that does
-        // a redirect after a period of time. The user could have switched to
-        // another tab while waiting for the download to start.
-        mainView.setDownloadListener(mActivity);
-        WebView subView = t.mSubView;
-        if (subView != null) {
-            // Set an empty callback so that default actions are not triggered.
-            subView.setWebViewClient(mEmptyClient);
-            subView.setWebChromeClient(mBackgroundChromeClient);
-            subView.setOnCreateContextMenuListener(null);
-            subView.setDownloadListener(mActivity);
+        putViewInBackground(t.mMainView);
+        if (t.mSubView != null) {
+            putViewInBackground(t.mSubView);
         }
     }
 
@@ -979,15 +1180,6 @@ class TabControl {
         final WebHistoryItem item =
                 list != null ? list.getCurrentItem() : null;
         populatePickerData(t, item);
-
-        // This method is only called during the tab picker creation. At this
-        // point we need to listen for new pictures since the WebView is still
-        // active.
-        final WebView w = t.getTopWindow();
-        w.setPictureListener(t);
-        // Capture the picture here instead of populatePickerData since it can
-        // be called when saving the state of a tab.
-        t.mPickerData.mPicture = w.capturePicture();
     }
 
     // Create the PickerData and populate it using the saved state of the tab.
@@ -1000,24 +1192,11 @@ class TabControl {
         final Bundle state = t.mSavedState;
         data.mUrl = state.getString(CURRURL);
         data.mTitle = state.getString(CURRTITLE);
-        data.mWidth = state.getInt(CURRWIDTH, 0);
         // XXX: These keys are from WebView.savePicture so if they change, this
         // will break.
         data.mScale = state.getFloat("scale", 1.0f);
         data.mScrollX = state.getInt("scrollX", 0);
         data.mScrollY = state.getInt("scrollY", 0);
-
-        if (state.containsKey(CURRPICTURE)) {
-            final File f = new File(t.mSavedState.getString(CURRPICTURE));
-            try {
-                final FileInputStream in = new FileInputStream(f);
-                data.mPicture = Picture.createFromStream(in);
-                in.close();
-            } catch (Exception ex) {
-                // Ignore any problems with inflating the picture. We just
-                // won't draw anything.
-            }
-        }
 
         // Set the tab's picker data.
         t.mPickerData = data;
@@ -1030,6 +1209,7 @@ class TabControl {
         if (item != null) {
             data.mUrl = item.getUrl();
             data.mTitle = item.getTitle();
+            data.mFavicon = item.getFavicon();
             if (data.mTitle == null) {
                 data.mTitle = data.mUrl;
             }
@@ -1037,10 +1217,10 @@ class TabControl {
         // We want to display the top window in the tab picker but use the url
         // and title of the main window.
         final WebView w = t.getTopWindow();
-        data.mWidth = w.getWidth();
         data.mScale = w.getScale();
         data.mScrollX = w.getScrollX();
         data.mScrollY = w.getScrollY();
+
         t.mPickerData = data;
     }
     
@@ -1053,13 +1233,6 @@ class TabControl {
             final Tab t = getTab(i);
             if (t != null && t.mSavedState == null) {
                 t.mPickerData = null;
-            }
-            if (t.mMainView != null) {
-                // Clear the picture listeners.
-                t.mMainView.setPictureListener(null);
-                if (t.mSubView != null) {
-                    t.mSubView.setPictureListener(null);
-                }
             }
         }
     }
@@ -1099,7 +1272,6 @@ class TabControl {
             if (data.mTitle != null) {
                 b.putString(CURRTITLE, data.mTitle);
             }
-            b.putInt(CURRWIDTH, data.mWidth);
             b.putBoolean(CLOSEONEXIT, t.mCloseOnExit);
             if (t.mAppId != null) {
                 b.putString(APPID, t.mAppId);

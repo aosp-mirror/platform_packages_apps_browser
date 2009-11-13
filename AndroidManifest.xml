@@ -1,25 +1,25 @@
 <!--
-/* //device/apps/Browser/AndroidManifest.xml
-**
-** Copyright 2006, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+/*
+ * Copyright 2006, The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.browser">
 
     <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -28,12 +28,15 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
+    <uses-permission android:name="android.permission.BACKUP_DATA" />
 
     <application   android:name="Browser"
                    android:label="@string/application_name"
                    android:icon="@drawable/ic_launcher_browser"
+                   android:backupAgent=".BrowserBackupAgent"
                    android:taskAffinity="android.task.browser" >
 
         <provider android:name="BrowserProvider"
@@ -59,6 +62,7 @@
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:scheme="about" />
+                <data android:scheme="javascript" />
             </intent-filter>
             <!--  For these schemes where any of these particular MIME types
                   have been supplied, we are a good candidate. -->
@@ -107,20 +111,18 @@
             </intent-filter>
             <meta-data android:name="android.app.searchable"
                     android:resource="@xml/searchable" />
-            <intent-filter>
-                <action android:name="android.net.http.NETWORK_STATE" />
-                <action android:name="android.intent.action.PROXY_CHANGE" />
-            </intent-filter>
         </activity>
 
         <activity android:name="CombinedBookmarkHistoryActivity" android:label=""
-                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"
+                  android:theme="@style/BookmarkTheme" >
+            <meta-data android:name="android.app.default_searchable"
+                    android:value=".BrowserActivity" />
         </activity>
 
         <activity android:name="BrowserBookmarksPage" android:label="@string/bookmarks"
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
-
         <activity android:name="MostVisitedActivity" android:label=""
                 android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>
 
@@ -152,14 +154,8 @@
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
-        <activity android:name="GearsDialog" android:process=":dialog"
-                  android:configChanges="orientation|keyboardHidden"
-                  android:theme="@android:style/Theme.Dialog">
-        </activity>
-
-        <activity android:name="GearsNativeDialog"
-                  android:configChanges="orientation|keyboardHidden"
-                  android:theme="@android:style/Theme.Dialog">
+        <activity android:name="WebsiteSettingsActivity" android:label=""
+                  android:configChanges="orientation|keyboardHidden">
         </activity>
 
         <activity android:name="BookmarkSearch"
@@ -175,14 +171,6 @@
                     android:resource="@xml/bookmarks_searchable" />
         </activity>
 
-        <service android:name="GearsDialogService"
-                 android:process=":dialog"
-                 android:exported="false">
-            <intent-filter>
-                <action android:name="com.android.browser.IGearsDialogService" />
-            </intent-filter>
-        </service>
-
         <activity android:name="AddBookmarkPage" android:label="Save bookmark" android:theme="@android:style/Theme.Dialog"
                   android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -195,6 +183,12 @@
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
 
+        <activity android:name="android.webkit.PluginActivity">
+            <intent-filter>
+                <action android:name="android.intent.webkit.PLUGIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -16,6 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Navegador"</string>
+    <string name="new_tab" msgid="4505722538297295141">"Ventana nueva"</string>
+    <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcadores"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Más visitados"</string>
     <string name="tab_history" msgid="1979267558744613746">"Historial"</string>
@@ -25,8 +27,7 @@
     <string name="username" msgid="5057566336518215922">"Nombre"</string>
     <string name="password" msgid="1177138552305184404">"Contraseña"</string>
     <string name="action" msgid="183105774472071343">"Iniciar sesión"</string>
-    <!-- no translation found for bookmarks_search (5229596268214362873) -->
-    <skip />
+    <string name="bookmarks_search" msgid="5229596268214362873">"Navegador"</string>
     <string name="cancel" msgid="3017274947407233702">"Cancelar"</string>
     <string name="ok" msgid="1509280796718850364">"Aceptar"</string>
   <plurals name="matches_found">
@@ -35,6 +36,7 @@
     <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> coincide"</item>
     <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> coincide"</item>
   </plurals>
+    <string name="title_bar_loading" msgid="7438217780834640678">"Cargando…"</string>
     <string name="page_info" msgid="4048529256302257195">"Información de la página"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Ver información de la página"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Dirección:"</string>
@@ -60,25 +62,32 @@
     <string name="stopping" msgid="4839698519340302982">"Deteniendo..."</string>
     <string name="stop" msgid="5687251076030630074">"Detener"</string>
     <string name="reload" msgid="8585220783228408062">"Actualizar"</string>
+    <string name="back" msgid="8414603107175713668">"Atrás"</string>
     <string name="forward" msgid="4288210890526641577">"Reenviar"</string>
     <string name="save" msgid="5922311934992468496">"Aceptar"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Cancelar"</string>
     <string name="location" msgid="969988560160364559">"Ubicación"</string>
     <string name="name" msgid="5990326151488445481">"Nombre"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="4680844117598293907">"Marcador"</string>
+    <string name="save_to_bookmarks" msgid="588165100024086565">"Agregar marcador"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Editar marcador"</string>
     <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Agregar acceso directo a la página de inicio"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Abrir"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Eliminar marcador"</string>
+    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Eliminar de marcadores"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Suprimir del historial"</string>
+    <string name="set_as_homepage" msgid="4752937379414905560">"Definir como página principal"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Guardado en los marcadores."</string>
+    <string name="bookmark_not_saved" msgid="700600955089376724">"No se pudo agregar a favoritos."</string>
+    <string name="homepage_set" msgid="8768087280310966395">"Configuración de página principal."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"El marcador debe tener un nombre."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"El marcador debe tener una ubicación."</string>
     <string name="empty_bookmark" msgid="7008697085928540511">"No es posible crear un marcador vacío."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"La URL no es válida."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Eliminar"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Última página vista del marcador"</string>
+    <string name="switch_to_thumbnails" msgid="5493351529609043151">"Vista en miniatura"</string>
+    <string name="switch_to_list" msgid="8900531247982121055">"Vista de lista"</string>
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"El marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\" se eliminará."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Abrir en una ventana nueva"</string>
@@ -98,6 +107,7 @@
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Marcador"</string>
     <string name="history" msgid="2451240511251410032">"Historial"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Descargas"</string>
+    <string name="copy_page_url" msgid="7635062169011319208">"Copiar la url de la página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Abrir en una ventana nueva"</string>
@@ -112,39 +122,48 @@
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Agregar contacto"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"Enviar correo electrónico"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Situar en el mapa"</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Compartir mediante"</string>
     <string name="clear" msgid="7070043081700011461">"Borrar"</string>
     <string name="replace" msgid="4843033491070384047">"Reemplazar"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Marcadores"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Configurac."</string>
     <string name="pref_content_title" msgid="722227111894838633">"Configuración del contenido de la página"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Cargar imágenes"</string>
-    <string name="pref_content_load_images_summary" msgid="5149716777459747214">"Visualizar imágenes en páginas web"</string>
+    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Visualizar imágenes en páginas web"</string>
     <string name="pref_content_block_popups" msgid="7808433807197256726">"Bloq. ventanas emerg."</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Habilitar JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Abrir en modo subord."</string>
-    <string name="pref_content_open_in_background_summary" msgid="1543556325431215041">"Las ventanas nuevas se abren detrás de la actual"</string>
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Activar complementos"</string>
+    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Abrir ventanas nuevas detrás de la actual"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Definir página de inicio"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Ajuste automát. de pág."</string>
-    <string name="pref_content_autofit_summary" msgid="2358178043889761026">"Formatea las páginas web para que se ajusten a la pantalla"</string>
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatea las páginas web para que se ajusten a la pantalla"</string>
+    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Visualización horizontal solamente"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Mostrar páginas sólo en la orientación de pantalla horizontal más ancha"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Configuración de privacidad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Borrar caché"</string>
-    <string name="pref_privacy_clear_cache_summary" msgid="2969532045347184968">"Eliminar todo el contenido de la página del caché"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="4791302446488696772">"Se borrará el caché."</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Borrar el contenido y las bases de datos de la memoria caché local"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Se suprimirá el contenido y las bases de datos de la memoria caché local."</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Borrar datos de cookies"</string>
-    <string name="pref_privacy_clear_cookies_summary" msgid="8602064521480657942">"Borrar todas las cookies del navegador"</string>
-    <string name="pref_privacy_clear_cookies_dlg" msgid="5399971428430900904">"Se borrarán todas las cookies."</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Eliminar todas las cookies del navegador"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Se suprimirán todas las cookies."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Borrar historial"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Borrar el historial de navegación del navegador"</string>
-    <string name="pref_privacy_clear_history_dlg" msgid="1433519059550861064">"Se borrará el historial del navegador."</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Se suprimirá el historial del navegador."</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Borrar datos del formulario"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Borrar todos los datos guardados del formulario"</string>
-    <string name="pref_privacy_clear_form_data_dlg" msgid="567352105409238549">"Se borrarán todos los datos guardados del formulario."</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Se suprimirán todos los datos guardados del formulario."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Borrar contraseñas"</string>
-    <string name="pref_privacy_clear_passwords_summary" msgid="1267552159370789981">"Borrar todas las contraseñas guardadas"</string>
-    <string name="pref_privacy_clear_passwords_dlg" msgid="8425666119003961466">"Se borrarán todas las contraseñas guardadas."</string>
+    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Eliminar todas las contraseñas guardadas"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Se suprimirán todas las contraseñas guardadas."</string>
+    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Activar ubicación"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Permitir que los sitios soliciten acceso a tu ubicación"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Borrar acceso a la ubicación"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Borrar acceso a la ubicación para todos los sitios web"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Borrar acceso a la ubicación para todos los sitios web"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Configuración de seguridad"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Recordar contraseñas"</string>
-    <string name="pref_security_remember_passwords_summary" msgid="6789880514358003065">"Guardar nombres de usuario y contraseñas para sitios web"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Guardar los nombres de usuario y las contraseñas de los sitios web"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Recordar datos del form."</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Recordar los datos ingresados en los formularios para uso futuro"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Mostrar advert. de seguridad"</string>
@@ -160,27 +179,24 @@
     <item msgid="7201512237890458902">"Enorme"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Tamaño del texto"</string>
-    <!-- no translation found for pref_default_zoom (8076142259097187395) -->
-    <skip />
-    <!-- no translation found for pref_default_zoom_choices:0 (549583171195154919) -->
-    <!-- no translation found for pref_default_zoom_choices:1 (5619034257768161024) -->
-    <!-- no translation found for pref_default_zoom_choices:2 (3840999588443167001) -->
-    <!-- no translation found for pref_default_zoom_dialogtitle (6095974367125109021) -->
-    <skip />
+    <string name="pref_default_zoom" msgid="8076142259097187395">"Predeterminar zoom"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item msgid="549583171195154919">"Lejos"</item>
+    <item msgid="5619034257768161024">"Mediano"</item>
+    <item msgid="3840999588443167001">"Cerrar"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Predeterminar zoom"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Abrir las páginas en descripción general"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Mostrar la descripción general de las páginas nuevas abiertas"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Configuración avanzada"</string>
-    <string name="pref_extras_gears_enable" msgid="7573987212735599444">"Habilitar Gears"</string>
-    <string name="pref_extras_gears_enable_summary" msgid="4008973536142399194">"Aplicaciones que amplían la funcionalidad del navegador"</string>
-    <string name="pref_extras_gears_settings" msgid="1020697825071619889">"Configuración de Gears"</string>
-    <string name="pref_plugin_installed" msgid="6387683936112106178">"Lista de complementos"</string>
-    <string name="pref_plugin_installed_empty_list" msgid="6656686482480679665">"No hay complementos instalados."</string>
-    <string name="pref_extras_gears_settings_summary" msgid="6230027090022456383">"Aplicaciones que amplían la funcionalidad del navegador"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Configuración del sitio web"</string>
+    <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Ver configuración avanzada para sitios web individuales"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Restabl. a valores predet."</string>
     <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Borrar todos los datos del navegador y restablecer la configuración a los valores predeterminados"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="5332227004054477008">"Se borrarán todos los datos del navegador y la configuración volverá a los valores predeterminados."</string>
+    <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Se suprimirán todos los datos del navegador y la configuración volverá a los valores predeterminados."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Restablecer a los valores predeterminados"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Depurar"</string>
-    <!-- no translation found for pref_default_text_encoding (5742965543955558478) -->
-    <skip />
+    <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codificación de texto"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item msgid="7275223955790513818">"Latino-1 (ISO-8859-1)"</item>
     <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
@@ -191,22 +207,21 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificación de texto"</string>
     <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"Latino-1"</string>
     <string name="browserFrameRedirect" msgid="7049675479777828343">"Redireccionamiento"</string>
-    <string name="browserFrame307Post" msgid="739650008647852203">"Esta página web está siendo redireccionada. ¿Deseas reenviar los datos que ingresaste en tu formulario a la ubicación nueva?"</string>
+    <string name="browserFrame307Post" msgid="1429094844669510768">"Esta página web está siendo redireccionada. ¿Deseas reenviar los datos que ingresaste en tu formulario a la ubicación nueva?"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de conectividad de datos"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema con el archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmar"</string>
     <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"La página que intentas ver contiene datos que ya se han suministrado (\"POSTDATA\"). Si vuelves a enviar los datos, se repetirán las acciones que haya realizado el formulario (como una búsqueda o compra en línea)."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"No hay conexión a la red"</string>
-    <string name="loadSuspended" msgid="1800165494398204523">"La página continuará cargando cuando se haya restablecido la conexión."</string>
+    <string name="loadSuspended" msgid="3133656588880851273">"El navegador no puede cargar esta página debido a que no hay conexión a Internet."</string>
     <string name="clear_history" msgid="5998307092715979619">"Borrar historial"</string>
-    <string name="browser_history" msgid="2979476257919939232">"Últimas páginas visitadas"</string>
+    <string name="browser_history" msgid="1038987118290272525">"Páginas visitadas recientemente"</string>
     <string name="empty_history" msgid="8738772352308207274">"El historial del navegador está vacío."</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"Agregar marcador..."</string>
-    <string name="no_database" msgid="2256698896757181084">"No hay base de datos"</string>
-    <string name="search_hint" msgid="3385577802557697397">"Escribe la dirección web"</string>
+    <string name="add_bookmark_short" msgid="3783984330998103735">"Agregar"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Buscar o escribir URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Ir"</string>
-    <!-- no translation found for search_settings_description (1422401062529014107) -->
-    <skip />
+    <string name="search_settings_description" msgid="1422401062529014107">"Marcadores e historial web"</string>
     <string name="attention" msgid="3473639060042811244">"Atención"</string>
     <string name="popup_window_attempt" msgid="2673111696288657989">"Este sitio está intentando abrir una ventana emergente."</string>
     <string name="allow" msgid="1157313689171991335">"Permitir"</string>
@@ -243,60 +258,37 @@
     <string name="download_pending_network" msgid="6548714525679461053">"Esperando la conexión de datos..."</string>
     <string name="download_running_paused" msgid="6418029352085656495">"Esperando la conexión de datos..."</string>
     <string name="download_canceled" msgid="6057083743144492515">"Descarga cancelada."</string>
-    <string name="download_not_acceptable" msgid="282108828207321357">"No es posible realizar la descarga. El contenido no se admite en el teléfono."</string>
+    <string name="download_not_acceptable" msgid="313769696131563652">"No es posible realizar la descarga. El contenido no se admite en este teléfono."</string>
     <string name="download_file_error" msgid="1206648050615176113">"No es posible terminar la descarga. No hay espacio suficiente."</string>
     <string name="download_length_required" msgid="9038605488460437406">"No es posible realizar la descarga. No puede determinarse el tamaño del elemento."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Descarga interrumpida. No se puede retomar."</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Ejecutor de pruebas del navegador"</string>
-    <!-- no translation found for homepage_base (7888126987935305566) -->
-    <skip />
-    <!-- no translation found for search_the_web (6046130189241962337) -->
-    <skip />
-    <string name="query_data_prompt" msgid="5474381240981604223">"Permitir almacenamiento"</string>
-    <string name="query_data_message" msgid="8789381063185445197">"Este sitio web desea almacenar información en tu teléfono."</string>
-    <string name="location_prompt" msgid="226262202057302423">"Acceder a tu ubicación"</string>
-    <string name="location_message" msgid="1729456751935683242">"Este sitio web desea acceder a tu ubicación."</string>
-    <string name="shortcut_prompt" msgid="437193299088893596">"Crear un acceso directo"</string>
-    <string name="shortcut_message" msgid="4793042709293755892">"Este sitio web desea crear un acceso directo a esta página en tu pantalla de inicio"</string>
-    <string name="settings_message" msgid="6171686603006325199">"En la siguiente tabla, se muestran los permisos que has otorgado a cada sitio que ha intentado utilizar Gears."</string>
-    <string name="filepicker_message" msgid="4929726371602896039">"File Picker"</string>
-    <string name="image_message" msgid="5450245866521896891">"Imagen seleccionada"</string>
-    <string name="settings_title" msgid="3579144910187265022">"Configuración de Gears"</string>
-    <string name="privacy_policy" msgid="864201179110197308">"Lee la política de privacidad del sitio para ver cómo se utilizará tu ubicación."</string>
-    <string name="settings_storage_title" msgid="7089119630457156408">"Permitir almacenamiento local"</string>
-    <string name="settings_storage_subtitle_on" msgid="2733295483569432111">"Este sitio puede guardar información en tu teléfono"</string>
-    <string name="settings_storage_subtitle_off" msgid="1338039396087898813">"Este sitio no puede guardar información en tu teléfono"</string>
-    <string name="settings_location_title" msgid="4953062923509886651">"Permitir detección de ubicación"</string>
-    <string name="settings_location_subtitle_on" msgid="1496219621849158879">"Este sitio puede leer tu ubicación actual"</string>
-    <string name="settings_location_subtitle_off" msgid="5216466051810596189">"Este sitio no puede leer tu ubicación actual"</string>
-    <string name="settings_remove_site" msgid="1822247070226589958">"Suprimir este sitio de Gears"</string>
-    <string name="settings_empty" msgid="2008952224378583146">"No hay permisos definidos"</string>
-    <string name="settings_confirmation_remove_title" msgid="5360857296753219635">"Suprimir este sitio"</string>
-    <string name="settings_confirmation_remove" msgid="585560170733446898">"Se borrarán todos los permisos y se eliminarán los datos del sitio almacenados en el teléfono."</string>
-    <string name="storage_notification" msgid="6534213782873968255">"Este sitio almacenará información en este teléfono. "\n" Cambia esta configuración en:"\n" Configuración -&gt; Configuración de Gears"</string>
-    <string name="storage_notification_alwaysdeny" msgid="5473208033665783513">"Este sitio nunca almacenará información en este teléfono. "\n" Cambia esta configuración en:"\n" Configuración -&gt; Configuración de Gears"</string>
-    <string name="location_notification" msgid="3495804750470905804">"Este sitio puede acceder a tu ubicación. "\n" Cambia esta configuración en:"\n" Configuración -&gt; Configuración de Gears"</string>
-    <string name="location_notification_alwaysdeny" msgid="6184925953783312629">"Este sitio no accederá a tu ubicación. "\n" Cambia esta configuración en:"\n" Configuración -&gt; Configuración de Gears"</string>
-    <string name="shortcut_notification" msgid="1659700220868444568">"Acceso directo creado"</string>
-    <string name="permission_button_alwaysdeny" msgid="3837055994905214848">"No permitir nunca"</string>
-    <string name="permission_button_allow" msgid="7301874925704148242">"Aceptar"</string>
-    <string name="permission_button_deny" msgid="104712269725153018">"Cancelar"</string>
-    <string name="shortcut_button_alwaysdeny" msgid="4172277731325126605">"No permitir nunca"</string>
-    <string name="shortcut_button_allow" msgid="3106634184087569293">"Aceptar"</string>
-    <string name="shortcut_button_deny" msgid="6054910540900054553">"Cancelar"</string>
-    <string name="settings_button_allow" msgid="447817497759509841">"Aplicar"</string>
-    <string name="settings_button_deny" msgid="602496920123085858">"Cancelar"</string>
-    <string name="filepicker_button_allow" msgid="2849120125810490391">"Aceptar"</string>
-    <string name="filepicker_button_deny" msgid="1302975999145835953">"Cancelar"</string>
-    <string name="filepicker_path" msgid="4680729728498981925">"ruta:"</string>
-    <string name="filepicker_no_files_selected" msgid="7859426670184432998">"No hay archivos seleccionados"</string>
-    <string name="filepicker_one_file_selected" msgid="1451259953191434851">"Un archivo seleccionado"</string>
-    <string name="filepicker_some_files_selected" msgid="3859384664191734493">"archivo seleccionado"</string>
-    <string name="remove" msgid="7820112494467011374">"Eliminar"</string>
-    <string name="local_storage" msgid="6703332885937279085">"Almacenamiento local"</string>
-    <string name="allowed" msgid="1599514934221911624">"Permitido"</string>
-    <string name="denied" msgid="7470209521858372968">"Denegado"</string>
-    <string name="unrecognized_dialog_message" msgid="687399590684283989">"Tipo de diálogo no reconocido"</string>
-    <string name="default_button" msgid="3901922329454578908">"Aceptar"</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Buscar en Internet"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Almacenamiento del navegador lleno"</string>
+    <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Hacer clic para liberar espacio"</string>
+    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Borrar datos almacenados"</string>
+    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Eliminar todas las bases de datos asociadas con este sitio web"</string>
+    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Borrar datos almacenados"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Todos los datos almacenados por este sitio web serán suprimidos"</string>
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Eliminar todos"</string>
+    <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Cancelar"</string>
+    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB almacenados en tu teléfono"</string>
+    <string name="loading_video" msgid="4887871585216091096">"Cargando el video"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> quiere conocer tu ubicación"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Compartir ubicación"</string>
+    <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rechazar"</string>
+    <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Recordar la preferencia"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Borrar acceso a la ubicación"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Este sitio puede acceder a tu ubicación actualmente"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Este sitio no puede acceder a tu ubicación actualmente"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Borrar acceso a la ubicación"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"El acceso a la ubicación para este sitio web será borrado"</string>
+    <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Borrar acceso"</string>
+    <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Cancelar"</string>
+    <string name="website_settings_clear_all" msgid="8739804325997655980">"Eliminar todos"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"¿Deseas eliminar toda la configuración del sitio web?"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Se suprimirán todos los datos del sitio web y los permisos de ubicación."</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Suprimir todos los datos"</string>
+    <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancelar"</string>
     <string name="zoom_overview_button_text" msgid="4146579940085488881">"Descripción general"</string>
 </resources>

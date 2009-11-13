@@ -60,14 +60,14 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
     public BrowserDownloadAdapter(Context context, int layout, Cursor c) {
         super(context, layout, c);
         mFilenameColumnId = c.getColumnIndexOrThrow(Downloads._DATA);
-        mTitleColumnId = c.getColumnIndexOrThrow(Downloads.TITLE);
-        mDescColumnId = c.getColumnIndexOrThrow(Downloads.DESCRIPTION);
-        mStatusColumnId = c.getColumnIndexOrThrow(Downloads.STATUS);
-        mTotalBytesColumnId = c.getColumnIndexOrThrow(Downloads.TOTAL_BYTES);
+        mTitleColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_TITLE);
+        mDescColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_DESCRIPTION);
+        mStatusColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_STATUS);
+        mTotalBytesColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_TOTAL_BYTES);
         mCurrentBytesColumnId = 
-            c.getColumnIndexOrThrow(Downloads.CURRENT_BYTES);
-        mMimetypeColumnId = c.getColumnIndexOrThrow(Downloads.MIMETYPE);
-        mDateColumnId = c.getColumnIndexOrThrow(Downloads.LAST_MODIFICATION);
+            c.getColumnIndexOrThrow(Downloads.COLUMN_CURRENT_BYTES);
+        mMimetypeColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_MIME_TYPE);
+        mDateColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_LAST_MODIFICATION);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
                 // We have a filename, so we can build a title from that
                 title = new File(fullFilename).getName();
                 ContentValues values = new ContentValues();
-                values.put(Downloads.TITLE, title);
+                values.put(Downloads.COLUMN_TITLE, title);
                 // assume "_id" is the first column for the cursor 
                 context.getContentResolver().update(
                         ContentUris.withAppendedId(Downloads.CONTENT_URI,

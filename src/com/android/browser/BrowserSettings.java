@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -20,17 +21,25 @@ import com.google.android.providers.GoogleSettings.Partner;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
 import android.webkit.CookieManager;
+import android.webkit.GeolocationPermissions;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
+import android.webkit.WebStorage;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.Observable;
 
 /*
@@ -48,14 +57,13 @@ import java.util.Observable;
  */
 class BrowserSettings extends Observable {
 
-    // Public variables for settings
+    // Private variables for settings
     // NOTE: these defaults need to be kept in sync with the XML
     // until the performance of PreferenceManager.setDefaultValues()
     // is improved.
     private boolean loadsImagesAutomatically = true;
     private boolean javaScriptEnabled = true;
     private boolean pluginsEnabled = true;
-    private String pluginsPath;  // default value set in loadFromDb().
     private boolean javaScriptCanOpenWindowsAutomatically = false;
     private boolean showSecurityWarnings = true;
     private boolean rememberPasswords = true;
@@ -65,7 +73,25 @@ class BrowserSettings extends Observable {
     private String homeUrl = "";
     private boolean loginInitialized = false;
     private boolean autoFitPage = true;
+    private boolean landscapeOnly = false;
+    private boolean loadsPageInOverviewMode = true;
     private boolean showDebugSettings = false;
+    // HTML5 API flags
+    private boolean appCacheEnabled = true;
+    private boolean databaseEnabled = true;
+    private boolean domStorageEnabled = true;
+    private boolean geolocationEnabled = true;
+    private boolean workersEnabled = true;  // only affects V8. JSC does not have a similar setting
+    // HTML5 API configuration params
+    private long appCacheMaxSize = Long.MAX_VALUE;
+    private String appCachePath;  // default value set in loadFromDb().
+    private String databasePath; // default value set in loadFromDb()
+    private String geolocationDatabasePath; // default value set in loadFromDb()
+    private WebStorageSizeManager webStorageSizeManager;
+
+    private String jsFlags = "";
+
+    private final static String TAG = "BrowserSettings";
 
     // Development settings
     public WebSettings.LayoutAlgorithm layoutAlgorithm =
@@ -75,6 +101,11 @@ class BrowserSettings extends Observable {
     private boolean tracing = false;
     private boolean lightTouch = false;
     private boolean navDump = false;
+
+    // By default the error console is shown once the user navigates to about:debug.
+    // The setting can be then toggled from the settings menu.
+    private boolean showConsole = true;
+
     // Browser only settings
     private boolean doFlick = false;
 
@@ -100,19 +131,21 @@ class BrowserSettings extends Observable {
     public final static String PREF_EXTRAS_RESET_DEFAULTS =
             "reset_default_preferences";
     public final static String PREF_DEBUG_SETTINGS = "debug_menu";
-    public final static String PREF_GEARS_SETTINGS = "gears_settings";
+    public final static String PREF_WEBSITE_SETTINGS = "website_settings";
     public final static String PREF_TEXT_SIZE = "text_size";
     public final static String PREF_DEFAULT_ZOOM = "default_zoom";
     public final static String PREF_DEFAULT_TEXT_ENCODING =
             "default_text_encoding";
+    public final static String PREF_CLEAR_GEOLOCATION_ACCESS =
+            "privacy_clear_geolocation_access";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
-            "U; Intel Mac OS X 10_5_5; en-us) AppleWebKit/525.18 (KHTML, " +
-            "like Gecko) Version/3.1.2 Safari/525.20.1";
+            "U; Intel Mac OS X 10_5_7; en-us) AppleWebKit/530.17 (KHTML, " +
+            "like Gecko) Version/4.0 Safari/530.17";
 
     private static final String IPHONE_USERAGENT = "Mozilla/5.0 (iPhone; U; " +
-            "CPU iPhone OS 2_2 like Mac OS X; en-us) AppleWebKit/525.18.1 " +
-            "(KHTML, like Gecko) Version/3.1.1 Mobile/5G77 Safari/525.20";
+            "CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 " +
+            "(KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16";
 
     // Value to truncate strings when adding them to a TextView within
     // a ListView
@@ -157,7 +190,6 @@ class BrowserSettings extends Observable {
             s.setLoadsImagesAutomatically(b.loadsImagesAutomatically);
             s.setJavaScriptEnabled(b.javaScriptEnabled);
             s.setPluginsEnabled(b.pluginsEnabled);
-            s.setPluginsPath(b.pluginsPath);
             s.setJavaScriptCanOpenWindowsAutomatically(
                     b.javaScriptCanOpenWindowsAutomatically);
             s.setDefaultTextEncodingName(b.defaultTextEncodingName);
@@ -171,13 +203,29 @@ class BrowserSettings extends Observable {
             s.setLightTouchEnabled(b.lightTouch);
             s.setSaveFormData(b.saveFormData);
             s.setSavePassword(b.rememberPasswords);
+            s.setLoadWithOverviewMode(b.loadsPageInOverviewMode);
 
             // WebView inside Browser doesn't want initial focus to be set.
             s.setNeedInitialFocus(false);
             // Browser supports multiple windows
             s.setSupportMultipleWindows(true);
-            // Turn off file access
-            s.setAllowFileAccess(false);
+
+            // HTML5 API flags
+            s.setAppCacheEnabled(b.appCacheEnabled);
+            s.setDatabaseEnabled(b.databaseEnabled);
+            s.setDomStorageEnabled(b.domStorageEnabled);
+            s.setWorkersEnabled(b.workersEnabled);  // This only affects V8.
+            s.setGeolocationEnabled(b.geolocationEnabled);
+
+            // HTML5 configuration parameters.
+            s.setAppCacheMaxSize(b.appCacheMaxSize);
+            s.setAppCachePath(b.appCachePath);
+            s.setDatabasePath(b.databasePath);
+            s.setGeolocationDatabasePath(b.geolocationDatabasePath);
+
+            // Enable/Disable the error console.
+            b.mTabControl.getBrowserActivity().setShouldShowErrorConsole(
+                    b.showDebugSettings && b.showConsole);
         }
     }
 
@@ -193,10 +241,18 @@ class BrowserSettings extends Observable {
     public void loadFromDb(Context ctx) {
         SharedPreferences p =
                 PreferenceManager.getDefaultSharedPreferences(ctx);
-
-        // Set the default value for the plugins path to the application's
-        // local directory.
-        pluginsPath = ctx.getDir("plugins", 0).getPath();
+        // Set the default value for the Application Caches path.
+        appCachePath = ctx.getDir("appcache", 0).getPath();
+        // Determine the maximum size of the application cache.
+        webStorageSizeManager = new WebStorageSizeManager(
+                ctx,
+                new WebStorageSizeManager.StatFsDiskInfo(appCachePath),
+                new WebStorageSizeManager.WebKitAppCacheInfo(appCachePath));
+        appCacheMaxSize = webStorageSizeManager.getAppCacheMaxSize();
+        // Set the default value for the Database path.
+        databasePath = ctx.getDir("databases", 0).getPath();
+        // Set the default value for the Geolocation database path.
+        geolocationDatabasePath = ctx.getDir("geolocation", 0).getPath();
 
         homeUrl = getFactoryResetHomeUrl(ctx);
 
@@ -218,7 +274,6 @@ class BrowserSettings extends Observable {
                 javaScriptEnabled);
         pluginsEnabled = p.getBoolean("enable_plugins",
                 pluginsEnabled);
-        pluginsPath = p.getString("plugins_path", pluginsPath);
         javaScriptCanOpenWindowsAutomatically = !p.getBoolean(
             "block_popup_windows",
             !javaScriptCanOpenWindowsAutomatically);
@@ -238,6 +293,16 @@ class BrowserSettings extends Observable {
         zoomDensity = WebSettings.ZoomDensity.valueOf(
                 p.getString(PREF_DEFAULT_ZOOM, zoomDensity.name()));
         autoFitPage = p.getBoolean("autofit_pages", autoFitPage);
+        loadsPageInOverviewMode = p.getBoolean("load_page",
+                loadsPageInOverviewMode);
+        boolean landscapeOnlyTemp =
+                p.getBoolean("landscape_only", landscapeOnly);
+        if (landscapeOnlyTemp != landscapeOnly) {
+            landscapeOnly = landscapeOnlyTemp;
+            mTabControl.getBrowserActivity().setRequestedOrientation(
+                    landscapeOnly ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                    : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        }
         useWideViewPort = true; // use wide view port for either setting
         if (autoFitPage) {
             layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS;
@@ -274,15 +339,39 @@ class BrowserSettings extends Observable {
             doFlick = p.getBoolean("enable_flick", doFlick);
             userAgent = Integer.parseInt(p.getString("user_agent", "0"));
         }
-        update();
-    }
+        // JS flags is loaded from DB even if showDebugSettings is false,
+        // so that it can be set once and be effective all the time.
+        jsFlags = p.getString("js_engine_flags", "");
 
-    public String getPluginsPath() {
-        return pluginsPath;
+        // Read the setting for showing/hiding the JS Console always so that should the
+        // user enable debug settings, we already know if we should show the console.
+        // The user will never see the console unless they navigate to about:debug,
+        // regardless of the setting we read here. This setting is only used after debug
+        // is enabled.
+        showConsole = p.getBoolean("javascript_console", showConsole);
+        mTabControl.getBrowserActivity().setShouldShowErrorConsole(
+                showDebugSettings && showConsole);
+
+        // HTML5 API flags
+        appCacheEnabled = p.getBoolean("enable_appcache", appCacheEnabled);
+        databaseEnabled = p.getBoolean("enable_database", databaseEnabled);
+        domStorageEnabled = p.getBoolean("enable_domstorage", domStorageEnabled);
+        geolocationEnabled = p.getBoolean("enable_geolocation", geolocationEnabled);
+        workersEnabled = p.getBoolean("enable_workers", workersEnabled);
+
+        update();
     }
 
     public String getHomePage() {
         return homeUrl;
+    }
+
+    public String getJsFlags() {
+        return jsFlags;
+    }
+
+    public WebStorageSizeManager getWebStorageSizeManager() {
+        return webStorageSizeManager;
     }
 
     public void setHomePage(Context context, String url) {
@@ -436,14 +525,48 @@ class BrowserSettings extends Observable {
         db.clearHttpAuthUsernamePassword();
     }
 
-    /*package*/ void resetDefaultPreferences(Context context) {
+    private void maybeDisableWebsiteSettings(Context context) {
+        PreferenceActivity activity = (PreferenceActivity) context;
+        final PreferenceScreen screen = (PreferenceScreen)
+            activity.findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
+        screen.setEnabled(false);
+        WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
+            public void onReceiveValue(Map webStorageOrigins) {
+                if ((webStorageOrigins != null) && !webStorageOrigins.isEmpty()) {
+                    screen.setEnabled(true);
+                }
+            }
+        });
+
+        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set>() {
+            public void onReceiveValue(Set geolocationOrigins) {
+                if ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()) {
+                    screen.setEnabled(true);
+                }
+            }
+        });
+    }
+
+    /*package*/ void clearDatabases(Context context) {
+        WebStorage.getInstance().deleteAllData();
+        maybeDisableWebsiteSettings(context);
+    }
+
+    /*package*/ void clearLocationAccess(Context context) {
+        GeolocationPermissions.getInstance().clearAll();
+        maybeDisableWebsiteSettings(context);
+    }
+
+    /*package*/ void resetDefaultPreferences(Context ctx) {
         SharedPreferences p =
-            PreferenceManager.getDefaultSharedPreferences(context);
+            PreferenceManager.getDefaultSharedPreferences(ctx);
         p.edit().clear().commit();
-        PreferenceManager.setDefaultValues(context, R.xml.browser_preferences,
+        PreferenceManager.setDefaultValues(ctx, R.xml.browser_preferences,
                 true);
         // reset homeUrl
-        setHomePage(context, getFactoryResetHomeUrl(context));
+        setHomePage(ctx, getFactoryResetHomeUrl(ctx));
+        // reset appcache max size
+        appCacheMaxSize = webStorageSizeManager.getAppCacheMaxSize();
     }
 
     private String getFactoryResetHomeUrl(Context context) {

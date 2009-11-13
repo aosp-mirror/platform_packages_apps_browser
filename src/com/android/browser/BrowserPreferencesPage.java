@@ -17,18 +17,28 @@
 package com.android.browser;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
+import android.util.Log;
+import android.webkit.GeolocationPermissions;
+import android.webkit.ValueCallback;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
-import android.webkit.Plugin;
 
 public class BrowserPreferencesPage extends PreferenceActivity
-        implements Preference.OnPreferenceChangeListener, 
-        Preference.OnPreferenceClickListener {
+        implements Preference.OnPreferenceChangeListener {
+
+    private String LOGTAG = "BrowserPreferencesPage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +69,42 @@ public class BrowserPreferencesPage extends PreferenceActivity
 
         e = findPreference(BrowserSettings.PREF_DEFAULT_TEXT_ENCODING);
         e.setOnPreferenceChangeListener(this);
-        
+
         if (BrowserSettings.getInstance().showDebugSettings()) {
             addPreferencesFromResource(R.xml.debug_preferences);
         }
-        
-        e = findPreference(BrowserSettings.PREF_GEARS_SETTINGS);
-        e.setOnPreferenceClickListener(this);
+
+        PreferenceScreen websiteSettings = (PreferenceScreen)
+            findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
+        Intent intent = new Intent(this, WebsiteSettingsActivity.class);
+        websiteSettings.setIntent(intent);
+    }
+
+    /*
+     * We need to set the PreferenceScreen state in onResume(), as the number of
+     * origins with active features (WebStorage, Geolocation etc) could have
+     * changed after calling the WebsiteSettingsActivity.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final PreferenceScreen websiteSettings = (PreferenceScreen)
+            findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
+        websiteSettings.setEnabled(false);
+        WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
+            public void onReceiveValue(Map webStorageOrigins) {
+                if ((webStorageOrigins != null) && !webStorageOrigins.isEmpty()) {
+                    websiteSettings.setEnabled(true);
+                }
+            }
+        });
+        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set>() {
+            public void onReceiveValue(Set geolocationOrigins) {
+                if ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()) {
+                    websiteSettings.setEnabled(true);
+                }
+            }
+        });
     }
 
     @Override
@@ -120,20 +159,6 @@ public class BrowserPreferencesPage extends PreferenceActivity
         }
         
         return false;
-    }
-    
-    public boolean onPreferenceClick(Preference pref) {
-        if (pref.getKey().equals(BrowserSettings.PREF_GEARS_SETTINGS)) {
-            List<Plugin> loadedPlugins = WebView.getPluginList().getList();
-            for(Plugin p : loadedPlugins) {
-                if (p.getName().equals("gears")) {
-                    p.dispatchClickEvent(this);
-                    return true;
-                }
-            }
-            
-        }
-        return true;
     }
 
     private CharSequence getVisualTextSizeName(String enumName) {

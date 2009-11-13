@@ -18,6 +18,10 @@
     <!-- The name of the application. -->
     <string name="application_name">Browser</string>
 
+    <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
+    <string name="new_tab">New window</string>
+    <!-- Name of menu item which brings up a list of the currently active tabs -->
+    <string name="active_tabs">Windows</string>
     <!-- Name of tab containing bookmarks -->
     <string name="tab_bookmarks">Bookmarks</string>
     <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
@@ -58,7 +62,10 @@
         <!-- Case of several matches -->
         <item quantity="other"><xliff:g id="number" example="137">%d</xliff:g> matches</item>
     </plurals>
-    
+
+    <!-- Displayed on the title bar while the page is loading -->
+    <string name="title_bar_loading">Loading\u2026</string>
+
     <!-- Menu item -->
     <string name="page_info">Page info</string>
     <!-- Label for a button on an SSL error dialog that allows the user to see
@@ -119,6 +126,8 @@
     <string name="stop">Stop</string>
     <!-- Menu item to reload or refresh the current page. -->
     <string name="reload">Refresh</string>
+    <!-- Menu item to go back to the previous page -->
+    <string name="back">Back</string>
     <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
     <string name="forward">Forward</string>
     <!-- Button label to confirm saving a bookmark. -->
@@ -132,7 +141,7 @@
     <!-- Initial value in Location field in Bookmark dialog box -->
     <string name="http">http://</string>
     <!-- Menu item that opens a dialog to save a bookmark, initialized with the current page -->
-    <string name="save_to_bookmarks">Bookmark</string>
+    <string name="save_to_bookmarks">Add bookmark</string>
     <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
     <string name="edit_bookmark">Edit bookmark</string>
     <!-- Context menu item to create a shortcut to the bookmark on the desktop -->
@@ -141,10 +150,18 @@
     <string name="open_bookmark">Open</string>
     <!-- Menu item to remove the currently highlighted bookmark-->
     <string name="remove_bookmark">Delete bookmark</string>
+    <!-- Context menu item to remove a history item from bookmarks -->
+    <string name="remove_from_bookmarks">Remove from bookmarks</string>
     <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
     <string name="remove_history_item">Remove from history</string>
+    <!-- Context menu item for setting the bookmark/history item as the homepage -->
+    <string name="set_as_homepage">Set as homepage</string>
     <!-- Toast informing the user that their action to save a bookmark has succeeded -->
     <string name="bookmark_saved">Saved to bookmarks.</string>
+    <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+    <string name="bookmark_not_saved">Unable to save bookmark.</string>
+    <!-- Toast confirming that the homepage has been set -->
+    <string name="homepage_set">Homepage set.</string>
     <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
     <string name="bookmark_needs_title">"Bookmark must have a name."</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
@@ -160,6 +177,12 @@
             currently on, but is not visible because the bookmarks page is 
             showing. -->
     <string name="bookmark_page">Bookmark last-viewed page</string>
+    <!-- Menu item in the page that displays all bookmarks.  Switches to
+            a grid view which shows thumbnails -->
+    <string name="switch_to_thumbnails">Thumbnail view</string>
+    <!-- Menu item in the page that displays all bookmarks.  Switches to a
+            list view which shows titles -->
+    <string name="switch_to_list">List view</string>
     <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
@@ -211,6 +234,9 @@
     <string name="history">History</string>
     <!-- Menu item for viewing downloads from the browser -->
     <string name="menu_view_download">Downloads</string>
+    <!-- Context menu item for copying the url of the current page from the
+            title bar -->
+    <string name="copy_page_url">Copy page url</string>
     <!-- Menu item -->
     <string name="share_page">Share page</string>
     <!-- Context Menu item open the currently selected link in the current
@@ -249,6 +275,11 @@
             application -->
     <string name="contextmenu_map">Map</string>
  
+     <!-- Title of the dialog used for selecting the application that should be
+            used for sharing a link (e.g. Gmail or another app). See also
+            contextmenu_sharelink above -->
+    <string name="choosertitle_sharevia">Share via</string>
+
     <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
     <string name="clear">Clear</string>
@@ -269,59 +300,75 @@
     <!-- Settings label -->
     <string name="pref_content_load_images">Load images</string>
     <!-- Settings label -->
-    <string name="pref_content_load_images_summary">Display images on Web pages</string>
+    <string name="pref_content_load_images_summary">Display images on web pages</string>
     <!-- Settings label -->
     <string name="pref_content_block_popups">Block pop-up windows</string>
     <!-- Settings label -->
     <string name="pref_content_javascript">Enable JavaScript</string>
     <!-- Settings label -->
     <string name="pref_content_open_in_background">Open in background</string>
+    <!-- Settings label -->
+    <string name="pref_content_plugins">Enable plug-ins</string>
     <!-- Settings summary -->
-    <string name="pref_content_open_in_background_summary">New windows open behind the current one</string>
+    <string name="pref_content_open_in_background_summary">Open new windows behind the current one</string>
     <!-- Settings label -->
     <string name="pref_content_homepage">Set home page</string>
     <!-- Settings label -->
     <string name="pref_content_autofit">Auto-fit pages</string>
     <!-- Settings summary -->
-    <string name="pref_content_autofit_summary">Format Web pages to fit the screen</string>
+    <string name="pref_content_autofit_summary">Format web pages to fit the screen</string>
+    <!-- Settings label for enabling a mode where the browser is always set to landscape mode -->
+    <string name="pref_content_landscape_only">Landscape-only display</string>
+    <!-- Settings summary -->
+    <string name="pref_content_landscape_only_summary">Display pages only in the wider, landscape screen orientation</string>
     <!-- Settings screen, section title -->
     <string name="pref_privacy_title">Privacy settings</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_cache">Clear cache</string>
     <!-- Settings summary -->
-    <string name="pref_privacy_clear_cache_summary">Delete all cached page content</string>
+    <string name="pref_privacy_clear_cache_summary">Clear locally cached content and databases</string>
     <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_cache_dlg">The cache will be cleared.</string>
+    <string name="pref_privacy_clear_cache_dlg">Locally cached content and databases will be deleted.</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_cookies">Clear all cookie data</string>
     <!-- Settings summary -->
-    <string name="pref_privacy_clear_cookies_summary">Clear all the browser cookies</string>
+    <string name="pref_privacy_clear_cookies_summary">Clear all browser cookies</string>
     <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_cookies_dlg">All cookies will be cleared.</string>
+    <string name="pref_privacy_clear_cookies_dlg">All cookies will be deleted.</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_history">Clear history</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_history_summary">Clear the browser navigation history</string>
     <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_history_dlg">The browser navigation history will be cleared.</string>
+    <string name="pref_privacy_clear_history_dlg">The browser navigation history will be deleted.</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_form_data">Clear form data</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_form_data_summary">Clear all the saved form data</string>
     <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_form_data_dlg">All saved form data will be cleared.</string>
+    <string name="pref_privacy_clear_form_data_dlg">All saved form data will be deleted.</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_passwords">Clear passwords</string>
     <!-- Settings summary -->
-    <string name="pref_privacy_clear_passwords_summary">Clear all the saved passwords</string>
+    <string name="pref_privacy_clear_passwords_summary">Clear all saved passwords</string>
     <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_passwords_dlg">All saved passwords will be cleared.</string>
+    <string name="pref_privacy_clear_passwords_dlg">All saved passwords will be deleted.</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_enable_geolocation">Enable location</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_enable_geolocation_summary">Allow sites to request access to your location</string>
+    <!-- Settings label -->
+    <string name="pref_privacy_clear_geolocation_access">Clear location access</string>
+    <!-- Settings summary -->
+    <string name="pref_privacy_clear_geolocation_access_summary">Clear location access for all websites</string>
+    <!-- Confirmation dialog message -->
+    <string name="pref_privacy_clear_geolocation_access_dlg">Clear location access for all websites</string>
     <!-- Settings screen, section title -->
     <string name="pref_security_title">Security settings</string>
     <!-- Settings label -->
     <string name="pref_security_remember_passwords">Remember passwords</string>
     <!-- Settings summary -->
-    <string name="pref_security_remember_passwords_summary">Save usernames and passwords for Web sites</string>
+    <string name="pref_security_remember_passwords_summary">Save usernames and passwords for websites</string>
     <!-- Settings label -->
     <string name="pref_security_save_form_data">Remember form data</string>
     <!-- Settings summary -->
@@ -370,25 +417,22 @@
         <item><xliff:g>MEDIUM</xliff:g></item>
         <item><xliff:g>CLOSE</xliff:g></item>
     </string-array>
+    <!-- Settings label -->
+    <string name="pref_content_load_page">Open pages in overview</string>
+    <!-- Settings summary -->
+    <string name="pref_content_load_page_summary">Show overview of newly opened pages</string>
     <!-- Settings screen, section title -->
     <string name="pref_extras_title">Advanced settings</string>
     <!-- Settings label -->
-    <string name="pref_extras_gears_enable">Enable Gears</string>
+    <string name="pref_extras_website_settings">Website settings</string>
     <!-- Settings summary -->
-    <string name="pref_extras_gears_enable_summary">Applications that extend browser functionality</string>
-    <!-- Settings label -->
-    <string name="pref_extras_gears_settings">Gears settings</string>
-    <!-- Settings summary -->
-    <string name="pref_plugin_installed">Plugins list</string>
-    <!-- Settings summary -->
-    <string name="pref_plugin_installed_empty_list">No installed plugins.</string>
-    <string name="pref_extras_gears_settings_summary">Applications that extend browser functionality</string>
+    <string name="pref_extras_website_settings_summary">View advanced settings for individual websites</string>
     <!-- Settings label -->
     <string name="pref_extras_reset_default">Reset to default</string>
     <!-- Settings summary -->
     <string name="pref_extras_reset_default_summary">Clear all browser data and reset all settings to default</string>
     <!-- Confirmation dialog message -->
-    <string name="pref_extras_reset_default_dlg">All browser data will be cleared and settings will revert to default values.</string>
+    <string name="pref_extras_reset_default_dlg">All browser data will be deleted and settings will revert to default values.</string>
     <!-- Confirmation dialog title -->
     <string name="pref_extras_reset_default_dlg_title">Reset to default</string>
     <!-- Title for a group of settings -->
@@ -404,6 +448,8 @@
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_nav_dump" translatable="false">Enable nav cache dump</string>
     <!-- Do not tranlsate.  Development option -->
+    <string name="js_engine_flags" translatable="false">Set JS flags</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_uastring" translatable="false">UAString</string>
     <!-- Do not tranlsate.  Development option -->
     <string-array name="pref_development_ua_choices" translatable="false">
@@ -417,6 +463,7 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string name="pref_development_error_console" translatable="false">Show JavaScript Console</string>
     <!-- Settings screen, setting option name -->
     <string name="pref_default_text_encoding">Text encoding</string>
     <!-- Options in the Default encoding dialog box -->
@@ -442,7 +489,7 @@
     <!-- Dialog box title -->
     <string name="browserFrameRedirect">Redirect</string>
     <!-- Dialog box message -->
-    <string name="browserFrame307Post">This Web page is being redirected. Resend your typed form data to the new location?</string>
+    <string name="browserFrame307Post">This web page is being redirected. Resend your typed form data to the new location?</string>
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>
@@ -456,25 +503,26 @@
     <!-- Dialog box title -->
     <string name="loadSuspendedTitle">No network connection</string>
     <!-- Dialog box message -->
-    <string name="loadSuspended">The page will continue loading after connection has been restored.</string>
+    <string name="loadSuspended">Browser cannot load this page because there
+      is no internet connection.</string>
     <!-- Menu item -->
     <string name="clear_history">Clear history</string>
     <!-- History screen title; appears in title bar -->
-    <string name="browser_history">Recently-visited pages</string>
+    <string name="browser_history">Recently visited pages</string>
     <!-- Appears on History screen if no history is found -->
     <string name="empty_history">Browser history is empty.</string>
     <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
     <string name="add_new_bookmark">Add bookmark\u2026</string>
-    <!-- Add bookmark dialog sets its title to this if we have no database.
-            This is an error case -->
-    <string name="no_database">No database!</string>
+    <!-- Verb placed in front of a screenshot of a web page that, when clicked,
+            will add that page to bookmarks -->
+    <string name="add_bookmark_short">Add</string>
     
     <!-- This string is for the browser "Go To" UI. -->
     <!-- Do not translate.  This string is not displayed in UI (no badge is selected for go to). -->
     <string name="search_label" translatable="false">Browser</string>
     <!-- This string is for the browser "Go To" UI. -->
     <!-- This is the hint text shown in the Go To widget, before text is entered. -->
-    <string name="search_hint">Type Web address</string>
+    <string name="search_hint">Search or type URL</string>
     <!-- This string is for the browser "Go To" UI. -->
     <!-- This is the button label in the "Go To" UI. -->
     <string name="search_button_text">Go</string>
@@ -580,7 +628,7 @@
     <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download will
             not happen because the content is not supported by the phone -->
-    <string name="download_not_acceptable">Cannot download. The content is not supported on the phone.</string>
+    <string name="download_not_acceptable">Cannot download. The content is not supported on this phone.</string>
     <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download did not
             finish because there is not enough storage for the file -->
@@ -603,7 +651,8 @@
     <!-- The default homepage. If it starts with "http://www.google" and the
             user signs up the device with a Google sites account, the site's
             domain will be appended. -->
-    <string name="homepage_base">http://www.google.com/m?client=ms-{CID}</string>
+    <string name="homepage_base" translatable="false">
+        http://www.google.com/m?client=ms-{CID}&amp;source=android-home</string>
 
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">
@@ -624,11 +673,11 @@
         <item>eBay</item>
         <item>http://www.ebay.com/</item>
         <item>CNN</item>
-        <item>http://www.cnn.com/</item>
-        <item>New York Times</item>
+        <item>http://www.cnn.com/index.html</item>
+        <item>NY Times</item>
         <item>http://www.nytimes.com/</item>
         <item>ESPN</item>
-        <item>http://espn.go.com/</item>
+        <item>http://espn.com/</item>
         <item>Amazon</item>
         <item>http://www.amazon.com/</item>
         <item>Weather Channel</item>
@@ -668,66 +717,53 @@
         Browser\'s history or bookmarks stored on your phone. Malicious applications 
         can use this to erase or modify your Browser\'s data.</string>
 
-    <!-- Gears Dialogs -->
-    <string name="query_data_prompt">Allow storage</string>
-    <string name="query_data_message">This web site would like to store information on your phone.</string>
-    <string name="location_prompt">Access your location</string>
-    <string name="location_message">This web site would like to have access to your location.</string>
-    <string name="shortcut_prompt">Create a shortcut</string>
-    <string name="shortcut_message">This web site would like to create a shortcut to this page on your home screen.</string>
-    <string name="settings_message">The table below shows the permissions you have granted to each site that has attempted to use Gears.</string>
-    <string name="filepicker_message">File Picker</string>
-    <string name="image_message">Choosen Image</string>
+    <!-- HTML5 dialogs -->
+    <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+    <string name="webstorage_outofspace_notification_title">Browser storage full</string>
+    <string name="webstorage_outofspace_notification_text">Click to free up space.</string>
+    <!-- Used in the Browser Settings -->
+    <string name="webstorage_clear_data_title">Clear stored data</string>
+    <string name="webstorage_clear_data_summary">Remove all databases associated with this website</string>
+    <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+    <string name="webstorage_clear_data_dialog_title">Clear stored data</string>
+    <string name="webstorage_clear_data_dialog_message">All data stored by this website will be deleted</string>
+    <string name="webstorage_clear_data_dialog_ok_button">Clear all</string>
+    <string name="webstorage_clear_data_dialog_cancel_button">Cancel</string>
+    <!-- Strings used in the summary of origins -->
+    <string name="webstorage_origin_summary_mb_stored">MB stored on your phone</string>
+        <!-- String shown in a progress view while a video is loading, before it starts playing -->
+    <string name="loading_video">Loading video</string>
 
-    <string name="settings_title">Gears settings</string>
-    <string name="privacy_policy">Read the site\'s privacy policy to see how your location will be used.</string>
-    <string name="settings_storage_title">Allow Local Storage</string>
-    <string name="settings_storage_subtitle_on">This site can save information to your phone</string>
-    <string name="settings_storage_subtitle_off">This site cannot save information to your phone</string>
+    <!-- Geolocation -->
+    <!-- Permissions prompt -->
+    <string name="geolocation_permissions_prompt_message"><xliff:g id="website origin" example="maps.google.com">%s</xliff:g> wants to know your location</string>
+    <string name="geolocation_permissions_prompt_share">Share location</string>
+    <string name="geolocation_permissions_prompt_dont_share">Decline</string>
+    <string name="geolocation_permissions_prompt_remember">Remember preference</string>
+    <!-- Settings page, Advanced Settings -> Website settings -> <origin> -->
+    <string name="geolocation_settings_page_title">Clear location access</string>
+    <string name="geolocation_settings_page_summary_allowed">This site can currently access your location</string>
+    <string name="geolocation_settings_page_summary_not_allowed">This site cannot currently access your location</string>
+    <!-- Settings page dialog -->
+    <string name="geolocation_settings_page_dialog_title">Clear location access</string>
+    <string name="geolocation_settings_page_dialog_message">Location access for this website will be cleared</string>
+    <string name="geolocation_settings_page_dialog_ok_button">Clear access</string>
+    <string name="geolocation_settings_page_dialog_cancel_button">Cancel</string>
+    <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+    <string name="website_settings_clear_all">Clear all</string>
+    <string name="website_settings_clear_all_dialog_title">Clear all website settings?</string>
+    <string name="website_settings_clear_all_dialog_message">All website data and location permissions will be deleted.</string>
+    <string name="website_settings_clear_all_dialog_ok_button">Delete all data</string>
+    <string name="website_settings_clear_all_dialog_cancel_button">Cancel</string>
 
-    <string name="settings_location_title">Allow Location Detection</string>
-    <string name="settings_location_subtitle_on">This site can read your current location</string>
-    <string name="settings_location_subtitle_off">This site cannot read your current location</string>
-
-    <string name="settings_remove_site">Remove this site from Gears</string>
-    <string name="settings_empty">No permissions set</string>
-
-    <string name="settings_confirmation_remove_title">Remove this site</string>
-    <string name="settings_confirmation_remove">All permissions will be cleared, and any data stored on your phone by the site will be deleted.</string>
-
-    <string name="storage_notification">This site will store information on this phone.\n Change this setting in:\n Settings -> Gears Settings</string>
-    <string name="storage_notification_alwaysdeny">This site will never store information on this phone.\n Change this setting in:\n Settings -> Gears Settings</string>
-    <string name="location_notification">This site can access your current location.\n Change this setting in:\n Settings -> Gears Settings</string>
-    <string name="location_notification_alwaysdeny">This site will not access your current location.\n Change this setting in:\n Settings -> Gears Settings</string>
-    <string name="shortcut_notification">Shortcut created</string>
-
-    <string name="permission_button_alwaysdeny">Never Allow</string>
-    <string name="permission_button_allow">OK</string>
-    <string name="permission_button_deny">Cancel</string>
-
-    <string name="shortcut_button_alwaysdeny">Never Allow</string>
-    <string name="shortcut_button_allow">OK</string>
-    <string name="shortcut_button_deny">Cancel</string>
-
-    <string name="settings_button_allow">Apply</string>
-    <string name="settings_button_deny">Cancel</string>
-
-    <string name="filepicker_button_allow">OK</string>
-    <string name="filepicker_button_deny">Cancel</string>
-    <string name="filepicker_path">path:</string>
-    <string name="filepicker_no_files_selected">No files selected</string>
-    <string name="filepicker_one_file_selected">One file selected</string>
-    <string name="filepicker_some_files_selected">files selected</string>
-
-    <string name="remove">Remove</string>
-    <string name="local_storage">Local storage</string>
-    <string name="allowed">Allowed</string>
-    <string name="denied">Denied</string>
-
-    <string name="unrecognized_dialog_message">Unrecognized dialog type</string>
-    <string name="default_button">OK</string>
 
     <!-- Zoom-related strings --><skip />
     <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->
     <string name="zoom_overview_button_text">Overview</string>
+
+    <string name="error_console_header_text_minimized" translatable="false">Show JavaScript console</string>
+    <string name="error_console_header_text_maximized" translatable="false">JavaScript console</string>
+    <string name="error_console_eval_text_hint" translatable="false">Evaluate JavaScript</string>
+    <string name="error_console_eval_button_text" translatable="false">Evaluate</string>
+
 </resources>
