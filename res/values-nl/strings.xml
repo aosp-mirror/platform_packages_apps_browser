@@ -115,7 +115,7 @@
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Link opslaan"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Link delen"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopiëren"</string>
-    <string name="contextmenu_copylink" msgid="5153657160294534270">"URL van koppeling kopiëren"</string>
+    <string name="contextmenu_copylink" msgid="5153657160294534270">"Link-URL kopiëren"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Afbeelding opslaan"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"Afbeelding weergeven"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Bellen..."</string>

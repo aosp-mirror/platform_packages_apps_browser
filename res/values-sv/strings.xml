@@ -15,7 +15,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="application_name" msgid="1935869255545976415">"Webbläsare"</string>
+    <string name="application_name" msgid="1935869255545976415">"Webbläs."</string>
     <string name="new_tab" msgid="4505722538297295141">"Nytt fönster"</string>
     <string name="active_tabs" msgid="3050623868203544623">"Fönster"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Bokmärken"</string>
@@ -63,7 +63,7 @@
     <string name="stop" msgid="5687251076030630074">"Stoppa"</string>
     <string name="reload" msgid="8585220783228408062">"Uppdatera"</string>
     <string name="back" msgid="8414603107175713668">"Tillbaka"</string>
-    <string name="forward" msgid="4288210890526641577">"Vidarebefordra"</string>
+    <string name="forward" msgid="4288210890526641577">"Framåt"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Avbryt"</string>
     <string name="location" msgid="969988560160364559">"Plats"</string>
@@ -186,12 +186,12 @@
     <item msgid="3840999588443167001">"Nära"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Standardinställning för zoom"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Öppna sidan i översikt"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Öppna sidor i översikt"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Visa översikt över nyligen öppnade sidor"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Avancerade inställningar"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Webbplatsinställningar"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Visa avancerade inställningar för enskilda webbplatser"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Återställ standardinställn."</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Återställ standardinställningarna"</string>
     <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Ta bort alla data i webbläsaren och återställ standardinställningarna"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Alla data i webbläsaren tas bort och standardinställningarna återställs."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Återställ standardinställn."</string>

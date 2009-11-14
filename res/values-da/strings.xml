@@ -44,7 +44,7 @@
     <string name="ssl_continue" msgid="8031515015829358457">"Fortsæt"</string>
     <string name="security_warning" msgid="6607795404322797541">"Sikkerhedsadvarsel"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Vis certifikat"</string>
-    <string name="ssl_untrusted" msgid="5369967226521102194">"Dette certifikat stammer ikke fra en troværdig autoritet."</string>
+    <string name="ssl_untrusted" msgid="5369967226521102194">"Dette certifikat stammer ikke fra en troværdig kilde."</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"Navnet på dette websted stemmer ikke overens med navnet på certifikatet."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Dette certifikat er udløbet."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Dette certifikat er ikke gyldigt endnu."</string>
@@ -58,8 +58,8 @@
     <string name="validity_period" msgid="57988851973181309">"Gyldighed:"</string>
     <string name="issued_on" msgid="2082890654801808368">"Udstedt den:"</string>
     <string name="expires_on" msgid="8061200430557020704">"Udløber den:"</string>
-    <string name="retrieving_creds_dlg_msg" msgid="9207671133094039879">"Henter logindetaljer ..."</string>
-    <string name="stopping" msgid="4839698519340302982">"Standser ..."</string>
+    <string name="retrieving_creds_dlg_msg" msgid="9207671133094039879">"Henter loginoplysninger ..."</string>
+    <string name="stopping" msgid="4839698519340302982">"Stopper ..."</string>
     <string name="stop" msgid="5687251076030630074">"Stop"</string>
     <string name="reload" msgid="8585220783228408062">"Opdater"</string>
     <string name="back" msgid="8414603107175713668">"Tilbage"</string>
@@ -76,16 +76,16 @@
     <string name="remove_bookmark" msgid="8407495852801410891">"Slet bogmærke"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Fjern fra bogmærker"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Fjern fra oversigt"</string>
-    <string name="set_as_homepage" msgid="4752937379414905560">"Indstil som startside"</string>
+    <string name="set_as_homepage" msgid="4752937379414905560">"Angiv som startside"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Gemt i bogmærker."</string>
     <string name="bookmark_not_saved" msgid="700600955089376724">"Bogmærket kunne ikke gemmes."</string>
     <string name="homepage_set" msgid="8768087280310966395">"Startsiden er indstillet."</string>
-    <string name="bookmark_needs_title" msgid="6245900436119218187">"Bogmærke skal have et navn."</string>
-    <string name="bookmark_needs_url" msgid="7809876865972755158">"Bogmærke skal have en placering."</string>
+    <string name="bookmark_needs_title" msgid="6245900436119218187">"Bogmærket skal have et navn."</string>
+    <string name="bookmark_needs_url" msgid="7809876865972755158">"Bogmærket skal have en placering."</string>
     <string name="empty_bookmark" msgid="7008697085928540511">"Der kan ikke oprettes et tomt bogmærke."</string>
-    <string name="bookmark_url_not_valid" msgid="6719785633980202419">"Webadresse er ikke gyldig."</string>
+    <string name="bookmark_url_not_valid" msgid="6719785633980202419">"Webadressen er ikke gyldig."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Slet"</string>
-    <string name="bookmark_page" msgid="6845189305130307274">"Tilføj bogmærke ved sidst viste side"</string>
+    <string name="bookmark_page" msgid="6845189305130307274">"Opret bogmærke for sidst viste side"</string>
     <string name="switch_to_thumbnails" msgid="5493351529609043151">"Miniaturevisning"</string>
     <string name="switch_to_list" msgid="8900531247982121055">"Listevisning"</string>
     <string name="current_page" msgid="7510129573681663135">"fra "</string>
@@ -97,11 +97,11 @@
     <string name="select_dot" msgid="6299170761900561967">"Vælg tekst"</string>
     <string name="view_tabs" msgid="1119097492003550564">"Vinduesoversigt"</string>
     <string name="view_tabs_condensed" msgid="5803955493821945369">"Vinduer"</string>
-    <string name="tab_picker_title" msgid="864478399057782913">"Nuværende vinduer"</string>
+    <string name="tab_picker_title" msgid="864478399057782913">"Aktuelle vinduer"</string>
     <string name="tab_picker_view_tab" msgid="2984342364915347656">"Vis"</string>
     <string name="tab_picker_new_tab" msgid="3080280018986866528">"Nyt vindue"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Luk"</string>
-    <string name="tab_picker_bookmark" msgid="1084409404198995477">"Tilføj et bogmærke"</string>
+    <string name="tab_picker_bookmark" msgid="1084409404198995477">"Opret et bogmærke"</string>
     <string name="tab_picker_send_url" msgid="9102803487525950021">"Del link"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Bogmærker"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Bogmærke"</string>
@@ -111,7 +111,7 @@
     <string name="share_page" msgid="593756995297268343">"Del side"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Åbn"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Åbn i et nyt vindue"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Tilføj et bogmærke ved linket"</string>
+    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Opret et bogmærke for linket"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Gem link"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Del link"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopier"</string>
@@ -134,13 +134,13 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"Aktiver Javascript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Åbn i baggrunden"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Aktiver plugins"</string>
-    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Åbn nye vinduer bag det aktuelle"</string>
-    <string name="pref_content_homepage" msgid="6082437160778559806">"Indstil startside"</string>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Aut. tilpassede sider"</string>
-    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formater websider, så de passer til skærmen"</string>
+    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Åbn nye vinduer bag det aktive"</string>
+    <string name="pref_content_homepage" msgid="6082437160778559806">"Angiv startside"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Tilpas sider automatisk"</string>
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Tilpas websider, så de passer til skærmen"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Kun liggende visning"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Vis kun sider i den bredere liggende retning"</string>
-    <string name="pref_privacy_title" msgid="1052470980370846151">"Fortrolighedsindstillinger"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Vis kun sider i den brede liggende retning"</string>
+    <string name="pref_privacy_title" msgid="1052470980370846151">"Indstillinger for fortrolighed"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Ryd cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ryd lokalt cachelagret indhold og databaser"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Lokalt cachelagret indhold og databaser slettes."</string>
@@ -157,7 +157,7 @@
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Ryd alle gemte adgangskoder"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Alle gemte adgangskoder slettes."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Aktiver placering"</string>
-    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Tillad websteder at anmode om adgang til din placering"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Tillad, at websteder anmoder om adgang til din placering"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Ryd placeringsadgang"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Ryd placeringsadgang for alle websteder"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Ryd placeringsadgang for alle websteder"</string>
@@ -167,9 +167,9 @@
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Husk formulardata"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Husk data, jeg indtaster i formularer, til senere brug"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Vis sikkerhedsadvarsler"</string>
-    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Vis advarsler, hvis der er et problem med et websteds sikkerhed"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Vis en advarsel, hvis der er problemer med sikkerheden på et websted"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Accepter cookies"</string>
-    <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Tillad websteder at gemme og læse \"cookie\"-data"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Tillad, at websteder gemmer og læser \"cookie\"-data"</string>
     <string name="pref_text_size" msgid="3827031324346612208">"Tekststørrelse"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Lillebitte"</item>
@@ -182,14 +182,14 @@
     <string name="pref_default_zoom" msgid="8076142259097187395">"Standardzoom"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Langt væk"</item>
-    <item msgid="5619034257768161024">"Mellemlangt"</item>
+    <item msgid="5619034257768161024">"Normal"</item>
     <item msgid="3840999588443167001">"Luk"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Standardzoom"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Åbn sider i oversigt"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Vis oversigt over sider, som er åbnet for nylig"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Avancerede indstillinger"</string>
-    <string name="pref_extras_website_settings" msgid="67866640052455549">"Webstedsindstillinger"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Indstillinger for websteder"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Vis avancerede indstillinger for individuelle websteder"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Nulstil til standard"</string>
     <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Ryd alle browserdata, og nulstil alle indstillinger til standard"</string>
@@ -216,8 +216,8 @@
     <string name="loadSuspended" msgid="3133656588880851273">"Browseren kan ikke indlæse denne side, fordi der ikke er nogen internetforbindelse."</string>
     <string name="clear_history" msgid="5998307092715979619">"Ryd oversigt"</string>
     <string name="browser_history" msgid="1038987118290272525">"Seneste besøgte sider"</string>
-    <string name="empty_history" msgid="8738772352308207274">"Browseroversigt er tom."</string>
-    <string name="add_new_bookmark" msgid="8086367791400349049">"Tilføj bogmærke ..."</string>
+    <string name="empty_history" msgid="8738772352308207274">"Browseroversigten er tom."</string>
+    <string name="add_new_bookmark" msgid="8086367791400349049">"Opret bogmærke ..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Tilføj"</string>
     <string name="search_hint" msgid="4647356319916631820">"Søg efter eller indtast en webadresse"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Gå"</string>
@@ -226,14 +226,14 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Dette websted forsøger at åbne et pop op-vindue."</string>
     <string name="allow" msgid="1157313689171991335">"Tillad"</string>
     <string name="block" msgid="9172175889884707800">"Bloker"</string>
-    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Grænsen for vinduet er nået"</string>
-    <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Der kunne ikke åbnes et nyt vindue, fordi du allerede har åbnet det maksimale antal."</string>
+    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Der kan ikke åbnes flere vinduer"</string>
+    <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Der kan ikke åbnes et nyt vindue, fordi du allerede har åbnet det maksimale antal."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop op er allerede åben"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Der kunne ikke åbnes et nyt pop op-vindue, da der kun kan være ét åbent ad gangen."</string>
     <string name="download_title" msgid="2122874021047565594">"Downloadoversigt"</string>
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Ukendt&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"Åbn"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Ryd fra listen"</string>
+    <string name="download_menu_clear" msgid="6264454531553418124">"Fjern fra listen"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"Annuller download"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Annuller alle downloads"</string>
     <string name="download_menu_clear_all" msgid="7423737413377703862">"Ryd liste"</string>
@@ -245,24 +245,24 @@
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> kunne ikke downloades."\n"Frigør noget plads på din telefon, og prøv igen."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download mislykkedes"</string>
     <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Der er intet SD-kort"</string>
-    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Et SD-kort er påkrævet for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD-kort er ikke tilgængeligt"</string>
+    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Du skal bruge et SD-kort for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD-kortet er ikke tilgængeligt"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
     <string name="download_no_application" msgid="5054596425887523234">"Der blev ikke fundet et program, der kan åbne denne fil."</string>
     <string name="retry" msgid="1835923075542266721">"Prøv igen"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Downloadoversigt er tom."</string>
+    <string name="no_downloads" msgid="3947445710685021498">"Downloadoversigten er tom."</string>
     <string name="download_error" msgid="413496839831257187">"Download mislykkedes."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Download afsluttet."</string>
+    <string name="download_success" msgid="2279041638155595203">"Download af <xliff:g id="FILE">%s</xliff:g> er afsluttet."</string>
     <string name="download_running" msgid="2622942231322015059">"Downloader ..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Starter download ..."</string>
     <string name="download_pending_network" msgid="6548714525679461053">"Venter på dataforbindelse ..."</string>
     <string name="download_running_paused" msgid="6418029352085656495">"Venter på dataforbindelse ..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Download annulleret."</string>
+    <string name="download_canceled" msgid="6057083743144492515">"Download er annulleret."</string>
     <string name="download_not_acceptable" msgid="313769696131563652">"Der kan ikke downloades. Indholdet understøttes ikke på denne telefon."</string>
     <string name="download_file_error" msgid="1206648050615176113">"Download kan ikke afsluttes. Der er ikke nok plads."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Der kan ikke downloades. Størrelsen på elementet kan ikke afgøres."</string>
+    <string name="download_length_required" msgid="9038605488460437406">"Der kan ikke downloades. Størrelsen på elementet kan ikke fastsættes."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Download blev afbrudt. Den kan ikke genoptages."</string>
-    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Browsertestkørsel"</string>
+    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Testkørsel af browser"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Søg på nettet"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Browserlageret er fuldt"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Klik her for at frigøre plads."</string>
@@ -279,14 +279,14 @@
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Afvis"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Husk indstilling"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Ryd placeringsadgang"</string>
-    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Dette websted kan i øjeblikket få adgang til din placering"</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Dette websted har i øjeblikket adgang til din placering"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Dette websted har i øjeblikket adgang til din placering"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Dette websted har i øjeblikket ikke adgang til din placering"</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Ryd placeringsadgang"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Placeringsadgang ryddes for dette websted"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Ryd adgang"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Annuller"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Ryd alle"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Vil du rydde alle webstedsindstillinger?"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Vil du rydde alle indstillinger for websteder?"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Alle webstedsdata og placeringstilladelser slettes."</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Slet alle data"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Annuller"</string>

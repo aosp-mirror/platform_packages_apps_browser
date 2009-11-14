@@ -94,7 +94,7 @@
     <string name="new_window" msgid="8117889615360211551">"Yeni pencere"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Git"</string>
     <string name="find_dot" msgid="6259312434696611957">"Sayfada bul"</string>
-    <string name="select_dot" msgid="6299170761900561967">"Metni seç"</string>
+    <string name="select_dot" msgid="6299170761900561967">"Metin seç"</string>
     <string name="view_tabs" msgid="1119097492003550564">"Pencereye genel bakış"</string>
     <string name="view_tabs_condensed" msgid="5803955493821945369">"Pencereler"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Geçerli pencereler"</string>

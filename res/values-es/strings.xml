@@ -101,10 +101,10 @@
     <string name="tab_picker_view_tab" msgid="2984342364915347656">"Ver"</string>
     <string name="tab_picker_new_tab" msgid="3080280018986866528">"Nueva ventana"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Cerrar"</string>
-    <string name="tab_picker_bookmark" msgid="1084409404198995477">"Marcar"</string>
+    <string name="tab_picker_bookmark" msgid="1084409404198995477">"Marcador"</string>
     <string name="tab_picker_send_url" msgid="9102803487525950021">"Compartir enlace"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Marcadores"</string>
-    <string name="shortcut_bookmark" msgid="3974876480401135895">"Marcar"</string>
+    <string name="shortcut_bookmark" msgid="3974876480401135895">"Marcador"</string>
     <string name="history" msgid="2451240511251410032">"Historial"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Descargas"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar URL de página"</string>
@@ -229,7 +229,7 @@
     <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Límite de ventanas alcanzado"</string>
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"No se ha podido abrir una ventana nueva porque ya se ha abierto el número máximo de ventanas admitido."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ventana emergente ya abierta"</string>
-    <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"No se ha podido abrir una nueva ventana emergente, porque no se puede abrir más de una ventana emergente a la vez."</string>
+    <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"No se ha podido abrir una nueva ventana emergente porque no se puede abrir más de una ventana emergente a la vez."</string>
     <string name="download_title" msgid="2122874021047565594">"Historial de descargas"</string>
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Desconocido&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"Abrir"</string>
@@ -258,9 +258,9 @@
     <string name="download_pending_network" msgid="6548714525679461053">"Esperando conexión de datos…"</string>
     <string name="download_running_paused" msgid="6418029352085656495">"Esperando conexión de datos…"</string>
     <string name="download_canceled" msgid="6057083743144492515">"Descarga cancelada"</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"No se puede realizar la descarga, porque el teléfono no admite el contenido que se quiere descargar."</string>
+    <string name="download_not_acceptable" msgid="313769696131563652">"No se puede realizar la descarga porque el teléfono no admite el contenido que se quiere descargar."</string>
     <string name="download_file_error" msgid="1206648050615176113">"No se puede completar la descarga porque no hay suficiente espacio."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"No se puede realizar la descarga, porque no es posible determinar el tamaño del elemento."</string>
+    <string name="download_length_required" msgid="9038605488460437406">"No se puede realizar la descarga porque no es posible determinar el tamaño del elemento."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"La descarga se ha interrumpido y no se puede reanudar."</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Realizador de pruebas del navegador"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Buscar en la Web"</string>

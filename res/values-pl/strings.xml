@@ -160,7 +160,7 @@
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Zezwalaj witrynom na żądanie dostępu do informacji o lokalizacji"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Udziel dostępu do informacji o lokalizacji"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Usuń dostęp wszystkich witryn do informacji o lokalizacji"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Usuń dostęp wszystkich witryn do informacji o lokalizacji"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Udziel dostępu wszystkim witrynom do informacji o lokalizacji"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Ustawienia zabezpieczeń"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Pamiętaj hasła"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Zapisz nazwy użytkowników i hasła używane w witrynach"</string>

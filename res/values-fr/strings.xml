@@ -139,7 +139,7 @@
     <string name="pref_content_autofit" msgid="8260474534053660809">"Redimensionner"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Affichage en mode Paysage uniquement"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Toujours afficher les pages dans le sens de la largeur, en orientation paysage"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Tjrs afficher pages dans le sens de la largeur, en orientation paysage"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Paramètres de confidentialité"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Effacer le cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Supprimer les bases de données et le contenu mis localement en cache"</string>
@@ -192,7 +192,7 @@
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Paramètres du site Web"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Afficher les paramètres avancés de sites Web individuels"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Rétablir valeurs par défaut"</string>
-    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Effacer toutes les données du navigateur et rétablir les paramètres par défaut"</string>
+    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Effacer les données du navigateur et rétablir les par. par défaut"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Toutes les données du navigateur seront supprimées et les paramètres par défaut rétablis."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Rétablir les valeurs par défaut"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Débogage"</string>
@@ -219,7 +219,7 @@
     <string name="empty_history" msgid="8738772352308207274">"L\'historique du navigateur est vide."</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"Ajouter aux favoris..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Ajouter"</string>
-    <string name="search_hint" msgid="4647356319916631820">"Rechercher ou entrer l\'URL"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Rech. ou entrer l\'URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Aller"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Favoris et historique Web"</string>
     <string name="attention" msgid="3473639060042811244">"Attention"</string>
