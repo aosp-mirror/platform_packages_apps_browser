@@ -19,7 +19,7 @@
     <string name="new_tab" msgid="4505722538297295141">"Nové okno"</string>
     <string name="active_tabs" msgid="3050623868203544623">"Okna"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Záložky"</string>
-    <string name="tab_most_visited" msgid="1077402532455000703">"Často navštěvované"</string>
+    <string name="tab_most_visited" msgid="1077402532455000703">"Nejnavštěvovanější"</string>
     <string name="tab_history" msgid="1979267558744613746">"Historie"</string>
     <string name="added_to_bookmarks" msgid="1020224130695956728">"Přidáno k záložkám"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"Odstraněno ze záložek"</string>
@@ -74,7 +74,7 @@
     <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Přidat odkaz na plochu"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Otevřít"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Smazat záložku"</string>
-    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Odebrat ze záložek"</string>
+    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Zrušit přístup k poloze"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Odstranit z historie"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Nastavit jako domovskou stránku"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Uloženo do záložek."</string>
@@ -87,7 +87,7 @@
     <string name="delete_bookmark" msgid="2422989994934201992">"Smazat"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Přidat poslední zobrazenou stránku do záložek"</string>
     <string name="switch_to_thumbnails" msgid="5493351529609043151">"Zobrazit jako miniatury"</string>
-    <string name="switch_to_list" msgid="8900531247982121055">"Zobrazit jako seznam"</string>
+    <string name="switch_to_list" msgid="8900531247982121055">"Zrušit přístup k poloze"</string>
     <string name="current_page" msgid="7510129573681663135">"od "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Záložka <xliff:g id="BOOKMARK">%s</xliff:g> bude smazána."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Otevřít v novém okně"</string>
@@ -133,10 +133,10 @@
     <string name="pref_content_block_popups" msgid="7808433807197256726">"Blokovat vyskakovací okna"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Povolit JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Otevřít na pozadí"</string>
-    <string name="pref_content_plugins" msgid="7231944644794301582">"Aktivovat pluginy"</string>
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Povolit pluginy"</string>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Otevírat nová okna za aktuálním oknem"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Nastavit domovskou stránku"</string>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Automaticky přizpůsobit stránky"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Automaticky přizpůsobit"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Přizpůsobit velikost webových stránek obrazovce"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Zobrazení pouze na šířku"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Zobrazit stránky pouze s displejem otočeným na šířku"</string>
@@ -144,12 +144,12 @@
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Vymazat mezipaměť"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Vymazat všechen obsah a databáze uložené do místní mezipaměti"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Obsah a databáze uložené v místní mezipaměti budou vymazány."</string>
-    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Vymazat všechny soubory cookie"</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Vymazat soubory cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Vymazat všechny soubory cookie prohlížeče"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Všechny soubory cookie budou vymazány."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Vymazat historii"</string>
-    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Vymazat historii stránek prohlížeče"</string>
-    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Historie stránek prohlížeče bude vymazána."</string>
+    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Vymazat historii navigace v prohlížeči"</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Historie navigace v prohlížeči bude vymazána."</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Vymazat data formulářů"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Vymazat všechna uložená data formulářů"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Všechna uložená data formulářů budou vymazána."</string>
@@ -157,14 +157,14 @@
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Vymazat všechna uložená hesla"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Všechna uložená hesla budou vymazána."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Povolit polohu"</string>
-    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Povolit webovým stránkám požádat o přístup k informacím o vaší poloze"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Zrušit přístup k informacím o poloze"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Zrušit přístup k informacím o poloze pro všechny webové stránky"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Zrušit přístup k informacím o poloze pro všechny webové stránky"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Povolit webovým stránkám žádat o přístup k informacím o vaší poloze"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Zrušit přístup k poloze"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Zrušit všem webovým stránkám přístup k poloze"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Zrušit všem webovým stránkám přístup k poloze"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Nastavení zabezpečení"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Zapamatovat hesla"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Ukládat uživatelská jména a hesla pro webové stránky"</string>
-    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Zapamatovat data formuláře"</string>
+    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Zapamatovat data formulářů"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Zapamatovat si data zadaná do formulářů pro další použití"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Zobrazit upozornění zabezpečení"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Zobrazit upozornění, pokud dojde k problému se zabezpečením webu"</string>
@@ -186,10 +186,10 @@
     <item msgid="3840999588443167001">"Blízko"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Výchozí přiblížení"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Při otevírání stránek zobrazit přehled"</string>
-    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Zobrazit přehled nově otevřených stránek"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Otevírat stránky v náhledu"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Zobrazit náhled nově otevřených stránek"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Upřesnit nastavení"</string>
-    <string name="pref_extras_website_settings" msgid="67866640052455549">"Nastavení webových stránek"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Zrušit přístup k poloze"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Zobrazit pokročilá nastavení pro jednotlivé webové stránky"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Obnovit výchozí"</string>
     <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Vymazat všechna data prohlížeče a obnovit všechna nastavení na výchozí hodnoty"</string>
@@ -213,13 +213,13 @@
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Potvrdit"</string>
     <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Stránka, kterou se pokoušíte zobrazit, obsahuje data, která již byla odeslána (POSTDATA). Pokud data odešlete znovu, jakákoli akce vykonaná pomocí formuláře na stránce bude provedena znovu (např. hledání či nákup online)."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"Žádné připojení k síti"</string>
-    <string name="loadSuspended" msgid="3133656588880851273">"Prohlížeč nemůže tuto stránku načíst, protože není k dispozici připojení k Internetu."</string>
+    <string name="loadSuspended" msgid="3133656588880851273">"Prohlížeč nemůže tuto stránku načíst, protože není k dispozici připojení k internetu."</string>
     <string name="clear_history" msgid="5998307092715979619">"Vymazat historii"</string>
     <string name="browser_history" msgid="1038987118290272525">"Nedávno navštívené stránky"</string>
     <string name="empty_history" msgid="8738772352308207274">"Historie prohlížeče je prázdná."</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"Přidat záložku..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Přidat"</string>
-    <string name="search_hint" msgid="4647356319916631820">"Vyhledejte nebo zadejte adresu URL"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Zrušit přístup k poloze"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Přejít"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Záložky a webová historie"</string>
     <string name="attention" msgid="3473639060042811244">"Upozornění"</string>
@@ -264,25 +264,25 @@
     <string name="download_precondition_failed" msgid="8327584102874295580">"Stahování bylo přerušeno a nelze v něm pokračovat."</string>
     <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Testovací verze prohlížeče"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Vyhledat na webu"</string>
-    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Paměť prohlížeče je plná"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Zrušit přístup k poloze"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Kliknutím uvolníte místo."</string>
-    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Vymazat uložená data"</string>
-    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Odebrat všechny databáze přidružené k těmto webovým stránkám"</string>
+    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Zrušit přístup k poloze"</string>
+    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Zrušit přístup k poloze"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Vymazat uložená data"</string>
-    <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Všechna data uložená těmito webovými stránkami budou smazána"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Zrušit přístup k poloze"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Vymazat vše"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Zrušit"</string>
-    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB uloženo ve vašem telefonu"</string>
+    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Zrušit přístup k poloze"</string>
     <string name="loading_video" msgid="4887871585216091096">"Načítání videa"</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"Web <xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> požaduje informace o vaší poloze"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Sdílet polohu"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Odmítnout"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Zapamatovat předvolbu"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Zrušit přístup k informacím o poloze"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Zrušit přístup k poloze"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Tyto stránky mohou aktuálně získat přístup k informacím o vaší poloze"</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Tyto stránky nemohou aktuálně získat přístup k informacím o vaší poloze"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Zrušit přístup k informacím o poloze"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Přístup těchto webových stránek k informacím o poloze bude zrušen"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Zrušit přístup k poloze"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Zrušit přístup k poloze"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Přístup těchto webových stránek k poloze bude zrušen"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Zrušit přístup"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Zrušit"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Vymazat vše"</string>

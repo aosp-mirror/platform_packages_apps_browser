@@ -143,7 +143,7 @@
     <string name="pref_privacy_title" msgid="1052470980370846151">"Ρυθμίσεις απορρήτου"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Εκκαθάριση προσωρινής μνήμης"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Εκκαθάριση τοπικά αποθηκευμένου στη μνήμη cache περιεχομένου και βάσεων δεδομένων"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Περιεχόμενο και βάσεις δεδομένων που έχουν αποθηκευτεί στην τοπική προσωρινή μνήμη θα διαγραφού ."</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Περιεχόμενο και βάσεις δεδομένων που έχουν αποθηκευτεί στην τοπική προσωρινή μνήμη θα διαγραφούν."</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Εκκαθάριση όλων των δεδομένων cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Εκκαθάριση όλων των cookie του προγράμματος περιήγησης"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Όλα τα cookie θα διαγραφούν."</string>
@@ -183,7 +183,7 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Μακριά"</item>
     <item msgid="5619034257768161024">"Μέτριο"</item>
-    <item msgid="3840999588443167001">"Κλείσιμο"</item>
+    <item msgid="3840999588443167001">"Κοντά"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Προεπιλεγμένο ζουμ"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Άνοιγμα σελίδων στην επισκόπιση"</string>

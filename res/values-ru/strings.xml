@@ -192,7 +192,7 @@
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайта"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Просмотреть дополнительные настройки для отдельных сайтов"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Восстановить настройки по умолчанию"</string>
-    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Очистить все данные браузера и восстановить все настройки по умолчанию"</string>
+    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Очистить все данные браузера и включить настройки по умолчанию"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Все данные браузера будут удалены, настройки по умолчанию будут восстановлены."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Восстановить настройки по умолчанию"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Отладка"</string>

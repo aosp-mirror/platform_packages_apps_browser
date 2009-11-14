@@ -138,13 +138,13 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"Imposta home page"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Adatta autom. pagine"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Adatta le pagine web allo schermo"</string>
-    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Visualizzazione solo orizzontale"</string>
+    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Visual. solo orizzontale"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Visualizza le pagine solo con l\'orientamento dello schermo orizzontale più largo"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Impostazioni privacy"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Cancella cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Cancella i contenuti e i database memorizzati localmente nella cache"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"I contenuti e i database memorizzati localmente nella cache verranno eliminati."</string>
-    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Cancella tutti i dati dei cookie"</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Canc. tutti i dati dei cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Cancella tutti i cookie del browser"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Verranno eliminati tutti i cookie."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Cancella cronologia"</string>
@@ -158,7 +158,7 @@
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Tutte le password salvate verranno eliminate."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Attiva posizione"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Consenti ai siti di richiedere l\'accesso alla tua posizione"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Cancella accesso a posizione"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Cancella accesso a posiz."</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Cancella l\'accesso alla posizione per tutti i siti web"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Cancella l\'accesso alla posizione per tutti i siti web"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Impostazioni di protezione"</string>
@@ -186,15 +186,15 @@
     <item msgid="3840999588443167001">"Chiudi"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predefinito"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Apri pagine in panoramica"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Apri pag. in panoramica"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Visualizza la panoramica delle pagine appena aperte"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Impostazioni avanzate"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Impostazioni siti web"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Visualizza le impostazioni avanzate dei singoli siti web"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Ripristina valori predefiniti"</string>
-    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Cancella tutti i dati del browser e ripristina tutte le impostazioni predefinite"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Ripristina valori predef."</string>
+    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Cancella tutti i dati del browser e ripristina tutte le imp. predef."</string>
     <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Verranno eliminati tutti i dati del browser e verranno ripristinate le impostazioni predefinite."</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Ripristina valori predefiniti"</string>
+    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Ripristina valori predef."</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debug"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codifica testo"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -278,10 +278,10 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Condividi posizione"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rifiuta"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Ricorda la preferenza"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Cancella accesso a posizione"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Cancella accesso a posiz."</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Al momento questo sito può accedere alla tua posizione"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Al momento questo sito non può accedere alla tua posizione"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Cancella accesso a posizione"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Cancella accesso a posiz."</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"L\'accesso alla posizione per questo sito web verrà cancellato"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Cancella accesso"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Annulla"</string>

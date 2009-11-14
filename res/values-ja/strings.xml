@@ -129,7 +129,7 @@
     <string name="menu_preferences" msgid="6709237687234102240">"設定"</string>
     <string name="pref_content_title" msgid="722227111894838633">"ページコンテンツ設定"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"画像の読み込み"</string>
-    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"ウェブページに画像を表示"</string>
+    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"ウェブページに画像を表示する"</string>
     <string name="pref_content_block_popups" msgid="7808433807197256726">"ポップアップウィンドウをブロック"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"JavaScriptを有効にする"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"バックグラウンドで開く"</string>
@@ -137,33 +137,33 @@
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"現在のウィンドウの後ろに新しいウィンドウを開く"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"ホームページ設定"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"ページの自動調整"</string>
-    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"画面に合わせてウェブページをフォーマット"</string>
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"画面に合わせてウェブページをフォーマットする"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"常に横向きに表示"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"ページを常に横向きに表示"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"ページを常に横向きに表示する"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"プライバシー設定"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"キャッシュを消去"</string>
-    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"ローカルにキャッシュしたコンテンツとデータベースを消去"</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"ローカルにキャッシュしたコンテンツとデータベースを消去する"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"ローカルにキャッシュしたコンテンツとデータベースを削除します。"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Cookieをすべて消去"</string>
-    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"すべてのブラウザCookieを消去"</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"すべてのブラウザCookieを消去する"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"すべてのCookieを削除します。"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"履歴消去"</string>
-    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"ブラウザの閲覧履歴を消去します"</string>
+    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"ブラウザの閲覧履歴を消去する"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"ブラウザの閲覧履歴を削除します。"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"フォームデータを消去"</string>
-    <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"保存されているフォームデータをすべて消去します"</string>
+    <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"保存されているフォームデータをすべて消去する"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"保存されているすべてのフォームデータが削除されます。"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"パスワードを消去"</string>
-    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"保存されているすべてのパスワードを消去"</string>
+    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"保存されているすべてのパスワードを消去する"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"保存されているすべてのパスワードを削除します。"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"位置情報を有効にする"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"サイトに現在地情報へのアクセスを許可する"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"位置情報アクセスをクリア"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"すべてのウェブサイトの位置情報アクセスをクリア"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"すべてのウェブサイトの位置情報アクセスをクリアする"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"すべてのウェブサイトの位置情報アクセスをクリア"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"セキュリティ設定"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"パスワードを保存"</string>
-    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"ウェブサイトのユーザー名とパスワードを保存"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"ウェブサイトのユーザー名とパスワードを保存する"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"フォームデータを保存"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"フォームに入力したデータを保存して後で呼び出せるようにする"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"セキュリティ警告"</string>
@@ -181,16 +181,16 @@
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"文字サイズ"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"デフォルトの倍率"</string>
   <string-array name="pref_default_zoom_choices">
-    <item msgid="549583171195154919">"低い"</item>
-    <item msgid="5619034257768161024">"中間"</item>
-    <item msgid="3840999588443167001">"高い"</item>
+    <item msgid="549583171195154919">"低"</item>
+    <item msgid="5619034257768161024">"中"</item>
+    <item msgid="3840999588443167001">"高"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"デフォルトの倍率"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"ページを全体表示で開く"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"新しく開いたページを全体表示する"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"詳細設定"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"ウェブサイト設定"</string>
-    <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"個々のウェブサイトの詳細設定を表示"</string>
+    <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"個々のウェブサイトの詳細設定を表示する"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"初期設定にリセット"</string>
     <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"ブラウザデータをすべて消去して出荷時の初期設定に戻す"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"すべてのブラウザデータを削除して設定をデフォルト値に戻します。"</string>
