@@ -30,6 +30,8 @@
             <WebView android:id="@+id/webview"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:fadeScrollbars="true"
+                android:scrollbarStyle="outsideOverlay"
                 android:layout_weight="1" />
         </LinearLayout>
     </FrameLayout>

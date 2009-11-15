@@ -24,10 +24,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.Browser;
+import android.view.Window;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
-import android.view.Window;
 
 import java.util.HashMap;
 import java.util.Vector;
@@ -67,10 +67,9 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         }
     }
     private static IconListenerSet sIconListenerSet;
-    static IconListenerSet getIconListenerSet(ContentResolver cr) {
+    static IconListenerSet getIconListenerSet() {
         if (null == sIconListenerSet) {
             sIconListenerSet = new IconListenerSet();
-            Browser.requestAllIcons(cr, null, sIconListenerSet);
         }
         return sIconListenerSet;
     }
@@ -78,42 +77,52 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.tabs);
-        TabHost tabHost = getTabHost();
-        tabHost.setOnTabChangedListener(this);
+
+        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+
+        getTabHost().setOnTabChangedListener(this);
 
         Bundle extras = getIntent().getExtras();
-        Resources resources = getResources();
 
-        getIconListenerSet(getContentResolver());
+        getIconListenerSet();
+        // Do this every time we create a new activity so that we get the
+        // newest icons.
+        Browser.requestAllIcons(getContentResolver(), null, sIconListenerSet);
+
         Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
         bookmarksIntent.putExtras(extras);
-        tabHost.addTab(tabHost.newTabSpec(BOOKMARKS_TAB)
-                .setIndicator(resources.getString(R.string.tab_bookmarks),
-                resources.getDrawable(R.drawable.browser_bookmark_tab))
-                .setContent(bookmarksIntent));
+        createTab(bookmarksIntent, R.string.tab_bookmarks,
+                R.drawable.browser_bookmark_tab, BOOKMARKS_TAB);
 
-        Intent visitedIntent = new Intent(this, MostVisitedActivity.class);
-        visitedIntent.putExtras(extras);
-        tabHost.addTab(tabHost.newTabSpec(VISITED_TAB)
-                .setIndicator(resources.getString(R.string.tab_most_visited),
-                resources.getDrawable(R.drawable.browser_visited_tab))
-                .setContent(visitedIntent));
+        Intent visitedIntent = new Intent(this, BrowserBookmarksPage.class);
+        // Need to copy extras so the bookmarks activity and this one will be
+        // different
+        Bundle visitedExtras = new Bundle(extras);
+        visitedExtras.putBoolean("mostVisited", true);
+        visitedIntent.putExtras(visitedExtras);
+        createTab(visitedIntent, R.string.tab_most_visited,
+                R.drawable.browser_visited_tab, VISITED_TAB);
 
         Intent historyIntent = new Intent(this, BrowserHistoryPage.class);
         historyIntent.putExtras(extras);
-        tabHost.addTab(tabHost.newTabSpec(HISTORY_TAB)
-                .setIndicator(resources.getString(R.string.tab_history),
-                resources.getDrawable(R.drawable.
-                browser_history_tab)).setContent(historyIntent));
+        createTab(historyIntent, R.string.tab_history,
+                R.drawable.browser_history_tab, HISTORY_TAB);
 
         String defaultTab = extras.getString(STARTING_TAB);
         if (defaultTab != null) {
-            tabHost.setCurrentTab(2);
+            getTabHost().setCurrentTab(2);
         }
     }
 
+    private void createTab(Intent intent, int labelResId, int iconResId,
+            String tab) {
+        Resources resources = getResources();
+        TabHost tabHost = getTabHost();
+        tabHost.addTab(tabHost.newTabSpec(tab).setIndicator(
+                resources.getText(labelResId), resources.getDrawable(iconResId))
+                .setContent(intent));
+    }
     // Copied from DialTacts Activity
     /** {@inheritDoc} */
     public void onTabChanged(String tabId) {

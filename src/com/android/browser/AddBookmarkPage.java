@@ -18,22 +18,24 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.ParseException;
 import android.net.WebAddress;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Browser;
 import android.view.View;
 import android.view.Window;
-import android.webkit.WebIconDatabase;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 
 public class AddBookmarkPage extends Activity {
@@ -46,18 +48,19 @@ public class AddBookmarkPage extends Activity {
     private View        mCancelButton;
     private boolean     mEditingExisting;
     private Bundle      mMap;
-    
-    private static final String[]   mProjection = 
-        { "_id", "url", "bookmark", "created", "title", "visits" };
-    private static final String     WHERE_CLAUSE = "url = ?";
-    private final String[]          SELECTION_ARGS = new String[1];
+    private String      mTouchIconUrl;
+    private Bitmap      mThumbnail;
+    private String      mOriginalUrl;
+
+    // Message IDs
+    private static final int SAVE_BOOKMARK = 100;
+
+    private Handler mHandler;
 
     private View.OnClickListener mSaveBookmark = new View.OnClickListener() {
         public void onClick(View v) {
             if (save()) {
                 finish();
-                Toast.makeText(AddBookmarkPage.this, R.string.bookmark_saved,
-                        Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -73,7 +76,7 @@ public class AddBookmarkPage extends Activity {
         requestWindowFeature(Window.FEATURE_LEFT_ICON);
         setContentView(R.layout.browser_add_bookmark);
         setTitle(R.string.save_to_bookmarks);
-        getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_dialog_bookmark);
+        getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
         
         String title = null;
         String url = null;
@@ -86,14 +89,15 @@ public class AddBookmarkPage extends Activity {
                 setTitle(R.string.edit_bookmark);
             }
             title = mMap.getString("title");
-            url = mMap.getString("url");
+            url = mOriginalUrl = mMap.getString("url");
+            mTouchIconUrl = mMap.getString("touch_icon_url");
+            mThumbnail = (Bitmap) mMap.getParcelable("thumbnail");
         }
 
         mTitle = (EditText) findViewById(R.id.title);
         mTitle.setText(title);
         mAddress = (EditText) findViewById(R.id.address);
         mAddress.setText(url);
-
 
         View.OnClickListener accept = mSaveBookmark;
         mButton = (TextView) findViewById(R.id.OK);
@@ -106,13 +110,59 @@ public class AddBookmarkPage extends Activity {
             mButton.requestFocus();
         }
     }
-    
+
+    private void createHandler() {
+        if (mHandler == null) {
+            mHandler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    switch (msg.what) {
+                        case SAVE_BOOKMARK:
+                            // Unbundle bookmark data.
+                            Bundle bundle = msg.getData();
+                            String title = bundle.getString("title");
+                            String url = bundle.getString("url");
+                            boolean invalidateThumbnail = bundle.getBoolean("invalidateThumbnail");
+                            Bitmap thumbnail = invalidateThumbnail
+                                    ? null : (Bitmap) bundle.getParcelable("thumbnail");
+                            String touchIconUrl = bundle.getString("touchIconUrl");
+
+                            // Save to the bookmarks DB.
+                            if (updateBookmarksDB(title, url, thumbnail, touchIconUrl)) {
+                                Toast.makeText(AddBookmarkPage.this, R.string.bookmark_saved,
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(AddBookmarkPage.this, R.string.bookmark_not_saved,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            break;
+                    }
+                }
+            };
+        }
+    }
+
+    private boolean updateBookmarksDB(String title, String url, Bitmap thumbnail, String touchIconUrl) {
+        try {
+            final ContentResolver cr = getContentResolver();
+            Bookmarks.addBookmark(null, cr, url, title, thumbnail, true);
+            if (touchIconUrl != null) {
+                final Cursor c =
+                        BrowserBookmarksAdapter.queryBookmarksForUrl(cr, null, url, true);
+                new DownloadTouchIcon(cr, c, url).execute(mTouchIconUrl);
+            }
+        } catch (IllegalStateException e) {
+            return false;
+        }
+        return true;
+    }
+
     /**
-     *  Save the data to the database. 
-     *  Also, change the view to dialog stating 
-     *  that the webpage has been saved.
+     * Parse the data entered in the dialog and post a message to update the bookmarks database.
      */
     boolean save() {
+        createHandler();
+
         String title = mTitle.getText().toString().trim();
         String unfilteredUrl = 
                 BrowserActivity.fixUrl(mAddress.getText().toString());
@@ -129,97 +179,46 @@ public class AddBookmarkPage extends Activity {
             return false;
         }
         String url = unfilteredUrl;
-        if (!(url.startsWith("about:") || url.startsWith("data:") || url
-                .startsWith("file:"))) {
-            WebAddress address;
-            try {
-                address = new WebAddress(unfilteredUrl);
-            } catch (ParseException e) {
-                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
-                return false;
-            }
-            if (address.mHost.length() == 0) {
-                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
-                return false;
-            }
-            url = address.toString();
-        }
         try {
-            if (mEditingExisting) {
-                mMap.putString("title", title);
-                mMap.putString("url", url);
-                setResult(RESULT_OK, (new Intent()).setAction(
-                        getIntent().toString()).putExtras(mMap));
-            } else {
-                // Want to append to the beginning of the list
-                long creationTime = new Date().getTime();
-                SELECTION_ARGS[0] = url;
-                ContentResolver cr = getContentResolver();
-                Cursor c = cr.query(Browser.BOOKMARKS_URI,
-                        mProjection,
-                        WHERE_CLAUSE,
-                        SELECTION_ARGS,
-                        null);
-                ContentValues map = new ContentValues();
-                if (c.moveToFirst() && c.getInt(c.getColumnIndexOrThrow(
-                        Browser.BookmarkColumns.BOOKMARK)) == 0) {
-                    // This means we have been to this site but not bookmarked
-                    // it, so convert the history item to a bookmark                    
-                    map.put(Browser.BookmarkColumns.CREATED, creationTime);
-                    map.put(Browser.BookmarkColumns.TITLE, title);
-                    map.put(Browser.BookmarkColumns.BOOKMARK, 1);
-                    cr.update(Browser.BOOKMARKS_URI, map, 
-                            "_id = " + c.getInt(0), null);
-                } else {
-                    int count = c.getCount();
-                    boolean matchedTitle = false;
-                    for (int i = 0; i < count; i++) {
-                        // One or more bookmarks already exist for this site.
-                        // Check the names of each
-                        c.moveToPosition(i);
-                        if (c.getString(c.getColumnIndexOrThrow(
-                                Browser.BookmarkColumns.TITLE)).equals(title)) {
-                            // The old bookmark has the same name.
-                            // Update its creation time.
-                            map.put(Browser.BookmarkColumns.CREATED,
-                                    creationTime);
-                            cr.update(Browser.BOOKMARKS_URI, map, 
-                                    "_id = " + c.getInt(0), null);
-                            matchedTitle = true;
-                        }
-                    }
-                    if (!matchedTitle) {
-                        // Adding a bookmark for a site the user has visited,
-                        // or a new bookmark (with a different name) for a site
-                        // the user has visited
-                        map.put(Browser.BookmarkColumns.TITLE, title);
-                        map.put(Browser.BookmarkColumns.URL, url);
-                        map.put(Browser.BookmarkColumns.CREATED, creationTime);
-                        map.put(Browser.BookmarkColumns.BOOKMARK, 1);
-                        map.put(Browser.BookmarkColumns.DATE, 0);
-                        int visits = 0;
-                        if (count > 0) {
-                            // The user has already bookmarked, and possibly
-                            // visited this site.  However, they are creating
-                            // a new bookmark with the same url but a different
-                            // name.  The new bookmark should have the same
-                            // number of visits as the already created bookmark.
-                            visits = c.getInt(c.getColumnIndexOrThrow(
-                                    Browser.BookmarkColumns.VISITS));
-                        }
-                        // Bookmark starts with 3 extra visits so that it will
-                        // bubble up in the most visited and goto search box
-                        map.put(Browser.BookmarkColumns.VISITS, visits + 3);
-                        cr.insert(Browser.BOOKMARKS_URI, map);
-                    }
+            URI uriObj = new URI(url);
+            String scheme = uriObj.getScheme();
+            if (!("about".equals(scheme) || "data".equals(scheme)
+                    || "javascript".equals(scheme)
+                    || "file".equals(scheme) || "content".equals(scheme))) {
+                WebAddress address;
+                try {
+                    address = new WebAddress(unfilteredUrl);
+                } catch (ParseException e) {
+                    throw new URISyntaxException("", "");
                 }
-                WebIconDatabase.getInstance().retainIconForPageUrl(url);
-                c.deactivate();
-                setResult(RESULT_OK);
+                if (address.mHost.length() == 0) {
+                    throw new URISyntaxException("", "");
+                }
+                url = address.toString();
             }
-        } catch (IllegalStateException e) {
-            setTitle(r.getText(R.string.no_database));
+        } catch (URISyntaxException e) {
+            mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
             return false;
+        }
+
+        if (mEditingExisting) {
+            mMap.putString("title", title);
+            mMap.putString("url", url);
+            mMap.putBoolean("invalidateThumbnail", !url.equals(mOriginalUrl));
+            setResult(RESULT_OK, (new Intent()).setAction(
+                    getIntent().toString()).putExtras(mMap));
+        } else {
+            // Post a message to write to the DB.
+            Bundle bundle = new Bundle();
+            bundle.putString("title", title);
+            bundle.putString("url", url);
+            bundle.putParcelable("thumbnail", mThumbnail);
+            bundle.putBoolean("invalidateThumbnail", !url.equals(mOriginalUrl));
+            bundle.putString("touchIconUrl", mTouchIconUrl);
+            Message msg = Message.obtain(mHandler, SAVE_BOOKMARK);
+            msg.setData(bundle);
+            mHandler.sendMessage(msg);
+            setResult(RESULT_OK);
         }
         return true;
     }

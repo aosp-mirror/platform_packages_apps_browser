@@ -20,11 +20,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,35 +41,47 @@ import android.text.IClipboard;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewStub;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+/*package*/ enum BookmarkViewMode { NONE, GRID, LIST }
 /**
  *  View showing the user's bookmarks in the browser.
  */
 public class BrowserBookmarksPage extends Activity implements 
         View.OnCreateContextMenuListener {
 
+    private BookmarkViewMode        mViewMode = BookmarkViewMode.NONE;
+    private GridView                mGridPage;
+    private View                    mVerticalList;
     private BrowserBookmarksAdapter mBookmarksAdapter;
     private static final int        BOOKMARKS_SAVE = 1;
-    private boolean                 mMaxTabsOpen;
+    private boolean                 mDisableNewWindow;
     private BookmarkItem            mContextHeader;
     private AddNewBookmark          mAddHeader;
     private boolean                 mCanceled = false;
     private boolean                 mCreateShortcut;
+    private boolean                 mMostVisited;
+    private View                    mEmptyView;
     // XXX: There is no public string defining this intent so if Home changes
     // the value, we have to update this string.
     private static final String     INSTALL_SHORTCUT =
             "com.android.launcher.action.INSTALL_SHORTCUT";
     
     private final static String LOGTAG = "browser";
-
+    private final static String PREF_BOOKMARK_VIEW_MODE = "pref_bookmark_view_mode";
+    private final static String PREF_MOST_VISITED_VIEW_MODE = "pref_most_visited_view_mode";
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -91,23 +108,58 @@ public class BrowserBookmarksPage extends Activity implements
             editBookmark(i.position);
             break;
         case R.id.shortcut_context_menu_id:
-            final Intent send = createShortcutIntent(getUrl(i.position),
-                    getBookmarkTitle(i.position), getFavicon(i.position));
+            final Intent send = createShortcutIntent(i.position);
             send.setAction(INSTALL_SHORTCUT);
             sendBroadcast(send);
             break;
         case R.id.delete_context_menu_id:
-            displayRemoveBookmarkDialog(i.position);
+            if (mMostVisited) {
+                Browser.deleteFromHistory(getContentResolver(),
+                        getUrl(i.position));
+                refreshList();
+            } else {
+                displayRemoveBookmarkDialog(i.position);
+            }
             break;
         case R.id.new_window_context_menu_id:
             openInNewWindow(i.position);
             break;
-        case R.id.send_context_menu_id:
-            Browser.sendString(BrowserBookmarksPage.this, getUrl(i.position));
+        case R.id.share_link_context_menu_id:
+            Browser.sendString(BrowserBookmarksPage.this, getUrl(i.position),
+                    getText(R.string.choosertitle_sharevia).toString());
             break;
         case R.id.copy_url_context_menu_id:
             copy(getUrl(i.position));
-            
+            break;
+        case R.id.homepage_context_menu_id:
+            BrowserSettings.getInstance().setHomePage(this,
+                    getUrl(i.position));
+            Toast.makeText(this, R.string.homepage_set,
+                    Toast.LENGTH_LONG).show();
+            break;
+        // Only for the Most visited page
+        case R.id.save_to_bookmarks_menu_id:
+            boolean isBookmark;
+            String name;
+            String url;
+            if (mViewMode == BookmarkViewMode.GRID) {
+                isBookmark = mBookmarksAdapter.getIsBookmark(i.position);
+                name = mBookmarksAdapter.getTitle(i.position);
+                url = mBookmarksAdapter.getUrl(i.position);
+            } else {
+                HistoryItem historyItem = ((HistoryItem) i.targetView);
+                isBookmark = historyItem.isBookmark();
+                name = historyItem.getName();
+                url = historyItem.getUrl();
+            }
+            // If the site is bookmarked, the item becomes remove from
+            // bookmarks.
+            if (isBookmark) {
+                Bookmarks.removeFromBookmarks(this, getContentResolver(), url, name);
+            } else {
+                Browser.saveBookmark(this, name, url);
+            }
+            break;
         default:
             return super.onContextItemSelected(item);
         }
@@ -121,9 +173,13 @@ public class BrowserBookmarksPage extends Activity implements
                     (AdapterView.AdapterContextMenuInfo) menuInfo;
 
             MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.bookmarkscontext, menu);
+            if (mMostVisited) {
+                inflater.inflate(R.menu.historycontext, menu);
+            } else {
+                inflater.inflate(R.menu.bookmarkscontext, menu);
+            }
 
-            if (0 == i.position) {
+            if (0 == i.position && !mMostVisited) {
                 menu.setGroupVisible(R.id.CONTEXT_MENU, false);
                 if (mAddHeader == null) {
                     mAddHeader = new AddNewBookmark(BrowserBookmarksPage.this);
@@ -131,25 +187,40 @@ public class BrowserBookmarksPage extends Activity implements
                     ((ViewGroup) mAddHeader.getParent()).
                             removeView(mAddHeader);
                 }
-                ((AddNewBookmark) i.targetView).copyTo(mAddHeader);
+                mAddHeader.setUrl(getIntent().getStringExtra("url"));
                 menu.setHeaderView(mAddHeader);
                 return;
             }
-            menu.setGroupVisible(R.id.ADD_MENU, false);
-            BookmarkItem b = (BookmarkItem) i.targetView;
+            if (mMostVisited) {
+                if ((mViewMode == BookmarkViewMode.LIST
+                        && ((HistoryItem) i.targetView).isBookmark())
+                        || mBookmarksAdapter.getIsBookmark(i.position)) {
+                    MenuItem item = menu.findItem(
+                            R.id.save_to_bookmarks_menu_id);
+                    item.setTitle(R.string.remove_from_bookmarks);
+                }
+            } else {
+                // The historycontext menu has no ADD_MENU group.
+                menu.setGroupVisible(R.id.ADD_MENU, false);
+            }
+            if (mDisableNewWindow) {
+                menu.findItem(R.id.new_window_context_menu_id).setVisible(
+                        false);
+            }
             if (mContextHeader == null) {
                 mContextHeader = new BookmarkItem(BrowserBookmarksPage.this);
             } else if (mContextHeader.getParent() != null) {
                 ((ViewGroup) mContextHeader.getParent()).
                         removeView(mContextHeader);
             }
-            b.copyTo(mContextHeader);
-            menu.setHeaderView(mContextHeader);
-
-            if (mMaxTabsOpen) {
-                menu.findItem(R.id.new_window_context_menu_id).setVisible(
-                        false);
+            if (mViewMode == BookmarkViewMode.GRID) {
+                mBookmarksAdapter.populateBookmarkItem(mContextHeader,
+                        i.position);
+            } else {
+                BookmarkItem b = (BookmarkItem) i.targetView;
+                b.copyTo(mContextHeader);
             }
+            menu.setHeaderView(mContextHeader);
         }
 
     /**
@@ -159,27 +230,123 @@ public class BrowserBookmarksPage extends Activity implements
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        setContentView(R.layout.browser_bookmarks_page);
-        setTitle(R.string.browser_bookmarks_page_bookmarks_text);
-
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             mCreateShortcut = true;
         }
+        mDisableNewWindow = getIntent().getBooleanExtra("disable_new_window",
+                false);
+        mMostVisited = getIntent().getBooleanExtra("mostVisited", false);
 
-        mBookmarksAdapter = new BrowserBookmarksAdapter(this, 
-                getIntent().getStringExtra("url"), mCreateShortcut);
-        mMaxTabsOpen = getIntent().getBooleanExtra("maxTabsOpen", false);
+        if (mCreateShortcut) {
+            setTitle(R.string.browser_bookmarks_page_bookmarks_text);
+        }
+        mBookmarksAdapter = new BrowserBookmarksAdapter(this,
+                        getIntent().getStringExtra("url"),
+                        getIntent().getStringExtra("title"),
+                        (Bitmap) getIntent().getParcelableExtra("thumbnail"),
+                        mCreateShortcut,
+                        mMostVisited);
 
-        ListView listView = (ListView) findViewById(R.id.list);
-        listView.setAdapter(mBookmarksAdapter);
-        listView.setDrawSelectorOnTop(false);
-        listView.setVerticalScrollBarEnabled(true);
-        listView.setOnItemClickListener(mListener);
+        setContentView(R.layout.empty_history);
+        mEmptyView = findViewById(R.id.empty_view);
+        mEmptyView.setVisibility(View.GONE);
 
-        if (!mCreateShortcut) {
-            listView.setOnCreateContextMenuListener(this);
+        SharedPreferences p = getPreferences(MODE_PRIVATE);
+
+        // See if the user has set a preference for the view mode of their
+        // bookmarks. Otherwise default to grid mode.
+        BookmarkViewMode preference = BookmarkViewMode.NONE;
+        if (mMostVisited) {
+            // For the most visited page, only use list mode.
+            preference = BookmarkViewMode.LIST;
+        } else {
+            preference = BookmarkViewMode.values()[p.getInt(
+                    PREF_BOOKMARK_VIEW_MODE, BookmarkViewMode.GRID.ordinal())];
+        }
+        switchViewMode(preference);
+    }
+
+    /**
+     *  Set the ContentView to be either the grid of thumbnails or the vertical
+     *  list.
+     */
+    private void switchViewMode(BookmarkViewMode gridMode) {
+        if (mViewMode == gridMode) {
+            return;
+        }
+
+        mViewMode = gridMode;
+
+        // Update the preferences to make the new view mode sticky.
+        Editor ed = getPreferences(MODE_PRIVATE).edit();
+        if (mMostVisited) {
+            ed.putInt(PREF_MOST_VISITED_VIEW_MODE, mViewMode.ordinal());
+        } else {
+            ed.putInt(PREF_BOOKMARK_VIEW_MODE, mViewMode.ordinal());
+        }
+        ed.commit();
+
+        mBookmarksAdapter.switchViewMode(gridMode);
+        if (mViewMode == BookmarkViewMode.GRID) {
+            if (mGridPage == null) {
+                mGridPage = new GridView(this);
+                mGridPage.setAdapter(mBookmarksAdapter);
+                mGridPage.setOnItemClickListener(mListener);
+                mGridPage.setNumColumns(GridView.AUTO_FIT);
+                mGridPage.setColumnWidth(
+                        BrowserActivity.getDesiredThumbnailWidth(this));
+                mGridPage.setFocusable(true);
+                mGridPage.setFocusableInTouchMode(true);
+                mGridPage.setSelector(android.R.drawable.gallery_thumb);
+                float density = getResources().getDisplayMetrics().density;
+                mGridPage.setVerticalSpacing((int) (14 * density));
+                mGridPage.setHorizontalSpacing((int) (8 * density));
+                mGridPage.setStretchMode(GridView.STRETCH_SPACING);
+                mGridPage.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
+                mGridPage.setDrawSelectorOnTop(true);
+                if (mMostVisited) {
+                    mGridPage.setEmptyView(mEmptyView);
+                }
+                if (!mCreateShortcut) {
+                    mGridPage.setOnCreateContextMenuListener(this);
+                }
+            }
+            addContentView(mGridPage, FULL_SCREEN_PARAMS);
+            if (mVerticalList != null) {
+                ViewGroup parent = (ViewGroup) mVerticalList.getParent();
+                if (parent != null) {
+                    parent.removeView(mVerticalList);
+                }
+            }
+        } else {
+            if (null == mVerticalList) {
+                ListView listView = new ListView(this);
+                listView.setAdapter(mBookmarksAdapter);
+                listView.setDrawSelectorOnTop(false);
+                listView.setVerticalScrollBarEnabled(true);
+                listView.setOnItemClickListener(mListener);
+                if (mMostVisited) {
+                    listView.setEmptyView(mEmptyView);
+                }
+                if (!mCreateShortcut) {
+                    listView.setOnCreateContextMenuListener(this);
+                }
+                mVerticalList = listView;
+            }
+            addContentView(mVerticalList, FULL_SCREEN_PARAMS);
+            if (mGridPage != null) {
+                ViewGroup parent = (ViewGroup) mGridPage.getParent();
+                if (parent != null) {
+                    parent.removeView(mGridPage);
+                }
+            }
         }
     }
+
+    private static final ViewGroup.LayoutParams FULL_SCREEN_PARAMS
+            = new ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.FILL_PARENT,
+            ViewGroup.LayoutParams.FILL_PARENT);
 
     private static final int SAVE_CURRENT_PAGE = 1000;
     private final Handler mHandler = new Handler() {
@@ -196,27 +363,29 @@ public class BrowserBookmarksPage extends Activity implements
             // It is possible that the view has been canceled when we get to
             // this point as back has a higher priority 
             if (mCanceled) {
-                android.util.Log.e("browser", "item clicked when dismising");
+                android.util.Log.e(LOGTAG, "item clicked when dismissing");
                 return;
             }
             if (!mCreateShortcut) {
-                if (0 == position) {
+                if (0 == position && !mMostVisited) {
                     // XXX: Work-around for a framework issue.
                     mHandler.sendEmptyMessage(SAVE_CURRENT_PAGE);
                 } else {
                     loadUrl(position);
                 }
             } else {
-                final Intent intent = createShortcutIntent(getUrl(position),
-                        getBookmarkTitle(position), getFavicon(position));
+                final Intent intent = createShortcutIntent(position);
                 setResultToParent(RESULT_OK, intent);
                 finish();
             }
         }
     };
 
-    private Intent createShortcutIntent(String url, String title,
-            Bitmap favicon) {
+    private Intent createShortcutIntent(int position) {
+        String url = getUrl(position);
+        String title = getBookmarkTitle(position);
+        Bitmap touchIcon = getTouchIcon(position);
+
         final Intent i = new Intent();
         final Intent shortcutIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(url));
@@ -226,41 +395,67 @@ public class BrowserBookmarksPage extends Activity implements
                 Long.toString(uniqueId));
         i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
-        if (favicon == null) {
-            i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                    Intent.ShortcutIconResource.fromContext(
-                            BrowserBookmarksPage.this,
-                            R.drawable.ic_launcher_shortcut_browser_bookmark));
-        } else {
-            Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.ic_launcher_shortcut_browser_bookmark);
-
-            // Make a copy of the regular icon so we can modify the pixels.
-            Bitmap copy = icon.copy(Bitmap.Config.ARGB_8888, true);
+        // Use the apple-touch-icon if available
+        if (touchIcon != null) {
+            // Make a copy so we can modify the pixels.
+            Bitmap copy = touchIcon.copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvas = new Canvas(copy);
 
-            // Make a Paint for the white background rectangle and for
-            // filtering the favicon.
-            Paint p = new Paint(Paint.ANTI_ALIAS_FLAG
-                    | Paint.FILTER_BITMAP_FLAG);
-            p.setStyle(Paint.Style.FILL_AND_STROKE);
-            p.setColor(Color.WHITE);
+            // Construct a path from a round rect. This will allow drawing with
+            // an inverse fill so we can punch a hole using the round rect.
+            Path path = new Path();
+            path.setFillType(Path.FillType.INVERSE_WINDING);
+            RectF rect = new RectF(0, 0, touchIcon.getWidth(),
+                    touchIcon.getHeight());
+            rect.inset(1, 1);
+            path.addRoundRect(rect, 8f, 8f, Path.Direction.CW);
 
-            // Create a rectangle that is slightly wider than the favicon
-            final float iconSize = 16; // 16x16 favicon
-            final float padding = 2;   // white padding around icon
-            final float rectSize = iconSize + 2 * padding;
-            final float y = icon.getHeight() - rectSize;
-            RectF r = new RectF(0, y, rectSize, y + rectSize);
+            // Construct a paint that clears the outside of the rectangle and
+            // draw.
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+            canvas.drawPath(path, paint);
 
-            // Draw a white rounded rectangle behind the favicon
-            canvas.drawRoundRect(r, 2, 2, p);
-
-            // Draw the favicon in the same rectangle as the rounded rectangle
-            // but inset by the padding (results in a 16x16 favicon).
-            r.inset(padding, padding);
-            canvas.drawBitmap(favicon, null, r, p);
             i.putExtra(Intent.EXTRA_SHORTCUT_ICON, copy);
+        } else {
+            Bitmap favicon = getFavicon(position);
+            if (favicon == null) {
+                i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                        Intent.ShortcutIconResource.fromContext(
+                                BrowserBookmarksPage.this,
+                                R.drawable.ic_launcher_shortcut_browser_bookmark));
+            } else {
+                Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.ic_launcher_shortcut_browser_bookmark);
+
+                // Make a copy of the regular icon so we can modify the pixels.
+                Bitmap copy = icon.copy(Bitmap.Config.ARGB_8888, true);
+                Canvas canvas = new Canvas(copy);
+
+                // Make a Paint for the white background rectangle and for
+                // filtering the favicon.
+                Paint p = new Paint(Paint.ANTI_ALIAS_FLAG
+                        | Paint.FILTER_BITMAP_FLAG);
+                p.setStyle(Paint.Style.FILL_AND_STROKE);
+                p.setColor(Color.WHITE);
+
+                // Create a rectangle that is slightly wider than the favicon
+                final float iconSize = 16; // 16x16 favicon
+                final float padding = 2;   // white padding around icon
+                final float rectSize = iconSize + 2 * padding;
+                final float y = icon.getHeight() - rectSize;
+                RectF r = new RectF(0, y, rectSize, y + rectSize);
+
+                // Draw a white rounded rectangle behind the favicon
+                canvas.drawRoundRect(r, 2, 2, p);
+
+                // Draw the favicon in the same rectangle as the rounded
+                // rectangle but inset by the padding
+                // (results in a 16x16 favicon).
+                r.inset(padding, padding);
+                canvas.drawBitmap(favicon, null, r, p);
+                i.putExtra(Intent.EXTRA_SHORTCUT_ICON, copy);
+            }
         }
         // Do not allow duplicate items
         i.putExtra("duplicate", false);
@@ -283,7 +478,7 @@ public class BrowserBookmarksPage extends Activity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
-        if (!mCreateShortcut) {
+        if (!mCreateShortcut && !mMostVisited) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.bookmarks, menu);
             return true;
@@ -292,14 +487,45 @@ public class BrowserBookmarksPage extends Activity implements
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean result = super.onPrepareOptionsMenu(menu);
+        if (mCreateShortcut || mMostVisited
+                || mBookmarksAdapter.getCount() == 0) {
+            // No need to show the menu if there are no items.
+            return result;
+        }
+        MenuItem switchItem = menu.findItem(R.id.switch_mode_menu_id);
+        int titleResId;
+        int iconResId;
+        if (mViewMode == BookmarkViewMode.GRID) {
+            titleResId = R.string.switch_to_list;
+            iconResId = R.drawable.ic_menu_list;
+        } else {
+            titleResId = R.string.switch_to_thumbnails;
+            iconResId = R.drawable.ic_menu_thumbnail;
+        }
+        switchItem.setTitle(titleResId);
+        switchItem.setIcon(iconResId);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.new_context_menu_id:
-                saveCurrentPage();
-                break;
-                
-            default:
-                return super.onOptionsItemSelected(item);
+        case R.id.new_context_menu_id:
+            saveCurrentPage();
+            break;
+
+        case R.id.switch_mode_menu_id:
+            if (mViewMode == BookmarkViewMode.GRID) {
+                switchViewMode(BookmarkViewMode.LIST);
+            } else {
+                switchViewMode(BookmarkViewMode.GRID);
+            }
+            break;
+
+        default:
+            return super.onOptionsItemSelected(item);
         }
         return true;
     }
@@ -370,7 +596,7 @@ public class BrowserBookmarksPage extends Activity implements
     /**
      *  Refresh the shown list after the database has changed.
      */
-    public void refreshList() {
+    private void refreshList() {
         mBookmarksAdapter.refreshList();
     }
     
@@ -395,6 +621,10 @@ public class BrowserBookmarksPage extends Activity implements
         return mBookmarksAdapter.getFavicon(position);
     }
 
+    private Bitmap getTouchIcon(int position) {
+        return mBookmarksAdapter.getTouchIcon(position);
+    }
+
     private void copy(CharSequence text) {
         try {
             IClipboard clip = IClipboard.Stub.asInterface(ServiceManager.getService("clipboard"));
@@ -416,13 +646,12 @@ public class BrowserBookmarksPage extends Activity implements
     public void deleteBookmark(int position) {
         mBookmarksAdapter.deleteRow(position);
     }
-    
-    public boolean dispatchKeyEvent(KeyEvent event) {    
-        if (event.getKeyCode() ==  KeyEvent.KEYCODE_BACK && event.isDown()) {
-            setResultToParent(RESULT_CANCELED, null);
-            mCanceled = true;
-        }
-        return super.dispatchKeyEvent(event);
+
+    @Override
+    public void onBackPressed() {
+        setResultToParent(RESULT_CANCELED, null);
+        mCanceled = true;
+        super.onBackPressed();
     }
 
     // This Activity is generally a sub-Activity of CombinedHistoryActivity. In

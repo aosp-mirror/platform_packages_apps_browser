@@ -19,8 +19,10 @@ package com.android.browser;
 import com.google.android.providers.GoogleSettings.Partner;
 
 import android.app.SearchManager;
+import android.backup.BackupManager;
 import android.content.ComponentName;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -36,16 +38,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Settings;
+import android.provider.Browser.BookmarkColumns;
 import android.server.search.SearchableInfo;
 import android.text.TextUtils;
 import android.text.util.Regex;
 import android.util.Log;
 import android.util.TypedValue;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,6 +60,7 @@ import java.util.regex.Pattern;
 public class BrowserProvider extends ContentProvider {
 
     private SQLiteOpenHelper mOpenHelper;
+    private BackupManager mBackupManager;
     private static final String sDatabaseName = "browser.db";
     private static final String TAG = "BrowserProvider";
     private static final String ORDER_BY = "visits DESC, date DESC";
@@ -81,6 +88,7 @@ public class BrowserProvider extends ContentProvider {
     private static final int SUGGEST_COLUMN_ICON_2_ID = 6;
     private static final int SUGGEST_COLUMN_QUERY_ID = 7;
     private static final int SUGGEST_COLUMN_FORMAT = 8;
+    private static final int SUGGEST_COLUMN_INTENT_EXTRA_DATA = 9;
 
     // shared suggestion columns
     private static final String[] COLUMNS = new String[] {
@@ -92,10 +100,13 @@ public class BrowserProvider extends ContentProvider {
             SearchManager.SUGGEST_COLUMN_ICON_1,
             SearchManager.SUGGEST_COLUMN_ICON_2,
             SearchManager.SUGGEST_COLUMN_QUERY,
-            SearchManager.SUGGEST_COLUMN_FORMAT};
+            SearchManager.SUGGEST_COLUMN_FORMAT,
+            SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA};
 
     private static final int MAX_SUGGESTION_SHORT_ENTRIES = 3;
     private static final int MAX_SUGGESTION_LONG_ENTRIES = 6;
+    private static final String MAX_SUGGESTION_LONG_ENTRIES_STRING =
+            Integer.valueOf(MAX_SUGGESTION_LONG_ENTRIES).toString();
 
     // make sure that these match the index of TABLE_NAMES
     private static final int URI_MATCH_BOOKMARKS = 0;
@@ -143,7 +154,10 @@ public class BrowserProvider extends ContentProvider {
     // 15 -> 17 Set it up for the SearchManager
     // 17 -> 18 Added favicon in bookmarks table for Home shortcuts
     // 18 -> 19 Remove labels table
-    private static final int DATABASE_VERSION = 19;
+    // 19 -> 20 Added thumbnail
+    // 20 -> 21 Added touch_icon
+    // 21 -> 22 Remove "clientid"
+    private static final int DATABASE_VERSION = 22;
 
     // Regular expression which matches http://, followed by some stuff, followed by
     // optionally a trailing slash, all matched as separate groups.
@@ -215,7 +229,9 @@ public class BrowserProvider extends ContentProvider {
                     "created LONG," +
                     "description TEXT," +
                     "bookmark INTEGER," +
-                    "favicon BLOB DEFAULT NULL" +
+                    "favicon BLOB DEFAULT NULL," +
+                    "thumbnail BLOB DEFAULT NULL," +
+                    "touch_icon BLOB DEFAULT NULL" +
                     ");");
 
             final CharSequence[] bookmarks = mContext.getResources()
@@ -242,14 +258,73 @@ public class BrowserProvider extends ContentProvider {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-                    + newVersion + ", which will destroy all old data");
+                    + newVersion);
             if (oldVersion == 18) {
                 db.execSQL("DROP TABLE IF EXISTS labels");
+            }
+            if (oldVersion <= 19) {
+                db.execSQL("ALTER TABLE bookmarks ADD COLUMN thumbnail BLOB DEFAULT NULL;");
+            }
+            if (oldVersion < 21) {
+                db.execSQL("ALTER TABLE bookmarks ADD COLUMN touch_icon BLOB DEFAULT NULL;");
+            }
+            if (oldVersion < 22) {
+                db.execSQL("DELETE FROM bookmarks WHERE (bookmark = 0 AND url LIKE \"%.google.%client=ms-%\")");
+                removeGears();
             } else {
                 db.execSQL("DROP TABLE IF EXISTS bookmarks");
                 db.execSQL("DROP TABLE IF EXISTS searches");
                 onCreate(db);
             }
+        }
+
+        private void removeGears() {
+            AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+                public Void doInBackground(Void... unused) {
+                    String browserDataDirString = mContext.getApplicationInfo().dataDir;
+                    final String appPluginsDirString = "app_plugins";
+                    final String gearsPrefix = "gears";
+                    File appPluginsDir = new File(browserDataDirString + File.separator
+                            + appPluginsDirString);
+                    if (!appPluginsDir.exists()) {
+                        return null;
+                    }
+                    // Delete the Gears plugin files
+                    File[] gearsFiles = appPluginsDir.listFiles(new FilenameFilter() {
+                        public boolean accept(File dir, String filename) {
+                            return filename.startsWith(gearsPrefix);
+                        }
+                    });
+                    for (int i = 0; i < gearsFiles.length; ++i) {
+                        if (gearsFiles[i].isDirectory()) {
+                            deleteDirectory(gearsFiles[i]);
+                        } else {
+                            gearsFiles[i].delete();
+                        }
+                    }
+                    // Delete the Gears data files
+                    File gearsDataDir = new File(browserDataDirString + File.separator
+                            + gearsPrefix);
+                    if (!gearsDataDir.exists()) {
+                        return null;
+                    }
+                    deleteDirectory(gearsDataDir);
+                    return null;
+                }
+
+                private void deleteDirectory(File currentDir) {
+                    File[] files = currentDir.listFiles();
+                    for (int i = 0; i < files.length; ++i) {
+                        if (files[i].isDirectory()) {
+                            deleteDirectory(files[i]);
+                        }
+                        files[i].delete();
+                    }
+                    currentDir.delete();
+                }
+            };
+
+            task.execute();
         }
     }
 
@@ -257,6 +332,7 @@ public class BrowserProvider extends ContentProvider {
     public boolean onCreate() {
         final Context context = getContext();
         mOpenHelper = new DatabaseHelper(context);
+        mBackupManager = new BackupManager(context);
         // we added "picasa web album" into default bookmarks for version 19.
         // To avoid erasing the bookmark table, we added it explicitly for
         // version 18 and 19 as in the other cases, we will erase the table.
@@ -370,6 +446,7 @@ public class BrowserProvider extends ContentProvider {
         private int     mSuggestText1Id;
         private int     mSuggestText2Id;
         private int     mSuggestQueryId;
+        private int     mSuggestIntentExtraDataId;
 
         public MySuggestionCursor(Cursor hc, Cursor sc, String string) {
             mHistoryCursor = hc;
@@ -389,6 +466,7 @@ public class BrowserProvider extends ContentProvider {
                 mSuggestText1Id = -1;
                 mSuggestText2Id = -1;
                 mSuggestQueryId = -1;
+                mSuggestIntentExtraDataId = -1;
             } else {
                 mSuggestText1Id = mSuggestCursor.getColumnIndex(
                                 SearchManager.SUGGEST_COLUMN_TEXT_1);
@@ -396,6 +474,8 @@ public class BrowserProvider extends ContentProvider {
                                 SearchManager.SUGGEST_COLUMN_TEXT_2);
                 mSuggestQueryId = mSuggestCursor.getColumnIndex(
                                 SearchManager.SUGGEST_COLUMN_QUERY);
+                mSuggestIntentExtraDataId = mSuggestCursor.getColumnIndex(
+                                SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA);
             }
         }
 
@@ -471,22 +551,22 @@ public class BrowserProvider extends ContentProvider {
                     case SUGGEST_COLUMN_ICON_1_ID:
                         if (mHistoryCount > mPos) {
                             if (mHistoryCursor.getInt(3) == 1) {
-                                return new Integer(
+                                return Integer.valueOf(
                                         R.drawable.ic_search_category_bookmark)
                                         .toString();
                             } else {
-                                return new Integer(
+                                return Integer.valueOf(
                                         R.drawable.ic_search_category_history)
                                         .toString();
                             }
                         } else {
-                            return new Integer(
+                            return Integer.valueOf(
                                     R.drawable.ic_search_category_suggest)
                                     .toString();
                         }
 
                     case SUGGEST_COLUMN_ICON_2_ID:
-                        return new String("0");
+                        return "0";
 
                     case SUGGEST_COLUMN_QUERY_ID:
                         if (mHistoryCount > mPos) {
@@ -504,6 +584,16 @@ public class BrowserProvider extends ContentProvider {
 
                     case SUGGEST_COLUMN_FORMAT:
                         return "html";
+
+                    case SUGGEST_COLUMN_INTENT_EXTRA_DATA:
+                        if (mHistoryCount > mPos) {
+                            return null;
+                        } else if (!mBeyondCursor) {
+                            if (mSuggestIntentExtraDataId == -1) return null;
+                            return mSuggestCursor.getString(mSuggestIntentExtraDataId);
+                        } else {
+                            return null;
+                        }
                 }
             }
             return null;
@@ -637,7 +727,8 @@ public class BrowserProvider extends ContentProvider {
                 myArgs = null;
             } else {
                 String like = selectionArgs[0] + "%";
-                if (selectionArgs[0].startsWith("http")) {
+                if (selectionArgs[0].startsWith("http")
+                        || selectionArgs[0].startsWith("file")) {
                     myArgs = new String[1];
                     myArgs[0] = like;
                     suggestSelection = selection;
@@ -655,8 +746,7 @@ public class BrowserProvider extends ContentProvider {
 
             Cursor c = db.query(TABLE_NAMES[URI_MATCH_BOOKMARKS],
                     SUGGEST_PROJECTION, suggestSelection, myArgs, null, null,
-                    ORDER_BY,
-                    (new Integer(MAX_SUGGESTION_LONG_ENTRIES)).toString());
+                    ORDER_BY, MAX_SUGGESTION_LONG_ENTRIES_STRING);
 
             if (match == URI_MATCH_BOOKMARKS_SUGGEST
                     || Regex.WEB_URL_PATTERN.matcher(selectionArgs[0]).matches()) {
@@ -729,6 +819,7 @@ public class BrowserProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri url, ContentValues initialValues) {
+        boolean isBookmarkTable = false;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
         int match = URI_MATCHER.match(url);
@@ -742,6 +833,7 @@ public class BrowserProvider extends ContentProvider {
                     uri = ContentUris.withAppendedId(Browser.BOOKMARKS_URI,
                             rowID);
                 }
+                isBookmarkTable = true;
                 break;
             }
 
@@ -764,6 +856,15 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
         getContext().getContentResolver().notifyChange(uri, null);
+
+        // Back up the new bookmark set if we just inserted one.
+        // A row created when bookmarks are added from scratch will have
+        // bookmark=1 in the initial value set.
+        if (isBookmarkTable
+                && initialValues.containsKey(BookmarkColumns.BOOKMARK)
+                && initialValues.getAsInteger(BookmarkColumns.BOOKMARK) != 0) {
+            mBackupManager.dataChanged();
+        }
         return uri;
     }
 
@@ -776,20 +877,41 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
 
-        if (match == URI_MATCH_BOOKMARKS_ID || match == URI_MATCH_SEARCHES_ID) {
+        // need to know whether it's the bookmarks table for a couple of reasons
+        boolean isBookmarkTable = (match == URI_MATCH_BOOKMARKS_ID);
+        String id = null;
+
+        if (isBookmarkTable || match == URI_MATCH_SEARCHES_ID) {
             StringBuilder sb = new StringBuilder();
             if (where != null && where.length() > 0) {
                 sb.append("( ");
                 sb.append(where);
                 sb.append(" ) AND ");
             }
+            id = url.getPathSegments().get(1);
             sb.append("_id = ");
-            sb.append(url.getPathSegments().get(1));
+            sb.append(id);
             where = sb.toString();
         }
 
+        ContentResolver cr = getContext().getContentResolver();
+
+        // we'lll need to back up the bookmark set if we are about to delete one
+        if (isBookmarkTable) {
+            Cursor cursor = cr.query(Browser.BOOKMARKS_URI,
+                    new String[] { BookmarkColumns.BOOKMARK },
+                    "_id = " + id, null, null);
+            if (cursor.moveToNext()) {
+                if (cursor.getInt(0) != 0) {
+                    // yep, this record is a bookmark
+                    mBackupManager.dataChanged();
+                }
+            }
+            cursor.close();
+        }
+
         int count = db.delete(TABLE_NAMES[match % 10], where, whereArgs);
-        getContext().getContentResolver().notifyChange(url, null);
+        cr.notifyChange(url, null);
         return count;
     }
 
@@ -803,20 +925,59 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
 
-        if (match == URI_MATCH_BOOKMARKS_ID || match == URI_MATCH_SEARCHES_ID) {
+        String id = null;
+        boolean isBookmarkTable = (match == URI_MATCH_BOOKMARKS_ID);
+        boolean changingBookmarks = false;
+
+        if (isBookmarkTable || match == URI_MATCH_SEARCHES_ID) {
             StringBuilder sb = new StringBuilder();
             if (where != null && where.length() > 0) {
                 sb.append("( ");
                 sb.append(where);
                 sb.append(" ) AND ");
             }
+            id = url.getPathSegments().get(1);
             sb.append("_id = ");
-            sb.append(url.getPathSegments().get(1));
+            sb.append(id);
             where = sb.toString();
         }
 
+        ContentResolver cr = getContext().getContentResolver();
+
+        // Not all bookmark-table updates should be backed up.  Look to see
+        // whether we changed the title, url, or "is a bookmark" state, and
+        // request a backup if so.
+        if (isBookmarkTable) {
+            // Alterations to the bookmark field inherently change the bookmark
+            // set, so we don't need to query the record; we know a priori that
+            // we will need to back up this change.
+            if (values.containsKey(BookmarkColumns.BOOKMARK)) {
+                changingBookmarks = true;
+            }
+            // changing the title or URL of a bookmark record requires a backup,
+            // but we don't know wether such an update is on a bookmark without
+            // querying the record
+            if (!changingBookmarks &&
+                    (values.containsKey(BookmarkColumns.TITLE)
+                     || values.containsKey(BookmarkColumns.URL))) {
+                // when isBookmarkTable is true, the 'id' var was assigned above
+                Cursor cursor = cr.query(Browser.BOOKMARKS_URI,
+                        new String[] { BookmarkColumns.BOOKMARK },
+                        "_id = " + id, null, null);
+                if (cursor.moveToNext()) {
+                    changingBookmarks = (cursor.getInt(0) != 0);
+                }
+                cursor.close();
+            }
+
+            // if this *is* a bookmark row we're altering, we need to back it up.
+            if (changingBookmarks) {
+                mBackupManager.dataChanged();
+            }
+        }
+
         int ret = db.update(TABLE_NAMES[match % 10], values, where, whereArgs);
-        getContext().getContentResolver().notifyChange(url, null);
+        cr.notifyChange(url, null);
         return ret;
     }
 

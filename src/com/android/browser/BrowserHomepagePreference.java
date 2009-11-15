@@ -18,47 +18,46 @@ package com.android.browser;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.preference.EditTextPreference;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.util.Regex;
 import android.util.AttributeSet;
 
-public class BrowserHomepagePreference extends EditTextPreference implements
-        TextWatcher {
+public class BrowserHomepagePreference extends EditTextPreference {
 
     public BrowserHomepagePreference(Context context, AttributeSet attrs,
             int defStyle) {
         super(context, attrs, defStyle);
-        getEditText().addTextChangedListener(this);
     }
 
     public BrowserHomepagePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        getEditText().addTextChangedListener(this);
     }
 
     public BrowserHomepagePreference(Context context) {
         super(context);
-        getEditText().addTextChangedListener(this);
     }
 
-    public void afterTextChanged(Editable s) {
-        AlertDialog dialog = (AlertDialog) getDialog();
-        // This callback is called before the dialog has been fully constructed
-        if (dialog != null) {
-            String url = s.toString();
-            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(
-                    url.length() == 0 || url.equals("about:blank") ||
-                    Regex.WEB_URL_PATTERN.matcher(url).matches());
+    @Override
+    protected void onDialogClosed(boolean positiveResult) {
+        if (positiveResult) {
+            String url = getEditText().getText().toString();
+            if (url.length() > 0
+                    && !BrowserActivity.ACCEPTED_URI_SCHEMA.matcher(url)
+                            .matches()) {
+                int colon = url.indexOf(':');
+                int space = url.indexOf(' ');
+                if (colon == -1 && space == -1) {
+                    // if no colon, no space, add "http://" to make it a url
+                    getEditText().setText("http://" + url);
+                } else {
+                    // show an error dialog and change the positiveResult to
+                    // false so that the bad url will not override the old url
+                    new AlertDialog.Builder(this.getContext()).setMessage(
+                            R.string.bookmark_url_not_valid).setPositiveButton(
+                            R.string.ok, null).show();
+                    positiveResult = false;
+                }
+            }
         }
-    }
-
-    public void beforeTextChanged(CharSequence s, int start, int count,
-            int after) {
-    }
-
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        super.onDialogClosed(positiveResult);
     }
 }

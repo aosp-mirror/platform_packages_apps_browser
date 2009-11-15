@@ -14,7 +14,8 @@
      limitations under the License.
 -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android" 
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/empty_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:text="@string/empty_history"

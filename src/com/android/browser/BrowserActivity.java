@@ -20,7 +20,6 @@ import com.google.android.googleapps.IGoogleLoginService;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -28,6 +27,7 @@ import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,6 +35,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
@@ -44,19 +45,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.DrawFilter;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Picture;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.PaintDrawable;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.WebAddress;
 import android.net.http.EventHandler;
@@ -75,14 +76,15 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.provider.Browser;
-import android.provider.Contacts;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Downloads;
 import android.provider.MediaStore;
-import android.provider.Contacts.Intents.Insert;
 import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.util.Regex;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -106,12 +108,17 @@ import android.view.animation.TranslateAnimation;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
+import android.webkit.GeolocationPermissions;
 import android.webkit.HttpAuthHandler;
+import android.webkit.PluginManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebIconDatabase;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -121,6 +128,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -143,8 +151,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class BrowserActivity extends Activity
-    implements KeyTracker.OnKeyTracker,
-        View.OnCreateContextMenuListener,
+    implements View.OnCreateContextMenuListener,
         DownloadListener {
 
     /* Define some aliases to make these debugging flags easier to refer to.
@@ -268,388 +275,44 @@ public class BrowserActivity extends Activity
                     mGlsConnection, Context.BIND_AUTO_CREATE);
     }
 
-    /**
-     * This class is in charge of installing pre-packaged plugins
-     * from the Browser assets directory to the user's data partition.
-     * Plugins are loaded from the "plugins" directory in the assets;
-     * Anything that is in this directory will be copied over to the
-     * user data partition in app_plugins.
-     */
-    private class CopyPlugins implements Runnable {
-        final static String TAG = "PluginsInstaller";
-        final static String ZIP_FILTER = "assets/plugins/";
-        final static String APK_PATH = "/system/app/Browser.apk";
-        final static String PLUGIN_EXTENSION = ".so";
-        final static String TEMPORARY_EXTENSION = "_temp";
-        final static String BUILD_INFOS_FILE = "build.prop";
-        final static String SYSTEM_BUILD_INFOS_FILE = "/system/"
-                              + BUILD_INFOS_FILE;
-        final int BUFSIZE = 4096;
-        boolean mDoOverwrite = false;
-        String pluginsPath;
-        Context mContext;
-        File pluginsDir;
-        AssetManager manager;
-
-        public CopyPlugins (boolean overwrite, Context context) {
-            mDoOverwrite = overwrite;
-            mContext = context;
-        }
-
-        /**
-         * Returned a filtered list of ZipEntry.
-         * We list all the files contained in the zip and
-         * only returns the ones starting with the ZIP_FILTER
-         * path.
-         *
-         * @param zip the zip file used.
-         */
-        public Vector<ZipEntry> pluginsFilesFromZip(ZipFile zip) {
-            Vector<ZipEntry> list = new Vector<ZipEntry>();
-            Enumeration entries = zip.entries();
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = (ZipEntry) entries.nextElement();
-                if (entry.getName().startsWith(ZIP_FILTER)) {
-                  list.add(entry);
-                }
-            }
-            return list;
-        }
-
-        /**
-         * Utility method to copy the content from an inputstream
-         * to a file output stream.
-         */
-        public void copyStreams(InputStream is, FileOutputStream fos) {
-            BufferedOutputStream os = null;
-            try {
-                byte data[] = new byte[BUFSIZE];
-                int count;
-                os = new BufferedOutputStream(fos, BUFSIZE);
-                while ((count = is.read(data, 0, BUFSIZE)) != -1) {
-                    os.write(data, 0, count);
-                }
-                os.flush();
-            } catch (IOException e) {
-                Log.e(TAG, "Exception while copying: " + e);
-            } finally {
-              try {
-                if (os != null) {
-                    os.close();
-                }
-              } catch (IOException e2) {
-                Log.e(TAG, "Exception while closing the stream: " + e2);
-              }
-            }
-        }
-
-        /**
-         * Returns a string containing the contents of a file
-         *
-         * @param file the target file
-         */
-        private String contentsOfFile(File file) {
-          String ret = null;
-          FileInputStream is = null;
-          try {
-            byte[] buffer = new byte[BUFSIZE];
-            int count;
-            is = new FileInputStream(file);
-            StringBuffer out = new StringBuffer();
-
-            while ((count = is.read(buffer, 0, BUFSIZE)) != -1) {
-              out.append(new String(buffer, 0, count));
-            }
-            ret = out.toString();
-          } catch (IOException e) {
-            Log.e(TAG, "Exception getting contents of file " + e);
-          } finally {
-            if (is != null) {
-              try {
-                is.close();
-              } catch (IOException e2) {
-                Log.e(TAG, "Exception while closing the file: " + e2);
-              }
-            }
-          }
-          return ret;
-        }
-
-        /**
-         * Utility method to initialize the user data plugins path.
-         */
-        public void initPluginsPath() {
-            BrowserSettings s = BrowserSettings.getInstance();
-            pluginsPath = s.getPluginsPath();
-            if (pluginsPath == null) {
-                s.loadFromDb(mContext);
-                pluginsPath = s.getPluginsPath();
-            }
-            if (LOGV_ENABLED) {
-                Log.v(TAG, "Plugin path: " + pluginsPath);
-            }
-        }
-
-        /**
-         * Utility method to delete a file or a directory
-         *
-         * @param file the File to delete
-         */
-        public void deleteFile(File file) {
-            File[] files = file.listFiles();
-            if ((files != null) && files.length > 0) {
-              for (int i=0; i< files.length; i++) {
-                deleteFile(files[i]);
-              }
-            }
-            if (!file.delete()) {
-              Log.e(TAG, file.getPath() + " could not get deleted");
-            }
-        }
-
-        /**
-         * Clean the content of the plugins directory.
-         * We delete the directory, then recreate it.
-         */
-        public void cleanPluginsDirectory() {
-          if (LOGV_ENABLED) {
-            Log.v(TAG, "delete plugins directory: " + pluginsPath);
-          }
-          File pluginsDirectory = new File(pluginsPath);
-          deleteFile(pluginsDirectory);
-          pluginsDirectory.mkdir();
-        }
-
-
-        /**
-         * Copy the SYSTEM_BUILD_INFOS_FILE file containing the
-         * informations about the system build to the
-         * BUILD_INFOS_FILE in the plugins directory.
-         */
-        public void copyBuildInfos() {
-          try {
-            if (LOGV_ENABLED) {
-              Log.v(TAG, "Copy build infos to the plugins directory");
-            }
-            File buildInfoFile = new File(SYSTEM_BUILD_INFOS_FILE);
-            File buildInfoPlugins = new File(pluginsPath, BUILD_INFOS_FILE);
-            copyStreams(new FileInputStream(buildInfoFile),
-                        new FileOutputStream(buildInfoPlugins));
-          } catch (IOException e) {
-            Log.e(TAG, "Exception while copying the build infos: " + e);
-          }
-        }
-
-        /**
-         * Returns true if the current system is newer than the
-         * system that installed the plugins.
-         * We determinate this by checking the build number of the system.
-         *
-         * At the end of the plugins copy operation, we copy the
-         * SYSTEM_BUILD_INFOS_FILE to the BUILD_INFOS_FILE.
-         * We then just have to load both and compare them -- if they
-         * are different the current system is newer.
-         *
-         * Loading and comparing the strings should be faster than
-         * creating a hash, the files being rather small. Extracting the
-         * version number would require some parsing which may be more
-         * brittle.
-         */
-        public boolean newSystemImage() {
-          try {
-            File buildInfoFile = new File(SYSTEM_BUILD_INFOS_FILE);
-            File buildInfoPlugins = new File(pluginsPath, BUILD_INFOS_FILE);
-            if (!buildInfoPlugins.exists()) {
-              if (LOGV_ENABLED) {
-                Log.v(TAG, "build.prop in plugins directory " + pluginsPath
-                  + " does not exist, therefore it's a new system image");
-              }
-              return true;
-            } else {
-              String buildInfo = contentsOfFile(buildInfoFile);
-              String buildInfoPlugin = contentsOfFile(buildInfoPlugins);
-              if (buildInfo == null || buildInfoPlugin == null
-                  || buildInfo.compareTo(buildInfoPlugin) != 0) {
-                if (LOGV_ENABLED) {
-                  Log.v(TAG, "build.prop are different, "
-                    + " therefore it's a new system image");
-                }
-                return true;
-              }
-            }
-          } catch (Exception e) {
-            Log.e(TAG, "Exc in newSystemImage(): " + e);
-          }
-          return false;
-        }
-
-        /**
-         * Check if the version of the plugins contained in the
-         * Browser assets is the same as the version of the plugins
-         * in the plugins directory.
-         * We simply iterate on every file in the assets/plugins
-         * and return false if a file listed in the assets does
-         * not exist in the plugins directory.
-         */
-        private boolean checkIsDifferentVersions() {
-          try {
-            ZipFile zip = new ZipFile(APK_PATH);
-            Vector<ZipEntry> files = pluginsFilesFromZip(zip);
-            int zipFilterLength = ZIP_FILTER.length();
-
-            Enumeration entries = files.elements();
-            while (entries.hasMoreElements()) {
-              ZipEntry entry = (ZipEntry) entries.nextElement();
-              String path = entry.getName().substring(zipFilterLength);
-              File outputFile = new File(pluginsPath, path);
-              if (!outputFile.exists()) {
-                if (LOGV_ENABLED) {
-                  Log.v(TAG, "checkIsDifferentVersions(): extracted file "
-                    + path + " does not exist, we have a different version");
-                }
-                return true;
-              }
-            }
-          } catch (IOException e) {
-            Log.e(TAG, "Exception in checkDifferentVersions(): " + e);
-          }
-          return false;
-        }
-
-        /**
-         * Copy every files from the assets/plugins directory
-         * to the app_plugins directory in the data partition.
-         * Once copied, we copy over the SYSTEM_BUILD_INFOS file
-         * in the plugins directory.
-         *
-         * NOTE: we directly access the content from the Browser
-         * package (it's a zip file) and do not use AssetManager
-         * as there is a limit of 1Mb (see Asset.h)
-         */
-        public void run() {
-            // Lower the priority
-            Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-            try {
-                if (pluginsPath == null) {
-                    Log.e(TAG, "No plugins path found!");
-                    return;
-                }
-
-                ZipFile zip = new ZipFile(APK_PATH);
-                Vector<ZipEntry> files = pluginsFilesFromZip(zip);
-                Vector<File> plugins = new Vector<File>();
-                int zipFilterLength = ZIP_FILTER.length();
-
-                Enumeration entries = files.elements();
-                while (entries.hasMoreElements()) {
-                    ZipEntry entry = (ZipEntry) entries.nextElement();
-                    String path = entry.getName().substring(zipFilterLength);
-                    File outputFile = new File(pluginsPath, path);
-                    outputFile.getParentFile().mkdirs();
-
-                    if (outputFile.exists() && !mDoOverwrite) {
-                        if (LOGV_ENABLED) {
-                            Log.v(TAG, path + " already extracted.");
-                        }
-                    } else {
-                        if (path.endsWith(PLUGIN_EXTENSION)) {
-                            // We rename plugins to be sure a half-copied
-                            // plugin is not loaded by the browser.
-                            plugins.add(outputFile);
-                            outputFile = new File(pluginsPath,
-                                path + TEMPORARY_EXTENSION);
-                        }
-                        FileOutputStream fos = new FileOutputStream(outputFile);
-                        if (LOGV_ENABLED) {
-                            Log.v(TAG, "copy " + entry + " to "
-                                + pluginsPath + "/" + path);
-                        }
-                        copyStreams(zip.getInputStream(entry), fos);
-                    }
-                }
-
-                // We now rename the .so we copied, once all their resources
-                // are safely copied over to the user data partition.
-                Enumeration elems = plugins.elements();
-                while (elems.hasMoreElements()) {
-                    File renamedFile = (File) elems.nextElement();
-                    File sourceFile = new File(renamedFile.getPath()
-                        + TEMPORARY_EXTENSION);
-                    if (LOGV_ENABLED) {
-                        Log.v(TAG, "rename " + sourceFile.getPath()
-                            + " to " + renamedFile.getPath());
-                    }
-                    sourceFile.renameTo(renamedFile);
-                }
-
-                copyBuildInfos();
-
-                // Refresh the plugin list.
-                if (mTabControl.getCurrentWebView() != null) {
-                    mTabControl.getCurrentWebView().refreshPlugins(false);
-                }
-            } catch (IOException e) {
-                Log.e(TAG, "IO Exception: " + e);
-            }
-        }
-    };
-
-    /**
-     * Copy the content of assets/plugins/ to the app_plugins directory
-     * in the data partition.
-     *
-     * This function is called every time the browser is started.
-     * We first check if the system image is newer than the one that
-     * copied the plugins (if there's plugins in the data partition).
-     * If this is the case, we then check if the versions are different.
-     * If they are different, we clean the plugins directory in the
-     * data partition, then start a thread to copy the plugins while
-     * the browser continue to load.
-     *
-     * @param overwrite if true overwrite the files even if they are
-     * already present (to let the user "reset" the plugins if needed).
-     */
-    private void copyPlugins(boolean overwrite) {
-        CopyPlugins copyPluginsFromAssets = new CopyPlugins(overwrite, this);
-        copyPluginsFromAssets.initPluginsPath();
-        if (copyPluginsFromAssets.newSystemImage())  {
-          if (copyPluginsFromAssets.checkIsDifferentVersions()) {
-            copyPluginsFromAssets.cleanPluginsDirectory();
-            Thread copyplugins = new Thread(copyPluginsFromAssets);
-            copyplugins.setName("CopyPlugins");
-            copyplugins.start();
-          }
-        }
-    }
-
-    private class ClearThumbnails extends AsyncTask<File, Void, Void> {
+    private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
         public Void doInBackground(File... files) {
             if (files != null) {
                 for (File f : files) {
-                    f.delete();
+                    if (!f.delete()) {
+                      Log.e(LOGTAG, f.getPath() + " was not deleted");
+                    }
                 }
             }
             return null;
         }
     }
 
+    /**
+     * This layout holds everything you see below the status bar, including the
+     * error console, the custom view container, and the webviews.
+     */
+    private FrameLayout mBrowserFrameLayout;
+
     @Override public void onCreate(Bundle icicle) {
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, this + " onStart");
         }
         super.onCreate(icicle);
-        this.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-        this.requestWindowFeature(Window.FEATURE_RIGHT_ICON);
-        this.requestWindowFeature(Window.FEATURE_PROGRESS);
-        this.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
         // test the browser in OpenGL
         // requestWindowFeature(Window.FEATURE_OPENGL);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         mResolver = getContentResolver();
+
+        // If this was a web search request, pass it on to the default web
+        // search provider and finish this activity.
+        if (handleWebSearchIntent(getIntent())) {
+            finish();
+            return;
+        }
 
         //
         // start MASF proxy service
@@ -665,11 +328,19 @@ public class BrowserActivity extends Activity
                 android.R.drawable.ic_secure);
         mMixLockIcon = Resources.getSystem().getDrawable(
                 android.R.drawable.ic_partial_secure);
-        mGenericFavicon = getResources().getDrawable(
-                R.drawable.app_web_browser_sm);
 
-        mContentView = (FrameLayout) getWindow().getDecorView().findViewById(
-                com.android.internal.R.id.content);
+        FrameLayout frameLayout = (FrameLayout) getWindow().getDecorView()
+                .findViewById(com.android.internal.R.id.content);
+        mBrowserFrameLayout = (FrameLayout) LayoutInflater.from(this)
+                .inflate(R.layout.custom_screen, null);
+        mContentView = (FrameLayout) mBrowserFrameLayout.findViewById(
+                R.id.main_content);
+        mErrorConsoleContainer = (LinearLayout) mBrowserFrameLayout
+                .findViewById(R.id.error_console);
+        mCustomViewContainer = (FrameLayout) mBrowserFrameLayout
+                .findViewById(R.id.fullscreen_custom_content);
+        frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
+        mTitleBar = new TitleBar(this);
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);
@@ -695,24 +366,67 @@ public class BrowserActivity extends Activity
                 public void onReceive(Context context, Intent intent) {
                     if (intent.getAction().equals(
                             ConnectivityManager.CONNECTIVITY_ACTION)) {
-                        boolean down = intent.getBooleanExtra(
+                        boolean noConnectivity = intent.getBooleanExtra(
                                 ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-                        onNetworkToggle(!down);
+                        onNetworkToggle(!noConnectivity);
                     }
                 }
             };
 
-        // If this was a web search request, pass it on to the default web search provider.
-        if (handleWebSearchIntent(getIntent())) {
-            moveTaskToBack(true);
-            return;
-        }
+        IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addDataScheme("package");
+        mPackageInstallationReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                final String action = intent.getAction();
+                final String packageName = intent.getData()
+                        .getSchemeSpecificPart();
+                final boolean replacing = intent.getBooleanExtra(
+                        Intent.EXTRA_REPLACING, false);
+                if (Intent.ACTION_PACKAGE_REMOVED.equals(action) && replacing) {
+                    // if it is replacing, refreshPlugins() when adding
+                    return;
+                }
+                PackageManager pm = BrowserActivity.this.getPackageManager();
+                PackageInfo pkgInfo = null;
+                try {
+                    pkgInfo = pm.getPackageInfo(packageName,
+                            PackageManager.GET_PERMISSIONS);
+                } catch (PackageManager.NameNotFoundException e) {
+                    return;
+                }
+                if (pkgInfo != null) {
+                    String permissions[] = pkgInfo.requestedPermissions;
+                    if (permissions == null) {
+                        return;
+                    }
+                    boolean permissionOk = false;
+                    for (String permit : permissions) {
+                        if (PluginManager.PLUGIN_PERMISSION.equals(permit)) {
+                            permissionOk = true;
+                            break;
+                        }
+                    }
+                    if (permissionOk) {
+                        PluginManager.getInstance(BrowserActivity.this)
+                                .refreshPlugins(
+                                        Intent.ACTION_PACKAGE_ADDED
+                                                .equals(action));
+                    }
+                }
+            }
+        };
+        registerReceiver(mPackageInstallationReceiver, filter);
 
         if (!mTabControl.restoreState(icicle)) {
             // clear up the thumbnail directory if we can't restore the state as
             // none of the files in the directory are referenced any more.
             new ClearThumbnails().execute(
                     mTabControl.getThumbnailDir().listFiles());
+            // there is no quit on Android. But if we can't restore the state,
+            // we can treat it as a new Browser, remove the old session cookies.
+            CookieManager.getInstance().removeSessionCookie();
             final Intent intent = getIntent();
             final Bundle extra = intent.getExtras();
             // Create an initial tab.
@@ -726,8 +440,6 @@ public class BrowserActivity extends Activity
                     intent.getData() != null,
                     intent.getStringExtra(Browser.EXTRA_APPLICATION_ID), urlData.mUrl);
             mTabControl.setCurrentTab(t);
-            // This is one of the only places we call attachTabToContentView
-            // without animating from the tab picker.
             attachTabToContentView(t);
             WebView webView = t.getWebView();
             if (extra != null) {
@@ -744,7 +456,6 @@ public class BrowserActivity extends Activity
                     && !mSettings.isLoginInitialized()) {
                 setupHomePage();
             }
-            copyPlugins(true);
 
             if (urlData.isEmpty()) {
                 if (mSettings.isLoginInitialized()) {
@@ -761,9 +472,14 @@ public class BrowserActivity extends Activity
             }
         } else {
             // TabControl.restoreState() will create a new tab even if
-            // restoring the state fails. Attach it to the view here since we
-            // are not animating from the tab picker.
+            // restoring the state fails.
             attachTabToContentView(mTabControl.getCurrentTab());
+        }
+
+        // Read JavaScript flags if it exists.
+        String jsFlags = mSettings.getJsFlags();
+        if (jsFlags.trim().length() != 0) {
+            mTabControl.getCurrentWebView().setJsFlags(jsFlags);
         }
     }
 
@@ -812,7 +528,7 @@ public class BrowserActivity extends Activity
             if (Intent.ACTION_VIEW.equals(action)
                     && !getPackageName().equals(appId)
                     && (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-                final TabControl.Tab appTab = mTabControl.getTabFromId(appId);
+                TabControl.Tab appTab = mTabControl.getTabFromId(appId);
                 if (appTab != null) {
                     Log.i(LOGTAG, "Reusing tab for " + appId);
                     // Dismiss the subwindow if applicable.
@@ -825,45 +541,47 @@ public class BrowserActivity extends Activity
                     // page, it can be reused.
                     boolean needsLoad =
                             mTabControl.recreateWebView(appTab, urlData.mUrl);
-                    
+
                     if (current != appTab) {
-                        showTab(appTab, needsLoad ? urlData : EMPTY_URL_DATA);
+                        switchToTab(mTabControl.getTabIndex(appTab));
+                        if (needsLoad) {
+                            urlData.loadIn(appTab.getWebView());
+                        }
                     } else {
-                        if (mTabOverview != null && mAnimationCount == 0) {
-                            sendAnimateFromOverview(appTab, false,
-                                    needsLoad ? urlData : EMPTY_URL_DATA, TAB_OVERVIEW_DELAY,
-                                    null);
-                        } else {
-                            // If the tab was the current tab, we have to attach
-                            // it to the view system again.
-                            attachTabToContentView(appTab);
-                            if (needsLoad) {
-                                urlData.loadIn(appTab.getWebView());
-                            }
+                        // If the tab was the current tab, we have to attach
+                        // it to the view system again.
+                        attachTabToContentView(appTab);
+                        if (needsLoad) {
+                            urlData.loadIn(appTab.getWebView());
                         }
                     }
                     return;
+                } else {
+                    // No matching application tab, try to find a regular tab
+                    // with a matching url.
+                    appTab = mTabControl.findUnusedTabWithUrl(urlData.mUrl);
+                    if (appTab != null) {
+                        if (current != appTab) {
+                            switchToTab(mTabControl.getTabIndex(appTab));
+                        }
+                        // Otherwise, we are already viewing the correct tab.
+                    } else {
+                        // if FLAG_ACTIVITY_BROUGHT_TO_FRONT flag is on, the url
+                        // will be opened in a new tab unless we have reached
+                        // MAX_TABS. Then the url will be opened in the current
+                        // tab. If a new tab is created, it will have "true" for
+                        // exit on close.
+                        openTabAndShow(urlData, true, appId);
+                    }
                 }
-                // if FLAG_ACTIVITY_BROUGHT_TO_FRONT flag is on, the url will be
-                // opened in a new tab unless we have reached MAX_TABS. Then the
-                // url will be opened in the current tab. If a new tab is
-                // created, it will have "true" for exit on close.
-                openTabAndShow(urlData, null, true, appId);
             } else {
                 if ("about:debug".equals(urlData.mUrl)) {
                     mSettings.toggleDebugSettings();
                     return;
                 }
-                // If the Window overview is up and we are not in the midst of
-                // an animation, animate away from the Window overview.
-                if (mTabOverview != null && mAnimationCount == 0) {
-                    sendAnimateFromOverview(current, false, urlData,
-                            TAB_OVERVIEW_DELAY, null);
-                } else {
-                    // Get rid of the subwindow if it exists
-                    dismissSubWindow(current);
-                    urlData.loadIn(current.getWebView());
-                }
+                // Get rid of the subwindow if it exists
+                dismissSubWindow(current);
+                urlData.loadIn(current.getWebView());
             }
         }
     }
@@ -894,13 +612,15 @@ public class BrowserActivity extends Activity
         String url = null;
         final String action = intent.getAction();
         if (Intent.ACTION_VIEW.equals(action)) {
-            url = intent.getData().toString();
+            Uri data = intent.getData();
+            if (data != null) url = data.toString();
         } else if (Intent.ACTION_SEARCH.equals(action)
                 || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
                 || Intent.ACTION_WEB_SEARCH.equals(action)) {
             url = intent.getStringExtra(SearchManager.QUERY);
         }
-        return handleWebSearchRequest(url, intent.getBundleExtra(SearchManager.APP_DATA));
+        return handleWebSearchRequest(url, intent.getBundleExtra(SearchManager.APP_DATA),
+                intent.getStringExtra(SearchManager.EXTRA_DATA_KEY));
     }
 
     /**
@@ -908,7 +628,7 @@ public class BrowserActivity extends Activity
      * was identified as plain search terms and not URL/shortcut.
      * @return true if the request was handled and web search activity was launched, false if not.
      */
-    private boolean handleWebSearchRequest(String inUrl, Bundle appData) {
+    private boolean handleWebSearchRequest(String inUrl, Bundle appData, String extraData) {
         if (inUrl == null) return false;
 
         // In general, we shouldn't modify URL from Intent.
@@ -931,6 +651,9 @@ public class BrowserActivity extends Activity
         intent.putExtra(SearchManager.QUERY, url);
         if (appData != null) {
             intent.putExtra(SearchManager.APP_DATA, appData);
+        }
+        if (extraData != null) {
+            intent.putExtra(SearchManager.EXTRA_DATA_KEY, extraData);
         }
         intent.putExtra(Browser.EXTRA_APPLICATION_ID, getPackageName());
         startActivity(intent);
@@ -992,6 +715,24 @@ public class BrowserActivity extends Activity
     }
 
     /* package */ static String fixUrl(String inUrl) {
+        // FIXME: Converting the url to lower case
+        // duplicates functionality in smartUrlFilter().
+        // However, changing all current callers of fixUrl to
+        // call smartUrlFilter in addition may have unwanted
+        // consequences, and is deferred for now.
+        int colon = inUrl.indexOf(':');
+        boolean allLower = true;
+        for (int index = 0; index < colon; index++) {
+            char ch = inUrl.charAt(index);
+            if (!Character.isLetter(ch)) {
+                break;
+            }
+            allLower &= Character.isLowerCase(ch);
+            if (index == colon - 1 && !allLower) {
+                inUrl = inUrl.substring(0, colon).toLowerCase()
+                        + inUrl.substring(colon);
+            }
+        }
         if (inUrl.startsWith("http://") || inUrl.startsWith("https://"))
             return inUrl;
         if (inUrl.startsWith("http:") ||
@@ -1107,8 +848,9 @@ public class BrowserActivity extends Activity
             return;
         }
 
+        mTabControl.resumeCurrentTab();
         mActivityInPause = false;
-        resumeWebView();
+        resumeWebViewTimers();
 
         if (mWakeLock.isHeld()) {
             mHandler.removeMessages(RELEASE_WAKELOCK);
@@ -1140,6 +882,206 @@ public class BrowserActivity extends Activity
     }
 
     /**
+     * Since the actual title bar is embedded in the WebView, and removing it
+     * would change its appearance, create a temporary title bar to go at
+     * the top of the screen while the menu is open.
+     */
+    private TitleBar mFakeTitleBar;
+
+    /**
+     * Holder for the fake title bar.  It will have a foreground shadow, as well
+     * as a white background, so the fake title bar looks like the real one.
+     */
+    private ViewGroup mFakeTitleBarHolder;
+
+    /**
+     * Layout parameters for the fake title bar within mFakeTitleBarHolder
+     */
+    private FrameLayout.LayoutParams mFakeTitleBarParams
+            = new FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.FILL_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT);
+    /**
+     * Keeps track of whether the options menu is open.  This is important in
+     * determining whether to show or hide the title bar overlay.
+     */
+    private boolean mOptionsMenuOpen;
+
+    /**
+     * Only meaningful when mOptionsMenuOpen is true.  This variable keeps track
+     * of whether the configuration has changed.  The first onMenuOpened call
+     * after a configuration change is simply a reopening of the same menu
+     * (i.e. mIconView did not change).
+     */
+    private boolean mConfigChanged;
+
+    /**
+     * Whether or not the options menu is in its smaller, icon menu form.  When
+     * true, we want the title bar overlay to be up.  When false, we do not.
+     * Only meaningful if mOptionsMenuOpen is true.
+     */
+    private boolean mIconView;
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        if (Window.FEATURE_OPTIONS_PANEL == featureId) {
+            if (mOptionsMenuOpen) {
+                if (mConfigChanged) {
+                    // We do not need to make any changes to the state of the
+                    // title bar, since the only thing that happened was a
+                    // change in orientation
+                    mConfigChanged = false;
+                } else {
+                    if (mIconView) {
+                        // Switching the menu to expanded view, so hide the
+                        // title bar.
+                        hideFakeTitleBar();
+                        mIconView = false;
+                    } else {
+                        // Switching the menu back to icon view, so show the
+                        // title bar once again.
+                        showFakeTitleBar();
+                        mIconView = true;
+                    }
+                }
+            } else {
+                // The options menu is closed, so open it, and show the title
+                showFakeTitleBar();
+                mOptionsMenuOpen = true;
+                mConfigChanged = false;
+                mIconView = true;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Special class used exclusively for the shadow drawn underneath the fake
+     * title bar.  The shadow does not need to be drawn if the WebView
+     * underneath is scrolled to the top, because it will draw directly on top
+     * of the embedded shadow.
+     */
+    private static class Shadow extends View {
+        private WebView mWebView;
+
+        public Shadow(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public void setWebView(WebView view) {
+            mWebView = view;
+        }
+
+        @Override
+        public void draw(Canvas canvas) {
+            // In general onDraw is the method to override, but we care about
+            // whether or not the background gets drawn, which happens in draw()
+            if (mWebView == null || mWebView.getScrollY() > getHeight()) {
+                super.draw(canvas);
+            }
+            // Need to invalidate so that if the scroll position changes, we
+            // still draw as appropriate.
+            invalidate();
+        }
+    }
+
+    private void showFakeTitleBar() {
+        final View decor = getWindow().peekDecorView();
+        if (mFakeTitleBar == null && mActiveTabsPage == null
+                && !mActivityInPause && decor != null
+                && decor.getWindowToken() != null) {
+            Rect visRect = new Rect();
+            if (!mBrowserFrameLayout.getGlobalVisibleRect(visRect)) {
+                if (LOGD_ENABLED) {
+                    Log.d(LOGTAG, "showFakeTitleBar visRect failed");
+                }
+                return;
+            }
+            final WebView webView = getTopWindow();
+            mFakeTitleBar = new TitleBar(this);
+            mFakeTitleBar.setTitleAndUrl(null, webView.getUrl());
+            mFakeTitleBar.setProgress(webView.getProgress());
+            mFakeTitleBar.setFavicon(webView.getFavicon());
+            updateLockIconToLatest();
+
+            WindowManager manager
+                    = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+
+            // Add the title bar to the window manager so it can receive touches
+            // while the menu is up
+            WindowManager.LayoutParams params
+                    = new WindowManager.LayoutParams(
+                    ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
+            params.gravity = Gravity.TOP;
+            WebView mainView = mTabControl.getCurrentWebView();
+            boolean atTop = mainView != null && mainView.getScrollY() == 0;
+            params.windowAnimations = atTop ? 0 : R.style.TitleBar;
+            // XXX : Without providing an offset, the fake title bar will be
+            // placed underneath the status bar.  Use the global visible rect
+            // of mBrowserFrameLayout to determine the bottom of the status bar
+            params.y = visRect.top;
+            // Add a holder for the title bar.  It also holds a shadow to show
+            // below the title bar.
+            if (mFakeTitleBarHolder == null) {
+                mFakeTitleBarHolder = (ViewGroup) LayoutInflater.from(this)
+                    .inflate(R.layout.title_bar_bg, null);
+            }
+            Shadow shadow = (Shadow) mFakeTitleBarHolder.findViewById(
+                    R.id.shadow);
+            shadow.setWebView(mainView);
+            mFakeTitleBarHolder.addView(mFakeTitleBar, 0, mFakeTitleBarParams);
+            manager.addView(mFakeTitleBarHolder, params);
+        }
+    }
+
+    @Override
+    public void onOptionsMenuClosed(Menu menu) {
+        mOptionsMenuOpen = false;
+        if (!mInLoad) {
+            hideFakeTitleBar();
+        } else if (!mIconView) {
+            // The page is currently loading, and we are in expanded mode, so
+            // we were not showing the menu.  Show it once again.  It will be
+            // removed when the page finishes.
+            showFakeTitleBar();
+        }
+    }
+    private void hideFakeTitleBar() {
+        if (mFakeTitleBar == null) return;
+        WindowManager.LayoutParams params = (WindowManager.LayoutParams)
+                mFakeTitleBarHolder.getLayoutParams();
+        WebView mainView = mTabControl.getCurrentWebView();
+        // Although we decided whether or not to animate based on the current
+        // scroll position, the scroll position may have changed since the
+        // fake title bar was displayed.  Make sure it has the appropriate
+        // animation/lack thereof before removing.
+        params.windowAnimations = mainView != null && mainView.getScrollY() == 0
+                ? 0 : R.style.TitleBar;
+        WindowManager manager
+                    = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        manager.updateViewLayout(mFakeTitleBarHolder, params);
+        mFakeTitleBarHolder.removeView(mFakeTitleBar);
+        manager.removeView(mFakeTitleBarHolder);
+        mFakeTitleBar = null;
+    }
+
+    /**
+     * Special method for the fake title bar to call when displaying its context
+     * menu, since it is in its own Window, and its parent does not show a
+     * context menu.
+     */
+    /* package */ void showTitleBarContextMenu() {
+        if (null == mTitleBar.getParent()) {
+            return;
+        }
+        openContextMenu(mTitleBar);
+    }
+
+    /**
      *  onSaveInstanceState(Bundle map)
      *  onSaveInstanceState is called right before onStop(). The map contains
      *  the saved state.
@@ -1166,8 +1108,9 @@ public class BrowserActivity extends Activity
             return;
         }
 
+        mTabControl.pauseCurrentTab();
         mActivityInPause = true;
-        if (mTabControl.getCurrentIndex() >= 0 && !pauseWebView()) {
+        if (mTabControl.getCurrentIndex() >= 0 && !pauseWebViewTimers()) {
             mWakeLock.acquire();
             mHandler.sendMessageDelayed(mHandler
                     .obtainMessage(RELEASE_WAKELOCK), WAKELOCK_TIMEOUT);
@@ -1178,6 +1121,14 @@ public class BrowserActivity extends Activity
             mCredsDlg.dismiss();
         }
         mCredsDlg = null;
+
+        // FIXME: This removes the active tabs page and resets the menu to
+        // MAIN_MENU.  A better solution might be to do this work in onNewIntent
+        // but then we would need to save it in onSaveInstanceState and restore
+        // it in onCreate/onRestoreInstanceState
+        if (mActiveTabsPage != null) {
+            removeActiveTabPage(true);
+        }
 
         cancelStopToast();
 
@@ -1195,6 +1146,9 @@ public class BrowserActivity extends Activity
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
+
+        if (mTabControl == null) return;
+
         // Remove the current tab and sub window
         TabControl.Tab t = mTabControl.getCurrentTab();
         if (t != null) {
@@ -1218,10 +1172,13 @@ public class BrowserActivity extends Activity
         //        "com.android.masfproxyservice",
         //        "com.android.masfproxyservice.MasfProxyService"));
         //stopService(proxyServiceIntent);
+
+        unregisterReceiver(mPackageInstallationReceiver);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        mConfigChanged = true;
         super.onConfigurationChanged(newConfig);
 
         if (mPageInfoDialog != null) {
@@ -1266,7 +1223,7 @@ public class BrowserActivity extends Activity
         mTabControl.freeMemory();
     }
 
-    private boolean resumeWebView() {
+    private boolean resumeWebViewTimers() {
         if ((!mActivityInPause && !mPageStarted) ||
                 (mActivityInPause && mPageStarted)) {
             CookieSyncManager.getInstance().startSync();
@@ -1280,7 +1237,7 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private boolean pauseWebView() {
+    private boolean pauseWebViewTimers() {
         if (mActivityInPause && !mPageStarted) {
             CookieSyncManager.getInstance().stopSync();
             WebView w = mTabControl.getCurrentWebView();
@@ -1293,6 +1250,7 @@ public class BrowserActivity extends Activity
         }
     }
 
+    // FIXME: Do we want to call this when loading google for the first time?
     /*
      * This function is called when we are launching for the first time. We
      * are waiting for the login credentials before loading Google home
@@ -1403,15 +1361,20 @@ public class BrowserActivity extends Activity
         // options selector, so set mCanChord to true so we can access them.
         mCanChord = true;
         int id = item.getItemId();
-        final WebView webView = getTopWindow();
-        if (null == webView) {
-            return false;
-        }
-        final HashMap hrefMap = new HashMap();
-        hrefMap.put("webview", webView);
-        final Message msg = mHandler.obtainMessage(
-                FOCUS_NODE_HREF, id, 0, hrefMap);
         switch (id) {
+            // For the context menu from the title bar
+            case R.id.title_bar_share_page_url:
+            case R.id.title_bar_copy_page_url:
+                WebView mainView = mTabControl.getCurrentWebView();
+                if (null == mainView) {
+                    return false;
+                }
+                if (id == R.id.title_bar_share_page_url) {
+                    Browser.sendString(this, mainView.getUrl());
+                } else {
+                    copy(mainView.getUrl());
+                }
+                break;
             // -- Browser context menu
             case R.id.open_context_menu_id:
             case R.id.open_newtab_context_menu_id:
@@ -1419,6 +1382,14 @@ public class BrowserActivity extends Activity
             case R.id.save_link_context_menu_id:
             case R.id.share_link_context_menu_id:
             case R.id.copy_link_context_menu_id:
+                final WebView webView = getTopWindow();
+                if (null == webView) {
+                    return false;
+                }
+                final HashMap hrefMap = new HashMap();
+                hrefMap.put("webview", webView);
+                final Message msg = mHandler.obtainMessage(
+                        FOCUS_NODE_HREF, id, 0, hrefMap);
                 webView.requestFocusNodeHref(msg);
                 break;
 
@@ -1441,7 +1412,8 @@ public class BrowserActivity extends Activity
      */
     @Override
     public boolean onSearchRequested() {
-        String url = getTopWindow().getUrl();
+        if (mOptionsMenuOpen) closeOptionsMenu();
+        String url = (getTopWindow() == null) ? null : getTopWindow().getUrl();
         startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
                 createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHKEY), false);
         return true;
@@ -1456,6 +1428,82 @@ public class BrowserActivity extends Activity
         super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
+    /**
+     * Switch tabs.  Called by the TitleBarSet when sliding the title bar
+     * results in changing tabs.
+     * @param index Index of the tab to change to, as defined by
+     *              mTabControl.getTabIndex(Tab t).
+     * @return boolean True if we successfully switched to a different tab.  If
+     *                 the indexth tab is null, or if that tab is the same as
+     *                 the current one, return false.
+     */
+    /* package */ boolean switchToTab(int index) {
+        TabControl.Tab tab = mTabControl.getTab(index);
+        TabControl.Tab currentTab = mTabControl.getCurrentTab();
+        if (tab == null || tab == currentTab) {
+            return false;
+        }
+        if (currentTab != null) {
+            // currentTab may be null if it was just removed.  In that case,
+            // we do not need to remove it
+            removeTabFromContentView(currentTab);
+        }
+        mTabControl.setCurrentTab(tab);
+        attachTabToContentView(tab);
+        resetTitleIconAndProgress();
+        updateLockIconToLatest();
+        return true;
+    }
+
+    /* package */ TabControl.Tab openTabToHomePage() {
+        return openTabAndShow(mSettings.getHomePage(), false, null);
+    }
+
+    /* package */ void closeCurrentWindow() {
+        final TabControl.Tab current = mTabControl.getCurrentTab();
+        if (mTabControl.getTabCount() == 1) {
+            // This is the last tab.  Open a new one, with the home
+            // page and close the current one.
+            TabControl.Tab newTab = openTabToHomePage();
+            closeTab(current);
+            return;
+        }
+        final TabControl.Tab parent = current.getParentTab();
+        int indexToShow = -1;
+        if (parent != null) {
+            indexToShow = mTabControl.getTabIndex(parent);
+        } else {
+            final int currentIndex = mTabControl.getCurrentIndex();
+            // Try to move to the tab to the right
+            indexToShow = currentIndex + 1;
+            if (indexToShow > mTabControl.getTabCount() - 1) {
+                // Try to move to the tab to the left
+                indexToShow = currentIndex - 1;
+            }
+        }
+        if (switchToTab(indexToShow)) {
+            // Close window
+            closeTab(current);
+        }
+    }
+
+    private ActiveTabsPage mActiveTabsPage;
+
+    /**
+     * Remove the active tabs page.
+     * @param needToAttach If true, the active tabs page did not attach a tab
+     *                     to the content view, so we need to do that here.
+     */
+    /* package */ void removeActiveTabPage(boolean needToAttach) {
+        mContentView.removeView(mActiveTabsPage);
+        mActiveTabsPage = null;
+        mMenuState = R.id.MAIN_MENU;
+        if (needToAttach) {
+            attachTabToContentView(mTabControl.getCurrentTab());
+        }
+        getTopWindow().requestFocus();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (!mCanChord) {
@@ -1463,7 +1511,7 @@ public class BrowserActivity extends Activity
             // menu key.
             return false;
         }
-        if (null == mTabOverview && null == getTopWindow()) {
+        if (null == getTopWindow()) {
             return false;
         }
         if (mMenuIsDown) {
@@ -1475,23 +1523,36 @@ public class BrowserActivity extends Activity
         }
         switch (item.getItemId()) {
             // -- Main menu
-            case R.id.goto_menu_id: {
-                String url = getTopWindow().getUrl();
-                startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
-                        createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_GOTO), false);
-                }
+            case R.id.new_tab_menu_id:
+                openTabToHomePage();
+                break;
+
+            case R.id.goto_menu_id:
+                onSearchRequested();
                 break;
 
             case R.id.bookmarks_menu_id:
                 bookmarksOrHistoryPicker(false);
                 break;
 
-            case R.id.windows_menu_id:
-                if (mTabControl.getTabCount() == 1) {
-                    openTabAndShow(mSettings.getHomePage(), null, false, null);
-                } else {
-                    tabPicker(true, mTabControl.getCurrentIndex(), false);
-                }
+            case R.id.active_tabs_menu_id:
+                mActiveTabsPage = new ActiveTabsPage(this, mTabControl);
+                removeTabFromContentView(mTabControl.getCurrentTab());
+                hideFakeTitleBar();
+                mContentView.addView(mActiveTabsPage, COVER_SCREEN_PARAMS);
+                mActiveTabsPage.requestFocus();
+                mMenuState = EMPTY_MENU;
+                break;
+
+            case R.id.add_bookmark_menu_id:
+                Intent i = new Intent(BrowserActivity.this,
+                        AddBookmarkPage.class);
+                WebView w = getTopWindow();
+                i.putExtra("url", w.getUrl());
+                i.putExtra("title", w.getTitle());
+                i.putExtra("touch_icon_url", w.getTouchIconUrl());
+                i.putExtra("thumbnail", createScreenshot(w));
+                startActivity(i);
                 break;
 
             case R.id.stop_reload_menu_id:
@@ -1516,21 +1577,7 @@ public class BrowserActivity extends Activity
                     dismissSubWindow(mTabControl.getCurrentTab());
                     break;
                 }
-                final int currentIndex = mTabControl.getCurrentIndex();
-                final TabControl.Tab parent =
-                        mTabControl.getCurrentTab().getParentTab();
-                int indexToShow = -1;
-                if (parent != null) {
-                    indexToShow = mTabControl.getTabIndex(parent);
-                } else {
-                    // Get the last tab in the list. If it is the current tab,
-                    // subtract 1 more.
-                    indexToShow = mTabControl.getTabCount() - 1;
-                    if (currentIndex == indexToShow) {
-                        indexToShow--;
-                    }
-                }
-                switchTabs(currentIndex, indexToShow, true);
+                closeCurrentWindow();
                 break;
 
             case R.id.homepage_menu_id:
@@ -1568,7 +1615,8 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.share_page_menu_id:
-                Browser.sendString(this, getTopWindow().getUrl());
+                Browser.sendString(this, getTopWindow().getUrl(),
+                        getText(R.string.choosertitle_sharevia).toString());
                 break;
 
             case R.id.dump_nav_menu_id:
@@ -1587,62 +1635,6 @@ public class BrowserActivity extends Activity
                 viewDownloads(null);
                 break;
 
-            // -- Tab menu
-            case R.id.view_tab_menu_id:
-                if (mTabListener != null && mTabOverview != null) {
-                    int pos = mTabOverview.getContextMenuPosition(item);
-                    mTabOverview.setCurrentIndex(pos);
-                    mTabListener.onClick(pos);
-                }
-                break;
-
-            case R.id.remove_tab_menu_id:
-                if (mTabListener != null && mTabOverview != null) {
-                    int pos = mTabOverview.getContextMenuPosition(item);
-                    mTabListener.remove(pos);
-                }
-                break;
-
-            case R.id.new_tab_menu_id:
-                // No need to check for mTabOverview here since we are not
-                // dependent on it for a position.
-                if (mTabListener != null) {
-                    // If the overview happens to be non-null, make the "New
-                    // Tab" cell visible.
-                    if (mTabOverview != null) {
-                        mTabOverview.setCurrentIndex(ImageGrid.NEW_TAB);
-                    }
-                    mTabListener.onClick(ImageGrid.NEW_TAB);
-                }
-                break;
-
-            case R.id.bookmark_tab_menu_id:
-                if (mTabListener != null && mTabOverview != null) {
-                    int pos = mTabOverview.getContextMenuPosition(item);
-                    TabControl.Tab t = mTabControl.getTab(pos);
-                    // Since we called populatePickerData for all of the
-                    // tabs, getTitle and getUrl will return appropriate
-                    // values.
-                    Browser.saveBookmark(BrowserActivity.this, t.getTitle(),
-                            t.getUrl());
-                }
-                break;
-
-            case R.id.history_tab_menu_id:
-                bookmarksOrHistoryPicker(true);
-                break;
-
-            case R.id.bookmarks_tab_menu_id:
-                bookmarksOrHistoryPicker(false);
-                break;
-
-            case R.id.properties_tab_menu_id:
-                if (mTabListener != null && mTabOverview != null) {
-                    int pos = mTabOverview.getContextMenuPosition(item);
-                    showPageInfo(mTabControl.getTab(pos), false);
-                }
-                break;
-
             case R.id.window_one_menu_id:
             case R.id.window_two_menu_id:
             case R.id.window_three_menu_id:
@@ -1658,7 +1650,7 @@ public class BrowserActivity extends Activity
                             TabControl.Tab desiredTab = mTabControl.getTab(id);
                             if (desiredTab != null &&
                                     desiredTab != mTabControl.getCurrentTab()) {
-                                switchTabs(mTabControl.getCurrentIndex(), id, false);
+                                switchToTab(id);
                             }
                             break;
                         }
@@ -1690,26 +1682,11 @@ public class BrowserActivity extends Activity
         // whether the matching shortcut key will function.
         super.onPrepareOptionsMenu(menu);
         switch (mMenuState) {
-            case R.id.TAB_MENU:
-                if (mCurrentMenuState != mMenuState) {
-                    menu.setGroupVisible(R.id.MAIN_MENU, false);
-                    menu.setGroupEnabled(R.id.MAIN_MENU, false);
-                    menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, false);
-                    menu.setGroupVisible(R.id.TAB_MENU, true);
-                    menu.setGroupEnabled(R.id.TAB_MENU, true);
-                }
-                boolean newT = mTabControl.getTabCount() < TabControl.MAX_TABS;
-                final MenuItem tab = menu.findItem(R.id.new_tab_menu_id);
-                tab.setVisible(newT);
-                tab.setEnabled(newT);
-                break;
             case EMPTY_MENU:
                 if (mCurrentMenuState != mMenuState) {
                     menu.setGroupVisible(R.id.MAIN_MENU, false);
                     menu.setGroupEnabled(R.id.MAIN_MENU, false);
                     menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, false);
-                    menu.setGroupVisible(R.id.TAB_MENU, false);
-                    menu.setGroupEnabled(R.id.TAB_MENU, false);
                 }
                 break;
             default:
@@ -1717,8 +1694,6 @@ public class BrowserActivity extends Activity
                     menu.setGroupVisible(R.id.MAIN_MENU, true);
                     menu.setGroupEnabled(R.id.MAIN_MENU, true);
                     menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, true);
-                    menu.setGroupVisible(R.id.TAB_MENU, false);
-                    menu.setGroupEnabled(R.id.TAB_MENU, false);
                 }
                 final WebView w = getTopWindow();
                 boolean canGoBack = false;
@@ -1738,18 +1713,15 @@ public class BrowserActivity extends Activity
                 menu.findItem(R.id.forward_menu_id)
                         .setEnabled(canGoForward);
 
+                menu.findItem(R.id.new_tab_menu_id).setEnabled(
+                        mTabControl.getTabCount() < TabControl.MAX_TABS);
+
                 // decide whether to show the share link option
                 PackageManager pm = getPackageManager();
                 Intent send = new Intent(Intent.ACTION_SEND);
                 send.setType("text/plain");
                 ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
                 menu.findItem(R.id.share_page_menu_id).setVisible(ri != null);
-
-                // If there is only 1 window, the text will be "New window"
-                final MenuItem windows = menu.findItem(R.id.windows_menu_id);
-                windows.setTitleCondensed(mTabControl.getTabCount() > 1 ?
-                        getString(R.string.view_tabs_condensed) :
-                        getString(R.string.tab_picker_new_tab));
 
                 boolean isNavDump = mSettings.isNavDump();
                 final MenuItem nav = menu.findItem(R.id.dump_nav_menu_id);
@@ -1811,7 +1783,7 @@ public class BrowserActivity extends Activity
                                 .parse(WebView.SCHEME_TEL + extra)));
                 Intent addIntent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
                 addIntent.putExtra(Insert.PHONE, Uri.decode(extra));
-                addIntent.setType(Contacts.People.CONTENT_ITEM_TYPE);
+                addIntent.setType(ContactsContract.Contacts.CONTENT_ITEM_TYPE);
                 menu.findItem(R.id.add_contact_context_menu_id).setIntent(
                         addIntent);
                 menu.findItem(R.id.copy_phone_context_menu_id).setOnMenuItemClickListener(
@@ -1873,176 +1845,122 @@ public class BrowserActivity extends Activity
     }
 
     // Attach the given tab to the content view.
+    // this should only be called for the current tab.
     private void attachTabToContentView(TabControl.Tab t) {
-        final WebView main = t.getWebView();
-        // Attach the main WebView.
-        mContentView.addView(main, COVER_SCREEN_PARAMS);
-        // Attach the sub window if necessary
-        attachSubWindow(t);
+        // Attach the container that contains the main WebView and any other UI
+        // associated with the tab.
+        t.attachTabToContentView(mContentView);
+
+        if (mShouldShowErrorConsole) {
+            ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(true);
+            if (errorConsole.numberOfErrors() == 0) {
+                errorConsole.showConsole(ErrorConsoleView.SHOW_NONE);
+            } else {
+                errorConsole.showConsole(ErrorConsoleView.SHOW_MINIMIZED);
+            }
+
+            mErrorConsoleContainer.addView(errorConsole,
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                                                  ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+
+        setLockIconType(t.getLockIconType());
+        setPrevLockType(t.getPrevLockIconType());
+
+        // this is to match the code in removeTabFromContentView()
+        if (!mPageStarted && t.getTopWindow().getProgress() < 100) {
+            mPageStarted = true;
+        }
+
+        WebView view = t.getWebView();
+        view.setEmbeddedTitleBar(mTitleBar);
         // Request focus on the top window.
         t.getTopWindow().requestFocus();
     }
 
     // Attach a sub window to the main WebView of the given tab.
     private void attachSubWindow(TabControl.Tab t) {
-        // If a sub window exists, attach it to the content view.
-        final WebView subView = t.getSubWebView();
-        if (subView != null) {
-            final View container = t.getSubWebViewContainer();
-            mContentView.addView(container, COVER_SCREEN_PARAMS);
-            subView.requestFocus();
-        }
+        t.attachSubWindow(mContentView);
+        getTopWindow().requestFocus();
     }
 
     // Remove the given tab from the content view.
     private void removeTabFromContentView(TabControl.Tab t) {
-        // Remove the main WebView.
-        mContentView.removeView(t.getWebView());
-        // Remove the sub window if it exists.
-        if (t.getSubWebView() != null) {
-            mContentView.removeView(t.getSubWebViewContainer());
+        // Remove the container that contains the main WebView.
+        t.removeTabFromContentView(mContentView);
+
+        if (mTabControl.getCurrentErrorConsole(false) != null) {
+            mErrorConsoleContainer.removeView(mTabControl.getCurrentErrorConsole(false));
+        }
+
+        WebView view = t.getWebView();
+        if (view != null) {
+            view.setEmbeddedTitleBar(null);
+        }
+
+        // unlike attachTabToContentView(), removeTabFromContentView() can be
+        // called for the non-current tab. Need to add the check.
+        if (t == mTabControl.getCurrentTab()) {
+            t.setLockIconType(getLockIconType());
+            t.setPrevLockIconType(getPrevLockType());
+
+            // this is not a perfect solution. But currently there is one
+            // WebViewClient for all the WebView. if user switches from an
+            // in-load window to an already loaded window, mPageStarted will not
+            // be set to false. If user leaves the Browser, pauseWebViewTimers()
+            // won't do anything and leaves the timer running even Browser is in
+            // the background.
+            if (mPageStarted) {
+                mPageStarted = false;
+            }
         }
     }
 
     // Remove the sub window if it exists. Also called by TabControl when the
     // user clicks the 'X' to dismiss a sub window.
     /* package */ void dismissSubWindow(TabControl.Tab t) {
-        final WebView mainView = t.getWebView();
-        if (t.getSubWebView() != null) {
-            // Remove the container view and request focus on the main WebView.
-            mContentView.removeView(t.getSubWebViewContainer());
-            mainView.requestFocus();
-            // Tell the TabControl to dismiss the subwindow. This will destroy
-            // the WebView.
-            mTabControl.dismissSubWindow(t);
-        }
+        t.removeSubWindow(mContentView);
+        // Tell the TabControl to dismiss the subwindow. This will destroy
+        // the WebView.
+        mTabControl.dismissSubWindow(t);
+        getTopWindow().requestFocus();
     }
 
-    // Send the ANIMTE_FROM_OVERVIEW message after changing the current tab.
-    private void sendAnimateFromOverview(final TabControl.Tab tab,
-            final boolean newTab, final UrlData urlData, final int delay,
-            final Message msg) {
-        // Set the current tab.
-        mTabControl.setCurrentTab(tab);
-        // Attach the WebView so it will layout.
-        attachTabToContentView(tab);
-        // Set the view to invisibile for now.
-        tab.getWebView().setVisibility(View.INVISIBLE);
-        // If there is a sub window, make it invisible too.
-        if (tab.getSubWebView() != null) {
-            tab.getSubWebViewContainer().setVisibility(View.INVISIBLE);
-        }
-        // Create our fake animating view.
-        final AnimatingView view = new AnimatingView(this, tab);
-        // Attach it to the view system and make in invisible so it will
-        // layout but not flash white on the screen.
-        mContentView.addView(view, COVER_SCREEN_PARAMS);
-        view.setVisibility(View.INVISIBLE);
-        // Send the animate message.
-        final HashMap map = new HashMap();
-        map.put("view", view);
-        // Load the url after the AnimatingView has captured the picture. This
-        // prevents any bad layout or bad scale from being used during
-        // animation.
-        if (!urlData.isEmpty()) {
-            dismissSubWindow(tab);
-            urlData.loadIn(tab.getWebView());
-        }
-        map.put("msg", msg);
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(
-                ANIMATE_FROM_OVERVIEW, newTab ? 1 : 0, 0, map), delay);
-        // Increment the count to indicate that we are in an animation.
-        mAnimationCount++;
-        // Remove the listener so we don't get any more tab changes.
-        mTabOverview.setListener(null);
-        mTabListener = null;
-        // Make the menu empty until the animation completes.
-        mMenuState = EMPTY_MENU;
-
-    }
-
-    // 500ms animation with 800ms delay
-    private static final int TAB_ANIMATION_DURATION = 200;
-    private static final int TAB_OVERVIEW_DELAY     = 500;
-
-    // Called by TabControl when a tab is requesting focus
-    /* package */ void showTab(TabControl.Tab t) {
-        showTab(t, EMPTY_URL_DATA);
-    }
-
-    private void showTab(TabControl.Tab t, UrlData urlData) {
-        // Disallow focus change during a tab animation.
-        if (mAnimationCount > 0) {
-            return;
-        }
-        int delay = 0;
-        if (mTabOverview == null) {
-            // Add a delay so the tab overview can be shown before the second
-            // animation begins.
-            delay = TAB_ANIMATION_DURATION + TAB_OVERVIEW_DELAY;
-            tabPicker(false, mTabControl.getTabIndex(t), false);
-        }
-        sendAnimateFromOverview(t, false, urlData, delay, null);
-    }
-
-    // A wrapper function of {@link #openTabAndShow(UrlData, Message, boolean, String)}
+    // A wrapper function of {@link #openTabAndShow(UrlData, boolean, String)}
     // that accepts url as string.
-    private TabControl.Tab openTabAndShow(String url, final Message msg,
-            boolean closeOnExit, String appId) {
-        return openTabAndShow(new UrlData(url), msg, closeOnExit, appId);
+    private TabControl.Tab openTabAndShow(String url, boolean closeOnExit,
+            String appId) {
+        return openTabAndShow(new UrlData(url), closeOnExit, appId);
     }
 
     // This method does a ton of stuff. It will attempt to create a new tab
     // if we haven't reached MAX_TABS. Otherwise it uses the current tab. If
-    // url isn't null, it will load the given url. If the tab overview is not
-    // showing, it will animate to the tab overview, create a new tab and
-    // animate away from it. After the animation completes, it will dispatch
-    // the given Message. If the tab overview is already showing (i.e. this
-    // method is called from TabListener.onClick(), the method will animate
-    // away from the tab overview.
-    private TabControl.Tab openTabAndShow(UrlData urlData, final Message msg,
+    // url isn't null, it will load the given url.
+    /* package */ TabControl.Tab openTabAndShow(UrlData urlData,
             boolean closeOnExit, String appId) {
         final boolean newTab = mTabControl.getTabCount() != TabControl.MAX_TABS;
         final TabControl.Tab currentTab = mTabControl.getCurrentTab();
         if (newTab) {
-            int delay = 0;
-            // If the tab overview is up and there are animations, just load
-            // the url.
-            if (mTabOverview != null && mAnimationCount > 0) {
-                if (!urlData.isEmpty()) {
-                    // We should not have a msg here since onCreateWindow
-                    // checks the animation count and every other caller passes
-                    // null.
-                    assert msg == null;
-                    // just dismiss the subwindow and load the given url.
-                    dismissSubWindow(currentTab);
-                    urlData.loadIn(currentTab.getWebView());
-                }
-            } else {
-                // show mTabOverview if it is not there.
-                if (mTabOverview == null) {
-                    // We have to delay the animation from the tab picker by the
-                    // length of the tab animation. Add a delay so the tab
-                    // overview can be shown before the second animation begins.
-                    delay = TAB_ANIMATION_DURATION + TAB_OVERVIEW_DELAY;
-                    tabPicker(false, ImageGrid.NEW_TAB, false);
-                }
-                // Animate from the Tab overview after any animations have
-                // finished.
-                final TabControl.Tab tab = mTabControl.createNewTab(
-                        closeOnExit, appId, urlData.mUrl);
-                sendAnimateFromOverview(tab, true, urlData, delay, msg);
-                return tab;
+            final TabControl.Tab tab = mTabControl.createNewTab(
+                    closeOnExit, appId, urlData.mUrl);
+            WebView webview = tab.getWebView();
+            // If the last tab was removed from the active tabs page, currentTab
+            // will be null.
+            if (currentTab != null) {
+                removeTabFromContentView(currentTab);
             }
-        } else if (!urlData.isEmpty()) {
-            // We should not have a msg here.
-            assert msg == null;
-            if (mTabOverview != null && mAnimationCount == 0) {
-                sendAnimateFromOverview(currentTab, false, urlData,
-                        TAB_OVERVIEW_DELAY, null);
-            } else {
-                // Get rid of the subwindow if it exists
-                dismissSubWindow(currentTab);
+            // We must set the new tab as the current tab to reflect the old
+            // animation behavior.
+            mTabControl.setCurrentTab(tab);
+            attachTabToContentView(tab);
+            if (!urlData.isEmpty()) {
+                urlData.loadIn(webview);
+            }
+            return tab;
+        } else {
+            // Get rid of the subwindow if it exists
+            dismissSubWindow(currentTab);
+            if (!urlData.isEmpty()) {
                 // Load the given url.
                 urlData.loadIn(currentTab.getWebView());
             }
@@ -2050,234 +1968,16 @@ public class BrowserActivity extends Activity
         return currentTab;
     }
 
-    private Animation createTabAnimation(final AnimatingView view,
-            final View cell, boolean scaleDown) {
-        final AnimationSet set = new AnimationSet(true);
-        final float scaleX = (float) cell.getWidth() / view.getWidth();
-        final float scaleY = (float) cell.getHeight() / view.getHeight();
-        if (scaleDown) {
-            set.addAnimation(new ScaleAnimation(1.0f, scaleX, 1.0f, scaleY));
-            set.addAnimation(new TranslateAnimation(0, cell.getLeft(), 0,
-                    cell.getTop()));
-        } else {
-            set.addAnimation(new ScaleAnimation(scaleX, 1.0f, scaleY, 1.0f));
-            set.addAnimation(new TranslateAnimation(cell.getLeft(), 0,
-                    cell.getTop(), 0));
-        }
-        set.setDuration(TAB_ANIMATION_DURATION);
-        set.setInterpolator(new DecelerateInterpolator());
-        return set;
-    }
-
-    // Animate to the tab overview. currentIndex tells us which position to
-    // animate to and newIndex is the position that should be selected after
-    // the animation completes.
-    // If remove is true, after the animation stops, a confirmation dialog will
-    // be displayed to the user.
-    private void animateToTabOverview(final int newIndex, final boolean remove,
-            final AnimatingView view) {
-        // Find the view in the ImageGrid allowing for the "New Tab" cell.
-        int position = mTabControl.getTabIndex(view.mTab);
-        if (!((ImageAdapter) mTabOverview.getAdapter()).maxedOut()) {
-            position++;
-        }
-
-        // Offset the tab position with the first visible position to get a
-        // number between 0 and 3.
-        position -= mTabOverview.getFirstVisiblePosition();
-
-        // Grab the view that we are going to animate to.
-        final View v = mTabOverview.getChildAt(position);
-
-        final Animation.AnimationListener l =
-                new Animation.AnimationListener() {
-                    public void onAnimationStart(Animation a) {
-                        if (mTabOverview != null) {
-                            mTabOverview.requestFocus();
-                            // Clear the listener so we don't trigger a tab
-                            // selection.
-                            mTabOverview.setListener(null);
-                        }
-                    }
-                    public void onAnimationRepeat(Animation a) {}
-                    public void onAnimationEnd(Animation a) {
-                        // We are no longer animating so decrement the count.
-                        mAnimationCount--;
-                        // Make the view GONE so that it will not draw between
-                        // now and when the Runnable is handled.
-                        view.setVisibility(View.GONE);
-                        // Post a runnable since we can't modify the view
-                        // hierarchy during this callback.
-                        mHandler.post(new Runnable() {
-                            public void run() {
-                                // Remove the AnimatingView.
-                                mContentView.removeView(view);
-                                if (mTabOverview != null) {
-                                    // Make newIndex visible.
-                                    mTabOverview.setCurrentIndex(newIndex);
-                                    // Restore the listener.
-                                    mTabOverview.setListener(mTabListener);
-                                    // Change the menu to TAB_MENU if the
-                                    // ImageGrid is interactive.
-                                    if (mTabOverview.isLive()) {
-                                        mMenuState = R.id.TAB_MENU;
-                                        mTabOverview.requestFocus();
-                                    }
-                                }
-                                // If a remove was requested, remove the tab.
-                                if (remove) {
-                                    // During a remove, the current tab has
-                                    // already changed. Remember the current one
-                                    // here.
-                                    final TabControl.Tab currentTab =
-                                            mTabControl.getCurrentTab();
-                                    // Remove the tab at newIndex from
-                                    // TabControl and the tab overview.
-                                    final TabControl.Tab tab =
-                                            mTabControl.getTab(newIndex);
-                                    mTabControl.removeTab(tab);
-                                    // Restore the current tab.
-                                    if (currentTab != tab) {
-                                        mTabControl.setCurrentTab(currentTab);
-                                    }
-                                    if (mTabOverview != null) {
-                                        mTabOverview.remove(newIndex);
-                                        // Make the current tab visible.
-                                        mTabOverview.setCurrentIndex(
-                                                mTabControl.getCurrentIndex());
-                                    }
-                                }
-                            }
-                        });
-                    }
-                };
-
-        // Do an animation if there is a view to animate to.
-        if (v != null) {
-            // Create our animation
-            final Animation anim = createTabAnimation(view, v, true);
-            anim.setAnimationListener(l);
-            // Start animating
-            view.startAnimation(anim);
-        } else {
-            // If something goes wrong and we didn't find a view to animate to,
-            // just do everything here.
-            l.onAnimationStart(null);
-            l.onAnimationEnd(null);
-        }
-    }
-
-    // Animate from the tab picker. The index supplied is the index to animate
-    // from.
-    private void animateFromTabOverview(final AnimatingView view,
-            final boolean newTab, final Message msg) {
-        // firstVisible is the first visible tab on the screen.  This helps
-        // to know which corner of the screen the selected tab is.
-        int firstVisible = mTabOverview.getFirstVisiblePosition();
-        // tabPosition is the 0-based index of of the tab being opened
-        int tabPosition = mTabControl.getTabIndex(view.mTab);
-        if (!((ImageAdapter) mTabOverview.getAdapter()).maxedOut()) {
-            // Add one to make room for the "New Tab" cell.
-            tabPosition++;
-        }
-        // If this is a new tab, animate from the "New Tab" cell.
-        if (newTab) {
-            tabPosition = 0;
-        }
-        // Location corresponds to the four corners of the screen.
-        // A new tab or 0 is upper left, 0 for an old tab is upper
-        // right, 1 is lower left, and 2 is lower right
-        int location = tabPosition - firstVisible;
-
-        // Find the view at this location.
-        final View v = mTabOverview.getChildAt(location);
-
-        // Wait until the animation completes to replace the AnimatingView.
-        final Animation.AnimationListener l =
-                new Animation.AnimationListener() {
-                    public void onAnimationStart(Animation a) {}
-                    public void onAnimationRepeat(Animation a) {}
-                    public void onAnimationEnd(Animation a) {
-                        mHandler.post(new Runnable() {
-                            public void run() {
-                                mContentView.removeView(view);
-                                // Dismiss the tab overview. If the cell at the
-                                // given location is null, set the fade
-                                // parameter to true.
-                                dismissTabOverview(v == null);
-                                TabControl.Tab t =
-                                        mTabControl.getCurrentTab();
-                                mMenuState = R.id.MAIN_MENU;
-                                // Resume regular updates.
-                                t.getWebView().resumeTimers();
-                                // Dispatch the message after the animation
-                                // completes.
-                                if (msg != null) {
-                                    msg.sendToTarget();
-                                }
-                                // The animation is done and the tab overview is
-                                // gone so allow key events and other animations
-                                // to begin.
-                                mAnimationCount--;
-                                // Reset all the title bar info.
-                                resetTitle();
-                            }
-                        });
-                    }
-                };
-
-        if (v != null) {
-            final Animation anim = createTabAnimation(view, v, false);
-            // Set the listener and start animating
-            anim.setAnimationListener(l);
-            view.startAnimation(anim);
-            // Make the view VISIBLE during the animation.
-            view.setVisibility(View.VISIBLE);
-        } else {
-            // Go ahead and do all the cleanup.
-            l.onAnimationEnd(null);
-        }
-    }
-
-    // Dismiss the tab overview applying a fade if needed.
-    private void dismissTabOverview(final boolean fade) {
-        if (fade) {
-            AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
-            anim.setDuration(500);
-            anim.startNow();
-            mTabOverview.startAnimation(anim);
-        }
-        // Just in case there was a problem with animating away from the tab
-        // overview
-        WebView current = mTabControl.getCurrentWebView();
-        if (current != null) {
-            current.setVisibility(View.VISIBLE);
-        } else {
-            Log.e(LOGTAG, "No current WebView in dismissTabOverview");
-        }
-        // Make the sub window container visible.
-        if (mTabControl.getCurrentSubWindow() != null) {
-            mTabControl.getCurrentTab().getSubWebViewContainer()
-                    .setVisibility(View.VISIBLE);
-        }
-        mContentView.removeView(mTabOverview);
-        // Clear all the data for tab picker so next time it will be
-        // recreated.
-        mTabControl.wipeAllPickerData();
-        mTabOverview.clear();
-        mTabOverview = null;
-        mTabListener = null;
-    }
-
     private TabControl.Tab openTab(String url) {
         if (mSettings.openInBackground()) {
             TabControl.Tab t = mTabControl.createNewTab();
             if (t != null) {
-                t.getWebView().loadUrl(url);
+                WebView view = t.getWebView();
+                view.loadUrl(url);
             }
             return t;
         } else {
-            return openTabAndShow(url, null, false, null);
+            return openTabAndShow(url, false, null);
         }
     }
 
@@ -2316,15 +2016,6 @@ public class BrowserActivity extends Activity
         } catch (android.os.RemoteException e) {
             Log.e(LOGTAG, "Copy failed", e);
         }
-    }
-
-    /**
-     * Resets the browser title-view to whatever it must be (for example, if we
-     * load a page from history).
-     */
-    private void resetTitle() {
-        resetLockIcon();
-        resetTitleIconAndProgress();
     }
 
     /**
@@ -2374,40 +2065,10 @@ public class BrowserActivity extends Activity
         mUrl = url;
         mTitle = title;
 
-        // While the tab overview is animating or being shown, block changes
-        // to the title.
-        if (mAnimationCount == 0 && mTabOverview == null) {
-            setTitle(buildUrlTitle(url, title));
+        mTitleBar.setTitleAndUrl(title, url);
+        if (mFakeTitleBar != null) {
+            mFakeTitleBar.setTitleAndUrl(title, url);
         }
-    }
-
-    /**
-     * Builds and returns the page title, which is some
-     * combination of the page URL and title.
-     * @param url The URL of the site being loaded.
-     * @param title The title of the site being loaded.
-     * @return The page title.
-     */
-    private String buildUrlTitle(String url, String title) {
-        String urlTitle = "";
-
-        if (url != null) {
-            String titleUrl = buildTitleUrl(url);
-
-            if (title != null && 0 < title.length()) {
-                if (titleUrl != null && 0 < titleUrl.length()) {
-                    urlTitle = titleUrl + ": " + title;
-                } else {
-                    urlTitle = title;
-                }
-            } else {
-                if (titleUrl != null) {
-                    urlTitle = titleUrl;
-                }
-            }
-        }
-
-        return urlTitle;
     }
 
     /**
@@ -2418,7 +2079,7 @@ public class BrowserActivity extends Activity
      * or an empty string if, for example, the URL in question is a
      * file:// URL with no hostname.
      */
-    private static String buildTitleUrl(String url) {
+    /* package */ static String buildTitleUrl(String url) {
         String titleUrl = null;
 
         if (url != null) {
@@ -2449,23 +2110,10 @@ public class BrowserActivity extends Activity
 
     // Set the favicon in the title bar.
     private void setFavicon(Bitmap icon) {
-        // While the tab overview is animating or being shown, block changes to
-        // the favicon.
-        if (mAnimationCount > 0 || mTabOverview != null) {
-            return;
+        mTitleBar.setFavicon(icon);
+        if (mFakeTitleBar != null) {
+            mFakeTitleBar.setFavicon(icon);
         }
-        Drawable[] array = new Drawable[2];
-        PaintDrawable p = new PaintDrawable(Color.WHITE);
-        p.setCornerRadius(3f);
-        array[0] = p;
-        if (icon == null) {
-            array[1] = mGenericFavicon;
-        } else {
-            array[1] = new BitmapDrawable(icon);
-        }
-        LayerDrawable d = new LayerDrawable(array);
-        d.setLayerInset(1, 2, 2, 2, 2);
-        getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, d);
     }
 
     /**
@@ -2490,29 +2138,22 @@ public class BrowserActivity extends Activity
                   " revert lock icon to " + mLockIconType);
         }
 
-        updateLockIconImage(mLockIconType);
+        updateLockIconToLatest();
     }
 
-    private void switchTabs(int indexFrom, int indexToShow, boolean remove) {
-        int delay = TAB_ANIMATION_DURATION + TAB_OVERVIEW_DELAY;
-        // Animate to the tab picker, remove the current tab, then
-        // animate away from the tab picker to the parent WebView.
-        tabPicker(false, indexFrom, remove);
-        // Change to the parent tab
-        final TabControl.Tab tab = mTabControl.getTab(indexToShow);
-        if (tab != null) {
-            sendAnimateFromOverview(tab, false, EMPTY_URL_DATA, delay, null);
-        } else {
-            // Increment this here so that no other animations can happen in
-            // between the end of the tab picker transition and the beginning
-            // of openTabAndShow. This has a matching decrement in the handler
-            // of OPEN_TAB_AND_SHOW.
-            mAnimationCount++;
-            // Send a message to open a new tab.
-            mHandler.sendMessageDelayed(
-                    mHandler.obtainMessage(OPEN_TAB_AND_SHOW,
-                        mSettings.getHomePage()), delay);
+    /**
+     * Close the tab, remove its associated title bar, and adjust mTabControl's
+     * current tab to a valid value.
+     */
+    /* package */ void closeTab(TabControl.Tab t) {
+        int currentIndex = mTabControl.getCurrentIndex();
+        int removeIndex = mTabControl.getTabIndex(t);
+        mTabControl.removeTab(t);
+        if (currentIndex >= removeIndex && currentIndex != 0) {
+            currentIndex--;
         }
+        mTabControl.setCurrentTab(mTabControl.getTab(currentIndex));
+        resetTitleIconAndProgress();
     }
 
     private void goBackOnePageOrQuit() {
@@ -2526,6 +2167,7 @@ public class BrowserActivity extends Activity
              * moveTaskToBack().
              */
             moveTaskToBack(true);
+            return;
         }
         WebView w = current.getWebView();
         if (w.canGoBack()) {
@@ -2535,25 +2177,31 @@ public class BrowserActivity extends Activity
             // another window. If so, we switch back to that window.
             TabControl.Tab parent = current.getParentTab();
             if (parent != null) {
-                switchTabs(mTabControl.getCurrentIndex(),
-                        mTabControl.getTabIndex(parent), true);
+                switchToTab(mTabControl.getTabIndex(parent));
+                // Now we close the other tab
+                closeTab(current);
             } else {
                 if (current.closeOnExit()) {
+                    // force mPageStarted to be false as we are going to either
+                    // finish the activity or remove the tab. This will ensure
+                    // pauseWebView() taking action.
+                    mPageStarted = false;
                     if (mTabControl.getTabCount() == 1) {
                         finish();
                         return;
                     }
-                    // call pauseWebView() now, we won't be able to call it in
-                    // onPause() as the WebView won't be valid. Temporarily
-                    // change mActivityInPause to be true as pauseWebView() will
-                    // do nothing if mActivityInPause is false.
+                    // call pauseWebViewTimers() now, we won't be able to call
+                    // it in onPause() as the WebView won't be valid.
+                    // Temporarily change mActivityInPause to be true as
+                    // pauseWebViewTimers() will do nothing if mActivityInPause
+                    // is false.
                     boolean savedState = mActivityInPause;
                     if (savedState) {
-                        Log.e(LOGTAG, "BrowserActivity is already paused " +
-                                "while handing goBackOnePageOrQuit.");
+                        Log.e(LOGTAG, "BrowserActivity is already paused "
+                                + "while handing goBackOnePageOrQuit.");
                     }
                     mActivityInPause = true;
-                    pauseWebView();
+                    pauseWebViewTimers();
                     mActivityInPause = savedState;
                     removeTabFromContentView(current);
                     mTabControl.removeTab(current);
@@ -2570,84 +2218,76 @@ public class BrowserActivity extends Activity
         }
     }
 
-    public KeyTracker.State onKeyTracker(int keyCode,
-                                         KeyEvent event,
-                                         KeyTracker.Stage stage,
-                                         int duration) {
-        // if onKeyTracker() is called after activity onStop()
-        // because of accumulated key events,
-        // we should ignore it as browser is not active any more.
-        WebView topWindow = getTopWindow();
-        if (topWindow == null)
-            return KeyTracker.State.NOT_TRACKING;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // The default key mode is DEFAULT_KEYS_SEARCH_LOCAL. As the MENU is
+        // still down, we don't want to trigger the search. Pretend to consume
+        // the key and do nothing.
+        if (mMenuIsDown) return true;
 
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            // During animations, block the back key so that other animations
-            // are not triggered and so that we don't end up destroying all the
-            // WebViews before finishing the animation.
-            if (mAnimationCount > 0) {
-                return KeyTracker.State.DONE_TRACKING;
-            }
-            if (stage == KeyTracker.Stage.LONG_REPEAT) {
-                bookmarksOrHistoryPicker(true);
-                return KeyTracker.State.DONE_TRACKING;
-            } else if (stage == KeyTracker.Stage.UP) {
-                // FIXME: Currently, we do not have a notion of the
-                // history picker for the subwindow, but maybe we
-                // should?
-                WebView subwindow = mTabControl.getCurrentSubWindow();
-                if (subwindow != null) {
-                    if (subwindow.canGoBack()) {
-                        subwindow.goBack();
-                    } else {
-                        dismissSubWindow(mTabControl.getCurrentTab());
-                    }
+        switch(keyCode) {
+            case KeyEvent.KEYCODE_MENU:
+                mMenuIsDown = true;
+                break;
+            case KeyEvent.KEYCODE_SPACE:
+                // WebView/WebTextView handle the keys in the KeyDown. As
+                // the Activity's shortcut keys are only handled when WebView
+                // doesn't, have to do it in onKeyDown instead of onKeyUp.
+                if (event.isShiftPressed()) {
+                    getTopWindow().pageUp(false);
                 } else {
-                    goBackOnePageOrQuit();
+                    getTopWindow().pageDown(false);
                 }
-                return KeyTracker.State.DONE_TRACKING;
-            }
-            return KeyTracker.State.KEEP_TRACKING;
+                return true;
+            case KeyEvent.KEYCODE_BACK:
+                if (event.getRepeatCount() == 0) {
+                    event.startTracking();
+                    return true;
+                } else if (mCustomView == null && mActiveTabsPage == null
+                        && event.isLongPress()) {
+                    bookmarksOrHistoryPicker(true);
+                    return true;
+                }
+                break;
         }
-        return KeyTracker.State.NOT_TRACKING;
+        return super.onKeyDown(keyCode, event);
     }
 
-    @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_MENU) {
-            mMenuIsDown = true;
-        } else if (mMenuIsDown) {
-            // The default key mode is DEFAULT_KEYS_SEARCH_LOCAL. As the MENU is
-            // still down, we don't want to trigger the search. Pretend to
-            // consume the key and do nothing.
-            return true;
-        }
-        boolean handled =  mKeyTracker.doKeyDown(keyCode, event);
-        if (!handled) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_SPACE:
-                    if (event.isShiftPressed()) {
-                        getTopWindow().pageUp(false);
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch(keyCode) {
+            case KeyEvent.KEYCODE_MENU:
+                mMenuIsDown = false;
+                break;
+            case KeyEvent.KEYCODE_BACK:
+                if (event.isTracking() && !event.isCanceled()) {
+                    if (mCustomView != null) {
+                        // if a custom view is showing, hide it
+                        mWebChromeClient.onHideCustomView();
+                    } else if (mActiveTabsPage != null) {
+                        // if tab page is showing, hide it
+                        removeActiveTabPage(true);
                     } else {
-                        getTopWindow().pageDown(false);
+                        WebView subwindow = mTabControl.getCurrentSubWindow();
+                        if (subwindow != null) {
+                            if (subwindow.canGoBack()) {
+                                subwindow.goBack();
+                            } else {
+                                dismissSubWindow(mTabControl.getCurrentTab());
+                            }
+                        } else {
+                            goBackOnePageOrQuit();
+                        }
                     }
-                    handled = true;
-                    break;
-
-                default:
-                    break;
-            }
+                    return true;
+                }
+                break;
         }
-        return handled || super.onKeyDown(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
-    @Override public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_MENU) {
-            mMenuIsDown = false;
-        }
-        return mKeyTracker.doKeyUp(keyCode, event) || super.onKeyUp(keyCode, event);
-    }
-
-    private void stopLoading() {
+    /* package */ void stopLoading() {
+        mDidStopLoad = true;
         resetTitleAndRevertLockIcon();
         WebView w = getTopWindow();
         w.stopLoading();
@@ -2678,37 +2318,17 @@ public class BrowserActivity extends Activity
     // Message Ids
     private static final int FOCUS_NODE_HREF         = 102;
     private static final int CANCEL_CREDS_REQUEST    = 103;
-    private static final int ANIMATE_FROM_OVERVIEW   = 104;
-    private static final int ANIMATE_TO_OVERVIEW     = 105;
-    private static final int OPEN_TAB_AND_SHOW       = 106;
-    private static final int CHECK_MEMORY            = 107;
-    private static final int RELEASE_WAKELOCK        = 108;
+    private static final int RELEASE_WAKELOCK        = 107;
+
+    private static final int UPDATE_BOOKMARK_THUMBNAIL = 108;
 
     // Private handler for handling javascript and saving passwords
     private Handler mHandler = new Handler() {
 
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case ANIMATE_FROM_OVERVIEW:
-                    final HashMap map = (HashMap) msg.obj;
-                    animateFromTabOverview((AnimatingView) map.get("view"),
-                            msg.arg1 == 1, (Message) map.get("msg"));
-                    break;
-
-                case ANIMATE_TO_OVERVIEW:
-                    animateToTabOverview(msg.arg1, msg.arg2 == 1,
-                            (AnimatingView) msg.obj);
-                    break;
-
-                case OPEN_TAB_AND_SHOW:
-                    // Decrement mAnimationCount before openTabAndShow because
-                    // the method relies on the value being 0 to start the next
-                    // animation.
-                    mAnimationCount--;
-                    openTabAndShow((String) msg.obj, null, false, null);
-                    break;
-
                 case FOCUS_NODE_HREF:
+                {
                     String url = (String) msg.getData().get("url");
                     if (url == null || url.length() == 0) {
                         break;
@@ -2739,7 +2359,8 @@ public class BrowserActivity extends Activity
                             startActivity(intent);
                             break;
                         case R.id.share_link_context_menu_id:
-                            Browser.sendString(BrowserActivity.this, url);
+                            Browser.sendString(BrowserActivity.this, url,
+                                    getText(R.string.choosertitle_sharevia).toString());
                             break;
                         case R.id.copy_link_context_menu_id:
                             copy(url);
@@ -2750,6 +2371,7 @@ public class BrowserActivity extends Activity
                             break;
                     }
                     break;
+                }
 
                 case LOAD_URL:
                     loadURL(getTopWindow(), (String) msg.obj);
@@ -2763,22 +2385,111 @@ public class BrowserActivity extends Activity
                     resumeAfterCredentials();
                     break;
 
-                case CHECK_MEMORY:
-                    // reschedule to check memory condition
-                    mHandler.removeMessages(CHECK_MEMORY);
-                    mHandler.sendMessageDelayed(mHandler.obtainMessage
-                            (CHECK_MEMORY), CHECK_MEMORY_INTERVAL);
-                    checkMemory();
-                    break;
-
                 case RELEASE_WAKELOCK:
                     if (mWakeLock.isHeld()) {
                         mWakeLock.release();
                     }
                     break;
+
+                case UPDATE_BOOKMARK_THUMBNAIL:
+                    WebView view = (WebView) msg.obj;
+                    if (view != null) {
+                        updateScreenshot(view);
+                    }
+                    break;
             }
         }
     };
+
+    private void updateScreenshot(WebView view) {
+        // If this is a bookmarked site, add a screenshot to the database.
+        // FIXME: When should we update?  Every time?
+        // FIXME: Would like to make sure there is actually something to
+        // draw, but the API for that (WebViewCore.pictureReady()) is not
+        // currently accessible here.
+
+        ContentResolver cr = getContentResolver();
+        final Cursor c = BrowserBookmarksAdapter.queryBookmarksForUrl(
+                cr, view.getOriginalUrl(), view.getUrl(), true);
+        if (c != null) {
+            boolean succeed = c.moveToFirst();
+            ContentValues values = null;
+            while (succeed) {
+                if (values == null) {
+                    final ByteArrayOutputStream os
+                            = new ByteArrayOutputStream();
+                    Bitmap bm = createScreenshot(view);
+                    if (bm == null) {
+                        c.close();
+                        return;
+                    }
+                    bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+                    values = new ContentValues();
+                    values.put(Browser.BookmarkColumns.THUMBNAIL,
+                            os.toByteArray());
+                }
+                cr.update(ContentUris.withAppendedId(Browser.BOOKMARKS_URI,
+                        c.getInt(0)), values, null, null);
+                succeed = c.moveToNext();
+            }
+            c.close();
+        }
+    }
+
+    /**
+     * Values for the size of the thumbnail created when taking a screenshot.
+     * Lazily initialized.  Instead of using these directly, use
+     * getDesiredThumbnailWidth() or getDesiredThumbnailHeight().
+     */
+    private static int THUMBNAIL_WIDTH = 0;
+    private static int THUMBNAIL_HEIGHT = 0;
+
+    /**
+     * Return the desired width for thumbnail screenshots, which are stored in
+     * the database, and used on the bookmarks screen.
+     * @param context Context for finding out the density of the screen.
+     * @return int desired width for thumbnail screenshot.
+     */
+    /* package */ static int getDesiredThumbnailWidth(Context context) {
+        if (THUMBNAIL_WIDTH == 0) {
+            float density = context.getResources().getDisplayMetrics().density;
+            THUMBNAIL_WIDTH = (int) (90 * density);
+            THUMBNAIL_HEIGHT = (int) (80 * density);
+        }
+        return THUMBNAIL_WIDTH;
+    }
+
+    /**
+     * Return the desired height for thumbnail screenshots, which are stored in
+     * the database, and used on the bookmarks screen.
+     * @param context Context for finding out the density of the screen.
+     * @return int desired height for thumbnail screenshot.
+     */
+    /* package */ static int getDesiredThumbnailHeight(Context context) {
+        // To ensure that they are both initialized.
+        getDesiredThumbnailWidth(context);
+        return THUMBNAIL_HEIGHT;
+    }
+
+    private Bitmap createScreenshot(WebView view) {
+        Picture thumbnail = view.capturePicture();
+        if (thumbnail == null) {
+            return null;
+        }
+        Bitmap bm = Bitmap.createBitmap(getDesiredThumbnailWidth(this),
+                getDesiredThumbnailHeight(this), Bitmap.Config.ARGB_4444);
+        Canvas canvas = new Canvas(bm);
+        // May need to tweak these values to determine what is the
+        // best scale factor
+        int thumbnailWidth = thumbnail.getWidth();
+        if (thumbnailWidth > 0) {
+            float scaleFactor = (float) getDesiredThumbnailWidth(this) /
+                    (float)thumbnailWidth;
+            canvas.scale(scaleFactor, scaleFactor);
+        }
+        thumbnail.draw(canvas);
+        return bm;
+    }
 
     // -------------------------------------------------------------------------
     // WebViewClient implementation.
@@ -2794,10 +2505,18 @@ public class BrowserActivity extends Activity
         return mWebViewClient;
     }
 
+    private void updateIcon(WebView view, Bitmap icon) {
+        if (icon != null) {
+            BrowserBookmarksAdapter.updateBookmarkFavicon(mResolver,
+                    view.getOriginalUrl(), view.getUrl(), icon);
+        }
+        setFavicon(icon);
+    }
+
     private void updateIcon(String url, Bitmap icon) {
         if (icon != null) {
             BrowserBookmarksAdapter.updateBookmarkFavicon(mResolver,
-                    url, icon);
+                    null, url, icon);
         }
         setFavicon(icon);
     }
@@ -2807,35 +2526,45 @@ public class BrowserActivity extends Activity
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             resetLockIcon(url);
             setUrlTitle(url, null);
+
+            // We've started to load a new page. If there was a pending message
+            // to save a screenshot then we will now take the new page and
+            // save an incorrect screenshot. Therefore, remove any pending
+            // thumbnail messages from the queue.
+            mHandler.removeMessages(UPDATE_BOOKMARK_THUMBNAIL);
+
+            // If we start a touch icon load and then load a new page, we don't
+            // want to cancel the current touch icon loader. But, we do want to
+            // create a new one when the touch icon url is known.
+            if (mTouchIconLoader != null) {
+                mTouchIconLoader.mActivity = null;
+                mTouchIconLoader = null;
+            }
+
+            ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(false);
+            if (errorConsole != null) {
+                errorConsole.clearErrorMessages();
+                if (mShouldShowErrorConsole) {
+                    errorConsole.showConsole(ErrorConsoleView.SHOW_NONE);
+                }
+            }
+
             // Call updateIcon instead of setFavicon so the bookmark
             // database can be updated.
             updateIcon(url, favicon);
 
-            if (mSettings.isTracing() == true) {
-                // FIXME: we should save the trace file somewhere other than data.
-                // I can't use "/tmp" as it competes for system memory.
-                File file = getDir("browserTrace", 0);
-                String baseDir = file.getPath();
-                if (!baseDir.endsWith(File.separator)) baseDir += File.separator;
+            if (mSettings.isTracing()) {
                 String host;
                 try {
                     WebAddress uri = new WebAddress(url);
                     host = uri.mHost;
                 } catch (android.net.ParseException ex) {
-                    host = "unknown_host";
+                    host = "browser";
                 }
                 host = host.replace('.', '_');
-                baseDir = baseDir + host;
-                file = new File(baseDir+".data");
-                if (file.exists() == true) {
-                    file.delete();
-                }
-                file = new File(baseDir+".key");
-                if (file.exists() == true) {
-                    file.delete();
-                }
+                host += ".trace";
                 mInTrace = true;
-                Debug.startMethodTracing(baseDir, 8 * 1024 * 1024);
+                Debug.startMethodTracing(host, 20 * 1024 * 1024);
             }
 
             // Performance probe
@@ -2855,31 +2584,24 @@ public class BrowserActivity extends Activity
 
             if (!mPageStarted) {
                 mPageStarted = true;
-                // if onResume() has been called, resumeWebView() does nothing.
-                resumeWebView();
+                // if onResume() has been called, resumeWebViewTimers() does
+                // nothing.
+                resumeWebViewTimers();
             }
 
             // reset sync timer to avoid sync starts during loading a page
             CookieSyncManager.getInstance().resetSync();
 
             mInLoad = true;
+            mDidStopLoad = false;
+            showFakeTitleBar();
             updateInLoadMenuItems();
             if (!mIsNetworkUp) {
-                if ( mAlertDialog == null) {
-                    mAlertDialog = new AlertDialog.Builder(BrowserActivity.this)
-                        .setTitle(R.string.loadSuspendedTitle)
-                        .setMessage(R.string.loadSuspended)
-                        .setPositiveButton(R.string.ok, null)
-                        .show();
-                }
+                createAndShowNetworkDialog();
                 if (view != null) {
                     view.setNetworkAvailable(false);
                 }
             }
-
-            // schedule to check memory condition
-            mHandler.sendMessageDelayed(mHandler.obtainMessage(CHECK_MEMORY),
-                    CHECK_MEMORY_INTERVAL);
         }
 
         @Override
@@ -2888,8 +2610,15 @@ public class BrowserActivity extends Activity
             // load.
             resetTitleAndIcon(view);
 
+            if (!mDidStopLoad) {
+                // Only update the bookmark screenshot if the user did not
+                // cancel the load early.
+                Message updateScreenshot = Message.obtain(mHandler, UPDATE_BOOKMARK_THUMBNAIL, view);
+                mHandler.sendMessageDelayed(updateScreenshot, 500);
+            }
+
             // Update the lock icon image only once we are done loading
-            updateLockIconImage(mLockIconType);
+            updateLockIconToLatest();
 
             // Performance probe
             if (false) {
@@ -2977,18 +2706,15 @@ public class BrowserActivity extends Activity
 
             if (mPageStarted) {
                 mPageStarted = false;
-                // pauseWebView() will do nothing and return false if onPause()
-                // is not called yet.
-                if (pauseWebView()) {
+                // pauseWebViewTimers() will do nothing and return false if
+                // onPause() is not called yet.
+                if (pauseWebViewTimers()) {
                     if (mWakeLock.isHeld()) {
                         mHandler.removeMessages(RELEASE_WAKELOCK);
                         mWakeLock.release();
                     }
                 }
             }
-
-            mHandler.removeMessages(CHECK_MEMORY);
-            checkMemory();
         }
 
         // return true if want to hijack the url to let another app to handle it
@@ -3025,9 +2751,9 @@ public class BrowserActivity extends Activity
             if (url.startsWith("about:")) {
                 return false;
             }
-            
+
             Intent intent;
-            
+
             // perform generic parsing of the URI to turn it into an Intent.
             try {
                 intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
@@ -3167,7 +2893,7 @@ public class BrowserActivity extends Activity
                 }
             }
             ErrorDialog errDialog = new ErrorDialog(
-                    err == EventHandler.FILE_NOT_FOUND_ERROR ?
+                    err == WebViewClient.ERROR_FILE_NOT_FOUND ?
                     R.string.browserFrameFileErrorLabel :
                     R.string.browserFrameNetworkErrorLabel,
                     desc, err);
@@ -3196,11 +2922,11 @@ public class BrowserActivity extends Activity
         @Override
         public void onReceivedError(WebView view, int errorCode,
                 String description, String failingUrl) {
-            if (errorCode != EventHandler.ERROR_LOOKUP &&
-                    errorCode != EventHandler.ERROR_CONNECT &&
-                    errorCode != EventHandler.ERROR_BAD_URL &&
-                    errorCode != EventHandler.ERROR_UNSUPPORTED_SCHEME &&
-                    errorCode != EventHandler.FILE_ERROR) {
+            if (errorCode != WebViewClient.ERROR_HOST_LOOKUP &&
+                    errorCode != WebViewClient.ERROR_CONNECT &&
+                    errorCode != WebViewClient.ERROR_BAD_URL &&
+                    errorCode != WebViewClient.ERROR_UNSUPPORTED_SCHEME &&
+                    errorCode != WebViewClient.ERROR_FILE) {
                 queueError(errorCode, description);
             }
             Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
@@ -3246,6 +2972,19 @@ public class BrowserActivity extends Activity
                 boolean isReload) {
             if (url.regionMatches(true, 0, "about:", 0, 6)) {
                 return;
+            }
+            // remove "client" before updating it to the history so that it wont
+            // show up in the auto-complete list.
+            int index = url.indexOf("client=ms-");
+            if (index > 0 && url.contains(".google.")) {
+                int end = url.indexOf('&', index);
+                if (end > 0) {
+                    url = url.substring(0, index)
+                            .concat(url.substring(end + 1));
+                } else {
+                    // the url.charAt(index-1) should be either '?' or '&'
+                    url = url.substring(0, index-1);
+                }
             }
             Browser.updateVisitedHistory(mResolver, url, true);
             WebIconDatabase.getInstance().retainIconForPageUrl(url);
@@ -3412,28 +3151,21 @@ public class BrowserActivity extends Activity
                 msg.sendToTarget();
             } else {
                 final TabControl.Tab parent = mTabControl.getCurrentTab();
-                // openTabAndShow will dispatch the message after creating the
-                // new WebView. This will prevent another request from coming
-                // in during the animation.
-                final TabControl.Tab newTab =
-                        openTabAndShow(EMPTY_URL_DATA, msg, false, null);
+                final TabControl.Tab newTab
+                        = openTabAndShow(EMPTY_URL_DATA, false, null);
                 if (newTab != parent) {
                     parent.addChildTab(newTab);
                 }
                 WebView.WebViewTransport transport =
                         (WebView.WebViewTransport) msg.obj;
                 transport.setWebView(mTabControl.getCurrentWebView());
+                msg.sendToTarget();
             }
         }
 
         @Override
         public boolean onCreateWindow(WebView view, final boolean dialog,
                 final boolean userGesture, final Message resultMsg) {
-            // Ignore these requests during tab animations or if the tab
-            // overview is showing.
-            if (mAnimationCount > 0 || mTabOverview != null) {
-                return false;
-            }
             // Short-circuit if we can't create any more tabs or sub windows.
             if (dialog && mTabControl.getCurrentSubWindow() != null) {
                 new AlertDialog.Builder(BrowserActivity.this)
@@ -3455,9 +3187,6 @@ public class BrowserActivity extends Activity
 
             // Short-circuit if this was a user gesture.
             if (userGesture) {
-                // createWindow will call openTabAndShow for new Windows and
-                // that will call tabPicker which will increment
-                // mAnimationCount.
                 createWindow(dialog, resultMsg);
                 return true;
             }
@@ -3467,12 +3196,7 @@ public class BrowserActivity extends Activity
                     new AlertDialog.OnClickListener() {
                         public void onClick(DialogInterface d,
                                 int which) {
-                            // Same comment as above for setting
-                            // mAnimationCount.
                             createWindow(dialog, resultMsg);
-                            // Since we incremented mAnimationCount while the
-                            // dialog was up, we have to decrement it here.
-                            mAnimationCount--;
                         }
                     };
 
@@ -3481,9 +3205,6 @@ public class BrowserActivity extends Activity
                     new AlertDialog.OnClickListener() {
                         public void onClick(DialogInterface d, int which) {
                             resultMsg.sendToTarget();
-                            // We are not going to trigger an animation so
-                            // unblock keys and animation requests.
-                            mAnimationCount--;
                         }
                     };
 
@@ -3500,51 +3221,57 @@ public class BrowserActivity extends Activity
 
             // Show the confirmation dialog.
             d.show();
-            // We want to increment mAnimationCount here to prevent a
-            // potential race condition. If the user allows a pop-up from a
-            // site and that pop-up then triggers another pop-up, it is
-            // possible to get the BACK key between here and when the dialog
-            // appears.
-            mAnimationCount++;
             return true;
         }
 
         @Override
         public void onCloseWindow(WebView window) {
-            final int currentIndex = mTabControl.getCurrentIndex();
-            final TabControl.Tab parent =
-                    mTabControl.getCurrentTab().getParentTab();
+            final TabControl.Tab current = mTabControl.getCurrentTab();
+            final TabControl.Tab parent = current.getParentTab();
             if (parent != null) {
                 // JavaScript can only close popup window.
-                switchTabs(currentIndex, mTabControl.getTabIndex(parent), true);
+                switchToTab(mTabControl.getTabIndex(parent));
+                // Now we need to close the window
+                closeTab(current);
             }
         }
 
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            // Block progress updates to the title bar while the tab overview
-            // is animating or being displayed.
-            if (mAnimationCount == 0 && mTabOverview == null) {
-                getWindow().setFeatureInt(Window.FEATURE_PROGRESS,
-                        newProgress * 100);
+            mTitleBar.setProgress(newProgress);
+            if (mFakeTitleBar != null) {
+                mFakeTitleBar.setProgress(newProgress);
             }
 
             if (newProgress == 100) {
-                // onProgressChanged() is called for sub-frame too while
-                // onPageFinished() is only called for the main frame. sync
-                // cookie and cache promptly here.
+                // onProgressChanged() may continue to be called after the main
+                // frame has finished loading, as any remaining sub frames
+                // continue to load. We'll only get called once though with
+                // newProgress as 100 when everything is loaded.
+                // (onPageFinished is called once when the main frame completes
+                // loading regardless of the state of any sub frames so calls
+                // to onProgressChanges may continue after onPageFinished has
+                // executed)
+
+                // sync cookies and cache promptly here.
                 CookieSyncManager.getInstance().sync();
                 if (mInLoad) {
                     mInLoad = false;
                     updateInLoadMenuItems();
+                    // If the options menu is open, leave the title bar
+                    if (!mOptionsMenuOpen || !mIconView) {
+                        hideFakeTitleBar();
+                    }
                 }
-            } else {
+            } else if (!mInLoad) {
                 // onPageFinished may have already been called but a subframe
                 // is still loading and updating the progress. Reset mInLoad
                 // and update the menu items.
-                if (!mInLoad) {
-                    mInLoad = true;
-                    updateInLoadMenuItems();
+                mInLoad = true;
+                updateInLoadMenuItems();
+                if (!mOptionsMenuOpen || mIconView) {
+                    // This page has begun to load, so show the title bar
+                    showFakeTitleBar();
                 }
             }
         }
@@ -3560,6 +3287,8 @@ public class BrowserActivity extends Activity
                 url.length() >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
                 return;
             }
+            // See if we can find the current url in our history database and
+            // add the new title to it.
             if (url.startsWith("http://www.")) {
                 url = url.substring(11);
             } else if (url.startsWith("http://")) {
@@ -3574,9 +3303,6 @@ public class BrowserActivity extends Activity
                 Cursor c = mResolver.query(Browser.BOOKMARKS_URI,
                     Browser.HISTORY_PROJECTION, where, selArgs, null);
                 if (c.moveToFirst()) {
-                    if (LOGV_ENABLED) {
-                        Log.v(LOGTAG, "updating cursor");
-                    }
                     // Current implementation of database only has one entry per
                     // url.
                     ContentValues map = new ContentValues();
@@ -3594,8 +3320,200 @@ public class BrowserActivity extends Activity
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
-            updateIcon(view.getUrl(), icon);
+            updateIcon(view, icon);
         }
+
+        @Override
+        public void onReceivedTouchIconUrl(WebView view, String url,
+                boolean precomposed) {
+            final ContentResolver cr = getContentResolver();
+            final Cursor c =
+                    BrowserBookmarksAdapter.queryBookmarksForUrl(cr,
+                            view.getOriginalUrl(), view.getUrl(), true);
+            if (c != null) {
+                if (c.getCount() > 0) {
+                    // Let precomposed icons take precedence over non-composed
+                    // icons.
+                    if (precomposed && mTouchIconLoader != null) {
+                        mTouchIconLoader.cancel(false);
+                        mTouchIconLoader = null;
+                    }
+                    // Have only one async task at a time.
+                    if (mTouchIconLoader == null) {
+                        mTouchIconLoader = new DownloadTouchIcon(
+                                BrowserActivity.this, cr, c, view);
+                        mTouchIconLoader.execute(url);
+                    }
+                } else {
+                    c.close();
+                }
+            }
+        }
+
+        @Override
+        public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+            if (mCustomView != null)
+                return;
+
+            // Add the custom view to its container.
+            mCustomViewContainer.addView(view, COVER_SCREEN_GRAVITY_CENTER);
+            mCustomView = view;
+            mCustomViewCallback = callback;
+            // Save the menu state and set it to empty while the custom
+            // view is showing.
+            mOldMenuState = mMenuState;
+            mMenuState = EMPTY_MENU;
+            // Hide the content view.
+            mContentView.setVisibility(View.GONE);
+            // Finally show the custom view container.
+            mCustomViewContainer.setVisibility(View.VISIBLE);
+            mCustomViewContainer.bringToFront();
+        }
+
+        @Override
+        public void onHideCustomView() {
+            if (mCustomView == null)
+                return;
+
+            // Hide the custom view.
+            mCustomView.setVisibility(View.GONE);
+            // Remove the custom view from its container.
+            mCustomViewContainer.removeView(mCustomView);
+            mCustomView = null;
+            // Reset the old menu state.
+            mMenuState = mOldMenuState;
+            mOldMenuState = EMPTY_MENU;
+            mCustomViewContainer.setVisibility(View.GONE);
+            mCustomViewCallback.onCustomViewHidden();
+            // Show the content view.
+            mContentView.setVisibility(View.VISIBLE);
+        }
+
+        /**
+         * The origin has exceeded its database quota.
+         * @param url the URL that exceeded the quota
+         * @param databaseIdentifier the identifier of the database on
+         *     which the transaction that caused the quota overflow was run
+         * @param currentQuota the current quota for the origin.
+         * @param estimatedSize the estimated size of the database.
+         * @param totalUsedQuota is the sum of all origins' quota.
+         * @param quotaUpdater The callback to run when a decision to allow or
+         *     deny quota has been made. Don't forget to call this!
+         */
+        @Override
+        public void onExceededDatabaseQuota(String url,
+            String databaseIdentifier, long currentQuota, long estimatedSize,
+            long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
+            mSettings.getWebStorageSizeManager().onExceededDatabaseQuota(
+                    url, databaseIdentifier, currentQuota, estimatedSize,
+                    totalUsedQuota, quotaUpdater);
+        }
+
+        /**
+         * The Application Cache has exceeded its max size.
+         * @param spaceNeeded is the amount of disk space that would be needed
+         * in order for the last appcache operation to succeed.
+         * @param totalUsedQuota is the sum of all origins' quota.
+         * @param quotaUpdater A callback to inform the WebCore thread that a new
+         * app cache size is available. This callback must always be executed at
+         * some point to ensure that the sleeping WebCore thread is woken up.
+         */
+        @Override
+        public void onReachedMaxAppCacheSize(long spaceNeeded,
+                long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
+            mSettings.getWebStorageSizeManager().onReachedMaxAppCacheSize(
+                    spaceNeeded, totalUsedQuota, quotaUpdater);
+        }
+
+        /**
+         * Instructs the browser to show a prompt to ask the user to set the
+         * Geolocation permission state for the specified origin.
+         * @param origin The origin for which Geolocation permissions are
+         *     requested.
+         * @param callback The callback to call once the user has set the
+         *     Geolocation permission state.
+         */
+        @Override
+        public void onGeolocationPermissionsShowPrompt(String origin,
+                GeolocationPermissions.Callback callback) {
+            mTabControl.getCurrentTab().getGeolocationPermissionsPrompt().show(
+                    origin, callback);
+        }
+
+        /**
+         * Instructs the browser to hide the Geolocation permissions prompt.
+         */
+        @Override
+        public void onGeolocationPermissionsHidePrompt() {
+            mTabControl.getCurrentTab().getGeolocationPermissionsPrompt().hide();
+        }
+
+        /* Adds a JavaScript error message to the system log.
+         * @param message The error message to report.
+         * @param lineNumber The line number of the error.
+         * @param sourceID The name of the source file that caused the error.
+         */
+        @Override
+        public void addMessageToConsole(String message, int lineNumber, String sourceID) {
+            ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(true);
+            errorConsole.addErrorMessage(message, sourceID, lineNumber);
+                if (mShouldShowErrorConsole &&
+                        errorConsole.getShowState() != ErrorConsoleView.SHOW_MAXIMIZED) {
+                    errorConsole.showConsole(ErrorConsoleView.SHOW_MINIMIZED);
+                }
+            Log.w(LOGTAG, "Console: " + message + " " + sourceID + ":" + lineNumber);
+        }
+
+        /**
+         * Ask the browser for an icon to represent a <video> element.
+         * This icon will be used if the Web page did not specify a poster attribute.
+         *
+         * @return Bitmap The icon or null if no such icon is available.
+         * @hide pending API Council approval
+         */
+        @Override
+        public Bitmap getDefaultVideoPoster() {
+            if (mDefaultVideoPoster == null) {
+                mDefaultVideoPoster = BitmapFactory.decodeResource(
+                        getResources(), R.drawable.default_video_poster);
+            }
+            return mDefaultVideoPoster;
+        }
+
+        /**
+         * Ask the host application for a custom progress view to show while
+         * a <video> is loading.
+         *
+         * @return View The progress view.
+         * @hide pending API Council approval
+         */
+        @Override
+        public View getVideoLoadingProgressView() {
+            if (mVideoProgressView == null) {
+                LayoutInflater inflater = LayoutInflater.from(BrowserActivity.this);
+                mVideoProgressView = inflater.inflate(R.layout.video_loading_progress, null);
+            }
+            return mVideoProgressView;
+        }
+
+        /**
+         * Deliver a list of already-visited URLs
+         * @hide pending API Council approval
+         */
+        @Override
+        public void getVisitedHistory(final ValueCallback<String[]> callback) {
+            AsyncTask<Void, Void, String[]> task = new AsyncTask<Void, Void, String[]>() {
+                public String[] doInBackground(Void... unused) {
+                    return Browser.getVisitedHistory(getContentResolver());
+                }
+
+                public void onPostExecute(String[] result) {
+                    callback.onReceiveValue(result);
+
+                };
+            };
+            task.execute();
+        };
     };
 
     /**
@@ -3612,23 +3530,36 @@ public class BrowserActivity extends Activity
         // if we're dealing wih A/V content that's not explicitly marked
         //     for download, check if it's streamable.
         if (contentDisposition == null
-                        || !contentDisposition.regionMatches(true, 0, "attachment", 0, 10)) {
+                || !contentDisposition.regionMatches(
+                        true, 0, "attachment", 0, 10)) {
             // query the package manager to see if there's a registered handler
             //     that matches.
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse(url), mimetype);
-            if (getPackageManager().resolveActivity(intent,
-                        PackageManager.MATCH_DEFAULT_ONLY) != null) {
-                // someone knows how to handle this mime type with this scheme, don't download.
-                try {
-                    startActivity(intent);
-                    return;
-                } catch (ActivityNotFoundException ex) {
-                    if (LOGD_ENABLED) {
-                        Log.d(LOGTAG, "activity not found for " + mimetype
-                                + " over " + Uri.parse(url).getScheme(), ex);
+            ResolveInfo info = getPackageManager().resolveActivity(intent,
+                    PackageManager.MATCH_DEFAULT_ONLY);
+            if (info != null) {
+                ComponentName myName = getComponentName();
+                // If we resolved to ourselves, we don't want to attempt to
+                // load the url only to try and download it again.
+                if (!myName.getPackageName().equals(
+                        info.activityInfo.packageName)
+                        || !myName.getClassName().equals(
+                                info.activityInfo.name)) {
+                    // someone (other than us) knows how to handle this mime
+                    // type with this scheme, don't download.
+                    try {
+                        startActivity(intent);
+                        return;
+                    } catch (ActivityNotFoundException ex) {
+                        if (LOGD_ENABLED) {
+                            Log.d(LOGTAG, "activity not found for " + mimetype
+                                    + " over " + Uri.parse(url).getScheme(),
+                                    ex);
+                        }
+                        // Best behavior is to fall back to a download in this
+                        // case
                     }
-                    // Best behavior is to fall back to a download in this case
                 }
             }
         }
@@ -3757,23 +3688,27 @@ public class BrowserActivity extends Activity
         updateLockIconImage(LOCK_ICON_UNSECURE);
     }
 
+    /* package */ void setLockIconType(int type) {
+        mLockIconType = type;
+    }
+
+    /* package */ int getLockIconType() {
+        return mLockIconType;
+    }
+
+    /* package */ void setPrevLockType(int type) {
+        mPrevLockType = type;
+    }
+
+    /* package */ int getPrevLockType() {
+        return mPrevLockType;
+    }
+
     /**
-     * Resets the lock icon.  This method is called when the icon needs to be
-     * reset but we do not know whether we are loading a secure or not secure
-     * page.
+     * Update the lock icon to correspond to our latest state.
      */
-    private void resetLockIcon() {
-        // Save the lock-icon state (we revert to it if the load gets cancelled)
-        saveLockIcon();
-
-        mLockIconType = LOCK_ICON_UNSECURE;
-
-        if (LOGV_ENABLED) {
-          Log.v(LOGTAG, "BrowserActivity.resetLockIcon:" +
-                " reset lock icon to " + mLockIconType);
-        }
-
-        updateLockIconImage(LOCK_ICON_UNSECURE);
+    /* package */ void updateLockIconToLatest() {
+        updateLockIconImage(mLockIconType);
     }
 
     /**
@@ -3786,10 +3721,9 @@ public class BrowserActivity extends Activity
         } else if (lockIconType == LOCK_ICON_MIXED) {
             d = mMixLockIcon;
         }
-        // If the tab overview is animating or being shown, do not update the
-        // lock icon.
-        if (mAnimationCount == 0 && mTabOverview == null) {
-            getWindow().setFeatureDrawable(Window.FEATURE_RIGHT_ICON, d);
+        mTitleBar.setLock(d);
+        if (mFakeTitleBar != null) {
+            mFakeTitleBar.setLock(d);
         }
     }
 
@@ -4259,17 +4193,25 @@ public class BrowserActivity extends Activity
             }
         } else {
             mIsNetworkUp = false;
-            if (mInLoad && mAlertDialog == null) {
-                mAlertDialog = new AlertDialog.Builder(this)
-                        .setTitle(R.string.loadSuspendedTitle)
-                        .setMessage(R.string.loadSuspended)
-                        .setPositiveButton(R.string.ok, null)
-                        .show();
-            }
+            if (mInLoad) {
+                createAndShowNetworkDialog();
+           }
         }
         WebView w = mTabControl.getCurrentWebView();
         if (w != null) {
             w.setNetworkAvailable(up);
+        }
+    }
+
+    // This method shows the network dialog alerting the user that the net is
+    // down. It will only show the dialog if mAlertDialog is null.
+    private void createAndShowNetworkDialog() {
+        if (mAlertDialog == null) {
+            mAlertDialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.loadSuspendedTitle)
+                    .setMessage(R.string.loadSuspended)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
         }
     }
 
@@ -4286,17 +4228,9 @@ public class BrowserActivity extends Activity
                     } else {
                         final TabControl.Tab currentTab =
                                 mTabControl.getCurrentTab();
-                        // If the Window overview is up and we are not in the
-                        // middle of an animation, animate away from it to the
-                        // current tab.
-                        if (mTabOverview != null && mAnimationCount == 0) {
-                            sendAnimateFromOverview(currentTab, false, new UrlData(data),
-                                    TAB_OVERVIEW_DELAY, null);
-                        } else {
-                            dismissSubWindow(currentTab);
-                            if (data != null && data.length() != 0) {
-                                getTopWindow().loadUrl(data);
-                            }
+                        dismissSubWindow(currentTab);
+                        if (data != null && data.length() != 0) {
+                            getTopWindow().loadUrl(data);
                         }
                     }
                 }
@@ -4321,176 +4255,11 @@ public class BrowserActivity extends Activity
     }
 
     /**
-     * Handle results from Tab Switcher mTabOverview tool
+     * Open the Go page.
+     * @param startWithHistory If true, open starting on the history tab.
+     *                         Otherwise, start with the bookmarks tab.
      */
-    private class TabListener implements ImageGrid.Listener {
-        public void remove(int position) {
-            // Note: Remove is not enabled if we have only one tab.
-            if (DEBUG && mTabControl.getTabCount() == 1) {
-                throw new AssertionError();
-            }
-
-            // Remember the current tab.
-            TabControl.Tab current = mTabControl.getCurrentTab();
-            final TabControl.Tab remove = mTabControl.getTab(position);
-            mTabControl.removeTab(remove);
-            // If we removed the current tab, use the tab at position - 1 if
-            // possible.
-            if (current == remove) {
-                // If the user removes the last tab, act like the New Tab item
-                // was clicked on.
-                if (mTabControl.getTabCount() == 0) {
-                    current = mTabControl.createNewTab();
-                    sendAnimateFromOverview(current, true,
-                            new UrlData(mSettings.getHomePage()), TAB_OVERVIEW_DELAY, null);
-                } else {
-                    final int index = position > 0 ? (position - 1) : 0;
-                    current = mTabControl.getTab(index);
-                }
-            }
-
-            // The tab overview could have been dismissed before this method is
-            // called.
-            if (mTabOverview != null) {
-                // Remove the tab and change the index.
-                mTabOverview.remove(position);
-                mTabOverview.setCurrentIndex(mTabControl.getTabIndex(current));
-            }
-
-            // Only the current tab ensures its WebView is non-null. This
-            // implies that we are reloading the freed tab.
-            mTabControl.setCurrentTab(current);
-        }
-        public void onClick(int index) {
-            // Change the tab if necessary.
-            // Index equals ImageGrid.CANCEL when pressing back from the tab
-            // overview.
-            if (index == ImageGrid.CANCEL) {
-                index = mTabControl.getCurrentIndex();
-                // The current index is -1 if the current tab was removed.
-                if (index == -1) {
-                    // Take the last tab as a fallback.
-                    index = mTabControl.getTabCount() - 1;
-                }
-            }
-
-            // NEW_TAB means that the "New Tab" cell was clicked on.
-            if (index == ImageGrid.NEW_TAB) {
-                openTabAndShow(mSettings.getHomePage(), null, false, null);
-            } else {
-                sendAnimateFromOverview(mTabControl.getTab(index),
-                        false, EMPTY_URL_DATA, 0, null);
-            }
-        }
-    }
-
-    // A fake View that draws the WebView's picture with a fast zoom filter.
-    // The View is used in case the tab is freed during the animation because
-    // of low memory.
-    private static class AnimatingView extends View {
-        private static final int ZOOM_BITS = Paint.FILTER_BITMAP_FLAG |
-                Paint.DITHER_FLAG | Paint.SUBPIXEL_TEXT_FLAG;
-        private static final DrawFilter sZoomFilter =
-                new PaintFlagsDrawFilter(ZOOM_BITS, Paint.LINEAR_TEXT_FLAG);
-        private final Picture mPicture;
-        private final float   mScale;
-        private final int     mScrollX;
-        private final int     mScrollY;
-        final TabControl.Tab  mTab;
-
-        AnimatingView(Context ctxt, TabControl.Tab t) {
-            super(ctxt);
-            mTab = t;
-            // Use the top window in the animation since the tab overview will
-            // display the top window in each cell.
-            final WebView w = t.getTopWindow();
-            mPicture = w.capturePicture();
-            mScale = w.getScale() / w.getWidth();
-            mScrollX = w.getScrollX();
-            mScrollY = w.getScrollY();
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            canvas.save();
-            canvas.drawColor(Color.WHITE);
-            if (mPicture != null) {
-                canvas.setDrawFilter(sZoomFilter);
-                float scale = getWidth() * mScale;
-                canvas.scale(scale, scale);
-                canvas.translate(-mScrollX, -mScrollY);
-                canvas.drawPicture(mPicture);
-            }
-            canvas.restore();
-        }
-    }
-
-    /**
-     *  Open the tab picker. This function will always use the current tab in
-     *  its animation.
-     *  @param stay boolean stating whether the tab picker is to remain open
-     *          (in which case it needs a listener and its menu) or not.
-     *  @param index The index of the tab to show as the selection in the tab
-     *               overview.
-     *  @param remove If true, the tab at index will be removed after the
-     *                animation completes.
-     */
-    private void tabPicker(final boolean stay, final int index,
-            final boolean remove) {
-        if (mTabOverview != null) {
-            return;
-        }
-
-        int size = mTabControl.getTabCount();
-
-        TabListener l = null;
-        if (stay) {
-            l = mTabListener = new TabListener();
-        }
-        mTabOverview = new ImageGrid(this, stay, l);
-
-        for (int i = 0; i < size; i++) {
-            final TabControl.Tab t = mTabControl.getTab(i);
-            mTabControl.populatePickerData(t);
-            mTabOverview.add(t);
-        }
-
-        // Tell the tab overview to show the current tab, the tab overview will
-        // handle the "New Tab" case.
-        int currentIndex = mTabControl.getCurrentIndex();
-        mTabOverview.setCurrentIndex(currentIndex);
-
-        // Attach the tab overview.
-        mContentView.addView(mTabOverview, COVER_SCREEN_PARAMS);
-
-        // Create a fake AnimatingView to animate the WebView's picture.
-        final TabControl.Tab current = mTabControl.getCurrentTab();
-        final AnimatingView v = new AnimatingView(this, current);
-        mContentView.addView(v, COVER_SCREEN_PARAMS);
-        removeTabFromContentView(current);
-        // Pause timers to get the animation smoother.
-        current.getWebView().pauseTimers();
-
-        // Send a message so the tab picker has a chance to layout and get
-        // positions for all the cells.
-        mHandler.sendMessage(mHandler.obtainMessage(ANIMATE_TO_OVERVIEW,
-                index, remove ? 1 : 0, v));
-        // Setting this will indicate that we are animating to the overview. We
-        // set it here to prevent another request to animate from coming in
-        // between now and when ANIMATE_TO_OVERVIEW is handled.
-        mAnimationCount++;
-        // Always change the title bar to the window overview title while
-        // animating.
-        getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, null);
-        getWindow().setFeatureDrawable(Window.FEATURE_RIGHT_ICON, null);
-        getWindow().setFeatureInt(Window.FEATURE_PROGRESS,
-                Window.PROGRESS_VISIBILITY_OFF);
-        setTitle(R.string.tab_picker_title);
-        // Make the menu empty until the animation completes.
-        mMenuState = EMPTY_MENU;
-    }
-
-    private void bookmarksOrHistoryPicker(boolean startWithHistory) {
+    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory) {
         WebView current = mTabControl.getCurrentWebView();
         if (current == null) {
             return;
@@ -4499,6 +4268,8 @@ public class BrowserActivity extends Activity
                 CombinedBookmarkHistoryActivity.class);
         String title = current.getTitle();
         String url = current.getUrl();
+        Bitmap thumbnail = createScreenshot(current);
+
         // Just in case the user opens bookmarks before a page finishes loading
         // so the current history item, and therefore the page, is null.
         if (null == url) {
@@ -4514,8 +4285,11 @@ public class BrowserActivity extends Activity
         }
         intent.putExtra("title", title);
         intent.putExtra("url", url);
-        intent.putExtra("maxTabsOpen",
-                mTabControl.getTabCount() >= TabControl.MAX_TABS);
+        intent.putExtra("thumbnail", thumbnail);
+        // Disable opening in a new window if we have maxed out the windows
+        intent.putExtra("disable_new_window", mTabControl.getTabCount()
+                >= TabControl.MAX_TABS);
+        intent.putExtra("touch_icon_url", current.getTouchIconUrl());
         if (startWithHistory) {
             intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_TAB,
                     CombinedBookmarkHistoryActivity.HISTORY_TAB);
@@ -4531,21 +4305,6 @@ public class BrowserActivity extends Activity
             if (!mWebViewClient.shouldOverrideUrlLoading(view, url)) {
                 view.loadUrl(url);
             }
-        }
-    }
-
-    private void checkMemory() {
-        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-        ((ActivityManager) getSystemService(ACTIVITY_SERVICE))
-                .getMemoryInfo(mi);
-        // FIXME: mi.lowMemory is too aggressive, use (mi.availMem <
-        // mi.threshold) for now
-        //        if (mi.lowMemory) {
-        if (mi.availMem < mi.threshold) {
-            Log.w(LOGTAG, "Browser is freeing memory now because: available="
-                            + (mi.availMem / 1024) + "K threshold="
-                            + (mi.threshold / 1024) + "K");
-            mTabControl.freeMemory();
         }
     }
 
@@ -4566,7 +4325,7 @@ public class BrowserActivity extends Activity
       return 0;
     }
 
-    static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
+    protected static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
             "(?i)" + // switch on case insensitive matching
             "(" +    // begin group for schema
             "(?:http|https|file):\\/\\/" +
@@ -4631,9 +4390,37 @@ public class BrowserActivity extends Activity
         return URLUtil.composeSearchUrl(inUrl, QuickSearch_G, QUERY_PLACE_HOLDER);
     }
 
-    private final static int LOCK_ICON_UNSECURE = 0;
-    private final static int LOCK_ICON_SECURE   = 1;
-    private final static int LOCK_ICON_MIXED    = 2;
+    /* package */ void setShouldShowErrorConsole(boolean flag) {
+        if (flag == mShouldShowErrorConsole) {
+            // Nothing to do.
+            return;
+        }
+
+        mShouldShowErrorConsole = flag;
+
+        ErrorConsoleView errorConsole = mTabControl.getCurrentErrorConsole(true);
+
+        if (flag) {
+            // Setting the show state of the console will cause it's the layout to be inflated.
+            if (errorConsole.numberOfErrors() > 0) {
+                errorConsole.showConsole(ErrorConsoleView.SHOW_MINIMIZED);
+            } else {
+                errorConsole.showConsole(ErrorConsoleView.SHOW_NONE);
+            }
+
+            // Now we can add it to the main view.
+            mErrorConsoleContainer.addView(errorConsole,
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                                                  ViewGroup.LayoutParams.WRAP_CONTENT));
+        } else {
+            mErrorConsoleContainer.removeView(errorConsole);
+        }
+
+    }
+
+    final static int LOCK_ICON_UNSECURE = 0;
+    final static int LOCK_ICON_SECURE   = 1;
+    final static int LOCK_ICON_MIXED    = 2;
 
     private int mLockIconType = LOCK_ICON_UNSECURE;
     private int mPrevLockType = LOCK_ICON_UNSECURE;
@@ -4642,12 +4429,15 @@ public class BrowserActivity extends Activity
     private TabControl      mTabControl;
     private ContentResolver mResolver;
     private FrameLayout     mContentView;
-    private ImageGrid       mTabOverview;
+    private View            mCustomView;
+    private FrameLayout     mCustomViewContainer;
+    private WebChromeClient.CustomViewCallback mCustomViewCallback;
 
     // FIXME, temp address onPrepareMenu performance problem. When we move everything out of
     // view, we should rewrite this.
     private int mCurrentMenuState = 0;
     private int mMenuState = R.id.MAIN_MENU;
+    private int mOldMenuState = EMPTY_MENU;
     private static final int EMPTY_MENU = -1;
     private Menu mMenu;
 
@@ -4658,16 +4448,12 @@ public class BrowserActivity extends Activity
 
     private boolean mInLoad;
     private boolean mIsNetworkUp;
+    private boolean mDidStopLoad;
 
     private boolean mPageStarted;
     private boolean mActivityInPause = true;
 
     private boolean mMenuIsDown;
-
-    private final KeyTracker mKeyTracker = new KeyTracker(this);
-
-    // As trackball doesn't send repeat down, we have to track it ourselves
-    private boolean mTrackTrackball;
 
     private static boolean mInTrace;
 
@@ -4694,7 +4480,6 @@ public class BrowserActivity extends Activity
 
     private Drawable    mMixLockIcon;
     private Drawable    mSecLockIcon;
-    private Drawable    mGenericFavicon;
 
     /* hold a ref so we can auto-cancel if necessary */
     private AlertDialog mAlertDialog;
@@ -4738,6 +4523,11 @@ public class BrowserActivity extends Activity
                                             new FrameLayout.LayoutParams(
                                             ViewGroup.LayoutParams.FILL_PARENT,
                                             ViewGroup.LayoutParams.FILL_PARENT);
+    /*package*/ static final FrameLayout.LayoutParams COVER_SCREEN_GRAVITY_CENTER =
+                                            new FrameLayout.LayoutParams(
+                                            ViewGroup.LayoutParams.FILL_PARENT,
+                                            ViewGroup.LayoutParams.FILL_PARENT,
+                                            Gravity.CENTER);
     // Google search
     final static String QuickSearch_G = "http://www.google.com/m?q=%s";
     // Wikipedia search
@@ -4762,8 +4552,6 @@ public class BrowserActivity extends Activity
 
     private final static String LOGTAG = "browser";
 
-    private TabListener mTabListener;
-
     private String mLastEnteredUrl;
 
     private PowerManager.WakeLock mWakeLock;
@@ -4771,11 +4559,10 @@ public class BrowserActivity extends Activity
 
     private Toast mStopToast;
 
-    // Used during animations to prevent other animations from being triggered.
-    // A count is used since the animation to and from the Window overview can
-    // overlap. A count of 0 means no animation where a count of > 0 means
-    // there are animations in progress.
-    private int mAnimationCount;
+    private TitleBar mTitleBar;
+
+    private LinearLayout mErrorConsoleContainer = null;
+    private boolean mShouldShowErrorConsole = false;
 
     // As the ids are dynamically created, we can't guarantee that they will
     // be in sequence, so this static array maps ids to a window number.
@@ -4788,13 +4575,20 @@ public class BrowserActivity extends Activity
     private IntentFilter mNetworkStateChangedFilter;
     private BroadcastReceiver mNetworkStateIntentReceiver;
 
-    // activity requestCode
-    final static int COMBO_PAGE             = 1;
-    final static int DOWNLOAD_PAGE          = 2;
-    final static int PREFERENCES_PAGE       = 3;
+    private BroadcastReceiver mPackageInstallationReceiver;
 
-    // the frenquency of checking whether system memory is low
-    final static int CHECK_MEMORY_INTERVAL = 30000;     // 30 seconds
+    // AsyncTask for downloading touch icons
+    /* package */ DownloadTouchIcon mTouchIconLoader;
+
+    // activity requestCode
+    final static int COMBO_PAGE                 = 1;
+    final static int DOWNLOAD_PAGE              = 2;
+    final static int PREFERENCES_PAGE           = 3;
+
+    // the default <video> poster
+    private Bitmap mDefaultVideoPoster;
+    // the video progress view
+    private View mVideoProgressView;
 
     /**
      * A UrlData class to abstract how the content will be set to WebView.
@@ -4841,7 +4635,7 @@ public class BrowserActivity extends Activity
         String mEncoding;
         @Override
         boolean isEmpty() {
-            return mInlined == null || mInlined.length() == 0 || super.isEmpty(); 
+            return mInlined == null || mInlined.length() == 0 || super.isEmpty();
         }
 
         @Override
@@ -4850,5 +4644,5 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private static final UrlData EMPTY_URL_DATA = new UrlData(null);
+    /* package */ static final UrlData EMPTY_URL_DATA = new UrlData(null);
 }

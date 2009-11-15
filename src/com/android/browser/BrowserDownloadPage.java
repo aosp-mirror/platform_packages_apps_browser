@@ -66,11 +66,7 @@ public class BrowserDownloadPage extends Activity
         setTitle(getText(R.string.download_title));
 
         mListView = (ListView) findViewById(R.id.list);
-        LayoutInflater factory = LayoutInflater.from(this);
-        View v = factory.inflate(R.layout.no_downloads, null);
-        addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT));
-        mListView.setEmptyView(v);
+        mListView.setEmptyView(findViewById(R.id.empty));
         
         mDownloadCursor = managedQuery(Downloads.CONTENT_URI, 
                 new String [] {"_id", Downloads.COLUMN_TITLE, Downloads.COLUMN_STATUS,
@@ -93,7 +89,7 @@ public class BrowserDownloadPage extends Activity
             // Create a list "controller" for the data
             mDownloadAdapter = new BrowserDownloadAdapter(this, 
                     R.layout.browser_download_item, mDownloadCursor);
-            
+
             mListView.setAdapter(mDownloadAdapter);
             mListView.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
             mListView.setOnCreateContextMenuListener(this);

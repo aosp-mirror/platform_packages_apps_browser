@@ -25,6 +25,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ServiceManager;
@@ -41,6 +42,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.ViewStub;
 import android.webkit.DateSorter;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.AdapterView;
@@ -48,6 +50,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Vector;
@@ -59,7 +62,8 @@ import java.util.Vector;
 public class BrowserHistoryPage extends ExpandableListActivity {
     private HistoryAdapter          mAdapter;
     private DateSorter              mDateSorter;
-    private boolean                 mMaxTabsOpen;
+    private boolean                 mDisableNewWindow;
+    private HistoryItem             mContextHeader;
 
     private final static String LOGTAG = "browser";
 
@@ -110,8 +114,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         setListAdapter(mAdapter);
         final ExpandableListView list = getExpandableListView();
         list.setOnCreateContextMenuListener(this);
-        LayoutInflater factory = LayoutInflater.from(this);
-        View v = factory.inflate(R.layout.empty_history, null);
+        View v = new ViewStub(this, R.layout.empty_history);
         addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT));
         list.setEmptyView(v);
@@ -127,8 +130,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 }
             });
         }
-        mMaxTabsOpen = getIntent().getBooleanExtra("maxTabsOpen", false);
-        CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
+        mDisableNewWindow = getIntent().getBooleanExtra("disable_new_window",
+                false);
+        CombinedBookmarkHistoryActivity.getIconListenerSet()
                 .addListener(mIconReceiver);
         
         // initialize the result to canceled, so that if the user just presses
@@ -139,7 +143,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CombinedBookmarkHistoryActivity.getIconListenerSet(getContentResolver())
+        CombinedBookmarkHistoryActivity.getIconListenerSet()
                 .removeListener(mIconReceiver);
     }
 
@@ -172,7 +176,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }  
         return super.onOptionsItemSelected(item);
     }
-    
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
@@ -187,12 +191,26 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.historycontext, menu);
 
-        // Setup the header
-        menu.setHeaderTitle(((HistoryItem)i.targetView).getUrl());
+        HistoryItem historyItem = (HistoryItem) i.targetView;
 
-        // Only show open in new tab if we have not maxed out available tabs
-        menu.findItem(R.id.new_window_context_menu_id).setVisible(!mMaxTabsOpen);
-        
+        // Setup the header
+        if (mContextHeader == null) {
+            mContextHeader = new HistoryItem(this);
+        } else if (mContextHeader.getParent() != null) {
+            ((ViewGroup) mContextHeader.getParent()).removeView(mContextHeader);
+        }
+        historyItem.copyTo(mContextHeader);
+        menu.setHeaderView(mContextHeader);
+
+        // Only show open in new tab if it was not explicitly disabled
+        if (mDisableNewWindow) {
+            menu.findItem(R.id.new_window_context_menu_id).setVisible(false);
+        }
+        // For a bookmark, provide the option to remove it from bookmarks
+        if (historyItem.isBookmark()) {
+            MenuItem item = menu.findItem(R.id.save_to_bookmarks_menu_id);
+            item.setTitle(R.string.remove_from_bookmarks);
+        }
         // decide whether to show the share link option
         PackageManager pm = getPackageManager();
         Intent send = new Intent(Intent.ACTION_SEND);
@@ -207,8 +225,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     public boolean onContextItemSelected(MenuItem item) {
         ExpandableListContextMenuInfo i = 
             (ExpandableListContextMenuInfo) item.getMenuInfo();
-        String url = ((HistoryItem)i.targetView).getUrl();
-        String title = ((HistoryItem)i.targetView).getName();
+        HistoryItem historyItem = (HistoryItem) i.targetView;
+        String url = historyItem.getUrl();
+        String title = historyItem.getName();
         switch (item.getItemId()) {
             case R.id.open_context_menu_id:
                 loadUrl(url, false);
@@ -217,17 +236,28 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 loadUrl(url, true);
                 return true;
             case R.id.save_to_bookmarks_menu_id:
-                Browser.saveBookmark(this, title, url);
+                if (historyItem.isBookmark()) {
+                    Bookmarks.removeFromBookmarks(this, getContentResolver(),
+                            url, title);
+                } else {
+                    Browser.saveBookmark(this, title, url);
+                }
                 return true;
             case R.id.share_link_context_menu_id:
-                Browser.sendString(this, url);
+                Browser.sendString(this, url,
+                        getText(R.string.choosertitle_sharevia).toString());
                 return true;
-            case R.id.copy_context_menu_id:
+            case R.id.copy_url_context_menu_id:
                 copy(url);
                 return true;
             case R.id.delete_context_menu_id:
                 Browser.deleteFromHistory(getContentResolver(), url);
                 mAdapter.refreshData();
+                return true;
+            case R.id.homepage_context_menu_id:
+                BrowserSettings.getInstance().setHomePage(this, url);
+                Toast.makeText(this, R.string.homepage_set,
+                    Toast.LENGTH_LONG).show();
                 return true;
             default:
                 break;
@@ -274,18 +304,25 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         
         // Array for each of our bins.  Each entry represents how many items are
         // in that bin.
-        int mItemMap[];
+        private int mItemMap[];
         // This is our GroupCount.  We will have at most DateSorter.DAY_COUNT
         // bins, less if the user has no items in one or more bins.
-        int mNumberOfBins;
-        Vector<DataSetObserver> mObservers;
-        Cursor mCursor;
+        private int mNumberOfBins;
+        private Vector<DataSetObserver> mObservers;
+        private Cursor mCursor;
         
         HistoryAdapter() {
             mObservers = new Vector<DataSetObserver>();
             
-            String whereClause = Browser.BookmarkColumns.VISITS + " > 0 ";
-            String orderBy = Browser.BookmarkColumns.DATE + " DESC";
+            final String whereClause = Browser.BookmarkColumns.VISITS + " > 0"
+                    // In AddBookmarkPage, where we save new bookmarks, we add
+                    // three visits to newly created bookmarks, so that
+                    // bookmarks that have not been visited will show up in the
+                    // most visited, and higher in the goto search box.
+                    // However, this puts the site in the history, unless we
+                    // ignore sites with a DATE of 0, which the next line does.
+                    + " AND " + Browser.BookmarkColumns.DATE + " > 0";
+            final String orderBy = Browser.BookmarkColumns.DATE + " DESC";
            
             mCursor = managedQuery(
                     Browser.BOOKMARKS_URI,
@@ -297,6 +334,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }
         
         void refreshData() {
+            if (mCursor.isClosed()) {
+                return;
+            }
             mCursor.requery();
             buildMap();
             for (DataSetObserver o : mObservers) {
@@ -386,8 +426,14 @@ public class BrowserHistoryPage extends ExpandableListActivity {
             item.setName(mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX));
             String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
             item.setUrl(url);
-            item.setFavicon(CombinedBookmarkHistoryActivity.getIconListenerSet(
-                    getContentResolver()).getFavicon(url));
+            byte[] data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
+            if (data != null) {
+                item.setFavicon(BitmapFactory.decodeByteArray(data, 0,
+                        data.length));
+            } else {
+                item.setFavicon(CombinedBookmarkHistoryActivity
+                        .getIconListenerSet().getFavicon(url));
+            }
             item.setIsBookmark(1 ==
                     mCursor.getInt(Browser.HISTORY_PROJECTION_BOOKMARK_INDEX));
             return item;
