@@ -16,9 +16,6 @@
 
 package com.android.browser;
 
-import com.google.android.googleapps.IGoogleLoginService;
-import com.google.android.googlelogin.GoogleLoginServiceConstants;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -73,7 +70,6 @@ import android.provider.MediaStore;
 import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.text.util.Regex;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -106,6 +102,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.common.Patterns;
+
+import com.google.android.googleapps.IGoogleLoginService;
+import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -580,7 +581,7 @@ public class BrowserActivity extends Activity
 
         // URLs and site specific search shortcuts are handled by the regular flow of control, so
         // return early.
-        if (Regex.WEB_URL_PATTERN.matcher(url).matches()
+        if (Patterns.WEB_URL.matcher(url).matches()
                 || ACCEPTED_URI_SCHEMA.matcher(url).matches()
                 || parseUrlShortcut(url) != SHORTCUT_INVALID) {
             return false;
@@ -632,7 +633,7 @@ public class BrowserActivity extends Activity
                     mLastEnteredUrl = url;
                     // Don't add Urls, just search terms.
                     // Urls will get added when the page is loaded.
-                    if (!Regex.WEB_URL_PATTERN.matcher(url).matches()) {
+                    if (!Patterns.WEB_URL.matcher(url).matches()) {
                         Browser.updateVisitedHistory(mResolver, url, false);
                     }
                     // In general, we shouldn't modify URL from Intent.
@@ -3479,7 +3480,7 @@ public class BrowserActivity extends Activity
                 }
             }
         } else {
-            if (Regex.WEB_URL_PATTERN.matcher(inUrl).matches()) {
+            if (Patterns.WEB_URL.matcher(inUrl).matches()) {
                 return URLUtil.guessUrl(inUrl);
             }
         }
