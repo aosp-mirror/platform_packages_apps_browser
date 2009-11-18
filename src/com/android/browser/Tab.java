@@ -660,6 +660,14 @@ class Tab {
         }
 
         @Override
+        public void onRequestFocus(WebView view) {
+            if (!mInForeground) {
+                mActivity.switchToTab(mActivity.getTabControl().getTabIndex(
+                        Tab.this));
+            }
+        }
+
+        @Override
         public void onCloseWindow(WebView window) {
             if (mParentTab != null) {
                 // JavaScript can only close popup window.
