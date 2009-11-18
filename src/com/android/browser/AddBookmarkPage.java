@@ -178,28 +178,33 @@ public class AddBookmarkPage extends Activity {
             }
             return false;
         }
-        String url = unfilteredUrl;
+        String url = unfilteredUrl.trim();
         try {
-            URI uriObj = new URI(url);
-            String scheme = uriObj.getScheme();
-            if (!Bookmarks.urlHasAcceptableScheme(url)) {
-                // If the scheme was non-null, let the user know that we
-                // can't save their bookmark. If it was null, we'll assume
-                // they meant http when we parse it in the WebAddress class.
-                if (scheme != null) {
-                    mAddress.setError(r.getText(R.string.bookmark_cannot_save_url));
-                    return false;
+            // We allow bookmarks with a javascript: scheme, but these will in most cases
+            // fail URI parsing, so don't try it if that's the kind of bookmark we have.
+
+            if (!url.toLowerCase().startsWith("javascript:")) {
+                URI uriObj = new URI(url);
+                String scheme = uriObj.getScheme();
+                if (!Bookmarks.urlHasAcceptableScheme(url)) {
+                    // If the scheme was non-null, let the user know that we
+                    // can't save their bookmark. If it was null, we'll assume
+                    // they meant http when we parse it in the WebAddress class.
+                    if (scheme != null) {
+                        mAddress.setError(r.getText(R.string.bookmark_cannot_save_url));
+                        return false;
+                    }
+                    WebAddress address;
+                    try {
+                        address = new WebAddress(unfilteredUrl);
+                    } catch (ParseException e) {
+                        throw new URISyntaxException("", "");
+                    }
+                    if (address.mHost.length() == 0) {
+                        throw new URISyntaxException("", "");
+                    }
+                    url = address.toString();
                 }
-                WebAddress address;
-                try {
-                    address = new WebAddress(unfilteredUrl);
-                } catch (ParseException e) {
-                    throw new URISyntaxException("", "");
-                }
-                if (address.mHost.length() == 0) {
-                    throw new URISyntaxException("", "");
-                }
-                url = address.toString();
             }
         } catch (URISyntaxException e) {
             mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
