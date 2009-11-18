@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.google.android.providers.GoogleSettings.Partner;
-
 import android.app.SearchManager;
 import android.backup.BackupManager;
 import android.content.ComponentName;
@@ -46,9 +44,12 @@ import android.provider.Settings;
 import android.provider.Browser.BookmarkColumns;
 import android.server.search.SearchableInfo;
 import android.text.TextUtils;
-import android.text.util.Regex;
 import android.util.Log;
 import android.util.TypedValue;
+
+import com.android.common.Patterns;
+
+import com.google.android.providers.GoogleSettings.Partner;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -749,7 +750,7 @@ public class BrowserProvider extends ContentProvider {
                     ORDER_BY, MAX_SUGGESTION_LONG_ENTRIES_STRING);
 
             if (match == URI_MATCH_BOOKMARKS_SUGGEST
-                    || Regex.WEB_URL_PATTERN.matcher(selectionArgs[0]).matches()) {
+                    || Patterns.WEB_URL.matcher(selectionArgs[0]).matches()) {
                 return new MySuggestionCursor(c, null, "");
             } else {
                 // get Google suggest if there is still space in the list
