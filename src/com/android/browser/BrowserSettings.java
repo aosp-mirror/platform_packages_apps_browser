@@ -530,8 +530,8 @@ class BrowserSettings extends Observable {
             }
         });
 
-        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set>() {
-            public void onReceiveValue(Set geolocationOrigins) {
+        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set<String> >() {
+            public void onReceiveValue(Set<String> geolocationOrigins) {
                 if ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()) {
                     screen.setEnabled(true);
                 }
