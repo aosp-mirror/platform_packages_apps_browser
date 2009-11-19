@@ -2143,6 +2143,7 @@ public class BrowserActivity extends Activity
                 case FOCUS_NODE_HREF:
                 {
                     String url = (String) msg.getData().get("url");
+                    String title = (String) msg.getData().get("title");
                     if (url == null || url.length() == 0) {
                         break;
                     }
@@ -2168,6 +2169,7 @@ public class BrowserActivity extends Activity
                             Intent intent = new Intent(BrowserActivity.this,
                                     AddBookmarkPage.class);
                             intent.putExtra("url", url);
+                            intent.putExtra("title", title);
                             startActivity(intent);
                             break;
                         case R.id.share_link_context_menu_id:
