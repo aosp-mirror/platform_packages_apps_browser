@@ -3322,6 +3322,8 @@ public class BrowserActivity extends Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
+        if (getTopWindow() == null) return;
+
         switch (requestCode) {
             case COMBO_PAGE:
                 if (resultCode == RESULT_OK && intent != null) {
