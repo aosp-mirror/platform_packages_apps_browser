@@ -846,13 +846,15 @@ class Tab {
             }
         }
 
-        /* Adds a JavaScript error message to the system log.
+        /* Adds a JavaScript error message to the system log and if the JS
+         * console is enabled in the about:debug options, to that console
+         * also.
          * @param message The error message to report.
          * @param lineNumber The line number of the error.
          * @param sourceID The name of the source file that caused the error.
          */
         @Override
-        public void addMessageToConsole(String message, int lineNumber,
+        public void onConsoleMessage(String message, int lineNumber,
                 String sourceID) {
             if (mInForeground) {
                 // call getErrorConsole(true) so it will create one if needed
