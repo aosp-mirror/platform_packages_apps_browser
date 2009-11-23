@@ -521,8 +521,21 @@ public class BrowserActivity extends Activity
                     }
                 }
             } else {
-                if ("about:debug".equals(urlData.mUrl)) {
-                    mSettings.toggleDebugSettings();
+                if (!urlData.isEmpty()
+                        && urlData.mUrl.startsWith("about:debug")) {
+                    if ("about:debug.dom".equals(urlData.mUrl)) {
+                        current.getWebView().dumpDomTree(false);
+                    } else if ("about:debug.dom.file".equals(urlData.mUrl)) {
+                        current.getWebView().dumpDomTree(true);
+                    } else if ("about:debug.render".equals(urlData.mUrl)) {
+                        current.getWebView().dumpRenderTree(false);
+                    } else if ("about:debug.render.file".equals(urlData.mUrl)) {
+                        current.getWebView().dumpRenderTree(true);
+                    } else if ("about:debug.display".equals(urlData.mUrl)) {
+                        current.getWebView().dumpDisplayTree();
+                    } else {
+                        mSettings.toggleDebugSettings();
+                    }
                     return;
                 }
                 // Get rid of the subwindow if it exists
