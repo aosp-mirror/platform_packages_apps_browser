@@ -64,7 +64,7 @@ public class BrowserBookmarksPage extends Activity implements
 
     private BookmarkViewMode        mViewMode = BookmarkViewMode.NONE;
     private GridView                mGridPage;
-    private View                    mVerticalList;
+    private ListView                mVerticalList;
     private BrowserBookmarksAdapter mBookmarksAdapter;
     private static final int        BOOKMARKS_SAVE = 1;
     private boolean                 mDisableNewWindow;
@@ -240,12 +240,7 @@ public class BrowserBookmarksPage extends Activity implements
         if (mCreateShortcut) {
             setTitle(R.string.browser_bookmarks_page_bookmarks_text);
         }
-        mBookmarksAdapter = new BrowserBookmarksAdapter(this,
-                        getIntent().getStringExtra("url"),
-                        getIntent().getStringExtra("title"),
-                        (Bitmap) getIntent().getParcelableExtra("thumbnail"),
-                        mCreateShortcut,
-                        mMostVisited);
+        mHandler.obtainMessage(CREATE_ADAPTER).sendToTarget();
 
         setContentView(R.layout.empty_history);
         mEmptyView = findViewById(R.id.empty_view);
@@ -270,12 +265,12 @@ public class BrowserBookmarksPage extends Activity implements
      *  Set the ContentView to be either the grid of thumbnails or the vertical
      *  list.
      */
-    private void switchViewMode(BookmarkViewMode gridMode) {
-        if (mViewMode == gridMode) {
+    private void switchViewMode(BookmarkViewMode viewMode) {
+        if (mViewMode == viewMode) {
             return;
         }
 
-        mViewMode = gridMode;
+        mViewMode = viewMode;
 
         // Update the preferences to make the new view mode sticky.
         Editor ed = getPreferences(MODE_PRIVATE).edit();
@@ -286,11 +281,15 @@ public class BrowserBookmarksPage extends Activity implements
         }
         ed.commit();
 
-        mBookmarksAdapter.switchViewMode(gridMode);
+        if (mBookmarksAdapter != null) {
+            mBookmarksAdapter.switchViewMode(viewMode);
+        }
         if (mViewMode == BookmarkViewMode.GRID) {
             if (mGridPage == null) {
                 mGridPage = new GridView(this);
-                mGridPage.setAdapter(mBookmarksAdapter);
+                if (mBookmarksAdapter != null) {
+                    mGridPage.setAdapter(mBookmarksAdapter);
+                }
                 mGridPage.setOnItemClickListener(mListener);
                 mGridPage.setNumColumns(GridView.AUTO_FIT);
                 mGridPage.setColumnWidth(
@@ -321,7 +320,9 @@ public class BrowserBookmarksPage extends Activity implements
         } else {
             if (null == mVerticalList) {
                 ListView listView = new ListView(this);
-                listView.setAdapter(mBookmarksAdapter);
+                if (mBookmarksAdapter != null) {
+                    listView.setAdapter(mBookmarksAdapter);
+                }
                 listView.setDrawSelectorOnTop(false);
                 listView.setVerticalScrollBarEnabled(true);
                 listView.setOnItemClickListener(mListener);
@@ -349,11 +350,31 @@ public class BrowserBookmarksPage extends Activity implements
             ViewGroup.LayoutParams.FILL_PARENT);
 
     private static final int SAVE_CURRENT_PAGE = 1000;
+    private static final int CREATE_ADAPTER = 1001;
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == SAVE_CURRENT_PAGE) {
-                saveCurrentPage();
+            switch (msg.what) {
+                case SAVE_CURRENT_PAGE:
+                    saveCurrentPage();
+                    break;
+                case CREATE_ADAPTER:
+                    Intent intent = getIntent();
+                    mBookmarksAdapter = new BrowserBookmarksAdapter(
+                            BrowserBookmarksPage.this,
+                            intent.getStringExtra("url"),
+                            intent.getStringExtra("title"),
+                            (Bitmap) intent.getParcelableExtra("thumbnail"),
+                            mCreateShortcut,
+                            mMostVisited);
+                    mBookmarksAdapter.switchViewMode(mViewMode);
+                    if (mGridPage != null) {
+                        mGridPage.setAdapter(mBookmarksAdapter);
+                    }
+                    if (mVerticalList != null) {
+                        mVerticalList.setAdapter(mBookmarksAdapter);
+                    }
+                    break;
             }
         }
     };
@@ -490,7 +511,7 @@ public class BrowserBookmarksPage extends Activity implements
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean result = super.onPrepareOptionsMenu(menu);
-        if (mCreateShortcut || mMostVisited
+        if (mCreateShortcut || mMostVisited || mBookmarksAdapter == null
                 || mBookmarksAdapter.getCount() == 0) {
             // No need to show the menu if there are no items.
             return result;
@@ -605,25 +626,29 @@ public class BrowserBookmarksPage extends Activity implements
      *  Return a hashmap representing the currently highlighted row.
      */
     public Bundle getRow(int position) {
-        return mBookmarksAdapter.getRow(position);
+        return mBookmarksAdapter == null ? null
+                : mBookmarksAdapter.getRow(position);
     }
 
     /**
      *  Return the url of the currently highlighted row.
      */
     public String getUrl(int position) {
-        return mBookmarksAdapter.getUrl(position);
+        return mBookmarksAdapter == null ? null
+                : mBookmarksAdapter.getUrl(position);
     }
 
     /**
      * Return the favicon of the currently highlighted row.
      */
     public Bitmap getFavicon(int position) {
-        return mBookmarksAdapter.getFavicon(position);
+        return mBookmarksAdapter == null ? null
+                : mBookmarksAdapter.getFavicon(position);
     }
 
     private Bitmap getTouchIcon(int position) {
-        return mBookmarksAdapter.getTouchIcon(position);
+        return mBookmarksAdapter == null ? null
+                : mBookmarksAdapter.getTouchIcon(position);
     }
 
     private void copy(CharSequence text) {
@@ -638,13 +663,15 @@ public class BrowserBookmarksPage extends Activity implements
     }
     
     public String getBookmarkTitle(int position) {
-        return mBookmarksAdapter.getTitle(position);
+        return mBookmarksAdapter == null ? null
+                : mBookmarksAdapter.getTitle(position);
     }
 
     /**
      *  Delete the currently highlighted row.
      */
     public void deleteBookmark(int position) {
+        if (mBookmarksAdapter == null) return;
         mBookmarksAdapter.deleteRow(position);
     }
 
