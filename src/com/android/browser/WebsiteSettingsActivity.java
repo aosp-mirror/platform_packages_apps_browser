@@ -222,8 +222,8 @@ public class WebsiteSettingsActivity extends ListActivity {
         }
 
         public void askForGeolocation(final Map sites) {
-            GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set>() {
-                public void onReceiveValue(Set origins) {
+            GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set<String> >() {
+                public void onReceiveValue(Set<String> origins) {
                     if (origins != null) {
                         Iterator<String> iter = origins.iterator();
                         while (iter.hasNext()) {
