@@ -73,11 +73,11 @@ public class BrowserProvider extends ContentProvider {
         "bookmarks", "searches"
     };
     private static final String[] SUGGEST_PROJECTION = new String[] {
-            "_id", "url", "title", "bookmark"
+            "_id", "url", "title", "bookmark", "user_entered"
     };
     private static final String SUGGEST_SELECTION =
-            "url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ?"
-                + " OR title LIKE ?";
+            "(url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ?"
+                + " OR title LIKE ?) AND (bookmark = 1 OR user_entered = 1)";
     private String[] SUGGEST_ARGS = new String[5];
 
     // shared suggestion array index, make sure to match COLUMNS
@@ -158,7 +158,8 @@ public class BrowserProvider extends ContentProvider {
     // 19 -> 20 Added thumbnail
     // 20 -> 21 Added touch_icon
     // 21 -> 22 Remove "clientid"
-    private static final int DATABASE_VERSION = 22;
+    // 22 -> 23 Added user_entered
+    private static final int DATABASE_VERSION = 23;
 
     // Regular expression which matches http://, followed by some stuff, followed by
     // optionally a trailing slash, all matched as separate groups.
@@ -232,7 +233,8 @@ public class BrowserProvider extends ContentProvider {
                     "bookmark INTEGER," +
                     "favicon BLOB DEFAULT NULL," +
                     "thumbnail BLOB DEFAULT NULL," +
-                    "touch_icon BLOB DEFAULT NULL" +
+                    "touch_icon BLOB DEFAULT NULL," +
+                    "user_entered INTEGER" +
                     ");");
 
             final CharSequence[] bookmarks = mContext.getResources()
@@ -272,6 +274,9 @@ public class BrowserProvider extends ContentProvider {
             if (oldVersion < 22) {
                 db.execSQL("DELETE FROM bookmarks WHERE (bookmark = 0 AND url LIKE \"%.google.%client=ms-%\")");
                 removeGears();
+            }
+            if (oldVersion < 23) {
+                db.execSQL("ALTER TABLE bookmarks ADD COLUMN user_entered INTEGER;");
             } else {
                 db.execSQL("DROP TABLE IF EXISTS bookmarks");
                 db.execSQL("DROP TABLE IF EXISTS searches");
