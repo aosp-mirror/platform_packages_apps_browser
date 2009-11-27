@@ -644,11 +644,7 @@ public class BrowserActivity extends Activity
                 url = intent.getStringExtra(SearchManager.QUERY);
                 if (url != null) {
                     mLastEnteredUrl = url;
-                    // Don't add Urls, just search terms.
-                    // Urls will get added when the page is loaded.
-                    if (!Patterns.WEB_URL.matcher(url).matches()) {
-                        Browser.updateVisitedHistory(mResolver, url, false);
-                    }
+                    Browser.updateVisitedHistory(mResolver, url, false);
                     // In general, we shouldn't modify URL from Intent.
                     // But currently, we get the user-typed URL from search box as well.
                     url = fixUrl(url);
