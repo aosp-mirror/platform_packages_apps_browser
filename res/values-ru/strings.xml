@@ -221,7 +221,7 @@
     <string name="add_bookmark_short" msgid="3783984330998103735">"Добавить"</string>
     <string name="search_hint" msgid="4647356319916631820">"Введите условия поиска или URL-адрес"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Поиск"</string>
-    <string name="search_settings_description" msgid="1422401062529014107">"Закладки и просмотренные страницы"</string>
+    <string name="search_settings_description" msgid="1422401062529014107">"Закладки и история поиска"</string>
     <string name="attention" msgid="3473639060042811244">"Внимание"</string>
     <string name="popup_window_attempt" msgid="2673111696288657989">"Этот сайт пытается открыть всплывающее окно."</string>
     <string name="allow" msgid="1157313689171991335">"Разрешить"</string>
