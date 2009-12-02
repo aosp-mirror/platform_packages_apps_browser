@@ -94,7 +94,7 @@
     <string name="new_window" msgid="8117889615360211551">"新窗口"</string>
     <string name="goto_dot" msgid="3895839050522602723">"输入网址"</string>
     <string name="find_dot" msgid="6259312434696611957">"在网页上查找"</string>
-    <string name="select_dot" msgid="6299170761900561967">"选择文字"</string>
+    <string name="select_dot" msgid="6299170761900561967">"选择文本"</string>
     <string name="view_tabs" msgid="1119097492003550564">"窗口概述"</string>
     <string name="view_tabs_condensed" msgid="5803955493821945369">"窗口"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"当前窗口"</string>
