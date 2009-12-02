@@ -115,6 +115,7 @@ class BrowserSettings extends Observable {
         WebSettings.TextSize.NORMAL;
     private static WebSettings.ZoomDensity zoomDensity =
         WebSettings.ZoomDensity.MEDIUM;
+    private static int pageCacheCapacity = 10;
 
     // Preference keys that are used outside this class
     public final static String PREF_CLEAR_CACHE = "privacy_clear_cache";
@@ -201,6 +202,7 @@ class BrowserSettings extends Observable {
             s.setSaveFormData(b.saveFormData);
             s.setSavePassword(b.rememberPasswords);
             s.setLoadWithOverviewMode(b.loadsPageInOverviewMode);
+            s.setPageCacheCapacity(pageCacheCapacity);
 
             // WebView inside Browser doesn't want initial focus to be set.
             s.setNeedInitialFocus(false);
