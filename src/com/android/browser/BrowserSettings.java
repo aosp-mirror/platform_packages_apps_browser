@@ -19,6 +19,7 @@ package com.android.browser;
 
 import com.google.android.providers.GoogleSettings.Partner;
 
+import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -115,7 +116,7 @@ class BrowserSettings extends Observable {
         WebSettings.TextSize.NORMAL;
     private static WebSettings.ZoomDensity zoomDensity =
         WebSettings.ZoomDensity.MEDIUM;
-    private static int pageCacheCapacity = 10;
+    private static int pageCacheCapacity;
 
     // Preference keys that are used outside this class
     public final static String PREF_CLEAR_CACHE = "privacy_clear_cache";
@@ -254,6 +255,17 @@ class BrowserSettings extends Observable {
         geolocationDatabasePath = ctx.getDir("geolocation", 0).getPath();
 
         homeUrl = getFactoryResetHomeUrl(ctx);
+
+        // the cost of one cached page is ~3M (measured using nytimes.com). For
+        // low end devices, we only cache one page. For high end devices, we try
+        // to cache more pages, currently choose 5.
+        ActivityManager am = (ActivityManager) ctx
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        if (am.getMemoryClass() > 16) {
+            pageCacheCapacity = 5;
+        } else {
+            pageCacheCapacity = 1;
+        }
 
         // Load the defaults from the xml
         // This call is TOO SLOW, need to manually keep the defaults
