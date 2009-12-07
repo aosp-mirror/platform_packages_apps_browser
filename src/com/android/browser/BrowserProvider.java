@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.backup.BackupManager;
 import android.content.ComponentName;
 import android.content.ContentProvider;
@@ -42,7 +43,6 @@ import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Settings;
 import android.provider.Browser.BookmarkColumns;
-import android.server.search.SearchableInfo;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
