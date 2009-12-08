@@ -2025,15 +2025,18 @@ public class BrowserActivity extends Activity
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // Even if MENU is already held down, we need to call to super to open
+        // the IME on long press.
+        if (KeyEvent.KEYCODE_MENU == keyCode) {
+            mMenuIsDown = true;
+            return super.onKeyDown(keyCode, event);
+        }
         // The default key mode is DEFAULT_KEYS_SEARCH_LOCAL. As the MENU is
         // still down, we don't want to trigger the search. Pretend to consume
         // the key and do nothing.
         if (mMenuIsDown) return true;
 
         switch(keyCode) {
-            case KeyEvent.KEYCODE_MENU:
-                mMenuIsDown = true;
-                break;
             case KeyEvent.KEYCODE_SPACE:
                 // WebView/WebTextView handle the keys in the KeyDown. As
                 // the Activity's shortcut keys are only handled when WebView
