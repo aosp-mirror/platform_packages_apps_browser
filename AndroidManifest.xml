@@ -178,6 +178,15 @@
             </intent-filter>
         </activity>
 
+        <!--receiver android:name=".widget.BookmarkWidgetProvider" android:label="@string/bookmarks">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/bookmarkwidget"/>
+        </receiver>
+
+        <service android:name=".widget.BookmarkWidgetService" /-->
+
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
 
