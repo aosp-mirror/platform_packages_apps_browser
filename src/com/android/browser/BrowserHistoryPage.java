@@ -418,6 +418,8 @@ public class BrowserHistoryPage extends ExpandableListActivity {
             } else {
                 item = (HistoryItem) convertView;
             }
+            // Bail early if the Cursor is closed.
+            if (mCursor.isClosed()) return item;
             int index = childPosition;
             for (int i = 0; i < groupPosition; i++) {
                 index += mItemMap[i];
@@ -515,7 +517,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }
 
         public boolean isEmpty() {
-            return mCursor.getCount() == 0;
+            return mCursor.isClosed() || mCursor.getCount() == 0;
         }
     }
 }
