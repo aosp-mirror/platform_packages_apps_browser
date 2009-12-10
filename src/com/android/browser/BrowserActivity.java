@@ -1446,6 +1446,8 @@ public class BrowserActivity extends Activity
             case R.id.preferences_menu_id:
                 Intent intent = new Intent(this,
                         BrowserPreferencesPage.class);
+                intent.putExtra(BrowserPreferencesPage.CURRENT_PAGE,
+                        getTopWindow().getUrl());
                 startActivityForResult(intent, PREFERENCES_PAGE);
                 break;
 

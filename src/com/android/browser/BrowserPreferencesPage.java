@@ -39,6 +39,7 @@ public class BrowserPreferencesPage extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
     private String LOGTAG = "BrowserPreferencesPage";
+    /* package */ static final String CURRENT_PAGE = "currentPage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class BrowserPreferencesPage extends PreferenceActivity
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getPreferenceScreen().getSharedPreferences()
                 .getString(BrowserSettings.PREF_HOMEPAGE, null));
+        ((BrowserHomepagePreference) e).setCurrentPage(
+                getIntent().getStringExtra(CURRENT_PAGE));
         
         e = findPreference(BrowserSettings.PREF_EXTRAS_RESET_DEFAULTS);
         e.setOnPreferenceChangeListener(this);
