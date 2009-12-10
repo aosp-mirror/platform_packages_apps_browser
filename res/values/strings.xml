@@ -316,6 +316,8 @@
     <string name="pref_content_open_in_background_summary">Open new windows behind the current one</string>
     <!-- Settings label -->
     <string name="pref_content_homepage">Set home page</string>
+    <!-- Settings button label -->
+    <string name="pref_use_current">Use current page</string>
     <!-- Settings label -->
     <string name="pref_content_autofit">Auto-fit pages</string>
     <!-- Settings summary -->
