@@ -36,6 +36,7 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -1210,19 +1211,21 @@ public class BrowserActivity extends Activity
         // options selector, so set mCanChord to true so we can access them.
         mCanChord = true;
         int id = item.getItemId();
+        boolean result = true;
         switch (id) {
             // For the context menu from the title bar
-            case R.id.title_bar_share_page_url:
             case R.id.title_bar_copy_page_url:
-                WebView mainView = mTabControl.getCurrentWebView();
+                Tab currentTab = mTabControl.getCurrentTab();
+                if (null == currentTab) {
+                    result = false;
+                    break;
+                }
+                WebView mainView = currentTab.getWebView();
                 if (null == mainView) {
-                    return false;
+                    result = false;
+                    break;
                 }
-                if (id == R.id.title_bar_share_page_url) {
-                    Browser.sendString(this, mainView.getUrl());
-                } else {
-                    copy(mainView.getUrl());
-                }
+                copy(mainView.getUrl());
                 break;
             // -- Browser context menu
             case R.id.open_context_menu_id:
@@ -1233,7 +1236,8 @@ public class BrowserActivity extends Activity
             case R.id.copy_link_context_menu_id:
                 final WebView webView = getTopWindow();
                 if (null == webView) {
-                    return false;
+                    result = false;
+                    break;
                 }
                 final HashMap hrefMap = new HashMap();
                 hrefMap.put("webview", webView);
@@ -1244,10 +1248,10 @@ public class BrowserActivity extends Activity
 
             default:
                 // For other context menus
-                return onOptionsItemSelected(item);
+                result = onOptionsItemSelected(item);
         }
         mCanChord = false;
-        return true;
+        return result;
     }
 
     private Bundle createGoogleSearchSourceBundle(String source) {
@@ -1465,9 +1469,17 @@ public class BrowserActivity extends Activity
                 bookmarksOrHistoryPicker(true);
                 break;
 
+            case R.id.title_bar_share_page_url:
             case R.id.share_page_menu_id:
-                Browser.sendString(this, getTopWindow().getUrl(),
-                        getText(R.string.choosertitle_sharevia).toString());
+                Tab currentTab = mTabControl.getCurrentTab();
+                if (null == currentTab) {
+                    mCanChord = false;
+                    return false;
+                }
+                currentTab.populatePickerData();
+                sharePage(this, currentTab.getTitle(),
+                        currentTab.getUrl(), currentTab.getFavicon(),
+                        createScreenshot(currentTab.getWebView()));
                 break;
 
             case R.id.dump_nav_menu_id:
@@ -2261,8 +2273,41 @@ public class BrowserActivity extends Activity
                             startActivity(intent);
                             break;
                         case R.id.share_link_context_menu_id:
-                            Browser.sendString(BrowserActivity.this, url,
-                                    getText(R.string.choosertitle_sharevia).toString());
+                            // See if this site has been visited before
+                            StringBuilder sb = new StringBuilder(
+                                    Browser.BookmarkColumns.URL + " = ");
+                            DatabaseUtils.appendEscapedSQLString(sb, url);
+                            Cursor c = mResolver.query(Browser.BOOKMARKS_URI,
+                                    Browser.HISTORY_PROJECTION,
+                                    sb.toString(),
+                                    null,
+                                    null);
+                            if (c.moveToFirst()) {
+                                // The site has been visited before, so grab the
+                                // info from the database.
+                                Bitmap favicon = null;
+                                Bitmap thumbnail = null;
+                                String linkTitle = c.getString(Browser.
+                                        HISTORY_PROJECTION_TITLE_INDEX);
+                                byte[] data = c.getBlob(Browser.
+                                        HISTORY_PROJECTION_FAVICON_INDEX);
+                                if (data != null) {
+                                    favicon = BitmapFactory.decodeByteArray(
+                                            data, 0, data.length);
+                                }
+                                data = c.getBlob(Browser.
+                                        HISTORY_PROJECTION_THUMBNAIL_INDEX);
+                                if (data != null) {
+                                    thumbnail = BitmapFactory.decodeByteArray(
+                                            data, 0, data.length);
+                                }
+                                sharePage(BrowserActivity.this,
+                                        linkTitle, url, favicon, thumbnail);
+                            } else {
+                                Browser.sendString(BrowserActivity.this, url,
+                                        getString(
+                                        R.string.choosertitle_sharevia));
+                            }
                             break;
                         case R.id.copy_link_context_menu_id:
                             copy(url);
@@ -2306,6 +2351,35 @@ public class BrowserActivity extends Activity
             }
         }
     };
+
+    /**
+     * Share a page, providing the title, url, favicon, and a screenshot.  Uses
+     * an {@link Intent} to launch the Activity chooser.
+     * @param c Context used to launch a new Activity.
+     * @param title Title of the page.  Stored in the Intent with
+     *          {@link Browser#EXTRA_SHARE_TITLE}
+     * @param url URL of the page.  Stored in the Intent with
+     *          {@link Intent#EXTRA_TEXT}
+     * @param favicon Bitmap of the favicon for the page.  Stored in the Intent
+     *          with {@link Browser#EXTRA_SHARE_FAVICON}
+     * @param screenshot Bitmap of a screenshot of the page.  Stored in the
+     *          Intent with {@link Browser#EXTRA_SHARE_SCREENSHOT}
+     */
+    public static final void sharePage(Context c, String title, String url,
+            Bitmap favicon, Bitmap screenshot) {
+        Intent send = new Intent(Intent.ACTION_SEND);
+        send.setType("text/plain");
+        send.putExtra(Intent.EXTRA_TEXT, url);
+        send.putExtra(Browser.EXTRA_SHARE_TITLE, title);
+        send.putExtra(Browser.EXTRA_SHARE_FAVICON, favicon);
+        send.putExtra(Browser.EXTRA_SHARE_SCREENSHOT, screenshot);
+        try {
+            c.startActivity(Intent.createChooser(send, c.getString(
+                    R.string.choosertitle_sharevia)));
+        } catch(android.content.ActivityNotFoundException ex) {
+            // if no app handles it, do nothing
+        }
+    }
 
     private void updateScreenshot(WebView view) {
         // If this is a bookmarked site, add a screenshot to the database.

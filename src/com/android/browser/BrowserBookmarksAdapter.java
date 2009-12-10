@@ -441,7 +441,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             mCursor.moveToPosition(position - mExtraOffset);
             tv.setText(mCursor.getString(
                     Browser.HISTORY_PROJECTION_TITLE_INDEX));
-            Bitmap thumbnail = getBitmap(Browser.HISTORY_PROJECTION_THUMBNAIL_INDEX, position);
+            Bitmap thumbnail = getScreenshot(position);
             if (thumbnail == null) {
                 thumb.setImageResource(R.drawable.browser_thumbnail);
             } else {
@@ -490,6 +490,13 @@ class BrowserBookmarksAdapter extends BaseAdapter {
      */
     public String getUrl(int position) {
         return getString(Browser.HISTORY_PROJECTION_URL_INDEX, position);
+    }
+
+    /**
+     * Return the screenshot for this item in the list.
+     */
+    public Bitmap getScreenshot(int position) {
+        return getBitmap(Browser.HISTORY_PROJECTION_THUMBNAIL_INDEX, position);
     }
 
     /**
