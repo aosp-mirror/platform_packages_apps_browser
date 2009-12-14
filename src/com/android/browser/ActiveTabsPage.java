@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -90,11 +91,30 @@ public class ActiveTabsPage extends LinearLayout {
     }
 
     private class TabsListAdapter extends BaseAdapter {
+        private boolean mNotified = true;
+        private int mReturnedCount;
+        private Handler mHandler = new Handler();
+
         public int getCount() {
             int count = mControl.getTabCount();
             if (mControl.canCreateNewTab()) {
                 count++;
             }
+            // XXX: This is a workaround to be more like a real adapter. Most
+            // adapters call notifyDataSetChanged() whenever the internal data
+            // has changed. Since TabControl is our internal data, we don't
+            // know when that changes.
+            //
+            // Keep track of the last count we returned and whether we called
+            // notifyDataSetChanged(). If we did not initiate a data set
+            // change, and the count is different, send the notify and return
+            // the old count.
+            if (!mNotified && count != mReturnedCount) {
+                notifyChange();
+                return mReturnedCount;
+            }
+            mReturnedCount = count;
+            mNotified = false;
             return count;
         }
         public Object getItem(int position) {
@@ -150,12 +170,22 @@ public class ActiveTabsPage extends LinearLayout {
                                 mBrowserActivity.openTabToHomePage();
                                 mBrowserActivity.removeActiveTabPage(false);
                             } else {
-                                mListView.setAdapter(mAdapter);
+                                mNotified = true;
+                                notifyDataSetChanged();
                             }
                         }
                 });
             }
             return convertView;
+        }
+
+        void notifyChange() {
+            mHandler.post(new Runnable() {
+                public void run() {
+                    mNotified = true;
+                    notifyDataSetChanged();
+                }
+            });
         }
     }
 }
