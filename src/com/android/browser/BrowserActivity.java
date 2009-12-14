@@ -2582,8 +2582,11 @@ public class BrowserActivity extends Activity
     }
 
     void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
-        if (mCustomView != null)
+        // if a view already exists then immediately terminate the new one
+        if (mCustomView != null) {
+            callback.onCustomViewHidden();
             return;
+        }
 
         // Add the custom view to its container.
         mCustomViewContainer.addView(view, COVER_SCREEN_GRAVITY_CENTER);
