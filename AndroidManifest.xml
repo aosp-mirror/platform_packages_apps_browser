@@ -53,7 +53,8 @@
                   android:launchMode="singleTask"
                   android:alwaysRetainTaskState="true"
                   android:configChanges="orientation|keyboardHidden"
-                  android:theme="@style/BrowserTheme" >
+                  android:theme="@style/BrowserTheme"
+                  android:windowSoftInputMode="adjustResize" >
             <!-- For these schemes were not particular MIME type has been
                  supplied, we are a good candidate. -->
             <intent-filter>
