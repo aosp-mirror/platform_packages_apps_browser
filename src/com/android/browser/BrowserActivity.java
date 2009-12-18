@@ -30,7 +30,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -45,7 +44,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.WebAddress;
 import android.net.http.SslCertificate;
@@ -55,11 +53,9 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.Process;
-import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.provider.Browser;
@@ -102,10 +98,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.accounts.AccountManagerCallback;
 
 import com.android.common.Patterns;
 
-import com.google.android.googleapps.IGoogleLoginService;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
 import java.io.ByteArrayOutputStream;
@@ -124,8 +125,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BrowserActivity extends Activity
-    implements View.OnCreateContextMenuListener,
-        DownloadListener {
+    implements View.OnCreateContextMenuListener, DownloadListener,
+        AccountManagerCallback<Account[]> {
 
     /* Define some aliases to make these debugging flags easier to refer to.
      * This file imports android.provider.Browser, so we can't just refer to "Browser.DEBUG".
@@ -134,9 +135,6 @@ public class BrowserActivity extends Activity
     private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
     private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
 
-    private IGoogleLoginService mGls = null;
-    private ServiceConnection mGlsConnection = null;
-
     // These are single-character shortcuts for searching popular sources.
     private static final int SHORTCUT_INVALID = 0;
     private static final int SHORTCUT_GOOGLE_SEARCH = 1;
@@ -144,89 +142,73 @@ public class BrowserActivity extends Activity
     private static final int SHORTCUT_DICTIONARY_SEARCH = 3;
     private static final int SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH = 4;
 
+    private Account[] mAccountsGoogle;
+    private Account[] mAccountsPreferHosted;
+
+    private void startReadOfGoogleAccounts() {
+        mAccountsGoogle = null;
+        mAccountsPreferHosted = null;
+
+        AccountManager.get(this).getAccountsByTypeAndFeatures(
+                GoogleLoginServiceConstants.ACCOUNT_TYPE,
+                new String[]{GoogleLoginServiceConstants.FEATURE_LEGACY_HOSTED_OR_GOOGLE},
+                this, null);
+    }
+
+    /** This implements AccountManagerCallback<Account[]> */
+    public void run(AccountManagerFuture<Account[]> accountManagerFuture) {
+        try {
+            if (mAccountsGoogle == null) {
+                mAccountsGoogle = accountManagerFuture.getResult();
+
+                AccountManager.get(this).getAccountsByTypeAndFeatures(
+                        GoogleLoginServiceConstants.ACCOUNT_TYPE,
+                        new String[]{GoogleLoginServiceConstants.FEATURE_LEGACY_GOOGLE},
+                        this, null);
+            } else {
+                mAccountsPreferHosted = accountManagerFuture.getResult();
+                setupHomePage();
+            }
+        } catch (OperationCanceledException e) {
+            setupHomePage();
+        } catch (IOException e) {
+            setupHomePage();
+        } catch (AuthenticatorException e) {
+            setupHomePage();
+        }
+    }
+
     private void setupHomePage() {
-        final Runnable getAccount = new Runnable() {
-            public void run() {
-                // Lower priority
-                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-                // get the default home page
-                String homepage = mSettings.getHomePage();
+        // get the default home page
+        String homepage = mSettings.getHomePage();
 
-                try {
-                    if (mGls == null) return;
+        if (mAccountsPreferHosted != null && mAccountsGoogle != null) {
+            // three cases:
+            //
+            //   hostedUser == googleUser
+            //      The device has only a google account
+            //
+            //   hostedUser != googleUser
+            //      The device has a hosted account and a google account
+            //
+            //   hostedUser != null, googleUser == null
+            //      The device has only a hosted account (so far)
+            String hostedUser = mAccountsPreferHosted.length == 0 
+                    ? null
+                    : mAccountsPreferHosted[0].name;
+            String googleUser = mAccountsGoogle.length == 0 ? null : mAccountsGoogle[0].name;
 
-                    if (!homepage.startsWith("http://www.google.")) return;
-                    if (homepage.indexOf('?') == -1) return;
+            // developers might have no accounts at all
+            if (hostedUser == null) return;
 
-                    String hostedUser = mGls.getAccount(GoogleLoginServiceConstants.PREFER_HOSTED);
-                    String googleUser = mGls.getAccount(GoogleLoginServiceConstants.REQUIRE_GOOGLE);
-
-                    // three cases:
-                    //
-                    //   hostedUser == googleUser
-                    //      The device has only a google account
-                    //
-                    //   hostedUser != googleUser
-                    //      The device has a hosted account and a google account
-                    //
-                    //   hostedUser != null, googleUser == null
-                    //      The device has only a hosted account (so far)
-
-                    // developers might have no accounts at all
-                    if (hostedUser == null) return;
-
-                    if (googleUser == null || !hostedUser.equals(googleUser)) {
-                        String domain = hostedUser.substring(hostedUser.lastIndexOf('@')+1);
-                        homepage = homepage.replace("?", "/a/" + domain + "?");
-                    }
-                } catch (RemoteException ignore) {
-                    // Login service died; carry on
-                } catch (RuntimeException ignore) {
-                    // Login service died; carry on
-                } finally {
-                    finish(homepage);
-                }
+            if (googleUser == null || !hostedUser.equals(googleUser)) {
+                String domain = hostedUser.substring(hostedUser.lastIndexOf('@')+1);
+                homepage = homepage.replace("?", "/a/" + domain + "?");
             }
+        }
 
-            private void finish(final String homepage) {
-                mHandler.post(new Runnable() {
-                    public void run() {
-                        mSettings.setHomePage(BrowserActivity.this, homepage);
-                        resumeAfterCredentials();
-
-                        // as this is running in a separate thread,
-                        // BrowserActivity's onDestroy() may have been called,
-                        // which also calls unbindService().
-                        if (mGlsConnection != null) {
-                            // we no longer need to keep GLS open
-                            unbindService(mGlsConnection);
-                            mGlsConnection = null;
-                        }
-                    } });
-            } };
-
-        final boolean[] done = { false };
-
-        // Open a connection to the Google Login Service.  The first
-        // time the connection is established, set up the homepage depending on
-        // the account in a background thread.
-        mGlsConnection = new ServiceConnection() {
-            public void onServiceConnected(ComponentName className, IBinder service) {
-                mGls = IGoogleLoginService.Stub.asInterface(service);
-                if (done[0] == false) {
-                    done[0] = true;
-                    Thread account = new Thread(getAccount);
-                    account.setName("GLSAccount");
-                    account.start();
-                }
-            }
-            public void onServiceDisconnected(ComponentName className) {
-                mGls = null;
-            }
-        };
-
-        bindService(GoogleLoginServiceConstants.SERVICE_INTENT,
-                    mGlsConnection, Context.BIND_AUTO_CREATE);
+        mSettings.setHomePage(BrowserActivity.this, homepage);
+        resumeAfterCredentials();
     }
 
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
@@ -400,7 +382,7 @@ public class BrowserActivity extends Activity
             // asset directory to the data partition.
             if ((extra == null || !extra.getBoolean("testing"))
                     && !mSettings.isLoginInitialized()) {
-                setupHomePage();
+                startReadOfGoogleAccounts();
             }
 
             if (urlData.isEmpty()) {
@@ -1018,10 +1000,6 @@ public class BrowserActivity extends Activity
         // Destroy all the tabs
         mTabControl.destroy();
         WebIconDatabase.getInstance().close();
-        if (mGlsConnection != null) {
-            unbindService(mGlsConnection);
-            mGlsConnection = null;
-        }
 
         unregisterReceiver(mPackageInstallationReceiver);
     }
