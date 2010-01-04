@@ -111,6 +111,43 @@ public class AddBookmarkPage extends Activity {
         }
     }
 
+    /**
+     * Runnable to save a bookmark, so it can be performed in its own thread.
+     */
+    private class SaveBookmarkRunnable implements Runnable {
+        private Message mMessage;
+        public SaveBookmarkRunnable(Message msg) {
+            mMessage = msg;
+        }
+        public void run() {
+            // Unbundle bookmark data.
+            Bundle bundle = mMessage.getData();
+            String title = bundle.getString("title");
+            String url = bundle.getString("url");
+            boolean invalidateThumbnail = bundle.getBoolean(
+                    "invalidateThumbnail");
+            Bitmap thumbnail = invalidateThumbnail ? null
+                    : (Bitmap) bundle.getParcelable("thumbnail");
+            String touchIconUrl = bundle.getString("touchIconUrl");
+
+            // Save to the bookmarks DB.
+            try {
+                final ContentResolver cr = getContentResolver();
+                Bookmarks.addBookmark(null, cr, url, title, thumbnail, true);
+                if (touchIconUrl != null) {
+                    final Cursor c
+                            = BrowserBookmarksAdapter.queryBookmarksForUrl(cr,
+                            null, url, true);
+                    new DownloadTouchIcon(cr, c, url).execute(mTouchIconUrl);
+                }
+                mMessage.arg1 = 1;
+            } catch (IllegalStateException e) {
+                mMessage.arg1 = 0;
+            }
+            mMessage.sendToTarget();
+        }
+    }
+
     private void createHandler() {
         if (mHandler == null) {
             mHandler = new Handler() {
@@ -118,17 +155,7 @@ public class AddBookmarkPage extends Activity {
                 public void handleMessage(Message msg) {
                     switch (msg.what) {
                         case SAVE_BOOKMARK:
-                            // Unbundle bookmark data.
-                            Bundle bundle = msg.getData();
-                            String title = bundle.getString("title");
-                            String url = bundle.getString("url");
-                            boolean invalidateThumbnail = bundle.getBoolean("invalidateThumbnail");
-                            Bitmap thumbnail = invalidateThumbnail
-                                    ? null : (Bitmap) bundle.getParcelable("thumbnail");
-                            String touchIconUrl = bundle.getString("touchIconUrl");
-
-                            // Save to the bookmarks DB.
-                            if (updateBookmarksDB(title, url, thumbnail, touchIconUrl)) {
+                            if (1 == msg.arg1) {
                                 Toast.makeText(AddBookmarkPage.this, R.string.bookmark_saved,
                                         Toast.LENGTH_LONG).show();
                             } else {
@@ -140,21 +167,6 @@ public class AddBookmarkPage extends Activity {
                 }
             };
         }
-    }
-
-    private boolean updateBookmarksDB(String title, String url, Bitmap thumbnail, String touchIconUrl) {
-        try {
-            final ContentResolver cr = getContentResolver();
-            Bookmarks.addBookmark(null, cr, url, title, thumbnail, true);
-            if (touchIconUrl != null) {
-                final Cursor c =
-                        BrowserBookmarksAdapter.queryBookmarksForUrl(cr, null, url, true);
-                new DownloadTouchIcon(cr, c, url).execute(mTouchIconUrl);
-            }
-        } catch (IllegalStateException e) {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -227,7 +239,9 @@ public class AddBookmarkPage extends Activity {
             bundle.putString("touchIconUrl", mTouchIconUrl);
             Message msg = Message.obtain(mHandler, SAVE_BOOKMARK);
             msg.setData(bundle);
-            mHandler.sendMessage(msg);
+            // Start a new thread so as to not slow down the UI
+            Thread t = new Thread(new SaveBookmarkRunnable(msg));
+            t.start();
             setResult(RESULT_OK);
         }
         return true;
