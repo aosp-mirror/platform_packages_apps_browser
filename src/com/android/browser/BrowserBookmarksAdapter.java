@@ -316,8 +316,8 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             originalUrlNoQuery, urlNoQuery, originalUrl, url };
         String where = BookmarkColumns.URL + " == ? OR "
                 + BookmarkColumns.URL + " == ? OR "
-                + BookmarkColumns.URL + " GLOB ? || '*' OR "
-                + BookmarkColumns.URL + " GLOB ? || '*'";
+                + BookmarkColumns.URL + " LIKE ? || '%' OR "
+                + BookmarkColumns.URL + " LIKE ? || '%'";
         if (onlyBookmarks) {
             where = "(" + where + ") AND " + BookmarkColumns.BOOKMARK + " == 1";
         }
