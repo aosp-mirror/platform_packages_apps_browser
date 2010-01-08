@@ -304,37 +304,6 @@ class Tab {
         }
 
         /**
-         * Show the dialog if it is in the foreground, asking the user if they
-         * would like to continue after an excessive number of HTTP redirects.
-         * Cancel if it is in the background.
-         */
-        @Override
-        public void onTooManyRedirects(WebView view, final Message cancelMsg,
-                final Message continueMsg) {
-            if (!mInForeground) {
-                cancelMsg.sendToTarget();
-                return;
-            }
-            new AlertDialog.Builder(mActivity).setTitle(
-                    R.string.browserFrameRedirect).setMessage(
-                    R.string.browserFrame307Post).setPositiveButton(
-                    R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            continueMsg.sendToTarget();
-                        }
-                    }).setNegativeButton(R.string.cancel,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            cancelMsg.sendToTarget();
-                        }
-                    }).setOnCancelListener(new OnCancelListener() {
-                public void onCancel(DialogInterface dialog) {
-                    cancelMsg.sendToTarget();
-                }
-            }).show();
-        }
-
-        /**
          * Show a dialog informing the user of the network error reported by
          * WebCore if it is in the foreground.
          */

@@ -494,10 +494,6 @@
         <item>EUC-JP</item>
     </string-array>
     <string name="pref_default_text_encoding_default">Latin-1</string>
-    <!-- Dialog box title -->
-    <string name="browserFrameRedirect">Redirect</string>
-    <!-- Dialog box message -->
-    <string name="browserFrame307Post">This web page is being redirected. Resend your typed form data to the new location?</string>
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>

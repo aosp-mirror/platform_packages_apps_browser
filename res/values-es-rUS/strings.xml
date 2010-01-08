@@ -206,8 +206,6 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificación de texto"</string>
     <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"Latino-1"</string>
-    <string name="browserFrameRedirect" msgid="7049675479777828343">"Redireccionamiento"</string>
-    <string name="browserFrame307Post" msgid="1429094844669510768">"Esta página web está siendo redireccionada. ¿Deseas reenviar los datos que ingresaste en tu formulario a la ubicación nueva?"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de conectividad de datos"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema con el archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmar"</string>
