@@ -16,12 +16,12 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -29,7 +29,7 @@
         <TextView
             android:id="@+id/warnings_header"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:textSize="18sp"
             android:textColor="@color/ssl_text_label"
             android:gravity="left"
@@ -42,7 +42,7 @@
         <LinearLayout
             android:id="@+id/placeholder"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_marginTop="12dip"
             android:orientation="vertical" />
 

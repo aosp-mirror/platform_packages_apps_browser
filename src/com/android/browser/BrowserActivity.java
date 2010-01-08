@@ -738,7 +738,7 @@ public class BrowserActivity extends Activity
      */
     private FrameLayout.LayoutParams mFakeTitleBarParams
             = new FrameLayout.LayoutParams(
-            ViewGroup.LayoutParams.FILL_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT);
     /**
      * Keeps track of whether the options menu is open.  This is important in
@@ -844,7 +844,7 @@ public class BrowserActivity extends Activity
             // while the menu is up
             WindowManager.LayoutParams params
                     = new WindowManager.LayoutParams(
-                    ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
@@ -1706,7 +1706,7 @@ public class BrowserActivity extends Activity
             }
 
             mErrorConsoleContainer.addView(errorConsole,
-                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
@@ -3595,7 +3595,7 @@ public class BrowserActivity extends Activity
 
             // Now we can add it to the main view.
             mErrorConsoleContainer.addView(errorConsole,
-                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         } else {
             mErrorConsoleContainer.removeView(errorConsole);
@@ -3711,12 +3711,12 @@ public class BrowserActivity extends Activity
 
     /*package*/ static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS =
                                             new FrameLayout.LayoutParams(
-                                            ViewGroup.LayoutParams.FILL_PARENT,
-                                            ViewGroup.LayoutParams.FILL_PARENT);
+                                            ViewGroup.LayoutParams.MATCH_PARENT,
+                                            ViewGroup.LayoutParams.MATCH_PARENT);
     /*package*/ static final FrameLayout.LayoutParams COVER_SCREEN_GRAVITY_CENTER =
                                             new FrameLayout.LayoutParams(
-                                            ViewGroup.LayoutParams.FILL_PARENT,
-                                            ViewGroup.LayoutParams.FILL_PARENT,
+                                            ViewGroup.LayoutParams.MATCH_PARENT,
+                                            ViewGroup.LayoutParams.MATCH_PARENT,
                                             Gravity.CENTER);
     // Google search
     final static String QuickSearch_G = "http://www.google.com/m?q=%s";

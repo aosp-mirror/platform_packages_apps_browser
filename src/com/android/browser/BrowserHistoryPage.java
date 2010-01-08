@@ -33,7 +33,6 @@ import android.provider.Browser;
 import android.text.IClipboard;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,14 +44,12 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.ViewStub;
 import android.webkit.DateSorter;
 import android.webkit.WebIconDatabase.IconListener;
-import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
 import java.util.Vector;
 
 /**
@@ -115,8 +112,8 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         final ExpandableListView list = getExpandableListView();
         list.setOnCreateContextMenuListener(this);
         View v = new ViewStub(this, R.layout.empty_history);
-        addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT));
+        addContentView(v, new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
         list.setEmptyView(v);
         // Do not post the runnable if there is nothing in the list.
         if (list.getExpandableListAdapter().getGroupCount() > 0) {

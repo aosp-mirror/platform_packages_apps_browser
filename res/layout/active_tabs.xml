@@ -15,20 +15,20 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/black"
     >
     <RelativeLayout
         style="?android:attr/windowTitleBackgroundStyle"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="?android:attr/windowTitleSize"
         >
         <TextView android:id="@android:id/title"
             style="?android:attr/windowTitleStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@null"
             android:fadingEdge="horizontal"
             android:gravity="center_vertical"
@@ -36,7 +36,7 @@
             />
     </RelativeLayout>
     <ListView android:id="@+id/list"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
         android:cacheColorHint="@color/black"

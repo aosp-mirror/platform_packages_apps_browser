@@ -105,12 +105,12 @@ public class BrowserHomepagePreference extends EditTextPreference {
     protected void showDialog(Bundle state) {
         super.showDialog(state);
         // The dialog has its width set to wrap_content.  Change it to
-        // fill_parent so there is more room to type in a url.
+        // match_parent so there is more room to type in a url.
         Window window = getDialog().getWindow();
         View decorView = window.getDecorView();
         WindowManager.LayoutParams params
                 = (WindowManager.LayoutParams) decorView.getLayoutParams();
-        params.width = ViewGroup.LayoutParams.FILL_PARENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         window.getWindowManager().updateViewLayout(decorView, params);
     }
 }

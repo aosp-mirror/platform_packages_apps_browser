@@ -15,18 +15,18 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:orientation="vertical"
     android:padding="4dip"
     android:background="@color/white">
 
     <com.android.browser.FakeWebView android:id="@+id/icon"
         android:background="@color/black"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView android:id="@+id/label"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:textAppearance="?android:attr/textAppearanceMedium"

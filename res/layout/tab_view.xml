@@ -17,7 +17,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     >
@@ -37,7 +37,7 @@
         android:orientation="vertical"
         >
         <TextView android:id="@+id/title"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:maxLines="1"
@@ -45,7 +45,7 @@
             android:ellipsize="end"
             />
         <TextView android:id="@+id/url"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:maxLines="1"
@@ -56,14 +56,14 @@
     <View android:id="@+id/divider"
         android:background="#ff313431"
         android:layout_width="1dip"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="8dip"
         android:layout_marginTop="5dip"
         android:layout_marginBottom="5dip"
         />
     <view class="com.android.browser.ActiveTabsPage$CloseHolder" android:id="@+id/close"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:paddingLeft="18dip"
         android:paddingRight="18dip"
         android:background="@drawable/close_background"

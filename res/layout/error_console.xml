@@ -17,14 +17,14 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/error_console_view_group_id"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#000000">
 
     <TextView android:id="@+id/error_console_header_id"
         android:text="@string/error_console_header_text_minimized"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dip"
         android:paddingBottom="2dip"
@@ -35,7 +35,7 @@
 
     <view class="com.android.browser.ErrorConsoleView$ErrorConsoleListView"
         android:id="@+id/error_console_list_id"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="200dip"
         android:visibility="gone"
         android:layout_weight="1"
@@ -44,7 +44,7 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/error_console_eval_view_group_id"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone">
 

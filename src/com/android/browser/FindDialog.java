@@ -19,8 +19,6 @@ package com.android.browser;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.TextWatcher;
@@ -105,7 +103,7 @@ import android.widget.TextView;
 
         setContentView(R.layout.browser_find);
 
-        theWindow.setLayout(ViewGroup.LayoutParams.FILL_PARENT,
+        theWindow.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
         mEditText = (EditText) findViewById(R.id.edit);

@@ -30,9 +30,7 @@ import android.provider.Browser;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -56,8 +54,8 @@ public class MostVisitedActivity extends ListActivity {
         setListAdapter(mAdapter);
         ListView list = getListView();
         View v = new ViewStub(this, R.layout.empty_history);
-        addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT));
+        addContentView(v, new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
         list.setEmptyView(v);
     }
 

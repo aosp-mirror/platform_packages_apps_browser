@@ -17,7 +17,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     >
@@ -28,7 +28,7 @@
         android:layout_marginRight="8dip"
         android:src="@drawable/ic_list_new_window"/>
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:maxLines="1"

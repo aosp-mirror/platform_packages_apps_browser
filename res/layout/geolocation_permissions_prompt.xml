@@ -18,13 +18,13 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:fitsSystemWindows="true"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <!-- Use an inner element as we can't show a hidden outermost element -->
     <LinearLayout android:id="@+id/inner"
         android:orientation="vertical"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:paddingTop="1px"
@@ -33,21 +33,21 @@
         <!-- White line -->
         <View
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/white" />
 
         <!-- Container for content -->
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@color/geolocation_permissions_prompt_background"
             android:padding="6dip">
 
             <!-- 'google.com wants to know your location' -->
             <TextView android:id="@+id/message"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14dip"
                 android:textColor="@color/black" />
@@ -55,7 +55,7 @@
             <!-- Checkbox -->
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <CheckBox android:id="@+id/remember"
                     android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
 
             <!-- Buttons -->
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button android:id="@+id/share_button"
                     android:text="@string/geolocation_permissions_prompt_share"

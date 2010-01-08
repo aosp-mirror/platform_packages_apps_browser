@@ -16,7 +16,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/findControls"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="5dip"
     android:paddingLeft="4dip"
@@ -45,7 +45,7 @@
         android:layout_marginRight="6dip"
         >
         <EditText android:id="@+id/edit"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollHorizontally="true"
             android:inputType="text"

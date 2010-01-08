@@ -22,19 +22,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <!-- Wrapper layout for the WebView, which must be in a FrameLayout. -->
     <FrameLayout android:id="@+id/webview_wrapper"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1" />
 
     <!-- Geolocation permissions prompt -->
     <com.android.browser.GeolocationPermissionsPrompt
         android:id="@+id/geolocation_permissions_prompt"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

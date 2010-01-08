@@ -40,15 +40,11 @@ import android.provider.Browser;
 import android.text.IClipboard;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewStub;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -346,8 +342,8 @@ public class BrowserBookmarksPage extends Activity implements
 
     private static final ViewGroup.LayoutParams FULL_SCREEN_PARAMS
             = new ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.FILL_PARENT,
-            ViewGroup.LayoutParams.FILL_PARENT);
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT);
 
     private static final int SAVE_CURRENT_PAGE = 1000;
     private static final int CREATE_ADAPTER = 1001;
