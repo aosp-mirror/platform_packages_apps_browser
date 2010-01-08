@@ -11,6 +11,7 @@ import android.webkit.WebView;
 /*package*/ class MeshTracker extends WebView.DragTracker {
 
     private static class Mesh {
+        private int mWhich;
         private int mRows;
         private int mCols;
         private BoundaryPatch mPatch = new BoundaryPatch();
@@ -18,7 +19,8 @@ import android.webkit.WebView;
         private float[] mOrig = new float[24];
         private float mStretchX, mStretchY;
 
-        Mesh(int rows, int cols) {
+        Mesh(int which, int rows, int cols) {
+            mWhich = which;
             mRows = rows;
             mCols = cols;
         }
@@ -61,7 +63,7 @@ import android.webkit.WebView;
         }
 
         // first experimental behavior
-        private void doit0(float dx, float dy) {
+        private void doit1(float dx, float dy) {
             int index;
 
             if (dx < 0) {
@@ -81,7 +83,7 @@ import android.webkit.WebView;
             mCubics[index*2 + 3] = mOrig[index*2 + 3] + dy;
         }
 
-        private void doit1(float dx, float dy) {
+        private void doit2(float dx, float dy) {
             int index;
 
             if (dx < 0) {
@@ -104,7 +106,14 @@ import android.webkit.WebView;
         public void setStretch(float dx, float dy) {
             mStretchX = dx;
             mStretchY = dy;
-            doit1(dx, dy);
+            switch (mWhich) {
+                case 1:
+                    doit1(dx, dy);
+                    break;
+                case 2:
+                    doit2(dx, dy);
+                    break;
+            }
             rebuildPatch();
         }
 
@@ -115,11 +124,14 @@ import android.webkit.WebView;
 
     private Mesh mMesh;
     private Bitmap mBitmap;
+    private int mWhich;
 
-    public MeshTracker() {}
+    public MeshTracker(int which) {
+        mWhich = which;
+    }
 
     @Override public void onStartDrag(float x, float y) {
-        mMesh = new Mesh(16, 16);
+        mMesh = new Mesh(mWhich, 16, 16);
     }
 
     @Override public void onBitmapChange(Bitmap bm) {

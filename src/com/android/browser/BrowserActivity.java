@@ -515,6 +515,12 @@ public class BrowserActivity extends Activity
                         current.getWebView().dumpRenderTree(true);
                     } else if ("about:debug.display".equals(urlData.mUrl)) {
                         current.getWebView().dumpDisplayTree();
+                    } else if ("about:debug.drag0".equals(urlData.mUrl)) {
+                        current.getWebView().setDragTracker(null);
+                    } else if ("about:debug.drag1".equals(urlData.mUrl)) {
+                        current.getWebView().setDragTracker(new MeshTracker(1));
+                    } else if ("about:debug.drag2".equals(urlData.mUrl)) {
+                        current.getWebView().setDragTracker(new MeshTracker(2));
                     } else {
                         mSettings.toggleDebugSettings();
                     }
