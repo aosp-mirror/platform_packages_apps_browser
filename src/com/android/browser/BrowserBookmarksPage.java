@@ -682,12 +682,17 @@ public class BrowserBookmarksPage extends Activity implements
         super.onBackPressed();
     }
 
-    // This Activity is generally a sub-Activity of CombinedHistoryActivity. In
-    // that situation, we need to pass our result code up to our parent.
-    // However, if someone calls this Activity directly, then this has no
-    // parent, and it needs to set it on itself.
+    // This Activity is generally a sub-Activity of
+    // CombinedBookmarkHistoryActivity. In that situation, we need to pass our
+    // result code up to our parent. However, if someone calls this Activity
+    // directly, then this has no parent, and it needs to set it on itself.
     private void setResultToParent(int resultCode, Intent data) {
-        Activity a = getParent() == null ? this : getParent();
-        a.setResult(resultCode, data);
+        Activity parent = getParent();
+        if (parent == null) {
+            setResult(resultCode, data);
+        } else {
+            ((CombinedBookmarkHistoryActivity) parent).setResultFromChild(
+                    resultCode, data);
+        }
     }
 }

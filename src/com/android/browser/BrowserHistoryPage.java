@@ -134,7 +134,12 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 false);
         CombinedBookmarkHistoryActivity.getIconListenerSet()
                 .addListener(mIconReceiver);
-        
+        Activity parent = getParent();
+        if (null == parent
+                || !(parent instanceof CombinedBookmarkHistoryActivity)) {
+            throw new AssertionError("history page can only be viewed as a tab"
+                    + "in CombinedBookmarkHistoryActivity");
+        }
         // initialize the result to canceled, so that if the user just presses
         // back then it will have the correct result
         setResultToParent(RESULT_CANCELED, null);
@@ -165,9 +170,11 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear_history_menu_id:
-                // FIXME: Need to clear the tab control in browserActivity 
-                // as well
                 Browser.clearHistory(getContentResolver());
+                // BrowserHistoryPage is always a child of
+                // CombinedBookmarkHistoryActivity
+                ((CombinedBookmarkHistoryActivity) getParent())
+                        .removeParentChildRelationShips();
                 mAdapter.refreshData();
                 return true;
                 
@@ -275,13 +282,12 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         return false;
     }
 
-    // This Activity is generally a sub-Activity of CombinedHistoryActivity. In
-    // that situation, we need to pass our result code up to our parent.
-    // However, if someone calls this Activity directly, then this has no
-    // parent, and it needs to set it on itself.
+    // This Activity is always a sub-Activity of
+    // CombinedBookmarkHistoryActivity. Therefore, we need to pass our
+    // result code up to our parent.
     private void setResultToParent(int resultCode, Intent data) {
-        Activity a = getParent() == null ? this : getParent();
-        a.setResult(resultCode, data);
+        ((CombinedBookmarkHistoryActivity) getParent()).setResultFromChild(
+                resultCode, data);
     }
 
     private class ChangeObserver extends ContentObserver {
