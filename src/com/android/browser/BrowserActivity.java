@@ -3421,6 +3421,15 @@ public class BrowserActivity extends Activity
                         }
                     }
                 }
+                // Deliberately fall through to PREFERENCES_PAGE, since the
+                // same extra may be attached to the COMBO_PAGE
+            case PREFERENCES_PAGE:
+                if (resultCode == RESULT_OK && intent != null) {
+                    String action = intent.getStringExtra(Intent.EXTRA_TEXT);
+                    if (BrowserSettings.PREF_CLEAR_HISTORY.equals(action)) {
+                        mTabControl.removeParentChildRelationShips();
+                    }
+                }
                 break;
             // Choose a file from the file picker.
             case FILE_SELECTED:
