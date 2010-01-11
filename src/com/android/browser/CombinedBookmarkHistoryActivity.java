@@ -34,6 +34,21 @@ import java.util.Vector;
 
 public class CombinedBookmarkHistoryActivity extends TabActivity
         implements TabHost.OnTabChangeListener {
+    /**
+     * Used to inform BrowserActivity to remove the parent/child relationships
+     * from all the tabs.
+     */
+    private String mExtraData;
+    /**
+     * Intent to be passed to calling Activity when finished.  Keep a pointer to
+     * it locally so mExtraData can be added.
+     */
+    private Intent mResultData;
+    /**
+     * Result code to pass back to calling Activity when finished.
+     */
+    private int mResultCode;
+
     /* package */ static String BOOKMARKS_TAB = "bookmark";
     /* package */ static String VISITED_TAB = "visited";
     /* package */ static String HISTORY_TAB = "history";
@@ -132,5 +147,33 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         }
     }
 
-    
+    /**
+     * Store extra data in the Intent to return to the calling Activity to tell
+     * it to clear the parent/child relationships from all tabs.
+     */
+    /* package */ void removeParentChildRelationShips() {
+        mExtraData = BrowserSettings.PREF_CLEAR_HISTORY;
+    }
+
+    /**
+     * Custom setResult() method so that the Intent can have extra data attached
+     * if necessary.
+     * @param resultCode Uses same codes as Activity.setResult
+     * @param data Intent returned to onActivityResult.
+     */
+    /* package */ void setResultFromChild(int resultCode, Intent data) {
+        mResultCode = resultCode;
+        mResultData = data;
+    }
+
+    @Override
+    public void finish() {
+        if (mExtraData != null) {
+            mResultCode = RESULT_OK;
+            if (mResultData == null) mResultData = new Intent();
+            mResultData.putExtra(Intent.EXTRA_TEXT, mExtraData);
+        }
+        setResult(mResultCode, mResultData);
+        super.finish();
+    }
 }

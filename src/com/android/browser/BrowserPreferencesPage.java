@@ -73,6 +73,9 @@ public class BrowserPreferencesPage extends PreferenceActivity
         e = findPreference(BrowserSettings.PREF_DEFAULT_TEXT_ENCODING);
         e.setOnPreferenceChangeListener(this);
 
+        e = findPreference(BrowserSettings.PREF_CLEAR_HISTORY);
+        e.setOnPreferenceChangeListener(this);
+
         if (BrowserSettings.getInstance().showDebugSettings()) {
             addPreferencesFromResource(R.xml.debug_preferences);
         }
@@ -158,6 +161,13 @@ public class BrowserPreferencesPage extends PreferenceActivity
         } else if (pref.getKey().equals(
                 BrowserSettings.PREF_DEFAULT_TEXT_ENCODING)) {
             pref.setSummary((String) objValue);
+            return true;
+        } else if (pref.getKey().equals(BrowserSettings.PREF_CLEAR_HISTORY)
+                && ((Boolean) objValue).booleanValue() == true) {
+            // Need to tell the browser to remove the parent/child relationship
+            // between tabs
+            setResult(RESULT_OK, (new Intent()).putExtra(Intent.EXTRA_TEXT,
+                    pref.getKey()));
             return true;
         }
         

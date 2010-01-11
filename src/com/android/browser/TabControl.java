@@ -174,6 +174,15 @@ class TabControl {
     }
 
     /**
+     * Remove the parent child relationships from all tabs.
+     */
+    void removeParentChildRelationShips() {
+        for (Tab tab : mTabs) {
+            tab.removeFromTree();
+        }
+    }
+
+    /**
      * Remove the tab from the list. If the tab is the current tab shown, the
      * last created tab will be shown.
      * @param t The tab to be removed.
