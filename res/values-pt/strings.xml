@@ -63,7 +63,7 @@
     <string name="stop" msgid="5687251076030630074">"Parar"</string>
     <string name="reload" msgid="8585220783228408062">"Atualizar"</string>
     <string name="back" msgid="8414603107175713668">"Voltar"</string>
-    <string name="forward" msgid="4288210890526641577">"Encaminhar"</string>
+    <string name="forward" msgid="4288210890526641577">"Avançar"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Cancelar"</string>
     <string name="location" msgid="969988560160364559">"Local"</string>
@@ -94,7 +94,7 @@
     <string name="new_window" msgid="8117889615360211551">"Nova janela"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ir"</string>
     <string name="find_dot" msgid="6259312434696611957">"Localizar na página"</string>
-    <string name="select_dot" msgid="6299170761900561967">"Selecione o texto"</string>
+    <string name="select_dot" msgid="6299170761900561967">"Selecionar texto"</string>
     <string name="view_tabs" msgid="1119097492003550564">"Visão geral da janela"</string>
     <string name="view_tabs_condensed" msgid="5803955493821945369">"Janelas"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Janelas atuais"</string>
@@ -138,7 +138,7 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"Definir a página inicial"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Ajustar automaticamente"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatar páginas da web para se ajustarem à tela"</string>
-    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Exibição apenas em modo paisagem"</string>
+    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Apenas modo paisagem"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Exibir páginas apenas na orientação mais larga, com a tela no modo paisagem"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Configurações de privacidade"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Limpar cache"</string>
@@ -158,7 +158,7 @@
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Todas as senhas salvas serão excluídas."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Ativar localização"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Permitir que os sites solicitem acesso à sua localização"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Limpar acesso à localização"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Limpar acesso ao local"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Limpar acesso à localização para todos os sites"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Limpar acesso à localização para todos os sites"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Configurações de segurança"</string>
@@ -186,8 +186,8 @@
     <item msgid="3840999588443167001">"Perto"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom padrão"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Abrir páginas na visão geral"</string>
-    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Exibir visão geral das páginas abertas recentemente"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Abrir em visão geral"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Exibir visão geral de páginas que acabaram de ser abertas"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Configurações avançadas"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Configurações do site"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Visualizar configurações avançadas para sites individuais"</string>
@@ -230,7 +230,7 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Não foi possível abrir uma nova janela porque você já abriu o número máximo."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up já aberta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Não foi possível abrir uma nova janela pop-up porque apenas uma pode ser aberta por vez."</string>
-    <string name="download_title" msgid="2122874021047565594">"Fazer download do histórico"</string>
+    <string name="download_title" msgid="2122874021047565594">"Histórico de downloads"</string>
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Desconhecido&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"Abrir"</string>
     <string name="download_menu_clear" msgid="6264454531553418124">"Limpar da lista"</string>

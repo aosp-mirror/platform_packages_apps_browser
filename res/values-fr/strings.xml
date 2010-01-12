@@ -90,7 +90,7 @@
     <string name="switch_to_list" msgid="8900531247982121055">"Liste"</string>
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Le favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sera supprimé."</string>
-    <string name="open_in_new_window" msgid="6596775546468054510">"Nouvelle fenêtre"</string>
+    <string name="open_in_new_window" msgid="6596775546468054510">"Nouv. fenêtre"</string>
     <string name="new_window" msgid="8117889615360211551">"Nouvelle fenêtre"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Recherche"</string>
     <string name="find_dot" msgid="6259312434696611957">"Rechercher sur la page"</string>
@@ -135,11 +135,11 @@
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Ouvrir en arrière-plan"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Activer les plug-ins"</string>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Ouvrir les nouvelles fenêtres derrière la fenêtre actuelle"</string>
-    <string name="pref_content_homepage" msgid="6082437160778559806">"Configurer la page d\'accueil"</string>
+    <string name="pref_content_homepage" msgid="6082437160778559806">"Page d\'accueil"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Redimensionner"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
-    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Affichage en mode Paysage uniquement"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Toujours afficher les pages dans le sens de la largeur, en orientation paysage"</string>
+    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Mode Paysage"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Tjrs afficher les pages dans le sens de la largeur (orientation paysage)"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Paramètres de confidentialité"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Effacer le cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Supprimer les bases de données et le contenu mis localement en cache"</string>
@@ -153,7 +153,7 @@
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Eff. données formulaires"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Effacer toutes les données de formulaire enregistrées"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Toutes les données de formulaire enregistrées seront supprimées."</string>
-    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Effacer les mots de passe"</string>
+    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Eff. les mots de passe"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Effacer tous les mots de passe enregistrés"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Tous les mots de passe enregistrés seront effacés."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Activer la localisation"</string>
@@ -164,7 +164,7 @@
     <string name="pref_security_title" msgid="5763978646932160021">"Paramètres de sécurité"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Mém. mots de passe"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Enregistrer les noms d\'utilisateur et les mots de passe pour les sites Web"</string>
-    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Mém. données formulaire"</string>
+    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Données de formulaires"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Mémoriser les données saisies dans les formulaires pour les réutiliser"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Avertiss. de sécurité"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Afficher un avertissement en cas de problème de sécurité d\'un site"</string>
@@ -186,13 +186,13 @@
     <item msgid="3840999588443167001">"Proche"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom par défaut"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Ouvrir les pages avec une vue d\'ensemble"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Vue d\'ensemble des pages"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Afficher une vue d\'ensemble des pages qui viennent d\'être ouvertes"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Paramètres avancés"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Paramètres du site Web"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Afficher les paramètres avancés de sites Web individuels"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Rétablir valeurs par défaut"</string>
-    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Effacer toutes les données du navigateur et rétablir les paramètres par défaut"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Rét. valeurs par défaut"</string>
+    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Effacer les données du navigateur et rétablir les paramètres par défaut"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Toutes les données du navigateur seront supprimées et les paramètres par défaut rétablis."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Rétablir les valeurs par défaut"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Débogage"</string>
@@ -219,7 +219,7 @@
     <string name="empty_history" msgid="8738772352308207274">"L\'historique du navigateur est vide."</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"Ajouter aux favoris..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Ajouter"</string>
-    <string name="search_hint" msgid="4647356319916631820">"Rechercher ou entrer l\'URL"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Rech. ou entrer l\'URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Aller"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Favoris et historique Web"</string>
     <string name="attention" msgid="3473639060042811244">"Attention"</string>
@@ -278,7 +278,7 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Partager ma position"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Refuser"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Mémoriser les préférences"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Supprimer l\'accès aux données de localisation"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Accès données localis."</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Ce site a actuellement accès à vos données de localisation."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Ce site n\'a actuellement pas accès à vos données de localisation."</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Supprimer l\'accès aux données de localisation"</string>

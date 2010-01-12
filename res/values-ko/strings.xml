@@ -15,11 +15,11 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="application_name" msgid="1935869255545976415">"브라우저"</string>
+    <string name="application_name" msgid="1935869255545976415">"인터넷"</string>
     <string name="new_tab" msgid="4505722538297295141">"새 창"</string>
     <string name="active_tabs" msgid="3050623868203544623">"창"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"북마크"</string>
-    <string name="tab_most_visited" msgid="1077402532455000703">"최다 방문 웹사이트"</string>
+    <string name="tab_most_visited" msgid="1077402532455000703">"자주 방문한 페이지"</string>
     <string name="tab_history" msgid="1979267558744613746">"기록"</string>
     <string name="added_to_bookmarks" msgid="1020224130695956728">"북마크에 추가되었습니다."</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"북마크에서 삭제됨"</string>
@@ -69,7 +69,7 @@
     <string name="location" msgid="969988560160364559">"위치"</string>
     <string name="name" msgid="5990326151488445481">"이름"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="588165100024086565">"북마크 추가"</string>
+    <string name="save_to_bookmarks" msgid="588165100024086565">"북마크에 추가"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"북마크 수정"</string>
     <string name="create_shortcut_bookmark" msgid="9202323987633899835">"홈에 바로가기 추가"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"열기"</string>
@@ -153,8 +153,8 @@
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"양식 데이터 지우기"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"저장된 양식 데이터 모두 지우기"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"저장된 양식 데이터가 모두 삭제됩니다."</string>
-    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"비밀번호 지우기"</string>
-    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"저장된 모든 비밀번호 지우기"</string>
+    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"비밀번호 삭제"</string>
+    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"저장된 모든 비밀번호 삭제"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"저장된 비밀번호가 모두 삭제됩니다."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"위치 정보 사용"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"사이트의 위치 정보 액세스 요청 허용"</string>
@@ -162,7 +162,7 @@
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"모든 웹사이트의 위치 정보 액세스 삭제"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"모든 웹사이트의 위치 정보 액세스 삭제"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"보안 설정"</string>
-    <string name="pref_security_remember_passwords" msgid="6492957683454529549">"비밀번호 기억"</string>
+    <string name="pref_security_remember_passwords" msgid="6492957683454529549">"비밀번호 저장"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"웹사이트에 대해 사용자 이름 및 비밀번호 저장"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"양식 데이터 기억"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"나중에 사용할 수 있도록 양식에 입력한 데이터 기억"</string>

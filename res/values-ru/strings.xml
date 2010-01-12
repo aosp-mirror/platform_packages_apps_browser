@@ -66,7 +66,7 @@
     <string name="forward" msgid="4288210890526641577">"Переслать"</string>
     <string name="save" msgid="5922311934992468496">"ОК"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Отмена"</string>
-    <string name="location" msgid="969988560160364559">"Место"</string>
+    <string name="location" msgid="969988560160364559">"URL-адрес"</string>
     <string name="name" msgid="5990326151488445481">"Имя"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="588165100024086565">"Добавить закладку"</string>
@@ -86,9 +86,9 @@
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"URL недействителен."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Удалить"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Добавить в закладки последнюю просмотренную страницу"</string>
-    <string name="switch_to_thumbnails" msgid="5493351529609043151">"Уменьшенное изображение"</string>
+    <string name="switch_to_thumbnails" msgid="5493351529609043151">"Уменьшенные изображения"</string>
     <string name="switch_to_list" msgid="8900531247982121055">"В виде списка"</string>
-    <string name="current_page" msgid="7510129573681663135">"из "</string>
+    <string name="current_page" msgid="7510129573681663135">"на "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Закладка \"<xliff:g id="BOOKMARK">%s</xliff:g>\" будет удалена."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Открыть в новом окне"</string>
     <string name="new_window" msgid="8117889615360211551">"Новое окно"</string>
@@ -192,7 +192,7 @@
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайта"</string>
     <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Просмотреть дополнительные настройки для отдельных сайтов"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Восстановить настройки по умолчанию"</string>
-    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Очистить все данные браузера и восстановить все настройки по умолчанию"</string>
+    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Очистить все данные браузера и включить настройки по умолчанию"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Все данные браузера будут удалены, настройки по умолчанию будут восстановлены."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Восстановить настройки по умолчанию"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Отладка"</string>
@@ -221,7 +221,7 @@
     <string name="add_bookmark_short" msgid="3783984330998103735">"Добавить"</string>
     <string name="search_hint" msgid="4647356319916631820">"Введите условия поиска или URL-адрес"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Поиск"</string>
-    <string name="search_settings_description" msgid="1422401062529014107">"Закладки и просмотренные страницы"</string>
+    <string name="search_settings_description" msgid="1422401062529014107">"Закладки и история поиска"</string>
     <string name="attention" msgid="3473639060042811244">"Внимание"</string>
     <string name="popup_window_attempt" msgid="2673111696288657989">"Этот сайт пытается открыть всплывающее окно."</string>
     <string name="allow" msgid="1157313689171991335">"Разрешить"</string>

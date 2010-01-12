@@ -138,7 +138,7 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"Ustaw stronę główną"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autodopasowanie stron"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatuj strony internetowe w celu dopasowania do ekranu"</string>
-    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Wyświetlanie tylko w orientacji poziomej"</string>
+    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Zawsze w orientacji poziomej"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Wyświetlaj strony tylko w szerszej, poziomej orientacji ekranu"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Ustawienia prywatności"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Wyczyść pamięć podręczną"</string>
@@ -158,9 +158,9 @@
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Wszystkie zapisane hasła zostaną usunięte."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Włącz obsługę lokalizacji"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Zezwalaj witrynom na żądanie dostępu do informacji o lokalizacji"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Udziel dostępu do informacji o lokalizacji"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Wyczyść dostęp do informacji o lokalizacji"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Usuń dostęp wszystkich witryn do informacji o lokalizacji"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Usuń dostęp wszystkich witryn do informacji o lokalizacji"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Wyczyść ustawienia dostępu witryn do informacji o lokalizacji"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Ustawienia zabezpieczeń"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Pamiętaj hasła"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Zapisz nazwy użytkowników i hasła używane w witrynach"</string>
@@ -278,10 +278,10 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Udostępnij informacje o lokalizacji"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Odrzuć"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Zapamiętaj ustawienie"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Udziel dostępu do informacji o lokalizacji"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Wyczyść dostęp do informacji o lokalizacji"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Ta witryna ma obecnie dostęp do informacji o Twojej lokalizacji"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Ta witryna nie ma obecnie dostępu do informacji o Twojej lokalizacji"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Udziel dostępu do informacji o lokalizacji"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Wyczyść dostęp do informacji o lokalizacji"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Dostęp tej witryny do informacji o lokalizacji zostanie usunięty"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Usuń dostęp"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Anuluj"</string>

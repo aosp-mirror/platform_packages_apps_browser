@@ -78,8 +78,7 @@
     <string name="remove_history_item" msgid="5021424935726728618">"Uit geschiedenis verwijderen"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Instellen als startpagina"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Opgeslagen in bladwijzers."</string>
-    <!-- no translation found for bookmark_not_saved (700600955089376724) -->
-    <skip />
+    <string name="bookmark_not_saved" msgid="700600955089376724">"Kan bladwijzer niet opslaan."</string>
     <string name="homepage_set" msgid="8768087280310966395">"De startpagina is ingesteld."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Bladwijzer moet een naam hebben."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Bladwijzers moeten een locatie hebben."</string>
@@ -116,7 +115,7 @@
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Link opslaan"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Link delen"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopiëren"</string>
-    <string name="contextmenu_copylink" msgid="5153657160294534270">"URL van koppeling kopiëren"</string>
+    <string name="contextmenu_copylink" msgid="5153657160294534270">"Link-URL kopiëren"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Afbeelding opslaan"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"Afbeelding weergeven"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Bellen..."</string>
