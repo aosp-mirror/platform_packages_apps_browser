@@ -44,6 +44,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.WebAddress;
 import android.net.http.SslCertificate;
@@ -296,6 +297,14 @@ public class BrowserActivity extends Activity
                             ConnectivityManager.CONNECTIVITY_ACTION)) {
                         boolean noConnectivity = intent.getBooleanExtra(
                                 ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+                        if (!noConnectivity) {
+                            NetworkInfo info = intent.getParcelableExtra(
+                                    ConnectivityManager.EXTRA_NETWORK_INFO);
+                            String typeName = info.getTypeName();
+                            String subtypeName = info.getSubtypeName();
+                            sendNetworkType(typeName.toLowerCase(),
+                                    (subtypeName != null ? subtypeName.toLowerCase() : ""));
+                        }
                         onNetworkToggle(!noConnectivity);
                     }
                 }
@@ -3618,6 +3627,14 @@ public class BrowserActivity extends Activity
     private void setStatusBarVisibility(boolean visible) {
         int flag = visible ? 0 : WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setFlags(flag, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+
+    private void sendNetworkType(String type, String subtype) {
+        WebView w = mTabControl.getCurrentWebView();
+        if (w != null) {
+            w.setNetworkType(type, subtype);
+        }
     }
 
     final static int LOCK_ICON_UNSECURE = 0;
