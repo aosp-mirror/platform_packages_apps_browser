@@ -1019,7 +1019,7 @@ public class BrowserActivity extends Activity
             mPageInfoDialog.dismiss();
             showPageInfo(
                 mPageInfoView,
-                mPageInfoFromShowSSLCertificateOnError.booleanValue());
+                mPageInfoFromShowSSLCertificateOnError);
         }
         if (mSSLCertificateDialog != null) {
             mSSLCertificateDialog.dismiss();
@@ -2951,7 +2951,7 @@ public class BrowserActivity extends Activity
         ((TextView) pageInfoView.findViewById(R.id.title)).setText(title);
 
         mPageInfoView = tab;
-        mPageInfoFromShowSSLCertificateOnError = new Boolean(fromShowSSLCertificateOnError);
+        mPageInfoFromShowSSLCertificateOnError = fromShowSSLCertificateOnError;
 
         AlertDialog.Builder alertDialogBuilder =
             new AlertDialog.Builder(this)
@@ -2964,7 +2964,6 @@ public class BrowserActivity extends Activity
                                         int whichButton) {
                         mPageInfoDialog = null;
                         mPageInfoView = null;
-                        mPageInfoFromShowSSLCertificateOnError = null;
 
                         // if we came here from the SSL error dialog
                         if (fromShowSSLCertificateOnError) {
@@ -2981,7 +2980,6 @@ public class BrowserActivity extends Activity
                     public void onCancel(DialogInterface dialog) {
                         mPageInfoDialog = null;
                         mPageInfoView = null;
-                        mPageInfoFromShowSSLCertificateOnError = null;
 
                         // if we came here from the SSL error dialog
                         if (fromShowSSLCertificateOnError) {
@@ -3006,7 +3004,6 @@ public class BrowserActivity extends Activity
                                         int whichButton) {
                         mPageInfoDialog = null;
                         mPageInfoView = null;
-                        mPageInfoFromShowSSLCertificateOnError = null;
 
                         // if we came here from the SSL error dialog
                         if (fromShowSSLCertificateOnError) {
@@ -3699,7 +3696,7 @@ public class BrowserActivity extends Activity
     // If the Page-Info dialog is launched from the SSL-certificate-on-error
     // dialog, we should not just dismiss it, but should get back to the
     // SSL-certificate-on-error dialog. This flag is used to store this state
-    private Boolean mPageInfoFromShowSSLCertificateOnError;
+    private boolean mPageInfoFromShowSSLCertificateOnError;
 
     // as SSLCertificateOnError has different style for landscape / portrait,
     // we have to re-open it when configuration changed
