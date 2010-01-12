@@ -18,16 +18,14 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.app.ExpandableListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.ServiceManager;
 import android.provider.Browser;
 import android.text.IClipboard;
@@ -42,7 +40,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.ViewStub;
-import android.webkit.DateSorter;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -50,15 +47,12 @@ import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Vector;
-
 /**
  * Activity for displaying the browser's history, divided into
  * days of viewing.
  */
 public class BrowserHistoryPage extends ExpandableListActivity {
     private HistoryAdapter          mAdapter;
-    private DateSorter              mDateSorter;
     private boolean                 mDisableNewWindow;
     private HistoryItem             mContextHeader;
 
@@ -104,10 +98,24 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setTitle(R.string.browser_history);
-        
-        mDateSorter = new DateSorter(this);
 
-        mAdapter = new HistoryAdapter();
+        final String whereClause = Browser.BookmarkColumns.VISITS + " > 0"
+                // In AddBookmarkPage, where we save new bookmarks, we add
+                // three visits to newly created bookmarks, so that
+                // bookmarks that have not been visited will show up in the
+                // most visited, and higher in the goto search box.
+                // However, this puts the site in the history, unless we
+                // ignore sites with a DATE of 0, which the next line does.
+                + " AND " + Browser.BookmarkColumns.DATE + " > 0";
+        final String orderBy = Browser.BookmarkColumns.DATE + " DESC";
+
+        Cursor cursor = managedQuery(
+                Browser.BOOKMARKS_URI,
+                Browser.HISTORY_PROJECTION,
+                whereClause, null, orderBy);
+
+        mAdapter = new HistoryAdapter(this, cursor,
+                Browser.HISTORY_PROJECTION_DATE_INDEX);
         setListAdapter(mAdapter);
         final ExpandableListView list = getExpandableListView();
         list.setOnCreateContextMenuListener(this);
@@ -287,128 +295,14 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 resultCode, data);
     }
 
-    private class ChangeObserver extends ContentObserver {
-        public ChangeObserver() {
-            super(new Handler());
-        }
-
-        @Override
-        public boolean deliverSelfNotifications() {
-            return true;
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            mAdapter.refreshData();
-        }
-    }
-    
-    private class HistoryAdapter implements ExpandableListAdapter {
-        
-        // Array for each of our bins.  Each entry represents how many items are
-        // in that bin.
-        private int mItemMap[];
-        // This is our GroupCount.  We will have at most DateSorter.DAY_COUNT
-        // bins, less if the user has no items in one or more bins.
-        private int mNumberOfBins;
-        private Vector<DataSetObserver> mObservers;
-        private Cursor mCursor;
-        
-        HistoryAdapter() {
-            mObservers = new Vector<DataSetObserver>();
+    private class HistoryAdapter extends DateSortedExpandableListAdapter {
+        HistoryAdapter(Context context, Cursor cursor, int index) {
+            super(context, cursor, index);
             
-            final String whereClause = Browser.BookmarkColumns.VISITS + " > 0"
-                    // In AddBookmarkPage, where we save new bookmarks, we add
-                    // three visits to newly created bookmarks, so that
-                    // bookmarks that have not been visited will show up in the
-                    // most visited, and higher in the goto search box.
-                    // However, this puts the site in the history, unless we
-                    // ignore sites with a DATE of 0, which the next line does.
-                    + " AND " + Browser.BookmarkColumns.DATE + " > 0";
-            final String orderBy = Browser.BookmarkColumns.DATE + " DESC";
-           
-            mCursor = managedQuery(
-                    Browser.BOOKMARKS_URI,
-                    Browser.HISTORY_PROJECTION,
-                    whereClause, null, orderBy);
-            
-            buildMap();
-            mCursor.registerContentObserver(new ChangeObserver());
-        }
-        
-        void refreshData() {
-            if (mCursor.isClosed()) {
-                return;
-            }
-            mCursor.requery();
-            buildMap();
-            for (DataSetObserver o : mObservers) {
-                o.onChanged();
-            }
-        }
-        
-        private void buildMap() {
-            // The cursor is sorted by date
-            // The ItemMap will store the number of items in each bin.
-            int array[] = new int[DateSorter.DAY_COUNT];
-            // Zero out the array.
-            for (int j = 0; j < DateSorter.DAY_COUNT; j++) {
-                array[j] = 0;
-            }
-            mNumberOfBins = 0;
-            int dateIndex = -1;
-            if (mCursor.moveToFirst() && mCursor.getCount() > 0) {
-                while (!mCursor.isAfterLast()) {
-                    long date = mCursor.getLong(Browser.HISTORY_PROJECTION_DATE_INDEX);
-                    int index = mDateSorter.getIndex(date);
-                    if (index > dateIndex) {
-                        mNumberOfBins++;
-                        if (index == DateSorter.DAY_COUNT - 1) {
-                            // We are already in the last bin, so it will
-                            // include all the remaining items
-                            array[index] = mCursor.getCount()
-                                    - mCursor.getPosition();
-                            break;
-                        }
-                        dateIndex = index;
-                    }
-                    array[dateIndex]++;
-                    mCursor.moveToNext();
-                }
-            }
-            mItemMap = array;
-        }
-
-        // This translates from a group position in the Adapter to a position in
-        // our array.  This is necessary because some positions in the array
-        // have no history items, so we simply do not present those positions
-        // to the Adapter.
-        private int groupPositionToArrayPosition(int groupPosition) {
-            if (groupPosition < 0 || groupPosition >= DateSorter.DAY_COUNT) {
-                throw new AssertionError("group position out of range");
-            }
-            if (DateSorter.DAY_COUNT == mNumberOfBins || 0 == mNumberOfBins) {
-                // In the first case, we have exactly the same number of bins
-                // as our maximum possible, so there is no need to do a
-                // conversion
-                // The second statement is in case this method gets called when
-                // the array is empty, in which case the provided groupPosition
-                // will do fine.
-                return groupPosition;
-            }
-            int arrayPosition = -1;
-            while (groupPosition > -1) {
-                arrayPosition++;
-                if (mItemMap[arrayPosition] != 0) {
-                    groupPosition--;
-                }
-            }
-            return arrayPosition;
         }
 
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
                 View convertView, ViewGroup parent) {
-            groupPosition = groupPositionToArrayPosition(groupPosition);
             HistoryItem item;
             if (null == convertView || !(convertView instanceof HistoryItem)) {
                 item = new HistoryItem(BrowserHistoryPage.this);
@@ -422,16 +316,13 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 item = (HistoryItem) convertView;
             }
             // Bail early if the Cursor is closed.
-            if (mCursor.isClosed()) return item;
-            int index = childPosition;
-            for (int i = 0; i < groupPosition; i++) {
-                index += mItemMap[i];
+            if (!moveCursorToChildPosition(groupPosition, childPosition)) {
+                return item;
             }
-            mCursor.moveToPosition(index);
-            item.setName(mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX));
-            String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
+            item.setName(getString(Browser.HISTORY_PROJECTION_TITLE_INDEX));
+            String url = getString(Browser.HISTORY_PROJECTION_URL_INDEX);
             item.setUrl(url);
-            byte[] data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
+            byte[] data = getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
             if (data != null) {
                 item.setFavicon(BitmapFactory.decodeByteArray(data, 0,
                         data.length));
@@ -440,12 +331,11 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                         .getIconListenerSet().getFavicon(url));
             }
             item.setIsBookmark(1 ==
-                    mCursor.getInt(Browser.HISTORY_PROJECTION_BOOKMARK_INDEX));
+                    getInt(Browser.HISTORY_PROJECTION_BOOKMARK_INDEX));
             return item;
         }
         
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-            groupPosition = groupPositionToArrayPosition(groupPosition);
             TextView item;
             if (null == convertView || !(convertView instanceof TextView)) {
                 LayoutInflater factory = 
@@ -455,72 +345,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
             } else {
                 item = (TextView) convertView;
             }
-            item.setText(mDateSorter.getLabel(groupPosition));
+            item.setText(getGroupLabel(groupPosition));
             return item;
         }
 
-        public boolean areAllItemsEnabled() {
-            return true;
-        }
-
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            return true;
-        }
-
-        public int getGroupCount() {
-            return mNumberOfBins;
-        }
-
-        public int getChildrenCount(int groupPosition) {
-            return mItemMap[groupPositionToArrayPosition(groupPosition)];
-        }
-
-        public Object getGroup(int groupPosition) {
-            return null;
-        }
-
-        public Object getChild(int groupPosition, int childPosition) {
-            return null;
-        }
-
-        public long getGroupId(int groupPosition) {
-            return groupPosition;
-        }
-
-        public long getChildId(int groupPosition, int childPosition) {
-            return (childPosition << 3) + groupPosition;
-        }
-
-        public boolean hasStableIds() {
-            return true;
-        }
-
-        public void registerDataSetObserver(DataSetObserver observer) {
-            mObservers.add(observer);
-        }
-
-        public void unregisterDataSetObserver(DataSetObserver observer) {
-            mObservers.remove(observer);
-        }
-
-        public void onGroupExpanded(int groupPosition) {
-        
-        }
-
-        public void onGroupCollapsed(int groupPosition) {
-        
-        }
-
-        public long getCombinedChildId(long groupId, long childId) {
-            return childId;
-        }
-
-        public long getCombinedGroupId(long groupId) {
-            return groupId;
-        }
-
-        public boolean isEmpty() {
-            return mCursor.isClosed() || mCursor.getCount() == 0;
-        }
     }
 }
