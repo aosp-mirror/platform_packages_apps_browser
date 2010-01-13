@@ -21,10 +21,14 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.os.Handler;
+import android.provider.BaseColumns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DateSorter;
 import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import java.util.Vector;
 
@@ -43,6 +47,8 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
     private Cursor mCursor;
     private DateSorter mDateSorter;
     private int mDateIndex;
+    private int mIdIndex;
+    private Context mContext;
 
     private class ChangeObserver extends ContentObserver {
         public ChangeObserver() {
@@ -62,9 +68,11 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
 
     public DateSortedExpandableListAdapter(Context context, Cursor cursor,
             int dateIndex) {
+        mContext = context;
         mDateSorter = new DateSorter(context);
         mObservers = new Vector<DataSetObserver>();
         mCursor = cursor;
+        mIdIndex = cursor.getColumnIndexOrThrow(BaseColumns._ID);
         cursor.registerContentObserver(new ChangeObserver());
         mDateIndex = dateIndex;
         buildMap();
@@ -85,7 +93,7 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
         int dateIndex = -1;
         if (mCursor.moveToFirst() && mCursor.getCount() > 0) {
             while (!mCursor.isAfterLast()) {
-                long date = mCursor.getLong(mDateIndex);
+                long date = getLong(mDateIndex);
                 int index = mDateSorter.getIndex(date);
                 if (index > dateIndex) {
                     mNumberOfBins++;
@@ -117,6 +125,10 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
         return mCursor.getBlob(cursorIndex);
     }
 
+    /* package */ Context getContext() {
+        return mContext;
+    }
+
     /**
      * Get the integer at cursorIndex from the Cursor.  Assumes the Cursor has
      * already been moved to the correct position.  Along with
@@ -130,12 +142,11 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
     }
 
     /**
-     * Get the label for a group, as specified by the ExpandableList
-     * @param groupPosition Position in the ExpandableList's set of groups
-     * @return String label for the corresponding bin.
+     * Get the long at cursorIndex from the Cursor.  Assumes the Cursor has
+     * already been moved to the correct position.
      */
-    /* package */ String getGroupLabel(int groupPosition) {
-        return mDateSorter.getLabel(groupPositionToBin(groupPosition));
+    /* package */ long getLong(int cursorIndex) {
+        return mCursor.getLong(cursorIndex);
     }
 
     /**
@@ -148,6 +159,30 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
      */
     /* package */ String getString(int cursorIndex) {
         return mCursor.getString(cursorIndex);
+    }
+
+    /**
+     * Determine which group an item belongs to.
+     * @param childId ID of the child view in question.
+     * @return int Group position of the containing group.
+    /* package */ int groupFromChildId(long childId) {
+        int group = -1;
+        for (mCursor.moveToFirst(); !mCursor.isAfterLast();
+                mCursor.moveToNext()) {
+            if (getLong(mIdIndex) == childId) {
+                int bin = mDateSorter.getIndex(getLong(mDateIndex));
+                // bin is the same as the group if the number of bins is the
+                // same as DateSorter
+                if (mDateSorter.DAY_COUNT == mNumberOfBins) return bin;
+                // There are some empty bins.  Find the corresponding group.
+                group = 0;
+                for (int i = 0; i < bin; i++) {
+                    if (mItemMap[i] != 0) group++;
+                }
+                break;
+            }
+        }
+        return group;
     }
 
     /**
@@ -181,6 +216,23 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
     }
 
     /**
+     * Move the cursor to the position indicated.
+     * @param packedPosition Position in packed position representation.
+     * @return True on success, false otherwise.
+     */
+    boolean moveCursorToPackedChildPosition(long packedPosition) {
+        if (ExpandableListView.getPackedPositionType(packedPosition) !=
+                ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+            return false;
+        }
+        int groupPosition = ExpandableListView.getPackedPositionGroup(
+                packedPosition);
+        int childPosition = ExpandableListView.getPackedPositionChild(
+                packedPosition);
+        return moveCursorToChildPosition(groupPosition, childPosition);
+    }
+
+    /**
      * Move the cursor the the position indicated.
      * @param groupPosition Index of the group containing the desired item.
      * @param childPosition Index of the item within the specified group.
@@ -195,8 +247,7 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
         for (int i = 0; i < groupPosition; i++) {
             index += mItemMap[i];
         }
-        mCursor.moveToPosition(index);
-        return true;
+        return mCursor.moveToPosition(index);
     }
 
     /* package */ void refreshData() {
@@ -212,7 +263,16 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
 
     public View getGroupView(int groupPosition, boolean isExpanded,
             View convertView, ViewGroup parent) {
-        return null;
+        TextView item;
+        if (null == convertView || !(convertView instanceof TextView)) {
+            LayoutInflater factory = LayoutInflater.from(mContext);
+            item = (TextView) factory.inflate(R.layout.history_header, null);
+        } else {
+            item = (TextView) convertView;
+        }
+        String label = mDateSorter.getLabel(groupPositionToBin(groupPosition));
+        item.setText(label);
+        return item;
     }
 
     public View getChildView(int groupPosition, int childPosition,
@@ -249,7 +309,10 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
     }
 
     public long getChildId(int groupPosition, int childPosition) {
-        return (childPosition << 3) + groupPosition;
+        if (moveCursorToChildPosition(groupPosition, childPosition)) {
+            return getLong(mIdIndex);
+        }
+        return 0;
     }
 
     public boolean hasStableIds() {
