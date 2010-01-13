@@ -16,8 +16,8 @@
 
 package com.android.browser;
 
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ExpandableListActivity;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -38,8 +38,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ExpandableListView;
 
 import java.io.File;
 import java.util.List;
@@ -47,16 +46,15 @@ import java.util.List;
 /**
  *  View showing the user's current browser downloads
  */
-public class BrowserDownloadPage extends Activity 
-        implements View.OnCreateContextMenuListener, OnItemClickListener {
+public class BrowserDownloadPage extends ExpandableListActivity {
     
-    private ListView                mListView;
+    private ExpandableListView      mListView;
     private Cursor                  mDownloadCursor;
     private BrowserDownloadAdapter  mDownloadAdapter;
     private int                     mStatusColumnId;
     private int                     mIdColumnId;
     private int                     mTitleColumnId;
-    private int                     mContextMenuPosition;
+    private long                    mContextMenuPosition;
     
     @Override 
     public void onCreate(Bundle icicle) {
@@ -65,16 +63,15 @@ public class BrowserDownloadPage extends Activity
         
         setTitle(getText(R.string.download_title));
 
-        mListView = (ListView) findViewById(R.id.list);
+        mListView = (ExpandableListView) findViewById(android.R.id.list);
         mListView.setEmptyView(findViewById(R.id.empty));
-        
         mDownloadCursor = managedQuery(Downloads.CONTENT_URI, 
                 new String [] {"_id", Downloads.COLUMN_TITLE, Downloads.COLUMN_STATUS,
                 Downloads.COLUMN_TOTAL_BYTES, Downloads.COLUMN_CURRENT_BYTES, 
                 Downloads._DATA, Downloads.COLUMN_DESCRIPTION, 
                 Downloads.COLUMN_MIME_TYPE, Downloads.COLUMN_LAST_MODIFICATION,
                 Downloads.COLUMN_VISIBILITY}, 
-                null, null);
+                null, Downloads.COLUMN_LAST_MODIFICATION + " DESC");
         
         // only attach everything to the listbox if we can access
         // the download database. Otherwise, just show it empty
@@ -88,20 +85,24 @@ public class BrowserDownloadPage extends Activity
             
             // Create a list "controller" for the data
             mDownloadAdapter = new BrowserDownloadAdapter(this, 
-                    R.layout.browser_download_item, mDownloadCursor);
+                    mDownloadCursor, mDownloadCursor.getColumnIndexOrThrow(
+                    Downloads.COLUMN_LAST_MODIFICATION));
 
-            mListView.setAdapter(mDownloadAdapter);
+            setListAdapter(mDownloadAdapter);
             mListView.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
             mListView.setOnCreateContextMenuListener(this);
-            mListView.setOnItemClickListener(this);
-            
+
             Intent intent = getIntent();
-            if (intent != null && intent.getData() != null) {
-                int position = checkStatus(
-                        ContentUris.parseId(intent.getData()));
-                if (position >= 0) {
-                    mListView.setSelection(position);
-                }
+            final int groupToShow = intent == null || intent.getData() == null
+                    ? 0 : checkStatus(ContentUris.parseId(intent.getData()));
+            if (mDownloadAdapter.getGroupCount() > groupToShow) {
+                mListView.post(new Runnable() {
+                    public void run() {
+                        if (mDownloadAdapter.getGroupCount() > groupToShow) {
+                            mListView.expandGroup(groupToShow);
+                        }
+                    }
+                });
             }
         }
     }
@@ -141,7 +142,10 @@ public class BrowserDownloadPage extends Activity
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        mDownloadCursor.moveToPosition(mContextMenuPosition);
+        if (!mDownloadAdapter.moveCursorToPackedChildPosition(
+                mContextMenuPosition)) {
+            return false;
+        }
         switch (item.getItemId()) {
             case R.id.download_menu_open:
                 hideCompletedDownload();
@@ -162,10 +166,15 @@ public class BrowserDownloadPage extends Activity
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
         if (mDownloadCursor != null) {
-            AdapterView.AdapterContextMenuInfo info = 
-                    (AdapterView.AdapterContextMenuInfo) menuInfo;
-            mDownloadCursor.moveToPosition(info.position);
-            mContextMenuPosition = info.position;
+            ExpandableListView.ExpandableListContextMenuInfo info
+                    = (ExpandableListView.ExpandableListContextMenuInfo) menuInfo;
+            long packedPosition = info.packedPosition;
+            // Only show a context menu for the child views
+            if (!mDownloadAdapter.moveCursorToPackedChildPosition(
+                    packedPosition)) {
+                return;
+            }
+            mContextMenuPosition = packedPosition;
             menu.setHeaderTitle(mDownloadCursor.getString(mTitleColumnId));
             
             MenuInflater inflater = getMenuInflater();
@@ -178,60 +187,50 @@ public class BrowserDownloadPage extends Activity
                 inflater.inflate(R.menu.downloadhistorycontextrunning, menu);
             }
         }
+        super.onCreateContextMenu(menu, v, menuInfo);
     }
 
     /**
      * This function is called to check the status of the download and if it
      * has an error show an error dialog.
      * @param id Row id of the download to check
-     * @return position of item
+     * @return Group which contains the download
      */
-    int checkStatus(final long id) {
-        int position = -1;
-        for (mDownloadCursor.moveToFirst(); !mDownloadCursor.isAfterLast(); 
-                mDownloadCursor.moveToNext()) {
-            if (id == mDownloadCursor.getLong(mIdColumnId)) {
-                position = mDownloadCursor.getPosition();
-                break;
-            }
-            
+    private int checkStatus(final long id) {
+        int groupToShow = mDownloadAdapter.groupFromChildId(id);
+        if (-1 == groupToShow) return 0;
+        int status = mDownloadCursor.getInt(mStatusColumnId);
+        if (!Downloads.isStatusError(status)) {
+            return groupToShow;
         }
-        if (!mDownloadCursor.isAfterLast()) {
-            int status = mDownloadCursor.getInt(mStatusColumnId);
-            if (!Downloads.isStatusError(status)) {
-                return position;
+        if (status == Downloads.STATUS_FILE_ERROR) {
+            String title = mDownloadCursor.getString(mTitleColumnId);
+            if (title == null || title.length() == 0) {
+                title = getString(R.string.download_unknown_filename);
             }
-            
-            if (status == Downloads.STATUS_FILE_ERROR) {
-                String title = mDownloadCursor.getString(mTitleColumnId);
-                if (title == null || title.length() == 0) {
-                    title = getString(R.string.download_unknown_filename);
-                }
-                String msg = getString(R.string.download_file_error_dlg_msg, 
-                        title);
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.download_file_error_dlg_title)
-                        .setIcon(android.R.drawable.ic_popup_disk_full)
-                        .setMessage(msg)
-                        .setPositiveButton(R.string.ok, null)
-                        .setNegativeButton(R.string.retry, 
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, 
-                                            int whichButton) {
-                                        resumeDownload(id);
-                                    }
-                                })
-                        .show();
-            } else {
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.download_failed_generic_dlg_title)
-                        .setIcon(R.drawable.ssl_icon)
-                        .setMessage(BrowserDownloadAdapter.getErrorText(status))
-                        .setPositiveButton(R.string.ok, null)
-                        .show();
-            }
+            String msg = getString(R.string.download_file_error_dlg_msg, title);
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.download_file_error_dlg_title)
+                    .setIcon(android.R.drawable.ic_popup_disk_full)
+                    .setMessage(msg)
+                    .setPositiveButton(R.string.ok, null)
+                    .setNegativeButton(R.string.retry,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                        int whichButton) {
+                                    resumeDownload(id);
+                                }
+                            })
+                    .show();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.download_failed_generic_dlg_title)
+                    .setIcon(R.drawable.ssl_icon)
+                    .setMessage(BrowserDownloadAdapter.getErrorText(status))
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
         }
-        return position;
+        return groupToShow;
     }
     
     /**
@@ -421,14 +420,12 @@ public class BrowserDownloadPage extends Activity
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
-     */
-    public void onItemClick(AdapterView parent, View view, int position, 
-            long id) {
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v,
+            int groupPosition, int childPosition, long id) {
         // Open the selected item
-        mDownloadCursor.moveToPosition(position);
+        mDownloadAdapter.moveCursorToChildPosition(groupPosition,
+                childPosition);
         
         hideCompletedDownload();
 
@@ -440,6 +437,7 @@ public class BrowserDownloadPage extends Activity
             // Check to see if there is an error.
             checkStatus(id);
         }
+        return true;
     }
     
     /**

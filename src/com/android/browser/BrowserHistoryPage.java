@@ -32,7 +32,6 @@ import android.text.IClipboard;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,7 +45,6 @@ import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -336,20 +334,5 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                     getInt(Browser.HISTORY_PROJECTION_BOOKMARK_INDEX));
             return item;
         }
-        
-        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-            TextView item;
-            if (null == convertView || !(convertView instanceof TextView)) {
-                LayoutInflater factory = 
-                        LayoutInflater.from(BrowserHistoryPage.this);
-                item = (TextView) 
-                        factory.inflate(R.layout.history_header, null);
-            } else {
-                item = (TextView) convertView;
-            }
-            item.setText(getGroupLabel(groupPosition));
-            return item;
-        }
-
     }
 }
