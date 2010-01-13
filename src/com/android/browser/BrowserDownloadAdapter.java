@@ -30,10 +30,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Downloads;
 import android.text.format.Formatter;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.ResourceCursorAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -46,7 +48,7 @@ import java.util.List;
  * real work done by this class is to construct a custom view for the line
  * items.
  */
-public class BrowserDownloadAdapter extends ResourceCursorAdapter {
+public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
     
     private int mFilenameColumnId;
     private int mTitleColumnId;
@@ -57,8 +59,8 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
     private int mMimetypeColumnId;
     private int mDateColumnId;
 
-    public BrowserDownloadAdapter(Context context, int layout, Cursor c) {
-        super(context, layout, c);
+    public BrowserDownloadAdapter(Context context, Cursor c, int index) {
+        super(context, c, index);
         mFilenameColumnId = c.getColumnIndexOrThrow(Downloads._DATA);
         mTitleColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_TITLE);
         mDescColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_DESCRIPTION);
@@ -71,12 +73,26 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public View getChildView(int groupPosition, int childPosition,
+                boolean isLastChild, View convertView, ViewGroup parent) {
+        Context context = getContext();
+        // The layout file uses a RelativeLayout, whereas the GroupViews use
+        // TextView.
+        if (null == convertView || !(convertView instanceof RelativeLayout)) {
+            convertView = LayoutInflater.from(context).inflate(
+                    R.layout.browser_download_item, null);
+        }
+
+        // Bail early if the Cursor is closed.
+        if (!moveCursorToChildPosition(groupPosition, childPosition)) {
+            return convertView;
+        }
+
         Resources r = context.getResources();
         
         // Retrieve the icon for this download
-        String mimeType = cursor.getString(mMimetypeColumnId);
-        ImageView iv = (ImageView) view.findViewById(R.id.download_icon);
+        String mimeType = getString(mMimetypeColumnId);
+        ImageView iv = (ImageView) convertView.findViewById(R.id.download_icon);
         if (DrmRawContent.DRM_MIMETYPE_MESSAGE_STRING.equalsIgnoreCase(mimeType)) {
             iv.setImageResource(R.drawable.ic_launcher_drm_file);
         } else if (mimeType == null) {
@@ -96,10 +112,10 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
             }
         }
         
-        TextView tv = (TextView) view.findViewById(R.id.download_title);
-        String title = cursor.getString(mTitleColumnId);
+        TextView tv = (TextView) convertView.findViewById(R.id.download_title);
+        String title = getString(mTitleColumnId);
         if (title == null) {
-            String fullFilename = cursor.getString(mFilenameColumnId);
+            String fullFilename = getString(mFilenameColumnId);
             if (fullFilename == null) {
                 title = r.getString(R.string.download_unknown_filename);
             } else {
@@ -110,51 +126,51 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
                 // assume "_id" is the first column for the cursor 
                 context.getContentResolver().update(
                         ContentUris.withAppendedId(Downloads.CONTENT_URI,
-                        cursor.getLong(0)), values, null, null);
+                        getLong(0)), values, null, null);
             }
         }
         tv.setText(title);
         
-        tv = (TextView) view.findViewById(R.id.domain);
-        tv.setText(cursor.getString(mDescColumnId));
+        tv = (TextView) convertView.findViewById(R.id.domain);
+        tv.setText(getString(mDescColumnId));
         
-        long totalBytes = cursor.getLong(mTotalBytesColumnId);
+        long totalBytes = getLong(mTotalBytesColumnId);
         
-        int status = cursor.getInt(mStatusColumnId);
+        int status = getInt(mStatusColumnId);
         if (Downloads.isStatusCompleted(status)) { // Download stopped
-            View v = view.findViewById(R.id.progress_text);
+            View v = convertView.findViewById(R.id.progress_text);
             v.setVisibility(View.GONE);
 
-            v = view.findViewById(R.id.download_progress);
+            v = convertView.findViewById(R.id.download_progress);
             v.setVisibility(View.GONE);
 
-            tv = (TextView) view.findViewById(R.id.complete_text);
+            tv = (TextView) convertView.findViewById(R.id.complete_text);
             tv.setVisibility(View.VISIBLE);
             if (Downloads.isStatusError(status)) {
                 tv.setText(getErrorText(status));
             } else {
                 tv.setText(r.getString(R.string.download_success, 
-                        Formatter.formatFileSize(mContext, totalBytes)));
+                        Formatter.formatFileSize(context, totalBytes)));
             }
             
-            long time = cursor.getLong(mDateColumnId);
+            long time = getLong(mDateColumnId);
             Date d = new Date(time);
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
-            tv = (TextView) view.findViewById(R.id.complete_date);
+            tv = (TextView) convertView.findViewById(R.id.complete_date);
             tv.setVisibility(View.VISIBLE);
             tv.setText(df.format(d));
             
         } else { // Download is still running
-            tv = (TextView) view.findViewById(R.id.progress_text);
+            tv = (TextView) convertView.findViewById(R.id.progress_text);
             tv.setVisibility(View.VISIBLE);
 
-            View progress = view.findViewById(R.id.download_progress);
+            View progress = convertView.findViewById(R.id.download_progress);
             progress.setVisibility(View.VISIBLE);
             
-            View v = view.findViewById(R.id.complete_date);
+            View v = convertView.findViewById(R.id.complete_date);
             v.setVisibility(View.GONE);
 
-            v = view.findViewById(R.id.complete_text);
+            v = convertView.findViewById(R.id.complete_text);
             v.setVisibility(View.GONE);
             
             if (status == Downloads.STATUS_PENDING) {
@@ -171,14 +187,14 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
                     sb.append(r.getText(R.string.download_running_paused));
                 }
                 if (totalBytes > 0) {
-                    long currentBytes = cursor.getLong(mCurrentBytesColumnId); 
+                    long currentBytes = getLong(mCurrentBytesColumnId);
                     int progressAmount = (int)(currentBytes * 100 / totalBytes);
                     sb.append(' ');
                     sb.append(progressAmount);
                     sb.append("% (");
-                    sb.append(Formatter.formatFileSize(mContext, currentBytes));
+                    sb.append(Formatter.formatFileSize(context, currentBytes));
                     sb.append("/");
-                    sb.append(Formatter.formatFileSize(mContext, totalBytes));
+                    sb.append(Formatter.formatFileSize(context, totalBytes));
                     sb.append(")");
                     pb.setIndeterminate(false);
                     pb.setProgress(progressAmount);
@@ -188,7 +204,7 @@ public class BrowserDownloadAdapter extends ResourceCursorAdapter {
                 tv.setText(sb.toString()); 
             }
         }
-        
+        return convertView;
     }
     
     /**
