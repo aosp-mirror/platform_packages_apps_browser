@@ -569,6 +569,8 @@
     <!-- Context menu item on Download history screen -->
     <string name="download_menu_clear">Clear from list</string>
     <!-- Context menu item in Download history screen -->
+    <string name="download_menu_delete">Delete</string>
+    <!-- Context menu item in Download history screen -->
     <string name="download_menu_cancel">Cancel download</string>
     <!-- Menu item -->
     <string name="download_menu_cancel_all">Cancel all downloads</string>
@@ -582,6 +584,8 @@
     <string name="download_cancel_dlg_title">Cancel downloads</string>
     <!-- Confirmation dialog message -->
     <string name="download_cancel_dlg_msg">All <xliff:g id="download_count">%d</xliff:g> downloads will be canceled and cleared from the download history.</string>
+    <!-- Confirmation dialog title -->
+    <string name="download_delete_file">File will be deleted</string>
     <!-- Dialog title -->
     <string name="download_file_error_dlg_title">Out of space</string>
     <!-- Dialog message -->

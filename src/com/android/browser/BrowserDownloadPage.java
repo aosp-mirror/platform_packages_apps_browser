@@ -26,9 +26,11 @@ import android.content.ContentUris;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Downloads;
+import android.provider.MediaStore;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -140,6 +142,37 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         return false;
     }
 
+    /**
+     * Remove the file from the list of downloads.
+     * @param id Unique ID of the download to remove.
+     */
+    private void clearFromDownloads(long id) {
+        getContentResolver().delete(ContentUris.withAppendedId(
+                Downloads.Impl.CONTENT_URI, id), null, null);
+    }
+
+    /**
+     * Remove the file from the SD card
+     * @param filename Name of the file to delete.
+     * @param mimetype Mimetype of the file to delete.
+     * @return boolean True on success, false on failure.
+     */
+    private boolean deleteFile(String filename, String mimetype) {
+        Uri uri;
+        if (mimetype.startsWith("image")) {
+            uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        } else if (mimetype.startsWith("audio")) {
+            uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        } else if (mimetype.startsWith("video")) {
+            uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        } else {
+            File file = new File(filename);
+            return file.delete();
+        }
+        return getContentResolver().delete(uri, MediaStore.MediaColumns.DATA
+                + " = " + DatabaseUtils.sqlEscapeString(filename), null) > 0;
+    }
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         if (!mDownloadAdapter.moveCursorToPackedChildPosition(
@@ -151,12 +184,37 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                 hideCompletedDownload();
                 openCurrentDownload();
                 return true;
-                
+
+            case R.id.download_menu_delete:
+                int filenameColumnId =
+                        mDownloadCursor.getColumnIndexOrThrow(Downloads._DATA);
+                final String filename = mDownloadCursor.getString(
+                        filenameColumnId);
+                int mimetypeColumnId = mDownloadCursor.getColumnIndexOrThrow(
+                        Downloads.Impl.COLUMN_MIME_TYPE);
+                final String mimetype = mDownloadCursor.getString(
+                        mimetypeColumnId);
+                final long id = mDownloadCursor.getLong(mIdColumnId);
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.download_delete_file)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setMessage(filename)
+                        .setNegativeButton(R.string.cancel, null)
+                        .setPositiveButton(R.string.ok,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                            int whichButton) {
+                                        if (deleteFile(filename, mimetype)) {
+                                            clearFromDownloads(id);
+                                        }
+                                    }
+                                })
+                        .show();
+                break;
+
             case R.id.download_menu_clear:
             case R.id.download_menu_cancel:
-                getContentResolver().delete(
-                        ContentUris.withAppendedId(Downloads.Impl.CONTENT_URI,
-                        mDownloadCursor.getLong(mIdColumnId)), null, null);
+                clearFromDownloads(mDownloadCursor.getLong(mIdColumnId));
                 return true;
         }
         return false;

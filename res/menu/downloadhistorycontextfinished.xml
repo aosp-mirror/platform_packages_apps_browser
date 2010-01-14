@@ -18,7 +18,7 @@
 
     <item android:id="@+id/download_menu_open"
         android:title="@string/download_menu_open" />
-    <item android:id="@+id/download_menu_clear"
-        android:title="@string/download_menu_clear" />
+    <item android:id="@+id/download_menu_delete"
+        android:title="@string/download_menu_delete" />
 
 </menu>
