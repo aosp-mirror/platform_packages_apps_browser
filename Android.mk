@@ -5,7 +5,9 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_STATIC_JAVA_LIBRARIES := google-framework
 
-LOCAL_SRC_FILES := $(call all-subdir-java-files)
+LOCAL_SRC_FILES := \
+        $(call all-subdir-java-files) \
+        src/com/android/browser/EventLogTags.logtags
 
 LOCAL_PACKAGE_NAME := Browser
 
