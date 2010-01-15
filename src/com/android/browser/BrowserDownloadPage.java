@@ -65,28 +65,28 @@ public class BrowserDownloadPage extends ExpandableListActivity {
 
         mListView = (ExpandableListView) findViewById(android.R.id.list);
         mListView.setEmptyView(findViewById(R.id.empty));
-        mDownloadCursor = managedQuery(Downloads.CONTENT_URI, 
-                new String [] {"_id", Downloads.COLUMN_TITLE, Downloads.COLUMN_STATUS,
-                Downloads.COLUMN_TOTAL_BYTES, Downloads.COLUMN_CURRENT_BYTES, 
-                Downloads._DATA, Downloads.COLUMN_DESCRIPTION, 
-                Downloads.COLUMN_MIME_TYPE, Downloads.COLUMN_LAST_MODIFICATION,
-                Downloads.COLUMN_VISIBILITY}, 
-                null, Downloads.COLUMN_LAST_MODIFICATION + " DESC");
+        mDownloadCursor = managedQuery(Downloads.Impl.CONTENT_URI,
+                new String [] {"_id", Downloads.Impl.COLUMN_TITLE, Downloads.Impl.COLUMN_STATUS,
+                Downloads.Impl.COLUMN_TOTAL_BYTES, Downloads.Impl.COLUMN_CURRENT_BYTES,
+                Downloads.Impl._DATA, Downloads.Impl.COLUMN_DESCRIPTION,
+                Downloads.Impl.COLUMN_MIME_TYPE, Downloads.Impl.COLUMN_LAST_MODIFICATION,
+                Downloads.Impl.COLUMN_VISIBILITY},
+                null, Downloads.Impl.COLUMN_LAST_MODIFICATION + " DESC");
         
         // only attach everything to the listbox if we can access
         // the download database. Otherwise, just show it empty
         if (mDownloadCursor != null) {
             mStatusColumnId = 
-                    mDownloadCursor.getColumnIndexOrThrow(Downloads.COLUMN_STATUS);
+                    mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_STATUS);
             mIdColumnId =
-                    mDownloadCursor.getColumnIndexOrThrow(Downloads._ID);
+                    mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl._ID);
             mTitleColumnId = 
-                    mDownloadCursor.getColumnIndexOrThrow(Downloads.COLUMN_TITLE);
+                    mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_TITLE);
             
             // Create a list "controller" for the data
             mDownloadAdapter = new BrowserDownloadAdapter(this, 
                     mDownloadCursor, mDownloadCursor.getColumnIndexOrThrow(
-                    Downloads.COLUMN_LAST_MODIFICATION));
+                    Downloads.Impl.COLUMN_LAST_MODIFICATION));
 
             setListAdapter(mDownloadAdapter);
             mListView.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
@@ -155,7 +155,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             case R.id.download_menu_clear:
             case R.id.download_menu_cancel:
                 getContentResolver().delete(
-                        ContentUris.withAppendedId(Downloads.CONTENT_URI,
+                        ContentUris.withAppendedId(Downloads.Impl.CONTENT_URI,
                         mDownloadCursor.getLong(mIdColumnId)), null, null);
                 return true;
         }
@@ -179,9 +179,9 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             
             MenuInflater inflater = getMenuInflater();
             int status = mDownloadCursor.getInt(mStatusColumnId);
-            if (Downloads.isStatusSuccess(status)) {
+            if (Downloads.Impl.isStatusSuccess(status)) {
                 inflater.inflate(R.menu.downloadhistorycontextfinished, menu);
-            } else if (Downloads.isStatusError(status)) {
+            } else if (Downloads.Impl.isStatusError(status)) {
                 inflater.inflate(R.menu.downloadhistorycontextfailed, menu);
             } else {
                 inflater.inflate(R.menu.downloadhistorycontextrunning, menu);
@@ -200,10 +200,10 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         int groupToShow = mDownloadAdapter.groupFromChildId(id);
         if (-1 == groupToShow) return 0;
         int status = mDownloadCursor.getInt(mStatusColumnId);
-        if (!Downloads.isStatusError(status)) {
+        if (!Downloads.Impl.isStatusError(status)) {
             return groupToShow;
         }
-        if (status == Downloads.STATUS_FILE_ERROR) {
+        if (status == Downloads.Impl.STATUS_FILE_ERROR) {
             String title = mDownloadCursor.getString(mTitleColumnId);
             if (title == null || title.length() == 0) {
                 title = getString(R.string.download_unknown_filename);
@@ -271,7 +271,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             for (mDownloadCursor.moveToFirst(); !mDownloadCursor.isAfterLast(); 
                     mDownloadCursor.moveToNext()) {
                 int status = mDownloadCursor.getInt(mStatusColumnId);
-                if (!Downloads.isStatusCompleted(status)) {
+                if (!Downloads.Impl.isStatusCompleted(status)) {
                     count++;
                 }
             }
@@ -324,14 +324,14 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             boolean firstTime = true;
             while (!mDownloadCursor.isAfterLast()) {
                 int status = mDownloadCursor.getInt(mStatusColumnId);
-                if (!Downloads.isStatusCompleted(status)) {
+                if (!Downloads.Impl.isStatusCompleted(status)) {
                     if (firstTime) {
                         firstTime = false;
                     } else {
                         where.append(" OR ");
                     }
                     where.append("( ");
-                    where.append(Downloads._ID);
+                    where.append(Downloads.Impl._ID);
                     where.append(" = '");
                     where.append(mDownloadCursor.getLong(mIdColumnId));
                     where.append("' )");
@@ -339,7 +339,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                 mDownloadCursor.moveToNext();
             }
             if (!firstTime) {
-                getContentResolver().delete(Downloads.CONTENT_URI,
+                getContentResolver().delete(Downloads.Impl.CONTENT_URI,
                         where.toString(), null);
             }
         }
@@ -350,7 +350,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         if (mDownloadCursor.moveToFirst()) {
             while (!mDownloadCursor.isAfterLast()) {
                 int status = mDownloadCursor.getInt(mStatusColumnId);
-                if (Downloads.isStatusCompleted(status)) {
+                if (Downloads.Impl.isStatusCompleted(status)) {
                     count++;
                 }
                 mDownloadCursor.moveToNext();
@@ -369,14 +369,14 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             boolean firstTime = true;
             while (!mDownloadCursor.isAfterLast()) {
                 int status = mDownloadCursor.getInt(mStatusColumnId);
-                if (Downloads.isStatusCompleted(status)) {
+                if (Downloads.Impl.isStatusCompleted(status)) {
                     if (firstTime) {
                         firstTime = false;
                     } else {
                         where.append(" OR ");
                     }
                     where.append("( ");
-                    where.append(Downloads._ID);
+                    where.append(Downloads.Impl._ID);
                     where.append(" = '");
                     where.append(mDownloadCursor.getLong(mIdColumnId));
                     where.append("' )");
@@ -384,7 +384,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                 mDownloadCursor.moveToNext();
             }
             if (!firstTime) {
-                getContentResolver().delete(Downloads.CONTENT_URI,
+                getContentResolver().delete(Downloads.Impl.CONTENT_URI,
                         where.toString(), null);
             }
         }
@@ -395,10 +395,10 @@ public class BrowserDownloadPage extends ExpandableListActivity {
      */
     private void openCurrentDownload() {
         int filenameColumnId = 
-                mDownloadCursor.getColumnIndexOrThrow(Downloads._DATA);
+                mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl._DATA);
         String filename = mDownloadCursor.getString(filenameColumnId);
         int mimetypeColumnId =
-                mDownloadCursor.getColumnIndexOrThrow(Downloads.COLUMN_MIME_TYPE);
+                mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_MIME_TYPE);
         String mimetype = mDownloadCursor.getString(mimetypeColumnId);
         Uri path = Uri.parse(filename);
         // If there is no scheme, then it must be a file
@@ -430,7 +430,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         hideCompletedDownload();
 
         int status = mDownloadCursor.getInt(mStatusColumnId);
-        if (Downloads.isStatusSuccess(status)) {
+        if (Downloads.Impl.isStatusSuccess(status)) {
             // Open it if it downloaded successfully
             openCurrentDownload();
         } else {
@@ -447,15 +447,16 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     private void hideCompletedDownload() {
         int status = mDownloadCursor.getInt(mStatusColumnId);
 
-        int visibilityColumn = mDownloadCursor.getColumnIndexOrThrow(Downloads.COLUMN_VISIBILITY);
+        int visibilityColumn = mDownloadCursor.getColumnIndexOrThrow(
+                Downloads.Impl.COLUMN_VISIBILITY);
         int visibility = mDownloadCursor.getInt(visibilityColumn);
 
-        if (Downloads.isStatusCompleted(status) &&
-                visibility == Downloads.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) {
+        if (Downloads.Impl.isStatusCompleted(status) &&
+                visibility == Downloads.Impl.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) {
             ContentValues values = new ContentValues();
-            values.put(Downloads.COLUMN_VISIBILITY, Downloads.VISIBILITY_VISIBLE);
+            values.put(Downloads.Impl.COLUMN_VISIBILITY, Downloads.Impl.VISIBILITY_VISIBLE);
             getContentResolver().update(
-                    ContentUris.withAppendedId(Downloads.CONTENT_URI,
+                    ContentUris.withAppendedId(Downloads.Impl.CONTENT_URI,
                     mDownloadCursor.getLong(mIdColumnId)), values, null, null);
         }
     }

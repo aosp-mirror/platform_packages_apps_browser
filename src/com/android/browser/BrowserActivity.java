@@ -2850,19 +2850,20 @@ public class BrowserActivity extends Activity
         String cookies = CookieManager.getInstance().getCookie(url);
 
         ContentValues values = new ContentValues();
-        values.put(Downloads.COLUMN_URI, uri.toString());
-        values.put(Downloads.COLUMN_COOKIE_DATA, cookies);
-        values.put(Downloads.COLUMN_USER_AGENT, userAgent);
-        values.put(Downloads.COLUMN_NOTIFICATION_PACKAGE,
+        values.put(Downloads.Impl.COLUMN_URI, uri.toString());
+        values.put(Downloads.Impl.COLUMN_COOKIE_DATA, cookies);
+        values.put(Downloads.Impl.COLUMN_USER_AGENT, userAgent);
+        values.put(Downloads.Impl.COLUMN_NOTIFICATION_PACKAGE,
                 getPackageName());
-        values.put(Downloads.COLUMN_NOTIFICATION_CLASS,
+        values.put(Downloads.Impl.COLUMN_NOTIFICATION_CLASS,
                 BrowserDownloadPage.class.getCanonicalName());
-        values.put(Downloads.COLUMN_VISIBILITY, Downloads.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        values.put(Downloads.COLUMN_MIME_TYPE, mimetype);
-        values.put(Downloads.COLUMN_FILE_NAME_HINT, filename);
-        values.put(Downloads.COLUMN_DESCRIPTION, uri.getHost());
+        values.put(Downloads.Impl.COLUMN_VISIBILITY,
+                Downloads.Impl.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        values.put(Downloads.Impl.COLUMN_MIME_TYPE, mimetype);
+        values.put(Downloads.Impl.COLUMN_FILE_NAME_HINT, filename);
+        values.put(Downloads.Impl.COLUMN_DESCRIPTION, uri.getHost());
         if (contentLength > 0) {
-            values.put(Downloads.COLUMN_TOTAL_BYTES, contentLength);
+            values.put(Downloads.Impl.COLUMN_TOTAL_BYTES, contentLength);
         }
         if (mimetype == null) {
             // We must have long pressed on a link or image to download it. We
@@ -2870,7 +2871,7 @@ public class BrowserActivity extends Activity
             new FetchUrlMimeType(this).execute(values);
         } else {
             final Uri contentUri =
-                    getContentResolver().insert(Downloads.CONTENT_URI, values);
+                    getContentResolver().insert(Downloads.Impl.CONTENT_URI, values);
             viewDownloads(contentUri);
         }
 

@@ -61,15 +61,15 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
 
     public BrowserDownloadAdapter(Context context, Cursor c, int index) {
         super(context, c, index);
-        mFilenameColumnId = c.getColumnIndexOrThrow(Downloads._DATA);
-        mTitleColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_TITLE);
-        mDescColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_DESCRIPTION);
-        mStatusColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_STATUS);
-        mTotalBytesColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_TOTAL_BYTES);
+        mFilenameColumnId = c.getColumnIndexOrThrow(Downloads.Impl._DATA);
+        mTitleColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_TITLE);
+        mDescColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_DESCRIPTION);
+        mStatusColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_STATUS);
+        mTotalBytesColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_TOTAL_BYTES);
         mCurrentBytesColumnId = 
-            c.getColumnIndexOrThrow(Downloads.COLUMN_CURRENT_BYTES);
-        mMimetypeColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_MIME_TYPE);
-        mDateColumnId = c.getColumnIndexOrThrow(Downloads.COLUMN_LAST_MODIFICATION);
+            c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_CURRENT_BYTES);
+        mMimetypeColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_MIME_TYPE);
+        mDateColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_LAST_MODIFICATION);
     }
 
     @Override
@@ -122,10 +122,10 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
                 // We have a filename, so we can build a title from that
                 title = new File(fullFilename).getName();
                 ContentValues values = new ContentValues();
-                values.put(Downloads.COLUMN_TITLE, title);
+                values.put(Downloads.Impl.COLUMN_TITLE, title);
                 // assume "_id" is the first column for the cursor 
                 context.getContentResolver().update(
-                        ContentUris.withAppendedId(Downloads.CONTENT_URI,
+                        ContentUris.withAppendedId(Downloads.Impl.CONTENT_URI,
                         getLong(0)), values, null, null);
             }
         }
@@ -137,7 +137,7 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
         long totalBytes = getLong(mTotalBytesColumnId);
         
         int status = getInt(mStatusColumnId);
-        if (Downloads.isStatusCompleted(status)) { // Download stopped
+        if (Downloads.Impl.isStatusCompleted(status)) { // Download stopped
             View v = convertView.findViewById(R.id.progress_text);
             v.setVisibility(View.GONE);
 
@@ -146,7 +146,7 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
 
             tv = (TextView) convertView.findViewById(R.id.complete_text);
             tv.setVisibility(View.VISIBLE);
-            if (Downloads.isStatusError(status)) {
+            if (Downloads.Impl.isStatusError(status)) {
                 tv.setText(getErrorText(status));
             } else {
                 tv.setText(r.getString(R.string.download_success, 
@@ -173,15 +173,15 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
             v = convertView.findViewById(R.id.complete_text);
             v.setVisibility(View.GONE);
             
-            if (status == Downloads.STATUS_PENDING) {
+            if (status == Downloads.Impl.STATUS_PENDING) {
                 tv.setText(r.getText(R.string.download_pending));
-            } else if (status == Downloads.STATUS_PENDING_PAUSED) {
+            } else if (status == Downloads.Impl.STATUS_PENDING_PAUSED) {
                 tv.setText(r.getText(R.string.download_pending_network));
             } else {
                 ProgressBar pb = (ProgressBar) progress;
 
                 StringBuilder sb = new StringBuilder();
-                if (status == Downloads.STATUS_RUNNING) {
+                if (status == Downloads.Impl.STATUS_RUNNING) {
                     sb.append(r.getText(R.string.download_running));
                 } else {
                     sb.append(r.getText(R.string.download_running_paused));
@@ -214,23 +214,23 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
      */
     public static int getErrorText(int status) {
         switch (status) {
-            case Downloads.STATUS_NOT_ACCEPTABLE:
+            case Downloads.Impl.STATUS_NOT_ACCEPTABLE:
                 return R.string.download_not_acceptable;
                 
-            case Downloads.STATUS_LENGTH_REQUIRED:
+            case Downloads.Impl.STATUS_LENGTH_REQUIRED:
                 return R.string.download_length_required;
                 
-            case Downloads.STATUS_PRECONDITION_FAILED:
+            case Downloads.Impl.STATUS_PRECONDITION_FAILED:
                 return R.string.download_precondition_failed;
                 
-            case Downloads.STATUS_CANCELED:
+            case Downloads.Impl.STATUS_CANCELED:
                 return R.string.download_canceled;
 
-            case Downloads.STATUS_FILE_ERROR:
+            case Downloads.Impl.STATUS_FILE_ERROR:
                 return R.string.download_file_error;
                 
-            case Downloads.STATUS_BAD_REQUEST:
-            case Downloads.STATUS_UNKNOWN_ERROR:
+            case Downloads.Impl.STATUS_BAD_REQUEST:
+            case Downloads.Impl.STATUS_UNKNOWN_ERROR:
             default:
                 return R.string.download_error;
         }
