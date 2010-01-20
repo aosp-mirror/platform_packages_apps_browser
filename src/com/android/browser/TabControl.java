@@ -18,7 +18,11 @@ package com.android.browser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Paint;
 import android.graphics.Picture;
+import android.graphics.Shader;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Message;
@@ -1031,6 +1035,18 @@ class TabControl {
         // settings
         final BrowserSettings s = BrowserSettings.getInstance();
         s.addObserver(w.getSettings()).update(s, null);
+
+        // pick a default
+        {
+            MeshTracker mt = new MeshTracker(2);
+            Paint paint = new Paint();
+            Bitmap bm = BitmapFactory.decodeResource(mActivity.getResources(),
+                                         R.drawable.pattern_carbon_fiber_dark);
+            paint.setShader(new BitmapShader(bm, Shader.TileMode.REPEAT,
+                                             Shader.TileMode.REPEAT));
+            mt.setBGPaint(paint);
+            w.setDragTracker(mt);
+        }
         return w;
     }
 
