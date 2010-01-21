@@ -122,9 +122,6 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean showCancel = getCancelableCount() > 0;
         menu.findItem(R.id.download_menu_cancel_all).setEnabled(showCancel);
-        
-        boolean showClear = getClearableCount() > 0;
-        menu.findItem(R.id.download_menu_clear_all).setEnabled(showClear);
         return super.onPrepareOptionsMenu(menu);
     }
     
@@ -133,10 +130,6 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         switch (item.getItemId()) {
             case R.id.download_menu_cancel_all:
                 promptCancelAll();
-                return true;
-                
-            case R.id.download_menu_clear_all:
-                promptClearList();
                 return true;
         }
         return false;
@@ -300,25 +293,6 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     }
     
     /**
-     * Prompt the user if they would like to clear the download history
-     */
-    private void promptClearList() {
-        new AlertDialog.Builder(this)
-               .setTitle(R.string.download_clear_dlg_title)
-               .setIcon(R.drawable.ssl_icon)
-               .setMessage(R.string.download_clear_dlg_msg)
-               .setPositiveButton(R.string.ok, 
-                       new DialogInterface.OnClickListener() {
-                           public void onClick(DialogInterface dialog, 
-                                   int whichButton) {
-                               clearAllDownloads();
-                           }
-                       })
-                .setNegativeButton(R.string.cancel, null)
-                .show();
-    }
-    
-    /**
      * Return the number of items in the list that can be canceled.
      * @return count
      */
@@ -416,38 +390,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         }
         return count;
     }
-    
-    /**
-     * Clear all stopped downloads, ie canceled (though should not be
-     * there), error and success download items.
-     */
-    private void clearAllDownloads() {
-        if (mDownloadCursor.moveToFirst()) {
-            StringBuilder where = new StringBuilder();
-            boolean firstTime = true;
-            while (!mDownloadCursor.isAfterLast()) {
-                int status = mDownloadCursor.getInt(mStatusColumnId);
-                if (Downloads.Impl.isStatusCompleted(status)) {
-                    if (firstTime) {
-                        firstTime = false;
-                    } else {
-                        where.append(" OR ");
-                    }
-                    where.append("( ");
-                    where.append(Downloads.Impl._ID);
-                    where.append(" = '");
-                    where.append(mDownloadCursor.getLong(mIdColumnId));
-                    where.append("' )");
-                }
-                mDownloadCursor.moveToNext();
-            }
-            if (!firstTime) {
-                getContentResolver().delete(Downloads.Impl.CONTENT_URI,
-                        where.toString(), null);
-            }
-        }
-    }
-    
+
     /**
      * Open the content where the download db cursor currently is
      */
