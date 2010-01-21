@@ -2955,7 +2955,6 @@ public class BrowserActivity extends Activity
         } else {
             final Uri contentUri =
                     getContentResolver().insert(Downloads.Impl.CONTENT_URI, values);
-            viewDownloads(contentUri);
         }
 
     }
@@ -3529,10 +3528,10 @@ public class BrowserActivity extends Activity
 
     /*
      * This method is called as a result of the user selecting the options
-     * menu to see the download window, or when a download changes state. It
-     * shows the download window ontop of the current window.
+     * menu to see the download window. It shows the download window on top of
+     * the current window.
      */
-    /* package */ void viewDownloads(Uri downloadRecord) {
+    private void viewDownloads(Uri downloadRecord) {
         Intent intent = new Intent(this,
                 BrowserDownloadPage.class);
         intent.setData(downloadRecord);
