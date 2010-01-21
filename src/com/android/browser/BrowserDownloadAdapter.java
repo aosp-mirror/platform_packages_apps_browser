@@ -17,8 +17,6 @@
  
 package com.android.browser;
 
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -38,7 +36,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -120,13 +117,8 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
                 title = r.getString(R.string.download_unknown_filename);
             } else {
                 // We have a filename, so we can build a title from that
-                title = new File(fullFilename).getName();
-                ContentValues values = new ContentValues();
-                values.put(Downloads.Impl.COLUMN_TITLE, title);
-                // assume "_id" is the first column for the cursor 
-                context.getContentResolver().update(
-                        ContentUris.withAppendedId(Downloads.Impl.CONTENT_URI,
-                        getLong(0)), values, null, null);
+                title = Downloads.Impl.createTitleFromFilename(context, fullFilename,
+                        getLong(0));
             }
         }
         tv.setText(title);
