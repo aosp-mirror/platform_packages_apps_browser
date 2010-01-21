@@ -603,7 +603,10 @@
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
     <string name="download_sdcard_busy_dlg_msg">The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
- 
+
+    <!-- Title for a dialog informing the user that there is no application on
+            the phone that can open the file that was downloaded -->
+    <string name="download_no_application_title">Cannot open file</string>
     <!-- Message for a dialog informing the user that there is no application on
             the phone that can open the file that was downloaded  -->
     <string name="download_no_application">No application can be found to open this file.</string>

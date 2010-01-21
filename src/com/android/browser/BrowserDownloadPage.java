@@ -413,7 +413,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             startActivity(intent);
         } catch (ActivityNotFoundException ex) {
             new AlertDialog.Builder(this)
-                    .setTitle(R.string.download_failed_generic_dlg_title)
+                    .setTitle(R.string.download_no_application_title)
                     .setIcon(R.drawable.ssl_icon)
                     .setMessage(R.string.download_no_application)
                     .setPositiveButton(R.string.ok, null)
