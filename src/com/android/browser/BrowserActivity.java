@@ -109,7 +109,7 @@ import android.accounts.AccountManagerCallback;
 
 import com.android.common.Patterns;
 
-import com.google.android.googlelogin.GoogleLoginServiceConstants;
+import com.google.android.gsf.GoogleLoginServiceConstants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
