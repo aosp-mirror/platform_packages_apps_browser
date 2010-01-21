@@ -128,7 +128,6 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
        // Start the download
        final Uri contentUri =
            mActivity.getContentResolver().insert(Downloads.Impl.CONTENT_URI, mValues);
-       mActivity.viewDownloads(contentUri);
     }
 
 }
