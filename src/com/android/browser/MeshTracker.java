@@ -101,7 +101,7 @@ import android.webkit.WebView;
         }
 
         private void doit2(float dx, float dy) {
-            final float scale = 0.4f;  // temper how far we actually move
+            final float scale = 0.35f;  // temper how far we actually move
             dx *= scale;
             dy *= scale;
             final float cornerScale = 0.25f;
