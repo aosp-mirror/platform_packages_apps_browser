@@ -1037,7 +1037,7 @@ class TabControl {
         s.addObserver(w.getSettings()).update(s, null);
 
         // pick a default
-        {
+        if (false) {
             MeshTracker mt = new MeshTracker(2);
             Paint paint = new Paint();
             Bitmap bm = BitmapFactory.decodeResource(mActivity.getResources(),
