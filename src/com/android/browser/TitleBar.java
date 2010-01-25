@@ -17,6 +17,9 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -28,6 +31,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Handler;
 import android.os.Message;
+import android.speech.RecognizerIntent;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -54,12 +58,15 @@ public class TitleBar extends LinearLayout {
     private ImageView       mLockIcon;
     private Drawable        mStopDrawable;
     private Drawable        mBookmarkDrawable;
+    private Drawable        mVoiceDrawable;
     private boolean         mInLoad;
     private BrowserActivity mBrowserActivity;
     private Drawable        mGenericFavicon;
     private int             mIconDimension;
     private View            mTitleBg;
     private MyHandler       mHandler;
+    private Intent          mVoiceSearchIntent;
+    private boolean         mInVoiceMode;
 
     private static int LONG_PRESS = 1;
 
@@ -89,6 +96,20 @@ public class TitleBar extends LinearLayout {
                 R.id.progress_horizontal);
         mGenericFavicon = context.getResources().getDrawable(
                 R.drawable.app_web_browser_sm);
+        mVoiceSearchIntent = new Intent(RecognizerIntent.ACTION_WEB_SEARCH);
+        mVoiceSearchIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+        PackageManager pm = context.getPackageManager();
+        ResolveInfo ri = pm.resolveActivity(mVoiceSearchIntent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        if (ri == null) {
+            mVoiceSearchIntent = null;
+        } else {
+            mVoiceDrawable = resources.getDrawable(
+                    android.R.drawable.ic_btn_speak_now);
+        }
+        mStopDrawable = resources.getDrawable(R.drawable.ic_btn_stop_v2);
+        mBookmarkDrawable = mRtButton.getDrawable();
     }
 
     private class MyHandler extends Handler {
@@ -155,7 +176,9 @@ public class TitleBar extends LinearLayout {
                 break;
             case MotionEvent.ACTION_UP:
                 if (mRtButton.isPressed()) {
-                    if (mInLoad) {
+                    if (mInVoiceMode) {
+                        mBrowserActivity.startActivity(mVoiceSearchIntent);
+                    } else if (mInLoad) {
                         mBrowserActivity.stopLoading();
                     } else {
                         mBrowserActivity.bookmarksOrHistoryPicker(false);
@@ -171,14 +194,6 @@ public class TitleBar extends LinearLayout {
                 break;
         }
         return true;
-    }
-
-    /**
-     * Return whether the associated WebView is currently loading.  Needed to
-     * determine whether a click should stop the load or close the tab.
-     */
-    /* package */ boolean isInLoad() {
-        return mInLoad;
     }
 
     /**
@@ -201,6 +216,22 @@ public class TitleBar extends LinearLayout {
     }
 
     /**
+     * Change the TitleBar to or from voice mode.  If there is no package to
+     * handle voice search, the TitleBar cannot be set to voice mode.
+     */
+    /* package */ void setInVoiceMode(boolean inVoiceMode) {
+        if (mInVoiceMode == inVoiceMode) return;
+        mInVoiceMode = inVoiceMode && mVoiceSearchIntent != null;
+        if (mInVoiceMode) {
+            mRtButton.setImageDrawable(mVoiceDrawable);
+        } else if (mInLoad) {
+            mRtButton.setImageDrawable(mStopDrawable);
+        } else {
+            mRtButton.setImageDrawable(mBookmarkDrawable);
+        }
+    }
+
+    /**
      * Set the Drawable for the lock icon, or null to hide it.
      */
     /* package */ void setLock(Drawable d) {
@@ -220,7 +251,7 @@ public class TitleBar extends LinearLayout {
             mTitle.setCompoundDrawables(null, null, null, null);
             ((Animatable) mCircularProgress).stop();
             mHorizontalProgress.setVisibility(View.INVISIBLE);
-            if (mBookmarkDrawable != null) {
+            if (!mInVoiceMode) {
                 mRtButton.setImageDrawable(mBookmarkDrawable);
             }
             mInLoad = false;
@@ -235,13 +266,7 @@ public class TitleBar extends LinearLayout {
                         null);
                 ((Animatable) mCircularProgress).start();
                 mHorizontalProgress.setVisibility(View.VISIBLE);
-                if (mBookmarkDrawable == null) {
-                    mBookmarkDrawable = mRtButton.getDrawable();
-                }
-                if (mStopDrawable == null) {
-                    mRtButton.setImageResource(R.drawable.ic_btn_stop_v2);
-                    mStopDrawable = mRtButton.getDrawable();
-                } else {
+                if (!mInVoiceMode) {
                     mRtButton.setImageDrawable(mStopDrawable);
                 }
                 mInLoad = true;
