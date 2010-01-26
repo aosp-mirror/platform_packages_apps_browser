@@ -242,6 +242,12 @@ public class BrowserActivity extends Activity
         // test the browser in OpenGL
         // requestWindowFeature(Window.FEATURE_OPENGL);
 
+        // enable this to test the browser in 32bit
+        if (false) {
+            getWindow().setFormat(PixelFormat.RGBX_8888);
+            BitmapFactory.setDefaultConfig(Bitmap.Config.ARGB_8888);
+        }
+
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         mResolver = getContentResolver();
