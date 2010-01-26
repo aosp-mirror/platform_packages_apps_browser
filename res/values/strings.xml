@@ -478,6 +478,8 @@
     <string-array name="pref_default_text_encoding_choices">
         <item>Latin-1 (ISO-8859-1)</item>
         <item>Unicode (UTF-8)</item>
+        <item>Chinese (GBK)</item>
+        <item>Chinese (Big5)</item>
         <item>Japanese (ISO-2022-JP)</item>
         <item>Japanese (SHIFT_JIS)</item>
         <item>Japanese (EUC-JP)</item>
@@ -489,6 +491,8 @@
     <string-array name="pref_default_text_encoding_values" translatable="false">
         <item>Latin-1</item>
         <item>UTF-8</item>
+        <item>GBK</item>
+        <item>Big5</item>
         <item>ISO-2022-JP</item>
         <item>SHIFT_JIS</item>
         <item>EUC-JP</item>
