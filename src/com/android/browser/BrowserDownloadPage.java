@@ -26,11 +26,9 @@ import android.content.ContentUris;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Downloads;
-import android.provider.MediaStore;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -68,11 +66,14 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         mListView = (ExpandableListView) findViewById(android.R.id.list);
         mListView.setEmptyView(findViewById(R.id.empty));
         mDownloadCursor = managedQuery(Downloads.Impl.CONTENT_URI,
-                new String [] {"_id", Downloads.Impl.COLUMN_TITLE, Downloads.Impl.COLUMN_STATUS,
-                Downloads.Impl.COLUMN_TOTAL_BYTES, Downloads.Impl.COLUMN_CURRENT_BYTES,
-                Downloads.Impl._DATA, Downloads.Impl.COLUMN_DESCRIPTION,
-                Downloads.Impl.COLUMN_MIME_TYPE, Downloads.Impl.COLUMN_LAST_MODIFICATION,
-                Downloads.Impl.COLUMN_VISIBILITY},
+                new String [] {Downloads.Impl._ID, Downloads.Impl.COLUMN_TITLE,
+                Downloads.Impl.COLUMN_STATUS, Downloads.Impl.COLUMN_TOTAL_BYTES,
+                Downloads.Impl.COLUMN_CURRENT_BYTES,
+                Downloads.Impl.COLUMN_DESCRIPTION,
+                Downloads.Impl.COLUMN_NOTIFICATION_PACKAGE,
+                Downloads.Impl.COLUMN_LAST_MODIFICATION,
+                Downloads.Impl.COLUMN_VISIBILITY,
+                Downloads.Impl.COLUMN_MIME_TYPE},
                 null, Downloads.Impl.COLUMN_LAST_MODIFICATION + " DESC");
         
         // only attach everything to the listbox if we can access
@@ -108,7 +109,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             }
         }
     }
-        
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (mDownloadCursor != null) {
@@ -144,28 +145,6 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                 Downloads.Impl.CONTENT_URI, id), null, null);
     }
 
-    /**
-     * Remove the file from the SD card
-     * @param filename Name of the file to delete.
-     * @param mimetype Mimetype of the file to delete.
-     * @return boolean True on success, false on failure.
-     */
-    private boolean deleteFile(String filename, String mimetype) {
-        Uri uri;
-        if (mimetype.startsWith("image")) {
-            uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        } else if (mimetype.startsWith("audio")) {
-            uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        } else if (mimetype.startsWith("video")) {
-            uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        } else {
-            File file = new File(filename);
-            return file.delete();
-        }
-        return getContentResolver().delete(uri, MediaStore.MediaColumns.DATA
-                + " = " + DatabaseUtils.sqlEscapeString(filename), null) > 0;
-    }
-
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         if (!mDownloadAdapter.moveCursorToPackedChildPosition(
@@ -175,31 +154,20 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         switch (item.getItemId()) {
             case R.id.download_menu_open:
                 hideCompletedDownload();
-                openCurrentDownload();
+                openOrDeleteCurrentDownload(false);
                 return true;
 
             case R.id.download_menu_delete:
-                int filenameColumnId =
-                        mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl._DATA);
-                final String filename = mDownloadCursor.getString(
-                        filenameColumnId);
-                int mimetypeColumnId = mDownloadCursor.getColumnIndexOrThrow(
-                        Downloads.Impl.COLUMN_MIME_TYPE);
-                final String mimetype = mDownloadCursor.getString(
-                        mimetypeColumnId);
-                final long id = mDownloadCursor.getLong(mIdColumnId);
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.download_delete_file)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setMessage(filename)
+                        .setMessage(mDownloadCursor.getString(mTitleColumnId))
                         .setNegativeButton(R.string.cancel, null)
                         .setPositiveButton(R.string.ok,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                             int whichButton) {
-                                        if (deleteFile(filename, mimetype)) {
-                                            clearFromDownloads(id);
-                                        }
+                                        openOrDeleteCurrentDownload(true);
                                     }
                                 })
                         .show();
@@ -392,33 +360,22 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     }
 
     /**
-     * Open the content where the download db cursor currently is
+     * Open or delete content where the download db cursor currently is.  Sends
+     * an Intent to perform the action.
+     * @param delete If true, delete the content.  Otherwise open it.
      */
-    private void openCurrentDownload() {
-        int filenameColumnId = 
-                mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl._DATA);
-        String filename = mDownloadCursor.getString(filenameColumnId);
-        int mimetypeColumnId =
-                mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_MIME_TYPE);
-        String mimetype = mDownloadCursor.getString(mimetypeColumnId);
-        Uri path = Uri.parse(filename);
-        // If there is no scheme, then it must be a file
-        if (path.getScheme() == null) {
-            path = Uri.fromFile(new File(filename));
-        }
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(path, mimetype);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException ex) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.download_no_application_title)
-                    .setIcon(R.drawable.ssl_icon)
-                    .setMessage(R.string.download_no_application)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-        }
+    private void openOrDeleteCurrentDownload(boolean delete) {
+        int packageColumnId = mDownloadCursor.getColumnIndexOrThrow(
+                Downloads.Impl.COLUMN_NOTIFICATION_PACKAGE);
+        String packageName = mDownloadCursor.getString(packageColumnId);
+        Intent intent = new Intent(delete ? Intent.ACTION_DELETE
+                : Downloads.Impl.ACTION_NOTIFICATION_CLICKED);
+        Uri contentUri = ContentUris.withAppendedId(
+                Downloads.Impl.CONTENT_URI,
+                mDownloadCursor.getLong(mIdColumnId));
+        intent.setData(contentUri);
+        intent.setPackage(packageName);
+        sendBroadcast(intent);
     }
 
     @Override
@@ -433,7 +390,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         int status = mDownloadCursor.getInt(mStatusColumnId);
         if (Downloads.Impl.isStatusSuccess(status)) {
             // Open it if it downloaded successfully
-            openCurrentDownload();
+            openOrDeleteCurrentDownload(false);
         } else {
             // Check to see if there is an error.
             checkStatus(id);

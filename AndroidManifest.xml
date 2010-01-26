@@ -33,6 +33,7 @@
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="android.permission.BACKUP_DATA" />
+    <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
 
     <application   android:name="Browser"
                    android:label="@string/application_name"
@@ -194,6 +195,13 @@
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
 
+        <receiver android:name=".OpenDownloadReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>
+                <action android:name="android.intent.action.DELETE"/>
+                <data android:scheme="content" android:mimeType="vnd.android.cursor.item/download"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
