@@ -192,18 +192,26 @@ class TabControl {
             return false;
         }
 
-        // Only remove the tab if it is the current one.
-        if (getCurrentTab() == t) {
+        // Grab the current tab before modifying the list.
+        Tab current = getCurrentTab();
+
+        // Remove t from our list of tabs.
+        mTabs.remove(t);
+
+        // Put the tab in the background only if it is the current one.
+        if (current == t) {
             t.putInBackground();
             mCurrentTab = -1;
+        } else {
+            // If a tab that is earlier in the list gets removed, the current
+            // index no longer points to the correct tab.
+            mCurrentTab = getTabIndex(current);
         }
 
         // destroy the tab
         t.destroy();
         // clear it's references to parent and children
         t.removeFromTree();
-        // Remove it from our list of tabs.
-        mTabs.remove(t);
 
         // The tab indices have shifted, update all the saved state so we point
         // to the correct index.
