@@ -123,6 +123,7 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -408,10 +409,6 @@ public class BrowserActivity extends Activity
                     waitForCredentials();
                 }
             } else {
-                if (extra != null) {
-                    urlData.setPostData(extra
-                            .getByteArray(Browser.EXTRA_POST_DATA));
-                }
                 urlData.loadIn(webView);
             }
         } else {
@@ -464,8 +461,6 @@ public class BrowserActivity extends Activity
             if (urlData.isEmpty()) {
                 urlData = new UrlData(mSettings.getHomePage());
             }
-            urlData.setPostData(intent
-                    .getByteArrayExtra(Browser.EXTRA_POST_DATA));
 
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
@@ -627,6 +622,7 @@ public class BrowserActivity extends Activity
 
     private UrlData getUrlDataFromIntent(Intent intent) {
         String url = null;
+        Map<String, String> headers = null;
         if (intent != null) {
             final String action = intent.getAction();
             if (Intent.ACTION_VIEW.equals(action)) {
@@ -638,12 +634,18 @@ public class BrowserActivity extends Activity
                         url += "?" + mimeType;
                     }
                 }
-                if ("inline:".equals(url)) {
-                    return new InlinedUrlData(
-                            intent.getStringExtra(Browser.EXTRA_INLINE_CONTENT),
-                            intent.getType(),
-                            intent.getStringExtra(Browser.EXTRA_INLINE_ENCODING),
-                            intent.getStringExtra(Browser.EXTRA_INLINE_FAILURL));
+                if (url != null && url.startsWith("http")) {
+                    String[] keys = intent
+                            .getStringArrayExtra(Browser.EXTRA_HEADERS_KEY);
+                    String[] values = intent
+                            .getStringArrayExtra(Browser.EXTRA_HEADERS_VALUE);
+                    if (keys != null && values != null && keys.length > 0
+                            && keys.length == values.length) {
+                        headers = new HashMap<String, String>();
+                        for (int i = 0; i < keys.length; i++) {
+                            headers.put(keys[i], values[i]);
+                        }
+                    }
                 }
             } else if (Intent.ACTION_SEARCH.equals(action)
                     || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
@@ -671,7 +673,7 @@ public class BrowserActivity extends Activity
                 }
             }
         }
-        return new UrlData(url);
+        return new UrlData(url, headers);
     }
 
     /* package */ static String fixUrl(String inUrl) {
@@ -3887,15 +3889,17 @@ public class BrowserActivity extends Activity
      * This base class uses loadUrl to show the content.
      */
     private static class UrlData {
-        String mUrl;
-        byte[] mPostData;
+        final String mUrl;
+        final Map<String, String> mHeaders;
 
         UrlData(String url) {
             this.mUrl = url;
+            this.mHeaders = null;
         }
 
-        void setPostData(byte[] postData) {
-            mPostData = postData;
+        UrlData(String url, Map<String, String> headers) {
+            this.mUrl = url;
+            this.mHeaders = headers;
         }
 
         boolean isEmpty() {
@@ -3903,38 +3907,9 @@ public class BrowserActivity extends Activity
         }
 
         public void loadIn(WebView webView) {
-            if (mPostData != null) {
-                webView.postUrl(mUrl, mPostData);
-            } else {
-                webView.loadUrl(mUrl);
-            }
+            webView.loadUrl(mUrl, mHeaders);
         }
     };
-
-    /**
-     * A subclass of UrlData class that can display inlined content using
-     * {@link WebView#loadDataWithBaseURL(String, String, String, String, String)}.
-     */
-    private static class InlinedUrlData extends UrlData {
-        InlinedUrlData(String inlined, String mimeType, String encoding, String failUrl) {
-            super(failUrl);
-            mInlined = inlined;
-            mMimeType = mimeType;
-            mEncoding = encoding;
-        }
-        String mMimeType;
-        String mInlined;
-        String mEncoding;
-        @Override
-        boolean isEmpty() {
-            return mInlined == null || mInlined.length() == 0 || super.isEmpty();
-        }
-
-        @Override
-        public void loadIn(WebView webView) {
-            webView.loadDataWithBaseURL(null, mInlined, mMimeType, mEncoding, mUrl);
-        }
-    }
 
     /* package */ static final UrlData EMPTY_URL_DATA = new UrlData(null);
 }
