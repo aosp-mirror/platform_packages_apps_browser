@@ -180,7 +180,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
 
             case R.id.download_menu_delete:
                 int filenameColumnId =
-                        mDownloadCursor.getColumnIndexOrThrow(Downloads._DATA);
+                        mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl._DATA);
                 final String filename = mDownloadCursor.getString(
                         filenameColumnId);
                 int mimetypeColumnId = mDownloadCursor.getColumnIndexOrThrow(
