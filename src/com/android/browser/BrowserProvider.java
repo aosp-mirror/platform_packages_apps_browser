@@ -447,7 +447,7 @@ public class BrowserProvider extends ContentProvider {
         private Cursor  mSuggestCursor;
         private int     mHistoryCount;
         private int     mSuggestionCount;
-        private boolean mBeyondCursor;
+        private boolean mIncludeWebSearch;
         private String  mString;
         private int     mSuggestText1Id;
         private int     mSuggestText2Id;
@@ -463,7 +463,7 @@ public class BrowserProvider extends ContentProvider {
                 mSuggestionCount = MAX_SUGGESTION_LONG_ENTRIES - mHistoryCount;
             }
             mString = string;
-            mBeyondCursor = false;
+            mIncludeWebSearch = string.length() > 0;
 
             // Some web suggest providers only give suggestions and have no description string for
             // items. The order of the result columns may be different as well. So retrieve the
@@ -490,21 +490,24 @@ public class BrowserProvider extends ContentProvider {
             if (mHistoryCursor == null) {
                 return false;
             }
+            if (mIncludeWebSearch) {
+                if (newPosition == 0) {
+                    return true;
+                } else {
+                    newPosition--;
+                }
+            }
             if (mHistoryCount > newPosition) {
                 mHistoryCursor.moveToPosition(newPosition);
-                mBeyondCursor = false;
-            } else if (mHistoryCount + mSuggestionCount > newPosition) {
-                mSuggestCursor.moveToPosition(newPosition - mHistoryCount);
-                mBeyondCursor = false;
             } else {
-                mBeyondCursor = true;
+                mSuggestCursor.moveToPosition(newPosition - mHistoryCount);
             }
             return true;
         }
 
         @Override
         public int getCount() {
-            if (mString.length() > 0) {
+            if (mIncludeWebSearch) {
                 return mHistoryCount + mSuggestionCount + 1;
             } else {
                 return mHistoryCount + mSuggestionCount;
@@ -519,43 +522,44 @@ public class BrowserProvider extends ContentProvider {
         @Override
         public String getString(int columnIndex) {
             if ((mPos != -1 && mHistoryCursor != null)) {
+                int position = mIncludeWebSearch ? mPos - 1 : mPos;
                 switch(columnIndex) {
                     case SUGGEST_COLUMN_INTENT_ACTION_ID:
-                        if (mHistoryCount > mPos) {
+                        if (position >= 0 && position < mHistoryCount) {
                             return Intent.ACTION_VIEW;
                         } else {
                             return Intent.ACTION_SEARCH;
                         }
 
                     case SUGGEST_COLUMN_INTENT_DATA_ID:
-                        if (mHistoryCount > mPos) {
+                        if (position >= 0 && position < mHistoryCount) {
                             return mHistoryCursor.getString(1);
                         } else {
                             return null;
                         }
 
                     case SUGGEST_COLUMN_TEXT_1_ID:
-                        if (mHistoryCount > mPos) {
+                        if (position < 0) {
+                            return mString;
+                        } else if (mHistoryCount > position) {
                             return getHistoryTitle();
-                        } else if (!mBeyondCursor) {
+                        } else {
                             if (mSuggestText1Id == -1) return null;
                             return mSuggestCursor.getString(mSuggestText1Id);
-                        } else {
-                            return mString;
                         }
 
                     case SUGGEST_COLUMN_TEXT_2_ID:
-                        if (mHistoryCount > mPos) {
+                        if (position < 0) {
+                            return getContext().getString(R.string.search_the_web);
+                        } else if (mHistoryCount > position) {
                             return getHistorySubtitle();
-                        } else if (!mBeyondCursor) {
+                        } else {
                             if (mSuggestText2Id == -1) return null;
                             return mSuggestCursor.getString(mSuggestText2Id);
-                        } else {
-                            return getContext().getString(R.string.search_the_web);
                         }
 
                     case SUGGEST_COLUMN_ICON_1_ID:
-                        if (mHistoryCount > mPos) {
+                        if (position >= 0 && position < mHistoryCount) {
                             if (mHistoryCursor.getInt(3) == 1) {
                                 return Integer.valueOf(
                                         R.drawable.ic_search_category_bookmark)
@@ -575,30 +579,30 @@ public class BrowserProvider extends ContentProvider {
                         return "0";
 
                     case SUGGEST_COLUMN_QUERY_ID:
-                        if (mHistoryCount > mPos) {
+                        if (position < 0) {
+                            return mString;
+                        } else if (mHistoryCount > position) {
                             // Return the url in the intent query column. This is ignored
                             // within the browser because our searchable is set to
                             // android:searchMode="queryRewriteFromData", but it is used by
                             // global search for query rewriting.
                             return mHistoryCursor.getString(1);
-                        } else if (!mBeyondCursor) {
+                        } else {
                             if (mSuggestQueryId == -1) return null;
                             return mSuggestCursor.getString(mSuggestQueryId);
-                        } else {
-                            return mString;
                         }
 
                     case SUGGEST_COLUMN_FORMAT:
                         return "html";
 
                     case SUGGEST_COLUMN_INTENT_EXTRA_DATA:
-                        if (mHistoryCount > mPos) {
+                        if (position < 0) {
                             return null;
-                        } else if (!mBeyondCursor) {
+                        } else if (mHistoryCount > position) {
+                            return null;
+                        } else {
                             if (mSuggestIntentExtraDataId == -1) return null;
                             return mSuggestCursor.getString(mSuggestIntentExtraDataId);
-                        } else {
-                            return null;
                         }
                 }
             }
