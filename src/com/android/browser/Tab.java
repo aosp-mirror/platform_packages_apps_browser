@@ -17,14 +17,17 @@
 package com.android.browser;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Vector;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -133,6 +136,117 @@ class Tab {
 
     // -------------------------------------------------------------------------
 
+    /**
+     * Private information regarding the latest voice search.  If the Tab is not
+     * in voice search mode, this will be null.
+     */
+    private VoiceSearchData mVoiceSearchData;
+    /**
+     * Return whether the tab is in voice search mode.
+     */
+    public boolean isInVoiceSearchMode() {
+        return mVoiceSearchData != null;
+    }
+    /**
+     * Get the title to display for the current voice search page.  If the Tab
+     * is not in voice search mode, return null.
+     */
+    public String getVoiceDisplayTitle() {
+        if (mVoiceSearchData == null) return null;
+        return mVoiceSearchData.mLastVoiceSearchTitle;
+    }
+    /**
+     * Get the latest array of voice search results, to be passed to the
+     * BrowserProvider.  If the Tab is not in voice search mode, return null.
+     */
+    public ArrayList<String> getVoiceSearchResults() {
+        if (mVoiceSearchData == null) return null;
+        return mVoiceSearchData.mVoiceSearchResults;
+    }
+    /**
+     * Activate voice search mode.
+     * @param intent Intent which has the results to use, or an index into the
+     *      results when reusing the old results.
+     */
+    /* package */ void activateVoiceSearchMode(Intent intent) {
+        ArrayList<String> results = intent.getStringArrayListExtra(
+                    "result_strings");
+        ArrayList<String> urls = intent.getStringArrayListExtra(
+                    "result_urls");
+        if (results != null) {
+            // This tab is now entering voice search mode for the first time, or
+            // a new voice search was done.
+            if (urls == null || results.size() != urls.size()) {
+                throw new AssertionError("improper extras passed in Intent");
+            }
+            mVoiceSearchData = new VoiceSearchData(results, urls);
+        } else {
+            String extraData = intent.getStringExtra(
+                    SearchManager.EXTRA_DATA_KEY);
+            if (extraData != null) {
+                mVoiceSearchData.mLastVoiceSearchIndex
+                        = Integer.parseInt(extraData);
+                if (mVoiceSearchData.mLastVoiceSearchIndex
+                        >= mVoiceSearchData.mVoiceSearchResults.size()) {
+                    throw new AssertionError("index must be less than "
+                            + " size of mVoiceSearchResults");
+                }
+            }
+        }
+        mVoiceSearchData.mLastVoiceSearchTitle
+                = mVoiceSearchData.mVoiceSearchResults.get(mVoiceSearchData.
+                mLastVoiceSearchIndex);
+        if (mInForeground) {
+            mActivity.showVoiceTitleBar(mVoiceSearchData.mLastVoiceSearchTitle);
+        }
+        mVoiceSearchData.mLastVoiceSearchUrl
+                = mVoiceSearchData.mVoiceSearchUrls.get(mVoiceSearchData.
+                mLastVoiceSearchIndex);
+        mMainView.loadUrl(mVoiceSearchData.mLastVoiceSearchUrl);
+    }
+    /* package */ static class VoiceSearchData {
+        /**
+         * Intent action for a voice search.  Will be replaced with a global
+         * variable.
+         */
+        public static final String VOICE_SEARCH_RESULTS
+                = "android.speech.action.VOICE_SEARCH_RESULTS";
+
+        public VoiceSearchData(ArrayList<String> results,
+                ArrayList<String> urls) {
+            mVoiceSearchResults = results;
+            mVoiceSearchUrls = urls;
+            mLastVoiceSearchIndex = 0;
+        }
+        /*
+         * ArrayList of suggestions to be displayed when opening the
+         * SearchManager
+         */
+        public ArrayList<String> mVoiceSearchResults;
+        /*
+         * ArrayList of urls, associated with the suggestions in
+         * mVoiceSearchResults.
+         */
+        public ArrayList<String> mVoiceSearchUrls;
+        /*
+         * The last url provided by voice search.  Used for comparison to see if
+         * we are going to a page by some method besides voice search.  Only
+         * meaningful in voice search mode.
+         */
+        public String mLastVoiceSearchUrl;
+        /**
+         * The last title used for voice search.  Needed to update the title bar
+         * when switching tabs.
+         */
+        public String mLastVoiceSearchTitle;
+        /*
+         * The index into mVoiceSearchResults and mVoiceSearchUrls of the last
+         * voice search performed. Stored so it can be used to index into
+         * mVoiceSearchUrls to determine the url in getUrlDataFromIntent.
+         */
+        public int mLastVoiceSearchIndex;
+    }
+
     // Container class for the next error dialog that needs to be displayed
     private class ErrorDialog {
         public final int mTitle;
@@ -209,6 +323,13 @@ class Tab {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInLoad = true;
+            if (mVoiceSearchData != null
+                    && !url.equals(mVoiceSearchData.mLastVoiceSearchUrl)) {
+                mVoiceSearchData = null;
+                if (mInForeground) {
+                    mActivity.revertVoiceTitleBar();
+                }
+            }
 
             // We've started to load a new page. If there was a pending message
             // to save a screenshot then we will now take the new page and save

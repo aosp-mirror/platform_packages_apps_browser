@@ -67,6 +67,8 @@ public class TitleBar extends LinearLayout {
     private MyHandler       mHandler;
     private Intent          mVoiceSearchIntent;
     private boolean         mInVoiceMode;
+    private Drawable        mVoiceModeBackground;
+    private Drawable        mNormalBackground;
 
     private static int LONG_PRESS = 1;
 
@@ -110,6 +112,9 @@ public class TitleBar extends LinearLayout {
         }
         mStopDrawable = resources.getDrawable(R.drawable.ic_btn_stop_v2);
         mBookmarkDrawable = mRtButton.getDrawable();
+        mVoiceModeBackground = resources.getDrawable(
+                R.drawable.textfield_voice_search);
+        mNormalBackground = mTitleBg.getBackground();
     }
 
     private class MyHandler extends Handler {
@@ -186,7 +191,12 @@ public class TitleBar extends LinearLayout {
                     mRtButton.setPressed(false);
                 } else if (mTitleBg.isPressed()) {
                     mHandler.removeMessages(LONG_PRESS);
-                    mBrowserActivity.onSearchRequested();
+                    if (mInVoiceMode) {
+                        mBrowserActivity.showVoiceSearchResults(
+                                mTitle.getText().toString());
+                    } else {
+                        mBrowserActivity.onSearchRequested();
+                    }
                     mTitleBg.setPressed(false);
                 }
                 break;
@@ -222,13 +232,20 @@ public class TitleBar extends LinearLayout {
     /* package */ void setInVoiceMode(boolean inVoiceMode) {
         if (mInVoiceMode == inVoiceMode) return;
         mInVoiceMode = inVoiceMode && mVoiceSearchIntent != null;
+        Drawable rightButtonDrawable, titleDrawable;
         if (mInVoiceMode) {
-            mRtButton.setImageDrawable(mVoiceDrawable);
-        } else if (mInLoad) {
-            mRtButton.setImageDrawable(mStopDrawable);
+            rightButtonDrawable = mVoiceDrawable;
+            titleDrawable = mVoiceModeBackground;
         } else {
-            mRtButton.setImageDrawable(mBookmarkDrawable);
+            titleDrawable = mNormalBackground;
+            if (mInLoad) {
+                rightButtonDrawable = mStopDrawable;
+            } else {
+                rightButtonDrawable = mBookmarkDrawable;
+            }
         }
+        mTitleBg.setBackgroundDrawable(titleDrawable);
+        mRtButton.setImageDrawable(rightButtonDrawable);
     }
 
     /**
@@ -275,13 +292,15 @@ public class TitleBar extends LinearLayout {
     }
 
     /**
-     * Update the title and url.
+     * Update the text displayed in the title bar.
+     * @param title String to display.  If null, the loading string will be
+     *      shown.
      */
-    /* package */ void setTitleAndUrl(CharSequence title, CharSequence url) {
-        if (url == null) {
+    /* package */ void setDisplayTitle(String title) {
+        if (title == null) {
             mTitle.setText(R.string.title_bar_loading);
         } else {
-            mTitle.setText(url.toString());
+            mTitle.setText(title);
         }
     }
 

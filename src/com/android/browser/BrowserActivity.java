@@ -23,6 +23,8 @@ import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentProvider;
+import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -381,9 +383,11 @@ public class BrowserActivity extends Activity
             // the tab will be close when exit.
             UrlData urlData = getUrlDataFromIntent(intent);
 
+            String action = intent.getAction();
             final Tab t = mTabControl.createNewTab(
-                    Intent.ACTION_VIEW.equals(intent.getAction()) &&
-                    intent.getData() != null,
+                    (Intent.ACTION_VIEW.equals(action) &&
+                    intent.getData() != null)
+                    || Tab.VoiceSearchData.VOICE_SEARCH_RESULTS.equals(action),
                     intent.getStringExtra(Browser.EXTRA_APPLICATION_ID), urlData.mUrl);
             mTabControl.setCurrentTab(t);
             attachTabToContentView(t);
@@ -410,7 +414,7 @@ public class BrowserActivity extends Activity
                     waitForCredentials();
                 }
             } else {
-                urlData.loadIn(webView);
+                urlData.loadIn(t);
             }
         } else {
             // TabControl.restoreState() will create a new tab even if
@@ -423,6 +427,24 @@ public class BrowserActivity extends Activity
         if (jsFlags.trim().length() != 0) {
             mTabControl.getCurrentWebView().setJsFlags(jsFlags);
         }
+    }
+
+    /**
+     * Feed the previously stored results strings to the BrowserProvider so that
+     * the SearchDialog will show them instead of the standard searches.
+     * @param result String to show on the editable line of the SearchDialog.
+     */
+    /* package */ void showVoiceSearchResults(String result) {
+        ContentProviderClient client = mResolver.acquireContentProviderClient(
+                Browser.BOOKMARKS_URI);
+        ContentProvider prov = client.getLocalContentProvider();
+        BrowserProvider bp = (BrowserProvider) prov;
+        bp.setQueryResults(mTabControl.getCurrentTab().getVoiceSearchResults());
+        client.release();
+
+        startSearch(result, false,
+                createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHKEY),
+                false);
     }
 
     @Override
@@ -448,10 +470,13 @@ public class BrowserActivity extends Activity
             // just resume the browser
             return;
         }
+        boolean activateVoiceSearch = Tab.VoiceSearchData.VOICE_SEARCH_RESULTS
+                .equals(action);
         if (Intent.ACTION_VIEW.equals(action)
                 || Intent.ACTION_SEARCH.equals(action)
                 || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
-                || Intent.ACTION_WEB_SEARCH.equals(action)) {
+                || Intent.ACTION_WEB_SEARCH.equals(action)
+                || activateVoiceSearch) {
             // If this was a search request (e.g. search query directly typed into the address bar),
             // pass it on to the default web search provider.
             if (handleWebSearchIntent(intent)) {
@@ -465,7 +490,7 @@ public class BrowserActivity extends Activity
 
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
-            if (Intent.ACTION_VIEW.equals(action)
+            if ((Intent.ACTION_VIEW.equals(action) || activateVoiceSearch)
                     && !getPackageName().equals(appId)
                     && (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
                 Tab appTab = mTabControl.getTabFromId(appId);
@@ -485,14 +510,14 @@ public class BrowserActivity extends Activity
                     if (current != appTab) {
                         switchToTab(mTabControl.getTabIndex(appTab));
                         if (needsLoad) {
-                            urlData.loadIn(appTab.getWebView());
+                            urlData.loadIn(appTab);
                         }
                     } else {
                         // If the tab was the current tab, we have to attach
                         // it to the view system again.
                         attachTabToContentView(appTab);
                         if (needsLoad) {
-                            urlData.loadIn(appTab.getWebView());
+                            urlData.loadIn(appTab);
                         }
                     }
                     return;
@@ -541,7 +566,7 @@ public class BrowserActivity extends Activity
                 }
                 // Get rid of the subwindow if it exists
                 dismissSubWindow(current);
-                urlData.loadIn(current.getWebView());
+                urlData.loadIn(current);
             }
         }
     }
@@ -571,6 +596,9 @@ public class BrowserActivity extends Activity
 
         String url = null;
         final String action = intent.getAction();
+        if (Tab.VoiceSearchData.VOICE_SEARCH_RESULTS.equals(action)) {
+            return false;
+        }
         if (Intent.ACTION_VIEW.equals(action)) {
             Uri data = intent.getData();
             if (data != null) url = data.toString();
@@ -622,7 +650,7 @@ public class BrowserActivity extends Activity
     }
 
     private UrlData getUrlDataFromIntent(Intent intent) {
-        String url = null;
+        String url = "";
         Map<String, String> headers = null;
         if (intent != null) {
             final String action = intent.getAction();
@@ -673,9 +701,22 @@ public class BrowserActivity extends Activity
                 }
             }
         }
-        return new UrlData(url, headers);
+        return new UrlData(url, headers, intent);
     }
+    /* package */ void showVoiceTitleBar(String title) {
+        mTitleBar.setInVoiceMode(true);
+        mFakeTitleBar.setInVoiceMode(true);
 
+        mTitleBar.setDisplayTitle(title);
+        mFakeTitleBar.setDisplayTitle(title);
+    }
+    /* package */ void revertVoiceTitleBar() {
+        mTitleBar.setInVoiceMode(false);
+        mFakeTitleBar.setInVoiceMode(false);
+
+        mTitleBar.setDisplayTitle(mTitle);
+        mFakeTitleBar.setDisplayTitle(mTitle);
+    }
     /* package */ static String fixUrl(String inUrl) {
         // FIXME: Converting the url to lower case
         // duplicates functionality in smartUrlFilter().
@@ -1742,6 +1783,11 @@ public class BrowserActivity extends Activity
 
         WebView view = t.getWebView();
         view.setEmbeddedTitleBar(mTitleBar);
+        if (t.isInVoiceSearchMode()) {
+            showVoiceTitleBar(t.getVoiceDisplayTitle());
+        } else {
+            revertVoiceTitleBar();
+        }
         // Request focus on the top window.
         t.getTopWindow().requestFocus();
     }
@@ -1803,7 +1849,7 @@ public class BrowserActivity extends Activity
             mTabControl.setCurrentTab(tab);
             attachTabToContentView(tab);
             if (!urlData.isEmpty()) {
-                urlData.loadIn(webview);
+                urlData.loadIn(tab);
             }
             return tab;
         } else {
@@ -1811,10 +1857,10 @@ public class BrowserActivity extends Activity
             dismissSubWindow(currentTab);
             if (!urlData.isEmpty()) {
                 // Load the given url.
-                urlData.loadIn(currentTab.getWebView());
+                urlData.loadIn(currentTab);
             }
+            return currentTab;
         }
-        return currentTab;
     }
 
     private Tab openTab(String url) {
@@ -1991,8 +2037,10 @@ public class BrowserActivity extends Activity
         mUrl = url;
         mTitle = title;
 
-        mTitleBar.setTitleAndUrl(title, url);
-        mFakeTitleBar.setTitleAndUrl(title, url);
+        // If we are in voice search mode, the title has already been set.
+        if (mTabControl.getCurrentTab().isInVoiceSearchMode()) return;
+        mTitleBar.setDisplayTitle(url);
+        mFakeTitleBar.setDisplayTitle(url);
     }
 
     /**
@@ -3891,23 +3939,35 @@ public class BrowserActivity extends Activity
     private static class UrlData {
         final String mUrl;
         final Map<String, String> mHeaders;
+        final Intent mVoiceIntent;
 
         UrlData(String url) {
             this.mUrl = url;
             this.mHeaders = null;
+            this.mVoiceIntent = null;
         }
 
-        UrlData(String url, Map<String, String> headers) {
+        UrlData(String url, Map<String, String> headers, Intent intent) {
             this.mUrl = url;
             this.mHeaders = headers;
+            if (Tab.VoiceSearchData.VOICE_SEARCH_RESULTS.equals(
+                    intent.getAction())) {
+                this.mVoiceIntent = intent;
+            } else {
+                this.mVoiceIntent = null;
+            }
         }
 
         boolean isEmpty() {
-            return mUrl == null || mUrl.length() == 0;
+            return mVoiceIntent == null && (mUrl == null || mUrl.length() == 0);
         }
 
-        public void loadIn(WebView webView) {
-            webView.loadUrl(mUrl, mHeaders);
+        public void loadIn(Tab t) {
+            if (mVoiceIntent != null) {
+                t.activateVoiceSearchMode(mVoiceIntent);
+            } else {
+                t.getWebView().loadUrl(mUrl, mHeaders);
+            }
         }
     };
 

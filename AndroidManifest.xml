@@ -55,6 +55,10 @@
                   android:configChanges="orientation|keyboardHidden"
                   android:theme="@style/BrowserTheme"
                   android:windowSoftInputMode="adjustResize" >
+            <intent-filter>
+                <action android:name="android.speech.action.VOICE_SEARCH_RESULTS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <!-- For these schemes were not particular MIME type has been
                  supplied, we are a good candidate. -->
             <intent-filter>
