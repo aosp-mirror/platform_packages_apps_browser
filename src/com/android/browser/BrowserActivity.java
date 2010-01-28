@@ -123,6 +123,7 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -635,15 +636,14 @@ public class BrowserActivity extends Activity
                     }
                 }
                 if (url != null && url.startsWith("http")) {
-                    String[] keys = intent
-                            .getStringArrayExtra(Browser.EXTRA_HEADERS_KEY);
-                    String[] values = intent
-                            .getStringArrayExtra(Browser.EXTRA_HEADERS_VALUE);
-                    if (keys != null && values != null && keys.length > 0
-                            && keys.length == values.length) {
+                    final Bundle pairs = intent
+                            .getBundleExtra(Browser.EXTRA_HEADERS);
+                    if (!pairs.isEmpty()) {
+                        Iterator<String> iter = pairs.keySet().iterator();
                         headers = new HashMap<String, String>();
-                        for (int i = 0; i < keys.length; i++) {
-                            headers.put(keys[i], values[i]);
+                        while (iter.hasNext()) {
+                            String key = iter.next();
+                            headers.put(key, pairs.getString(key));
                         }
                     }
                 }
