@@ -638,7 +638,7 @@ public class BrowserActivity extends Activity
                 if (url != null && url.startsWith("http")) {
                     final Bundle pairs = intent
                             .getBundleExtra(Browser.EXTRA_HEADERS);
-                    if (!pairs.isEmpty()) {
+                    if (pairs != null && !pairs.isEmpty()) {
                         Iterator<String> iter = pairs.keySet().iterator();
                         headers = new HashMap<String, String>();
                         while (iter.hasNext()) {
