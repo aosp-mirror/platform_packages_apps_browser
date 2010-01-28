@@ -18,11 +18,13 @@ package com.android.browser;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.webkit.ConsoleMessage;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,7 +57,7 @@ import java.util.Vector;
     // Before we've been asked to display the console, cache any messages that should
     // be added to the console. Then when we do display the console, add them to the view
     // then.
-    private Vector<ErrorConsoleMessage> mErrorMessageCache;
+    private Vector<ConsoleMessage> mErrorMessageCache;
 
     public ErrorConsoleView(Context context) {
         super(context);
@@ -108,8 +110,8 @@ import java.util.Vector;
 
         // Add any cached messages to the list now that we've assembled the view.
         if (mErrorMessageCache != null) {
-            for (ErrorConsoleMessage msg : mErrorMessageCache) {
-                mErrorList.addErrorMessage(msg.getMessage(), msg.getSourceID(), msg.getLineNumber());
+            for (ConsoleMessage msg : mErrorMessageCache) {
+                mErrorList.addErrorMessage(msg);
             }
             mErrorMessageCache.clear();
         }
@@ -120,14 +122,14 @@ import java.util.Vector;
     /**
      * Adds a message to the set of messages the console uses.
      */
-    public void addErrorMessage(String msg, String sourceId, int lineNumber) {
+    public void addErrorMessage(ConsoleMessage consoleMessage) {
         if (mSetupComplete) {
-            mErrorList.addErrorMessage(msg, sourceId, lineNumber);
+            mErrorList.addErrorMessage(consoleMessage);
         } else {
             if (mErrorMessageCache == null) {
-                mErrorMessageCache = new Vector<ErrorConsoleMessage>();
+                mErrorMessageCache = new Vector<ConsoleMessage>();
             }
-            mErrorMessageCache.add(new ErrorConsoleMessage(msg, sourceId, lineNumber));
+            mErrorMessageCache.add(consoleMessage);
         }
     }
 
@@ -215,8 +217,8 @@ import java.util.Vector;
             setAdapter(mConsoleMessages);
         }
 
-        public void addErrorMessage(String msg, String sourceId, int lineNumber) {
-            mConsoleMessages.add(msg, sourceId, lineNumber);
+        public void addErrorMessage(ConsoleMessage consoleMessage) {
+            mConsoleMessages.add(consoleMessage);
             setSelection(mConsoleMessages.getCount());
         }
 
@@ -231,11 +233,11 @@ import java.util.Vector;
         private class ErrorConsoleMessageList extends android.widget.BaseAdapter
                 implements android.widget.ListAdapter {
 
-            private Vector<ErrorConsoleMessage> mMessages;
+            private Vector<ConsoleMessage> mMessages;
             private LayoutInflater mInflater;
 
             public ErrorConsoleMessageList(Context context) {
-                mMessages = new Vector<ErrorConsoleMessage>();
+                mMessages = new Vector<ConsoleMessage>();
                 mInflater = (LayoutInflater)context.getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
             }
@@ -243,8 +245,8 @@ import java.util.Vector;
             /**
              * Add a new message to the list and update the View.
              */
-            public void add(String msg, String sourceID, int lineNumber) {
-                mMessages.add(new ErrorConsoleMessage(msg, sourceID, lineNumber));
+            public void add(ConsoleMessage consoleMessage) {
+                mMessages.add(consoleMessage);
                 notifyDataSetChanged();
             }
 
@@ -288,7 +290,7 @@ import java.util.Vector;
              */
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view;
-                ErrorConsoleMessage error = mMessages.get(position);
+                ConsoleMessage error = mMessages.get(position);
 
                 if (error == null) {
                     return null;
@@ -302,38 +304,26 @@ import java.util.Vector;
 
                 TextView headline = (TextView) view.findViewById(android.R.id.text1);
                 TextView subText = (TextView) view.findViewById(android.R.id.text2);
-                headline.setText(error.getSourceID() + ":" + error.getLineNumber());
-                subText.setText(error.getMessage());
+                headline.setText(error.sourceId() + ":" + error.lineNumber());
+                subText.setText(error.message());
+                switch (error.messageLevel()) {
+                    case ERROR:
+                        subText.setTextColor(Color.RED);
+                        break;
+                    case WARNING:
+                        // Orange
+                        subText.setTextColor(Color.rgb(255,192,0));
+                        break;
+                    case TIP:
+                        subText.setTextColor(Color.BLUE);
+                        break;
+                    default:
+                        subText.setTextColor(Color.LTGRAY);
+                        break;
+                }
                 return view;
             }
 
-        }
-    }
-
-    /**
-     * This class holds the data for a single error message in the console.
-     */
-    private static class ErrorConsoleMessage {
-        private String mMessage;
-        private String mSourceID;
-        private int mLineNumber;
-
-        public ErrorConsoleMessage(String msg, String sourceID, int lineNumber) {
-            mMessage = msg;
-            mSourceID = sourceID;
-            mLineNumber = lineNumber;
-        }
-
-        public String getMessage() {
-            return mMessage;
-        }
-
-        public String getSourceID() {
-            return mSourceID;
-        }
-
-        public int getLineNumber() {
-            return mLineNumber;
         }
     }
 }

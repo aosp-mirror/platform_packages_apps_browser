@@ -46,6 +46,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.webkit.ConsoleMessage;
 import android.webkit.CookieSyncManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.HttpAuthHandler;
@@ -70,6 +71,11 @@ import android.widget.TextView;
 class Tab {
     // Log Tag
     private static final String LOGTAG = "Tab";
+    // Special case the logtag for messages for the Console to make it easier to
+    // filter them and match the logtag used for these messages in older versions
+    // of the browser.
+    private static final String CONSOLE_LOGTAG = "browser";
+
     // The Geolocation permissions prompt
     private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
     // Main WebView wrapper
@@ -983,24 +989,43 @@ class Tab {
         /* Adds a JavaScript error message to the system log and if the JS
          * console is enabled in the about:debug options, to that console
          * also.
-         * @param message The error message to report.
-         * @param lineNumber The line number of the error.
-         * @param sourceID The name of the source file that caused the error.
+         * @param consoleMessage the message object.
          */
         @Override
-        public void onConsoleMessage(String message, int lineNumber,
-                String sourceID) {
+        public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
             if (mInForeground) {
                 // call getErrorConsole(true) so it will create one if needed
                 ErrorConsoleView errorConsole = getErrorConsole(true);
-                errorConsole.addErrorMessage(message, sourceID, lineNumber);
+                errorConsole.addErrorMessage(consoleMessage);
                 if (mActivity.shouldShowErrorConsole()
                         && errorConsole.getShowState() != ErrorConsoleView.SHOW_MAXIMIZED) {
                     errorConsole.showConsole(ErrorConsoleView.SHOW_MINIMIZED);
                 }
             }
-            Log.w(LOGTAG, "Console: " + message + " " + sourceID + ":"
-                    + lineNumber);
+
+            String message = "Console: " + consoleMessage.message() + " "
+                    + consoleMessage.sourceId() +  ":"
+                    + consoleMessage.lineNumber();
+
+            switch (consoleMessage.messageLevel()) {
+                case TIP:
+                    Log.v(CONSOLE_LOGTAG, message);
+                    break;
+                case LOG:
+                    Log.i(CONSOLE_LOGTAG, message);
+                    break;
+                case WARNING:
+                    Log.w(CONSOLE_LOGTAG, message);
+                    break;
+                case ERROR:
+                    Log.e(CONSOLE_LOGTAG, message);
+                    break;
+                case DEBUG:
+                    Log.d(CONSOLE_LOGTAG, message);
+                    break;
+            }
+
+            return true;
         }
 
         /**
