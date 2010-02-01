@@ -67,6 +67,7 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Downloads;
 import android.provider.MediaStore;
+import android.speech.RecognizerResultsIntent;
 import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -387,7 +388,8 @@ public class BrowserActivity extends Activity
             final Tab t = mTabControl.createNewTab(
                     (Intent.ACTION_VIEW.equals(action) &&
                     intent.getData() != null)
-                    || Tab.VoiceSearchData.VOICE_SEARCH_RESULTS.equals(action),
+                    || RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS
+                    .equals(action),
                     intent.getStringExtra(Browser.EXTRA_APPLICATION_ID), urlData.mUrl);
             mTabControl.setCurrentTab(t);
             attachTabToContentView(t);
@@ -470,8 +472,8 @@ public class BrowserActivity extends Activity
             // just resume the browser
             return;
         }
-        boolean activateVoiceSearch = Tab.VoiceSearchData.VOICE_SEARCH_RESULTS
-                .equals(action);
+        boolean activateVoiceSearch = RecognizerResultsIntent
+                .ACTION_VOICE_SEARCH_RESULTS.equals(action);
         if (Intent.ACTION_VIEW.equals(action)
                 || Intent.ACTION_SEARCH.equals(action)
                 || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
@@ -596,7 +598,8 @@ public class BrowserActivity extends Activity
 
         String url = null;
         final String action = intent.getAction();
-        if (Tab.VoiceSearchData.VOICE_SEARCH_RESULTS.equals(action)) {
+        if (RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS.equals(
+                action)) {
             return false;
         }
         if (Intent.ACTION_VIEW.equals(action)) {
@@ -3950,8 +3953,8 @@ public class BrowserActivity extends Activity
         UrlData(String url, Map<String, String> headers, Intent intent) {
             this.mUrl = url;
             this.mHeaders = headers;
-            if (Tab.VoiceSearchData.VOICE_SEARCH_RESULTS.equals(
-                    intent.getAction())) {
+            if (RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS
+                    .equals(intent.getAction())) {
                 this.mVoiceIntent = intent;
             } else {
                 this.mVoiceIntent = null;

@@ -38,6 +38,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.Browser;
+import android.speech.RecognizerResultsIntent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -170,9 +171,9 @@ class Tab {
      */
     /* package */ void activateVoiceSearchMode(Intent intent) {
         ArrayList<String> results = intent.getStringArrayListExtra(
-                    "result_strings");
+                    RecognizerResultsIntent.EXTRA_VOICE_SEARCH_RESULT_STRINGS);
         ArrayList<String> urls = intent.getStringArrayListExtra(
-                    "result_urls");
+                    RecognizerResultsIntent.EXTRA_VOICE_SEARCH_RESULT_URLS);
         if (results != null) {
             // This tab is now entering voice search mode for the first time, or
             // a new voice search was done.
@@ -205,13 +206,6 @@ class Tab {
         mMainView.loadUrl(mVoiceSearchData.mLastVoiceSearchUrl);
     }
     /* package */ static class VoiceSearchData {
-        /**
-         * Intent action for a voice search.  Will be replaced with a global
-         * variable.
-         */
-        public static final String VOICE_SEARCH_RESULTS
-                = "android.speech.action.VOICE_SEARCH_RESULTS";
-
         public VoiceSearchData(ArrayList<String> results,
                 ArrayList<String> urls) {
             mVoiceSearchResults = results;

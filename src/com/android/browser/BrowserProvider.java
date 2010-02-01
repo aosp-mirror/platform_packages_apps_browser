@@ -43,6 +43,7 @@ import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Settings;
 import android.provider.Browser.BookmarkColumns;
+import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -748,7 +749,7 @@ public class BrowserProvider extends ContentProvider {
         public String getString(int column) {
             switch (column) {
                 case RESULT_ACTION_ID:
-                    return Tab.VoiceSearchData.VOICE_SEARCH_RESULTS;
+                    return RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS;
                 case RESULT_TEXT_ID:
                 // The data is used when the phone is in landscape mode.  We
                 // still want to show the result string.
