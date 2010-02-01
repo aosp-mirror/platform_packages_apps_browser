@@ -243,6 +243,7 @@ public class AddBookmarkPage extends Activity {
             Thread t = new Thread(new SaveBookmarkRunnable(msg));
             t.start();
             setResult(RESULT_OK);
+            LogTag.logBookmarkAdded(url, "bookmarkview");
         }
         return true;
     }

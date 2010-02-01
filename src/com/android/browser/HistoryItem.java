@@ -47,6 +47,7 @@ import android.widget.TextView;
                 if (isChecked) {
                     Bookmarks.addBookmark(mContext,
                             mContext.getContentResolver(), mUrl, getName(), null, true);
+                    LogTag.logBookmarkAdded(mUrl, "history");
                 } else {
                     Bookmarks.removeFromBookmarks(mContext,
                             mContext.getContentResolver(), mUrl, getName());
