@@ -16,7 +16,6 @@
 
 package com.android.browser;
 
-import android.util.Log;
 import android.util.EventLog;
 
 public class LogTag {
@@ -36,11 +35,14 @@ public class LogTag {
      * Log when a page has finished loading with how much
      * time the browser used to load the page.
      *
+     * Note that a redirect will restart the timer, so this time is not
+     * always how long it takes for the user to load a page.
+     *
      * @param url the url of that page that finished loading.
      * @param duration the time the browser spent loading the page.
      */
     public static void logPageFinishedLoading(String url, long duration) {
-        EventLog.writeEvent(EventLogTags.BROWSER_BOOKMARK_ADDED, url + "|"
+        EventLog.writeEvent(EventLogTags.BROWSER_PAGE_LOADED, url + "|"
             + duration);
     }
 
@@ -51,7 +53,7 @@ public class LogTag {
      * @param duration the time spent on the webpage.
      */
     public static void logTimeOnPage(String url, long duration) {
-        EventLog.writeEvent(EventLogTags.BROWSER_BOOKMARK_ADDED, url + "|"
+        EventLog.writeEvent(EventLogTags.BROWSER_TIMEONPAGE, url + "|"
             + duration);
     }
 }
