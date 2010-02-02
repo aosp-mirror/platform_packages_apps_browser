@@ -37,6 +37,7 @@ import android.net.http.SslError;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
+import android.os.SystemClock;
 import android.provider.Browser;
 import android.speech.RecognizerResultsIntent;
 import android.util.Log;
@@ -97,6 +98,8 @@ class Tab {
     private boolean mInForeground;
     // If true, the tab is in loading state.
     private boolean mInLoad;
+    // The time the load started, used to find load page time
+    private long mLoadStartTime;
     // Application identifier used to find tabs that another application wants
     // to reuse.
     private String mAppId;
@@ -317,6 +320,7 @@ class Tab {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInLoad = true;
+            mLoadStartTime = SystemClock.uptimeMillis();
             if (mVoiceSearchData != null
                     && !url.equals(mVoiceSearchData.mLastVoiceSearchUrl)) {
                 mVoiceSearchData = null;
@@ -370,6 +374,8 @@ class Tab {
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            LogTag.logPageFinishedLoading(
+                    url, SystemClock.uptimeMillis() - mLoadStartTime);
             mInLoad = false;
 
             if (mInForeground && !mActivity.didUserStopLoading()
