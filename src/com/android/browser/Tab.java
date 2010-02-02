@@ -173,47 +173,86 @@ class Tab {
      *      results when reusing the old results.
      */
     /* package */ void activateVoiceSearchMode(Intent intent) {
+        int index = 0;
         ArrayList<String> results = intent.getStringArrayListExtra(
                     RecognizerResultsIntent.EXTRA_VOICE_SEARCH_RESULT_STRINGS);
-        ArrayList<String> urls = intent.getStringArrayListExtra(
-                    RecognizerResultsIntent.EXTRA_VOICE_SEARCH_RESULT_URLS);
         if (results != null) {
+            ArrayList<String> urls = intent.getStringArrayListExtra(
+                        RecognizerResultsIntent.EXTRA_VOICE_SEARCH_RESULT_URLS);
+            ArrayList<String> htmls = intent.getStringArrayListExtra(
+                        RecognizerResultsIntent.EXTRA_VOICE_SEARCH_RESULT_HTML);
+            ArrayList<String> baseUrls = intent.getStringArrayListExtra(
+                        RecognizerResultsIntent
+                        .EXTRA_VOICE_SEARCH_RESULT_HTML_BASE_URLS);
             // This tab is now entering voice search mode for the first time, or
             // a new voice search was done.
-            if (urls == null || results.size() != urls.size()) {
+            int size = results.size();
+            if (urls == null || size != urls.size()) {
                 throw new AssertionError("improper extras passed in Intent");
             }
-            mVoiceSearchData = new VoiceSearchData(results, urls);
+            if (htmls == null || htmls.size() != size || baseUrls == null ||
+                    (baseUrls.size() != size && baseUrls.size() != 1)) {
+                // If either of these arrays are empty/incorrectly sized, ignore
+                // them.
+                htmls = null;
+                baseUrls = null;
+            }
+            mVoiceSearchData = new VoiceSearchData(results, urls, htmls,
+                    baseUrls);
         } else {
             String extraData = intent.getStringExtra(
                     SearchManager.EXTRA_DATA_KEY);
             if (extraData != null) {
-                mVoiceSearchData.mLastVoiceSearchIndex
-                        = Integer.parseInt(extraData);
-                if (mVoiceSearchData.mLastVoiceSearchIndex
-                        >= mVoiceSearchData.mVoiceSearchResults.size()) {
+                index = Integer.parseInt(extraData);
+                if (index >= mVoiceSearchData.mVoiceSearchResults.size()) {
                     throw new AssertionError("index must be less than "
                             + " size of mVoiceSearchResults");
                 }
             }
         }
         mVoiceSearchData.mLastVoiceSearchTitle
-                = mVoiceSearchData.mVoiceSearchResults.get(mVoiceSearchData.
-                mLastVoiceSearchIndex);
+                = mVoiceSearchData.mVoiceSearchResults.get(index);
         if (mInForeground) {
             mActivity.showVoiceTitleBar(mVoiceSearchData.mLastVoiceSearchTitle);
         }
+        if (mVoiceSearchData.mVoiceSearchHtmls != null) {
+            // When index was found it was already ensured that it was valid
+            String uriString = mVoiceSearchData.mVoiceSearchHtmls.get(index);
+            if (uriString != null) {
+                Uri dataUri = Uri.parse(uriString);
+                if (RecognizerResultsIntent.URI_SCHEME_INLINE.equals(
+                        dataUri.getScheme())) {
+                    // If there is only one base URL, use it.  If there are
+                    // more, there will be one for each index, so use the base
+                    // URL corresponding to the index.
+                    String baseUrl = mVoiceSearchData.mVoiceSearchBaseUrls.get(
+                            mVoiceSearchData.mVoiceSearchBaseUrls.size() > 1 ?
+                            index : 0);
+                    mVoiceSearchData.mLastVoiceSearchUrl = baseUrl;
+                    mMainView.loadDataWithBaseURL(baseUrl,
+                            uriString.substring(RecognizerResultsIntent
+                            .URI_SCHEME_INLINE.length() + 1), "text/html",
+                            "utf-8", baseUrl);
+                    return;
+                }
+            }
+        }
         mVoiceSearchData.mLastVoiceSearchUrl
-                = mVoiceSearchData.mVoiceSearchUrls.get(mVoiceSearchData.
-                mLastVoiceSearchIndex);
+                = mVoiceSearchData.mVoiceSearchUrls.get(index);
+        if (null == mVoiceSearchData.mLastVoiceSearchUrl) {
+            mVoiceSearchData.mLastVoiceSearchUrl = mActivity.smartUrlFilter(
+                    mVoiceSearchData.mLastVoiceSearchTitle);
+        }
         mMainView.loadUrl(mVoiceSearchData.mLastVoiceSearchUrl);
     }
     /* package */ static class VoiceSearchData {
         public VoiceSearchData(ArrayList<String> results,
-                ArrayList<String> urls) {
+                ArrayList<String> urls, ArrayList<String> htmls,
+                ArrayList<String> baseUrls) {
             mVoiceSearchResults = results;
             mVoiceSearchUrls = urls;
-            mLastVoiceSearchIndex = 0;
+            mVoiceSearchHtmls = htmls;
+            mVoiceSearchBaseUrls = baseUrls;
         }
         /*
          * ArrayList of suggestions to be displayed when opening the
@@ -226,9 +265,20 @@ class Tab {
          */
         public ArrayList<String> mVoiceSearchUrls;
         /*
+         * ArrayList holding content to load for each item in
+         * mVoiceSearchResults.
+         */
+        public ArrayList<String> mVoiceSearchHtmls;
+        /*
+         * ArrayList holding base urls for the items in mVoiceSearchResults.
+         * If non null, this will either have the same size as
+         * mVoiceSearchResults or have a size of 1, in which case all will use
+         * the same base url
+         */
+        public ArrayList<String> mVoiceSearchBaseUrls;
+        /*
          * The last url provided by voice search.  Used for comparison to see if
-         * we are going to a page by some method besides voice search.  Only
-         * meaningful in voice search mode.
+         * we are going to a page by some method besides voice search.
          */
         public String mLastVoiceSearchUrl;
         /**
@@ -236,12 +286,6 @@ class Tab {
          * when switching tabs.
          */
         public String mLastVoiceSearchTitle;
-        /*
-         * The index into mVoiceSearchResults and mVoiceSearchUrls of the last
-         * voice search performed. Stored so it can be used to index into
-         * mVoiceSearchUrls to determine the url in getUrlDataFromIntent.
-         */
-        public int mLastVoiceSearchIndex;
     }
 
     // Container class for the next error dialog that needs to be displayed
