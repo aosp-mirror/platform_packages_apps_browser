@@ -1538,6 +1538,10 @@ public class BrowserActivity extends Activity
                 getTopWindow().debugDump();
                 break;
 
+            case R.id.dump_counters_menu_id:
+                getTopWindow().dumpV8Counters();
+                break;
+
             case R.id.zoom_in_menu_id:
                 getTopWindow().zoomIn();
                 break;
@@ -1642,6 +1646,12 @@ public class BrowserActivity extends Activity
                 final MenuItem nav = menu.findItem(R.id.dump_nav_menu_id);
                 nav.setVisible(isNavDump);
                 nav.setEnabled(isNavDump);
+
+                boolean showDebugSettings = mSettings.showDebugSettings();
+                final MenuItem counter = menu.findItem(R.id.dump_counters_menu_id);
+                counter.setVisible(showDebugSettings);
+                counter.setEnabled(showDebugSettings);
+
                 break;
         }
         mCurrentMenuState = mMenuState;
