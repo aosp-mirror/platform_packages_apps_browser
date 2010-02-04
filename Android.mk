@@ -3,7 +3,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_STATIC_JAVA_LIBRARIES := google-framework
+LOCAL_STATIC_JAVA_LIBRARIES := gsf-client
 
 LOCAL_SRC_FILES := \
         $(call all-subdir-java-files) \

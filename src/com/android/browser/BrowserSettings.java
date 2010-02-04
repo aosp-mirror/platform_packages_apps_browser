@@ -17,7 +17,7 @@
 
 package com.android.browser;
 
-import com.google.android.providers.GoogleSettings.Partner;
+import com.google.android.gsf.GoogleSettingsContract.Partner;
 
 import android.app.ActivityManager;
 import android.content.ContentResolver;
