@@ -50,7 +50,7 @@ import android.util.TypedValue;
 
 import com.android.common.Patterns;
 
-import com.google.android.providers.GoogleSettings.Partner;
+import com.google.android.gsf.GoogleSettingsContract.Partner;
 
 import java.io.File;
 import java.io.FilenameFilter;
