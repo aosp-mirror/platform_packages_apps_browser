@@ -47,7 +47,6 @@ import java.util.List;
  */
 public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
     
-    private int mFilenameColumnId;
     private int mTitleColumnId;
     private int mDescColumnId;
     private int mStatusColumnId;
@@ -58,7 +57,6 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
 
     public BrowserDownloadAdapter(Context context, Cursor c, int index) {
         super(context, c, index);
-        mFilenameColumnId = c.getColumnIndexOrThrow(Downloads.Impl._DATA);
         mTitleColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_TITLE);
         mDescColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_DESCRIPTION);
         mStatusColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_STATUS);
@@ -112,14 +110,7 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
         TextView tv = (TextView) convertView.findViewById(R.id.download_title);
         String title = getString(mTitleColumnId);
         if (title == null) {
-            String fullFilename = getString(mFilenameColumnId);
-            if (fullFilename == null) {
-                title = r.getString(R.string.download_unknown_filename);
-            } else {
-                // We have a filename, so we can build a title from that
-                title = Downloads.Impl.createTitleFromFilename(context, fullFilename,
-                        getLong(0));
-            }
+            title = r.getString(R.string.download_unknown_filename);
         }
         tv.setText(title);
         
