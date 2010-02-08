@@ -479,6 +479,15 @@ public class BrowserActivity extends Activity
                 || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
                 || Intent.ACTION_WEB_SEARCH.equals(action)
                 || activateVoiceSearch) {
+            if (current.isInVoiceSearchMode()) {
+                String title = current.getVoiceDisplayTitle();
+                if (title != null && title.equals(intent.getStringExtra(
+                        SearchManager.QUERY))) {
+                    // The user submitted the same search as the last voice
+                    // search, so do nothing.
+                    return;
+                }
+            }
             // If this was a search request (e.g. search query directly typed into the address bar),
             // pass it on to the default web search provider.
             if (handleWebSearchIntent(intent)) {
