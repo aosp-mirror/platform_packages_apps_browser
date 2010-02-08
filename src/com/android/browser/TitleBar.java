@@ -34,6 +34,7 @@ import android.os.Message;
 import android.speech.RecognizerIntent;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.util.TypedValue;
 import android.view.ContextMenu;
@@ -242,6 +243,7 @@ public class TitleBar extends LinearLayout {
         if (mInVoiceMode) {
             rightButtonDrawable = mVoiceDrawable;
             titleDrawable = mVoiceModeBackground;
+            mTitle.setEllipsize(null);
         } else {
             titleDrawable = mNormalBackground;
             if (mInLoad) {
@@ -249,6 +251,7 @@ public class TitleBar extends LinearLayout {
             } else {
                 rightButtonDrawable = mBookmarkDrawable;
             }
+            mTitle.setEllipsize(TextUtils.TruncateAt.END);
         }
         mTitle.setSingleLine(!mInVoiceMode);
         mTitleBg.setBackgroundDrawable(titleDrawable);
