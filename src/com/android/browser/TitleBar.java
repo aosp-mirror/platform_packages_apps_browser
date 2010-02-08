@@ -199,7 +199,7 @@ public class TitleBar extends LinearLayout {
                     mHandler.removeMessages(LONG_PRESS);
                     if (mInVoiceMode) {
                         mBrowserActivity.showVoiceSearchResults(
-                                mTitle.getText().toString());
+                                mTitle.getText().toString().trim());
                     } else {
                         mBrowserActivity.onSearchRequested();
                     }
