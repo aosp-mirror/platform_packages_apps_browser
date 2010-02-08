@@ -32,6 +32,9 @@ import android.graphics.drawable.PaintDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.speech.RecognizerIntent;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -69,6 +72,7 @@ public class TitleBar extends LinearLayout {
     private boolean         mInVoiceMode;
     private Drawable        mVoiceModeBackground;
     private Drawable        mNormalBackground;
+    private ImageSpan       mArcsSpan;
 
     private static int LONG_PRESS = 1;
 
@@ -113,8 +117,10 @@ public class TitleBar extends LinearLayout {
         mStopDrawable = resources.getDrawable(R.drawable.ic_btn_stop_v2);
         mBookmarkDrawable = mRtButton.getDrawable();
         mVoiceModeBackground = resources.getDrawable(
-                R.drawable.textfield_voice_search);
+                R.drawable.title_voice);
         mNormalBackground = mTitleBg.getBackground();
+        mArcsSpan = new ImageSpan(context, R.drawable.arcs,
+                ImageSpan.ALIGN_BASELINE);
     }
 
     private class MyHandler extends Handler {
@@ -244,6 +250,7 @@ public class TitleBar extends LinearLayout {
                 rightButtonDrawable = mBookmarkDrawable;
             }
         }
+        mTitle.setSingleLine(!mInVoiceMode);
         mTitleBg.setBackgroundDrawable(titleDrawable);
         mRtButton.setImageDrawable(rightButtonDrawable);
     }
@@ -300,7 +307,18 @@ public class TitleBar extends LinearLayout {
         if (title == null) {
             mTitle.setText(R.string.title_bar_loading);
         } else {
-            mTitle.setText(title);
+            if (mInVoiceMode) {
+                // Add two spaces.  The second one will be replaced with an
+                // image, and the first one will put space between it and the
+                // text
+                SpannableString spannable = new SpannableString(title + "  ");
+                int end = spannable.length();
+                spannable.setSpan(mArcsSpan, end - 1, end,
+                        Spanned.SPAN_MARK_POINT);
+                mTitle.setText(spannable);
+            } else {
+                mTitle.setText(title);
+            }
         }
     }
 
