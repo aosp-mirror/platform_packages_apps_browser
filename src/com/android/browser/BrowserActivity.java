@@ -128,8 +128,11 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -339,6 +342,12 @@ public class BrowserActivity extends Activity
                     // if it is replacing, refreshPlugins() when adding
                     return;
                 }
+
+                if (sGoogleApps.contains(packageName)) {
+                    BrowserActivity.this.packageChanged(packageName,
+                            Intent.ACTION_PACKAGE_ADDED.equals(action));
+                }
+
                 PackageManager pm = BrowserActivity.this.getPackageManager();
                 PackageInfo pkgInfo = null;
                 try {
@@ -431,6 +440,8 @@ public class BrowserActivity extends Activity
         if (jsFlags.trim().length() != 0) {
             mTabControl.getCurrentWebView().setJsFlags(jsFlags);
         }
+        // Work out which packages are installed on the system.
+        getInstalledPackages();
     }
 
     /**
@@ -3804,6 +3815,54 @@ public class BrowserActivity extends Activity
         }
     }
 
+    private void packageChanged(String packageName, boolean wasAdded) {
+        WebView w = mTabControl.getCurrentWebView();
+        if (w == null) {
+            return;
+        }
+
+        if (wasAdded) {
+            w.addPackageName(packageName);
+        } else {
+            w.removePackageName(packageName);
+        }
+    }
+
+    private void addPackageNames(Set<String> packageNames) {
+        WebView w = mTabControl.getCurrentWebView();
+        if (w == null) {
+            return;
+        }
+
+        w.addPackageNames(packageNames);
+    }
+
+    private void getInstalledPackages() {
+        AsyncTask<Void, Void, Set<String> > task =
+            new AsyncTask<Void, Void, Set<String> >() {
+            protected Set<String> doInBackground(Void... unused) {
+                Set<String> installedPackages = new HashSet<String>();
+                PackageManager pm = BrowserActivity.this.getPackageManager();
+                if (pm != null) {
+                    List<PackageInfo> packages = pm.getInstalledPackages(0);
+                    for (PackageInfo p : packages) {
+                        if (BrowserActivity.this.sGoogleApps.contains(p.packageName)) {
+                            installedPackages.add(p.packageName);
+                        }
+                    }
+                }
+
+                return installedPackages;
+            }
+
+            // Executes on the UI thread
+            protected void onPostExecute(Set<String> installedPackages) {
+                addPackageNames(installedPackages);
+            }
+        };
+        task.execute();
+    }
+
     final static int LOCK_ICON_UNSECURE = 0;
     final static int LOCK_ICON_SECURE   = 1;
     final static int LOCK_ICON_MIXED    = 2;
@@ -3969,6 +4028,14 @@ public class BrowserActivity extends Activity
     private Bitmap mDefaultVideoPoster;
     // the video progress view
     private View mVideoProgressView;
+
+    // The Google packages we monitor for the navigator.isApplicationInstalled()
+    // API. Add as needed.
+    private static Set<String> sGoogleApps;
+    static {
+        sGoogleApps = new HashSet<String>();
+        sGoogleApps.add("com.google.android.youtube");
+    }
 
     /**
      * A UrlData class to abstract how the content will be set to WebView.
