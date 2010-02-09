@@ -47,6 +47,7 @@ import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
+import android.webkit.GeolocationPermissions;
 
 import com.android.common.Patterns;
 
@@ -72,7 +73,7 @@ public class BrowserProvider extends ContentProvider {
             "viewer?source=androidclient";
 
     private static final String[] TABLE_NAMES = new String[] {
-        "bookmarks", "searches"
+        "bookmarks", "searches", "geolocation"
     };
     private static final String[] SUGGEST_PROJECTION = new String[] {
             "_id", "url", "title", "bookmark", "user_entered"
@@ -114,6 +115,7 @@ public class BrowserProvider extends ContentProvider {
     // make sure that these match the index of TABLE_NAMES
     private static final int URI_MATCH_BOOKMARKS = 0;
     private static final int URI_MATCH_SEARCHES = 1;
+    private static final int URI_MATCH_GEOLOCATION = 2;
     // (id % 10) should match the table name index
     private static final int URI_MATCH_BOOKMARKS_ID = 10;
     private static final int URI_MATCH_SEARCHES_ID = 11;
@@ -138,6 +140,8 @@ public class BrowserProvider extends ContentProvider {
         URI_MATCHER.addURI("browser",
                 TABLE_NAMES[URI_MATCH_BOOKMARKS] + "/" + SearchManager.SUGGEST_URI_PATH_QUERY,
                 URI_MATCH_BOOKMARKS_SUGGEST);
+        URI_MATCHER.addURI("browser", TABLE_NAMES[URI_MATCH_GEOLOCATION],
+                URI_MATCH_GEOLOCATION);
     }
 
     // 1 -> 2 add cache table
@@ -813,6 +817,9 @@ public class BrowserProvider extends ContentProvider {
         if (match == -1) {
             throw new IllegalArgumentException("Unknown URL");
         }
+        if (match == URI_MATCH_GEOLOCATION) {
+            throw new UnsupportedOperationException("query() not supported for geolocation");
+        }
         if (match == URI_MATCH_SUGGEST && mResultsCursor != null) {
             Cursor results = mResultsCursor;
             mResultsCursor = null;
@@ -913,6 +920,9 @@ public class BrowserProvider extends ContentProvider {
             case URI_MATCH_SUGGEST:
                 return SearchManager.SUGGEST_MIME_TYPE;
 
+            case URI_MATCH_GEOLOCATION:
+                return "vnd.android.cursor.dir/geolocation";
+
             default:
                 throw new IllegalArgumentException("Unknown URL");
         }
@@ -949,6 +959,16 @@ public class BrowserProvider extends ContentProvider {
                 break;
             }
 
+            case URI_MATCH_GEOLOCATION:
+                String origin = initialValues.getAsString(Browser.GeolocationColumns.ORIGIN);
+                if (TextUtils.isEmpty(origin)) {
+                    throw new IllegalArgumentException("Empty origin");
+                }
+                GeolocationPermissions.getInstance().allow(origin);
+                // TODO: Should we have one URI per permission?
+                uri = Browser.GEOLOCATION_URI;
+                break;
+
             default:
                 throw new IllegalArgumentException("Unknown URL");
         }
@@ -976,6 +996,10 @@ public class BrowserProvider extends ContentProvider {
         int match = URI_MATCHER.match(url);
         if (match == -1 || match == URI_MATCH_SUGGEST) {
             throw new IllegalArgumentException("Unknown URL");
+        }
+
+        if (match == URI_MATCH_GEOLOCATION) {
+            return deleteGeolocation(url, where, whereArgs);
         }
 
         // need to know whether it's the bookmarks table for a couple of reasons
@@ -1014,6 +1038,19 @@ public class BrowserProvider extends ContentProvider {
         int count = db.delete(TABLE_NAMES[match % 10], where, whereArgs);
         cr.notifyChange(url, null);
         return count;
+    }
+
+    private int deleteGeolocation(Uri uri, String where, String[] whereArgs) {
+        if (whereArgs.length != 1) {
+            throw new IllegalArgumentException("Bad where arguments");
+        }
+        String origin = whereArgs[0];
+        if (TextUtils.isEmpty(origin)) {
+            throw new IllegalArgumentException("Empty origin");
+        }
+        GeolocationPermissions.getInstance().clear(origin);
+        getContext().getContentResolver().notifyChange(Browser.GEOLOCATION_URI, null);
+        return 1;  // We always return 1, to avoid having to check whether anything was actually removed
     }
 
     @Override

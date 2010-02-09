@@ -48,6 +48,8 @@
                   android:writePermission="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS">
             <path-permission android:path="/bookmarks/search_suggest_query"
                     android:readPermission="android.permission.GLOBAL_SEARCH" />
+            <path-permission android:path="/geolocation"
+                    android:writePermission="com.android.browser.permission.WRITE_GEOLOCATION_PERMISSIONS" />
         </provider>
         <activity android:name="BrowserActivity"
                   android:label="@string/application_name"
