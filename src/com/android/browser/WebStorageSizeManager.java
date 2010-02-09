@@ -209,6 +209,9 @@ class WebStorageSizeManager {
      * @param databaseIdentifier the identifier of the database on
      *     which the transaction that caused the quota overflow was run
      * @param currentQuota the current quota for the origin.
+     * @param estimatedSize the estimated size of a new database, or 0 if
+     *     this has been invoked in response to an existing database
+     *     overflowing its quota.
      * @param totalUsedQuota is the sum of all origins' quota.
      * @param quotaUpdater The callback to run when a decision to allow or
      *     deny quota has been made. Don't forget to call this!
@@ -248,7 +251,8 @@ class WebStorageSizeManager {
             }
             return;
         }
-        // We have enough space inside mGlobalLimit.
+
+        // We have some space inside mGlobalLimit.
         long newOriginQuota = currentQuota;
         if (newOriginQuota == 0) {
             // This is a new origin, give it the size it asked for if possible.
@@ -260,19 +264,31 @@ class WebStorageSizeManager {
             } else {
                 if (LOGV_ENABLED) {
                     Log.v(LOGTAG,
-                          "onExceededDatabaseQuota: Unable to satisfy" +
-                          " estimatedSize for the new database " +
-                          " (estimatedSize: " + estimatedSize +
-                          ", unused quota: " + totalUnusedQuota);
+                            "onExceededDatabaseQuota: Unable to satisfy" +
+                            " estimatedSize for the new database " +
+                            " (estimatedSize: " + estimatedSize +
+                            ", unused quota: " + totalUnusedQuota);
                 }
                 newOriginQuota = 0;
             }
         } else {
             // This is an origin we have seen before. It wants a quota
-            // increase.
-            newOriginQuota +=
-                Math.min(QUOTA_INCREASE_STEP, totalUnusedQuota);
+            // increase. There are two circumstances: either the origin
+            // is creating a new database or it has overflowed an existing database.
+
+            // Increase the quota. If estimatedSize == 0, then this is a quota overflow
+            // rather than the creation of a new database.
+            long quotaIncrease = estimatedSize == 0 ?
+                    Math.min(QUOTA_INCREASE_STEP, totalUnusedQuota) :
+                    estimatedSize;
+            newOriginQuota += quotaIncrease;
+
+            if (quotaIncrease > totalUnusedQuota) {
+                // We can't fit, so deny quota.
+                newOriginQuota = currentQuota;
+            }
         }
+
         quotaUpdater.updateQuota(newOriginQuota);
 
         if(LOGV_ENABLED) {
