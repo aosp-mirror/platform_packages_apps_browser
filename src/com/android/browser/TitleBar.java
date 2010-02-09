@@ -48,6 +48,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.common.speech.LoggingEvents;
+
 /**
  * This class represents a title bar for a particular "tab" or "window" in the
  * browser.
@@ -189,6 +191,14 @@ public class TitleBar extends LinearLayout {
             case MotionEvent.ACTION_UP:
                 if (mRtButton.isPressed()) {
                     if (mInVoiceMode) {
+                        if (mBrowserActivity.getTabControl().getCurrentTab()
+                                .voiceSearchSourceIsGoogle()) {
+                            Intent i = new Intent(
+                                    LoggingEvents.ACTION_LOG_EVENT);
+                            i.putExtra(LoggingEvents.EXTRA_EVENT,
+                                    LoggingEvents.VoiceSearch.RETRY);
+                            mBrowserActivity.sendBroadcast(i);
+                        }
                         mBrowserActivity.startActivity(mVoiceSearchIntent);
                     } else if (mInLoad) {
                         mBrowserActivity.stopLoading();
@@ -199,6 +209,14 @@ public class TitleBar extends LinearLayout {
                 } else if (mTitleBg.isPressed()) {
                     mHandler.removeMessages(LONG_PRESS);
                     if (mInVoiceMode) {
+                        if (mBrowserActivity.getTabControl().getCurrentTab()
+                                .voiceSearchSourceIsGoogle()) {
+                            Intent i = new Intent(
+                                    LoggingEvents.ACTION_LOG_EVENT);
+                            i.putExtra(LoggingEvents.EXTRA_EVENT,
+                                    LoggingEvents.VoiceSearch.N_BEST_REVEAL);
+                            mBrowserActivity.sendBroadcast(i);
+                        }
                         mBrowserActivity.showVoiceSearchResults(
                                 mTitle.getText().toString().trim());
                     } else {
