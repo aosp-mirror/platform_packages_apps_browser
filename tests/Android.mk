@@ -31,7 +31,4 @@ LOCAL_PACKAGE_NAME := BrowserTests
 
 LOCAL_INSTRUMENTATION_FOR := Browser
 
-LOCAL_SDK_VERSION := current
-
 include $(BUILD_PACKAGE)
-

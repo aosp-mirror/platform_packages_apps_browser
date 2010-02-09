@@ -8,7 +8,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
         gsf-client
 
 LOCAL_SRC_FILES := \
-        $(call all-subdir-java-files) \
+        $(call all-java-files-under, src) \
         src/com/android/browser/EventLogTags.logtags
 
 LOCAL_PACKAGE_NAME := Browser
