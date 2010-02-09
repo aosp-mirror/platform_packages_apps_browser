@@ -111,6 +111,7 @@ import android.accounts.OperationCanceledException;
 import android.accounts.AccountManagerCallback;
 
 import com.android.common.Patterns;
+import com.android.common.speech.LoggingEvents;
 
 import com.google.android.gsf.GoogleLoginServiceConstants;
 
@@ -486,6 +487,20 @@ public class BrowserActivity extends Activity
                     // The user submitted the same search as the last voice
                     // search, so do nothing.
                     return;
+                }
+                if (Intent.ACTION_SEARCH.equals(action)
+                        && current.voiceSearchSourceIsGoogle()) {
+                    Intent logIntent = new Intent(
+                            LoggingEvents.ACTION_LOG_EVENT);
+                    logIntent.putExtra(LoggingEvents.EXTRA_EVENT,
+                            LoggingEvents.VoiceSearch.QUERY_UPDATED);
+                    logIntent.putExtra(
+                            LoggingEvents.VoiceSearch.EXTRA_QUERY_UPDATED_VALUE,
+                            intent.getDataString());
+                    sendBroadcast(logIntent);
+                    // Note, onPageStarted will revert the voice title bar
+                    // When http://b/issue?id=2379215 is fixed, we should update
+                    // the title bar here.
                 }
             }
             // If this was a search request (e.g. search query directly typed into the address bar),

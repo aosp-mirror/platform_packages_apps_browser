@@ -65,6 +65,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.common.speech.LoggingEvents;
+
 /**
  * Class for maintaining Tabs with a main WebView and a subwindow.
  */
@@ -158,6 +160,13 @@ class Tab {
         return mVoiceSearchData != null;
     }
     /**
+     * Return true if the voice search Intent came with a String identifying
+     * that Google provided the Intent.
+     */
+    public boolean voiceSearchSourceIsGoogle() {
+        return mVoiceSearchData != null && mVoiceSearchData.mSourceIsGoogle;
+    }
+    /**
      * Get the title to display for the current voice search page.  If the Tab
      * is not in voice search mode, return null.
      */
@@ -205,6 +214,8 @@ class Tab {
             }
             mVoiceSearchData = new VoiceSearchData(results, urls, htmls,
                     baseUrls);
+            mVoiceSearchData.mSourceIsGoogle = intent.getBooleanExtra(
+                    VoiceSearchData.SOURCE_IS_GOOGLE, false);
         } else {
             String extraData = intent.getStringExtra(
                     SearchManager.EXTRA_DATA_KEY);
@@ -213,6 +224,16 @@ class Tab {
                 if (index >= mVoiceSearchData.mVoiceSearchResults.size()) {
                     throw new AssertionError("index must be less than "
                             + " size of mVoiceSearchResults");
+                }
+                if (mVoiceSearchData.mSourceIsGoogle) {
+                    Intent logIntent = new Intent(
+                            LoggingEvents.ACTION_LOG_EVENT);
+                    logIntent.putExtra(LoggingEvents.EXTRA_EVENT,
+                            LoggingEvents.VoiceSearch.N_BEST_CHOOSE);
+                    logIntent.putExtra(
+                            LoggingEvents.VoiceSearch.EXTRA_N_BEST_CHOOSE_INDEX,
+                            index);
+                    mActivity.sendBroadcast(logIntent);
                 }
             }
         }
@@ -292,6 +313,16 @@ class Tab {
          * when switching tabs.
          */
         public String mLastVoiceSearchTitle;
+        /**
+         * Whether the Intent which turned on voice search mode contained the
+         * String signifying that Google was the source.
+         */
+        public boolean mSourceIsGoogle;
+        /**
+         * String used to identify Google as the source of voice search.
+         */
+        public static String SOURCE_IS_GOOGLE
+                = "android.speech.extras.SOURCE_IS_GOOGLE";
     }
 
     // Container class for the next error dialog that needs to be displayed
@@ -373,6 +404,11 @@ class Tab {
             mLoadStartTime = SystemClock.uptimeMillis();
             if (mVoiceSearchData != null
                     && !url.equals(mVoiceSearchData.mLastVoiceSearchUrl)) {
+                if (mVoiceSearchData.mSourceIsGoogle) {
+                    Intent i = new Intent(LoggingEvents.ACTION_LOG_EVENT);
+                    i.putExtra(LoggingEvents.EXTRA_FLUSH, true);
+                    mActivity.sendBroadcast(i);
+                }
                 mVoiceSearchData = null;
                 if (mInForeground) {
                     mActivity.revertVoiceTitleBar();
