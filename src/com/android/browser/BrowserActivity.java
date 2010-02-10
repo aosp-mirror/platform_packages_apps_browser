@@ -111,6 +111,7 @@ import android.accounts.OperationCanceledException;
 import android.accounts.AccountManagerCallback;
 
 import com.android.common.Patterns;
+import com.android.common.Search;
 import com.android.common.speech.LoggingEvents;
 
 import com.google.android.gsf.GoogleLoginServiceConstants;
@@ -718,7 +719,7 @@ public class BrowserActivity extends Activity
                         String source = null;
                         final Bundle appData = intent.getBundleExtra(SearchManager.APP_DATA);
                         if (appData != null) {
-                            source = appData.getString(SearchManager.SOURCE);
+                            source = appData.getString(Search.SOURCE);
                         }
                         if (TextUtils.isEmpty(source)) {
                             source = GOOGLE_SEARCH_SOURCE_UNKNOWN;
@@ -1332,7 +1333,7 @@ public class BrowserActivity extends Activity
 
     private Bundle createGoogleSearchSourceBundle(String source) {
         Bundle bundle = new Bundle();
-        bundle.putString(SearchManager.SOURCE, source);
+        bundle.putString(Search.SOURCE, source);
         return bundle;
     }
 
