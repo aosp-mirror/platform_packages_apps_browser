@@ -220,7 +220,7 @@ public class TitleBar extends LinearLayout {
                         mBrowserActivity.showVoiceSearchResults(
                                 mTitle.getText().toString().trim());
                     } else {
-                        mBrowserActivity.onSearchRequested();
+                        mBrowserActivity.editUrl();
                     }
                     mTitleBg.setPressed(false);
                 }

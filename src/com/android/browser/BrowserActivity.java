@@ -1348,18 +1348,16 @@ public class BrowserActivity extends Activity
         return bundle;
     }
 
-    /**
-     * Overriding this to insert a local information bundle
-     */
-    @Override
-    public boolean onSearchRequested() {
+    /* package */ void editUrl() {
         if (mOptionsMenuOpen) closeOptionsMenu();
         String url = (getTopWindow() == null) ? null : getTopWindow().getUrl();
         startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
-                createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHKEY), false);
-        return true;
+                null, false);
     }
 
+    /**
+     * Overriding this to insert a local information bundle
+     */
     @Override
     public void startSearch(String initialQuery, boolean selectInitialQuery,
             Bundle appSearchData, boolean globalSearch) {
@@ -1469,7 +1467,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.goto_menu_id:
-                onSearchRequested();
+                editUrl();
                 break;
 
             case R.id.bookmarks_menu_id:
