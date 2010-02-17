@@ -422,12 +422,12 @@ public class BrowserActivity extends Activity
 
             if (urlData.isEmpty()) {
                 if (mSettings.isLoginInitialized()) {
-                    webView.loadUrl(mSettings.getHomePage());
+                    loadUrl(webView, mSettings.getHomePage());
                 } else {
                     waitForCredentials();
                 }
             } else {
-                urlData.loadIn(t);
+		loadUrlDataIn(t, urlData);
             }
         } else {
             // TabControl.restoreState() will create a new tab even if
@@ -548,14 +548,14 @@ public class BrowserActivity extends Activity
                     if (current != appTab) {
                         switchToTab(mTabControl.getTabIndex(appTab));
                         if (needsLoad) {
-                            urlData.loadIn(appTab);
+		            loadUrlDataIn(appTab, urlData);
                         }
                     } else {
                         // If the tab was the current tab, we have to attach
                         // it to the view system again.
                         attachTabToContentView(appTab);
                         if (needsLoad) {
-                            urlData.loadIn(appTab);
+		            loadUrlDataIn(appTab, urlData);
                         }
                     }
                     return;
@@ -604,7 +604,7 @@ public class BrowserActivity extends Activity
                 }
                 // Get rid of the subwindow if it exists
                 dismissSubWindow(current);
-                urlData.loadIn(current);
+		loadUrlDataIn(current, urlData);
             }
         }
     }
@@ -1226,7 +1226,7 @@ public class BrowserActivity extends Activity
         // Load the page
         WebView w = mTabControl.getCurrentWebView();
         if (w != null) {
-            w.loadUrl(mSettings.getHomePage());
+            loadUrl(w, mSettings.getHomePage());
         }
 
         // Update the settings, need to do this last as it can take a moment
@@ -1523,7 +1523,7 @@ public class BrowserActivity extends Activity
                 Tab current = mTabControl.getCurrentTab();
                 if (current != null) {
                     dismissSubWindow(current);
-                    current.getWebView().loadUrl(mSettings.getHomePage());
+                    loadUrl(current.getWebView(), mSettings.getHomePage());
                 }
                 break;
 
@@ -1896,7 +1896,7 @@ public class BrowserActivity extends Activity
             mTabControl.setCurrentTab(tab);
             attachTabToContentView(tab);
             if (!urlData.isEmpty()) {
-                urlData.loadIn(tab);
+		loadUrlDataIn(tab, urlData);
             }
             return tab;
         } else {
@@ -1904,7 +1904,7 @@ public class BrowserActivity extends Activity
             dismissSubWindow(currentTab);
             if (!urlData.isEmpty()) {
                 // Load the given url.
-                urlData.loadIn(currentTab);
+		loadUrlDataIn(currentTab, urlData);
             }
             return currentTab;
         }
@@ -1915,7 +1915,7 @@ public class BrowserActivity extends Activity
             Tab t = mTabControl.createNewTab();
             if (t != null) {
                 WebView view = t.getWebView();
-                view.loadUrl(url);
+                loadUrl(view, url);
             }
             return t;
         } else {
@@ -2359,7 +2359,7 @@ public class BrowserActivity extends Activity
                     switch (msg.arg1) {
                         case R.id.open_context_menu_id:
                         case R.id.view_image_context_menu_id:
-                            loadURL(getTopWindow(), url);
+                            loadUrlFromContext(getTopWindow(), url);
                             break;
                         case R.id.open_newtab_context_menu_id:
                             final Tab parent = mTabControl.getCurrentTab();
@@ -2424,7 +2424,7 @@ public class BrowserActivity extends Activity
                 }
 
                 case LOAD_URL:
-                    loadURL(getTopWindow(), (String) msg.obj);
+                    loadUrlFromContext(getTopWindow(), (String) msg.obj);
                     break;
 
                 case STOP_LOAD:
@@ -2603,6 +2603,10 @@ public class BrowserActivity extends Activity
     /* package */ final static String SCHEME_WTAI_SD = "wtai://wp/sd;";
     /* package */ final static String SCHEME_WTAI_AP = "wtai://wp/ap;";
 
+    // Keep this initial progress in sync with initialProgressValue (* 100)
+    // in ProgressTracker.cpp
+    private final static int INITIAL_PROGRESS = 10;
+
     void onPageStarted(WebView view, String url, Bitmap favicon) {
         // when BrowserActivity just starts, onPageStarted may be called before
         // onResume as it is triggered from onCreate. Call resumeWebViewTimers
@@ -2613,11 +2617,9 @@ public class BrowserActivity extends Activity
         resetLockIcon(url);
         setUrlTitle(url, null);
         setFavicon(favicon);
-        // Keep this initial progress in sync with initialProgressValue (* 100)
-        // in ProgressTracker.cpp
         // Show some progress so that the user knows the page is beginning to
         // load
-        onProgressChanged(view, 10);
+        onProgressChanged(view, INITIAL_PROGRESS);
         mDidStopLoad = false;
         if (!mIsNetworkUp) createAndShowNetworkDialog();
 
@@ -3601,7 +3603,7 @@ public class BrowserActivity extends Activity
                                 mTabControl.getCurrentTab();
                         dismissSubWindow(currentTab);
                         if (data != null && data.length() != 0) {
-                            getTopWindow().loadUrl(data);
+                            loadUrl(getTopWindow(), data);
                         }
                     }
                 }
@@ -3685,13 +3687,53 @@ public class BrowserActivity extends Activity
     }
 
     // Called when loading from context menu or LOAD_URL message
-    private void loadURL(WebView view, String url) {
+    private void loadUrlFromContext(WebView view, String url) {
         // In case the user enters nothing.
         if (url != null && url.length() != 0 && view != null) {
             url = smartUrlFilter(url);
             if (!view.getWebViewClient().shouldOverrideUrlLoading(view, url)) {
-                view.loadUrl(url);
+                loadUrl(view, url);
             }
+        }
+    }
+
+    /**
+     * Load the URL into the given WebView and update the title bar
+     * to reflect the new load.  Call this instead of WebView.loadUrl
+     * directly.
+     * @param view The WebView used to load url.
+     * @param url The URL to load.
+     */
+    private void loadUrl(WebView view, String url) {
+        updateTitleBarForNewLoad(view, url);
+        view.loadUrl(url);
+    }
+
+    /**
+     * Load UrlData into a Tab and update the title bar to reflect the new
+     * load.  Call this instead of UrlData.loadIn directly.
+     * @param t The Tab used to load.
+     * @param data The UrlData being loaded.
+     */
+    private void loadUrlDataIn(Tab t, UrlData data) {
+        updateTitleBarForNewLoad(t.getWebView(), data.mUrl);
+        data.loadIn(t);
+    }
+
+    /**
+     * If the WebView is the top window, update the title bar to reflect
+     * loading the new URL.  i.e. set its text, clear the favicon (which
+     * will be set once the page begins loading), and set the progress to
+     * INITIAL_PROGRESS to show that the page has begun to load. Called
+     * by loadUrl and loadUrlDataIn.
+     * @param view The WebView that is starting a load.
+     * @param url The URL that is being loaded.
+     */
+    private void updateTitleBarForNewLoad(WebView view, String url) {
+        if (view == getTopWindow()) {
+            setUrlTitle(url, null);
+            setFavicon(null);
+            onProgressChanged(view, INITIAL_PROGRESS);
         }
     }
 
@@ -4065,6 +4107,10 @@ public class BrowserActivity extends Activity
             return mVoiceIntent == null && (mUrl == null || mUrl.length() == 0);
         }
 
+        /**
+         * Load this UrlData into the given Tab.  Use loadUrlDataIn to update
+         * the title bar as well.
+         */
         public void loadIn(Tab t) {
             if (mVoiceIntent != null) {
                 t.activateVoiceSearchMode(mVoiceIntent);
