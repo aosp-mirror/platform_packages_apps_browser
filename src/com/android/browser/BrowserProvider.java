@@ -405,16 +405,9 @@ public class BrowserProvider extends ContentProvider {
         if (Settings.System.getInt(context.getContentResolver(),
                 Settings.System.SHOW_WEB_SUGGESTIONS,
                 1 /* default on */) == 1) {
-            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-            intent.addCategory(Intent.CATEGORY_DEFAULT);
-            ResolveInfo info = context.getPackageManager().resolveActivity(
-                    intent, PackageManager.MATCH_DEFAULT_ONLY);
-            if (info != null) {
-                ComponentName googleSearchComponent =
-                        new ComponentName(info.activityInfo.packageName,
-                                info.activityInfo.name);
-                mSearchableInfo = mSearchManager.getSearchableInfo(
-                        googleSearchComponent, false);
+            ComponentName webSearchComponent = mSearchManager.getWebSearchActivity();
+            if (webSearchComponent != null) {
+                mSearchableInfo = mSearchManager.getSearchableInfo(webSearchComponent);
             }
         }
     }
