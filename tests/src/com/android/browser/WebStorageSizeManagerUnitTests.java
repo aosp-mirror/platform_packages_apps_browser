@@ -108,14 +108,14 @@ public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
         totalUsedQuota += origin2Quota;
 
         // Origin 1 runs out of space.
-        manager.onExceededDatabaseQuota("1", "1", origin1Quota, origin1EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, 0, totalUsedQuota, mQuotaUpdater);
         assertEquals(origin1EstimatedSize + quotaIncrease, mNewQuota);
         totalUsedQuota -= origin1Quota;
         origin1Quota = mNewQuota;
         totalUsedQuota += origin1Quota;
 
         // Origin 2 runs out of space.
-        manager.onExceededDatabaseQuota("2", "2", origin2Quota, origin2EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        manager.onExceededDatabaseQuota("2", "2", origin2Quota, 0, totalUsedQuota, mQuotaUpdater);
         assertEquals(origin2EstimatedSize + quotaIncrease, mNewQuota);
         totalUsedQuota -= origin2Quota;
         origin2Quota = mNewQuota;
@@ -131,14 +131,14 @@ public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
         totalUsedQuota += origin3Quota;
 
         // Origin 1 runs out of space again. It should increase it's quota to take the last 1MB.
-        manager.onExceededDatabaseQuota("1", "1", origin1Quota, origin1EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, 0, totalUsedQuota, mQuotaUpdater);
         assertEquals(origin1Quota + quotaIncrease, mNewQuota);
         totalUsedQuota -= origin1Quota;
         origin1Quota = mNewQuota;
         totalUsedQuota += origin1Quota;
 
         // Origin 1 runs out of space again. It should inow fail to increase in size.
-        manager.onExceededDatabaseQuota("1", "1", origin1Quota, origin1EstimatedSize, totalUsedQuota, mQuotaUpdater);
+        manager.onExceededDatabaseQuota("1", "1", origin1Quota, 0, totalUsedQuota, mQuotaUpdater);
         assertEquals(origin1Quota, mNewQuota);
 
         // We try adding a new origin. Which will fail.
@@ -227,5 +227,74 @@ public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
         freeSpaceSize = 2097151;  // 2 MB
         maxSize = WebStorageSizeManager.calculateGlobalLimit(fileSystemSize, freeSpaceSize);
         assertEquals(0, maxSize);
+    }
+
+    public void testManyDatabasesOnOneOrigin() {
+        // This test ensures that if an origin creates more than one database, the quota that is
+        // assigned to the origin after the second creation is enough to satisfy all databases
+        // under that origin.
+        // See b/2417477.
+
+        long totalUsedQuota = 0;
+        mDiskInfo.setTotalSizeBytes(bytes(100));
+        mDiskInfo.setFreeSpaceSizeBytes(bytes(100));
+        // This should give us a storage area of 13MB, with 3.25MB for appcache and 9.75MB for
+        // databases.
+        assertEquals(bytes(13), WebStorageSizeManager.calculateGlobalLimit(
+                mDiskInfo.getTotalSizeBytes(), mDiskInfo.getFreeSpaceSizeBytes()));
+
+        // We have an appcache file size of 0 MB.
+        mAppCacheInfo.setAppCacheSizeBytes(0);
+
+        // Create the manager.
+        WebStorageSizeManager manager = new WebStorageSizeManager(null, mDiskInfo, mAppCacheInfo);
+
+        // We add an origin.
+        long originQuota = 0;
+        long database1EstimatedSize = bytes(2);
+        manager.onExceededDatabaseQuota("1", "1", originQuota, database1EstimatedSize,
+                totalUsedQuota, mQuotaUpdater);
+        assertEquals(database1EstimatedSize, mNewQuota);
+        originQuota = mNewQuota;
+        totalUsedQuota = originQuota;
+
+        // Now try to create a new database under the origin, by invoking onExceededDatabaseQuota
+        // again. This time, request more space than the old quota + the quota increase step.
+        long database2EstimatedSize = bytes(3.5);
+        manager.onExceededDatabaseQuota("1", "2", originQuota, database2EstimatedSize,
+                totalUsedQuota, mQuotaUpdater);
+        assertEquals(database1EstimatedSize + database2EstimatedSize, mNewQuota);
+        originQuota = mNewQuota;
+        totalUsedQuota = originQuota;
+
+        // Create another database, but this time use a size that will overflow the space on the
+        // device. It should be denied.
+        long database3EstimatedSize = bytes(50);
+        manager.onExceededDatabaseQuota("1", "3", originQuota, database3EstimatedSize,
+                totalUsedQuota, mQuotaUpdater);
+        assertEquals(originQuota, mNewQuota);
+
+        // Create another database. This time, request less than the old quota.
+        long database4EstimatedSize = bytes(2);
+        manager.onExceededDatabaseQuota("1", "4", originQuota, database4EstimatedSize,
+                totalUsedQuota, mQuotaUpdater);
+        assertEquals(database1EstimatedSize + database2EstimatedSize + database4EstimatedSize,
+                mNewQuota);
+        originQuota = mNewQuota;
+        totalUsedQuota = originQuota;
+
+        // Now have the first database overflow it's quota. We should get 1 more MB.
+        manager.onExceededDatabaseQuota("1", "1", originQuota, 0, totalUsedQuota, mQuotaUpdater);
+        assertEquals(database1EstimatedSize + database2EstimatedSize + database4EstimatedSize +
+                bytes(1), mNewQuota);
+        originQuota = mNewQuota;
+        totalUsedQuota = originQuota;
+
+        // Create a db under the origin that uses a quota less than the usual quota increase step.
+        long database5EstimatedSize = bytes(0.5);
+        manager.onExceededDatabaseQuota("1", "5", originQuota, database5EstimatedSize,
+                totalUsedQuota, mQuotaUpdater);
+        assertEquals(database1EstimatedSize + database2EstimatedSize + database4EstimatedSize +
+                bytes(1) + database5EstimatedSize, mNewQuota);
     }
 }
