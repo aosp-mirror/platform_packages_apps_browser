@@ -1,6 +1,7 @@
 
 /*
  * Copyright (C) 2007 The Android Open Source Project
+ * Copyright (C) 2010 Sony Ericsson Mobile Communications AB
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -515,7 +516,10 @@ class BrowserSettings extends Observable {
     /* package */ void clearFormData(Context context) {
         WebViewDatabase.getInstance(context).clearFormData();
         if (mTabControl != null) {
-            mTabControl.getCurrentTopWebView().clearFormData();
+            WebView currentTopView = mTabControl.getCurrentTopWebView();
+            if (currentTopView != null) {
+                currentTopView.clearFormData();
+            }
         }
     }
 
