@@ -427,7 +427,7 @@ public class BrowserActivity extends Activity
                     waitForCredentials();
                 }
             } else {
-		loadUrlDataIn(t, urlData);
+                loadUrlDataIn(t, urlData);
             }
         } else {
             // TabControl.restoreState() will create a new tab even if
@@ -548,14 +548,14 @@ public class BrowserActivity extends Activity
                     if (current != appTab) {
                         switchToTab(mTabControl.getTabIndex(appTab));
                         if (needsLoad) {
-		            loadUrlDataIn(appTab, urlData);
+                            loadUrlDataIn(appTab, urlData);
                         }
                     } else {
                         // If the tab was the current tab, we have to attach
                         // it to the view system again.
                         attachTabToContentView(appTab);
                         if (needsLoad) {
-		            loadUrlDataIn(appTab, urlData);
+                            loadUrlDataIn(appTab, urlData);
                         }
                     }
                     return;
@@ -604,7 +604,7 @@ public class BrowserActivity extends Activity
                 }
                 // Get rid of the subwindow if it exists
                 dismissSubWindow(current);
-		loadUrlDataIn(current, urlData);
+                loadUrlDataIn(current, urlData);
             }
         }
     }
@@ -1896,7 +1896,7 @@ public class BrowserActivity extends Activity
             mTabControl.setCurrentTab(tab);
             attachTabToContentView(tab);
             if (!urlData.isEmpty()) {
-		loadUrlDataIn(tab, urlData);
+                loadUrlDataIn(tab, urlData);
             }
             return tab;
         } else {
@@ -1904,7 +1904,7 @@ public class BrowserActivity extends Activity
             dismissSubWindow(currentTab);
             if (!urlData.isEmpty()) {
                 // Load the given url.
-		loadUrlDataIn(currentTab, urlData);
+                loadUrlDataIn(currentTab, urlData);
             }
             return currentTab;
         }
