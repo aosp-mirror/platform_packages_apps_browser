@@ -17,8 +17,6 @@
 
 package com.android.browser;
 
-import com.google.android.gsf.GoogleSettingsContract.Partner;
-
 import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -578,8 +576,8 @@ class BrowserSettings extends Observable {
     private String getFactoryResetHomeUrl(Context context) {
         String url = context.getResources().getString(R.string.homepage_base);
         if (url.indexOf("{CID}") != -1) {
-            url = url.replace("{CID}", Partner.getString(context
-                    .getContentResolver(), Partner.CLIENT_ID, "android-google"));
+            url = url.replace("{CID}",
+                    BrowserProvider.getClientId(context.getContentResolver()));
         }
         return url;
     }

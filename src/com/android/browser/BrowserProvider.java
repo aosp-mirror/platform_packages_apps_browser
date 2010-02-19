@@ -51,8 +51,6 @@ import android.webkit.GeolocationPermissions;
 
 import com.android.common.Patterns;
 
-import com.google.android.gsf.GoogleSettingsContract.Partner;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -181,13 +179,32 @@ public class BrowserProvider extends ContentProvider {
     public BrowserProvider() {
     }
 
+    // XXX: This is a major hack to remove our dependency on gsf constants and
+    // its content provider. http://b/issue?id=2425179
+    static String getClientId(ContentResolver cr) {
+        String ret = "android-google";
+        Cursor c = null;
+        try {
+            c = cr.query(Uri.parse("content://com.google.settings/partner"),
+                    new String[] { "value" }, "name='client_id'", null, null);
+            if (c != null && c.moveToNext()) {
+                ret = c.getString(0);
+            }
+        } catch (RuntimeException ex) {
+            // fall through to return the default
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+        return ret;
+    }
 
     private static CharSequence replaceSystemPropertyInString(Context context, CharSequence srcString) {
         StringBuffer sb = new StringBuffer();
         int lastCharLoc = 0;
 
-        final String client_id = Partner.getString(context.getContentResolver(),
-                                                    Partner.CLIENT_ID, "android-google");
+        final String client_id = getClientId(context.getContentResolver());
 
         for (int i = 0; i < srcString.length(); ++i) {
             char c = srcString.charAt(i);

@@ -114,8 +114,6 @@ import com.android.common.Patterns;
 import com.android.common.Search;
 import com.android.common.speech.LoggingEvents;
 
-import com.google.android.gsf.GoogleLoginServiceConstants;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -157,13 +155,20 @@ public class BrowserActivity extends Activity
     private Account[] mAccountsGoogle;
     private Account[] mAccountsPreferHosted;
 
+    // XXX: These constants should be exposed through some public api. Hardcode
+    // the values for now until some solution for gsf can be worked out.
+    // http://b/issue?id=2425179
+    private static final String ACCOUNT_TYPE = "com.google";
+    private static final String FEATURE_LEGACY_GOOGLE = "legacy_google";
+    private static final String FEATURE_LEGACY_HOSTED_OR_GOOGLE =
+            "legacy_hosted_or_google";
+
     private void startReadOfGoogleAccounts() {
         mAccountsGoogle = null;
         mAccountsPreferHosted = null;
 
         AccountManager.get(this).getAccountsByTypeAndFeatures(
-                GoogleLoginServiceConstants.ACCOUNT_TYPE,
-                new String[]{GoogleLoginServiceConstants.FEATURE_LEGACY_HOSTED_OR_GOOGLE},
+                ACCOUNT_TYPE, new String[]{ FEATURE_LEGACY_HOSTED_OR_GOOGLE },
                 this, null);
     }
 
@@ -174,8 +179,7 @@ public class BrowserActivity extends Activity
                 mAccountsGoogle = accountManagerFuture.getResult();
 
                 AccountManager.get(this).getAccountsByTypeAndFeatures(
-                        GoogleLoginServiceConstants.ACCOUNT_TYPE,
-                        new String[]{GoogleLoginServiceConstants.FEATURE_LEGACY_GOOGLE},
+                        ACCOUNT_TYPE, new String[]{ FEATURE_LEGACY_GOOGLE },
                         this, null);
             } else {
                 mAccountsPreferHosted = accountManagerFuture.getResult();
