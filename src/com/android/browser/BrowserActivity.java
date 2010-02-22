@@ -1693,6 +1693,9 @@ public class BrowserActivity extends Activity
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
+        if (v instanceof TitleBar) {
+            return;
+        }
         WebView webview = (WebView) v;
         WebView.HitTestResult result = webview.getHitTestResult();
         if (result == null) {

@@ -141,9 +141,10 @@ public class TitleBar extends LinearLayout {
     };
 
     @Override
-    protected void onCreateContextMenu(ContextMenu menu) {
+    public void createContextMenu(ContextMenu menu) {
         MenuInflater inflater = mBrowserActivity.getMenuInflater();
         inflater.inflate(R.menu.title_context, menu);
+        mBrowserActivity.onCreateContextMenu(menu, this, null);
     }
 
     @Override
