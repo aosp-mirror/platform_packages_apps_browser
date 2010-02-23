@@ -2149,7 +2149,7 @@ public class BrowserActivity extends Activity
         resetTitleIconAndProgress();
     }
 
-    private void goBackOnePageOrQuit() {
+    /* package */ void goBackOnePageOrQuit() {
         Tab current = mTabControl.getCurrentTab();
         if (current == null) {
             /*

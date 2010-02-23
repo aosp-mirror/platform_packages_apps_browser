@@ -48,6 +48,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieSyncManager;
+import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
@@ -123,6 +124,9 @@ class Tab {
     private final LayoutInflater mInflateService;
     // The BrowserActivity which owners the Tab
     private final BrowserActivity mActivity;
+    // The listener that gets invoked when a download is started from the
+    // mMainView
+    private final DownloadListener mDownloadListener;
 
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
@@ -1224,6 +1228,27 @@ class Tab {
             (GeolocationPermissionsPrompt) mContainer.findViewById(
                 R.id.geolocation_permissions_prompt);
 
+        mDownloadListener = new DownloadListener() {
+            public void onDownloadStart(String url, String userAgent,
+                    String contentDisposition, String mimetype,
+                    long contentLength) {
+                mActivity.onDownloadStart(url, userAgent, contentDisposition,
+                        mimetype, contentLength);
+                if (mMainView.copyBackForwardList().getSize() == 0) {
+                    // This Tab was opened for the sole purpose of downloading a
+                    // file. Remove it.
+                    if (mActivity.getTabControl().getCurrentWebView()
+                            == mMainView) {
+                        // In this case, the Tab is still on top.
+                        mActivity.goBackOnePageOrQuit();
+                    } else {
+                        // In this case, it is not.
+                        mActivity.closeTab(Tab.this);
+                    }
+                }
+            }
+        };
+
         setWebView(w);
     }
 
@@ -1246,10 +1271,15 @@ class Tab {
 
         // set the new one
         mMainView = w;
-        // attached the WebViewClient and WebChromeClient
+        // attach the WebViewClient, WebChromeClient and DownloadListener
         if (mMainView != null) {
             mMainView.setWebViewClient(mWebViewClient);
             mMainView.setWebChromeClient(mWebChromeClient);
+            // Attach DownloadManager so that downloads can start in an active
+            // or a non-active window. This can happen when going to a site that
+            // does a redirect after a period of time. The user could have
+            // switched to another tab while waiting for the download to start.
+            mMainView.setDownloadListener(mDownloadListener);
         }
     }
 
@@ -1297,7 +1327,21 @@ class Tab {
             mSubView.setWebViewClient(new SubWindowClient(mWebViewClient));
             mSubView.setWebChromeClient(new SubWindowChromeClient(
                     mWebChromeClient));
-            mSubView.setDownloadListener(mActivity);
+            // Set a different DownloadListener for the mSubView, since it will
+            // just need to dismiss the mSubView, rather than close the Tab
+            mSubView.setDownloadListener(new DownloadListener() {
+                public void onDownloadStart(String url, String userAgent,
+                        String contentDisposition, String mimetype,
+                        long contentLength) {
+                    mActivity.onDownloadStart(url, userAgent,
+                            contentDisposition, mimetype, contentLength);
+                    if (mSubView.copyBackForwardList().getSize() == 0) {
+                        // This subwindow was opened for the sole purpose of
+                        // downloading a file. Remove it.
+                        dismissSubWindow();
+                    }
+                }
+            });
             mSubView.setOnCreateContextMenuListener(mActivity);
             final BrowserSettings s = BrowserSettings.getInstance();
             s.addObserver(mSubView.getSettings()).update(s, null);
