@@ -1056,18 +1056,14 @@ public class BrowserProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown URL");
         }
 
-        String id = null;
-        boolean isBookmarkTable = (match == URI_MATCH_BOOKMARKS_ID);
-        boolean changingBookmarks = false;
-
-        if (isBookmarkTable || match == URI_MATCH_SEARCHES_ID) {
+        if (match == URI_MATCH_BOOKMARKS_ID || match == URI_MATCH_SEARCHES_ID) {
             StringBuilder sb = new StringBuilder();
             if (where != null && where.length() > 0) {
                 sb.append("( ");
                 sb.append(where);
                 sb.append(" ) AND ");
             }
-            id = url.getPathSegments().get(1);
+            String id = url.getPathSegments().get(1);
             sb.append("_id = ");
             sb.append(id);
             where = sb.toString();
@@ -1078,23 +1074,23 @@ public class BrowserProvider extends ContentProvider {
         // Not all bookmark-table updates should be backed up.  Look to see
         // whether we changed the title, url, or "is a bookmark" state, and
         // request a backup if so.
-        if (isBookmarkTable) {
+        if (match == URI_MATCH_BOOKMARKS_ID || match == URI_MATCH_BOOKMARKS) {
+            boolean changingBookmarks = false;
             // Alterations to the bookmark field inherently change the bookmark
             // set, so we don't need to query the record; we know a priori that
             // we will need to back up this change.
             if (values.containsKey(BookmarkColumns.BOOKMARK)) {
                 changingBookmarks = true;
-            }
-            // changing the title or URL of a bookmark record requires a backup,
-            // but we don't know wether such an update is on a bookmark without
-            // querying the record
-            if (!changingBookmarks &&
-                    (values.containsKey(BookmarkColumns.TITLE)
-                     || values.containsKey(BookmarkColumns.URL))) {
-                // when isBookmarkTable is true, the 'id' var was assigned above
+            } else if ((values.containsKey(BookmarkColumns.TITLE)
+                     || values.containsKey(BookmarkColumns.URL))
+                     && values.containsKey(BookmarkColumns._ID)) {
+                // If a title or URL has been changed, check to see if it is to
+                // a bookmark.  The ID should have been included in the update,
+                // so use it.
                 Cursor cursor = cr.query(Browser.BOOKMARKS_URI,
                         new String[] { BookmarkColumns.BOOKMARK },
-                        "_id = " + id, null, null);
+                        BookmarkColumns._ID + " = "
+                        + values.getAsString(BookmarkColumns._ID), null, null);
                 if (cursor.moveToNext()) {
                     changingBookmarks = (cursor.getInt(0) != 0);
                 }
