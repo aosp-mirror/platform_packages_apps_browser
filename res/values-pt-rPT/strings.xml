@@ -86,7 +86,6 @@
     <skip />
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Os marcadores têm de ter um nome."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"O marcador tem de ter uma localização."</string>
-    <string name="empty_bookmark" msgid="7008697085928540511">"Não é possível criar um marcador vazio."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"O URL não é válido."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Eliminar"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Adicionar aos marcadores a última página visualizada"</string>
@@ -95,21 +94,15 @@
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"O marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\" será eliminado."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Abrir numa janela nova"</string>
-    <string name="new_window" msgid="8117889615360211551">"Nova janela"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ir"</string>
     <string name="find_dot" msgid="6259312434696611957">"Encontrar na página"</string>
     <string name="select_dot" msgid="6299170761900561967">"Seleccionar texto"</string>
-    <string name="view_tabs" msgid="1119097492003550564">"Visão geral das janelas"</string>
-    <string name="view_tabs_condensed" msgid="5803955493821945369">"Janelas"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Janelas actuais"</string>
     <string name="tab_picker_view_tab" msgid="2984342364915347656">"Ver"</string>
-    <string name="tab_picker_new_tab" msgid="3080280018986866528">"Nova janela"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Fechar"</string>
     <string name="tab_picker_bookmark" msgid="1084409404198995477">"Adicionar aos marcadores"</string>
-    <string name="tab_picker_send_url" msgid="9102803487525950021">"Partilhar link"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Marcadores"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Marcador"</string>
-    <string name="history" msgid="2451240511251410032">"Histórico"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Transferências"</string>
     <!-- no translation found for copy_page_url (7635062169011319208) -->
     <skip />
@@ -130,7 +123,6 @@
     <!-- no translation found for choosertitle_sharevia (4600490613341909086) -->
     <skip />
     <string name="clear" msgid="7070043081700011461">"Limpar"</string>
-    <string name="replace" msgid="4843033491070384047">"Substituir"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Marcadores"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Definições"</string>
     <string name="pref_content_title" msgid="722227111894838633">"Definições de conteúdo da página"</string>
@@ -259,9 +251,6 @@
     <string name="download_menu_clear" msgid="6264454531553418124">"Limpar da lista"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"Cancelar transferência"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancelar todas as transferências"</string>
-    <string name="download_menu_clear_all" msgid="7423737413377703862">"Limpar lista"</string>
-    <string name="download_clear_dlg_title" msgid="7961996329529777390">"Limpar"</string>
-    <string name="download_clear_dlg_msg" msgid="8056013815679757669">"Todos os itens serão limpos da lista e removidos da cache do browser."</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancelar transferências"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"As <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> transferências serão canceladas e limpas do histórico de transferências."</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Sem espaço"</string>
@@ -271,7 +260,6 @@
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"É necessário um cartão SD para transferir <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"Cartão SD não disponível"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"O cartão SD está ocupado. Para permitir as transferências, seleccione \"Desactivar armazenamento USB\" na notificação."</string>
-    <string name="download_no_application" msgid="5054596425887523234">"Nenhuma aplicação encontrada para abrir este ficheiro."</string>
     <string name="retry" msgid="1835923075542266721">"Tentar novamente"</string>
     <string name="no_downloads" msgid="3947445710685021498">"O histórico de transferências está vazio."</string>
     <string name="download_error" msgid="413496839831257187">"Falha na transferência."</string>
@@ -286,12 +274,10 @@
     <string name="download_file_error" msgid="1206648050615176113">"Não é possível concluir a transferência. Não existe espaço suficiente."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Não é possível transferir porque o tamanho do item é indeterminado."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"A transferência foi interrompida e não pode ser retomada."</string>
-    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Teste de browser"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Pesquisar na Web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Espaço de armazenamento do browser cheio"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Clique para libertar espaço."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Limpar dados armazenados"</string>
-    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Remover todas as bases de dados associadas a este Web site"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Limpar dados armazenados"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Todos os dados armazenados por este Web site serão limpos"</string>
     <!-- no translation found for webstorage_clear_data_dialog_ok_button (2516563534211898636) -->
@@ -325,5 +311,4 @@
     <skip />
     <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
     <skip />
-    <string name="zoom_overview_button_text" msgid="4146579940085488881">"Visão geral"</string>
 </resources>

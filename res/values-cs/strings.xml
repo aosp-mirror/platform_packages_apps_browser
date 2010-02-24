@@ -86,7 +86,6 @@
     <skip />
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Záložka musí mít název."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Záložka musí mít umístění."</string>
-    <string name="empty_bookmark" msgid="7008697085928540511">"Nelze vytvořit prázdnou záložku."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"Adresa URL není platná."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Smazat"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Přidat poslední zobrazenou stránku do záložek"</string>
@@ -95,21 +94,15 @@
     <string name="current_page" msgid="7510129573681663135">"od "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Záložka <xliff:g id="BOOKMARK">%s</xliff:g> bude smazána."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Otevřít v novém okně"</string>
-    <string name="new_window" msgid="8117889615360211551">"Nové okno"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Přejít"</string>
     <string name="find_dot" msgid="6259312434696611957">"Vyhledat na stránce"</string>
     <string name="select_dot" msgid="6299170761900561967">"Vybrat text"</string>
-    <string name="view_tabs" msgid="1119097492003550564">"Přehled okna"</string>
-    <string name="view_tabs_condensed" msgid="5803955493821945369">"Okna"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Aktuální okna"</string>
     <string name="tab_picker_view_tab" msgid="2984342364915347656">"Zobrazit"</string>
-    <string name="tab_picker_new_tab" msgid="3080280018986866528">"Nové okno"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Zavřít"</string>
     <string name="tab_picker_bookmark" msgid="1084409404198995477">"Přidat do záložek"</string>
-    <string name="tab_picker_send_url" msgid="9102803487525950021">"Sdílet odkaz"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Záložky"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Přidat do záložek"</string>
-    <string name="history" msgid="2451240511251410032">"Historie"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Stahování"</string>
     <!-- no translation found for copy_page_url (7635062169011319208) -->
     <skip />
@@ -130,7 +123,6 @@
     <!-- no translation found for choosertitle_sharevia (4600490613341909086) -->
     <skip />
     <string name="clear" msgid="7070043081700011461">"Vymazat"</string>
-    <string name="replace" msgid="4843033491070384047">"Nahradit"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Záložky"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Nastavení"</string>
     <string name="pref_content_title" msgid="722227111894838633">"Nastavení obsahu stránky"</string>
@@ -259,9 +251,6 @@
     <string name="download_menu_clear" msgid="6264454531553418124">"Vymazat ze seznamu"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"Zrušit stahování"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Zrušit stahování všech souborů"</string>
-    <string name="download_menu_clear_all" msgid="7423737413377703862">"Vymazat seznam"</string>
-    <string name="download_clear_dlg_title" msgid="7961996329529777390">"Vymazat"</string>
-    <string name="download_clear_dlg_msg" msgid="8056013815679757669">"Všechny položky v seznamu budou vymazány a odstraněny z mezipaměti prohlížeče."</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Zrušit stahování"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Stahování všech souborů (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) bude zrušeno a soubory budou vymazány z historie stahování."</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Nedostatek místa"</string>
@@ -271,7 +260,6 @@
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Na kartu SD je třeba stáhnout soubor <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"Karta SD není dostupná"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"Karta SD je zaneprázdněna. Chcete-li povolit stahování, vyberte v oznámení možnost Vypnout úložiště USB."</string>
-    <string name="download_no_application" msgid="5054596425887523234">"Nebyla nalezena žádná aplikace, ve které lze tento soubor otevřít."</string>
     <string name="retry" msgid="1835923075542266721">"Zkusit znovu"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Historie stahování je prázdná."</string>
     <string name="download_error" msgid="413496839831257187">"Stahování bylo neúspěšné."</string>
@@ -286,12 +274,10 @@
     <string name="download_file_error" msgid="1206648050615176113">"Stahování nelze dokončit. Není dostatek místa."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Nelze stáhnout. Velikost položky nelze určit."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Stahování bylo přerušeno a nelze v něm pokračovat."</string>
-    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Testovací verze prohlížeče"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Vyhledat na webu"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Paměť prohlížeče je plná"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Kliknutím uvolníte místo."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Vymazat uložená data"</string>
-    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Odebrat všechny databáze přidružené k těmto webovým stránkám"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Vymazat uložená data"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Všechna data uložená těmito webovými stránkami budou smazána"</string>
     <!-- no translation found for webstorage_clear_data_dialog_ok_button (2516563534211898636) -->
@@ -325,5 +311,4 @@
     <skip />
     <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
     <skip />
-    <string name="zoom_overview_button_text" msgid="4146579940085488881">"Přehled"</string>
 </resources>
