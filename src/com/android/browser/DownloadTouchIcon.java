@@ -22,11 +22,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.provider.Browser;
 import android.webkit.WebView;
 
-import com.android.common.AndroidHttpClient;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

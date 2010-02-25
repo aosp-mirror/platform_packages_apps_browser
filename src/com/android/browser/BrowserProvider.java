@@ -46,10 +46,10 @@ import android.provider.Browser.BookmarkColumns;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.util.TypedValue;
 import android.webkit.GeolocationPermissions;
 
-import com.android.common.Patterns;
 
 import java.io.File;
 import java.io.FilenameFilter;

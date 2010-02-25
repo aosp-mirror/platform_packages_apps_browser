@@ -18,7 +18,7 @@ package com.android.browser;
 
 import android.content.ContentValues;
 import android.net.Uri;
-import com.android.common.AndroidHttpClient;
+import android.net.http.AndroidHttpClient;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.Header;

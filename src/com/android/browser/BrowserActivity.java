@@ -73,6 +73,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -110,7 +111,6 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.accounts.AccountManagerCallback;
 
-import com.android.common.Patterns;
 import com.android.common.Search;
 import com.android.common.speech.LoggingEvents;
 
