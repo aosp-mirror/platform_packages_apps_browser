@@ -30,6 +30,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
@@ -445,7 +446,7 @@ public class BrowserBookmarksPage extends Activity implements
                                 R.drawable.ic_launcher_shortcut_browser_bookmark));
             } else {
                 Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                        R.drawable.ic_launcher_shortcut_browser_bookmark);
+                        R.drawable.ic_launcher_shortcut_browser_bookmark_icon);
 
                 // Make a copy of the regular icon so we can modify the pixels.
                 Bitmap copy = icon.copy(Bitmap.Config.ARGB_8888, true);
@@ -458,13 +459,22 @@ public class BrowserBookmarksPage extends Activity implements
                 p.setStyle(Paint.Style.FILL_AND_STROKE);
                 p.setColor(Color.WHITE);
 
-                float density = getResources().getDisplayMetrics().density;
+                final float density =
+                        getResources().getDisplayMetrics().density;
                 // Create a rectangle that is slightly wider than the favicon
                 final float iconSize = 16 * density; // 16x16 favicon
-                final float padding = 2; // white padding around icon
+                final float padding = 2 * density; // white padding around icon
                 final float rectSize = iconSize + 2 * padding;
-                final float y = icon.getHeight() - rectSize;
-                RectF r = new RectF(0, y, rectSize, y + rectSize);
+
+                final Rect iconBounds =
+                        new Rect(0, 0, icon.getWidth(), icon.getHeight());
+                final float x = iconBounds.exactCenterX() - (rectSize / 2);
+                // Note: Subtract 2 dip from the y position since the box is
+                // slightly higher than center. Use padding since it is already
+                // 2 * density.
+                final float y = iconBounds.exactCenterY() - (rectSize / 2)
+                        - padding;
+                RectF r = new RectF(x, y, x + rectSize, y + rectSize);
 
                 // Draw a white rounded rectangle behind the favicon
                 canvas.drawRoundRect(r, 2, 2, p);
