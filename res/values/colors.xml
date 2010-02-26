@@ -31,9 +31,8 @@
     
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
-    <color name="gray">#ffbbbbbb</color>
-    <color name="dark_gray">#ff777777</color>
+    
+    
 
     <color name="geolocation_permissions_prompt_background">#ffdddddd</color>
 </resources>
-
