@@ -25,9 +25,11 @@ import android.content.Intent;
 import android.content.ContentUris;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Downloads;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -47,7 +49,6 @@ import java.util.List;
  *  View showing the user's current browser downloads
  */
 public class BrowserDownloadPage extends ExpandableListActivity {
-    
     private ExpandableListView      mListView;
     private Cursor                  mDownloadCursor;
     private BrowserDownloadAdapter  mDownloadAdapter;
@@ -55,7 +56,13 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     private int                     mIdColumnId;
     private int                     mTitleColumnId;
     private long                    mContextMenuPosition;
-    
+    // Used to update the ContextMenu if an item is being downloaded and the
+    // user opens the ContextMenu.
+    private ContentObserver         mContentObserver;
+    // Only meaningful while a ContentObserver is registered.  The ContextMenu
+    // will be reopened on this View.
+    private View                    mSelectedView;
+
     @Override 
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -182,6 +189,56 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (mContentObserver != null) {
+            getContentResolver().unregisterContentObserver(mContentObserver);
+            // Note that we do not need to undo this in onResume, because the
+            // ContextMenu does not get reinvoked when the Activity resumes.
+        }
+    }
+
+    /*
+     * ContentObserver to update the ContextMenu if it is open when the
+     * corresponding download completes.
+     */
+    private class ChangeObserver extends ContentObserver {
+        private final Uri mTrack;
+        public ChangeObserver(Uri track) {
+            super(new Handler());
+            mTrack = track;
+        }
+
+        @Override
+        public boolean deliverSelfNotifications() {
+            return false;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            Cursor cursor = getContentResolver().query(mTrack,
+                    new String[] { Downloads.Impl.COLUMN_STATUS }, null, null,
+                    null);
+            if (cursor.moveToFirst() && Downloads.Impl.isStatusSuccess(
+                    cursor.getInt(0))) {
+                // Do this right away, so we get no more updates.
+                getContentResolver().unregisterContentObserver(
+                        mContentObserver);
+                // Post a runnable in case this ContentObserver gets notified
+                // before the one that updates the ListView.
+                mListView.post(new Runnable() {
+                    public void run() {
+                        // Close the context menu, reopen with up to date data.
+                        closeContextMenu();
+                        openContextMenu(mSelectedView);
+                    }
+                });
+            }
+            cursor.deactivate();
+        }
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
         if (mDownloadCursor != null) {
@@ -203,6 +260,20 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             } else if (Downloads.Impl.isStatusError(status)) {
                 inflater.inflate(R.menu.downloadhistorycontextfailed, menu);
             } else {
+                // In this case, the download is in progress.  Set a
+                // ContentObserver so that we can know when it completes,
+                // and if it does, we can then update the context menu
+                Uri track = ContentUris.withAppendedId(
+                        Downloads.Impl.CONTENT_URI,
+                        mDownloadCursor.getLong(mIdColumnId));
+                if (mContentObserver != null) {
+                    getContentResolver().unregisterContentObserver(
+                            mContentObserver);
+                }
+                mContentObserver = new ChangeObserver(track);
+                mSelectedView = v;
+                getContentResolver().registerContentObserver(track, false,
+                        mContentObserver);
                 inflater.inflate(R.menu.downloadhistorycontextrunning, menu);
             }
         }
