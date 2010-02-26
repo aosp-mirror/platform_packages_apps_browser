@@ -86,7 +86,6 @@
     <skip />
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Необходимо указать имя закладки."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Необходимо указать место закладки."</string>
-    <string name="empty_bookmark" msgid="7008697085928540511">"Невозможно создать пустую закладку."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"URL недействителен."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Удалить"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Добавить в закладки последнюю просмотренную страницу"</string>
@@ -95,21 +94,15 @@
     <string name="current_page" msgid="7510129573681663135">"из "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Закладка \"<xliff:g id="BOOKMARK">%s</xliff:g>\" будет удалена."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Открыть в новом окне"</string>
-    <string name="new_window" msgid="8117889615360211551">"Новое окно"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Поиск"</string>
     <string name="find_dot" msgid="6259312434696611957">"Найти на странице"</string>
     <string name="select_dot" msgid="6299170761900561967">"Выбрать текст"</string>
-    <string name="view_tabs" msgid="1119097492003550564">"Обзор окон"</string>
-    <string name="view_tabs_condensed" msgid="5803955493821945369">"Окна"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Открытые окна"</string>
     <string name="tab_picker_view_tab" msgid="2984342364915347656">"Просмотр"</string>
-    <string name="tab_picker_new_tab" msgid="3080280018986866528">"Новое окно"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Закрыть"</string>
     <string name="tab_picker_bookmark" msgid="1084409404198995477">"Добавить в закладки"</string>
-    <string name="tab_picker_send_url" msgid="9102803487525950021">"Отправить ссылку"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Закладки"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Добавить в закладки"</string>
-    <string name="history" msgid="2451240511251410032">"История"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Загрузки"</string>
     <!-- no translation found for copy_page_url (7635062169011319208) -->
     <skip />
@@ -130,7 +123,6 @@
     <!-- no translation found for choosertitle_sharevia (4600490613341909086) -->
     <skip />
     <string name="clear" msgid="7070043081700011461">"Очистить"</string>
-    <string name="replace" msgid="4843033491070384047">"Заменить"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Закладки"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Настройки"</string>
     <string name="pref_content_title" msgid="722227111894838633">"Настройки содержания страницы"</string>
@@ -259,9 +251,6 @@
     <string name="download_menu_clear" msgid="6264454531553418124">"Удалить из списка"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"Отменить загрузку"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Отменить все загрузки"</string>
-    <string name="download_menu_clear_all" msgid="7423737413377703862">"Очистить список"</string>
-    <string name="download_clear_dlg_title" msgid="7961996329529777390">"Очистить"</string>
-    <string name="download_clear_dlg_msg" msgid="8056013815679757669">"Будут удалены все данные из списка и кэша браузера."</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Отменить загрузки"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Все загрузки (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) будут отменены и удалены из истории загрузок."</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Недостаточно места"</string>
@@ -271,7 +260,6 @@
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Для загрузки <xliff:g id="FILENAME">%s</xliff:g> необходима SD-карта."</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD-карта недоступна"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"Карта SD занята. Чтобы разрешить загрузки, выберите \"Выключить USB-накопитель\" в уведомлении."</string>
-    <string name="download_no_application" msgid="5054596425887523234">"Приложение для открытия этого файла не найдено."</string>
     <string name="retry" msgid="1835923075542266721">"Повторить попытку"</string>
     <string name="no_downloads" msgid="3947445710685021498">"История загрузок пуста."</string>
     <string name="download_error" msgid="413496839831257187">"Ошибка загрузки."</string>
@@ -286,12 +274,10 @@
     <string name="download_file_error" msgid="1206648050615176113">"Невозможно завершить загрузку. Недостаточно места."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Загрузка невозможна. Размер файла не определен."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Загрузка прервана и не может быть возобновлена."</string>
-    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Тестирование браузера"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Поиск в Интернете"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Память браузера переполнена"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Нажмите, чтобы освободить место."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Удалить сохраненные данные"</string>
-    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Удалить все базы данных, связанные с этим сайтом"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Удалить сохраненные данные"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Все данные, сохраненные этим веб-сайтом, будут удалены"</string>
     <!-- no translation found for webstorage_clear_data_dialog_ok_button (2516563534211898636) -->
@@ -325,5 +311,4 @@
     <skip />
     <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
     <skip />
-    <string name="zoom_overview_button_text" msgid="4146579940085488881">"Обзор"</string>
 </resources>

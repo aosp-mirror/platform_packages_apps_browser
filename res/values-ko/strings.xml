@@ -86,7 +86,6 @@
     <skip />
     <string name="bookmark_needs_title" msgid="6245900436119218187">"북마크의 이름을 입력해야 합니다."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"북마크의 위치를 입력해야 합니다."</string>
-    <string name="empty_bookmark" msgid="7008697085928540511">"빈 북마크를 만들 수 없습니다."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"URL이 유효하지 않습니다."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"삭제"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"마지막으로 본 페이지를 북마크 설정"</string>
@@ -95,21 +94,15 @@
     <string name="current_page" msgid="7510129573681663135">"북마크할 페이지 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"\'<xliff:g id="BOOKMARK">%s</xliff:g>\' 북마크가 삭제됩니다."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"새 창에서 열기"</string>
-    <string name="new_window" msgid="8117889615360211551">"새 창"</string>
     <string name="goto_dot" msgid="3895839050522602723">"실행"</string>
     <string name="find_dot" msgid="6259312434696611957">"페이지에서 찾기"</string>
     <string name="select_dot" msgid="6299170761900561967">"텍스트 선택"</string>
-    <string name="view_tabs" msgid="1119097492003550564">"창 전체보기"</string>
-    <string name="view_tabs_condensed" msgid="5803955493821945369">"창"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"현재 창"</string>
     <string name="tab_picker_view_tab" msgid="2984342364915347656">"보기"</string>
-    <string name="tab_picker_new_tab" msgid="3080280018986866528">"새 창"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"닫기"</string>
     <string name="tab_picker_bookmark" msgid="1084409404198995477">"북마크"</string>
-    <string name="tab_picker_send_url" msgid="9102803487525950021">"링크 공유"</string>
     <string name="bookmarks" msgid="1961279134885867815">"북마크"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"북마크"</string>
-    <string name="history" msgid="2451240511251410032">"기록"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"다운로드"</string>
     <!-- no translation found for copy_page_url (7635062169011319208) -->
     <skip />
@@ -130,7 +123,6 @@
     <!-- no translation found for choosertitle_sharevia (4600490613341909086) -->
     <skip />
     <string name="clear" msgid="7070043081700011461">"지우기"</string>
-    <string name="replace" msgid="4843033491070384047">"교체"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"북마크"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"설정"</string>
     <string name="pref_content_title" msgid="722227111894838633">"페이지 콘텐츠 설정"</string>
@@ -259,9 +251,6 @@
     <string name="download_menu_clear" msgid="6264454531553418124">"목록에서 지우기"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"다운로드 취소"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"모든 다운로드 취소"</string>
-    <string name="download_menu_clear_all" msgid="7423737413377703862">"목록 지우기"</string>
-    <string name="download_clear_dlg_title" msgid="7961996329529777390">"지우기"</string>
-    <string name="download_clear_dlg_msg" msgid="8056013815679757669">"목록에서 모든 항목이 지워지고 브라우저 캐시에서 삭제됩니다."</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"다운로드 취소"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>개의 다운로드가 모두 취소되고 다운로드 기록에서 지워집니다."</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"여유 공간이 없음"</string>
@@ -271,7 +260,6 @@
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 SD 카드가 필요합니다."</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD 카드를 사용할 수 없음"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"SD 카드가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 선택하세요."</string>
-    <string name="download_no_application" msgid="5054596425887523234">"이 파일을 열 수 있는 응용프로그램을 찾을 수 없습니다."</string>
     <string name="retry" msgid="1835923075542266721">"다시 시도"</string>
     <string name="no_downloads" msgid="3947445710685021498">"다운로드 기록이 비어 있습니다."</string>
     <string name="download_error" msgid="413496839831257187">"다운로드에 실패했습니다."</string>
@@ -286,12 +274,10 @@
     <string name="download_file_error" msgid="1206648050615176113">"저장 용량이 부족하여 다운로드를 완료할 수 없습니다."</string>
     <string name="download_length_required" msgid="9038605488460437406">"항목의 크기를 확인할 수 없으므로 다운로드할 수 없습니다."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"다운로드가 중단되었으며 다시 시작할 수 없습니다."</string>
-    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"브라우저 테스트 실행기"</string>
     <string name="search_the_web" msgid="6046130189241962337">"웹 검색"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"브라우저 저장용량 가득 참"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"여유 공간을 확보하려면 클릭하세요."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"저장된 데이터 삭제"</string>
-    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"웹사이트에 연결된 모든 데이터베이스 삭제"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"저장된 데이터 삭제"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"웹사이트에서 저장한 모든 데이터가 삭제됩니다."</string>
     <!-- no translation found for webstorage_clear_data_dialog_ok_button (2516563534211898636) -->
@@ -325,5 +311,4 @@
     <skip />
     <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
     <skip />
-    <string name="zoom_overview_button_text" msgid="4146579940085488881">"전체보기"</string>
 </resources>
