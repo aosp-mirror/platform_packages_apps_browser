@@ -13,7 +13,6 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The name of the application. -->
     <string name="application_name">Browser</string>
@@ -168,7 +167,7 @@
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
     <string name="bookmark_needs_url">"Bookmark must have a location."</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name & Location fields -->
-    <string name="empty_bookmark">"Cannot create empty bookmark."</string>
+    
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
     <string name="bookmark_url_not_valid">URL is not valid.</string>
         <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
@@ -199,7 +198,7 @@
     <string name="open_in_new_window">Open in new window</string>
     <!-- Appears in Current windows screen as label on blank + window; user 
             selects this window to open a new browser window -->
-    <string name="new_window">New window</string>
+    
     <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
     <string name="goto_dot">Go</string>
     <!-- Menu item that opens up a dialog which allows the user to provide a
@@ -209,25 +208,25 @@
     <string name="select_dot">Select text</string>
     <!-- Menu item which opens a screen which shows all the currently open
             windows, and also allows them to create a new one. -->
-    <string name="view_tabs">Window overview</string>
+    
     <!-- Menu item which opens a screen which shows all the currently open
             windows, and also allows them to create a new one. This is a shorter
             alternate version of "view_tabs"-->
-    <string name="view_tabs_condensed">Windows</string>
+    
     <!-- Title of current windows screen; appears in title bar -->
     <string name="tab_picker_title">Current windows</string>
     <!-- Context Menu item to view the selected window on the window picker
             screen -->
-    <string name="tab_picker_view_tab">View</string>
+    
     <!-- Menu item on the window picker screen to open a new window -->
-    <string name="tab_picker_new_tab">New window</string>
+    
     <!-- Context Menu item to close the currently selected window -->
     <string name="tab_picker_remove_tab">Close</string>
     <!-- Context Menu item to bookmark the currently selected window -->
-    <string name="tab_picker_bookmark">Bookmark</string>
+    
     <!-- Context Menu item from the bookmarks page to share the selected
             bookmark  -->
-    <string name="tab_picker_send_url">Share link</string>
+    
     <!-- Menu item to open the bookmarks page. This is a shorter version that
             is displayed with an icon -->
     <string name="bookmarks">Bookmarks</string>
@@ -579,11 +578,11 @@
     <!-- Menu item -->
     <string name="download_menu_cancel_all">Cancel all downloads</string>
     <!-- Menu item -->
-    <string name="download_menu_clear_all">Clear list</string>
+    
     <!-- Confirmation dialog title -->
-    <string name="download_clear_dlg_title">Clear</string>
+    
     <!-- Confirmation dialog message -->
-    <string name="download_clear_dlg_msg">All items will be cleared from the list and removed from the browser cache.</string>
+    
     <!-- Confirmation dialog title -->
     <string name="download_cancel_dlg_title">Cancel downloads</string>
     <!-- Confirmation dialog message -->
@@ -613,7 +612,7 @@
     <string name="download_no_application_title">Cannot open file</string>
     <!-- Message for a dialog informing the user that there is no application on
             the phone that can open the file that was downloaded  -->
-    <string name="download_no_application">No application can be found to open this file.</string>
+    
     <!-- Label for a button to re-attempt downloading a file -->
     <string name="retry">Retry</string>
     <!-- Appears in Download history screen if there is no history -->
@@ -657,9 +656,9 @@
             interrupted and cannot be resumed -->
     <string name="download_precondition_failed">Download interrupted. It cannot be resumed.</string>
 
-    <string name="activity_instrumentation_test_runner">Browser Test Runner</string>
+    
     <!-- Do not translate.  Testing only -->
-    <string name="activity_instrumentation_functional_test_runner" translatable="false">Browser Functional Test Runner</string>
+    
     <!-- Do not translate.  Testing only -->
     <string name="dump_nav" translatable="false">Dump navigation cache</string>
     <!-- Do not translate.  Testing only -->
@@ -712,8 +711,7 @@
     <!-- Any changes to this (especially in terms of adding/removing the MCC-specific flavors) -->
     <!-- should be mirrored by changes in apps/GoogleSearch. -->
     <!-- Do not translate.  This string is an internal URI, not seen in the UI. -->
-    <string name="google_search_base" translatable="false">
-        http://www.google.com/m?hl=%1$s&amp;gl=%2$s&amp;</string>
+    
     
     <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
@@ -723,16 +721,13 @@
          At the moment actually removing them requires manually deleting all of the
          existing translations. -->
     <!-- Do not translate -->
-    <string name="permlab_readHistoryBookmarks">read Browser\'s history and bookmarks</string>
+    
     <!-- Do not translate -->
-    <string name="permdesc_readHistoryBookmarks">Allows the application to read all
-        the URLs that the Browser has visited, and all of the Browser\'s bookmarks.</string>
+    
     <!-- Do not translate -->
-    <string name="permlab_writeHistoryBookmarks">write Browser\'s history and bookmarks</string>
+    
     <!-- Do not translate -->
-    <string name="permdesc_writeHistoryBookmarks">Allows an application to modify the
-        Browser\'s history or bookmarks stored on your phone. Malicious applications 
-        can use this to erase or modify your Browser\'s data.</string>
+    
 
     <!-- HTML5 dialogs -->
     <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
@@ -740,7 +735,7 @@
     <string name="webstorage_outofspace_notification_text">Click to free up space.</string>
     <!-- Used in the Browser Settings -->
     <string name="webstorage_clear_data_title">Clear stored data</string>
-    <string name="webstorage_clear_data_summary">Remove all databases associated with this website</string>
+    
     <!-- Confirmation dialog when the user ask to clear all data for an origin -->
     <string name="webstorage_clear_data_dialog_title">Clear stored data</string>
     <string name="webstorage_clear_data_dialog_message">All data stored by this website will be deleted</string>
@@ -758,8 +753,8 @@
     <string name="geolocation_permissions_prompt_dont_share">Decline</string>
     <string name="geolocation_permissions_prompt_remember">Remember preference</string>
     <!-- Permissions prompt toast -->
-    <string name="geolocation_permissions_prompt_toast_allowed">This site can access your location. Change this in Settings -> Website settings</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed">This site cannot access your location. Change this in Settings -> Website settings</string>
+    <string name="geolocation_permissions_prompt_toast_allowed">This site can access your location. Change this in Settings -&gt; Website settings</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed">This site cannot access your location. Change this in Settings -&gt; Website settings</string>
     <!-- Settings page, Advanced Settings -> Website settings -> <origin> -->
     <string name="geolocation_settings_page_title">Clear location access</string>
     <string name="geolocation_settings_page_summary_allowed">This site can currently access your location</string>
@@ -777,9 +772,9 @@
     <string name="website_settings_clear_all_dialog_cancel_button">Cancel</string>
 
 
-    <!-- Zoom-related strings --><skip />
+    <!-- Zoom-related strings --><skip/>
     <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->
-    <string name="zoom_overview_button_text">Overview</string>
+    
 
     <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
     <string name="progress_dialog_setting_wallpaper">Setting wallpaper...</string>

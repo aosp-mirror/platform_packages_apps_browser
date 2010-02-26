@@ -19,13 +19,6 @@
 */
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <ExpandableListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <ViewStub 
-        android:id="@+id/empty"
-        android:layout="@layout/no_downloads"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <ExpandableListView android:id="@android:id/list" android:layout_width="match_parent" android:layout_height="match_parent"/>
+    <ViewStub android:id="@+id/empty" android:layout="@layout/no_downloads" android:layout_width="match_parent" android:layout_height="match_parent"/>
 </merge>
