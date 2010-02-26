@@ -82,6 +82,7 @@
     <string name="homepage_set" msgid="8768087280310966395">"Configuración de página principal."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"El marcador debe tener un nombre."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"El marcador debe tener una ubicación."</string>
+    <string name="empty_bookmark" msgid="7008697085928540511">"No es posible crear un marcador vacío."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"La URL no es válida."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Eliminar"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Última página vista del marcador"</string>
@@ -90,15 +91,21 @@
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"El marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\" se eliminará."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Abrir en una ventana nueva"</string>
+    <string name="new_window" msgid="8117889615360211551">"Ventana nueva"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ir"</string>
     <string name="find_dot" msgid="6259312434696611957">"Buscar en la página"</string>
     <string name="select_dot" msgid="6299170761900561967">"Seleccionar texto"</string>
+    <string name="view_tabs" msgid="1119097492003550564">"Descripción general de la ventana"</string>
+    <string name="view_tabs_condensed" msgid="5803955493821945369">"Windows"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Ventana actual"</string>
     <string name="tab_picker_view_tab" msgid="2984342364915347656">"Ver"</string>
+    <string name="tab_picker_new_tab" msgid="3080280018986866528">"Ventana nueva"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Cerrar"</string>
     <string name="tab_picker_bookmark" msgid="1084409404198995477">"Marcador"</string>
+    <string name="tab_picker_send_url" msgid="9102803487525950021">"Compartir enlace"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Marcadores"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Marcador"</string>
+    <string name="history" msgid="2451240511251410032">"Historial"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Descargas"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar la url de la página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
@@ -117,6 +124,7 @@
     <string name="contextmenu_map" msgid="7471390435434034912">"Situar en el mapa"</string>
     <string name="choosertitle_sharevia" msgid="4600490613341909086">"Compartir mediante"</string>
     <string name="clear" msgid="7070043081700011461">"Borrar"</string>
+    <string name="replace" msgid="4843033491070384047">"Reemplazar"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Marcadores"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Configurac."</string>
     <string name="pref_content_title" msgid="722227111894838633">"Configuración del contenido de la página"</string>
@@ -226,6 +234,9 @@
     <string name="download_menu_clear" msgid="6264454531553418124">"Borrar de la lista"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"Cancelar descarga"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancelar todas las descargas"</string>
+    <string name="download_menu_clear_all" msgid="7423737413377703862">"Borrar lista"</string>
+    <string name="download_clear_dlg_title" msgid="7961996329529777390">"Borrar"</string>
+    <string name="download_clear_dlg_msg" msgid="8056013815679757669">"Todos los elementos se borrarán de la lista y se suprimirán del caché del navegador."</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancelar descargas"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Las <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> descargas se cancelarán y se borrarán del historial de descarga."</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"No hay espacio suficiente"</string>
@@ -235,6 +246,7 @@
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Es necesario tener una tarjeta SD para descargar <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"Tarjeta SD no disponible"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"La tarjeta SD está llena. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
+    <string name="download_no_application" msgid="5054596425887523234">"No se encuentra una aplicación para abrir este archivo."</string>
     <string name="retry" msgid="1835923075542266721">"Intentar nuevamente"</string>
     <string name="no_downloads" msgid="3947445710685021498">"El historial de descarga está vacío."</string>
     <string name="download_error" msgid="413496839831257187">"Descarga incorrecta."</string>
@@ -248,10 +260,12 @@
     <string name="download_file_error" msgid="1206648050615176113">"No es posible terminar la descarga. No hay espacio suficiente."</string>
     <string name="download_length_required" msgid="9038605488460437406">"No es posible realizar la descarga. No puede determinarse el tamaño del elemento."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Descarga interrumpida. No se puede retomar."</string>
+    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Ejecutor de pruebas del navegador"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Buscar en Internet"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Almacenamiento del navegador lleno"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Hacer clic para liberar espacio"</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Borrar datos almacenados"</string>
+    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Eliminar todas las bases de datos asociadas con este sitio web"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Borrar datos almacenados"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Todos los datos almacenados por este sitio web serán suprimidos"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Eliminar todos"</string>
@@ -274,4 +288,5 @@
     <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Se suprimirán todos los datos del sitio web y los permisos de ubicación."</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Suprimir todos los datos"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancelar"</string>
+    <string name="zoom_overview_button_text" msgid="4146579940085488881">"Descripción general"</string>
 </resources>

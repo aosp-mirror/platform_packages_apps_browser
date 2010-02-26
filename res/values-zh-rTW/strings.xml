@@ -86,6 +86,7 @@
     <skip />
     <string name="bookmark_needs_title" msgid="6245900436119218187">"請輸入書籤名稱。"</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"請選取書籤位置。"</string>
+    <string name="empty_bookmark" msgid="7008697085928540511">"無法建立空白書籤。"</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"網址無效。"</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"刪除"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"將最後瀏覽的網頁加入書籤"</string>
@@ -94,15 +95,21 @@
     <string name="current_page" msgid="7510129573681663135">"來源 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"刪除「<xliff:g id="BOOKMARK">%s</xliff:g>」書籤？"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"在新視窗開啟"</string>
+    <string name="new_window" msgid="8117889615360211551">"新視窗"</string>
     <string name="goto_dot" msgid="3895839050522602723">"前往"</string>
     <string name="find_dot" msgid="6259312434696611957">"在頁面中尋找"</string>
     <string name="select_dot" msgid="6299170761900561967">"選取文字"</string>
+    <string name="view_tabs" msgid="1119097492003550564">"視窗總覽"</string>
+    <string name="view_tabs_condensed" msgid="5803955493821945369">"視窗"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"目前視窗"</string>
     <string name="tab_picker_view_tab" msgid="2984342364915347656">"檢視"</string>
+    <string name="tab_picker_new_tab" msgid="3080280018986866528">"新視窗"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"關閉"</string>
     <string name="tab_picker_bookmark" msgid="1084409404198995477">"加入書籤"</string>
+    <string name="tab_picker_send_url" msgid="9102803487525950021">"分享連結"</string>
     <string name="bookmarks" msgid="1961279134885867815">"書籤"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"書籤"</string>
+    <string name="history" msgid="2451240511251410032">"記錄"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"下載"</string>
     <!-- no translation found for copy_page_url (7635062169011319208) -->
     <skip />
@@ -123,6 +130,7 @@
     <!-- no translation found for choosertitle_sharevia (4600490613341909086) -->
     <skip />
     <string name="clear" msgid="7070043081700011461">"清除"</string>
+    <string name="replace" msgid="4843033491070384047">"取代"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"書籤"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"設定"</string>
     <string name="pref_content_title" msgid="722227111894838633">"頁面內容設定"</string>
@@ -251,6 +259,9 @@
     <string name="download_menu_clear" msgid="6264454531553418124">"清除表單列表"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"取消下載"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"取消所有下載"</string>
+    <string name="download_menu_clear_all" msgid="7423737413377703862">"清除清單"</string>
+    <string name="download_clear_dlg_title" msgid="7961996329529777390">"清除"</string>
+    <string name="download_clear_dlg_msg" msgid="8056013815679757669">"所有清單中的項目會被清除，並從快取中移除。"</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"取消下載"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"所有 (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) 下載會取消並從下載記錄中清除。"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"空間不足"</string>
@@ -260,6 +271,7 @@
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"需要 SD 卡下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"無法使用 SD 卡"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"SD 記憶卡忙碌。如要允許下載，請選取通知中的 [停用 USB 儲存裝置]。"</string>
+    <string name="download_no_application" msgid="5054596425887523234">"找不到可以開啟這個檔案的應用程式。"</string>
     <string name="retry" msgid="1835923075542266721">"重試"</string>
     <string name="no_downloads" msgid="3947445710685021498">"下載記錄是空的。"</string>
     <string name="download_error" msgid="413496839831257187">"下載失敗"</string>
@@ -274,10 +286,12 @@
     <string name="download_file_error" msgid="1206648050615176113">"無法完成下載。儲存空間不足。"</string>
     <string name="download_length_required" msgid="9038605488460437406">"無法下載。物件大小無法估計。"</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"下載中斷。無法續傳。"</string>
+    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Browser Test Runner"</string>
     <string name="search_the_web" msgid="6046130189241962337">"搜尋網頁"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"瀏覽器儲存空間已滿"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"按一下可釋出空間。"</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"清除儲存的資料"</string>
+    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"移除所有與此網站關聯的資料庫"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"清除儲存的資料"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"即將刪除此網站儲存的所有資料"</string>
     <!-- no translation found for webstorage_clear_data_dialog_ok_button (2516563534211898636) -->
@@ -311,4 +325,5 @@
     <skip />
     <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
     <skip />
+    <string name="zoom_overview_button_text" msgid="4146579940085488881">"總覽"</string>
 </resources>

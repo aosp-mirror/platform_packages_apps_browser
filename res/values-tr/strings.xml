@@ -86,6 +86,7 @@
     <skip />
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Favorinin bir adı olmalıdır."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Favorinin bir konumu olmalıdır."</string>
+    <string name="empty_bookmark" msgid="7008697085928540511">"Boş favori oluşturulamaz."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"URL geçerli değil."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Sil"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Son görüntülenen sayfayı favori olarak işaretle"</string>
@@ -94,15 +95,21 @@
     <string name="current_page" msgid="7510129573681663135">"kaynak: "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" silinecek."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Yeni pencerede aç"</string>
+    <string name="new_window" msgid="8117889615360211551">"Yeni pencere"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Git"</string>
     <string name="find_dot" msgid="6259312434696611957">"Sayfada bul"</string>
     <string name="select_dot" msgid="6299170761900561967">"Metni seç"</string>
+    <string name="view_tabs" msgid="1119097492003550564">"Pencereye genel bakış"</string>
+    <string name="view_tabs_condensed" msgid="5803955493821945369">"Pencereler"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Geçerli pencereler"</string>
     <string name="tab_picker_view_tab" msgid="2984342364915347656">"Görüntüle"</string>
+    <string name="tab_picker_new_tab" msgid="3080280018986866528">"Yeni pencere"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Kapat"</string>
     <string name="tab_picker_bookmark" msgid="1084409404198995477">"Favori"</string>
+    <string name="tab_picker_send_url" msgid="9102803487525950021">"Bağlantıyı paylaş"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Favoriler"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Favori"</string>
+    <string name="history" msgid="2451240511251410032">"Geçmiş"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"İndirme işlemleri"</string>
     <!-- no translation found for copy_page_url (7635062169011319208) -->
     <skip />
@@ -123,6 +130,7 @@
     <!-- no translation found for choosertitle_sharevia (4600490613341909086) -->
     <skip />
     <string name="clear" msgid="7070043081700011461">"Temizle"</string>
+    <string name="replace" msgid="4843033491070384047">"Değiştir"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Favoriler"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Ayarlar"</string>
     <string name="pref_content_title" msgid="722227111894838633">"Sayfa içeriği ayarları"</string>
@@ -251,6 +259,9 @@
     <string name="download_menu_clear" msgid="6264454531553418124">"Listeden temizle"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"İndirme işlemini iptal et"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Tüm indirme işlemlerini iptal et"</string>
+    <string name="download_menu_clear_all" msgid="7423737413377703862">"Listeyi temizle"</string>
+    <string name="download_clear_dlg_title" msgid="7961996329529777390">"Temizle"</string>
+    <string name="download_clear_dlg_msg" msgid="8056013815679757669">"Tüm öğeler listeden silinecek ve tarayıcı önbelleğinden kaldırılacak."</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"İndirme işlemlerini iptal et"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> indirme işleminin tümü iptal edilecek ve indirme geçmişinden temizlenecek."</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Alan yetersiz"</string>
@@ -260,6 +271,7 @@
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"<xliff:g id="FILENAME">%s</xliff:g> dosyasını indirmek için bir SD kart gerekli."</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD kart kullanılamıyor"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"SD kart meşgul. İndirme işlemlerine izin vermek için bildirim alanında \"USB\'de depolamayı kapat\"ı seçin."</string>
+    <string name="download_no_application" msgid="5054596425887523234">"Bu dosyayı açmak için hiçbir uygulama bulunamadı."</string>
     <string name="retry" msgid="1835923075542266721">"Tekrar Dene"</string>
     <string name="no_downloads" msgid="3947445710685021498">"İndirme geçmişi boş."</string>
     <string name="download_error" msgid="413496839831257187">"İndirme işlemi başarısız."</string>
@@ -274,10 +286,12 @@
     <string name="download_file_error" msgid="1206648050615176113">"İndirme işlemi tamamlanamıyor. Yeterli alan yok."</string>
     <string name="download_length_required" msgid="9038605488460437406">"İndirilemiyor. Öğenin boyutu belirlenemiyor."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"İndirme işlemi kesintiye uğradı. Sürdürülemez."</string>
+    <string name="activity_instrumentation_test_runner" msgid="8215091309334005029">"Tarayıcı Test Aracı"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Web\'de ara"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Tarayıcı deposu dolu"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Alan açmak için tıklayın."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Depolanmış verileri temizle"</string>
+    <string name="webstorage_clear_data_summary" msgid="3523128713743907805">"Bu web sitesi ile ilişkilendirilmiş tüm veritabanlarını kaldır"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Depolanmış verileri temizle"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Bu web sitesi tarafından depolanmış tüm veriler silinecek"</string>
     <!-- no translation found for webstorage_clear_data_dialog_ok_button (2516563534211898636) -->
@@ -311,4 +325,5 @@
     <skip />
     <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
     <skip />
+    <string name="zoom_overview_button_text" msgid="4146579940085488881">"Genel Bakış"</string>
 </resources>
