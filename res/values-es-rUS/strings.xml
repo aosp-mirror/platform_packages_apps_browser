@@ -13,8 +13,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Navegador"</string>
+    <string name="choose_upload" msgid="3649366287575002063">"Elegir el archivo para cargar"</string>
     <string name="new_tab" msgid="4505722538297295141">"Ventana nueva"</string>
     <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcadores"</string>
@@ -81,8 +83,8 @@
     <string name="homepage_set" msgid="8768087280310966395">"Configuración de página principal."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"El marcador debe tener un nombre."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"El marcador debe tener una ubicación."</string>
-    
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"La URL no es válida."</string>
+    <string name="bookmark_cannot_save_url" msgid="791722768778386941">"No se puede agregar esta URL a los marcadores."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Eliminar"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Última página vista del marcador"</string>
     <string name="switch_to_thumbnails" msgid="5493351529609043151">"Vista en miniatura"</string>
@@ -90,18 +92,11 @@
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"El marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\" se eliminará."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Abrir en una ventana nueva"</string>
-    
     <string name="goto_dot" msgid="3895839050522602723">"Ir"</string>
     <string name="find_dot" msgid="6259312434696611957">"Buscar en la página"</string>
     <string name="select_dot" msgid="6299170761900561967">"Seleccionar texto"</string>
-    
-    
     <string name="tab_picker_title" msgid="864478399057782913">"Ventana actual"</string>
-    
-    
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Cerrar"</string>
-    
-    
     <string name="bookmarks" msgid="1961279134885867815">"Marcadores"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Marcador"</string>
     <string name="history" msgid="2451240511251410032">"Historial"</string>
@@ -117,6 +112,7 @@
     <string name="contextmenu_copylink" msgid="5153657160294534270">"Copiar URL de vínculo"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Guardar imagen"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"Ver imagen"</string>
+    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Establecer como fondo de pantalla"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Discar..."</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Agregar contacto"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"Enviar correo electrónico"</string>
@@ -135,6 +131,7 @@
     <string name="pref_content_plugins" msgid="7231944644794301582">"Activar complementos"</string>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Abrir ventanas nuevas detrás de la actual"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Definir página de inicio"</string>
+    <string name="pref_use_current" msgid="1493179933653044553">"Utilizar la página actual"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Ajuste automát. de pág."</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatea las páginas web para que se ajusten a la pantalla"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Visualización horizontal solamente"</string>
@@ -189,7 +186,7 @@
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Mostrar la descripción general de las páginas nuevas abiertas"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Configuración avanzada"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Configuración del sitio web"</string>
-    <string name="pref_extras_website_settings_summary" msgid="3917568895776162240">"Ver configuración avanzada para sitios web individuales"</string>
+    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Configuración avanzada para sitios web individuales"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Restabl. a valores predet."</string>
     <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Borrar todos los datos del navegador y restablecer la configuración a los valores predeterminados"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Se suprimirán todos los datos del navegador y la configuración volverá a los valores predeterminados."</string>
@@ -199,9 +196,11 @@
   <string-array name="pref_default_text_encoding_choices">
     <item msgid="7275223955790513818">"Latino-1 (ISO-8859-1)"</item>
     <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
-    <item msgid="7143715548814380950">"Japonés (ISO-2022-JP)"</item>
-    <item msgid="5111312120564516587">"Japonés (SHIFT_JIS)"</item>
-    <item msgid="6545734186479713946">"Japonés (EUC-JP)"</item>
+    <item msgid="6122474363777211732">"Chino (GBK)"</item>
+    <item msgid="373372275931607040">"Chino (Big5)"</item>
+    <item msgid="891615911084608570">"Japonés (ISO-2022-JP)"</item>
+    <item msgid="5589150448475151241">"Japonés (SHIFT_JIS)"</item>
+    <item msgid="7356792686950371843">"Japonés (EUC-JP)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificación de texto"</string>
     <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"Latino-1"</string>
@@ -231,13 +230,12 @@
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Desconocido&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"Abrir"</string>
     <string name="download_menu_clear" msgid="6264454531553418124">"Borrar de la lista"</string>
+    <string name="download_menu_delete" msgid="8815502136393894148">"Suprimir"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"Cancelar descarga"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancelar todas las descargas"</string>
-    
-    
-    
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancelar descargas"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Las <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> descargas se cancelarán y se borrarán del historial de descarga."</string>
+    <string name="download_delete_file" msgid="5330036497843073249">"El archivo se eliminará"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"No hay espacio suficiente"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> no se pudo cargar."\n"Libera espacio en tu teléfono y vuelve a intentarlo."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Descarga incorrecta"</string>
@@ -245,7 +243,7 @@
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Es necesario tener una tarjeta SD para descargar <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"Tarjeta SD no disponible"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"La tarjeta SD está llena. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
-    
+    <string name="download_no_application_title" msgid="1286056729168874295">"No se puede abrir el archivo."</string>
     <string name="retry" msgid="1835923075542266721">"Intentar nuevamente"</string>
     <string name="no_downloads" msgid="3947445710685021498">"El historial de descarga está vacío."</string>
     <string name="download_error" msgid="413496839831257187">"Descarga incorrecta."</string>
@@ -259,12 +257,8 @@
     <string name="download_file_error" msgid="1206648050615176113">"No es posible terminar la descarga. No hay espacio suficiente."</string>
     <string name="download_length_required" msgid="9038605488460437406">"No es posible realizar la descarga. No puede determinarse el tamaño del elemento."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Descarga interrumpida. No se puede retomar."</string>
-    
-    <string name="search_the_web" msgid="6046130189241962337">"Buscar en Internet"</string>
-    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Almacenamiento del navegador lleno"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Hacer clic para liberar espacio"</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Borrar datos almacenados"</string>
-    
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Borrar datos almacenados"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Todos los datos almacenados por este sitio web serán suprimidos"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Eliminar todos"</string>
@@ -275,6 +269,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Compartir ubicación"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rechazar"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Recordar la preferencia"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Este sitio puede acceder a tu ubicación. Cambia esta configuración en: Configuración -&gt; Configuración de sitios web."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Este sitio no puede acceder a tu ubicación. Cambia esta configuración en: Configuración -&gt; Configuración de sitios web."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Borrar acceso a la ubicación"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Este sitio puede acceder a tu ubicación actualmente"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Este sitio no puede acceder a tu ubicación actualmente"</string>
@@ -287,5 +283,5 @@
     <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Se suprimirán todos los datos del sitio web y los permisos de ubicación."</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Suprimir todos los datos"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancelar"</string>
-    
+    <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Estableciendo fondo de pantalla..."</string>
 </resources>
