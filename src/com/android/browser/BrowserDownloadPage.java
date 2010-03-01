@@ -80,6 +80,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                 Downloads.Impl.COLUMN_NOTIFICATION_PACKAGE,
                 Downloads.Impl.COLUMN_LAST_MODIFICATION,
                 Downloads.Impl.COLUMN_VISIBILITY,
+                Downloads.Impl._DATA,
                 Downloads.Impl.COLUMN_MIME_TYPE},
                 null, Downloads.Impl.COLUMN_LAST_MODIFICATION + " DESC");
         
@@ -113,6 +114,38 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                         }
                     }
                 });
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDownloadCursor != null) {
+            String where = null;
+            for (mDownloadCursor.moveToFirst(); !mDownloadCursor.isAfterLast();
+                    mDownloadCursor.moveToNext()) {
+                if (!Downloads.Impl.isStatusCompleted(
+                        mDownloadCursor.getInt(mStatusColumnId))) {
+                    // Only want to check files that have completed.
+                    continue;
+                }
+                int filenameColumnId = mDownloadCursor.getColumnIndexOrThrow(
+                        Downloads.Impl._DATA);
+                String filename = mDownloadCursor.getString(filenameColumnId);
+                File file = new File(filename);
+                if (!file.exists()) {
+                    long id = mDownloadCursor.getLong(mIdColumnId);
+                    if (where == null) {
+                        where = Downloads.Impl._ID + " = '" + id + "'";
+                    } else {
+                        where += " OR " + Downloads.Impl._ID + " = '" + id + "'";
+                    }
+                }
+            }
+            if (where != null) {
+                getContentResolver().delete(Downloads.Impl.CONTENT_URI, where,
+                        null);
             }
         }
     }
@@ -339,7 +372,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         // Count the number of items that will be canceled.
         int count = 0;
         if (mDownloadCursor != null) {
-            for (mDownloadCursor.moveToFirst(); !mDownloadCursor.isAfterLast(); 
+            for (mDownloadCursor.moveToFirst(); !mDownloadCursor.isAfterLast();
                     mDownloadCursor.moveToNext()) {
                 int status = mDownloadCursor.getInt(mStatusColumnId);
                 if (!Downloads.Impl.isStatusCompleted(status)) {
