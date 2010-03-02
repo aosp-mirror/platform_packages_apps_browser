@@ -86,10 +86,10 @@ public class BrowserProvider extends ContentProvider {
     private static final int SUGGEST_COLUMN_INTENT_DATA_ID = 2;
     private static final int SUGGEST_COLUMN_TEXT_1_ID = 3;
     private static final int SUGGEST_COLUMN_TEXT_2_ID = 4;
-    private static final int SUGGEST_COLUMN_ICON_1_ID = 5;
-    private static final int SUGGEST_COLUMN_ICON_2_ID = 6;
-    private static final int SUGGEST_COLUMN_QUERY_ID = 7;
-    private static final int SUGGEST_COLUMN_FORMAT = 8;
+    private static final int SUGGEST_COLUMN_TEXT_2_URL_ID = 5;
+    private static final int SUGGEST_COLUMN_ICON_1_ID = 6;
+    private static final int SUGGEST_COLUMN_ICON_2_ID = 7;
+    private static final int SUGGEST_COLUMN_QUERY_ID = 8;
     private static final int SUGGEST_COLUMN_INTENT_EXTRA_DATA = 9;
 
     // shared suggestion columns
@@ -99,10 +99,10 @@ public class BrowserProvider extends ContentProvider {
             SearchManager.SUGGEST_COLUMN_INTENT_DATA,
             SearchManager.SUGGEST_COLUMN_TEXT_1,
             SearchManager.SUGGEST_COLUMN_TEXT_2,
+            SearchManager.SUGGEST_COLUMN_TEXT_2_URL,
             SearchManager.SUGGEST_COLUMN_ICON_1,
             SearchManager.SUGGEST_COLUMN_ICON_2,
             SearchManager.SUGGEST_COLUMN_QUERY,
-            SearchManager.SUGGEST_COLUMN_FORMAT,
             SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA};
 
     private static final int MAX_SUGGESTION_SHORT_ENTRIES = 3;
@@ -170,11 +170,6 @@ public class BrowserProvider extends ContentProvider {
     private static final Pattern STRIP_URL_PATTERN = Pattern.compile("^(http://)(.*?)(/$)?");
 
     private SearchManager mSearchManager;
-
-    // The ID of the ColorStateList to be applied to urls of website suggestions, as derived from
-    // the current theme. This is not set until/unless beautifyUrl is called, at which point
-    // this variable caches the color value.
-    private static String mSearchUrlColorId;
 
     public BrowserProvider() {
     }
@@ -468,6 +463,7 @@ public class BrowserProvider extends ContentProvider {
         private String  mString;
         private int     mSuggestText1Id;
         private int     mSuggestText2Id;
+        private int     mSuggestText2UrlId;
         private int     mSuggestQueryId;
         private int     mSuggestIntentExtraDataId;
 
@@ -488,6 +484,7 @@ public class BrowserProvider extends ContentProvider {
             if (mSuggestCursor == null) {
                 mSuggestText1Id = -1;
                 mSuggestText2Id = -1;
+                mSuggestText2UrlId = -1;
                 mSuggestQueryId = -1;
                 mSuggestIntentExtraDataId = -1;
             } else {
@@ -495,6 +492,8 @@ public class BrowserProvider extends ContentProvider {
                                 SearchManager.SUGGEST_COLUMN_TEXT_1);
                 mSuggestText2Id = mSuggestCursor.getColumnIndex(
                                 SearchManager.SUGGEST_COLUMN_TEXT_2);
+                mSuggestText2UrlId = mSuggestCursor.getColumnIndex(
+                        SearchManager.SUGGEST_COLUMN_TEXT_2_URL);
                 mSuggestQueryId = mSuggestCursor.getColumnIndex(
                                 SearchManager.SUGGEST_COLUMN_QUERY);
                 mSuggestIntentExtraDataId = mSuggestCursor.getColumnIndex(
@@ -590,10 +589,20 @@ public class BrowserProvider extends ContentProvider {
                         if (type == 0) {
                             return getContext().getString(R.string.search_the_web);
                         } else if (type == 1) {
-                            return getHistorySubtitle();
+                            return null;  // Use TEXT_2_URL instead
                         } else {
                             if (mSuggestText2Id == -1) return null;
                             return mSuggestCursor.getString(mSuggestText2Id);
+                        }
+
+                    case SUGGEST_COLUMN_TEXT_2_URL_ID:
+                        if (type == 0) {
+                            return null;
+                        } else if (type == 1) {
+                            return getHistoryUrl();
+                        } else {
+                            if (mSuggestText2UrlId == -1) return null;
+                            return mSuggestCursor.getString(mSuggestText2UrlId);
                         }
 
                     case SUGGEST_COLUMN_ICON_1_ID:
@@ -629,9 +638,6 @@ public class BrowserProvider extends ContentProvider {
                             if (mSuggestQueryId == -1) return null;
                             return mSuggestCursor.getString(mSuggestQueryId);
                         }
-
-                    case SUGGEST_COLUMN_FORMAT:
-                        return "html";
 
                     case SUGGEST_COLUMN_INTENT_EXTRA_DATA:
                         if (type == 0) {
@@ -718,7 +724,7 @@ public class BrowserProvider extends ContentProvider {
         private String getHistoryTitle() {
             String title = mHistoryCursor.getString(2 /* webpage title */);
             if (TextUtils.isEmpty(title) || TextUtils.getTrimmedLength(title) == 0) {
-                title = beautifyUrl(mHistoryCursor.getString(1 /* url */));
+                title = stripUrl(mHistoryCursor.getString(1 /* url */));
             }
             return title;
         }
@@ -730,30 +736,15 @@ public class BrowserProvider extends ContentProvider {
          *
          * @return the subtitle string to use, or null if none
          */
-        private String getHistorySubtitle() {
+        private String getHistoryUrl() {
             String title = mHistoryCursor.getString(2 /* webpage title */);
             if (TextUtils.isEmpty(title) || TextUtils.getTrimmedLength(title) == 0) {
                 return null;
             } else {
-                return beautifyUrl(mHistoryCursor.getString(1 /* url */));
+                return stripUrl(mHistoryCursor.getString(1 /* url */));
             }
         }
 
-        /**
-         * Strips "http://" from the beginning of a url and "/" from the end,
-         * and adds html formatting to make it green.
-         */
-        private String beautifyUrl(String url) {
-            if (mSearchUrlColorId == null) {
-                // Get the color used for this purpose from the current theme.
-                TypedValue colorValue = new TypedValue();
-                getContext().getTheme().resolveAttribute(
-                        com.android.internal.R.attr.textColorSearchUrl, colorValue, true);
-                mSearchUrlColorId = Integer.toString(colorValue.resourceId);
-            }
-
-            return "<font color=\"@" + mSearchUrlColorId + "\">" + stripUrl(url) + "</font>";
-        }
     }
 
     private static class ResultsCursor extends AbstractCursor {
