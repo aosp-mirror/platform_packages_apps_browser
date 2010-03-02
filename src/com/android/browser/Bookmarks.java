@@ -35,12 +35,6 @@ import java.util.Date;
  *  This class is purely to have a common place for adding/deleting bookmarks.
  */
 /* package */ class Bookmarks {
-    private static final String     WHERE_CLAUSE
-            = "url = ? OR url = ? OR url = ? OR url = ?";
-    private static final String     WHERE_CLAUSE_SECURE = "url = ? OR url = ?";
-
-    private static String[]         SELECTION_ARGS;
-
     // We only want the user to be able to bookmark content that
     // the browser can handle directly.
     private static final String acceptableBookmarkSchemes[] = {
@@ -71,38 +65,8 @@ import java.util.Date;
             Bitmap thumbnail, boolean retainIcon) {
         // Want to append to the beginning of the list
         long creationTime = new Date().getTime();
-        // First we check to see if the user has already visited this
-        // site.  They may have bookmarked it in a different way from
-        // how it's stored in the database, so allow different combos
-        // to map to the same url.
-        boolean secure = false;
-        String compareString = url;
-        if (compareString.startsWith("http://")) {
-            compareString = compareString.substring(7);
-        } else if (compareString.startsWith("https://")) {
-            compareString = compareString.substring(8);
-            secure = true;
-        }
-        if (compareString.startsWith("www.")) {
-            compareString = compareString.substring(4);
-        }
-        if (secure) {
-            SELECTION_ARGS = new String[2];
-            SELECTION_ARGS[0] = "https://" + compareString;
-            SELECTION_ARGS[1] = "https://www." + compareString;
-        } else {
-            SELECTION_ARGS = new String[4];
-            SELECTION_ARGS[0] = compareString;
-            SELECTION_ARGS[1] = "www." + compareString;
-            SELECTION_ARGS[2] = "http://" + compareString;
-            SELECTION_ARGS[3] = "http://" + SELECTION_ARGS[1];
-        }
-        Cursor cursor = cr.query(Browser.BOOKMARKS_URI,
-                Browser.HISTORY_PROJECTION,
-                secure ? WHERE_CLAUSE_SECURE : WHERE_CLAUSE,
-                SELECTION_ARGS,
-                null);
         ContentValues map = new ContentValues();
+        Cursor cursor = Browser.getVisitedLike(cr, url);
         if (cursor.moveToFirst() && cursor.getInt(
                 Browser.HISTORY_PROJECTION_BOOKMARK_INDEX) == 0) {
             // This means we have been to this site but not bookmarked

@@ -722,11 +722,11 @@ public class BrowserActivity extends Activity
                 url = intent.getStringExtra(SearchManager.QUERY);
                 if (url != null) {
                     mLastEnteredUrl = url;
-                    Browser.updateVisitedHistory(mResolver, url, false);
                     // In general, we shouldn't modify URL from Intent.
                     // But currently, we get the user-typed URL from search box as well.
                     url = fixUrl(url);
                     url = smartUrlFilter(url);
+                    Browser.updateVisitedHistory(mResolver, url, false);
                     String searchSource = "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&";
                     if (url.contains(searchSource)) {
                         String source = null;
