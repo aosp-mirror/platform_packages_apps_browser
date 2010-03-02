@@ -3409,14 +3409,14 @@ public class BrowserActivity extends Activity
         }
 
         // issued on:
-        String issuedOn = reformatCertificateDate(
-            certificate.getValidNotBefore());
+        String issuedOn = formatCertificateDate(
+            certificate.getValidNotBeforeDate());
         ((TextView) certificateView.findViewById(R.id.issued_on))
             .setText(issuedOn);
 
         // expires on:
-        String expiresOn = reformatCertificateDate(
-            certificate.getValidNotAfter());
+        String expiresOn = formatCertificateDate(
+            certificate.getValidNotAfterDate());
         ((TextView) certificateView.findViewById(R.id.expires_on))
             .setText(expiresOn);
 
@@ -3424,31 +3424,19 @@ public class BrowserActivity extends Activity
     }
 
     /**
-     * Re-formats the certificate date (Date.toString()) string to
-     * a properly localized date string.
+     * Formats the certificate date to a properly localized date string.
      * @return Properly localized version of the certificate date string and
-     * the original certificate date string if fails to localize.
-     * If the original string is null, returns an empty string "".
+     * the "" if it fails to localize.
      */
-    private String reformatCertificateDate(String certificateDate) {
-      String reformattedDate = null;
-
-      if (certificateDate != null) {
-          Date date = null;
-          try {
-              date = java.text.DateFormat.getInstance().parse(certificateDate);
-          } catch (ParseException e) {
-              date = null;
-          }
-
-          if (date != null) {
-              reformattedDate =
-                  DateFormat.getDateFormat(this).format(date);
-          }
+    private String formatCertificateDate(Date certificateDate) {
+      if (certificateDate == null) {
+          return "";
       }
-
-      return reformattedDate != null ? reformattedDate :
-          (certificateDate != null ? certificateDate : "");
+      String formattedDate = DateFormat.getDateFormat(this).format(certificateDate);
+      if (formattedDate == null) {
+          return "";
+      }
+      return formattedDate;
     }
 
     /**
