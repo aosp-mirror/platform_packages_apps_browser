@@ -402,6 +402,8 @@ class Tab {
     // -------------------------------------------------------------------------
 
     private final WebViewClient mWebViewClient = new WebViewClient() {
+        private Message mDontResend;
+        private Message mResend;
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInLoad = true;
@@ -548,6 +550,14 @@ class Tab {
                 dontResend.sendToTarget();
                 return;
             }
+            if (mDontResend != null) {
+                Log.w(LOGTAG, "onFormResubmission should not be called again "
+                        + "while dialog is still up");
+                dontResend.sendToTarget();
+                return;
+            }
+            mDontResend = dontResend;
+            mResend = resend;
             new AlertDialog.Builder(mActivity).setTitle(
                     R.string.browserFrameFormResubmitLabel).setMessage(
                     R.string.browserFrameFormResubmitMessage)
@@ -555,17 +565,29 @@ class Tab {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,
                                         int which) {
-                                    resend.sendToTarget();
+                                    if (mResend != null) {
+                                        mResend.sendToTarget();
+                                        mResend = null;
+                                        mDontResend = null;
+                                    }
                                 }
                             }).setNegativeButton(R.string.cancel,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,
                                         int which) {
-                                    dontResend.sendToTarget();
+                                    if (mDontResend != null) {
+                                        mDontResend.sendToTarget();
+                                        mResend = null;
+                                        mDontResend = null;
+                                    }
                                 }
                             }).setOnCancelListener(new OnCancelListener() {
                         public void onCancel(DialogInterface dialog) {
-                            dontResend.sendToTarget();
+                            if (mDontResend != null) {
+                                mDontResend.sendToTarget();
+                                mResend = null;
+                                mDontResend = null;
+                            }
                         }
                     }).show();
         }
