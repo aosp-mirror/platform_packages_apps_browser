@@ -451,12 +451,13 @@ public class BrowserProvider extends ContentProvider {
 
     /*
      * Subclass AbstractCursor so we can combine multiple Cursors and add
-     * "Google Search".
+     * "Search the web".
      * Here are the rules.
      * 1. We only have MAX_SUGGESTION_LONG_ENTRIES in the list plus
-     *      "Google Search";
-     * 2. If bookmark/history entries are less than
-     *      (MAX_SUGGESTION_SHORT_ENTRIES -1), we include Google suggest.
+     *      "Search the web";
+     * 2. If bookmark/history entries has a match, "Search the web" shows up at
+     *      the second place. Otherwise, "Search the web" shows up at the first
+     *      place.
      */
     private class MySuggestionCursor extends AbstractCursor {
         private Cursor  mHistoryCursor;
@@ -507,11 +508,17 @@ public class BrowserProvider extends ContentProvider {
                 return false;
             }
             if (mIncludeWebSearch) {
-                if (newPosition == 0) {
+                if (mHistoryCount == 0 && newPosition == 0) {
                     return true;
-                } else {
-                    newPosition--;
+                } else if (mHistoryCount > 0) {
+                    if (newPosition == 0) {
+                        mHistoryCursor.moveToPosition(0);
+                        return true;
+                    } else if (newPosition == 1) {
+                        return true;
+                    }
                 }
+                newPosition--;
             }
             if (mHistoryCount > newPosition) {
                 mHistoryCursor.moveToPosition(newPosition);
@@ -538,26 +545,41 @@ public class BrowserProvider extends ContentProvider {
         @Override
         public String getString(int columnIndex) {
             if ((mPos != -1 && mHistoryCursor != null)) {
-                int position = mIncludeWebSearch ? mPos - 1 : mPos;
+                int type = -1; // 0: web search; 1: history; 2: suggestion
+                if (mIncludeWebSearch) {
+                    if (mHistoryCount == 0 && mPos == 0) {
+                        type = 0;
+                    } else if (mHistoryCount > 0) {
+                        if (mPos == 0) {
+                            type = 1;
+                        } else if (mPos == 1) {
+                            type = 0;
+                        }
+                    }
+                    if (type == -1) type = (mPos - 1) < mHistoryCount ? 1 : 2;
+                } else {
+                    type = mPos < mHistoryCount ? 1 : 2;
+                }
+
                 switch(columnIndex) {
                     case SUGGEST_COLUMN_INTENT_ACTION_ID:
-                        if (position >= 0 && position < mHistoryCount) {
+                        if (type == 1) {
                             return Intent.ACTION_VIEW;
                         } else {
                             return Intent.ACTION_SEARCH;
                         }
 
                     case SUGGEST_COLUMN_INTENT_DATA_ID:
-                        if (position >= 0 && position < mHistoryCount) {
+                        if (type == 1) {
                             return mHistoryCursor.getString(1);
                         } else {
                             return null;
                         }
 
                     case SUGGEST_COLUMN_TEXT_1_ID:
-                        if (position < 0) {
+                        if (type == 0) {
                             return mString;
-                        } else if (mHistoryCount > position) {
+                        } else if (type == 1) {
                             return getHistoryTitle();
                         } else {
                             if (mSuggestText1Id == -1) return null;
@@ -565,9 +587,9 @@ public class BrowserProvider extends ContentProvider {
                         }
 
                     case SUGGEST_COLUMN_TEXT_2_ID:
-                        if (position < 0) {
+                        if (type == 0) {
                             return getContext().getString(R.string.search_the_web);
-                        } else if (mHistoryCount > position) {
+                        } else if (type == 1) {
                             return getHistorySubtitle();
                         } else {
                             if (mSuggestText2Id == -1) return null;
@@ -575,7 +597,7 @@ public class BrowserProvider extends ContentProvider {
                         }
 
                     case SUGGEST_COLUMN_ICON_1_ID:
-                        if (position >= 0 && position < mHistoryCount) {
+                        if (type == 1) {
                             if (mHistoryCursor.getInt(3) == 1) {
                                 return Integer.valueOf(
                                         R.drawable.ic_search_category_bookmark)
@@ -595,9 +617,9 @@ public class BrowserProvider extends ContentProvider {
                         return "0";
 
                     case SUGGEST_COLUMN_QUERY_ID:
-                        if (position < 0) {
+                        if (type == 0) {
                             return mString;
-                        } else if (mHistoryCount > position) {
+                        } else if (type == 1) {
                             // Return the url in the intent query column. This is ignored
                             // within the browser because our searchable is set to
                             // android:searchMode="queryRewriteFromData", but it is used by
@@ -612,9 +634,9 @@ public class BrowserProvider extends ContentProvider {
                         return "html";
 
                     case SUGGEST_COLUMN_INTENT_EXTRA_DATA:
-                        if (position < 0) {
+                        if (type == 0) {
                             return null;
-                        } else if (mHistoryCount > position) {
+                        } else if (type == 1) {
                             return null;
                         } else {
                             if (mSuggestIntentExtraDataId == -1) return null;
