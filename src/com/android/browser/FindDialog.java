@@ -129,7 +129,7 @@ import android.widget.TextView;
     public void dismiss() {
         super.dismiss();
         mBrowserActivity.closeFind();
-        mWebView.clearMatches();
+        mWebView.notifyFindDialogDismissed();
     }
 
     @Override

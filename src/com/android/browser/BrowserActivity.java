@@ -1543,6 +1543,7 @@ public class BrowserActivity extends Activity
                 }
                 mFindDialog.setWebView(getTopWindow());
                 mFindDialog.show();
+                getTopWindow().setFindIsUp(true);
                 mMenuState = EMPTY_MENU;
                 break;
 
