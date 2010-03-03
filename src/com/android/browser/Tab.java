@@ -55,6 +55,7 @@ import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebBackForwardList;
+import android.webkit.WebBackForwardListClient;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebIconDatabase;
@@ -127,6 +128,8 @@ class Tab {
     // The listener that gets invoked when a download is started from the
     // mMainView
     private final DownloadListener mDownloadListener;
+    // Listener used to know when we move forward or back in the history list.
+    private final WebBackForwardListClient mWebBackForwardListClient;
 
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
@@ -241,6 +244,7 @@ class Tab {
                 }
             }
         }
+        mVoiceSearchData.mVoiceSearchIntent = intent;
         mVoiceSearchData.mLastVoiceSearchTitle
                 = mVoiceSearchData.mVoiceSearchResults.get(index);
         if (mInForeground) {
@@ -322,6 +326,12 @@ class Tab {
          * String signifying that Google was the source.
          */
         public boolean mSourceIsGoogle;
+        /**
+         * The Intent used to invoke voice search.  Placed on the
+         * WebHistoryItem so that when coming back to a previous voice search
+         * page we can again activate voice search.
+         */
+        public Object mVoiceSearchIntent;
         /**
          * String used to identify Google as the source of voice search.
          */
@@ -1270,6 +1280,21 @@ class Tab {
                 }
             }
         };
+        mWebBackForwardListClient = new WebBackForwardListClient() {
+            @Override
+            public void onNewHistoryItem(WebHistoryItem item) {
+                if (isInVoiceSearchMode()) {
+                    item.setCustomData(mVoiceSearchData.mVoiceSearchIntent);
+                }
+            }
+            @Override
+            public void onIndexChanged(WebHistoryItem item, int index) {
+                Object data = item.getCustomData();
+                if (data != null && data instanceof Intent) {
+                    activateVoiceSearchMode((Intent) data);
+                }
+            }
+        };
 
         setWebView(w);
     }
@@ -1302,6 +1327,7 @@ class Tab {
             // does a redirect after a period of time. The user could have
             // switched to another tab while waiting for the download to start.
             mMainView.setDownloadListener(mDownloadListener);
+            mMainView.setWebBackForwardListClient(mWebBackForwardListClient);
         }
     }
 
