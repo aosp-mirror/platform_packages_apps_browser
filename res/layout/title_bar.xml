@@ -15,9 +15,12 @@
    limitations under the License.
 -->
 
+<!-- Manually set the height, to ensure that it matches the SearchDialog's
+        height.  It also ensures that when the stop button is showing it does
+        not change its height. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="57dip"
     android:orientation="vertical"
     android:paddingLeft="8dip"
     android:paddingRight="12dip"
@@ -72,6 +75,13 @@
                     android:ellipsize="end"
                 />
         </LinearLayout>
+        <ImageView android:id="@+id/stop"
+            android:background="@*android:drawable/btn_search_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_btn_stop_v2"
+            android:visibility="gone"
+        />
         <ImageView
             android:id="@+id/rt_btn"
             android:layout_width="wrap_content"

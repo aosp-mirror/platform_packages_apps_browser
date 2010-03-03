@@ -62,7 +62,7 @@ public class TitleBar extends LinearLayout {
     private ProgressBar     mHorizontalProgress;
     private ImageView       mFavicon;
     private ImageView       mLockIcon;
-    private Drawable        mStopDrawable;
+    private ImageView       mStopButton;
     private Drawable        mBookmarkDrawable;
     private Drawable        mVoiceDrawable;
     private boolean         mInLoad;
@@ -75,6 +75,7 @@ public class TitleBar extends LinearLayout {
     private boolean         mInVoiceMode;
     private Drawable        mVoiceModeBackground;
     private Drawable        mNormalBackground;
+    private Drawable        mLoadingBackground;
     private ImageSpan       mArcsSpan;
 
     private static int LONG_PRESS = 1;
@@ -92,6 +93,7 @@ public class TitleBar extends LinearLayout {
         mTitleBg = findViewById(R.id.title_bg);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mFavicon = (ImageView) findViewById(R.id.favicon);
+        mStopButton = (ImageView) findViewById(R.id.stop);
 
         mRtButton = (ImageView) findViewById(R.id.rt_btn);
         Resources resources = context.getResources();
@@ -117,11 +119,11 @@ public class TitleBar extends LinearLayout {
             mVoiceDrawable = resources.getDrawable(
                     android.R.drawable.ic_btn_speak_now);
         }
-        mStopDrawable = resources.getDrawable(R.drawable.ic_btn_stop_v2);
         mBookmarkDrawable = mRtButton.getDrawable();
         mVoiceModeBackground = resources.getDrawable(
                 R.drawable.title_voice);
         mNormalBackground = mTitleBg.getBackground();
+        mLoadingBackground = resources.getDrawable(R.drawable.title_loading);
         mArcsSpan = new ImageSpan(context, R.drawable.arcs,
                 ImageSpan.ALIGN_BASELINE);
     }
@@ -258,23 +260,28 @@ public class TitleBar extends LinearLayout {
     /* package */ void setInVoiceMode(boolean inVoiceMode) {
         if (mInVoiceMode == inVoiceMode) return;
         mInVoiceMode = inVoiceMode && mVoiceSearchIntent != null;
-        Drawable rightButtonDrawable, titleDrawable;
+        Drawable titleDrawable;
         if (mInVoiceMode) {
-            rightButtonDrawable = mVoiceDrawable;
+            mRtButton.setImageDrawable(mVoiceDrawable);
             titleDrawable = mVoiceModeBackground;
             mTitle.setEllipsize(null);
+            mRtButton.setVisibility(View.VISIBLE);
+            mStopButton.setVisibility(View.GONE);
         } else {
-            titleDrawable = mNormalBackground;
             if (mInLoad) {
-                rightButtonDrawable = mStopDrawable;
+                titleDrawable = mLoadingBackground;
+                mRtButton.setVisibility(View.GONE);
+                mStopButton.setVisibility(View.VISIBLE);
             } else {
-                rightButtonDrawable = mBookmarkDrawable;
+                titleDrawable = mNormalBackground;
+                mRtButton.setVisibility(View.VISIBLE);
+                mStopButton.setVisibility(View.GONE);
+                mRtButton.setImageDrawable(mBookmarkDrawable);
             }
             mTitle.setEllipsize(TextUtils.TruncateAt.END);
         }
         mTitle.setSingleLine(!mInVoiceMode);
         mTitleBg.setBackgroundDrawable(titleDrawable);
-        mRtButton.setImageDrawable(rightButtonDrawable);
     }
 
     /**
@@ -299,6 +306,9 @@ public class TitleBar extends LinearLayout {
             mHorizontalProgress.setVisibility(View.INVISIBLE);
             if (!mInVoiceMode) {
                 mRtButton.setImageDrawable(mBookmarkDrawable);
+                mRtButton.setVisibility(View.VISIBLE);
+                mStopButton.setVisibility(View.GONE);
+                mTitleBg.setBackgroundDrawable(mNormalBackground);
             }
             mInLoad = false;
         } else {
@@ -313,7 +323,9 @@ public class TitleBar extends LinearLayout {
                 ((Animatable) mCircularProgress).start();
                 mHorizontalProgress.setVisibility(View.VISIBLE);
                 if (!mInVoiceMode) {
-                    mRtButton.setImageDrawable(mStopDrawable);
+                    mTitleBg.setBackgroundDrawable(mLoadingBackground);
+                    mRtButton.setVisibility(View.GONE);
+                    mStopButton.setVisibility(View.VISIBLE);
                 }
                 mInLoad = true;
             }
