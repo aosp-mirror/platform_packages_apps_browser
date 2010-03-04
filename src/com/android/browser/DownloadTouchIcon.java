@@ -96,6 +96,9 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
         } finally {
             client.close();
         }
+        if (mCursor != null) {
+            mCursor.close();
+        }
         return null;
     }
 
@@ -130,6 +133,5 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
                         values, null, null);
             } while (mCursor.moveToNext());
         }
-        mCursor.close();
     }
 }

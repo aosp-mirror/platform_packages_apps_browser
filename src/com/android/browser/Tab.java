@@ -975,6 +975,8 @@ class Tab {
                         mTouchIconLoader = new DownloadTouchIcon(Tab.this, cr,
                                 c, view);
                         mTouchIconLoader.execute(url);
+                    } else {
+                        c.close();
                     }
                 } else {
                     c.close();
