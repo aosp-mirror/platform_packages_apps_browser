@@ -306,6 +306,14 @@ public class BrowserActivity extends Activity
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
 
+        // Find out if the network is currently up.
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(
+                Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = cm.getActiveNetworkInfo();
+        if (info != null) {
+            mIsNetworkUp = info.isAvailable();
+        }
+
         /* enables registration for changes in network status from
            http stack */
         mNetworkStateChangedFilter = new IntentFilter();
