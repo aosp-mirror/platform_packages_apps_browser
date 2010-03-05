@@ -437,9 +437,9 @@
     <!-- Settings label -->
     <string name="pref_extras_reset_default">Reset to default</string>
     <!-- Settings summary -->
-    <string name="pref_extras_reset_default_summary">Clear all browser data and reset all settings to default</string>
+    <string name="pref_extras_reset_default_summary">Restore default settings</string>
     <!-- Confirmation dialog message -->
-    <string name="pref_extras_reset_default_dlg">All browser data will be deleted and settings will revert to default values.</string>
+    <string name="pref_extras_reset_default_dlg">Settings will revert to default values.</string>
     <!-- Confirmation dialog title -->
     <string name="pref_extras_reset_default_dlg_title">Reset to default</string>
     <!-- Title for a group of settings -->
