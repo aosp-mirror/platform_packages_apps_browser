@@ -1802,6 +1802,10 @@ class Tab {
                     mMainView.hashCode() + "_pic.save");
             if (mMainView.savePicture(mSavedState, f)) {
                 mSavedState.putString(CURRPICTURE, f.getPath());
+            } else {
+                // if savePicture returned false, we can't trust the contents,
+                // and it may be large, so we delete it right away
+                f.delete();
             }
         }
 
