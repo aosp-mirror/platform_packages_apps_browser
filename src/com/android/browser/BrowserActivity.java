@@ -2835,12 +2835,19 @@ public class BrowserActivity extends Activity
                     hideFakeTitleBar();
                 }
             }
-        } else if (!mInLoad) {
-            // onPageFinished may have already been called but a subframe is
-            // still loading and updating the progress. Reset mInLoad and update
-            // the menu items.
-            mInLoad = true;
-            updateInLoadMenuItems();
+        } else {
+            if (!mInLoad) {
+                // onPageFinished may have already been called but a subframe is
+                // still loading and updating the progress. Reset mInLoad and
+                // update the menu items.
+                mInLoad = true;
+                updateInLoadMenuItems();
+            }
+            // When the page first begins to load, the Activity may still be
+            // paused, in which case showFakeTitleBar will do nothing.  Call
+            // again as the page continues to load so that it will be shown.
+            // (Calling it will the fake title bar is already showing will also
+            // do nothing.
             if (!mOptionsMenuOpen || mIconView) {
                 // This page has begun to load, so show the title bar
                 showFakeTitleBar();
