@@ -18,7 +18,7 @@ package com.android.browser;
 
 import android.app.SearchManager;
 import android.app.SearchableInfo;
-import android.backup.BackupManager;
+import android.app.backup.BackupManager;
 import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentResolver;

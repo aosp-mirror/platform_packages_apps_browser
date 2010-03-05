@@ -18,9 +18,9 @@ package com.android.browser;
 
 import java.io.IOException;
 
-import android.app.BackupAgent;
-import android.backup.BackupDataInput;
-import android.backup.BackupDataOutput;
+import android.app.backup.BackupAgent;
+import android.app.backup.BackupDataInput;
+import android.app.backup.BackupDataOutput;
 import android.database.Cursor;
 import android.os.ParcelFileDescriptor;
 import android.provider.Browser;
