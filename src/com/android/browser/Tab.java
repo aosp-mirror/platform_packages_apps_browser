@@ -18,7 +18,10 @@ package com.android.browser;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Vector;
 
 import android.app.AlertDialog;
@@ -221,6 +224,9 @@ class Tab {
             }
             mVoiceSearchData = new VoiceSearchData(results, urls, htmls,
                     baseUrls);
+            mVoiceSearchData.mHeaders = intent.getParcelableArrayListExtra(
+                    RecognizerResultsIntent
+                    .EXTRA_VOICE_SEARCH_RESULT_HTTP_HEADERS);
             mVoiceSearchData.mSourceIsGoogle = intent.getBooleanExtra(
                     VoiceSearchData.SOURCE_IS_GOOGLE, false);
         } else {
@@ -278,7 +284,21 @@ class Tab {
             mVoiceSearchData.mLastVoiceSearchUrl = mActivity.smartUrlFilter(
                     mVoiceSearchData.mLastVoiceSearchTitle);
         }
-        mMainView.loadUrl(mVoiceSearchData.mLastVoiceSearchUrl);
+        Map<String, String> headers = null;
+        if (mVoiceSearchData.mHeaders != null) {
+            int bundleIndex = mVoiceSearchData.mHeaders.size() == 1 ? 0
+                    : index;
+            Bundle bundle = mVoiceSearchData.mHeaders.get(bundleIndex);
+            if (bundle != null && !bundle.isEmpty()) {
+                Iterator<String> iter = bundle.keySet().iterator();
+                headers = new HashMap<String, String>();
+                while (iter.hasNext()) {
+                    String key = iter.next();
+                    headers.put(key, bundle.getString(key));
+                }
+            }
+        }
+        mMainView.loadUrl(mVoiceSearchData.mLastVoiceSearchUrl, headers);
     }
     /* package */ static class VoiceSearchData {
         public VoiceSearchData(ArrayList<String> results,
@@ -326,6 +346,11 @@ class Tab {
          * String signifying that Google was the source.
          */
         public boolean mSourceIsGoogle;
+        /**
+         * List of headers to be passed into the WebView containing location
+         * information
+         */
+        public ArrayList<Bundle> mHeaders;
         /**
          * The Intent used to invoke voice search.  Placed on the
          * WebHistoryItem so that when coming back to a previous voice search
