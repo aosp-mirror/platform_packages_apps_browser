@@ -18,11 +18,15 @@ package com.android.browser;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import android.app.Instrumentation;
@@ -48,10 +52,12 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     private final static String newLine = System.getProperty("line.separator");
     private final static String sInputFile = "popular_urls.txt";
     private final static String sOutputFile = "test_output.txt";
+    private final static String sStatusFile = "test_status.txt";
     private final static File sExternalStorage = Environment.getExternalStorageDirectory();
     private BrowserActivity mActivity = null;
     private Instrumentation mInst = null;
     private CountDownLatch mLatch = new CountDownLatch(1);
+    private RunStatus mStatus;
 
     public PopularUrlsTest() {
         super("com.android.browser", BrowserActivity.class);
@@ -64,25 +70,41 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         mActivity = getActivity();
         mInst = getInstrumentation();
         mInst.waitForIdleSync();
+
+        mStatus = RunStatus.load();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        if (mStatus != null) {
+            mStatus.cleanUp();
+        }
+
+        super.tearDown();
     }
 
     static BufferedReader getInputStream() throws FileNotFoundException {
-        String path = sExternalStorage + File.separator + sInputFile;
+        return getInputStream(sInputFile);
+    }
+
+    static BufferedReader getInputStream(String inputFile) throws FileNotFoundException {
+        String path = sExternalStorage + File.separator + inputFile;
         FileReader fileReader = new FileReader(path);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
         return bufferedReader;
     }
 
-    static OutputStreamWriter getOutputStream() throws IOException {
-        String path = sExternalStorage + File.separator + sOutputFile;
+    OutputStreamWriter getOutputStream() throws IOException {
+        return getOutputStream(sOutputFile);
+    }
+
+    OutputStreamWriter getOutputStream(String outputFile) throws IOException {
+        String path = sExternalStorage + File.separator + outputFile;
 
         File file = new File(path);
-        if (file.exists()) {
-            file.delete();
-        }
 
-        return new FileWriter(file);
+        return new FileWriter(file, mStatus.getIsRecovery());
     }
 
     /**
@@ -189,40 +211,181 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         mLatch.await();
     }
 
+    private static class RunStatus {
+        private File mFile;
+        private int iteration;
+        private int page;
+        private String url;
+        private boolean isRecovery;
+
+        private RunStatus(String file) throws IOException {
+            mFile = new File(file);
+            FileReader input = null;
+            BufferedReader reader = null;
+            try {
+                input = new FileReader(mFile);
+                isRecovery = true;
+                reader = new BufferedReader(input);
+                iteration = Integer.parseInt(reader.readLine());
+                page = Integer.parseInt(reader.readLine());
+            } catch (FileNotFoundException ex) {
+                isRecovery = false;
+                iteration = 0;
+                page = 0;
+            } finally {
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } finally {
+                    if (input != null) {
+                        input.close();
+                    }
+                }
+            }
+        }
+
+        public static RunStatus load() throws IOException {
+            return load(sStatusFile);
+        }
+
+        public static RunStatus load(String file) throws IOException {
+            return new RunStatus(sExternalStorage + File.separator + file);
+        }
+
+        public void write() throws IOException {
+            FileWriter output = null;
+            OutputStreamWriter writer = null;
+            if (mFile.exists()) {
+                mFile.delete();
+            }
+            try {
+                output = new FileWriter(mFile);
+                output.write(iteration + newLine);
+                output.write(page + newLine);
+                output.write(url + newLine);
+            } finally {
+                try {
+                    if (writer != null) {
+                        writer.close();
+                    }
+                } finally {
+                    if (output != null) {
+                        output.close();
+                    }
+                }
+            }
+        }
+
+        public void cleanUp() {
+            if (mFile.exists()) {
+                mFile.delete();
+            }
+        }
+
+        public void resetPage() {
+            page = 0;
+        }
+
+        public void incrementPage() {
+            ++page;
+        }
+
+        public void incrementIteration() {
+            ++iteration;
+        }
+
+        public int getPage() {
+            return page;
+        }
+
+        public int getIteration() {
+            return iteration;
+        }
+
+        public boolean getIsRecovery() {
+            return isRecovery;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+    }
+
     /**
      * Loops over a list of URLs, points the browser to each one, and records the time elapsed.
      *
      * @param input the reader from which to get the URLs.
      * @param writer the writer to which to output the results.
+     * @param clearCache determines whether the cache is cleared before loading each page
+     * @param loopCount the number of times to loop through the list of pages
      * @throws IOException unable to read from input or write to writer.
      * @throws InterruptedException the thread was interrupted waiting for the page to load.
      */
-    void loopUrls(BufferedReader input, OutputStreamWriter writer)
+    void loopUrls(BufferedReader input, OutputStreamWriter writer,
+            boolean clearCache, int loopCount)
             throws IOException, InterruptedException {
         Tab tab = mActivity.getTabControl().getCurrentTab();
         WebView webView = tab.getWebView();
+
+        List<String> pages = new LinkedList<String>();
+
         String page;
-
         while (null != (page = input.readLine())) {
-            Uri uri = Uri.parse(page);
-            webView.clearCache(true);
-            final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            writer.write(uri.toString());
+            pages.add(page);
+        }
 
-            long startTime = System.nanoTime();
-            mInst.runOnMainSync(new Runnable() {
+        int iteration = mStatus.getIteration();
+        Iterator<String> iterator = pages.iterator();
+        for (int i = 0; i < mStatus.getPage(); ++i) {
+            iterator.next();
+        }
 
-                public void run() {
-                    mActivity.onNewIntent(intent);
+        if (mStatus.getIsRecovery()) {
+            Log.e(TAG, "Recovering after crash: " + iterator.next());
+        }
+
+        while (iteration < loopCount) {
+            while(iterator.hasNext()) {
+                page = iterator.next();
+                mStatus.setUrl(page);
+                mStatus.write();
+                Log.i(TAG, "Loading url: " + page);
+                Uri uri = Uri.parse(page);
+                if (clearCache) {
+                    webView.clearCache(true);
+                }
+                final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                if (writer != null) {
+                    writer.write(uri.toString());
+                    writer.flush();
                 }
 
-            });
-            waitForLoad();
-            long stopTime = System.nanoTime();
+                long startTime = System.nanoTime();
+                mInst.runOnMainSync(new Runnable() {
 
-            String url = webView.getUrl();
-            Log.i(TAG, "Loaded url: " + url);
-            writer.write("|" + (stopTime - startTime) + newLine);
+                    public void run() {
+                        mActivity.onNewIntent(intent);
+                    }
+
+                });
+                waitForLoad();
+                long stopTime = System.nanoTime();
+
+                String url = webView.getUrl();
+                Log.d(TAG, "Loaded url: " + url);
+
+                if (writer != null) {
+                    writer.write("|" + (stopTime - startTime) + newLine);
+                    writer.flush();
+                }
+
+                mStatus.incrementPage();
+            }
+            mStatus.incrementIteration();
+            mStatus.resetPage();
+            iterator = pages.iterator();
         }
     }
 
@@ -233,7 +396,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         try {
             BufferedReader bufferedReader = getInputStream();
             try {
-                loopUrls(bufferedReader, writer);
+                loopUrls(bufferedReader, writer, true, 10);
             } finally {
                 if (bufferedReader != null) {
                     bufferedReader.close();
@@ -242,6 +405,19 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         } finally {
             if (writer != null) {
                 writer.close();
+            }
+        }
+    }
+
+    public void testStability() throws IOException, InterruptedException {
+        setUpBrowser();
+
+        BufferedReader bufferedReader = getInputStream();
+        try {
+            loopUrls(bufferedReader, null, true, 1);
+        } finally {
+            if (bufferedReader != null) {
+                bufferedReader.close();
             }
         }
     }
