@@ -133,13 +133,16 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                 int filenameColumnId = mDownloadCursor.getColumnIndexOrThrow(
                         Downloads.Impl._DATA);
                 String filename = mDownloadCursor.getString(filenameColumnId);
-                File file = new File(filename);
-                if (!file.exists()) {
-                    long id = mDownloadCursor.getLong(mIdColumnId);
-                    if (where == null) {
-                        where = Downloads.Impl._ID + " = '" + id + "'";
-                    } else {
-                        where += " OR " + Downloads.Impl._ID + " = '" + id + "'";
+                if (filename != null) {
+                    File file = new File(filename);
+                    if (!file.exists()) {
+                        long id = mDownloadCursor.getLong(mIdColumnId);
+                        if (where == null) {
+                            where = Downloads.Impl._ID + " = '" + id + "'";
+                        } else {
+                            where += " OR " + Downloads.Impl._ID + " = '" + id
+                                    + "'";
+                        }
                     }
                 }
             }
