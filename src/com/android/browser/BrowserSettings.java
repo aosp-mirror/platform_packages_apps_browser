@@ -207,6 +207,8 @@ class BrowserSettings extends Observable {
             s.setNeedInitialFocus(false);
             // Browser supports multiple windows
             s.setSupportMultipleWindows(true);
+            // Use system over scroll background
+            s.setUseSystemOverscrollBackground(true);
 
             // HTML5 API flags
             s.setAppCacheEnabled(b.appCacheEnabled);
