@@ -229,28 +229,31 @@ class Tab {
                     .EXTRA_VOICE_SEARCH_RESULT_HTTP_HEADERS);
             mVoiceSearchData.mSourceIsGoogle = intent.getBooleanExtra(
                     VoiceSearchData.SOURCE_IS_GOOGLE, false);
-        } else {
-            String extraData = intent.getStringExtra(
-                    SearchManager.EXTRA_DATA_KEY);
-            if (extraData != null) {
-                index = Integer.parseInt(extraData);
-                if (index >= mVoiceSearchData.mVoiceSearchResults.size()) {
-                    throw new AssertionError("index must be less than "
-                            + " size of mVoiceSearchResults");
-                }
-                if (mVoiceSearchData.mSourceIsGoogle) {
-                    Intent logIntent = new Intent(
-                            LoggingEvents.ACTION_LOG_EVENT);
-                    logIntent.putExtra(LoggingEvents.EXTRA_EVENT,
-                            LoggingEvents.VoiceSearch.N_BEST_CHOOSE);
-                    logIntent.putExtra(
-                            LoggingEvents.VoiceSearch.EXTRA_N_BEST_CHOOSE_INDEX,
-                            index);
-                    mActivity.sendBroadcast(logIntent);
-                }
+            mVoiceSearchData.mVoiceSearchIntent = intent;
+        }
+        String extraData = intent.getStringExtra(
+                SearchManager.EXTRA_DATA_KEY);
+        if (extraData != null) {
+            index = Integer.parseInt(extraData);
+            if (index >= mVoiceSearchData.mVoiceSearchResults.size()) {
+                throw new AssertionError("index must be less than "
+                        + "size of mVoiceSearchResults");
+            }
+            if (mVoiceSearchData.mSourceIsGoogle) {
+                Intent logIntent = new Intent(
+                        LoggingEvents.ACTION_LOG_EVENT);
+                logIntent.putExtra(LoggingEvents.EXTRA_EVENT,
+                        LoggingEvents.VoiceSearch.N_BEST_CHOOSE);
+                logIntent.putExtra(
+                        LoggingEvents.VoiceSearch.EXTRA_N_BEST_CHOOSE_INDEX,
+                        index);
+                mActivity.sendBroadcast(logIntent);
+            }
+            if (mVoiceSearchData.mVoiceSearchIntent != null) {
+                mVoiceSearchData.mVoiceSearchIntent.putExtra(
+                        SearchManager.EXTRA_DATA_KEY, extraData);
             }
         }
-        mVoiceSearchData.mVoiceSearchIntent = intent;
         mVoiceSearchData.mLastVoiceSearchTitle
                 = mVoiceSearchData.mVoiceSearchResults.get(index);
         if (mInForeground) {
@@ -356,7 +359,7 @@ class Tab {
          * WebHistoryItem so that when coming back to a previous voice search
          * page we can again activate voice search.
          */
-        public Object mVoiceSearchIntent;
+        public Intent mVoiceSearchIntent;
         /**
          * String used to identify Google as the source of voice search.
          */
