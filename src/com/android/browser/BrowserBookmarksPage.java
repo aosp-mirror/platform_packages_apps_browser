@@ -47,6 +47,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.webkit.WebIconDatabase.IconListener;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -372,6 +373,23 @@ public class BrowserBookmarksPage extends Activity implements
                     }
                     if (mVerticalList != null) {
                         mVerticalList.setAdapter(mBookmarksAdapter);
+                    }
+                    // Add our own listener in case there are favicons that
+                    // have yet to be loaded.
+                    if (mMostVisited) {
+                        IconListener listener = new IconListener() {
+                            public void onReceivedIcon(String url,
+                                    Bitmap icon) {
+                                if (mGridPage != null) {
+                                    mGridPage.setAdapter(mBookmarksAdapter);
+                                }
+                                if (mVerticalList != null) {
+                                    mVerticalList.setAdapter(mBookmarksAdapter);
+                                }
+                            }
+                        };
+                        CombinedBookmarkHistoryActivity.getIconListenerSet()
+                                .addListener(listener);
                     }
                     break;
             }

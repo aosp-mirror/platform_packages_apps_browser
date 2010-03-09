@@ -34,7 +34,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebIconDatabase;
-import android.webkit.WebIconDatabase.IconListener;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -56,16 +55,6 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     private boolean                 mMostVisited;
     private boolean                 mNeedsOffset;
     private int                     mExtraOffset;
-
-    // Implementation of WebIconDatabase.IconListener
-    private class IconReceiver implements IconListener {
-        public void onReceivedIcon(String url, Bitmap icon) {
-            updateBookmarkFavicon(mContentResolver, null, url, icon);
-        }
-    }
-
-    // Instance of IconReceiver
-    private final IconReceiver mIconReceiver = new IconReceiver();
 
     /**
      *  Create a new BrowserBookmarksAdapter.
@@ -93,7 +82,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         if (mostVisited) {
             whereClause = Browser.BookmarkColumns.VISITS + " != 0";
         } else {
-            whereClause = Browser.BookmarkColumns.BOOKMARK + " != 0";
+            whereClause = Browser.BookmarkColumns.BOOKMARK + " = 1";
         }
         mCursor = b.managedQuery(Browser.BOOKMARKS_URI,
                 Browser.HISTORY_PROJECTION, whereClause, null, orderBy);
@@ -104,12 +93,6 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         notifyDataSetChanged();
 
         mCount = mCursor.getCount() + mExtraOffset;
-
-        // FIXME: This requires another query of the database after the
-        // managedQuery. Can we optimize this?
-        Browser.requestAllIcons(mContentResolver,
-                Browser.BookmarkColumns.FAVICON + " is NULL AND " +
-                Browser.BookmarkColumns.BOOKMARK + " == 1", mIconReceiver);
     }
     
     /**

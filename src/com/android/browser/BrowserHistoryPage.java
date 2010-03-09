@@ -135,8 +135,11 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }
         mDisableNewWindow = getIntent().getBooleanExtra("disable_new_window",
                 false);
+
+        // Register to receive icons in case they haven't all been loaded.
         CombinedBookmarkHistoryActivity.getIconListenerSet()
                 .addListener(mIconReceiver);
+
         Activity parent = getParent();
         if (null == parent
                 || !(parent instanceof CombinedBookmarkHistoryActivity)) {

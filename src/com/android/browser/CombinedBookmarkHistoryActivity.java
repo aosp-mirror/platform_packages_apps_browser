@@ -22,6 +22,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.view.Window;
@@ -100,11 +101,6 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
 
         Bundle extras = getIntent().getExtras();
 
-        getIconListenerSet();
-        // Do this every time we create a new activity so that we get the
-        // newest icons.
-        Browser.requestAllIcons(getContentResolver(), null, sIconListenerSet);
-
         Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
         bookmarksIntent.putExtras(extras);
         createTab(bookmarksIntent, R.string.tab_bookmarks,
@@ -128,6 +124,17 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         if (defaultTab != null) {
             getTabHost().setCurrentTab(2);
         }
+
+        // Do this every time we launch the activity in case a new favicon was
+        // added to the webkit db.
+        (new AsyncTask<Void, Void, Void>() {
+            public Void doInBackground(Void... v) {
+                Browser.requestAllIcons(getContentResolver(),
+                    Browser.BookmarkColumns.FAVICON + " is NULL",
+                    getIconListenerSet());
+                return null;
+            }
+        }).execute();
     }
 
     private void createTab(Intent intent, int labelResId, int iconResId,
