@@ -301,7 +301,6 @@ public class BrowserActivity extends Activity
         // Keep a settings instance handy.
         mSettings = BrowserSettings.getInstance();
         mSettings.setTabControl(mTabControl);
-        mSettings.loadFromDb(this);
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");

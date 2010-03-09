@@ -57,6 +57,7 @@ public class Browser extends Application {
         CookieSyncManager.createInstance(this);
         // remove all expired cookies
         CookieManager.getInstance().removeExpiredCookie();
+        BrowserSettings.getInstance().loadFromDb(this);
     }
 
     static Intent createBrowserViewIntent() {

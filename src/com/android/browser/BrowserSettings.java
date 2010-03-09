@@ -223,9 +223,7 @@ class BrowserSettings extends Observable {
             s.setDatabasePath(b.databasePath);
             s.setGeolocationDatabasePath(b.geolocationDatabasePath);
 
-            // Enable/Disable the error console.
-            b.mTabControl.getBrowserActivity().setShouldShowErrorConsole(
-                    b.showDebugSettings && b.showConsole);
+            b.updateTabControlSettings();
         }
     }
 
@@ -310,9 +308,6 @@ class BrowserSettings extends Observable {
                 p.getBoolean("landscape_only", landscapeOnly);
         if (landscapeOnlyTemp != landscapeOnly) {
             landscapeOnly = landscapeOnlyTemp;
-            mTabControl.getBrowserActivity().setRequestedOrientation(
-                    landscapeOnly ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                    : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
         useWideViewPort = true; // use wide view port for either setting
         if (autoFitPage) {
@@ -359,8 +354,6 @@ class BrowserSettings extends Observable {
         // regardless of the setting we read here. This setting is only used after debug
         // is enabled.
         showConsole = p.getBoolean("javascript_console", showConsole);
-        mTabControl.getBrowserActivity().setShouldShowErrorConsole(
-                showDebugSettings && showConsole);
 
         // HTML5 API flags
         appCacheEnabled = p.getBoolean("enable_appcache", appCacheEnabled);
@@ -488,6 +481,7 @@ class BrowserSettings extends Observable {
      */
     /* package */void setTabControl(TabControl tabControl) {
         mTabControl = tabControl;
+        updateTabControlSettings();
     }
 
     /*
@@ -529,6 +523,15 @@ class BrowserSettings extends Observable {
         WebViewDatabase db = WebViewDatabase.getInstance(context);
         db.clearUsernamePassword();
         db.clearHttpAuthUsernamePassword();
+    }
+
+    private void updateTabControlSettings() {
+        // Enable/disable the error console.
+        mTabControl.getBrowserActivity().setShouldShowErrorConsole(
+            showDebugSettings && showConsole);
+        mTabControl.getBrowserActivity().setRequestedOrientation(
+            landscapeOnly ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     private void maybeDisableWebsiteSettings(Context context) {
