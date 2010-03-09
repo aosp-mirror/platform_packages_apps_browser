@@ -467,9 +467,10 @@ public class BrowserActivity extends Activity
         bp.setQueryResults(mTabControl.getCurrentTab().getVoiceSearchResults());
         client.release();
 
-        startSearch(result, false,
-                createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_SEARCHKEY),
-                false);
+        Bundle bundle = createGoogleSearchSourceBundle(
+                GOOGLE_SEARCH_SOURCE_SEARCHKEY);
+        bundle.putBoolean(SearchManager.CONTEXT_IS_VOICE, true);
+        startSearch(result, false, bundle, false);
     }
 
     @Override
