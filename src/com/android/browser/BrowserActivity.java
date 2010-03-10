@@ -763,8 +763,8 @@ public class BrowserActivity extends Activity
         mTitleBar.setInVoiceMode(false);
         mFakeTitleBar.setInVoiceMode(false);
 
-        mTitleBar.setDisplayTitle(mTitle);
-        mFakeTitleBar.setDisplayTitle(mTitle);
+        mTitleBar.setDisplayTitle(mUrl);
+        mFakeTitleBar.setDisplayTitle(mUrl);
     }
     /* package */ static String fixUrl(String inUrl) {
         // FIXME: Converting the url to lower case
