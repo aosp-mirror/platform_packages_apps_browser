@@ -357,11 +357,6 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 }
                 final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
-                if (writer != null) {
-                    writer.write(uri.toString());
-                    writer.flush();
-                }
-
                 long startTime = System.nanoTime();
                 mInst.runOnMainSync(new Runnable() {
 
@@ -377,7 +372,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 Log.d(TAG, "Loaded url: " + url);
 
                 if (writer != null) {
-                    writer.write("|" + (stopTime - startTime) + newLine);
+                    writer.write(page + "|" + (stopTime - startTime) + newLine);
                     writer.flush();
                 }
 
