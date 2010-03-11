@@ -931,45 +931,60 @@ class Tab {
         }
 
         @Override
-        public void onReceivedTitle(WebView view, String title) {
-            String url = view.getUrl();
+        public void onReceivedTitle(WebView view, final String title) {
+            final String pageUrl = view.getUrl();
             if (mInForeground) {
                 // here, if url is null, we want to reset the title
-                mActivity.setUrlTitle(url, title);
+                mActivity.setUrlTitle(pageUrl, title);
             }
-            if (url == null ||
-                url.length() >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
+            if (pageUrl == null || pageUrl.length()
+                    >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
                 return;
             }
-            // See if we can find the current url in our history database and
-            // add the new title to it.
-            if (url.startsWith("http://www.")) {
-                url = url.substring(11);
-            } else if (url.startsWith("http://")) {
-                url = url.substring(4);
-            }
-            try {
-                final ContentResolver cr = mActivity.getContentResolver();
-                url = "%" + url;
-                String [] selArgs = new String[] { url };
-                String where = Browser.BookmarkColumns.URL + " LIKE ? AND "
-                        + Browser.BookmarkColumns.BOOKMARK + " = 0";
-                Cursor c = cr.query(Browser.BOOKMARKS_URI,
-                        Browser.HISTORY_PROJECTION, where, selArgs, null);
-                if (c.moveToFirst()) {
-                    // Current implementation of database only has one entry per
-                    // url.
-                    ContentValues map = new ContentValues();
-                    map.put(Browser.BookmarkColumns.TITLE, title);
-                    cr.update(Browser.BOOKMARKS_URI, map, "_id = "
-                            + c.getInt(0), null);
+            new AsyncTask<Void, Void, Void>() {
+                protected Void doInBackground(Void... unused) {
+                    // See if we can find the current url in our history
+                    // database and add the new title to it.
+                    String url = pageUrl;
+                    if (url.startsWith("http://www.")) {
+                        url = url.substring(11);
+                    } else if (url.startsWith("http://")) {
+                        url = url.substring(4);
+                    }
+                    Cursor c = null;
+                    try {
+                        final ContentResolver cr
+                                = mActivity.getContentResolver();
+                        url = "%" + url;
+                        String [] selArgs = new String[] { url };
+                        String where = Browser.BookmarkColumns.URL
+                                + " LIKE ? AND "
+                                + Browser.BookmarkColumns.BOOKMARK + " = 0";
+                        c = cr.query(Browser.BOOKMARKS_URI, new String[]
+                                { Browser.BookmarkColumns._ID }, where, selArgs,
+                                null);
+                        if (c.moveToFirst()) {
+                            // Current implementation of database only has one
+                            // entry per url.
+                            ContentValues map = new ContentValues();
+                            map.put(Browser.BookmarkColumns.TITLE, title);
+                            String[] projection = new String[]
+                                    { Integer.valueOf(c.getInt(0)).toString() };
+                            cr.update(Browser.BOOKMARKS_URI, map, "_id = ?",
+                                    projection);
+                        }
+                    } catch (IllegalStateException e) {
+                        Log.e(LOGTAG, "Tab onReceived title", e);
+                    } catch (SQLiteException ex) {
+                        Log.e(LOGTAG,
+                                "onReceivedTitle() caught SQLiteException: ",
+                                ex);
+                    } finally {
+                        if (c != null) c.close();
+                    }
+                    return null;
                 }
-                c.close();
-            } catch (IllegalStateException e) {
-                Log.e(LOGTAG, "Tab onReceived title", e);
-            } catch (SQLiteException ex) {
-                Log.e(LOGTAG, "onReceivedTitle() caught SQLiteException: ", ex);
-            }
+            }.execute();
         }
 
         @Override
