@@ -60,27 +60,28 @@ class BrowserSettings extends Observable {
     // NOTE: these defaults need to be kept in sync with the XML
     // until the performance of PreferenceManager.setDefaultValues()
     // is improved.
-    private boolean loadsImagesAutomatically = true;
-    private boolean javaScriptEnabled = true;
-    private boolean pluginsEnabled = true;
-    private boolean javaScriptCanOpenWindowsAutomatically = false;
-    private boolean showSecurityWarnings = true;
-    private boolean rememberPasswords = true;
-    private boolean saveFormData = true;
-    private boolean openInBackground = false;
+    // Note: boolean variables are set inside reset function.
+    private boolean loadsImagesAutomatically;
+    private boolean javaScriptEnabled;
+    private boolean pluginsEnabled;
+    private boolean javaScriptCanOpenWindowsAutomatically;
+    private boolean showSecurityWarnings;
+    private boolean rememberPasswords;
+    private boolean saveFormData;
+    private boolean openInBackground;
     private String defaultTextEncodingName;
     private String homeUrl = "";
-    private boolean loginInitialized = false;
-    private boolean autoFitPage = true;
-    private boolean landscapeOnly = false;
-    private boolean loadsPageInOverviewMode = true;
-    private boolean showDebugSettings = false;
+    private boolean loginInitialized;
+    private boolean autoFitPage;
+    private boolean landscapeOnly;
+    private boolean loadsPageInOverviewMode;
+    private boolean showDebugSettings;
     // HTML5 API flags
-    private boolean appCacheEnabled = true;
-    private boolean databaseEnabled = true;
-    private boolean domStorageEnabled = true;
-    private boolean geolocationEnabled = true;
-    private boolean workersEnabled = true;  // only affects V8. JSC does not have a similar setting
+    private boolean appCacheEnabled;
+    private boolean databaseEnabled;
+    private boolean domStorageEnabled;
+    private boolean geolocationEnabled;
+    private boolean workersEnabled;  // only affects V8. JSC does not have a similar setting
     // HTML5 API configuration params
     private long appCacheMaxSize = Long.MAX_VALUE;
     private String appCachePath;  // default value set in loadFromDb().
@@ -567,6 +568,7 @@ class BrowserSettings extends Observable {
     }
 
     /*package*/ void resetDefaultPreferences(Context ctx) {
+        reset();
         SharedPreferences p =
             PreferenceManager.getDefaultSharedPreferences(ctx);
         p.edit().clear().commit();
@@ -589,5 +591,32 @@ class BrowserSettings extends Observable {
 
     // Private constructor that does nothing.
     private BrowserSettings() {
+        reset();
+    }
+
+    private void reset() {
+        // Private variables for settings
+        // NOTE: these defaults need to be kept in sync with the XML
+        // until the performance of PreferenceManager.setDefaultValues()
+        // is improved.
+        loadsImagesAutomatically = true;
+        javaScriptEnabled = true;
+        pluginsEnabled = true;
+        javaScriptCanOpenWindowsAutomatically = false;
+        showSecurityWarnings = true;
+        rememberPasswords = true;
+        saveFormData = true;
+        openInBackground = false;
+        loginInitialized = false;
+        autoFitPage = true;
+        landscapeOnly = false;
+        loadsPageInOverviewMode = true;
+        showDebugSettings = false;
+        // HTML5 API flags
+        appCacheEnabled = true;
+        databaseEnabled = true;
+        domStorageEnabled = true;
+        geolocationEnabled = true;
+        workersEnabled = true;  // only affects V8. JSC does not have a similar setting
     }
 }
