@@ -1249,20 +1249,20 @@ public class BrowserActivity extends Activity
     private void retainIconsOnStartup() {
         final WebIconDatabase db = WebIconDatabase.getInstance();
         db.open(getDir("icons", 0).getPath());
+        Cursor c = null;
         try {
-            Cursor c = Browser.getAllBookmarks(mResolver);
-            if (!c.moveToFirst()) {
-                c.deactivate();
-                return;
+            c = Browser.getAllBookmarks(mResolver);
+            if (c.moveToFirst()) {
+                int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
+                do {
+                    String url = c.getString(urlIndex);
+                    db.retainIconForPageUrl(url);
+                } while (c.moveToNext());
             }
-            int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
-            do {
-                String url = c.getString(urlIndex);
-                db.retainIconForPageUrl(url);
-            } while (c.moveToNext());
-            c.deactivate();
         } catch (IllegalStateException e) {
             Log.e(LOGTAG, "retainIconsOnStartup", e);
+        } finally {
+            if (c!= null) c.close();
         }
     }
 

@@ -31,6 +31,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Downloads;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -63,6 +64,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     // will be reopened on this View.
     private View                    mSelectedView;
 
+    private final static String LOGTAG = "BrowserDownloadPage";
     @Override 
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -252,25 +254,31 @@ public class BrowserDownloadPage extends ExpandableListActivity {
 
         @Override
         public void onChange(boolean selfChange) {
-            Cursor cursor = getContentResolver().query(mTrack,
-                    new String[] { Downloads.Impl.COLUMN_STATUS }, null, null,
-                    null);
-            if (cursor.moveToFirst() && Downloads.Impl.isStatusSuccess(
-                    cursor.getInt(0))) {
-                // Do this right away, so we get no more updates.
-                getContentResolver().unregisterContentObserver(
-                        mContentObserver);
-                // Post a runnable in case this ContentObserver gets notified
-                // before the one that updates the ListView.
-                mListView.post(new Runnable() {
-                    public void run() {
-                        // Close the context menu, reopen with up to date data.
-                        closeContextMenu();
-                        openContextMenu(mSelectedView);
-                    }
-                });
+            Cursor cursor = null;
+            try {
+                cursor = getContentResolver().query(mTrack,
+                        new String[] { Downloads.Impl.COLUMN_STATUS }, null, null,
+                        null);
+                if (cursor.moveToFirst() && Downloads.Impl.isStatusSuccess(
+                        cursor.getInt(0))) {
+                    // Do this right away, so we get no more updates.
+                    getContentResolver().unregisterContentObserver(
+                            mContentObserver);
+                    // Post a runnable in case this ContentObserver gets notified
+                    // before the one that updates the ListView.
+                    mListView.post(new Runnable() {
+                        public void run() {
+                            // Close the context menu, reopen with up to date data.
+                            closeContextMenu();
+                            openContextMenu(mSelectedView);
+                        }
+                    });
+                }
+            } catch (IllegalStateException e) {
+                Log.e(LOGTAG, "onChange", e);
+            } finally {
+                if (cursor != null) cursor.close();
             }
-            cursor.deactivate();
         }
     }
 
