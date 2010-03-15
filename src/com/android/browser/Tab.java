@@ -229,7 +229,7 @@ class Tab {
                     .EXTRA_VOICE_SEARCH_RESULT_HTTP_HEADERS);
             mVoiceSearchData.mSourceIsGoogle = intent.getBooleanExtra(
                     VoiceSearchData.SOURCE_IS_GOOGLE, false);
-            mVoiceSearchData.mVoiceSearchIntent = intent;
+            mVoiceSearchData.mVoiceSearchIntent = new Intent(intent);
         }
         String extraData = intent.getStringExtra(
                 SearchManager.EXTRA_DATA_KEY);
@@ -250,8 +250,11 @@ class Tab {
                 mActivity.sendBroadcast(logIntent);
             }
             if (mVoiceSearchData.mVoiceSearchIntent != null) {
-                mVoiceSearchData.mVoiceSearchIntent.putExtra(
-                        SearchManager.EXTRA_DATA_KEY, extraData);
+                // Copy the Intent, so that each history item will have its own
+                // Intent, with different (or none) extra data.
+                Intent latest = new Intent(mVoiceSearchData.mVoiceSearchIntent);
+                latest.putExtra(SearchManager.EXTRA_DATA_KEY, extraData);
+                mVoiceSearchData.mVoiceSearchIntent = latest;
             }
         }
         mVoiceSearchData.mLastVoiceSearchTitle
