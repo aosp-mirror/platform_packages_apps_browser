@@ -553,7 +553,11 @@ public class BrowserActivity extends Activity
                     // If the WebView has the same original url and is on that
                     // page, it can be reused.
                     boolean needsLoad =
-                            mTabControl.recreateWebView(appTab, urlData.mUrl);
+                            mTabControl.recreateWebView(appTab, urlData.mUrl)
+                            // If there is a voice intent in the UrlData, then
+                            // recreateWebView may return false, but we still
+                            // need to force a load.
+                            || urlData.mVoiceIntent != null;
 
                     if (current != appTab) {
                         switchToTab(mTabControl.getTabIndex(appTab));
