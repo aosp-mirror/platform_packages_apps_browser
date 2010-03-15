@@ -465,11 +465,7 @@ public class BrowserActivity extends Activity
                     // If the WebView has the same original url and is on that
                     // page, it can be reused.
                     boolean needsLoad =
-                            mTabControl.recreateWebView(appTab, urlData.mUrl)
-                            // If there is a voice intent in the UrlData, then
-                            // recreateWebView may return false, but we still
-                            // need to force a load.
-                            || urlData.mVoiceIntent != null;
+                            mTabControl.recreateWebView(appTab, urlData);
 
                     if (current != appTab) {
                         switchToTab(mTabControl.getTabIndex(appTab));
@@ -3934,7 +3930,7 @@ public class BrowserActivity extends Activity
      * A UrlData class to abstract how the content will be set to WebView.
      * This base class uses loadUrl to show the content.
      */
-    private static class UrlData {
+    /* package */ static class UrlData {
         final String mUrl;
         final Map<String, String> mHeaders;
         final Intent mVoiceIntent;
