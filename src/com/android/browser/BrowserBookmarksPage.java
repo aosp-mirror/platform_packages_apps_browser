@@ -57,7 +57,7 @@ import android.widget.Toast;
 /**
  *  View showing the user's bookmarks in the browser.
  */
-public class BrowserBookmarksPage extends Activity implements 
+public class BrowserBookmarksPage extends Activity implements
         View.OnCreateContextMenuListener {
 
     private BookmarkViewMode        mViewMode = BookmarkViewMode.NONE;
@@ -76,7 +76,7 @@ public class BrowserBookmarksPage extends Activity implements
     // the value, we have to update this string.
     private static final String     INSTALL_SHORTCUT =
             "com.android.launcher.action.INSTALL_SHORTCUT";
-    
+
     private final static String LOGTAG = "browser";
     private final static String PREF_BOOKMARK_VIEW_MODE = "pref_bookmark_view_mode";
     private final static String PREF_MOST_VISITED_VIEW_MODE = "pref_most_visited_view_mode";
@@ -84,17 +84,17 @@ public class BrowserBookmarksPage extends Activity implements
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         // It is possible that the view has been canceled when we get to
-        // this point as back has a higher priority 
+        // this point as back has a higher priority
         if (mCanceled) {
             return true;
         }
-        AdapterView.AdapterContextMenuInfo i = 
+        AdapterView.AdapterContextMenuInfo i =
             (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         // If we have no menu info, we can't tell which item was selected.
         if (i == null) {
             return true;
         }
-        
+
         switch (item.getItemId()) {
         case R.id.new_context_menu_id:
             saveCurrentPage();
@@ -169,7 +169,7 @@ public class BrowserBookmarksPage extends Activity implements
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                 ContextMenuInfo menuInfo) {
-            AdapterView.AdapterContextMenuInfo i = 
+            AdapterView.AdapterContextMenuInfo i =
                     (AdapterView.AdapterContextMenuInfo) menuInfo;
 
             MenuInflater inflater = getMenuInflater();
@@ -225,7 +225,7 @@ public class BrowserBookmarksPage extends Activity implements
 
     /**
      *  Create a new BrowserBookmarksPage.
-     */  
+     */
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -259,6 +259,12 @@ public class BrowserBookmarksPage extends Activity implements
                     PREF_BOOKMARK_VIEW_MODE, BookmarkViewMode.GRID.ordinal())];
         }
         switchViewMode(preference);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mHandler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 
     /**
@@ -399,7 +405,7 @@ public class BrowserBookmarksPage extends Activity implements
     private AdapterView.OnItemClickListener mListener = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             // It is possible that the view has been canceled when we get to
-            // this point as back has a higher priority 
+            // this point as back has a higher priority
             if (mCanceled) {
                 android.util.Log.e(LOGTAG, "item clicked when dismissing");
                 return;
@@ -586,10 +592,10 @@ public class BrowserBookmarksPage extends Activity implements
 
         finish();
     }
-    
+
 
     private void editBookmark(int position) {
-        Intent intent = new Intent(BrowserBookmarksPage.this, 
+        Intent intent = new Intent(BrowserBookmarksPage.this,
             AddBookmarkPage.class);
         intent.putExtra("bookmark", getRow(position));
         startActivityForResult(intent, BOOKMARKS_SAVE);
@@ -621,7 +627,7 @@ public class BrowserBookmarksPage extends Activity implements
                 break;
         }
     }
-    
+
     private void displayRemoveBookmarkDialog(int position) {
         // Put up a dialog asking if the user really wants to
         // delete the bookmark
@@ -631,7 +637,7 @@ public class BrowserBookmarksPage extends Activity implements
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage(getText(R.string.delete_bookmark_warning).toString().replace(
                         "%s", getBookmarkTitle(deletePos)))
-                .setPositiveButton(R.string.ok, 
+                .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 deleteBookmark(deletePos);
@@ -647,7 +653,7 @@ public class BrowserBookmarksPage extends Activity implements
     private void refreshList() {
         mBookmarksAdapter.refreshList();
     }
-    
+
     /**
      *  Return a hashmap representing the currently highlighted row.
      */
@@ -687,7 +693,7 @@ public class BrowserBookmarksPage extends Activity implements
             Log.e(LOGTAG, "Copy failed", e);
         }
     }
-    
+
     public String getBookmarkTitle(int position) {
         return mBookmarksAdapter == null ? null
                 : mBookmarksAdapter.getTitle(position);
