@@ -15,12 +15,9 @@
    limitations under the License.
 -->
 
-<!-- Manually set the height, to ensure that it matches the SearchDialog's
-        height.  It also ensures that when the stop button is showing it does
-        not change its height. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="57dip"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingLeft="8dip"
     android:paddingRight="12dip"
