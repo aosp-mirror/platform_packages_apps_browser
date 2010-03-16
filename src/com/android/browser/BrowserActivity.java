@@ -135,8 +135,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BrowserActivity extends Activity
-    implements View.OnCreateContextMenuListener, DownloadListener,
-        AccountManagerCallback<Account[]> {
+    implements View.OnCreateContextMenuListener, DownloadListener {
 
     /* Define some aliases to make these debugging flags easier to refer to.
      * This file imports android.provider.Browser, so we can't just refer to "Browser.DEBUG".
@@ -151,81 +150,6 @@ public class BrowserActivity extends Activity
     private static final int SHORTCUT_WIKIPEDIA_SEARCH = 2;
     private static final int SHORTCUT_DICTIONARY_SEARCH = 3;
     private static final int SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH = 4;
-
-    private Account[] mAccountsGoogle;
-    private Account[] mAccountsPreferHosted;
-
-    // XXX: These constants should be exposed through some public api. Hardcode
-    // the values for now until some solution for gsf can be worked out.
-    // http://b/issue?id=2425179
-    private static final String ACCOUNT_TYPE = "com.google";
-    private static final String FEATURE_LEGACY_GOOGLE = "legacy_google";
-    private static final String FEATURE_LEGACY_HOSTED_OR_GOOGLE =
-            "legacy_hosted_or_google";
-
-    private void startReadOfGoogleAccounts() {
-        mAccountsGoogle = null;
-        mAccountsPreferHosted = null;
-
-        AccountManager.get(this).getAccountsByTypeAndFeatures(
-                ACCOUNT_TYPE, new String[]{ FEATURE_LEGACY_HOSTED_OR_GOOGLE },
-                this, null);
-    }
-
-    /** This implements AccountManagerCallback<Account[]> */
-    public void run(AccountManagerFuture<Account[]> accountManagerFuture) {
-        try {
-            if (mAccountsGoogle == null) {
-                mAccountsGoogle = accountManagerFuture.getResult();
-
-                AccountManager.get(this).getAccountsByTypeAndFeatures(
-                        ACCOUNT_TYPE, new String[]{ FEATURE_LEGACY_GOOGLE },
-                        this, null);
-            } else {
-                mAccountsPreferHosted = accountManagerFuture.getResult();
-                setupHomePage();
-            }
-        } catch (OperationCanceledException e) {
-            setupHomePage();
-        } catch (IOException e) {
-            setupHomePage();
-        } catch (AuthenticatorException e) {
-            setupHomePage();
-        }
-    }
-
-    private void setupHomePage() {
-        // get the default home page
-        String homepage = mSettings.getHomePage();
-
-        if (mAccountsPreferHosted != null && mAccountsGoogle != null) {
-            // three cases:
-            //
-            //   hostedUser == googleUser
-            //      The device has only a google account
-            //
-            //   hostedUser != googleUser
-            //      The device has a hosted account and a google account
-            //
-            //   hostedUser != null, googleUser == null
-            //      The device has only a hosted account (so far)
-            String hostedUser = mAccountsPreferHosted.length == 0 
-                    ? null
-                    : mAccountsPreferHosted[0].name;
-            String googleUser = mAccountsGoogle.length == 0 ? null : mAccountsGoogle[0].name;
-
-            // developers might have no accounts at all
-            if (hostedUser == null) return;
-
-            if (googleUser == null || !hostedUser.equals(googleUser)) {
-                String domain = hostedUser.substring(hostedUser.lastIndexOf('@')+1);
-                homepage = homepage.replace("?", "/a/" + domain + "?");
-            }
-        }
-
-        mSettings.setHomePage(BrowserActivity.this, homepage);
-        resumeAfterCredentials();
-    }
 
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
@@ -420,21 +344,9 @@ public class BrowserActivity extends Activity
                     webView.setInitialScale(scale);
                 }
             }
-            // If we are not restoring from an icicle, then there is a high
-            // likely hood this is the first run. So, check to see if the
-            // homepage needs to be configured and copy any plugins from our
-            // asset directory to the data partition.
-            if ((extra == null || !extra.getBoolean("testing"))
-                    && !mSettings.isLoginInitialized()) {
-                startReadOfGoogleAccounts();
-            }
 
             if (urlData.isEmpty()) {
-                if (mSettings.isLoginInitialized()) {
-                    loadUrl(webView, mSettings.getHomePage());
-                } else {
-                    waitForCredentials();
-                }
+                loadUrl(webView, mSettings.getHomePage());
             } else {
                 loadUrlDataIn(t, urlData);
             }
@@ -821,13 +733,6 @@ public class BrowserActivity extends Activity
             mWakeLock.release();
         }
 
-        if (mCredsDlg != null) {
-            if (!mHandler.hasMessages(CANCEL_CREDS_REQUEST)) {
-             // In case credential request never comes back
-                mHandler.sendEmptyMessageDelayed(CANCEL_CREDS_REQUEST, 6000);
-            }
-        }
-
         registerReceiver(mNetworkStateIntentReceiver,
                          mNetworkStateChangedFilter);
         WebView.enablePlatformNotifications();
@@ -1072,12 +977,6 @@ public class BrowserActivity extends Activity
                     .obtainMessage(RELEASE_WAKELOCK), WAKELOCK_TIMEOUT);
         }
 
-        // Clear the credentials toast if it is up
-        if (mCredsDlg != null && mCredsDlg.isShowing()) {
-            mCredsDlg.dismiss();
-        }
-        mCredsDlg = null;
-
         // FIXME: This removes the active tabs page and resets the menu to
         // MAIN_MENU.  A better solution might be to do this work in onNewIntent
         // but then we would need to save it in onSaveInstanceState and restore
@@ -1196,57 +1095,6 @@ public class BrowserActivity extends Activity
         } else {
             return false;
         }
-    }
-
-    // FIXME: Do we want to call this when loading google for the first time?
-    /*
-     * This function is called when we are launching for the first time. We
-     * are waiting for the login credentials before loading Google home
-     * pages. This way the user will be logged in straight away.
-     */
-    private void waitForCredentials() {
-        // Show a toast
-        mCredsDlg = new ProgressDialog(this);
-        mCredsDlg.setIndeterminate(true);
-        mCredsDlg.setMessage(getText(R.string.retrieving_creds_dlg_msg));
-        // If the user cancels the operation, then cancel the Google
-        // Credentials request.
-        mCredsDlg.setCancelMessage(mHandler.obtainMessage(CANCEL_CREDS_REQUEST));
-        mCredsDlg.show();
-
-        // We set a timeout for the retrieval of credentials in onResume()
-        // as that is when we have freed up some CPU time to get
-        // the login credentials.
-    }
-
-    /*
-     * If we have received the credentials or we have timed out and we are
-     * showing the credentials dialog, then it is time to move on.
-     */
-    private void resumeAfterCredentials() {
-        if (mCredsDlg == null) {
-            return;
-        }
-
-        // Clear the toast
-        if (mCredsDlg.isShowing()) {
-            mCredsDlg.dismiss();
-        }
-        mCredsDlg = null;
-
-        // Clear any pending timeout
-        mHandler.removeMessages(CANCEL_CREDS_REQUEST);
-
-        // Load the page
-        WebView w = mTabControl.getCurrentWebView();
-        if (w != null) {
-            loadUrl(w, mSettings.getHomePage());
-        }
-
-        // Update the settings, need to do this last as it can take a moment
-        // to persist the settings. In the mean time we could be loading
-        // content.
-        mSettings.setLoginInitialized(this);
     }
 
     // Open the icon database and retain all the icons for visited sites.
@@ -2351,7 +2199,6 @@ public class BrowserActivity extends Activity
 
     // Message Ids
     private static final int FOCUS_NODE_HREF         = 102;
-    private static final int CANCEL_CREDS_REQUEST    = 103;
     private static final int RELEASE_WAKELOCK        = 107;
 
     static final int UPDATE_BOOKMARK_THUMBNAIL       = 108;
@@ -2447,10 +2294,6 @@ public class BrowserActivity extends Activity
 
                 case STOP_LOAD:
                     stopLoading();
-                    break;
-
-                case CANCEL_CREDS_REQUEST:
-                    resumeAfterCredentials();
                     break;
 
                 case RELEASE_WAKELOCK:
@@ -3977,9 +3820,6 @@ public class BrowserActivity extends Activity
 
     /* hold a ref so we can auto-cancel if necessary */
     private AlertDialog mAlertDialog;
-
-    // Wait for credentials before loading google.com
-    private ProgressDialog mCredsDlg;
 
     // The up-to-date URL and title (these can be different from those stored
     // in WebView, since it takes some time for the information in WebView to

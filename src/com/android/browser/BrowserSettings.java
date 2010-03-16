@@ -71,7 +71,6 @@ class BrowserSettings extends Observable {
     private boolean openInBackground;
     private String defaultTextEncodingName;
     private String homeUrl = "";
-    private boolean loginInitialized;
     private boolean autoFitPage;
     private boolean landscapeOnly;
     private boolean loadsPageInOverviewMode;
@@ -297,7 +296,6 @@ class BrowserSettings extends Observable {
                 CookieManager.getInstance().acceptCookie());
         CookieManager.getInstance().setAcceptCookie(accept_cookies);
         openInBackground = p.getBoolean("open_in_background", openInBackground);
-        loginInitialized = p.getBoolean("login_initialized", loginInitialized);
         textSize = WebSettings.TextSize.valueOf(
                 p.getString(PREF_TEXT_SIZE, textSize.name()));
         zoomDensity = WebSettings.ZoomDensity.valueOf(
@@ -384,18 +382,6 @@ class BrowserSettings extends Observable {
         ed.putString(PREF_HOMEPAGE, url);
         ed.commit();
         homeUrl = url;
-    }
-
-    public boolean isLoginInitialized() {
-        return loginInitialized;
-    }
-
-    public void setLoginInitialized(Context context) {
-        loginInitialized = true;
-        Editor ed = PreferenceManager.
-                getDefaultSharedPreferences(context).edit();
-        ed.putBoolean("login_initialized", loginInitialized);
-        ed.commit();
     }
 
     public WebSettings.TextSize getTextSize() {
@@ -607,7 +593,6 @@ class BrowserSettings extends Observable {
         rememberPasswords = true;
         saveFormData = true;
         openInBackground = false;
-        loginInitialized = false;
         autoFitPage = true;
         landscapeOnly = false;
         loadsPageInOverviewMode = true;

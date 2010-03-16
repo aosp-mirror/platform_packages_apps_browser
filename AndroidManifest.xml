@@ -20,8 +20,6 @@
 
     <original-package android:name="com.android.browser" />
 
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
