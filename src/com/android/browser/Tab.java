@@ -488,8 +488,7 @@ class Tab {
             // update the bookmark database for favicon
             if (favicon != null) {
                 BrowserBookmarksAdapter.updateBookmarkFavicon(mActivity
-                        .getContentResolver(), view.getOriginalUrl(), view
-                        .getUrl(), favicon);
+                        .getContentResolver(), null, url, favicon);
             }
 
             // reset sync timer to avoid sync starts during loading a page
