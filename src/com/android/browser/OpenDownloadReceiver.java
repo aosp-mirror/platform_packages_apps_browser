@@ -77,9 +77,6 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
      * @param mimetype Mimetype of the file to delete.
      * @return boolean True on success, false on failure.
      */
-    // FIXME: Once there are receivers in other packages to delete downloaded
-    // files, this should be moved to a common place so mutiple packages can
-    // share the code.
     private boolean deleteFile(ContentResolver cr, String filename,
             String mimetype) {
         Uri uri;
@@ -90,10 +87,10 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
         } else if (mimetype.startsWith("video")) {
             uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         } else {
-            File file = new File(filename);
-            return file.delete();
+            uri = null;
         }
-        return cr.delete(uri, MediaStore.MediaColumns.DATA + " = "
-                + DatabaseUtils.sqlEscapeString(filename), null) > 0;
+        return (uri != null && cr.delete(uri, MediaStore.MediaColumns.DATA
+                + " = " + DatabaseUtils.sqlEscapeString(filename), null) > 0)
+                || new File(filename).delete();
     }
 }
