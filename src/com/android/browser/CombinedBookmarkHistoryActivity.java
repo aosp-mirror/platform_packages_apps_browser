@@ -125,6 +125,9 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
             getTabHost().setCurrentTab(2);
         }
 
+        // XXX: Must do this before launching the AsyncTask to avoid a
+        // potential crash if the icon database has not been created.
+        WebIconDatabase.getInstance();
         // Do this every time we launch the activity in case a new favicon was
         // added to the webkit db.
         (new AsyncTask<Void, Void, Void>() {
