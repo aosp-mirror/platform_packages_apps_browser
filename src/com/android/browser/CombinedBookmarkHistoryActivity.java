@@ -18,17 +18,15 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.app.TabActivity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
-import android.view.Window;
+import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 
 import java.util.HashMap;
 import java.util.Vector;
