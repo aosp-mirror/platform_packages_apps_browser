@@ -214,6 +214,8 @@ public class BrowserActivity extends Activity
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
         mTitleBar = new TitleBar(this);
+        // mTitleBar will be always shown in the fully loaded mode
+        mTitleBar.setProgress(100);
         mFakeTitleBar = new TitleBar(this);
 
         // Create the tab control and our initial tab
@@ -832,9 +834,6 @@ public class BrowserActivity extends Activity
             if (mWebView == null || mWebView.getScrollY() > getHeight()) {
                 super.draw(canvas);
             }
-            // Need to invalidate so that if the scroll position changes, we
-            // still draw as appropriate.
-            invalidate();
         }
     }
 
@@ -2659,7 +2658,6 @@ public class BrowserActivity extends Activity
     // -------------------------------------------------------------------------
 
     void onProgressChanged(WebView view, int newProgress) {
-        mTitleBar.setProgress(newProgress);
         mFakeTitleBar.setProgress(newProgress);
 
         if (newProgress == 100) {
