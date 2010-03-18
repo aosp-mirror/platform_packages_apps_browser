@@ -409,6 +409,9 @@ public class BrowserActivity extends Activity
             // just resume the browser
             return;
         }
+        // In case the SearchDialog is open.
+        ((SearchManager) getSystemService(Context.SEARCH_SERVICE))
+                .stopSearch();
         boolean activateVoiceSearch = RecognizerResultsIntent
                 .ACTION_VOICE_SEARCH_RESULTS.equals(action);
         if (Intent.ACTION_VIEW.equals(action)
