@@ -2923,7 +2923,8 @@ public class BrowserActivity extends Activity
             final Uri contentUri =
                     getContentResolver().insert(Downloads.Impl.CONTENT_URI, values);
         }
-
+        Toast.makeText(this, R.string.download_pending, Toast.LENGTH_SHORT)
+                .show();
     }
 
     // -------------------------------------------------------------------------
