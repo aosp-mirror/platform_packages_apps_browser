@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!--  Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-
+  
           http://www.apache.org/licenses/LICENSE-2.0
-
+  
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
--->
+ -->
+
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Browser"</string>
@@ -188,8 +189,8 @@
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Indstillinger for websteder"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Avancerede indstillinger for individuelle websteder"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Nulstil til standard"</string>
-    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Ryd alle browserdata, og nulstil alle indstillinger til standard"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Alle browserdata slettes, og indstillingerne nulstilles til standardværdier."</string>
+    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Gendan standardindstillinger"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Indstillingerne vil blive gendannet til standardværdierne."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Nulstil til standard"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Fejlretning"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Tekstkodning"</string>
