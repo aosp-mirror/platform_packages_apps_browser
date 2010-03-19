@@ -747,19 +747,6 @@ public class BrowserActivity extends Activity
     private TitleBar mFakeTitleBar;
 
     /**
-     * Holder for the fake title bar.  It will have a foreground shadow, as well
-     * as a white background, so the fake title bar looks like the real one.
-     */
-    private ViewGroup mFakeTitleBarHolder;
-
-    /**
-     * Layout parameters for the fake title bar within mFakeTitleBarHolder
-     */
-    private FrameLayout.LayoutParams mFakeTitleBarParams
-            = new FrameLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT);
-    /**
      * Keeps track of whether the options menu is open.  This is important in
      * determining whether to show or hide the title bar overlay.
      */
@@ -813,33 +800,6 @@ public class BrowserActivity extends Activity
         return true;
     }
 
-    /**
-     * Special class used exclusively for the shadow drawn underneath the fake
-     * title bar.  The shadow does not need to be drawn if the WebView
-     * underneath is scrolled to the top, because it will draw directly on top
-     * of the embedded shadow.
-     */
-    private static class Shadow extends View {
-        private WebView mWebView;
-
-        public Shadow(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        public void setWebView(WebView view) {
-            mWebView = view;
-        }
-
-        @Override
-        public void draw(Canvas canvas) {
-            // In general onDraw is the method to override, but we care about
-            // whether or not the background gets drawn, which happens in draw()
-            if (mWebView == null || mWebView.getScrollY() > getHeight()) {
-                super.draw(canvas);
-            }
-        }
-    }
-
     private void showFakeTitleBar() {
         final View decor = getWindow().peekDecorView();
         if (mFakeTitleBar.getParent() == null && mActiveTabsPage == null
@@ -873,17 +833,7 @@ public class BrowserActivity extends Activity
             // placed underneath the status bar.  Use the global visible rect
             // of mBrowserFrameLayout to determine the bottom of the status bar
             params.y = visRect.top;
-            // Add a holder for the title bar.  It also holds a shadow to show
-            // below the title bar.
-            if (mFakeTitleBarHolder == null) {
-                mFakeTitleBarHolder = (ViewGroup) LayoutInflater.from(this)
-                    .inflate(R.layout.title_bar_bg, null);
-            }
-            Shadow shadow = (Shadow) mFakeTitleBarHolder.findViewById(
-                    R.id.shadow);
-            shadow.setWebView(mainView);
-            mFakeTitleBarHolder.addView(mFakeTitleBar, 0, mFakeTitleBarParams);
-            manager.addView(mFakeTitleBarHolder, params);
+            manager.addView(mFakeTitleBar, params);
         }
     }
 
@@ -903,7 +853,7 @@ public class BrowserActivity extends Activity
     private void hideFakeTitleBar() {
         if (mFakeTitleBar.getParent() == null) return;
         WindowManager.LayoutParams params = (WindowManager.LayoutParams)
-                mFakeTitleBarHolder.getLayoutParams();
+                mFakeTitleBar.getLayoutParams();
         WebView mainView = mTabControl.getCurrentWebView();
         // Although we decided whether or not to animate based on the current
         // scroll position, the scroll position may have changed since the
@@ -913,9 +863,8 @@ public class BrowserActivity extends Activity
                 ? 0 : R.style.TitleBar;
         WindowManager manager
                     = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        manager.updateViewLayout(mFakeTitleBarHolder, params);
-        mFakeTitleBarHolder.removeView(mFakeTitleBar);
-        manager.removeView(mFakeTitleBarHolder);
+        manager.updateViewLayout(mFakeTitleBar, params);
+        manager.removeView(mFakeTitleBar);
     }
 
     /**
