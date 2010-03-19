@@ -257,10 +257,14 @@ class BrowserSettings extends Observable {
         // the cost of one cached page is ~3M (measured using nytimes.com). For
         // low end devices, we only cache one page. For high end devices, we try
         // to cache more pages, currently choose 5.
+        //
+        // Note: the page cache is disabled on high-end devices due to an
+        // incompatibility with V8. TODO: re-enable the page cache once the
+        // problem with V8 is solved.
         ActivityManager am = (ActivityManager) ctx
                 .getSystemService(Context.ACTIVITY_SERVICE);
         if (am.getMemoryClass() > 16) {
-            pageCacheCapacity = 5;
+            pageCacheCapacity = 0;
         } else {
             pageCacheCapacity = 1;
         }
