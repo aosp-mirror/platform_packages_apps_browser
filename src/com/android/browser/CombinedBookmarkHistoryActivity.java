@@ -100,25 +100,30 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         Bundle extras = getIntent().getExtras();
 
         Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
-        bookmarksIntent.putExtras(extras);
+        if (extras != null) {
+            bookmarksIntent.putExtras(extras);
+        }
         createTab(bookmarksIntent, R.string.tab_bookmarks,
                 R.drawable.browser_bookmark_tab, BOOKMARKS_TAB);
 
         Intent visitedIntent = new Intent(this, BrowserBookmarksPage.class);
         // Need to copy extras so the bookmarks activity and this one will be
         // different
-        Bundle visitedExtras = new Bundle(extras);
+        Bundle visitedExtras = extras == null ? new Bundle() : new Bundle(extras);
         visitedExtras.putBoolean("mostVisited", true);
         visitedIntent.putExtras(visitedExtras);
         createTab(visitedIntent, R.string.tab_most_visited,
                 R.drawable.browser_visited_tab, VISITED_TAB);
 
         Intent historyIntent = new Intent(this, BrowserHistoryPage.class);
-        historyIntent.putExtras(extras);
+        String defaultTab = null;
+        if (extras != null) {
+            historyIntent.putExtras(extras);
+            defaultTab = extras.getString(STARTING_TAB);
+        }
         createTab(historyIntent, R.string.tab_history,
                 R.drawable.browser_history_tab, HISTORY_TAB);
 
-        String defaultTab = extras.getString(STARTING_TAB);
         if (defaultTab != null) {
             getTabHost().setCurrentTab(2);
         }
