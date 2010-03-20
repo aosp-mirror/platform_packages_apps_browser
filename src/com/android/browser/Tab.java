@@ -1417,6 +1417,7 @@ class Tab {
             mSubViewContainer = mInflateService.inflate(
                     R.layout.browser_subwindow, null);
             mSubView = (WebView) mSubViewContainer.findViewById(R.id.webview);
+            mSubView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
             // use trackball directly
             mSubView.setMapTrackballToArrowKeys(false);
             mSubView.setWebViewClient(new SubWindowClient(mWebViewClient));
