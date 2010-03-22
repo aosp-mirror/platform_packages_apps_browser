@@ -156,13 +156,14 @@ public class TitleBar extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        ImageView button = mInLoad ? mStopButton : mRtButton;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // Make all touches hit either the textfield or the button,
                 // depending on which side of the right edge of the textfield
                 // they hit.
                 if ((int) event.getX() > mTitleBg.getRight()) {
-                    mRtButton.setPressed(true);
+                    button.setPressed(true);
                 } else {
                     mTitleBg.setPressed(true);
                     mHandler.sendMessageDelayed(mHandler.obtainMessage(
@@ -178,7 +179,7 @@ public class TitleBar extends LinearLayout {
                     // other is pressed.  Since the user moved off the title
                     // bar, mark both as not pressed.
                     mTitleBg.setPressed(false);
-                    mRtButton.setPressed(false);
+                    button.setPressed(false);
                     mHandler.removeMessages(LONG_PRESS);
                     break;
                 }
@@ -187,17 +188,17 @@ public class TitleBar extends LinearLayout {
                 if (mTitleBg.isPressed() && x > titleRight + slop) {
                     mTitleBg.setPressed(false);
                     mHandler.removeMessages(LONG_PRESS);
-                } else if (mRtButton.isPressed() && x < titleRight - slop) {
-                    mRtButton.setPressed(false);
+                } else if (button.isPressed() && x < titleRight - slop) {
+                    button.setPressed(false);
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
-                mRtButton.setPressed(false);
+                button.setPressed(false);
                 mTitleBg.setPressed(false);
                 mHandler.removeMessages(LONG_PRESS);
                 break;
             case MotionEvent.ACTION_UP:
-                if (mRtButton.isPressed()) {
+                if (button.isPressed()) {
                     if (mInVoiceMode) {
                         if (mBrowserActivity.getTabControl().getCurrentTab()
                                 .voiceSearchSourceIsGoogle()) {
@@ -213,7 +214,7 @@ public class TitleBar extends LinearLayout {
                     } else {
                         mBrowserActivity.bookmarksOrHistoryPicker(false);
                     }
-                    mRtButton.setPressed(false);
+                    button.setPressed(false);
                 } else if (mTitleBg.isPressed()) {
                     mHandler.removeMessages(LONG_PRESS);
                     if (mInVoiceMode) {
