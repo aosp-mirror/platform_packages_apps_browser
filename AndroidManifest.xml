@@ -121,11 +121,15 @@
                     android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name="CombinedBookmarkHistoryActivity" android:label=""
+        <activity android:name="CombinedBookmarkHistoryActivity" android:label="@string/bookmarks"
+                  android:excludeFromRecents="true"
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"
                   android:theme="@style/BookmarkTheme" >
             <meta-data android:name="android.app.default_searchable"
                     android:value=".BrowserActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
 
         <activity android:name="BrowserBookmarksPage" android:label="@string/bookmarks"

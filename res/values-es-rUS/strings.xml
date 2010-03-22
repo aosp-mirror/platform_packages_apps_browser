@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!--  Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-
+  
           http://www.apache.org/licenses/LICENSE-2.0
-
+  
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
--->
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Navegador"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Elegir el archivo para cargar"</string>
     <string name="new_tab" msgid="4505722538297295141">"Ventana nueva"</string>
@@ -59,7 +58,7 @@
     <string name="validity_period" msgid="57988851973181309">"Validez:"</string>
     <string name="issued_on" msgid="2082890654801808368">"Enviado el:"</string>
     <string name="expires_on" msgid="8061200430557020704">"Expira el:"</string>
-    <string name="retrieving_creds_dlg_msg" msgid="9207671133094039879">"Recuperando detalles de inicio de sesión..."</string>
+    
     <string name="stopping" msgid="4839698519340302982">"Deteniendo..."</string>
     <string name="stop" msgid="5687251076030630074">"Detener"</string>
     <string name="reload" msgid="8585220783228408062">"Actualizar"</string>
@@ -188,8 +187,8 @@
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Configuración del sitio web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Configuración avanzada para sitios web individuales"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Restabl. a valores predet."</string>
-    <string name="pref_extras_reset_default_summary" msgid="7984680562706914966">"Borrar todos los datos del navegador y restablecer la configuración a los valores predeterminados"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="6894807766578874830">"Se suprimirán todos los datos del navegador y la configuración volverá a los valores predeterminados."</string>
+    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Restaurar configuración predeterminada"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"La configuración volverá a los valores predeterminados."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Restablecer a los valores predeterminados"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Depurar"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codificación de texto"</string>

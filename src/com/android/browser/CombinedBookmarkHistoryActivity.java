@@ -18,17 +18,15 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.app.TabActivity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
-import android.view.Window;
+import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 
 import java.util.HashMap;
 import java.util.Vector;
@@ -102,29 +100,37 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         Bundle extras = getIntent().getExtras();
 
         Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
-        bookmarksIntent.putExtras(extras);
+        if (extras != null) {
+            bookmarksIntent.putExtras(extras);
+        }
         createTab(bookmarksIntent, R.string.tab_bookmarks,
                 R.drawable.browser_bookmark_tab, BOOKMARKS_TAB);
 
         Intent visitedIntent = new Intent(this, BrowserBookmarksPage.class);
         // Need to copy extras so the bookmarks activity and this one will be
         // different
-        Bundle visitedExtras = new Bundle(extras);
+        Bundle visitedExtras = extras == null ? new Bundle() : new Bundle(extras);
         visitedExtras.putBoolean("mostVisited", true);
         visitedIntent.putExtras(visitedExtras);
         createTab(visitedIntent, R.string.tab_most_visited,
                 R.drawable.browser_visited_tab, VISITED_TAB);
 
         Intent historyIntent = new Intent(this, BrowserHistoryPage.class);
-        historyIntent.putExtras(extras);
+        String defaultTab = null;
+        if (extras != null) {
+            historyIntent.putExtras(extras);
+            defaultTab = extras.getString(STARTING_TAB);
+        }
         createTab(historyIntent, R.string.tab_history,
                 R.drawable.browser_history_tab, HISTORY_TAB);
 
-        String defaultTab = extras.getString(STARTING_TAB);
         if (defaultTab != null) {
             getTabHost().setCurrentTab(2);
         }
 
+        // XXX: Must do this before launching the AsyncTask to avoid a
+        // potential crash if the icon database has not been created.
+        WebIconDatabase.getInstance();
         // Do this every time we launch the activity in case a new favicon was
         // added to the webkit db.
         (new AsyncTask<Void, Void, Void>() {
