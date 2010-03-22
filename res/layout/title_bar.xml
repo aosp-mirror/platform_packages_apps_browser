@@ -73,7 +73,7 @@
                 />
         </LinearLayout>
         <ImageView android:id="@+id/stop"
-            android:background="@*android:drawable/btn_search_dialog"
+            android:background="@drawable/stop_background"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_btn_stop_v2"
