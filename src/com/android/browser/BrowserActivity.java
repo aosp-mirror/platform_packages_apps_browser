@@ -3735,7 +3735,7 @@ public class BrowserActivity extends Activity
     private boolean mIsNetworkUp;
     private boolean mDidStopLoad;
 
-    private boolean mActivityInPause = true;
+    /* package */ boolean mActivityInPause = true;
 
     private boolean mMenuIsDown;
 

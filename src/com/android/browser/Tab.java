@@ -801,7 +801,7 @@ class Tab {
 
         @Override
         public void onUnhandledKeyEvent(WebView view, KeyEvent event) {
-            if (!mInForeground) {
+            if (!mInForeground || mActivity.mActivityInPause) {
                 return;
             }
             if (event.isDown()) {
