@@ -312,6 +312,17 @@
     <string name="pref_content_open_in_background">Open in background</string>
     <!-- Settings label -->
     <string name="pref_content_plugins">Enable plug-ins</string>
+    <!-- Plugin options -->
+    <string-array name="pref_content_plugins_choices">
+        <item>Always on</item>
+        <item>On demand</item>
+        <item>Off</item>
+    </string-array>
+    <string-array name="pref_content_plugins_values">
+        <item>ON</item>
+        <item>ON_DEMAND</item>
+        <item>OFF</item>
+    </string-array>
     <!-- Settings summary -->
     <string name="pref_content_open_in_background_summary">Open new windows behind the current one</string>
     <!-- Settings label -->

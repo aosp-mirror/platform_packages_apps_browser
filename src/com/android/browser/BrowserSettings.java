@@ -63,7 +63,7 @@ class BrowserSettings extends Observable {
     // Note: boolean variables are set inside reset function.
     private boolean loadsImagesAutomatically;
     private boolean javaScriptEnabled;
-    private boolean pluginsEnabled;
+    private WebSettings.PluginState pluginState;
     private boolean javaScriptCanOpenWindowsAutomatically;
     private boolean showSecurityWarnings;
     private boolean rememberPasswords;
@@ -186,7 +186,7 @@ class BrowserSettings extends Observable {
             s.setUseWideViewPort(b.useWideViewPort);
             s.setLoadsImagesAutomatically(b.loadsImagesAutomatically);
             s.setJavaScriptEnabled(b.javaScriptEnabled);
-            s.setPluginsEnabled(b.pluginsEnabled);
+            s.setPluginState(b.pluginState);
             s.setJavaScriptCanOpenWindowsAutomatically(
                     b.javaScriptCanOpenWindowsAutomatically);
             s.setDefaultTextEncodingName(b.defaultTextEncodingName);
@@ -285,8 +285,8 @@ class BrowserSettings extends Observable {
                 loadsImagesAutomatically);
         javaScriptEnabled = p.getBoolean("enable_javascript",
                 javaScriptEnabled);
-        pluginsEnabled = p.getBoolean("enable_plugins",
-                pluginsEnabled);
+        pluginState = WebSettings.PluginState.valueOf(
+                p.getString("plugin_state", pluginState.name()));
         javaScriptCanOpenWindowsAutomatically = !p.getBoolean(
             "block_popup_windows",
             !javaScriptCanOpenWindowsAutomatically);
@@ -591,7 +591,7 @@ class BrowserSettings extends Observable {
         // is improved.
         loadsImagesAutomatically = true;
         javaScriptEnabled = true;
-        pluginsEnabled = true;
+        pluginState = WebSettings.PluginState.ON;
         javaScriptCanOpenWindowsAutomatically = false;
         showSecurityWarnings = true;
         rememberPasswords = true;

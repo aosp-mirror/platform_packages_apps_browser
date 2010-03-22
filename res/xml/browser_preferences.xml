@@ -78,10 +78,13 @@
                 android:defaultValue="true"
                 android:title="@string/pref_content_javascript" />     
 
-        <CheckBoxPreference
-                android:key="enable_plugins"
-                android:defaultValue="true"
-                android:title="@string/pref_content_plugins" />
+        <ListPreference
+                android:key="plugin_state"
+                android:title="@string/pref_content_plugins"
+                android:defaultValue="ON"
+                android:entries="@array/pref_content_plugins_choices"
+                android:entryValues="@array/pref_content_plugins_values"
+                android:dialogTitle="@string/pref_content_plugins" />
 
         <CheckBoxPreference
                 android:key="open_in_background"
