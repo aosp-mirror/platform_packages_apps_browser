@@ -18,7 +18,6 @@ package com.android.browser;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -28,6 +27,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Instrumentation;
 import android.content.Intent;
@@ -35,7 +35,6 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.LargeTest;
 import android.util.Log;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
@@ -54,13 +53,18 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     private final static String sOutputFile = "test_output.txt";
     private final static String sStatusFile = "test_status.txt";
     private final static File sExternalStorage = Environment.getExternalStorageDirectory();
+
+    private final static int PERF_LOOPCOUNT = 10;
+    private final static int STABILITY_LOOPCOUNT = 1;
+    private final static int PAGE_LOAD_TIMEOUT = 120000; // 2 minutes
+
     private BrowserActivity mActivity = null;
     private Instrumentation mInst = null;
     private CountDownLatch mLatch = new CountDownLatch(1);
     private RunStatus mStatus;
 
     public PopularUrlsTest() {
-        super("com.android.browser", BrowserActivity.class);
+        super(BrowserActivity.class);
     }
 
     @Override
@@ -208,7 +212,21 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     }
 
     void waitForLoad() throws InterruptedException {
-        mLatch.await();
+        boolean timedout = !mLatch.await(PAGE_LOAD_TIMEOUT, TimeUnit.MILLISECONDS);
+        if (timedout) {
+            Log.w(TAG, "page timeout. trying to stop.");
+            // try to stop page load
+            mInst.runOnMainSync(new Runnable(){
+                public void run() {
+                    mActivity.getTabControl().getCurrentTab().getWebView().stopLoading();
+                }
+            });
+            // try to wait for count down latch again
+            timedout = !mLatch.await(5000, TimeUnit.MILLISECONDS);
+            if (timedout) {
+                Log.e(TAG, "failed to stop the timedout site in 5s");
+            }
+        }
     }
 
     private static class RunStatus {
@@ -335,7 +353,6 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             pages.add(page);
         }
 
-        int iteration = mStatus.getIteration();
         Iterator<String> iterator = pages.iterator();
         for (int i = 0; i < mStatus.getPage(); ++i) {
             iterator.next();
@@ -345,19 +362,19 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             Log.e(TAG, "Recovering after crash: " + iterator.next());
         }
 
-        while (iteration < loopCount) {
+        while (mStatus.getIteration() < loopCount) {
             while(iterator.hasNext()) {
                 page = iterator.next();
                 mStatus.setUrl(page);
                 mStatus.write();
-                Log.i(TAG, "Loading url: " + page);
+                Log.i(TAG, "start: " + page);
                 Uri uri = Uri.parse(page);
                 if (clearCache) {
                     webView.clearCache(true);
                 }
                 final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
-                long startTime = System.nanoTime();
+                long startTime = System.currentTimeMillis();
                 mInst.runOnMainSync(new Runnable() {
 
                     public void run() {
@@ -366,10 +383,10 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
                 });
                 waitForLoad();
-                long stopTime = System.nanoTime();
+                long stopTime = System.currentTimeMillis();
 
                 String url = webView.getUrl();
-                Log.d(TAG, "Loaded url: " + url);
+                Log.i(TAG, "finish: " + url);
 
                 if (writer != null) {
                     writer.write(page + "|" + (stopTime - startTime) + newLine);
@@ -391,7 +408,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         try {
             BufferedReader bufferedReader = getInputStream();
             try {
-                loopUrls(bufferedReader, writer, true, 10);
+                loopUrls(bufferedReader, writer, true, PERF_LOOPCOUNT);
             } finally {
                 if (bufferedReader != null) {
                     bufferedReader.close();
@@ -409,7 +426,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
         BufferedReader bufferedReader = getInputStream();
         try {
-            loopUrls(bufferedReader, null, true, 1);
+            loopUrls(bufferedReader, null, true, STABILITY_LOOPCOUNT);
         } finally {
             if (bufferedReader != null) {
                 bufferedReader.close();
@@ -417,4 +434,3 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         }
     }
 }
-
