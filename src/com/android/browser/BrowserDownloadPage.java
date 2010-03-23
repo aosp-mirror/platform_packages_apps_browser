@@ -102,7 +102,6 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                     Downloads.Impl.COLUMN_LAST_MODIFICATION));
 
             setListAdapter(mDownloadAdapter);
-            mListView.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
             mListView.setOnCreateContextMenuListener(this);
 
             Intent intent = getIntent();
