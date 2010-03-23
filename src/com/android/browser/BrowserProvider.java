@@ -37,8 +37,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Settings;
@@ -303,15 +303,17 @@ public class BrowserProvider extends ContentProvider {
         }
 
         private void removeGears() {
-            AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
-                public Void doInBackground(Void... unused) {
+            new Thread() {
+                @Override
+                public void run() {
+                    Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
                     String browserDataDirString = mContext.getApplicationInfo().dataDir;
                     final String appPluginsDirString = "app_plugins";
                     final String gearsPrefix = "gears";
                     File appPluginsDir = new File(browserDataDirString + File.separator
                             + appPluginsDirString);
                     if (!appPluginsDir.exists()) {
-                        return null;
+                        return;
                     }
                     // Delete the Gears plugin files
                     File[] gearsFiles = appPluginsDir.listFiles(new FilenameFilter() {
@@ -330,10 +332,9 @@ public class BrowserProvider extends ContentProvider {
                     File gearsDataDir = new File(browserDataDirString + File.separator
                             + gearsPrefix);
                     if (!gearsDataDir.exists()) {
-                        return null;
+                        return;
                     }
                     deleteDirectory(gearsDataDir);
-                    return null;
                 }
 
                 private void deleteDirectory(File currentDir) {
@@ -346,9 +347,7 @@ public class BrowserProvider extends ContentProvider {
                     }
                     currentDir.delete();
                 }
-            };
-
-            task.execute();
+            }.start();
         }
     }
 
