@@ -597,8 +597,15 @@ public class BrowserActivity extends Activity
             return false;
         }
 
-        Browser.updateVisitedHistory(mResolver, url, false);
-        Browser.addSearchUrl(mResolver, url);
+        final ContentResolver cr = mResolver;
+        final String newUrl = url;
+        new AsyncTask<Void, Void, Void>() {
+            protected Void doInBackground(Void... unused) {
+                Browser.updateVisitedHistory(cr, newUrl, false);
+                Browser.addSearchUrl(cr, newUrl);
+                return null;
+            }
+        }.execute();
 
         Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -651,7 +658,14 @@ public class BrowserActivity extends Activity
                     // But currently, we get the user-typed URL from search box as well.
                     url = fixUrl(url);
                     url = smartUrlFilter(url);
-                    Browser.updateVisitedHistory(mResolver, url, false);
+                    final ContentResolver cr = mResolver;
+                    final String newUrl = url;
+                    new AsyncTask<Void, Void, Void>() {
+                        protected Void doInBackground(Void... unused) {
+                            Browser.updateVisitedHistory(cr, newUrl, false);
+                            return null;
+                        }
+                    }.execute();
                     String searchSource = "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&";
                     if (url.contains(searchSource)) {
                         String source = null;

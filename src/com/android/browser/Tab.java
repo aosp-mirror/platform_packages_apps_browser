@@ -657,8 +657,14 @@ class Tab {
                     url = url.substring(0, index-1);
                 }
             }
-            Browser.updateVisitedHistory(mActivity.getContentResolver(), url,
-                    true);
+            final ContentResolver cr = mActivity.getContentResolver();
+            final String newUrl = url;
+            new AsyncTask<Void, Void, Void>() {
+                protected Void doInBackground(Void... unused) {
+                    Browser.updateVisitedHistory(cr, newUrl, true);
+                    return null;
+                }
+            }.execute();
             WebIconDatabase.getInstance().retainIconForPageUrl(url);
         }
 
