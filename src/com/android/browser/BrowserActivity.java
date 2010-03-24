@@ -365,6 +365,11 @@ public class BrowserActivity extends Activity
         }
         // Work out which packages are installed on the system.
         getInstalledPackages();
+
+        // Start watching the default geolocation permissions
+        mSystemAllowGeolocationOrigins
+                = new SystemAllowGeolocationOrigins(getApplicationContext());
+        mSystemAllowGeolocationOrigins.start();
     }
 
     /**
@@ -981,6 +986,10 @@ public class BrowserActivity extends Activity
         WebIconDatabase.getInstance().close();
 
         unregisterReceiver(mPackageInstallationReceiver);
+
+        // Stop watching the default geolocation permissions
+        mSystemAllowGeolocationOrigins.stop();
+        mSystemAllowGeolocationOrigins = null;
     }
 
     @Override
@@ -3871,6 +3880,8 @@ public class BrowserActivity extends Activity
     private BroadcastReceiver mNetworkStateIntentReceiver;
 
     private BroadcastReceiver mPackageInstallationReceiver;
+
+    private SystemAllowGeolocationOrigins mSystemAllowGeolocationOrigins;
 
     // activity requestCode
     final static int COMBO_PAGE                 = 1;
