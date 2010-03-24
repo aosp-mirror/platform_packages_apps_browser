@@ -36,6 +36,7 @@ import android.net.http.SslError;
 import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
+import android.webkit.HttpAuthHandler;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
@@ -197,6 +198,14 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 handler.proceed();
             }
 
+            /**
+             * Ignores http auth with dummy username and password
+             */
+            @Override
+            public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler,
+                    String host, String realm) {
+                handler.proceed("user", "passwd");
+            }
         });
     }
 
