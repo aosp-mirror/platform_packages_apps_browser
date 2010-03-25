@@ -1037,8 +1037,9 @@ public class BrowserActivity extends Activity
         mTabControl.freeMemory();
     }
 
-    private boolean resumeWebViewTimers() {
+    private void resumeWebViewTimers() {
         Tab tab = mTabControl.getCurrentTab();
+        if (tab == null) return; // monkey can trigger this
         boolean inLoad = tab.inLoad();
         if ((!mActivityInPause && !inLoad) || (mActivityInPause && inLoad)) {
             CookieSyncManager.getInstance().startSync();
@@ -1046,9 +1047,6 @@ public class BrowserActivity extends Activity
             if (w != null) {
                 w.resumeTimers();
             }
-            return true;
-        } else {
-            return false;
         }
     }
 
