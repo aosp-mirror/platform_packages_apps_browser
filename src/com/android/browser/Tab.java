@@ -770,8 +770,8 @@ class Tab {
             boolean reuseHttpAuthUsernamePassword = handler
                     .useHttpAuthUsernamePassword();
 
-            if (reuseHttpAuthUsernamePassword && mMainView != null) {
-                String[] credentials = mMainView.getHttpAuthUsernamePassword(
+            if (reuseHttpAuthUsernamePassword && view != null) {
+                String[] credentials = view.getHttpAuthUsernamePassword(
                         host, realm);
                 if (credentials != null && credentials.length == 2) {
                     username = credentials[0];

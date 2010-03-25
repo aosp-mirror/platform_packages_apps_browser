@@ -3363,7 +3363,7 @@ public class BrowserActivity extends Activity
     public void setHttpAuthUsernamePassword(String host, String realm,
                                             String username,
                                             String password) {
-        WebView w = mTabControl.getCurrentWebView();
+        WebView w = getTopWindow();
         if (w != null) {
             w.setHttpAuthUsernamePassword(host, realm, username, password);
         }
