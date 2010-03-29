@@ -365,6 +365,11 @@ public class BrowserActivity extends Activity
         }
         // Work out which packages are installed on the system.
         getInstalledPackages();
+
+        // Start watching the default geolocation permissions
+        mSystemAllowGeolocationOrigins
+                = new SystemAllowGeolocationOrigins(getApplicationContext());
+        mSystemAllowGeolocationOrigins.start();
     }
 
     /**
@@ -981,6 +986,10 @@ public class BrowserActivity extends Activity
         WebIconDatabase.getInstance().close();
 
         unregisterReceiver(mPackageInstallationReceiver);
+
+        // Stop watching the default geolocation permissions
+        mSystemAllowGeolocationOrigins.stop();
+        mSystemAllowGeolocationOrigins = null;
     }
 
     @Override
@@ -1028,8 +1037,9 @@ public class BrowserActivity extends Activity
         mTabControl.freeMemory();
     }
 
-    private boolean resumeWebViewTimers() {
+    private void resumeWebViewTimers() {
         Tab tab = mTabControl.getCurrentTab();
+        if (tab == null) return; // monkey can trigger this
         boolean inLoad = tab.inLoad();
         if ((!mActivityInPause && !inLoad) || (mActivityInPause && inLoad)) {
             CookieSyncManager.getInstance().startSync();
@@ -1037,9 +1047,6 @@ public class BrowserActivity extends Activity
             if (w != null) {
                 w.resumeTimers();
             }
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -3356,7 +3363,7 @@ public class BrowserActivity extends Activity
     public void setHttpAuthUsernamePassword(String host, String realm,
                                             String username,
                                             String password) {
-        WebView w = mTabControl.getCurrentWebView();
+        WebView w = getTopWindow();
         if (w != null) {
             w.setHttpAuthUsernamePassword(host, realm, username, password);
         }
@@ -3871,6 +3878,8 @@ public class BrowserActivity extends Activity
     private BroadcastReceiver mNetworkStateIntentReceiver;
 
     private BroadcastReceiver mPackageInstallationReceiver;
+
+    private SystemAllowGeolocationOrigins mSystemAllowGeolocationOrigins;
 
     // activity requestCode
     final static int COMBO_PAGE                 = 1;
