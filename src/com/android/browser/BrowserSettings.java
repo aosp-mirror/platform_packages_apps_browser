@@ -252,7 +252,10 @@ class BrowserSettings extends Observable {
         // Set the default value for the Geolocation database path.
         geolocationDatabasePath = ctx.getDir("geolocation", 0).getPath();
 
-        homeUrl = getFactoryResetHomeUrl(ctx);
+        if (p.getString(PREF_HOMEPAGE, "") == "") {
+            // No home page preferences is set, set it to default.
+            setHomePage(ctx, getFactoryResetHomeUrl(ctx));
+        }
 
         // the cost of one cached page is ~3M (measured using nytimes.com). For
         // low end devices, we only cache one page. For high end devices, we try
