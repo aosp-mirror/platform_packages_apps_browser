@@ -820,15 +820,14 @@ public class BrowserActivity extends Activity
     }
 
     private void showFakeTitleBar() {
-        final View decor = getWindow().peekDecorView();
         if (mFakeTitleBar.getParent() == null && mActiveTabsPage == null
-                && !mActivityInPause && decor != null
-                && decor.getWindowToken() != null) {
-            Rect visRect = new Rect();
-            if (!mBrowserFrameLayout.getGlobalVisibleRect(visRect)) {
-                if (LOGD_ENABLED) {
-                    Log.d(LOGTAG, "showFakeTitleBar visRect failed");
-                }
+                && !mActivityInPause) {
+            WebView mainView = mTabControl.getCurrentWebView();
+            // if there is no current WebView, don't show the faked title bar;
+            // if the main WebView's contentHeight is 0, it means the WebView
+            // hasn't finished the start up process yet. Don't try to show this
+            // window which will slow down the starting process.
+            if (mainView == null || mainView.getContentHeight() == 0) {
                 return;
             }
 
@@ -841,17 +840,12 @@ public class BrowserActivity extends Activity
                     = new WindowManager.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL,
+                    WindowManager.LayoutParams.TYPE_APPLICATION,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                     PixelFormat.TRANSLUCENT);
             params.gravity = Gravity.TOP;
-            WebView mainView = mTabControl.getCurrentWebView();
-            boolean atTop = mainView != null && mainView.getScrollY() == 0;
+            boolean atTop = mainView.getScrollY() == 0;
             params.windowAnimations = atTop ? 0 : R.style.TitleBar;
-            // XXX : Without providing an offset, the fake title bar will be
-            // placed underneath the status bar.  Use the global visible rect
-            // of mBrowserFrameLayout to determine the bottom of the status bar
-            params.y = visRect.top;
             manager.addView(mFakeTitleBar, params);
         }
     }
