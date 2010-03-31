@@ -44,7 +44,6 @@ import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -79,7 +78,8 @@ public class TitleBar extends LinearLayout {
     private Drawable        mNormalBackground;
     private Drawable        mLoadingBackground;
     private ImageSpan       mArcsSpan;
-    private int             mExtraMargin;
+    private int             mLeftMargin;
+    private int             mRightMargin;
 
     private static int LONG_PRESS = 1;
 
@@ -103,8 +103,10 @@ public class TitleBar extends LinearLayout {
         mCircularProgress = (Drawable) resources.getDrawable(
                 com.android.internal.R.drawable.search_spinner);
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        mExtraMargin = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 6.5f, metrics);
+        mLeftMargin = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 8f, metrics);
+        mRightMargin = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 6f, metrics);
         mIconDimension = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 20f, metrics);
         mCircularProgress.setBounds(0, 0, mIconDimension, mIconDimension);
@@ -267,44 +269,28 @@ public class TitleBar extends LinearLayout {
         if (mInVoiceMode == inVoiceMode) return;
         mInVoiceMode = inVoiceMode && mVoiceSearchIntent != null;
         Drawable titleDrawable;
-        ViewGroup.MarginLayoutParams params
-                = (ViewGroup.MarginLayoutParams) mTitleBg.getLayoutParams();
         if (mInVoiceMode) {
             mRtButton.setImageDrawable(mVoiceDrawable);
             titleDrawable = mVoiceModeBackground;
             mTitle.setEllipsize(null);
             mRtButton.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
-            if (params != null) {
-                params.setMargins(0, 0, 0, 0);
-            }
         } else {
             if (mInLoad) {
                 titleDrawable = mLoadingBackground;
                 mRtButton.setVisibility(View.GONE);
                 mStopButton.setVisibility(View.VISIBLE);
-                ViewGroup.MarginLayoutParams stopParams
-                        = (ViewGroup.MarginLayoutParams)
-                        mStopButton.getLayoutParams();
-                if (stopParams != null) {
-                    stopParams.setMargins(0,0,0, mExtraMargin);
-                }
-                if (params != null) {
-                    params.setMargins(0, 0, 0, mExtraMargin);
-                }
             } else {
                 titleDrawable = mNormalBackground;
                 mRtButton.setVisibility(View.VISIBLE);
                 mStopButton.setVisibility(View.GONE);
                 mRtButton.setImageDrawable(mBookmarkDrawable);
-                if (params != null) {
-                    params.setMargins(0, 0, 0, 0);
-                }
             }
             mTitle.setEllipsize(TextUtils.TruncateAt.END);
         }
         mTitle.setSingleLine(!mInVoiceMode);
         mTitleBg.setBackgroundDrawable(titleDrawable);
+        mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
     }
 
     /**
@@ -323,8 +309,6 @@ public class TitleBar extends LinearLayout {
      * Update the progress, from 0 to 100.
      */
     /* package */ void setProgress(int newProgress) {
-        ViewGroup.MarginLayoutParams params
-                = (ViewGroup.MarginLayoutParams) mTitleBg.getLayoutParams();
         if (newProgress >= mHorizontalProgress.getMax()) {
             mTitle.setCompoundDrawables(null, null, null, null);
             ((Animatable) mCircularProgress).stop();
@@ -334,11 +318,7 @@ public class TitleBar extends LinearLayout {
                 mRtButton.setVisibility(View.VISIBLE);
                 mStopButton.setVisibility(View.GONE);
                 mTitleBg.setBackgroundDrawable(mNormalBackground);
-                // Set the margin for the textfield to 0, which is appropriate
-                // for the normal background
-                if (params != null) {
-                    params.setMargins(0, 0, 0, 0);
-                }
+                mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
             }
             mInLoad = false;
         } else {
@@ -354,20 +334,9 @@ public class TitleBar extends LinearLayout {
                 mHorizontalProgress.setVisibility(View.VISIBLE);
                 if (!mInVoiceMode) {
                     mTitleBg.setBackgroundDrawable(mLoadingBackground);
+                    mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
                     mRtButton.setVisibility(View.GONE);
                     mStopButton.setVisibility(View.VISIBLE);
-                    // Set a margin for the bottom of the textfield and the stop
-                    // button so that the total height matches that of the
-                    // title bar when the normal background is showing.
-                    if (params != null) {
-                        params.setMargins(0,0,0, mExtraMargin);
-                    }
-                    ViewGroup.MarginLayoutParams stopParams
-                            = (ViewGroup.MarginLayoutParams)
-                            mStopButton.getLayoutParams();
-                    if (stopParams != null) {
-                        stopParams.setMargins(0,0,0, mExtraMargin);
-                    }
                 }
                 mInLoad = true;
             }
