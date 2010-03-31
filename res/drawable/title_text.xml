@@ -18,7 +18,7 @@
         pressed state even without window focus -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
-            android:drawable="@*android:drawable/textfield_pressed" />
+            android:drawable="@*android:drawable/textfield_search_empty_pressed" />
     <item android:state_pressed="false"
-            android:drawable="@*android:drawable/textfield_default" />
+            android:drawable="@*android:drawable/textfield_search_empty_default" />
 </selector>
