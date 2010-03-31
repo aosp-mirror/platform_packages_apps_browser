@@ -1506,8 +1506,30 @@ class Tab {
         // container to the content view.
         FrameLayout wrapper =
                 (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
-        wrapper.addView(mMainView);
-        content.addView(mContainer, BrowserActivity.COVER_SCREEN_PARAMS);
+        ViewGroup parent = (ViewGroup) mMainView.getParent();
+        if (parent != wrapper) {
+            if (parent != null) {
+                Log.w(LOGTAG, "mMainView already has a parent in"
+                        + " attachTabToContentView!");
+                parent.removeView(mMainView);
+            }
+            wrapper.addView(mMainView);
+        } else {
+            Log.w(LOGTAG, "mMainView is already attached to wrapper in"
+                    + " attachTabToContentView!");
+        }
+        parent = (ViewGroup) mContainer.getParent();
+        if (parent != content) {
+            if (parent != null) {
+                Log.w(LOGTAG, "mContainer already has a parent in"
+                        + " attachTabToContentView!");
+                parent.removeView(mContainer);
+            }
+            content.addView(mContainer, BrowserActivity.COVER_SCREEN_PARAMS);
+        } else {
+            Log.w(LOGTAG, "mContainer is already attached to content in"
+                    + " attachTabToContentView!");
+        }
         attachSubWindow(content);
     }
 

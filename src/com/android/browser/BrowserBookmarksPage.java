@@ -72,6 +72,7 @@ public class BrowserBookmarksPage extends Activity implements
     private boolean                 mCreateShortcut;
     private boolean                 mMostVisited;
     private View                    mEmptyView;
+    private int                     mIconSize;
     // XXX: There is no public string defining this intent so if Home changes
     // the value, we have to update this string.
     private static final String     INSTALL_SHORTCUT =
@@ -229,6 +230,10 @@ public class BrowserBookmarksPage extends Activity implements
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
+        // Grab the app icon size as a resource.
+        mIconSize = getResources().getDimensionPixelSize(
+                android.R.dimen.app_icon_size);
 
         if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
             mCreateShortcut = true;
@@ -441,26 +446,34 @@ public class BrowserBookmarksPage extends Activity implements
         i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
         // Use the apple-touch-icon if available
         if (touchIcon != null) {
-            // Make a copy so we can modify the pixels.
-            Bitmap copy = touchIcon.copy(Bitmap.Config.ARGB_8888, true);
-            Canvas canvas = new Canvas(copy);
+            // Make a copy so we can modify the pixels.  We can't use
+            // createScaledBitmap or copy since they will preserve the config
+            // and lose the ability to add alpha.
+            Bitmap bm = Bitmap.createBitmap(mIconSize, mIconSize,
+                    Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bm);
+            Rect src = new Rect(0, 0, touchIcon.getWidth(),
+                                touchIcon.getHeight());
+            Rect dest = new Rect(0, 0, bm.getWidth(), bm.getHeight());
+
+            // Paint used for scaling the bitmap and drawing the rounded rect.
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setFilterBitmap(true);
+            canvas.drawBitmap(touchIcon, src, dest, paint);
 
             // Construct a path from a round rect. This will allow drawing with
             // an inverse fill so we can punch a hole using the round rect.
             Path path = new Path();
             path.setFillType(Path.FillType.INVERSE_WINDING);
-            RectF rect = new RectF(0, 0, touchIcon.getWidth(),
-                    touchIcon.getHeight());
+            RectF rect = new RectF(0, 0, bm.getWidth(), bm.getHeight());
             rect.inset(1, 1);
             path.addRoundRect(rect, 8f, 8f, Path.Direction.CW);
 
-            // Construct a paint that clears the outside of the rectangle and
-            // draw.
-            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            // Reuse the paint and clear the outside of the rectangle.
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
             canvas.drawPath(path, paint);
 
-            i.putExtra(Intent.EXTRA_SHORTCUT_ICON, copy);
+            i.putExtra(Intent.EXTRA_SHORTCUT_ICON, bm);
         } else {
             Bitmap favicon = getFavicon(position);
             if (favicon == null) {

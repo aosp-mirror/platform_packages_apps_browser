@@ -820,15 +820,14 @@ public class BrowserActivity extends Activity
     }
 
     private void showFakeTitleBar() {
-        final View decor = getWindow().peekDecorView();
         if (mFakeTitleBar.getParent() == null && mActiveTabsPage == null
-                && !mActivityInPause && decor != null
-                && decor.getWindowToken() != null) {
-            Rect visRect = new Rect();
-            if (!mBrowserFrameLayout.getGlobalVisibleRect(visRect)) {
-                if (LOGD_ENABLED) {
-                    Log.d(LOGTAG, "showFakeTitleBar visRect failed");
-                }
+                && !mActivityInPause) {
+            WebView mainView = mTabControl.getCurrentWebView();
+            // if there is no current WebView, don't show the faked title bar;
+            // if the main WebView's contentHeight is 0, it means the WebView
+            // hasn't finished the start up process yet. Don't try to show this
+            // window which will slow down the starting process.
+            if (mainView == null || mainView.getContentHeight() == 0) {
                 return;
             }
 
@@ -841,17 +840,12 @@ public class BrowserActivity extends Activity
                     = new WindowManager.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL,
+                    WindowManager.LayoutParams.TYPE_APPLICATION,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                     PixelFormat.TRANSLUCENT);
             params.gravity = Gravity.TOP;
-            WebView mainView = mTabControl.getCurrentWebView();
-            boolean atTop = mainView != null && mainView.getScrollY() == 0;
+            boolean atTop = mainView.getScrollY() == 0;
             params.windowAnimations = atTop ? 0 : R.style.TitleBar;
-            // XXX : Without providing an offset, the fake title bar will be
-            // placed underneath the status bar.  Use the global visible rect
-            // of mBrowserFrameLayout to determine the bottom of the status bar
-            params.y = visRect.top;
             manager.addView(mFakeTitleBar, params);
         }
     }
@@ -2797,6 +2791,36 @@ public class BrowserActivity extends Activity
         onDownloadStartNoStream(url, userAgent, contentDisposition, mimetype, contentLength);
     }
 
+    // This is to work around the fact that java.net.URI throws Exceptions
+    // instead of just encoding URL's properly
+    // Helper method for onDownloadStartNoStream
+    private static String encodePath(String path) {
+        char[] chars = path.toCharArray();
+
+        boolean needed = false;
+        for (char c : chars) {
+            if (c == '[' || c == ']') {
+                needed = true;
+                break;
+            }
+        }
+        if (needed == false) {
+            return path;
+        }
+
+        StringBuilder sb = new StringBuilder("");
+        for (char c : chars) {
+            if (c == '[' || c == ']') {
+                sb.append('%');
+                sb.append(Integer.toHexString(c));
+            } else {
+                sb.append(c);
+            }
+        }
+
+        return sb.toString();
+    }
+
     /**
      * Notify the host application a download should be done, even if there
      * is a streaming viewer available for thise type.
@@ -2836,35 +2860,16 @@ public class BrowserActivity extends Activity
             return;
         }
 
-        // java.net.URI is a lot stricter than KURL so we have to undo
-        // KURL's percent-encoding and redo the encoding using java.net.URI.
-        URI uri = null;
+        // java.net.URI is a lot stricter than KURL so we have to encode some
+        // extra characters. Fix for b 2538060 and b 1634719
+        WebAddress webAddress;
         try {
-            // Undo the percent-encoding that KURL may have done.
-            String newUrl = new String(URLUtil.decode(url.getBytes()));
-            // Parse the url into pieces
-            WebAddress w = new WebAddress(newUrl);
-            String frag = null;
-            String query = null;
-            String path = w.mPath;
-            // Break the path into path, query, and fragment
-            if (path.length() > 0) {
-                // Strip the fragment
-                int idx = path.lastIndexOf('#');
-                if (idx != -1) {
-                    frag = path.substring(idx + 1);
-                    path = path.substring(0, idx);
-                }
-                idx = path.lastIndexOf('?');
-                if (idx != -1) {
-                    query = path.substring(idx + 1);
-                    path = path.substring(0, idx);
-                }
-            }
-            uri = new URI(w.mScheme, w.mAuthInfo, w.mHost, w.mPort, path,
-                    query, frag);
+            webAddress = new WebAddress(url);
+            webAddress.mPath = encodePath(webAddress.mPath);
         } catch (Exception e) {
-            Log.e(LOGTAG, "Could not parse url for download: " + url, e);
+            // This only happens for very bad urls, we want to chatch the
+            // exception here
+            Log.e(LOGTAG, "Exception trying to parse url:" + url);
             return;
         }
 
@@ -2873,7 +2878,7 @@ public class BrowserActivity extends Activity
         String cookies = CookieManager.getInstance().getCookie(url);
 
         ContentValues values = new ContentValues();
-        values.put(Downloads.Impl.COLUMN_URI, uri.toString());
+        values.put(Downloads.Impl.COLUMN_URI, webAddress.toString());
         values.put(Downloads.Impl.COLUMN_COOKIE_DATA, cookies);
         values.put(Downloads.Impl.COLUMN_USER_AGENT, userAgent);
         values.put(Downloads.Impl.COLUMN_NOTIFICATION_PACKAGE,
@@ -2884,7 +2889,7 @@ public class BrowserActivity extends Activity
                 Downloads.Impl.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         values.put(Downloads.Impl.COLUMN_MIME_TYPE, mimetype);
         values.put(Downloads.Impl.COLUMN_FILE_NAME_HINT, filename);
-        values.put(Downloads.Impl.COLUMN_DESCRIPTION, uri.getHost());
+        values.put(Downloads.Impl.COLUMN_DESCRIPTION, webAddress.mHost);
         if (contentLength > 0) {
             values.put(Downloads.Impl.COLUMN_TOTAL_BYTES, contentLength);
         }

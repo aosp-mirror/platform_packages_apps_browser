@@ -1,0 +1,231 @@
+<html>
+<head>
+<script type="text/javascript">
+
+function testPrimitiveTypes() {
+  return JNIBindingsTest.testPrimitiveTypes(100, 'c', 123.34567890, 456.789, 1234567, 1234567890, 6000, true);
+}
+
+function testObjectTypes() {
+  return JNIBindingsTest.testObjectTypes("Foo", "", {"foo":"bar"}, {});
+}
+
+function testArray() {
+  return JNIBindingsTest.testArray([1,2,3], ['d', 'o', 'g'], [1.2, 2.3, 3.4], [4.5,5.6,6.7], [1,2,3], [4,5,6], [7,8,9], [true, false]);
+}
+
+function testObjectArray() {
+  return JNIBindingsTest.testObjectArray(['Hello', 'World', '!'], [], [{"foo":"bar"}]);
+}
+
+function testObjectMembers() {
+  var foo = {"bool":true,
+             "byte":101,
+             "char":'d',
+             "double":123.456,
+             "float":456.789,
+             "int":102,
+             "long":103,
+             "short":104,
+             "string":"Hello World",
+             "array": [1,2,3],
+             "objArray":["foo", "bar", "baz"],
+             "object": {"foo":1}
+  };
+  return JNIBindingsTest.testObjectMembers(foo.bool, foo.byte, foo.char, foo.double, foo.float, foo.int, foo.long, foo.short, foo.string, foo.array, foo.objArray, foo.object);
+}
+
+function testJSPrimitivesToStringsInJava() {
+    return JNIBindingsTest.testJSPrimitivesToStringsInJava(123, null, 456.789, true, 'd', undefined);
+}
+
+function testJavaReturnTypes() {
+  var expectedBoolReturn = true;
+  var expectedByteReturn = 1;
+  var expectedCharReturn = 98; // 'b'; Currently bindings in JSC and V8 return chars as their ASCII equivalent.
+  var expectedDoubleReturn = 123.456;
+  var expectedFloatReturn = 456.789;
+  var expectedIntReturn = 123;
+  var expectedLongReturn = 1234;
+  var expectedShortReturn = 12345;
+  var expectedStringReturn = "Hello World!";
+
+  var returned = JNIBindingsTest.returnBool();
+  if (returned != expectedBoolReturn) {
+    appendLog("returnBool() failed: expected "+ expectedBoolReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnByte();
+  if (returned != expectedByteReturn) {
+    appendLog("returnByte() failed: expected "+ expectedByteReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnChar();
+  if (returned != expectedCharReturn) {
+    appendLog("returnChar() failed: expected "+ expectedCharReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnDouble();
+  if (returned != expectedDoubleReturn) {
+    appendLog("returnDouble() failed: expected "+ expectedDoubleReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnFloat();
+  if (Math.abs(returned - expectedFloatReturn) > 0.001) {
+    appendLog("returnFloat() failed: expected "+ expectedFloatReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnInt();
+  if (returned != expectedIntReturn) {
+    appendLog("returnInt() failed: expected "+ expectedIntReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnLong();
+  if (returned != expectedLongReturn) {
+    appendLog("returnLong() failed: expected "+ expectedLongReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnShort();
+  if (returned != expectedShortReturn) {
+    appendLog("returnShort() failed: expected "+ expectedShortReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnString();
+  if (returned != expectedStringReturn) {
+    appendLog("returnString() failed: expected "+ expectedStringReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnObject();
+  if (returned == null) {
+    appendLog("returnObject() failed: expected non-null, got " + returned);
+    return false;
+  } else if (returned.x != 0) {
+    // EMULATE_JSC_BINDINGS
+    // Note: the Java sets the x property to 123. JSC and V8 do not support object
+    // members in the bindings though.
+    appendLog("returnObject() failed: expected 'x' property 0, got " + returned.x)
+    return false;
+  } else if (returned.s != undefined) {
+    // EMULATE_JSC_BINDINGS
+    // Note that the java class returned has s set to Hello World. JSC and V8 do not support
+    // getting properties.
+    appendLog("returnObject() failed: expected 's' property undefined, got " + returned.s);
+    return false;
+  } else if (!returned.aMethod()) {
+    appendLog("returnObject() failed: expected 'aMethod' method to return true, got " + returned.aMethod());
+    return false;
+  } else if (returned.anotherMethod() != "Hello World") {
+    appendLog("returnObject() failed: expected 'anotherMethod' to return 'Hello World' got "+ returned.anotherMethod());
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnArray();
+  if (returned != null) {
+    appendLog("returnArray() failed: expected null, got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnVoid();
+  if (returned != null) {
+    appendLog("returnVoid() failed: expected null, got " + returned);
+    return false;
+  }
+
+  return true;
+}
+
+function getIfaceProperties() {
+  if (JNIBindingsTest.mInt != 0) {
+    // EMULATE_JSC_BINDINGS
+    // Note: the Java sets the mInt property to 123. JSC and V8 do not support object
+    // members in the bindings though.
+    appendLog("getIfaceProperties() failed: expected mInt = 0, got " + JNIBindingsTest.mInt);
+    return false;
+  }
+
+  if (JNIBindingsTest.mString != undefined) {
+    // EMULATE_JSC_BINDINGS
+    // Note that the java class returned has s set to Hello World. JSC and V8 do not support
+    // getting properties.
+    appendLog("getIfaceProperties() failed: expected mString = 'Hello World', got " + JNIBindingsTest.mString);
+    return false;
+  }
+
+  return true;
+}
+
+function appendLog(msg) {
+  var log = document.getElementById("status");
+  log.innerHTML += "<br/>" + msg;
+}
+
+function runTests() {
+
+  // Assume that if the test isn't done after 10s that we failed.
+  window.setTimeout(function() { JNIBindingsTest.testComplete(); }, 10000);
+
+  if (testPrimitiveTypes()) {
+    appendLog("testPrimitiveTypes passed!");
+  } else {
+    appendLog("testPrimtiveTypes failed!");
+  }
+
+  if (testObjectTypes()) {
+    appendLog("testObjectTypes passed!");
+  } else {
+    appendLog("testObjectTypes failed!");
+  }
+
+  if (testArray()) {
+    appendLog("testArray passed!");
+  } else {
+    appendLog("testArray failed!");
+  }
+
+  if (testObjectArray()) {
+    appendLog("testObjectArray passed!");
+  } else {
+    appendLog("testObjectArray failed!");
+  }
+
+  if (testObjectMembers()) {
+    appendLog("testObjectMembers passed!");
+  } else {
+    appendLog("<br/>testObjectMembers failed!");
+  }
+
+  if (testJSPrimitivesToStringsInJava()) {
+    appendLog("testJSPrimitivesToStringsInJava passed!");
+  } else {
+    appendLog("testJSPrimitivesToStringsInJava failed!");
+  }
+
+  if (testJavaReturnTypes()) {
+    appendLog("testJavaReturnTypes passed!");
+  } else {
+    appendLog("testJavaReturnTypes failed!");
+  }
+
+  if (getIfaceProperties()) {
+    appendLog("getIfaceProperties passed!");
+  } else {
+    appendLog("getIfaceProperties failed!");
+  }
+
+  JNIBindingsTest.testComplete();
+}
+</script>
+
+<body onload="runTests();">
+<p id="status">Running JNI Bindings test...</p>
+</body>
+</html>
