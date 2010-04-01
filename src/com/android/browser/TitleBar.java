@@ -117,6 +117,11 @@ public class TitleBar extends LinearLayout {
         mVoiceSearchIntent = new Intent(RecognizerIntent.ACTION_WEB_SEARCH);
         mVoiceSearchIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+        // This extra tells voice search not to send the application id in its
+        // results intent - http://b/2546173
+        //
+        // TODO: Make a constant for this extra.
+        mVoiceSearchIntent.putExtra("android.speech.extras.SEND_APPLICATION_ID_EXTRA", false);
         PackageManager pm = context.getPackageManager();
         ResolveInfo ri = pm.resolveActivity(mVoiceSearchIntent,
                 PackageManager.MATCH_DEFAULT_ONLY);
