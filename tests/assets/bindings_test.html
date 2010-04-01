@@ -163,6 +163,10 @@ function getIfaceProperties() {
   return true;
 }
 
+function testParameterTypeMismatch() {
+  return JNIBindingsTest.testParameterTypeMismatch("dog");
+}
+
 function appendLog(msg) {
   var log = document.getElementById("status");
   log.innerHTML += "<br/>" + msg;
@@ -219,6 +223,12 @@ function runTests() {
     appendLog("getIfaceProperties passed!");
   } else {
     appendLog("getIfaceProperties failed!");
+  }
+
+  if (testParameterTypeMismatch()) {
+    appendLog("testParameterTypeMismatch passed!");
+  } else {
+    appendLog("testParameterTypeMismatch failed!");
   }
 
   JNIBindingsTest.testComplete();

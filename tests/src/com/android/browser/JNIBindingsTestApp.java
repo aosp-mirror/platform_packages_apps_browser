@@ -53,7 +53,8 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
             "testObjectMembers passed!\n" +
             "testJSPrimitivesToStringsInJava passed!\n" +
             "testJavaReturnTypes passed!\n" +
-            "getIfaceProperties passed!\n";
+            "getIfaceProperties passed!\n" +
+            "testParameterTypeMismatch passed!\n";
 
 
     private class GetWebKitDataThread extends Thread {
