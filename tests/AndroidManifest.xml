@@ -34,4 +34,9 @@
                      android:targetPackage="com.android.browser"
                      android:label="Tests for Browser."/>
 
+    <instrumentation android:name="com.android.browser.BrowserLaunchPerformance"
+        android:targetPackage="com.android.browser"
+        android:label="Browser Launch Performance">
+    </instrumentation>
+
 </manifest>

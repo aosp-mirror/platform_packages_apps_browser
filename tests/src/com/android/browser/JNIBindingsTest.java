@@ -139,6 +139,7 @@ public class JNIBindingsTest extends AndroidTestCase {
     public boolean testObjectArray(String[] stringArray, Object[] emptyArray,
             Object[] objectArray) {
         String[] expectedStringArray = {"Hello", "World", "!"};
+        String expectedStringArrayClassName = "[Ljava.lang.String;";
         Object[] expectedObjectArray = {};
 
         try {
@@ -150,10 +151,13 @@ public class JNIBindingsTest extends AndroidTestCase {
             assertNull(objectArray);
 
             assertEquals(Arrays.toString(expectedStringArray), Arrays.toString(stringArray));
+            assertEquals(expectedStringArrayClassName, stringArray.getClass().getName());
 
             // EMULATE_JSC_BINDINGS
             // assertEquals(Arrays.toString(expectedObjectArray), Arrays.toString(emptyArray));
+            // assertEquals(expectedObjectArrayClassName, emptyArray.getClass().getName());
             // assertEquals(Arrays.toString(expectedObjectArray), Arrays.toString(objectArray));
+            // assertEquals(expectedStringObjectClassName, objectArray.getClass().getName());
 
         } catch (AssertionFailedError e) {
             printAssertionFailed(e);
@@ -177,6 +181,7 @@ public class JNIBindingsTest extends AndroidTestCase {
         String expectedStringParam = "Hello World";
         int[] expectedIntArray = {1,2,3};
         String[] expectedStringArrayParam = {"foo", "bar", "baz"};
+        String expectedStringArrayClassName = "[Ljava.lang.String;";
 
         try {
             assertEquals(expectedBoolParam, boolParam);
@@ -194,6 +199,7 @@ public class JNIBindingsTest extends AndroidTestCase {
             assertEquals(Arrays.toString(expectedIntArray), Arrays.toString(intArrayParam));
             assertEquals(Arrays.toString(expectedStringArrayParam),
                     Arrays.toString(stringArrayParam));
+            assertEquals(expectedStringArrayClassName, stringArrayParam.getClass().getName());
             assertNull(objectParam);
         } catch (AssertionFailedError e) {
             printAssertionFailed(e);
@@ -235,6 +241,18 @@ public class JNIBindingsTest extends AndroidTestCase {
             printAssertionFailed(e);
             return false;
         }
+        return true;
+    }
+
+    public boolean testParameterTypeMismatch(String[] stringArrayParam) {
+        // The JS test will pass a string, not an array to this test.
+        try {
+            assertNull(stringArrayParam);
+        } catch (AssertionFailedError e) {
+            printAssertionFailed(e);
+            return false;
+        }
+
         return true;
     }
 
