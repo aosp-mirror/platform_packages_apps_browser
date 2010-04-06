@@ -25,6 +25,7 @@ import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Browser;
@@ -250,26 +251,32 @@ class BrowserBookmarksAdapter extends BaseAdapter {
      * @param url The current url.
      * @param favicon The favicon bitmap to write to the db.
      */
-    /* package */ static void updateBookmarkFavicon(ContentResolver cr,
-            String originalUrl, String url, Bitmap favicon) {
-        final Cursor c = queryBookmarksForUrl(cr, originalUrl, url, true);
-        if (c == null) {
-            return;
-        }
-        boolean succeed = c.moveToFirst();
-        ContentValues values = null;
-        while (succeed) {
-            if (values == null) {
-                final ByteArrayOutputStream os = new ByteArrayOutputStream();
-                favicon.compress(Bitmap.CompressFormat.PNG, 100, os);
-                values = new ContentValues();
-                values.put(Browser.BookmarkColumns.FAVICON, os.toByteArray());
+    /* package */ static void updateBookmarkFavicon(final ContentResolver cr,
+            final String originalUrl, final String url, final Bitmap favicon) {
+        new AsyncTask<Void, Void, Void>() {
+            protected Void doInBackground(Void... unused) {
+                final Cursor c =
+                        queryBookmarksForUrl(cr, originalUrl, url, true);
+                if (c == null) {
+                    return null;
+                }
+                if (c.moveToFirst()) {
+                    ContentValues values = new ContentValues();
+                    final ByteArrayOutputStream os =
+                            new ByteArrayOutputStream();
+                    favicon.compress(Bitmap.CompressFormat.PNG, 100, os);
+                    values.put(Browser.BookmarkColumns.FAVICON,
+                            os.toByteArray());
+                    do {
+                        cr.update(ContentUris.withAppendedId(
+                                Browser.BOOKMARKS_URI, c.getInt(0)),
+                                values, null, null);
+                    } while (c.moveToNext());
+                }
+                c.close();
+                return null;
             }
-            cr.update(ContentUris.withAppendedId(Browser.BOOKMARKS_URI, c
-                    .getInt(0)), values, null, null);
-            succeed = c.moveToNext();
-        }
-        c.close();
+        }.execute();
     }
 
     /* package */ static Cursor queryBookmarksForUrl(ContentResolver cr,
