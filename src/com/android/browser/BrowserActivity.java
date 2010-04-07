@@ -824,10 +824,7 @@ public class BrowserActivity extends Activity
                 && !mActivityInPause) {
             WebView mainView = mTabControl.getCurrentWebView();
             // if there is no current WebView, don't show the faked title bar;
-            // if the main WebView's contentHeight is 0, it means the WebView
-            // hasn't finished the start up process yet. Don't try to show this
-            // window which will slow down the starting process.
-            if (mainView == null || mainView.getContentHeight() == 0) {
+            if (mainView == null) {
                 return;
             }
 
