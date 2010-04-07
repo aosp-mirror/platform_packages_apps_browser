@@ -260,6 +260,8 @@
     <string name="download_file_error" msgid="1206648050615176113">"Δεν είναι δυνατή η ολοκλήρωση της λήψης. Δεν υπάρχει αρκετός διαθέσιμος χώρος."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Δεν είναι δυνατή η λήψη. Δεν είναι δυνατός ο προσδιορισμός του μεγέθους του στοιχείου."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Η λήψη διακόπηκε. Δεν είναι δυνατή η συνέχισή της."</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Αναζήτηση στον ιστό"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Χώρος αποθήκευσης προγράμματος περιήγησης πλήρης"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Κάντε κλικ για να αποδεσμεύσετε χώρο."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Εκκαθάριση αποθηκευμένων δεδομένων"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Εκκαθάριση αποθηκευμένων δεδομένων"</string>

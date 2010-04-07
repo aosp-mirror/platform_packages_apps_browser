@@ -260,6 +260,8 @@
     <string name="download_file_error" msgid="1206648050615176113">"Stahování nelze dokončit. Není dostatek místa."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Nelze stáhnout. Velikost položky nelze určit."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Stahování bylo přerušeno a nelze v něm pokračovat."</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Vyhledat na webu"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Zrušit přístup k poloze"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Kliknutím uvolníte místo."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Zrušit přístup k poloze"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Vymazat uložená data"</string>

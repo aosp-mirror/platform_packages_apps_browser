@@ -260,6 +260,8 @@
     <string name="download_file_error" msgid="1206648050615176113">"Téléchargement interrompu. Espace insuffisant."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Téléchargement impossible. La taille de l\'élément n\'a pas pu être déterminée."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Téléchargement interrompu. Impossible de reprendre le téléchargement."</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Rechercher sur le Web"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Espace de stockage du navigateur saturé"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Cliquez ici pour libérer de l\'espace."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Effacer les données stockées"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Effacer les données stockées"</string>
