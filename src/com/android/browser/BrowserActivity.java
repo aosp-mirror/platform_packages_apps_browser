@@ -460,7 +460,10 @@ public class BrowserActivity extends Activity
 
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
-            if ((Intent.ACTION_VIEW.equals(action) || activateVoiceSearch)
+            if ((Intent.ACTION_VIEW.equals(action)
+                    // If a voice search has no appId, it means that it came
+                    // from the browser.  In that case, reuse the current tab.
+                    || (activateVoiceSearch && appId != null))
                     && !getPackageName().equals(appId)
                     && (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
                 Tab appTab = mTabControl.getTabFromId(appId);
@@ -2380,7 +2383,7 @@ public class BrowserActivity extends Activity
             return null;
         }
         Bitmap bm = Bitmap.createBitmap(getDesiredThumbnailWidth(this),
-                getDesiredThumbnailHeight(this), Bitmap.Config.ARGB_4444);
+                getDesiredThumbnailHeight(this), Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bm);
         // May need to tweak these values to determine what is the
         // best scale factor

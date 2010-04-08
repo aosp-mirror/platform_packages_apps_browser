@@ -497,12 +497,10 @@ class TabControl {
         final String url = urlData.mUrl;
         final WebView w = t.getWebView();
         if (w != null) {
-            if (urlData.mVoiceIntent != null) {
-                // In the case of a voice search, we do not want to destroy the
-                // back forward list, so that we can go back to the prior search
-                return true;
-            }
-            if (url != null && url.equals(t.getOriginalUrl())) {
+            if (url != null && url.equals(t.getOriginalUrl())
+                    // Treat a voice intent as though it is a different URL,
+                    // since it most likely is.
+                    && urlData.mVoiceIntent == null) {
                 // The original url matches the current url. Just go back to the
                 // first history item so we can load it faster than if we
                 // rebuilt the WebView.
