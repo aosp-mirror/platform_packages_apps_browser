@@ -280,6 +280,9 @@ public class TitleBar extends LinearLayout {
             mTitle.setEllipsize(null);
             mRtButton.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
+            mTitleBg.setBackgroundDrawable(titleDrawable);
+            mTitleBg.setPadding(mLeftMargin, getPaddingTop(), mRightMargin,
+                    getPaddingBottom());
         } else {
             if (mInLoad) {
                 titleDrawable = mLoadingBackground;
@@ -292,10 +295,10 @@ public class TitleBar extends LinearLayout {
                 mRtButton.setImageDrawable(mBookmarkDrawable);
             }
             mTitle.setEllipsize(TextUtils.TruncateAt.END);
+            mTitleBg.setBackgroundDrawable(titleDrawable);
+            mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
         }
         mTitle.setSingleLine(!mInVoiceMode);
-        mTitleBg.setBackgroundDrawable(titleDrawable);
-        mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
     }
 
     /**
