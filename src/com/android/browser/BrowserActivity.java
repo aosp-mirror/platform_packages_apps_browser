@@ -2380,7 +2380,7 @@ public class BrowserActivity extends Activity
             return null;
         }
         Bitmap bm = Bitmap.createBitmap(getDesiredThumbnailWidth(this),
-                getDesiredThumbnailHeight(this), Bitmap.Config.ARGB_4444);
+                getDesiredThumbnailHeight(this), Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bm);
         // May need to tweak these values to determine what is the
         // best scale factor
