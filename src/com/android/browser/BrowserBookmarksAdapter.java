@@ -28,6 +28,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.provider.Browser;
 import android.provider.Browser.BookmarkColumns;
 import android.view.KeyEvent;
@@ -551,7 +552,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
 
     private class ChangeObserver extends ContentObserver {
         public ChangeObserver() {
-            super(new Handler());
+            super(new Handler(Looper.getMainLooper()));
         }
 
         @Override
