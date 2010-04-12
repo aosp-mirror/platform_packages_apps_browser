@@ -260,6 +260,8 @@
     <string name="download_file_error" msgid="1206648050615176113">"無法完成下載。儲存空間不足。"</string>
     <string name="download_length_required" msgid="9038605488460437406">"無法下載。物件大小無法估計。"</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"下載中斷。無法續傳。"</string>
+    <string name="search_the_web" msgid="6046130189241962337">"搜尋網頁"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"瀏覽器儲存空間已滿"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"按一下可釋出儲存空間。"</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"清除儲存的資料"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"清除儲存的資料"</string>

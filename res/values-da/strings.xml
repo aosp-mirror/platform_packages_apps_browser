@@ -260,6 +260,8 @@
     <string name="download_file_error" msgid="1206648050615176113">"Download kan ikke afsluttes. Der er ikke nok plads."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Der kan ikke downloades. Størrelsen på elementet kan ikke fastsættes."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Download blev afbrudt. Den kan ikke genoptages."</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Søg på nettet"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Browserlageret er fuldt"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Klik her for at frigøre plads."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Ryd lagrede data"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Ryd lagrede data"</string>

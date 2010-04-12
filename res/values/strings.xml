@@ -665,9 +665,6 @@
             interrupted and cannot be resumed -->
     <string name="download_precondition_failed">Download interrupted. It cannot be resumed.</string>
 
-    
-    <!-- Do not translate.  Testing only -->
-    
     <!-- Do not translate.  Testing only -->
     <string name="dump_nav" translatable="false">Dump navigation cache</string>
     <!-- Do not translate.  Testing only -->
@@ -714,29 +711,9 @@
     <!-- Bookmark name for Picasa website -->
     <string name="picasa" translatable="false">Picasa</string>
 
-    <!-- Note that this is the standard search url.  It uses the current locale for language -->
-    <!-- (%1$s) and country (%2$s) and shouldn't need to be replaced by locale or mcc selected -->
-    <!-- resources. -->
-    <!-- Any changes to this (especially in terms of adding/removing the MCC-specific flavors) -->
-    <!-- should be mirrored by changes in apps/GoogleSearch. -->
-    <!-- Do not translate.  This string is an internal URI, not seen in the UI. -->
-    
-    
     <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
     <string name="search_the_web">Search the web</string>
-
-    <!-- FIXME: the next four strings(read/write history permissions) should be removed.
-         At the moment actually removing them requires manually deleting all of the
-         existing translations. -->
-    <!-- Do not translate -->
-    
-    <!-- Do not translate -->
-    
-    <!-- Do not translate -->
-    
-    <!-- Do not translate -->
-    
 
     <!-- HTML5 dialogs -->
     <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->

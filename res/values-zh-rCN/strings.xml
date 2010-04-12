@@ -260,6 +260,8 @@
     <string name="download_file_error" msgid="1206648050615176113">"无法完成下载，存储空间不足。"</string>
     <string name="download_length_required" msgid="9038605488460437406">"无法下载，因为无法确定该下载项的大小。"</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"下载中断，无法重新开始。"</string>
+    <string name="search_the_web" msgid="6046130189241962337">"搜索网页"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"浏览器存储空间已满"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"点击可释放空间。"</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"清除存储的数据"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"清除存储的数据"</string>

@@ -33,6 +33,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -235,17 +236,17 @@ public class BrowserBookmarksPage extends Activity implements
         mIconSize = getResources().getDimensionPixelSize(
                 android.R.dimen.app_icon_size);
 
-        if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
+        Intent intent = getIntent();
+        if (Intent.ACTION_CREATE_SHORTCUT.equals(intent.getAction())) {
             mCreateShortcut = true;
         }
-        mDisableNewWindow = getIntent().getBooleanExtra("disable_new_window",
+        mDisableNewWindow = intent.getBooleanExtra("disable_new_window",
                 false);
-        mMostVisited = getIntent().getBooleanExtra("mostVisited", false);
+        mMostVisited = intent.getBooleanExtra("mostVisited", false);
 
         if (mCreateShortcut) {
             setTitle(R.string.browser_bookmarks_page_bookmarks_text);
         }
-        mHandler.obtainMessage(CREATE_ADAPTER).sendToTarget();
 
         setContentView(R.layout.empty_history);
         mEmptyView = findViewById(R.id.empty_view);
@@ -264,6 +265,27 @@ public class BrowserBookmarksPage extends Activity implements
                     PREF_BOOKMARK_VIEW_MODE, BookmarkViewMode.GRID.ordinal())];
         }
         switchViewMode(preference);
+
+        final boolean createShortcut = mCreateShortcut;
+        final boolean mostVisited = mMostVisited;
+        final String url = intent.getStringExtra("url");
+        final String title = intent.getStringExtra("title");
+        final Bitmap thumbnail =
+                (Bitmap) intent.getParcelableExtra("thumbnail");
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... unused) {
+                BrowserBookmarksAdapter adapter = new BrowserBookmarksAdapter(
+                        BrowserBookmarksPage.this,
+                        url,
+                        title,
+                        thumbnail,
+                        createShortcut,
+                        mostVisited);
+                mHandler.obtainMessage(ADAPTER_CREATED, adapter).sendToTarget();
+                return null;
+            }
+        }.execute();
     }
 
     @Override
@@ -361,7 +383,7 @@ public class BrowserBookmarksPage extends Activity implements
             ViewGroup.LayoutParams.MATCH_PARENT);
 
     private static final int SAVE_CURRENT_PAGE = 1000;
-    private static final int CREATE_ADAPTER = 1001;
+    private static final int ADAPTER_CREATED = 1001;
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -369,15 +391,8 @@ public class BrowserBookmarksPage extends Activity implements
                 case SAVE_CURRENT_PAGE:
                     saveCurrentPage();
                     break;
-                case CREATE_ADAPTER:
-                    Intent intent = getIntent();
-                    mBookmarksAdapter = new BrowserBookmarksAdapter(
-                            BrowserBookmarksPage.this,
-                            intent.getStringExtra("url"),
-                            intent.getStringExtra("title"),
-                            (Bitmap) intent.getParcelableExtra("thumbnail"),
-                            mCreateShortcut,
-                            mMostVisited);
+                case ADAPTER_CREATED:
+                    mBookmarksAdapter = (BrowserBookmarksAdapter) msg.obj;
                     mBookmarksAdapter.switchViewMode(mViewMode);
                     if (mGridPage != null) {
                         mGridPage.setAdapter(mBookmarksAdapter);
