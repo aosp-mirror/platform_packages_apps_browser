@@ -164,8 +164,6 @@
     <string name="bookmark_needs_title">"Bookmark must have a name."</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
     <string name="bookmark_needs_url">"Bookmark must have a location."</string>
-        <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name & Location fields -->
-    
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
     <string name="bookmark_url_not_valid">URL is not valid.</string>
         <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
@@ -194,9 +192,6 @@
     <string name="delete_bookmark_warning">Bookmark \"<xliff:g id="bookmark">%s</xliff:g>\" will be deleted.</string>
     <!-- Context Menu item to open the selected link in a new window -->
     <string name="open_in_new_window">Open in new window</string>
-    <!-- Appears in Current windows screen as label on blank + window; user 
-            selects this window to open a new browser window -->
-    
     <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
     <string name="goto_dot">Go</string>
     <!-- Menu item that opens up a dialog which allows the user to provide a
@@ -204,27 +199,10 @@
     <string name="find_dot">Find on page</string>
     <!-- Menu item to switch to text selection mode for copy and paste. -->
     <string name="select_dot">Select text</string>
-    <!-- Menu item which opens a screen which shows all the currently open
-            windows, and also allows them to create a new one. -->
-    
-    <!-- Menu item which opens a screen which shows all the currently open
-            windows, and also allows them to create a new one. This is a shorter
-            alternate version of "view_tabs"-->
-    
     <!-- Title of current windows screen; appears in title bar -->
     <string name="tab_picker_title">Current windows</string>
-    <!-- Context Menu item to view the selected window on the window picker
-            screen -->
-    
-    <!-- Menu item on the window picker screen to open a new window -->
-    
     <!-- Context Menu item to close the currently selected window -->
     <string name="tab_picker_remove_tab">Close</string>
-    <!-- Context Menu item to bookmark the currently selected window -->
-    
-    <!-- Context Menu item from the bookmarks page to share the selected
-            bookmark  -->
-    
     <!-- Menu item to open the bookmarks page. This is a shorter version that
             is displayed with an icon -->
     <string name="bookmarks">Bookmarks</string>
@@ -586,12 +564,6 @@
     <string name="download_menu_cancel">Cancel download</string>
     <!-- Menu item -->
     <string name="download_menu_cancel_all">Cancel all downloads</string>
-    <!-- Menu item -->
-    
-    <!-- Confirmation dialog title -->
-    
-    <!-- Confirmation dialog message -->
-    
     <!-- Confirmation dialog title -->
     <string name="download_cancel_dlg_title">Cancel downloads</string>
     <!-- Confirmation dialog message -->
@@ -619,9 +591,6 @@
     <!-- Title for a dialog informing the user that there is no application on
             the phone that can open the file that was downloaded -->
     <string name="download_no_application_title">Cannot open file</string>
-    <!-- Message for a dialog informing the user that there is no application on
-            the phone that can open the file that was downloaded  -->
-    
     <!-- Label for a button to re-attempt downloading a file -->
     <string name="retry">Retry</string>
     <!-- Appears in Download history screen if there is no history -->
@@ -756,11 +725,6 @@
     <string name="website_settings_clear_all_dialog_message">All website data and location permissions will be deleted.</string>
     <string name="website_settings_clear_all_dialog_ok_button">Delete all data</string>
     <string name="website_settings_clear_all_dialog_cancel_button">Cancel</string>
-
-
-    <!-- Zoom-related strings --><skip/>
-    <!-- Caption for a button that is shown when the zoom widget is showing.  The button's action will switch to the zoom overview mode. -->
-    
 
     <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
     <string name="progress_dialog_setting_wallpaper">Setting wallpaper...</string>
