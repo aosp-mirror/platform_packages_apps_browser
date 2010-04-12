@@ -318,7 +318,8 @@ class TabControl {
                         t.setOriginalUrl(state.getString(Tab.ORIGINALURL));
                     }
                     mTabs.add(t);
-                    mTabQueue.add(t);
+                    // added the tab to the front as they are not current
+                    mTabQueue.add(0, t);
                 }
             }
             // Rebuild the tree of tabs. Do this after all tabs have been
@@ -341,20 +342,22 @@ class TabControl {
     }
 
     /**
-     * Free the memory in this order, 1) free the background tab; 2) free the
+     * Free the memory in this order, 1) free the background tabs; 2) free the
      * WebView cache;
      */
     void freeMemory() {
         if (getTabCount() == 0) return;
 
-        // free the least frequently used background tab
-        Tab t = getLeastUsedTab(getCurrentTab());
-        if (t != null) {
-            Log.w(LOGTAG, "Free a tab in the browser");
-            // store the WebView's state.
-            t.saveState();
-            // destroy the tab
-            t.destroy();
+        // free the least frequently used background tabs
+        Vector<Tab> tabs = getHalfLeastUsedTabs(getCurrentTab());
+        if (tabs.size() > 0) {
+            Log.w(LOGTAG, "Free " + tabs.size() + " tabs in the browser");
+            for (Tab t : tabs) {
+                // store the WebView's state.
+                t.saveState();
+                // destroy the tab
+                t.destroy();
+            }
             return;
         }
 
@@ -366,34 +369,38 @@ class TabControl {
         }
     }
 
-    private Tab getLeastUsedTab(Tab current) {
+    private Vector<Tab> getHalfLeastUsedTabs(Tab current) {
+        Vector<Tab> tabsToGo = new Vector<Tab>();
+
         // Don't do anything if we only have 1 tab or if the current tab is
         // null.
         if (getTabCount() == 1 || current == null) {
-            return null;
+            return tabsToGo;
         }
 
-        // Rip through the queue starting at the beginning and tear down the
-        // next available tab.
-        Tab t = null;
-        int i = 0;
-        final int queueSize = mTabQueue.size();
-        if (queueSize == 0) {
-            return null;
-        }
-        do {
-            t = mTabQueue.get(i++);
-        } while (i < queueSize
-                && ((t != null && t.getWebView() == null)
-                    || t == current.getParentTab()));
-
-        // Don't do anything if the last remaining tab is the current one or if
-        // the last tab has been freed already.
-        if (t == current || t.getWebView() == null) {
-            return null;
+        if (mTabQueue.size() == 0) {
+            return tabsToGo;
         }
 
-        return t;
+        // Rip through the queue starting at the beginning and tear down half of
+        // available tabs which are not the current tab or the parent of the
+        // current tab.
+        int openTabCount = 0;
+        for (Tab t : mTabQueue) {
+            if (t != null && t.getWebView() != null) {
+                openTabCount++;
+                if (t != current && t != current.getParentTab()) {
+                    tabsToGo.add(t);
+                }
+            }
+        }
+
+        openTabCount /= 2;
+        if (tabsToGo.size() > openTabCount) {
+            tabsToGo.setSize(openTabCount);
+        }
+
+        return tabsToGo;
     }
 
     /**
