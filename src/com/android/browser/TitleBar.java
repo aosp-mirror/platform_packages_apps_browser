@@ -281,8 +281,8 @@ public class TitleBar extends LinearLayout {
             mRtButton.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
             mTitleBg.setBackgroundDrawable(titleDrawable);
-            mTitleBg.setPadding(mLeftMargin, getPaddingTop(), mRightMargin,
-                    getPaddingBottom());
+            mTitleBg.setPadding(mLeftMargin, mTitleBg.getPaddingTop(),
+                    mRightMargin, mTitleBg.getPaddingBottom());
         } else {
             if (mInLoad) {
                 titleDrawable = mLoadingBackground;
