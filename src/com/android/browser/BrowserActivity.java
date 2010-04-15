@@ -539,6 +539,10 @@ public class BrowserActivity extends Activity
                 }
                 // Get rid of the subwindow if it exists
                 dismissSubWindow(current);
+                // If the current Tab is being used as an application tab,
+                // remove the association, since the new Intent means that it is
+                // no longer associated with that application.
+                current.setAppId(null);
                 loadUrlDataIn(current, urlData);
             }
         }
