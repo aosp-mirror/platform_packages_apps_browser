@@ -2901,7 +2901,7 @@ public class BrowserActivity extends Activity
         values.put(Downloads.Impl.COLUMN_NOTIFICATION_PACKAGE,
                 getPackageName());
         values.put(Downloads.Impl.COLUMN_NOTIFICATION_CLASS,
-                BrowserDownloadPage.class.getCanonicalName());
+                OpenDownloadReceiver.class.getCanonicalName());
         values.put(Downloads.Impl.COLUMN_VISIBILITY,
                 Downloads.Impl.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         values.put(Downloads.Impl.COLUMN_MIME_TYPE, mimetype);
