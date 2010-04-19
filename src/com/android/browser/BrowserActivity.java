@@ -1367,9 +1367,8 @@ public class BrowserActivity extends Activity
                 if (null == mFindDialog) {
                     mFindDialog = new FindDialog(this);
                 }
-                mFindDialog.setWebView(getTopWindow());
-                mFindDialog.show();
-                getTopWindow().setFindIsUp(true);
+                // Need to do something special for Tablet
+                mTabControl.getCurrentTab().showFind(mFindDialog);
                 mMenuState = EMPTY_MENU;
                 break;
 
@@ -1450,7 +1449,14 @@ public class BrowserActivity extends Activity
         return true;
     }
 
+    /*
+     * Remove the FindDialog.
+     */
     public void closeFind() {
+        if (mFindDialog != null) {
+            mTabControl.getCurrentTab().closeFind(mFindDialog);
+            mFindDialog.dismiss();
+        }
         mMenuState = R.id.MAIN_MENU;
     }
 
@@ -2462,7 +2468,9 @@ public class BrowserActivity extends Activity
         onProgressChanged(view, INITIAL_PROGRESS);
         mDidStopLoad = false;
         if (!mIsNetworkUp) createAndShowNetworkDialog();
-
+        if (view.getFindIsUp()) {
+            closeFind();
+        }
         if (mSettings.isTracing()) {
             String host;
             try {

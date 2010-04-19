@@ -87,7 +87,7 @@ class Tab {
     // The Geolocation permissions prompt
     private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
     // Main WebView wrapper
-    private View mContainer;
+    private LinearLayout mContainer;
     // Main WebView
     private WebView mMainView;
     // Subwindow container
@@ -1205,9 +1205,18 @@ class Tab {
     private static class SubWindowClient extends WebViewClient {
         // The main WebViewClient.
         private final WebViewClient mClient;
+        private final BrowserActivity mBrowserActivity;
 
-        SubWindowClient(WebViewClient client) {
+        SubWindowClient(WebViewClient client, BrowserActivity activity) {
             mClient = client;
+            mBrowserActivity = activity;
+        }
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            // Unlike the others, do not call mClient's version, which would
+            // change the progress bar.  However, we do want to remove the
+            // find dialog.
+            if (view.getFindIsUp()) mBrowserActivity.closeFind();
         }
         @Override
         public void doUpdateVisitedHistory(WebView view, String url,
@@ -1297,7 +1306,7 @@ class Tab {
 
         // The tab consists of a container view, which contains the main
         // WebView, as well as any other UI elements associated with the tab.
-        mContainer = mInflateService.inflate(R.layout.tab, null);
+        mContainer = (LinearLayout) mInflateService.inflate(R.layout.tab, null);
 
         mDownloadListener = new DownloadListener() {
             public void onDownloadStart(String url, String userAgent,
@@ -1408,6 +1417,7 @@ class Tab {
      */
     boolean createSubWindow() {
         if (mSubView == null) {
+            if (mMainView.getFindIsUp()) mActivity.closeFind();
             mSubViewContainer = mInflateService.inflate(
                     R.layout.browser_subwindow, null);
             mSubView = (WebView) mSubViewContainer.findViewById(R.id.webview);
@@ -1416,7 +1426,8 @@ class Tab {
             mSubView.setMapTrackballToArrowKeys(false);
             // Enable the built-in zoom
             mSubView.getSettings().setBuiltInZoomControls(true);
-            mSubView.setWebViewClient(new SubWindowClient(mWebViewClient));
+            mSubView.setWebViewClient(new SubWindowClient(mWebViewClient,
+                    mActivity));
             mSubView.setWebChromeClient(new SubWindowChromeClient(
                     mWebChromeClient));
             // Set a different DownloadListener for the mSubView, since it will
@@ -1454,6 +1465,9 @@ class Tab {
      */
     void dismissSubWindow() {
         if (mSubView != null) {
+            if (mSubView.getFindIsUp()) {
+                mActivity.closeFind();
+            }
             BrowserSettings.getInstance().deleteObserver(
                     mSubView.getSettings());
             mSubView.destroy();
@@ -1478,6 +1492,7 @@ class Tab {
     void removeSubWindow(ViewGroup content) {
         if (mSubView != null) {
             content.removeView(mSubViewContainer);
+            if (mSubView.getFindIsUp()) mActivity.closeFind();
         }
     }
 
@@ -1536,6 +1551,7 @@ class Tab {
                 (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
         wrapper.removeView(mMainView);
         content.removeView(mContainer);
+        if (mMainView.getFindIsUp()) mActivity.closeFind();
         removeSubWindow(content);
     }
 
@@ -1930,5 +1946,37 @@ class Tab {
             f.delete();
         }
         return true;
+    }
+
+    /*
+     * Open the find dialog.  Called by BrowserActivity.
+     */
+    void showFind(FindDialog dialog) {
+        LinearLayout container;
+        WebView view;
+        if (mSubView != null) {
+            view = mSubView;
+            container = (LinearLayout) mSubViewContainer.findViewById(
+                    R.id.inner_container);
+        } else {
+            view = mMainView;
+            container = mContainer;
+        }
+        dialog.show();
+        container.addView(dialog, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        dialog.setWebView(view);
+        view.setFindIsUp(true);
+    }
+
+    /*
+     * Close the find dialog.  Called by BrowserActivity.closeFind.
+     */
+    void closeFind(FindDialog dialog) {
+        // The dialog may be attached to the subwindow.  Ensure that the
+        // correct parent has it removed.
+        LinearLayout parent = (LinearLayout) dialog.getParent();
+        if (parent != null) parent.removeView(dialog);
     }
 }

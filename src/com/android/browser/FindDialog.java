@@ -16,24 +16,23 @@
 
 package com.android.browser;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/* package */ class FindDialog extends Dialog implements TextWatcher {
+/* package */ class FindDialog extends LinearLayout implements TextWatcher {
     private WebView         mWebView;
     private TextView        mMatches;
     private BrowserActivity mBrowserActivity;
@@ -53,7 +52,7 @@ import android.widget.TextView;
     private View.OnClickListener mFindCancelListener  = 
             new View.OnClickListener() {
         public void onClick(View v) {
-            dismiss();
+            mBrowserActivity.closeFind();
         }
     };
     
@@ -89,22 +88,11 @@ import android.widget.TextView;
     }
 
     /* package */ FindDialog(BrowserActivity context) {
-        super(context, R.style.FindDialogTheme);
+        super(context);
         mBrowserActivity = context;
-        setCanceledOnTouchOutside(true);
-    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Window theWindow = getWindow();
-        theWindow.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL);
-
-        setContentView(R.layout.browser_find);
-
-        theWindow.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutInflater factory = LayoutInflater.from(context);
+        factory.inflate(R.layout.browser_find, this);
 
         mEditText = (EditText) findViewById(R.id.edit);
         
@@ -122,23 +110,38 @@ import android.widget.TextView;
         mMatches = (TextView) findViewById(R.id.matches);
         mMatchesView = findViewById(R.id.matches_view);
         disableButtons();
-        theWindow.setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
     }
-    
+
+    /**
+     * Called by BrowserActivity.closeFind.  Start the animation to hide
+     * the dialog, inform the WebView that the dialog is being dismissed,
+     * and hide the soft keyboard.
+     */
     public void dismiss() {
-        super.dismiss();
-        mBrowserActivity.closeFind();
         mWebView.notifyFindDialogDismissed();
+        startAnimation(AnimationUtils.loadAnimation(mBrowserActivity,
+                R.anim.find_dialog_exit));
+        InputMethodManager imm = (InputMethodManager)
+                getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        imm.hideSoftInputFromWindow(this.getWindowToken(), 0);
     }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER
-                && event.getAction() == KeyEvent.ACTION_UP
-                && mEditText.hasFocus()) {
-            findNext();
-            return true;
+        int keyCode = event.getKeyCode();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (event.getAction() == KeyEvent.ACTION_UP) {
+                mBrowserActivity.closeFind();
+                return true;
+            }
+        } else if (event.getAction() == KeyEvent.ACTION_UP) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER
+                    && mEditText.hasFocus()) {
+                findNext();
+                return true;
+            }
         }
         return super.dispatchKeyEvent(event);
     }
@@ -152,7 +155,6 @@ import android.widget.TextView;
     }
 
     public void show() {
-        super.show();
         mEditText.requestFocus();
         mEditText.setText("");
         Spannable span = (Spannable) mEditText.getText();
@@ -160,6 +162,11 @@ import android.widget.TextView;
                      Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         setMatchesFound(0);
         disableButtons();
+        startAnimation(AnimationUtils.loadAnimation(mBrowserActivity,
+                R.anim.find_dialog_enter));
+        InputMethodManager imm = (InputMethodManager)
+                mBrowserActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, 0);
     }
     
     // TextWatcher methods
@@ -184,8 +191,6 @@ import android.widget.TextView;
             mMatchesView.setVisibility(View.INVISIBLE);
         } else {
             mMatchesView.setVisibility(View.VISIBLE);
-            mWebView.setFindDialogHeight(
-                getWindow().getDecorView().getHeight());
             int found = mWebView.findAll(find.toString());
             setMatchesFound(found);
             if (found < 2) {
