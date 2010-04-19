@@ -539,6 +539,10 @@ public class BrowserActivity extends Activity
                 }
                 // Get rid of the subwindow if it exists
                 dismissSubWindow(current);
+                // If the current Tab is being used as an application tab,
+                // remove the association, since the new Intent means that it is
+                // no longer associated with that application.
+                current.setAppId(null);
                 loadUrlDataIn(current, urlData);
             }
         }
@@ -2314,32 +2318,45 @@ public class BrowserActivity extends Activity
         // draw, but the API for that (WebViewCore.pictureReady()) is not
         // currently accessible here.
 
-        ContentResolver cr = getContentResolver();
-        final Cursor c = BrowserBookmarksAdapter.queryBookmarksForUrl(
-                cr, view.getOriginalUrl(), view.getUrl(), true);
-        if (c != null) {
-            boolean succeed = c.moveToFirst();
-            ContentValues values = null;
-            while (succeed) {
-                if (values == null) {
-                    final ByteArrayOutputStream os
-                            = new ByteArrayOutputStream();
-                    Bitmap bm = createScreenshot(view);
-                    if (bm == null) {
-                        c.close();
-                        return;
-                    }
-                    bm.compress(Bitmap.CompressFormat.PNG, 100, os);
-                    values = new ContentValues();
-                    values.put(Browser.BookmarkColumns.THUMBNAIL,
-                            os.toByteArray());
-                }
-                cr.update(ContentUris.withAppendedId(Browser.BOOKMARKS_URI,
-                        c.getInt(0)), values, null, null);
-                succeed = c.moveToNext();
-            }
-            c.close();
+        final Bitmap bm = createScreenshot(view);
+        if (bm == null) {
+            return;
         }
+
+        final ContentResolver cr = getContentResolver();
+        final String url = view.getUrl();
+        final String originalUrl = view.getOriginalUrl();
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... unused) {
+                Cursor c = null;
+                try {
+                    c = BrowserBookmarksAdapter.queryBookmarksForUrl(
+                            cr, originalUrl, url, true);
+                    if (c != null) {
+                        if (c.moveToFirst()) {
+                            ContentValues values = new ContentValues();
+                            final ByteArrayOutputStream os
+                                    = new ByteArrayOutputStream();
+                            bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+                            values.put(Browser.BookmarkColumns.THUMBNAIL,
+                                    os.toByteArray());
+                            do {
+                                cr.update(ContentUris.withAppendedId(
+                                        Browser.BOOKMARKS_URI, c.getInt(0)),
+                                        values, null, null);
+                            } while (c.moveToNext());
+                        }
+                    }
+                } catch (IllegalStateException e) {
+                    // Ignore
+                } finally {
+                    if (c != null) c.close();
+                }
+                return null;
+            }
+        }.execute();
     }
 
     /**
