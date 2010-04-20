@@ -48,6 +48,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.View.OnClickListener;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieSyncManager;
@@ -1097,7 +1098,7 @@ class Tab {
         public void onGeolocationPermissionsShowPrompt(String origin,
                 GeolocationPermissions.Callback callback) {
             if (mInForeground) {
-                mGeolocationPermissionsPrompt.show(origin, callback);
+                getGeolocationPermissionsPrompt().show(origin, callback);
             }
         }
 
@@ -1106,7 +1107,7 @@ class Tab {
          */
         @Override
         public void onGeolocationPermissionsHidePrompt() {
-            if (mInForeground) {
+            if (mInForeground && mGeolocationPermissionsPrompt != null) {
                 mGeolocationPermissionsPrompt.hide();
             }
         }
@@ -1309,10 +1310,6 @@ class Tab {
         // WebView, as well as any other UI elements associated with the tab.
         mContainer = mInflateService.inflate(R.layout.tab, null);
 
-        mGeolocationPermissionsPrompt =
-            (GeolocationPermissionsPrompt) mContainer.findViewById(
-                R.id.geolocation_permissions_prompt);
-
         mDownloadListener = new DownloadListener() {
             public void onDownloadStart(String url, String userAgent,
                     String contentDisposition, String mimetype,
@@ -1362,7 +1359,9 @@ class Tab {
         }
         // If the WebView is changing, the page will be reloaded, so any ongoing
         // Geolocation permission requests are void.
-        mGeolocationPermissionsPrompt.hide();
+        if (mGeolocationPermissionsPrompt != null) {
+            mGeolocationPermissionsPrompt.hide();
+        }
 
         // Just remove the old one.
         FrameLayout wrapper =
@@ -1661,6 +1660,13 @@ class Tab {
      * @return The geolocation permissions prompt for this tab.
      */
     GeolocationPermissionsPrompt getGeolocationPermissionsPrompt() {
+        if (mGeolocationPermissionsPrompt == null) {
+            ViewStub stub = (ViewStub) mContainer
+                    .findViewById(R.id.geolocation_permissions_prompt);
+            mGeolocationPermissionsPrompt = (GeolocationPermissionsPrompt) stub
+                    .inflate();
+            mGeolocationPermissionsPrompt.init();
+        }
         return mGeolocationPermissionsPrompt;
     }
 
