@@ -46,15 +46,26 @@ public class GeolocationPermissionsPrompt extends LinearLayout {
 
     public GeolocationPermissionsPrompt(Context context, AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater factory = LayoutInflater.from(context);
-        factory.inflate(R.layout.geolocation_permissions_prompt, this);
+    }
 
+    void init() {
         mInner = (LinearLayout) findViewById(R.id.inner);
         mMessage = (TextView) findViewById(R.id.message);
         mShareButton = (Button) findViewById(R.id.share_button);
         mDontShareButton = (Button) findViewById(R.id.dont_share_button);
         mRemember = (CheckBox) findViewById(R.id.remember);
-        setButtonClickListeners();
+
+        final GeolocationPermissionsPrompt me = this;
+        mShareButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                me.handleButtonClick(true);
+            }
+        });
+        mDontShareButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                me.handleButtonClick(false);
+            }
+        });
     }
 
     /**
@@ -76,23 +87,6 @@ public class GeolocationPermissionsPrompt extends LinearLayout {
      */
     public void hide() {
         showDialog(false);
-    }
-
-    /**
-     * Sets the on click listeners for the buttons.
-     */
-    private void setButtonClickListeners() {
-        final GeolocationPermissionsPrompt me = this;
-        mShareButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                me.handleButtonClick(true);
-            }
-        });
-        mDontShareButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                me.handleButtonClick(false);
-            }
-        });
     }
 
     /**
