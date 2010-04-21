@@ -679,6 +679,7 @@ public class BrowserBookmarksPage extends Activity implements
      *  Refresh the shown list after the database has changed.
      */
     private void refreshList() {
+        if (mBookmarksAdapter == null) return;
         mBookmarksAdapter.refreshList();
     }
 
