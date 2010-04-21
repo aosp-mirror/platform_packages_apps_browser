@@ -1464,7 +1464,7 @@ public class BrowserActivity extends Activity
         if (mTabControl.getTabCount() == 1) {
             // This is the last tab.  Open a new one, with the home
             // page and close the current one.
-            TabControl.Tab newTab = openTabToHomePage();
+            openTabToHomePage();
             closeTab(current);
             return;
         }
@@ -3772,7 +3772,7 @@ public class BrowserActivity extends Activity
         ((TextView) pageInfoView.findViewById(R.id.title)).setText(title);
 
         mPageInfoView = tab;
-        mPageInfoFromShowSSLCertificateOnError = new Boolean(fromShowSSLCertificateOnError);
+        mPageInfoFromShowSSLCertificateOnError = Boolean.valueOf(fromShowSSLCertificateOnError);
 
         AlertDialog.Builder alertDialogBuilder =
             new AlertDialog.Builder(this)
