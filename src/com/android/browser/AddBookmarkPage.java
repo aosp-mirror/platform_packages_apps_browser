@@ -135,10 +135,7 @@ public class AddBookmarkPage extends Activity {
                 final ContentResolver cr = getContentResolver();
                 Bookmarks.addBookmark(null, cr, url, title, thumbnail, true);
                 if (touchIconUrl != null) {
-                    final Cursor c
-                            = BrowserBookmarksAdapter.queryBookmarksForUrl(cr,
-                            null, url, true);
-                    new DownloadTouchIcon(cr, c, url).execute(mTouchIconUrl);
+                    new DownloadTouchIcon(cr, url).execute(mTouchIconUrl);
                 }
                 mMessage.arg1 = 1;
             } catch (IllegalStateException e) {

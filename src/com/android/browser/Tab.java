@@ -1012,27 +1012,16 @@ class Tab {
         public void onReceivedTouchIconUrl(WebView view, String url,
                 boolean precomposed) {
             final ContentResolver cr = mActivity.getContentResolver();
-            final Cursor c = BrowserBookmarksAdapter.queryBookmarksForUrl(cr,
-                            view.getOriginalUrl(), view.getUrl(), true);
-            if (c != null) {
-                if (c.getCount() > 0) {
-                    // Let precomposed icons take precedence over non-composed
-                    // icons.
-                    if (precomposed && mTouchIconLoader != null) {
-                        mTouchIconLoader.cancel(false);
-                        mTouchIconLoader = null;
-                    }
-                    // Have only one async task at a time.
-                    if (mTouchIconLoader == null) {
-                        mTouchIconLoader = new DownloadTouchIcon(Tab.this, cr,
-                                c, view);
-                        mTouchIconLoader.execute(url);
-                    } else {
-                        c.close();
-                    }
-                } else {
-                    c.close();
-                }
+            // Let precomposed icons take precedence over non-composed
+            // icons.
+            if (precomposed && mTouchIconLoader != null) {
+                mTouchIconLoader.cancel(false);
+                mTouchIconLoader = null;
+            }
+            // Have only one async task at a time.
+            if (mTouchIconLoader == null) {
+                mTouchIconLoader = new DownloadTouchIcon(Tab.this, cr, view);
+                mTouchIconLoader.execute(url);
             }
         }
 
