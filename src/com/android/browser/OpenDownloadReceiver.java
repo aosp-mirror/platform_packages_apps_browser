@@ -50,7 +50,8 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
                 String action = intent.getAction();
                 if (Downloads.ACTION_NOTIFICATION_CLICKED.equals(action)) {
                     int status = cursor.getInt(3);
-                    if (Downloads.isStatusCompleted(status)) {
+                    if (Downloads.isStatusCompleted(status)
+                            && Downloads.isStatusSuccess(status)) {
                         Intent launchIntent = new Intent(Intent.ACTION_VIEW);
                         Uri path = Uri.parse(filename);
                         // If there is no scheme, then it must be a file
