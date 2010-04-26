@@ -39,26 +39,24 @@ import java.io.InputStream;
 
 class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     private final ContentResolver mContentResolver;
-    private final Cursor mCursor;
+    private Cursor mCursor;
     private final String mOriginalUrl;
     private final String mUrl;
     private final String mUserAgent;
     /* package */ Tab mTab;
 
-    public DownloadTouchIcon(Tab tab, ContentResolver cr, Cursor c, WebView view) {
+    public DownloadTouchIcon(Tab tab, ContentResolver cr, WebView view) {
         mTab = tab;
         mContentResolver = cr;
-        mCursor = c;
         // Store these in case they change.
         mOriginalUrl = view.getOriginalUrl();
         mUrl = view.getUrl();
         mUserAgent = view.getSettings().getUserAgentString();
     }
 
-    public DownloadTouchIcon(ContentResolver cr, Cursor c, String url) {
+    public DownloadTouchIcon(ContentResolver cr, String url) {
         mTab = null;
         mContentResolver = cr;
-        mCursor = c;
         mOriginalUrl = null;
         mUrl = url;
         mUserAgent = null;
@@ -66,35 +64,39 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
 
     @Override
     public Void doInBackground(String... values) {
-        String url = values[0];
+        mCursor = BrowserBookmarksAdapter.queryBookmarksForUrl(mContentResolver,
+                mOriginalUrl, mUrl, true);
+        if (mCursor != null && mCursor.getCount() > 0) {
+            String url = values[0];
 
-        AndroidHttpClient client = AndroidHttpClient.newInstance(
-                mUserAgent);
-        HttpGet request = new HttpGet(url);
+            AndroidHttpClient client = AndroidHttpClient.newInstance(
+                    mUserAgent);
+            HttpGet request = new HttpGet(url);
 
-        // Follow redirects
-        HttpClientParams.setRedirecting(client.getParams(), true);
+            // Follow redirects
+            HttpClientParams.setRedirecting(client.getParams(), true);
 
-        try {
-            HttpResponse response = client.execute(request);
+            try {
+                HttpResponse response = client.execute(request);
 
-            if (response.getStatusLine().getStatusCode() == 200) {
-                HttpEntity entity = response.getEntity();
-                if (entity != null) {
-                    InputStream content = entity.getContent();
-                    if (content != null) {
-                        Bitmap icon = BitmapFactory.decodeStream(
-                                content, null, null);
-                        storeIcon(icon);
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    HttpEntity entity = response.getEntity();
+                    if (entity != null) {
+                        InputStream content = entity.getContent();
+                        if (content != null) {
+                            Bitmap icon = BitmapFactory.decodeStream(
+                                    content, null, null);
+                            storeIcon(icon);
+                        }
                     }
                 }
+            } catch (IllegalArgumentException ex) {
+                request.abort();
+            } catch (IOException ex) {
+                request.abort();
+            } finally {
+                client.close();
             }
-        } catch (IllegalArgumentException ex) {
-            request.abort();
-        } catch (IOException ex) {
-            request.abort();
-        } finally {
-            client.close();
         }
         if (mCursor != null) {
             mCursor.close();
