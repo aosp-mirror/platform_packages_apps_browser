@@ -25,7 +25,10 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.ServiceManager;
 import android.provider.Browser;
 import android.text.IClipboard;
@@ -92,47 +95,75 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }
     }
 
+    private static final int ADAPTER_CREATED = 1000;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case ADAPTER_CREATED:
+                    mAdapter = (HistoryAdapter) msg.obj;
+                    setListAdapter(mAdapter);
+                    final ExpandableListView list = getExpandableListView();
+                    // Add an empty view late, so it does not claim an empty
+                    // history before the adapter is present
+                    View v = new ViewStub(BrowserHistoryPage.this,
+                            R.layout.empty_history);
+                    addContentView(v, new LayoutParams(
+                            LayoutParams.MATCH_PARENT,
+                            LayoutParams.MATCH_PARENT));
+                    list.setEmptyView(v);
+                    list.setOnCreateContextMenuListener(
+                            BrowserHistoryPage.this);
+                    // Do not post the runnable if there is nothing in the list.
+                    if (list.getExpandableListAdapter().getGroupCount() > 0) {
+                        list.post(new Runnable() {
+                            public void run() {
+                                // In case the history gets cleared before this
+                                // event happens
+                                if (list.getExpandableListAdapter()
+                                        .getGroupCount() > 0) {
+                                    list.expandGroup(0);
+                                }
+                            }
+                        });
+                    }
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setTitle(R.string.browser_history);
 
-        final String whereClause = Browser.BookmarkColumns.VISITS + " > 0"
-                // In AddBookmarkPage, where we save new bookmarks, we add
-                // three visits to newly created bookmarks, so that
-                // bookmarks that have not been visited will show up in the
-                // most visited, and higher in the goto search box.
-                // However, this puts the site in the history, unless we
-                // ignore sites with a DATE of 0, which the next line does.
-                + " AND " + Browser.BookmarkColumns.DATE + " > 0";
-        final String orderBy = Browser.BookmarkColumns.DATE + " DESC";
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... unused) {
+                final String whereClause = Browser.BookmarkColumns.VISITS
+                        + " > 0"
+                        // In AddBookmarkPage, where we save new bookmarks, we
+                        // add three visits to newly created bookmarks, so that
+                        // bookmarks that have not been visited will show up in
+                        // the most visited, and higher in the goto search box.
+                        // However, this puts the site in the history, unless
+                        // we ignore sites with a DATE of 0, which the next
+                        // line does.
+                        + " AND " + Browser.BookmarkColumns.DATE + " > 0";
+                final String orderBy = Browser.BookmarkColumns.DATE + " DESC";
 
-        Cursor cursor = managedQuery(
-                Browser.BOOKMARKS_URI,
-                Browser.HISTORY_PROJECTION,
-                whereClause, null, orderBy);
+                Cursor cursor = managedQuery(
+                        Browser.BOOKMARKS_URI,
+                        Browser.HISTORY_PROJECTION,
+                        whereClause, null, orderBy);
 
-        mAdapter = new HistoryAdapter(this, cursor,
-                Browser.HISTORY_PROJECTION_DATE_INDEX);
-        setListAdapter(mAdapter);
-        final ExpandableListView list = getExpandableListView();
-        list.setOnCreateContextMenuListener(this);
-        View v = new ViewStub(this, R.layout.empty_history);
-        addContentView(v, new LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT));
-        list.setEmptyView(v);
-        // Do not post the runnable if there is nothing in the list.
-        if (list.getExpandableListAdapter().getGroupCount() > 0) {
-            list.post(new Runnable() {
-                public void run() {
-                    // In case the history gets cleared before this event
-                    // happens.
-                    if (list.getExpandableListAdapter().getGroupCount() > 0) {
-                        list.expandGroup(0);
-                    }
-                }
-            });
-        }
+                HistoryAdapter adapter = new HistoryAdapter(
+                        BrowserHistoryPage.this, cursor,
+                        Browser.HISTORY_PROJECTION_DATE_INDEX, mHandler);
+                mHandler.obtainMessage(ADAPTER_CREATED, adapter).sendToTarget();
+                return null;
+            }
+        }.execute();
         mDisableNewWindow = getIntent().getBooleanExtra("disable_new_window",
                 false);
 
@@ -153,6 +184,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
 
     @Override
     protected void onDestroy() {
+        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
         CombinedBookmarkHistoryActivity.getIconListenerSet()
                 .removeListener(mIconReceiver);
@@ -181,7 +213,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 // CombinedBookmarkHistoryActivity
                 ((CombinedBookmarkHistoryActivity) getParent())
                         .removeParentChildRelationShips();
-                mAdapter.refreshData();
+                if (mAdapter != null) mAdapter.refreshData();
                 return true;
                 
             default:
@@ -265,7 +297,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 return true;
             case R.id.delete_context_menu_id:
                 Browser.deleteFromHistory(getContentResolver(), url);
-                mAdapter.refreshData();
+                if (mAdapter != null) mAdapter.refreshData();
                 return true;
             case R.id.homepage_context_menu_id:
                 BrowserSettings.getInstance().setHomePage(this, url);
@@ -297,8 +329,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     }
 
     private class HistoryAdapter extends DateSortedExpandableListAdapter {
-        HistoryAdapter(Context context, Cursor cursor, int index) {
-            super(context, cursor, index);
+        HistoryAdapter(Context context, Cursor cursor, int index,
+                Handler handler) {
+            super(context, cursor, index, handler);
             
         }
 

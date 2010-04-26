@@ -63,6 +63,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     // Only meaningful while a ContentObserver is registered.  The ContextMenu
     // will be reopened on this View.
     private View                    mSelectedView;
+    private Handler                 mHandler;
 
     private final static String LOGTAG = "BrowserDownloadPage";
     @Override 
@@ -85,7 +86,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                 Downloads.Impl._DATA,
                 Downloads.Impl.COLUMN_MIME_TYPE},
                 null, Downloads.Impl.COLUMN_LAST_MODIFICATION + " DESC");
-        
+        mHandler = new Handler();
         // only attach everything to the listbox if we can access
         // the download database. Otherwise, just show it empty
         if (mDownloadCursor != null) {
@@ -99,7 +100,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             // Create a list "controller" for the data
             mDownloadAdapter = new BrowserDownloadAdapter(this, 
                     mDownloadCursor, mDownloadCursor.getColumnIndexOrThrow(
-                    Downloads.Impl.COLUMN_LAST_MODIFICATION));
+                    Downloads.Impl.COLUMN_LAST_MODIFICATION), mHandler);
 
             setListAdapter(mDownloadAdapter);
             mListView.setOnCreateContextMenuListener(this);
@@ -241,8 +242,8 @@ public class BrowserDownloadPage extends ExpandableListActivity {
      */
     private class ChangeObserver extends ContentObserver {
         private final Uri mTrack;
-        public ChangeObserver(Uri track) {
-            super(new Handler());
+        public ChangeObserver(Uri track, Handler handler) {
+            super(handler);
             mTrack = track;
         }
 
@@ -313,7 +314,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                     getContentResolver().unregisterContentObserver(
                             mContentObserver);
                 }
-                mContentObserver = new ChangeObserver(track);
+                mContentObserver = new ChangeObserver(track, mHandler);
                 mSelectedView = v;
                 getContentResolver().registerContentObserver(track, false,
                         mContentObserver);

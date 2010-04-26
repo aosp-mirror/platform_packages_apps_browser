@@ -51,8 +51,8 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
     private Context mContext;
 
     private class ChangeObserver extends ContentObserver {
-        public ChangeObserver() {
-            super(new Handler());
+        public ChangeObserver(Handler handler) {
+            super(handler);
         }
 
         @Override
@@ -67,13 +67,13 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
     }
 
     public DateSortedExpandableListAdapter(Context context, Cursor cursor,
-            int dateIndex) {
+            int dateIndex, Handler handler) {
         mContext = context;
         mDateSorter = new DateSorter(context);
         mObservers = new Vector<DataSetObserver>();
         mCursor = cursor;
         mIdIndex = cursor.getColumnIndexOrThrow(BaseColumns._ID);
-        cursor.registerContentObserver(new ChangeObserver());
+        cursor.registerContentObserver(new ChangeObserver(handler));
         mDateIndex = dateIndex;
         buildMap();
     }
