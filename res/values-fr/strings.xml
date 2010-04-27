@@ -63,7 +63,7 @@
     <string name="stopping" msgid="4839698519340302982">"Arrêt..."</string>
     <string name="stop" msgid="5687251076030630074">"Interrompre"</string>
     <string name="reload" msgid="8585220783228408062">"Actualiser"</string>
-    <string name="back" msgid="8414603107175713668">"Précédent"</string>
+    <string name="back" msgid="8414603107175713668">"Retour"</string>
     <string name="forward" msgid="4288210890526641577">"Suivant"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Annuler"</string>
@@ -222,7 +222,7 @@
     <string name="search_hint" msgid="4647356319916631820">"Rech. ou entrer l\'URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Aller"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Favoris et historique Web"</string>
-    <string name="attention" msgid="3473639060042811244">"Attention"</string>
+    <string name="attention" msgid="3473639060042811244">"Avertissement"</string>
     <string name="popup_window_attempt" msgid="2673111696288657989">"Le site tente d\'ouvrir une fenêtre contextuelle."</string>
     <string name="allow" msgid="1157313689171991335">"Autoriser"</string>
     <string name="block" msgid="9172175889884707800">"Bloquer"</string>
@@ -241,7 +241,7 @@
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Les <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> téléchargements seront annulés et effacés de l\'historique des téléchargements."</string>
     <string name="download_delete_file" msgid="5330036497843073249">"Suppression du fichier"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Espace insuffisant"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossible de télécharger <xliff:g id="FILENAME">%s</xliff:g>."\n"Libérez de l\'espace sur votre téléphone, puis réessayez."</string>
+    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossible d\'afficher <xliff:g id="FILENAME">%s</xliff:g>"\n". Libérez de l\'espace sur votre téléphone, puis réessayez."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Échec de téléchargement"</string>
     <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Aucune carte SD"</string>
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Le téléchargement de <xliff:g id="FILENAME">%s</xliff:g> requiert une carte SD."</string>
@@ -251,7 +251,7 @@
     <string name="retry" msgid="1835923075542266721">"Réessayer"</string>
     <string name="no_downloads" msgid="3947445710685021498">"L\'historique de téléchargement est vide."</string>
     <string name="download_error" msgid="413496839831257187">"Échec du téléchargement"</string>
-    <string name="download_success" msgid="2279041638155595203">"Téléchargement de <xliff:g id="FILE">%s</xliff:g> terminé."</string>
+    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Téléchargement terminé."</string>
     <string name="download_running" msgid="2622942231322015059">"Téléchargement..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Début du téléchargement..."</string>
     <string name="download_pending_network" msgid="6548714525679461053">"En attente d\'une connexion de données..."</string>

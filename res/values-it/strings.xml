@@ -241,7 +241,7 @@
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Tutti i <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> download verranno cancellati dalla cronologia download."</string>
     <string name="download_delete_file" msgid="5330036497843073249">"Il file verrà eliminato"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Spazio esaurito"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossibile scaricare <xliff:g id="FILENAME">%s</xliff:g>."\n"Liberare spazio sul telefono e riprovare."</string>
+    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossibile visualizzare <xliff:g id="FILENAME">%s</xliff:g>"\n". Libera spazio sul telefono e riprova."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download non riuscito"</string>
     <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Nessuna scheda SD"</string>
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Per scaricare <xliff:g id="FILENAME">%s</xliff:g> occorre una scheda SD."</string>
@@ -251,7 +251,7 @@
     <string name="retry" msgid="1835923075542266721">"Riprova"</string>
     <string name="no_downloads" msgid="3947445710685021498">"La cronologia download è vuota."</string>
     <string name="download_error" msgid="413496839831257187">"Download non riuscito."</string>
-    <string name="download_success" msgid="2279041638155595203">"Download di <xliff:g id="FILE">%s</xliff:g> completo."</string>
+    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Download completato."</string>
     <string name="download_running" msgid="2622942231322015059">"Download..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Avvio download..."</string>
     <string name="download_pending_network" msgid="6548714525679461053">"In attesa di connessione dati..."</string>
