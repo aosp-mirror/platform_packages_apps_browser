@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAAx3///4Q\u003d",
+        "filename": "src/com/android/browser/BrowserActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3295,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2010-04-27T16:37:03Z",
+      "side": 1,
+      "message": "Hm, wonder why this was 4 before.",
+      "revId": "de5bf7b6c28d53c7de199595044c561dbf169b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
