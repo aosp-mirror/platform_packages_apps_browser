@@ -28,7 +28,7 @@
     <string name="sign_in_to" msgid="5939425800148759165">"<xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\" oturumu aç"</string>
     <string name="username" msgid="5057566336518215922">"Ad"</string>
     <string name="password" msgid="1177138552305184404">"Şifre"</string>
-    <string name="action" msgid="183105774472071343">"Oturum aç"</string>
+    <string name="action" msgid="183105774472071343">"Oturum açın"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"Tarayıcı"</string>
     <string name="cancel" msgid="3017274947407233702">"İptal"</string>
     <string name="ok" msgid="1509280796718850364">"Tamam"</string>
@@ -208,7 +208,6 @@
     <item msgid="7356792686950371843">"Japonca (EUC-JP)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Metin kodlama"</string>
-    <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"Latin-1"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Veri bağlantısı sorunu"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Sorunlu dosya"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Doğrula"</string>
@@ -253,10 +252,10 @@
     <string name="no_downloads" msgid="3947445710685021498">"İndirme geçmişi boş."</string>
     <string name="download_error" msgid="413496839831257187">"İndirme işlemi başarısız."</string>
     <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> İndirme işlemi tamamlandı."</string>
-    <string name="download_running" msgid="2622942231322015059">"İndiriliyor..."</string>
-    <string name="download_pending" msgid="2599683668575349559">"İndirme işlemi başlatılıyor..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Veri bağlantısı bekleniyor..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Veri bağlantısı bekleniyor..."</string>
+    <string name="download_running" msgid="2622942231322015059">"İndiriliyor…"</string>
+    <string name="download_pending" msgid="2599683668575349559">"İndirme işlemi başlatılıyor…"</string>
+    <string name="download_pending_network" msgid="6548714525679461053">"Veri bağlantısı için bekleniyor…"</string>
+    <string name="download_running_paused" msgid="6418029352085656495">"Veri bağlantısı için bekleniyor…"</string>
     <string name="download_canceled" msgid="6057083743144492515">"İndirme işlemi iptal edildi."</string>
     <string name="download_not_acceptable" msgid="313769696131563652">"İndirilemiyor. Söz konusu içerik bu telefonda desteklenmiyor."</string>
     <string name="download_file_error" msgid="1206648050615176113">"İndirme işlemi tamamlanamıyor. Yeterli alan yok."</string>
