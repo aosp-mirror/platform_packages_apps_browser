@@ -483,7 +483,7 @@
         <item>SHIFT_JIS</item>
         <item>EUC-JP</item>
     </string-array>
-    <string name="pref_default_text_encoding_default">Latin-1</string>
+    <string name="pref_default_text_encoding_default" translatable="false">Latin-1</string>
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>

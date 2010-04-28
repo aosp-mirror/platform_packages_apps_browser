@@ -208,7 +208,6 @@
     <item msgid="7356792686950371843">"日本語（EUC-JP）"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"テキストエンコード"</string>
-    <string name="pref_default_text_encoding_default" msgid="5272126711231936722">"SHIFT_JIS"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"データアクセスエラー"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"ファイルに問題があります"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"確認"</string>
