@@ -64,10 +64,10 @@
     <string name="stop" msgid="5687251076030630074">"중지"</string>
     <string name="reload" msgid="8585220783228408062">"새로고침"</string>
     <string name="back" msgid="8414603107175713668">"뒤로"</string>
-    <string name="forward" msgid="4288210890526641577">"앞으로"</string>
+    <string name="forward" msgid="4288210890526641577">"전달"</string>
     <string name="save" msgid="5922311934992468496">"확인"</string>
     <string name="do_not_save" msgid="6777633870113477714">"취소"</string>
-    <string name="location" msgid="969988560160364559">"위치"</string>
+    <string name="location" msgid="969988560160364559">"국가"</string>
     <string name="name" msgid="5990326151488445481">"이름"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="588165100024086565">"북마크에 추가"</string>
@@ -92,7 +92,7 @@
     <string name="current_page" msgid="7510129573681663135">"북마크할 페이지 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"\'<xliff:g id="BOOKMARK">%s</xliff:g>\' 북마크가 삭제됩니다."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"새 창에서 열기"</string>
-    <string name="goto_dot" msgid="3895839050522602723">"실행"</string>
+    <string name="goto_dot" msgid="3895839050522602723">"이동"</string>
     <string name="find_dot" msgid="6259312434696611957">"페이지에서 찾기"</string>
     <string name="select_dot" msgid="6299170761900561967">"텍스트 선택"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"현재 창"</string>
@@ -113,7 +113,7 @@
     <string name="contextmenu_download_image" msgid="4243829645180686912">"이미지 저장"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"이미지 보기"</string>
     <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"배경화면으로 설정"</string>
-    <string name="contextmenu_dial_dot" msgid="5856550683415933806">"전화 걸기..."</string>
+    <string name="contextmenu_dial_dot" msgid="5856550683415933806">"전화걸기…"</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"연락처 추가"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"이메일 보내기"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"지도"</string>
@@ -182,13 +182,13 @@
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"텍스트 크기"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"기본 확대/축소"</string>
   <string-array name="pref_default_zoom_choices">
-    <item msgid="549583171195154919">"멀리"</item>
+    <item msgid="549583171195154919">"축소"</item>
     <item msgid="5619034257768161024">"보통"</item>
-    <item msgid="3840999588443167001">"닫기"</item>
+    <item msgid="3840999588443167001">"확대"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"기본 확대/축소"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"개요에서 페이지 열기"</string>
-    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"새로 연 페이지의 개요 표시"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"페이지 전체보기"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"새 창을 열 때 페이지 전체 표시"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"고급 설정"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"웹사이트 설정"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"개별 웹사이트의 고급 설정"</string>
@@ -217,7 +217,7 @@
     <string name="clear_history" msgid="5998307092715979619">"기록 지우기"</string>
     <string name="browser_history" msgid="1038987118290272525">"최근 방문한 페이지"</string>
     <string name="empty_history" msgid="8738772352308207274">"브라우저 기록이 비어 있습니다."</string>
-    <string name="add_new_bookmark" msgid="8086367791400349049">"북마크에 추가..."</string>
+    <string name="add_new_bookmark" msgid="8086367791400349049">"북마크에 추가…"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"추가"</string>
     <string name="search_hint" msgid="4647356319916631820">"URL을 검색하거나 입력"</string>
     <string name="search_button_text" msgid="5235226933877634410">"이동"</string>
@@ -255,7 +255,7 @@
     <string name="download_running" msgid="2622942231322015059">"다운로드 중..."</string>
     <string name="download_pending" msgid="2599683668575349559">"다운로드 시작 중..."</string>
     <string name="download_pending_network" msgid="6548714525679461053">"데이터 연결 대기 중..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"데이터 연결을 기다리는 중..."</string>
+    <string name="download_running_paused" msgid="6418029352085656495">"데이터 연결 대기 중..."</string>
     <string name="download_canceled" msgid="6057083743144492515">"다운로드가 취소되었습니다."</string>
     <string name="download_not_acceptable" msgid="313769696131563652">"휴대전화에서 지원하지 않는 콘텐츠이므로 다운로드할 수 없습니다."</string>
     <string name="download_file_error" msgid="1206648050615176113">"저장 용량이 부족하여 다운로드를 완료할 수 없습니다."</string>

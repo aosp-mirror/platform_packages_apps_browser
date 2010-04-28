@@ -98,7 +98,7 @@
     <string name="tab_picker_title" msgid="864478399057782913">"Aktuelle vinduer"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Luk"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Bogmærker"</string>
-    <string name="shortcut_bookmark" msgid="3974876480401135895">"Bogmærke"</string>
+    <string name="shortcut_bookmark" msgid="3974876480401135895">"Opret et bogmærke"</string>
     <string name="history" msgid="2451240511251410032">"Oversigt"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Downloads"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopier sidens webadresse"</string>
@@ -244,14 +244,14 @@
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> kunne ikke downloades."\n"Frigør noget plads på din telefon, og prøv igen."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download mislykkedes"</string>
     <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Der er intet SD-kort"</string>
-    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Du skal bruge et SD-kort for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Et SD-kort er påkrævet for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD-kortet er ikke tilgængeligt"</string>
     <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Kan ikke åbne filen"</string>
     <string name="retry" msgid="1835923075542266721">"Prøv igen"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Downloadoversigten er tom."</string>
     <string name="download_error" msgid="413496839831257187">"Download mislykkedes."</string>
-    <string name="download_success" msgid="2279041638155595203">"Download af <xliff:g id="FILE">%s</xliff:g> er afsluttet."</string>
+    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Download afsluttet."</string>
     <string name="download_running" msgid="2622942231322015059">"Downloader ..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Starter download ..."</string>
     <string name="download_pending_network" msgid="6548714525679461053">"Venter på dataforbindelse ..."</string>

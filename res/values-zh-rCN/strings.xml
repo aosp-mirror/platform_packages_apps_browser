@@ -26,7 +26,7 @@
     <string name="added_to_bookmarks" msgid="1020224130695956728">"已添加到书签"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"从书签中删除"</string>
     <string name="sign_in_to" msgid="5939425800148759165">"登录 <xliff:g id="HOSTNAME">%s1</xliff:g>“<xliff:g id="REALM">%s2</xliff:g>”"</string>
-    <string name="username" msgid="5057566336518215922">"名称"</string>
+    <string name="username" msgid="5057566336518215922">"姓名"</string>
     <string name="password" msgid="1177138552305184404">"密码"</string>
     <string name="action" msgid="183105774472071343">"登录"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"浏览器"</string>
@@ -41,7 +41,7 @@
     <string name="title_bar_loading" msgid="7438217780834640678">"正在载入..."</string>
     <string name="page_info" msgid="4048529256302257195">"网页信息"</string>
     <string name="page_info_view" msgid="5303490449842635158">"查看网页信息"</string>
-    <string name="page_info_address" msgid="2222306609532903254">"地址："</string>
+    <string name="page_info_address" msgid="2222306609532903254">"地址:"</string>
     <string name="ssl_warnings_header" msgid="79744901983636370">"该网站的安全证书有问题。"</string>
     <string name="ssl_continue" msgid="8031515015829358457">"继续"</string>
     <string name="security_warning" msgid="6607795404322797541">"安全警告"</string>
@@ -54,7 +54,7 @@
     <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"该证书有效。"</string>
     <string name="issued_to" msgid="9032338008819841339">"颁发给："</string>
     <string name="common_name" msgid="5745530093500062357">"常用名称："</string>
-    <string name="org_name" msgid="8868889052889991293">"组织："</string>
+    <string name="org_name" msgid="8868889052889991293">"组织:"</string>
     <string name="org_unit" msgid="4489056376307768196">"组织单位："</string>
     <string name="issued_by" msgid="6959484326943152487">"颁发者："</string>
     <string name="validity_period" msgid="57988851973181309">"有效期："</string>
@@ -64,11 +64,11 @@
     <string name="stop" msgid="5687251076030630074">"停止"</string>
     <string name="reload" msgid="8585220783228408062">"刷新"</string>
     <string name="back" msgid="8414603107175713668">"返回"</string>
-    <string name="forward" msgid="4288210890526641577">"前进"</string>
+    <string name="forward" msgid="4288210890526641577">"转发"</string>
     <string name="save" msgid="5922311934992468496">"确定"</string>
     <string name="do_not_save" msgid="6777633870113477714">"取消"</string>
-    <string name="location" msgid="969988560160364559">"位置"</string>
-    <string name="name" msgid="5990326151488445481">"名称"</string>
+    <string name="location" msgid="969988560160364559">"地点"</string>
+    <string name="name" msgid="5990326151488445481">"姓名"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="588165100024086565">"添加书签"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"编辑书签"</string>
@@ -93,7 +93,7 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"将会删除书签“<xliff:g id="BOOKMARK">%s</xliff:g>”。"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"在新窗口中打开"</string>
     <string name="goto_dot" msgid="3895839050522602723">"转至"</string>
-    <string name="find_dot" msgid="6259312434696611957">"在网页上查找"</string>
+    <string name="find_dot" msgid="6259312434696611957">"页内查找"</string>
     <string name="select_dot" msgid="6299170761900561967">"选择文本"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"当前窗口"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"关闭"</string>
@@ -113,7 +113,7 @@
     <string name="contextmenu_download_image" msgid="4243829645180686912">"保存图片"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"查看图片"</string>
     <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"设置为壁纸"</string>
-    <string name="contextmenu_dial_dot" msgid="5856550683415933806">"拔号..."</string>
+    <string name="contextmenu_dial_dot" msgid="5856550683415933806">"拨打…"</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"添加联系人"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"发送电子邮件"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"地图"</string>
@@ -217,10 +217,10 @@
     <string name="clear_history" msgid="5998307092715979619">"清除历史记录"</string>
     <string name="browser_history" msgid="1038987118290272525">"最近访问过的网页"</string>
     <string name="empty_history" msgid="8738772352308207274">"浏览器历史记录为空。"</string>
-    <string name="add_new_bookmark" msgid="8086367791400349049">"添加书签..."</string>
+    <string name="add_new_bookmark" msgid="8086367791400349049">"添加书签…"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"添加"</string>
     <string name="search_hint" msgid="4647356319916631820">"搜索或键入网址"</string>
-    <string name="search_button_text" msgid="5235226933877634410">"转至"</string>
+    <string name="search_button_text" msgid="5235226933877634410">"开始"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"书签和网络历史记录"</string>
     <string name="attention" msgid="3473639060042811244">"注意"</string>
     <string name="popup_window_attempt" msgid="2673111696288657989">"该网站试图打开一个弹出式窗口。"</string>
@@ -240,9 +240,9 @@
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"取消下载"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"所有 <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> 项下载都会取消并从下载历史记录中清除。"</string>
     <string name="download_delete_file" msgid="5330036497843073249">"文件将被删除"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"空间不足"</string>
+    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"没有存储空间"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"无法下载<xliff:g id="FILENAME">%s</xliff:g>。"\n"请释放部分手机空间，然后重试。"</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"下载不成功"</string>
+    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"下载失败"</string>
     <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"无 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"需要有 SD 卡才能下载<xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD 卡不可用"</string>
