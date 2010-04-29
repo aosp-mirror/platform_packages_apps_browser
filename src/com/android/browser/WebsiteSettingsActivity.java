@@ -62,7 +62,7 @@ public class WebsiteSettingsActivity extends ListActivity {
     private static String sMBStored = null;
     private SiteAdapter mAdapter = null;
 
-    class Site {
+    static class Site {
         private String mOrigin;
         private String mTitle;
         private Bitmap mIcon;
@@ -186,7 +186,7 @@ public class WebsiteSettingsActivity extends ListActivity {
          * Adds the specified feature to the site corresponding to supplied
          * origin in the map. Creates the site if it does not already exist.
          */
-        private void addFeatureToSite(Map sites, String origin, int feature) {
+        private void addFeatureToSite(Map<String, Site> sites, String origin, int feature) {
             Site site = null;
             if (sites.containsKey(origin)) {
                 site = (Site) sites.get(origin);
@@ -209,7 +209,7 @@ public class WebsiteSettingsActivity extends ListActivity {
 
             WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
                 public void onReceiveValue(Map origins) {
-                    Map sites = new HashMap<String, Site>();
+                    Map<String, Site> sites = new HashMap<String, Site>();
                     if (origins != null) {
                         Iterator<String> iter = origins.keySet().iterator();
                         while (iter.hasNext()) {
@@ -221,7 +221,7 @@ public class WebsiteSettingsActivity extends ListActivity {
             });
         }
 
-        public void askForGeolocation(final Map sites) {
+        public void askForGeolocation(final Map<String, Site> sites) {
             GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set<String> >() {
                 public void onReceiveValue(Set<String> origins) {
                     if (origins != null) {
@@ -236,19 +236,19 @@ public class WebsiteSettingsActivity extends ListActivity {
             });
         }
 
-        public void populateIcons(Map sites) {
+        public void populateIcons(Map<String, Site> sites) {
             // Create a map from host to origin. This is used to add metadata
             // (title, icon) for this origin from the bookmarks DB.
-            HashMap hosts = new HashMap<String, Set<Site> >();
-            Set keys = sites.keySet();
-            Iterator<String> originIter = keys.iterator();
+            HashMap<String, Set<Site>> hosts = new HashMap<String, Set<Site>>();
+            Set<Map.Entry<String, Site>> elements = sites.entrySet();
+            Iterator<Map.Entry<String, Site>> originIter = elements.iterator();
             while (originIter.hasNext()) {
-                String origin = originIter.next();
-                Site site = (Site) sites.get(origin);
-                String host = Uri.parse(origin).getHost();
-                Set hostSites = null;
+                Map.Entry<String, Site> entry = originIter.next();
+                Site site = entry.getValue();
+                String host = Uri.parse(entry.getKey()).getHost();
+                Set<Site> hostSites = null;
                 if (hosts.containsKey(host)) {
-                    hostSites = (Set) hosts.get(host);
+                    hostSites = (Set<Site>)hosts.get(host);
                 } else {
                     hostSites = new HashSet<Site>();
                     hosts.put(host, hostSites);
@@ -262,46 +262,47 @@ public class WebsiteSettingsActivity extends ListActivity {
                     new String[] { Browser.BookmarkColumns.URL, Browser.BookmarkColumns.TITLE,
                     Browser.BookmarkColumns.FAVICON }, "bookmark = 1", null, null);
 
-            if ((c != null) && c.moveToFirst()) {
-                int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
-                int titleIndex = c.getColumnIndex(Browser.BookmarkColumns.TITLE);
-                int faviconIndex = c.getColumnIndex(Browser.BookmarkColumns.FAVICON);
-                do {
-                    String url = c.getString(urlIndex);
-                    String host = Uri.parse(url).getHost();
-                    if (hosts.containsKey(host)) {
-                        String title = c.getString(titleIndex);
-                        Bitmap bmp = null;
-                        byte[] data = c.getBlob(faviconIndex);
-                        if (data != null) {
-                            bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                        }
-                        Set matchingSites = (Set) hosts.get(host);
-                        Iterator<Site> sitesIter = matchingSites.iterator();
-                        while (sitesIter.hasNext()) {
-                            Site site = sitesIter.next();
-                            site.setTitle(title);
-                            if (bmp != null) {
-                                site.setIcon(bmp);
+            if (c != null) {
+                if(c.moveToFirst()) {
+                    int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
+                    int titleIndex = c.getColumnIndex(Browser.BookmarkColumns.TITLE);
+                    int faviconIndex = c.getColumnIndex(Browser.BookmarkColumns.FAVICON);
+                    do {
+                        String url = c.getString(urlIndex);
+                        String host = Uri.parse(url).getHost();
+                        if (hosts.containsKey(host)) {
+                            String title = c.getString(titleIndex);
+                            Bitmap bmp = null;
+                            byte[] data = c.getBlob(faviconIndex);
+                            if (data != null) {
+                                bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                            }
+                            Set matchingSites = (Set)hosts.get(host);
+                            Iterator<Site> sitesIter = matchingSites.iterator();
+                            while (sitesIter.hasNext()) {
+                                Site site = sitesIter.next();
+                                site.setTitle(title);
+                                if (bmp != null) {
+                                    site.setIcon(bmp);
+                                }
                             }
                         }
-                    }
-                } while (c.moveToNext());
+                    } while (c.moveToNext());
+                }
+                c.close();
             }
-
-            c.close();
         }
 
 
-        public void populateOrigins(Map sites) {
+        public void populateOrigins(Map<String, Site> sites) {
             clear();
 
             // We can now simply populate our array with Site instances
-            Set keys = sites.keySet();
-            Iterator<String> originIter = keys.iterator();
-            while (originIter.hasNext()) {
-                String origin = originIter.next();
-                Site site = (Site) sites.get(origin);
+            Set<Map.Entry<String, Site>> elements = sites.entrySet();
+            Iterator<Map.Entry<String, Site>> entryIterator = elements.iterator();
+            while (entryIterator.hasNext()) {
+                Map.Entry<String, Site> entry = entryIterator.next();
+                Site site = entry.getValue();
                 add(site);
             }
 
