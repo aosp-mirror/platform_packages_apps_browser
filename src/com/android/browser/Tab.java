@@ -1963,7 +1963,7 @@ class Tab {
             container = mContainer;
         }
         dialog.show();
-        container.addView(dialog, new LinearLayout.LayoutParams(
+        container.addView(dialog, 0, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         dialog.setWebView(view);

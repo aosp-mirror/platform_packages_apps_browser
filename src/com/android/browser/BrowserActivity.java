@@ -834,6 +834,13 @@ public class BrowserActivity extends Activity
             if (mainView == null) {
                 return;
             }
+            // Do not need to check for null, since the current tab will have
+            // at least a main WebView, or we would have returned above.
+            if (getTopWindow().getFindIsUp()) {
+                // Do not show the fake title bar, which would cover up the
+                // FindDialog.
+                return;
+            }
 
             WindowManager manager
                     = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -1368,7 +1375,17 @@ public class BrowserActivity extends Activity
                     mFindDialog = new FindDialog(this);
                 }
                 // Need to do something special for Tablet
-                mTabControl.getCurrentTab().showFind(mFindDialog);
+                Tab tab = mTabControl.getCurrentTab();
+                if (tab.getSubWebView() == null) {
+                    // If the Find is being performed on the main webview,
+                    // remove the embedded title bar.
+                    WebView mainView = tab.getWebView();
+                    if (mainView != null) {
+                        mainView.setEmbeddedTitleBar(null);
+                    }
+                }
+                hideFakeTitleBar();
+                tab.showFind(mFindDialog);
                 mMenuState = EMPTY_MENU;
                 break;
 
@@ -1453,11 +1470,26 @@ public class BrowserActivity extends Activity
      * Remove the FindDialog.
      */
     public void closeFind() {
+        Tab currentTab = mTabControl.getCurrentTab();
         if (mFindDialog != null) {
-            mTabControl.getCurrentTab().closeFind(mFindDialog);
+            currentTab.closeFind(mFindDialog);
             mFindDialog.dismiss();
         }
+        // If the Find was being performed in the main WebView, replace the
+        // embedded title bar.
+        if (currentTab.getSubWebView() == null) {
+            WebView mainView = currentTab.getWebView();
+            if (mainView != null) {
+                mainView.setEmbeddedTitleBar(mTitleBar);
+            }
+        }
         mMenuState = R.id.MAIN_MENU;
+        if (mInLoad) {
+            // The title bar was hidden, because otherwise it would cover up the
+            // find dialog.  Now that the dialog has been removed, show the fake
+            // title bar once again.
+            showFakeTitleBar();
+        }
     }
 
     @Override
