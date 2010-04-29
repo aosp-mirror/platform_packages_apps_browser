@@ -158,7 +158,7 @@
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Alle gespeicherten Passwörter löschen"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Alle gespeicherten Passwörter werden gelöscht."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Standort aktivieren"</string>
-    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Zugriff auf Ihren Standort für Websites ermöglichen"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Standortzugriff für Websites zulassen"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Standortzugriff löschen"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Standortzugriff für alle Websites löschen"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Standortzugriff für alle Websites löschen"</string>
@@ -168,7 +168,7 @@
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Formulardaten merken"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Daten in Formularen zur späteren Verwendung merken"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Sicherheitswarnungen"</string>
-    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Bei Problemen mit der Sicherheit der Website Warnung anzeigen"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Warnung anzeigen, wenn bei einer Website Sicherheitsprobleme auftreten"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Cookies akzeptieren"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Speichern und Lesen von Cookie-Daten zulassen"</string>
     <string name="pref_text_size" msgid="3827031324346612208">"Textgröße"</string>
@@ -190,9 +190,9 @@
     <string name="pref_content_load_page" msgid="2219810141690955452">"Seitenübersicht"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Neue Seiten in der Übersicht anzeigen"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Erweiterte Einstellungen"</string>
-    <string name="pref_extras_website_settings" msgid="67866640052455549">"Websiteeinstellungen"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Website-Einstellungen"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Erweiterte Einstellungen für einzelne Websites"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Auf Standard zurücksetzen"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Zurück auf Standard"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Standardeinstellungen wiederherstellen"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Die Einstellungen werden auf die Standardeinstellung zurückgesetzt."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Auf Standardeinstellung zurücksetzen"</string>
@@ -275,8 +275,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Standort freigeben"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Ablehnen"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Voreinstellung speichern"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Diese Website hat Zugriff auf Ihren Standort. Ändern Sie diese Einstellung unter Einstellungen -&gt; Websiteeinstellungen."</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Diese Website hat keinen Zugriff auf Ihren Standort. Ändern Sie diese Einstellung unter Einstellungen -&gt; Websiteeinstellungen."</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Diese Website hat Zugriff auf Ihren Standort. Ändern Sie diese Einstellung unter Einstellungen -&gt; Website-Einstellungen."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Diese Website hat keinen Zugriff auf Ihren Standort. Ändern Sie diese Einstellung unter Einstellungen -&gt; Website-Einstellungen."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Standortzugriff löschen"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Diese Website hat derzeit Zugriff auf Ihren Standort."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Diese Website hat derzeit keinen Zugriff auf Ihren Standort."</string>
