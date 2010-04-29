@@ -72,7 +72,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="588165100024086565">"Aggiungi segnalibro"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Modifica segnalibro"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Aggiungi scorciatoia Home"</string>
+    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Aggiungi scorciatoia su Home"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Apri"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Elimina segnalibro"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Rimuovi dai segnalibri"</string>
