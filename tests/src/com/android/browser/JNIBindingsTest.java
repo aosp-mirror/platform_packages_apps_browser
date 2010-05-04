@@ -20,6 +20,7 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 
 import java.util.Arrays;
+
 import junit.framework.AssertionFailedError;
 
 public class JNIBindingsTest extends AndroidTestCase {
@@ -34,9 +35,9 @@ public class JNIBindingsTest extends AndroidTestCase {
         mTestApp = testApp;
     }
 
-    public void testComplete() {
+    public void notifyComplete() {
         Log.v(LOGTAG, "Completing the test.");
-        mTestApp.testComplete();
+        mTestApp.notifyComplete();
     }
 
     public void printAssertionFailed(AssertionFailedError e) {
@@ -232,7 +233,7 @@ public class JNIBindingsTest extends AndroidTestCase {
             assertEquals(expectedIntParam, intParam);
             assertEquals(expectedDoubleParam, doubleParam);
             assertEquals(expectedBooleanParam, booleanParam);
-            assertEquals(expectedCharParam, charParam);;
+            assertEquals(expectedCharParam, charParam);
 
             // EMULATE_JSC_BINDINGS  JSC passes "undefined" for undefined types.
             assertEquals(expectedUndefinedParam, undefinedParam);

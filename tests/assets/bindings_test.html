@@ -175,7 +175,7 @@ function appendLog(msg) {
 function runTests() {
 
   // Assume that if the test isn't done after 10s that we failed.
-  window.setTimeout(function() { JNIBindingsTest.testComplete(); }, 10000);
+  window.setTimeout(function() { JNIBindingsTest.notifyComplete(); }, 10000);
 
   if (testPrimitiveTypes()) {
     appendLog("testPrimitiveTypes passed!");
@@ -231,7 +231,7 @@ function runTests() {
     appendLog("testParameterTypeMismatch failed!");
   }
 
-  JNIBindingsTest.testComplete();
+  JNIBindingsTest.notifyComplete();
 }
 </script>
 
