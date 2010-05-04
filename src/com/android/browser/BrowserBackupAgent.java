@@ -84,6 +84,10 @@ public class BrowserBackupAgent extends BackupAgent {
             savedVersion = in.readInt();
         } catch (EOFException e) {
             // It means we had no previous state; that's fine
+        } finally {
+            if (in != null) {
+                in.close();
+            }
         }
 
         // Build a flattened representation of the bookmarks table
@@ -174,6 +178,10 @@ public class BrowserBackupAgent extends BackupAgent {
                     } catch (IOException ioe) {
                         Log.w(TAG, "Bad backup data; not restoring");
                         crc = -1;
+                    } finally {
+                        if (in != null) {
+                            in.close();
+                        }
                     }
                 }
 
@@ -187,7 +195,7 @@ public class BrowserBackupAgent extends BackupAgent {
         }
     }
 
-    class Bookmark {
+    static class Bookmark {
         public String url;
         public int visits;
         public long date;
@@ -258,13 +266,18 @@ public class BrowserBackupAgent extends BackupAgent {
         data.writeEntityHeader(key, toCopy);
 
         FileInputStream in = new FileInputStream(file);
-        int nRead;
-        while (toCopy > 0) {
-            nRead = in.read(buf, 0, CHUNK);
-            data.writeEntityData(buf, nRead);
-            toCopy -= nRead;
+        try {
+            int nRead;
+            while (toCopy > 0) {
+                nRead = in.read(buf, 0, CHUNK);
+                data.writeEntityData(buf, nRead);
+                toCopy -= nRead;
+            }
+        } finally {
+            if (in != null) {
+                in.close();
+            }
         }
-        in.close();
     }
 
     // Read the given file from backup to a file, calculating a CRC32 along the way
@@ -275,14 +288,18 @@ public class BrowserBackupAgent extends BackupAgent {
         CRC32 crc = new CRC32();
         FileOutputStream out = new FileOutputStream(file);
 
-        while (toRead > 0) {
-            int numRead = data.readEntityData(buf, 0, CHUNK);
-            crc.update(buf, 0, numRead);
-            out.write(buf, 0, numRead);
-            toRead -= numRead;
+        try {
+            while (toRead > 0) {
+                int numRead = data.readEntityData(buf, 0, CHUNK);
+                crc.update(buf, 0, numRead);
+                out.write(buf, 0, numRead);
+                toRead -= numRead;
+            }
+        } finally {
+            if (out != null) {
+                out.close();
+            }
         }
-
-        out.close();
         return crc.getValue();
     }
 
@@ -291,8 +308,14 @@ public class BrowserBackupAgent extends BackupAgent {
             throws IOException {
         DataOutputStream out = new DataOutputStream(
                 new FileOutputStream(stateFile.getFileDescriptor()));
-        out.writeLong(fileSize);
-        out.writeLong(crc);
-        out.writeInt(BACKUP_AGENT_VERSION);
+        try {
+            out.writeLong(fileSize);
+            out.writeLong(crc);
+            out.writeInt(BACKUP_AGENT_VERSION);
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+        }
     }
 }

@@ -230,7 +230,7 @@ import java.util.Vector;
          * This class is an adapter for ErrorConsoleListView that contains the error console
          * message data.
          */
-        private class ErrorConsoleMessageList extends android.widget.BaseAdapter
+        private static class ErrorConsoleMessageList extends android.widget.BaseAdapter
                 implements android.widget.ListAdapter {
 
             private Vector<ConsoleMessage> mMessages;
