@@ -87,6 +87,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.accessibility.AccessibilityManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
@@ -186,7 +187,11 @@ public class BrowserActivity extends Activity
             BitmapFactory.setDefaultConfig(Bitmap.Config.ARGB_8888);
         }
 
-        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+        if (AccessibilityManager.getInstance(this).isEnabled()) {
+            setDefaultKeyMode(DEFAULT_KEYS_DISABLE);
+        } else {
+            setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+        }
 
         mResolver = getContentResolver();
 
