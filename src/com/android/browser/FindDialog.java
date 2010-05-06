@@ -131,14 +131,29 @@ import android.widget.TextView;
     }
 
     @Override
+    public boolean dispatchKeyEventPreIme(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            KeyEvent.DispatcherState state = getKeyDispatcherState();
+            if (state != null) {
+                int action = event.getAction();
+                if (KeyEvent.ACTION_DOWN == action
+                        && event.getRepeatCount() == 0) {
+                    state.startTracking(event, this);
+                    return true;
+                } else if (KeyEvent.ACTION_UP == action
+                        && !event.isCanceled() && state.isTracking(event)) {
+                    mBrowserActivity.closeFind();
+                    return true;
+                }
+            }
+        }
+        return super.dispatchKeyEventPreIme(event);
+    }
+
+    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         int keyCode = event.getKeyCode();
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (event.getAction() == KeyEvent.ACTION_UP) {
-                mBrowserActivity.closeFind();
-                return true;
-            }
-        } else if (event.getAction() == KeyEvent.ACTION_UP) {
+        if (event.getAction() == KeyEvent.ACTION_UP) {
             if (keyCode == KeyEvent.KEYCODE_ENTER
                     && mEditText.hasFocus()) {
                 if (mMatchesFound) {
