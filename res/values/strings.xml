@@ -50,17 +50,16 @@
     <!-- Label for a confirm button.  Used in multiple contexts. -->
     <string name="ok">OK</string>
 
-    <!-- Displayed on the Find dialog to display the number of matches
-         found in the current page. -->
+    <!-- Displayed on the Find dialog when there are no matches -->
+    <string name="no_matches">No matches</string>
+
+    <!-- Displayed on the Find dialog to display the index of the highlighted
+         match and total number of matches found in the current page. -->
     <plurals name="matches_found">
-        <!-- Case of no matches -->
-        <item quantity="zero">No matches</item>
         <!-- Case of one match -->
         <item quantity="one">1 match</item>
-        <!-- Case of "few" (two) matches -->
-        <item quantity="few"><xliff:g id="number" example="2">%d</xliff:g> matches</item>
-        <!-- Case of several matches -->
-        <item quantity="other"><xliff:g id="number" example="137">%d</xliff:g> matches</item>
+        <!-- Case of multiple total matches -->
+        <item quantity="other"><xliff:g id="index" example="2">%d</xliff:g> of <xliff:g id="total" example="137">%d</xliff:g></item>
     </plurals>
 
     <!-- Displayed on the title bar while the page is loading -->

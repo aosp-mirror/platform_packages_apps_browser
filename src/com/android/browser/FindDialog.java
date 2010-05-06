@@ -48,6 +48,7 @@ import android.widget.TextView;
     // (or the text needs to be changed) before WebView.findAll can be called.
     // Once it has been called, enter should move to the next match.
     private boolean         mMatchesFound;
+    private int             mNumberOfMatches;
     private View.OnClickListener mFindListener = new View.OnClickListener() {
         public void onClick(View v) {
             findNext();
@@ -68,6 +69,7 @@ import android.widget.TextView;
                 throw new AssertionError("No WebView for FindDialog::onClick");
             }
             mWebView.findNext(false);
+            updateMatchesString();
             hideSoftInput();
         }
     };
@@ -175,6 +177,7 @@ import android.widget.TextView;
             throw new AssertionError("No WebView for FindDialog::findNext");
         }
         mWebView.findNext(true);
+        updateMatchesString();
         hideSoftInput();
     }
 
@@ -182,12 +185,13 @@ import android.widget.TextView;
         // In case the matches view is showing from a previous search
         mMatchesView.setVisibility(View.INVISIBLE);
         mMatchesFound = false;
+        // This text is only here to ensure that mMatches has a height.
+        mMatches.setText("0");
         mEditText.requestFocus();
         Spannable span = (Spannable) mEditText.getText();
         int length = span.length();
         Selection.setSelection(span, 0, length);
         span.setSpan(this, 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        setMatchesFound(0);
         disableButtons();
         startAnimation(AnimationUtils.loadAnimation(mBrowserActivity,
                 R.anim.find_dialog_enter));
@@ -207,14 +211,14 @@ import android.widget.TextView;
                               int start, 
                               int before, 
                               int count) {
-        if (mWebView == null) {
-            throw new AssertionError(
-                    "No WebView for FindDialog::onTextChanged");
-        }
         findAll();
     }
 
     private void findAll() {
+        if (mWebView == null) {
+            throw new AssertionError(
+                    "No WebView for FindDialog::findAll");
+        }
         CharSequence find = mEditText.getText();
         if (0 == find.length()) {
             disableButtons();
@@ -228,7 +232,10 @@ import android.widget.TextView;
             if (found < 2) {
                 disableButtons();
                 if (found == 0) {
-                    setMatchesFound(0);
+                    // Cannot use getQuantityString, which ignores the "zero"
+                    // quantity.
+                    mMatches.setText(mBrowserActivity.getResources().getString(
+                            R.string.no_matches));
                 }
             } else {
                 mPrevButton.setFocusable(true);
@@ -240,8 +247,16 @@ import android.widget.TextView;
     }
 
     private void setMatchesFound(int found) {
+        mNumberOfMatches = found;
+        updateMatchesString();
+    }
+
+    private void updateMatchesString() {
+        // Note: updateMatchesString is only called by methods that have already
+        // checked mWebView for null.
         String template = mBrowserActivity.getResources().
-                getQuantityString(R.plurals.matches_found, found, found);
+                getQuantityString(R.plurals.matches_found, mNumberOfMatches,
+                mWebView.findIndex() + 1, mNumberOfMatches);
 
         mMatches.setText(template);
     }
