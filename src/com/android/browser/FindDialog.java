@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -43,6 +44,10 @@ import android.widget.TextView;
     private View            mPrevButton;
     private View            mMatchesView;
 
+    // When the dialog is opened up with old text, enter needs to be pressed
+    // (or the text needs to be changed) before WebView.findAll can be called.
+    // Once it has been called, enter should move to the next match.
+    private boolean         mMatchesFound;
     private View.OnClickListener mFindListener = new View.OnClickListener() {
         public void onClick(View v) {
             findNext();
@@ -122,10 +127,7 @@ import android.widget.TextView;
         mWebView.notifyFindDialogDismissed();
         startAnimation(AnimationUtils.loadAnimation(mBrowserActivity,
                 R.anim.find_dialog_exit));
-        InputMethodManager imm = (InputMethodManager)
-                getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        imm.hideSoftInputFromWindow(this.getWindowToken(), 0);
+        hideSoftInput();
     }
 
     @Override
@@ -139,7 +141,14 @@ import android.widget.TextView;
         } else if (event.getAction() == KeyEvent.ACTION_UP) {
             if (keyCode == KeyEvent.KEYCODE_ENTER
                     && mEditText.hasFocus()) {
-                findNext();
+                if (mMatchesFound) {
+                    findNext();
+                } else {
+                    findAll();
+                    // Set the selection to the end.
+                    Spannable span = (Spannable) mEditText.getText();
+                    Selection.setSelection(span, span.length());
+                }
                 return true;
             }
         }
@@ -155,11 +164,14 @@ import android.widget.TextView;
     }
 
     public void show() {
+        // In case the matches view is showing from a previous search
+        mMatchesView.setVisibility(View.INVISIBLE);
+        mMatchesFound = false;
         mEditText.requestFocus();
-        mEditText.setText("");
         Spannable span = (Spannable) mEditText.getText();
-        span.setSpan(this, 0, span.length(), 
-                     Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        int length = span.length();
+        Selection.setSelection(span, 0, length);
+        span.setSpan(this, 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         setMatchesFound(0);
         disableButtons();
         startAnimation(AnimationUtils.loadAnimation(mBrowserActivity,
@@ -184,6 +196,10 @@ import android.widget.TextView;
             throw new AssertionError(
                     "No WebView for FindDialog::onTextChanged");
         }
+        findAll();
+    }
+
+    private void findAll() {
         CharSequence find = mEditText.getText();
         if (0 == find.length()) {
             disableButtons();
@@ -192,6 +208,7 @@ import android.widget.TextView;
         } else {
             mMatchesView.setVisibility(View.VISIBLE);
             int found = mWebView.findAll(find.toString());
+            mMatchesFound = true;
             setMatchesFound(found);
             if (found < 2) {
                 disableButtons();
