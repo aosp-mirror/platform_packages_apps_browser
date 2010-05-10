@@ -33,6 +33,24 @@
       "revId": "1b527de4be62e3c0f2e74dd4d7e5104828ca7759",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAyX///bw\u003d",
+        "filename": "src/com/android/browser/BrowserActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3295,
+      "author": {
+        "id": 1000773
+      },
+      "writtenOn": "2010-05-10T22:04:46Z",
+      "side": 1,
+      "message": "As I mentioned in patch 2, we DONT want \"http://sample.com\" to match \"http://www.sample.com\". That is why it is 4 instead of 7.",
+      "parentUuid": "AAAAyX///iI\u003d",
+      "revId": "1b527de4be62e3c0f2e74dd4d7e5104828ca7759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
