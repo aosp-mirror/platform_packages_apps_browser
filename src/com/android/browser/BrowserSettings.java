@@ -515,7 +515,10 @@ class BrowserSettings extends Observable {
     /* package */ void clearFormData(Context context) {
         WebViewDatabase.getInstance(context).clearFormData();
         if (mTabControl != null) {
-            mTabControl.getCurrentTopWebView().clearFormData();
+            WebView currentTopView = mTabControl.getCurrentTopWebView();
+            if (currentTopView != null) {
+                currentTopView.clearFormData();
+            }
         }
     }
 
