@@ -51,6 +51,24 @@
       "revId": "1b527de4be62e3c0f2e74dd4d7e5104828ca7759",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAAyX///bo\u003d",
+        "filename": "src/com/android/browser/BrowserActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3295,
+      "author": {
+        "id": 1000660
+      },
+      "writtenOn": "2010-05-10T22:07:39Z",
+      "side": 1,
+      "message": "Oh, you mean, we explicitly do *not* strip \"://\" to prevent specific matches to occur? This probably deserves a small comment.",
+      "parentUuid": "AAAAyX///bw\u003d",
+      "revId": "1b527de4be62e3c0f2e74dd4d7e5104828ca7759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
