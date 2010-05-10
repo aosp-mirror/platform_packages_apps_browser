@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ActiveTabsPage extends LinearLayout {
+    private static final String LOGTAG = "TabPicker";
     private final BrowserActivity   mBrowserActivity;
     private final LayoutInflater    mFactory;
     private final TabControl        mControl;
@@ -152,7 +154,19 @@ public class ActiveTabsPage extends LinearLayout {
                         (ImageView) convertView.findViewById(R.id.favicon);
                 View close = convertView.findViewById(R.id.close);
                 Tab tab = mControl.getTab(position);
+                if (tab.getWebView() == null) {
+                    // This means that populatePickerData will have to use the
+                    // saved state.
+                    Log.w(LOGTAG, "Tab " + position + " has a null WebView and "
+                            + (tab.getSavedState() == null ? "null" : "non-null")
+                            + " saved state ");
+                }
                 tab.populatePickerData();
+                if (tab.getTitle() == null || tab.getTitle().length() == 0) {
+                    Log.w(LOGTAG, "Tab " + position + " has no title. "
+                            + "Check above in the Logs to see whether it has a "
+                            + "null WebView or null WebHistoryItem");
+                }
                 title.setText(tab.getTitle());
                 url.setText(tab.getUrl());
                 Bitmap icon = tab.getFavicon();
