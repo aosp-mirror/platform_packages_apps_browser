@@ -3294,11 +3294,13 @@ public class BrowserActivity extends Activity
             } else if (url.startsWith("http://")) {
                 url = url.substring(4);
             }
+            // Escape wildcards for LIKE operator.
+            url = url.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_");
             try {
                 url = "%" + url;
                 String [] selArgs = new String[] { url };
 
-                String where = Browser.BookmarkColumns.URL + " LIKE ? AND "
+                String where = Browser.BookmarkColumns.URL + " LIKE ? ESCAPE '\\' AND "
                         + Browser.BookmarkColumns.BOOKMARK + " = 0";
                 Cursor c = mResolver.query(Browser.BOOKMARKS_URI,
                     Browser.HISTORY_PROJECTION, where, selArgs, null);
