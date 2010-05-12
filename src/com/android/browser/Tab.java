@@ -960,6 +960,9 @@ class Tab {
                     } else if (url.startsWith("http://")) {
                         url = url.substring(4);
                     }
+                    // Escape wildcards for LIKE operator.
+                    url = url.replace("\\", "\\\\").replace("%", "\\%")
+                            .replace("_", "\\_");
                     Cursor c = null;
                     try {
                         final ContentResolver cr
@@ -967,7 +970,7 @@ class Tab {
                         url = "%" + url;
                         String [] selArgs = new String[] { url };
                         String where = Browser.BookmarkColumns.URL
-                                + " LIKE ? AND "
+                                + " LIKE ? ESCAPE '\\' AND "
                                 + Browser.BookmarkColumns.BOOKMARK + " = 0";
                         c = cr.query(Browser.BOOKMARKS_URI, new String[]
                                 { Browser.BookmarkColumns._ID }, where, selArgs,
