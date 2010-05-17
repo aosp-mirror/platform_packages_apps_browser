@@ -72,7 +72,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="588165100024086565">"Ajouter un favori"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Modifier le favori"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Raccourci sur la page d\'accueil"</string>
+    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Raccourci (page d\'accueil)"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Ouverture"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Supprimer le favori"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Supprimer des favoris"</string>
@@ -91,8 +91,8 @@
     <string name="switch_to_list" msgid="8900531247982121055">"Liste"</string>
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Le favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sera supprimé."</string>
-    <string name="open_in_new_window" msgid="6596775546468054510">"Nouv. fenêtre"</string>
-    <string name="goto_dot" msgid="3895839050522602723">"Recherche"</string>
+    <string name="open_in_new_window" msgid="6596775546468054510">"Nouvelle fenêtre"</string>
+    <string name="goto_dot" msgid="3895839050522602723">"OK"</string>
     <string name="find_dot" msgid="6259312434696611957">"Rechercher sur la page"</string>
     <string name="select_dot" msgid="6299170761900561967">"Sélectionner le texte"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Fenêtres actuelles"</string>
@@ -104,7 +104,7 @@
     <string name="copy_page_url" msgid="7635062169011319208">"Copier l\'URL de la page"</string>
     <string name="share_page" msgid="593756995297268343">"Partager la page"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Ouvrir"</string>
-    <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Ouvrir une nouvelle fenêtre"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Nouvelle fenêtre"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Lien du favori"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Enregistrer le lien"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Partager le lien"</string>
@@ -140,10 +140,10 @@
     <string name="pref_content_autofit" msgid="8260474534053660809">"Redimensionner"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Mode Paysage"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Tjrs afficher les pages dans le sens de la largeur (orientation paysage)"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Toujours afficher les pages dans le sens de la largeur (orientation paysage)"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Paramètres de confidentialité"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Effacer le cache"</string>
-    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Supprimer les bases de données et le contenu mis localement en cache"</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Supprimer les bases de données et le contenu localement en cache"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Les bases de données et le contenu mis localement en cache vont être supprimés."</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Effacer tous les cookies"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Effacer tous les cookies du navigateur"</string>
@@ -159,7 +159,7 @@
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Tous les mots de passe enregistrés seront effacés."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Activer la localisation"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Autoriser les sites à demander l\'accès à vos données de localisation"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Supprimer l\'accès aux données de localisation"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Supprimer l\'accès"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Supprimer l\'accès aux données de localisation pour tous les sites Web"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Supprimer l\'accès aux données de localisation pour tous les sites Web"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Paramètres de sécurité"</string>
@@ -187,12 +187,12 @@
     <item msgid="3840999588443167001">"Proche"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom par défaut"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Vue d\'ensemble des pages"</string>
-    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Afficher une vue d\'ensemble des pages qui viennent d\'être ouvertes"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Aperçu des pages"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Afficher un aperçu des pages ouvertes récemment"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Paramètres avancés"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Paramètres du site Web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Paramètres avancés de sites Web individuels"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Rét. valeurs par défaut"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Valeurs par défaut"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Rétablir les paramètres par défaut"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Les paramètres par défaut seront rétablis."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Rétablir les valeurs par défaut"</string>
@@ -220,7 +220,7 @@
     <string name="add_new_bookmark" msgid="8086367791400349049">"Ajouter aux favoris..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Ajouter"</string>
     <string name="search_hint" msgid="4647356319916631820">"Rech. ou entrer l\'URL"</string>
-    <string name="search_button_text" msgid="5235226933877634410">"Aller"</string>
+    <string name="search_button_text" msgid="5235226933877634410">"OK"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Favoris et historique Web"</string>
     <string name="attention" msgid="3473639060042811244">"Avertissement"</string>
     <string name="popup_window_attempt" msgid="2673111696288657989">"Le site tente d\'ouvrir une fenêtre contextuelle."</string>
@@ -251,7 +251,7 @@
     <string name="retry" msgid="1835923075542266721">"Réessayer"</string>
     <string name="no_downloads" msgid="3947445710685021498">"L\'historique de téléchargement est vide."</string>
     <string name="download_error" msgid="413496839831257187">"Échec du téléchargement"</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Téléchargement terminé."</string>
+    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g>Téléchargement terminé."</string>
     <string name="download_running" msgid="2622942231322015059">"Téléchargement..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Début du téléchargement..."</string>
     <string name="download_pending_network" msgid="6548714525679461053">"En attente d\'une connexion de données..."</string>
@@ -280,7 +280,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Accès données localis."</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Ce site a actuellement accès à vos données de localisation."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Ce site n\'a actuellement pas accès à vos données de localisation."</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Supprimer l\'accès aux données de localisation"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Supprimer l\'accès"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"L\'accès de ce site Web aux données de localisation va être supprimé."</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Supprimer l\'accès"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Annuler"</string>
