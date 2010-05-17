@@ -39,8 +39,8 @@
     <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> Treffer"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"Ladevorgang läuft..."</string>
-    <string name="page_info" msgid="4048529256302257195">"Seiten-Info"</string>
-    <string name="page_info_view" msgid="5303490449842635158">"Seiten-Info anzeigen"</string>
+    <string name="page_info" msgid="4048529256302257195">"Seiteninfo"</string>
+    <string name="page_info_view" msgid="5303490449842635158">"Seiteninfo anzeigen"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Adresse:"</string>
     <string name="ssl_warnings_header" msgid="79744901983636370">"Es ist ein Problem mit dem Sicherheitszertifikat für diese Website aufgetreten."</string>
     <string name="ssl_continue" msgid="8031515015829358457">"Fortfahren"</string>
@@ -117,7 +117,7 @@
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Kontakt hinzufügen"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"E-Mail senden"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Karte"</string>
-    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Freigeben über"</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Weiterleiten über"</string>
     <string name="clear" msgid="7070043081700011461">"Löschen"</string>
     <string name="replace" msgid="4843033491070384047">"Ersetzen"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Lesezeichen"</string>
@@ -140,7 +140,7 @@
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autom. Anpassung"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Webseiten an den Bildschirm anpassen"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Anzeige nur im Querformat"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Seiten nur im breiteren Querformat anzeigen"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Seiten nur im Querformat anzeigen"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Datenschutzeinstellungen"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Cache löschen"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Content und Datenbanken aus dem lokalen Cache löschen"</string>
