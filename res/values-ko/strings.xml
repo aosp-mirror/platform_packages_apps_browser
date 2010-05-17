@@ -67,7 +67,7 @@
     <string name="forward" msgid="4288210890526641577">"전달"</string>
     <string name="save" msgid="5922311934992468496">"확인"</string>
     <string name="do_not_save" msgid="6777633870113477714">"취소"</string>
-    <string name="location" msgid="969988560160364559">"국가"</string>
+    <string name="location" msgid="969988560160364559">"URL"</string>
     <string name="name" msgid="5990326151488445481">"이름"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="588165100024086565">"북마크에 추가"</string>
@@ -219,7 +219,7 @@
     <string name="empty_history" msgid="8738772352308207274">"브라우저 기록이 비어 있습니다."</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"북마크에 추가…"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"추가"</string>
-    <string name="search_hint" msgid="4647356319916631820">"URL을 검색하거나 입력"</string>
+    <string name="search_hint" msgid="4647356319916631820">"검색어 또는 URL 입력"</string>
     <string name="search_button_text" msgid="5235226933877634410">"이동"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"북마크 및 웹 기록"</string>
     <string name="attention" msgid="3473639060042811244">"주의"</string>

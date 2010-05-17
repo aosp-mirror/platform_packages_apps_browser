@@ -72,7 +72,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="588165100024086565">"Añadir marcador"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Editar marcador"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Añadir acceso directo a página principal"</string>
+    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Añadir acceso directo al escritorio"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Abrir"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Eliminar marcador"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Eliminar de marcadores"</string>
@@ -135,7 +135,7 @@
     <item msgid="8547442717307793863">"Desactivado"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Abrir nuevas ventanas detrás de la actual"</string>
-    <string name="pref_content_homepage" msgid="6082437160778559806">"Página principal"</string>
+    <string name="pref_content_homepage" msgid="6082437160778559806">"Escritorio"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Utilizar página actual"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Ajustar páginas automát."</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Configurar las páginas web para ajustarlas a la pantalla"</string>
