@@ -195,7 +195,7 @@ abstract class TestWebChromeClient extends WebChromeClient {
 
     /** {@inheritDoc} */
     @Override
-    public void openFileChooser(ValueCallback<Uri> uploadFile) {
-        mWrappedClient.openFileChooser(uploadFile);
+    public void openFileChooser(ValueCallback<Uri> uploadFile, String acceptType) {
+        mWrappedClient.openFileChooser(uploadFile, acceptType);
     }
 }

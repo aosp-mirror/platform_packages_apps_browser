@@ -1173,9 +1173,9 @@ class Tab {
         }
 
         @Override
-        public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
             if (mInForeground) {
-                mActivity.openFileChooser(uploadMsg);
+                mActivity.openFileChooser(uploadMsg, acceptType);
             } else {
                 uploadMsg.onReceiveValue(null);
             }
