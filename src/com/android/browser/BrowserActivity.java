@@ -172,6 +172,8 @@ public class BrowserActivity extends Activity
      */
     private FrameLayout mBrowserFrameLayout;
 
+    private boolean mXLargeScreenSize;
+
     @Override
     public void onCreate(Bundle icicle) {
         if (LOGV_ENABLED) {
@@ -219,9 +221,22 @@ public class BrowserActivity extends Activity
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
         mTitleBar = new TitleBar(this);
-        // mTitleBar will be always shown in the fully loaded mode
-        mTitleBar.setProgress(100);
-        mFakeTitleBar = new TitleBar(this);
+        mXLargeScreenSize = (getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        if (mXLargeScreenSize) {
+            LinearLayout layout = (LinearLayout) mBrowserFrameLayout.
+                    findViewById(R.id.vertical_layout);
+            layout.addView(mTitleBar, 0, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+        } else {
+            // mTitleBar will be always be shown in the fully loaded mode on
+            // phone
+            mTitleBar.setProgress(100);
+            // Fake title bar is not needed in xlarge layout
+            mFakeTitleBar = new TitleBar(this);
+        }
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);
@@ -702,17 +717,21 @@ public class BrowserActivity extends Activity
     }
     /* package */ void showVoiceTitleBar(String title) {
         mTitleBar.setInVoiceMode(true);
-        mFakeTitleBar.setInVoiceMode(true);
-
         mTitleBar.setDisplayTitle(title);
-        mFakeTitleBar.setDisplayTitle(title);
+
+        if (!mXLargeScreenSize) {
+            mFakeTitleBar.setInVoiceMode(true);
+            mFakeTitleBar.setDisplayTitle(title);
+        }
     }
     /* package */ void revertVoiceTitleBar() {
         mTitleBar.setInVoiceMode(false);
-        mFakeTitleBar.setInVoiceMode(false);
-
         mTitleBar.setDisplayTitle(mUrl);
-        mFakeTitleBar.setDisplayTitle(mUrl);
+
+        if (!mXLargeScreenSize) {
+            mFakeTitleBar.setInVoiceMode(false);
+            mFakeTitleBar.setDisplayTitle(mUrl);
+        }
     }
     /* package */ static String fixUrl(String inUrl) {
         // FIXME: Converting the url to lower case
@@ -832,6 +851,7 @@ public class BrowserActivity extends Activity
     }
 
     private void showFakeTitleBar() {
+        if (mXLargeScreenSize) return;
         if (mFakeTitleBar.getParent() == null && mActiveTabsPage == null
                 && !mActivityInPause) {
             WebView mainView = mTabControl.getCurrentWebView();
@@ -880,7 +900,7 @@ public class BrowserActivity extends Activity
     }
 
     private void hideFakeTitleBar() {
-        if (mFakeTitleBar.getParent() == null) return;
+        if (mXLargeScreenSize || mFakeTitleBar.getParent() == null) return;
         WindowManager.LayoutParams params = (WindowManager.LayoutParams)
                 mFakeTitleBar.getLayoutParams();
         WebView mainView = mTabControl.getCurrentWebView();
@@ -1275,6 +1295,7 @@ public class BrowserActivity extends Activity
      */
     /* package */ void removeActiveTabPage(boolean needToAttach) {
         mContentView.removeView(mActiveTabsPage);
+        mTitleBar.setVisibility(View.VISIBLE);
         mActiveTabsPage = null;
         mMenuState = R.id.MAIN_MENU;
         if (needToAttach) {
@@ -1317,6 +1338,7 @@ public class BrowserActivity extends Activity
             case R.id.active_tabs_menu_id:
                 mActiveTabsPage = new ActiveTabsPage(this, mTabControl);
                 removeTabFromContentView(mTabControl.getCurrentTab());
+                mTitleBar.setVisibility(View.GONE);
                 hideFakeTitleBar();
                 mContentView.addView(mActiveTabsPage, COVER_SCREEN_PARAMS);
                 mActiveTabsPage.requestFocus();
@@ -1480,12 +1502,14 @@ public class BrowserActivity extends Activity
             currentTab.closeFind(mFindDialog);
             mFindDialog.dismiss();
         }
-        // If the Find was being performed in the main WebView, replace the
-        // embedded title bar.
-        if (currentTab.getSubWebView() == null) {
-            WebView mainView = currentTab.getWebView();
-            if (mainView != null) {
-                mainView.setEmbeddedTitleBar(mTitleBar);
+        if (!mXLargeScreenSize) {
+            // If the Find was being performed in the main WebView, replace the
+            // embedded title bar.
+            if (currentTab.getSubWebView() == null) {
+                WebView mainView = currentTab.getWebView();
+                if (mainView != null) {
+                    mainView.setEmbeddedTitleBar(mTitleBar);
+                }
             }
         }
         mMenuState = R.id.MAIN_MENU;
@@ -1703,8 +1727,10 @@ public class BrowserActivity extends Activity
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
-        WebView view = t.getWebView();
-        view.setEmbeddedTitleBar(mTitleBar);
+        if (!mXLargeScreenSize){
+            WebView view = t.getWebView();
+            view.setEmbeddedTitleBar(mTitleBar);
+        }
         if (t.isInVoiceSearchMode()) {
             showVoiceTitleBar(t.getVoiceDisplayTitle());
         } else {
@@ -1730,9 +1756,11 @@ public class BrowserActivity extends Activity
             mErrorConsoleContainer.removeView(errorConsole);
         }
 
-        WebView view = t.getWebView();
-        if (view != null) {
-            view.setEmbeddedTitleBar(null);
+        if (!mXLargeScreenSize) {
+            WebView view = t.getWebView();
+            if (view != null) {
+                view.setEmbeddedTitleBar(null);
+            }
         }
     }
 
@@ -1962,7 +1990,9 @@ public class BrowserActivity extends Activity
         // If we are in voice search mode, the title has already been set.
         if (mTabControl.getCurrentTab().isInVoiceSearchMode()) return;
         mTitleBar.setDisplayTitle(url);
-        mFakeTitleBar.setDisplayTitle(url);
+        if (!mXLargeScreenSize) {
+            mFakeTitleBar.setDisplayTitle(url);
+        }
     }
 
     /**
@@ -2005,7 +2035,9 @@ public class BrowserActivity extends Activity
     // Set the favicon in the title bar.
     void setFavicon(Bitmap icon) {
         mTitleBar.setFavicon(icon);
-        mFakeTitleBar.setFavicon(icon);
+        if (!mXLargeScreenSize) {
+            mFakeTitleBar.setFavicon(icon);
+        }
     }
 
     /**
@@ -2654,7 +2686,14 @@ public class BrowserActivity extends Activity
     // -------------------------------------------------------------------------
 
     void onProgressChanged(WebView view, int newProgress) {
-        mFakeTitleBar.setProgress(newProgress);
+        if (mXLargeScreenSize) {
+            mTitleBar.setProgress(newProgress);
+        } else {
+            // On the phone, the fake title bar will always cover up the
+            // regular title bar (or the regular one is offscreen), so only the
+            // fake title bar needs to change its progress
+            mFakeTitleBar.setProgress(newProgress);
+        }
 
         if (newProgress == 100) {
             // onProgressChanged() may continue to be called after the main
@@ -2964,7 +3003,9 @@ public class BrowserActivity extends Activity
             d = mMixLockIcon;
         }
         mTitleBar.setLock(d);
-        mFakeTitleBar.setLock(d);
+        if (!mXLargeScreenSize) {
+            mFakeTitleBar.setLock(d);
+        }
     }
 
     /**
