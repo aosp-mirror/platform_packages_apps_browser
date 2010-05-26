@@ -1177,7 +1177,6 @@ public class BrowserActivity extends Activity
                 break;
             // -- Browser context menu
             case R.id.open_context_menu_id:
-            case R.id.open_newtab_context_menu_id:
             case R.id.bookmark_context_menu_id:
             case R.id.save_link_context_menu_id:
             case R.id.share_link_context_menu_id:
@@ -1618,7 +1617,7 @@ public class BrowserActivity extends Activity
         inflater.inflate(R.menu.browsercontext, menu);
 
         // Show the correct menu group
-        String extra = result.getExtra();
+        final String extra = result.getExtra();
         menu.setGroupVisible(R.id.PHONE_MENU,
                 type == WebView.HitTestResult.PHONE_TYPE);
         menu.setGroupVisible(R.id.EMAIL_MENU,
@@ -1675,8 +1674,23 @@ public class BrowserActivity extends Activity
                 titleView.setText(extra);
                 menu.setHeaderView(titleView);
                 // decide whether to show the open link in new tab option
-                menu.findItem(R.id.open_newtab_context_menu_id).setVisible(
-                        mTabControl.canCreateNewTab());
+                boolean showNewTab = mTabControl.canCreateNewTab();
+                MenuItem newTabItem
+                        = menu.findItem(R.id.open_newtab_context_menu_id);
+                newTabItem.setVisible(showNewTab);
+                if (showNewTab) {
+                    newTabItem.setOnMenuItemClickListener(
+                            new MenuItem.OnMenuItemClickListener() {
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    final Tab parent = mTabControl.getCurrentTab();
+                                    final Tab newTab = openTab(extra);
+                                    if (newTab != parent) {
+                                        parent.addChildTab(newTab);
+                                    }
+                                    return true;
+                                }
+                            });
+                }
                 menu.findItem(R.id.bookmark_context_menu_id).setVisible(
                         Bookmarks.urlHasAcceptableScheme(extra));
                 PackageManager pm = getPackageManager();
@@ -2266,13 +2280,6 @@ public class BrowserActivity extends Activity
                         case R.id.open_context_menu_id:
                         case R.id.view_image_context_menu_id:
                             loadUrlFromContext(getTopWindow(), url);
-                            break;
-                        case R.id.open_newtab_context_menu_id:
-                            final Tab parent = mTabControl.getCurrentTab();
-                            final Tab newTab = openTab(url);
-                            if (newTab != parent) {
-                                parent.addChildTab(newTab);
-                            }
                             break;
                         case R.id.bookmark_context_menu_id:
                             Intent intent = new Intent(BrowserActivity.this,
