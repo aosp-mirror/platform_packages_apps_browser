@@ -3607,6 +3607,9 @@ public class BrowserActivity extends Activity
                     File cameraFile = new File(mCameraFilePath);
                     if (cameraFile.exists()) {
                         result = Uri.fromFile(cameraFile);
+                        // Broadcast to the media scanner that we have a new photo
+                        // so it will be added into the gallery for the user.
+                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, result));
                     }
                 }
 
