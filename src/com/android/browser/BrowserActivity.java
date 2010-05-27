@@ -325,9 +325,7 @@ public class BrowserActivity extends Activity
                     }
                     if (permissionOk) {
                         PluginManager.getInstance(BrowserActivity.this)
-                                .refreshPlugins(
-                                        Intent.ACTION_PACKAGE_ADDED
-                                                .equals(action));
+                                .refreshPlugins(true);
                     }
                 }
             }
