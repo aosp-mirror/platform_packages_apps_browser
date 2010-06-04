@@ -33,10 +33,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/* package */ class FindDialog extends LinearLayout implements TextWatcher {
-    private WebView         mWebView;
+/* package */ class FindDialog extends WebDialog implements TextWatcher {
     private TextView        mMatches;
-    private BrowserActivity mBrowserActivity;
     
     // Views with which the user can interact.
     private EditText        mEditText;
@@ -49,20 +47,14 @@ import android.widget.TextView;
     // Once it has been called, enter should move to the next match.
     private boolean         mMatchesFound;
     private int             mNumberOfMatches;
+
     private View.OnClickListener mFindListener = new View.OnClickListener() {
         public void onClick(View v) {
             findNext();
         }
     };
 
-    private View.OnClickListener mFindCancelListener  = 
-            new View.OnClickListener() {
-        public void onClick(View v) {
-            mBrowserActivity.closeFind();
-        }
-    };
-    
-    private View.OnClickListener mFindPreviousListener  = 
+    private View.OnClickListener mFindPreviousListener  =
             new View.OnClickListener() {
         public void onClick(View v) {
             if (mWebView == null) {
@@ -74,15 +66,6 @@ import android.widget.TextView;
         }
     };
 
-    /*
-     * Remove the soft keyboard from the screen.
-     */
-    private void hideSoftInput() {
-        InputMethodManager imm = (InputMethodManager)
-                mBrowserActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
-    }
-
     private void disableButtons() {
         mPrevButton.setEnabled(false);
         mNextButton.setEnabled(false);
@@ -90,17 +73,13 @@ import android.widget.TextView;
         mNextButton.setFocusable(false);
     }
 
-    /* package */ void setWebView(WebView webview) {
-        mWebView = webview;
-    }
-
     /* package */ FindDialog(BrowserActivity context) {
         super(context);
-        mBrowserActivity = context;
 
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.browser_find, this);
 
+        addCancel();
         mEditText = (EditText) findViewById(R.id.edit);
         
         View button = findViewById(R.id.next);
@@ -111,9 +90,6 @@ import android.widget.TextView;
         button.setOnClickListener(mFindPreviousListener);
         mPrevButton = button;
         
-        button = findViewById(R.id.done);
-        button.setOnClickListener(mFindCancelListener);
-        
         mMatches = (TextView) findViewById(R.id.matches);
         mMatchesView = findViewById(R.id.matches_view);
         disableButtons();
@@ -121,14 +97,13 @@ import android.widget.TextView;
     }
 
     /**
-     * Called by BrowserActivity.closeFind.  Start the animation to hide
+     * Called by BrowserActivity.closeDialog.  Start the animation to hide
      * the dialog, inform the WebView that the dialog is being dismissed,
      * and hide the soft keyboard.
      */
     public void dismiss() {
+        super.dismiss();
         mWebView.notifyFindDialogDismissed();
-        startAnimation(AnimationUtils.loadAnimation(mBrowserActivity,
-                R.anim.find_dialog_exit));
         hideSoftInput();
     }
 
@@ -144,7 +119,7 @@ import android.widget.TextView;
                     return true;
                 } else if (KeyEvent.ACTION_UP == action
                         && !event.isCanceled() && state.isTracking(event)) {
-                    mBrowserActivity.closeFind();
+                    mBrowserActivity.closeDialogs();
                     return true;
                 }
             }
@@ -182,6 +157,7 @@ import android.widget.TextView;
     }
 
     public void show() {
+        super.show();
         // In case the matches view is showing from a previous search
         mMatchesView.setVisibility(View.INVISIBLE);
         mMatchesFound = false;
@@ -193,8 +169,6 @@ import android.widget.TextView;
         Selection.setSelection(span, 0, length);
         span.setSpan(this, 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         disableButtons();
-        startAnimation(AnimationUtils.loadAnimation(mBrowserActivity,
-                R.anim.find_dialog_enter));
         InputMethodManager imm = (InputMethodManager)
                 mBrowserActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(mEditText, 0);
@@ -249,6 +223,11 @@ import android.widget.TextView;
     private void setMatchesFound(int found) {
         mNumberOfMatches = found;
         updateMatchesString();
+    }
+
+    public void setText(String text) {
+        mEditText.setText(text);
+        findAll();
     }
 
     private void updateMatchesString() {

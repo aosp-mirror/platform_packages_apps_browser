@@ -1029,6 +1029,16 @@ class Tab {
         }
 
         @Override
+        public void onSelectionDone() {
+            if (mInForeground) mActivity.closeDialogs();
+        }
+
+        @Override
+        public void onSelectionStart() {
+            if (mInForeground) mActivity.showSelectDialog();
+        }
+
+        @Override
         public void onShowCustomView(View view,
                 WebChromeClient.CustomViewCallback callback) {
             if (mInForeground) mActivity.onShowCustomView(view, callback);
@@ -1218,8 +1228,8 @@ class Tab {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             // Unlike the others, do not call mClient's version, which would
             // change the progress bar.  However, we do want to remove the
-            // find dialog.
-            if (view.getFindIsUp()) mBrowserActivity.closeFind();
+            // find or select dialog.
+            mBrowserActivity.closeDialogs();
         }
         @Override
         public void doUpdateVisitedHistory(WebView view, String url,
@@ -1420,7 +1430,7 @@ class Tab {
      */
     boolean createSubWindow() {
         if (mSubView == null) {
-            if (mMainView.getFindIsUp()) mActivity.closeFind();
+            mActivity.closeDialogs();
             mSubViewContainer = mInflateService.inflate(
                     R.layout.browser_subwindow, null);
             mSubView = (WebView) mSubViewContainer.findViewById(R.id.webview);
@@ -1468,9 +1478,7 @@ class Tab {
      */
     void dismissSubWindow() {
         if (mSubView != null) {
-            if (mSubView.getFindIsUp()) {
-                mActivity.closeFind();
-            }
+            mActivity.closeDialogs();
             BrowserSettings.getInstance().deleteObserver(
                     mSubView.getSettings());
             mSubView.destroy();
@@ -1495,7 +1503,7 @@ class Tab {
     void removeSubWindow(ViewGroup content) {
         if (mSubView != null) {
             content.removeView(mSubViewContainer);
-            if (mSubView.getFindIsUp()) mActivity.closeFind();
+            mActivity.closeDialogs();
         }
     }
 
@@ -1554,7 +1562,7 @@ class Tab {
                 (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
         wrapper.removeView(mMainView);
         content.removeView(mContainer);
-        if (mMainView.getFindIsUp()) mActivity.closeFind();
+        mActivity.closeDialogs();
         removeSubWindow(content);
     }
 
@@ -1957,9 +1965,9 @@ class Tab {
     }
 
     /*
-     * Open the find dialog.  Called by BrowserActivity.
+     * Opens the find and select text dialogs.  Called by BrowserActivity.
      */
-    void showFind(FindDialog dialog) {
+    WebView showDialog(WebDialog dialog) {
         LinearLayout container;
         WebView view;
         if (mSubView != null) {
@@ -1975,13 +1983,13 @@ class Tab {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         dialog.setWebView(view);
-        view.setFindIsUp(true);
+        return view;
     }
 
     /*
-     * Close the find dialog.  Called by BrowserActivity.closeFind.
+     * Close the find or select dialog. Called by BrowserActivity.closeDialog.
      */
-    void closeFind(FindDialog dialog) {
+    void closeDialog(WebDialog dialog) {
         // The dialog may be attached to the subwindow.  Ensure that the
         // correct parent has it removed.
         LinearLayout parent = (LinearLayout) dialog.getParent();
