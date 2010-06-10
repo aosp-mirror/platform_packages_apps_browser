@@ -151,7 +151,7 @@
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Limpar histórico"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Limpar o histórico de navegação do navegador"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"O histórico de navegação do navegador será excluído."</string>
-    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Limpar dados formulário"</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Limpar dados de form."</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Limpar todos os dados de formulário salvos"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Todos os dados de formulário salvos serão excluídos."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Limpar senhas"</string>
