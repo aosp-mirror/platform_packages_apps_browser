@@ -123,6 +123,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Vector;
 
 public class BrowserActivity extends Activity
     implements View.OnCreateContextMenuListener, DownloadListener {
@@ -2858,17 +2859,25 @@ public class BrowserActivity extends Activity
     void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
 
         final String imageMimeType = "image/*";
-        final String imageSourceKey = "source";
-        final String imageSourceValueCamera = "camera";
-        final String imageSourceValueGallery = "gallery";
+        final String videoMimeType = "video/*";
+        final String mediaSourceKey = "source";
+        final String mediaSourceValueCamera = "camera";
+        final String mediaSourceValueGallery = "gallery";
+        final String mediaSourceValueCamcorder = "camcorder";
 
-        // image source can be 'gallery' or 'camera'.
-        String imageSource = "";
+        // media source can be 'gallery' or 'camera' or 'camcorder'
+        String mediaSource = "";
 
-        // We add the camera intent if there was no accept type (or '*/*') or 'image/*'.
+        // We add the camera intent if there was no accept type (or '*/*' or 'image/*').
         boolean addCameraIntent = true;
+        // We add the camcorder intent if there was no accept type (or '*/*' or 'video/*').
+        boolean addCamcorderIntent = true;
 
-        if (mUploadMessage != null) return;
+        if (mUploadMessage != null) {
+            // Already a file picker operation in progress.
+            return;
+        }
+
         mUploadMessage = uploadMsg;
 
         // Parse the accept type.
@@ -2879,8 +2888,8 @@ public class BrowserActivity extends Activity
             String[] keyValue = p.split("=");
             if (keyValue.length == 2) {
                 // Process key=value parameters.
-                if (imageSourceKey.equals(keyValue[0])) {
-                    imageSource = keyValue[1];
+                if (mediaSourceKey.equals(keyValue[0])) {
+                    mediaSource = keyValue[1];
                 }
             }
         }
@@ -2904,30 +2913,57 @@ public class BrowserActivity extends Activity
                 System.currentTimeMillis() + ".jpg";
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mCameraFilePath)));
 
+        Intent camcorderIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+
         if (mimeType.equals(imageMimeType)) {
             i.setType(imageMimeType);
-            if (imageSource.equals(imageSourceValueCamera)) {
+            addCamcorderIntent = false;
+            if (mediaSource.equals(mediaSourceValueCamera)) {
                 // Specified 'image/*' and requested the camera, so go ahead and launch the camera
                 // directly.
                 BrowserActivity.this.startActivityForResult(cameraIntent, FILE_SELECTED);
                 return;
-            } else if (imageSource.equals(imageSourceValueGallery)) {
+            } else if (mediaSource.equals(mediaSourceValueGallery)) {
                 // Specified gallery as the source, so don't want to consider the camera.
                 addCameraIntent = false;
+            }
+        } else if (mimeType.equals(videoMimeType)) {
+            i.setType(videoMimeType);
+            addCameraIntent = false;
+            // The camcorder saves it's own file and returns it to us in the intent, so
+            // we don't need to generate one here.
+            mCameraFilePath = null;
+
+            if (mediaSource.equals(mediaSourceValueCamcorder)) {
+                // Specified 'video/*' and requested the camcorder, so go ahead and launch the camcorder
+                // directly.
+                BrowserActivity.this.startActivityForResult(camcorderIntent, FILE_SELECTED);
+                return;
+            } else if (mediaSource.equals(mediaSourceValueGallery)) {
+                // Specified gallery as the source, so don't want to consider the camcorder.
+                addCamcorderIntent = false;
             }
         } else {
             i.setType("*/*");
         }
 
-        // Combine the chooser and the extra choices (like camera)
+        // Combine the chooser and the extra choices (like camera or camcorder)
         Intent chooser = new Intent(Intent.ACTION_CHOOSER);
         chooser.putExtra(Intent.EXTRA_INTENT, i);
 
+        Vector<Intent> extraInitialIntents = new Vector<Intent>(0);
+
         if (addCameraIntent) {
-            // Add the camera Intent
-            Intent[] choices = new Intent[1];
-            choices[0] = cameraIntent;
-            chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, choices);
+            extraInitialIntents.add(cameraIntent);
+        }
+
+        if (addCamcorderIntent) {
+            extraInitialIntents.add(camcorderIntent);
+        }
+
+        if (extraInitialIntents.size() > 0) {
+            Intent[] extraIntents = new Intent[extraInitialIntents.size()];
+            chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraInitialIntents.toArray(extraIntents));
         }
 
         chooser.putExtra(Intent.EXTRA_TITLE, getString(R.string.choose_upload));
@@ -3669,7 +3705,6 @@ public class BrowserActivity extends Activity
                         sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, result));
                     }
                 }
-
                 mUploadMessage.onReceiveValue(result);
                 mUploadMessage = null;
                 mCameraFilePath = null;
