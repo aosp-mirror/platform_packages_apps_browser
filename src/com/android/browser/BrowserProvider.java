@@ -465,7 +465,7 @@ public class BrowserProvider extends ContentProvider {
         public MySuggestionCursor(Cursor hc, Cursor sc, String string) {
             mHistoryCursor = hc;
             mSuggestCursor = sc;
-            mHistoryCount = hc.getCount();
+            mHistoryCount = hc != null ? hc.getCount() : 0;
             mSuggestionCount = sc != null ? sc.getCount() : 0;
             if (mSuggestionCount > (MAX_SUGGESTION_LONG_ENTRIES - mHistoryCount)) {
                 mSuggestionCount = MAX_SUGGESTION_LONG_ENTRIES - mHistoryCount;
@@ -846,8 +846,7 @@ public class BrowserProvider extends ContentProvider {
             String suggestSelection;
             String [] myArgs;
             if (selectionArgs[0] == null || selectionArgs[0].equals("")) {
-                suggestSelection = null;
-                myArgs = null;
+                return new MySuggestionCursor(null, null, "");
             } else {
                 String like = selectionArgs[0] + "%";
                 if (selectionArgs[0].startsWith("http")
