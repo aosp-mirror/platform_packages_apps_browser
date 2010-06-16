@@ -18,7 +18,6 @@ package com.android.browser;
 
 import android.app.Instrumentation;
 import android.net.http.SslError;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -29,6 +28,12 @@ import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 /**
  * Adds a JavaScript interface to the webview and calls functions on it to verify variables
  * are passed from JS to Java correctly.
@@ -36,6 +41,8 @@ import android.webkit.WebView;
 public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<BrowserActivity> {
 
     private final static String TAG = "JNIBindingsTest";
+
+    private static final String SDCARD_BINDINGS_TEST_HTML = "/sdcard/bindings_test.html";
 
     private static final int MSG_WEBKIT_DATA_READY = 101;
 
@@ -67,9 +74,11 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
             mWebView = webView;
         }
 
+        @Override
         public void run() {
             Looper.prepare();
             mHandler = new Handler() {
+                @Override
                 public void handleMessage(Message msg) {
                     switch (msg.what) {
                         case MSG_WEBKIT_DATA_READY: {
@@ -102,6 +111,32 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
         mInst = getInstrumentation();
         mInst.waitForIdleSync();
 
+        extractAsset();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        removeAsset();
+        super.tearDown();
+    }
+
+    protected void extractAsset() throws IOException {
+        InputStream in = getInstrumentation().getContext().getAssets().open("bindings_test.html");
+        OutputStream out = new FileOutputStream(SDCARD_BINDINGS_TEST_HTML);
+
+        byte[] buf = new byte[2048];
+        int len;
+
+        while ((len = in.read(buf)) >= 0 ) {
+            out.write(buf, 0, len);
+        }
+        out.close();
+        in.close();
+    }
+
+    protected void removeAsset(){
+        File fileToDelete = new File(SDCARD_BINDINGS_TEST_HTML);
+        fileToDelete.delete();
     }
 
     /**
@@ -183,7 +218,7 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
         });
     }
 
-    public synchronized void testComplete() {
+    public synchronized void notifyComplete() {
         mTestDone = true;
         notify();
     }
@@ -193,7 +228,7 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
 
         Tab tab = mActivity.getTabControl().getCurrentTab();
         WebView webView = tab.getWebView();
-        webView.loadUrl("file:///sdcard/bindings_test.html");
+        webView.loadUrl("file://" + SDCARD_BINDINGS_TEST_HTML);
         synchronized(this) {
             while(!mTestDone) {
                 try {
