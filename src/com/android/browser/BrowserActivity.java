@@ -3634,6 +3634,12 @@ public class BrowserActivity extends Activity
                     path = path.substring(0, idx);
                 }
             }
+            if (w.mScheme != null && w.mScheme.equals("http") && w.mPort == 80) {
+                w.mPort = -1;
+            }
+            if (w.mAuthInfo != null && w.mAuthInfo.length() == 0) {
+                w.mAuthInfo = null;
+            }
             uri = new URI(w.mScheme, w.mAuthInfo, w.mHost, w.mPort, path,
                     query, frag);
         } catch (Exception e) {
