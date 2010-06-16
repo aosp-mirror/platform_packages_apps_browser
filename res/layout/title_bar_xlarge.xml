@@ -19,14 +19,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="6dip"
-    android:paddingRight="6dip"
     android:background="#ffdddddd" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingLeft="6dip"
+        android:paddingRight="6dip"
         >
         <ImageButton android:id="@+id/back"
             android:src="@drawable/ic_arrow_left"

@@ -78,6 +78,8 @@ public class TitleBarXLarge extends TitleBarBase {
         mCircularProgress.setBounds(0, 0, iconDimension, iconDimension);
         mHorizontalProgress = (ProgressBar) findViewById(
                 R.id.progress_horizontal);
+        mHorizontalProgress.setProgressDrawable(
+                resources.getDrawable(R.drawable.progress));
 
         // FIXME: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
