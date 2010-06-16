@@ -21,14 +21,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.PaintDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.speech.RecognizerIntent;
@@ -45,7 +39,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -55,21 +48,16 @@ import com.android.common.speech.LoggingEvents;
  * This class represents a title bar for a particular "tab" or "window" in the
  * browser.
  */
-public class TitleBar extends LinearLayout {
+public class TitleBar extends TitleBarBase {
     private TextView        mTitle;
-    private Drawable        mCloseDrawable;
     private ImageView       mRtButton;
     private Drawable        mCircularProgress;
     private ProgressBar     mHorizontalProgress;
-    private ImageView       mFavicon;
-    private ImageView       mLockIcon;
     private ImageView       mStopButton;
     private Drawable        mBookmarkDrawable;
     private Drawable        mVoiceDrawable;
     private boolean         mInLoad;
     private BrowserActivity mBrowserActivity;
-    private Drawable        mGenericFavicon;
-    private int             mIconDimension;
     private View            mTitleBg;
     private MyHandler       mHandler;
     private Intent          mVoiceSearchIntent;
@@ -84,7 +72,7 @@ public class TitleBar extends LinearLayout {
     private static int LONG_PRESS = 1;
 
     public TitleBar(BrowserActivity context) {
-        super(context, null);
+        super(context);
         mHandler = new MyHandler();
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.title_bar, this);
@@ -107,13 +95,11 @@ public class TitleBar extends LinearLayout {
                 TypedValue.COMPLEX_UNIT_DIP, 8f, metrics);
         mRightMargin = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 6f, metrics);
-        mIconDimension = (int) TypedValue.applyDimension(
+        int iconDimension = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 20f, metrics);
-        mCircularProgress.setBounds(0, 0, mIconDimension, mIconDimension);
+        mCircularProgress.setBounds(0, 0, iconDimension, iconDimension);
         mHorizontalProgress = (ProgressBar) findViewById(
                 R.id.progress_horizontal);
-        mGenericFavicon = context.getResources().getDrawable(
-                R.drawable.app_web_browser_sm);
         mVoiceSearchIntent = new Intent(RecognizerIntent.ACTION_WEB_SEARCH);
         mVoiceSearchIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
@@ -248,25 +234,6 @@ public class TitleBar extends LinearLayout {
     }
 
     /**
-     * Set a new Bitmap for the Favicon.
-     */
-    /* package */ void setFavicon(Bitmap icon) {
-        Drawable[] array = new Drawable[3];
-        array[0] = new PaintDrawable(Color.BLACK);
-        PaintDrawable p = new PaintDrawable(Color.WHITE);
-        array[1] = p;
-        if (icon == null) {
-            array[2] = mGenericFavicon;
-        } else {
-            array[2] = new BitmapDrawable(icon);
-        }
-        LayerDrawable d = new LayerDrawable(array);
-        d.setLayerInset(1, 1, 1, 1, 1);
-        d.setLayerInset(2, 2, 2, 2, 2);
-        mFavicon.setImageDrawable(d);
-    }
-
-    /**
      * Change the TitleBar to or from voice mode.  If there is no package to
      * handle voice search, the TitleBar cannot be set to voice mode.
      */
@@ -299,18 +266,6 @@ public class TitleBar extends LinearLayout {
             mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
         }
         mTitle.setSingleLine(!mInVoiceMode);
-    }
-
-    /**
-     * Set the Drawable for the lock icon, or null to hide it.
-     */
-    /* package */ void setLock(Drawable d) {
-        if (null == d) {
-            mLockIcon.setVisibility(View.GONE);
-        } else {
-            mLockIcon.setImageDrawable(d);
-            mLockIcon.setVisibility(View.VISIBLE);
-        }
     }
 
     /**
@@ -373,12 +328,5 @@ public class TitleBar extends LinearLayout {
                 mTitle.setText(title);
             }
         }
-    }
-
-    /* package */ void setToTabPicker() {
-        mTitle.setText(R.string.tab_picker_title);
-        setFavicon(null);
-        setLock(null);
-        mHorizontalProgress.setVisibility(View.GONE);
     }
 }
