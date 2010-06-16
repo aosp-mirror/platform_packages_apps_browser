@@ -16,19 +16,6 @@
 
 package com.android.browser;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.net.Uri;
@@ -41,6 +28,19 @@ import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -423,6 +423,9 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                     bufferedReader.close();
                 }
             }
+        } catch (FileNotFoundException fnfe) {
+            Log.e(TAG, fnfe.getMessage(), fnfe);
+            fail("Test environment not setup correctly");
         } finally {
             if (writer != null) {
                 writer.close();
@@ -436,6 +439,9 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         BufferedReader bufferedReader = getInputStream();
         try {
             loopUrls(bufferedReader, null, true, STABILITY_LOOPCOUNT);
+        } catch (FileNotFoundException fnfe) {
+            Log.e(TAG, fnfe.getMessage(), fnfe);
+            fail("Test environment not setup correctly");
         } finally {
             if (bufferedReader != null) {
                 bufferedReader.close();
