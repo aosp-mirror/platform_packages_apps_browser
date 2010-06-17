@@ -35,7 +35,7 @@
     <LinearLayout android:id="@+id/holder"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:background="#99000000"
         android:gravity="center"
         android:layout_alignBottom="@+id/thumb"
