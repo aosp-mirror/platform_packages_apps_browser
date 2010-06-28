@@ -1433,7 +1433,7 @@ class Tab {
                     if (mSubView.copyBackForwardList().getSize() == 0) {
                         // This subwindow was opened for the sole purpose of
                         // downloading a file. Remove it.
-                        dismissSubWindow();
+                        mActivity.dismissSubWindow(Tab.this);
                     }
                 }
             });
