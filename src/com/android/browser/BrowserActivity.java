@@ -1420,7 +1420,8 @@ public class BrowserActivity extends Activity
                 currentTab.populatePickerData();
                 sharePage(this, currentTab.getTitle(),
                         currentTab.getUrl(), currentTab.getFavicon(),
-                        createScreenshot(currentTab.getWebView()));
+                        createScreenshot(currentTab.getWebView(), getDesiredThumbnailWidth(this),
+                                getDesiredThumbnailHeight(this)));
                 break;
 
             case R.id.dump_nav_menu_id:
@@ -1483,7 +1484,8 @@ public class BrowserActivity extends Activity
         i.putExtra("url", w.getUrl());
         i.putExtra("title", w.getTitle());
         i.putExtra("touch_icon_url", w.getTouchIconUrl());
-        i.putExtra("thumbnail", createScreenshot(w));
+        i.putExtra("thumbnail", createScreenshot(w, getDesiredThumbnailWidth(this),
+                getDesiredThumbnailHeight(this)));
         startActivity(i);
     }
 
@@ -2394,7 +2396,8 @@ public class BrowserActivity extends Activity
         // draw, but the API for that (WebViewCore.pictureReady()) is not
         // currently accessible here.
 
-        final Bitmap bm = createScreenshot(view);
+        final Bitmap bm = createScreenshot(view, getDesiredThumbnailWidth(this),
+                getDesiredThumbnailHeight(this));
         if (bm == null) {
             return;
         }
@@ -2470,13 +2473,12 @@ public class BrowserActivity extends Activity
         return THUMBNAIL_HEIGHT;
     }
 
-    private Bitmap createScreenshot(WebView view) {
+    private Bitmap createScreenshot(WebView view, int width, int height) {
         Picture thumbnail = view.capturePicture();
         if (thumbnail == null) {
             return null;
         }
-        Bitmap bm = Bitmap.createBitmap(getDesiredThumbnailWidth(this),
-                getDesiredThumbnailHeight(this), Bitmap.Config.RGB_565);
+        Bitmap bm = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bm);
         // May need to tweak these values to determine what is the
         // best scale factor
@@ -2485,8 +2487,7 @@ public class BrowserActivity extends Activity
         float scaleFactorX = 1.0f;
         float scaleFactorY = 1.0f;
         if (thumbnailWidth > 0) {
-            scaleFactorX = (float) getDesiredThumbnailWidth(this) /
-                    (float)thumbnailWidth;
+            scaleFactorX = (float) width / (float)thumbnailWidth;
         } else {
             return null;
         }
@@ -2496,8 +2497,7 @@ public class BrowserActivity extends Activity
             // If the device is in landscape and the page is shorter
             // than the height of the view, stretch the thumbnail to fill the
             // space.
-            scaleFactorY = (float) getDesiredThumbnailHeight(this) /
-                    (float)thumbnailHeight;
+            scaleFactorY = (float) height / (float)thumbnailHeight;
         } else {
             // In the portrait case, this looks nice.
             scaleFactorY = scaleFactorX;
@@ -3707,7 +3707,8 @@ public class BrowserActivity extends Activity
                 CombinedBookmarkHistoryActivity.class);
         String title = current.getTitle();
         String url = current.getUrl();
-        Bitmap thumbnail = createScreenshot(current);
+        Bitmap thumbnail = createScreenshot(current, getDesiredThumbnailWidth(this),
+                getDesiredThumbnailHeight(this));
 
         // Just in case the user opens bookmarks before a page finishes loading
         // so the current history item, and therefore the page, is null.
