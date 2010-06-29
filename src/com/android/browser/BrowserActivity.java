@@ -3126,7 +3126,10 @@ public class BrowserActivity extends Activity
      * Update the lock icon to correspond to our latest state.
      */
     private void updateLockIconToLatest() {
-        updateLockIconImage(mTabControl.getCurrentTab().getLockIconType());
+        Tab t = mTabControl.getCurrentTab();
+        if (t != null) {
+            updateLockIconImage(t.getLockIconType());
+        }
     }
 
     /**
