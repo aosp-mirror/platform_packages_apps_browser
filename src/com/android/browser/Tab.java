@@ -171,8 +171,8 @@ class Tab {
         return mVoiceSearchData != null;
     }
     /**
-     * Return true if the voice search Intent came with a String identifying
-     * that Google provided the Intent.
+     * Return true if the Tab is in voice search mode and the voice search
+     * Intent came with a String identifying that Google provided the Intent.
      */
     public boolean voiceSearchSourceIsGoogle() {
         return mVoiceSearchData != null && mVoiceSearchData.mSourceIsGoogle;
@@ -529,6 +529,18 @@ class Tab {
         // return true if want to hijack the url to let another app to handle it
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (voiceSearchSourceIsGoogle()) {
+                // This method is called when the user clicks on a link.
+                // VoiceSearchMode is turned off when the user leaves the
+                // Google results page, so at this point the user must be on
+                // that page.  If the user clicked a link on that page, assume
+                // that the voice search was effective, and broadcast an Intent
+                // so a receiver can take note of that fact.
+                Intent logIntent = new Intent(LoggingEvents.ACTION_LOG_EVENT);
+                logIntent.putExtra(LoggingEvents.EXTRA_EVENT,
+                        LoggingEvents.VoiceSearch.RESULT_CLICKED);
+                mActivity.sendBroadcast(logIntent);
+            }
             if (mInForeground) {
                 return mActivity.shouldOverrideUrlLoading(view, url);
             } else {
