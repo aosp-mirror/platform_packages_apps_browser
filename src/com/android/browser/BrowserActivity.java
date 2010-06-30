@@ -38,13 +38,11 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -64,14 +62,13 @@ import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.provider.Browser;
 import android.provider.ContactsContract;
-import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Downloads;
 import android.provider.MediaStore;
+import android.provider.ContactsContract.Intents.Insert;
 import android.speech.RecognizerResultsIntent;
 import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.ContextMenu;
@@ -105,12 +102,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AccountManagerFuture;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.accounts.AccountManagerCallback;
 
 import com.android.common.Search;
 import com.android.common.speech.LoggingEvents;
@@ -120,11 +111,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -223,6 +212,7 @@ public class BrowserActivity extends Activity
         mXLargeScreenSize = (getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+
         if (mXLargeScreenSize) {
             mTitleBar = new TitleBarXLarge(this);
             LinearLayout layout = (LinearLayout) mBrowserFrameLayout.
@@ -631,6 +621,7 @@ public class BrowserActivity extends Activity
         final ContentResolver cr = mResolver;
         final String newUrl = url;
         new AsyncTask<Void, Void, Void>() {
+            @Override
             protected Void doInBackground(Void... unused) {
                 Browser.updateVisitedHistory(cr, newUrl, false);
                 Browser.addSearchUrl(cr, newUrl);
@@ -692,6 +683,7 @@ public class BrowserActivity extends Activity
                     final ContentResolver cr = mResolver;
                     final String newUrl = url;
                     new AsyncTask<Void, Void, Void>() {
+                        @Override
                         protected Void doInBackground(Void... unused) {
                             Browser.updateVisitedHistory(cr, newUrl, false);
                             return null;
@@ -1144,12 +1136,14 @@ public class BrowserActivity extends Activity
         if (mMenu == null) {
             return;
         }
+        MenuItem dest = mMenu.findItem(R.id.stop_reload_menu_id);
         MenuItem src = mInLoad ?
                 mMenu.findItem(R.id.stop_menu_id):
-                    mMenu.findItem(R.id.reload_menu_id);
-        MenuItem dest = mMenu.findItem(R.id.stop_reload_menu_id);
-        dest.setIcon(src.getIcon());
-        dest.setTitle(src.getTitle());
+                mMenu.findItem(R.id.reload_menu_id);
+        if (src != null) {
+            dest.setIcon(src.getIcon());
+            dest.setTitle(src.getTitle());
+        }
     }
 
     @Override
@@ -1408,10 +1402,6 @@ public class BrowserActivity extends Activity
                 showFindDialog();
                 break;
 
-            case R.id.select_text_id:
-                showSelectDialog();
-                break;
-
             case R.id.page_info_menu_id:
                 showPageInfo(mTabControl.getCurrentTab(), false);
                 break;
@@ -1592,11 +1582,11 @@ public class BrowserActivity extends Activity
                 final MenuItem home = menu.findItem(R.id.homepage_menu_id);
                 home.setEnabled(!isHome);
 
-                menu.findItem(R.id.forward_menu_id)
-                        .setEnabled(canGoForward);
+                final MenuItem forward = menu.findItem(R.id.forward_menu_id);
+                forward.setEnabled(canGoForward);
 
-                menu.findItem(R.id.new_tab_menu_id).setEnabled(
-                        mTabControl.canCreateNewTab());
+                final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
+                newtab.setEnabled(mTabControl.canCreateNewTab());
 
                 // decide whether to show the share link option
                 PackageManager pm = getPackageManager();
@@ -1934,6 +1924,7 @@ public class BrowserActivity extends Activity
             return true;
         }
 
+        @Override
         public void run() {
             Drawable oldWallpaper = BrowserActivity.this.getWallpaper();
             try {
@@ -2296,6 +2287,7 @@ public class BrowserActivity extends Activity
     // Private handler for handling javascript and saving passwords
     private Handler mHandler = new Handler() {
 
+        @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case FOCUS_NODE_HREF:
@@ -3937,6 +3929,7 @@ public class BrowserActivity extends Activity
     private void getInstalledPackages() {
         AsyncTask<Void, Void, Set<String> > task =
             new AsyncTask<Void, Void, Set<String> >() {
+            @Override
             protected Set<String> doInBackground(Void... unused) {
                 Set<String> installedPackages = new HashSet<String>();
                 PackageManager pm = BrowserActivity.this.getPackageManager();
@@ -3953,6 +3946,7 @@ public class BrowserActivity extends Activity
             }
 
             // Executes on the UI thread
+            @Override
             protected void onPostExecute(Set<String> installedPackages) {
                 addPackageNames(installedPackages);
             }
