@@ -74,10 +74,6 @@ public class BrowserBookmarksPage extends Activity implements
     private boolean                 mMostVisited;
     private View                    mEmptyView;
     private int                     mIconSize;
-    // XXX: There is no public string defining this intent so if Home changes
-    // the value, we have to update this string.
-    private static final String     INSTALL_SHORTCUT =
-            "com.android.launcher.action.INSTALL_SHORTCUT";
 
     private final static String LOGTAG = "browser";
     private final static String PREF_BOOKMARK_VIEW_MODE = "pref_bookmark_view_mode";
@@ -108,9 +104,7 @@ public class BrowserBookmarksPage extends Activity implements
             editBookmark(i.position);
             break;
         case R.id.shortcut_context_menu_id:
-            final Intent send = createShortcutIntent(i.position);
-            send.setAction(INSTALL_SHORTCUT);
-            sendBroadcast(send);
+            sendBroadcast(createShortcutIntent(i.position));
             break;
         case R.id.delete_context_menu_id:
             if (mMostVisited) {
@@ -438,8 +432,7 @@ public class BrowserBookmarksPage extends Activity implements
                     loadUrl(position);
                 }
             } else {
-                final Intent intent = createShortcutIntent(position);
-                setResultToParent(RESULT_OK, intent);
+                setResultToParent(RESULT_OK, createShortcutIntent(position));
                 finish();
             }
         }
@@ -449,99 +442,8 @@ public class BrowserBookmarksPage extends Activity implements
         String url = getUrl(position);
         String title = getBookmarkTitle(position);
         Bitmap touchIcon = getTouchIcon(position);
-
-        final Intent i = new Intent();
-        final Intent shortcutIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(url));
-        long urlHash = url.hashCode();
-        long uniqueId = (urlHash << 32) | shortcutIntent.hashCode();
-        shortcutIntent.putExtra(Browser.EXTRA_APPLICATION_ID,
-                Long.toString(uniqueId));
-        i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-        i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
-        // Use the apple-touch-icon if available
-        if (touchIcon != null) {
-            // Make a copy so we can modify the pixels.  We can't use
-            // createScaledBitmap or copy since they will preserve the config
-            // and lose the ability to add alpha.
-            Bitmap bm = Bitmap.createBitmap(mIconSize, mIconSize,
-                    Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bm);
-            Rect src = new Rect(0, 0, touchIcon.getWidth(),
-                                touchIcon.getHeight());
-            Rect dest = new Rect(0, 0, bm.getWidth(), bm.getHeight());
-
-            // Paint used for scaling the bitmap and drawing the rounded rect.
-            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            paint.setFilterBitmap(true);
-            canvas.drawBitmap(touchIcon, src, dest, paint);
-
-            // Construct a path from a round rect. This will allow drawing with
-            // an inverse fill so we can punch a hole using the round rect.
-            Path path = new Path();
-            path.setFillType(Path.FillType.INVERSE_WINDING);
-            RectF rect = new RectF(0, 0, bm.getWidth(), bm.getHeight());
-            rect.inset(1, 1);
-            path.addRoundRect(rect, 8f, 8f, Path.Direction.CW);
-
-            // Reuse the paint and clear the outside of the rectangle.
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-            canvas.drawPath(path, paint);
-
-            i.putExtra(Intent.EXTRA_SHORTCUT_ICON, bm);
-        } else {
-            Bitmap favicon = getFavicon(position);
-            if (favicon == null) {
-                i.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                        Intent.ShortcutIconResource.fromContext(
-                                BrowserBookmarksPage.this,
-                                R.drawable.ic_launcher_shortcut_browser_bookmark));
-            } else {
-                Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                        R.drawable.ic_launcher_shortcut_browser_bookmark_icon);
-
-                // Make a copy of the regular icon so we can modify the pixels.
-                Bitmap copy = icon.copy(Bitmap.Config.ARGB_8888, true);
-                Canvas canvas = new Canvas(copy);
-
-                // Make a Paint for the white background rectangle and for
-                // filtering the favicon.
-                Paint p = new Paint(Paint.ANTI_ALIAS_FLAG
-                        | Paint.FILTER_BITMAP_FLAG);
-                p.setStyle(Paint.Style.FILL_AND_STROKE);
-                p.setColor(Color.WHITE);
-
-                final float density =
-                        getResources().getDisplayMetrics().density;
-                // Create a rectangle that is slightly wider than the favicon
-                final float iconSize = 16 * density; // 16x16 favicon
-                final float padding = 2 * density; // white padding around icon
-                final float rectSize = iconSize + 2 * padding;
-
-                final Rect iconBounds =
-                        new Rect(0, 0, icon.getWidth(), icon.getHeight());
-                final float x = iconBounds.exactCenterX() - (rectSize / 2);
-                // Note: Subtract 2 dip from the y position since the box is
-                // slightly higher than center. Use padding since it is already
-                // 2 * density.
-                final float y = iconBounds.exactCenterY() - (rectSize / 2)
-                        - padding;
-                RectF r = new RectF(x, y, x + rectSize, y + rectSize);
-
-                // Draw a white rounded rectangle behind the favicon
-                canvas.drawRoundRect(r, 2, 2, p);
-
-                // Draw the favicon in the same rectangle as the rounded
-                // rectangle but inset by the padding
-                // (results in a 16x16 favicon).
-                r.inset(padding, padding);
-                canvas.drawBitmap(favicon, null, r, p);
-                i.putExtra(Intent.EXTRA_SHORTCUT_ICON, copy);
-            }
-        }
-        // Do not allow duplicate items
-        i.putExtra("duplicate", false);
-        return i;
+        Bitmap favicon = getFavicon(position);
+        return BookmarkUtils.createAddToHomeIntent(this, url, title, touchIcon, favicon);
     }
 
     private void saveCurrentPage() {
