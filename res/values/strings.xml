@@ -217,6 +217,12 @@
     <string name="copy_page_url">Copy page url</string>
     <!-- Menu item -->
     <string name="share_page">Share page</string>
+    <!-- Menu item for saving a page as a web archive. -->
+    <string name="menu_save_webarchive">Save as Web Archive</string>
+    <!-- Toast informing the user that the page has been saved. -->
+    <string name="webarchive_saved">Web archive saved.</string>
+    <!-- Toast informing the user that saving the page has failed. -->
+    <string name="webarchive_failed">Failed to save web archive.</string>
     <!-- Context Menu item open the currently selected link in the current
             window.-->
     <string name="contextmenu_openlink">Open</string>
