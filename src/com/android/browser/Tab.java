@@ -151,7 +151,6 @@ class Tab {
     static final String CURRTAB = "currentTab";
     static final String CURRURL = "currentUrl";
     static final String CURRTITLE = "currentTitle";
-    static final String CURRPICTURE = "currentPicture";
     static final String CLOSEONEXIT = "closeonexit";
     static final String PARENTTAB = "parentTab";
     static final String APPID = "appid";
@@ -1907,17 +1906,6 @@ class Tab {
 
         mSavedState = new Bundle();
         final WebBackForwardList list = mMainView.saveState(mSavedState);
-        if (list != null) {
-            final File f = new File(mActivity.getTabControl().getThumbnailDir(),
-                    mMainView.hashCode() + "_pic.save");
-            if (mMainView.savePicture(mSavedState, f)) {
-                mSavedState.putString(CURRPICTURE, f.getPath());
-            } else {
-                // if savePicture returned false, we can't trust the contents,
-                // and it may be large, so we delete it right away
-                f.delete();
-            }
-        }
 
         // Store some extra info for displaying the tab in the picker.
         final WebHistoryItem item = list != null ? list.getCurrentItem() : null;
@@ -1962,11 +1950,6 @@ class Tab {
         final WebBackForwardList list = mMainView.restoreState(b);
         if (list == null) {
             return false;
-        }
-        if (b.containsKey(CURRPICTURE)) {
-            final File f = new File(b.getString(CURRPICTURE));
-            mMainView.restorePicture(b, f);
-            f.delete();
         }
         return true;
     }
