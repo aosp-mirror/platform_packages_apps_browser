@@ -229,15 +229,6 @@ class TabControl {
             }
         }
 
-        // This tab may have been pushed in to the background and then closed.
-        // If the saved state contains a picture file, delete the file.
-        Bundle savedState = t.getSavedState();
-        if (savedState != null) {
-            if (savedState.containsKey(Tab.CURRPICTURE)) {
-                new File(savedState.getString(Tab.CURRPICTURE)).delete();
-            }
-        }
-
         // Remove it from the queue of viewed tabs.
         mTabQueue.remove(t);
         return true;

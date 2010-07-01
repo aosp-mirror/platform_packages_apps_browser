@@ -368,6 +368,15 @@ public class BrowserActivity extends Activity
             attachTabToContentView(mTabControl.getCurrentTab());
         }
 
+        // Delete old thumbnails to save space
+        File dir = mTabControl.getThumbnailDir();
+        if (dir.exists()) {
+            for (String child : dir.list()) {
+                File f = new File(dir, child);
+                f.delete();
+            }
+        }
+
         // Read JavaScript flags if it exists.
         String jsFlags = mSettings.getJsFlags();
         if (jsFlags.trim().length() != 0) {
