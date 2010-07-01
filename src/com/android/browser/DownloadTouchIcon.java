@@ -24,9 +24,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Message;
 import android.provider.Browser;
 import android.webkit.WebView;
-
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -42,9 +43,16 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     private Cursor mCursor;
     private final String mOriginalUrl;
     private final String mUrl;
-    private final String mUserAgent;
+    private final String mUserAgent; // Sites may serve a different icon to different UAs
+    private Message mMessage;
+
     /* package */ Tab mTab;
 
+    /**
+     * Use this ctor to store the touch icon in the bookmarks database for
+     * the originalUrl so we take account of redirects. Used when the user
+     * bookmarks a page from outside the bookmarks activity.
+     */
     public DownloadTouchIcon(Tab tab, ContentResolver cr, WebView view) {
         mTab = tab;
         mContentResolver = cr;
@@ -54,6 +62,13 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
         mUserAgent = view.getSettings().getUserAgentString();
     }
 
+    /**
+     * Use this ctor to download the touch icon and update the bookmarks database
+     * entry for the given url. Used when the user creates a bookmark from
+     * within the bookmarks activity and there haven't been any redirects.
+     * TODO: Would be nice to set the user agent here so that there is no
+     * potential for the three different ctors here to return different icons.
+     */
     public DownloadTouchIcon(ContentResolver cr, String url) {
         mTab = null;
         mContentResolver = cr;
@@ -62,15 +77,32 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
         mUserAgent = null;
     }
 
+    /**
+     * Use this ctor to not store the touch icon in a database, rather add it to
+     * the passed Message's data bundle with the key "touchIcon" and then send
+     * the message.
+     */
+    public DownloadTouchIcon(Message msg, String userAgent) {
+        mMessage = msg;
+        mContentResolver = null;
+        mOriginalUrl = null;
+        mUrl = null;
+        mUserAgent = userAgent;
+    }
+
     @Override
     public Void doInBackground(String... values) {
-        mCursor = BrowserBookmarksAdapter.queryBookmarksForUrl(mContentResolver,
-                mOriginalUrl, mUrl, true);
-        if (mCursor != null && mCursor.getCount() > 0) {
-            String url = values[0];
+        if (mContentResolver != null) {
+            mCursor = BrowserBookmarksAdapter.queryBookmarksForUrl(mContentResolver,
+                    mOriginalUrl, mUrl, true);
+        }
 
-            AndroidHttpClient client = AndroidHttpClient.newInstance(
-                    mUserAgent);
+        boolean inBookmarksDatabase = mCursor != null && mCursor.getCount() > 0;
+
+        String url = values[0];
+
+        if (inBookmarksDatabase || mMessage != null) {
+            AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
             HttpGet request = new HttpGet(url);
 
             // Follow redirects
@@ -78,7 +110,6 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
 
             try {
                 HttpResponse response = client.execute(request);
-
                 if (response.getStatusLine().getStatusCode() == 200) {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
@@ -86,7 +117,12 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
                         if (content != null) {
                             Bitmap icon = BitmapFactory.decodeStream(
                                     content, null, null);
-                            storeIcon(icon);
+                            if (inBookmarksDatabase) {
+                                storeIcon(icon);
+                            } else if (mMessage != null) {
+                                Bundle b = mMessage.getData();
+                                b.putParcelable("touchIcon", icon);
+                            }
                         }
                     }
                 }
@@ -98,9 +134,15 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
                 client.close();
             }
         }
+
         if (mCursor != null) {
             mCursor.close();
         }
+
+        if (mMessage != null) {
+            mMessage.sendToTarget();
+        }
+
         return null;
     }
 
