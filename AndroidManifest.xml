@@ -184,6 +184,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="SaveToHomescreenDialog" android:label="Save to homescreen" android:theme="@android:style/Theme.Dialog"
+                  android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">
+        </activity>
+
         <!--receiver android:name=".widget.BookmarkWidgetProvider" android:label="@string/bookmarks">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

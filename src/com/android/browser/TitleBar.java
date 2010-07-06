@@ -205,7 +205,7 @@ public class TitleBar extends TitleBarBase {
                     } else if (mInLoad) {
                         mBrowserActivity.stopLoading();
                     } else {
-                        mBrowserActivity.bookmarksOrHistoryPicker(false);
+                        mBrowserActivity.promptAddOrInstallBookmark();
                     }
                     button.setPressed(false);
                 } else if (mTitleBg.isPressed()) {

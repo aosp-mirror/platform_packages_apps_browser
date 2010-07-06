@@ -94,9 +94,7 @@ public class TitleBarXLarge extends TitleBarBase {
                     } else if (mForwardButton == v) {
                         mBrowserActivity.getTopWindow().goForward();
                     } else if (mStar == v) {
-                        // FIXME: Show a menu with option to bookmark or
-                        // save to home page
-                        mBrowserActivity.bookmarkCurrentPage();
+                        mBrowserActivity.promptAddOrInstallBookmark();
                     } else if (mMenu == v) {
                         mBrowserActivity.openOptionsMenu();
                     } else if (mStopButton == v) {

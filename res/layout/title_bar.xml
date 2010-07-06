@@ -90,7 +90,7 @@
             android:layout_marginRight="-5dip"
             android:scaleType="center"
             android:background="@drawable/btn_bookmark"
-            android:src="@drawable/ic_btn_bookmarks"
+            android:src="@drawable/ic_list_bookmark"
         />
     </LinearLayout>
 </LinearLayout>

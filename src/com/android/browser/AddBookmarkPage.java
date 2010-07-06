@@ -51,6 +51,7 @@ public class AddBookmarkPage extends Activity {
     private String      mTouchIconUrl;
     private Bitmap      mThumbnail;
     private String      mOriginalUrl;
+    private boolean     mIsUrlEditable = true;
 
     // Message IDs
     private static final int SAVE_BOOKMARK = 100;
@@ -74,13 +75,24 @@ public class AddBookmarkPage extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_LEFT_ICON);
-        setContentView(R.layout.browser_add_bookmark);
+
+        mMap = getIntent().getExtras();
+        if (mMap != null) {
+            mIsUrlEditable = mMap.getBoolean("url_editable", true);
+        }
+
+        if (mIsUrlEditable) {
+            setContentView(R.layout.browser_add_bookmark);
+        } else {
+            setContentView(R.layout.browser_add_bookmark_const_url);
+        }
+
         setTitle(R.string.save_to_bookmarks);
         getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
         
         String title = null;
         String url = null;
-        mMap = getIntent().getExtras();
+
         if (mMap != null) {
             Bundle b = mMap.getBundle("bookmark");
             if (b != null) {
@@ -96,8 +108,11 @@ public class AddBookmarkPage extends Activity {
 
         mTitle = (EditText) findViewById(R.id.title);
         mTitle.setText(title);
-        mAddress = (EditText) findViewById(R.id.address);
-        mAddress.setText(url);
+
+        if (mIsUrlEditable) {
+            mAddress = (EditText) findViewById(R.id.address);
+            mAddress.setText(url);
+        }
 
         View.OnClickListener accept = mSaveBookmark;
         mButton = (TextView) findViewById(R.id.OK);
@@ -173,8 +188,14 @@ public class AddBookmarkPage extends Activity {
         createHandler();
 
         String title = mTitle.getText().toString().trim();
-        String unfilteredUrl = 
-                BrowserActivity.fixUrl(mAddress.getText().toString());
+        String unfilteredUrl;
+        if (mIsUrlEditable) {
+            unfilteredUrl =
+                    BrowserActivity.fixUrl(mAddress.getText().toString());
+        } else {
+            unfilteredUrl = mOriginalUrl;
+        }
+
         boolean emptyTitle = title.length() == 0;
         boolean emptyUrl = unfilteredUrl.trim().length() == 0;
         Resources r = getResources();
@@ -183,9 +204,15 @@ public class AddBookmarkPage extends Activity {
                 mTitle.setError(r.getText(R.string.bookmark_needs_title));
             }
             if (emptyUrl) {
-                mAddress.setError(r.getText(R.string.bookmark_needs_url));
+                if (mIsUrlEditable) {
+                    mAddress.setError(r.getText(R.string.bookmark_needs_url));
+                } else {
+                    Toast.makeText(AddBookmarkPage.this, R.string.bookmark_needs_url,
+                            Toast.LENGTH_LONG).show();
+                }
+                return false;
             }
-            return false;
+
         }
         String url = unfilteredUrl.trim();
         try {
@@ -200,7 +227,12 @@ public class AddBookmarkPage extends Activity {
                     // can't save their bookmark. If it was null, we'll assume
                     // they meant http when we parse it in the WebAddress class.
                     if (scheme != null) {
-                        mAddress.setError(r.getText(R.string.bookmark_cannot_save_url));
+                        if (mIsUrlEditable) {
+                            mAddress.setError(r.getText(R.string.bookmark_cannot_save_url));
+                        } else {
+                            Toast.makeText(AddBookmarkPage.this, R.string.bookmark_cannot_save_url,
+                                    Toast.LENGTH_LONG).show();
+                        }
                         return false;
                     }
                     WebAddress address;
@@ -216,7 +248,12 @@ public class AddBookmarkPage extends Activity {
                 }
             }
         } catch (URISyntaxException e) {
-            mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
+            if (mIsUrlEditable) {
+                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
+            } else {
+                Toast.makeText(AddBookmarkPage.this, R.string.bookmark_url_not_valid,
+                        Toast.LENGTH_LONG).show();
+            }
             return false;
         }
 

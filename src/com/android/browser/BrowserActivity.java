@@ -1487,6 +1487,7 @@ public class BrowserActivity extends Activity
         i.putExtra("touch_icon_url", w.getTouchIconUrl());
         i.putExtra("thumbnail", createScreenshot(w, getDesiredThumbnailWidth(this),
                 getDesiredThumbnailHeight(this)));
+        i.putExtra("url_editable", false);
         startActivity(i);
     }
 
@@ -2287,6 +2288,8 @@ public class BrowserActivity extends Activity
 
     static final int UPDATE_BOOKMARK_THUMBNAIL       = 108;
 
+    private static final int TOUCH_ICON_DOWNLOADED   = 109;
+
     // Private handler for handling javascript and saving passwords
     private Handler mHandler = new Handler() {
 
@@ -2356,6 +2359,14 @@ public class BrowserActivity extends Activity
                     if (view != null) {
                         updateScreenshot(view);
                     }
+                    break;
+
+                case TOUCH_ICON_DOWNLOADED:
+                    Bundle b = msg.getData();
+                    showSaveToHomescreenDialog(b.getString("url"),
+                        b.getString("title"),
+                        (Bitmap) b.getParcelable("touchIcon"),
+                        (Bitmap) b.getParcelable("favicon"));
                     break;
             }
         }
@@ -3728,6 +3739,47 @@ public class BrowserActivity extends Activity
 
     }
 
+    /* package*/ void promptAddOrInstallBookmark() {
+        final Tab current = mTabControl.getCurrentTab();
+        Resources resources = getResources();
+        CharSequence[] choices = {
+                resources.getString(R.string.save_to_bookmarks),
+                resources.getString(R.string.create_shortcut_bookmark)
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.add_new_bookmark);
+        builder.setItems(choices, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int item) {
+                    if (item == 0) {
+                        bookmarkCurrentPage();
+                    } else if (item == 1) {
+                        current.populatePickerData();
+                        String touchIconUrl = mTabControl.getCurrentWebView().getTouchIconUrl();
+                        if (touchIconUrl != null) {
+                            // Download the touch icon for this site then save it to the
+                            // homescreen.
+                            Bundle b = new Bundle();
+                            b.putString("url", current.getUrl());
+                            b.putString("title", current.getTitle());
+                            b.putParcelable("favicon", current.getFavicon());
+                            Message msg = mHandler.obtainMessage(TOUCH_ICON_DOWNLOADED);
+                            msg.setData(b);
+                            new DownloadTouchIcon(msg,
+                                    mTabControl.getCurrentWebView().getSettings()
+                                    .getUserAgentString()).execute(touchIconUrl);
+                        } else {
+                            // add to homescreen, can do it immediately as there is no touch
+                            // icon.
+                            showSaveToHomescreenDialog(current.getUrl(), current.getTitle(),
+                                    null, current.getFavicon());
+                        }
+                     }
+                 }
+        });
+        builder.create().show();
+    }
+
     /**
      * Open the Go page.
      * @param startWithHistory If true, open starting on the history tab.
@@ -3770,6 +3822,33 @@ public class BrowserActivity extends Activity
         }
         startActivityForResult(intent, COMBO_PAGE);
     }
+
+    private void showSaveToHomescreenDialog(String url, String title, Bitmap touchIcon,
+            Bitmap favicon) {
+        Intent intent = new Intent(this, SaveToHomescreenDialog.class);
+
+        // Just in case the user tries to save before a page finishes loading
+        // so the current history item, and therefore the page, is null.
+        if (null == url) {
+            url = mLastEnteredUrl;
+            // This can happen.
+            if (null == url) {
+                url = mSettings.getHomePage();
+            }
+        }
+
+        // In case the web page has not yet received its associated title.
+        if (title == null) {
+            title = url;
+        }
+
+        intent.putExtra("title", title);
+        intent.putExtra("url", url);
+        intent.putExtra("favicon", favicon);
+        intent.putExtra("touchIcon", touchIcon);
+        startActivity(intent);
+    }
+
 
     // Called when loading from context menu or LOAD_URL message
     private void loadUrlFromContext(WebView view, String url) {
