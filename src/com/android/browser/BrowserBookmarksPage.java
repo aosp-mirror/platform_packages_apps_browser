@@ -23,16 +23,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,6 +43,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 /*package*/ enum BookmarkViewMode { NONE, GRID, LIST }
 /**
@@ -269,13 +260,14 @@ public class BrowserBookmarksPage extends Activity implements
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... unused) {
-                BrowserBookmarksAdapter adapter = new BrowserBookmarksAdapter(
-                        BrowserBookmarksPage.this,
-                        url,
-                        title,
-                        thumbnail,
-                        createShortcut,
-                        mostVisited);
+                BrowserBookmarksAdapter adapter =
+                    new BrowserBookmarksAdapter(
+                            BrowserBookmarksPage.this,
+                            url,
+                            title,
+                            thumbnail,
+                            createShortcut,
+                            mostVisited);
                 mHandler.obtainMessage(ADAPTER_CREATED, adapter).sendToTarget();
                 return null;
             }
@@ -352,7 +344,7 @@ public class BrowserBookmarksPage extends Activity implements
                 }
                 listView.setDrawSelectorOnTop(false);
                 listView.setVerticalScrollBarEnabled(true);
-                listView.setOnItemClickListener(mListener);
+                listView.setOnItemClickListener(mListListener);
                 if (mMostVisited) {
                     listView.setEmptyView(mEmptyView);
                 }
@@ -416,7 +408,29 @@ public class BrowserBookmarksPage extends Activity implements
         }
     };
 
-    private AdapterView.OnItemClickListener mListener = new AdapterView.OnItemClickListener() {
+    private OnItemClickListener mListener = new OnItemClickListener() {
+        public void onItemClick(AdapterView parent, View v, int position, long id) {
+            // It is possible that the view has been canceled when we get to
+            // this point as back has a higher priority
+            if (mCanceled) {
+                android.util.Log.e(LOGTAG, "item clicked when dismissing");
+                return;
+            }
+            if (!mCreateShortcut) {
+                if (0 == position && !mMostVisited) {
+                    // XXX: Work-around for a framework issue.
+                    mHandler.sendEmptyMessage(SAVE_CURRENT_PAGE);
+                } else {
+                    loadUrl(position);
+                }
+            } else {
+                setResultToParent(RESULT_OK, createShortcutIntent(position));
+                finish();
+            }
+        }
+    };
+
+    private OnItemClickListener mListListener = new OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             // It is possible that the view has been canceled when we get to
             // this point as back has a higher priority
@@ -658,4 +672,5 @@ public class BrowserBookmarksPage extends Activity implements
                     resultCode, data);
         }
     }
+
 }

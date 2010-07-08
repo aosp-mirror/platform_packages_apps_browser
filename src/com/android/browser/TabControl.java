@@ -132,7 +132,7 @@ class TabControl {
     int getCurrentIndex() {
         return mCurrentTab;
     }
-    
+
     /**
      * Given a Tab, find it's index
      * @param Tab to find
@@ -167,6 +167,9 @@ class TabControl {
         mTabs.add(t);
         // Initially put the tab in the background.
         t.putInBackground();
+        if (mTabChangeListener != null) {
+            mTabChangeListener.onNewTab(t);
+        }
         return t;
     }
 
@@ -231,6 +234,9 @@ class TabControl {
 
         // Remove it from the queue of viewed tabs.
         mTabQueue.remove(t);
+        if (mTabChangeListener != null) {
+            mTabChangeListener.onRemoveTab(t);
+        }
         return true;
     }
 
@@ -617,6 +623,47 @@ class TabControl {
                 mainView.loadUrl(BrowserSettings.getInstance().getHomePage());
             }
         }
+        if (mTabChangeListener != null) {
+            mTabChangeListener.onCurrentTab(newTab);
+        }
         return true;
     }
+
+    interface TabChangeListener {
+
+        public void onNewTab(Tab tab);
+
+        public void onRemoveTab(Tab tab);
+
+        public void onCurrentTab(Tab tab);
+
+        public void onProgress(Tab tab, int progress);
+
+        public void onUrlAndTitle(Tab tab, String url, String title);
+
+        public void onFavicon(Tab tab, Bitmap favicon);
+
+        public void onPageStarted(Tab tab);
+
+        public void onPageFinished(Tab tab);
+
+    }
+
+    private TabChangeListener mTabChangeListener;
+
+    /**
+     * register the TabChangeListener with the tab control
+     * @param listener
+     */
+    void setOnTabChangeListener(TabChangeListener listener) {
+        mTabChangeListener = listener;
+    }
+
+    /**
+     * get the current TabChangeListener (used by the tabs)
+     */
+    TabChangeListener getTabChangeListener() {
+        return mTabChangeListener;
+    }
+
 }

@@ -121,9 +121,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Vector;
 
 public class BrowserActivity extends Activity
     implements View.OnCreateContextMenuListener, DownloadListener {
@@ -214,8 +214,12 @@ public class BrowserActivity extends Activity
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 == Configuration.SCREENLAYOUT_SIZE_XLARGE;
 
+        // Create the tab control and our initial tab
+        mTabControl = new TabControl(this);
+
+
         if (mXLargeScreenSize) {
-            mTitleBar = new TitleBarXLarge(this);
+            mTitleBar = new TitleBarXLarge(this, mTabControl);
             LinearLayout layout = (LinearLayout) mBrowserFrameLayout.
                     findViewById(R.id.vertical_layout);
             layout.addView(mTitleBar, 0, new LinearLayout.LayoutParams(
@@ -230,8 +234,6 @@ public class BrowserActivity extends Activity
             mFakeTitleBar = new TitleBar(this);
         }
 
-        // Create the tab control and our initial tab
-        mTabControl = new TabControl(this);
 
         // Open the icon database and retain all the bookmark urls for favicons
         retainIconsOnStartup();
@@ -851,6 +853,12 @@ public class BrowserActivity extends Activity
         return true;
     }
 
+    private void rebuildTitleBar() {
+        if (mXLargeScreenSize) {
+            ((TitleBarXLarge) mTitleBar).rebuildLayout();
+        }
+    }
+
     private void showFakeTitleBar() {
         if (mXLargeScreenSize) return;
         if (mFakeTitleBar.getParent() == null && mActiveTabsPage == null
@@ -1060,6 +1068,7 @@ public class BrowserActivity extends Activity
             showHttpAuthentication(mHttpAuthHandler, null, null, title,
                     name, password, focusId);
         }
+        rebuildTitleBar();
     }
 
     @Override

@@ -16,21 +16,13 @@
 
 package com.android.browser;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Vector;
-
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -71,7 +63,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.browser.TabControl.TabChangeListener;
 import com.android.common.speech.LoggingEvents;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Vector;
 
 /**
  * Class for maintaining Tabs with a main WebView and a subwindow.
@@ -502,6 +503,9 @@ class Tab {
             if (mInForeground) {
                 mActivity.onPageStarted(view, url, favicon);
             }
+            if (getTabChangeListener() != null) {
+                getTabChangeListener().onPageStarted(Tab.this);
+            }
         }
 
         @Override
@@ -522,6 +526,9 @@ class Tab {
             // finally update the UI in the activity if it is in the foreground
             if (mInForeground) {
                 mActivity.onPageFinished(view, url);
+            }
+            if (getTabChangeListener() != null) {
+                getTabChangeListener().onPageFinished(Tab.this);
             }
         }
 
@@ -672,6 +679,7 @@ class Tab {
             final ContentResolver cr = mActivity.getContentResolver();
             final String newUrl = url;
             new AsyncTask<Void, Void, Void>() {
+                @Override
                 protected Void doInBackground(Void... unused) {
                     Browser.updateVisitedHistory(cr, newUrl, true);
                     return null;
@@ -948,6 +956,9 @@ class Tab {
             if (mInForeground) {
                 mActivity.onProgressChanged(view, newProgress);
             }
+            if (getTabChangeListener() != null) {
+                getTabChangeListener().onProgress(Tab.this, newProgress);
+            }
         }
 
         @Override
@@ -957,11 +968,16 @@ class Tab {
                 // here, if url is null, we want to reset the title
                 mActivity.setUrlTitle(pageUrl, title);
             }
+            TabChangeListener tcl = getTabChangeListener();
+            if (tcl != null) {
+                tcl.onUrlAndTitle(Tab.this, pageUrl,title);
+            }
             if (pageUrl == null || pageUrl.length()
                     >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
                 return;
             }
             new AsyncTask<Void, Void, Void>() {
+                @Override
                 protected Void doInBackground(Void... unused) {
                     // See if we can find the current url in our history
                     // database and add the new title to it.
@@ -1019,6 +1035,9 @@ class Tab {
             }
             if (mInForeground) {
                 mActivity.setFavicon(icon);
+            }
+            if (getTabChangeListener() != null) {
+                getTabChangeListener().onFavicon(Tab.this, icon);
             }
         }
 
@@ -1208,10 +1227,12 @@ class Tab {
         @Override
         public void getVisitedHistory(final ValueCallback<String[]> callback) {
             AsyncTask<Void, Void, String[]> task = new AsyncTask<Void, Void, String[]>() {
+                @Override
                 public String[] doInBackground(Void... unused) {
                     return Browser.getVisitedHistory(mActivity
                             .getContentResolver());
                 }
+                @Override
                 public void onPostExecute(String[] result) {
                     callback.onReceiveValue(result);
                 };
@@ -1990,4 +2011,13 @@ class Tab {
         LinearLayout parent = (LinearLayout) dialog.getParent();
         if (parent != null) parent.removeView(dialog);
     }
+
+    /**
+     * always get the TabChangeListener form the tab control
+     * @return the TabControl change listener
+     */
+    private TabChangeListener getTabChangeListener() {
+        return mActivity.getTabControl().getTabChangeListener();
+    }
+
 }

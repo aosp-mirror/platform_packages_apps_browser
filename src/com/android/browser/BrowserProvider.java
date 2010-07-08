@@ -29,8 +29,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.database.AbstractCursor;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -47,8 +46,6 @@ import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.util.TypedValue;
-
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -91,6 +88,17 @@ public class BrowserProvider extends ContentProvider {
     private static final int SUGGEST_COLUMN_QUERY_ID = 8;
     private static final int SUGGEST_COLUMN_INTENT_EXTRA_DATA = 9;
 
+    // how many suggestions will be shown in dropdown
+    // 0..SHORT: filled by browser db
+    private static final int MAX_SUGGEST_SHORT_SMALL = 3;
+    // SHORT..LONG: filled by search suggestions
+    private static final int MAX_SUGGEST_LONG_SMALL = 6;
+
+    // large screen size shows more
+    private static final int MAX_SUGGEST_SHORT_LARGE = 6;
+    private static final int MAX_SUGGEST_LONG_LARGE = 9;
+
+
     // shared suggestion columns
     private static final String[] COLUMNS = new String[] {
             "_id",
@@ -104,10 +112,6 @@ public class BrowserProvider extends ContentProvider {
             SearchManager.SUGGEST_COLUMN_QUERY,
             SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA};
 
-    private static final int MAX_SUGGESTION_SHORT_ENTRIES = 3;
-    private static final int MAX_SUGGESTION_LONG_ENTRIES = 6;
-    private static final String MAX_SUGGESTION_LONG_ENTRIES_STRING =
-            Integer.valueOf(MAX_SUGGESTION_LONG_ENTRIES).toString();
 
     // make sure that these match the index of TABLE_NAMES
     private static final int URI_MATCH_BOOKMARKS = 0;
@@ -166,6 +170,9 @@ public class BrowserProvider extends ContentProvider {
     private static final Pattern STRIP_URL_PATTERN = Pattern.compile("^(http://)(.*?)(/$)?");
 
     private SearchManager mSearchManager;
+
+    private int mMaxSuggestionShortSize;
+    private int mMaxSuggestionLongSize;
 
     public BrowserProvider() {
     }
@@ -350,6 +357,20 @@ public class BrowserProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         final Context context = getContext();
+        boolean xlargeScreenSize = (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        boolean isPortrait = (context.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT);
+
+
+        if (xlargeScreenSize && isPortrait) {
+            mMaxSuggestionLongSize = MAX_SUGGEST_LONG_LARGE;
+            mMaxSuggestionShortSize = MAX_SUGGEST_SHORT_LARGE;
+        } else {
+            mMaxSuggestionLongSize = MAX_SUGGEST_LONG_SMALL;
+            mMaxSuggestionShortSize = MAX_SUGGEST_SHORT_SMALL;
+        }
         mOpenHelper = new DatabaseHelper(context);
         mBackupManager = new BackupManager(context);
         // we added "picasa web album" into default bookmarks for version 19.
@@ -467,8 +488,8 @@ public class BrowserProvider extends ContentProvider {
             mSuggestCursor = sc;
             mHistoryCount = hc != null ? hc.getCount() : 0;
             mSuggestionCount = sc != null ? sc.getCount() : 0;
-            if (mSuggestionCount > (MAX_SUGGESTION_LONG_ENTRIES - mHistoryCount)) {
-                mSuggestionCount = MAX_SUGGESTION_LONG_ENTRIES - mHistoryCount;
+            if (mSuggestionCount > (mMaxSuggestionLongSize - mHistoryCount)) {
+                mSuggestionCount = mMaxSuggestionLongSize - mHistoryCount;
             }
             mString = string;
             mIncludeWebSearch = string.length() > 0;
@@ -682,6 +703,7 @@ public class BrowserProvider extends ContentProvider {
         }
 
         // TODO Temporary change, finalize after jq's changes go in
+        @Override
         public void deactivate() {
             if (mHistoryCursor != null) {
                 mHistoryCursor.deactivate();
@@ -692,12 +714,14 @@ public class BrowserProvider extends ContentProvider {
             super.deactivate();
         }
 
+        @Override
         public boolean requery() {
             return (mHistoryCursor != null ? mHistoryCursor.requery() : false) |
                     (mSuggestCursor != null ? mSuggestCursor.requery() : false);
         }
 
         // TODO Temporary change, finalize after jq's changes go in
+        @Override
         public void close() {
             super.close();
             if (mHistoryCursor != null) {
@@ -762,12 +786,15 @@ public class BrowserProvider extends ContentProvider {
         public ResultsCursor(ArrayList<String> results) {
             mResults = results;
         }
+        @Override
         public int getCount() { return mResults.size(); }
 
+        @Override
         public String[] getColumnNames() {
             return RESULTS_COLUMNS;
         }
 
+        @Override
         public String getString(int column) {
             switch (column) {
                 case RESULT_ACTION_ID:
@@ -789,24 +816,30 @@ public class BrowserProvider extends ContentProvider {
                     return null;
             }
         }
+        @Override
         public short getShort(int column) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public int getInt(int column) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public long getLong(int column) {
             if ((mPos != -1) && column == 0) {
                 return mPos;        // use row# as the _id
             }
             throw new UnsupportedOperationException();
         }
+        @Override
         public float getFloat(int column) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public double getDouble(int column) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public boolean isNull(int column) {
             throw new UnsupportedOperationException();
         }
@@ -868,7 +901,7 @@ public class BrowserProvider extends ContentProvider {
 
             Cursor c = db.query(TABLE_NAMES[URI_MATCH_BOOKMARKS],
                     SUGGEST_PROJECTION, suggestSelection, myArgs, null, null,
-                    ORDER_BY, MAX_SUGGESTION_LONG_ENTRIES_STRING);
+                    ORDER_BY, Integer.toString(mMaxSuggestionLongSize));
 
             if (match == URI_MATCH_BOOKMARKS_SUGGEST
                     || Patterns.WEB_URL.matcher(selectionArgs[0]).matches()) {
@@ -877,7 +910,7 @@ public class BrowserProvider extends ContentProvider {
                 // get Google suggest if there is still space in the list
                 if (myArgs != null && myArgs.length > 1
                         && mSearchableInfo != null
-                        && c.getCount() < (MAX_SUGGESTION_SHORT_ENTRIES - 1)) {
+                        && c.getCount() < (mMaxSuggestionShortSize - 1)) {
                     Cursor sc = mSearchManager.getSuggestions(mSearchableInfo, selectionArgs[0]);
                     return new MySuggestionCursor(c, sc, selectionArgs[0]);
                 }
@@ -1118,6 +1151,12 @@ public class BrowserProvider extends ContentProvider {
         } else {
             return url;
         }
+    }
+
+    public static Cursor getBookmarksSuggestions(ContentResolver cr, String constraint) {
+        Uri uri = Uri.parse("content://browser/" + SearchManager.SUGGEST_URI_PATH_QUERY);
+        return cr.query(uri, SUGGEST_PROJECTION, SUGGEST_SELECTION,
+            new String[] { constraint }, ORDER_BY);
     }
 
 }

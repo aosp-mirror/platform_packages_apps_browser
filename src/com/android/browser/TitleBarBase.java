@@ -35,7 +35,7 @@ public class TitleBarBase extends LinearLayout {
     protected ImageView mFavicon;
     protected ImageView mLockIcon;
 
-    private Drawable mGenericFavicon;
+    protected Drawable mGenericFavicon;
 
     public TitleBarBase(Context context) {
         super(context, null);
