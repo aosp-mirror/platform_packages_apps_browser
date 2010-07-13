@@ -106,8 +106,8 @@ class BrowserSettings extends Observable {
     private boolean showConsole = true;
 
     // Private preconfigured values
-    private static int minimumFontSize = 8;
-    private static int minimumLogicalFontSize = 8;
+    private static int minimumFontSize = 1;
+    private static int minimumLogicalFontSize = 1;
     private static int defaultFontSize = 16;
     private static int defaultFixedFontSize = 13;
     private static WebSettings.TextSize textSize =
