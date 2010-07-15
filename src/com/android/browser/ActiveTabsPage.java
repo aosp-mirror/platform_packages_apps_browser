@@ -53,12 +53,15 @@ public class ActiveTabsPage extends LinearLayout {
                 public void onItemClick(AdapterView<?> parent, View view,
                         int position, long id) {
                     if (mControl.canCreateNewTab()) {
-                        position--;
+                        position -= 2;
                     }
                     boolean needToAttach = false;
-                    if (position == -1) {
+                    if (position == -2) {
                         // Create a new tab
                         mBrowserActivity.openTabToHomePage();
+                    } else if (position == -1) {
+                        // Create a new incognito tab
+                        mBrowserActivity.openIncognitoTab();
                     } else {
                         // Open the corresponding tab
                         // If the tab is the current one, switchToTab will
@@ -100,7 +103,7 @@ public class ActiveTabsPage extends LinearLayout {
         public int getCount() {
             int count = mControl.getTabCount();
             if (mControl.canCreateNewTab()) {
-                count++;
+                count += 2;
             }
             // XXX: This is a workaround to be more like a real adapter. Most
             // adapters call notifyDataSetChanged() whenever the internal data
@@ -130,23 +133,28 @@ public class ActiveTabsPage extends LinearLayout {
         }
         public int getItemViewType(int position) {
             if (mControl.canCreateNewTab()) {
-                position--;
+                position -= 2;
             }
             // Do not recycle the "add new tab" item.
-            return position == -1 ? IGNORE_ITEM_VIEW_TYPE : 1;
+            return position < 0 ? IGNORE_ITEM_VIEW_TYPE : 1;
         }
         public View getView(int position, View convertView, ViewGroup parent) {
             final int tabCount = mControl.getTabCount();
             if (mControl.canCreateNewTab()) {
-                position--;
+                position -= 2;
             }
 
             if (convertView == null) {
-                convertView = mFactory.inflate(position == -1 ?
-                        R.layout.tab_view_add_tab : R.layout.tab_view, null);
+                if (position == -2) {
+                    convertView = mFactory.inflate(R.layout.tab_view_add_tab, null);
+                } else if (position == -1) {
+                    convertView = mFactory.inflate(R.layout.tab_view_add_incognito_tab, null);
+                } else {
+                    convertView = mFactory.inflate(R.layout.tab_view, null);
+                }
             }
 
-            if (position != -1) {
+            if (position >= 0) {
                 TextView title =
                         (TextView) convertView.findViewById(R.id.title);
                 TextView url = (TextView) convertView.findViewById(R.id.url);

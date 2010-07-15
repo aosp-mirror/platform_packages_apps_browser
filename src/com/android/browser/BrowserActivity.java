@@ -348,7 +348,8 @@ public class BrowserActivity extends Activity
                     intent.getData() != null)
                     || RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS
                     .equals(action),
-                    intent.getStringExtra(Browser.EXTRA_APPLICATION_ID), urlData.mUrl);
+                    intent.getStringExtra(Browser.EXTRA_APPLICATION_ID),
+                    urlData.mUrl, false);
             mTabControl.setCurrentTab(t);
             attachTabToContentView(t);
             WebView webView = t.getWebView();
@@ -632,14 +633,16 @@ public class BrowserActivity extends Activity
 
         final ContentResolver cr = mResolver;
         final String newUrl = url;
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... unused) {
-                Browser.updateVisitedHistory(cr, newUrl, false);
-                Browser.addSearchUrl(cr, newUrl);
-                return null;
-            }
-        }.execute();
+        if (!mTabControl.getCurrentWebView().isPrivateBrowsingEnabled()) {
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... unused) {
+                        Browser.updateVisitedHistory(cr, newUrl, false);
+                        Browser.addSearchUrl(cr, newUrl);
+                    return null;
+                }
+            }.execute();
+        }
 
         Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -1864,7 +1867,7 @@ public class BrowserActivity extends Activity
         final Tab currentTab = mTabControl.getCurrentTab();
         if (mTabControl.canCreateNewTab()) {
             final Tab tab = mTabControl.createNewTab(closeOnExit, appId,
-                    urlData.mUrl);
+                    urlData.mUrl, false);
             WebView webview = tab.getWebView();
             // If the last tab was removed from the active tabs page, currentTab
             // will be null.
@@ -1901,6 +1904,20 @@ public class BrowserActivity extends Activity
         } else {
             return openTabAndShow(url, false, null);
         }
+    }
+
+    /* package */ Tab openIncognitoTab() {
+        if (mTabControl.canCreateNewTab()) {
+            Tab currentTab = mTabControl.getCurrentTab();
+            Tab tab = mTabControl.createNewTab(false, null, null, true);
+            if (currentTab != null) {
+                removeTabFromContentView(currentTab);
+            }
+            mTabControl.setCurrentTab(tab);
+            attachTabToContentView(tab);
+            return tab;
+        }
+        return null;
     }
 
     private class Copy implements OnMenuItemClickListener {

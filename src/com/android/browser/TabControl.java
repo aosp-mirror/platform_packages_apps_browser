@@ -154,13 +154,14 @@ class TabControl {
      * @return The newly createTab or null if we have reached the maximum
      *         number of open tabs.
      */
-    Tab createNewTab(boolean closeOnExit, String appId, String url) {
+    Tab createNewTab(boolean closeOnExit, String appId, String url,
+            boolean privateBrowsing) {
         int size = mTabs.size();
         // Return false if we have maxed out on tabs
         if (MAX_TABS == size) {
             return null;
         }
-        final WebView w = createNewWebView();
+        final WebView w = createNewWebView(privateBrowsing);
 
         // Create a new tab and add it to the tab list
         Tab t = new Tab(mActivity, w, closeOnExit, appId, url);
@@ -175,10 +176,10 @@ class TabControl {
 
     /**
      * Create a new tab with default values for closeOnExit(false),
-     * appId(null), and url(null).
+     * appId(null), url(null), and privateBrowsing(false).
      */
     Tab createNewTab() {
-        return createNewTab(false, null, null);
+        return createNewTab(false, null, null, false);
     }
 
     /**
@@ -535,8 +536,18 @@ class TabControl {
      * Creates a new WebView and registers it with the global settings.
      */
     private WebView createNewWebView() {
+        return createNewWebView(false);
+    }
+
+    /**
+     * Creates a new WebView and registers it with the global settings.
+     * @param privateBrowsing When true, enables private browsing in the new
+     *        WebView.
+     */
+    private WebView createNewWebView(boolean privateBrowsing) {
         // Create a new WebView
-        WebView w = new WebView(mActivity);
+        WebView w = new WebView(mActivity, null,
+                com.android.internal.R.attr.webViewStyle, privateBrowsing);
         w.setScrollbarFadingEnabled(true);
         w.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         w.setMapTrackballToArrowKeys(false); // use trackball directly
