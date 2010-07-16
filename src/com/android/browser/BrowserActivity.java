@@ -2888,9 +2888,9 @@ public class BrowserActivity extends Activity
 
         final String imageMimeType = "image/*";
         final String videoMimeType = "video/*";
-        final String mediaSourceKey = "source";
+        final String mediaSourceKey = "capture";
         final String mediaSourceValueCamera = "camera";
-        final String mediaSourceValueGallery = "gallery";
+        final String mediaSourceValueFileSystem = "filesystem";
         final String mediaSourceValueCamcorder = "camcorder";
 
         // media source can be 'gallery' or 'camera' or 'camcorder'
@@ -2951,8 +2951,8 @@ public class BrowserActivity extends Activity
                 // directly.
                 BrowserActivity.this.startActivityForResult(cameraIntent, FILE_SELECTED);
                 return;
-            } else if (mediaSource.equals(mediaSourceValueGallery)) {
-                // Specified gallery as the source, so don't want to consider the camera.
+            } else if (mediaSource.equals(mediaSourceValueFileSystem)) {
+                // Specified filesytem as the source, so don't want to consider the camera.
                 addCameraIntent = false;
             }
         } else if (mimeType.equals(videoMimeType)) {
@@ -2967,8 +2967,8 @@ public class BrowserActivity extends Activity
                 // directly.
                 BrowserActivity.this.startActivityForResult(camcorderIntent, FILE_SELECTED);
                 return;
-            } else if (mediaSource.equals(mediaSourceValueGallery)) {
-                // Specified gallery as the source, so don't want to consider the camcorder.
+            } else if (mediaSource.equals(mediaSourceValueFileSystem)) {
+                // Specified filesystem as the source, so don't want to consider the camcorder.
                 addCamcorderIntent = false;
             }
         } else {
