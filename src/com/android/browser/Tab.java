@@ -1041,12 +1041,12 @@ class Tab {
         }
 
         @Override
-        public void onSelectionDone() {
+        public void onSelectionDone(WebView view) {
             if (mInForeground) mActivity.closeDialogs();
         }
 
         @Override
-        public void onSelectionStart() {
+        public void onSelectionStart(WebView view) {
             if (mInForeground) mActivity.showSelectDialog();
         }
 
