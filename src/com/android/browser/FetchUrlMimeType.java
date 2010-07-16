@@ -17,12 +17,15 @@
 package com.android.browser;
 
 import android.content.ContentValues;
+import android.net.Proxy;
 import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpHead;
+import org.apache.http.conn.params.ConnRouteParams;
 
 import java.io.IOException;
 
@@ -67,6 +70,10 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
         // seems ok with that.
         AndroidHttpClient client = AndroidHttpClient.newInstance(
                 mValues.getAsString(Downloads.Impl.COLUMN_USER_AGENT));
+        HttpHost httpHost = Proxy.getPreferredHttpHost(mActivity, uri);
+        if (httpHost != null) {
+            ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
+        }
         HttpHead request = new HttpHead(uri);
 
         String cookie = mValues.getAsString(Downloads.Impl.COLUMN_COOKIE_DATA);
