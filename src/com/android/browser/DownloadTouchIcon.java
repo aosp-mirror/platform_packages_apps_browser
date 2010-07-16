@@ -23,6 +23,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.http.AndroidHttpClient;
+import android.net.Proxy;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
@@ -30,9 +31,11 @@ import android.provider.Browser;
 import android.webkit.WebView;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.conn.params.ConnRouteParams;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -46,6 +49,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     private final String mUserAgent; // Sites may serve a different icon to different UAs
     private Message mMessage;
 
+    private final BrowserActivity mActivity;
     /* package */ Tab mTab;
 
     /**
@@ -53,8 +57,9 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      * the originalUrl so we take account of redirects. Used when the user
      * bookmarks a page from outside the bookmarks activity.
      */
-    public DownloadTouchIcon(Tab tab, ContentResolver cr, WebView view) {
+    public DownloadTouchIcon(Tab tab, BrowserActivity activity, ContentResolver cr, WebView view) {
         mTab = tab;
+        mActivity = activity;
         mContentResolver = cr;
         // Store these in case they change.
         mOriginalUrl = view.getOriginalUrl();
@@ -71,6 +76,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      */
     public DownloadTouchIcon(ContentResolver cr, String url) {
         mTab = null;
+        mActivity = null;
         mContentResolver = cr;
         mOriginalUrl = null;
         mUrl = url;
@@ -84,6 +90,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      */
     public DownloadTouchIcon(Message msg, String userAgent) {
         mMessage = msg;
+        mActivity = null;
         mContentResolver = null;
         mOriginalUrl = null;
         mUrl = null;
@@ -103,6 +110,11 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
 
         if (inBookmarksDatabase || mMessage != null) {
             AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
+            HttpHost httpHost = Proxy.getPreferredHttpHost(mActivity, url);
+            if (httpHost != null) {
+                ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
+            }
+
             HttpGet request = new HttpGet(url);
 
             // Follow redirects
