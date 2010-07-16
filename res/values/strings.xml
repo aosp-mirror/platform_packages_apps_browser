@@ -754,4 +754,8 @@
     <!-- The default state to the "up to parent folder" button in the bookmarks UI. This
          is displayed when the user is at the highest level and cannot go up -->
     <string name="defaultBookmarksUpButton">Bookmarks</string>
+
+    <!-- Access point for RLZ tracking. -->
+    <string name="rlz_access_point">Y1</string>
+
 </resources>

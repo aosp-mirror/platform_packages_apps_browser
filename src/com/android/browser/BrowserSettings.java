@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.webkit.CookieManager;
@@ -155,6 +156,10 @@ class BrowserSettings extends Observable {
     // Value to truncate strings when adding them to a TextView within
     // a ListView
     public final static int MAX_TEXTVIEW_LEN = 80;
+
+    public static final String RLZ_PROVIDER = "com.google.android.partnersetup.rlzappprovider";
+
+    public static final Uri RLZ_PROVIDER_URI = Uri.parse("content://" + RLZ_PROVIDER + "/");
 
     private TabControl mTabControl;
 

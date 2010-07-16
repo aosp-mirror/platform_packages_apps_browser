@@ -167,6 +167,9 @@ public class BrowserActivity extends Activity
 
     private boolean mXLargeScreenSize;
 
+    private Boolean mIsProviderPresent = null;
+    private Uri mRlzUri = null;
+
     @Override
     public void onCreate(Bundle icicle) {
         if (LOGV_ENABLED) {
@@ -2784,6 +2787,29 @@ public class BrowserActivity extends Activity
             return false;
         }
 
+        // If this is a Google search, attempt to add an RLZ string (if one isn't already present).
+        if (rlzProviderPresent()) {
+            Uri siteUri = Uri.parse(url);
+            if (needsRlzString(siteUri)) {
+                String rlz = null;
+                Cursor cur = null;
+                try {
+                    cur = getContentResolver().query(getRlzUri(), null, null, null, null);
+                    if (cur != null && cur.moveToFirst() && !cur.isNull(0)) {
+                        url = siteUri.buildUpon()
+                                     .appendQueryParameter("rlz", cur.getString(0))
+                                     .build().toString();
+                    }
+                } finally {
+                    if (cur != null) {
+                        cur.close();
+                    }
+                }
+                loadUrl(view, url);
+                return true;
+            }
+        }
+
         Intent intent;
         // perform generic parsing of the URI to turn it into an Intent.
         try {
@@ -2834,6 +2860,60 @@ public class BrowserActivity extends Activity
         if (mMenuIsDown) {
             openTab(url, false);
             closeOptionsMenu();
+            return true;
+        }
+        return false;
+    }
+
+    // Determine whether the RLZ provider is present on the system.
+    private boolean rlzProviderPresent() {
+        if (mIsProviderPresent == null) {
+            PackageManager pm = getPackageManager();
+            mIsProviderPresent = pm.resolveContentProvider(BrowserSettings.RLZ_PROVIDER, 0) != null;
+        }
+        return mIsProviderPresent;
+    }
+
+    // Retrieve the RLZ access point string and cache the URI used to retrieve RLZ values.
+    private Uri getRlzUri() {
+        if (mRlzUri == null) {
+            String ap = getResources().getString(R.string.rlz_access_point);
+            mRlzUri = Uri.withAppendedPath(BrowserSettings.RLZ_PROVIDER_URI, ap);
+        }
+        return mRlzUri;
+    }
+
+    // Determine if this URI appears to be for a Google search and does not have an RLZ parameter.
+    // Taken largely from Chrome source, src/chrome/browser/google_url_tracker.cc
+    private static boolean needsRlzString(Uri uri) {
+        if ((uri.getQueryParameter("q") != null) && (uri.getQueryParameter("rlz") == null)) {
+            String host = uri.getHost();
+            if (host == null) {
+                return false;
+            }
+            String[] hostComponents = host.split("\\.");
+
+            if (hostComponents.length < 2) {
+                return false;
+            }
+            int googleComponent = hostComponents.length - 2;
+            String component = hostComponents[googleComponent];
+            if (!"google".equals(component)) {
+                if (hostComponents.length < 3 ||
+                        (!"co".equals(component) && !"com".equals(component))) {
+                    return false;
+                }
+                googleComponent = hostComponents.length - 3;
+                if (!"google".equals(hostComponents[googleComponent])) {
+                    return false;
+                }
+            }
+
+            // Google corp network handling.
+            if (googleComponent > 0 && "corp".equals(hostComponents[googleComponent - 1])) {
+                return false;
+            }
+
             return true;
         }
         return false;
