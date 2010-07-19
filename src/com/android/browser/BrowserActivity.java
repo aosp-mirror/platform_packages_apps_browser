@@ -3782,7 +3782,7 @@ public class BrowserActivity extends Activity
                             b.putParcelable("favicon", current.getFavicon());
                             Message msg = mHandler.obtainMessage(TOUCH_ICON_DOWNLOADED);
                             msg.setData(b);
-                            new DownloadTouchIcon(msg,
+                            new DownloadTouchIcon(BrowserActivity.this, msg,
                                     mTabControl.getCurrentWebView().getSettings()
                                     .getUserAgentString()).execute(touchIconUrl);
                         } else {
