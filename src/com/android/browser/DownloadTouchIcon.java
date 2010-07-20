@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -49,7 +50,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     private final String mUserAgent; // Sites may serve a different icon to different UAs
     private Message mMessage;
 
-    private final BrowserActivity mActivity;
+    private final Activity mActivity;
     /* package */ Tab mTab;
 
     /**
@@ -74,9 +75,9 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      * TODO: Would be nice to set the user agent here so that there is no
      * potential for the three different ctors here to return different icons.
      */
-    public DownloadTouchIcon(ContentResolver cr, String url) {
+    public DownloadTouchIcon(AddBookmarkPage activity, ContentResolver cr, String url) {
         mTab = null;
-        mActivity = null;
+        mActivity = activity;
         mContentResolver = cr;
         mOriginalUrl = null;
         mUrl = url;
@@ -88,9 +89,9 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      * the passed Message's data bundle with the key "touchIcon" and then send
      * the message.
      */
-    public DownloadTouchIcon(Message msg, String userAgent) {
+    public DownloadTouchIcon(BrowserActivity activity, Message msg, String userAgent) {
         mMessage = msg;
-        mActivity = null;
+        mActivity = activity;
         mContentResolver = null;
         mOriginalUrl = null;
         mUrl = null;
