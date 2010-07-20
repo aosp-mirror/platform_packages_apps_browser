@@ -63,6 +63,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     private Instrumentation mInst = null;
     private CountDownLatch mLatch = new CountDownLatch(1);
     private RunStatus mStatus;
+    private boolean pageLoadFinishCalled, pageProgressFull;
 
     public PopularUrlsTest() {
         super(BrowserActivity.class);
@@ -72,6 +73,8 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     protected void setUp() throws Exception {
         super.setUp();
 
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("about:blank"));
+        setActivityIntent(i);
         mActivity = getActivity();
         mInst = getInstrumentation();
         mInst.waitForIdleSync();
@@ -122,14 +125,18 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
         webView.setWebChromeClient(new TestWebChromeClient(webView.getWebChromeClient()) {
 
-            /**
-             * Reset the latch whenever page progress reaches 100%.
-             */
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 if (newProgress >= 100) {
-                    resetLatch();
+                    if (!pageProgressFull) {
+                        // void duplicate calls
+                        pageProgressFull  = true;
+                        if (pageLoadFinishCalled) {
+                            //reset latch and move forward only if both indicators are true
+                            resetLatch();
+                        }
+                    }
                 }
             }
 
@@ -206,18 +213,36 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                     String host, String realm) {
                 handler.proceed("user", "passwd");
             }
+
+            /* (non-Javadoc)
+             * @see com.android.browser.TestWebViewClient#onPageFinished(android.webkit.WebView, java.lang.String)
+             */
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (!pageLoadFinishCalled) {
+                    pageLoadFinishCalled = true;
+                    if (pageProgressFull) {
+                        //reset latch and move forward only if both indicators are true
+                        resetLatch();
+                    }
+                }
+            }
+
         });
     }
 
     void resetLatch() {
-        CountDownLatch temp = mLatch;
-        mLatch = new CountDownLatch(1);
-        if (temp != null) {
-            // Notify existing latch that it's done.
-            while (temp.getCount() > 0) {
-                temp.countDown();
-            }
+        if (mLatch.getCount() != 1) {
+            Log.w(TAG, "Expecting latch to be 1, but it's not!");
+        } else {
+            mLatch.countDown();
         }
+    }
+
+    void resetForNewPage() {
+        mLatch = new CountDownLatch(1);
+        pageLoadFinishCalled = false;
+        pageProgressFull = false;
     }
 
     void waitForLoad() throws InterruptedException {
@@ -372,18 +397,19 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         }
 
         while (mStatus.getIteration() < loopCount) {
+            if (clearCache) {
+                webView.clearCache(true);
+            }
             while(iterator.hasNext()) {
                 page = iterator.next();
                 mStatus.setUrl(page);
                 mStatus.write();
                 Log.i(TAG, "start: " + page);
                 Uri uri = Uri.parse(page);
-                if (clearCache) {
-                    webView.clearCache(true);
-                }
                 final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
                 long startTime = System.currentTimeMillis();
+                resetForNewPage();
                 mInst.runOnMainSync(new Runnable() {
 
                     public void run() {
