@@ -2888,12 +2888,14 @@ public class BrowserActivity extends Activity
 
         final String imageMimeType = "image/*";
         final String videoMimeType = "video/*";
+        final String audioMimeType = "audio/*";
         final String mediaSourceKey = "capture";
         final String mediaSourceValueCamera = "camera";
         final String mediaSourceValueFileSystem = "filesystem";
         final String mediaSourceValueCamcorder = "camcorder";
+        final String mediaSourceValueMicrophone = "microphone";
 
-        // media source can be 'gallery' or 'camera' or 'camcorder'
+        // media source can be 'filesystem' or 'camera' or 'camcorder' or 'microphone'.
         String mediaSource = "";
 
         // We add the camera intent if there was no accept type (or '*/*' or 'image/*').
@@ -2943,6 +2945,8 @@ public class BrowserActivity extends Activity
 
         Intent camcorderIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 
+        Intent soundRecIntent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+
         if (mimeType.equals(imageMimeType)) {
             i.setType(imageMimeType);
             addCamcorderIntent = false;
@@ -2963,14 +2967,28 @@ public class BrowserActivity extends Activity
             mCameraFilePath = null;
 
             if (mediaSource.equals(mediaSourceValueCamcorder)) {
-                // Specified 'video/*' and requested the camcorder, so go ahead and launch the camcorder
-                // directly.
+                // Specified 'video/*' and requested the camcorder, so go ahead and launch the
+                // camcorder directly.
                 BrowserActivity.this.startActivityForResult(camcorderIntent, FILE_SELECTED);
                 return;
             } else if (mediaSource.equals(mediaSourceValueFileSystem)) {
                 // Specified filesystem as the source, so don't want to consider the camcorder.
                 addCamcorderIntent = false;
             }
+        } else if (mimeType.equals(audioMimeType)) {
+            i.setType(audioMimeType);
+            addCameraIntent = false;
+            addCamcorderIntent = false;
+            if (mediaSource.equals(mediaSourceValueMicrophone)) {
+                // Specified 'audio/*' and requested microphone, so go ahead and launch the sound
+                // recorder.
+                BrowserActivity.this.startActivityForResult(soundRecIntent, FILE_SELECTED);
+                return;
+            }
+            // On a default system, there is no single option to open an audio "gallery". Both the
+            // sound recorder and music browser respond to the OPENABLE/audio/* intent unlike the
+            // image/* and video/* OPENABLE intents where the image / video gallery are the only
+            // respondants (and so the user is not prompted by default).
         } else {
             i.setType("*/*");
         }
