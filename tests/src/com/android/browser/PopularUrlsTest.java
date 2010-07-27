@@ -307,7 +307,6 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
         public void write() throws IOException {
             FileWriter output = null;
-            OutputStreamWriter writer = null;
             if (mFile.exists()) {
                 mFile.delete();
             }
@@ -317,14 +316,8 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 output.write(page + newLine);
                 output.write(url + newLine);
             } finally {
-                try {
-                    if (writer != null) {
-                        writer.close();
-                    }
-                } finally {
-                    if (output != null) {
-                        output.close();
-                    }
+                if (output != null) {
+                    output.close();
                 }
             }
         }
@@ -394,6 +387,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
         if (mStatus.getIsRecovery()) {
             Log.e(TAG, "Recovering after crash: " + iterator.next());
+            mStatus.incrementPage();
         }
 
         while (mStatus.getIteration() < loopCount) {
