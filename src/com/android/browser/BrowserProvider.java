@@ -33,6 +33,7 @@ import android.content.res.Configuration;
 import android.database.AbstractCursor;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
@@ -845,7 +846,10 @@ public class BrowserProvider extends ContentProvider {
         }
     }
 
+    /** Contains custom suggestions results set by the UI */
     private ResultsCursor mResultsCursor;
+    /** Locks access to {@link #mResultsCursor} */
+    private Object mResultsCursorLock = new Object();
 
     /**
      * Provide a set of results to be returned to query, intended to be used
@@ -853,10 +857,12 @@ public class BrowserProvider extends ContentProvider {
      * @param results Strings to display in the dropdown from the SearchDialog
      */
     /* package */ void setQueryResults(ArrayList<String> results) {
-        if (results == null) {
-            mResultsCursor = null;
-        } else {
-            mResultsCursor = new ResultsCursor(results);
+        synchronized (mResultsCursorLock) {
+            if (results == null) {
+                mResultsCursor = null;
+            } else {
+                mResultsCursor = new ResultsCursor(results);
+            }
         }
     }
 
@@ -868,54 +874,19 @@ public class BrowserProvider extends ContentProvider {
         if (match == -1) {
             throw new IllegalArgumentException("Unknown URL");
         }
-        if (match == URI_MATCH_SUGGEST && mResultsCursor != null) {
-            Cursor results = mResultsCursor;
-            mResultsCursor = null;
-            return results;
+
+        // If results for the suggestion are already ready just return them directly
+        synchronized (mResultsCursorLock) {
+            if (match == URI_MATCH_SUGGEST && mResultsCursor != null) {
+                Cursor results = mResultsCursor;
+                mResultsCursor = null;
+                return results;
+            }
         }
-        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
 
         if (match == URI_MATCH_SUGGEST || match == URI_MATCH_BOOKMARKS_SUGGEST) {
-            String suggestSelection;
-            String [] myArgs;
-            if (selectionArgs[0] == null || selectionArgs[0].equals("")) {
-                return new MySuggestionCursor(null, null, "");
-            } else {
-                String like = selectionArgs[0] + "%";
-                if (selectionArgs[0].startsWith("http")
-                        || selectionArgs[0].startsWith("file")) {
-                    myArgs = new String[1];
-                    myArgs[0] = like;
-                    suggestSelection = selection;
-                } else {
-                    SUGGEST_ARGS[0] = "http://" + like;
-                    SUGGEST_ARGS[1] = "http://www." + like;
-                    SUGGEST_ARGS[2] = "https://" + like;
-                    SUGGEST_ARGS[3] = "https://www." + like;
-                    // To match against titles.
-                    SUGGEST_ARGS[4] = like;
-                    myArgs = SUGGEST_ARGS;
-                    suggestSelection = SUGGEST_SELECTION;
-                }
-            }
-
-            Cursor c = db.query(TABLE_NAMES[URI_MATCH_BOOKMARKS],
-                    SUGGEST_PROJECTION, suggestSelection, myArgs, null, null,
-                    ORDER_BY, Integer.toString(mMaxSuggestionLongSize));
-
-            if (match == URI_MATCH_BOOKMARKS_SUGGEST
-                    || Patterns.WEB_URL.matcher(selectionArgs[0]).matches()) {
-                return new MySuggestionCursor(c, null, "");
-            } else {
-                // get Google suggest if there is still space in the list
-                if (myArgs != null && myArgs.length > 1
-                        && mSearchableInfo != null
-                        && c.getCount() < (mMaxSuggestionShortSize - 1)) {
-                    Cursor sc = mSearchManager.getSuggestions(mSearchableInfo, selectionArgs[0]);
-                    return new MySuggestionCursor(c, sc, selectionArgs[0]);
-                }
-                return new MySuggestionCursor(c, null, selectionArgs[0]);
-            }
+            // Handle suggestions
+            return doSuggestQuery(selection, selectionArgs, match == URI_MATCH_BOOKMARKS_SUGGEST);
         }
 
         String[] projection = null;
@@ -925,27 +896,57 @@ public class BrowserProvider extends ContentProvider {
             projection[projectionIn.length] = "_id AS _id";
         }
 
-        StringBuilder whereClause = new StringBuilder(256);
+        String whereClause = null;
         if (match == URI_MATCH_BOOKMARKS_ID || match == URI_MATCH_SEARCHES_ID) {
-            whereClause.append("(_id = ").append(url.getPathSegments().get(1))
-                    .append(")");
+            whereClause = "_id = " + url.getPathSegments().get(1);
         }
 
-        // Tack on the user's selection, if present
-        if (selection != null && selection.length() > 0) {
-            if (whereClause.length() > 0) {
-                whereClause.append(" AND ");
-            }
-
-            whereClause.append('(');
-            whereClause.append(selection);
-            whereClause.append(')');
-        }
-        Cursor c = db.query(TABLE_NAMES[match % 10], projection,
-                whereClause.toString(), selectionArgs, null, null, sortOrder,
-                null);
+        Cursor c = mOpenHelper.getReadableDatabase().query(TABLE_NAMES[match % 10], projection,
+                DatabaseUtils.concatenateWhere(whereClause, selection), selectionArgs,
+                null, null, sortOrder, null);
         c.setNotificationUri(getContext().getContentResolver(), url);
         return c;
+    }
+
+    private Cursor doSuggestQuery(String selection, String[] selectionArgs, boolean bookmarksOnly) {
+        String suggestSelection;
+        String [] myArgs;
+        if (selectionArgs[0] == null || selectionArgs[0].equals("")) {
+            return new MySuggestionCursor(null, null, "");
+        } else {
+            String like = selectionArgs[0] + "%";
+            if (selectionArgs[0].startsWith("http")
+                    || selectionArgs[0].startsWith("file")) {
+                myArgs = new String[1];
+                myArgs[0] = like;
+                suggestSelection = selection;
+            } else {
+                SUGGEST_ARGS[0] = "http://" + like;
+                SUGGEST_ARGS[1] = "http://www." + like;
+                SUGGEST_ARGS[2] = "https://" + like;
+                SUGGEST_ARGS[3] = "https://www." + like;
+                // To match against titles.
+                SUGGEST_ARGS[4] = like;
+                myArgs = SUGGEST_ARGS;
+                suggestSelection = SUGGEST_SELECTION;
+            }
+        }
+
+        Cursor c = mOpenHelper.getReadableDatabase().query(TABLE_NAMES[URI_MATCH_BOOKMARKS],
+                SUGGEST_PROJECTION, suggestSelection, myArgs, null, null,
+                ORDER_BY, Integer.toString(mMaxSuggestionLongSize));
+
+        if (bookmarksOnly || Patterns.WEB_URL.matcher(selectionArgs[0]).matches()) {
+            return new MySuggestionCursor(c, null, "");
+        } else {
+            // get Google suggest if there is still space in the list
+            if (myArgs != null && myArgs.length > 1 && mSearchableInfo != null
+                    && c.getCount() < (mMaxSuggestionShortSize - 1)) {
+                Cursor sc = mSearchManager.getSuggestions(mSearchableInfo, selectionArgs[0]);
+                return new MySuggestionCursor(c, sc, selectionArgs[0]);
+            }
+            return new MySuggestionCursor(c, null, selectionArgs[0]);
+        }
     }
 
     @Override
