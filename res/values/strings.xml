@@ -481,6 +481,7 @@
         <item>Japanese (ISO-2022-JP)</item>
         <item>Japanese (SHIFT_JIS)</item>
         <item>Japanese (EUC-JP)</item>
+        <item>Korean (EUC-KR)</item>
         <!-- TODO: We should add a lot more encodings.  -->
     </string-array>
     <!-- Dialog box title -->
@@ -494,6 +495,7 @@
         <item>ISO-2022-JP</item>
         <item>SHIFT_JIS</item>
         <item>EUC-JP</item>
+        <item>EUC-KR</item>
     </string-array>
     <string name="pref_default_text_encoding_default" translatable="false">Latin-1</string>
     <!-- Title for a dialog displayed when the browser has a data connectivity
