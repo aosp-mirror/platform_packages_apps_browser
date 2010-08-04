@@ -90,7 +90,7 @@
     <string name="switch_to_thumbnails" msgid="5493351529609043151">"Miniatyrvy"</string>
     <string name="switch_to_list" msgid="8900531247982121055">"Listvy"</string>
     <string name="current_page" msgid="7510129573681663135">"från "</string>
-    <string name="delete_bookmark_warning" msgid="758043186202032205">"Bokmärket <xliff:g id="BOOKMARK">%s</xliff:g> tas bort."</string>
+    <string name="delete_bookmark_warning" msgid="758043186202032205">"Bokmärket <xliff:g id="BOOKMARK">%s</xliff:g> tas bort. "</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Öppna i nytt fönster"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Kör"</string>
     <string name="find_dot" msgid="6259312434696611957">"Sök på sidan"</string>

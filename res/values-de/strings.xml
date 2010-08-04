@@ -38,7 +38,7 @@
     <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> Treffer"</item>
     <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> Treffer"</item>
   </plurals>
-    <string name="title_bar_loading" msgid="7438217780834640678">"Ladevorgang läuft..."</string>
+    <string name="title_bar_loading" msgid="7438217780834640678">"Wird geladen..."</string>
     <string name="page_info" msgid="4048529256302257195">"Seiteninfo"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Seiteninfo anzeigen"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Adresse:"</string>
@@ -112,7 +112,7 @@
     <string name="contextmenu_copylink" msgid="5153657160294534270">"Link-URL kopieren"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Bild speichern"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"Bild anzeigen"</string>
-    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Als Hintergrundbild festlegen"</string>
+    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Als Hintergrund festlegen"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Wählen..."</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Kontakt hinzufügen"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"E-Mail senden"</string>
@@ -289,5 +289,5 @@
     <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Alle Websitedaten und Standortberechtigungen werden gelöscht."</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Alle Daten löschen"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Abbrechen"</string>
-    <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Hintergrundbild wird eingestellt..."</string>
+    <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Hintergrund wird eingestellt..."</string>
 </resources>
