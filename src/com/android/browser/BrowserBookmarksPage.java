@@ -293,11 +293,13 @@ public class BrowserBookmarksPage extends Activity implements
         mViewMode = viewMode;
 
         // Update the preferences to make the new view mode sticky.
-        Editor ed = getPreferences(MODE_PRIVATE).edit();
-        if (mMostVisited) {
-            ed.putInt(PREF_MOST_VISITED_VIEW_MODE, mViewMode.ordinal());
-        } else {
-            ed.putInt(PREF_BOOKMARK_VIEW_MODE, mViewMode.ordinal());
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        Editor ed = preferences.edit();
+        int pref = mViewMode.ordinal();
+        if (mMostVisited && preferences.getInt(PREF_MOST_VISITED_VIEW_MODE, -1) != pref) {
+            ed.putInt(PREF_MOST_VISITED_VIEW_MODE, pref);
+        } else if (!mMostVisited && preferences.getInt(PREF_BOOKMARK_VIEW_MODE, -1) != pref) {
+            ed.putInt(PREF_BOOKMARK_VIEW_MODE, pref);
         }
         ed.commit();
 
