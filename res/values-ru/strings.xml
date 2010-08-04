@@ -62,7 +62,7 @@
     <string name="expires_on" msgid="8061200430557020704">"Дата окончания действия:"</string>
     <string name="stopping" msgid="4839698519340302982">"Остановка..."</string>
     <string name="stop" msgid="5687251076030630074">"Стоп"</string>
-    <string name="reload" msgid="8585220783228408062">"Обновление"</string>
+    <string name="reload" msgid="8585220783228408062">"Обновить"</string>
     <string name="back" msgid="8414603107175713668">"Назад"</string>
     <string name="forward" msgid="4288210890526641577">"Вперед"</string>
     <string name="save" msgid="5922311934992468496">"ОК"</string>
