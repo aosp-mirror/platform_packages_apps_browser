@@ -32,11 +32,10 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Navegad."</string>
     <string name="cancel" msgid="3017274947407233702">"Cancelar"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
+    <string name="no_matches" msgid="6596166519279885087">"Sem correspondência"</string>
   <plurals name="matches_found">
-    <item quantity="zero" msgid="6242659159545399963">"Sem correspondência"</item>
     <item quantity="one" msgid="4352019729062956802">"1 correspondência"</item>
-    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> correspondências"</item>
-    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> correspondências"</item>
+    <item quantity="other" msgid="8166868707729972065">"<xliff:g id="INDEX">%d</xliff:g> de <xliff:g id="TOTAL">%d</xliff:g>"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"A carregar..."</string>
     <string name="page_info" msgid="4048529256302257195">"Informações da página"</string>
@@ -70,9 +69,9 @@
     <string name="location" msgid="969988560160364559">"Local"</string>
     <string name="name" msgid="5990326151488445481">"Nome"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="588165100024086565">"Adicionar marcador"</string>
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"Adicionar aos marcadores"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Editar marcador"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Adicionar atalho à página inicial"</string>
+    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"Adicionar à página inicial"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Abrir"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Eliminar marcador"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Remover dos marcadores"</string>
@@ -103,6 +102,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Transferências"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar URL da página"</string>
     <string name="share_page" msgid="593756995297268343">"Partilhar página"</string>
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"Guardar como arquivo Web"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"Arquivo Web guardado."</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"Não foi possível guardar o arquivo Web."</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Abrir numa janela nova"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Adicionar link aos marcadores"</string>

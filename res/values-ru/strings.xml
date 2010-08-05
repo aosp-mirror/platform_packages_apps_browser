@@ -32,11 +32,10 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Браузер"</string>
     <string name="cancel" msgid="3017274947407233702">"Отмена"</string>
     <string name="ok" msgid="1509280796718850364">"ОК"</string>
+    <string name="no_matches" msgid="6596166519279885087">"Соответствий нет"</string>
   <plurals name="matches_found">
-    <item quantity="zero" msgid="6242659159545399963">"Соответствий нет"</item>
     <item quantity="one" msgid="4352019729062956802">"1 соответствие"</item>
-    <item quantity="few" msgid="5544267486978946555">"Соответствий: <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item quantity="other" msgid="6616125067364315405">"Соответствий: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8166868707729972065">"<xliff:g id="INDEX">%d</xliff:g> из <xliff:g id="TOTAL">%d</xliff:g>"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"Загрузка…"</string>
     <string name="page_info" msgid="4048529256302257195">"Информация о странице"</string>
@@ -62,7 +61,7 @@
     <string name="expires_on" msgid="8061200430557020704">"Дата окончания действия:"</string>
     <string name="stopping" msgid="4839698519340302982">"Остановка..."</string>
     <string name="stop" msgid="5687251076030630074">"Стоп"</string>
-    <string name="reload" msgid="8585220783228408062">"Обновление"</string>
+    <string name="reload" msgid="8585220783228408062">"Обновить"</string>
     <string name="back" msgid="8414603107175713668">"Назад"</string>
     <string name="forward" msgid="4288210890526641577">"Вперед"</string>
     <string name="save" msgid="5922311934992468496">"ОК"</string>
@@ -70,9 +69,9 @@
     <string name="location" msgid="969988560160364559">"URL-адрес"</string>
     <string name="name" msgid="5990326151488445481">"Имя"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="588165100024086565">"Добавить закладку"</string>
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"Добавить в Закладки"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Изменить закладку"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Добавить ярлык на главную страницу"</string>
+    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"Добавить на главный экран"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Открыть"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Удалить закладку"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Удалить из закладок"</string>
@@ -103,6 +102,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Загрузки"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Копировать URL страницы"</string>
     <string name="share_page" msgid="593756995297268343">"Отправить страницу"</string>
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"Сохранить как веб-архив"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"Веб-архив сохранен."</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"Не удалось сохранить веб-архив."</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Открыть"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Открыть в новом окне"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Добавить ссылку в закладки"</string>

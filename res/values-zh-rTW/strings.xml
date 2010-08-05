@@ -32,11 +32,10 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"瀏覽器"</string>
     <string name="cancel" msgid="3017274947407233702">"取消"</string>
     <string name="ok" msgid="1509280796718850364">"確定"</string>
+    <string name="no_matches" msgid="6596166519279885087">"找不到相符項目"</string>
   <plurals name="matches_found">
-    <item quantity="zero" msgid="6242659159545399963">"沒有相配項"</item>
     <item quantity="one" msgid="4352019729062956802">"1 個相配項"</item>
-    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> 個相符項目"</item>
-    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> 個相符項目"</item>
+    <item quantity="other" msgid="8166868707729972065">"第 <xliff:g id="INDEX">%d</xliff:g> 個，共 <xliff:g id="TOTAL">%d</xliff:g> 個"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"載入中..."</string>
     <string name="page_info" msgid="4048529256302257195">"頁面資訊"</string>
@@ -70,9 +69,9 @@
     <string name="location" msgid="969988560160364559">"位置"</string>
     <string name="name" msgid="5990326151488445481">"名稱"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="588165100024086565">"新增書籤"</string>
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"加入書籤"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"編輯書籤"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"新增捷徑至首頁"</string>
+    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"加入主螢幕"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"開啟"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"刪除書籤"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"從書籤中移除"</string>
@@ -103,6 +102,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"下載"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"複製網頁網址"</string>
     <string name="share_page" msgid="593756995297268343">"分享網頁"</string>
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"儲存為網路封存"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"已儲存網路封存。"</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"無法儲存網路封存。"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"開啟"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"在新視窗開啟"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"將連結加入書籤"</string>
