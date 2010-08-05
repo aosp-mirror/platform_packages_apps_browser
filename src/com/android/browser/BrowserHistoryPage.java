@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.app.ExpandableListActivity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,7 +32,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.ServiceManager;
 import android.provider.Browser;
-import android.text.IClipboard;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -85,14 +85,8 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     }
     
     private void copy(CharSequence text) {
-        try {
-            IClipboard clip = IClipboard.Stub.asInterface(ServiceManager.getService("clipboard"));
-            if (clip != null) {
-                clip.setClipboardText(text);
-            }
-        } catch (android.os.RemoteException e) {
-            Log.e(LOGTAG, "Copy failed", e);
-        }
+        ClipboardManager cm = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+        cm.setText(text);
     }
 
     private static final int ADAPTER_CREATED = 1000;

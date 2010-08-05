@@ -22,6 +22,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentProviderClient;
@@ -66,7 +67,6 @@ import android.provider.Downloads;
 import android.provider.MediaStore;
 import android.provider.ContactsContract.Intents.Insert;
 import android.speech.RecognizerResultsIntent;
-import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -2007,14 +2007,8 @@ public class BrowserActivity extends Activity
     }
 
     private void copy(CharSequence text) {
-        try {
-            IClipboard clip = IClipboard.Stub.asInterface(ServiceManager.getService("clipboard"));
-            if (clip != null) {
-                clip.setClipboardText(text);
-            }
-        } catch (android.os.RemoteException e) {
-            Log.e(LOGTAG, "Copy failed", e);
-        }
+        ClipboardManager cm = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+        cm.setText(text);
     }
 
     /**
