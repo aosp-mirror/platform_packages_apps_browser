@@ -32,11 +32,10 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"浏览器"</string>
     <string name="cancel" msgid="3017274947407233702">"取消"</string>
     <string name="ok" msgid="1509280796718850364">"确定"</string>
+    <string name="no_matches" msgid="6596166519279885087">"没有匹配项"</string>
   <plurals name="matches_found">
-    <item quantity="zero" msgid="6242659159545399963">"没有匹配项"</item>
     <item quantity="one" msgid="4352019729062956802">"1 个匹配项"</item>
-    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> 个匹配项"</item>
-    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> 个匹配项"</item>
+    <item quantity="other" msgid="8166868707729972065">"第 <xliff:g id="INDEX">%d</xliff:g> 个，共 <xliff:g id="TOTAL">%d</xliff:g> 个"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"正在载入..."</string>
     <string name="page_info" msgid="4048529256302257195">"网页信息"</string>
@@ -70,9 +69,9 @@
     <string name="location" msgid="969988560160364559">"地点"</string>
     <string name="name" msgid="5990326151488445481">"姓名"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="588165100024086565">"添加书签"</string>
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"添加到书签"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"编辑书签"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"向主屏幕添加快捷方式"</string>
+    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"添加到主屏幕"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"打开"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"删除书签"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"从书签中删除"</string>
@@ -103,6 +102,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"下载内容"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"复制网页网址"</string>
     <string name="share_page" msgid="593756995297268343">"分享网页"</string>
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"另存为网络存档"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"网络存档已保存。"</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"无法保存网络存档。"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"打开"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"在新窗口中打开"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"将链接加入书签"</string>

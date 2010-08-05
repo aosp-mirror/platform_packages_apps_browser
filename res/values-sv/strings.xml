@@ -32,11 +32,10 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Webbläsare"</string>
     <string name="cancel" msgid="3017274947407233702">"Avbryt"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
+    <string name="no_matches" msgid="6596166519279885087">"Inga träffar"</string>
   <plurals name="matches_found">
-    <item quantity="zero" msgid="6242659159545399963">"Inga träffar"</item>
     <item quantity="one" msgid="4352019729062956802">"1 träff"</item>
-    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> träffar"</item>
-    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> träffar"</item>
+    <item quantity="other" msgid="8166868707729972065">"<xliff:g id="INDEX">%d</xliff:g> av <xliff:g id="TOTAL">%d</xliff:g>"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"Hämtar…"</string>
     <string name="page_info" msgid="4048529256302257195">"Sidinformation"</string>
@@ -70,9 +69,9 @@
     <string name="location" msgid="969988560160364559">"Plats"</string>
     <string name="name" msgid="5990326151488445481">"Namn"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="588165100024086565">"Lägg till bokmärke"</string>
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"Lägg till i bokmärken"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Redigera bokmärke"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Lägg till genväg till startsidan"</string>
+    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"Lägg till på startsidan"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Öppna"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Ta bort bokmärke"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Ta bort från bokmärken"</string>
@@ -90,7 +89,7 @@
     <string name="switch_to_thumbnails" msgid="5493351529609043151">"Miniatyrvy"</string>
     <string name="switch_to_list" msgid="8900531247982121055">"Listvy"</string>
     <string name="current_page" msgid="7510129573681663135">"från "</string>
-    <string name="delete_bookmark_warning" msgid="758043186202032205">"Bokmärket <xliff:g id="BOOKMARK">%s</xliff:g> tas bort."</string>
+    <string name="delete_bookmark_warning" msgid="758043186202032205">"Bokmärket <xliff:g id="BOOKMARK">%s</xliff:g> tas bort. "</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Öppna i nytt fönster"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Kör"</string>
     <string name="find_dot" msgid="6259312434696611957">"Sök på sidan"</string>
@@ -103,6 +102,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Hämtningar"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopiera sidans webbadress"</string>
     <string name="share_page" msgid="593756995297268343">"Dela sida"</string>
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"Spara som webbarkiv"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"Webbarkivet har sparats"</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"Det gick inte att spara webbarkivet."</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Öppna"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Öppna i nytt fönster"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Skapa ett bokmärke av länken"</string>

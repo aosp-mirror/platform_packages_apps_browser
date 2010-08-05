@@ -22,7 +22,7 @@
     <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcadores"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Más visitados"</string>
-    <string name="tab_history" msgid="1979267558744613746">"Historial"</string>
+    <string name="tab_history" msgid="1979267558744613746">"Historial "</string>
     <string name="added_to_bookmarks" msgid="1020224130695956728">"Agregado a marcadores"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"Suprimido de los marcadores"</string>
     <string name="sign_in_to" msgid="5939425800148759165">"Iniciar sesión en <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
@@ -32,11 +32,10 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Navegador"</string>
     <string name="cancel" msgid="3017274947407233702">"Cancelar"</string>
     <string name="ok" msgid="1509280796718850364">"Aceptar"</string>
+    <string name="no_matches" msgid="6596166519279885087">"Sin coincidencias"</string>
   <plurals name="matches_found">
-    <item quantity="zero" msgid="6242659159545399963">"Sin coincidencias"</item>
     <item quantity="one" msgid="4352019729062956802">"1 coincidencia"</item>
-    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> coincide"</item>
-    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> coincide"</item>
+    <item quantity="other" msgid="8166868707729972065">"<xliff:g id="INDEX">%d</xliff:g> de <xliff:g id="TOTAL">%d</xliff:g>"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"Cargando…"</string>
     <string name="page_info" msgid="4048529256302257195">"Información de la página"</string>
@@ -70,9 +69,9 @@
     <string name="location" msgid="969988560160364559">"Ubicación"</string>
     <string name="name" msgid="5990326151488445481">"Nombre"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="588165100024086565">"Agregar marcador"</string>
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"Agregar a Favoritos"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Editar marcador"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Agregar acceso directo a la página de inicio"</string>
+    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"Agregar a Página principal"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Abrir"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Eliminar marcador"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Eliminar de marcadores"</string>
@@ -103,6 +102,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Descargas"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar la url de la página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"Guardar como Archivo web"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"Archivo web guardado."</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"Error al guardar el archivo web."</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Abrir en una ventana nueva"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Enlace del marcador"</string>
@@ -226,17 +228,17 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Este sitio está intentando abrir una ventana emergente."</string>
     <string name="allow" msgid="1157313689171991335">"Permitir"</string>
     <string name="block" msgid="9172175889884707800">"Bloquear"</string>
-    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Se alcanzó el límite de la ventana"</string>
+    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Se alcanzó el límite de la ventana "</string>
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"No se ha podido abrir una ventana nueva porque ya has abierto el máximo permitido."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ventana emergente ya abierta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"No es posible abrir una ventana emergente nueva porque sólo puede abrirse una por vez."</string>
     <string name="download_title" msgid="2122874021047565594">"Historial de descarga"</string>
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Desconocido&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"Abrir"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Borrar de la lista"</string>
+    <string name="download_menu_clear" msgid="6264454531553418124">"Borrar de la lista\n "</string>
     <string name="download_menu_delete" msgid="8815502136393894148">"Eliminar"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"Cancelar descarga"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancelar todas las descargas"</string>
+    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancelar todas las descargas\n "</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancelar descargas"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Las <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> descargas se cancelarán y se borrarán del historial de descarga."</string>
     <string name="download_delete_file" msgid="5330036497843073249">"El archivo se eliminará"</string>

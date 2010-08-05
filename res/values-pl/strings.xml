@@ -32,11 +32,10 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Przeglądarka"</string>
     <string name="cancel" msgid="3017274947407233702">"Anuluj"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
+    <string name="no_matches" msgid="6596166519279885087">"Brak wyników"</string>
   <plurals name="matches_found">
-    <item quantity="zero" msgid="6242659159545399963">"Brak wyników"</item>
     <item quantity="one" msgid="4352019729062956802">"1 wynik"</item>
-    <item quantity="few" msgid="5544267486978946555">"Wyników: <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item quantity="other" msgid="6616125067364315405">"Wyników: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8166868707729972065">"<xliff:g id="INDEX">%d</xliff:g> z <xliff:g id="TOTAL">%d</xliff:g>"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"Trwa wczytywanie..."</string>
     <string name="page_info" msgid="4048529256302257195">"Informacje o stronie"</string>
@@ -70,9 +69,9 @@
     <string name="location" msgid="969988560160364559">"Adres"</string>
     <string name="name" msgid="5990326151488445481">"Nazwa"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="588165100024086565">"Dodaj zakładkę"</string>
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"Dodaj do Zakładek"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edytuj zakładkę"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Dodaj skrót do strony głównej"</string>
+    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"Dodaj do ekranu głównego"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Otwórz"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Usuń zakładkę"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Usuń z zakładek"</string>
@@ -103,6 +102,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Pobrane pliki"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopiuj adres URL strony"</string>
     <string name="share_page" msgid="593756995297268343">"Udostępnij stronę"</string>
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"Zapisz jako archiwum internetowe"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"Archiwum internetowe zostało zapisane."</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"Nie można zapisać archiwum internetowego."</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Otwórz"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Otwórz w nowym oknie"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Dodaj link do zakładek"</string>

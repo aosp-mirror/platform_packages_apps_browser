@@ -32,11 +32,10 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Tarayıcı"</string>
     <string name="cancel" msgid="3017274947407233702">"İptal"</string>
     <string name="ok" msgid="1509280796718850364">"Tamam"</string>
+    <string name="no_matches" msgid="6596166519279885087">"Eşleşme yok"</string>
   <plurals name="matches_found">
-    <item quantity="zero" msgid="6242659159545399963">"Eşleşme yok"</item>
     <item quantity="one" msgid="4352019729062956802">"1 eşleşme"</item>
-    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> eşleşme"</item>
-    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> eşleşme"</item>
+    <item quantity="other" msgid="8166868707729972065">"<xliff:g id="INDEX">%d</xliff:g> / <xliff:g id="TOTAL">%d</xliff:g>"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"Yükleniyor…"</string>
     <string name="page_info" msgid="4048529256302257195">"Sayfa bilgileri"</string>
@@ -70,9 +69,9 @@
     <string name="location" msgid="969988560160364559">"Konum"</string>
     <string name="name" msgid="5990326151488445481">"Ad"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="588165100024086565">"Favori ekle"</string>
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"Yer İşaretlerine Ekle"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Favorileri düzenle"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Ana ekrana kısayol ekle"</string>
+    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"Ana Ekrana Ekle"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Aç"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Favoriyi sil"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Favorilerden kaldır"</string>
@@ -103,6 +102,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"İndirme işlemleri"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Sayfa url\'sini kopyala"</string>
     <string name="share_page" msgid="593756995297268343">"Sayfayı paylaş"</string>
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"Web Arşivi olarak Kaydet"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"Web arşivi kaydedildi."</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"Web arşivine kaydedilemedi."</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Aç"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Yeni pencerede aç"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Favori bağlantısı"</string>
