@@ -546,8 +546,9 @@ class TabControl {
      */
     private WebView createNewWebView(boolean privateBrowsing) {
         // Create a new WebView
-        WebView w = new WebView(mActivity, null,
+        ScrollWebView w = new ScrollWebView(mActivity, null,
                 com.android.internal.R.attr.webViewStyle, privateBrowsing);
+        w.setScrollListener(mActivity.getScrollListener());
         w.setScrollbarFadingEnabled(true);
         w.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         w.setMapTrackballToArrowKeys(false); // use trackball directly
@@ -633,9 +634,6 @@ class TabControl {
             if (!newTab.restoreState(newTab.getSavedState())) {
                 mainView.loadUrl(BrowserSettings.getInstance().getHomePage());
             }
-        }
-        if (mTabChangeListener != null) {
-            mTabChangeListener.onCurrentTab(newTab);
         }
         return true;
     }

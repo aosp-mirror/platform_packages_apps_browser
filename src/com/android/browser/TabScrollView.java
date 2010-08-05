@@ -66,7 +66,7 @@ public class TabScrollView extends HorizontalScrollView {
         mContentView = new LinearLayout(mContext);
         mContentView.setOrientation(LinearLayout.HORIZONTAL);
         mContentView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT));
+                LayoutParams.MATCH_PARENT));
         addView(mContentView);
         mSelected = -1;
     }

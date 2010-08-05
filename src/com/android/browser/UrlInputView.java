@@ -25,28 +25,28 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * url/search input view
  * handling suggestions
  */
-public class UrlInputView extends AutoCompleteTextView {
+public class UrlInputView extends AutoCompleteTextView
+        implements OnFocusChangeListener, OnItemClickListener {
 
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
     private SuggestionsAdapter mAdapter;
     private Drawable           mFocusDrawable;
-    private Drawable           mNoFocusDrawable;
-
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -65,7 +65,6 @@ public class UrlInputView extends AutoCompleteTextView {
 
     private void init(Context ctx) {
         mFocusDrawable = ctx.getResources().getDrawable(R.drawable.textfield_stroke);
-        mNoFocusDrawable = ctx.getResources().getDrawable(R.drawable.textfield_nostroke);
         mInputManager = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
         setOnEditorActionListener(new OnEditorActionListener() {
             @Override
@@ -74,25 +73,31 @@ public class UrlInputView extends AutoCompleteTextView {
                 return true;
             }
         });
-        setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setBackgroundDrawable(hasFocus ? mFocusDrawable : mNoFocusDrawable);
-            }
-        });
+        setOnFocusChangeListener(this);
         final ContentResolver cr = mContext.getContentResolver();
         mAdapter = new SuggestionsAdapter(mContext,
                 BrowserProvider.getBookmarksSuggestions(cr, null));
         setAdapter(mAdapter);
-        setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String url = mAdapter.getViewString(view);
-                finishInput(url);
-            }
-        });
+        setOnItemClickListener(this);
         setSelectAllOnFocus(true);
     }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        setBackgroundDrawable(hasFocus ? mFocusDrawable : null);
+        if (hasFocus) {
+            forceIme();
+        } else {
+            finishInput(null);
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String url = mAdapter.getViewString(view);
+        finishInput(url);
+    }
+
 
     public void setUrlInputListener(UrlInputListener listener) {
         mListener = listener;
@@ -110,7 +115,6 @@ public class UrlInputView extends AutoCompleteTextView {
         } else {
             mListener.onAction(url);
         }
-
     }
 
     @Override
@@ -124,11 +128,8 @@ public class UrlInputView extends AutoCompleteTextView {
     }
 
     interface UrlInputListener {
-
         public void onDismiss();
-
         public void onAction(String text);
-
     }
 
     /**

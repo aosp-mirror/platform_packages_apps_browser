@@ -14,9 +14,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="0dip"
     android:layout_weight="1.0"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@drawable/tab_background" >
     <ImageView
         android:id="@+id/favicon"
         android:layout_width="20dip"
@@ -30,21 +31,15 @@
         android:visibility="gone" />
     <TextView
         android:id="@+id/title"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="0dip"
         android:layout_weight="1.0"
         android:layout_marginLeft="3dip"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/black"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|center_horizontal"
         android:singleLine="true"
         android:ellipsize="end" />
-    <com.android.browser.CircularProgressView
-        android:id="@+id/stop"
-        android:layout_width="36dip"
-        android:layout_height="36dip"
-        android:background="@null"
-        android:src="@drawable/progress_stop" />
     <ImageView
         android:id="@+id/close"
         android:layout_width="wrap_content"

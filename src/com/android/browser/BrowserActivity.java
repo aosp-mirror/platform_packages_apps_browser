@@ -59,31 +59,30 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.Process;
-import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.provider.Browser;
 import android.provider.ContactsContract;
+import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Downloads;
 import android.provider.MediaStore;
-import android.provider.ContactsContract.Intents.Insert;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.accessibility.AccessibilityManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -103,6 +102,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.browser.ScrollWebView.ScrollListener;
 import com.android.common.Search;
 import com.android.common.speech.LoggingEvents;
 
@@ -216,13 +216,14 @@ public class BrowserActivity extends Activity
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);
-
-
         if (mXLargeScreenSize) {
-            mTitleBar = new TitleBarXLarge(this, mTabControl);
+            mTitleBar = new TitleBarXLarge(this);
+            mTitleBar.setProgress(100);
+            mFakeTitleBar = new TitleBarXLarge(this);
+            mTabBar = new TabBar(this, mTabControl, (TitleBarXLarge) mFakeTitleBar);
             LinearLayout layout = (LinearLayout) mBrowserFrameLayout.
                     findViewById(R.id.vertical_layout);
-            layout.addView(mTitleBar, 0, new LinearLayout.LayoutParams(
+            layout.addView(mTabBar, 0, new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
         } else {
@@ -233,7 +234,6 @@ public class BrowserActivity extends Activity
             // Fake title bar is not needed in xlarge layout
             mFakeTitleBar = new TitleBar(this);
         }
-
 
         // Open the icon database and retain all the bookmark urls for favicons
         retainIconsOnStartup();
@@ -392,6 +392,10 @@ public class BrowserActivity extends Activity
         mSystemAllowGeolocationOrigins
                 = new SystemAllowGeolocationOrigins(getApplicationContext());
         mSystemAllowGeolocationOrigins.start();
+    }
+
+    ScrollListener getScrollListener() {
+        return mTabBar;
     }
 
     /**
@@ -724,20 +728,14 @@ public class BrowserActivity extends Activity
     /* package */ void showVoiceTitleBar(String title) {
         mTitleBar.setInVoiceMode(true);
         mTitleBar.setDisplayTitle(title);
-
-        if (!mXLargeScreenSize) {
-            mFakeTitleBar.setInVoiceMode(true);
-            mFakeTitleBar.setDisplayTitle(title);
-        }
+        mFakeTitleBar.setInVoiceMode(true);
+        mFakeTitleBar.setDisplayTitle(title);
     }
     /* package */ void revertVoiceTitleBar() {
         mTitleBar.setInVoiceMode(false);
         mTitleBar.setDisplayTitle(mUrl);
-
-        if (!mXLargeScreenSize) {
-            mFakeTitleBar.setInVoiceMode(false);
-            mFakeTitleBar.setDisplayTitle(mUrl);
-        }
+        mFakeTitleBar.setInVoiceMode(false);
+        mFakeTitleBar.setDisplayTitle(mUrl);
     }
     /* package */ static String fixUrl(String inUrl) {
         // FIXME: Converting the url to lower case
@@ -800,7 +798,7 @@ public class BrowserActivity extends Activity
      * would change its appearance, use a different TitleBar to show overlayed
      * at the top of the screen, when the menu is open or the page is loading.
      */
-    private TitleBar mFakeTitleBar;
+    private TitleBarBase mFakeTitleBar;
 
     /**
      * Keeps track of whether the options menu is open.  This is important in
@@ -856,16 +854,8 @@ public class BrowserActivity extends Activity
         return true;
     }
 
-    private void rebuildTitleBar() {
-        if (mXLargeScreenSize) {
-            ((TitleBarXLarge) mTitleBar).rebuildLayout();
-        }
-    }
-
-    private void showFakeTitleBar() {
-        if (mXLargeScreenSize) return;
-        if (mFakeTitleBar.getParent() == null && mActiveTabsPage == null
-                && !mActivityInPause) {
+    void showFakeTitleBar() {
+        if (!isFakeTitleBarShowing() && mActiveTabsPage == null && !mActivityInPause) {
             WebView mainView = mTabControl.getCurrentWebView();
             // if there is no current WebView, don't show the faked title bar;
             if (mainView == null) {
@@ -878,23 +868,26 @@ public class BrowserActivity extends Activity
                 // find or select dialog.
                 return;
             }
+            if (mXLargeScreenSize) {
+                mContentView.addView(mFakeTitleBar);
+                mTabBar.onShowTitleBar();
+            } else {
+                WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 
-            WindowManager manager
-                    = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-
-            // Add the title bar to the window manager so it can receive touches
-            // while the menu is up
-            WindowManager.LayoutParams params
-                    = new WindowManager.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_APPLICATION,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                    PixelFormat.TRANSLUCENT);
-            params.gravity = Gravity.TOP;
-            boolean atTop = mainView.getScrollY() == 0;
-            params.windowAnimations = atTop ? 0 : R.style.TitleBar;
-            manager.addView(mFakeTitleBar, params);
+                // Add the title bar to the window manager so it can receive
+                // touches
+                // while the menu is up
+                WindowManager.LayoutParams params =
+                        new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                WindowManager.LayoutParams.TYPE_APPLICATION,
+                                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                                PixelFormat.TRANSLUCENT);
+                params.gravity = Gravity.TOP;
+                boolean atTop = mainView.getScrollY() == 0;
+                params.windowAnimations = atTop ? 0 : R.style.TitleBar;
+                manager.addView(mFakeTitleBar, params);
+            }
         }
     }
 
@@ -911,21 +904,34 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private void hideFakeTitleBar() {
-        if (mXLargeScreenSize || mFakeTitleBar.getParent() == null) return;
-        WindowManager.LayoutParams params = (WindowManager.LayoutParams)
-                mFakeTitleBar.getLayoutParams();
-        WebView mainView = mTabControl.getCurrentWebView();
-        // Although we decided whether or not to animate based on the current
-        // scroll position, the scroll position may have changed since the
-        // fake title bar was displayed.  Make sure it has the appropriate
-        // animation/lack thereof before removing.
-        params.windowAnimations = mainView != null && mainView.getScrollY() == 0
-                ? 0 : R.style.TitleBar;
-        WindowManager manager
-                    = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        manager.updateViewLayout(mFakeTitleBar, params);
-        manager.removeView(mFakeTitleBar);
+    void stopScrolling() {
+        ((ScrollWebView) mTabControl.getCurrentWebView()).stopScroll();
+    }
+
+    void hideFakeTitleBar() {
+        if (!isFakeTitleBarShowing()) return;
+        if (mXLargeScreenSize) {
+            mContentView.removeView(mFakeTitleBar);
+            mTabBar.onHideTitleBar();
+        } else {
+            WindowManager.LayoutParams params =
+                    (WindowManager.LayoutParams) mFakeTitleBar.getLayoutParams();
+            WebView mainView = mTabControl.getCurrentWebView();
+            // Although we decided whether or not to animate based on the
+            // current
+            // scroll position, the scroll position may have changed since the
+            // fake title bar was displayed. Make sure it has the appropriate
+            // animation/lack thereof before removing.
+            params.windowAnimations =
+                    mainView != null && mainView.getScrollY() == 0 ? 0 : R.style.TitleBar;
+            WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            manager.updateViewLayout(mFakeTitleBar, params);
+            manager.removeView(mFakeTitleBar);
+        }
+    }
+
+    boolean isFakeTitleBarShowing() {
+        return (mFakeTitleBar.getParent() != null);
     }
 
     /**
@@ -1071,7 +1077,6 @@ public class BrowserActivity extends Activity
             showHttpAuthentication(mHttpAuthHandler, null, null, title,
                     name, password, focusId);
         }
-        rebuildTitleBar();
     }
 
     @Override
@@ -1547,21 +1552,19 @@ public class BrowserActivity extends Activity
      */
     public void closeDialogs() {
         if (!(closeDialog(mFindDialog) || closeDialog(mSelectDialog))) return;
-        if (!mXLargeScreenSize) {
-            // If the Find was being performed in the main WebView, replace the
-            // embedded title bar.
-            Tab currentTab = mTabControl.getCurrentTab();
-            if (currentTab.getSubWebView() == null) {
-                WebView mainView = currentTab.getWebView();
-                if (mainView != null) {
-                    mainView.setEmbeddedTitleBar(mTitleBar);
-                }
+        // If the Find was being performed in the main WebView, replace the
+        // embedded title bar.
+        Tab currentTab = mTabControl.getCurrentTab();
+        if (currentTab.getSubWebView() == null) {
+            WebView mainView = currentTab.getWebView();
+            if (mainView != null) {
+                mainView.setEmbeddedTitleBar(mTitleBar);
             }
         }
         mMenuState = R.id.MAIN_MENU;
         if (mInLoad) {
             // The title bar was hidden, because otherwise it would cover up the
-            // find or select dialog.  Now that the dialog has been removed,
+            // find or select dialog. Now that the dialog has been removed,
             // show the fake title bar once again.
             showFakeTitleBar();
         }
@@ -1807,10 +1810,8 @@ public class BrowserActivity extends Activity
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
-        if (!mXLargeScreenSize){
-            WebView view = t.getWebView();
-            view.setEmbeddedTitleBar(mTitleBar);
-        }
+        WebView view = t.getWebView();
+        view.setEmbeddedTitleBar(mTitleBar);
         if (t.isInVoiceSearchMode()) {
             showVoiceTitleBar(t.getVoiceDisplayTitle());
         } else {
@@ -1818,6 +1819,9 @@ public class BrowserActivity extends Activity
         }
         // Request focus on the top window.
         t.getTopWindow().requestFocus();
+        if (mTabControl.getTabChangeListener() != null) {
+            mTabControl.getTabChangeListener().onCurrentTab(t);
+        }
     }
 
     // Attach a sub window to the main WebView of the given tab.
@@ -1836,11 +1840,9 @@ public class BrowserActivity extends Activity
             mErrorConsoleContainer.removeView(errorConsole);
         }
 
-        if (!mXLargeScreenSize) {
-            WebView view = t.getWebView();
-            if (view != null) {
-                view.setEmbeddedTitleBar(null);
-            }
+        WebView view = t.getWebView();
+        if (view != null) {
+            view.setEmbeddedTitleBar(null);
         }
     }
 
@@ -2079,9 +2081,7 @@ public class BrowserActivity extends Activity
         // If we are in voice search mode, the title has already been set.
         if (mTabControl.getCurrentTab().isInVoiceSearchMode()) return;
         mTitleBar.setDisplayTitle(url);
-        if (!mXLargeScreenSize) {
-            mFakeTitleBar.setDisplayTitle(url);
-        }
+        mFakeTitleBar.setDisplayTitle(url);
     }
 
     /**
@@ -2124,9 +2124,7 @@ public class BrowserActivity extends Activity
     // Set the favicon in the title bar.
     void setFavicon(Bitmap icon) {
         mTitleBar.setFavicon(icon);
-        if (!mXLargeScreenSize) {
-            mFakeTitleBar.setFavicon(icon);
-        }
+        mFakeTitleBar.setFavicon(icon);
     }
 
     /**
@@ -2803,14 +2801,11 @@ public class BrowserActivity extends Activity
     // -------------------------------------------------------------------------
 
     void onProgressChanged(WebView view, int newProgress) {
-        if (mXLargeScreenSize) {
-            mTitleBar.setProgress(newProgress);
-        } else {
-            // On the phone, the fake title bar will always cover up the
-            // regular title bar (or the regular one is offscreen), so only the
-            // fake title bar needs to change its progress
-            mFakeTitleBar.setProgress(newProgress);
-        }
+
+        // On the phone, the fake title bar will always cover up the
+        // regular title bar (or the regular one is offscreen), so only the
+        // fake title bar needs to change its progress
+        mFakeTitleBar.setProgress(newProgress);
 
         if (newProgress == 100) {
             // onProgressChanged() may continue to be called after the main
@@ -3246,9 +3241,7 @@ public class BrowserActivity extends Activity
             d = mMixLockIcon;
         }
         mTitleBar.setLock(d);
-        if (!mXLargeScreenSize) {
-            mFakeTitleBar.setLock(d);
-        }
+        mFakeTitleBar.setLock(d);
     }
 
     /**
@@ -4269,6 +4262,7 @@ public class BrowserActivity extends Activity
     private Toast mStopToast;
 
     private TitleBarBase mTitleBar;
+    private TabBar mTabBar;
 
     private LinearLayout mErrorConsoleContainer = null;
     private boolean mShouldShowErrorConsole = false;

@@ -14,16 +14,17 @@
      limitations under the License.
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!--
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="#ffffffff"/>
+            <solid android:color="#804d83ba"/>
         </shape>
     </item>
+     -->
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <solid android:color="#ff94b73f"/>
+                <solid android:color="#804d83ba"/>
             </shape>
         </clip>
     </item>
