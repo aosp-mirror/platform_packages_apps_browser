@@ -488,7 +488,7 @@ class Tab {
 
             // update the bookmark database for favicon
             if (favicon != null) {
-                BrowserBookmarksAdapter.updateBookmarkFavicon(mActivity
+                Bookmarks.updateBookmarkFavicon(mActivity
                         .getContentResolver(), null, url, favicon);
             }
 
@@ -1029,7 +1029,7 @@ class Tab {
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
             if (icon != null) {
-                BrowserBookmarksAdapter.updateBookmarkFavicon(mActivity
+                Bookmarks.updateBookmarkFavicon(mActivity
                         .getContentResolver(), view.getOriginalUrl(), view
                         .getUrl(), icon);
             }

@@ -2474,7 +2474,7 @@ public class BrowserActivity extends Activity
             protected Void doInBackground(Void... unused) {
                 Cursor c = null;
                 try {
-                    c = BrowserBookmarksAdapter.queryBookmarksForUrl(
+                    c = Bookmarks.queryBookmarksForUrl(
                             cr, originalUrl, url, true);
                     if (c != null) {
                         if (c.moveToFirst()) {

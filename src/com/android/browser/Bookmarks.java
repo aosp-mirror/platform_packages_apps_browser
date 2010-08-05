@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import com.android.browser.provider.BrowserContract;
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -23,7 +25,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.Browser;
+import android.provider.Browser.BookmarkColumns;
 import android.util.Log;
 import android.webkit.WebIconDatabase;
 import android.widget.Toast;
@@ -61,72 +65,18 @@ import java.util.Date;
      *          This will usually be <code>true</code> except when bookmarks are
      *          added by a settings restore agent.
      */
-    /* package */ static void addBookmark(Context context,
-            ContentResolver cr, String url, String name,
-            Bitmap thumbnail, boolean retainIcon) {
+    /* package */ static void addBookmark(Context context, ContentResolver cr, String url,
+            String name, Bitmap thumbnail, boolean retainIcon) {
         // Want to append to the beginning of the list
-        long creationTime = new Date().getTime();
-        ContentValues map = new ContentValues();
+        ContentValues values = new ContentValues();
         Cursor cursor = null;
         try {
-            cursor = Browser.getVisitedLike(cr, url);
-            if (cursor.moveToFirst() && cursor.getInt(
-                    Browser.HISTORY_PROJECTION_BOOKMARK_INDEX) == 0) {
-                // This means we have been to this site but not bookmarked
-                // it, so convert the history item to a bookmark
-                map.put(Browser.BookmarkColumns.CREATED, creationTime);
-                map.put(Browser.BookmarkColumns.TITLE, name);
-                map.put(Browser.BookmarkColumns.BOOKMARK, 1);
-                map.put(Browser.BookmarkColumns.THUMBNAIL,
-                        bitmapToBytes(thumbnail));
-                cr.update(Browser.BOOKMARKS_URI, map,
-                        "_id = " + cursor.getInt(0), null);
-            } else {
-                int count = cursor.getCount();
-                boolean matchedTitle = false;
-                for (int i = 0; i < count; i++) {
-                    // One or more bookmarks already exist for this site.
-                    // Check the names of each
-                    cursor.moveToPosition(i);
-                    if (cursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX)
-                            .equals(name)) {
-                        // The old bookmark has the same name.
-                        // Update its creation time.
-                        map.put(Browser.BookmarkColumns.CREATED,
-                                creationTime);
-                        cr.update(Browser.BOOKMARKS_URI, map,
-                                "_id = " + cursor.getInt(0), null);
-                        matchedTitle = true;
-                        break;
-                    }
-                }
-                if (!matchedTitle) {
-                    // Adding a bookmark for a site the user has visited,
-                    // or a new bookmark (with a different name) for a site
-                    // the user has visited
-                    map.put(Browser.BookmarkColumns.TITLE, name);
-                    map.put(Browser.BookmarkColumns.URL, url);
-                    map.put(Browser.BookmarkColumns.CREATED, creationTime);
-                    map.put(Browser.BookmarkColumns.BOOKMARK, 1);
-                    map.put(Browser.BookmarkColumns.DATE, 0);
-                    map.put(Browser.BookmarkColumns.THUMBNAIL,
-                            bitmapToBytes(thumbnail));
-                    int visits = 0;
-                    if (count > 0) {
-                        // The user has already bookmarked, and possibly
-                        // visited this site.  However, they are creating
-                        // a new bookmark with the same url but a different
-                        // name.  The new bookmark should have the same
-                        // number of visits as the already created bookmark.
-                        visits = cursor.getInt(
-                                Browser.HISTORY_PROJECTION_VISITS_INDEX);
-                    }
-                    // Bookmark starts with 3 extra visits so that it will
-                    // bubble up in the most visited and goto search box
-                    map.put(Browser.BookmarkColumns.VISITS, visits + 3);
-                    cr.insert(Browser.BOOKMARKS_URI, map);
-                }
-            }
+            values.put(BrowserContract.Bookmarks.TITLE, name);
+            values.put(BrowserContract.Bookmarks.URL, url);
+            values.put(BrowserContract.Bookmarks.IS_FOLDER, 0);
+            values.put(BrowserContract.Bookmarks.THUMBNAIL,
+                    bitmapToBytes(thumbnail));
+            cr.insert(BrowserContract.Bookmarks.CONTENT_URI, values);
         } catch (IllegalStateException e) {
             Log.e(LOGTAG, "addBookmark", e);
         } finally {
@@ -218,5 +168,93 @@ import java.util.Date;
             }
         }
         return false;
+    }
+
+    /* package */ static Cursor queryBookmarksForUrl(ContentResolver cr,
+            String originalUrl, String url, boolean onlyBookmarks) {
+        if (cr == null || url == null) {
+            return null;
+        }
+    
+        // If originalUrl is null, just set it to url.
+        if (originalUrl == null) {
+            originalUrl = url;
+        }
+    
+        // Look for both the original url and the actual url. This takes in to
+        // account redirects.
+        String originalUrlNoQuery = Bookmarks.removeQuery(originalUrl);
+        String urlNoQuery = Bookmarks.removeQuery(url);
+        originalUrl = originalUrlNoQuery + '?';
+        url = urlNoQuery + '?';
+    
+        // Use NoQuery to search for the base url (i.e. if the url is
+        // http://www.yahoo.com/?rs=1, search for http://www.yahoo.com)
+        // Use url to match the base url with other queries (i.e. if the url is
+        // http://www.google.com/m, search for
+        // http://www.google.com/m?some_query)
+        final String[] selArgs = new String[] {
+            originalUrlNoQuery, urlNoQuery, originalUrl, url };
+        String where = BookmarkColumns.URL + " == ? OR "
+                + BookmarkColumns.URL + " == ? OR "
+                + BookmarkColumns.URL + " LIKE ? || '%' OR "
+                + BookmarkColumns.URL + " LIKE ? || '%'";
+        if (onlyBookmarks) {
+            where = "(" + where + ") AND " + BookmarkColumns.BOOKMARK + " == 1";
+        }
+        final String[] projection =
+                new String[] { Browser.BookmarkColumns._ID };
+        return cr.query(Browser.BOOKMARKS_URI, projection, where, selArgs,
+                null);
+    }
+
+    // Strip the query from the given url.
+    static String removeQuery(String url) {
+        if (url == null) {
+            return null;
+        }
+        int query = url.indexOf('?');
+        String noQuery = url;
+        if (query != -1) {
+            noQuery = url.substring(0, query);
+        }
+        return noQuery;
+    }
+
+    /**
+     * Update the bookmark's favicon. This is a convenience method for updating
+     * a bookmark favicon for the originalUrl and url of the passed in WebView.
+     * @param cr The ContentResolver to use.
+     * @param originalUrl The original url before any redirects.
+     * @param url The current url.
+     * @param favicon The favicon bitmap to write to the db.
+     */
+    /* package */ static void updateBookmarkFavicon(final ContentResolver cr,
+            final String originalUrl, final String url, final Bitmap favicon) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... unused) {
+                final Cursor c =
+                        Bookmarks.queryBookmarksForUrl(cr, originalUrl, url, true);
+                if (c == null) {
+                    return null;
+                }
+                if (c.moveToFirst()) {
+                    ContentValues values = new ContentValues();
+                    final ByteArrayOutputStream os =
+                            new ByteArrayOutputStream();
+                    favicon.compress(Bitmap.CompressFormat.PNG, 100, os);
+                    values.put(Browser.BookmarkColumns.FAVICON,
+                            os.toByteArray());
+                    do {
+                        cr.update(ContentUris.withAppendedId(
+                                Browser.BOOKMARKS_URI, c.getInt(0)),
+                                values, null, null);
+                    } while (c.moveToNext());
+                }
+                c.close();
+                return null;
+            }
+        }.execute();
     }
 }

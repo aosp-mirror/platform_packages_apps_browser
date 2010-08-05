@@ -101,7 +101,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     @Override
     public Void doInBackground(String... values) {
         if (mContentResolver != null) {
-            mCursor = BrowserBookmarksAdapter.queryBookmarksForUrl(mContentResolver,
+            mCursor = Bookmarks.queryBookmarksForUrl(mContentResolver,
                     mOriginalUrl, mUrl, true);
         }
 

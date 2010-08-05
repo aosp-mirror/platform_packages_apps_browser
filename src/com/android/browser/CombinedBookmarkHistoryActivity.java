@@ -54,7 +54,6 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
     private boolean mNewTabMode;
 
     /* package */ static String BOOKMARKS_TAB = "bookmark";
-    /* package */ static String VISITED_TAB = "visited";
     /* package */ static String HISTORY_TAB = "history";
     /* package */ static String STARTING_TAB = "tab";
 
@@ -116,15 +115,6 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         }
         createTab(bookmarksIntent, R.string.tab_bookmarks,
                 R.drawable.browser_bookmark_tab, BOOKMARKS_TAB);
-
-        Intent visitedIntent = new Intent(this, BrowserBookmarksPage.class);
-        // Need to copy extras so the bookmarks activity and this one will be
-        // different
-        Bundle visitedExtras = extras == null ? new Bundle() : new Bundle(extras);
-        visitedExtras.putBoolean("mostVisited", true);
-        visitedIntent.putExtras(visitedExtras);
-        createTab(visitedIntent, R.string.tab_most_visited,
-                R.drawable.browser_visited_tab, VISITED_TAB);
 
         Intent historyIntent = new Intent(this, BrowserHistoryPage.class);
         String defaultTab = null;

@@ -746,4 +746,7 @@
     <string name="error_console_eval_text_hint" translatable="false">Evaluate JavaScript</string>
     <string name="error_console_eval_button_text" translatable="false">Evaluate</string>
 
+    <!-- The default state to the "up to parent folder" button in the bookmarks UI. This
+         is displayed when the user is at the highest level and cannot go up -->
+    <string name="defaultBookmarksUpButton">Bookmarks</string>
 </resources>

@@ -15,10 +15,6 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <group android:id="@+id/ADD_MENU">
-    <item android:id="@+id/new_context_menu_id"
-      android:title="@string/save_to_bookmarks"/>
-  </group>
   <group android:id="@+id/CONTEXT_MENU">
     <item android:id="@+id/open_context_menu_id"
       android:title="@string/open_bookmark"/>
