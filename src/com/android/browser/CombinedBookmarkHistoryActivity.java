@@ -48,10 +48,17 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
      */
     private int mResultCode;
 
+    /**
+     * Flag to inform the browser to force the result to open in a new tab.
+     */
+    private boolean mNewTabMode;
+
     /* package */ static String BOOKMARKS_TAB = "bookmark";
     /* package */ static String VISITED_TAB = "visited";
     /* package */ static String HISTORY_TAB = "history";
     /* package */ static String STARTING_TAB = "tab";
+
+    final static String NEWTAB_MODE = "newtab_mode";
 
     static class IconListenerSet implements IconListener {
         // Used to store favicons as we get them from the database
@@ -98,6 +105,10 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         getTabHost().setOnTabChangedListener(this);
 
         Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            mNewTabMode = extras.getBoolean(NEWTAB_MODE);
+        }
 
         Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
         if (extras != null) {
@@ -185,6 +196,10 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
             mResultCode = RESULT_OK;
             if (mResultData == null) mResultData = new Intent();
             mResultData.putExtra(Intent.EXTRA_TEXT, mExtraData);
+        }
+        if (mNewTabMode) {
+            if (mResultData == null) mResultData = new Intent();
+            mResultData.putExtra(NEWTAB_MODE, true);
         }
         setResult(mResultCode, mResultData);
         super.finish();
