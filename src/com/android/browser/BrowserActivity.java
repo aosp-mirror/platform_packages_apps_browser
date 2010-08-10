@@ -1367,7 +1367,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.bookmarks_menu_id:
-                bookmarksOrHistoryPicker(false);
+                bookmarksOrHistoryPicker(false, false);
                 break;
 
             case R.id.active_tabs_menu_id:
@@ -1451,7 +1451,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.classic_history_menu_id:
-                bookmarksOrHistoryPicker(true);
+                bookmarksOrHistoryPicker(true, false);
                 break;
 
             case R.id.title_bar_share_page_url:
@@ -1752,7 +1752,7 @@ public class BrowserActivity extends Activity
                             new MenuItem.OnMenuItemClickListener() {
                                 public boolean onMenuItemClick(MenuItem item) {
                                     final Tab parent = mTabControl.getCurrentTab();
-                                    final Tab newTab = openTab(extra);
+                                    final Tab newTab = openTab(extra, false);
                                     if (newTab != parent) {
                                         parent.addChildTab(newTab);
                                     }
@@ -1895,8 +1895,8 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private Tab openTab(String url) {
-        if (mSettings.openInBackground()) {
+    private Tab openTab(String url, boolean forceForeground) {
+        if (mSettings.openInBackground() && !forceForeground) {
             Tab t = mTabControl.createNewTab();
             if (t != null) {
                 WebView view = t.getWebView();
@@ -2239,7 +2239,7 @@ public class BrowserActivity extends Activity
                     return true;
                 } else if (mCustomView == null && mActiveTabsPage == null
                         && event.isLongPress()) {
-                    bookmarksOrHistoryPicker(true);
+                    bookmarksOrHistoryPicker(true, false);
                     return true;
                 }
                 break;
@@ -2789,7 +2789,7 @@ public class BrowserActivity extends Activity
         }
 
         if (mMenuIsDown) {
-            openTab(url);
+            openTab(url, false);
             closeOptionsMenu();
             return true;
         }
@@ -3732,10 +3732,12 @@ public class BrowserActivity extends Activity
                     String data = intent.getAction();
                     Bundle extras = intent.getExtras();
                     if (extras != null && extras.getBoolean("new_window", false)) {
-                        openTab(data);
+                        openTab(data, false);
+                    } else if ((extras != null) &&
+                            extras.getBoolean(CombinedBookmarkHistoryActivity.NEWTAB_MODE)) {
+                        openTab(data, true);
                     } else {
-                        final Tab currentTab =
-                                mTabControl.getCurrentTab();
+                        final Tab currentTab = mTabControl.getCurrentTab();
                         dismissSubWindow(currentTab);
                         if (data != null && data.length() != 0) {
                             loadUrl(getTopWindow(), data);
@@ -3842,7 +3844,7 @@ public class BrowserActivity extends Activity
      * @param startWithHistory If true, open starting on the history tab.
      *                         Otherwise, start with the bookmarks tab.
      */
-    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory) {
+    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory, boolean newTabMode) {
         WebView current = mTabControl.getCurrentWebView();
         if (current == null) {
             return;
@@ -3876,6 +3878,9 @@ public class BrowserActivity extends Activity
         if (startWithHistory) {
             intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_TAB,
                     CombinedBookmarkHistoryActivity.HISTORY_TAB);
+        }
+        if (newTabMode) {
+            intent.putExtra(CombinedBookmarkHistoryActivity.NEWTAB_MODE, true);
         }
         startActivityForResult(intent, COMBO_PAGE);
     }

@@ -104,8 +104,7 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mMenu == v) {
             mBrowserActivity.openOptionsMenu();
         } else if (mAllButton == v) {
-            // TODO: Show the new bookmarks/windows view.
-            mBrowserActivity.bookmarksOrHistoryPicker(false);
+            mBrowserActivity.bookmarksOrHistoryPicker(false, false);
         } else if (mSearchButton == v) {
             search();
         } else if (mStopButton == v) {

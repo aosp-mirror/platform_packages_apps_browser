@@ -116,7 +116,7 @@ public class TabBar extends LinearLayout
             mBrowserActivity.showFakeTitleBar();
             mUserRequestedUrlbar = true;
         } else if (mNewButton == view) {
-            mBrowserActivity.openTabToHomePage();
+            mBrowserActivity.bookmarksOrHistoryPicker(false, true);
         } else if (mTabs.getSelectedTab() == view) {
             mBrowserActivity.showFakeTitleBar();
             mTitleBar.requestUrlInputFocus();
