@@ -19,6 +19,8 @@
     <string name="application_name" msgid="1935869255545976415">"Tarayıcı"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Yükleme için dosya seçin"</string>
     <string name="new_tab" msgid="4505722538297295141">"Yeni pencere"</string>
+    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
+    <skip />
     <string name="active_tabs" msgid="3050623868203544623">"Pencereler"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Favoriler"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"En çok ziyaret edilenler"</string>
@@ -104,7 +106,7 @@
     <string name="share_page" msgid="593756995297268343">"Sayfayı paylaş"</string>
     <string name="menu_save_webarchive" msgid="3934652434001459581">"Web Arşivi olarak Kaydet"</string>
     <string name="webarchive_saved" msgid="7045250341467345007">"Web arşivi kaydedildi."</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"Web arşivine kaydedilemedi."</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"Web arşivi kaydedilemedi."</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Aç"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Yeni pencerede aç"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Favori bağlantısı"</string>

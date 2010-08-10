@@ -19,6 +19,8 @@
     <string name="application_name" msgid="1935869255545976415">"瀏覽器"</string>
     <string name="choose_upload" msgid="3649366287575002063">"選擇要上載的檔案"</string>
     <string name="new_tab" msgid="4505722538297295141">"新視窗"</string>
+    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
+    <skip />
     <string name="active_tabs" msgid="3050623868203544623">"視窗"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"書籤"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"常用網頁"</string>
@@ -32,7 +34,7 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"瀏覽器"</string>
     <string name="cancel" msgid="3017274947407233702">"取消"</string>
     <string name="ok" msgid="1509280796718850364">"確定"</string>
-    <string name="no_matches" msgid="6596166519279885087">"找不到相符項目"</string>
+    <string name="no_matches" msgid="6596166519279885087">"沒有相符項目"</string>
   <plurals name="matches_found">
     <item quantity="one" msgid="4352019729062956802">"1 個相配項"</item>
     <item quantity="other" msgid="8166868707729972065">"第 <xliff:g id="INDEX">%d</xliff:g> 個，共 <xliff:g id="TOTAL">%d</xliff:g> 個"</item>
@@ -102,9 +104,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"下載"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"複製網頁網址"</string>
     <string name="share_page" msgid="593756995297268343">"分享網頁"</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"儲存為網路封存"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"已儲存網路封存。"</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"無法儲存網路封存。"</string>
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"另存為網頁封存"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"已儲存網頁封存。"</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"無法儲存網頁封存。"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"開啟"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"在新視窗開啟"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"將連結加入書籤"</string>

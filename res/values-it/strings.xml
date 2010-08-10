@@ -19,6 +19,8 @@
     <string name="application_name" msgid="1935869255545976415">"Browser"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Scegli il file per il caricamento"</string>
     <string name="new_tab" msgid="4505722538297295141">"Nuova finestra"</string>
+    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
+    <skip />
     <string name="active_tabs" msgid="3050623868203544623">"Finestre"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Segnalibri"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"I più visitati"</string>
@@ -71,7 +73,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Aggiungi ai segnalibri"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Modifica segnalibro"</string>
-    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"Aggiungi a schermata iniziale"</string>
+    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"Aggiungi a schermata Home"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Apri"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Elimina segnalibro"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Rimuovi dai segnalibri"</string>

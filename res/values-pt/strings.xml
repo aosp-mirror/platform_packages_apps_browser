@@ -19,6 +19,8 @@
     <string name="application_name" msgid="1935869255545976415">"Navegador"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Escolha o arquivo para envio"</string>
     <string name="new_tab" msgid="4505722538297295141">"Nova janela"</string>
+    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
+    <skip />
     <string name="active_tabs" msgid="3050623868203544623">"Janelas"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Favoritos"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Mais visitados"</string>
@@ -32,7 +34,7 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Navegador"</string>
     <string name="cancel" msgid="3017274947407233702">"Cancelar"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
-    <string name="no_matches" msgid="6596166519279885087">"Sem correspondências"</string>
+    <string name="no_matches" msgid="6596166519279885087">"Não encontrado"</string>
   <plurals name="matches_found">
     <item quantity="one" msgid="4352019729062956802">"1 correspondência"</item>
     <item quantity="other" msgid="8166868707729972065">"<xliff:g id="INDEX">%d</xliff:g> de <xliff:g id="TOTAL">%d</xliff:g>"</item>

@@ -19,6 +19,8 @@
     <string name="application_name" msgid="1935869255545976415">"인터넷"</string>
     <string name="choose_upload" msgid="3649366287575002063">"업로드할 파일 선택"</string>
     <string name="new_tab" msgid="4505722538297295141">"새 창"</string>
+    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
+    <skip />
     <string name="active_tabs" msgid="3050623868203544623">"창"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"북마크"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"자주 방문한 페이지"</string>

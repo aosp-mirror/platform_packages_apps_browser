@@ -19,6 +19,8 @@
     <string name="application_name" msgid="1935869255545976415">"Navegad."</string>
     <string name="choose_upload" msgid="3649366287575002063">"Escolher ficheiro a carregar"</string>
     <string name="new_tab" msgid="4505722538297295141">"Nova janela"</string>
+    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
+    <skip />
     <string name="active_tabs" msgid="3050623868203544623">"Janelas"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcadores"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Os mais visitados"</string>
