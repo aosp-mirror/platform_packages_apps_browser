@@ -96,14 +96,6 @@
                 android:background="@drawable/browserbarbutton" />
         </LinearLayout>
         <ImageButton
-            android:id="@+id/menu"
-            android:src="@drawable/ic_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="6dip"
-            android:layout_marginRight="6dip"
-            android:background="@drawable/browserbarbutton" />
-        <ImageButton
             android:id="@+id/all_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

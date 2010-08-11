@@ -15,28 +15,20 @@
     android:id="@+id/tabbarcontent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffdddddd"
+    style="@style/ActionBarStyle"
     android:orientation="horizontal">
-    <com.android.browser.TabScrollView
-        android:id="@+id/tabs"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1.0"
-        android:orientation="horizontal" />
     <ImageButton
         android:id="@+id/showurl"
         android:src="@drawable/ic_menu_showurl"
         android:layout_width="48dip"
         android:layout_height="48dip"
-        android:layout_marginLeft="6dip"
+        android:layout_marginLeft="3dip"
         android:background="@drawable/browserbarbutton"
-        android:visibility="invisible" />
-    <ImageButton
-        android:id="@+id/newtab"
-        android:src="@drawable/ic_menu_new_window"
-        android:layout_width="48dip"
+        android:visibility="gone" />
+    <com.android.browser.TabScrollView
+        android:id="@+id/tabs"
+        android:layout_width="0dp"
         android:layout_height="48dip"
-        android:layout_marginLeft="6dip"
-        android:layout_marginRight="6dip"
-        android:background="@drawable/browserbarbutton" />
+        android:layout_weight="1.0"
+        android:orientation="horizontal" />
 </LinearLayout>

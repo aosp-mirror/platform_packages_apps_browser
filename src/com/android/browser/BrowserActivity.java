@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -199,6 +200,13 @@ public class BrowserActivity extends Activity
         mMixLockIcon = Resources.getSystem().getDrawable(
                 android.R.drawable.ic_partial_secure);
 
+        // Create the tab control and our initial tab
+        mTabControl = new TabControl(this);
+
+        mXLargeScreenSize = (getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+
         FrameLayout frameLayout = (FrameLayout) getWindow().getDecorView()
                 .findViewById(com.android.internal.R.id.content);
         mBrowserFrameLayout = (FrameLayout) LayoutInflater.from(this)
@@ -210,28 +218,19 @@ public class BrowserActivity extends Activity
         mCustomViewContainer = (FrameLayout) mBrowserFrameLayout
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
-        mXLargeScreenSize = (getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                == Configuration.SCREENLAYOUT_SIZE_XLARGE;
 
-        // Create the tab control and our initial tab
-        mTabControl = new TabControl(this);
         if (mXLargeScreenSize) {
             mTitleBar = new TitleBarXLarge(this);
             mTitleBar.setProgress(100);
             mFakeTitleBar = new TitleBarXLarge(this);
+            ActionBar actionBar = getActionBar();
             mTabBar = new TabBar(this, mTabControl, (TitleBarXLarge) mFakeTitleBar);
-            LinearLayout layout = (LinearLayout) mBrowserFrameLayout.
-                    findViewById(R.id.vertical_layout);
-            layout.addView(mTabBar, 0, new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            actionBar.setCustomNavigationMode(mTabBar);
         } else {
             mTitleBar = new TitleBar(this);
             // mTitleBar will be always be shown in the fully loaded mode on
             // phone
             mTitleBar.setProgress(100);
-            // Fake title bar is not needed in xlarge layout
             mFakeTitleBar = new TitleBar(this);
         }
 
@@ -1341,6 +1340,12 @@ public class BrowserActivity extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // check the action bar button before mCanChord check, as the prepare call
+        // doesn't come for action bar buttons
+        if (item.getItemId() == R.id.newtab) {
+            bookmarksOrHistoryPicker(false, true);
+            return true;
+        }
         if (!mCanChord) {
             // The user has already fired a shortcut with this hold down of the
             // menu key.
@@ -1630,8 +1635,10 @@ public class BrowserActivity extends Activity
                 final MenuItem forward = menu.findItem(R.id.forward_menu_id);
                 forward.setEnabled(canGoForward);
 
-                final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
-                newtab.setEnabled(mTabControl.canCreateNewTab());
+                if (!mXLargeScreenSize) {
+                    final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
+                    newtab.setEnabled(mTabControl.canCreateNewTab());
+                }
 
                 // decide whether to show the share link option
                 PackageManager pm = getPackageManager();

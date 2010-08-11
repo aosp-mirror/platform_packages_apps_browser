@@ -35,13 +35,14 @@ import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 /**
  * url/search input view
  * handling suggestions
  */
 public class UrlInputView extends AutoCompleteTextView
-        implements OnFocusChangeListener, OnItemClickListener {
+        implements OnFocusChangeListener, OnItemClickListener, OnEditorActionListener {
 
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
@@ -66,13 +67,7 @@ public class UrlInputView extends AutoCompleteTextView
     private void init(Context ctx) {
         mFocusDrawable = ctx.getResources().getDrawable(R.drawable.textfield_stroke);
         mInputManager = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
-        setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                finishInput(getText().toString());
-                return true;
-            }
-        });
+        setOnEditorActionListener(this);
         setOnFocusChangeListener(this);
         final ContentResolver cr = mContext.getContentResolver();
         mAdapter = new SuggestionsAdapter(mContext,
@@ -80,6 +75,12 @@ public class UrlInputView extends AutoCompleteTextView
         setAdapter(mAdapter);
         setOnItemClickListener(this);
         setSelectAllOnFocus(true);
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        finishInput(getText().toString());
+        return true;
     }
 
     @Override

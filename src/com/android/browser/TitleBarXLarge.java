@@ -49,7 +49,6 @@ public class TitleBarXLarge extends TitleBarBase
     private View mStar;
     private View mSearchButton;
     private ImageView mStopButton;
-    private View mMenu;
     private View mAllButton;
     private ImageView mProgressView;
     private UrlInputView mUrlView;
@@ -76,7 +75,6 @@ public class TitleBarXLarge extends TitleBarBase
         mBackButton = findViewById(R.id.back);
         mForwardButton = findViewById(R.id.forward);
         mStar = findViewById(R.id.star);
-        mMenu = findViewById(R.id.menu);
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = findViewById(R.id.search);
         mLockIcon = (ImageView) findViewById(R.id.lock);
@@ -89,7 +87,6 @@ public class TitleBarXLarge extends TitleBarBase
         mAllButton.setOnClickListener(this);
         mStopButton.setOnClickListener(this);
         mSearchButton.setOnClickListener(this);
-        mMenu.setOnClickListener(this);
         mUrlView.setUrlInputListener(this);
     }
 
@@ -101,8 +98,6 @@ public class TitleBarXLarge extends TitleBarBase
             mBrowserActivity.getTopWindow().goForward();
         } else if (mStar == v) {
             mBrowserActivity.promptAddOrInstallBookmark();
-        } else if (mMenu == v) {
-            mBrowserActivity.openOptionsMenu();
         } else if (mAllButton == v) {
             mBrowserActivity.bookmarksOrHistoryPicker(false, false);
         } else if (mSearchButton == v) {
@@ -135,6 +130,7 @@ public class TitleBarXLarge extends TitleBarBase
     public void onDismiss() {
         mBrowserActivity.getTabControl().getCurrentTopWebView().requestFocus();
         mBrowserActivity.hideFakeTitleBar();
+        mUrlView.setText(mBrowserActivity.getTabControl().getCurrentWebView().getUrl());
     }
 
     @Override

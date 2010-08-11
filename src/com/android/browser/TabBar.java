@@ -25,11 +25,13 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,19 +50,18 @@ public class TabBar extends LinearLayout
 
     private static final int PROGRESS_MAX = 100;
 
-    private static final int TAB_WIDTH_SELECTED = 300;
-    private static final int TAB_WIDTH_UNSELECTED = 300;
-
     private BrowserActivity mBrowserActivity;
 
-    private final float mTabWidthSelected;
-    private final float mTabWidthUnselected;
+    private final int mTabWidthSelected;
+    private final int mTabWidthUnselected;
+
+    private final Drawable mShowUrlDrawable;
+    private final Drawable mHideUrlDrawable;
 
     private TitleBarXLarge mTitleBar;
 
     private TabScrollView mTabs;
-    private View mNewButton;
-    private View mShowUrlButton;
+    private ImageButton mShowUrlButton;
     private TabControl mControl;
 
     private Map<Tab, TabViewData> mTabMap;
@@ -68,12 +69,15 @@ public class TabBar extends LinearLayout
     private float mDensityScale;
     private boolean mUserRequestedUrlbar;
     private boolean mTitleVisible;
+    private boolean mShowUrlMode;
 
     public TabBar(BrowserActivity context, TabControl tabcontrol, TitleBarXLarge titlebar) {
         super(context);
         Resources res = context.getResources();
-        mTabWidthSelected = res.getDimension(R.dimen.tab_width_selected);
-        mTabWidthUnselected = res.getDimension(R.dimen.tab_width_unselected);
+        mTabWidthSelected = (int) res.getDimension(R.dimen.tab_width_selected);
+        mTabWidthUnselected = (int) res.getDimension(R.dimen.tab_width_unselected);
+        mShowUrlDrawable = res.getDrawable(R.drawable.ic_menu_showurl);
+        mHideUrlDrawable = res.getDrawable(R.drawable.ic_menu_hideurl);
 
         mTitleBar = titlebar;
         mTitleBar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -86,13 +90,11 @@ public class TabBar extends LinearLayout
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.tab_bar, this);
         mTabs = (TabScrollView) findViewById(R.id.tabs);
-        mNewButton = findViewById(R.id.newtab);
-        mShowUrlButton = findViewById(R.id.showurl);
+        mShowUrlButton = (ImageButton) findViewById(R.id.showurl);
 
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
 
-        mNewButton.setOnClickListener(this);
         mShowUrlButton.setOnClickListener(this);
 
         // build tabs
@@ -112,14 +114,21 @@ public class TabBar extends LinearLayout
 
     public void onClick(View view) {
         if (mShowUrlButton == view) {
-            mBrowserActivity.stopScrolling();
-            mBrowserActivity.showFakeTitleBar();
-            mUserRequestedUrlbar = true;
-        } else if (mNewButton == view) {
-            mBrowserActivity.bookmarksOrHistoryPicker(false, true);
+            if (mShowUrlMode) {
+                showUrlBar();
+            } else if (!isLoading()) {
+                ScrollWebView swv = (ScrollWebView) mControl.getCurrentWebView();
+                swv.hideEmbeddedTitleBar();
+                mBrowserActivity.hideFakeTitleBar();
+            }
         } else if (mTabs.getSelectedTab() == view) {
-            mBrowserActivity.showFakeTitleBar();
-            mTitleBar.requestUrlInputFocus();
+            if (mBrowserActivity.isFakeTitleBarShowing() && !isLoading()) {
+                mBrowserActivity.hideFakeTitleBar();
+            } else {
+                showUrlBar();
+            }
+            // temporarily disabled
+            // mTitleBar.requestUrlInputFocus();
         } else {
             TabViewData data = (TabViewData) view.getTag();
             int ix = mControl.getTabIndex(data.mTab);
@@ -128,18 +137,48 @@ public class TabBar extends LinearLayout
         }
     }
 
-    void onShowTitleBar() {
-        mShowUrlButton.setVisibility(View.INVISIBLE);
+    private void showUrlBar() {
+        mBrowserActivity.stopScrolling();
+        mBrowserActivity.showFakeTitleBar();
+        mUserRequestedUrlbar = true;
     }
 
+    private void setShowUrlMode(boolean showUrl) {
+        mShowUrlMode = showUrl;
+        Drawable newDrawable = mShowUrlMode ? mShowUrlDrawable : mHideUrlDrawable;
+        mShowUrlButton.setImageDrawable(newDrawable);
+    }
+
+    // callback after fake titlebar is shown
+    void onShowTitleBar() {
+        setShowUrlMode(false);
+    }
+
+    // callback after fake titlebar is hidden
     void onHideTitleBar() {
-        mShowUrlButton.setVisibility(mTitleVisible ? View.INVISIBLE : View.VISIBLE);
+        setShowUrlMode(!mTitleVisible);
         Tab tab = mControl.getCurrentTab();
         tab.getWebView().requestFocus();
         mUserRequestedUrlbar = false;
     }
 
-    // UrlInputListener implementation
+    // webview scroll listener
+
+    @Override
+    public void onScroll(boolean titleVisible) {
+        mTitleVisible = titleVisible;
+        if (!mShowUrlMode && !mTitleVisible && !isLoading()) {
+            if (mUserRequestedUrlbar) {
+                mBrowserActivity.hideFakeTitleBar();
+            } else {
+                setShowUrlMode(true);
+            }
+        } else if (mTitleVisible && !isLoading()) {
+            if (mShowUrlMode) {
+                setShowUrlMode(false);
+            }
+        }
+    }
 
     @Override
     public void createContextMenu(ContextMenu menu) {
@@ -182,8 +221,11 @@ public class TabBar extends LinearLayout
         public TabView(Context context, TabViewData tab) {
             super(context);
             mTabData = tab;
+            setGravity(Gravity.CENTER_VERTICAL);
+            setOrientation(LinearLayout.HORIZONTAL);
+            setBackgroundResource(R.drawable.tab_background);
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            mTabContent = inflater.inflate(R.layout.tab_title, this);
+            mTabContent = inflater.inflate(R.layout.tab_title, this, true);
             mTitle = (TextView) mTabContent.findViewById(R.id.title);
             mIconView = (ImageView) mTabContent.findViewById(R.id.favicon);
             mLock = (ImageView) mTabContent.findViewById(R.id.lock);
@@ -226,8 +268,7 @@ public class TabBar extends LinearLayout
             mTitle.setTextColor(mSelected ? Color.BLACK : Color.GRAY);
             super.setSelected(selected);
             setLayoutParams(new LayoutParams(selected ?
-                    (int) (TAB_WIDTH_SELECTED * mDensityScale)
-                    : (int) (TAB_WIDTH_UNSELECTED * mDensityScale),
+                    mTabWidthSelected : mTabWidthUnselected,
                     LayoutParams.MATCH_PARENT));
         }
 
@@ -355,7 +396,6 @@ public class TabBar extends LinearLayout
     public void onNewTab(Tab tab) {
         TabViewData tvd = buildTab(tab);
         buildView(tvd);
-        mShowUrlButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -395,22 +435,6 @@ public class TabBar extends LinearLayout
 
     private boolean isLoading() {
         return mTabMap.get(mControl.getCurrentTab()).mTabView.mInLoad;
-    }
-
-    // webview scroll listener
-
-    @Override
-    public void onScroll(boolean titleVisible) {
-        mTitleVisible = titleVisible;
-        boolean buttonVisible = (mShowUrlButton.getVisibility() == View.VISIBLE);
-        if (!buttonVisible && !mTitleVisible && !isLoading()) {
-            mShowUrlButton.setVisibility(View.VISIBLE);
-            if (mUserRequestedUrlbar) {
-                mBrowserActivity.hideFakeTitleBar();
-            }
-        } else if (mTitleVisible && !isLoading()) {
-            mShowUrlButton.setVisibility(View.INVISIBLE);
-        }
     }
 
 }

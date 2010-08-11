@@ -68,6 +68,10 @@ public class ScrollWebView extends WebView {
         super(context);
     }
 
+    void hideEmbeddedTitleBar() {
+        scrollBy(0, getVisibleTitleHeight());
+    }
+
     @Override
     public void setEmbeddedTitleBar(final View title) {
         super.setEmbeddedTitleBar(title);
