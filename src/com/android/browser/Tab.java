@@ -1060,7 +1060,7 @@ class Tab {
 
         @Override
         public void onSelectionDone(WebView view) {
-            if (mInForeground) mActivity.closeDialogs();
+            if (mInForeground) mActivity.endActionMode();
         }
 
         @Override
@@ -1261,7 +1261,7 @@ class Tab {
             // Unlike the others, do not call mClient's version, which would
             // change the progress bar.  However, we do want to remove the
             // find or select dialog.
-            mBrowserActivity.closeDialogs();
+            mBrowserActivity.endActionMode();
         }
         @Override
         public void doUpdateVisitedHistory(WebView view, String url,
@@ -1462,7 +1462,7 @@ class Tab {
      */
     boolean createSubWindow() {
         if (mSubView == null) {
-            mActivity.closeDialogs();
+            mActivity.endActionMode();
             mSubViewContainer = mInflateService.inflate(
                     R.layout.browser_subwindow, null);
             mSubView = (WebView) mSubViewContainer.findViewById(R.id.webview);
@@ -1510,7 +1510,7 @@ class Tab {
      */
     void dismissSubWindow() {
         if (mSubView != null) {
-            mActivity.closeDialogs();
+            mActivity.endActionMode();
             BrowserSettings.getInstance().deleteObserver(
                     mSubView.getSettings());
             mSubView.destroy();
@@ -1535,7 +1535,7 @@ class Tab {
     void removeSubWindow(ViewGroup content) {
         if (mSubView != null) {
             content.removeView(mSubViewContainer);
-            mActivity.closeDialogs();
+            mActivity.endActionMode();
         }
     }
 
@@ -1594,7 +1594,7 @@ class Tab {
                 (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
         wrapper.removeView(mMainView);
         content.removeView(mContainer);
-        mActivity.closeDialogs();
+        mActivity.endActionMode();
         removeSubWindow(content);
     }
 
@@ -1978,38 +1978,6 @@ class Tab {
             return false;
         }
         return true;
-    }
-
-    /*
-     * Opens the find and select text dialogs.  Called by BrowserActivity.
-     */
-    WebView showDialog(WebDialog dialog) {
-        LinearLayout container;
-        WebView view;
-        if (mSubView != null) {
-            view = mSubView;
-            container = (LinearLayout) mSubViewContainer.findViewById(
-                    R.id.inner_container);
-        } else {
-            view = mMainView;
-            container = mContainer;
-        }
-        dialog.show();
-        container.addView(dialog, 0, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        dialog.setWebView(view);
-        return view;
-    }
-
-    /*
-     * Close the find or select dialog. Called by BrowserActivity.closeDialog.
-     */
-    void closeDialog(WebDialog dialog) {
-        // The dialog may be attached to the subwindow.  Ensure that the
-        // correct parent has it removed.
-        LinearLayout parent = (LinearLayout) dialog.getParent();
-        if (parent != null) parent.removeView(dialog);
     }
 
     /**

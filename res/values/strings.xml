@@ -46,7 +46,8 @@
     <string name="action">Sign in</string>
     <!-- The name of the bookmarks and history search suggestion source.  -->
     <string name="bookmarks_search">Browser</string>
-
+    <!-- Title for text selection contextual mode, displayed in the contextual action bar [CHAR LIMIT=NONE]-->
+    <string name="text_selection_title">Text selection</string>
     <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
     <string name="cancel">Cancel</string>
     <!-- Label for a confirm button.  Used in multiple contexts. -->

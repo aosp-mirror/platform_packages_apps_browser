@@ -71,6 +71,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -862,9 +863,9 @@ public class BrowserActivity extends Activity
             }
             // Do not need to check for null, since the current tab will have
             // at least a main WebView, or we would have returned above.
-            if (dialogIsUp()) {
-                // Do not show the fake title bar, which would cover up the
-                // find or select dialog.
+            if (isInCustomActionMode()) {
+                // Do not show the fake title bar, while a custom ActionMode
+                // (i.e. find or select) is showing.
                 return;
             }
             if (mXLargeScreenSize) {
@@ -1322,20 +1323,30 @@ public class BrowserActivity extends Activity
         getTopWindow().requestFocus();
     }
 
-    private WebView showDialog(WebDialog dialog) {
-        // Need to do something special for Tablet
-        Tab tab = mTabControl.getCurrentTab();
-        if (tab.getSubWebView() == null) {
-            // If the find or select is being performed on the main webview,
-            // remove the embedded title bar.
-            WebView mainView = tab.getWebView();
-            if (mainView != null) {
-                mainView.setEmbeddedTitleBar(null);
+    @Override
+    public ActionMode onStartActionMode(ActionMode.Callback callback) {
+        ActionMode mode = super.onStartActionMode(callback);
+        if (callback instanceof FindActionModeCallback
+                || callback instanceof SelectActionModeCallback) {
+            // For find and select, hide extra title bars.  They will
+            // be replaced in onEndActionMode.
+            Tab tab = mTabControl.getCurrentTab();
+            if (tab.getSubWebView() == null) {
+                // If the find or select is being performed on the main webview,
+                // remove the embedded title bar.
+                WebView mainView = tab.getWebView();
+                if (mainView != null) {
+                    mainView.setEmbeddedTitleBar(null);
+                }
             }
+            hideFakeTitleBar();
+            mActionMode = mode;
+        } else {
+            // Do not store other ActionModes, since we are unable to determine
+            // when they finish.
+            mActionMode = null;
         }
-        hideFakeTitleBar();
-        mMenuState = EMPTY_MENU;
-        return tab.showDialog(dialog);
+        return mode;
     }
 
     @Override
@@ -1431,7 +1442,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.find_menu_id:
-                showFindDialog();
+                showFindDialog(null);
                 break;
 
             case R.id.save_webarchive_menu_id:
@@ -1539,24 +1550,28 @@ public class BrowserActivity extends Activity
         startActivity(i);
     }
 
-    private boolean dialogIsUp() {
-        return null != mFindDialog && mFindDialog.isVisible() ||
-            null != mSelectDialog && mSelectDialog.isVisible();
-    }
-
-    private boolean closeDialog(WebDialog dialog) {
-        if (null == dialog || !dialog.isVisible()) return false;
-        Tab currentTab = mTabControl.getCurrentTab();
-        currentTab.closeDialog(dialog);
-        dialog.dismiss();
-        return true;
+    /*
+     * True if a custom ActionMode (i.e. find or select) is in use.
+     */
+    private boolean isInCustomActionMode() {
+        return mActionMode != null;
     }
 
     /*
-     * Remove the find dialog or select dialog.
+     * End the current ActionMode.  Only works for find and select.
      */
-    public void closeDialogs() {
-        if (!(closeDialog(mFindDialog) || closeDialog(mSelectDialog))) return;
+    void endActionMode() {
+        if (mActionMode != null) {
+            mActionMode.finish();
+        }
+    }
+
+    /*
+     * Called by find and select when they are finished.  Replace title bars
+     * as necessary.
+     */
+    public void onEndActionMode() {
+        if (!isInCustomActionMode()) return;
         // If the Find was being performed in the main WebView, replace the
         // embedded title bar.
         Tab currentTab = mTabControl.getCurrentTab();
@@ -1566,32 +1581,48 @@ public class BrowserActivity extends Activity
                 mainView.setEmbeddedTitleBar(mTitleBar);
             }
         }
-        mMenuState = R.id.MAIN_MENU;
         if (mInLoad) {
             // The title bar was hidden, because otherwise it would cover up the
             // find or select dialog. Now that the dialog has been removed,
             // show the fake title bar once again.
             showFakeTitleBar();
         }
+        mActionMode = null;
     }
 
-    public void showFindDialog() {
-        if (null == mFindDialog) {
-            mFindDialog = new FindDialog(this);
+    private FindActionModeCallback mFindCallback;
+    private SelectActionModeCallback mSelectCallback;
+
+    // For select and find, we keep track of the ActionMode so that
+    // finish() can be called as desired.
+    private ActionMode mActionMode;
+
+    /*
+     * Open the find ActionMode.
+     * @param text If non null, will be placed in find to be searched for.
+     */
+    public void showFindDialog(String text) {
+        if (null == mFindCallback) {
+            mFindCallback = new FindActionModeCallback(this);
         }
-        showDialog(mFindDialog).setFindIsUp(true);
+        WebView webView = getTopWindow();
+        webView.setFindIsUp(true);
+        mFindCallback.setWebView(webView);
+        startActionMode(mFindCallback);
+        if (text != null) mFindCallback.setText(text);
     }
 
-    public void setFindDialogText(String text) {
-        mFindDialog.setText(text);
-    }
-
+    /*
+     * Show the select ActionMode.
+     */
     public void showSelectDialog() {
-        if (null == mSelectDialog) {
-            mSelectDialog = new SelectDialog(this);
+        if (null == mSelectCallback) {
+            mSelectCallback = new SelectActionModeCallback(this);
         }
-        showDialog(mSelectDialog).setUpSelect();
-        mSelectDialog.hideSoftInput();
+        WebView webView = getTopWindow();
+        webView.setUpSelect();
+        mSelectCallback.setWebView(webView);
+        startActionMode(mSelectCallback);
     }
 
     @Override
@@ -2601,7 +2632,7 @@ public class BrowserActivity extends Activity
         onProgressChanged(view, INITIAL_PROGRESS);
         mDidStopLoad = false;
         if (!mIsNetworkUp) createAndShowNetworkDialog();
-        closeDialogs();
+        endActionMode();
         if (mSettings.isTracing()) {
             String host;
             try {
@@ -4158,8 +4189,6 @@ public class BrowserActivity extends Activity
     private static final int EMPTY_MENU = -1;
     private Menu mMenu;
 
-    private FindDialog mFindDialog;
-    private SelectDialog mSelectDialog;
     // Used to prevent chording to result in firing two shortcuts immediately
     // one after another.  Fixes bug 1211714.
     boolean mCanChord;
