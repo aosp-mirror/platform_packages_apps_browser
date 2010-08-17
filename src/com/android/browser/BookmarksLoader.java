@@ -16,10 +16,9 @@
 
 package com.android.browser;
 
-import com.android.browser.provider.BrowserContract.Bookmarks;
-
 import android.content.Context;
 import android.content.CursorLoader;
+import android.provider.BrowserContract.Bookmarks;
 
 public class BookmarksLoader extends CursorLoader {
     public static final String ARG_ROOT_FOLDER = "root";

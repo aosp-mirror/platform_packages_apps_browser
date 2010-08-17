@@ -32,6 +32,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.ServiceManager;
 import android.provider.Browser;
+import android.provider.BrowserContract.History;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;

@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.provider.BrowserContract;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -35,6 +33,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Browser;
+import android.provider.BrowserContract;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;

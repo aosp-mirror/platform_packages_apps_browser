@@ -17,10 +17,6 @@
 package com.android.browser.provider;
 
 import com.android.browser.R;
-import com.android.browser.provider.BrowserContract.Bookmarks;
-import com.android.browser.provider.BrowserContract.History;
-import com.android.browser.provider.BrowserContract.Searches;
-import com.android.browser.provider.BrowserContract.SyncState;
 import com.android.internal.content.SyncStateContentProviderHelper;
 
 import android.content.ContentResolver;
@@ -34,6 +30,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.provider.BrowserContract;
+import android.provider.BrowserContract.Bookmarks;
+import android.provider.BrowserContract.History;
+import android.provider.BrowserContract.Searches;
+import android.provider.BrowserContract.SyncState;
 import android.provider.ContactsContract.RawContacts;
 import android.provider.SyncStateContract;
 import android.text.TextUtils;
@@ -100,7 +101,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         bookmarksColumns.put(Bookmarks.FAVICON, Bookmarks.FAVICON);
         bookmarksColumns.put(Bookmarks.THUMBNAIL, Bookmarks.THUMBNAIL);
         bookmarksColumns.put(Bookmarks.TOUCH_ICON, Bookmarks.TOUCH_ICON);
-        bookmarksColumns.put(Bookmarks.USER_ENTERED, Bookmarks.USER_ENTERED);
 
         // Bookmarks
         HashMap<String, String> map = BOOKMARKS_PROJECTION_MAP;
@@ -161,7 +161,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     Bookmarks.FAVICON + " BLOB," +
                     Bookmarks.THUMBNAIL + " BLOB," +
                     Bookmarks.TOUCH_ICON + " BLOB," +
-                    Bookmarks.USER_ENTERED + " INTEGER," +
                     Bookmarks.IS_FOLDER + " INTEGER NOT NULL DEFAULT 0," +
                     Bookmarks.PARENT + " INTEGER NOT NULL DEFAULT 0," +
                     Bookmarks.POSITION + " INTEGER NOT NULL," +
