@@ -32,6 +32,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Bookmarks;
+import android.provider.BrowserContract.ChromeSyncColumns;
 import android.provider.BrowserContract.History;
 import android.provider.BrowserContract.Searches;
 import android.provider.BrowserContract.SyncState;
@@ -67,9 +68,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final int SYNCSTATE = 4000;
     static final int SYNCSTATE_ID = 4001;
 
-    static final long FIXED_ID_BOOKMARKS = 1;
-    static final long FIXED_ID_BOOKMARKS_BAR = 2;
-    static final long FIXED_ID_OTHER_BOOKMARKS = 3;
+    static final long FIXED_ID_CHROME_ROOT = 1;
+    static final long FIXED_ID_BOOKMARKS = 2;
+    static final long FIXED_ID_BOOKMARKS_BAR = 3;
+    static final long FIXED_ID_OTHER_BOOKMARKS = 4;
 
     static final String DEFAULT_BOOKMARKS_SORT_ORDER = "position ASC, _id ASC";
     
@@ -147,7 +149,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
-        static final int DATABASE_VERSION = 10;
+        static final int DATABASE_VERSION = 11;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -216,22 +218,34 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         private void createDefaultBookmarks(SQLiteDatabase db) {
             ContentValues values = new ContentValues();
             // TODO figure out how to deal with localization for the defaults
-            // TODO fill in the server unique tags for the sync adapter
 
-            // Bookmarks folder
-            values.put(Bookmarks._ID, FIXED_ID_BOOKMARKS);
-            values.put(Bookmarks.TITLE, "Bookmarks");
+            // Chrome sync root folder
+            values.put(Bookmarks._ID, FIXED_ID_CHROME_ROOT);
+            values.put(ChromeSyncColumns.SERVER_UNIQUE, ChromeSyncColumns.FOLDER_NAME_ROOT);
+            values.put(Bookmarks.TITLE, "Google Chrome");
             values.put(Bookmarks.PARENT, 0);
             values.put(Bookmarks.POSITION, 0);
             values.put(Bookmarks.IS_FOLDER, true);
             values.put(Bookmarks.DIRTY, true);
-            long bookmarksId = db.insertOrThrow(TABLE_BOOKMARKS, null, values);
+            db.insertOrThrow(TABLE_BOOKMARKS, null, values);
+
+            // Bookmarks folder
+            values.put(Bookmarks._ID, FIXED_ID_BOOKMARKS);
+            values.put(ChromeSyncColumns.SERVER_UNIQUE, ChromeSyncColumns.FOLDER_NAME_BOOKMARKS);
+            values.put(Bookmarks.TITLE, "Bookmarks");
+            values.put(Bookmarks.PARENT, FIXED_ID_CHROME_ROOT);
+            values.put(Bookmarks.POSITION, 0);
+            values.put(Bookmarks.IS_FOLDER, true);
+            values.put(Bookmarks.DIRTY, true);
+            db.insertOrThrow(TABLE_BOOKMARKS, null, values);
 
             // Bookmarks Bar folder
             values.clear();
             values.put(Bookmarks._ID, FIXED_ID_BOOKMARKS_BAR);
+            values.put(ChromeSyncColumns.SERVER_UNIQUE,
+                    ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR);
             values.put(Bookmarks.TITLE, "Bookmarks Bar");
-            values.put(Bookmarks.PARENT, bookmarksId);
+            values.put(Bookmarks.PARENT, FIXED_ID_BOOKMARKS);
             values.put(Bookmarks.POSITION, 0);
             values.put(Bookmarks.IS_FOLDER, true);
             values.put(Bookmarks.DIRTY, true);
@@ -240,13 +254,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             // Other Bookmarks folder
             values.clear();
             values.put(Bookmarks._ID, FIXED_ID_OTHER_BOOKMARKS);
+            values.put(ChromeSyncColumns.SERVER_UNIQUE,
+                    ChromeSyncColumns.FOLDER_NAME_OTHER_BOOKMARKS);
             values.put(Bookmarks.TITLE, "Other Bookmarks");
-            values.put(Bookmarks.PARENT, bookmarksId);
+            values.put(Bookmarks.PARENT, FIXED_ID_BOOKMARKS);
             values.put(Bookmarks.POSITION, 1000);
             values.put(Bookmarks.IS_FOLDER, true);
             values.put(Bookmarks.DIRTY, true);
             db.insertOrThrow(TABLE_BOOKMARKS, null, values);
-            
+
             addDefaultBookmarks(db, FIXED_ID_BOOKMARKS_BAR);
 
             // TODO remove this testing code
