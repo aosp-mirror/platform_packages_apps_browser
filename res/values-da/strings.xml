@@ -294,4 +294,6 @@
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Slet alle data"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Annuller"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Indstiller tapet ..."</string>
+    <!-- no translation found for defaultBookmarksUpButton (2303951020715704735) -->
+    <skip />
 </resources>
