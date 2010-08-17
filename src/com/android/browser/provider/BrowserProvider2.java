@@ -51,9 +51,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final String TABLE_SEARCHES = "searches";
     static final String TABLE_SYNC_STATE = "syncstate";
 
-    static final String HISTORY_JOIN_BOOKMARKS =
-            "history LEFT OUTER JOIN bookmarks ON (history.url = bookmarks.url)";
-
+    static final String DEFAULT_HISTORY_SORT = History.DATE_LAST_VISITED + " DESC";
+    
     static final int BOOKMARKS = 1000;
     static final int BOOKMARKS_ID = 1001;
     static final int BOOKMARKS_FOLDER = 1002;
@@ -96,17 +95,13 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(BrowserContract.AUTHORITY, "syncstate", SYNCSTATE);
         matcher.addURI(BrowserContract.AUTHORITY, "syncstate/#", SYNCSTATE_ID);
 
-        // Common BookmarkColumns
-        HashMap<String, String> bookmarksColumns = new HashMap();
-        bookmarksColumns.put(Bookmarks.TITLE, Bookmarks.TITLE);
-        bookmarksColumns.put(Bookmarks.URL, Bookmarks.URL);
-        bookmarksColumns.put(Bookmarks.FAVICON, Bookmarks.FAVICON);
-        bookmarksColumns.put(Bookmarks.THUMBNAIL, Bookmarks.THUMBNAIL);
-        bookmarksColumns.put(Bookmarks.TOUCH_ICON, Bookmarks.TOUCH_ICON);
-
         // Bookmarks
         HashMap<String, String> map = BOOKMARKS_PROJECTION_MAP;
-        map.putAll(bookmarksColumns);
+        map.put(Bookmarks.TITLE, Bookmarks.TITLE);
+        map.put(Bookmarks.URL, Bookmarks.URL);
+        map.put(Bookmarks.FAVICON, Bookmarks.FAVICON);
+        map.put(Bookmarks.THUMBNAIL, Bookmarks.THUMBNAIL);
+        map.put(Bookmarks.TOUCH_ICON, Bookmarks.TOUCH_ICON);
         map.put(Bookmarks._ID, TABLE_BOOKMARKS + "._id AS _id");
         map.put(Bookmarks.IS_FOLDER, Bookmarks.IS_FOLDER);
         map.put(Bookmarks.PARENT, Bookmarks.PARENT);
@@ -130,11 +125,16 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         // History
         map = HISTORY_PROJECTION_MAP;
-        map.putAll(bookmarksColumns);
-        map.put(History._ID, TABLE_HISTORY + "._id AS _id");
+        map.put(History._ID, qualifyColumn(TABLE_HISTORY, History._ID));
+        map.put(History.TITLE, Bookmarks.TITLE);
+        map.put(History.URL, Bookmarks.URL);
+        map.put(History.FAVICON, Bookmarks.FAVICON);
+        map.put(History.THUMBNAIL, Bookmarks.THUMBNAIL);
+        map.put(History.TOUCH_ICON, Bookmarks.TOUCH_ICON);
         map.put(History.DATE_CREATED, History.DATE_CREATED);
         map.put(History.DATE_LAST_VISITED, History.DATE_LAST_VISITED);
         map.put(History.VISITS, History.VISITS);
+        map.put(History.USER_ENTERED, History.USER_ENTERED);
 
         // Sync state
         map = SYNC_STATE_PROJECTION_MAP;
@@ -144,12 +144,16 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         map.put(SyncState.DATA, SyncState.DATA);
     }
 
+    static final String qualifyColumn(String table, String column) {
+        return table + "." + column + " AS " + column;
+    }
+    
     DatabaseHelper mOpenHelper;
     SyncStateContentProviderHelper mSyncHelper = new SyncStateContentProviderHelper();
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
-        static final int DATABASE_VERSION = 11;
+        static final int DATABASE_VERSION = 15;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -186,10 +190,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
             db.execSQL("CREATE TABLE " + TABLE_HISTORY + "(" +
                     History._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    History.TITLE + " TEXT," +
                     History.URL + " TEXT NOT NULL," +
+                    History.FAVICON + " BLOB," +
+                    History.THUMBNAIL + " BLOB," +
+                    History.TOUCH_ICON + " BLOB," +
                     History.DATE_CREATED + " INTEGER," +
                     History.DATE_LAST_VISITED + " INTEGER," +
-                    History.VISITS + " INTEGER NOT NULL DEFAULT 0" +
+                    History.VISITS + " INTEGER NOT NULL DEFAULT 0," +
+                    History.USER_ENTERED + " INTEGER" +
                     ");");
 
             db.execSQL("CREATE TABLE " + TABLE_SEARCHES + " (" +
@@ -482,8 +491,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case HISTORY: {
+                if (sortOrder == null) {
+                    sortOrder = DEFAULT_HISTORY_SORT;
+                }
                 qb.setProjectionMap(HISTORY_PROJECTION_MAP);
-                qb.setTables(HISTORY_JOIN_BOOKMARKS);
+                qb.setTables(TABLE_HISTORY);
                 break;
             }
 

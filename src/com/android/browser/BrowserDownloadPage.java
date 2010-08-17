@@ -18,13 +18,10 @@ package com.android.browser;
 
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
-import android.content.ActivityNotFoundException;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ContentUris;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -34,17 +31,13 @@ import android.provider.Downloads;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
 import java.io.File;
-import java.util.List;
 
 /**
  *  View showing the user's current browser downloads
@@ -100,7 +93,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             // Create a list "controller" for the data
             mDownloadAdapter = new BrowserDownloadAdapter(this, 
                     mDownloadCursor, mDownloadCursor.getColumnIndexOrThrow(
-                    Downloads.Impl.COLUMN_LAST_MODIFICATION), mHandler);
+                    Downloads.Impl.COLUMN_LAST_MODIFICATION));
 
             setListAdapter(mDownloadAdapter);
             mListView.setOnCreateContextMenuListener(this);

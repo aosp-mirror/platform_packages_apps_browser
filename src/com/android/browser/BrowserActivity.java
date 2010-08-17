@@ -62,6 +62,7 @@ import android.os.PowerManager;
 import android.os.Process;
 import android.os.SystemClock;
 import android.provider.Browser;
+import android.provider.BrowserContract;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Downloads;
@@ -2506,18 +2507,18 @@ public class BrowserActivity extends Activity
                 Cursor c = null;
                 try {
                     c = Bookmarks.queryBookmarksForUrl(
-                            cr, originalUrl, url, true);
+                            cr, originalUrl, url);
                     if (c != null) {
                         if (c.moveToFirst()) {
                             ContentValues values = new ContentValues();
                             final ByteArrayOutputStream os
                                     = new ByteArrayOutputStream();
                             bm.compress(Bitmap.CompressFormat.PNG, 100, os);
-                            values.put(Browser.BookmarkColumns.THUMBNAIL,
+                            values.put(BrowserContract.Bookmarks.THUMBNAIL,
                                     os.toByteArray());
                             do {
                                 cr.update(ContentUris.withAppendedId(
-                                        Browser.BOOKMARKS_URI, c.getInt(0)),
+                                        BrowserContract.Bookmarks.CONTENT_URI, c.getLong(0)),
                                         values, null, null);
                             } while (c.moveToNext());
                         }

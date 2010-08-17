@@ -16,13 +16,16 @@
 
 package com.android.browser;
 
+import com.android.browser.TabControl.TabChangeListener;
+import com.android.common.speech.LoggingEvents;
+
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -34,14 +37,15 @@ import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemClock;
 import android.provider.Browser;
+import android.provider.BrowserContract.History;
 import android.speech.RecognizerResultsIntent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewStub;
-import android.view.View.OnClickListener;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
@@ -63,10 +67,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.browser.TabControl.TabChangeListener;
-import com.android.common.speech.LoggingEvents;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -992,26 +992,12 @@ class Tab {
                             .replace("_", "\\_");
                     Cursor c = null;
                     try {
-                        final ContentResolver cr
-                                = mActivity.getContentResolver();
-                        url = "%" + url;
-                        String [] selArgs = new String[] { url };
-                        String where = Browser.BookmarkColumns.URL
-                                + " LIKE ? ESCAPE '\\' AND "
-                                + Browser.BookmarkColumns.BOOKMARK + " = 0";
-                        c = cr.query(Browser.BOOKMARKS_URI, new String[]
-                                { Browser.BookmarkColumns._ID }, where, selArgs,
-                                null);
-                        if (c.moveToFirst()) {
-                            // Current implementation of database only has one
-                            // entry per url.
-                            ContentValues map = new ContentValues();
-                            map.put(Browser.BookmarkColumns.TITLE, title);
-                            String[] projection = new String[]
-                                    { Integer.valueOf(c.getInt(0)).toString() };
-                            cr.update(Browser.BOOKMARKS_URI, map, "_id = ?",
-                                    projection);
-                        }
+                        final ContentResolver cr = mActivity.getContentResolver();
+                        String selection = History.URL + " LIKE ? ESCAPE '\\'";
+                        String [] selectionArgs = new String[] { "%" + url };
+                        ContentValues values = new ContentValues();
+                        values.put(History.TITLE, title);
+                        cr.update(History.CONTENT_URI, values, selection, selectionArgs);
                     } catch (IllegalStateException e) {
                         Log.e(LOGTAG, "Tab onReceived title", e);
                     } catch (SQLiteException ex) {

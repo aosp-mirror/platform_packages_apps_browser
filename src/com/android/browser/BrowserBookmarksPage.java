@@ -386,7 +386,7 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
     public void updateRow(Bundle map) {
 
         // Find the record
-        int id = map.getInt("id");
+        long id = map.getLong("id");
         int position = -1;
         Cursor cursor = mAdapter.getCursor();
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -411,12 +411,13 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
         }
 
         if (map.getBoolean("invalidateThumbnail") == true) {
-            values.put(Browser.BookmarkColumns.THUMBNAIL, new byte[0]);
+            values.putNull(Browser.BookmarkColumns.THUMBNAIL);
         }
 
         if (values.size() > 0) {
-            getContentResolver().update(Browser.BOOKMARKS_URI, values,
-                    "_id = ?", new String[] { Integer.toString(id) });
+            getContentResolver().update(
+                    ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI, id),
+                    values, null, null);
         }
     }
 

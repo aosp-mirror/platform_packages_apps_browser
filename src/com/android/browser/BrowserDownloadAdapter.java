@@ -26,7 +26,6 @@ import android.database.Cursor;
 import android.drm.mobile1.DrmRawContent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Handler;
 import android.provider.Downloads;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
@@ -56,9 +55,9 @@ public class BrowserDownloadAdapter extends DateSortedExpandableListAdapter {
     private int mMimetypeColumnId;
     private int mDateColumnId;
 
-    public BrowserDownloadAdapter(Context context, Cursor c, int index,
-            Handler handler) {
-        super(context, c, index, handler);
+    public BrowserDownloadAdapter(Context context, Cursor c, int index) {
+        super(context, index);
+        changeCursor(c);
         mTitleColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_TITLE);
         mDescColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_DESCRIPTION);
         mStatusColumnId = c.getColumnIndexOrThrow(Downloads.Impl.COLUMN_STATUS);

@@ -16,6 +16,13 @@
 
 package com.android.browser;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.conn.params.ConnRouteParams;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -23,20 +30,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.http.AndroidHttpClient;
 import android.net.Proxy;
+import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
-import android.provider.Browser;
+import android.provider.BrowserContract;
 import android.webkit.WebView;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.params.HttpClientParams;
-import org.apache.http.conn.params.ConnRouteParams;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -102,7 +102,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     public Void doInBackground(String... values) {
         if (mContentResolver != null) {
             mCursor = Bookmarks.queryBookmarksForUrl(mContentResolver,
-                    mOriginalUrl, mUrl, true);
+                    mOriginalUrl, mUrl);
         }
 
         boolean inBookmarksDatabase = mCursor != null && mCursor.getCount() > 0;
@@ -180,13 +180,13 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         icon.compress(Bitmap.CompressFormat.PNG, 100, os);
         ContentValues values = new ContentValues();
-        values.put(Browser.BookmarkColumns.TOUCH_ICON,
+        values.put(BrowserContract.Bookmarks.TOUCH_ICON,
                 os.toByteArray());
 
         if (mCursor.moveToFirst()) {
             do {
                 mContentResolver.update(ContentUris.withAppendedId(
-                        Browser.BOOKMARKS_URI, mCursor.getInt(0)),
+                        BrowserContract.Bookmarks.CONTENT_URI, mCursor.getLong(0)),
                         values, null, null);
             } while (mCursor.moveToNext());
         }

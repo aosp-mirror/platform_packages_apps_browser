@@ -24,8 +24,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.Browser;
-import android.provider.Browser.BookmarkColumns;
 import android.provider.BrowserContract;
 import android.util.Log;
 import android.webkit.WebIconDatabase;
@@ -103,40 +101,26 @@ import java.io.ByteArrayOutputStream;
             ContentResolver cr, String url, String title) {
         Cursor cursor = null;
         try {
-            cursor = cr.query(
-                    Browser.BOOKMARKS_URI,
-                    Browser.HISTORY_PROJECTION,
-                    "url = ? AND title = ?",
+            cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
+                    new String[] { BrowserContract.Bookmarks._ID },
+                    BrowserContract.Bookmarks.URL + " = ? AND " +
+                            BrowserContract.Bookmarks.TITLE + " = ?",
                     new String[] { url, title },
                     null);
-            boolean first = cursor.moveToFirst();
+
             // Should be in the database no matter what
-            if (!first) {
+            if (!cursor.moveToFirst()) {
                 throw new AssertionError("URL is not in the database! " + url
                         + " " + title);
             }
+
             // Remove from bookmarks
             WebIconDatabase.getInstance().releaseIconForPageUrl(url);
-            Uri uri = ContentUris.withAppendedId(Browser.BOOKMARKS_URI,
-                    cursor.getInt(Browser.HISTORY_PROJECTION_ID_INDEX));
-            int numVisits = cursor.getInt(
-                    Browser.HISTORY_PROJECTION_VISITS_INDEX);
-            if (0 == numVisits) {
-                cr.delete(uri, null, null);
-            } else {
-                // It is no longer a bookmark, but it is still a visited
-                // site.
-                ContentValues values = new ContentValues();
-                values.put(Browser.BookmarkColumns.BOOKMARK, 0);
-                try {
-                    cr.update(uri, values, null, null);
-                } catch (IllegalStateException e) {
-                    Log.e("removeFromBookmarks", "no database!");
-                }
-            }
+            Uri uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI,
+                    cursor.getLong(0));
+            cr.delete(uri, null, null);
             if (context != null) {
-                Toast.makeText(context, R.string.removed_from_bookmarks,
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.removed_from_bookmarks, Toast.LENGTH_LONG).show();
             }
         } catch (IllegalStateException e) {
             Log.e(LOGTAG, "removeFromBookmarks", e);
@@ -168,8 +152,15 @@ import java.io.ByteArrayOutputStream;
         return false;
     }
 
+    static final String QUERY_BOOKMARKS_WHERE =
+            BrowserContract.Bookmarks.IS_FOLDER + " == 0 AND (" + 
+            BrowserContract.Bookmarks.URL + " == ? OR " +
+            BrowserContract.Bookmarks.URL + " == ? OR " +
+            BrowserContract.Bookmarks.URL + " LIKE ? || '%' OR " +
+            BrowserContract.Bookmarks.URL + " LIKE ? || '%')";
+
     /* package */ static Cursor queryBookmarksForUrl(ContentResolver cr,
-            String originalUrl, String url, boolean onlyBookmarks) {
+            String originalUrl, String url) {
         if (cr == null || url == null) {
             return null;
         }
@@ -192,18 +183,10 @@ import java.io.ByteArrayOutputStream;
         // http://www.google.com/m, search for
         // http://www.google.com/m?some_query)
         final String[] selArgs = new String[] {
-            originalUrlNoQuery, urlNoQuery, originalUrl, url };
-        String where = BookmarkColumns.URL + " == ? OR "
-                + BookmarkColumns.URL + " == ? OR "
-                + BookmarkColumns.URL + " LIKE ? || '%' OR "
-                + BookmarkColumns.URL + " LIKE ? || '%'";
-        if (onlyBookmarks) {
-            where = "(" + where + ") AND " + BookmarkColumns.BOOKMARK + " == 1";
-        }
-        final String[] projection =
-                new String[] { Browser.BookmarkColumns._ID };
-        return cr.query(Browser.BOOKMARKS_URI, projection, where, selArgs,
-                null);
+                originalUrlNoQuery, urlNoQuery, originalUrl, url };
+        final String[] projection = new String[] { BrowserContract.Bookmarks._ID };
+        return cr.query(BrowserContract.Bookmarks.CONTENT_URI, projection, QUERY_BOOKMARKS_WHERE,
+                selArgs, null);
     }
 
     // Strip the query from the given url.
@@ -233,7 +216,7 @@ import java.io.ByteArrayOutputStream;
             @Override
             protected Void doInBackground(Void... unused) {
                 final Cursor c =
-                        Bookmarks.queryBookmarksForUrl(cr, originalUrl, url, true);
+                        Bookmarks.queryBookmarksForUrl(cr, originalUrl, url);
                 if (c == null) {
                     return null;
                 }
@@ -242,11 +225,11 @@ import java.io.ByteArrayOutputStream;
                     final ByteArrayOutputStream os =
                             new ByteArrayOutputStream();
                     favicon.compress(Bitmap.CompressFormat.PNG, 100, os);
-                    values.put(Browser.BookmarkColumns.FAVICON,
+                    values.put(BrowserContract.Bookmarks.FAVICON,
                             os.toByteArray());
                     do {
                         cr.update(ContentUris.withAppendedId(
-                                Browser.BOOKMARKS_URI, c.getInt(0)),
+                                BrowserContract.Bookmarks.CONTENT_URI, c.getLong(0)),
                                 values, null, null);
                     } while (c.moveToNext());
                 }

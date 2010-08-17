@@ -17,65 +17,55 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
-import android.os.Handler;
-import android.provider.BaseColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DateSorter;
-import android.widget.ExpandableListAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-
-import java.util.Vector;
 
 /**
  * ExpandableListAdapter which separates data into categories based on date.
  * Used for History and Downloads.
  */
-public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
+public class DateSortedExpandableListAdapter extends BaseExpandableListAdapter {
     // Array for each of our bins.  Each entry represents how many items are
     // in that bin.
     private int mItemMap[];
     // This is our GroupCount.  We will have at most DateSorter.DAY_COUNT
     // bins, less if the user has no items in one or more bins.
     private int mNumberOfBins;
-    private Vector<DataSetObserver> mObservers;
     private Cursor mCursor;
     private DateSorter mDateSorter;
     private int mDateIndex;
     private int mIdIndex;
     private Context mContext;
 
-    private class ChangeObserver extends ContentObserver {
-        public ChangeObserver(Handler handler) {
-            super(handler);
+    boolean mDataValid;
+
+    DataSetObserver mDataSetObserver = new DataSetObserver() {
+        @Override
+        public void onChanged() {
+            mDataValid = true;
+            notifyDataSetChanged();
         }
 
         @Override
-        public boolean deliverSelfNotifications() {
-            return true;
+        public void onInvalidated() {
+            mDataValid = false;
+            notifyDataSetInvalidated();
         }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            refreshData();
-        }
-    }
-
-    public DateSortedExpandableListAdapter(Context context, Cursor cursor,
-            int dateIndex, Handler handler) {
+    };
+    
+    public DateSortedExpandableListAdapter(Context context, int dateIndex) {
         mContext = context;
         mDateSorter = new DateSorter(context);
-        mObservers = new Vector<DataSetObserver>();
-        mCursor = cursor;
-        mIdIndex = cursor.getColumnIndexOrThrow(BaseColumns._ID);
-        cursor.registerContentObserver(new ChangeObserver(handler));
         mDateIndex = dateIndex;
-        buildMap();
+        mDataValid = false;
+        mIdIndex = -1;
     }
 
     /**
@@ -122,6 +112,7 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
      * @return corresponding byte array from the Cursor.
      */
     /* package */ byte[] getBlob(int cursorIndex) {
+        if (!mDataValid) return null; 
         return mCursor.getBlob(cursorIndex);
     }
 
@@ -138,6 +129,7 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
      * @return corresponding integer from the Cursor.
      */
     /* package */ int getInt(int cursorIndex) {
+        if (!mDataValid) return 0; 
         return mCursor.getInt(cursorIndex);
     }
 
@@ -146,6 +138,7 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
      * already been moved to the correct position.
      */
     /* package */ long getLong(int cursorIndex) {
+        if (!mDataValid) return 0; 
         return mCursor.getLong(cursorIndex);
     }
 
@@ -158,6 +151,7 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
      * @return corresponding String from the Cursor.
      */
     /* package */ String getString(int cursorIndex) {
+        if (!mDataValid) return null; 
         return mCursor.getString(cursorIndex);
     }
 
@@ -166,6 +160,7 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
      * @param childId ID of the child view in question.
      * @return int Group position of the containing group.
     /* package */ int groupFromChildId(long childId) {
+        if (!mDataValid) return -1; 
         int group = -1;
         for (mCursor.moveToFirst(); !mCursor.isAfterLast();
                 mCursor.moveToNext()) {
@@ -173,11 +168,15 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
                 int bin = mDateSorter.getIndex(getLong(mDateIndex));
                 // bin is the same as the group if the number of bins is the
                 // same as DateSorter
-                if (mDateSorter.DAY_COUNT == mNumberOfBins) return bin;
+                if (DateSorter.DAY_COUNT == mNumberOfBins) {
+                    return bin;
+                }
                 // There are some empty bins.  Find the corresponding group.
                 group = 0;
                 for (int i = 0; i < bin; i++) {
-                    if (mItemMap[i] != 0) group++;
+                    if (mItemMap[i] != 0) {
+                        group++;
+                    }
                 }
                 break;
             }
@@ -193,6 +192,7 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
      * @return The corresponding bin that holds that group.
      */
     private int groupPositionToBin(int groupPosition) {
+        if (!mDataValid) return -1; 
         if (groupPosition < 0 || groupPosition >= DateSorter.DAY_COUNT) {
             throw new AssertionError("group position out of range");
         }
@@ -241,7 +241,9 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
      */
     /* package */ boolean moveCursorToChildPosition(int groupPosition,
             int childPosition) {
-        if (mCursor.isClosed()) return false;
+        if (!mDataValid || mCursor.isClosed()) {
+            return false;
+        }
         groupPosition = groupPositionToBin(groupPosition);
         int index = childPosition;
         for (int i = 0; i < groupPosition; i++) {
@@ -250,19 +252,34 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
         return mCursor.moveToPosition(index);
     }
 
-    /* package */ void refreshData() {
-        if (mCursor.isClosed()) {
+    public void changeCursor(Cursor cursor) {
+        if (cursor == mCursor) {
             return;
         }
-        mCursor.requery();
-        buildMap();
-        for (DataSetObserver o : mObservers) {
-            o.onChanged();
+        if (mCursor != null) {
+            mCursor.unregisterDataSetObserver(mDataSetObserver);
+            mCursor.close();
+        }
+        mCursor = cursor;
+        if (cursor != null) {
+            cursor.registerDataSetObserver(mDataSetObserver);
+            mIdIndex = cursor.getColumnIndexOrThrow("_id");
+            mDataValid = true;
+            buildMap();
+            // notify the observers about the new cursor
+            notifyDataSetChanged();
+        } else {
+            mIdIndex = -1;
+            mDataValid = false;
+            // notify the observers about the lack of a data set
+            notifyDataSetInvalidated();
         }
     }
 
+    @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
             View convertView, ViewGroup parent) {
+        if (!mDataValid) throw new IllegalStateException("Data is not valid"); 
         TextView item;
         if (null == convertView || !(convertView instanceof TextView)) {
             LayoutInflater factory = LayoutInflater.from(mContext);
@@ -275,73 +292,87 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
         return item;
     }
 
+    @Override
     public View getChildView(int groupPosition, int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
+        if (!mDataValid) throw new IllegalStateException("Data is not valid"); 
         return null;
     }
 
+    @Override
     public boolean areAllItemsEnabled() {
         return true;
     }
 
+    @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
 
+    @Override
     public int getGroupCount() {
+        if (!mDataValid) return 0;
         return mNumberOfBins;
     }
 
+    @Override
     public int getChildrenCount(int groupPosition) {
+        if (!mDataValid) return 0;
         return mItemMap[groupPositionToBin(groupPosition)];
     }
 
+    @Override
     public Object getGroup(int groupPosition) {
         return null;
     }
 
+    @Override
     public Object getChild(int groupPosition, int childPosition) {
         return null;
     }
 
+    @Override
     public long getGroupId(int groupPosition) {
+        if (!mDataValid) return 0; 
         return groupPosition;
     }
 
+    @Override
     public long getChildId(int groupPosition, int childPosition) {
+        if (!mDataValid) return 0; 
         if (moveCursorToChildPosition(groupPosition, childPosition)) {
             return getLong(mIdIndex);
         }
         return 0;
     }
 
+    @Override
     public boolean hasStableIds() {
         return true;
     }
 
-    public void registerDataSetObserver(DataSetObserver observer) {
-        mObservers.add(observer);
-    }
-
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-        mObservers.remove(observer);
-    }
-
+    @Override
     public void onGroupExpanded(int groupPosition) {
     }
 
+    @Override
     public void onGroupCollapsed(int groupPosition) {
     }
 
+    @Override
     public long getCombinedChildId(long groupId, long childId) {
+        if (!mDataValid) return 0; 
         return childId;
     }
 
+    @Override
     public long getCombinedGroupId(long groupId) {
+        if (!mDataValid) return 0; 
         return groupId;
     }
 
+    @Override
     public boolean isEmpty() {
-        return mCursor.isClosed() || mCursor.getCount() == 0;
+        return !mDataValid || mCursor == null || mCursor.isClosed() || mCursor.getCount() == 0;
     }
 }
