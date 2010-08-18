@@ -274,16 +274,26 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             mFile = new File(file);
             FileReader input = null;
             BufferedReader reader = null;
+            isRecovery = false;
+            iteration = 0;
+            page = 0;
             try {
                 input = new FileReader(mFile);
                 isRecovery = true;
                 reader = new BufferedReader(input);
-                iteration = Integer.parseInt(reader.readLine());
-                page = Integer.parseInt(reader.readLine());
+                String line = reader.readLine();
+                if (line == null)
+                    return;
+                iteration = Integer.parseInt(line);
+                line = reader.readLine();
+                if (line == null)
+                    return;
+                page = Integer.parseInt(line);
             } catch (FileNotFoundException ex) {
-                isRecovery = false;
-                iteration = 0;
-                page = 0;
+                return;
+            } catch (NumberFormatException nfe) {
+                Log.wtf(TAG, "unexpected data in status file, will start from begining");
+                return;
             } finally {
                 try {
                     if (reader != null) {
