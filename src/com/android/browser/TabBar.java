@@ -209,6 +209,7 @@ public class TabBar extends LinearLayout
         TabViewData mTabData;
         View mTabContent;
         TextView mTitle;
+        View mIncognito;
         ImageView mIconView;
         ImageView mLock;
         ImageView mClose;
@@ -231,6 +232,7 @@ public class TabBar extends LinearLayout
             mLock = (ImageView) mTabContent.findViewById(R.id.lock);
             mClose = (ImageView) mTabContent.findViewById(R.id.close);
             mClose.setOnClickListener(this);
+            mIncognito = mTabContent.findViewById(R.id.incognito);
             mSelected = false;
             mInLoad = false;
             // update the status
@@ -258,6 +260,11 @@ public class TabBar extends LinearLayout
             }
             if (mTabData.mLock != null) {
                 setLock(mTabData.mLock);
+            }
+            if (mTabData.mTab != null) {
+                mIncognito.setVisibility(
+                        mTabData.mTab.getWebView().isPrivateBrowsingEnabled() ?
+                        View.VISIBLE : View.GONE);
             }
         }
 

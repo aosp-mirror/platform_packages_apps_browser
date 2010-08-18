@@ -19,6 +19,13 @@
     android:orientation="horizontal"
     android:background="@drawable/tab_background" >
     <ImageView
+        android:id="@+id/incognito"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_marginLeft="3dip"
+        android:src="@drawable/ic_menu_incognito"
+        android:visibility="gone" />
+    <ImageView
         android:id="@+id/favicon"
         android:layout_width="20dip"
         android:layout_height="20dip"

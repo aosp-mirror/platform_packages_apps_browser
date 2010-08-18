@@ -21,6 +21,9 @@
             android:title="@string/new_tab"
             android:showAsAction="always"
             android:alphabeticShortcut="n" />
+        <item android:id="@+id/incognito_menu_id"
+            android:title="@string/incognito_tab"
+            android:icon="@drawable/ic_menu_incognito" />
         <item android:id="@+id/find_menu_id"
             android:title="@string/find_dot"
             android:icon="@drawable/ic_menu_find"

@@ -1379,6 +1379,10 @@ public class BrowserActivity extends Activity
                 openTabToHomePage();
                 break;
 
+            case R.id.incognito_menu_id:
+                openIncognitoTab();
+                break;
+
             case R.id.goto_menu_id:
                 editUrl();
                 break;

@@ -197,6 +197,8 @@
     <string name="open_in_new_window">Open in new window</string>
     <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
     <string name="goto_dot">Go</string>
+    <!-- Menu item that opens up a new incognito tab.  -->
+    <string name="incognito_tab">Open new incognito tab</string>
     <!-- Menu item that opens up a dialog which allows the user to provide a
             string and search for it on the page. -->
     <string name="find_dot">Find on page</string>
