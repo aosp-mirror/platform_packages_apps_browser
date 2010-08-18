@@ -215,6 +215,21 @@
 
         <service android:name=".widget.BookmarkWidgetService" /-->
 
+        <receiver
+            android:name=".widget.BookmarkStackWidgetProvider"
+            android:label="@string/bookmarks">
+            <intent-filter>
+                <action
+                    android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/bookmarkstackwidget" />
+        </receiver>
+        <service
+            android:name=".widget.BookmarkStackWidgetService"
+            android:exported="true" />
+
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
 
