@@ -638,7 +638,7 @@ public class BrowserActivity extends Activity
 
         final ContentResolver cr = mResolver;
         final String newUrl = url;
-        if (!mTabControl.getCurrentWebView().isPrivateBrowsingEnabled()) {
+        if (mTabControl == null || !mTabControl.getCurrentWebView().isPrivateBrowsingEnabled()) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... unused) {
