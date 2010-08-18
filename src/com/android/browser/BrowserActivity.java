@@ -3915,8 +3915,8 @@ public class BrowserActivity extends Activity
         intent.putExtra("disable_new_window", !mTabControl.canCreateNewTab());
         intent.putExtra("touch_icon_url", current.getTouchIconUrl());
         if (startWithHistory) {
-            intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_TAB,
-                    CombinedBookmarkHistoryActivity.HISTORY_TAB);
+            intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_FRAGMENT,
+                    CombinedBookmarkHistoryActivity.FRAGMENT_ID_HISTORY);
         }
         if (newTabMode) {
             intent.putExtra(CombinedBookmarkHistoryActivity.NEWTAB_MODE, true);

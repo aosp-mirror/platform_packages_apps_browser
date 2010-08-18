@@ -97,12 +97,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         // Bookmarks
         HashMap<String, String> map = BOOKMARKS_PROJECTION_MAP;
+        map.put(Bookmarks._ID, qualifyColumn(TABLE_BOOKMARKS, Bookmarks._ID));
         map.put(Bookmarks.TITLE, Bookmarks.TITLE);
         map.put(Bookmarks.URL, Bookmarks.URL);
         map.put(Bookmarks.FAVICON, Bookmarks.FAVICON);
         map.put(Bookmarks.THUMBNAIL, Bookmarks.THUMBNAIL);
         map.put(Bookmarks.TOUCH_ICON, Bookmarks.TOUCH_ICON);
-        map.put(Bookmarks._ID, TABLE_BOOKMARKS + "._id AS _id");
         map.put(Bookmarks.IS_FOLDER, Bookmarks.IS_FOLDER);
         map.put(Bookmarks.PARENT, Bookmarks.PARENT);
         map.put(Bookmarks.POSITION, Bookmarks.POSITION);

@@ -17,7 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.app.ExpandableListActivity;
+import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -34,27 +34,30 @@ import android.provider.Browser;
 import android.provider.BrowserContract.History;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewStub;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
 
 /**
  * Activity for displaying the browser's history, divided into
  * days of viewing.
  */
-public class BrowserHistoryPage extends ExpandableListActivity
-        implements LoaderCallbacks<Cursor> {
+public class BrowserHistoryPage extends Fragment
+        implements LoaderCallbacks<Cursor>, OnChildClickListener {
 
     static final int LOADER_HISTORY = 1;
 
+    BookmarksHistoryCallbacks mCallbacks;
+    ExpandableListView mList;
+    View mEmptyView;
     HistoryAdapter mAdapter;
     boolean mDisableNewWindow;
     HistoryItem mContextHeader;
@@ -86,24 +89,9 @@ public class BrowserHistoryPage extends ExpandableListActivity
         static final int INDEX_FAVICON = 4;
     }
 
-    /**
-     * Report back to the calling activity to load a site.
-     * @param url   Site to load.
-     * @param newWindow True if the URL should be loaded in a new window
-     */
-    private void loadUrl(String url, boolean newWindow) {
-        Intent intent = new Intent().setAction(url);
-        if (newWindow) {
-            Bundle b = new Bundle();
-            b.putBoolean("new_window", true);
-            intent.putExtras(b);
-        }
-        setResultToParent(RESULT_OK, intent);
-        finish();
-    }
-    
     private void copy(CharSequence text) {
-        ClipboardManager cm = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(
+                Context.CLIPBOARD_SERVICE);
         cm.setText(text);
     }
 
@@ -111,7 +99,7 @@ public class BrowserHistoryPage extends ExpandableListActivity
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case LOADER_HISTORY: {
-                CursorLoader loader = new CursorLoader(this, History.CONTENT_URI,
+                CursorLoader loader = new CursorLoader(getActivity(), History.CONTENT_URI,
                         HistoryQuery.PROJECTION, null, null, null);
                 return loader;
             }
@@ -130,23 +118,17 @@ public class BrowserHistoryPage extends ExpandableListActivity
 
                 // Add an empty view late, so it does not claim an empty
                 // history before the adapter is present
-                final ExpandableListView list = getExpandableListView();
-                View v = new ViewStub(this, R.layout.empty_history);
-                addContentView(v, new LayoutParams(
-                        LayoutParams.MATCH_PARENT,
-                        LayoutParams.MATCH_PARENT));
-                list.setEmptyView(v);
+                mList.setEmptyView(mEmptyView);
 
                 // Do not post the runnable if there is nothing in the list.
-                if (list.getExpandableListAdapter().getGroupCount() > 0) {
-                    list.post(new Runnable() {
+                if (mList.getExpandableListAdapter().getGroupCount() > 0) {
+                    mList.post(new Runnable() {
                         @Override
                         public void run() {
                             // In case the history gets cleared before this
                             // event happens
-                            if (list.getExpandableListAdapter()
-                                    .getGroupCount() > 0) {
-                                list.expandGroup(0);
+                            if (mList.getExpandableListAdapter().getGroupCount() > 0) {
+                                mList.expandGroup(0);
                             }
                         }
                     });
@@ -159,68 +141,69 @@ public class BrowserHistoryPage extends ExpandableListActivity
             }
         }
     }
-    
+
     @Override
-    protected void onCreate(Bundle icicle) {
+    public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setTitle(R.string.browser_history);
 
-        getExpandableListView().setOnCreateContextMenuListener(this);
-        
-        mAdapter = new HistoryAdapter(this);
-        setListAdapter(mAdapter);
+        setHasOptionsMenu(true);
 
-        mDisableNewWindow = getIntent().getBooleanExtra("disable_new_window", false);
+        Bundle args = getArguments();
+        mDisableNewWindow = args.getBoolean("disable_new_window", false);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallbacks = (BookmarksHistoryCallbacks) activity;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.history, container, false);
+        mList = (ExpandableListView) root.findViewById(android.R.id.list);
+        mList.setOnCreateContextMenuListener(this);
+        mList.setOnChildClickListener(this);
+        mAdapter = new HistoryAdapter(getActivity());
+        mList.setAdapter(mAdapter);
+
+        mEmptyView = root.findViewById(android.R.id.empty);
+
+        // Start the loader
+        getLoaderManager().initLoader(LOADER_HISTORY, null, this);
 
         // Register to receive icons in case they haven't all been loaded.
         CombinedBookmarkHistoryActivity.getIconListenerSet().addListener(mIconReceiver);
 
-        Activity parent = getParent();
-        if (null == parent
-                || !(parent instanceof CombinedBookmarkHistoryActivity)) {
-            throw new AssertionError("history page can only be viewed as a tab"
-                    + "in CombinedBookmarkHistoryActivity");
-        }
-
-        // initialize the result to canceled, so that if the user just presses
-        // back then it will have the correct result
-        setResultToParent(RESULT_CANCELED, null);
-
-        // Start the loader
-        getLoaderManager().initLoader(LOADER_HISTORY, null, this);
+        return root;
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        CombinedBookmarkHistoryActivity.getIconListenerSet()
-                .removeListener(mIconReceiver);
+        CombinedBookmarkHistoryActivity.getIconListenerSet().removeListener(mIconReceiver);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.history, menu);
-        return true;
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.clear_history_menu_id).setVisible(
-                Browser.canClearHistory(this.getContentResolver()));
-        return true;
+                Browser.canClearHistory(getActivity().getContentResolver()));
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear_history_menu_id:
-                Browser.clearHistory(getContentResolver());
+                Browser.clearHistory(getActivity().getContentResolver());
                 // BrowserHistoryPage is always a child of
                 // CombinedBookmarkHistoryActivity
-                ((CombinedBookmarkHistoryActivity) getParent())
-                        .removeParentChildRelationShips();
+                mCallbacks.onRemoveParentChildRelationShips();
                 return true;
                 
             default:
@@ -230,24 +213,23 @@ public class BrowserHistoryPage extends ExpandableListActivity
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        ExpandableListContextMenuInfo i = 
-            (ExpandableListContextMenuInfo) menuInfo;
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        ExpandableListContextMenuInfo i = (ExpandableListContextMenuInfo) menuInfo;
         // Do not allow a context menu to come up from the group views.
         if (!(i.targetView instanceof HistoryItem)) {
             return;
         }
 
         // Inflate the menu
-        MenuInflater inflater = getMenuInflater();
+        Activity parent = getActivity();
+        MenuInflater inflater = parent.getMenuInflater();
         inflater.inflate(R.menu.historycontext, menu);
 
         HistoryItem historyItem = (HistoryItem) i.targetView;
 
         // Setup the header
         if (mContextHeader == null) {
-            mContextHeader = new HistoryItem(this);
+            mContextHeader = new HistoryItem(parent);
         } else if (mContextHeader.getParent() != null) {
             ((ViewGroup) mContextHeader.getParent()).removeView(mContextHeader);
         }
@@ -264,7 +246,7 @@ public class BrowserHistoryPage extends ExpandableListActivity
             item.setTitle(R.string.remove_from_bookmarks);
         }
         // decide whether to show the share link option
-        PackageManager pm = getPackageManager();
+        PackageManager pm = parent.getPackageManager();
         Intent send = new Intent(Intent.ACTION_SEND);
         send.setType("text/plain");
         ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
@@ -280,35 +262,35 @@ public class BrowserHistoryPage extends ExpandableListActivity
         HistoryItem historyItem = (HistoryItem) i.targetView;
         String url = historyItem.getUrl();
         String title = historyItem.getName();
+        Activity activity = getActivity();
         switch (item.getItemId()) {
             case R.id.open_context_menu_id:
-                loadUrl(url, false);
+                mCallbacks.onUrlSelected(url, false);
                 return true;
             case R.id.new_window_context_menu_id:
-                loadUrl(url, true);
+                mCallbacks.onUrlSelected(url, true);
                 return true;
             case R.id.save_to_bookmarks_menu_id:
                 if (historyItem.isBookmark()) {
-                    Bookmarks.removeFromBookmarks(this, getContentResolver(),
+                    Bookmarks.removeFromBookmarks(activity, activity.getContentResolver(),
                             url, title);
                 } else {
-                    Browser.saveBookmark(this, title, url);
+                    Browser.saveBookmark(activity, title, url);
                 }
                 return true;
             case R.id.share_link_context_menu_id:
-                Browser.sendString(this, url,
-                        getText(R.string.choosertitle_sharevia).toString());
+                Browser.sendString(activity, url,
+                        activity.getText(R.string.choosertitle_sharevia).toString());
                 return true;
             case R.id.copy_url_context_menu_id:
                 copy(url);
                 return true;
             case R.id.delete_context_menu_id:
-                Browser.deleteFromHistory(getContentResolver(), url);
+                Browser.deleteFromHistory(activity.getContentResolver(), url);
                 return true;
             case R.id.homepage_context_menu_id:
-                BrowserSettings.getInstance().setHomePage(this, url);
-                Toast.makeText(this, R.string.homepage_set,
-                    Toast.LENGTH_LONG).show();
+                BrowserSettings.getInstance().setHomePage(activity, url);
+                Toast.makeText(activity, R.string.homepage_set, Toast.LENGTH_LONG).show();
                 return true;
             default:
                 break;
@@ -320,18 +302,10 @@ public class BrowserHistoryPage extends ExpandableListActivity
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
         if (v instanceof BookmarkItem) {
-            loadUrl(((BookmarkItem) v).getUrl(), false);
+            mCallbacks.onUrlSelected(((BookmarkItem) v).getUrl(), false);
             return true;
         }
         return false;
-    }
-
-    // This Activity is always a sub-Activity of
-    // CombinedBookmarkHistoryActivity. Therefore, we need to pass our
-    // result code up to our parent.
-    private void setResultToParent(int resultCode, Intent data) {
-        ((CombinedBookmarkHistoryActivity) getParent()).setResultFromChild(
-                resultCode, data);
     }
 
     private class HistoryAdapter extends DateSortedExpandableListAdapter {
@@ -344,7 +318,7 @@ public class BrowserHistoryPage extends ExpandableListActivity
                 View convertView, ViewGroup parent) {
             BookmarkItem item;
             if (null == convertView || !(convertView instanceof BookmarkItem)) {
-                item = new BookmarkItem(BrowserHistoryPage.this);
+                item = new BookmarkItem(getContext());
                 // Add padding on the left so it will be indented from the
                 // arrows on the group views.
                 item.setPadding(item.getPaddingLeft() + 10,

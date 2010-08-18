@@ -17,22 +17,39 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.app.TabActivity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.database.MatrixCursor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
+import android.view.View;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
-import android.widget.TabHost;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import java.util.HashMap;
 import java.util.Vector;
 
-public class CombinedBookmarkHistoryActivity extends TabActivity
-        implements TabHost.OnTabChangeListener {
+interface BookmarksHistoryCallbacks {
+    public void onUrlSelected(String url, boolean newWindow);
+    public void onRemoveParentChildRelationShips();
+}
+
+public class CombinedBookmarkHistoryActivity extends Activity
+        implements BookmarksHistoryCallbacks, OnItemClickListener {
+    final static String NEWTAB_MODE = "newtab_mode";
+    final static String STARTING_FRAGMENT = "fragment";
+
+    final static int FRAGMENT_ID_BOOKMARKS = 1;
+    final static int FRAGMENT_ID_HISTORY = 2;
+
     /**
      * Used to inform BrowserActivity to remove the parent/child relationships
      * from all the tabs.
@@ -53,11 +70,7 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
      */
     private boolean mNewTabMode;
 
-    /* package */ static String BOOKMARKS_TAB = "bookmark";
-    /* package */ static String HISTORY_TAB = "history";
-    /* package */ static String STARTING_TAB = "tab";
-
-    final static String NEWTAB_MODE = "newtab_mode";
+    long mCurrentFragment;
 
     static class IconListenerSet implements IconListener {
         // Used to store favicons as we get them from the database
@@ -70,6 +83,7 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
             mUrlsToIcons = new HashMap<String, Bitmap>();
             mListeners = new Vector<IconListener>();
         }
+        @Override
         public void onReceivedIcon(String url, Bitmap icon) {
             mUrlsToIcons.put(url, icon);
             for (IconListener listener : mListeners) {
@@ -83,9 +97,10 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
             mListeners.remove(listener);
         }
         public Bitmap getFavicon(String url) {
-            return (Bitmap) mUrlsToIcons.get(url);
+            return mUrlsToIcons.get(url);
         }
     }
+
     private static IconListenerSet sIconListenerSet;
     static IconListenerSet getIconListenerSet() {
         if (null == sIconListenerSet) {
@@ -97,75 +112,77 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tabs);
+        setContentView(R.layout.bookmarks_history);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        getTabHost().setOnTabChangedListener(this);
+        ListView list = (ListView) findViewById(android.R.id.list);
+        list.setOnItemClickListener(this);
+        MatrixCursor cursor = new MatrixCursor(new String[] { "name", "_id" });
+        cursor.newRow().add(getString(R.string.bookmarks)).add(FRAGMENT_ID_BOOKMARKS);
+        cursor.newRow().add(getString(R.string.history)).add(FRAGMENT_ID_HISTORY);
+        list.setAdapter(new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor,
+                new String[] { "name" }, new int[] { android.R.id.text1 }));
 
+        int startingFragment = FRAGMENT_ID_BOOKMARKS; 
         Bundle extras = getIntent().getExtras();
-
         if (extras != null) {
             mNewTabMode = extras.getBoolean(NEWTAB_MODE);
+            startingFragment = extras.getInt(STARTING_FRAGMENT, FRAGMENT_ID_BOOKMARKS);
         }
 
-        Intent bookmarksIntent = new Intent(this, BrowserBookmarksPage.class);
-        if (extras != null) {
-            bookmarksIntent.putExtras(extras);
-        }
-        createTab(bookmarksIntent, R.string.tab_bookmarks,
-                R.drawable.browser_bookmark_tab, BOOKMARKS_TAB);
-
-        Intent historyIntent = new Intent(this, BrowserHistoryPage.class);
-        String defaultTab = null;
-        if (extras != null) {
-            historyIntent.putExtras(extras);
-            defaultTab = extras.getString(STARTING_TAB);
-        }
-        createTab(historyIntent, R.string.tab_history,
-                R.drawable.browser_history_tab, HISTORY_TAB);
-
-        if (defaultTab != null) {
-            getTabHost().setCurrentTab(2);
-        }
+        // Start up the default fragment
+        loadFragment(startingFragment);
 
         // XXX: Must do this before launching the AsyncTask to avoid a
         // potential crash if the icon database has not been created.
         WebIconDatabase.getInstance();
+
         // Do this every time we launch the activity in case a new favicon was
         // added to the webkit db.
         (new AsyncTask<Void, Void, Void>() {
+            @Override
             public Void doInBackground(Void... v) {
                 Browser.requestAllIcons(getContentResolver(),
-                    Browser.BookmarkColumns.FAVICON + " is NULL",
-                    getIconListenerSet());
+                        Browser.BookmarkColumns.FAVICON + " is NULL", getIconListenerSet());
                 return null;
             }
         }).execute();
     }
 
-    private void createTab(Intent intent, int labelResId, int iconResId,
-            String tab) {
-        Resources resources = getResources();
-        TabHost tabHost = getTabHost();
-        tabHost.addTab(tabHost.newTabSpec(tab).setIndicator(
-                resources.getText(labelResId), resources.getDrawable(iconResId))
-                .setContent(intent));
-    }
-    // Copied from DialTacts Activity
-    /** {@inheritDoc} */
-    public void onTabChanged(String tabId) {
-        Activity activity = getLocalActivityManager().getActivity(tabId);
-        if (activity != null) {
-            activity.onWindowFocusChanged(true);
+    private void loadFragment(int id) {
+        String fragmentClassName;
+        switch (id) {
+            case FRAGMENT_ID_BOOKMARKS:
+                fragmentClassName = BrowserBookmarksPage.class.getName();
+                break;
+            case FRAGMENT_ID_HISTORY:
+                fragmentClassName = BrowserHistoryPage.class.getName();
+                break;
+            default:
+                throw new IllegalArgumentException();
         }
+        mCurrentFragment = id;
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction transaction = fm.openTransaction();
+        Fragment frag = Fragment.instantiate(this, fragmentClassName, getIntent().getExtras());
+        transaction.replace(R.id.fragment, frag);
+        transaction.commit();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (id == mCurrentFragment) return;
+        loadFragment((int) id);
     }
 
     /**
      * Store extra data in the Intent to return to the calling Activity to tell
      * it to clear the parent/child relationships from all tabs.
      */
-    /* package */ void removeParentChildRelationShips() {
+    @Override
+    public void onRemoveParentChildRelationShips() {
         mExtraData = BrowserSettings.PREF_CLEAR_HISTORY;
     }
 
@@ -175,7 +192,7 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
      * @param resultCode Uses same codes as Activity.setResult
      * @param data Intent returned to onActivityResult.
      */
-    /* package */ void setResultFromChild(int resultCode, Intent data) {
+    private void setResultFromChild(int resultCode, Intent data) {
         mResultCode = resultCode;
         mResultData = data;
     }
@@ -193,5 +210,20 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
         }
         setResult(mResultCode, mResultData);
         super.finish();
+    }
+
+    /**
+     * Report back to the calling activity to load a site.
+     * @param url   Site to load.
+     * @param newWindow True if the URL should be loaded in a new window
+     */
+    @Override
+    public void onUrlSelected(String url, boolean newWindow) {
+        Intent intent = new Intent().setAction(url);
+        if (newWindow) {
+            intent.putExtra("new_window", true);
+        }
+        setResultFromChild(RESULT_OK, intent);
+        finish();
     }
 }

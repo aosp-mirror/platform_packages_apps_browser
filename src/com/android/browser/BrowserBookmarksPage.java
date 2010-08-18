@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ClipboardManager;
 import android.content.ClippedData;
@@ -37,6 +38,7 @@ import android.provider.BrowserContract;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,7 +56,7 @@ import java.util.Stack;
 /**
  *  View showing the user's bookmarks in the browser.
  */
-public class BrowserBookmarksPage extends Activity implements View.OnCreateContextMenuListener,
+public class BrowserBookmarksPage extends Fragment implements View.OnCreateContextMenuListener,
         LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener, IconListener, OnClickListener {
 
     static final int BOOKMARKS_SAVE = 1;
@@ -62,6 +64,7 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
 
     static final int LOADER_BOOKMARKS = 1;
 
+    BookmarksHistoryCallbacks mCallbacks;
     GridView mGrid;
     BrowserBookmarksAdapter mAdapter;
     boolean mDisableNewWindow;
@@ -81,7 +84,7 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
                 if (args != null) {
                     args.getInt(BookmarksLoader.ARG_ROOT_FOLDER, 0);
                 }
-                return new BookmarksLoader(this, rootFolder);
+                return new BookmarksLoader(getActivity(), rootFolder);
             }
         }
         throw new UnsupportedOperationException("Unknown loader id " + id);
@@ -127,6 +130,7 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        final Activity activity = getActivity();
         // It is possible that the view has been canceled when we get to
         // this point as back has a higher priority
         if (mCanceled) {
@@ -147,7 +151,7 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
             editBookmark(i.position);
             break;
         case R.id.shortcut_context_menu_id:
-            sendBroadcast(createShortcutIntent(i.position));
+            activity.sendBroadcast(createShortcutIntent(i.position));
             break;
         case R.id.delete_context_menu_id:
             displayRemoveBookmarkDialog(i.position);
@@ -157,7 +161,7 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
             break;
         case R.id.share_link_context_menu_id: {
             Cursor cursor = (Cursor) mAdapter.getItem(i.position);
-            BrowserActivity.sharePage(BrowserBookmarksPage.this,
+            BrowserActivity.sharePage(activity,
                     cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE),
                     cursor.getString(BookmarksLoader.COLUMN_INDEX_URL),
                     getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON),
@@ -168,10 +172,8 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
             copy(getUrl(i.position));
             break;
         case R.id.homepage_context_menu_id: {
-            BrowserSettings.getInstance().setHomePage(this,
-                    getUrl(i.position));
-            Toast.makeText(this, R.string.homepage_set,
-                    Toast.LENGTH_LONG).show();
+            BrowserSettings.getInstance().setHomePage(activity, getUrl(i.position));
+            Toast.makeText(activity, R.string.homepage_set, Toast.LENGTH_LONG).show();
             break;
         }
         // Only for the Most visited page
@@ -181,7 +183,7 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
             String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
             // If the site is bookmarked, the item becomes remove from
             // bookmarks.
-            Bookmarks.removeFromBookmarks(this, getContentResolver(), url, name);
+            Bookmarks.removeFromBookmarks(activity, activity.getContentResolver(), url, name);
             break;
         }
         default:
@@ -202,7 +204,8 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         
-        MenuInflater inflater = getMenuInflater();
+        final Activity activity = getActivity();
+        MenuInflater inflater = activity.getMenuInflater();
         inflater.inflate(R.menu.bookmarkscontext, menu);
 
         if (mDisableNewWindow) {
@@ -210,7 +213,7 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
         }
 
         if (mContextHeader == null) {
-            mContextHeader = new BookmarkItem(BrowserBookmarksPage.this);
+            mContextHeader = new BookmarkItem(activity);
         } else if (mContextHeader.getParent() != null) {
             ((ViewGroup) mContextHeader.getParent()).removeView(mContextHeader);
         }
@@ -237,33 +240,39 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
      *  Create a new BrowserBookmarksPage.
      */
     @Override
-    protected void onCreate(Bundle icicle) {
+    public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        Intent intent = getIntent();
-        if (Intent.ACTION_CREATE_SHORTCUT.equals(intent.getAction())) {
-            mCreateShortcut = true;
-            setTitle(R.string.browser_bookmarks_page_bookmarks_text);
-        }
-        mDisableNewWindow = intent.getBooleanExtra("disable_new_window", false);
+        Bundle args = getArguments();
+        mCreateShortcut = args == null ? false : args.getBoolean("create_shortcut", false);
+        mDisableNewWindow = args == null ? false : args.getBoolean("disable_new_window", false);
+    }
 
-        setContentView(R.layout.bookmarks);
-        mEmptyView = findViewById(android.R.id.empty);
-        mContentView = findViewById(android.R.id.content);
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallbacks = (BookmarksHistoryCallbacks) activity;
+    }
+    
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.bookmarks, container, false);
+        mEmptyView = root.findViewById(android.R.id.empty);
+        mContentView = root.findViewById(android.R.id.content);
 
-        mGrid = (GridView) findViewById(R.id.grid);
+        mGrid = (GridView) root.findViewById(R.id.grid);
         mGrid.setOnItemClickListener(this);
-        mGrid.setColumnWidth(
-                BrowserActivity.getDesiredThumbnailWidth(this));
+        mGrid.setColumnWidth(BrowserActivity.getDesiredThumbnailWidth(getActivity()));
         if (!mCreateShortcut) {
             mGrid.setOnCreateContextMenuListener(this);
         }
 
-        mUpButton = (Button) findViewById(R.id.up);
+        mUpButton = (Button) root.findViewById(R.id.up);
         mUpButton.setEnabled(false);
         mUpButton.setOnClickListener(this);
 
-        mAdapter = new BrowserBookmarksAdapter(this);
+        mAdapter = new BrowserBookmarksAdapter(getActivity());
         mGrid.setAdapter(mAdapter);
 
         // Start the loader for the bookmark data
@@ -271,8 +280,10 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
 
         // Add our own listener in case there are favicons that have yet to be loaded.
         CombinedBookmarkHistoryActivity.getIconListenerSet().addListener(this);
-    }
 
+        return root;
+    }
+    
     @Override
     public void onReceivedIcon(String url, Bitmap icon) {
         // A new favicon has been loaded, so let anything attached to the adapter know about it
@@ -289,15 +300,15 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
             return;
         }
         if (mCreateShortcut) {
-            setResultToParent(RESULT_OK, createShortcutIntent(position));
-            finish();
+            // TODO handle this
+            createShortcutIntent(position);
             return;
         }
 
         Cursor cursor = (Cursor) mAdapter.getItem(position);
         boolean isFolder = cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
         if (!isFolder) {
-            loadUrl(position);
+            mCallbacks.onUrlSelected(getUrl(position), false);
         } else {
             String title;
             if (mFolderStack.size() != 0) {
@@ -323,25 +334,19 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
         String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
         Bitmap touchIcon = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_TOUCH_ICON);
         Bitmap favicon = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON);
-        return BookmarkUtils.createAddToHomeIntent(this, url, title, touchIcon, favicon);
+        return BookmarkUtils.createAddToHomeIntent(getActivity(), url, title, touchIcon, favicon);
     }
 
     private void loadUrl(int position) {
-        Cursor cursor = (Cursor) mAdapter.getItem(position);
-        Intent intent = new Intent(cursor.getString(BookmarksLoader.COLUMN_INDEX_URL));
-        setResultToParent(RESULT_OK, intent);
-        finish();
+        mCallbacks.onUrlSelected(getUrl(position), false);
     }
 
     private void openInNewWindow(int position) {
-        Bundle b = new Bundle();
-        b.putBoolean("new_window", true);
-        setResultToParent(RESULT_OK, (new Intent(getUrl(position))).putExtras(b));
-        finish();
+        mCallbacks.onUrlSelected(getUrl(position), true);
     }
 
     private void editBookmark(int position) {
-        Intent intent = new Intent(this, AddBookmarkPage.class);
+        Intent intent = new Intent(getActivity(), AddBookmarkPage.class);
         Cursor cursor = (Cursor) mAdapter.getItem(position);
         Bundle item = new Bundle();
         item.putString(Browser.BookmarkColumns.TITLE, 
@@ -359,10 +364,10 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
             case BOOKMARKS_SAVE:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK) {
                     Bundle extras;
                     if (data != null && (extras = data.getExtras()) != null) {
                         // If there are extras, then we need to save
@@ -415,7 +420,7 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
         }
 
         if (values.size() > 0) {
-            getContentResolver().update(
+            getActivity().getContentResolver().update(
                     ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI, id),
                     values, null, null);
         }
@@ -425,10 +430,11 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
         // Put up a dialog asking if the user really wants to
         // delete the bookmark
         Cursor cursor = (Cursor) mAdapter.getItem(position);
-        new AlertDialog.Builder(this)
+        Context context = getActivity();
+        new AlertDialog.Builder(context)
                 .setTitle(R.string.delete_bookmark)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage(getText(R.string.delete_bookmark_warning).toString().replace(
+                .setMessage(context.getText(R.string.delete_bookmark_warning).toString().replace(
                         "%s", cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE)))
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
@@ -446,7 +452,8 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
     }
     
     private void copy(CharSequence text) {
-        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(
+                Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(new ClippedData(null, null, new ClippedData.Item(text)));
     }
 
@@ -457,28 +464,6 @@ public class BrowserBookmarksPage extends Activity implements View.OnCreateConte
         Cursor cursor = (Cursor) mAdapter.getItem(position);
         String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
         String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
-        Bookmarks.removeFromBookmarks(null, getContentResolver(), url, title);
+        Bookmarks.removeFromBookmarks(null, getActivity().getContentResolver(), url, title);
     }
-
-    @Override
-    public void onBackPressed() {
-        setResultToParent(RESULT_CANCELED, null);
-        mCanceled = true;
-        super.onBackPressed();
-    }
-
-    // This Activity is generally a sub-Activity of
-    // CombinedBookmarkHistoryActivity. In that situation, we need to pass our
-    // result code up to our parent. However, if someone calls this Activity
-    // directly, then this has no parent, and it needs to set it on itself.
-    private void setResultToParent(int resultCode, Intent data) {
-        Activity parent = getParent();
-        if (parent == null) {
-            setResult(resultCode, data);
-        } else {
-            ((CombinedBookmarkHistoryActivity) parent).setResultFromChild(
-                    resultCode, data);
-        }
-    }
-
 }
