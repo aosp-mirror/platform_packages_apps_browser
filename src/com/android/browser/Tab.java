@@ -87,7 +87,7 @@ class Tab {
     // The Geolocation permissions prompt
     private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
     // Main WebView wrapper
-    private View mContainer;
+    private LinearLayout mContainer;
     // Main WebView
     private WebView mMainView;
     // Subwindow container
@@ -1041,6 +1041,16 @@ class Tab {
         }
 
         @Override
+        public void onSelectionDone(WebView view) {
+            if (mInForeground) mActivity.closeDialogs();
+        }
+
+        @Override
+        public void onSelectionStart(WebView view) {
+            if (mInForeground) mActivity.showSelectDialog();
+        }
+
+        @Override
         public void onShowCustomView(View view,
                 WebChromeClient.CustomViewCallback callback) {
             if (mInForeground) mActivity.onShowCustomView(view, callback);
@@ -1220,9 +1230,18 @@ class Tab {
     private static class SubWindowClient extends WebViewClient {
         // The main WebViewClient.
         private final WebViewClient mClient;
+        private final BrowserActivity mBrowserActivity;
 
-        SubWindowClient(WebViewClient client) {
+        SubWindowClient(WebViewClient client, BrowserActivity activity) {
             mClient = client;
+            mBrowserActivity = activity;
+        }
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            // Unlike the others, do not call mClient's version, which would
+            // change the progress bar.  However, we do want to remove the
+            // find or select dialog.
+            mBrowserActivity.closeDialogs();
         }
         @Override
         public void doUpdateVisitedHistory(WebView view, String url,
@@ -1312,7 +1331,7 @@ class Tab {
 
         // The tab consists of a container view, which contains the main
         // WebView, as well as any other UI elements associated with the tab.
-        mContainer = mInflateService.inflate(R.layout.tab, null);
+        mContainer = (LinearLayout) mInflateService.inflate(R.layout.tab, null);
 
         mDownloadListener = new DownloadListener() {
             public void onDownloadStart(String url, String userAgent,
@@ -1423,6 +1442,7 @@ class Tab {
      */
     boolean createSubWindow() {
         if (mSubView == null) {
+            mActivity.closeDialogs();
             mSubViewContainer = mInflateService.inflate(
                     R.layout.browser_subwindow, null);
             mSubView = (WebView) mSubViewContainer.findViewById(R.id.webview);
@@ -1431,7 +1451,8 @@ class Tab {
             mSubView.setMapTrackballToArrowKeys(false);
             // Enable the built-in zoom
             mSubView.getSettings().setBuiltInZoomControls(true);
-            mSubView.setWebViewClient(new SubWindowClient(mWebViewClient));
+            mSubView.setWebViewClient(new SubWindowClient(mWebViewClient,
+                    mActivity));
             mSubView.setWebChromeClient(new SubWindowChromeClient(
                     mWebChromeClient));
             // Set a different DownloadListener for the mSubView, since it will
@@ -1469,6 +1490,7 @@ class Tab {
      */
     void dismissSubWindow() {
         if (mSubView != null) {
+            mActivity.closeDialogs();
             BrowserSettings.getInstance().deleteObserver(
                     mSubView.getSettings());
             mSubView.destroy();
@@ -1493,6 +1515,7 @@ class Tab {
     void removeSubWindow(ViewGroup content) {
         if (mSubView != null) {
             content.removeView(mSubViewContainer);
+            mActivity.closeDialogs();
         }
     }
 
@@ -1551,6 +1574,7 @@ class Tab {
                 (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
         wrapper.removeView(mMainView);
         content.removeView(mContainer);
+        mActivity.closeDialogs();
         removeSubWindow(content);
     }
 
@@ -1945,5 +1969,37 @@ class Tab {
             f.delete();
         }
         return true;
+    }
+
+    /*
+     * Opens the find and select text dialogs.  Called by BrowserActivity.
+     */
+    WebView showDialog(WebDialog dialog) {
+        LinearLayout container;
+        WebView view;
+        if (mSubView != null) {
+            view = mSubView;
+            container = (LinearLayout) mSubViewContainer.findViewById(
+                    R.id.inner_container);
+        } else {
+            view = mMainView;
+            container = mContainer;
+        }
+        dialog.show();
+        container.addView(dialog, 0, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        dialog.setWebView(view);
+        return view;
+    }
+
+    /*
+     * Close the find or select dialog. Called by BrowserActivity.closeDialog.
+     */
+    void closeDialog(WebDialog dialog) {
+        // The dialog may be attached to the subwindow.  Ensure that the
+        // correct parent has it removed.
+        LinearLayout parent = (LinearLayout) dialog.getParent();
+        if (parent != null) parent.removeView(dialog);
     }
 }
