@@ -106,6 +106,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         map.put(Bookmarks.IS_FOLDER, Bookmarks.IS_FOLDER);
         map.put(Bookmarks.PARENT, Bookmarks.PARENT);
         map.put(Bookmarks.POSITION, Bookmarks.POSITION);
+        map.put(Bookmarks.INSERT_AFTER, Bookmarks.INSERT_AFTER);
         map.put(Bookmarks.IS_DELETED, Bookmarks.IS_DELETED);
         map.put(Bookmarks.ACCOUNT_NAME, Bookmarks.ACCOUNT_NAME);
         map.put(Bookmarks.ACCOUNT_TYPE, Bookmarks.ACCOUNT_TYPE);
