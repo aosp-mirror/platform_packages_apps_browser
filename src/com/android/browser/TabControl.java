@@ -48,6 +48,8 @@ class TabControl {
     private final BrowserActivity mActivity;
     // Directory to store thumbnails for each WebView.
     private final File mThumbnailDir;
+    // Use on screen zoom buttons
+    private boolean mDisplayZoomControls;
 
     /**
      * Construct a new TabControl object that interfaces with the given
@@ -58,6 +60,7 @@ class TabControl {
     TabControl(BrowserActivity activity) {
         mActivity = activity;
         mThumbnailDir = activity.getDir("thumbnails", 0);
+        mDisplayZoomControls = true;
     }
 
     File getThumbnailDir() {
@@ -66,6 +69,14 @@ class TabControl {
 
     BrowserActivity getBrowserActivity() {
         return mActivity;
+    }
+
+    /**
+     * Set if the webview should use the on screen zoom controls
+     * @param enabled
+     */
+    void setDisplayZoomControls(boolean enabled) {
+        mDisplayZoomControls = enabled;
     }
 
     /**
@@ -597,6 +608,7 @@ class TabControl {
         w.setMapTrackballToArrowKeys(false); // use trackball directly
         // Enable the built-in zoom
         w.getSettings().setBuiltInZoomControls(true);
+        w.getSettings().setDisplayZoomControls(mDisplayZoomControls);
         // Add this WebView to the settings observer list and update the
         // settings
         final BrowserSettings s = BrowserSettings.getInstance();
