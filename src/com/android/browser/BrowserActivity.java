@@ -706,13 +706,17 @@ public class BrowserActivity extends Activity
                     url = smartUrlFilter(url);
                     final ContentResolver cr = mResolver;
                     final String newUrl = url;
-                    new AsyncTask<Void, Void, Void>() {
-                        @Override
-                        protected Void doInBackground(Void... unused) {
-                            Browser.updateVisitedHistory(cr, newUrl, false);
-                            return null;
-                        }
-                    }.execute();
+                    if (mTabControl == null
+                            || mTabControl.getCurrentWebView() == null
+                            || !mTabControl.getCurrentWebView().isPrivateBrowsingEnabled()) {
+                        new AsyncTask<Void, Void, Void>() {
+                            @Override
+                            protected Void doInBackground(Void... unused) {
+                                Browser.updateVisitedHistory(cr, newUrl, false);
+                                return null;
+                            }
+                        }.execute();
+                    }
                     String searchSource = "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&";
                     if (url.contains(searchSource)) {
                         String source = null;
