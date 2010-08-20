@@ -26,7 +26,10 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.AdapterView;
@@ -46,6 +49,11 @@ public class CombinedBookmarkHistoryActivity extends Activity
         implements BookmarksHistoryCallbacks, OnItemClickListener {
     final static String NEWTAB_MODE = "newtab_mode";
     final static String STARTING_FRAGMENT = "fragment";
+    final static String EVT_X = "evt_x";
+    final static String EVT_Y = "evt_y";
+    final static String EXTRA_TOP = "top";
+    final static String EXTRA_HEIGHT = "height";
+
 
     final static int FRAGMENT_ID_BOOKMARKS = 1;
     final static int FRAGMENT_ID_HISTORY = 2;
@@ -69,6 +77,9 @@ public class CombinedBookmarkHistoryActivity extends Activity
      * Flag to inform the browser to force the result to open in a new tab.
      */
     private boolean mNewTabMode;
+
+    private int mRequestedTop;
+    private int mRequestedHeight;
 
     long mCurrentFragment;
 
@@ -124,10 +135,12 @@ public class CombinedBookmarkHistoryActivity extends Activity
         list.setAdapter(new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor,
                 new String[] { "name" }, new int[] { android.R.id.text1 }));
 
-        int startingFragment = FRAGMENT_ID_BOOKMARKS; 
+        int startingFragment = FRAGMENT_ID_BOOKMARKS;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mNewTabMode = extras.getBoolean(NEWTAB_MODE);
+            mRequestedTop = extras.getInt(EXTRA_TOP);
+            mRequestedHeight = extras.getInt(EXTRA_HEIGHT);
             startingFragment = extras.getInt(STARTING_FRAGMENT, FRAGMENT_ID_BOOKMARKS);
         }
 
@@ -148,6 +161,31 @@ public class CombinedBookmarkHistoryActivity extends Activity
                 return null;
             }
         }).execute();
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        if (mRequestedTop > -1) {
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.x = 0;
+            lp.y = mRequestedTop;
+            lp.height = mRequestedHeight;
+            lp.gravity = Gravity.TOP | Gravity.LEFT;
+            getWindow().setAttributes(lp);
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent evt) {
+        if (((evt.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) && (evt.getY() < 0)) {
+            Intent result = new Intent();
+            result.putExtra(EVT_X, evt.getRawX());
+            result.putExtra(EVT_Y, evt.getRawY());
+            setResultFromChild(Activity.RESULT_CANCELED, result);
+            finish();
+            return true;
+        }
+        return super.onTouchEvent(evt);
     }
 
     private void loadFragment(int id) {

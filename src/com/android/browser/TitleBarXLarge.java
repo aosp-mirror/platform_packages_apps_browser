@@ -44,6 +44,7 @@ public class TitleBarXLarge extends TitleBarBase
     private Drawable mReloadDrawable;
     private Drawable mProgressDrawable;
 
+    private View mContainer;
     private View mBackButton;
     private View mForwardButton;
     private View mStar;
@@ -68,6 +69,7 @@ public class TitleBarXLarge extends TitleBarBase
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.url_bar, this);
 
+        mContainer = findViewById(R.id.taburlbar);
         mUrlView = (UrlInputView) findViewById(R.id.editurl);
         mAllButton = findViewById(R.id.all_btn);
         // TODO: Change enabled states based on whether you can go
@@ -105,6 +107,10 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mStopButton == v) {
             stopOrRefresh();
         }
+    }
+
+    int getHeightWithoutProgress() {
+        return mContainer.getHeight();
     }
 
     void requestUrlInputFocus() {

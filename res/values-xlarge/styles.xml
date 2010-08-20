@@ -26,9 +26,8 @@
         <item name="android:windowActionBarStyle">@style/ActionBarStyle</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
-    <style name="BookmarkTheme" parent="@android:Theme.Black">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="BookmarkTheme" parent="@android:Theme.Panel">
+        <item name="android:windowBackground">@color/black</item>
     </style>
     <style name="ActionBarStyle">
         <item name="android:background">#ffdddddd</item>

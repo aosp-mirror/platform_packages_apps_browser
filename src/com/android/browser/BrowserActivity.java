@@ -16,6 +16,10 @@
 
 package com.android.browser;
 
+import com.android.browser.ScrollWebView.ScrollListener;
+import com.android.common.Search;
+import com.android.common.speech.LoggingEvents;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -82,6 +86,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -104,10 +109,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.browser.ScrollWebView.ScrollListener;
-import com.android.common.Search;
-import com.android.common.speech.LoggingEvents;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -3866,6 +3867,18 @@ public class BrowserActivity extends Activity
                             loadUrl(getTopWindow(), data);
                         }
                     }
+                } else if (resultCode == RESULT_CANCELED) {
+                    if (intent != null) {
+                        float evtx = intent.getFloatExtra(CombinedBookmarkHistoryActivity.EVT_X, -1);
+                        float evty = intent.getFloatExtra(CombinedBookmarkHistoryActivity.EVT_Y, -1);
+                        long now = System.currentTimeMillis();
+                        MotionEvent evt = MotionEvent.obtain(now, now,
+                                MotionEvent.ACTION_DOWN, evtx, evty, 0);
+                        dispatchTouchEvent(evt);
+                        MotionEvent up = MotionEvent.obtain(evt);
+                        up.setAction(MotionEvent.ACTION_UP);
+                        dispatchTouchEvent(up);
+                    }
                 }
                 // Deliberately fall through to PREFERENCES_PAGE, since the
                 // same extra may be attached to the COMBO_PAGE
@@ -4002,7 +4015,13 @@ public class BrowserActivity extends Activity
             intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_FRAGMENT,
                     CombinedBookmarkHistoryActivity.FRAGMENT_ID_HISTORY);
         }
-        if (newTabMode) {
+        if (mXLargeScreenSize) {
+            showFakeTitleBar();
+            int titleBarHeight = ((TitleBarXLarge)mFakeTitleBar).getHeightWithoutProgress();
+            intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_TOP,
+                    mTabBar.getBottom() + titleBarHeight);
+            intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_HEIGHT,
+                    getTopWindow().getHeight() - titleBarHeight);
             intent.putExtra(CombinedBookmarkHistoryActivity.NEWTAB_MODE, true);
         }
         startActivityForResult(intent, COMBO_PAGE);
