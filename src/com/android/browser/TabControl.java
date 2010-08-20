@@ -150,6 +150,19 @@ class TabControl {
     }
 
     /**
+     * Returns true if there are any incognito tabs open.
+     * @return True when any incognito tabs are open, false otherwise.
+     */
+    boolean hasAnyOpenIncognitoTabs() {
+        for (Tab tab : mTabs) {
+            if (tab.getWebView().isPrivateBrowsingEnabled()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Create a new tab.
      * @return The newly createTab or null if we have reached the maximum
      *         number of open tabs.

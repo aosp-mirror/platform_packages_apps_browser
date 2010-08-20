@@ -2086,6 +2086,10 @@ public class BrowserActivity extends Activity
         mTabControl.setCurrentTab(mTabControl.getTab(currentIndex));
         resetTitleIconAndProgress();
         updateLockIconToLatest();
+
+        if (!mTabControl.hasAnyOpenIncognitoTabs()) {
+            WebView.cleanupPrivateBrowsingFiles(this);
+        }
     }
 
     /* package */ void goBackOnePageOrQuit() {
