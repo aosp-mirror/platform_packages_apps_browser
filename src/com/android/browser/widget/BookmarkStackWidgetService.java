@@ -16,6 +16,8 @@
 
 package com.android.browser.widget;
 
+import com.android.browser.R;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -32,8 +34,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
-import com.android.browser.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +82,7 @@ public class BookmarkStackWidgetService extends RemoteViewsService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final String action = intent.getAction();
-        if (UPDATE.equals(action)) {
+        if ((intent == null) || (intent.getAction() != null) && UPDATE.equals(intent.getAction())) {
             mHandler.sendEmptyMessage(MSG_UPDATE);
         }
         return START_STICKY;
