@@ -281,56 +281,6 @@ public class BrowserActivity extends Activity
                 }
             };
 
-        IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        filter.addDataScheme("package");
-        mPackageInstallationReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                final String action = intent.getAction();
-                final String packageName = intent.getData()
-                        .getSchemeSpecificPart();
-                final boolean replacing = intent.getBooleanExtra(
-                        Intent.EXTRA_REPLACING, false);
-                if (Intent.ACTION_PACKAGE_REMOVED.equals(action) && replacing) {
-                    // if it is replacing, refreshPlugins() when adding
-                    return;
-                }
-
-                if (sGoogleApps.contains(packageName)) {
-                    BrowserActivity.this.packageChanged(packageName,
-                            Intent.ACTION_PACKAGE_ADDED.equals(action));
-                }
-
-                PackageManager pm = BrowserActivity.this.getPackageManager();
-                PackageInfo pkgInfo = null;
-                try {
-                    pkgInfo = pm.getPackageInfo(packageName,
-                            PackageManager.GET_PERMISSIONS);
-                } catch (PackageManager.NameNotFoundException e) {
-                    return;
-                }
-                if (pkgInfo != null) {
-                    String permissions[] = pkgInfo.requestedPermissions;
-                    if (permissions == null) {
-                        return;
-                    }
-                    boolean permissionOk = false;
-                    for (String permit : permissions) {
-                        if (PluginManager.PLUGIN_PERMISSION.equals(permit)) {
-                            permissionOk = true;
-                            break;
-                        }
-                    }
-                    if (permissionOk) {
-                        PluginManager.getInstance(BrowserActivity.this)
-                                .refreshPlugins(true);
-                    }
-                }
-            }
-        };
-        registerReceiver(mPackageInstallationReceiver, filter);
-
         if (!mTabControl.restoreState(icicle)) {
             // clear up the thumbnail directory if we can't restore the state as
             // none of the files in the directory are referenced any more.
@@ -390,8 +340,6 @@ public class BrowserActivity extends Activity
         if (jsFlags.trim().length() != 0) {
             mTabControl.getCurrentWebView().setJsFlags(jsFlags);
         }
-        // Work out which packages are installed on the system.
-        getInstalledPackages();
 
         // Start watching the default geolocation permissions
         mSystemAllowGeolocationOrigins
@@ -4227,56 +4175,6 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private void packageChanged(String packageName, boolean wasAdded) {
-        WebView w = mTabControl.getCurrentWebView();
-        if (w == null) {
-            return;
-        }
-
-        if (wasAdded) {
-            w.addPackageName(packageName);
-        } else {
-            w.removePackageName(packageName);
-        }
-    }
-
-    private void addPackageNames(Set<String> packageNames) {
-        WebView w = mTabControl.getCurrentWebView();
-        if (w == null) {
-            return;
-        }
-
-        w.addPackageNames(packageNames);
-    }
-
-    private void getInstalledPackages() {
-        AsyncTask<Void, Void, Set<String> > task =
-            new AsyncTask<Void, Void, Set<String> >() {
-            @Override
-            protected Set<String> doInBackground(Void... unused) {
-                Set<String> installedPackages = new HashSet<String>();
-                PackageManager pm = BrowserActivity.this.getPackageManager();
-                if (pm != null) {
-                    List<PackageInfo> packages = pm.getInstalledPackages(0);
-                    for (PackageInfo p : packages) {
-                        if (BrowserActivity.this.sGoogleApps.contains(p.packageName)) {
-                            installedPackages.add(p.packageName);
-                        }
-                    }
-                }
-
-                return installedPackages;
-            }
-
-            // Executes on the UI thread
-            @Override
-            protected void onPostExecute(Set<String> installedPackages) {
-                addPackageNames(installedPackages);
-            }
-        };
-        task.execute();
-    }
-
     final static int LOCK_ICON_UNSECURE = 0;
     final static int LOCK_ICON_SECURE   = 1;
     final static int LOCK_ICON_MIXED    = 2;
@@ -4441,14 +4339,6 @@ public class BrowserActivity extends Activity
     private Bitmap mDefaultVideoPoster;
     // the video progress view
     private View mVideoProgressView;
-
-    // The Google packages we monitor for the navigator.isApplicationInstalled()
-    // API. Add as needed.
-    private static Set<String> sGoogleApps;
-    static {
-        sGoogleApps = new HashSet<String>();
-        sGoogleApps.add("com.google.android.youtube");
-    }
 
     /**
      * A UrlData class to abstract how the content will be set to WebView.
