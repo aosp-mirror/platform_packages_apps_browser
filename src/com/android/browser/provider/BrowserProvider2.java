@@ -51,8 +51,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final String TABLE_SEARCHES = "searches";
     static final String TABLE_SYNC_STATE = "syncstate";
 
-    static final String DEFAULT_HISTORY_SORT = History.DATE_LAST_VISITED + " DESC";
-    
+    static final String DEFAULT_SORT_HISTORY = History.DATE_LAST_VISITED + " DESC";
+
     static final int BOOKMARKS = 1000;
     static final int BOOKMARKS_ID = 1001;
     static final int BOOKMARKS_FOLDER = 1002;
@@ -77,9 +77,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
     static final HashMap<String, String> BOOKMARKS_PROJECTION_MAP = new HashMap<String, String>();
-    static final HashMap<String, String> OTHER_BOOKMARKS_PROJECTION_MAP = new HashMap<String, String>();
+    static final HashMap<String, String> OTHER_BOOKMARKS_PROJECTION_MAP = 
+            new HashMap<String, String>();
     static final HashMap<String, String> HISTORY_PROJECTION_MAP = new HashMap<String, String>();
-    static final HashMap<String, String> SEARCHES_PROJECTION_MAP = new HashMap<String, String>();
     static final HashMap<String, String> SYNC_STATE_PROJECTION_MAP = new HashMap<String, String>();
 
     static {
@@ -493,7 +493,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
             case HISTORY: {
                 if (sortOrder == null) {
-                    sortOrder = DEFAULT_HISTORY_SORT;
+                    sortOrder = DEFAULT_SORT_HISTORY;
                 }
                 qb.setProjectionMap(HISTORY_PROJECTION_MAP);
                 qb.setTables(TABLE_HISTORY);
@@ -511,7 +511,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                         + (selection == null ? "" : " AND (" + selection + ")");
                 return mSyncHelper.query(db, projection, selectionWithId, selectionArgs, sortOrder);
             }
-            
+
             default: {
                 throw new UnsupportedOperationException("Unknown URL " + uri.toString());
             }
@@ -643,24 +643,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (match) {
             case BOOKMARKS_ID: {
-                // Mark the bookmark dirty if the caller isn't a sync adapter
-                if (!callerIsSyncAdapter) {
-                    values = new ContentValues(values);
-                    values.put(Bookmarks.DIRTY, 1);
-                }
                 selection = DatabaseUtils.concatenateWhere(selection,
                         TABLE_BOOKMARKS + "._id=?");
                 selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
                         new String[] { Long.toString(ContentUris.parseId(uri)) });
-                return db.update(TABLE_BOOKMARKS, values, selection, selectionArgs); 
+                // fall through
             }
-
             case BOOKMARKS: {
-                if (!callerIsSyncAdapter) {
-                    values = new ContentValues(values);
-                    values.put(Bookmarks.DIRTY, 1);
-                }
-                return updateBookmarksInTransaction(values, selection, selectionArgs);
+                return updateBookmarksInTransaction(values, selection, selectionArgs,
+                        callerIsSyncAdapter);
             }
 
             case HISTORY_ID: {
@@ -704,15 +695,25 @@ public class BrowserProvider2 extends SQLiteContentProvider {
      * Does a query to find the matching bookmarks and updates each one with the provided values.
      */
     private int updateBookmarksInTransaction(ContentValues values, String selection,
-            String[] selectionArgs) {
+            String[] selectionArgs, boolean callerIsSyncAdapter) {
         int count = 0;
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        Cursor cursor = query(Bookmarks.CONTENT_URI, new String[] { Bookmarks._ID },
+        Cursor cursor = query(Bookmarks.CONTENT_URI,
+                new String[] { Bookmarks._ID, Bookmarks.VERSION },
                 selection, selectionArgs, null);
         try {
             String[] args = new String[1];
+            // Mark the bookmark dirty if the caller isn't a sync adapter
+            if (!callerIsSyncAdapter) {
+                values = new ContentValues(values);
+                values.put(Bookmarks.DIRTY, 1);
+            }
             while (cursor.moveToNext()) {
                 args[0] = cursor.getString(0);
+                if (!callerIsSyncAdapter) {
+                    // increase the local version for non-sync changes
+                    values.put(Bookmarks.VERSION, cursor.getLong(1) + 1);
+                }
                 count += db.update(TABLE_BOOKMARKS, values, "_id=?", args);
             }
         } finally {
