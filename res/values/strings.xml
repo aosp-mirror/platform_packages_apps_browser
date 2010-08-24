@@ -46,24 +46,10 @@
     <string name="action">Sign in</string>
     <!-- The name of the bookmarks and history search suggestion source.  -->
     <string name="bookmarks_search">Browser</string>
-    <!-- Title for text selection contextual mode, displayed in the contextual action bar [CHAR LIMIT=NONE]-->
-    <string name="text_selection_title">Text selection</string>
     <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
     <string name="cancel">Cancel</string>
     <!-- Label for a confirm button.  Used in multiple contexts. -->
     <string name="ok">OK</string>
-
-    <!-- Displayed on the Find dialog when there are no matches -->
-    <string name="no_matches">No matches</string>
-
-    <!-- Displayed on the Find dialog to display the index of the highlighted
-         match and total number of matches found in the current page. -->
-    <plurals name="matches_found">
-        <!-- Case of one match -->
-        <item quantity="one">1 match</item>
-        <!-- Case of multiple total matches -->
-        <item quantity="other"><xliff:g id="index" example="2">%d</xliff:g> of <xliff:g id="total" example="137">%d</xliff:g></item>
-    </plurals>
 
     <!-- Displayed on the title bar while the page is loading -->
     <string name="title_bar_loading">Loading\u2026</string>
@@ -199,9 +185,6 @@
     <string name="goto_dot">Go</string>
     <!-- Menu item that opens up a new incognito tab.  -->
     <string name="incognito_tab">Open new incognito tab</string>
-    <!-- Menu item that opens up a dialog which allows the user to provide a
-            string and search for it on the page. -->
-    <string name="find_dot">Find on page</string>
     <!-- Menu item to switch to text selection mode for copy and paste. -->
     <string name="select_dot">Select text</string>
     <!-- Title of current windows screen; appears in title bar -->

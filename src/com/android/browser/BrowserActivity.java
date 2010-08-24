@@ -1281,28 +1281,10 @@ public class BrowserActivity extends Activity
 
     @Override
     public ActionMode onStartActionMode(ActionMode.Callback callback) {
-        ActionMode mode = super.onStartActionMode(callback);
-        if (callback instanceof FindActionModeCallback
-                || callback instanceof SelectActionModeCallback) {
-            // For find and select, hide extra title bars.  They will
-            // be replaced in onEndActionMode.
-            Tab tab = mTabControl.getCurrentTab();
-            if (tab.getSubWebView() == null) {
-                // If the find or select is being performed on the main webview,
-                // remove the embedded title bar.
-                WebView mainView = tab.getWebView();
-                if (mainView != null) {
-                    mainView.setEmbeddedTitleBar(null);
-                }
-            }
-            hideFakeTitleBar();
-            mActionMode = mode;
-        } else {
-            // Do not store other ActionModes, since we are unable to determine
-            // when they finish.
-            mActionMode = null;
-        }
-        return mode;
+        mActionMode = super.onStartActionMode(callback);
+        hideFakeTitleBar();
+        // Would like to change the MENU, but onEndActionMode may not be called
+        return mActionMode;
     }
 
     @Override
@@ -1403,7 +1385,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.find_menu_id:
-                showFindDialog(null);
+                getTopWindow().showFindDialog(null);
                 break;
 
             case R.id.save_webarchive_menu_id:
@@ -1519,11 +1501,13 @@ public class BrowserActivity extends Activity
     }
 
     /*
-     * End the current ActionMode.  Only works for find and select.
+     * End the current ActionMode.
      */
     void endActionMode() {
         if (mActionMode != null) {
-            mActionMode.finish();
+            ActionMode mode = mActionMode;
+            onEndActionMode();
+            mode.finish();
         }
     }
 
@@ -1533,58 +1517,20 @@ public class BrowserActivity extends Activity
      */
     public void onEndActionMode() {
         if (!isInCustomActionMode()) return;
-        // If the Find was being performed in the main WebView, replace the
-        // embedded title bar.
-        Tab currentTab = mTabControl.getCurrentTab();
-        if (currentTab.getSubWebView() == null) {
-            WebView mainView = currentTab.getWebView();
-            if (mainView != null) {
-                mainView.setEmbeddedTitleBar(mTitleBar);
-            }
-        }
         if (mInLoad) {
             // The title bar was hidden, because otherwise it would cover up the
             // find or select dialog. Now that the dialog has been removed,
             // show the fake title bar once again.
             showFakeTitleBar();
         }
+        // Would like to return the menu state to normal, but this does not
+        // necessarily get called.
         mActionMode = null;
     }
-
-    private FindActionModeCallback mFindCallback;
-    private SelectActionModeCallback mSelectCallback;
 
     // For select and find, we keep track of the ActionMode so that
     // finish() can be called as desired.
     private ActionMode mActionMode;
-
-    /*
-     * Open the find ActionMode.
-     * @param text If non null, will be placed in find to be searched for.
-     */
-    public void showFindDialog(String text) {
-        if (null == mFindCallback) {
-            mFindCallback = new FindActionModeCallback(this);
-        }
-        WebView webView = getTopWindow();
-        webView.setFindIsUp(true);
-        mFindCallback.setWebView(webView);
-        startActionMode(mFindCallback);
-        if (text != null) mFindCallback.setText(text);
-    }
-
-    /*
-     * Show the select ActionMode.
-     */
-    public void showSelectDialog() {
-        if (null == mSelectCallback) {
-            mSelectCallback = new SelectActionModeCallback(this);
-        }
-        WebView webView = getTopWindow();
-        webView.setUpSelect();
-        mSelectCallback.setWebView(webView);
-        startActionMode(mSelectCallback);
-    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {

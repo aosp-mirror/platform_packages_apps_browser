@@ -1045,16 +1045,6 @@ class Tab {
         }
 
         @Override
-        public void onSelectionDone(WebView view) {
-            if (mInForeground) mActivity.endActionMode();
-        }
-
-        @Override
-        public void onSelectionStart(WebView view) {
-            if (mInForeground) mActivity.showSelectDialog();
-        }
-
-        @Override
         public void onShowCustomView(View view,
                 WebChromeClient.CustomViewCallback callback) {
             if (mInForeground) mActivity.onShowCustomView(view, callback);

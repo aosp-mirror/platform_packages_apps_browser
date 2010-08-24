@@ -25,8 +25,8 @@
             android:title="@string/incognito_tab"
             android:icon="@drawable/ic_menu_incognito" />
         <item android:id="@+id/find_menu_id"
-            android:title="@string/find_dot"
-            android:icon="@drawable/ic_menu_find"
+            android:title="@*android:string/find_on_page"
+            android:icon="@*android:drawable/ic_menu_find"
             android:alphabeticShortcut="f" />
         <item android:id="@+id/share_page_menu_id"
             android:title="@string/share_page"

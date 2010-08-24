@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dip"
-            android:src="@drawable/ic_btn_find_prev" />
+            android:src="@*android:drawable/ic_btn_find_prev" />
 
         <TextView
             android:id="@+id/title"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dip"
-            android:src="@drawable/ic_btn_find_next" />
+            android:src="@*android:drawable/ic_btn_find_next" />
 
     </LinearLayout>
 
