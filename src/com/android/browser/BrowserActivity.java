@@ -3967,15 +3967,17 @@ public class BrowserActivity extends Activity
             intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_FRAGMENT,
                     CombinedBookmarkHistoryActivity.FRAGMENT_ID_HISTORY);
         }
+        int top = -1;
+        int height = -1;
         if (mXLargeScreenSize) {
             showFakeTitleBar();
             int titleBarHeight = ((TitleBarXLarge)mFakeTitleBar).getHeightWithoutProgress();
-            intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_TOP,
-                    mTabBar.getBottom() + titleBarHeight);
-            intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_HEIGHT,
-                    getTopWindow().getHeight() - titleBarHeight);
+            top = mTabBar.getBottom() + titleBarHeight;
+            height = getTopWindow().getHeight() - titleBarHeight;
             intent.putExtra(CombinedBookmarkHistoryActivity.NEWTAB_MODE, true);
         }
+        intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_TOP, top);
+        intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_HEIGHT, height);
         startActivityForResult(intent, COMBO_PAGE);
     }
 

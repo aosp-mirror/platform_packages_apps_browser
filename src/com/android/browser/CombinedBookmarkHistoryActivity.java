@@ -139,8 +139,8 @@ public class CombinedBookmarkHistoryActivity extends Activity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mNewTabMode = extras.getBoolean(NEWTAB_MODE);
-            mRequestedTop = extras.getInt(EXTRA_TOP);
-            mRequestedHeight = extras.getInt(EXTRA_HEIGHT);
+            mRequestedTop = extras.getInt(EXTRA_TOP, -1);
+            mRequestedHeight = extras.getInt(EXTRA_HEIGHT, -1);
             startingFragment = extras.getInt(STARTING_FRAGMENT, FRAGMENT_ID_BOOKMARKS);
         }
 
