@@ -152,8 +152,8 @@
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
 
-        <activity-alias android:name="ShortcutBookmarksPage"
-            android:targetActivity="BrowserBookmarksPage"
+        <activity android:name="ShortcutActivity"
+            android:theme="@style/ShortcutTheme"
             android:label="@string/shortcut_bookmark"
             android:icon="@drawable/ic_launcher_shortcut_browser_bookmark">
 
@@ -162,7 +162,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-        </activity-alias>
+        </activity>
 
         <activity android:name="BrowserDownloadPage" android:label=""
                   android:configChanges="orientation|keyboardHidden">

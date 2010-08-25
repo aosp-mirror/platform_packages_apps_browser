@@ -64,6 +64,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
     static final int LOADER_BOOKMARKS = 1;
 
+    static final String EXTRA_SHORTCUT = "create_shortcut";
+    static final String EXTRA_DISABLE_WINDOW = "disable_new_window";
+
     BookmarksHistoryCallbacks mCallbacks;
     GridView mGrid;
     BrowserBookmarksAdapter mAdapter;
@@ -103,7 +106,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
         // Fill in the "up" button if needed
         BookmarksLoader bl = (BookmarksLoader) loader;
-        boolean rootFolder = 
+        boolean rootFolder =
                 (BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER.equals(bl.getUri()));
         if (rootFolder) {
             mUpButton.setText(R.string.defaultBookmarksUpButton);
@@ -121,7 +124,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public void onClick(View view) {
         if (view == mUpButton) {
             Pair<String, Uri> pair = mFolderStack.pop();
-            BookmarksLoader loader = 
+            BookmarksLoader loader =
                     (BookmarksLoader) ((Loader) getLoaderManager().getLoader(LOADER_BOOKMARKS));
             loader.setUri(pair.second);
             loader.forceLoad();
@@ -203,7 +206,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        
+
         final Activity activity = getActivity();
         MenuInflater inflater = activity.getMenuInflater();
         inflater.inflate(R.menu.bookmarkscontext, menu);
@@ -253,7 +256,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         super.onAttach(activity);
         mCallbacks = (BookmarksHistoryCallbacks) activity;
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -283,7 +286,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
         return root;
     }
-    
+
     @Override
     public void onReceivedIcon(String url, Bitmap icon) {
         // A new favicon has been loaded, so let anything attached to the adapter know about it
@@ -300,8 +303,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             return;
         }
         if (mCreateShortcut) {
-            // TODO handle this
-            createShortcutIntent(position);
+            Intent intent = createShortcutIntent(position);
+            // the activity handles the intent in startActivityFromFragment
+            startActivity(intent);
             return;
         }
 
@@ -315,10 +319,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
             } else {
                 // TODO localize
-                title = "Bookmarks"; 
+                title = "Bookmarks";
             }
             LoaderManager manager = getLoaderManager();
-            BookmarksLoader loader = 
+            BookmarksLoader loader =
                     (BookmarksLoader) ((Loader) manager.getLoader(LOADER_BOOKMARKS));
             mFolderStack.push(new Pair(title, loader.getUri()));
             Uri uri = ContentUris.withAppendedId(
@@ -349,9 +353,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         Intent intent = new Intent(getActivity(), AddBookmarkPage.class);
         Cursor cursor = (Cursor) mAdapter.getItem(position);
         Bundle item = new Bundle();
-        item.putString(Browser.BookmarkColumns.TITLE, 
+        item.putString(Browser.BookmarkColumns.TITLE,
                 cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
-        item.putString(Browser.BookmarkColumns.URL, 
+        item.putString(Browser.BookmarkColumns.URL,
                 cursor.getString(BookmarksLoader.COLUMN_INDEX_URL));
         byte[] data = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_FAVICON);
         if (data != null) {
@@ -384,7 +388,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     }
 
     /**
-     *  Update a row in the database with new information. 
+     *  Update a row in the database with new information.
      *  Requeries the database if the information has changed.
      *  @param map  Bundle storing id, title and url of new information
      */
@@ -450,7 +454,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         Cursor cursor = (Cursor) mAdapter.getItem(position);
         return cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
     }
-    
+
     private void copy(CharSequence text) {
         ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(
                 Context.CLIPBOARD_SERVICE);

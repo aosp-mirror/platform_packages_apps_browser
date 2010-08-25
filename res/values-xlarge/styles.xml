@@ -29,6 +29,9 @@
     <style name="BookmarkTheme" parent="@android:Theme.Panel">
         <item name="android:windowBackground">@color/black</item>
     </style>
+    <style name="ShortCutTheme" parent="@android:Theme.Holo">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
     <style name="ActionBarStyle">
         <item name="android:background">#ffdddddd</item>
         <item name="android:height">48dip</item>
