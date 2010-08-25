@@ -116,6 +116,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -276,7 +277,19 @@ public class BrowserActivity extends Activity
                 }
             };
 
-        if (!mTabControl.restoreState(icicle)) {
+        // Unless the last browser usage was within 24 hours, destroy any
+        // remaining incognito tabs.
+
+        Calendar lastActiveDate = icicle != null ? (Calendar) icicle.getSerializable("lastActiveDate") : null;
+        Calendar today = Calendar.getInstance();
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DATE, -1);
+
+        boolean dontRestoreIncognitoTabs = lastActiveDate == null
+            || lastActiveDate.before(yesterday)
+            || lastActiveDate.after(today);
+
+        if (!mTabControl.restoreState(icicle, dontRestoreIncognitoTabs)) {
             // clear up the thumbnail directory if we can't restore the state as
             // none of the files in the directory are referenced any more.
             new ClearThumbnails().execute(
@@ -284,6 +297,8 @@ public class BrowserActivity extends Activity
             // there is no quit on Android. But if we can't restore the state,
             // we can treat it as a new Browser, remove the old session cookies.
             CookieManager.getInstance().removeSessionCookie();
+            // remove any incognito files
+            WebView.cleanupPrivateBrowsingFiles(this);
             final Intent intent = getIntent();
             final Bundle extra = intent.getExtras();
             // Create an initial tab.
@@ -316,6 +331,10 @@ public class BrowserActivity extends Activity
                 loadUrlDataIn(t, urlData);
             }
         } else {
+            if (dontRestoreIncognitoTabs) {
+                WebView.cleanupPrivateBrowsingFiles(this);
+            }
+
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails.
             attachTabToContentView(mTabControl.getCurrentTab());
@@ -930,6 +949,9 @@ public class BrowserActivity extends Activity
 
         // Save all the tabs
         mTabControl.saveState(outState);
+
+        // Save time so that we know how old incognito tabs (if any) are.
+        outState.putSerializable("lastActiveDate", Calendar.getInstance());
     }
 
     @Override

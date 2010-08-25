@@ -156,6 +156,7 @@ class Tab {
     static final String PARENTTAB = "parentTab";
     static final String APPID = "appid";
     static final String ORIGINALURL = "originalUrl";
+    static final String INCOGNITO = "privateBrowsingEnabled";
 
     // -------------------------------------------------------------------------
 
