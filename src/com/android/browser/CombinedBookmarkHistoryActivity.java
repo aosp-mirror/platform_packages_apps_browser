@@ -48,6 +48,7 @@ interface BookmarksHistoryCallbacks {
 public class CombinedBookmarkHistoryActivity extends Activity
         implements BookmarksHistoryCallbacks, OnItemClickListener {
     final static String NEWTAB_MODE = "newtab_mode";
+    final static String EXTRA_OPEN_NEW_WINDOW = "new_window";
     final static String STARTING_FRAGMENT = "fragment";
     final static String EVT_X = "evt_x";
     final static String EVT_Y = "evt_y";
@@ -259,7 +260,7 @@ public class CombinedBookmarkHistoryActivity extends Activity
     public void onUrlSelected(String url, boolean newWindow) {
         Intent intent = new Intent().setAction(url);
         if (newWindow) {
-            intent.putExtra("new_window", true);
+            intent.putExtra(EXTRA_OPEN_NEW_WINDOW, true);
         }
         setResultFromChild(RESULT_OK, intent);
         finish();

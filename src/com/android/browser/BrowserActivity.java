@@ -38,7 +38,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
@@ -96,7 +95,6 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
 import android.webkit.HttpAuthHandler;
-import android.webkit.PluginManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
@@ -120,11 +118,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -1311,7 +1306,8 @@ public class BrowserActivity extends Activity
         // check the action bar button before mCanChord check, as the prepare call
         // doesn't come for action bar buttons
         if (item.getItemId() == R.id.newtab) {
-            bookmarksOrHistoryPicker(false, true);
+            openTabToHomePage();
+            mHandler.sendMessage(mHandler.obtainMessage(OPEN_BOOKMARKS));
             return true;
         }
         if (!mCanChord) {
@@ -2333,12 +2329,17 @@ public class BrowserActivity extends Activity
 
     private static final int TOUCH_ICON_DOWNLOADED   = 109;
 
+    private static final int OPEN_BOOKMARKS = 201;
+
     // Private handler for handling javascript and saving passwords
     private Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                case OPEN_BOOKMARKS:
+                    bookmarksOrHistoryPicker(false, false);
+                    break;
                 case FOCUS_NODE_HREF:
                 {
                     String url = (String) msg.getData().get("url");
@@ -3807,7 +3808,10 @@ public class BrowserActivity extends Activity
                 if (resultCode == RESULT_OK && intent != null) {
                     String data = intent.getAction();
                     Bundle extras = intent.getExtras();
-                    if (extras != null && extras.getBoolean("new_window", false)) {
+                    if (extras != null &&
+                            extras.getBoolean(
+                                    CombinedBookmarkHistoryActivity.EXTRA_OPEN_NEW_WINDOW,
+                                    false)) {
                         openTab(data, false);
                     } else if ((extras != null) &&
                             extras.getBoolean(CombinedBookmarkHistoryActivity.NEWTAB_MODE)) {
@@ -3967,6 +3971,7 @@ public class BrowserActivity extends Activity
             intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_FRAGMENT,
                     CombinedBookmarkHistoryActivity.FRAGMENT_ID_HISTORY);
         }
+        intent.putExtra(CombinedBookmarkHistoryActivity.NEWTAB_MODE, newTabMode);
         int top = -1;
         int height = -1;
         if (mXLargeScreenSize) {
@@ -3974,7 +3979,6 @@ public class BrowserActivity extends Activity
             int titleBarHeight = ((TitleBarXLarge)mFakeTitleBar).getHeightWithoutProgress();
             top = mTabBar.getBottom() + titleBarHeight;
             height = getTopWindow().getHeight() - titleBarHeight;
-            intent.putExtra(CombinedBookmarkHistoryActivity.NEWTAB_MODE, true);
         }
         intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_TOP, top);
         intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_HEIGHT, height);
