@@ -606,7 +606,13 @@ public class BrowserActivity extends Activity
             intent.putExtra(SearchManager.EXTRA_DATA_KEY, extraData);
         }
         intent.putExtra(Browser.EXTRA_APPLICATION_ID, getPackageName());
-        startActivity(intent);
+
+        // can't be sure there is an activity for the Intent
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            return false;
+        }
 
         return true;
     }
