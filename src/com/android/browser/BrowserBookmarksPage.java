@@ -20,8 +20,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.ClipboardManager;
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -353,13 +353,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         Intent intent = new Intent(getActivity(), AddBookmarkPage.class);
         Cursor cursor = (Cursor) mAdapter.getItem(position);
         Bundle item = new Bundle();
-        item.putString(Browser.BookmarkColumns.TITLE,
+        item.putString(BrowserContract.Bookmarks.TITLE,
                 cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
-        item.putString(Browser.BookmarkColumns.URL,
+        item.putString(BrowserContract.Bookmarks.URL,
                 cursor.getString(BookmarksLoader.COLUMN_INDEX_URL));
         byte[] data = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_FAVICON);
         if (data != null) {
-            item.putParcelable(Browser.BookmarkColumns.FAVICON,
+            item.putParcelable(BrowserContract.Bookmarks.FAVICON,
                     BitmapFactory.decodeByteArray(data, 0, data.length));
         }
         item.putInt("id", cursor.getInt(BookmarksLoader.COLUMN_INDEX_ID));
@@ -395,7 +395,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public void updateRow(Bundle map) {
 
         // Find the record
-        long id = map.getLong("id");
+        int id = map.getInt("id");
         int position = -1;
         Cursor cursor = mAdapter.getCursor();
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -410,17 +410,17 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
         cursor.moveToPosition(position);
         ContentValues values = new ContentValues();
-        String title = map.getString(Browser.BookmarkColumns.TITLE);
-        if (!title.equals(cursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX))) {
-            values.put(Browser.BookmarkColumns.TITLE, title);
+        String title = map.getString(BrowserContract.Bookmarks.TITLE);
+        if (!title.equals(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE))) {
+            values.put(BrowserContract.Bookmarks.TITLE, title);
         }
-        String url = map.getString(Browser.BookmarkColumns.URL);
-        if (!url.equals(cursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX))) {
-            values.put(Browser.BookmarkColumns.URL, url);
+        String url = map.getString(BrowserContract.Bookmarks.URL);
+        if (!url.equals(cursor.getString(BookmarksLoader.COLUMN_INDEX_URL))) {
+            values.put(BrowserContract.Bookmarks.URL, url);
         }
 
         if (map.getBoolean("invalidateThumbnail") == true) {
-            values.putNull(Browser.BookmarkColumns.THUMBNAIL);
+            values.putNull(BrowserContract.Bookmarks.THUMBNAIL);
         }
 
         if (values.size() > 0) {
@@ -428,6 +428,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                     ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI, id),
                     values, null, null);
         }
+        updateView();
     }
 
     private void displayRemoveBookmarkDialog(final int position) {
@@ -469,5 +470,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
         String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
         Bookmarks.removeFromBookmarks(null, getActivity().getContentResolver(), url, title);
+        updateView();
     }
+
+    private void updateView() {
+        BookmarksLoader loader =
+            (BookmarksLoader) (Loader)(getLoaderManager().getLoader(LOADER_BOOKMARKS));
+        loader.forceLoad();
+    }
+
 }
