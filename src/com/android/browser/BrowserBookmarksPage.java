@@ -21,7 +21,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ClipboardManager;
-import android.content.ClippedData;
+import android.content.ClipData;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -458,7 +458,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     private void copy(CharSequence text) {
         ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(
                 Context.CLIPBOARD_SERVICE);
-        cm.setPrimaryClip(new ClippedData(null, null, new ClippedData.Item(text)));
+        cm.setPrimaryClip(ClipData.newRawUri(null, null, Uri.parse(text.toString())));
     }
 
     /**
