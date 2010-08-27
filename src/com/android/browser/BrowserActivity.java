@@ -2844,7 +2844,9 @@ public class BrowserActivity extends Activity
     // Determine if this URI appears to be for a Google search and does not have an RLZ parameter.
     // Taken largely from Chrome source, src/chrome/browser/google_url_tracker.cc
     private static boolean needsRlzString(Uri uri) {
-        if ((uri.getQueryParameter("q") != null) && (uri.getQueryParameter("rlz") == null)) {
+        String scheme = uri.getScheme();
+        if (("http".equals(scheme) || "https".equals(scheme)) &&
+            (uri.getQueryParameter("q") != null) && (uri.getQueryParameter("rlz") == null)) {
             String host = uri.getHost();
             if (host == null) {
                 return false;
