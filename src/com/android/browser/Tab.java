@@ -1047,7 +1047,7 @@ class Tab {
 
         @Override
         public void onSelectionStart(WebView view) {
-            if (mInForeground) mActivity.showSelectDialog();
+            if (false && mInForeground) mActivity.showSelectDialog();
         }
 
         @Override
