@@ -32,6 +32,8 @@
     <string name="password" msgid="1177138552305184404">"パスワード"</string>
     <string name="action" msgid="183105774472071343">"ログイン"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"ブラウザ"</string>
+    <!-- no translation found for text_selection_title (6372057230084448231) -->
+    <skip />
     <string name="cancel" msgid="3017274947407233702">"キャンセル"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
     <string name="no_matches" msgid="6596166519279885087">"該当なし"</string>
@@ -94,6 +96,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"ブックマーク「<xliff:g id="BOOKMARK">%s</xliff:g>」を削除します。"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"新しいウィンドウで開く"</string>
     <string name="goto_dot" msgid="3895839050522602723">"移動"</string>
+    <!-- no translation found for incognito_tab (5419458065370134289) -->
+    <skip />
     <string name="find_dot" msgid="6259312434696611957">"ページ内検索"</string>
     <string name="select_dot" msgid="6299170761900561967">"テキストを選択してコピー"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"現在のウィンドウ"</string>
@@ -202,15 +206,7 @@
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"初期設定にリセット"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"デバッグ"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"テキストエンコード"</string>
-  <string-array name="pref_default_text_encoding_choices">
-    <item msgid="7275223955790513818">"Latin-1 (ISO-8859-1)"</item>
-    <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
-    <item msgid="6122474363777211732">"中国語（GBK）"</item>
-    <item msgid="373372275931607040">"中国語（Big5）"</item>
-    <item msgid="891615911084608570">"日本語（ISO-2022-JP）"</item>
-    <item msgid="5589150448475151241">"日本語（SHIFT_JIS）"</item>
-    <item msgid="7356792686950371843">"日本語（EUC-JP）"</item>
-  </string-array>
+    <!-- no translation found for pref_default_text_encoding_choices:7 (2193955365569270096) -->
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"テキストエンコード"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"データアクセスエラー"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"ファイルに問題があります"</string>
@@ -295,5 +291,7 @@
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"キャンセル"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"壁紙を設定中..."</string>
     <!-- no translation found for defaultBookmarksUpButton (2303951020715704735) -->
+    <skip />
+    <!-- no translation found for rlz_access_point (7165847807377650632) -->
     <skip />
 </resources>
