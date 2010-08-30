@@ -140,6 +140,8 @@
     <string name="open_in_new_window" msgid="6596775546468054510">"Avrir en ina nova fanestra"</string>
     <!-- no translation found for goto_dot (3895839050522602723) -->
     <skip />
+    <!-- no translation found for incognito_tab (5419458065370134289) -->
+    <skip />
     <!-- no translation found for find_dot (6259312434696611957) -->
     <skip />
     <string name="select_dot" msgid="6299170761900561967">"Selecziunar text"</string>
@@ -459,5 +461,7 @@
     <!-- no translation found for progress_dialog_setting_wallpaper (4871900779338536674) -->
     <skip />
     <!-- no translation found for defaultBookmarksUpButton (2303951020715704735) -->
+    <skip />
+    <!-- no translation found for rlz_access_point (7165847807377650632) -->
     <skip />
 </resources>
