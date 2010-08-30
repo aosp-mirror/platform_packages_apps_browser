@@ -991,8 +991,6 @@ public class BrowserActivity extends Activity
         mTabControl.destroy();
         WebIconDatabase.getInstance().close();
 
-        unregisterReceiver(mPackageInstallationReceiver);
-
         // Stop watching the default geolocation permissions
         mSystemAllowGeolocationOrigins.stop();
         mSystemAllowGeolocationOrigins = null;
@@ -4336,8 +4334,6 @@ public class BrowserActivity extends Activity
     // monitor platform changes
     private IntentFilter mNetworkStateChangedFilter;
     private BroadcastReceiver mNetworkStateIntentReceiver;
-
-    private BroadcastReceiver mPackageInstallationReceiver;
 
     private SystemAllowGeolocationOrigins mSystemAllowGeolocationOrigins;
 
