@@ -484,6 +484,7 @@
         <item>Japanese (ISO-2022-JP)</item>
         <item>Japanese (SHIFT_JIS)</item>
         <item>Japanese (EUC-JP)</item>
+        <!-- No need to translate a EUC-KR part, and there is no string length limits. -->
         <item>Korean (EUC-KR)</item>
         <!-- TODO: We should add a lot more encodings.  -->
     </string-array>
