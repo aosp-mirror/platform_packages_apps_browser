@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/findControls"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,11 +23,13 @@
     android:paddingRight="4dip"
     android:paddingBottom="1dip"
     android:background="@android:drawable/bottom_bar">
+
     <ImageButton 
         android:src="@drawable/ic_btn_find_prev"
         android:id="@+id/previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         />
 
     <ImageButton 
@@ -35,42 +37,41 @@
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/previous"
+        android:layout_marginLeft="6dip"
         />
 
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="0dip"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_marginRight="6dip"
-        >
-        <EditText android:id="@+id/edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollHorizontally="true"
-            android:inputType="text"
-            android:hint="@string/find_dot"
-            />
-        <LinearLayout android:id="@+id/matches_view"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="right"
-            android:visibility="invisible"
-            >
-            <TextView android:id="@+id/matches"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="?android:attr/textColorSecondaryInverse"
-                />
-        </LinearLayout>
-    </LinearLayout>
     <ImageButton android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:src="@drawable/ic_btn_close_panel"
         />
-</LinearLayout>	
+
+    <TextView android:id="@+id/matches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dip"
+        android:layout_marginRight="6dip"
+        android:layout_below="@id/done"
+        android:layout_toLeftOf="@id/done"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="?android:attr/textColorSecondaryInverse"
+        android:visibility="invisible"
+        />
+
+    <EditText android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+        android:layout_toRightOf="@id/next"
+        android:layout_toLeftOf="@id/done"
+        android:layout_above="@id/matches"
+        android:scrollHorizontally="true"
+        android:inputType="text"
+        android:hint="@string/find_dot"
+        />
+</RelativeLayout>
 

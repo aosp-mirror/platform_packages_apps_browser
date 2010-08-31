@@ -42,7 +42,6 @@ import android.widget.TextView;
     private EditText        mEditText;
     private View            mNextButton;
     private View            mPrevButton;
-    private View            mMatchesView;
 
     private View.OnClickListener mFindListener = new View.OnClickListener() {
         public void onClick(View v) {
@@ -120,7 +119,6 @@ import android.widget.TextView;
         button.setOnClickListener(mFindCancelListener);
         
         mMatches = (TextView) findViewById(R.id.matches);
-        mMatchesView = findViewById(R.id.matches_view);
         disableButtons();
         theWindow.setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -181,9 +179,9 @@ import android.widget.TextView;
         if (0 == find.length()) {
             disableButtons();
             mWebView.clearMatches();
-            mMatchesView.setVisibility(View.INVISIBLE);
+            mMatches.setVisibility(View.INVISIBLE);
         } else {
-            mMatchesView.setVisibility(View.VISIBLE);
+            mMatches.setVisibility(View.VISIBLE);
             mWebView.setFindDialogHeight(
                 getWindow().getDecorView().getHeight());
             int found = mWebView.findAll(find.toString());
