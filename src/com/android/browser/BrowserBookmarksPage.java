@@ -312,7 +312,7 @@ public class BrowserBookmarksPage extends Activity implements
         } else {
             ed.putInt(PREF_BOOKMARK_VIEW_MODE, mViewMode.ordinal());
         }
-        ed.commit();
+        ed.apply();
 
         if (mBookmarksAdapter != null) {
             mBookmarksAdapter.switchViewMode(viewMode);
