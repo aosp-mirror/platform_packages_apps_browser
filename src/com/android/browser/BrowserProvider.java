@@ -385,7 +385,7 @@ public class BrowserProvider extends ContentProvider {
                 fixPicasaBookmark();
                 Editor ed = p.edit();
                 ed.putBoolean("fix_picasa", false);
-                ed.commit();
+                ed.apply();
             }
         }
         mSearchManager = (SearchManager) context.getSystemService(Context.SEARCH_SERVICE);

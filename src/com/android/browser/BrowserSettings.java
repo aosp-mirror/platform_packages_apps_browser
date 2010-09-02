@@ -401,7 +401,7 @@ class BrowserSettings extends Observable {
         Editor ed = PreferenceManager.
                 getDefaultSharedPreferences(context).edit();
         ed.putString(PREF_HOMEPAGE, url);
-        ed.commit();
+        ed.apply();
         homeUrl = url;
     }
 
@@ -581,7 +581,7 @@ class BrowserSettings extends Observable {
         reset();
         SharedPreferences p =
             PreferenceManager.getDefaultSharedPreferences(ctx);
-        p.edit().clear().commit();
+        p.edit().clear().apply();
         PreferenceManager.setDefaultValues(ctx, R.xml.browser_preferences,
                 true);
         // reset homeUrl

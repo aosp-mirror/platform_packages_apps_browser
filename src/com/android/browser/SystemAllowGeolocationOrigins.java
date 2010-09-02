@@ -103,7 +103,7 @@ class SystemAllowGeolocationOrigins {
         // Save the new value as the last read value
         preferences.edit()
                 .putString(LAST_READ_ALLOW_GEOLOCATION_ORIGINS, newSetting)
-                .commit();
+                .apply();
 
         Set<String> oldOrigins = parseAllowGeolocationOrigins(lastReadSetting);
         Set<String> newOrigins = parseAllowGeolocationOrigins(newSetting);
