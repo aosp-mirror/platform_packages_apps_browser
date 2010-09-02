@@ -20,7 +20,8 @@
     <string name="choose_upload">Choose file for upload</string>
     <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
     <string name="new_tab">New window</string>
-    <!-- Name of menu item of a new incognito tab.  Also used in the title bar when displaying a new tab -->
+    <!-- Name of menu item of a new incognito tab.  Also used in the
+         title bar when displaying a new tab [CHAR LIMIT=30] -->
     <string name="new_incognito_tab">New incognito window</string>
     <!-- Name of menu item which brings up a list of the currently active tabs -->
     <string name="active_tabs">Windows</string>
