@@ -31,13 +31,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BrowserContract;
+import android.provider.SyncStateContract;
 import android.provider.BrowserContract.Bookmarks;
 import android.provider.BrowserContract.ChromeSyncColumns;
 import android.provider.BrowserContract.History;
 import android.provider.BrowserContract.Searches;
 import android.provider.BrowserContract.SyncState;
 import android.provider.ContactsContract.RawContacts;
-import android.provider.SyncStateContract;
 import android.text.TextUtils;
 
 import java.util.HashMap;
@@ -615,12 +615,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
 
             case SEARCHES: {
-                id = db.insertOrThrow(TABLE_SEARCHES, Searches.SEARCH, values);
+                id = insertSearchesInTransaction(db, values);
                 break;
             }
 
             case SYNCSTATE: {
-                id = mSyncHelper.insert(mDb, values);
+                id = mSyncHelper.insert(db, values);
                 break;
             }
 
@@ -633,6 +633,31 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             return ContentUris.withAppendedId(uri, id);
         } else {
             return null;
+        }
+    }
+
+    /**
+     * Searches are unique, so perform an UPSERT manually since SQLite doesn't support them.
+     */
+    private long insertSearchesInTransaction(SQLiteDatabase db, ContentValues values) {
+        String search = values.getAsString(Searches.SEARCH);
+        if (TextUtils.isEmpty(search)) {
+            throw new IllegalArgumentException("Must include the SEARCH field");
+        }
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TABLE_SEARCHES, new String[] { Searches._ID },
+                    Searches.SEARCH + "=?", new String[] { search }, null, null, null);
+            if (cursor.moveToNext()) {
+                long id = cursor.getLong(0);
+                db.update(TABLE_SEARCHES, values, Searches._ID + "=?",
+                        new String[] { Long.toString(id) });
+                return id;
+            } else {
+                return db.insertOrThrow(TABLE_SEARCHES, Searches.SEARCH, values);
+            }
+        } finally {
+            if (cursor != null) cursor.close();
         }
     }
 
@@ -662,16 +687,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
             case HISTORY: {
                 return db.update(TABLE_HISTORY, values, selection, selectionArgs);
-            }
-
-            case SEARCHES_ID: {
-                selection = DatabaseUtils.concatenateWhere(selection, TABLE_SEARCHES + "._id=?");
-                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
-                        new String[] { Long.toString(ContentUris.parseId(uri)) });
-                // fall through
-            }
-            case SEARCHES: {
-                return db.update(TABLE_SEARCHES, values, selection, selectionArgs);
             }
 
             case SYNCSTATE: {
