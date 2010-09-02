@@ -73,6 +73,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final long FIXED_ID_OTHER_BOOKMARKS = 4;
 
     static final String DEFAULT_BOOKMARKS_SORT_ORDER = "position ASC, _id ASC";
+
     
     static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -112,6 +113,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         map.put(Bookmarks.ACCOUNT_TYPE, Bookmarks.ACCOUNT_TYPE);
         map.put(Bookmarks.SOURCE_ID, Bookmarks.SOURCE_ID);
         map.put(Bookmarks.VERSION, Bookmarks.VERSION);
+        map.put(Bookmarks.DATE_CREATED, Bookmarks.DATE_CREATED);
+        map.put(Bookmarks.DATE_MODIFIED, Bookmarks.DATE_MODIFIED);
         map.put(Bookmarks.DIRTY, Bookmarks.DIRTY);
         map.put(Bookmarks.SYNC1, Bookmarks.SYNC1);
         map.put(Bookmarks.SYNC2, Bookmarks.SYNC2);
@@ -148,13 +151,13 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final String qualifyColumn(String table, String column) {
         return table + "." + column + " AS " + column;
     }
-    
+
     DatabaseHelper mOpenHelper;
     SyncStateContentProviderHelper mSyncHelper = new SyncStateContentProviderHelper();
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
-        static final int DATABASE_VERSION = 15;
+        static final int DATABASE_VERSION = 16;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -177,6 +180,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     Bookmarks.ACCOUNT_TYPE + " TEXT," +
                     Bookmarks.SOURCE_ID + " TEXT," +
                     Bookmarks.VERSION + " INTEGER NOT NULL DEFAULT 1," +
+                    Bookmarks.DATE_CREATED + " INTEGER," +
+                    Bookmarks.DATE_MODIFIED + " INTEGER," +
                     Bookmarks.DIRTY + " INTEGER NOT NULL DEFAULT 0," +
                     Bookmarks.SYNC1 + " TEXT," +
                     Bookmarks.SYNC2 + " TEXT," +
@@ -224,6 +229,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         public void onOpen(SQLiteDatabase db) {
             mSyncHelper.onDatabaseOpened(db);
         }
+
         
         private void createDefaultBookmarks(SQLiteDatabase db) {
             ContentValues values = new ContentValues();
@@ -451,7 +457,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 if (TextUtils.isEmpty(sortOrder)) {
                     sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER;
                 }
-                
+
                 qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);
                 qb.setTables(TABLE_BOOKMARKS);
                 break;
@@ -535,6 +541,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     // If the caller isn't a sync adapter just go through and update all the
                     // bookmarks to have the deleted flag set.
                     ContentValues values = new ContentValues();
+                    values.put(Bookmarks.DATE_MODIFIED, System.currentTimeMillis());
                     values.put(Bookmarks.IS_DELETED, 1);
                     return updateInTransaction(uri, values, selection, selectionArgs,
                             callerIsSyncAdapter);
@@ -592,6 +599,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case BOOKMARKS: {
                 // Mark rows dirty if they're not coming from a sync adapater
                 if (!callerIsSyncAdapter) {
+                    long now = System.currentTimeMillis();
+                    values.put(Bookmarks.DATE_CREATED, now);
+                    values.put(Bookmarks.DATE_MODIFIED, now);
                     values.put(Bookmarks.DIRTY, 1);
                 }
 
@@ -721,6 +731,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             // Mark the bookmark dirty if the caller isn't a sync adapter
             if (!callerIsSyncAdapter) {
                 values = new ContentValues(values);
+                values.put(Bookmarks.DATE_MODIFIED, System.currentTimeMillis());
                 values.put(Bookmarks.DIRTY, 1);
             }
             while (cursor.moveToNext()) {
