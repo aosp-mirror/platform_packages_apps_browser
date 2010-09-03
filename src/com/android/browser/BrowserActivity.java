@@ -2480,38 +2480,23 @@ public class BrowserActivity extends Activity
     }
 
     /**
-     * Values for the size of the thumbnail created when taking a screenshot.
-     * Lazily initialized.  Instead of using these directly, use
-     * getDesiredThumbnailWidth() or getDesiredThumbnailHeight().
-     */
-    private static int THUMBNAIL_WIDTH = 0;
-    private static int THUMBNAIL_HEIGHT = 0;
-
-    /**
      * Return the desired width for thumbnail screenshots, which are stored in
      * the database, and used on the bookmarks screen.
      * @param context Context for finding out the density of the screen.
-     * @return int desired width for thumbnail screenshot.
+     * @return desired width for thumbnail screenshot.
      */
     /* package */ static int getDesiredThumbnailWidth(Context context) {
-        if (THUMBNAIL_WIDTH == 0) {
-            float density = context.getResources().getDisplayMetrics().density;
-            THUMBNAIL_WIDTH = (int) (90 * density);
-            THUMBNAIL_HEIGHT = (int) (80 * density);
-        }
-        return THUMBNAIL_WIDTH;
+        return context.getResources().getDimensionPixelOffset(R.dimen.bookmarkThumbnailWidth);
     }
 
     /**
      * Return the desired height for thumbnail screenshots, which are stored in
      * the database, and used on the bookmarks screen.
      * @param context Context for finding out the density of the screen.
-     * @return int desired height for thumbnail screenshot.
+     * @return desired height for thumbnail screenshot.
      */
     /* package */ static int getDesiredThumbnailHeight(Context context) {
-        // To ensure that they are both initialized.
-        getDesiredThumbnailWidth(context);
-        return THUMBNAIL_HEIGHT;
+        return context.getResources().getDimensionPixelOffset(R.dimen.bookmarkThumbnailHeight);
     }
 
     private Bitmap createScreenshot(WebView view, int width, int height) {

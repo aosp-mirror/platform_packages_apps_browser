@@ -23,38 +23,11 @@
 
     <ImageView android:id="@+id/thumb"
         android:src="@drawable/browser_thumbnail"
-        android:scaleType="center"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_height="@dimen/bookmarkThumbnailHeight"
+        android:layout_width="@dimen/bookmarkThumbnailWidth"
         android:layout_gravity="center"
         />
-
-    <!-- FIXME: Want to have a gradient over the thumb -->
-
-    <!-- This holds the star for addbookmark -->
-    <LinearLayout android:id="@+id/holder"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:background="#99000000"
-        android:gravity="center"
-        android:layout_alignBottom="@+id/thumb"
-        android:layout_alignTop="@+id/thumb"
-        >
-        <ImageView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_list_bookmark"
-            />
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:text="@string/add_bookmark_short"
-            />
-    </LinearLayout>
 
     <TextView android:id="@+id/label"
         android:layout_width="match_parent"

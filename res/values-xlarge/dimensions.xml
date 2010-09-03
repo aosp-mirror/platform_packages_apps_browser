@@ -10,15 +10,7 @@
     the specific language governing permissions and limitations under the
     License.
 -->
-<resources
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- The width of a selected tab -->
-    <dimen
-        name="tab_width_selected">300dp</dimen>
-    <!-- The width of an unselected tab -->
-    <dimen
-        name="tab_width_unselected">300dp</dimen>
-
-    <dimen name="bookmarkThumbnailWidth">90dip</dimen>
-    <dimen name="bookmarkThumbnailHeight">80dip</dimen>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <dimen name="bookmarkThumbnailWidth">160dip</dimen>
+    <dimen name="bookmarkThumbnailHeight">180dip</dimen>
 </resources>

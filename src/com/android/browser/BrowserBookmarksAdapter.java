@@ -37,11 +37,9 @@ class BrowserBookmarksAdapter extends ResourceCursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        View holder = view.findViewById(R.id.holder);
         ImageView thumb = (ImageView) view.findViewById(R.id.thumb);
         TextView tv = (TextView) view.findViewById(R.id.label);
 
-        holder.setVisibility(View.GONE);
         tv.setText(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
 
         Bitmap thumbnail = null;
