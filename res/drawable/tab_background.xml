@@ -14,9 +14,13 @@
      limitations under the License.
 -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="true"
-            android:drawable="@drawable/tab_selected_bg" />
-    <item android:state_selected="false"
-            android:drawable="@drawable/tab_unselected_bg" />
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_selected="true"
+        android:drawable="@drawable/tab_selected_bg" />
+    <item
+        android:state_selected="false"
+        android:drawable="@drawable/tab_unselected_bg">
+    </item>
 </selector>

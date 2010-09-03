@@ -18,11 +18,12 @@
  */
 -->
 <resources>
-    <style name="BrowserTheme" parent="@android:Theme.Black">
-        <item name="android:windowBackground">@color/white</item>
-        <item name="android:colorBackground">#FFFFFFFF</item>
+    <style name="BrowserTheme" parent="@android:Theme.Holo">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="ActionBar" parent="@android:style/ActionBar">
+        <item name="android:background">@color/black</item>
     </style>
     <style name="BookmarkTheme" parent="@android:Theme.Black">
         <item name="android:windowNoTitle">true</item>
@@ -35,6 +36,21 @@
     <style name="TitleBar">
         <item name="android:windowEnterAnimation">@anim/title_bar_enter</item>
         <item name="android:windowExitAnimation">@anim/title_bar_exit</item>
+    </style>
+        <style name="HoloIcon">
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+    </style>
+    <style name="HoloButton" parent="@style/HoloIcon">
+        <item name="android:background">@drawable/browserbarbutton</item>
+    </style>
+    <style name="TabTitleSelected" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/tab_title_selected</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TabTitleUnselected" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/tab_title_unselected</item>
+        <item name="android:textStyle">normal</item>
     </style>
 </resources>
 

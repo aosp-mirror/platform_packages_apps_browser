@@ -23,6 +23,7 @@ import com.android.common.speech.LoggingEvents;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
@@ -105,6 +106,7 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,7 +128,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BrowserActivity extends Activity
-    implements View.OnCreateContextMenuListener, DownloadListener {
+    implements View.OnCreateContextMenuListener, DownloadListener,
+    PopupMenu.OnMenuItemClickListener {
 
     /* Define some aliases to make these debugging flags easier to refer to.
      * This file imports android.provider.Browser, so we can't just refer to "Browser.DEBUG".
@@ -226,6 +229,8 @@ public class BrowserActivity extends Activity
             mTitleBar.setProgress(100);
             mFakeTitleBar = new TitleBarXLarge(this);
             ActionBar actionBar = getActionBar();
+            actionBar.setBackgroundDrawable(getResources().
+                    getDrawable(R.drawable.tabbar_bg));
             mTabBar = new TabBar(this, mTabControl, (TitleBarXLarge) mFakeTitleBar);
             actionBar.setCustomNavigationMode(mTabBar);
             // disable built in zoom controls
@@ -3869,45 +3874,70 @@ public class BrowserActivity extends Activity
 
     }
 
-    /* package*/ void promptAddOrInstallBookmark() {
+    /* package */ void promptAddOrInstallBookmark(View anchor) {
+        PopupMenu popup = new PopupMenu(this, anchor);
+        popup.getMenuInflater().inflate(R.menu.bookmark_shortcut, popup.getMenu());
+        popup.setOnMenuItemClickListener(this);
+        popup.show();
+    }
+    
+    /**
+     * popup menu item click listener
+     * @param item
+     */
+    public boolean onMenuItemClick(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.add_bookmark_menu_id:
+                bookmarkCurrentPage();
+                return true;
+            case R.id.shortcut_to_home_menu_id:
+                Tab current = mTabControl.getCurrentTab();
+                current.populatePickerData();
+                String touchIconUrl = mTabControl.getCurrentWebView().getTouchIconUrl();
+                if (touchIconUrl != null) {
+                    // Download the touch icon for this site then save
+                    // it to the
+                    // homescreen.
+                    Bundle b = new Bundle();
+                    b.putString("url", current.getUrl());
+                    b.putString("title", current.getTitle());
+                    b.putParcelable("favicon", current.getFavicon());
+                    Message msg = mHandler.obtainMessage(TOUCH_ICON_DOWNLOADED);
+                    msg.setData(b);
+                    new DownloadTouchIcon(BrowserActivity.this, msg,
+                            mTabControl.getCurrentWebView().getSettings().getUserAgentString())
+                            .execute(touchIconUrl);
+                } else {
+                    // add to homescreen, can do it immediately as there
+                    // is no touch
+                    // icon.
+                    showSaveToHomescreenDialog(
+                            current.getUrl(), current.getTitle(), null, current.getFavicon());
+                }
+                return true;
+            default:
+                return false;
+        }
+    }
+    
+    /* package */Dialog makeAddOrInstallDialog() {
         final Tab current = mTabControl.getCurrentTab();
         Resources resources = getResources();
-        CharSequence[] choices = {
-                resources.getString(R.string.save_to_bookmarks),
-                resources.getString(R.string.create_shortcut_bookmark)
-        };
+        CharSequence[] choices =
+                {resources.getString(R.string.save_to_bookmarks),
+                        resources.getString(R.string.create_shortcut_bookmark)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.add_new_bookmark);
         builder.setItems(choices, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int item) {
-                    if (item == 0) {
-                        bookmarkCurrentPage();
-                    } else if (item == 1) {
-                        current.populatePickerData();
-                        String touchIconUrl = mTabControl.getCurrentWebView().getTouchIconUrl();
-                        if (touchIconUrl != null) {
-                            // Download the touch icon for this site then save it to the
-                            // homescreen.
-                            Bundle b = new Bundle();
-                            b.putString("url", current.getUrl());
-                            b.putString("title", current.getTitle());
-                            b.putParcelable("favicon", current.getFavicon());
-                            Message msg = mHandler.obtainMessage(TOUCH_ICON_DOWNLOADED);
-                            msg.setData(b);
-                            new DownloadTouchIcon(BrowserActivity.this, msg,
-                                    mTabControl.getCurrentWebView().getSettings()
-                                    .getUserAgentString()).execute(touchIconUrl);
-                        } else {
-                            // add to homescreen, can do it immediately as there is no touch
-                            // icon.
-                            showSaveToHomescreenDialog(current.getUrl(), current.getTitle(),
-                                    null, current.getFavicon());
-                        }
-                     }
-                 }
+            public void onClick(DialogInterface dialog, int item) {
+                if (item == 0) {
+                    bookmarkCurrentPage();
+                } else if (item == 1) {
+                }
+            }
         });
-        builder.create().show();
+        return builder.create();
     }
 
     /**

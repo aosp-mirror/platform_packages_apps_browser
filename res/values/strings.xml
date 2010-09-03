@@ -129,11 +129,11 @@
     <string name="http">http://</string>
     <!-- Menu item that opens a dialog to save a bookmark for the current page, also displayed as
             the title of the dialog used for adding a bookmark -->
-    <string name="save_to_bookmarks">Add to Bookmarks</string>
+    <string name="save_to_bookmarks">Bookmark this page</string>
     <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
     <string name="edit_bookmark">Edit bookmark</string>
     <!-- Context menu item to create a shortcut to the bookmark on the desktop -->
-    <string name="create_shortcut_bookmark">Add to Home</string>
+    <string name="create_shortcut_bookmark">Add shortcut to home</string>
     <!-- Context menu item to open the currently highlighted bookmark -->
     <string name="open_bookmark">Open</string>
     <!-- Menu item to remove the currently highlighted bookmark-->

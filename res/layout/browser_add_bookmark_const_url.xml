@@ -53,15 +53,13 @@
             android:layout_width="250dip"
             android:gravity="fill_horizontal"
             android:inputType="textCapSentences"
-            android:selectAllOnFocus="true"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:selectAllOnFocus="true" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#c6c3c6"
         android:minHeight="54dip"
         android:orientation="horizontal"
         android:paddingTop="4dip"

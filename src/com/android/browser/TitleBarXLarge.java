@@ -16,42 +16,51 @@
 
 package com.android.browser;
 
+import com.android.browser.UrlInputView.UrlInputListener;
+
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Message;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.ImageView;
-
-import com.android.browser.UrlInputView.UrlInputListener;
 
 /**
  * tabbed title bar for xlarge screen browser
  */
 public class TitleBarXLarge extends TitleBarBase
-    implements UrlInputListener, OnClickListener {
+    implements UrlInputListener, OnClickListener, OnFocusChangeListener {
 
     private static final int PROGRESS_MAX = 100;
 
     private BrowserActivity mBrowserActivity;
     private Drawable mStopDrawable;
     private Drawable mReloadDrawable;
-    private Drawable mProgressDrawable;
+    private Drawable mFocusDrawable;
+    private Drawable mUnFocusDrawable;
+
 
     private View mContainer;
     private View mBackButton;
     private View mForwardButton;
     private View mStar;
     private View mSearchButton;
+    private View mInputContainer;
     private ImageView mStopButton;
     private View mAllButton;
-    private ImageView mProgressView;
+    private PageProgressView mProgressView;
     private UrlInputView mUrlView;
     private boolean mInLoad;
 
@@ -59,13 +68,14 @@ public class TitleBarXLarge extends TitleBarBase
         super(context);
         mBrowserActivity = context;
         Resources resources = context.getResources();
-        mStopDrawable = resources.getDrawable(R.drawable.ic_stop);
-        mReloadDrawable = resources.getDrawable(R.drawable.ic_reload);
+        mStopDrawable = resources.getDrawable(R.drawable.ic_stop_normal);
+        mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_normal);
+        mFocusDrawable = resources.getDrawable(R.drawable.text_field_results);
+        mUnFocusDrawable = resources.getDrawable(R.drawable.text_field);
         rebuildLayout(context, true);
     }
 
     private void rebuildLayout(Context context, boolean rebuildData) {
-        removeAllViews();
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.url_bar, this);
 
@@ -80,8 +90,8 @@ public class TitleBarXLarge extends TitleBarBase
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = findViewById(R.id.search);
         mLockIcon = (ImageView) findViewById(R.id.lock);
-        mProgressView = (ImageView) findViewById(R.id.progress);
-        mProgressDrawable = mProgressView.getDrawable();
+        mProgressView = (PageProgressView) findViewById(R.id.progress);
+        mInputContainer = findViewById(R.id.urlbar);
 
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
@@ -90,6 +100,15 @@ public class TitleBarXLarge extends TitleBarBase
         mStopButton.setOnClickListener(this);
         mSearchButton.setOnClickListener(this);
         mUrlView.setUrlInputListener(this);
+        mUrlView.setOnFocusChangeListener(this);
+        mInputContainer.setBackgroundDrawable(mUnFocusDrawable);
+        mUrlView.setTextColor(Color.GRAY);
+
+    }
+    
+    public void onFocusChange(View v, boolean hasFocus) {
+        mInputContainer.setBackgroundDrawable(hasFocus ? mFocusDrawable : mUnFocusDrawable);
+        mUrlView.setTextColor(hasFocus ? Color.BLACK : Color.GRAY);
     }
 
     @Override
@@ -99,7 +118,7 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mForwardButton == v) {
             mBrowserActivity.getTopWindow().goForward();
         } else if (mStar == v) {
-            mBrowserActivity.promptAddOrInstallBookmark();
+            mBrowserActivity.promptAddOrInstallBookmark(mStar);
         } else if (mAllButton == v) {
             mBrowserActivity.bookmarksOrHistoryPicker(false, false);
         } else if (mSearchButton == v) {
@@ -174,7 +193,7 @@ public class TitleBarXLarge extends TitleBarBase
                 mInLoad = true;
                 mStopButton.setImageDrawable(mStopDrawable);
             }
-            mProgressDrawable.setLevel(newProgress*10000/PROGRESS_MAX);
+            mProgressView.setProgress(newProgress*10000/PROGRESS_MAX);
         }
     }
 

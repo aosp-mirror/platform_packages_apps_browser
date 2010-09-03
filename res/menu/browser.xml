@@ -23,7 +23,7 @@
         <item android:id="@+id/bookmarks_menu_id"
             android:title="@string/bookmarks"
             android:alphabeticShortcut="b"
-            android:icon="@drawable/ic_menu_bookmarks"
+            android:icon="@drawable/ic_bookmarks_history_normal"
             />
         <item android:id="@+id/active_tabs_menu_id"
             android:title="@string/active_tabs"
@@ -34,33 +34,34 @@
         <item android:id="@+id/forward_menu_id"
             android:title="@string/forward"
             android:alphabeticShortcut="k"
-            android:icon="@*android:drawable/ic_menu_forward" />
+            android:icon="@drawable/ic_forward_normal" />
         <item android:id="@+id/add_bookmark_menu_id"
             android:title="@string/save_to_bookmarks"
             android:icon="@drawable/ic_menu_add_bookmark"
             android:alphabeticShortcut="a" />
         <item android:id="@+id/find_menu_id"
             android:title="@*android:string/find_on_page"
-            android:icon="@*android:drawable/ic_menu_find"
+            android:icon="@drawable/ic_menu_findonpage_normal"
             android:alphabeticShortcut="f" />
         <item android:id="@+id/share_page_menu_id"
             android:title="@string/share_page"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_menu_share_normal"
             android:alphabeticShortcut="s" />
         <item android:id="@+id/page_info_menu_id"
             android:title="@string/page_info"
-            android:icon="@drawable/ic_menu_pageinfo"
+            android:icon="@drawable/ic_menu_pageinfo_normal"
             android:alphabeticShortcut="g" />
         <item android:id="@+id/view_downloads_menu_id"
             android:title="@string/menu_view_download"
-            android:icon="@drawable/ic_menu_downloads"
+            android:icon="@drawable/ic_menu_downloads_normal"
             android:alphabeticShortcut="d" />
         <item android:id="@+id/preferences_menu_id"
             android:title="@string/menu_preferences"
-            android:icon="@drawable/ic_menu_settings"
+            android:icon="@drawable/ic_menu_settings_normal"
             android:alphabeticShortcut="p" />
         <item android:id="@+id/save_webarchive_menu_id"
-            android:title="@string/menu_save_webarchive" />
+            android:title="@string/menu_save_webarchive"
+            android:icon="@drawable/ic_menu_archive_normal" />
         <!-- followings are debug only -->
         <item android:id="@+id/dump_nav_menu_id"
             android:title="@string/dump_nav"
@@ -104,11 +105,11 @@
     <!-- these items are toggled in and out of @+id/stop_reload_menu_id -->
     <item android:id="@+id/stop_menu_id"
         android:title="@string/stop"
-        android:icon="@*android:drawable/ic_menu_stop"
+        android:icon="@drawable/ic_stop_normal"
         android:visible="false" />
     <item android:id="@+id/reload_menu_id"
         android:title="@string/reload"
-        android:icon="@*android:drawable/ic_menu_refresh"
+        android:icon="@drawable/ic_refresh_normal"
         android:visible="false" />
 </menu>
  

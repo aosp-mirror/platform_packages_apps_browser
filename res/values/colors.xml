@@ -32,7 +32,8 @@
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     
-    
+    <color name="tab_title_selected">#ffffffff</color>
+    <color name="tab_title_unselected">#ff808080</color>
 
     <color name="geolocation_permissions_prompt_background">#ffdddddd</color>
 </resources>

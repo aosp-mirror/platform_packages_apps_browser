@@ -38,6 +38,7 @@
                    android:label="@string/application_name"
                    android:icon="@drawable/ic_launcher_browser"
                    android:backupAgent=".BrowserBackupAgent"
+                   android:hardwareAccelerated="false"
                    android:taskAffinity="android.task.browser" >
 
         <provider android:name="BrowserProvider"
@@ -193,7 +194,7 @@
                     android:resource="@xml/bookmarks_searchable" />
         </activity>
 
-        <activity android:name="AddBookmarkPage" android:label="Save bookmark" android:theme="@android:style/Theme.Dialog"
+        <activity android:name="AddBookmarkPage" android:label="Save bookmark" android:theme="@style/Dialog.Holo"
                   android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />

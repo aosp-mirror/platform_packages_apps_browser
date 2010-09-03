@@ -14,21 +14,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tabbarcontent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="48dip"
     style="@style/ActionBarStyle"
     android:orientation="horizontal">
-    <ImageButton
-        android:id="@+id/showurl"
-        android:src="@drawable/ic_menu_showurl"
-        android:layout_width="48dip"
-        android:layout_height="48dip"
-        android:layout_marginLeft="3dip"
-        android:background="@drawable/browserbarbutton"
-        android:visibility="gone" />
     <com.android.browser.TabScrollView
         android:id="@+id/tabs"
         android:layout_width="0dp"
-        android:layout_height="48dip"
+        android:layout_height="match_parent"
         android:layout_weight="1.0"
         android:orientation="horizontal" />
 </LinearLayout>

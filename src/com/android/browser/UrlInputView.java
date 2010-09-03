@@ -22,8 +22,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
@@ -47,7 +49,8 @@ public class UrlInputView extends AutoCompleteTextView
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
     private SuggestionsAdapter mAdapter;
-    private Drawable           mFocusDrawable;
+
+    private OnFocusChangeListener mWrappedFocusListener;
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -65,16 +68,21 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     private void init(Context ctx) {
-        mFocusDrawable = ctx.getResources().getDrawable(R.drawable.textfield_stroke);
         mInputManager = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
         setOnEditorActionListener(this);
-        setOnFocusChangeListener(this);
+        super.setOnFocusChangeListener(this);
         final ContentResolver cr = mContext.getContentResolver();
         mAdapter = new SuggestionsAdapter(mContext,
                 BrowserProvider.getBookmarksSuggestions(cr, null));
         setAdapter(mAdapter);
         setOnItemClickListener(this);
-        setSelectAllOnFocus(true);
+        setSelectAllOnFocus(false);
+        
+    }
+
+    @Override
+    public void setOnFocusChangeListener(OnFocusChangeListener focusListener) {
+        mWrappedFocusListener = focusListener;
     }
 
     @Override
@@ -82,14 +90,29 @@ public class UrlInputView extends AutoCompleteTextView
         finishInput(getText().toString());
         return true;
     }
-
+    
+    @Override
+    public boolean onTouchEvent(MotionEvent evt) {
+        
+        if ((evt.getAction() == MotionEvent.ACTION_DOWN) && !this.hasFocus()) {
+            Log.i("test","onTouch");
+            selectAll();
+            requestFocus();
+            return true;
+        } else {
+            return super.onTouchEvent(evt);
+        }
+    }
+    
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        setBackgroundDrawable(hasFocus ? mFocusDrawable : null);
         if (hasFocus) {
             forceIme();
         } else {
             finishInput(null);
+        }
+        if (mWrappedFocusListener != null) {
+            mWrappedFocusListener.onFocusChange(v, hasFocus);
         }
     }
 
@@ -110,6 +133,7 @@ public class UrlInputView extends AutoCompleteTextView
 
     private void finishInput(String url) {
         this.dismissDropDown();
+        this.setSelection(0,0);
         mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
         if (url == null) {
             mListener.onDismiss();

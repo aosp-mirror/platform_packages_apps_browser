@@ -55,13 +55,9 @@ public class TabBar extends LinearLayout
     private final int mTabWidthSelected;
     private final int mTabWidthUnselected;
 
-    private final Drawable mShowUrlDrawable;
-    private final Drawable mHideUrlDrawable;
-
     private TitleBarXLarge mTitleBar;
 
     private TabScrollView mTabs;
-    private ImageButton mShowUrlButton;
     private TabControl mControl;
 
     private Map<Tab, TabViewData> mTabMap;
@@ -76,8 +72,6 @@ public class TabBar extends LinearLayout
         Resources res = context.getResources();
         mTabWidthSelected = (int) res.getDimension(R.dimen.tab_width_selected);
         mTabWidthUnselected = (int) res.getDimension(R.dimen.tab_width_unselected);
-        mShowUrlDrawable = res.getDrawable(R.drawable.ic_menu_showurl);
-        mHideUrlDrawable = res.getDrawable(R.drawable.ic_menu_hideurl);
 
         mTitleBar = titlebar;
         mTitleBar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -90,12 +84,9 @@ public class TabBar extends LinearLayout
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.tab_bar, this);
         mTabs = (TabScrollView) findViewById(R.id.tabs);
-        mShowUrlButton = (ImageButton) findViewById(R.id.showurl);
 
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
-
-        mShowUrlButton.setOnClickListener(this);
 
         // build tabs
         int tabcount = mControl.getTabCount();
@@ -113,15 +104,7 @@ public class TabBar extends LinearLayout
     }
 
     public void onClick(View view) {
-        if (mShowUrlButton == view) {
-            if (mShowUrlMode) {
-                showUrlBar();
-            } else if (!isLoading()) {
-                ScrollWebView swv = (ScrollWebView) mControl.getCurrentWebView();
-                swv.hideEmbeddedTitleBar();
-                mBrowserActivity.hideFakeTitleBar();
-            }
-        } else if (mTabs.getSelectedTab() == view) {
+        if (mTabs.getSelectedTab() == view) {
             if (mBrowserActivity.isFakeTitleBarShowing() && !isLoading()) {
                 mBrowserActivity.hideFakeTitleBar();
             } else {
@@ -145,8 +128,6 @@ public class TabBar extends LinearLayout
 
     private void setShowUrlMode(boolean showUrl) {
         mShowUrlMode = showUrl;
-        Drawable newDrawable = mShowUrlMode ? mShowUrlDrawable : mHideUrlDrawable;
-        mShowUrlButton.setImageDrawable(newDrawable);
     }
 
     // callback after fake titlebar is shown
@@ -272,7 +253,10 @@ public class TabBar extends LinearLayout
         public void setSelected(boolean selected) {
             mSelected = selected;
             mClose.setVisibility(mSelected ? View.VISIBLE : View.GONE);
-            mTitle.setTextColor(mSelected ? Color.BLACK : Color.GRAY);
+            mTitle.setTextAppearance(mBrowserActivity, mSelected ?
+                    R.style.TabTitleSelected : R.style.TabTitleUnselected);
+            setHorizontalFadingEdgeEnabled(!mSelected);
+            setFadingEdgeLength(50);
             super.setSelected(selected);
             setLayoutParams(new LayoutParams(selected ?
                     mTabWidthSelected : mTabWidthUnselected,
