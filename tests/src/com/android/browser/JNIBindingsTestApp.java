@@ -37,6 +37,9 @@ import java.io.OutputStream;
 /**
  * Adds a JavaScript interface to the webview and calls functions on it to verify variables
  * are passed from JS to Java correctly.
+ * To run this test, execute:
+ * adb shell am instrument -w -e class com.android.browser.JNIBindingsTestApp#testJNIBindings \
+ *     com.android.browser.tests/android.test.InstrumentationTestRunner
  */
 public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<BrowserActivity> {
 
@@ -89,7 +92,7 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
                     }
                 }
             };
-            mWebView.documentAsText(mHandler.obtainMessage(MSG_WEBKIT_DATA_READY));
+            mWebView.documentAsText(mHandler.obtainMessage(MSG_WEBKIT_DATA_READY, 1, 0));
             Looper.loop();
         }
     }
