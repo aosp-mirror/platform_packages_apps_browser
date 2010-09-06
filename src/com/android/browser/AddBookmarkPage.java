@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -116,7 +117,9 @@ public class AddBookmarkPage extends Activity {
      */
     private class SaveBookmarkRunnable implements Runnable {
         private Message mMessage;
-        public SaveBookmarkRunnable(Message msg) {
+        private Context mContext;
+        public SaveBookmarkRunnable(Context ctx, Message msg) {
+            mContext = ctx;
             mMessage = msg;
         }
         public void run() {
@@ -135,7 +138,7 @@ public class AddBookmarkPage extends Activity {
                 final ContentResolver cr = getContentResolver();
                 Bookmarks.addBookmark(null, cr, url, title, thumbnail, true);
                 if (touchIconUrl != null) {
-                    new DownloadTouchIcon(cr, url).execute(mTouchIconUrl);
+                    new DownloadTouchIcon(mContext, cr, url).execute(mTouchIconUrl);
                 }
                 mMessage.arg1 = 1;
             } catch (IllegalStateException e) {
@@ -237,7 +240,7 @@ public class AddBookmarkPage extends Activity {
             Message msg = Message.obtain(mHandler, SAVE_BOOKMARK);
             msg.setData(bundle);
             // Start a new thread so as to not slow down the UI
-            Thread t = new Thread(new SaveBookmarkRunnable(msg));
+            Thread t = new Thread(new SaveBookmarkRunnable(getApplicationContext(), msg));
             t.start();
             setResult(RESULT_OK);
             LogTag.logBookmarkAdded(url, "bookmarkview");

@@ -19,6 +19,7 @@ package com.android.browser;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -46,12 +47,12 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     private final String mOriginalUrl;
     private final String mUrl;
     private final String mUserAgent;
-    private final BrowserActivity mActivity;
+    private final Context mContext;
     /* package */ Tab mTab;
 
-    public DownloadTouchIcon(Tab tab, BrowserActivity activity, ContentResolver cr, WebView view) {
+    public DownloadTouchIcon(Tab tab, Context ctx, ContentResolver cr, WebView view) {
         mTab = tab;
-        mActivity = activity;
+        mContext = ctx;
         mContentResolver = cr;
         // Store these in case they change.
         mOriginalUrl = view.getOriginalUrl();
@@ -59,9 +60,9 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
         mUserAgent = view.getSettings().getUserAgentString();
     }
 
-    public DownloadTouchIcon(ContentResolver cr, String url) {
+    public DownloadTouchIcon(Context ctx, ContentResolver cr, String url) {
         mTab = null;
-        mActivity = null;
+        mContext = ctx;
         mContentResolver = cr;
         mOriginalUrl = null;
         mUrl = url;
@@ -77,7 +78,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
 
             AndroidHttpClient client = AndroidHttpClient.newInstance(
                     mUserAgent);
-            HttpHost httpHost = Proxy.getPreferredHttpHost(mActivity, url);
+            HttpHost httpHost = Proxy.getPreferredHttpHost(mContext, url);
             if (httpHost != null) {
                 ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
             }
