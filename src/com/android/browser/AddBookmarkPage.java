@@ -210,8 +210,8 @@ public class AddBookmarkPage extends Activity {
                     Toast.makeText(AddBookmarkPage.this, R.string.bookmark_needs_url,
                             Toast.LENGTH_LONG).show();
                 }
-                return false;
             }
+            return false;
 
         }
         String url = unfilteredUrl.trim();
