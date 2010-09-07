@@ -590,8 +590,12 @@ class Tab {
                     errorCode != WebViewClient.ERROR_FILE) {
                 queueError(errorCode, description);
             }
-            Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
-                    + " " + description);
+
+            // Don't log URLs when in private browsing mode
+            if (!getWebView().isPrivateBrowsingEnabled()) {
+                Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
+                        + " " + description);
+            }
 
             // We need to reset the title after an error if it is in foreground.
             if (mInForeground) {
@@ -661,6 +665,9 @@ class Tab {
         @Override
         public void doUpdateVisitedHistory(WebView view, String url,
                 boolean isReload) {
+            // Don't save anything in private browsing mode
+            if (getWebView().isPrivateBrowsingEnabled()) return;
+
             if (url.regionMatches(true, 0, "about:", 0, 6)) {
                 return;
             }
@@ -977,40 +984,44 @@ class Tab {
                     >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
                 return;
             }
-            new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... unused) {
-                    // See if we can find the current url in our history
-                    // database and add the new title to it.
-                    String url = pageUrl;
-                    if (url.startsWith("http://www.")) {
-                        url = url.substring(11);
-                    } else if (url.startsWith("http://")) {
-                        url = url.substring(4);
+
+            // Update the title in the history database if not in private browsing mode
+            if (!getWebView().isPrivateBrowsingEnabled()) {
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... unused) {
+                        // See if we can find the current url in our history
+                        // database and add the new title to it.
+                        String url = pageUrl;
+                        if (url.startsWith("http://www.")) {
+                            url = url.substring(11);
+                        } else if (url.startsWith("http://")) {
+                            url = url.substring(4);
+                        }
+                        // Escape wildcards for LIKE operator.
+                        url = url.replace("\\", "\\\\").replace("%", "\\%")
+                                .replace("_", "\\_");
+                        Cursor c = null;
+                        try {
+                            final ContentResolver cr = mActivity.getContentResolver();
+                            String selection = History.URL + " LIKE ? ESCAPE '\\'";
+                            String [] selectionArgs = new String[] { "%" + url };
+                            ContentValues values = new ContentValues();
+                            values.put(History.TITLE, title);
+                            cr.update(History.CONTENT_URI, values, selection, selectionArgs);
+                        } catch (IllegalStateException e) {
+                            Log.e(LOGTAG, "Tab onReceived title", e);
+                        } catch (SQLiteException ex) {
+                            Log.e(LOGTAG,
+                                    "onReceivedTitle() caught SQLiteException: ",
+                                    ex);
+                        } finally {
+                            if (c != null) c.close();
+                        }
+                        return null;
                     }
-                    // Escape wildcards for LIKE operator.
-                    url = url.replace("\\", "\\\\").replace("%", "\\%")
-                            .replace("_", "\\_");
-                    Cursor c = null;
-                    try {
-                        final ContentResolver cr = mActivity.getContentResolver();
-                        String selection = History.URL + " LIKE ? ESCAPE '\\'";
-                        String [] selectionArgs = new String[] { "%" + url };
-                        ContentValues values = new ContentValues();
-                        values.put(History.TITLE, title);
-                        cr.update(History.CONTENT_URI, values, selection, selectionArgs);
-                    } catch (IllegalStateException e) {
-                        Log.e(LOGTAG, "Tab onReceived title", e);
-                    } catch (SQLiteException ex) {
-                        Log.e(LOGTAG,
-                                "onReceivedTitle() caught SQLiteException: ",
-                                ex);
-                    } finally {
-                        if (c != null) c.close();
-                    }
-                    return null;
-                }
-            }.execute();
+                }.execute();
+            }
         }
 
         @Override
@@ -1137,6 +1148,9 @@ class Tab {
                     errorConsole.showConsole(ErrorConsoleView.SHOW_MINIMIZED);
                 }
             }
+
+            // Don't log console messages in private browsing mode
+            if (getWebView().isPrivateBrowsingEnabled()) return true;
 
             String message = "Console: " + consoleMessage.message() + " "
                     + consoleMessage.sourceId() +  ":"

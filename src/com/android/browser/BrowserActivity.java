@@ -2676,6 +2676,12 @@ public class BrowserActivity extends Activity
     }
 
     boolean shouldOverrideUrlLoading(WebView view, String url) {
+        if (view.isPrivateBrowsingEnabled()) {
+            // Don't allow urls to leave the browser app when in private browsing mode
+            loadUrl(view, url);
+            return true;
+        }
+
         if (url.startsWith(SCHEME_WTAI)) {
             // wtai://wp/mc;number
             // number=string(phone-number)
