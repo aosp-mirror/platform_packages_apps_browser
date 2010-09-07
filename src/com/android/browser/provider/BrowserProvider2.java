@@ -473,7 +473,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 qb.setTables(TABLE_BOOKMARKS);
                 qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);
                 String bookmarksBarQuery = qb.buildQuery(projection,
-                        Bookmarks.PARENT + "=?",
+                        Bookmarks.PARENT + "=? AND " + Bookmarks.IS_DELETED + "=0",
                         null, null, null, null, null);
 
                 qb.setProjectionMap(OTHER_BOOKMARKS_PROJECTION_MAP);
