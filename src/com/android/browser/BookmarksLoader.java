@@ -18,10 +18,13 @@ package com.android.browser;
 
 import android.content.Context;
 import android.content.CursorLoader;
+import android.net.Uri;
 import android.provider.BrowserContract.Bookmarks;
+import android.text.TextUtils;
 
 public class BookmarksLoader extends CursorLoader {
-    public static final String ARG_ROOT_FOLDER = "root";
+    public static final String ARG_ACCOUNT_TYPE = "acct_type";
+    public static final String ARG_ACCOUNT_NAME = "acct_name";
 
     public static final int COLUMN_INDEX_ID = 0;
     public static final int COLUMN_INDEX_URL = 1;
@@ -42,7 +45,26 @@ public class BookmarksLoader extends CursorLoader {
         Bookmarks.POSITION, // 7
     };
 
-    public BookmarksLoader(Context context, int rootFolder) {
-        super(context, Bookmarks.CONTENT_URI_DEFAULT_FOLDER, PROJECTION, null, null, null);
+    private String mAccountType;
+    private String mAccountName;
+
+    public BookmarksLoader(Context context, String accountType, String accountName) {
+        super(context, addAccount(Bookmarks.CONTENT_URI_DEFAULT_FOLDER, accountType, accountName),
+                PROJECTION, null, null, null);
+        mAccountType = accountType;
+        mAccountName = accountName;
+    }
+
+    @Override
+    public void setUri(Uri uri) {
+        super.setUri(addAccount(uri, mAccountType, mAccountName));
+    }
+
+    private static Uri addAccount(Uri uri, String accountType, String accountName) {
+        if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
+            return uri.buildUpon().appendQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE, accountType).
+                    appendQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME, accountName).build();
+        }
+        return uri;
     }
 }

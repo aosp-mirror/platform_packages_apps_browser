@@ -22,6 +22,7 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -33,23 +34,22 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.provider.BrowserContract;
 import android.util.Pair;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.Stack;
 
@@ -83,11 +83,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case LOADER_BOOKMARKS: {
-                int rootFolder = 0;
+                String accountType = null;
+                String accountName = null;
                 if (args != null) {
-                    args.getInt(BookmarksLoader.ARG_ROOT_FOLDER, 0);
+                    accountType = args.getString(BookmarksLoader.ARG_ACCOUNT_TYPE);
+                    accountName = args.getString(BookmarksLoader.ARG_ACCOUNT_NAME);
                 }
-                return new BookmarksLoader(getActivity(), rootFolder);
+                return new BookmarksLoader(getActivity(), accountType, accountName);
             }
         }
         throw new UnsupportedOperationException("Unknown loader id " + id);
@@ -106,8 +108,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
         // Fill in the "up" button if needed
         BookmarksLoader bl = (BookmarksLoader) loader;
+        String path = bl.getUri().getPath();
         boolean rootFolder =
-                (BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER.equals(bl.getUri()));
+                BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER.getPath().equals(path);
         if (rootFolder) {
             mUpButton.setText(R.string.defaultBookmarksUpButton);
             mUpButton.setEnabled(false);
@@ -389,7 +392,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
     /**
      *  Update a row in the database with new information.
-     *  Requeries the database if the information has changed.
      *  @param map  Bundle storing id, title and url of new information
      */
     public void updateRow(Bundle map) {
@@ -428,7 +430,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                     ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI, id),
                     values, null, null);
         }
-        updateView();
     }
 
     private void displayRemoveBookmarkDialog(final int position) {
@@ -436,15 +437,19 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         // delete the bookmark
         Cursor cursor = (Cursor) mAdapter.getItem(position);
         Context context = getActivity();
+        final ContentResolver resolver = context.getContentResolver();
+        final Uri uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI,
+                cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
+
         new AlertDialog.Builder(context)
                 .setTitle(R.string.delete_bookmark)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage(context.getText(R.string.delete_bookmark_warning).toString().replace(
-                        "%s", cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE)))
+                .setMessage(context.getString(R.string.delete_bookmark_warning,
+                        cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE)))
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                deleteBookmark(position);
+                                resolver.delete(uri, null, null);
                             }
                         })
                 .setNegativeButton(R.string.cancel, null)
@@ -467,16 +472,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
      */
     public void deleteBookmark(int position) {
         Cursor cursor = (Cursor) mAdapter.getItem(position);
-        String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
-        String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
-        Bookmarks.removeFromBookmarks(null, getActivity().getContentResolver(), url, title);
-        updateView();
+        long id = cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID);
+        Uri uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI, id);
+        getActivity().getContentResolver().delete(uri, null, null);
     }
-
-    private void updateView() {
-        BookmarksLoader loader =
-            (BookmarksLoader) (Loader)(getLoaderManager().getLoader(LOADER_BOOKMARKS));
-        loader.forceLoad();
-    }
-
 }
