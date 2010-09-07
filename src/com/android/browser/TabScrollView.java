@@ -113,6 +113,12 @@ public class TabScrollView extends HorizontalScrollView {
     }
 
     void removeTab(View tab) {
+        int ix = mContentView.indexOfChild(tab);
+        if (ix == mSelected) {
+            mSelected = -1;
+        } else if (ix < mSelected) {
+            mSelected--;
+        }
         mContentView.removeView(tab);
     }
 

@@ -1317,7 +1317,6 @@ public class BrowserActivity extends Activity
         // doesn't come for action bar buttons
         if (item.getItemId() == R.id.newtab) {
             openTabToHomePage();
-            mHandler.sendMessage(mHandler.obtainMessage(OPEN_BOOKMARKS));
             return true;
         }
         if (!mCanChord) {
