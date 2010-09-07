@@ -228,6 +228,8 @@ public class BrowserActivity extends Activity
             ActionBar actionBar = getActionBar();
             mTabBar = new TabBar(this, mTabControl, (TitleBarXLarge) mFakeTitleBar);
             actionBar.setCustomNavigationMode(mTabBar);
+            // disable built in zoom controls
+            mTabControl.setDisplayZoomControls(false);
         } else {
             mTitleBar = new TitleBar(this);
             // mTitleBar will be always be shown in the fully loaded mode on
