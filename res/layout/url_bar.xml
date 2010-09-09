@@ -54,10 +54,11 @@
             android:background="@drawable/browserbarbutton"
             android:src="@drawable/ic_bookmarks_history_normal" />
         <LinearLayout
-            android:id="@+id/urlbar"
+            android:id="@+id/urlbar_unfocused"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
+            android:background="@null"
             android:orientation="horizontal" >
             <ImageButton
                 android:id="@+id/star"
@@ -72,15 +73,14 @@
                 android:layout_height="wrap_content"
                 style="@style/HoloIcon"
                 android:visibility="gone" />
-            <com.android.browser.UrlInputView
-                android:id="@+id/editurl"
+            <EditText
+                android:id="@+id/url_unfocused"
                 android:layout_width="0dip"
                 android:layout_weight="1.0"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:paddingLeft="16dip"
-                android:paddingRight="16dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffc0c0c0"
                 android:hint="@string/search_hint"
                 android:gravity="center_vertical"
                 android:singleLine="true"
@@ -92,6 +92,46 @@
             <ImageButton
                 android:id="@+id/search"
                 android:src="@drawable/ic_search_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                style="@style/HoloButton"
+                android:background="@drawable/browserbarbutton" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/urlbar_focused"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:orientation="horizontal"
+            android:background="@drawable/text_field_results"
+            android:visibility="gone"
+             >
+            <ImageView
+                android:id="@+id/searchicon"
+                android:src="@drawable/ic_search_category_suggest"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/HoloButton" />
+            <com.android.browser.UrlInputView
+                android:id="@+id/url_focused"
+                android:layout_width="0dip"
+                android:layout_weight="1.0"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black"
+                android:hint="@string/search_hint"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="textUri"
+                android:imeOptions="actionGo" />
+            <ImageButton
+                android:id="@+id/go"
+                android:src="@drawable/ic_go_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"

@@ -26,6 +26,10 @@
         <item name="android:actionBarStyle">@style/ActionBarStyle</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionModeBackground">@drawable/cab_bg</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_menu_cab_close</item>
+        <item name="android:actionButtonStyle">@style/ActionButton</item>
+        <item name="android:actionDropDownStyle">@style/ActionDropdown</item>
+        <item name="android:actionOverflowButtonStyle">@style/Overflow</item>
     </style>
     <style name="Dialog.Holo" parent="android:Theme.Holo">
         <item name="android:windowFrame">@null</item>
@@ -46,6 +50,18 @@
         <item name="android:height">48dip</item>
         <item name="android:padding">0dip</item>
         <item name="android:displayOptions">hideHome</item>
+    </style>
+    <style name="ActionButton">
+        <item name="android:height">12dip</item>
+        <item name="android:background">@drawable/browserbarbutton</item>
+    </style>
+    <style name="ActionDropdown">
+        <item name="android:background">@drawable/menu_dropdown</item>
+    </style>
+    <style name="Overflow">
+        <item name="android:src">@drawable/ic_menu_overflow</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
     </style>
     <style name="TitleBar">
         <item name="android:windowEnterAnimation">@anim/title_bar_enter</item>

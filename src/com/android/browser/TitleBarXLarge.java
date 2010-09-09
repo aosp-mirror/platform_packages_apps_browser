@@ -18,17 +18,13 @@ package com.android.browser;
 
 import com.android.browser.UrlInputView.UrlInputListener;
 
-import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.os.Message;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -36,6 +32,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * tabbed title bar for xlarge screen browser
@@ -48,8 +45,6 @@ public class TitleBarXLarge extends TitleBarBase
     private BrowserActivity mBrowserActivity;
     private Drawable mStopDrawable;
     private Drawable mReloadDrawable;
-    private Drawable mFocusDrawable;
-    private Drawable mUnFocusDrawable;
 
 
     private View mContainer;
@@ -57,11 +52,14 @@ public class TitleBarXLarge extends TitleBarBase
     private View mForwardButton;
     private View mStar;
     private View mSearchButton;
-    private View mInputContainer;
+    private View mFocusContainer;
+    private View mUnfocusContainer;
+    private View mGoButton;
     private ImageView mStopButton;
     private View mAllButton;
     private PageProgressView mProgressView;
-    private UrlInputView mUrlView;
+    private UrlInputView mUrlFocused;
+    private TextView mUrlUnfocused;
     private boolean mInLoad;
 
     public TitleBarXLarge(BrowserActivity context) {
@@ -70,8 +68,6 @@ public class TitleBarXLarge extends TitleBarBase
         Resources resources = context.getResources();
         mStopDrawable = resources.getDrawable(R.drawable.ic_stop_normal);
         mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_normal);
-        mFocusDrawable = resources.getDrawable(R.drawable.text_field_results);
-        mUnFocusDrawable = resources.getDrawable(R.drawable.text_field);
         rebuildLayout(context, true);
     }
 
@@ -80,7 +76,8 @@ public class TitleBarXLarge extends TitleBarBase
         factory.inflate(R.layout.url_bar, this);
 
         mContainer = findViewById(R.id.taburlbar);
-        mUrlView = (UrlInputView) findViewById(R.id.editurl);
+        mUrlFocused = (UrlInputView) findViewById(R.id.url_focused);
+        mUrlUnfocused = (TextView) findViewById(R.id.url_unfocused);
         mAllButton = findViewById(R.id.all_btn);
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
@@ -90,8 +87,10 @@ public class TitleBarXLarge extends TitleBarBase
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = findViewById(R.id.search);
         mLockIcon = (ImageView) findViewById(R.id.lock);
+        mGoButton = findViewById(R.id.go);
         mProgressView = (PageProgressView) findViewById(R.id.progress);
-        mInputContainer = findViewById(R.id.urlbar);
+        mFocusContainer = findViewById(R.id.urlbar_focused);
+        mUnfocusContainer = findViewById(R.id.urlbar_unfocused);
 
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
@@ -99,16 +98,19 @@ public class TitleBarXLarge extends TitleBarBase
         mAllButton.setOnClickListener(this);
         mStopButton.setOnClickListener(this);
         mSearchButton.setOnClickListener(this);
-        mUrlView.setUrlInputListener(this);
-        mUrlView.setOnFocusChangeListener(this);
-        mInputContainer.setBackgroundDrawable(mUnFocusDrawable);
-        mUrlView.setTextColor(Color.GRAY);
-
+        mGoButton.setOnClickListener(this);
+        mUrlFocused.setUrlInputListener(this);
+        mUrlUnfocused.setOnFocusChangeListener(this);
     }
     
     public void onFocusChange(View v, boolean hasFocus) {
-        mInputContainer.setBackgroundDrawable(hasFocus ? mFocusDrawable : mUnFocusDrawable);
-        mUrlView.setTextColor(hasFocus ? Color.BLACK : Color.GRAY);
+        if (hasFocus) {
+            swapUrlContainer(true);
+            mUrlFocused.selectAll();
+            mUrlFocused.requestFocus();
+            mUrlFocused.setDropDownWidth(mUnfocusContainer.getWidth());
+            mUrlFocused.setDropDownHorizontalOffset(-mUrlFocused.getLeft());
+        }
     }
 
     @Override
@@ -125,15 +127,13 @@ public class TitleBarXLarge extends TitleBarBase
             search();
         } else if (mStopButton == v) {
             stopOrRefresh();
+        } else if (mGoButton == v) {
+            onAction(mUrlFocused.getText().toString());
         }
     }
 
     int getHeightWithoutProgress() {
         return mContainer.getHeight();
-    }
-
-    void requestUrlInputFocus() {
-        mUrlView.requestFocus();
     }
 
     @Override
@@ -149,13 +149,29 @@ public class TitleBarXLarge extends TitleBarBase
         i.setAction(Intent.ACTION_SEARCH);
         i.putExtra(SearchManager.QUERY, text);
         mBrowserActivity.onNewIntent(i);
+        swapUrlContainer(false);
+        setDisplayTitle(text);
     }
 
     @Override
     public void onDismiss() {
         mBrowserActivity.getTabControl().getCurrentTopWebView().requestFocus();
         mBrowserActivity.hideFakeTitleBar();
-        mUrlView.setText(mBrowserActivity.getTabControl().getCurrentWebView().getUrl());
+        setDisplayTitle(mBrowserActivity.getTabControl().getCurrentWebView().getUrl());
+        swapUrlContainer(false);
+    }
+
+    @Override
+    public void onEdit(String text) {
+        setDisplayTitle(text);
+        if (text != null) {
+            mUrlFocused.setSelection(text.length());
+        }
+    }
+
+    private void swapUrlContainer(boolean focus) {
+        mUnfocusContainer.setVisibility(focus ? View.GONE : View.VISIBLE);
+        mFocusContainer.setVisibility(focus ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -166,8 +182,8 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     private void search() {
-        mUrlView.setText("");
-        mUrlView.requestFocus();
+        setDisplayTitle("");
+        mUrlUnfocused.requestFocus();
     }
 
     private void stopOrRefresh() {
@@ -199,7 +215,8 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     /* package */ void setDisplayTitle(String title) {
-        mUrlView.setText(title);
+        mUrlFocused.setText(title);
+        mUrlUnfocused.setText(title);
     }
 
 }

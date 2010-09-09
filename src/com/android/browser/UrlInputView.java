@@ -20,21 +20,26 @@ import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
+import android.text.style.BackgroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -44,7 +49,7 @@ import android.widget.TextView.OnEditorActionListener;
  * handling suggestions
  */
 public class UrlInputView extends AutoCompleteTextView
-        implements OnFocusChangeListener, OnItemClickListener, OnEditorActionListener {
+        implements OnFocusChangeListener, OnClickListener, OnEditorActionListener {
 
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
@@ -75,9 +80,13 @@ public class UrlInputView extends AutoCompleteTextView
         mAdapter = new SuggestionsAdapter(mContext,
                 BrowserProvider.getBookmarksSuggestions(cr, null));
         setAdapter(mAdapter);
-        setOnItemClickListener(this);
         setSelectAllOnFocus(false);
-        
+    }
+
+    @Override
+    public ActionMode startActionMode(ActionMode.Callback callback) {
+        // suppress selection action mode
+        return null;
     }
 
     @Override
@@ -89,19 +98,6 @@ public class UrlInputView extends AutoCompleteTextView
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         finishInput(getText().toString());
         return true;
-    }
-    
-    @Override
-    public boolean onTouchEvent(MotionEvent evt) {
-        
-        if ((evt.getAction() == MotionEvent.ACTION_DOWN) && !this.hasFocus()) {
-            Log.i("test","onTouch");
-            selectAll();
-            requestFocus();
-            return true;
-        } else {
-            return super.onTouchEvent(evt);
-        }
     }
     
     @Override
@@ -117,11 +113,17 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String url = mAdapter.getViewString(view);
-        finishInput(url);
+    public void onClick(View view) {
+        if (view instanceof ImageButton) {
+            // user pressed edit search button
+            String text = mAdapter.getViewString((View)view.getParent());
+            mListener.onEdit(text);
+        } else {
+            // user selected dropdown item
+            String url = mAdapter.getViewString(view);
+            finishInput(url);
+        }
     }
-
 
     public void setUrlInputListener(UrlInputListener listener) {
         mListener = listener;
@@ -155,6 +157,7 @@ public class UrlInputView extends AutoCompleteTextView
     interface UrlInputListener {
         public void onDismiss();
         public void onAction(String text);
+        public void onEdit(String text);
     }
 
     /**
@@ -190,7 +193,7 @@ public class UrlInputView extends AutoCompleteTextView
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             final LayoutInflater inflater = LayoutInflater.from(context);
             final View view = inflater.inflate(
-                    R.layout.simple_dropdown_item_2line, parent, false);
+                    R.layout.url_dropdown_item, parent, false);
             bindView(view, context, cursor);
             return view;
         }
@@ -200,16 +203,20 @@ public class UrlInputView extends AutoCompleteTextView
             TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
             TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
             ImageView ic1 = (ImageView) view.findViewById(R.id.icon1);
+            View ic2 = view.findViewById(R.id.icon2);
             tv1.setText(cursor.getString(mIndexText1));
             String url = cursor.getString(mIndexText2);
             tv2.setText((url != null) ? url : "");
+            ic2.setOnClickListener(UrlInputView.this);
             // assume an id
             try {
                 int id = Integer.parseInt(cursor.getString(mIndexIcon));
                 Drawable d = context.getResources().getDrawable(id);
                 ic1.setImageDrawable(d);
+                ic2.setVisibility((id == R.drawable.ic_search_category_suggest)? View.VISIBLE : View.GONE);
             } catch (NumberFormatException nfx) {
             }
+            view.setOnClickListener(UrlInputView.this);
         }
 
         @Override
