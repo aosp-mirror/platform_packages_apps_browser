@@ -374,6 +374,10 @@
     <string name="pref_security_save_form_data">Remember form data</string>
     <!-- Settings summary -->
     <string name="pref_security_save_form_data_summary">Remember data I type in forms for later use</string>
+    <!-- Settings label for enabling/disabling the form AutoFill feature -->
+    <string name="pref_autoFill_enabled">AutoFill forms</string>
+    <!-- Settings summary for the form AutoFill feature. -->
+    <string name="pref_autoFill_enabled_summary">Automatically fill out forms where possible</string>
     <!-- Settings label -->
     <string name="pref_security_show_security_warning">Show security warnings</string>
     <!-- Settings summmary -->

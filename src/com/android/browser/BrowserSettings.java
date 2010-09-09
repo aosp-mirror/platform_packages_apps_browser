@@ -77,6 +77,7 @@ class BrowserSettings extends Observable {
     private boolean showSecurityWarnings;
     private boolean rememberPasswords;
     private boolean saveFormData;
+    private boolean autoFillEnabled;
     private boolean openInBackground;
     private String defaultTextEncodingName;
     private String homeUrl = "";
@@ -226,6 +227,7 @@ class BrowserSettings extends Observable {
             s.setDefaultZoom(b.zoomDensity);
             s.setLightTouchEnabled(b.lightTouch);
             s.setSaveFormData(b.saveFormData);
+            s.setAutoFillEnabled(b.autoFillEnabled);
             s.setSavePassword(b.rememberPasswords);
             s.setLoadWithOverviewMode(b.loadsPageInOverviewMode);
             s.setPageCacheCapacity(pageCacheCapacity);
@@ -340,6 +342,7 @@ class BrowserSettings extends Observable {
                 rememberPasswords);
         saveFormData = p.getBoolean("save_formdata",
                 saveFormData);
+        autoFillEnabled = p.getBoolean("autoFill_enabled", autoFillEnabled);
         boolean accept_cookies = p.getBoolean("accept_cookies",
                 CookieManager.getInstance().acceptCookie());
         CookieManager.getInstance().setAcceptCookie(accept_cookies);
@@ -647,6 +650,7 @@ class BrowserSettings extends Observable {
         showSecurityWarnings = true;
         rememberPasswords = true;
         saveFormData = true;
+        autoFillEnabled = false;
         openInBackground = false;
         autoFitPage = true;
         landscapeOnly = false;
