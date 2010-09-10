@@ -23,7 +23,7 @@
         <item name="android:colorBackground">#FFFFFFFF</item>
         <item name="android:windowActionBar">true</item>
         <item name="android:windowNoTitle">false</item>
-        <item name="android:windowActionBarStyle">@style/ActionBarStyle</item>
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionModeBackground">@drawable/cab_bg</item>
     </style>
