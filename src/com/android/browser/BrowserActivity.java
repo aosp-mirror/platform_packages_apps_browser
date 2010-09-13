@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.ScrollWebView.ScrollListener;
+import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 import com.android.common.speech.LoggingEvents;
 
@@ -622,23 +623,9 @@ public class BrowserActivity extends Activity
             }.execute();
         }
 
-        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.putExtra(SearchManager.QUERY, url);
-        if (appData != null) {
-            intent.putExtra(SearchManager.APP_DATA, appData);
-        }
-        if (extraData != null) {
-            intent.putExtra(SearchManager.EXTRA_DATA_KEY, extraData);
-        }
-        intent.putExtra(Browser.EXTRA_APPLICATION_ID, getPackageName());
-
-        // can't be sure there is an activity for the Intent
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException ex) {
-            return false;
-        }
+        SearchEngine searchEngine = mSettings.getSearchEngine();
+        if (searchEngine == null) return false;
+        searchEngine.startSearch(this, url, appData, extraData);
 
         return true;
     }
