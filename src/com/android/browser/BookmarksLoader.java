@@ -33,6 +33,7 @@ public class BookmarksLoader extends CursorLoader {
     public static final int COLUMN_INDEX_THUMBNAIL = 4;
     public static final int COLUMN_INDEX_TOUCH_ICON = 5;
     public static final int COLUMN_INDEX_IS_FOLDER = 6;
+    public static final int COLUMN_INDEX_PARENT = 8;
 
     public static final String[] PROJECTION = new String[] {
         Bookmarks._ID, // 0
@@ -43,6 +44,7 @@ public class BookmarksLoader extends CursorLoader {
         Bookmarks.TOUCH_ICON, // 5
         Bookmarks.IS_FOLDER, // 6
         Bookmarks.POSITION, // 7
+        Bookmarks.PARENT, // 8
     };
 
     private String mAccountType;

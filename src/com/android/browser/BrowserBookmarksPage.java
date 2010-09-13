@@ -538,6 +538,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                     BitmapFactory.decodeByteArray(data, 0, data.length));
         }
         item.putInt("id", cursor.getInt(BookmarksLoader.COLUMN_INDEX_ID));
+        item.putLong(BrowserContract.Bookmarks.PARENT,
+                cursor.getLong(BookmarksLoader.COLUMN_INDEX_PARENT));
         intent.putExtra("bookmark", item);
         startActivityForResult(intent, BOOKMARKS_SAVE);
     }

@@ -57,19 +57,18 @@ import java.io.ByteArrayOutputStream;
      *  @param context Context of the calling Activity.  This is used to make
      *          Toast confirming that the bookmark has been added.  If the
      *          caller provides null, the Toast will not be shown.
-     *  @param cr The ContentResolver being used to add the bookmark to the db.
      *  @param url URL of the website to be bookmarked.
      *  @param name Provided name for the bookmark.
      *  @param thumbnail A thumbnail for the bookmark.
      *  @param retainIcon Whether to retain the page's icon in the icon database.
      *          This will usually be <code>true</code> except when bookmarks are
      *          added by a settings restore agent.
+     *  @param parent ID of the parent folder.
      */
     /* package */ static void addBookmark(Context context, boolean showToast, String url,
-            String name, Bitmap thumbnail, boolean retainIcon) {
+            String name, Bitmap thumbnail, boolean retainIcon, long parent) {
         // Want to append to the beginning of the list
         ContentValues values = new ContentValues();
-        Cursor cursor = null;
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
@@ -81,11 +80,10 @@ import java.io.ByteArrayOutputStream;
             values.put(BrowserContract.Bookmarks.IS_FOLDER, 0);
             values.put(BrowserContract.Bookmarks.THUMBNAIL,
                     bitmapToBytes(thumbnail));
+            values.put(BrowserContract.Bookmarks.PARENT, parent);
             context.getContentResolver().insert(BrowserContract.Bookmarks.CONTENT_URI, values);
         } catch (IllegalStateException e) {
             Log.e(LOGTAG, "addBookmark", e);
-        } finally {
-            if (cursor != null) cursor.close();
         }
         if (retainIcon) {
             WebIconDatabase.getInstance().retainIconForPageUrl(url);
