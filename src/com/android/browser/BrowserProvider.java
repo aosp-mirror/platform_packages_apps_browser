@@ -16,10 +16,10 @@
 
 package com.android.browser;
 
+import com.android.browser.search.SearchEngine;
+
 import android.app.SearchManager;
-import android.app.SearchableInfo;
 import android.app.backup.BackupManager;
-import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -27,28 +27,21 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.UriMatcher;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
+import android.content.UriMatcher;
 import android.database.AbstractCursor;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.os.Handler;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
-import android.provider.Settings;
 import android.provider.Browser.BookmarkColumns;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.util.TypedValue;
-
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -165,7 +158,7 @@ public class BrowserProvider extends ContentProvider {
     // optionally a trailing slash, all matched as separate groups.
     private static final Pattern STRIP_URL_PATTERN = Pattern.compile("^(http://)(.*?)(/$)?");
 
-    private SearchManager mSearchManager;
+    private BrowserSettings mSettings;
 
     public BrowserProvider() {
     }
@@ -366,57 +359,8 @@ public class BrowserProvider extends ContentProvider {
                 ed.commit();
             }
         }
-        mSearchManager = (SearchManager) context.getSystemService(Context.SEARCH_SERVICE);
-        mShowWebSuggestionsSettingChangeObserver
-            = new ShowWebSuggestionsSettingChangeObserver();
-        context.getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(
-                        Settings.System.SHOW_WEB_SUGGESTIONS),
-                true, mShowWebSuggestionsSettingChangeObserver);
-        updateShowWebSuggestions();
+        mSettings = BrowserSettings.getInstance();
         return true;
-    }
-
-    /**
-     * This Observer will ensure that if the user changes the system
-     * setting of whether to display web suggestions, we will
-     * change accordingly.
-     */
-    /* package */ class ShowWebSuggestionsSettingChangeObserver
-            extends ContentObserver {
-        public ShowWebSuggestionsSettingChangeObserver() {
-            super(new Handler());
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            updateShowWebSuggestions();
-        }
-    }
-
-    private ShowWebSuggestionsSettingChangeObserver
-            mShowWebSuggestionsSettingChangeObserver;
-
-    // If non-null, then the system is set to show web suggestions,
-    // and this is the SearchableInfo to use to get them.
-    private SearchableInfo mSearchableInfo;
-
-    /**
-     * Check the system settings to see whether web suggestions are
-     * allowed.  If so, store the SearchableInfo to grab suggestions
-     * while the user is typing.
-     */
-    private void updateShowWebSuggestions() {
-        mSearchableInfo = null;
-        Context context = getContext();
-        if (Settings.System.getInt(context.getContentResolver(),
-                Settings.System.SHOW_WEB_SUGGESTIONS,
-                1 /* default on */) == 1) {
-            ComponentName webSearchComponent = mSearchManager.getWebSearchActivity();
-            if (webSearchComponent != null) {
-                mSearchableInfo = mSearchManager.getSearchableInfo(webSearchComponent);
-            }
-        }
     }
 
     private void fixPicasaBookmark() {
@@ -875,12 +819,15 @@ public class BrowserProvider extends ContentProvider {
                     || Patterns.WEB_URL.matcher(selectionArgs[0]).matches()) {
                 return new MySuggestionCursor(c, null, "");
             } else {
-                // get Google suggest if there is still space in the list
+                // get search suggestions if there is still space in the list
                 if (myArgs != null && myArgs.length > 1
-                        && mSearchableInfo != null
+                        && mSettings.getShowSearchSuggestions()
                         && c.getCount() < (MAX_SUGGESTION_SHORT_ENTRIES - 1)) {
-                    Cursor sc = mSearchManager.getSuggestions(mSearchableInfo, selectionArgs[0]);
-                    return new MySuggestionCursor(c, sc, selectionArgs[0]);
+                    SearchEngine searchEngine = mSettings.getSearchEngine();
+                    if (searchEngine != null && searchEngine.supportsSuggestions()) {
+                        Cursor sc = searchEngine.getSuggestions(getContext(), selectionArgs[0]);
+                        return new MySuggestionCursor(c, sc, selectionArgs[0]);
+                    }
                 }
                 return new MySuggestionCursor(c, null, selectionArgs[0]);
             }
