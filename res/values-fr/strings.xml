@@ -32,15 +32,8 @@
     <string name="password" msgid="1177138552305184404">"Mot de passe"</string>
     <string name="action" msgid="183105774472071343">"Se connecter"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"Navigateur"</string>
-    <!-- no translation found for text_selection_title (6372057230084448231) -->
-    <skip />
     <string name="cancel" msgid="3017274947407233702">"Annuler"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
-    <string name="no_matches" msgid="6596166519279885087">"Aucune correspondance"</string>
-  <plurals name="matches_found">
-    <item quantity="one" msgid="4352019729062956802">"1 correspondance"</item>
-    <item quantity="other" msgid="8166868707729972065">"<xliff:g id="INDEX">%d</xliff:g> sur <xliff:g id="TOTAL">%d</xliff:g>"</item>
-  </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"Chargement…"</string>
     <string name="page_info" msgid="4048529256302257195">"Infos sur la page"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Afficher les infos sur la page"</string>
@@ -73,9 +66,11 @@
     <string name="location" msgid="969988560160364559">"Emplacement"</string>
     <string name="name" msgid="5990326151488445481">"Nom"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="6101482434920313244">"Ajouter aux favoris"</string>
+    <!-- no translation found for save_to_bookmarks (8225229701567988479) -->
+    <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"Modifier le favori"</string>
-    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"Ajouter sur la page d\'accueil"</string>
+    <!-- no translation found for create_shortcut_bookmark (1995095662095484289) -->
+    <skip />
     <string name="open_bookmark" msgid="8473581305759935790">"Ouverture"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Supprimer le favori"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Supprimer des favoris"</string>
@@ -98,7 +93,6 @@
     <string name="goto_dot" msgid="3895839050522602723">"OK"</string>
     <!-- no translation found for incognito_tab (5419458065370134289) -->
     <skip />
-    <string name="find_dot" msgid="6259312434696611957">"Rechercher sur la page"</string>
     <string name="select_dot" msgid="6299170761900561967">"Sélectionner le texte"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Fenêtres actuelles"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Fermer"</string>

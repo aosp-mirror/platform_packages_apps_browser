@@ -32,15 +32,8 @@
     <string name="password" msgid="1177138552305184404">"비밀번호"</string>
     <string name="action" msgid="183105774472071343">"로그인"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"브라우저"</string>
-    <!-- no translation found for text_selection_title (6372057230084448231) -->
-    <skip />
     <string name="cancel" msgid="3017274947407233702">"취소"</string>
     <string name="ok" msgid="1509280796718850364">"확인"</string>
-    <string name="no_matches" msgid="6596166519279885087">"검색결과 없음"</string>
-  <plurals name="matches_found">
-    <item quantity="one" msgid="4352019729062956802">"검색결과 1개"</item>
-    <item quantity="other" msgid="8166868707729972065">"<xliff:g id="TOTAL">%d</xliff:g>개 중 <xliff:g id="INDEX">%d</xliff:g>개"</item>
-  </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"로드 중..."</string>
     <string name="page_info" msgid="4048529256302257195">"페이지 정보"</string>
     <string name="page_info_view" msgid="5303490449842635158">"페이지 정보 보기"</string>
@@ -73,9 +66,11 @@
     <string name="location" msgid="969988560160364559">"URL"</string>
     <string name="name" msgid="5990326151488445481">"이름"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="6101482434920313244">"북마크에 추가"</string>
+    <!-- no translation found for save_to_bookmarks (8225229701567988479) -->
+    <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"북마크 수정"</string>
-    <string name="create_shortcut_bookmark" msgid="4528337239019328891">"홈에 추가"</string>
+    <!-- no translation found for create_shortcut_bookmark (1995095662095484289) -->
+    <skip />
     <string name="open_bookmark" msgid="8473581305759935790">"열기"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"북마크 삭제"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"북마크에서 삭제"</string>
@@ -98,7 +93,6 @@
     <string name="goto_dot" msgid="3895839050522602723">"이동"</string>
     <!-- no translation found for incognito_tab (5419458065370134289) -->
     <skip />
-    <string name="find_dot" msgid="6259312434696611957">"페이지에서 찾기"</string>
     <string name="select_dot" msgid="6299170761900561967">"텍스트 선택"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"현재 창"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"닫기"</string>
