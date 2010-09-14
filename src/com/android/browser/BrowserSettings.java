@@ -17,14 +17,22 @@
 
 package com.android.browser;
 
+import com.android.browser.search.SearchEngine;
+import com.android.browser.search.SearchEngines;
+
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.ContentObserver;
+import android.os.Handler;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.provider.Settings;
+import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
@@ -71,6 +79,8 @@ class BrowserSettings extends Observable {
     private boolean openInBackground;
     private String defaultTextEncodingName;
     private String homeUrl = "";
+    private SearchEngine searchEngine;
+    private boolean showSearchSuggestions;
     private boolean autoFitPage;
     private boolean landscapeOnly;
     private boolean loadsPageInOverviewMode;
@@ -121,6 +131,8 @@ class BrowserSettings extends Observable {
     public final static String PREF_CLEAR_COOKIES = "privacy_clear_cookies";
     public final static String PREF_CLEAR_HISTORY = "privacy_clear_history";
     public final static String PREF_HOMEPAGE = "homepage";
+    public final static String PREF_SEARCH_ENGINE = "search_engine";
+    public final static String PREF_SHOW_SEARCH_SUGGESTIONS = "show_search_suggestions";
     public final static String PREF_CLEAR_FORM_DATA =
             "privacy_clear_form_data";
     public final static String PREF_CLEAR_PASSWORDS =
@@ -246,7 +258,7 @@ class BrowserSettings extends Observable {
      *            stored in this BrowserSettings object. This will update all
      *            observers of this object.
      */
-    public void loadFromDb(Context ctx) {
+    public void loadFromDb(final Context ctx) {
         SharedPreferences p =
                 PreferenceManager.getDefaultSharedPreferences(ctx);
         // Set the default value for the Application Caches path.
@@ -278,17 +290,41 @@ class BrowserSettings extends Observable {
             pageCacheCapacity = 1;
         }
 
-        // Load the defaults from the xml
+        final ContentResolver cr = ctx.getContentResolver();
+        cr.registerContentObserver(
+                Settings.System.getUriFor(Settings.System.SHOW_WEB_SUGGESTIONS), false,
+                new ContentObserver(new Handler()) {
+                        @Override
+                        public void onChange(boolean selfChange) {
+                            SharedPreferences p =
+                                    PreferenceManager.getDefaultSharedPreferences(ctx);
+                            updateShowWebSuggestions(cr, p);
+                        }
+                });
+        updateShowWebSuggestions(cr, p);
+
+    // Load the defaults from the xml
         // This call is TOO SLOW, need to manually keep the defaults
         // in sync
         //PreferenceManager.setDefaultValues(ctx, R.xml.browser_preferences);
-        syncSharedPreferences(p);
+        syncSharedPreferences(ctx, p);
     }
 
-    /* package */ void syncSharedPreferences(SharedPreferences p) {
+    /* package */ void syncSharedPreferences(Context ctx, SharedPreferences p) {
 
         homeUrl =
             p.getString(PREF_HOMEPAGE, homeUrl);
+        String searchEngineName = p.getString(PREF_SEARCH_ENGINE, null);
+        if (searchEngine == null || !searchEngine.getName().equals(searchEngineName)) {
+            if (searchEngine != null) {
+                searchEngine.close();
+            }
+            searchEngine = SearchEngines.get(ctx, searchEngineName);
+        }
+        Log.i(TAG, "Selected search engine: " + searchEngine);
+        showSearchSuggestions = p.getBoolean(PREF_SHOW_SEARCH_SUGGESTIONS, true);
+        // Persist to system settings
+        saveShowWebSuggestions(ctx.getContentResolver());
 
         loadsImagesAutomatically = p.getBoolean("load_images",
                 loadsImagesAutomatically);
@@ -377,8 +413,28 @@ class BrowserSettings extends Observable {
         update();
     }
 
+    private void saveShowWebSuggestions(ContentResolver cr) {
+        int value = showSearchSuggestions ? 1 : 0;
+        Settings.System.putInt(cr, Settings.System.SHOW_WEB_SUGGESTIONS, value);
+    }
+
+    private void updateShowWebSuggestions(ContentResolver cr, SharedPreferences p) {
+        showSearchSuggestions =
+                Settings.System.getInt(cr,
+                        Settings.System.SHOW_WEB_SUGGESTIONS, 1) == 1;
+        p.edit().putBoolean(PREF_SHOW_SEARCH_SUGGESTIONS, showSearchSuggestions).commit();
+    }
+
     public String getHomePage() {
         return homeUrl;
+    }
+
+    public SearchEngine getSearchEngine() {
+        return searchEngine;
+    }
+
+    public boolean getShowSearchSuggestions() {
+        return showSearchSuggestions;
     }
 
     public String getJsFlags() {

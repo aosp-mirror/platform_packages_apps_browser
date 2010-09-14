@@ -16,24 +16,19 @@
 
 package com.android.browser;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Vector;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
 import android.webkit.WebStorage;
-import android.webkit.WebView;
+
+import java.util.Map;
+import java.util.Set;
 
 public class BrowserPreferencesPage extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
@@ -119,6 +114,7 @@ public class BrowserPreferencesPage extends PreferenceActivity
 
         // sync the shared preferences back to BrowserSettings
         BrowserSettings.getInstance().syncSharedPreferences(
+                getApplicationContext(),
                 getPreferenceScreen().getSharedPreferences());
     }
 
