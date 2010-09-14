@@ -165,6 +165,17 @@ class Tab {
      */
     private VoiceSearchData mVoiceSearchData;
     /**
+     * Remove voice search mode from this tab.
+     */
+    public void revertVoiceSearchMode() {
+        if (mVoiceSearchData != null) {
+            mVoiceSearchData = null;
+            if (mInForeground) {
+                mActivity.revertVoiceTitleBar();
+            }
+        }
+    }
+    /**
      * Return whether the tab is in voice search mode.
      */
     public boolean isInVoiceSearchMode() {
@@ -457,10 +468,7 @@ class Tab {
                     i.putExtra(LoggingEvents.EXTRA_FLUSH, true);
                     mActivity.sendBroadcast(i);
                 }
-                mVoiceSearchData = null;
-                if (mInForeground) {
-                    mActivity.revertVoiceTitleBar();
-                }
+                revertVoiceSearchMode();
             }
 
             // We've started to load a new page. If there was a pending message
