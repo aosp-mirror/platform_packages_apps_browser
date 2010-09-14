@@ -24,6 +24,9 @@ import android.os.Bundle;
  */
 public interface SearchEngine {
 
+    // Used if the search engine is Google
+    static final String GOOGLE = "google";
+
     /**
      * Gets the unique name of this search engine.
      */
@@ -54,4 +57,8 @@ public interface SearchEngine {
      */
     public void close();
 
+    /**
+     * Checks whether this search engine supports voice search.
+     */
+    public boolean supportsVoiceSearch();
 }

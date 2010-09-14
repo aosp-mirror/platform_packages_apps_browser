@@ -67,9 +67,9 @@ public class DefaultSearchEngine implements SearchEngine {
         String packageName = mSearchable.getSearchActivity().getPackageName();
         // Use "google" as name to avoid showing Google twice (app + OpenSearch)
         if ("com.google.android.googlequicksearchbox".equals(packageName)) {
-            return "google";
+            return SearchEngine.GOOGLE;
         } else if ("com.android.quicksearchbox".equals(packageName)) {
-            return "google";
+            return SearchEngine.GOOGLE;
         } else {
             return packageName;
         }
@@ -108,6 +108,10 @@ public class DefaultSearchEngine implements SearchEngine {
     }
 
     public void close() {
+    }
+
+    public boolean supportsVoiceSearch() {
+        return getName().equals(SearchEngine.GOOGLE);
     }
 
     @Override
