@@ -305,6 +305,14 @@ class BrowserSettings extends Observable {
         String searchEngineName = p.getString(PREF_SEARCH_ENGINE, null);
         if (searchEngine == null || !searchEngine.getName().equals(searchEngineName)) {
             if (searchEngine != null) {
+                if (searchEngine.supportsVoiceSearch()) {
+                    // One or more tabs could have been in voice search mode.
+                    // Clear it, since the new SearchEngine may not support
+                    // it, or may handle it differently.
+                    for (int i = 0; i < mTabControl.getTabCount(); i++) {
+                        mTabControl.getTab(i).revertVoiceSearchMode();
+                    }
+                }
                 searchEngine.close();
             }
             searchEngine = SearchEngines.get(ctx, searchEngineName);
