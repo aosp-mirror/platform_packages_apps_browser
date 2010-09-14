@@ -98,20 +98,6 @@
                 android:hint="@string/http"
                 android:inputType="textUri|textMultiLine" />
 
-        <!-- Entries and values in this list are set dynamically. -->
-        <com.android.browser.search.SearchEnginePreference
-                android:key="search_engine"
-                android:title="@string/pref_content_search_engine"
-                android:summary="@string/pref_content_search_engine_summary"
-                android:dialogTitle="@string/pref_content_search_engine" />
-
-        <CheckBoxPreference
-                android:key="show_search_suggestions"
-                android:defaultValue="true"
-                android:title="@string/pref_content_show_search_suggestions"
-                android:summaryOn="@string/pref_content_show_web_suggestions_summary_on"
-                android:summaryOff="@string/pref_content_show_web_suggestions_summary_off" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -205,6 +191,21 @@
     </PreferenceCategory>
     <PreferenceCategory
             android:title="@string/pref_extras_title">
+
+            <!-- Entries and values in this list are set dynamically. -->
+            <com.android.browser.search.SearchEnginePreference
+                    android:key="search_engine"
+                    android:title="@string/pref_content_search_engine"
+                    android:defaultValue="google"
+                    android:summary="@string/pref_content_search_engine_summary"
+                    android:dialogTitle="@string/pref_content_search_engine" />
+
+            <CheckBoxPreference
+                    android:key="show_search_suggestions"
+                    android:defaultValue="true"
+                    android:title="@string/pref_content_show_search_suggestions"
+                    android:summaryOn="@string/pref_content_show_web_suggestions_summary_on"
+                    android:summaryOff="@string/pref_content_show_web_suggestions_summary_off" />
 
             <PreferenceScreen
                   android:key="website_settings"
