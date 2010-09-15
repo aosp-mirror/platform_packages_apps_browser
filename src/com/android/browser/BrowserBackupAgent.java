@@ -236,6 +236,11 @@ public class BrowserBackupAgent extends BackupAgent {
             long created = cursor.getLong(3);
             String title = cursor.getString(4);
 
+            if (title == null) {
+                // if title is null change it to an empty string to avoid problems
+                title = "";
+            }
+
             // construct the flattened record in a byte array
             bufstream.reset();
             bout.writeUTF(url);

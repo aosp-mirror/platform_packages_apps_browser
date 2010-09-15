@@ -448,6 +448,9 @@ public class BrowserBookmarksPage extends Activity implements
     private Intent createShortcutIntent(int position) {
         String url = getUrl(position);
         String title = getBookmarkTitle(position);
+        if (title == null) {
+            title = "";
+        }
         Bitmap touchIcon = getTouchIcon(position);
 
         final Intent i = new Intent();
@@ -660,11 +663,15 @@ public class BrowserBookmarksPage extends Activity implements
         // Put up a dialog asking if the user really wants to
         // delete the bookmark
         final int deletePos = position;
+        String title = getBookmarkTitle(deletePos);
+        if (title == null) {
+            title = "";
+        }
         new AlertDialog.Builder(this)
                 .setTitle(R.string.delete_bookmark)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage(getText(R.string.delete_bookmark_warning).toString().replace(
-                        "%s", getBookmarkTitle(deletePos)))
+                        "%s", title))
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
