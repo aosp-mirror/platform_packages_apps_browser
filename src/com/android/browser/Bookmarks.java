@@ -24,6 +24,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.Browser;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebIconDatabase;
 import android.widget.Toast;
@@ -88,8 +89,8 @@ import java.util.Date;
                     // One or more bookmarks already exist for this site.
                     // Check the names of each
                     cursor.moveToPosition(i);
-                    if (cursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX)
-                            .equals(name)) {
+                    String databaseTitle = cursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX);
+                    if (TextUtils.equals(databaseTitle, name)) {
                         // The old bookmark has the same name.
                         // Update its creation time.
                         map.put(Browser.BookmarkColumns.CREATED,
@@ -158,8 +159,8 @@ import java.util.Date;
             cursor = cr.query(
                     Browser.BOOKMARKS_URI,
                     Browser.HISTORY_PROJECTION,
-                    "url = ? AND title = ?",
-                    new String[] { url, title },
+                    title != null ? "url = ? AND title = ?" : "url = ? AND title IS NULL",
+                    title != null ? new String[] { url, title } : new String[] { url },
                     null);
             boolean first = cursor.moveToFirst();
             // Should be in the database no matter what
