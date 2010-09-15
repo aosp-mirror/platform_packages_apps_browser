@@ -52,7 +52,7 @@ import android.widget.Toast;
 public class BrowserHistoryPage extends ExpandableListActivity {
     private HistoryAdapter          mAdapter;
     private boolean                 mDisableNewWindow;
-    private HistoryItem             mContextHeader;
+    private BookmarkItem            mContextHeader;
 
     private final static String LOGTAG = "browser";
 
@@ -207,8 +207,9 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         HistoryItem historyItem = (HistoryItem) i.targetView;
 
         // Setup the header
+        // Use a BookmarkItem to get the same look and feel as in the other context menues.
         if (mContextHeader == null) {
-            mContextHeader = new HistoryItem(this);
+            mContextHeader = new BookmarkItem(this);
         } else if (mContextHeader.getParent() != null) {
             ((ViewGroup) mContextHeader.getParent()).removeView(mContextHeader);
         }
