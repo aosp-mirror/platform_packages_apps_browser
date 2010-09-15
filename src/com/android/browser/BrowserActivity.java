@@ -1215,6 +1215,12 @@ public class BrowserActivity extends Activity
         if (appSearchData == null) {
             appSearchData = createGoogleSearchSourceBundle(GOOGLE_SEARCH_SOURCE_TYPE);
         }
+
+        SearchEngine searchEngine = mSettings.getSearchEngine();
+        if (searchEngine != null && !searchEngine.supportsVoiceSearch()) {
+            appSearchData.putBoolean(SearchManager.DISABLE_VOICE_SEARCH, true);
+        }
+
         super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
