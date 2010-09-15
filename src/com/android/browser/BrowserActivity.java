@@ -1834,7 +1834,7 @@ public class BrowserActivity extends Activity
         private String mText;
 
         public boolean onMenuItemClick(MenuItem item) {
-            onDownloadStartNoStream(mText, null, null, null, -1);
+            onDownloadStartNoStream(mText, getUserAgent(), null, null, -1);
             return true;
         }
 
@@ -2319,7 +2319,7 @@ public class BrowserActivity extends Activity
                             break;
                         case R.id.save_link_context_menu_id:
                         case R.id.download_context_menu_id:
-                            onDownloadStartNoStream(url, null, null, null, -1);
+                            onDownloadStartNoStream(url, getUserAgent(), null, null, -1);
                             break;
                     }
                     break;
@@ -3656,6 +3656,15 @@ public class BrowserActivity extends Activity
             return smartUrlFilter(inUri.toString());
         }
         return null;
+    }
+
+    private String getUserAgent() {
+        String ua = null;
+        WebView w = getTopWindow();
+        if (w != null) {
+            ua = w.getSettings().getUserAgentString();
+        }
+        return ua;
     }
 
     protected static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
