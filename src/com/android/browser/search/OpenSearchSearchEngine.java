@@ -168,7 +168,6 @@ public class OpenSearchSearchEngine implements SearchEngine {
      * Executes a GET request and returns the response content.
      *
      * @param url Request URI.
-     * @param requestHeaders Request headers.
      * @return The response content. This is the empty string if the response
      *         contained no content.
      */
