@@ -64,6 +64,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     static final String DEFAULT_SORT_HISTORY = History.DATE_LAST_VISITED + " DESC";
 
+    static final String DEFAULT_SORT_SEARCHES = Searches.DATE + " DESC";
+
     static final int BOOKMARKS = 1000;
     static final int BOOKMARKS_ID = 1001;
     static final int BOOKMARKS_FOLDER = 1002;
@@ -96,12 +98,13 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     static final HashMap<String, String> ACCOUNTS_PROJECTION_MAP = new HashMap<String, String>();
     static final HashMap<String, String> BOOKMARKS_PROJECTION_MAP = new HashMap<String, String>();
-    static final HashMap<String, String> OTHER_BOOKMARKS_PROJECTION_MAP = 
+    static final HashMap<String, String> OTHER_BOOKMARKS_PROJECTION_MAP =
             new HashMap<String, String>();
     static final HashMap<String, String> HISTORY_PROJECTION_MAP = new HashMap<String, String>();
     static final HashMap<String, String> SYNC_STATE_PROJECTION_MAP = new HashMap<String, String>();
     static final HashMap<String, String> IMAGES_PROJECTION_MAP = new HashMap<String, String>();
     static final HashMap<String, String> COMBINED_PROJECTION_MAP = new HashMap<String, String>();
+    static final HashMap<String, String> SEARCHES_PROJECTION_MAP = new HashMap<String, String>();
 
     static {
         final UriMatcher matcher = URI_MATCHER;
@@ -208,7 +211,13 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         map.put(Combined.THUMBNAIL, Combined.THUMBNAIL);
         map.put(Combined.TOUCH_ICON, Combined.TOUCH_ICON);
         map.put(Combined.USER_ENTERED, Combined.USER_ENTERED);
-    }
+
+        // Searches
+        map = SEARCHES_PROJECTION_MAP;
+        map.put(Searches._ID, Searches._ID);
+        map.put(Searches.SEARCH, Searches.SEARCH);
+        map.put(Searches.DATE, Searches.DATE);
+}
 
     static final String bookmarkOrHistoryColumn(String column) {
         return "CASE WHEN bookmarks." + column + " IS NOT NULL THEN " +
@@ -333,7 +342,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             mSyncHelper.onDatabaseOpened(db);
         }
 
-        
+
         private void createDefaultBookmarks(SQLiteDatabase db) {
             ContentValues values = new ContentValues();
             // TODO figure out how to deal with localization for the defaults
@@ -664,6 +673,21 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 }
                 qb.setProjectionMap(HISTORY_PROJECTION_MAP);
                 qb.setTables(TABLE_HISTORY_JOIN_IMAGES);
+                break;
+            }
+
+            case SEARCHES_ID: {
+                selection = DatabaseUtils.concatenateWhere(selection, TABLE_SEARCHES + "._id=?");
+                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                        new String[] { Long.toString(ContentUris.parseId(uri)) });
+                // fall through
+            }
+            case SEARCHES: {
+                if (sortOrder == null) {
+                    sortOrder = DEFAULT_SORT_SEARCHES;
+                }
+                qb.setTables(TABLE_SEARCHES);
+                qb.setProjectionMap(SEARCHES_PROJECTION_MAP);
                 break;
             }
 

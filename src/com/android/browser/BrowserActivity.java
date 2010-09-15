@@ -234,8 +234,6 @@ public class BrowserActivity extends Activity
             mTitleBar.setProgress(100);
             mFakeTitleBar = new TitleBarXLarge(this);
             ActionBar actionBar = getActionBar();
-            actionBar.setBackgroundDrawable(getResources().
-                    getDrawable(R.drawable.tabbar_bg));
             mTabBar = new TabBar(this, mTabControl, (TitleBarXLarge) mFakeTitleBar);
             actionBar.setCustomNavigationMode(mTabBar);
             // disable built in zoom controls

@@ -16,31 +16,18 @@
 
 package com.android.browser;
 
-import android.app.SearchManager;
+import com.android.browser.SuggestionsAdapter.CompletionListener;
+
 import android.content.ContentResolver;
 import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.text.Editable;
-import android.text.SpannableStringBuilder;
-import android.text.TextWatcher;
-import android.text.style.BackgroundColorSpan;
+import android.content.res.Configuration;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
-import android.widget.CursorAdapter;
-import android.widget.Filterable;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -49,13 +36,14 @@ import android.widget.TextView.OnEditorActionListener;
  * handling suggestions
  */
 public class UrlInputView extends AutoCompleteTextView
-        implements OnFocusChangeListener, OnClickListener, OnEditorActionListener {
+        implements OnFocusChangeListener, OnEditorActionListener, CompletionListener {
 
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
     private SuggestionsAdapter mAdapter;
-
     private OnFocusChangeListener mWrappedFocusListener;
+    private View mContainer;
+    private boolean mLandscape;
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -77,10 +65,36 @@ public class UrlInputView extends AutoCompleteTextView
         setOnEditorActionListener(this);
         super.setOnFocusChangeListener(this);
         final ContentResolver cr = mContext.getContentResolver();
-        mAdapter = new SuggestionsAdapter(mContext,
-                BrowserProvider.getBookmarksSuggestions(cr, null));
+        mAdapter = new SuggestionsAdapter(ctx, this);
         setAdapter(mAdapter);
         setSelectAllOnFocus(false);
+        onConfigurationChanged(ctx.getResources().getConfiguration());
+    }
+
+    void setContainer(View container) {
+        mContainer = container;
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration config) {
+        mLandscape = (config.orientation &
+                Configuration.ORIENTATION_LANDSCAPE) > 0;
+        if (isPopupShowing() && (getVisibility() == View.VISIBLE)) {
+            dismissDropDown();
+            getFilter().filter(getText());
+        }
+    }
+
+    @Override
+    public void showDropDown() {
+        int width = mContainer.getWidth();
+        if ((mAdapter.getLeftCount() == 0) || (mAdapter.getRightCount() == 0)) {
+            width = width / 2;
+        }
+        setDropDownWidth(width);
+        setDropDownHorizontalOffset(-getLeft());
+        mAdapter.setLandscapeMode(mLandscape);
+        super.showDropDown();
     }
 
     @Override
@@ -99,7 +113,7 @@ public class UrlInputView extends AutoCompleteTextView
         finishInput(getText().toString());
         return true;
     }
-    
+
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
@@ -109,19 +123,6 @@ public class UrlInputView extends AutoCompleteTextView
         }
         if (mWrappedFocusListener != null) {
             mWrappedFocusListener.onFocusChange(v, hasFocus);
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view instanceof ImageButton) {
-            // user pressed edit search button
-            String text = mAdapter.getViewString((View)view.getParent());
-            mListener.onEdit(text);
-        } else {
-            // user selected dropdown item
-            String url = mAdapter.getViewString(view);
-            finishInput(url);
         }
     }
 
@@ -144,6 +145,18 @@ public class UrlInputView extends AutoCompleteTextView
         }
     }
 
+    // Completion Listener
+
+    @Override
+    public void onSearch(String search) {
+        mListener.onEdit(search);
+    }
+
+    @Override
+    public void onSelect(String url) {
+        finishInput(url);
+    }
+
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent evt) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -155,84 +168,12 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     interface UrlInputListener {
+
         public void onDismiss();
+
         public void onAction(String text);
+
         public void onEdit(String text);
-    }
-
-    /**
-     * adapter used by suggestion dropdown
-     */
-    class SuggestionsAdapter extends CursorAdapter implements Filterable {
-
-        private Cursor          mLastCursor;
-        private ContentResolver mContent;
-        private int             mIndexText1;
-        private int             mIndexText2;
-        private int             mIndexIcon;
-
-        public SuggestionsAdapter(Context context, Cursor c) {
-            super(context, c);
-            mContent = context.getContentResolver();
-            mIndexText1 = c.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1);
-            mIndexText2 = c.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_2_URL);
-            mIndexIcon = c.getColumnIndex(SearchManager.SUGGEST_COLUMN_ICON_1);
-        }
-
-        public String getViewString(View view) {
-            TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
-            if (tv2.getText().length() > 0) {
-                return tv2.getText().toString();
-            } else {
-                TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
-                return tv1.getText().toString();
-            }
-        }
-
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            final LayoutInflater inflater = LayoutInflater.from(context);
-            final View view = inflater.inflate(
-                    R.layout.url_dropdown_item, parent, false);
-            bindView(view, context, cursor);
-            return view;
-        }
-
-        @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
-            TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
-            ImageView ic1 = (ImageView) view.findViewById(R.id.icon1);
-            View ic2 = view.findViewById(R.id.icon2);
-            tv1.setText(cursor.getString(mIndexText1));
-            String url = cursor.getString(mIndexText2);
-            tv2.setText((url != null) ? url : "");
-            ic2.setOnClickListener(UrlInputView.this);
-            // assume an id
-            try {
-                int id = Integer.parseInt(cursor.getString(mIndexIcon));
-                Drawable d = context.getResources().getDrawable(id);
-                ic1.setImageDrawable(d);
-                ic2.setVisibility((id == R.drawable.ic_search_category_suggest)? View.VISIBLE : View.GONE);
-            } catch (NumberFormatException nfx) {
-            }
-            view.setOnClickListener(UrlInputView.this);
-        }
-
-        @Override
-        public String convertToString(Cursor cursor) {
-            return cursor.getString(mIndexText1);
-        }
-
-        @Override
-        public Cursor runQueryOnBackgroundThread(CharSequence constraint) {
-            if (getFilterQueryProvider() != null) {
-                return getFilterQueryProvider().runQuery(constraint);
-            }
-            mLastCursor = BrowserProvider.getBookmarksSuggestions(mContent,
-                    (constraint != null) ? constraint.toString() : null);
-            return mLastCursor;
-        }
 
     }
 
