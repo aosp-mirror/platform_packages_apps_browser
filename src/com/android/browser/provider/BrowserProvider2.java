@@ -797,7 +797,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // Extract out the image values so they can be inserted into the images table
                 String url = values.getAsString(Bookmarks.URL);
                 ContentValues imageValues = extractImageValues(values, url);
-                boolean isFolder = values.getAsBoolean(Bookmarks.IS_FOLDER);
+                boolean isFolder = (values.getAsInteger(Bookmarks.IS_FOLDER) != 0);
                 if (!isFolder && imageValues != null && !TextUtils.isEmpty(url)) {
                     db.insertOrThrow(TABLE_IMAGES, Images.FAVICON, imageValues);
                 }
