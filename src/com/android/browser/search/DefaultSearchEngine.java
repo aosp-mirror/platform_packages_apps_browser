@@ -82,6 +82,7 @@ public class DefaultSearchEngine implements SearchEngine {
     public void startSearch(Context context, String query, Bundle appData, String extraData) {
         try {
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.setComponent(mSearchable.getSearchActivity());
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.putExtra(SearchManager.QUERY, query);
             if (appData != null) {
