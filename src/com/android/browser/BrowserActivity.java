@@ -1418,6 +1418,13 @@ public class BrowserActivity extends Activity
                 if (Environment.MEDIA_MOUNTED.equals(state)) {
                     String directory = Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator;
+                    File dir = new File(directory);
+                    if (!dir.exists() && !dir.mkdirs()) {
+                      Log.e(LOGTAG, "Save as Web Archive: mkdirs for " + directory + " failed!");
+                      Toast.makeText(BrowserActivity.this, R.string.webarchive_failed,
+                          Toast.LENGTH_SHORT).show();
+                      break;
+                    }
                     getTopWindow().saveWebArchive(directory, true, new ValueCallback<String>() {
                         @Override
                         public void onReceiveValue(String value) {
