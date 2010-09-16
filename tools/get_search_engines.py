@@ -37,6 +37,12 @@ locales = ["cs-CZ", "da-DK", "de-AT", "de-CH", "de-DE", "el-GR", "en-AU",
     "it-IT", "ja-JP", "ko-KR", "nb-NO", "nl-BE", "nl-NL", "pl-PL", "pt-PT",
     "pt-BR", "ru-RU", "sv-SE", "tr-TR", "zh-CN", "zh-HK", "zh-MO", "zh-TW"]
 
+google_data = ["google", "Google", "google.com",
+  "http://www.google.com/favicon.ico",
+  "http://www.google.com/m?hl={language}&amp;ie={inputEncoding}&amp;source=android-browser&amp;q={searchTerms}",
+  "UTF-8",
+  "http://www.google.com/complete/search?hl={language}&amp;json=true&amp;q={searchTerms}"]
+
 class SearchEngineManager(object):
   """Manages list of search engines and creates locale specific lists.
 
@@ -92,6 +98,10 @@ class SearchEngineManager(object):
     except that the internal name of the search engine is inserted at the
     beginning of the list.
     """
+
+    if name == "google":
+      return google_data
+
     # Find the first occurance of this search engine name in the form
     # " <name> =" in the chrome data file.
     re_exp = '\s' + name + '\s*='
