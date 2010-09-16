@@ -26,49 +26,68 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
+import android.provider.BrowserContract.Accounts;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.webkit.WebIconDatabase.IconListener;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
  *  View showing the user's bookmarks in the browser.
  */
 public class BrowserBookmarksPage extends Fragment implements View.OnCreateContextMenuListener,
-        LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener, IconListener, OnClickListener {
+        LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener, IconListener, OnClickListener,
+        OnItemSelectedListener {
 
     static final int BOOKMARKS_SAVE = 1;
     static final String LOGTAG = "browser";
 
     static final int LOADER_BOOKMARKS = 1;
+    static final int LOADER_ACCOUNTS = 2;
+    static final int LOADER_ACCOUNTS_THEN_BOOKMARKS = 3;
 
     static final String EXTRA_SHORTCUT = "create_shortcut";
     static final String EXTRA_DISABLE_WINDOW = "disable_new_window";
 
+    static final String PREF_ACCOUNT_TYPE = "acct_type";
+    static final String PREF_ACCOUNT_NAME = "acct_name";
+
+    static final String DEFAULT_ACCOUNT = "local";
+
     BookmarksHistoryCallbacks mCallbacks;
     GridView mGrid;
+    Spinner mAccountSelector;
     BrowserBookmarksAdapter mAdapter;
     boolean mDisableNewWindow;
     BookmarkItem mContextHeader;
@@ -91,36 +110,124 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 }
                 return new BookmarksLoader(getActivity(), accountType, accountName);
             }
+
+            case LOADER_ACCOUNTS:
+            case LOADER_ACCOUNTS_THEN_BOOKMARKS: {
+                return new CursorLoader(getActivity(), Accounts.CONTENT_URI,
+                        new String[] { Accounts.ACCOUNT_TYPE, Accounts.ACCOUNT_NAME }, null, null,
+                        null);
+            }
         }
         throw new UnsupportedOperationException("Unknown loader id " + id);
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Set the visibility of the empty vs. content views
-        if (data == null || data.getCount() == 0) {
-            mEmptyView.setVisibility(View.VISIBLE);
-            mContentView.setVisibility(View.GONE);
-        } else {
-            mEmptyView.setVisibility(View.GONE);
-            mContentView.setVisibility(View.VISIBLE);
-        }
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        switch (loader.getId()) {
+            case LOADER_BOOKMARKS: {
+                // Set the visibility of the empty vs. content views
+                if (cursor == null || cursor.getCount() == 0) {
+                    mEmptyView.setVisibility(View.VISIBLE);
+                    mGrid.setVisibility(View.GONE);
+                } else {
+                    mEmptyView.setVisibility(View.GONE);
+                    mGrid.setVisibility(View.VISIBLE);
+                }
 
-        // Fill in the "up" button if needed
-        BookmarksLoader bl = (BookmarksLoader) loader;
-        String path = bl.getUri().getPath();
-        boolean rootFolder =
-                BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER.getPath().equals(path);
-        if (rootFolder) {
-            mUpButton.setText(R.string.defaultBookmarksUpButton);
-            mUpButton.setEnabled(false);
-        } else {
-            mUpButton.setText(mFolderStack.peek().first);
-            mUpButton.setEnabled(true);
-        }
+                // Fill in the "up" button if needed
+                BookmarksLoader bl = (BookmarksLoader) loader;
+                String path = bl.getUri().getPath();
+                boolean rootFolder =
+                    BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER.getPath().equals(path);
+                if (rootFolder) {
+                    mUpButton.setText(R.string.defaultBookmarksUpButton);
+                    mUpButton.setEnabled(false);
+                } else {
+                    mUpButton.setText(mFolderStack.peek().first);
+                    mUpButton.setEnabled(true);
+                }
+                mUpButton.setVisibility(View.VISIBLE);
 
-        // Give the new data to the adapter
-        mAdapter.changeCursor(data);
+                // Give the new data to the adapter
+                mAdapter.changeCursor(cursor);
+
+                break;
+            }
+
+            case LOADER_ACCOUNTS:
+            case LOADER_ACCOUNTS_THEN_BOOKMARKS: {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                        getActivity());
+                String storedAccountType = prefs.getString(PREF_ACCOUNT_TYPE, null);
+                String storedAccountName = prefs.getString(PREF_ACCOUNT_NAME, null);
+                String accountType =
+                        TextUtils.isEmpty(storedAccountType) ? DEFAULT_ACCOUNT : storedAccountType;
+                String accountName =
+                        TextUtils.isEmpty(storedAccountName) ? DEFAULT_ACCOUNT : storedAccountName;
+
+                Bundle args = null;
+                if (cursor == null || !cursor.moveToFirst()) {
+                    // No accounts, set the prefs to the default
+                    accountType = DEFAULT_ACCOUNT;
+                    accountName = DEFAULT_ACCOUNT;
+                    mAccountSelector.setVisibility(View.GONE);
+                } else {
+                    int accountPosition = -1;
+
+                    if (!DEFAULT_ACCOUNT.equals(accountType) &&
+                            !DEFAULT_ACCOUNT.equals(accountName)) {
+                        // Check to see if the account in prefs still exists
+                        cursor.moveToFirst();
+                        do {
+                            if (accountType.equals(cursor.getString(0))
+                                    && accountName.equals(cursor.getString(1))) {
+                                accountPosition = cursor.getPosition();
+                                break;
+                            }
+                        } while (cursor.moveToNext());
+                    }
+
+                    if (accountPosition == -1) {
+                        // No account is set in prefs and there is at least one,
+                        // so pick the first one as the default
+                        cursor.moveToFirst();
+                        accountType = cursor.getString(0);
+                        accountName = cursor.getString(1);
+                        accountPosition = 0;
+                    }
+
+                    args = new Bundle();
+                    args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
+                    args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
+
+                    // Setup the account selector if there is more than 1 account
+                    if (cursor.getCount() > 1) {
+                        ArrayList<String> accounts = new ArrayList<String>();
+                        cursor.moveToFirst();
+                        do {
+                            accounts.add(cursor.getString(1));
+                        } while (cursor.moveToNext());
+
+                        mAccountSelector.setAdapter(new ArrayAdapter<String>(getActivity(),
+                                android.R.layout.simple_list_item_1, android.R.id.text1, accounts));
+                        mAccountSelector.setVisibility(View.VISIBLE);
+                        mAccountSelector.setSelection(accountPosition);
+                    }
+                }
+                if (!accountType.equals(storedAccountType)
+                        || !accountName.equals(storedAccountName)) {
+                    prefs.edit()
+                            .putString(PREF_ACCOUNT_TYPE, accountType)
+                            .putString(PREF_ACCOUNT_NAME, accountName)
+                            .apply();
+                }
+                if (loader.getId() == LOADER_ACCOUNTS_THEN_BOOKMARKS) {
+                    getLoaderManager().initLoader(LOADER_BOOKMARKS, args, this);
+                }
+
+                break;
+            }
+        }
     }
 
     @Override
@@ -263,6 +370,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        Context context = getActivity();
+
         View root = inflater.inflate(R.layout.bookmarks, container, false);
         mEmptyView = root.findViewById(android.R.id.empty);
         mContentView = root.findViewById(android.R.id.content);
@@ -274,15 +383,37 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             mGrid.setOnCreateContextMenuListener(this);
         }
 
+        mAccountSelector = (Spinner) root.findViewById(R.id.accounts);
+        mAccountSelector.setOnItemSelectedListener(this);
+        mAccountSelector.setVisibility(View.INVISIBLE);
+
         mUpButton = (Button) root.findViewById(R.id.up);
         mUpButton.setEnabled(false);
         mUpButton.setOnClickListener(this);
+        mUpButton.setVisibility(View.GONE);
 
         mAdapter = new BrowserBookmarksAdapter(getActivity());
         mGrid.setAdapter(mAdapter);
 
-        // Start the loader for the bookmark data
-        getLoaderManager().initLoader(LOADER_BOOKMARKS, null, this);
+        // Start the loaders
+        LoaderManager lm = getLoaderManager();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String accountType = prefs.getString(PREF_ACCOUNT_TYPE, null);
+        String accountName = prefs.getString(PREF_ACCOUNT_NAME, null);
+        if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
+            // There is an account set, load up that one
+            Bundle args = null;
+            if (!DEFAULT_ACCOUNT.equals(accountType) && !DEFAULT_ACCOUNT.equals(accountName)) {
+                args = new Bundle();
+                args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
+                args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
+            }
+            lm.initLoader(LOADER_BOOKMARKS, args, this);
+            lm.initLoader(LOADER_ACCOUNTS, null, this);
+        } else {
+            // No account set, load them first
+            lm.initLoader(LOADER_ACCOUNTS_THEN_BOOKMARKS, null, this);
+        }
 
         // Add our own listener in case there are favicons that have yet to be loaded.
         CombinedBookmarkHistoryActivity.getIconListenerSet().addListener(this);
@@ -305,6 +436,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             android.util.Log.e(LOGTAG, "item clicked when dismissing");
             return;
         }
+
         if (mCreateShortcut) {
             Intent intent = createShortcutIntent(position);
             // the activity handles the intent in startActivityFromFragment
@@ -333,6 +465,29 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             loader.setUri(uri);
             loader.forceLoad();
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Adapter adapter = parent.getAdapter();
+        String accountType = "com.google";
+        String accountName = adapter.getItem(position).toString();
+
+        // Remember the selection for later
+        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                .putString(PREF_ACCOUNT_TYPE, accountType)
+                .putString(PREF_ACCOUNT_NAME, accountName)
+                .apply();
+
+        Bundle args = new Bundle();
+        args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
+        args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
+        getLoaderManager().restartLoader(LOADER_BOOKMARKS, args, this);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Do nothing
     }
 
     private Intent createShortcutIntent(int position) {
@@ -465,15 +620,5 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(
                 Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newRawUri(null, null, Uri.parse(text.toString())));
-    }
-
-    /**
-     *  Delete the currently highlighted row.
-     */
-    public void deleteBookmark(int position) {
-        Cursor cursor = (Cursor) mAdapter.getItem(position);
-        long id = cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID);
-        Uri uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI, id);
-        getActivity().getContentResolver().delete(uri, null, null);
     }
 }

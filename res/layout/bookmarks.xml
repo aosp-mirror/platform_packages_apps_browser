@@ -24,11 +24,30 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
     >
-        <Button android:id="@+id/up"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/defaultBookmarksUpButton"
-        />
+            android:orientation="horizontal"
+        >
+            <Button android:id="@+id/up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/defaultBookmarksUpButton"
+            />
+
+            <!-- space -->
+            <View
+                android:layout_width="0dip"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+            />
+
+            <Spinner android:id="@+id/accounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            />
+        </LinearLayout>
 
         <GridView android:id="@+id/grid"
             android:layout_width="match_parent"
@@ -52,7 +71,7 @@
         android:layout_gravity="center"
 
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/empty_history"
+        android:text="@string/empty_bookmarks_folder"
         android:visibility="gone"
     />
 
