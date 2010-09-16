@@ -25,6 +25,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.BrowserContract;
+import android.provider.BrowserContract.Combined;
+import android.provider.BrowserContract.Images;
 import android.util.Log;
 import android.webkit.WebIconDatabase;
 import android.widget.Toast;
@@ -153,13 +155,12 @@ import java.io.ByteArrayOutputStream;
     }
 
     static final String QUERY_BOOKMARKS_WHERE =
-            BrowserContract.Bookmarks.IS_FOLDER + " == 0 AND (" + 
-            BrowserContract.Bookmarks.URL + " == ? OR " +
-            BrowserContract.Bookmarks.URL + " == ? OR " +
-            BrowserContract.Bookmarks.URL + " LIKE ? || '%' OR " +
-            BrowserContract.Bookmarks.URL + " LIKE ? || '%')";
+            Combined.URL + " == ? OR " +
+            Combined.URL + " == ? OR " +
+            Combined.URL + " LIKE ? || '%' OR " +
+            Combined.URL + " LIKE ? || '%'";
 
-    /* package */ static Cursor queryBookmarksForUrl(ContentResolver cr,
+    /* package */ static Cursor queryCombinedForUrl(ContentResolver cr,
             String originalUrl, String url) {
         if (cr == null || url == null) {
             return null;
@@ -172,8 +173,8 @@ import java.io.ByteArrayOutputStream;
     
         // Look for both the original url and the actual url. This takes in to
         // account redirects.
-        String originalUrlNoQuery = Bookmarks.removeQuery(originalUrl);
-        String urlNoQuery = Bookmarks.removeQuery(url);
+        String originalUrlNoQuery = removeQuery(originalUrl);
+        String urlNoQuery = removeQuery(url);
         originalUrl = originalUrlNoQuery + '?';
         url = urlNoQuery + '?';
     
@@ -182,11 +183,9 @@ import java.io.ByteArrayOutputStream;
         // Use url to match the base url with other queries (i.e. if the url is
         // http://www.google.com/m, search for
         // http://www.google.com/m?some_query)
-        final String[] selArgs = new String[] {
-                originalUrlNoQuery, urlNoQuery, originalUrl, url };
-        final String[] projection = new String[] { BrowserContract.Bookmarks._ID };
-        return cr.query(BrowserContract.Bookmarks.CONTENT_URI, projection, QUERY_BOOKMARKS_WHERE,
-                selArgs, null);
+        final String[] selArgs = new String[] { originalUrlNoQuery, urlNoQuery, originalUrl, url };
+        final String[] projection = new String[] { Combined.URL };
+        return cr.query(Combined.CONTENT_URI, projection, QUERY_BOOKMARKS_WHERE, selArgs, null);
     }
 
     // Strip the query from the given url.
@@ -210,30 +209,28 @@ import java.io.ByteArrayOutputStream;
      * @param url The current url.
      * @param favicon The favicon bitmap to write to the db.
      */
-    /* package */ static void updateBookmarkFavicon(final ContentResolver cr,
+    /* package */ static void updateFavicon(final ContentResolver cr,
             final String originalUrl, final String url, final Bitmap favicon) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... unused) {
-                final Cursor c =
-                        Bookmarks.queryBookmarksForUrl(cr, originalUrl, url);
-                if (c == null) {
-                    return null;
+                Cursor cursor = queryCombinedForUrl(cr, originalUrl, url);
+                try {
+                    if (cursor.moveToFirst()) {
+                        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+                        favicon.compress(Bitmap.CompressFormat.PNG, 100, os);
+
+                        ContentValues values = new ContentValues();
+                        values.put(Images.FAVICON, os.toByteArray());
+                        values.put(Images.URL, cursor.getString(0));
+
+                        do {
+                            cr.update(Images.CONTENT_URI, values, null, null);
+                        } while (cursor.moveToNext());
+                    }
+                } finally {
+                    if (cursor != null) cursor.close();
                 }
-                if (c.moveToFirst()) {
-                    ContentValues values = new ContentValues();
-                    final ByteArrayOutputStream os =
-                            new ByteArrayOutputStream();
-                    favicon.compress(Bitmap.CompressFormat.PNG, 100, os);
-                    values.put(BrowserContract.Bookmarks.FAVICON,
-                            os.toByteArray());
-                    do {
-                        cr.update(ContentUris.withAppendedId(
-                                BrowserContract.Bookmarks.CONTENT_URI, c.getLong(0)),
-                                values, null, null);
-                    } while (c.moveToNext());
-                }
-                c.close();
                 return null;
             }
         }.execute();

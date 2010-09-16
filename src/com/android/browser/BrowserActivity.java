@@ -69,6 +69,7 @@ import android.os.SystemClock;
 import android.provider.Browser;
 import android.provider.BrowserContract;
 import android.provider.ContactsContract;
+import android.provider.BrowserContract.Images;
 import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Downloads;
 import android.provider.MediaStore;
@@ -2449,29 +2450,25 @@ public class BrowserActivity extends Activity
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... unused) {
-                Cursor c = null;
+                Cursor cursor = null;
                 try {
-                    c = Bookmarks.queryBookmarksForUrl(
-                            cr, originalUrl, url);
-                    if (c != null) {
-                        if (c.moveToFirst()) {
-                            ContentValues values = new ContentValues();
-                            final ByteArrayOutputStream os
-                                    = new ByteArrayOutputStream();
-                            bm.compress(Bitmap.CompressFormat.PNG, 100, os);
-                            values.put(BrowserContract.Bookmarks.THUMBNAIL,
-                                    os.toByteArray());
-                            do {
-                                cr.update(ContentUris.withAppendedId(
-                                        BrowserContract.Bookmarks.CONTENT_URI, c.getLong(0)),
-                                        values, null, null);
-                            } while (c.moveToNext());
-                        }
+                    cursor = Bookmarks.queryCombinedForUrl(cr, originalUrl, url);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+                        bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+
+                        ContentValues values = new ContentValues();
+                        values.put(Images.THUMBNAIL, os.toByteArray());
+                        values.put(Images.URL, cursor.getString(0));
+
+                        do {
+                            cr.update(Images.CONTENT_URI, values, null, null);
+                        } while (cursor.moveToNext());
                     }
                 } catch (IllegalStateException e) {
                     // Ignore
                 } finally {
-                    if (c != null) c.close();
+                    if (cursor != null) cursor.close();
                 }
                 return null;
             }

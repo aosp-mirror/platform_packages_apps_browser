@@ -36,6 +36,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.BrowserContract;
+import android.provider.BrowserContract.Images;
 import android.webkit.WebView;
 
 import java.io.ByteArrayOutputStream;
@@ -101,15 +102,15 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     @Override
     public Void doInBackground(String... values) {
         if (mContentResolver != null) {
-            mCursor = Bookmarks.queryBookmarksForUrl(mContentResolver,
+            mCursor = Bookmarks.queryCombinedForUrl(mContentResolver,
                     mOriginalUrl, mUrl);
         }
 
-        boolean inBookmarksDatabase = mCursor != null && mCursor.getCount() > 0;
+        boolean inDatabase = mCursor != null && mCursor.getCount() > 0;
 
         String url = values[0];
 
-        if (inBookmarksDatabase || mMessage != null) {
+        if (inDatabase || mMessage != null) {
             AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
             HttpHost httpHost = Proxy.getPreferredHttpHost(mActivity, url);
             if (httpHost != null) {
@@ -130,7 +131,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
                         if (content != null) {
                             Bitmap icon = BitmapFactory.decodeStream(
                                     content, null, null);
-                            if (inBookmarksDatabase) {
+                            if (inDatabase) {
                                 storeIcon(icon);
                             } else if (mMessage != null) {
                                 Bundle b = mMessage.getData();
@@ -177,17 +178,16 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
             return;
         }
 
-        final ByteArrayOutputStream os = new ByteArrayOutputStream();
-        icon.compress(Bitmap.CompressFormat.PNG, 100, os);
-        ContentValues values = new ContentValues();
-        values.put(BrowserContract.Bookmarks.TOUCH_ICON,
-                os.toByteArray());
-
         if (mCursor.moveToFirst()) {
+            final ByteArrayOutputStream os = new ByteArrayOutputStream();
+            icon.compress(Bitmap.CompressFormat.PNG, 100, os);
+
+            ContentValues values = new ContentValues();
+            values.put(Images.TOUCH_ICON, os.toByteArray());
+            values.put(Images.URL, mCursor.getString(0));
+
             do {
-                mContentResolver.update(ContentUris.withAppendedId(
-                        BrowserContract.Bookmarks.CONTENT_URI, mCursor.getLong(0)),
-                        values, null, null);
+                mContentResolver.update(Images.CONTENT_URI, values, null, null);
             } while (mCursor.moveToNext());
         }
     }
