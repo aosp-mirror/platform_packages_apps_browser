@@ -890,8 +890,7 @@ public class BrowserProvider extends ContentProvider {
         } else {
             // get search suggestions if there is still space in the list
             if (myArgs != null && myArgs.length > 1
-                    && mSettings.getShowSearchSuggestions()
-                    && c.getCount() < (MAX_SUGGEST_SHORT_SMALL - 1)) {
+                    && c.getCount() < (MAX_SUGGESTION_SHORT_ENTRIES - 1)) {
                 SearchEngine searchEngine = mSettings.getSearchEngine();
                 if (searchEngine != null && searchEngine.supportsSuggestions()) {
                     Cursor sc = searchEngine.getSuggestions(getContext(), selectionArgs[0]);

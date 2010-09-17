@@ -304,12 +304,6 @@
     <string name="pref_content_search_engine">Set search engine</string>
     <!-- Settings summary -->
     <string name="pref_content_search_engine_summary">Select a search engine</string>
-    <!-- Settings label -->
-    <string name="pref_content_show_search_suggestions">Show web suggestions</string>
-    <!-- Settings summary -->
-    <string name="pref_content_show_web_suggestions_summary_on">Show web suggestions as you type</string>
-    <!-- Settings summary -->
-    <string name="pref_content_show_web_suggestions_summary_off">Don\'t show web suggestions as you type</string>
     <!-- Settings button label -->
     <string name="pref_use_current">Use current page</string>
     <!-- Settings label -->
