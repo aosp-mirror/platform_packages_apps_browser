@@ -302,7 +302,8 @@ class BrowserSettings extends Observable {
 
         homeUrl =
             p.getString(PREF_HOMEPAGE, homeUrl);
-        String searchEngineName = p.getString(PREF_SEARCH_ENGINE, null);
+        String searchEngineName = p.getString(PREF_SEARCH_ENGINE,
+                SearchEngine.GOOGLE);
         if (searchEngine == null || !searchEngine.getName().equals(searchEngineName)) {
             if (searchEngine != null) {
                 if (searchEngine.supportsVoiceSearch()) {
