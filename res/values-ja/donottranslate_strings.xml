@@ -17,5 +17,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="pref_default_text_encoding_default">SHIFT_JIS</string>
+    <string name="pref_default_text_encoding_default" translatable="false">SHIFT_JIS</string>
 </resources>

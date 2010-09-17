@@ -797,9 +797,14 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // Extract out the image values so they can be inserted into the images table
                 String url = values.getAsString(Bookmarks.URL);
                 ContentValues imageValues = extractImageValues(values, url);
-                boolean isFolder = (values.getAsInteger(Bookmarks.IS_FOLDER) != 0);
-                if (!isFolder && imageValues != null && !TextUtils.isEmpty(url)) {
-                    db.insertOrThrow(TABLE_IMAGES, Images.FAVICON, imageValues);
+                Boolean isFolder = values.getAsBoolean(Bookmarks.IS_FOLDER);
+                if ((isFolder == null || !isFolder)
+                        && imageValues != null && !TextUtils.isEmpty(url)) {
+                    int count = db.update(TABLE_IMAGES, imageValues, Images.URL + "=?",
+                            new String[] { url });
+                    if (count == 0) {
+                        db.insertOrThrow(TABLE_IMAGES, Images.FAVICON, imageValues);
+                    }
                 }
 
                 id = db.insertOrThrow(TABLE_BOOKMARKS, Bookmarks.DIRTY, values);
