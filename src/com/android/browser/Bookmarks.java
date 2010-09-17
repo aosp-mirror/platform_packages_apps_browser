@@ -20,10 +20,12 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Combined;
 import android.provider.BrowserContract.Images;
@@ -63,18 +65,23 @@ import java.io.ByteArrayOutputStream;
      *          This will usually be <code>true</code> except when bookmarks are
      *          added by a settings restore agent.
      */
-    /* package */ static void addBookmark(Context context, ContentResolver cr, String url,
+    /* package */ static void addBookmark(Context context, boolean showToast, String url,
             String name, Bitmap thumbnail, boolean retainIcon) {
         // Want to append to the beginning of the list
         ContentValues values = new ContentValues();
         Cursor cursor = null;
         try {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+            String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+            values.put(BrowserContract.Bookmarks.ACCOUNT_TYPE, accountType);
+            values.put(BrowserContract.Bookmarks.ACCOUNT_NAME, accountName);
             values.put(BrowserContract.Bookmarks.TITLE, name);
             values.put(BrowserContract.Bookmarks.URL, url);
             values.put(BrowserContract.Bookmarks.IS_FOLDER, 0);
             values.put(BrowserContract.Bookmarks.THUMBNAIL,
                     bitmapToBytes(thumbnail));
-            cr.insert(BrowserContract.Bookmarks.CONTENT_URI, values);
+            context.getContentResolver().insert(BrowserContract.Bookmarks.CONTENT_URI, values);
         } catch (IllegalStateException e) {
             Log.e(LOGTAG, "addBookmark", e);
         } finally {
@@ -83,7 +90,7 @@ import java.io.ByteArrayOutputStream;
         if (retainIcon) {
             WebIconDatabase.getInstance().retainIconForPageUrl(url);
         }
-        if (context != null) {
+        if (showToast) {
             Toast.makeText(context, R.string.added_to_bookmarks,
                     Toast.LENGTH_LONG).show();
         }

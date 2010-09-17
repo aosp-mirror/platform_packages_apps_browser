@@ -18,12 +18,8 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.provider.Browser;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  *  Layout representing a history item in the classic history viewer.
@@ -45,8 +41,7 @@ import android.widget.TextView;
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
                 if (isChecked) {
-                    Bookmarks.addBookmark(mContext,
-                            mContext.getContentResolver(), mUrl, getName(), null, true);
+                    Bookmarks.addBookmark(mContext, true, mUrl, getName(), null, true);
                     LogTag.logBookmarkAdded(mUrl, "history");
                 } else {
                     Bookmarks.removeFromBookmarks(mContext,

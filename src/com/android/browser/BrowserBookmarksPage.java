@@ -80,8 +80,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     static final String EXTRA_SHORTCUT = "create_shortcut";
     static final String EXTRA_DISABLE_WINDOW = "disable_new_window";
 
-    static final String PREF_ACCOUNT_TYPE = "acct_type";
-    static final String PREF_ACCOUNT_NAME = "acct_name";
+    public static final String PREF_ACCOUNT_TYPE = "acct_type";
+    public static final String PREF_ACCOUNT_NAME = "acct_name";
 
     static final String DEFAULT_ACCOUNT = "local";
 
