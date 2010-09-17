@@ -80,7 +80,6 @@ class BrowserSettings extends Observable {
     private String defaultTextEncodingName;
     private String homeUrl = "";
     private SearchEngine searchEngine;
-    private boolean showSearchSuggestions;
     private boolean autoFitPage;
     private boolean landscapeOnly;
     private boolean loadsPageInOverviewMode;
@@ -132,7 +131,6 @@ class BrowserSettings extends Observable {
     public final static String PREF_CLEAR_HISTORY = "privacy_clear_history";
     public final static String PREF_HOMEPAGE = "homepage";
     public final static String PREF_SEARCH_ENGINE = "search_engine";
-    public final static String PREF_SHOW_SEARCH_SUGGESTIONS = "show_search_suggestions";
     public final static String PREF_CLEAR_FORM_DATA =
             "privacy_clear_form_data";
     public final static String PREF_CLEAR_PASSWORDS =
@@ -278,19 +276,6 @@ class BrowserSettings extends Observable {
             pageCacheCapacity = 1;
         }
 
-        final ContentResolver cr = ctx.getContentResolver();
-        cr.registerContentObserver(
-                Settings.System.getUriFor(Settings.System.SHOW_WEB_SUGGESTIONS), false,
-                new ContentObserver(new Handler()) {
-                        @Override
-                        public void onChange(boolean selfChange) {
-                            SharedPreferences p =
-                                    PreferenceManager.getDefaultSharedPreferences(ctx);
-                            updateShowWebSuggestions(cr, p);
-                        }
-                });
-        updateShowWebSuggestions(cr, p);
-
     // Load the defaults from the xml
         // This call is TOO SLOW, need to manually keep the defaults
         // in sync
@@ -319,9 +304,6 @@ class BrowserSettings extends Observable {
             searchEngine = SearchEngines.get(ctx, searchEngineName);
         }
         Log.i(TAG, "Selected search engine: " + searchEngine);
-        showSearchSuggestions = p.getBoolean(PREF_SHOW_SEARCH_SUGGESTIONS, true);
-        // Persist to system settings
-        saveShowWebSuggestions(ctx.getContentResolver());
 
         loadsImagesAutomatically = p.getBoolean("load_images",
                 loadsImagesAutomatically);
@@ -410,28 +392,12 @@ class BrowserSettings extends Observable {
         update();
     }
 
-    private void saveShowWebSuggestions(ContentResolver cr) {
-        int value = showSearchSuggestions ? 1 : 0;
-        Settings.System.putInt(cr, Settings.System.SHOW_WEB_SUGGESTIONS, value);
-    }
-
-    private void updateShowWebSuggestions(ContentResolver cr, SharedPreferences p) {
-        showSearchSuggestions =
-                Settings.System.getInt(cr,
-                        Settings.System.SHOW_WEB_SUGGESTIONS, 1) == 1;
-        p.edit().putBoolean(PREF_SHOW_SEARCH_SUGGESTIONS, showSearchSuggestions).commit();
-    }
-
     public String getHomePage() {
         return homeUrl;
     }
 
     public SearchEngine getSearchEngine() {
         return searchEngine;
-    }
-
-    public boolean getShowSearchSuggestions() {
-        return showSearchSuggestions;
     }
 
     public String getJsFlags() {
