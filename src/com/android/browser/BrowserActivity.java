@@ -4146,11 +4146,15 @@ public class BrowserActivity extends Activity
             // Nothing to do.
             return;
         }
+        Tab t = mTabControl.getCurrentTab();
+        if (t == null) {
+            // There is no current tab so we cannot toggle the error console
+            return;
+        }
 
         mShouldShowErrorConsole = flag;
 
-        ErrorConsoleView errorConsole = mTabControl.getCurrentTab()
-                .getErrorConsole(true);
+        ErrorConsoleView errorConsole = t.getErrorConsole(true);
 
         if (flag) {
             // Setting the show state of the console will cause it's the layout to be inflated.
