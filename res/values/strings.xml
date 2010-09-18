@@ -306,7 +306,7 @@
     <!-- Settings label -->
     <string name="pref_content_homepage">Set home page</string>
     <!-- Settings label -->
-    <string name="pref_content_search_engine">Set search engine</string>
+    <string name="pref_content_search_engine" msgid="3143612593956844440">Set search engine</string>
     <!-- Settings summary -->
     <string name="pref_content_search_engine_summary">Select a search engine</string>
     <!-- Settings button label -->
