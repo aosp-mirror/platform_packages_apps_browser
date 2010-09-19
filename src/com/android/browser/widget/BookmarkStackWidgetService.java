@@ -42,14 +42,11 @@ public class BookmarkStackWidgetService extends RemoteViewsService {
 
     private static final String LOGTAG = "browserwidget";
 
-    /** Force the bookmarks to be re-renderer. */
+    /** Force the bookmarks to be re-rendered. */
     public static final String UPDATE = "com.android.browser.widget.UPDATE";
 
     /** the adapter intent action */
     public static final String ADAPTER = "com.android.browser.widget.ADAPTER";
-
-    private static final String EXTRA_ID = "_id";
-    private static final String EXTRA_URL = "_url";
 
     private static final String[] PROJECTION = new String[] {
         BrowserContract.Bookmarks._ID,
@@ -91,6 +88,11 @@ public class BookmarkStackWidgetService extends RemoteViewsService {
     private void updateWidget() {
         RemoteViews views = new RemoteViews(getPackageName(),
                 R.layout.bookmarkstackwidget);
+        Intent vi = new Intent(Intent.ACTION_VIEW);
+        vi.addCategory(Intent.CATEGORY_BROWSABLE);
+        views.setPendingIntentTemplate(R.id.stackwidget_stack,
+                PendingIntent.getActivity(BookmarkStackWidgetService.this, 0, vi,
+                        PendingIntent.FLAG_CANCEL_CURRENT));
         Intent adapter = new Intent(BookmarkStackWidgetService.ADAPTER, null,
                 this, BookmarkStackWidgetService.class);
         views.setRemoteAdapter(R.id.stackwidget_stack, adapter);
@@ -106,6 +108,8 @@ public class BookmarkStackWidgetService extends RemoteViewsService {
 
     RemoteViewsService.RemoteViewsFactory mViewFactory = new RemoteViewsFactory () {
 
+        Intent mFillIntent;
+        
         @Override
         public int getCount() {
             return mBookmarks.size();
@@ -126,9 +130,8 @@ public class BookmarkStackWidgetService extends RemoteViewsService {
             RenderResult res = mBookmarks.get(position);
             RemoteViews views = new RemoteViews(getPackageName(),
                     R.layout.bookmarkstackwidget_item);
-            views.setOnClickPendingIntent(R.id.stack_item,
-                    getOpenUrlPendingIntent(res.mUrl));
-
+            mFillIntent.setData(Uri.parse(res.mUrl));
+            views.setOnClickFillInIntent(R.id.stack_item, mFillIntent);
             // Set the title of the bookmark. Use the url as a backup.
             String displayTitle = res.mTitle;
             if (TextUtils.isEmpty(displayTitle)) {
@@ -154,6 +157,7 @@ public class BookmarkStackWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
+            mFillIntent = new Intent();
             update();
         }
 
@@ -195,13 +199,6 @@ public class BookmarkStackWidgetService extends RemoteViewsService {
         }
     };
 
-    private PendingIntent getOpenUrlPendingIntent(String url) {
-        Intent vi = new Intent(Intent.ACTION_VIEW);
-        vi.setData(Uri.parse(url));
-        return PendingIntent.getActivity(this, 0, vi, PendingIntent.FLAG_CANCEL_CURRENT);
-    }
-
-
     // Class containing the rendering information for a specific bookmark.
     private static class RenderResult {
         final int mId;
@@ -216,6 +213,5 @@ public class BookmarkStackWidgetService extends RemoteViewsService {
         }
 
     }
-
 
 }
