@@ -304,12 +304,6 @@
     <string name="pref_content_search_engine">Set search engine</string>
     <!-- Settings summary -->
     <string name="pref_content_search_engine_summary">Select a search engine</string>
-    <!-- Settings label -->
-    <string name="pref_content_show_search_suggestions">Show web suggestions</string>
-    <!-- Settings summary -->
-    <string name="pref_content_show_web_suggestions_summary_on">Show web suggestions as you type</string>
-    <!-- Settings summary -->
-    <string name="pref_content_show_web_suggestions_summary_off">Don\'t show web suggestions as you type</string>
     <!-- Settings button label -->
     <string name="pref_use_current">Use current page</string>
     <!-- Settings label -->
@@ -747,8 +741,12 @@
     <string name="error_console_eval_button_text" translatable="false">Evaluate</string>
 
     <!-- The default state to the "up to parent folder" button in the bookmarks UI. This
-         is displayed when the user is at the highest level and cannot go up -->
+         is displayed when the user is at the highest level and cannot go up [CHAR LIMIT=16] -->
     <string name="defaultBookmarksUpButton">Bookmarks</string>
+
+    <!-- The string that is displayed when there are no bookmarks to display.
+         This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
+    <string name="empty_bookmarks_folder">There are no bookmarks</string>
 
     <!-- Access point for RLZ tracking. -->
     <string name="rlz_access_point">Y1</string>

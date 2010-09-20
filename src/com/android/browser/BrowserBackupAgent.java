@@ -166,7 +166,7 @@ public class BrowserBackupAgent extends BackupAgent {
                                 if (DEBUG) Log.v(TAG, "Did not see url: " + mark.url);
                                 // Right now we do not reconstruct the db entry in its
                                 // entirety; we just add a new bookmark with the same data
-                                Bookmarks.addBookmark(null, getContentResolver(),
+                                Bookmarks.addBookmark(this, false,
                                         mark.url, mark.title, null, false);
                                 nUnique++;
                             } else {
