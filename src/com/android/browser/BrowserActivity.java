@@ -1287,7 +1287,6 @@ public class BrowserActivity extends Activity
     }
 
     private WebView showDialog(WebDialog dialog) {
-        // Need to do something special for Tablet
         Tab tab = mTabControl.getCurrentTab();
         if (tab.getSubWebView() == null) {
             // If the find or select is being performed on the main webview,
@@ -1399,7 +1398,14 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.select_text_id:
-                showSelectDialog();
+                if (true) {
+                    Tab currentTab = mTabControl.getCurrentTab();
+                    if (currentTab != null) {
+                        currentTab.getWebView().setUpSelect();
+                    }
+                } else {
+                    showSelectDialog();
+                }
                 break;
 
             case R.id.page_info_menu_id:
