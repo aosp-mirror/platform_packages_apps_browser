@@ -80,6 +80,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     static final String EXTRA_SHORTCUT = "create_shortcut";
     static final String EXTRA_DISABLE_WINDOW = "disable_new_window";
 
+    static final String ACCOUNT_NAME_UNSYNCED = "Unsynced";
+    
     public static final String PREF_ACCOUNT_TYPE = "acct_type";
     public static final String PREF_ACCOUNT_NAME = "acct_name";
 
@@ -138,7 +140,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 BookmarksLoader bl = (BookmarksLoader) loader;
                 String path = bl.getUri().getPath();
                 boolean rootFolder =
-                    BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER.getPath().equals(path);
+                        BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER.getPath().equals(path);
                 if (rootFolder) {
                     mUpButton.setText(R.string.defaultBookmarksUpButton);
                     mUpButton.setEnabled(false);
@@ -188,31 +190,39 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                     }
 
                     if (accountPosition == -1) {
-                        // No account is set in prefs and there is at least one,
-                        // so pick the first one as the default
-                        cursor.moveToFirst();
-                        accountType = cursor.getString(0);
-                        accountName = cursor.getString(1);
-                        accountPosition = 0;
+                        if ((DEFAULT_ACCOUNT.equals(accountType)
+                                && DEFAULT_ACCOUNT.equals(accountName))) {
+                            // The "unsynced" account is selected
+                            accountPosition = cursor.getCount();
+                        } else {
+                            // No account is set in prefs and there is at least one,
+                            // so pick the first one as the default
+                            cursor.moveToFirst();
+                            accountType = cursor.getString(0);
+                            accountName = cursor.getString(1);
+                            accountPosition = 0;
+                        }
                     }
 
                     args = new Bundle();
                     args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
                     args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
 
-                    // Setup the account selector if there is more than 1 account
-                    if (cursor.getCount() > 1) {
-                        ArrayList<String> accounts = new ArrayList<String>();
-                        cursor.moveToFirst();
-                        do {
-                            accounts.add(cursor.getString(1));
-                        } while (cursor.moveToNext());
+                    // Add in the sync accounts
+                    ArrayList<String> accounts = new ArrayList<String>();
+                    cursor.moveToFirst();
+                    do {
+                        accounts.add(cursor.getString(1));
+                    } while (cursor.moveToNext());
 
-                        mAccountSelector.setAdapter(new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, accounts));
-                        mAccountSelector.setVisibility(View.VISIBLE);
-                        mAccountSelector.setSelection(accountPosition);
-                    }
+                    // STOPSHIP: Add in the "unsynced" account temporarily until we
+                    // have support for migrated unsynced bookmarks into sync accounts.
+                    accounts.add(ACCOUNT_NAME_UNSYNCED);
+
+                    mAccountSelector.setAdapter(new ArrayAdapter<String>(getActivity(),
+                            android.R.layout.simple_list_item_1, android.R.id.text1, accounts));
+                    mAccountSelector.setVisibility(View.VISIBLE);
+                    mAccountSelector.setSelection(accountPosition);
                 }
                 if (!accountType.equals(storedAccountType)
                         || !accountName.equals(storedAccountName)) {
@@ -408,11 +418,11 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
                 args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
             }
-            lm.initLoader(LOADER_BOOKMARKS, args, this);
-            lm.initLoader(LOADER_ACCOUNTS, null, this);
+            lm.restartLoader(LOADER_BOOKMARKS, args, this);
+            lm.restartLoader(LOADER_ACCOUNTS, null, this);
         } else {
             // No account set, load them first
-            lm.initLoader(LOADER_ACCOUNTS_THEN_BOOKMARKS, null, this);
+            lm.restartLoader(LOADER_ACCOUNTS_THEN_BOOKMARKS, null, this);
         }
 
         // Add our own listener in case there are favicons that have yet to be loaded.
@@ -473,15 +483,22 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         String accountType = "com.google";
         String accountName = adapter.getItem(position).toString();
 
+        Bundle args = null;
+        if (ACCOUNT_NAME_UNSYNCED.equals(accountName)) {
+            accountType = DEFAULT_ACCOUNT;
+            accountName = DEFAULT_ACCOUNT;
+        } else {
+            args = new Bundle();
+            args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
+            args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
+        }
+
         // Remember the selection for later
         PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
                 .putString(PREF_ACCOUNT_TYPE, accountType)
                 .putString(PREF_ACCOUNT_NAME, accountName)
                 .apply();
 
-        Bundle args = new Bundle();
-        args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
-        args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
         getLoaderManager().restartLoader(LOADER_BOOKMARKS, args, this);
     }
 
