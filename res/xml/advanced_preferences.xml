@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2008 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <!-- Entries and values in this list are set dynamically. -->
+        <com.android.browser.search.SearchEnginePreference
+                android:key="search_engine"
+                android:title="@string/pref_content_search_engine"
+                android:defaultValue="google"
+                android:summary="@string/pref_content_search_engine_summary"
+                android:dialogTitle="@string/pref_content_search_engine" />
+
+        <PreferenceScreen
+              android:key="website_settings"
+              android:title="@string/pref_extras_website_settings"
+              android:summary="@string/pref_extras_website_settings_summary" />
+
+        <com.android.browser.BrowserYesNoPreference
+                android:key="reset_default_preferences"
+                android:title="@string/pref_extras_reset_default"
+                android:summary="@string/pref_extras_reset_default_summary"
+                android:dialogMessage="@string/pref_extras_reset_default_dlg" 
+                android:dialogTitle="@string/pref_extras_reset_default_dlg_title" 
+                android:dialogIcon="@android:drawable/ic_dialog_alert" />
+
+</PreferenceScreen>

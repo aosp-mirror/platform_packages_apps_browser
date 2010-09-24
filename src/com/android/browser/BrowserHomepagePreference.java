@@ -97,7 +97,7 @@ public class BrowserHomepagePreference extends EditTextPreference {
      * @param currentPage This String will replace the text in the EditText
      *          when the user clicks the "Use current page" button.
      */
-    /* package */ void setCurrentPage(String currentPage) {
+    public void setCurrentPage(String currentPage) {
         mCurrentPage = currentPage;
     }
 
