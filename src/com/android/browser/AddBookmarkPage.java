@@ -213,7 +213,7 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.TITLE);
                 int parentIndex = cursor.getColumnIndexOrThrow(
                         BrowserContract.Bookmarks.PARENT);
-                while (parent != BrowserProvider2.FIXED_ID_BOOKMARKS_BAR) {
+                while (parent != BrowserProvider2.FIXED_ID_ROOT) {
                     // First, find the folder corresponding to the current
                     // folder
                     if (!cursor.moveToFirst()) {
@@ -350,7 +350,7 @@ public class AddBookmarkPage extends Activity
         list.setAdapter(mAdapter);
         list.setOnItemClickListener(this);
         LoaderManager manager = getLoaderManager();
-        if (mCurrentFolder != BrowserProvider2.FIXED_ID_BOOKMARKS_BAR) {
+        if (mCurrentFolder != BrowserProvider2.FIXED_ID_ROOT) {
             // Find all the folders
             manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
         }
@@ -371,7 +371,7 @@ public class AddBookmarkPage extends Activity
         String accountType =
                 prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
         if (TextUtils.isEmpty(accountName) || TextUtils.isEmpty(accountType)) {
-            return BrowserProvider2.FIXED_ID_BOOKMARKS_BAR;
+            return BrowserProvider2.FIXED_ID_ROOT;
         }
         Cursor cursor = null;
         try {
@@ -393,7 +393,7 @@ public class AddBookmarkPage extends Activity
         } finally {
             if (cursor != null) cursor.close();
         }
-        return BrowserProvider2.FIXED_ID_BOOKMARKS_BAR;
+        return BrowserProvider2.FIXED_ID_ROOT;
     }
 
     @Override
