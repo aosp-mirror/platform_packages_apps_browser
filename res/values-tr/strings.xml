@@ -136,6 +136,8 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Geçerli pencerenin arkasında yeni pencereler aç"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Ana sayfayı ayarla"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Arama motoru ayarlayın"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Arama moturu seçin"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Geçerli sayfayı kullan"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Sayfaları otomatik sığdır"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Web sayfalarını ekrana sığacak şekilde biçimlendir"</string>

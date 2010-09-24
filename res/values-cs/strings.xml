@@ -136,6 +136,8 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Otevírat nová okna za aktuálním oknem"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Nastavit domovskou stránku"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Nastavit vyhledávač"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Výběr vyhledávače"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Použít aktuální stránku"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Automaticky přizpůsobit"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Přizpůsobit velikost webových stránek obrazovce"</string>

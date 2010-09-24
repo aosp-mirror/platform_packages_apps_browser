@@ -136,6 +136,8 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Nye vinduer åpnes bak det gjeldende"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Angi startside"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Angi søkemotor"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Velg en søkemotor"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Bruk nåværende side"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Tilpass sider automatisk"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Tilpass nettsteder til skjermen"</string>
