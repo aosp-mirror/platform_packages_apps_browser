@@ -63,10 +63,20 @@
     <string name="forward" msgid="4288210890526641577">"Vinavant"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Interrumper"</string>
-    <string name="location" msgid="969988560160364559">"Adressa"</string>
-    <string name="name" msgid="5990326151488445481">"Num"</string>
+    <!-- no translation found for location (3411848697912600125) -->
+    <skip />
+    <!-- no translation found for containing_folder (6771180232953030479) -->
+    <skip />
+    <!-- no translation found for add_new_folder (7027600176450718398) -->
+    <skip />
+    <!-- no translation found for new_folder (7743540149088867917) -->
+    <skip />
+    <!-- no translation found for name (5915607427720935681) -->
+    <skip />
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <!-- no translation found for save_to_bookmarks (8225229701567988479) -->
+    <!-- no translation found for save_to_bookmarks (6101482434920313244) -->
+    <skip />
+    <!-- no translation found for bookmark_this_page (7530739804320811054) -->
     <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"Modifitgar il segnapagina"</string>
     <!-- no translation found for create_shortcut_bookmark (1995095662095484289) -->
@@ -141,6 +151,10 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Avrir las novas fanestras davos la fanestra actuala"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Definir la pagina da partenza"</string>
+    <!-- no translation found for pref_content_search_engine (1620101310821644144) -->
+    <skip />
+    <!-- no translation found for pref_content_search_engine_summary (5162667665858487316) -->
+    <skip />
     <string name="pref_use_current" msgid="1493179933653044553">"Utilisar la pagina actuala"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Adattar las paginas auto."</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Adattar las paginas web al visur"</string>
@@ -172,6 +186,10 @@
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Memorisar ils nums d\'utilisader ed ils pleds-clav per las websites"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Memorisar las datas da formular"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Memorisar las datas endatadas en formulars per reutilisar ellas"</string>
+    <!-- no translation found for pref_autoFill_enabled (5348131327347999291) -->
+    <skip />
+    <!-- no translation found for pref_autoFill_enabled_summary (282122852215557397) -->
+    <skip />
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Avertiments da segirezza"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Mussar in avertiment en cas da problems da segirezza cun ina website"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Acceptar cookies"</string>
@@ -290,6 +308,8 @@
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Interrumper"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Il maletg dal fund davos vegn endrizzà…"</string>
     <!-- no translation found for defaultBookmarksUpButton (2303951020715704735) -->
+    <skip />
+    <!-- no translation found for empty_bookmarks_folder (7843361614634930942) -->
     <skip />
     <!-- no translation found for rlz_access_point (7165847807377650632) -->
     <skip />
