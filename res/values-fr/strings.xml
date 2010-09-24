@@ -136,6 +136,8 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Ouvrir les nouvelles fenêtres derrière la fenêtre actuelle"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Page d\'accueil"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Définir le moteur de recherche"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Sélectionnez un moteur de recherche."</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Utiliser la page actuelle"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Redimensionner"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
@@ -254,8 +256,8 @@
     <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g>Téléchargement terminé."</string>
     <string name="download_running" msgid="2622942231322015059">"Téléchargement..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Début du téléchargement..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"En attente d\'une connexion de données..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"En attente d\'une connexion de données..."</string>
+    <string name="download_pending_network" msgid="6548714525679461053">"En attente de connexion de données..."</string>
+    <string name="download_running_paused" msgid="6418029352085656495">"En attente de connexion de données..."</string>
     <string name="download_canceled" msgid="6057083743144492515">"Téléchargement annulé"</string>
     <string name="download_not_acceptable" msgid="313769696131563652">"Impossible d\'effectuer le téléchargement. Le contenu n\'est pas pris en charge sur ce téléphone."</string>
     <string name="download_file_error" msgid="1206648050615176113">"Téléchargement interrompu. Espace insuffisant."</string>

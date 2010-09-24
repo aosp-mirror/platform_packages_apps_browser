@@ -136,6 +136,8 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Abrir ventanas nuevas detrás de la actual"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Definir página de inicio"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Establecer el motor de búsqueda"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Seleccionar un motor de búsqueda"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Utilizar la página actual"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Ajuste automát. de pág."</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatea las páginas web para que se ajusten a la pantalla"</string>
