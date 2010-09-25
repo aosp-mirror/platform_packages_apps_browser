@@ -17,10 +17,10 @@
 <selector
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:state_selected="true"
+        android:state_activated="true"
         android:drawable="@drawable/tab_selected_bg" />
     <item
-        android:state_selected="false"
+        android:state_activated="false"
         android:drawable="@drawable/tab_unselected_bg">
     </item>
 </selector>

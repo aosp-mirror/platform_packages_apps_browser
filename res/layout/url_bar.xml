@@ -21,8 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dip"
         android:orientation="horizontal"
-        android:background="@drawable/urlbar_bg"
-        >
+        android:background="@drawable/urlbar_bg">
         <ImageButton
             android:id="@+id/back"
             android:src="@drawable/ic_back_normal"
@@ -45,28 +44,19 @@
             style="@style/HoloButton"
             android:gravity="center_vertical"
             android:src="@drawable/ic_stop_normal" />
-        <ImageButton
-            android:id="@+id/all_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:scaleType="center"
-            style="@style/HoloButton"
-            android:background="@drawable/browserbarbutton"
-            android:src="@drawable/ic_bookmarks_history_normal" />
         <LinearLayout
             android:id="@+id/urlbar_unfocused"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:background="@null"
-            android:orientation="horizontal" >
-            <ImageButton
-                android:id="@+id/star"
-                android:src="@drawable/ic_favorite_on_normal"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/browsericon"
+                android:src="@drawable/ic_web_white"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                style="@style/HoloButton"
-                android:background="@drawable/browserbarbutton" />
+                style="@style/HoloButton" />
             <ImageView
                 android:id="@+id/lock"
                 android:layout_width="wrap_content"
@@ -90,11 +80,10 @@
                 android:inputType="textUri"
                 android:imeOptions="actionGo" />
             <ImageButton
-                android:id="@+id/search"
-                android:src="@drawable/ic_search_normal"
+                android:id="@+id/star"
+                android:src="@drawable/ic_favorite_off_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
                 style="@style/HoloButton"
                 android:background="@drawable/browserbarbutton" />
         </LinearLayout>
@@ -105,8 +94,7 @@
             android:layout_weight="1.0"
             android:orientation="horizontal"
             android:background="@drawable/text_field_results"
-            android:visibility="gone"
-             >
+            android:visibility="gone">
             <ImageView
                 android:id="@+id/searchicon"
                 android:src="@drawable/ic_search_category_suggest"
@@ -129,22 +117,45 @@
                 android:scrollHorizontally="true"
                 android:inputType="textUri"
                 android:imeOptions="actionGo" />
-            <ImageButton
-                android:id="@+id/go"
-                android:src="@drawable/ic_go_dark"
+            <ImageView
+                android:id="@+id/clear"
+                android:src="@drawable/ic_clear_search"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                style="@style/HoloButton"
-                android:background="@drawable/browserbarbutton" />
+                style="@style/HoloButton" />
         </LinearLayout>
+        <ImageButton
+            android:id="@+id/go"
+            android:src="@drawable/ic_go_normal_white"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:gravity="center_vertical"
+            style="@style/HoloButton"
+            android:background="@drawable/browserbarbutton" />
+        <ImageButton
+            android:id="@+id/search"
+            android:src="@drawable/ic_search_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/HoloButton"
+            android:background="@drawable/browserbarbutton" />
+        <ImageButton
+            android:id="@+id/all_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            style="@style/HoloButton"
+            android:background="@drawable/browserbarbutton"
+            android:src="@drawable/ic_bookmarks_history_normal" />
     </LinearLayout>
     <com.android.browser.PageProgressView
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="22dip"
-        android:background = "@null"
-        android:src = "@drawable/progress"
+        android:background="@null"
+        android:src="@drawable/progress"
         android:layout_marginTop="-11dip"
         android:visibility="gone" />
 </LinearLayout>
