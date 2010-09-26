@@ -29,11 +29,10 @@
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout android:id="@+id/default_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
         android:paddingTop="5dip"
         android:paddingBottom="13dip"
         android:paddingLeft="20dip"
@@ -43,6 +42,10 @@
             android:id="@+id/titleText"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="50dip"
+            android:layout_marginBottom="40dip"
+            android:layout_marginTop="40dip"
             android:text="@string/name"
             android:gravity="left"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -52,8 +55,11 @@
             android:layout_height="wrap_content"
             android:layout_width="250dip"
             android:gravity="fill_horizontal"
+            android:layout_alignBaseline="@+id/titleText"
+            android:layout_toRightOf="@+id/titleText"
             android:inputType="textCapSentences"
             android:selectAllOnFocus="true"
+            android:ellipsize="end"
             android:textAppearance="?android:attr/textAppearanceMedium" />
                 
 
@@ -64,6 +70,10 @@
             android:layout_width="wrap_content"
             android:text="@string/location"
             android:gravity="left"
+            android:layout_below="@+id/titleText"
+            android:layout_alignLeft="@+id/titleText"
+            android:layout_marginBottom="40dip"
+            android:layout_marginRight="20dip"
             android:textAppearance="?android:attr/textAppearanceMedium" />
                 
         <EditText
@@ -71,12 +81,73 @@
             android:layout_height="wrap_content"
             android:layout_width="250dip"
             android:hint="@string/http"
+            android:layout_alignBaseline="@+id/addressText"
+            android:layout_alignLeft="@+id/title"
             android:gravity="fill_horizontal"
             android:inputType="textUri"
             android:selectAllOnFocus="true"
+            android:ellipsize="end"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/add_to"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/containing_folder"
+            android:layout_below="@+id/addressText"
+            android:layout_alignLeft="@+id/titleText"
+            android:layout_marginRight="20dip"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/folder"
+            android:layout_height="wrap_content"
+            android:layout_width="250dip"
+            android:layout_alignLeft="@+id/title"
+            android:layout_alignBaseline="@+id/add_to"
+            android:singleLine="true"
+            android:ellipsize="start"
+            android:text="@string/bookmarks"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </RelativeLayout>
+
+    <LinearLayout android:id="@+id/folder_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="start"
+            android:text="@string/bookmarks"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <EditText
+            android:id="@+id/folder_namer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
+        <Button
+            android:id="@+id/add_new_folder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/add_new_folder"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
-        
+
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -102,4 +173,3 @@
     </LinearLayout>
 
 </LinearLayout>
-

@@ -41,7 +41,9 @@ import android.widget.CompoundButton;
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
                 if (isChecked) {
-                    Bookmarks.addBookmark(mContext, true, mUrl, getName(), null, true);
+                    // FIXME: For now, add at the root level.  Should we
+                    // open AddBookmark from here?
+                    Bookmarks.addBookmark(mContext, true, mUrl, getName(), null, true, 0);
                     LogTag.logBookmarkAdded(mUrl, "history");
                 } else {
                     Bookmarks.removeFromBookmarks(mContext,

@@ -63,7 +63,7 @@ import java.util.Observable;
  * To remove an observer:
  * s.deleteObserver(webView.getSettings());
  */
-class BrowserSettings extends Observable {
+public class BrowserSettings extends Observable {
 
     // Private variables for settings
     // NOTE: these defaults need to be kept in sync with the XML
@@ -77,6 +77,7 @@ class BrowserSettings extends Observable {
     private boolean showSecurityWarnings;
     private boolean rememberPasswords;
     private boolean saveFormData;
+    private boolean autoFillEnabled;
     private boolean openInBackground;
     private String defaultTextEncodingName;
     private String homeUrl = "";
@@ -226,6 +227,7 @@ class BrowserSettings extends Observable {
             s.setDefaultZoom(b.zoomDensity);
             s.setLightTouchEnabled(b.lightTouch);
             s.setSaveFormData(b.saveFormData);
+            s.setAutoFillEnabled(b.autoFillEnabled);
             s.setSavePassword(b.rememberPasswords);
             s.setLoadWithOverviewMode(b.loadsPageInOverviewMode);
             s.setPageCacheCapacity(pageCacheCapacity);
@@ -340,6 +342,7 @@ class BrowserSettings extends Observable {
                 rememberPasswords);
         saveFormData = p.getBoolean("save_formdata",
                 saveFormData);
+        autoFillEnabled = p.getBoolean("autoFill_enabled", autoFillEnabled);
         boolean accept_cookies = p.getBoolean("accept_cookies",
                 CookieManager.getInstance().acceptCookie());
         CookieManager.getInstance().setAcceptCookie(accept_cookies);
@@ -576,45 +579,22 @@ class BrowserSettings extends Observable {
             : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
-    private void maybeDisableWebsiteSettings(Context context) {
-        PreferenceActivity activity = (PreferenceActivity) context;
-        final PreferenceScreen screen = (PreferenceScreen)
-            activity.findPreference(BrowserSettings.PREF_WEBSITE_SETTINGS);
-        screen.setEnabled(false);
-        WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
-            public void onReceiveValue(Map webStorageOrigins) {
-                if ((webStorageOrigins != null) && !webStorageOrigins.isEmpty()) {
-                    screen.setEnabled(true);
-                }
-            }
-        });
-
-        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set<String> >() {
-            public void onReceiveValue(Set<String> geolocationOrigins) {
-                if ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()) {
-                    screen.setEnabled(true);
-                }
-            }
-        });
-    }
-
     /*package*/ void clearDatabases(Context context) {
         WebStorage.getInstance().deleteAllData();
-        maybeDisableWebsiteSettings(context);
     }
 
     /*package*/ void clearLocationAccess(Context context) {
         GeolocationPermissions.getInstance().clearAll();
-        maybeDisableWebsiteSettings(context);
     }
 
     /*package*/ void resetDefaultPreferences(Context ctx) {
         reset();
-        SharedPreferences p =
-            PreferenceManager.getDefaultSharedPreferences(ctx);
+        SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(ctx);
         p.edit().clear().apply();
-        PreferenceManager.setDefaultValues(ctx, R.xml.browser_preferences,
-                true);
+        PreferenceManager.setDefaultValues(ctx, R.xml.page_content_preferences, true);
+        PreferenceManager.setDefaultValues(ctx, R.xml.privacy_preferences, true);
+        PreferenceManager.setDefaultValues(ctx, R.xml.security_preferences, true);
+        PreferenceManager.setDefaultValues(ctx, R.xml.advanced_preferences, true);
         // reset homeUrl
         setHomePage(ctx, getFactoryResetHomeUrl(ctx));
         // reset appcache max size
@@ -647,6 +627,7 @@ class BrowserSettings extends Observable {
         showSecurityWarnings = true;
         rememberPasswords = true;
         saveFormData = true;
+        autoFillEnabled = false;
         openInBackground = false;
         autoFitPage = true;
         landscapeOnly = false;

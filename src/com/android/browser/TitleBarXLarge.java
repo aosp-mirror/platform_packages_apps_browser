@@ -24,7 +24,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -128,7 +128,9 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mStopButton == v) {
             stopOrRefresh();
         } else if (mGoButton == v) {
-            onAction(mUrlFocused.getText().toString());
+            if (!TextUtils.isEmpty(mUrlFocused.getText())) {
+                onAction(mUrlFocused.getText().toString());
+            }
         }
     }
 

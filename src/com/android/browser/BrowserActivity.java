@@ -1527,7 +1527,6 @@ public class BrowserActivity extends Activity
         i.putExtra("touch_icon_url", w.getTouchIconUrl());
         i.putExtra("thumbnail", createScreenshot(w, getDesiredThumbnailWidth(this),
                 getDesiredThumbnailHeight(this)));
-        i.putExtra("url_editable", false);
         startActivity(i);
     }
 

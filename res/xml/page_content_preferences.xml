@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2008 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+            android:key="text_size"
+            android:title="@string/pref_text_size"
+            android:defaultValue="NORMAL"
+            android:entries="@array/pref_text_size_choices"
+            android:entryValues="@array/pref_text_size_values"
+            android:dialogTitle="@string/pref_text_size_dialogtitle" />
+
+    <ListPreference
+            android:key="default_zoom"
+            android:title="@string/pref_default_zoom"
+            android:defaultValue="MEDIUM"
+            android:entries="@array/pref_default_zoom_choices"
+            android:entryValues="@array/pref_default_zoom_values"
+            android:dialogTitle="@string/pref_default_zoom_dialogtitle" />
+
+    <CheckBoxPreference
+            android:key="load_page"
+            android:defaultValue="true"
+            android:title="@string/pref_content_load_page"
+            android:summary="@string/pref_content_load_page_summary" />
+
+    <ListPreference
+            android:key="default_text_encoding"
+            android:title="@string/pref_default_text_encoding"
+            android:defaultValue="@string/pref_default_text_encoding_default"
+            android:entries="@array/pref_default_text_encoding_choices"
+            android:entryValues="@array/pref_default_text_encoding_values"
+            android:dialogTitle="@string/pref_default_text_encoding_dialogtitle" />
+
+    <CheckBoxPreference
+            android:key="block_popup_windows"
+            android:defaultValue="true"
+            android:title="@string/pref_content_block_popups" /> 
+
+    <CheckBoxPreference
+            android:key="load_images"
+            android:defaultValue="true"
+            android:title="@string/pref_content_load_images"
+            android:summary="@string/pref_content_load_images_summary" />   
+
+    <CheckBoxPreference
+            android:key="autofit_pages"
+            android:defaultValue="true"
+            android:title="@string/pref_content_autofit"
+            android:summary="@string/pref_content_autofit_summary" />  
+
+    <CheckBoxPreference
+            android:key="landscape_only"
+            android:defaultValue="false"
+            android:title="@string/pref_content_landscape_only"
+            android:summary="@string/pref_content_landscape_only_summary" />
+
+    <CheckBoxPreference
+            android:key="enable_javascript"
+            android:defaultValue="true"
+            android:title="@string/pref_content_javascript" />     
+
+    <ListPreference
+            android:key="plugin_state"
+            android:title="@string/pref_content_plugins"
+            android:defaultValue="ON"
+            android:entries="@array/pref_content_plugins_choices"
+            android:entryValues="@array/pref_content_plugins_values"
+            android:dialogTitle="@string/pref_content_plugins" />
+
+    <CheckBoxPreference
+            android:key="open_in_background"
+            android:defaultValue="false"
+            android:title="@string/pref_content_open_in_background"
+            android:summary="@string/pref_content_open_in_background_summary" />
+
+    <com.android.browser.BrowserHomepagePreference
+            android:key="homepage" 
+            android:title="@string/pref_content_homepage"
+            android:hint="@string/http"
+            android:inputType="textUri|textMultiLine" />
+
+</PreferenceScreen>

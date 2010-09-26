@@ -166,8 +166,11 @@ public class BrowserBackupAgent extends BackupAgent {
                                 if (DEBUG) Log.v(TAG, "Did not see url: " + mark.url);
                                 // Right now we do not reconstruct the db entry in its
                                 // entirety; we just add a new bookmark with the same data
+                                // FIXME: This file needs to be reworked
+                                // anyway For now, add the bookmark at
+                                // the root level.
                                 Bookmarks.addBookmark(this, false,
-                                        mark.url, mark.title, null, false);
+                                        mark.url, mark.title, null, false, 0);
                                 nUnique++;
                             } else {
                                 if (DEBUG) Log.v(TAG, "Skipping extant url: " + mark.url);

@@ -122,14 +122,22 @@
     <!-- Button label to cancel saving a bookmark. -->
     <string name="do_not_save">Cancel</string>
     <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
-    <string name="location">Location</string>
+    <string name="location">Address</string>
+    <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+    <string name="containing_folder">Add to</string>
+    <!-- Button text for a button that allows the user to add a new folder.  Also used as the title of the add bookmarks dialog on the page
+         that allows choosing the folder to place it in. -->
+    <string name="add_new_folder">Add new folder</string>
+    <!-- Default name for a new folder -->
+    <string name="new_folder">New folder</string>
     <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
-    <string name="name">Name</string>
+    <string name="name">label</string>
     <!-- Initial value in Location field in Bookmark dialog box -->
     <string name="http">http://</string>
-    <!-- Menu item that opens a dialog to save a bookmark for the current page, also displayed as
-            the title of the dialog used for adding a bookmark -->
-    <string name="save_to_bookmarks">Bookmark this page</string>
+    <!-- Menu item that opens a dialog to save a bookmark for the current page -->
+    <string name="save_to_bookmarks">Add to Bookmarks</string>
+    <!-- Title of the dialog to bookmark a page -->
+    <string name="bookmark_this_page">Bookmark this page</string>
     <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
     <string name="edit_bookmark">Edit bookmark</string>
     <!-- Context menu item to create a shortcut to the bookmark on the desktop -->
@@ -366,6 +374,10 @@
     <string name="pref_security_save_form_data">Remember form data</string>
     <!-- Settings summary -->
     <string name="pref_security_save_form_data_summary">Remember data I type in forms for later use</string>
+    <!-- Settings label for enabling/disabling the form AutoFill feature -->
+    <string name="pref_autoFill_enabled">AutoFill forms</string>
+    <!-- Settings summary for the form AutoFill feature. -->
+    <string name="pref_autoFill_enabled_summary">Automatically fill out forms where possible</string>
     <!-- Settings label -->
     <string name="pref_security_show_security_warning">Show security warnings</string>
     <!-- Settings summmary -->

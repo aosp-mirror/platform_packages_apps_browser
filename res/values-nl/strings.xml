@@ -19,8 +19,7 @@
     <string name="application_name" msgid="1935869255545976415">"Browser"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Bestand selecteren voor uploaden"</string>
     <string name="new_tab" msgid="4505722538297295141">"Nieuw venster"</string>
-    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
-    <skip />
+    <string name="new_incognito_tab" msgid="5821404839654751753">"Nieuw incognitovenster"</string>
     <string name="active_tabs" msgid="3050623868203544623">"Vensters"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Bladwijzers"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Meest bezocht"</string>
@@ -63,10 +62,19 @@
     <string name="forward" msgid="4288210890526641577">"Volgende"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Annuleren"</string>
-    <string name="location" msgid="969988560160364559">"Locatie"</string>
-    <string name="name" msgid="5990326151488445481">"Naam"</string>
+    <!-- no translation found for location (3411848697912600125) -->
+    <skip />
+    <!-- no translation found for containing_folder (6771180232953030479) -->
+    <skip />
+    <!-- no translation found for add_new_folder (7027600176450718398) -->
+    <skip />
+    <!-- no translation found for new_folder (7743540149088867917) -->
+    <skip />
+    <!-- no translation found for name (5915607427720935681) -->
+    <skip />
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <!-- no translation found for save_to_bookmarks (8225229701567988479) -->
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"Toevoegen aan bladwijzers"</string>
+    <!-- no translation found for bookmark_this_page (7530739804320811054) -->
     <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"Bladwijzer bewerken"</string>
     <!-- no translation found for create_shortcut_bookmark (1995095662095484289) -->
@@ -91,8 +99,7 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Bladwijzer \'<xliff:g id="BOOKMARK">%s</xliff:g>\' wordt verwijderd."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Openen in een nieuw venster"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ga"</string>
-    <!-- no translation found for incognito_tab (5419458065370134289) -->
-    <skip />
+    <string name="incognito_tab" msgid="5419458065370134289">"Nieuw incognitotabblad openen"</string>
     <string name="select_dot" msgid="6299170761900561967">"Tekst selecteren"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Huidige vensters"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Sluiten"</string>
@@ -138,6 +145,8 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Nieuwe vensters openen achter het huidige venster"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Startpagina instellen"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Zoekmachine instellen"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Selecteer een zoekmachine"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Huidige pagina gebruiken"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Pagina\'s passend maken"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Webpagina\'s zo indelen dat deze op het scherm passen"</string>
@@ -169,6 +178,10 @@
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Gebruikersnamen en wachtwoorden voor websites opslaan"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Formulierdata onthouden"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Gegevens die ik typ in formulieren, onthouden voor later gebruik"</string>
+    <!-- no translation found for pref_autoFill_enabled (5348131327347999291) -->
+    <skip />
+    <!-- no translation found for pref_autoFill_enabled_summary (282122852215557397) -->
+    <skip />
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Beveiligingswaarschuwingen weergeven"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Waarschuwen als er een beveiligingsprobleem is met een site"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Cookies accepteren"</string>
@@ -200,7 +213,16 @@
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Standaardinstellingen"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Foutopsporing"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Tekstcodering"</string>
-    <!-- no translation found for pref_default_text_encoding_choices:7 (2193955365569270096) -->
+  <string-array name="pref_default_text_encoding_choices">
+    <item msgid="7275223955790513818">"Latijns-1 (ISO-8859-1)"</item>
+    <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
+    <item msgid="6122474363777211732">"Chinees (GBK)"</item>
+    <item msgid="373372275931607040">"Chinees (Big5)"</item>
+    <item msgid="891615911084608570">"Japans (ISO-2022-JP)"</item>
+    <item msgid="5589150448475151241">"Japans (SHIFT_JIS)"</item>
+    <item msgid="7356792686950371843">"Japans (EUC-JP)"</item>
+    <item msgid="2193955365569270096">"Koreaans (EUC-KR)"</item>
+  </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Tekstcodering"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Probleem met gegevensverbinding"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Probleem met bestand"</string>
@@ -284,8 +306,8 @@
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Alle gegevens wissen"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Annuleren"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Achtergrond instellen..."</string>
-    <!-- no translation found for defaultBookmarksUpButton (2303951020715704735) -->
+    <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bladwijzers"</string>
+    <!-- no translation found for empty_bookmarks_folder (7843361614634930942) -->
     <skip />
-    <!-- no translation found for rlz_access_point (7165847807377650632) -->
-    <skip />
+    <string name="rlz_access_point" msgid="7165847807377650632">"J1"</string>
 </resources>
