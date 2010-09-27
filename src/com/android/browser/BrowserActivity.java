@@ -195,6 +195,9 @@ public class BrowserActivity extends Activity
 
         mResolver = getContentResolver();
 
+        // Keep a settings instance handy.
+        mSettings = BrowserSettings.getInstance();
+
         // If this was a web search request, pass it on to the default web
         // search provider and finish this activity.
         if (handleWebSearchIntent(getIntent())) {
@@ -248,8 +251,6 @@ public class BrowserActivity extends Activity
         // Open the icon database and retain all the bookmark urls for favicons
         retainIconsOnStartup();
 
-        // Keep a settings instance handy.
-        mSettings = BrowserSettings.getInstance();
         mSettings.setTabControl(mTabControl);
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
