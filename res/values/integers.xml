@@ -16,4 +16,6 @@
     <integer name="max_suggest_lines_landscape">6</integer>
     <!-- The number of lines in the suggestions dropdown in portrait -->
     <integer name="max_suggest_lines_portrait">12</integer>
+    <!--  The maximum number of open tabs -->
+    <integer name="max_tabs">16</integer>
 </resources>
