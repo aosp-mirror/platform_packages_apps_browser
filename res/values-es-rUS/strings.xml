@@ -22,7 +22,7 @@
     <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcadores"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Más visitados"</string>
-    <string name="tab_history" msgid="1979267558744613746">"Historial "</string>
+    <string name="tab_history" msgid="1979267558744613746">"Historial"</string>
     <string name="added_to_bookmarks" msgid="1020224130695956728">"Agregado a marcadores"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"Suprimido de los marcadores"</string>
     <string name="sign_in_to" msgid="5939425800148759165">"Iniciar sesión en <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
@@ -228,17 +228,17 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Este sitio está intentando abrir una ventana emergente."</string>
     <string name="allow" msgid="1157313689171991335">"Permitir"</string>
     <string name="block" msgid="9172175889884707800">"Bloquear"</string>
-    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Se alcanzó el límite de la ventana "</string>
+    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Se alcanzó el límite de la ventana"</string>
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"No se ha podido abrir una ventana nueva porque ya has abierto el máximo permitido."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ventana emergente ya abierta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"No es posible abrir una ventana emergente nueva porque sólo puede abrirse una por vez."</string>
     <string name="download_title" msgid="2122874021047565594">"Historial de descarga"</string>
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Desconocido&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"Abrir"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Borrar de la lista\n "</string>
+    <string name="download_menu_clear" msgid="6264454531553418124">"Borrar de la lista"</string>
     <string name="download_menu_delete" msgid="8815502136393894148">"Eliminar"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"Cancelar descarga"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancelar todas las descargas\n "</string>
+    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancelar todas las descargas"</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancelar descargas"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Las <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> descargas se cancelarán y se borrarán del historial de descarga."</string>
     <string name="download_delete_file" msgid="5330036497843073249">"El archivo se eliminará"</string>
