@@ -326,6 +326,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        Cursor cursor = (Cursor) mAdapter.getItem(info.position);
+        boolean isFolder
+                = cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
+        if (isFolder) return;
 
         final Activity activity = getActivity();
         MenuInflater inflater = activity.getMenuInflater();
@@ -341,14 +345,12 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             ((ViewGroup) mContextHeader.getParent()).removeView(mContextHeader);
         }
 
-        populateBookmarkItem(mAdapter, mContextHeader, info.position);
+        populateBookmarkItem(cursor, mContextHeader);
 
         menu.setHeaderView(mContextHeader);
     }
 
-    private void populateBookmarkItem(BrowserBookmarksAdapter adapter, BookmarkItem item,
-            int position) {
-        Cursor cursor = (Cursor) mAdapter.getItem(position);
+    private void populateBookmarkItem(Cursor cursor, BookmarkItem item) {
         String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
         item.setUrl(url);
         item.setName(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
