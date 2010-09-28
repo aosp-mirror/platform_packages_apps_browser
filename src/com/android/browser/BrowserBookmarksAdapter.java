@@ -41,17 +41,21 @@ class BrowserBookmarksAdapter extends ResourceCursorAdapter {
         TextView tv = (TextView) view.findViewById(R.id.label);
 
         tv.setText(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
-
         Bitmap thumbnail = null;
-        byte[] data = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_THUMBNAIL);
-        if (data != null) {
-            thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
-        }
-
-        if (thumbnail == null) {
-            thumb.setImageResource(R.drawable.browser_thumbnail);
+        if (cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0) {
+            // folder
+            thumb.setImageResource(R.drawable.ic_folder);
         } else {
-            thumb.setImageBitmap(thumbnail);
+            byte[] data = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_THUMBNAIL);
+            if (data != null) {
+                thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
+            }
+
+            if (thumbnail == null) {
+                thumb.setImageResource(R.drawable.browser_thumbnail);
+            } else {
+                thumb.setImageBitmap(thumbnail);
+            }
         }
     }
 }

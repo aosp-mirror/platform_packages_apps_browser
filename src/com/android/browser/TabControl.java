@@ -36,11 +36,11 @@ class TabControl {
     // Log Tag
     private static final String LOGTAG = "TabControl";
     // Maximum number of tabs.
-    private static final int MAX_TABS = 8;
+    private int mMaxTabs;
     // Private array of WebViews that are used as tabs.
-    private ArrayList<Tab> mTabs = new ArrayList<Tab>(MAX_TABS);
+    private ArrayList<Tab> mTabs;
     // Queue of most recently viewed tabs.
-    private ArrayList<Tab> mTabQueue = new ArrayList<Tab>(MAX_TABS);
+    private ArrayList<Tab> mTabQueue;
     // Current position in mTabs.
     private int mCurrentTab = -1;
     // A private instance of BrowserActivity to interface with when adding and
@@ -61,6 +61,9 @@ class TabControl {
         mActivity = activity;
         mThumbnailDir = activity.getDir("thumbnails", 0);
         mDisplayZoomControls = true;
+        mMaxTabs = activity.getResources().getInteger(R.integer.max_tabs);
+        mTabs = new ArrayList<Tab>(mMaxTabs);
+        mTabQueue = new ArrayList<Tab>(mMaxTabs);
     }
 
     File getThumbnailDir() {
@@ -158,7 +161,7 @@ class TabControl {
     }
 
     boolean canCreateNewTab() {
-        return MAX_TABS != mTabs.size();
+        return mMaxTabs != mTabs.size();
     }
 
     /**
@@ -183,7 +186,7 @@ class TabControl {
             boolean privateBrowsing) {
         int size = mTabs.size();
         // Return false if we have maxed out on tabs
-        if (MAX_TABS == size) {
+        if (mMaxTabs == size) {
             return null;
         }
         final WebView w = createNewWebView(privateBrowsing);

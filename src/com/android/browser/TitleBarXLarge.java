@@ -101,6 +101,7 @@ public class TitleBarXLarge extends TitleBarBase
         mGoButton.setOnClickListener(this);
         mUrlFocused.setUrlInputListener(this);
         mUrlUnfocused.setOnFocusChangeListener(this);
+        mUrlFocused.setContainer(mFocusContainer);
     }
     
     public void onFocusChange(View v, boolean hasFocus) {
@@ -217,7 +218,7 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     /* package */ void setDisplayTitle(String title) {
-        mUrlFocused.setText(title);
+        mUrlFocused.setText(title, false);
         mUrlUnfocused.setText(title);
     }
 
