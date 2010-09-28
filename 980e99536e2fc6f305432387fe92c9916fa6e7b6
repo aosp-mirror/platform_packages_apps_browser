@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAA7n//+9E\u003d",
+        "filename": "src/com/android/browser/AddBookmarkPage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2010-09-28T14:32:33Z",
+      "side": 1,
+      "message": "You didn\u0027t introduce this problem, but FYI:  all Threads in Android should be named (for debugging).",
+      "revId": "980e99536e2fc6f305432387fe92c9916fa6e7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
