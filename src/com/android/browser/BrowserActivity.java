@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
@@ -47,7 +48,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
-import android.net.DownloadManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.WebAddress;
