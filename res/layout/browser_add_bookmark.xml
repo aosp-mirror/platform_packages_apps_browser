@@ -113,7 +113,7 @@
     </RelativeLayout>
 
     <LinearLayout android:id="@+id/folder_selector"
-        android:layout_width="wrap_content"
+        android:layout_width="500dip"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
@@ -121,26 +121,35 @@
 
         <TextView
             android:id="@+id/path"
+            android:layout_marginTop="4dip"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:layout_marginBottom="4dip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:ellipsize="start"
             android:text="@string/bookmarks"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ListView
             android:id="@+id/list"
-            android:layout_width="wrap_content"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
         <EditText
             android:id="@+id/folder_namer"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
             />
         <Button
             android:id="@+id/add_new_folder"
+            android_marginTop="16dip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

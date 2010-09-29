@@ -21,6 +21,7 @@ import com.android.browser.provider.BrowserProvider2;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -31,6 +32,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.ParseException;
+import android.net.Uri;
 import android.net.WebAddress;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,9 +57,6 @@ import android.widget.Toast;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Date;
-
-import android.util.Log;
 
 public class AddBookmarkPage extends Activity
         implements View.OnClickListener, TextView.OnEditorActionListener,
@@ -109,17 +108,11 @@ public class AddBookmarkPage extends Activity
                 if (actionId == EditorInfo.IME_NULL) {
                     // Only want to do this once.
                     if (event.getAction() == KeyEvent.ACTION_UP) {
-                        // Add the folder to the database
-                        ContentValues values = new ContentValues();
-                        values.put(BrowserContract.Bookmarks.TITLE,
-                                v.getText().toString());
-                        values.put(BrowserContract.Bookmarks.IS_FOLDER, 1);
-                        values.put(BrowserContract.Bookmarks.PARENT,
-                                mCurrentFolder);
-                        getContentResolver().insert(
-                                BrowserContract.Bookmarks.CONTENT_URI, values);
-
+                        String name = v.getText().toString();
+                        long id = addFolderToCurrent(name);
                         mFolderNamer.setVisibility(View.GONE);
+                        mAddNewFolder.setVisibility(View.VISIBLE);
+                        descendInto(name,id);
                         InputMethodManager.getInstance(this)
                                 .hideSoftInputFromWindow(
                                 mFolderNamer.getWindowToken(), 0);
@@ -136,24 +129,56 @@ public class AddBookmarkPage extends Activity
     public void onClick(View v) {
         if (v == mButton) {
             if (mFolderSelector.getVisibility() == View.VISIBLE) {
-                // We are showing the folder selector.  This means that the user
-                // has selected a folder.  Go back to the opening page
-                mFolderSelector.setVisibility(View.GONE);
-                mDefaultView.setVisibility(View.VISIBLE);
-                setTitle(R.string.bookmark_this_page);
+             // We are showing the folder selector.
+                if (mFolderNamer.getVisibility() == View.VISIBLE) {
+                    // Editing folder name
+                    String name = mFolderNamer.getText().toString();
+                    long id = addFolderToCurrent(mFolderNamer.getText().toString());
+                    descendInto(name, id);
+                    mFolderNamer.setVisibility(View.GONE);
+                    mAddNewFolder.setVisibility(View.VISIBLE);
+                } else {
+                    // User has selected a folder.  Go back to the opening page
+                    mFolderSelector.setVisibility(View.GONE);
+                    mDefaultView.setVisibility(View.VISIBLE);
+                    setTitle(R.string.bookmark_this_page);
+                }
             } else if (save()) {
                 finish();
             }
         } else if (v == mCancelButton) {
-            finish();
+            if (mFolderNamer.getVisibility() == View.VISIBLE) {
+                mFolderNamer.setVisibility(View.GONE);
+                mAddNewFolder.setVisibility(View.VISIBLE);
+            } else {
+                finish();
+            }
         } else if (v == mFolder) {
             switchToFolderSelector();
         } else if (v == mAddNewFolder) {
             mFolderNamer.setVisibility(View.VISIBLE);
             mFolderNamer.setText(R.string.new_folder);
             mFolderNamer.requestFocus();
+            mAddNewFolder.setVisibility(View.GONE);
             InputMethodManager.getInstance(this).showSoftInput(mFolderNamer,
                     InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    private long addFolderToCurrent(String name) {
+        // Add the folder to the database
+        ContentValues values = new ContentValues();
+        values.put(BrowserContract.Bookmarks.TITLE,
+                name);
+        values.put(BrowserContract.Bookmarks.IS_FOLDER, 1);
+        values.put(BrowserContract.Bookmarks.PARENT,
+                mCurrentFolder);
+        Uri uri = getContentResolver().insert(
+                BrowserContract.Bookmarks.CONTENT_URI, values);
+        if (uri != null) {
+            return ContentUris.parseId(uri);
+        } else {
+            return -1;
         }
     }
 
@@ -161,6 +186,15 @@ public class AddBookmarkPage extends Activity
         mDefaultView.setVisibility(View.GONE);
         mFolderSelector.setVisibility(View.VISIBLE);
         setTitle(R.string.containing_folder);
+    }
+
+    private void descendInto(String foldername, long id) {
+        if (id != -1) {
+            mCurrentFolder = id;
+            mPaths.add(new Folder(foldername, id));
+            updatePathString();
+            getLoaderManager().restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
+        }
     }
 
     @Override
@@ -186,7 +220,6 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.TITLE,
                         BrowserContract.Bookmarks.IS_FOLDER
                 };
-
                 return new CursorLoader(this,
                         BrowserContract.Bookmarks.buildFolderUri(
                         mCurrentFolder),
@@ -213,7 +246,8 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.TITLE);
                 int parentIndex = cursor.getColumnIndexOrThrow(
                         BrowserContract.Bookmarks.PARENT);
-                while (parent != BrowserProvider2.FIXED_ID_ROOT) {
+                while ((parent != BrowserProvider2.FIXED_ID_ROOT) &&
+                        (parent != 0)) {
                     // First, find the folder corresponding to the current
                     // folder
                     if (!cursor.moveToFirst()) {
@@ -256,12 +290,9 @@ public class AddBookmarkPage extends Activity
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
             long id) {
+        TextView tv = (TextView) view.findViewById(android.R.id.text1);
         // Switch to the folder that was clicked on.
-        mCurrentFolder = id;
-        mPaths.add(new Folder(((TextView) view).getText().toString(), id));
-        updatePathString();
-
-        getLoaderManager().restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
+        descendInto(tv.getText().toString(), id);
     }
 
     /**
@@ -281,8 +312,11 @@ public class AddBookmarkPage extends Activity
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            return LayoutInflater.from(context).inflate(
-                    android.R.layout.simple_list_item_1, null);
+            View view = LayoutInflater.from(context).inflate(
+                    R.layout.folder_list_item, null);
+            view.setBackgroundDrawable(context.getResources().
+                    getDrawable(android.R.drawable.list_selector_background));
+            return view;
         }
     }
 
@@ -296,7 +330,7 @@ public class AddBookmarkPage extends Activity
 
         setTitle(R.string.bookmark_this_page);
         getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
-        
+
         String title = null;
         String url = null;
 
@@ -345,7 +379,7 @@ public class AddBookmarkPage extends Activity
                 ListView list = (ListView) findViewById(R.id.list);
 
         mPaths = new ArrayList<Folder>();
-        mPaths.add(0, new Folder(getString(R.string.bookmarks), 0));
+        mPaths.add(0, new Folder(getString(R.string.bookmarks), BrowserProvider2.FIXED_ID_ROOT));
         mAdapter = new FolderAdapter(this);
         list.setAdapter(mAdapter);
         list.setOnItemClickListener(this);
@@ -356,7 +390,7 @@ public class AddBookmarkPage extends Activity
         }
         manager.initLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
 
-        
+
         if (!getWindow().getDecorView().isInTouchMode()) {
             mButton.requestFocus();
         }
@@ -397,21 +431,27 @@ public class AddBookmarkPage extends Activity
     }
 
     @Override
-    public boolean dispatchKeyEvent (KeyEvent event) {
+    public boolean dispatchKeyEvent(KeyEvent event) {
         if (mFolderSelector.getVisibility() == View.VISIBLE
                 && KeyEvent.KEYCODE_BACK == event.getKeyCode()) {
             if (KeyEvent.ACTION_UP == event.getAction()) {
-                int size = mPaths.size();
-                if (1 == size) {
-                    // We have reached the top level
-                    finish();
+                if (mFolderNamer.getVisibility() == View.VISIBLE) {
+                    mFolderNamer.setVisibility(View.GONE);
+                    mAddNewFolder.setVisibility(View.VISIBLE);
+                    InputMethodManager.getInstance(this).hideSoftInputFromWindow(
+                            mFolderNamer.getWindowToken(), 0);
                 } else {
-                    // Go up a level
-                    mPaths.remove(size - 1);
-                    mCurrentFolder = mPaths.get(size - 2).Id;
-                    updatePathString();
-                    getLoaderManager().restartLoader(LOADER_ID_FOLDER_CONTENTS,
-                            null, this);
+                    int size = mPaths.size();
+                    if (1 == size) {
+                        // We have reached the top level
+                        finish();
+                    } else {
+                        // Go up a level
+                        mPaths.remove(size - 1);
+                        mCurrentFolder = mPaths.get(size - 2).Id;
+                        updatePathString();
+                        getLoaderManager().restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
+                    }
                 }
             }
             return true;
