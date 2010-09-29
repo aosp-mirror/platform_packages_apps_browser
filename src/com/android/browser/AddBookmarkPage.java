@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import com.android.browser.provider.BrowserProvider2;
+
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
@@ -24,6 +26,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -32,7 +35,9 @@ import android.net.WebAddress;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -208,7 +213,7 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.TITLE);
                 int parentIndex = cursor.getColumnIndexOrThrow(
                         BrowserContract.Bookmarks.PARENT);
-                while (parent != 0) {
+                while (parent != BrowserProvider2.FIXED_ID_BOOKMARKS_BAR) {
                     // First, find the folder corresponding to the current
                     // folder
                     if (!cursor.moveToFirst()) {
@@ -306,7 +311,10 @@ public class AddBookmarkPage extends Activity
             url = mOriginalUrl = mMap.getString("url");
             mTouchIconUrl = mMap.getString("touch_icon_url");
             mThumbnail = (Bitmap) mMap.getParcelable("thumbnail");
-            mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT);
+            mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, -1);
+        }
+        if (mCurrentFolder == -1) {
+            mCurrentFolder = getBookmarksBarId(this);
         }
 
         mTitle = (EditText) findViewById(R.id.title);
@@ -342,7 +350,7 @@ public class AddBookmarkPage extends Activity
         list.setAdapter(mAdapter);
         list.setOnItemClickListener(this);
         LoaderManager manager = getLoaderManager();
-        if (mCurrentFolder != 0) {
+        if (mCurrentFolder != BrowserProvider2.FIXED_ID_BOOKMARKS_BAR) {
             // Find all the folders
             manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
         }
@@ -352,6 +360,40 @@ public class AddBookmarkPage extends Activity
         if (!getWindow().getDecorView().isInTouchMode()) {
             mButton.requestFocus();
         }
+    }
+
+    // FIXME: Use a CursorLoader
+    private long getBookmarksBarId(Context context) {
+        SharedPreferences prefs
+                = PreferenceManager.getDefaultSharedPreferences(context);
+        String accountName =
+                prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+        String accountType =
+                prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+        if (TextUtils.isEmpty(accountName) || TextUtils.isEmpty(accountType)) {
+            return BrowserProvider2.FIXED_ID_BOOKMARKS_BAR;
+        }
+        Cursor cursor = null;
+        try {
+            cursor = context.getContentResolver().query(
+                    BrowserContract.Bookmarks.CONTENT_URI,
+                    new String[] { BrowserContract.Bookmarks._ID },
+                    BrowserContract.ChromeSyncColumns.SERVER_UNIQUE + "=? AND "
+                            + BrowserContract.Bookmarks.ACCOUNT_NAME + "=? AND "
+                            + BrowserContract.Bookmarks.ACCOUNT_TYPE + "=?",
+                    new String[] {
+                            BrowserContract.ChromeSyncColumns
+                                    .FOLDER_NAME_BOOKMARKS_BAR,
+                            accountName,
+                            accountType },
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                return cursor.getLong(0);
+            }
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+        return BrowserProvider2.FIXED_ID_BOOKMARKS_BAR;
     }
 
     @Override

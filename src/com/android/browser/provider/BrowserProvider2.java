@@ -89,7 +89,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     static final long FIXED_ID_CHROME_ROOT = 1;
     static final long FIXED_ID_BOOKMARKS = 2;
-    static final long FIXED_ID_BOOKMARKS_BAR = 3;
+    public static final long FIXED_ID_BOOKMARKS_BAR = 3;
     static final long FIXED_ID_OTHER_BOOKMARKS = 4;
 
     static final String DEFAULT_BOOKMARKS_SORT_ORDER = "position ASC, _id ASC";
