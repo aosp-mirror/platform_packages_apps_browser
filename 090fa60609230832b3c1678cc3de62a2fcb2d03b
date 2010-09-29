@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAA7n//+x4\u003d",
+        "filename": "src/com/android/browser/BrowserProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1002416
+      },
+      "writtenOn": "2010-09-29T20:21:23Z",
+      "side": 1,
+      "message": "Shouldn\u0027t there be a comma at the end of this line?",
+      "revId": "090fa60609230832b3c1678cc3de62a2fcb2d03b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
