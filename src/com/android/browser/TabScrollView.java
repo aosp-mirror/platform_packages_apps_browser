@@ -80,12 +80,12 @@ public class TabScrollView extends HorizontalScrollView {
     void setSelectedTab(int position) {
         View v = getSelectedTab();
         if (v != null) {
-            v.setSelected(false);
+            v.setActivated(false);
         }
         mSelected = position;
         v = getSelectedTab();
         if (v != null) {
-            v.setSelected(true);
+            v.setActivated(true);
         }
         requestLayout();
     }
@@ -104,12 +104,12 @@ public class TabScrollView extends HorizontalScrollView {
 
     void addTab(View tab) {
         mContentView.addView(tab);
-        tab.setSelected(false);
+        tab.setActivated(false);
     }
 
     void addTab(View tab, int pos) {
         mContentView.addView(tab, pos);
-        tab.setSelected(false);
+        tab.setActivated(false);
     }
 
     void removeTab(View tab) {

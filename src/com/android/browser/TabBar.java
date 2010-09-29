@@ -250,14 +250,14 @@ public class TabBar extends LinearLayout
         }
 
         @Override
-        public void setSelected(boolean selected) {
+        public void setActivated(boolean selected) {
             mSelected = selected;
             mClose.setVisibility(mSelected ? View.VISIBLE : View.GONE);
             mTitle.setTextAppearance(mBrowserActivity, mSelected ?
                     R.style.TabTitleSelected : R.style.TabTitleUnselected);
             setHorizontalFadingEdgeEnabled(!mSelected);
             setFadingEdgeLength(50);
-            super.setSelected(selected);
+            super.setActivated(selected);
             setLayoutParams(new LayoutParams(selected ?
                     mTabWidthSelected : mTabWidthUnselected,
                     LayoutParams.MATCH_PARENT));

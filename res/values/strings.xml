@@ -322,6 +322,25 @@
     <string name="pref_content_landscape_only">Landscape-only display</string>
     <!-- Settings summary -->
     <string name="pref_content_landscape_only_summary">Display pages only in the wider, landscape screen orientation</string>
+
+    <!-- Settings screen & section title for "Personal settings". These include things like
+         configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+    <string name="pref_personal_title">Personal settings</string>
+    <!-- Checkbox setting to enable or disable syncing bookmarks and other data with Google Chrome. [CHAR-LIMIT=48] -->
+    <string name="pref_personal_sync_with_chrome">Sync with Google Chrome</string>
+    <!-- Checkbox setting to enable or disable syncing bookmarks and other data with Google Chrome. [CHAR-LIMIT=none] -->
+    <string name="pref_personal_sync_with_chrome_summary">Share bookmarks &amp; other data between Android Browser and Google Chrome</string>
+    <!-- Label indicating which Google account is being used to sync bookmarks between Android and Chrome [CHAR-LIMIT=20] -->
+    <string name="pref_personal_google_account">Google account</string>
+    <!-- Checkbox setting to enable or disable syncing bookmarks with Google Chrome. [CHAR-LIMIT=32] -->
+    <string name="pref_personal_sync_bookmarks">Sync bookmarks</string>
+    <!-- Summary for a checkbox setting to enable or disable syncing bookmarks with Google Chrome. [CHAR-LIMIT=none] -->
+    <string name="pref_personal_sync_bookmarks_summary">Sync bookmarks between Android Browser and Google Chrome</string>
+    <!-- Button to start a sync of bookmarks and other data between the Android Browser and Google Chrome [CHAR-LIMIT=20] -->
+    <string name="pref_personal_start_syncing">Start syncing</string>
+    <!-- Dialog title used when asking the user which Google account they want to use to sync data between Android Browser and Google Chrome [CHAR-LIMIT=20] -->
+    <string name="pref_personal_account_dialog_title">Select Google account to share with</string>
+
     <!-- Settings screen, section title -->
     <string name="pref_privacy_title">Privacy settings</string>
     <!-- Settings label -->
@@ -763,4 +782,15 @@
     <!-- Access point for RLZ tracking. -->
     <string name="rlz_access_point">Y1</string>
 
+    <!-- Title for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=32] -->
+    <string name="import_bookmarks_dialog_title">Sync with Google account</string>
+
+    <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
+    <string name="import_bookmarks_dialog_description">Your Android bookmarks are not associated with a Google account</string>
+
+    <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+    <string name="import_bookmarks_dialog_remove">Remove your Android bookmarks</string>
+
+    <!-- Button allowing users to import all of their existing bookmarks into an account when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+    <string name="import_bookmarks_dialog_import">Add your Android bookmarks to bookmarks for <xliff:g id="Google account" example="account@example.com">%s</xliff:g></string>
 </resources>

@@ -19,11 +19,11 @@
     <header android:fragment="com.android.browser.preferences.PageContentPreferencesFragment"
         android:title="@string/pref_content_title"
     />
-<!--
-    <header android:fragment="com.example.android.apis.preference.PreferenceWithHeaders$Prefs2Fragment"
-        android:title="Personal settings"
-    </header>
--->
+
+    <header android:fragment="com.android.browser.preferences.PersonalPreferencesFragment"
+        android:title="@string/pref_personal_title"
+    />
+
     <header android:fragment="com.android.browser.preferences.PrivacyPreferencesFragment"
         android:title="@string/pref_privacy_title"
     />

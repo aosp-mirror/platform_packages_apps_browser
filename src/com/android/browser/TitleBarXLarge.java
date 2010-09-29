@@ -57,6 +57,7 @@ public class TitleBarXLarge extends TitleBarBase
     private View mGoButton;
     private ImageView mStopButton;
     private View mAllButton;
+    private View mClearButton;
     private PageProgressView mProgressView;
     private UrlInputView mUrlFocused;
     private TextView mUrlUnfocused;
@@ -88,6 +89,7 @@ public class TitleBarXLarge extends TitleBarBase
         mSearchButton = findViewById(R.id.search);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mGoButton = findViewById(R.id.go);
+        mClearButton = findViewById(R.id.clear);
         mProgressView = (PageProgressView) findViewById(R.id.progress);
         mFocusContainer = findViewById(R.id.urlbar_focused);
         mUnfocusContainer = findViewById(R.id.urlbar_unfocused);
@@ -99,14 +101,15 @@ public class TitleBarXLarge extends TitleBarBase
         mStopButton.setOnClickListener(this);
         mSearchButton.setOnClickListener(this);
         mGoButton.setOnClickListener(this);
+        mClearButton.setOnClickListener(this);
         mUrlFocused.setUrlInputListener(this);
         mUrlUnfocused.setOnFocusChangeListener(this);
         mUrlFocused.setContainer(mFocusContainer);
     }
-    
+
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
-            swapUrlContainer(true);
+            setUrlMode(true);
             mUrlFocused.selectAll();
             mUrlFocused.requestFocus();
             mUrlFocused.setDropDownWidth(mUnfocusContainer.getWidth());
@@ -132,6 +135,8 @@ public class TitleBarXLarge extends TitleBarBase
             if (!TextUtils.isEmpty(mUrlFocused.getText())) {
                 onAction(mUrlFocused.getText().toString());
             }
+        } else if (mClearButton == v) {
+            mUrlFocused.setText("");
         }
     }
 
@@ -152,7 +157,7 @@ public class TitleBarXLarge extends TitleBarBase
         i.setAction(Intent.ACTION_SEARCH);
         i.putExtra(SearchManager.QUERY, text);
         mBrowserActivity.onNewIntent(i);
-        swapUrlContainer(false);
+        setUrlMode(false);
         setDisplayTitle(text);
     }
 
@@ -160,8 +165,8 @@ public class TitleBarXLarge extends TitleBarBase
     public void onDismiss() {
         mBrowserActivity.getTabControl().getCurrentTopWebView().requestFocus();
         mBrowserActivity.hideFakeTitleBar();
+        setUrlMode(false);
         setDisplayTitle(mBrowserActivity.getTabControl().getCurrentWebView().getUrl());
-        swapUrlContainer(false);
     }
 
     @Override
@@ -169,6 +174,17 @@ public class TitleBarXLarge extends TitleBarBase
         setDisplayTitle(text);
         if (text != null) {
             mUrlFocused.setSelection(text.length());
+        }
+    }
+
+    private void setUrlMode(boolean focused) {
+        swapUrlContainer(focused);
+        if (focused) {
+            mSearchButton.setVisibility(View.GONE);
+            mGoButton.setVisibility(View.VISIBLE);
+        } else {
+            mSearchButton.setVisibility(View.VISIBLE);
+            mGoButton.setVisibility(View.GONE);
         }
     }
 
@@ -203,6 +219,7 @@ public class TitleBarXLarge extends TitleBarBase
     @Override
     void setProgress(int newProgress) {
         if (newProgress >= PROGRESS_MAX) {
+            mProgressView.setProgress(PageProgressView.MAX_PROGRESS);
             mProgressView.setVisibility(View.GONE);
             mInLoad = false;
             mStopButton.setImageDrawable(mReloadDrawable);
@@ -212,7 +229,8 @@ public class TitleBarXLarge extends TitleBarBase
                 mInLoad = true;
                 mStopButton.setImageDrawable(mStopDrawable);
             }
-            mProgressView.setProgress(newProgress*10000/PROGRESS_MAX);
+            mProgressView.setProgress(newProgress * PageProgressView.MAX_PROGRESS
+                    / PROGRESS_MAX);
         }
     }
 

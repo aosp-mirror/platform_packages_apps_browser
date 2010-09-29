@@ -16,23 +16,24 @@
 
 package com.android.browser;
 
+import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.provider.Downloads;
-import android.provider.MediaStore;
 import android.widget.Toast;
 
 import java.io.File;
 
 /**
- * This {@link BroadcastReceiver} handles {@link Intent}s to open and delete
- * files downloaded by the Browser.
+ * This {@link BroadcastReceiver} handles clicks to notifications that
+ * downloads from the browser are in progress/complete.  Clicking on an
+ * in-progress or failed download will open the download manager.  Clicking on
+ * a complete, successful download will open the file.
  */
 public class OpenDownloadReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
@@ -69,44 +70,15 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
                         }
                     } else {
                         // Open the downloads page
-                        Intent pageView = new Intent(context,
-                                BrowserDownloadPage.class);
-                        pageView.setData(data);
+                        Intent pageView = new Intent(
+                                DownloadManager.ACTION_VIEW_DOWNLOADS);
                         pageView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(pageView);
-                    }
-                } else if (Intent.ACTION_DELETE.equals(action)) {
-                    if (deleteFile(cr, filename, mimetype)) {
-                        cr.delete(data, null, null);
                     }
                 }
             }
         } finally {
             if (cursor != null) cursor.close();
         }
-    }
-
-    /**
-     * Remove the file from the SD card
-     * @param cr ContentResolver used to delete the file.
-     * @param filename Name of the file to delete.
-     * @param mimetype Mimetype of the file to delete.
-     * @return boolean True on success, false on failure.
-     */
-    private boolean deleteFile(ContentResolver cr, String filename,
-            String mimetype) {
-        Uri uri;
-        if (mimetype.startsWith("image")) {
-            uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        } else if (mimetype.startsWith("audio")) {
-            uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        } else if (mimetype.startsWith("video")) {
-            uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        } else {
-            uri = null;
-        }
-        return (uri != null && cr.delete(uri, MediaStore.MediaColumns.DATA
-                + " = " + DatabaseUtils.sqlEscapeString(filename), null) > 0)
-                || new File(filename).delete();
     }
 }

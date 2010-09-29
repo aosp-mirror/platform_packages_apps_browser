@@ -20,6 +20,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -28,9 +30,16 @@ import android.widget.ImageView;
  */
 public class PageProgressView extends ImageView {
 
-    private int mProgress;
-    private int mMaxProgress;
+    public static final int MAX_PROGRESS = 10000;
+    private static final int MSG_UPDATE = 42;
+    private static final int STEPS = 10;
+    private static final int DELAY = 40;
+
+    private int mCurrentProgress;
+    private int mTargetProgress;
+    private int mIncrement;
     private Rect mBounds;
+    private Handler mHandler;
 
     /**
      * @param context
@@ -60,27 +69,41 @@ public class PageProgressView extends ImageView {
     }
 
     private void init(Context ctx) {
-        mMaxProgress = 10000;
         mBounds = new Rect(0,0,0,0);
-        mProgress = 0;
+        mCurrentProgress = 0;
+        mTargetProgress = 0;
+        mHandler = new Handler() {
+
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == MSG_UPDATE) {
+                    mCurrentProgress = Math.min(mTargetProgress,
+                            mCurrentProgress + mIncrement);
+                    mBounds.right = getWidth() * mCurrentProgress / MAX_PROGRESS;
+                    invalidate();
+                    if (mCurrentProgress < mTargetProgress) {
+                        sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE), DELAY);
+                    }
+                }
+            }
+
+        };
     }
 
     @Override
     public void onLayout(boolean f, int l, int t, int r, int b) {
         mBounds.left = 0;
-        mBounds.right = (r - l) * mProgress / mMaxProgress;
+        mBounds.right = (r - l) * mCurrentProgress / MAX_PROGRESS;
         mBounds.top = 0;
         mBounds.bottom = b-t;
     }
 
-    void setMaxProgress(int max) {
-        mMaxProgress = max;
-    }
-
     void setProgress(int progress) {
-        mProgress = progress;
-        mBounds.right = getWidth()*mProgress/mMaxProgress;
-        invalidate();
+        mCurrentProgress = mTargetProgress;
+        mTargetProgress = progress;
+        mIncrement = (mTargetProgress - mCurrentProgress) / STEPS;
+        mHandler.removeMessages(MSG_UPDATE);
+        mHandler.sendEmptyMessage(MSG_UPDATE);
     }
 
     @Override

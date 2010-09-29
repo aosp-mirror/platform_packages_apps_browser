@@ -25,6 +25,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
@@ -1481,7 +1482,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.view_downloads_menu_id:
-                viewDownloads(null);
+                viewDownloads();
                 break;
 
             case R.id.window_one_menu_id:
@@ -3861,12 +3862,9 @@ public class BrowserActivity extends Activity
      * menu to see the download window. It shows the download window on top of
      * the current window.
      */
-    private void viewDownloads(Uri downloadRecord) {
-        Intent intent = new Intent(this,
-                BrowserDownloadPage.class);
-        intent.setData(downloadRecord);
-        startActivityForResult(intent, BrowserActivity.DOWNLOAD_PAGE);
-
+    private void viewDownloads() {
+        Intent intent = new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS);
+        startActivity(intent);
     }
 
     /* package */ void promptAddOrInstallBookmark(View anchor) {
@@ -4343,7 +4341,6 @@ public class BrowserActivity extends Activity
 
     // activity requestCode
     final static int COMBO_PAGE                 = 1;
-    final static int DOWNLOAD_PAGE              = 2;
     final static int PREFERENCES_PAGE           = 3;
     final static int FILE_SELECTED              = 4;
 

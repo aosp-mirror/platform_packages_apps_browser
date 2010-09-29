@@ -19,6 +19,7 @@ package com.android.browser.provider;
 import com.android.browser.R;
 import com.android.internal.content.SyncStateContentProviderHelper;
 
+import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -38,6 +39,7 @@ import android.provider.BrowserContract.Combined;
 import android.provider.BrowserContract.History;
 import android.provider.BrowserContract.Images;
 import android.provider.BrowserContract.Searches;
+import android.provider.BrowserContract.Settings;
 import android.provider.BrowserContract.SyncState;
 import android.provider.ContactsContract.RawContacts;
 import android.provider.SyncStateContract;
@@ -55,6 +57,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final String TABLE_IMAGES = "images";
     static final String TABLE_SEARCHES = "searches";
     static final String TABLE_SYNC_STATE = "syncstate";
+    static final String TABLE_SETTINGS = "settings";
     static final String VIEW_COMBINED = "combined";
 
     static final String TABLE_BOOKMARKS_JOIN_IMAGES = "bookmarks LEFT OUTER JOIN images " +
@@ -87,10 +90,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     static final int ACCOUNTS = 7000;
 
-    static final long FIXED_ID_CHROME_ROOT = 1;
-    static final long FIXED_ID_BOOKMARKS = 2;
-    static final long FIXED_ID_BOOKMARKS_BAR = 3;
-    static final long FIXED_ID_OTHER_BOOKMARKS = 4;
+    static final int SETTINGS = 8000;
+
+    public static final long FIXED_ID_ROOT = 1;
 
     static final String DEFAULT_BOOKMARKS_SORT_ORDER = "position ASC, _id ASC";
 
@@ -105,6 +107,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final HashMap<String, String> IMAGES_PROJECTION_MAP = new HashMap<String, String>();
     static final HashMap<String, String> COMBINED_PROJECTION_MAP = new HashMap<String, String>();
     static final HashMap<String, String> SEARCHES_PROJECTION_MAP = new HashMap<String, String>();
+    static final HashMap<String, String> SETTINGS_PROJECTION_MAP = new HashMap<String, String>();
 
     static {
         final UriMatcher matcher = URI_MATCHER;
@@ -123,6 +126,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "images", IMAGES);
         matcher.addURI(authority, "combined", COMBINED);
         matcher.addURI(authority, "combined/#", COMBINED_ID);
+        matcher.addURI(authority, "settings", SETTINGS);
 
         // Projection maps
         HashMap<String, String> map;
@@ -217,7 +221,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         map.put(Searches._ID, Searches._ID);
         map.put(Searches.SEARCH, Searches.SEARCH);
         map.put(Searches.DATE, Searches.DATE);
-}
+
+        // Settings
+        map = SETTINGS_PROJECTION_MAP;
+        map.put(Settings.KEY, Settings.KEY);
+        map.put(Settings.VALUE, Settings.VALUE);
+    }
 
     static final String bookmarkOrHistoryColumn(String column) {
         return "CASE WHEN bookmarks." + column + " IS NOT NULL THEN " +
@@ -233,7 +242,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
-        static final int DATABASE_VERSION = 22;
+        static final int DATABASE_VERSION = 25;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -292,6 +301,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     Searches.DATE + " LONG" +
                     ");");
 
+            db.execSQL("CREATE TABLE " + TABLE_SETTINGS + " (" +
+                    Settings.KEY + " TEXT PRIMARY KEY," +
+                    Settings.VALUE + " TEXT NOT NULL" +
+                    ");");
+
             db.execSQL("CREATE VIEW " + VIEW_COMBINED + " AS " +
                 "SELECT " +
                     bookmarkOrHistoryColumn(Combined._ID) + ", " +
@@ -333,7 +347,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_SEARCHES);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMAGES);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETTINGS);
             db.execSQL("DROP VIEW IF EXISTS " + VIEW_COMBINED);
+            mSyncHelper.onAccountsChanged(db, new Account[] {}); // remove all sync info
             onCreate(db);
         }
 
@@ -342,71 +358,21 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             mSyncHelper.onDatabaseOpened(db);
         }
 
-
         private void createDefaultBookmarks(SQLiteDatabase db) {
             ContentValues values = new ContentValues();
             // TODO figure out how to deal with localization for the defaults
 
-            // Chrome sync root folder
-            values.put(Bookmarks._ID, FIXED_ID_CHROME_ROOT);
-            values.put(ChromeSyncColumns.SERVER_UNIQUE, ChromeSyncColumns.FOLDER_NAME_ROOT);
-            values.put(Bookmarks.TITLE, "Google Chrome");
-            values.put(Bookmarks.PARENT, 0);
-            values.put(Bookmarks.POSITION, 0);
-            values.put(Bookmarks.IS_FOLDER, true);
-            values.put(Bookmarks.DIRTY, true);
-            db.insertOrThrow(TABLE_BOOKMARKS, null, values);
-
             // Bookmarks folder
-            values.put(Bookmarks._ID, FIXED_ID_BOOKMARKS);
+            values.put(Bookmarks._ID, FIXED_ID_ROOT);
             values.put(ChromeSyncColumns.SERVER_UNIQUE, ChromeSyncColumns.FOLDER_NAME_BOOKMARKS);
             values.put(Bookmarks.TITLE, "Bookmarks");
-            values.put(Bookmarks.PARENT, FIXED_ID_CHROME_ROOT);
+            values.putNull(Bookmarks.PARENT);
             values.put(Bookmarks.POSITION, 0);
             values.put(Bookmarks.IS_FOLDER, true);
             values.put(Bookmarks.DIRTY, true);
             db.insertOrThrow(TABLE_BOOKMARKS, null, values);
 
-            // Bookmarks Bar folder
-            values.clear();
-            values.put(Bookmarks._ID, FIXED_ID_BOOKMARKS_BAR);
-            values.put(ChromeSyncColumns.SERVER_UNIQUE,
-                    ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR);
-            values.put(Bookmarks.TITLE, "Bookmarks Bar");
-            values.put(Bookmarks.PARENT, FIXED_ID_BOOKMARKS);
-            values.put(Bookmarks.POSITION, 0);
-            values.put(Bookmarks.IS_FOLDER, true);
-            values.put(Bookmarks.DIRTY, true);
-            db.insertOrThrow(TABLE_BOOKMARKS, null, values);
-
-            // Other Bookmarks folder
-            values.clear();
-            values.put(Bookmarks._ID, FIXED_ID_OTHER_BOOKMARKS);
-            values.put(ChromeSyncColumns.SERVER_UNIQUE,
-                    ChromeSyncColumns.FOLDER_NAME_OTHER_BOOKMARKS);
-            values.put(Bookmarks.TITLE, "Other Bookmarks");
-            values.put(Bookmarks.PARENT, FIXED_ID_BOOKMARKS);
-            values.put(Bookmarks.POSITION, 1000);
-            values.put(Bookmarks.IS_FOLDER, true);
-            values.put(Bookmarks.DIRTY, true);
-            db.insertOrThrow(TABLE_BOOKMARKS, null, values);
-
-            addDefaultBookmarks(db, FIXED_ID_BOOKMARKS_BAR);
-
-            // TODO remove this testing code
-            db.execSQL("INSERT INTO bookmarks (" +
-                    Bookmarks.TITLE + ", " +
-                    Bookmarks.URL + ", " +
-                    Bookmarks.IS_FOLDER + "," +
-                    Bookmarks.PARENT + "," +
-                    Bookmarks.POSITION +
-                ") VALUES (" +
-                    "'Google Reader', " +
-                    "'http://reader.google.com', " +
-                    "0," +
-                    Long.toString(FIXED_ID_OTHER_BOOKMARKS) + "," +
-                    0 +
-                    ");");
+            addDefaultBookmarks(db, FIXED_ID_ROOT);
         }
 
         private void addDefaultBookmarks(SQLiteDatabase db, long parentId) {
@@ -615,25 +581,18 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 }
 
                 qb.setTables(TABLE_BOOKMARKS_JOIN_IMAGES);
-                String bookmarksBarQuery;
-                String otherBookmarksQuery;
                 String[] args;
+                String query;
                 if (!useAccount) {
                     qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);
-                    bookmarksBarQuery = qb.buildQuery(projection,
+                    query = qb.buildQuery(projection,
                             Bookmarks.PARENT + "=? AND " + Bookmarks.IS_DELETED + "=0",
                             null, null, null, null, null);
 
-                    qb.setProjectionMap(OTHER_BOOKMARKS_PROJECTION_MAP);
-                    otherBookmarksQuery = qb.buildQuery(projection,
-                            Bookmarks._ID + "=?",
-                            null, null, null, null, null);
-
-                    args = new String[] { Long.toString(FIXED_ID_BOOKMARKS_BAR),
-                            Long.toString(FIXED_ID_OTHER_BOOKMARKS) };
+                    args = new String[] { Long.toString(FIXED_ID_ROOT) };
                 } else {
                     qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);
-                    bookmarksBarQuery = qb.buildQuery(projection,
+                    String bookmarksBarQuery = qb.buildQuery(projection,
                             Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? " +
                                     "AND parent = " +
                                         "(SELECT _id FROM " + TABLE_BOOKMARKS + " WHERE " +
@@ -644,10 +603,14 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             null, null, null, null, null);
 
                     qb.setProjectionMap(OTHER_BOOKMARKS_PROJECTION_MAP);
-                    otherBookmarksQuery = qb.buildQuery(projection,
+                    String otherBookmarksQuery = qb.buildQuery(projection,
                             Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=?" +
                                     " AND " + ChromeSyncColumns.SERVER_UNIQUE + "=?",
                             null, null, null, null, null);
+
+                    query = qb.buildUnionQuery(
+                            new String[] { bookmarksBarQuery, otherBookmarksQuery },
+                            DEFAULT_BOOKMARKS_SORT_ORDER, limit);
 
                     args = new String[] {
                             accountType, accountName, accountType, accountName,
@@ -655,9 +618,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             };
                 }
 
-                String query = qb.buildUnionQuery(
-                        new String[] { bookmarksBarQuery, otherBookmarksQuery },
-                        DEFAULT_BOOKMARKS_SORT_ORDER, limit);
                 return db.rawQuery(query, args);
             }
 
@@ -718,6 +678,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case COMBINED: {
                 qb.setTables(VIEW_COMBINED);
                 qb.setProjectionMap(COMBINED_PROJECTION_MAP);
+                break;
+            }
+
+            case SETTINGS: {
+                qb.setTables(TABLE_SETTINGS);
+                qb.setProjectionMap(SETTINGS_PROJECTION_MAP);
                 break;
             }
 
@@ -801,7 +767,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         long id = -1;
         switch (match) {
             case BOOKMARKS: {
-                // Mark rows dirty if they're not coming from a sync adapater
+                // Mark rows dirty if they're not coming from a sync adapter
                 if (!callerIsSyncAdapter) {
                     long now = System.currentTimeMillis();
                     values.put(Bookmarks.DATE_CREATED, now);
@@ -809,8 +775,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     values.put(Bookmarks.DIRTY, 1);
 
                     // If no parent is set default to the "Bookmarks Bar" folder
+                    // TODO set the parent based on the account info
                     if (!values.containsKey(Bookmarks.PARENT)) {
-                        values.put(Bookmarks.PARENT, FIXED_ID_BOOKMARKS_BAR);
+                        values.put(Bookmarks.PARENT, FIXED_ID_ROOT);
                     }
                 }
 
@@ -863,6 +830,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 break;
             }
 
+            case SETTINGS: {
+                id = 0;
+                insertSettingsInTransaction(db, values);
+                break;
+            }
+            
             default: {
                 throw new UnsupportedOperationException("Unknown insert URI " + uri);
             }
@@ -894,6 +867,31 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 return id;
             } else {
                 return db.insertOrThrow(TABLE_SEARCHES, Searches.SEARCH, values);
+            }
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+
+    /**
+     * Settings are unique, so perform an UPSERT manually since SQLite doesn't support them.
+     */
+    private long insertSettingsInTransaction(SQLiteDatabase db, ContentValues values) {
+        String key = values.getAsString(Settings.KEY);
+        if (TextUtils.isEmpty(key)) {
+            throw new IllegalArgumentException("Must include the KEY field");
+        }
+        String[] keyArray = new String[] { key };
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TABLE_SETTINGS, new String[] { Settings.KEY },
+                    Settings.KEY + "=?", keyArray, null, null, null);
+            if (cursor.moveToNext()) {
+                long id = cursor.getLong(0);
+                db.update(TABLE_SETTINGS, values, Settings.KEY + "=?", keyArray);
+                return id;
+            } else {
+                return db.insertOrThrow(TABLE_SETTINGS, Settings.VALUE, values);
             }
         } finally {
             if (cursor != null) cursor.close();
