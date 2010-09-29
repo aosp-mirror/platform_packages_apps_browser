@@ -290,8 +290,9 @@ public class AddBookmarkPage extends Activity
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
             long id) {
+        TextView tv = (TextView) view.findViewById(android.R.id.text1);
         // Switch to the folder that was clicked on.
-        descendInto(((TextView) view).getText().toString(), id);
+        descendInto(tv.getText().toString(), id);
     }
 
     /**
