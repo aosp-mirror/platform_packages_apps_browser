@@ -131,7 +131,7 @@
     <!-- Default name for a new folder -->
     <string name="new_folder">New folder</string>
     <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
-    <string name="name">label</string>
+    <string name="name">Label</string>
     <!-- Initial value in Location field in Bookmark dialog box -->
     <string name="http">http://</string>
     <!-- Menu item that opens a dialog to save a bookmark for the current page -->
