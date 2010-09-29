@@ -245,10 +245,14 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Sin espacio"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> no se pudo cargar."\n"Libera espacio en tu teléfono y vuelve a intentarlo."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"La descarga no se ha realizado correctamente"</string>
-    <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"No hay tarjeta SD"</string>
-    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Es necesario tener una tarjeta SD para descargar <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"Tarjeta SD no disponible"</string>
-    <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"La tarjeta SD está llena. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
+    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="5349772560166195586">"No hay tarjeta SD"</string>
+    <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"No hay tarjeta SD"</string>
+    <!-- outdated translation 2616399456116301518 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="9049052105269200675">"Es necesario tener una tarjeta SD para descargar <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Es necesario tener una tarjeta SD para descargar <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="4151068942919670243">"Tarjeta SD no disponible"</string>
+    <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Tarjeta SD no disponible"</string>
+    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="7297514580933657663">"La tarjeta SD está llena. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La tarjeta SD está llena. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"No se puede abrir el archivo."</string>
     <string name="retry" msgid="1835923075542266721">"Intentar nuevamente"</string>
     <string name="no_downloads" msgid="3947445710685021498">"El historial de descarga está vacío."</string>
