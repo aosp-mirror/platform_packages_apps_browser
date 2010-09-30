@@ -245,10 +245,14 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Der er ikke mere plads"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> kunne ikke downloades."\n"Frigør noget plads på din telefon, og prøv igen."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download mislykkedes"</string>
-    <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Der er intet SD-kort"</string>
-    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Et SD-kort er påkrævet for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD-kortet er ikke tilgængeligt"</string>
-    <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
+    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="5349772560166195586">"Der er intet SD-kort"</string>
+    <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Der er intet SD-kort"</string>
+    <!-- outdated translation 2616399456116301518 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="9049052105269200675">"Et SD-kort er påkrævet for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Et SD-kort er påkrævet for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="4151068942919670243">"SD-kortet er ikke tilgængeligt"</string>
+    <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kortet er ikke tilgængeligt"</string>
+    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="7297514580933657663">"SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Kan ikke åbne filen"</string>
     <string name="retry" msgid="1835923075542266721">"Prøv igen"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Downloadoversigten er tom."</string>

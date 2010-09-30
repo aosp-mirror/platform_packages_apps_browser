@@ -245,10 +245,14 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Kein freier Speicher vorhanden"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> konnte nicht heruntergeladen werden."\n"Bereinigen Sie den Speicher Ihres Telefons und versuchen Sie es erneut."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download war nicht erfolgreich"</string>
-    <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Keine SD-Karte"</string>
-    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Zum Download von <xliff:g id="FILENAME">%s</xliff:g> ist eine SD-Karte erforderlich."</string>
-    <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD-Karte nicht verfügbar"</string>
-    <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"Die SD-Karte wird benutzt. Wählen Sie in der Benachrichtigung \"USB-Speicher deaktivieren\" aus, um Downloads zuzulassen."</string>
+    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="5349772560166195586">"Keine SD-Karte"</string>
+    <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Keine SD-Karte"</string>
+    <!-- outdated translation 2616399456116301518 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="9049052105269200675">"Zum Download von <xliff:g id="FILENAME">%s</xliff:g> ist eine SD-Karte erforderlich."</string>
+    <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Zum Download von <xliff:g id="FILENAME">%s</xliff:g> ist eine SD-Karte erforderlich."</string>
+    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="4151068942919670243">"SD-Karte nicht verfügbar"</string>
+    <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-Karte nicht verfügbar"</string>
+    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="7297514580933657663">"Die SD-Karte wird benutzt. Wählen Sie in der Benachrichtigung \"USB-Speicher deaktivieren\" aus, um Downloads zuzulassen."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Die SD-Karte wird benutzt. Wählen Sie in der Benachrichtigung \"USB-Speicher deaktivieren\" aus, um Downloads zuzulassen."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Datei kann nicht geöffnet werden."</string>
     <string name="retry" msgid="1835923075542266721">"Wiederholen"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Downloadverlauf ist leer."</string>
