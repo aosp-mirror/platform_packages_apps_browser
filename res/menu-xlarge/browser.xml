@@ -19,10 +19,10 @@
         <item android:id="@+id/newtab"
             android:icon="@drawable/ic_menu_new_window"
             android:title="@string/new_tab"
-            android:showAsAction="always"
+            android:showAsAction="never"
             android:alphabeticShortcut="n" />
         <item android:id="@+id/incognito_menu_id"
-            android:title="@string/incognito_tab"
+            android:title="@string/new_incognito_tab"
             android:icon="@drawable/ic_menu_incognito_normal" />
         <item android:id="@+id/find_menu_id"
             android:title="@*android:string/find_on_page"
