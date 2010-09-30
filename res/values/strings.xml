@@ -613,17 +613,28 @@
     <string name="download_file_error_dlg_msg"><xliff:g id="filename">%s</xliff:g> could not be downloaded.\nFree up some space on your phone and try again.</string>
     <!-- Title for a dialog informing the user that the download has failed -->
     <string name="download_failed_generic_dlg_title">Download unsuccessful</string>
+    <!-- Dialog title [CHAR LIMIT=25] -->
+    <string name="download_no_sdcard_dlg_title" product="nosdcard">Shared storage unavailable</string>
     <!-- Dialog title -->
-    <string name="download_no_sdcard_dlg_title">No SD card</string>
+    <string name="download_no_sdcard_dlg_title" product="default">No SD card</string>
+    <!-- Dialog message [CHAR LIMIT=NONE] -->
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard">Shared storage is required to download <xliff:g id="filename">%s</xliff:g>.</string>
     <!-- Dialog message -->
-    <string name="download_no_sdcard_dlg_msg">An SD card is required to download <xliff:g id="filename">%s</xliff:g>.</string>
+    <string name="download_no_sdcard_dlg_msg" product="default">An SD card is required to download <xliff:g id="filename">%s</xliff:g>.</string>
+    <!-- Title for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard">Shared storage unavailable</string>
     <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
-    <string name="download_sdcard_busy_dlg_title">SD card unavailable</string>
+    <string name="download_sdcard_busy_dlg_title" product="default">SD card unavailable</string>
+    <!-- Message for a dialog informing the user that the SD card used for
+            external storage is busy so they cannot download anything.  Informs
+            the user how to enable SD card storage [CHAR LIMIT=NONE] -->
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard">The shared storage is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
     <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
-    <string name="download_sdcard_busy_dlg_msg">The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default">The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
 
     <!-- Title for a dialog informing the user that there is no application on
             the phone that can open the file that was downloaded -->
