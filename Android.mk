@@ -12,7 +12,7 @@ LOCAL_SRC_FILES := \
 
 LOCAL_PACKAGE_NAME := Browser
 
-LOCAL_PROGUARD_FLAGS := -include $(LOCAL_PATH)/proguard.flags
+LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
 LOCAL_EMMA_COVERAGE_FILTER := *,-com.android.common.*
 
