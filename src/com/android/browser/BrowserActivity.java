@@ -1614,7 +1614,6 @@ public class BrowserActivity extends Activity
                     final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
                     newtab.setEnabled(mTabControl.canCreateNewTab());
                 }
-
                 // decide whether to show the share link option
                 PackageManager pm = getPackageManager();
                 Intent send = new Intent(Intent.ACTION_SEND);
@@ -3873,7 +3872,7 @@ public class BrowserActivity extends Activity
         popup.setOnMenuItemClickListener(this);
         popup.show();
     }
-    
+
     /**
      * popup menu item click listener
      * @param item
@@ -3912,7 +3911,7 @@ public class BrowserActivity extends Activity
                 return false;
         }
     }
-    
+
     /* package */Dialog makeAddOrInstallDialog() {
         final Tab current = mTabControl.getCurrentTab();
         Resources resources = getResources();

@@ -27,10 +27,8 @@ import android.widget.LinearLayout;
  */
 public class TabScrollView extends HorizontalScrollView {
 
-    private Context mContext;
-
+    private BrowserActivity mBrowserActivity;
     private LinearLayout mContentView;
-
     private int mSelected;
 
     /**
@@ -61,9 +59,9 @@ public class TabScrollView extends HorizontalScrollView {
     }
 
     private void init(Context ctx) {
-        mContext = ctx;
+        mBrowserActivity = (BrowserActivity)ctx;
         setHorizontalScrollBarEnabled(false);
-        mContentView = new LinearLayout(mContext);
+        mContentView = new LinearLayout(mBrowserActivity);
         mContentView.setOrientation(LinearLayout.HORIZONTAL);
         mContentView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.MATCH_PARENT));
@@ -90,6 +88,10 @@ public class TabScrollView extends HorizontalScrollView {
         requestLayout();
     }
 
+    int getChildIndex(View v) {
+        return mContentView.indexOfChild(v);
+    }
+
     View getSelectedTab() {
         if ((mSelected >= 0) && (mSelected < mContentView.getChildCount())) {
             return mContentView.getChildAt(mSelected);
@@ -104,11 +106,6 @@ public class TabScrollView extends HorizontalScrollView {
 
     void addTab(View tab) {
         mContentView.addView(tab);
-        tab.setActivated(false);
-    }
-
-    void addTab(View tab, int pos) {
-        mContentView.addView(tab, pos);
         tab.setActivated(false);
     }
 
@@ -137,6 +134,5 @@ public class TabScrollView extends HorizontalScrollView {
             }
         }
     }
-
 
 }

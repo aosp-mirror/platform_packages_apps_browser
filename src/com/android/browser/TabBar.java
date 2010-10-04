@@ -16,6 +16,9 @@
 
 package com.android.browser;
 
+import com.android.browser.ScrollWebView.ScrollListener;
+import com.android.browser.TabControl.TabChangeListener;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -35,9 +38,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.android.browser.ScrollWebView.ScrollListener;
-import com.android.browser.TabControl.TabChangeListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,10 +59,11 @@ public class TabBar extends LinearLayout
 
     private TabScrollView mTabs;
     private TabControl mControl;
+    private ImageButton mNewTab;
+    private int mButtonWidth;
 
     private Map<Tab, TabViewData> mTabMap;
 
-    private float mDensityScale;
     private boolean mUserRequestedUrlbar;
     private boolean mTitleVisible;
     private boolean mShowUrlMode;
@@ -76,7 +77,6 @@ public class TabBar extends LinearLayout
         mTitleBar = titlebar;
         mTitleBar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
-        mDensityScale = context.getResources().getDisplayMetrics().density;
         mTabMap = new HashMap<Tab, TabViewData>();
         mBrowserActivity = context;
         mControl = tabcontrol;
@@ -84,6 +84,8 @@ public class TabBar extends LinearLayout
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.tab_bar, this);
         mTabs = (TabScrollView) findViewById(R.id.tabs);
+        mNewTab = (ImageButton) findViewById(R.id.newtab);
+        mNewTab.setOnClickListener(this);
 
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
@@ -101,22 +103,38 @@ public class TabBar extends LinearLayout
         mControl.setOnTabChangeListener(this);
         mUserRequestedUrlbar = false;
         mTitleVisible = true;
+        mButtonWidth = -1;
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        if (mButtonWidth == -1) {
+            mButtonWidth = mNewTab.getMeasuredWidth();
+        }
+        int sw = mTabs.getMeasuredWidth();
+        int w = right-left;
+        if (w-sw < mButtonWidth) {
+            sw = w - mButtonWidth;
+        }
+        mTabs.layout(0, 0, sw, bottom-top );
+        mNewTab.layout(sw, 0, sw+mButtonWidth, bottom-top);
     }
 
     public void onClick(View view) {
-        if (mTabs.getSelectedTab() == view) {
+        if (mNewTab == view) {
+            mBrowserActivity.openTabToHomePage();
+        } else if (mTabs.getSelectedTab() == view) {
             if (mBrowserActivity.isFakeTitleBarShowing() && !isLoading()) {
                 mBrowserActivity.hideFakeTitleBar();
             } else {
                 showUrlBar();
             }
-            // temporarily disabled
-            // mTitleBar.requestUrlInputFocus();
         } else {
-            TabViewData data = (TabViewData) view.getTag();
-            int ix = mControl.getTabIndex(data.mTab);
-            mTabs.setSelectedTab(ix);
-            mBrowserActivity.switchToTab(ix);
+            int ix = mTabs.getChildIndex(view);
+            if (ix >= 0) {
+                mTabs.setSelectedTab(ix);
+                mBrowserActivity.switchToTab(ix);
+            }
         }
     }
 

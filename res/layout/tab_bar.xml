@@ -10,17 +10,24 @@
         the specific language governing permissions and limitations under the
         License.
     -->
-<LinearLayout
+<merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tabbarcontent"
     android:layout_width="match_parent"
     android:layout_height="48dip"
+    android:orientation="horizontal"
     style="@style/ActionBarStyle"
-    android:orientation="horizontal">
+    >
     <com.android.browser.TabScrollView
         android:id="@+id/tabs"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1.0"
         android:orientation="horizontal" />
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/newtab"
+        android:src="@drawable/ic_menu_new_window"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        style="@style/HoloButton"
+        android:background="@drawable/browserbarbutton" />
+</merge>
