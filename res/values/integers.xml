@@ -18,4 +18,6 @@
     <integer name="max_suggest_lines_portrait">12</integer>
     <!--  The maximum number of open tabs -->
     <integer name="max_tabs">16</integer>
+    <!--  The duration of the tab animations in millisecs  -->
+    <integer name="tab_animation_duration">500</integer>
 </resources>
