@@ -108,19 +108,12 @@ public class AddBookmarkPage extends Activity
                 if (actionId == EditorInfo.IME_NULL) {
                     // Only want to do this once.
                     if (event.getAction() == KeyEvent.ACTION_UP) {
-                        String name = v.getText().toString();
-                        long id = addFolderToCurrent(name);
-                        mFolderNamer.setVisibility(View.GONE);
-                        mAddNewFolder.setVisibility(View.VISIBLE);
-                        descendInto(name,id);
-                        InputMethodManager.getInstance(this)
-                                .hideSoftInputFromWindow(
-                                mFolderNamer.getWindowToken(), 0);
+                        completeFolderNaming();
                     }
-                    // Steal the key press for both up and down
-                    return true;
                 }
             }
+            // Steal the key press; otherwise a newline will be added
+            return true;
         }
         return false;
     }
@@ -131,12 +124,7 @@ public class AddBookmarkPage extends Activity
             if (mFolderSelector.getVisibility() == View.VISIBLE) {
              // We are showing the folder selector.
                 if (mFolderNamer.getVisibility() == View.VISIBLE) {
-                    // Editing folder name
-                    String name = mFolderNamer.getText().toString();
-                    long id = addFolderToCurrent(mFolderNamer.getText().toString());
-                    descendInto(name, id);
-                    mFolderNamer.setVisibility(View.GONE);
-                    mAddNewFolder.setVisibility(View.VISIBLE);
+                    completeFolderNaming();
                 } else {
                     // User has selected a folder.  Go back to the opening page
                     mFolderSelector.setVisibility(View.GONE);
@@ -162,6 +150,18 @@ public class AddBookmarkPage extends Activity
             mAddNewFolder.setVisibility(View.GONE);
             InputMethodManager.getInstance(this).showSoftInput(mFolderNamer,
                     InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    private void completeFolderNaming() {
+        if (!TextUtils.isEmpty(mFolderNamer.getText())) {
+            String name = mFolderNamer.getText().toString();
+            long id = addFolderToCurrent(mFolderNamer.getText().toString());
+            descendInto(name, id);
+            mFolderNamer.setVisibility(View.GONE);
+            mAddNewFolder.setVisibility(View.VISIBLE);
+            InputMethodManager.getInstance(this).hideSoftInputFromWindow(
+                    mFolderNamer.getWindowToken(), 0);
         }
     }
 
@@ -598,4 +598,5 @@ public class AddBookmarkPage extends Activity
         }
         return true;
     }
+
 }

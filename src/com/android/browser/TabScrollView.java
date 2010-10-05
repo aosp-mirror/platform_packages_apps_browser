@@ -17,6 +17,8 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.HorizontalScrollView;
@@ -30,6 +32,8 @@ public class TabScrollView extends HorizontalScrollView {
     private BrowserActivity mBrowserActivity;
     private LinearLayout mContentView;
     private int mSelected;
+    private Drawable mArrowLeft;
+    private Drawable mArrowRight;
 
     /**
      * @param context
@@ -67,6 +71,8 @@ public class TabScrollView extends HorizontalScrollView {
                 LayoutParams.MATCH_PARENT));
         addView(mContentView);
         mSelected = -1;
+        mArrowLeft = ctx.getResources().getDrawable(R.drawable.ic_arrow_left);
+        mArrowRight = ctx.getResources().getDrawable(R.drawable.ic_arrow_right);
     }
 
     @Override
@@ -132,6 +138,24 @@ public class TabScrollView extends HorizontalScrollView {
                 // need scrolling to right
                 scrollTo(childr - viewr + viewl, 0);
             }
+        }
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        int l = getScrollX();
+        int r = l + getWidth();
+        int dis = 8;
+        if (l > 0) {
+            int aw = mArrowLeft.getIntrinsicWidth();
+            mArrowLeft.setBounds(l + dis, 0, l + dis + aw, getHeight());
+            mArrowLeft.draw(canvas);
+        }
+        if (r < mContentView.getWidth()) {
+            int aw = mArrowRight.getIntrinsicWidth();
+            mArrowRight.setBounds(r - dis - aw, 0, r - dis, getHeight());
+            mArrowRight.draw(canvas);
         }
     }
 

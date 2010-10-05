@@ -260,7 +260,7 @@ public class BrowserSettings extends Observable {
     /**
      * Load settings from the browser app's database.
      * NOTE: Strings used for the preferences must match those specified
-     * in the browser_preferences.xml
+     * in the various preference XML files.
      * @param ctx A Context object used to query the browser's settings
      *            database. If the database exists, the saved settings will be
      *            stored in this BrowserSettings object. This will update all
@@ -298,10 +298,8 @@ public class BrowserSettings extends Observable {
             pageCacheCapacity = 1;
         }
 
-    // Load the defaults from the xml
-        // This call is TOO SLOW, need to manually keep the defaults
-        // in sync
-        //PreferenceManager.setDefaultValues(ctx, R.xml.browser_preferences);
+        // PreferenceManager.setDefaultValues is TOO SLOW, need to manually keep
+        // the defaults in sync
         syncSharedPreferences(ctx, p);
     }
 

@@ -618,7 +618,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             };
                 }
 
-                return db.rawQuery(query, args);
+                Cursor cursor = db.rawQuery(query, args);
+                if (cursor != null) {
+                    cursor.setNotificationUri(getContext().getContentResolver(),
+                            BrowserContract.AUTHORITY_URI);
+                }
+                return cursor;
             }
 
             case HISTORY_ID: {
