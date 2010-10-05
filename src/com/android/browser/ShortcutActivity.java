@@ -35,16 +35,11 @@ public class ShortcutActivity extends Activity
         Bundle extras = new Bundle();
         extras.putBoolean(BrowserBookmarksPage.EXTRA_SHORTCUT, true);
         extras.putBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW, true);
-        Fragment frag = Fragment.instantiate(this, BrowserBookmarksPage.class.getName(), extras);
+        Fragment frag = BrowserBookmarksPage.newInstance(this, extras);
         transaction.add(android.R.id.content, frag);
         transaction.commit();
     }
 
-    /**
-     * not used for shortcuts
-     */
-    @Override
-    public void onRemoveParentChildRelationShips() {}
 
     /**
      * handle fragment startActivity
@@ -58,6 +53,20 @@ public class ShortcutActivity extends Activity
     @Override
     public void finish() {
         super.finish();
+    }
+
+    // BookmarksHistoryCallbacks
+
+    /**
+     * not used for shortcuts
+     */
+    @Override
+    public void onRemoveParentChildRelationships() {}
+
+    @Override
+    public void onComboCanceled() {
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     /**

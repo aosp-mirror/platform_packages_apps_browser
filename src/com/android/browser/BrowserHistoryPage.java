@@ -95,6 +95,13 @@ public class BrowserHistoryPage extends Fragment
         cm.setText(text);
     }
 
+    static BrowserHistoryPage newInstance(BookmarksHistoryCallbacks cb, Bundle args) {
+        BrowserHistoryPage bhp = new BrowserHistoryPage();
+        bhp.mCallbacks = cb;
+        bhp.setArguments(args);
+        return bhp;
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
@@ -153,12 +160,6 @@ public class BrowserHistoryPage extends Fragment
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mCallbacks = (BookmarksHistoryCallbacks) activity;
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.history, container, false);
@@ -174,15 +175,14 @@ public class BrowserHistoryPage extends Fragment
         getLoaderManager().initLoader(LOADER_HISTORY, null, this);
 
         // Register to receive icons in case they haven't all been loaded.
-        CombinedBookmarkHistoryActivity.getIconListenerSet().addListener(mIconReceiver);
-
+        CombinedBookmarkHistoryView.getIconListenerSet().addListener(mIconReceiver);
         return root;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        CombinedBookmarkHistoryActivity.getIconListenerSet().removeListener(mIconReceiver);
+        CombinedBookmarkHistoryView.getIconListenerSet().removeListener(mIconReceiver);
     }
 
     @Override
@@ -195,20 +195,18 @@ public class BrowserHistoryPage extends Fragment
         menu.findItem(R.id.clear_history_menu_id).setVisible(
                 Browser.canClearHistory(getActivity().getContentResolver()));
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear_history_menu_id:
                 Browser.clearHistory(getActivity().getContentResolver());
-                // BrowserHistoryPage is always a child of
-                // CombinedBookmarkHistoryActivity
-                mCallbacks.onRemoveParentChildRelationShips();
+                mCallbacks.onRemoveParentChildRelationships();
                 return true;
-                
+
             default:
                 break;
-        }  
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -251,13 +249,13 @@ public class BrowserHistoryPage extends Fragment
         send.setType("text/plain");
         ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
         menu.findItem(R.id.share_link_context_menu_id).setVisible(ri != null);
-        
+
         super.onCreateContextMenu(menu, v, menuInfo);
     }
-    
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        ExpandableListContextMenuInfo i = 
+        ExpandableListContextMenuInfo i =
             (ExpandableListContextMenuInfo) item.getMenuInfo();
         HistoryItem historyItem = (HistoryItem) i.targetView;
         String url = historyItem.getUrl();
@@ -342,7 +340,7 @@ public class BrowserHistoryPage extends Fragment
                 item.setFavicon(BitmapFactory.decodeByteArray(data, 0,
                         data.length));
             } else {
-                item.setFavicon(CombinedBookmarkHistoryActivity
+                item.setFavicon(CombinedBookmarkHistoryView
                         .getIconListenerSet().getFavicon(url));
             }
             return item;
