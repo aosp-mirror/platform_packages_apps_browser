@@ -1527,6 +1527,9 @@ public class BrowserActivity extends Activity
         i.putExtra("touch_icon_url", w.getTouchIconUrl());
         i.putExtra("thumbnail", createScreenshot(w, getDesiredThumbnailWidth(this),
                 getDesiredThumbnailHeight(this)));
+        // Put the dialog at the upper right of the screen, covering the
+        // star on the title bar.
+        i.putExtra("gravity", Gravity.RIGHT | Gravity.TOP);
         startActivity(i);
     }
 

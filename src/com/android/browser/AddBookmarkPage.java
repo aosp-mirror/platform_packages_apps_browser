@@ -45,6 +45,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -329,7 +330,8 @@ public class AddBookmarkPage extends Activity
         setContentView(R.layout.browser_add_bookmark);
 
         setTitle(R.string.bookmark_this_page);
-        getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
+        Window window = getWindow();
+        window.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
 
         String title = null;
         String url = null;
@@ -340,6 +342,13 @@ public class AddBookmarkPage extends Activity
                 mMap = b;
                 mEditingExisting = true;
                 setTitle(R.string.edit_bookmark);
+            } else {
+                int gravity = mMap.getInt("gravity", -1);
+                if (gravity != -1) {
+                    WindowManager.LayoutParams l = window.getAttributes();
+                    l.gravity = gravity;
+                    window.setAttributes(l);
+                }
             }
             title = mMap.getString("title");
             url = mOriginalUrl = mMap.getString("url");
@@ -391,7 +400,7 @@ public class AddBookmarkPage extends Activity
         manager.initLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
 
 
-        if (!getWindow().getDecorView().isInTouchMode()) {
+        if (!window.getDecorView().isInTouchMode()) {
             mButton.requestFocus();
         }
     }
