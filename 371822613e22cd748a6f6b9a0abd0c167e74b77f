@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAA73///sE\u003d",
+        "filename": "src/com/android/browser/BrowserActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2254,
+      "author": {
+        "id": 1000773
+      },
+      "writtenOn": "2010-10-06T16:54:57Z",
+      "side": 1,
+      "message": "The change looks fine. But the code has been re-organized in the new tree.",
+      "revId": "371822613e22cd748a6f6b9a0abd0c167e74b77f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
