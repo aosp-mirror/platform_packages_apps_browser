@@ -147,6 +147,8 @@ public class BrowserSettings extends Observable {
             "default_text_encoding";
     public final static String PREF_CLEAR_GEOLOCATION_ACCESS =
             "privacy_clear_geolocation_access";
+    public final static String PREF_AUTOFILL_ENABLED = "autofill_enabled";
+    public final static String PREF_AUTOFILL_PROFILE = "autofill_profile";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, " +
@@ -340,7 +342,7 @@ public class BrowserSettings extends Observable {
                 rememberPasswords);
         saveFormData = p.getBoolean("save_formdata",
                 saveFormData);
-        autoFillEnabled = p.getBoolean("autoFill_enabled", autoFillEnabled);
+        autoFillEnabled = p.getBoolean("autofill_enabled", autoFillEnabled);
         boolean accept_cookies = p.getBoolean("accept_cookies",
                 CookieManager.getInstance().acceptCookie());
         CookieManager.getInstance().setAcceptCookie(accept_cookies);

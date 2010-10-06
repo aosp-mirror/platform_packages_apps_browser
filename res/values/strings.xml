@@ -341,6 +341,21 @@
     <!-- Dialog title used when asking the user which Google account they want to use to sync data between Android Browser and Google Chrome [CHAR-LIMIT=20] -->
     <string name="pref_personal_account_dialog_title">Select Google account to share with</string>
 
+    <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+    <string name="pref_autofill_enabled">Form AutoFill</string>
+    <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+    <string name="pref_autofill_enabled_summary">Fill out web forms in a single click</string>
+    <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+    <string name="pref_autofill_profile_editor">AutoFill Settings</string>
+    <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+    <string name="pref_autofill_profile_editor_summary">Set up &amp; manage data for AutoFilled forms</string>
+    <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_name">Full Name:</string>
+    <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_email_address">e-mail Address:</string>
+    <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+    <string name="autofill_profile_editor_save_profile">Save profile</string>
+
     <!-- Settings screen, section title -->
     <string name="pref_privacy_title">Privacy settings</string>
     <!-- Settings label -->
@@ -393,10 +408,6 @@
     <string name="pref_security_save_form_data">Remember form data</string>
     <!-- Settings summary -->
     <string name="pref_security_save_form_data_summary">Remember data I type in forms for later use</string>
-    <!-- Settings label for enabling/disabling the form AutoFill feature -->
-    <string name="pref_autoFill_enabled">AutoFill forms</string>
-    <!-- Settings summary for the form AutoFill feature. -->
-    <string name="pref_autoFill_enabled_summary">Automatically fill out forms where possible</string>
     <!-- Settings label -->
     <string name="pref_security_show_security_warning">Show security warnings</string>
     <!-- Settings summmary -->

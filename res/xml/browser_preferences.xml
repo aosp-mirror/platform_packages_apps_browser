@@ -140,10 +140,10 @@
                 android:summary="@string/pref_security_save_form_data_summary" />
 
         <CheckBoxPreference
-                android:key="autoFill_enabled"
+                android:key="autofill_enabled"
                 android:defaultValue="false"
-                android:title="@string/pref_autoFill_enabled"
-                android:summary="@string/pref_autoFill_enabled_summary" />
+                android:title="@string/pref_autofill_enabled"
+                android:summary="@string/pref_autofill_enabled_summary" />
 
         <com.android.browser.BrowserYesNoPreference
                 android:key="privacy_clear_form_data"
