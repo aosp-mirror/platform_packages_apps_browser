@@ -40,31 +40,26 @@ import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Accounts;
 import android.text.TextUtils;
-import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
-
-import java.util.Stack;
 
 /**
  *  View showing the user's bookmarks in the browser.
  */
 public class BrowserBookmarksPage extends Fragment implements View.OnCreateContextMenuListener,
-        LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener, IconListener, OnClickListener,
+        LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener, IconListener,
         OnItemSelectedListener {
 
     static final int BOOKMARKS_SAVE = 1;
@@ -91,14 +86,15 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     boolean mCanceled = false;
     boolean mCreateShortcut;
     View mEmptyView;
-    View mContentView;
-    Stack<Pair<String, Uri>> mFolderStack = new Stack<Pair<String, Uri>>();
-    Button mUpButton;
 
-    static BrowserBookmarksPage newInstance(BookmarksHistoryCallbacks cb, Bundle args) {
+    BreadCrumbView mCrumbs;
+
+    static BrowserBookmarksPage newInstance(BookmarksHistoryCallbacks cb,
+            BreadCrumbView crumbs, Bundle args) {
         BrowserBookmarksPage bbp = new BrowserBookmarksPage();
         bbp.mCallbacks = cb;
         bbp.setArguments(args);
+        bbp.mCrumbs = crumbs;
         return bbp;
     }
 
@@ -112,7 +108,14 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                     accountType = args.getString(BookmarksLoader.ARG_ACCOUNT_TYPE);
                     accountName = args.getString(BookmarksLoader.ARG_ACCOUNT_NAME);
                 }
-                return new BookmarksLoader(getActivity(), accountType, accountName);
+                BookmarksLoader bl = new BookmarksLoader(getActivity(), accountType, accountName);
+                if (mCrumbs != null) {
+                    Uri uri = (Uri) mCrumbs.getTopData();
+                    if (uri != null) {
+                        bl.setUri(uri);
+                    }
+                }
+                return bl;
             }
             case LOADER_ACCOUNTS_THEN_BOOKMARKS: {
                 return new CursorLoader(getActivity(), Accounts.CONTENT_URI,
@@ -136,23 +139,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                     mGrid.setVisibility(View.VISIBLE);
                 }
 
-                // Fill in the "up" button if needed
-                BookmarksLoader bl = (BookmarksLoader) loader;
-                String path = bl.getUri().getPath();
-                boolean rootFolder =
-                        BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER.getPath().equals(path);
-                if (rootFolder) {
-                    mUpButton.setText(R.string.defaultBookmarksUpButton);
-                    mUpButton.setEnabled(false);
-                } else {
-                    mUpButton.setText(mFolderStack.peek().first);
-                    mUpButton.setEnabled(true);
-                }
-                mUpButton.setVisibility(View.VISIBLE);
-
                 // Give the new data to the adapter
                 mAdapter.changeCursor(cursor);
-
                 break;
             }
 
@@ -218,15 +206,34 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view == mUpButton) {
-            Pair<String, Uri> pair = mFolderStack.pop();
-            BookmarksLoader loader =
-                    (BookmarksLoader) ((Loader) getLoaderManager().getLoader(LOADER_BOOKMARKS));
-            loader.setUri(pair.second);
-            loader.forceLoad();
+    long getFolderId() {
+        LoaderManager manager = getLoaderManager();
+        BookmarksLoader loader =
+                (BookmarksLoader) ((Loader)(manager.getLoader(LOADER_BOOKMARKS)));
+
+        Uri uri = loader.getUri();
+        if (uri != null) {
+            try {
+                return ContentUris.parseId(uri);
+            } catch (NumberFormatException nfx) {
+                return -1;
+            }
         }
+        return -1;
+    }
+
+    public void onFolderChange(int level, Object data) {
+        Uri uri = (Uri) data;
+        if (uri == null) {
+            // top level
+            uri = BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER;
+        }
+        LoaderManager manager = getLoaderManager();
+        BookmarksLoader loader =
+                (BookmarksLoader) ((Loader) manager.getLoader(LOADER_BOOKMARKS));
+        loader.setUri(uri);
+        loader.forceLoad();
+
     }
 
     @Override
@@ -358,7 +365,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
         View root = inflater.inflate(R.layout.bookmarks, container, false);
         mEmptyView = root.findViewById(android.R.id.empty);
-        mContentView = root.findViewById(android.R.id.content);
 
         mGrid = (GridView) root.findViewById(R.id.grid);
         mGrid.setOnItemClickListener(this);
@@ -366,11 +372,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         if (!mCreateShortcut) {
             mGrid.setOnCreateContextMenuListener(this);
         }
-
-        mUpButton = (Button) root.findViewById(R.id.up);
-        mUpButton.setEnabled(false);
-        mUpButton.setOnClickListener(this);
-        mUpButton.setVisibility(View.GONE);
 
         mAdapter = new BrowserBookmarksAdapter(getActivity());
         mGrid.setAdapter(mAdapter);
@@ -428,19 +429,16 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         if (!isFolder) {
             mCallbacks.onUrlSelected(getUrl(position), false);
         } else {
-            String title;
-            if (mFolderStack.size() != 0) {
-                title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
-            } else {
-                // TODO localize
-                title = "Bookmarks";
-            }
+            String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
             LoaderManager manager = getLoaderManager();
             BookmarksLoader loader =
                     (BookmarksLoader) ((Loader) manager.getLoader(LOADER_BOOKMARKS));
-            mFolderStack.push(new Pair(title, loader.getUri()));
             Uri uri = ContentUris.withAppendedId(
                     BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER, id);
+            if (mCrumbs != null) {
+                // update crumbs
+                mCrumbs.pushView(title, uri);
+            }
             loader.setUri(uri);
             loader.forceLoad();
         }
@@ -610,4 +608,5 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newRawUri(null, null, Uri.parse(text.toString())));
     }
+
 }
