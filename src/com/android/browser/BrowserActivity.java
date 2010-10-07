@@ -146,13 +146,6 @@ public class BrowserActivity extends Activity
     private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
     private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
 
-    // These are single-character shortcuts for searching popular sources.
-    private static final int SHORTCUT_INVALID = 0;
-    private static final int SHORTCUT_GOOGLE_SEARCH = 1;
-    private static final int SHORTCUT_WIKIPEDIA_SEARCH = 2;
-    private static final int SHORTCUT_DICTIONARY_SEARCH = 3;
-    private static final int SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH = 4;
-
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
         public Void doInBackground(File... files) {
@@ -560,21 +553,6 @@ public class BrowserActivity extends Activity
         }
     }
 
-    private int parseUrlShortcut(String url) {
-        if (url == null) return SHORTCUT_INVALID;
-
-        // FIXME: quick search, need to be customized by setting
-        if (url.length() > 2 && url.charAt(1) == ' ') {
-            switch (url.charAt(0)) {
-            case 'g': return SHORTCUT_GOOGLE_SEARCH;
-            case 'w': return SHORTCUT_WIKIPEDIA_SEARCH;
-            case 'd': return SHORTCUT_DICTIONARY_SEARCH;
-            case 'l': return SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH;
-            }
-        }
-        return SHORTCUT_INVALID;
-    }
-
     /**
      * Launches the default web search activity with the query parameters if the given intent's data
      * are identified as plain search terms and not URLs/shortcuts.
@@ -613,11 +591,10 @@ public class BrowserActivity extends Activity
         // But currently, we get the user-typed URL from search box as well.
         String url = fixUrl(inUrl).trim();
 
-        // URLs and site specific search shortcuts are handled by the regular flow of control, so
+        // URLs are handled by the regular flow of control, so
         // return early.
         if (Patterns.WEB_URL.matcher(url).matches()
-                || ACCEPTED_URI_SCHEMA.matcher(url).matches()
-                || parseUrlShortcut(url) != SHORTCUT_INVALID) {
+                || ACCEPTED_URI_SCHEMA.matcher(url).matches()) {
             return false;
         }
 
@@ -3708,30 +3685,14 @@ public class BrowserActivity extends Activity
             }
             return inUrl;
         }
-        if (hasSpace) {
-            // FIXME: Is this the correct place to add to searches?
-            // what if someone else calls this function?
-            int shortcut = parseUrlShortcut(inUrl);
-            if (shortcut != SHORTCUT_INVALID) {
-                Browser.addSearchUrl(mResolver, inUrl);
-                String query = inUrl.substring(2);
-                switch (shortcut) {
-                case SHORTCUT_GOOGLE_SEARCH:
-                    return URLUtil.composeSearchUrl(query, QuickSearch_G, QUERY_PLACE_HOLDER);
-                case SHORTCUT_WIKIPEDIA_SEARCH:
-                    return URLUtil.composeSearchUrl(query, QuickSearch_W, QUERY_PLACE_HOLDER);
-                case SHORTCUT_DICTIONARY_SEARCH:
-                    return URLUtil.composeSearchUrl(query, QuickSearch_D, QUERY_PLACE_HOLDER);
-                case SHORTCUT_GOOGLE_MOBILE_LOCAL_SEARCH:
-                    // FIXME: we need location in this case
-                    return URLUtil.composeSearchUrl(query, QuickSearch_L, QUERY_PLACE_HOLDER);
-                }
-            }
-        } else {
+        if (!hasSpace) {
             if (Patterns.WEB_URL.matcher(inUrl).matches()) {
                 return URLUtil.guessUrl(inUrl);
             }
         }
+
+        // FIXME: Is this the correct place to add to searches?
+        // what if someone else calls this function?
 
         Browser.addSearchUrl(mResolver, inUrl);
         return URLUtil.composeSearchUrl(inUrl, QuickSearch_G, QUERY_PLACE_HOLDER);
@@ -3941,12 +3902,6 @@ public class BrowserActivity extends Activity
                                             Gravity.CENTER);
     // Google search
     final static String QuickSearch_G = "http://www.google.com/m?q=%s";
-    // Wikipedia search
-    final static String QuickSearch_W = "http://en.wikipedia.org/w/index.php?search=%s&go=Go";
-    // Dictionary search
-    final static String QuickSearch_D = "http://dictionary.reference.com/search?q=%s";
-    // Google Mobile Local search
-    final static String QuickSearch_L = "http://www.google.com/m/search?site=local&q=%s&near=mountain+view";
 
     final static String QUERY_PLACE_HOLDER = "%s";
 
