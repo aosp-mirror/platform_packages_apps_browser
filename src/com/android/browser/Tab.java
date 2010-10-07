@@ -496,10 +496,7 @@ class Tab {
             }
 
             // update the bookmark database for favicon
-            if (favicon != null) {
-                Bookmarks.updateFavicon(mActivity
-                        .getContentResolver(), null, url, favicon);
-            }
+            maybeUpdateFavicon(null, url, favicon);
 
             // reset sync timer to avoid sync starts during loading a page
             CookieSyncManager.getInstance().resetSync();
@@ -523,13 +520,15 @@ class Tab {
                     url, SystemClock.uptimeMillis() - mLoadStartTime);
             mInLoad = false;
 
-            if (mInForeground && !mActivity.didUserStopLoading()
-                    || !mInForeground) {
-                // Only update the bookmark screenshot if the user did not
-                // cancel the load early.
-                mActivity.postMessage(
-                        BrowserActivity.UPDATE_BOOKMARK_THUMBNAIL, 0, 0, view,
-                        500);
+            if (!isPrivateBrowsingEnabled()) {
+                if (mInForeground && !mActivity.didUserStopLoading()
+                        || !mInForeground) {
+                    // Only update the bookmark screenshot if the user did not
+                    // cancel the load early.
+                    mActivity.postMessage(
+                            BrowserActivity.UPDATE_BOOKMARK_THUMBNAIL, 0, 0, view,
+                            500);
+                }
             }
 
             // finally update the UI in the activity if it is in the foreground
@@ -600,7 +599,7 @@ class Tab {
             }
 
             // Don't log URLs when in private browsing mode
-            if (!getWebView().isPrivateBrowsingEnabled()) {
+            if (!isPrivateBrowsingEnabled()) {
                 Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
                         + " " + description);
             }
@@ -674,7 +673,7 @@ class Tab {
         public void doUpdateVisitedHistory(WebView view, String url,
                 boolean isReload) {
             // Don't save anything in private browsing mode
-            if (getWebView().isPrivateBrowsingEnabled()) return;
+            if (isPrivateBrowsingEnabled()) return;
 
             if (url.regionMatches(true, 0, "about:", 0, 6)) {
                 return;
@@ -994,7 +993,7 @@ class Tab {
             }
 
             // Update the title in the history database if not in private browsing mode
-            if (!getWebView().isPrivateBrowsingEnabled()) {
+            if (!isPrivateBrowsingEnabled()) {
                 new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void... unused) {
@@ -1034,11 +1033,8 @@ class Tab {
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
-            if (icon != null) {
-                Bookmarks.updateFavicon(mActivity
-                        .getContentResolver(), view.getOriginalUrl(), view
-                        .getUrl(), icon);
-            }
+            maybeUpdateFavicon(view.getOriginalUrl(), view.getUrl(), icon);
+
             if (mInForeground) {
                 mActivity.setFavicon(icon);
             }
@@ -1158,7 +1154,7 @@ class Tab {
             }
 
             // Don't log console messages in private browsing mode
-            if (getWebView().isPrivateBrowsingEnabled()) return true;
+            if (isPrivateBrowsingEnabled()) return true;
 
             String message = "Console: " + consoleMessage.message() + " "
                     + consoleMessage.sourceId() +  ":"
@@ -1696,6 +1692,19 @@ class Tab {
     }
 
     /**
+     * Return whether private browsing is enabled for the main window of
+     * this tab.
+     * @return True if private browsing is enabled.
+     */
+    private boolean isPrivateBrowsingEnabled() {
+        WebView webView = getWebView();
+        if (webView == null) {
+            return false;
+        }
+        return webView.isPrivateBrowsingEnabled();
+    }
+
+    /**
      * Return the subwindow of this tab or null if there is no subwindow.
      * @return The subwindow of this tab or null.
      */
@@ -1781,6 +1790,20 @@ class Tab {
             return mPickerData.mFavicon;
         }
         return null;
+    }
+
+    /*
+     * Update the favorites icon if the private browsing isn't enabled and the
+     * icon is valid.
+     */
+    void maybeUpdateFavicon(final String originalUrl, final String url, Bitmap favicon) {
+        if (favicon == null) {
+            return;
+        }
+        if (!isPrivateBrowsingEnabled()) {
+            Bookmarks.updateFavicon(mActivity
+                    .getContentResolver(), originalUrl, url, favicon);
+        }
     }
 
     /**
