@@ -21,4 +21,15 @@
         android:summary="@string/pref_personal_sync_with_chrome_summary"
     />
 
+    <CheckBoxPreference android:key="autofill_enabled"
+        android:title="@string/pref_autofill_enabled"
+        android:summary="@string/pref_autofill_enabled_summary"
+    />
+
+    <PreferenceScreen
+        android:fragment="com.android.browser.AutoFillSettingsFragment"
+        android:key="autofill_profile"
+        android:title="@string/pref_autofill_profile_editor"
+        android:summary="@string/pref_autofill_profile_editor_summary" />
+
 </PreferenceScreen>

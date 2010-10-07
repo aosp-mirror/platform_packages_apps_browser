@@ -77,7 +77,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     static final String EXTRA_DISABLE_WINDOW = "disable_new_window";
 
     static final String ACCOUNT_NAME_UNSYNCED = "Unsynced";
-    
+
     public static final String PREF_ACCOUNT_TYPE = "acct_type";
     public static final String PREF_ACCOUNT_NAME = "acct_name";
 
@@ -95,6 +95,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     Stack<Pair<String, Uri>> mFolderStack = new Stack<Pair<String, Uri>>();
     Button mUpButton;
 
+    static BrowserBookmarksPage newInstance(BookmarksHistoryCallbacks cb, Bundle args) {
+        BrowserBookmarksPage bbp = new BrowserBookmarksPage();
+        bbp.mCallbacks = cb;
+        bbp.setArguments(args);
+        return bbp;
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
@@ -107,7 +114,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 }
                 return new BookmarksLoader(getActivity(), accountType, accountName);
             }
-
             case LOADER_ACCOUNTS_THEN_BOOKMARKS: {
                 return new CursorLoader(getActivity(), Accounts.CONTENT_URI,
                         new String[] { Accounts.ACCOUNT_TYPE, Accounts.ACCOUNT_NAME }, null, null,
@@ -328,7 +334,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         item.setName(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
         Bitmap bitmap = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON);
         if (bitmap == null) {
-            bitmap = CombinedBookmarkHistoryActivity.getIconListenerSet().getFavicon(url);
+            bitmap = CombinedBookmarkHistoryView.getIconListenerSet().getFavicon(url);
         }
         item.setFavicon(bitmap);
     }
@@ -343,12 +349,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         Bundle args = getArguments();
         mCreateShortcut = args == null ? false : args.getBoolean("create_shortcut", false);
         mDisableNewWindow = args == null ? false : args.getBoolean("disable_new_window", false);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mCallbacks = (BookmarksHistoryCallbacks) activity;
     }
 
     @Override
@@ -395,7 +395,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
 
         // Add our own listener in case there are favicons that have yet to be loaded.
-        CombinedBookmarkHistoryActivity.getIconListenerSet().addListener(this);
+        CombinedBookmarkHistoryView.getIconListenerSet().addListener(this);
 
         return root;
     }

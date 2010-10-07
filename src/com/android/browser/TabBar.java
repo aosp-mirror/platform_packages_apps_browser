@@ -121,6 +121,7 @@ public class TabBar extends LinearLayout
     }
 
     public void onClick(View view) {
+        mBrowserActivity.removeComboView();
         if (mNewTab == view) {
             mBrowserActivity.openTabToHomePage();
         } else if (mTabs.getSelectedTab() == view) {

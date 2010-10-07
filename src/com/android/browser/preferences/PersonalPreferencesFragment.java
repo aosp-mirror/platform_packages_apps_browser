@@ -17,6 +17,7 @@
 package com.android.browser.preferences;
 
 import com.android.browser.BrowserBookmarksPage;
+import com.android.browser.BrowserSettings;
 import com.android.browser.R;
 
 import android.accounts.Account;
@@ -39,6 +40,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Bookmarks;
 import android.provider.BrowserContract.ChromeSyncColumns;
@@ -101,6 +103,10 @@ public class PersonalPreferencesFragment extends PreferenceFragment
             }
             mChromeSync.setOnPreferenceClickListener(this);
         }
+
+        PreferenceScreen autoFillSettings =
+                (PreferenceScreen)findPreference(BrowserSettings.PREF_AUTOFILL_PROFILE);
+        autoFillSettings.setDependency(BrowserSettings.PREF_AUTOFILL_ENABLED);
     }
 
     @Override

@@ -126,7 +126,7 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mStar == v) {
             mBrowserActivity.promptAddOrInstallBookmark(mStar);
         } else if (mAllButton == v) {
-            mBrowserActivity.bookmarksOrHistoryPicker(false, false);
+            mBrowserActivity.bookmarksOrHistoryPicker(false);
         } else if (mSearchButton == v) {
             search();
         } else if (mStopButton == v) {

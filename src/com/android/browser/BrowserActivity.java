@@ -35,7 +35,6 @@ import android.content.ComponentName;
 import android.content.ContentProvider;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -68,9 +67,8 @@ import android.os.PowerManager;
 import android.os.Process;
 import android.os.SystemClock;
 import android.provider.Browser;
-import android.provider.BrowserContract;
-import android.provider.ContactsContract;
 import android.provider.BrowserContract.Images;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Downloads;
 import android.provider.MediaStore;
@@ -89,7 +87,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -131,8 +128,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BrowserActivity extends Activity
-    implements View.OnCreateContextMenuListener, DownloadListener,
-    PopupMenu.OnMenuItemClickListener {
+        implements View.OnCreateContextMenuListener, DownloadListener,
+        PopupMenu.OnMenuItemClickListener, BookmarksHistoryCallbacks {
 
     /* Define some aliases to make these debugging flags easier to refer to.
      * This file imports android.provider.Browser, so we can't just refer to "Browser.DEBUG".
@@ -167,6 +164,8 @@ public class BrowserActivity extends Activity
      * error console, the custom view container, and the webviews.
      */
     private FrameLayout mBrowserFrameLayout;
+
+    private CombinedBookmarkHistoryView mComboView;
 
     private boolean mXLargeScreenSize;
 
@@ -973,6 +972,7 @@ public class BrowserActivity extends Activity
         if (mActiveTabsPage != null) {
             removeActiveTabPage(true);
         }
+        removeComboView();
 
         cancelStopToast();
 
@@ -1312,6 +1312,8 @@ public class BrowserActivity extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // menu remains active, so ensure comboview is dismissed
+        removeComboView();
         // check the action bar button before mCanChord check, as the prepare call
         // doesn't come for action bar buttons
         if (item.getItemId() == R.id.newtab) {
@@ -1348,7 +1350,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.bookmarks_menu_id:
-                bookmarksOrHistoryPicker(false, false);
+                bookmarksOrHistoryPicker(false);
                 break;
 
             case R.id.active_tabs_menu_id:
@@ -1448,7 +1450,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.classic_history_menu_id:
-                bookmarksOrHistoryPicker(true, false);
+                bookmarksOrHistoryPicker(true);
                 break;
 
             case R.id.title_bar_share_page_url:
@@ -1527,6 +1529,9 @@ public class BrowserActivity extends Activity
         i.putExtra("touch_icon_url", w.getTouchIconUrl());
         i.putExtra("thumbnail", createScreenshot(w, getDesiredThumbnailWidth(this),
                 getDesiredThumbnailHeight(this)));
+        // Put the dialog at the upper right of the screen, covering the
+        // star on the title bar.
+        i.putExtra("gravity", Gravity.RIGHT | Gravity.TOP);
         startActivity(i);
     }
 
@@ -2223,8 +2228,9 @@ public class BrowserActivity extends Activity
                     event.startTracking();
                     return true;
                 } else if (mCustomView == null && mActiveTabsPage == null
+                        && mComboView == null
                         && event.isLongPress()) {
-                    bookmarksOrHistoryPicker(true, false);
+                    bookmarksOrHistoryPicker(true);
                     return true;
                 }
                 break;
@@ -2247,6 +2253,8 @@ public class BrowserActivity extends Activity
                     } else if (mActiveTabsPage != null) {
                         // if tab page is showing, hide it
                         removeActiveTabPage(true);
+                    } else if (mComboView != null) {
+                        removeComboView();
                     } else {
                         WebView subwindow = mTabControl.getCurrentSubWindow();
                         if (subwindow != null) {
@@ -2328,7 +2336,7 @@ public class BrowserActivity extends Activity
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case OPEN_BOOKMARKS:
-                    bookmarksOrHistoryPicker(false, false);
+                    bookmarksOrHistoryPicker(false);
                     break;
                 case FOCUS_NODE_HREF:
                 {
@@ -3777,46 +3785,57 @@ public class BrowserActivity extends Activity
         }
     }
 
+    /**
+     * callback from ComboPage when bookmark/history selection
+     */
+    @Override
+    public void onUrlSelected(String url, boolean newTab) {
+        removeComboView();
+        if (!TextUtils.isEmpty(url)) {
+            if (newTab) {
+                openTab(url, false);
+            } else {
+                final Tab currentTab = mTabControl.getCurrentTab();
+                dismissSubWindow(currentTab);
+                loadUrl(getTopWindow(), url);
+            }
+        }
+    }
+
+    /**
+     * callback from ComboPage when dismissed
+     */
+    @Override
+    public void onComboCanceled() {
+        removeComboView();
+    }
+
+    /**
+     * dismiss the ComboPage
+     */
+    /* package */ void removeComboView() {
+        if (mComboView != null) {
+            mContentView.removeView(mComboView);
+            mTitleBar.setVisibility(View.VISIBLE);
+            mMenuState = R.id.MAIN_MENU;
+            attachTabToContentView(mTabControl.getCurrentTab());
+            getTopWindow().requestFocus();
+            mComboView = null;
+        }
+    }
+
+    /**
+     * callback from ComboPage when clear history is requested
+     */
+    public void onRemoveParentChildRelationships() {
+        mTabControl.removeParentChildRelationShips();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
         if (getTopWindow() == null) return;
-
         switch (requestCode) {
-            case COMBO_PAGE:
-                if (resultCode == RESULT_OK && intent != null) {
-                    String data = intent.getAction();
-                    Bundle extras = intent.getExtras();
-                    if (extras != null &&
-                            extras.getBoolean(
-                                    CombinedBookmarkHistoryActivity.EXTRA_OPEN_NEW_WINDOW,
-                                    false)) {
-                        openTab(data, false);
-                    } else if ((extras != null) &&
-                            extras.getBoolean(CombinedBookmarkHistoryActivity.NEWTAB_MODE)) {
-                        openTab(data, true);
-                    } else {
-                        final Tab currentTab = mTabControl.getCurrentTab();
-                        dismissSubWindow(currentTab);
-                        if (data != null && data.length() != 0) {
-                            loadUrl(getTopWindow(), data);
-                        }
-                    }
-                } else if (resultCode == RESULT_CANCELED) {
-                    if (intent != null) {
-                        float evtx = intent.getFloatExtra(CombinedBookmarkHistoryActivity.EVT_X, -1);
-                        float evty = intent.getFloatExtra(CombinedBookmarkHistoryActivity.EVT_Y, -1);
-                        long now = System.currentTimeMillis();
-                        MotionEvent evt = MotionEvent.obtain(now, now,
-                                MotionEvent.ACTION_DOWN, evtx, evty, 0);
-                        dispatchTouchEvent(evt);
-                        MotionEvent up = MotionEvent.obtain(evt);
-                        up.setAction(MotionEvent.ACTION_UP);
-                        dispatchTouchEvent(up);
-                    }
-                }
-                // Deliberately fall through to PREFERENCES_PAGE, since the
-                // same extra may be attached to the COMBO_PAGE
             case PREFERENCES_PAGE:
                 if (resultCode == RESULT_OK && intent != null) {
                     String action = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -3937,13 +3956,11 @@ public class BrowserActivity extends Activity
      * @param startWithHistory If true, open starting on the history tab.
      *                         Otherwise, start with the bookmarks tab.
      */
-    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory, boolean newTabMode) {
+    /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory) {
         WebView current = mTabControl.getCurrentWebView();
         if (current == null) {
             return;
         }
-        Intent intent = new Intent(this,
-                CombinedBookmarkHistoryActivity.class);
         String title = current.getTitle();
         String url = current.getUrl();
         Bitmap thumbnail = createScreenshot(current, getDesiredThumbnailWidth(this),
@@ -3962,28 +3979,22 @@ public class BrowserActivity extends Activity
         if (title == null) {
             title = url;
         }
-        intent.putExtra("title", title);
-        intent.putExtra("url", url);
-        intent.putExtra("thumbnail", thumbnail);
+        Bundle extras = new Bundle();
+        extras.putString("title", title);
+        extras.putString("url", url);
+        extras.putParcelable("thumbnail", thumbnail);
         // Disable opening in a new window if we have maxed out the windows
-        intent.putExtra("disable_new_window", !mTabControl.canCreateNewTab());
-        intent.putExtra("touch_icon_url", current.getTouchIconUrl());
-        if (startWithHistory) {
-            intent.putExtra(CombinedBookmarkHistoryActivity.STARTING_FRAGMENT,
-                    CombinedBookmarkHistoryActivity.FRAGMENT_ID_HISTORY);
-        }
-        intent.putExtra(CombinedBookmarkHistoryActivity.NEWTAB_MODE, newTabMode);
-        int top = -1;
-        int height = -1;
-        if (mXLargeScreenSize) {
-            showFakeTitleBar();
-            int titleBarHeight = ((TitleBarXLarge)mFakeTitleBar).getHeightWithoutProgress();
-            top = mTabBar.getBottom() + titleBarHeight;
-            height = getTopWindow().getHeight() - titleBarHeight;
-        }
-        intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_TOP, top);
-        intent.putExtra(CombinedBookmarkHistoryActivity.EXTRA_HEIGHT, height);
-        startActivityForResult(intent, COMBO_PAGE);
+        extras.putBoolean("disable_new_window", !mTabControl.canCreateNewTab());
+        extras.putString("touch_icon_url", current.getTouchIconUrl());
+
+        mComboView = new CombinedBookmarkHistoryView(this,
+                startWithHistory ? CombinedBookmarkHistoryView.FRAGMENT_ID_HISTORY
+                        : CombinedBookmarkHistoryView.FRAGMENT_ID_BOOKMARKS,
+                extras);
+        removeTabFromContentView(mTabControl.getCurrentTab());
+        mTitleBar.setVisibility(View.GONE);
+        hideFakeTitleBar();
+        mContentView.addView(mComboView, COVER_SCREEN_PARAMS);
     }
 
     private void showSaveToHomescreenDialog(String url, String title, Bitmap touchIcon,
@@ -4011,7 +4022,6 @@ public class BrowserActivity extends Activity
         intent.putExtra("touchIcon", touchIcon);
         startActivity(intent);
     }
-
 
     // Called when loading from context menu or LOAD_URL message
     private void loadUrlFromContext(WebView view, String url) {
@@ -4339,7 +4349,6 @@ public class BrowserActivity extends Activity
     private SystemAllowGeolocationOrigins mSystemAllowGeolocationOrigins;
 
     // activity requestCode
-    final static int COMBO_PAGE                 = 1;
     final static int PREFERENCES_PAGE           = 3;
     final static int FILE_SELECTED              = 4;
 
