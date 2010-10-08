@@ -28,10 +28,14 @@ import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.ContentObserver;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.provider.Browser;
 import android.provider.Settings;
 import android.util.Log;
 import android.webkit.CookieManager;
@@ -41,9 +45,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.AutoFillProfile;
 import android.webkit.WebStorage;
-import android.preference.PreferenceManager;
-import android.provider.Browser;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -126,6 +130,12 @@ public class BrowserSettings extends Observable {
     private static WebSettings.ZoomDensity zoomDensity =
         WebSettings.ZoomDensity.MEDIUM;
     private static int pageCacheCapacity;
+
+
+    private AutoFillProfile mAutoFillProfile;
+    // TODO: For now we only support one autofill profile. Add support for
+    // multiple profiles later.
+    private int mActiveAutoFillProfileId = 1;
 
     // Preference keys that are used outside this class
     public final static String PREF_CLEAR_CACHE = "privacy_clear_cache";
@@ -255,6 +265,9 @@ public class BrowserSettings extends Observable {
             s.setDatabasePath(b.databasePath);
             s.setGeolocationDatabasePath(b.geolocationDatabasePath);
 
+            // Active AutoFill profile data.
+            s.setAutoFillProfile(b.mAutoFillProfile);
+
             b.updateTabControlSettings();
         }
     }
@@ -299,6 +312,23 @@ public class BrowserSettings extends Observable {
         } else {
             pageCacheCapacity = 1;
         }
+
+        // Load the autofill profile data from the database. We use a database separate
+        // to the browser preference DB to make it easier to support multiple profiles
+        // and switching between them.
+        mAutoFillProfile = new AutoFillProfile();
+        AutoFillProfileDatabase autoFillDb = AutoFillProfileDatabase.getInstance(ctx);
+        Cursor c = autoFillDb.getProfile(mActiveAutoFillProfileId);
+
+        if (c.getCount() > 0) {
+            c.moveToFirst();
+            mAutoFillProfile.setFullName(c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.FULL_NAME)));
+            mAutoFillProfile.setEmailAddress(c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.EMAIL_ADDRESS)));
+        }
+        c.close();
+        autoFillDb.close();
 
         // PreferenceManager.setDefaultValues is TOO SLOW, need to manually keep
         // the defaults in sync
@@ -477,6 +507,17 @@ public class BrowserSettings extends Observable {
         update();
     }
 
+    public void setAutoFillProfile(Context ctx, AutoFillProfile profile) {
+        mAutoFillProfile = profile;
+        // Update the AutoFill DB
+        new SaveProfileToDbTask(ctx).execute(mAutoFillProfile);
+
+    }
+
+    public AutoFillProfile getAutoFillProfile() {
+        return mAutoFillProfile;
+    }
+
     /**
      * Add a WebSettings object to the list of observers that will be updated
      * when update() is called.
@@ -641,4 +682,26 @@ public class BrowserSettings extends Observable {
         geolocationEnabled = true;
         workersEnabled = true;  // only affects V8. JSC does not have a similar setting
     }
+
+    private class SaveProfileToDbTask extends AsyncTask<AutoFillProfile, Void, Void> {
+
+        Context mContext;
+
+        public SaveProfileToDbTask(Context ctx) {
+            mContext = ctx;
+        }
+
+        protected Void doInBackground(AutoFillProfile... values) {
+            AutoFillProfileDatabase db =
+                    AutoFillProfileDatabase.getInstance(mContext);
+            db.addOrUpdateProfile(mActiveAutoFillProfileId, values[0]);
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            String message = mContext.getString(R.string.autofill_profile_successful_save);
+            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

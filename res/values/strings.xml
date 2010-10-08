@@ -355,6 +355,8 @@
     <string name="autofill_profile_editor_email_address">e-mail Address:</string>
     <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
     <string name="autofill_profile_editor_save_profile">Save profile</string>
+    <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+    <string name="autofill_profile_successful_save">Profile saved</string>
 
     <!-- Settings screen, section title -->
     <string name="pref_privacy_title">Privacy settings</string>
