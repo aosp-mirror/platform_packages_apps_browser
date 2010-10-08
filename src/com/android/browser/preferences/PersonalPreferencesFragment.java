@@ -85,7 +85,9 @@ public class PersonalPreferencesFragment extends PreferenceFragment
         Account[] accounts = am.getAccountsByType("com.google");
         if (accounts == null || accounts.length == 0) {
             // No Google accounts setup, don't offer Chrome sync
-            getPreferenceScreen().removePreference(mChromeSync);
+            if (mChromeSync != null) {
+                getPreferenceScreen().removePreference(mChromeSync);
+            }
         } else {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             Bundle args = mChromeSync.getExtras();
