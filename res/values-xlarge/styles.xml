@@ -28,7 +28,6 @@
         <item name="android:actionModeBackground">@drawable/cab_bg</item>
         <item name="android:actionModeCloseDrawable">@drawable/ic_menu_cab_close</item>
         <item name="android:actionButtonStyle">@style/ActionButton</item>
-        <item name="android:popupMenuStyle">@style/ActionDropdown</item>
         <item name="android:actionOverflowButtonStyle">@style/Overflow</item>
     </style>
     <style name="Dialog.Holo" parent="android:Theme.Holo">
@@ -62,9 +61,6 @@
     <style name="ActionButton">
         <item name="android:height">12dip</item>
         <item name="android:background">@drawable/browserbarbutton</item>
-    </style>
-    <style name="ActionDropdown" parent="@android:style/Widget.PopupMenu">
-        <item name="android:background">@drawable/menu_dropdown</item>
     </style>
     <style name="Overflow">
         <item name="android:src">@drawable/ic_menu_overflow</item>
