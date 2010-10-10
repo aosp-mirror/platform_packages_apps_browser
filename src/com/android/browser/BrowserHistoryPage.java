@@ -17,11 +17,14 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
@@ -200,8 +203,22 @@ public class BrowserHistoryPage extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear_history_menu_id:
-                Browser.clearHistory(getActivity().getContentResolver());
-                mCallbacks.onRemoveParentChildRelationships();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.clear)
+                        .setMessage(R.string.pref_privacy_clear_history_dlg)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setNegativeButton(R.string.cancel, null)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                             @Override
+                             public void onClick(DialogInterface dialog, int which) {
+                                 if (which == DialogInterface.BUTTON_POSITIVE) {
+                                     Browser.clearHistory(getActivity().getContentResolver());
+                                     mCallbacks.onRemoveParentChildRelationships();
+                                 }
+                             }
+                        });
+                final Dialog dialog = builder.create();
+                dialog.show();
                 return true;
 
             default:
