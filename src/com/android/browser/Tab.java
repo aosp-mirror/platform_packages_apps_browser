@@ -818,8 +818,7 @@ class Tab {
                 handler.proceed(username, password);
             } else {
                 if (mInForeground) {
-                    mActivity.showHttpAuthentication(handler, host, realm,
-                            null, null, null, 0);
+                    mActivity.showHttpAuthentication(handler, host, realm);
                 } else {
                     handler.cancel();
                 }
