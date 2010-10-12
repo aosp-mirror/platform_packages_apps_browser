@@ -604,7 +604,7 @@ class TabControl {
     private WebView createNewWebView(boolean privateBrowsing) {
         // Create a new WebView
         ScrollWebView w = new ScrollWebView(mActivity, null,
-                com.android.internal.R.attr.webViewStyle, privateBrowsing);
+                android.R.attr.webViewStyle, privateBrowsing);
         w.setScrollListener(mActivity.getScrollListener());
         w.setScrollbarFadingEnabled(true);
         w.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);

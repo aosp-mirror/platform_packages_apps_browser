@@ -64,7 +64,6 @@ public class UrlInputView extends AutoCompleteTextView
         mInputManager = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
         setOnEditorActionListener(this);
         super.setOnFocusChangeListener(this);
-        final ContentResolver cr = mContext.getContentResolver();
         mAdapter = new SuggestionsAdapter(ctx, this);
         setAdapter(mAdapter);
         setSelectAllOnFocus(false);
@@ -88,11 +87,16 @@ public class UrlInputView extends AutoCompleteTextView
     @Override
     public void showDropDown() {
         int width = mContainer.getWidth();
-        if ((mAdapter.getLeftCount() == 0) || (mAdapter.getRightCount() == 0)) {
+        if (mLandscape && ((mAdapter.getLeftCount() == 0) ||
+                (mAdapter.getRightCount() == 0))) {
             width = width / 2;
         }
-        setDropDownWidth(width);
-        setDropDownHorizontalOffset(-getLeft());
+        if (width != getDropDownWidth()) {
+            setDropDownWidth(width);
+        }
+        if (getLeft() != -getDropDownHorizontalOffset()) {
+            setDropDownHorizontalOffset(-getLeft());
+        }
         mAdapter.setLandscapeMode(mLandscape);
         super.showDropDown();
     }

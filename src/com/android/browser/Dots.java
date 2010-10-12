@@ -48,7 +48,7 @@ class Dots extends LinearLayout {
                                  LayoutParams.WRAP_CONTENT);
 
         for (int i = 0; i < MAX_DOTS; i++) {
-            ImageView dotView = new ImageView(mContext);
+            ImageView dotView = new ImageView(getContext());
             dotView.setImageResource(R.drawable.page_indicator_unselected2);
             addView(dotView, lp);
         }

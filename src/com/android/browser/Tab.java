@@ -845,7 +845,7 @@ class Tab {
             if (!mInForeground || mActivity.mActivityInPause) {
                 return;
             }
-            if (event.isDown()) {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 mActivity.onKeyDown(event.getKeyCode(), event);
             } else {
                 mActivity.onKeyUp(event.getKeyCode(), event);

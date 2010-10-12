@@ -102,6 +102,10 @@ public class AddBookmarkPage extends Activity
 
     private Handler mHandler;
 
+    private InputMethodManager getInputMethodManager() {
+        return (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+    }
+
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (v == mFolderNamer) {
@@ -149,7 +153,7 @@ public class AddBookmarkPage extends Activity
             mFolderNamer.setText(R.string.new_folder);
             mFolderNamer.requestFocus();
             mAddNewFolder.setVisibility(View.GONE);
-            InputMethodManager.getInstance(this).showSoftInput(mFolderNamer,
+            getInputMethodManager().showSoftInput(mFolderNamer,
                     InputMethodManager.SHOW_IMPLICIT);
         }
     }
@@ -161,7 +165,7 @@ public class AddBookmarkPage extends Activity
             descendInto(name, id);
             mFolderNamer.setVisibility(View.GONE);
             mAddNewFolder.setVisibility(View.VISIBLE);
-            InputMethodManager.getInstance(this).hideSoftInputFromWindow(
+            getInputMethodManager().hideSoftInputFromWindow(
                     mFolderNamer.getWindowToken(), 0);
         }
     }
@@ -447,7 +451,7 @@ public class AddBookmarkPage extends Activity
                 if (mFolderNamer.getVisibility() == View.VISIBLE) {
                     mFolderNamer.setVisibility(View.GONE);
                     mAddNewFolder.setVisibility(View.VISIBLE);
-                    InputMethodManager.getInstance(this).hideSoftInputFromWindow(
+                    getInputMethodManager().hideSoftInputFromWindow(
                             mFolderNamer.getWindowToken(), 0);
                 } else {
                     int size = mPaths.size();
@@ -474,7 +478,9 @@ public class AddBookmarkPage extends Activity
     private class SaveBookmarkRunnable implements Runnable {
         // FIXME: This should be an async task.
         private Message mMessage;
-        public SaveBookmarkRunnable(Message msg) {
+        private Context mContext;
+        public SaveBookmarkRunnable(Context ctx, Message msg) {
+            mContext = ctx;
             mMessage = msg;
         }
         public void run() {
@@ -494,7 +500,7 @@ public class AddBookmarkPage extends Activity
                 Bookmarks.addBookmark(AddBookmarkPage.this, false, url,
                         title, thumbnail, true, mCurrentFolder);
                 if (touchIconUrl != null) {
-                    new DownloadTouchIcon(AddBookmarkPage.this, cr, url).execute(mTouchIconUrl);
+                    new DownloadTouchIcon(mContext, cr, url).execute(mTouchIconUrl);
                 }
                 mMessage.arg1 = 1;
             } catch (IllegalStateException e) {
@@ -600,7 +606,7 @@ public class AddBookmarkPage extends Activity
             Message msg = Message.obtain(mHandler, SAVE_BOOKMARK);
             msg.setData(bundle);
             // Start a new thread so as to not slow down the UI
-            Thread t = new Thread(new SaveBookmarkRunnable(msg));
+            Thread t = new Thread(new SaveBookmarkRunnable(getApplicationContext(), msg));
             t.start();
             setResult(RESULT_OK);
             LogTag.logBookmarkAdded(url, "bookmarkview");

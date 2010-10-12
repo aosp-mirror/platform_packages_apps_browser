@@ -1,26 +1,31 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package com.android.browser;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
@@ -34,6 +39,7 @@ public class TabScrollView extends HorizontalScrollView {
     private int mSelected;
     private Drawable mArrowLeft;
     private Drawable mArrowRight;
+    private int mAnimationDuration;
 
     /**
      * @param context
@@ -63,16 +69,20 @@ public class TabScrollView extends HorizontalScrollView {
     }
 
     private void init(Context ctx) {
-        mBrowserActivity = (BrowserActivity)ctx;
+        mBrowserActivity = (BrowserActivity) ctx;
+        mAnimationDuration = ctx.getResources().getInteger(
+                R.integer.tab_animation_duration);
         setHorizontalScrollBarEnabled(false);
         mContentView = new LinearLayout(mBrowserActivity);
         mContentView.setOrientation(LinearLayout.HORIZONTAL);
-        mContentView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.MATCH_PARENT));
+        mContentView.setLayoutParams(
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
         addView(mContentView);
         mSelected = -1;
         mArrowLeft = ctx.getResources().getDrawable(R.drawable.ic_arrow_left);
         mArrowRight = ctx.getResources().getDrawable(R.drawable.ic_arrow_right);
+        // prevent ProGuard from removing the property methods
+        setScroll(getScroll());
     }
 
     @Override
@@ -112,6 +122,7 @@ public class TabScrollView extends HorizontalScrollView {
 
     void addTab(View tab) {
         mContentView.addView(tab);
+        animateIn(tab);
         tab.setActivated(false);
     }
 
@@ -122,10 +133,10 @@ public class TabScrollView extends HorizontalScrollView {
         } else if (ix < mSelected) {
             mSelected--;
         }
-        mContentView.removeView(tab);
+        animateOut(tab);
     }
 
-    void ensureChildVisible(View child) {
+    private void ensureChildVisible(View child) {
         if (child != null) {
             int childl = child.getLeft();
             int childr = childl + child.getWidth();
@@ -133,10 +144,10 @@ public class TabScrollView extends HorizontalScrollView {
             int viewr = viewl + getWidth();
             if (childl < viewl) {
                 // need scrolling to left
-                scrollTo(childl, 0);
+                animateScroll(childl);
             } else if (childr > viewr) {
                 // need scrolling to right
-                scrollTo(childr - viewr + viewl, 0);
+                animateScroll(childr - viewr + viewl);
             }
         }
     }
@@ -157,6 +168,62 @@ public class TabScrollView extends HorizontalScrollView {
             mArrowRight.setBounds(r - dis - aw, 0, r - dis, getHeight());
             mArrowRight.draw(canvas);
         }
+    }
+
+    private void animateIn(View tab) {
+        ObjectAnimator animator = new ObjectAnimator<PropertyValuesHolder>(
+                mAnimationDuration, tab,
+                new PropertyValuesHolder<Integer>("TranslationX", 500, 0));
+        animator.start();
+    }
+
+    private void animateOut(final View tab) {
+        ObjectAnimator animator = new ObjectAnimator<PropertyValuesHolder>(
+                mAnimationDuration, tab,
+                new PropertyValuesHolder<Integer>("TranslationX", 0,
+                        getScrollX() - tab.getRight()));
+        animator.addListener(new AnimatorListener() {
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mContentView.removeView(tab);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+        });
+        animator.setInterpolator(new AccelerateInterpolator());
+        animator.start();
+    }
+
+    private void animateScroll(int newscroll) {
+        ObjectAnimator animator = new ObjectAnimator<PropertyValuesHolder>(
+                mAnimationDuration, this,
+                new PropertyValuesHolder<Integer>("scroll", getScrollX(), newscroll));
+        animator.start();
+    }
+
+    /**
+     * required for animation
+     */
+    public void setScroll(int newscroll) {
+        scrollTo(newscroll, getScrollY());
+    }
+
+    /**
+     * required for animation
+     */
+    public int getScroll() {
+        return getScrollX();
     }
 
 }

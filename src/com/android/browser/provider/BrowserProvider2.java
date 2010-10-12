@@ -17,7 +17,7 @@
 package com.android.browser.provider;
 
 import com.android.browser.R;
-import com.android.internal.content.SyncStateContentProviderHelper;
+import com.android.common.content.SyncStateContentProviderHelper;
 
 import android.accounts.Account;
 import android.content.ContentResolver;

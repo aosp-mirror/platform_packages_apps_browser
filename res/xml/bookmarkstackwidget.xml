@@ -20,5 +20,6 @@
     android:minWidth="146dip"
     android:minHeight="146dip"
     android:updatePeriodMillis="3600000"
+    android:previewImage="@drawable/preview"
     android:initialLayout="@layout/bookmarkstackwidget">
 </appwidget-provider>
