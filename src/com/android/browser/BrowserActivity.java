@@ -2555,7 +2555,7 @@ public class BrowserActivity extends Activity
             String host;
             try {
                 WebAddress uri = new WebAddress(url);
-                host = uri.mHost;
+                host = uri.getHost();
             } catch (android.net.ParseException ex) {
                 host = "browser";
             }
@@ -3209,7 +3209,7 @@ public class BrowserActivity extends Activity
         WebAddress webAddress;
         try {
             webAddress = new WebAddress(url);
-            webAddress.mPath = encodePath(webAddress.mPath);
+            webAddress.setPath(encodePath(webAddress.getPath()));
         } catch (Exception e) {
             // This only happens for very bad urls, we want to chatch the
             // exception here
@@ -3233,7 +3233,7 @@ public class BrowserActivity extends Activity
                 Downloads.Impl.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         values.put(Downloads.Impl.COLUMN_MIME_TYPE, mimetype);
         values.put(Downloads.Impl.COLUMN_FILE_NAME_HINT, filename);
-        values.put(Downloads.Impl.COLUMN_DESCRIPTION, webAddress.mHost);
+        values.put(Downloads.Impl.COLUMN_DESCRIPTION, webAddress.getHost());
         if (contentLength > 0) {
             values.put(Downloads.Impl.COLUMN_TOTAL_BYTES, contentLength);
         }
