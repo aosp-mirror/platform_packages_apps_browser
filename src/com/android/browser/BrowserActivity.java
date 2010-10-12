@@ -180,7 +180,7 @@ public class BrowserActivity extends Activity
             BitmapFactory.setDefaultConfig(Bitmap.Config.ARGB_8888);
         }
 
-        if (AccessibilityManager.getInstance(this).isEnabled()) {
+        if (((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE)).isEnabled()) {
             setDefaultKeyMode(DEFAULT_KEYS_DISABLE);
         } else {
             setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
@@ -211,7 +211,7 @@ public class BrowserActivity extends Activity
                 == Configuration.SCREENLAYOUT_SIZE_XLARGE;
 
         FrameLayout frameLayout = (FrameLayout) getWindow().getDecorView()
-                .findViewById(com.android.internal.R.id.content);
+                .findViewById(android.R.id.content);
         mBrowserFrameLayout = (FrameLayout) LayoutInflater.from(this)
                 .inflate(R.layout.custom_screen, null);
         mContentView = (FrameLayout) mBrowserFrameLayout.findViewById(

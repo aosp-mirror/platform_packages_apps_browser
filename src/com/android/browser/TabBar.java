@@ -225,7 +225,7 @@ public class TabBar extends LinearLayout
             setGravity(Gravity.CENTER_VERTICAL);
             setOrientation(LinearLayout.HORIZONTAL);
             setBackgroundResource(R.drawable.tab_background);
-            LayoutInflater inflater = LayoutInflater.from(mContext);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
             mTabContent = inflater.inflate(R.layout.tab_title, this, true);
             mTitle = (TextView) mTabContent.findViewById(R.id.title);
             mIconView = (ImageView) mTabContent.findViewById(R.id.favicon);

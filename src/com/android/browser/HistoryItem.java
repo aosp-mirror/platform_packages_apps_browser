@@ -43,11 +43,11 @@ import android.widget.CompoundButton;
                 if (isChecked) {
                     // FIXME: For now, add at the root level.  Should we
                     // open AddBookmark from here?
-                    Bookmarks.addBookmark(mContext, true, mUrl, getName(), null, true, 0);
+                    Bookmarks.addBookmark(getContext(), true, mUrl, getName(), null, true, 0);
                     LogTag.logBookmarkAdded(mUrl, "history");
                 } else {
-                    Bookmarks.removeFromBookmarks(mContext,
-                            mContext.getContentResolver(), mUrl, getName());
+                    Bookmarks.removeFromBookmarks(getContext(),
+                            getContext().getContentResolver(), mUrl, getName());
                 }
             }
         };

@@ -64,7 +64,6 @@ public class UrlInputView extends AutoCompleteTextView
         mInputManager = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
         setOnEditorActionListener(this);
         super.setOnFocusChangeListener(this);
-        final ContentResolver cr = mContext.getContentResolver();
         mAdapter = new SuggestionsAdapter(ctx, this);
         setAdapter(mAdapter);
         setSelectAllOnFocus(false);

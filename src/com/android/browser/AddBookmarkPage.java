@@ -102,6 +102,10 @@ public class AddBookmarkPage extends Activity
 
     private Handler mHandler;
 
+    private InputMethodManager getInputMethodManager() {
+        return (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+    }
+
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (v == mFolderNamer) {
@@ -149,7 +153,7 @@ public class AddBookmarkPage extends Activity
             mFolderNamer.setText(R.string.new_folder);
             mFolderNamer.requestFocus();
             mAddNewFolder.setVisibility(View.GONE);
-            InputMethodManager.getInstance(this).showSoftInput(mFolderNamer,
+            getInputMethodManager().showSoftInput(mFolderNamer,
                     InputMethodManager.SHOW_IMPLICIT);
         }
     }
@@ -161,7 +165,7 @@ public class AddBookmarkPage extends Activity
             descendInto(name, id);
             mFolderNamer.setVisibility(View.GONE);
             mAddNewFolder.setVisibility(View.VISIBLE);
-            InputMethodManager.getInstance(this).hideSoftInputFromWindow(
+            getInputMethodManager().hideSoftInputFromWindow(
                     mFolderNamer.getWindowToken(), 0);
         }
     }
@@ -447,7 +451,7 @@ public class AddBookmarkPage extends Activity
                 if (mFolderNamer.getVisibility() == View.VISIBLE) {
                     mFolderNamer.setVisibility(View.GONE);
                     mAddNewFolder.setVisibility(View.VISIBLE);
-                    InputMethodManager.getInstance(this).hideSoftInputFromWindow(
+                    getInputMethodManager().hideSoftInputFromWindow(
                             mFolderNamer.getWindowToken(), 0);
                 } else {
                     int size = mPaths.size();
