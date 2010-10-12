@@ -23,10 +23,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.conn.params.ConnRouteParams;
 
-import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,7 +34,6 @@ import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
-import android.provider.BrowserContract;
 import android.provider.BrowserContract.Images;
 import android.webkit.WebView;
 
@@ -51,7 +49,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
     private final String mUserAgent; // Sites may serve a different icon to different UAs
     private Message mMessage;
 
-    private final Activity mActivity;
+    private final Context mContext;
     /* package */ Tab mTab;
 
     /**
@@ -59,9 +57,9 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      * the originalUrl so we take account of redirects. Used when the user
      * bookmarks a page from outside the bookmarks activity.
      */
-    public DownloadTouchIcon(Tab tab, BrowserActivity activity, ContentResolver cr, WebView view) {
+    public DownloadTouchIcon(Tab tab, Context ctx, ContentResolver cr, WebView view) {
         mTab = tab;
-        mActivity = activity;
+        mContext = ctx;
         mContentResolver = cr;
         // Store these in case they change.
         mOriginalUrl = view.getOriginalUrl();
@@ -76,9 +74,9 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      * TODO: Would be nice to set the user agent here so that there is no
      * potential for the three different ctors here to return different icons.
      */
-    public DownloadTouchIcon(AddBookmarkPage activity, ContentResolver cr, String url) {
+    public DownloadTouchIcon(Context ctx, ContentResolver cr, String url) {
         mTab = null;
-        mActivity = activity;
+        mContext = ctx;
         mContentResolver = cr;
         mOriginalUrl = null;
         mUrl = url;
@@ -90,9 +88,9 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      * the passed Message's data bundle with the key "touchIcon" and then send
      * the message.
      */
-    public DownloadTouchIcon(BrowserActivity activity, Message msg, String userAgent) {
+    public DownloadTouchIcon(Context context, Message msg, String userAgent) {
         mMessage = msg;
-        mActivity = activity;
+        mContext = context;
         mContentResolver = null;
         mOriginalUrl = null;
         mUrl = null;
@@ -112,7 +110,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
 
         if (inDatabase || mMessage != null) {
             AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
-            HttpHost httpHost = Proxy.getPreferredHttpHost(mActivity, url);
+            HttpHost httpHost = Proxy.getPreferredHttpHost(mContext, url);
             if (httpHost != null) {
                 ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
             }
