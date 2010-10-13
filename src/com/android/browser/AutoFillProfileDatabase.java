@@ -22,6 +22,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
+import android.webkit.WebSettings.AutoFillProfile;
 
 public class AutoFillProfileDatabase {
 
@@ -78,13 +79,13 @@ public class AutoFillProfileDatabase {
         return writable ? mOpenHelper.getWritableDatabase() : mOpenHelper.getReadableDatabase();
     }
 
-    public void addOrUpdateProfile(final int id, final String fullName, final String email) {
+    public void addOrUpdateProfile(final int id, AutoFillProfile profile) {
         final String SQL = "INSERT OR REPLACE INTO " + PROFILES_TABLE_NAME + " ("
                 + Profiles._ID + ","
                 + Profiles.FULL_NAME + ","
                 + Profiles.EMAIL_ADDRESS
                 + ") VALUES (?,?,?);";
-        final Object[] PARAMS = {id, fullName, email};
+        final Object[] PARAMS = { id, profile.getFullName(), profile.getEmailAddress() };
         getDatabase(true).execSQL(SQL, PARAMS);
     }
 
