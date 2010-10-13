@@ -576,7 +576,7 @@ public class AddBookmarkPage extends Activity
                     } catch (ParseException e) {
                         throw new URISyntaxException("", "");
                     }
-                    if (address.mHost.length() == 0) {
+                    if (address.getHost().length() == 0) {
                         throw new URISyntaxException("", "");
                     }
                     url = address.toString();
