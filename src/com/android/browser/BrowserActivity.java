@@ -520,13 +520,6 @@ public class BrowserActivity extends Activity
                         current.getWebView().dumpRenderTree(true);
                     } else if ("about:debug.display".equals(urlData.mUrl)) {
                         current.getWebView().dumpDisplayTree();
-                    } else if (urlData.mUrl.startsWith("about:debug.drag")) {
-                        int index = urlData.mUrl.codePointAt(16) - '0';
-                        if (index <= 0 || index > 9) {
-                            current.getWebView().setDragTracker(null);
-                        } else {
-                            current.getWebView().setDragTracker(new MeshTracker(index));
-                        }
                     } else {
                         mSettings.toggleDebugSettings();
                     }
