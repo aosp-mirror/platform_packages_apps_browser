@@ -349,14 +349,38 @@
     <string name="pref_autofill_profile_editor">AutoFill Settings</string>
     <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
     <string name="pref_autofill_profile_editor_summary">Set up &amp; manage data for AutoFilled forms</string>
+
     <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
-    <string name="autofill_profile_editor_name">Full Name:</string>
+    <string name="autofill_profile_editor_name">Full name:</string>
     <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
-    <string name="autofill_profile_editor_email_address">e-mail Address:</string>
+    <string name="autofill_profile_editor_email_address">Email:</string>
+    <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_company_name">Company name:</string>
+    <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_address_line_1">Address line 1:</string>
+    <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+    <string name="autofill_profile_editor_address_line_1_hint">Street address, P.O. box, c/o</string>
+    <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_address_line_2">Address line 2:</string>
+    <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+    <string name="autofill_profile_editor_address_line_2_hint">Apartment, suite, unit, building, floor etc.</string>
+    <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_city">City / Town:</string>
+    <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_state">State / Province / Region:</string>
+    <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_zip_code">Zip code:</string>
+    <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_country">Country:</string>
+    <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_phone_number">Phone:</string>
+
     <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
     <string name="autofill_profile_editor_save_profile">Save profile</string>
     <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
     <string name="autofill_profile_successful_save">Profile saved</string>
+    <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+    <string name="autofill_profile_editor_delete_profile">Delete profile data</string>
 
     <!-- Settings screen, section title -->
     <string name="pref_privacy_title">Privacy settings</string>
