@@ -35,6 +35,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
+import android.graphics.Picture;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.AsyncTask;
@@ -66,6 +67,7 @@ import android.webkit.WebIconDatabase;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.WebView.PictureListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -440,6 +442,17 @@ class Tab {
     }
 
     // -------------------------------------------------------------------------
+    // PictureListener implementation
+    // -------------------------------------------------------------------------
+
+    private final PictureListener mPictureListener = new PictureListener() {
+        public void onNewPicture(WebView view, Picture picture) {
+            mActivity.postMessage(BrowserActivity.UPDATE_BOOKMARK_THUMBNAIL, 0, 0, view);
+            view.setPictureListener(null);
+        }
+    };
+
+    // -------------------------------------------------------------------------
     // WebViewClient implementation for the main WebView
     // -------------------------------------------------------------------------
 
@@ -515,9 +528,7 @@ class Tab {
                     || !mInForeground) {
                 // Only update the bookmark screenshot if the user did not
                 // cancel the load early.
-                mActivity.postMessage(
-                        BrowserActivity.UPDATE_BOOKMARK_THUMBNAIL, 0, 0, view,
-                        500);
+                view.setPictureListener(mPictureListener);
             }
 
             // finally update the UI in the activity if it is in the foreground

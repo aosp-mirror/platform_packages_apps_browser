@@ -2154,10 +2154,8 @@ public class BrowserActivity extends Activity
     }
 
     // called by a UI or non-UI thread to post the message
-    public void postMessage(int what, int arg1, int arg2, Object obj,
-            long delayMillis) {
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(what, arg1, arg2,
-                obj), delayMillis);
+    public void postMessage(int what, int arg1, int arg2, Object obj) {
+        mHandler.sendMessage(mHandler.obtainMessage(what, arg1, arg2, obj));
     }
 
     // called by a UI or non-UI thread to remove the message
