@@ -587,7 +587,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);
                     query = qb.buildQuery(projection,
                             Bookmarks.PARENT + "=? AND " + Bookmarks.IS_DELETED + "=0",
-                            null, null, null, null, null);
+                            null, null, null, DEFAULT_BOOKMARKS_SORT_ORDER, null);
 
                     args = new String[] { Long.toString(FIXED_ID_ROOT) };
                 } else {

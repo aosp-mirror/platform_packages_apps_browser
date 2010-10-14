@@ -29,7 +29,7 @@ public class AutoFillProfileDatabase {
     static final String LOGTAG = "AutoFillProfileDatabase";
 
     static final String DATABASE_NAME = "autofill.db";
-    static final int DATABASE_VERSION = 1;
+    static final int DATABASE_VERSION = 2;
     static final String PROFILES_TABLE_NAME = "profiles";
     private AutoFillProfileDatabaseHelper mOpenHelper;
     private static AutoFillProfileDatabase sInstance;
@@ -39,6 +39,14 @@ public class AutoFillProfileDatabase {
 
         static final String FULL_NAME = "fullname";
         static final String EMAIL_ADDRESS = "email";
+        static final String COMPANY_NAME = "companyname";
+        static final String ADDRESS_LINE_1 = "addressline1";
+        static final String ADDRESS_LINE_2 = "addressline2";
+        static final String CITY = "city";
+        static final String STATE = "state";
+        static final String ZIP_CODE = "zipcode";
+        static final String COUNTRY = "country";
+        static final String PHONE_NUMBER = "phone";
     }
 
     private static class AutoFillProfileDatabaseHelper extends SQLiteOpenHelper {
@@ -51,7 +59,15 @@ public class AutoFillProfileDatabase {
             db.execSQL("CREATE TABLE " + PROFILES_TABLE_NAME + " ("
                     + Profiles._ID + " INTEGER PRIMARY KEY,"
                     + Profiles.FULL_NAME + " TEXT,"
-                    + Profiles.EMAIL_ADDRESS + " TEXT"
+                    + Profiles.EMAIL_ADDRESS + " TEXT,"
+                    + Profiles.COMPANY_NAME + " TEXT,"
+                    + Profiles.ADDRESS_LINE_1 + " TEXT,"
+                    + Profiles.ADDRESS_LINE_2 + " TEXT,"
+                    + Profiles.CITY + " TEXT,"
+                    + Profiles.STATE + " TEXT,"
+                    + Profiles.ZIP_CODE + " TEXT,"
+                    + Profiles.COUNTRY + " TEXT,"
+                    + Profiles.PHONE_NUMBER + " TEXT"
                     + " );");
         }
 
@@ -80,19 +96,49 @@ public class AutoFillProfileDatabase {
     }
 
     public void addOrUpdateProfile(final int id, AutoFillProfile profile) {
-        final String SQL = "INSERT OR REPLACE INTO " + PROFILES_TABLE_NAME + " ("
+        final String sql = "INSERT OR REPLACE INTO " + PROFILES_TABLE_NAME + " ("
                 + Profiles._ID + ","
                 + Profiles.FULL_NAME + ","
-                + Profiles.EMAIL_ADDRESS
-                + ") VALUES (?,?,?);";
-        final Object[] PARAMS = { id, profile.getFullName(), profile.getEmailAddress() };
-        getDatabase(true).execSQL(SQL, PARAMS);
+                + Profiles.EMAIL_ADDRESS + ","
+                + Profiles.COMPANY_NAME + ","
+                + Profiles.ADDRESS_LINE_1 + ","
+                + Profiles.ADDRESS_LINE_2 + ","
+                + Profiles.CITY + ","
+                + Profiles.STATE + ","
+                + Profiles.ZIP_CODE + ","
+                + Profiles.COUNTRY + ","
+                + Profiles.PHONE_NUMBER
+                + ") VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+        final Object[] params = { id,
+                profile.getFullName(),
+                profile.getEmailAddress(),
+                profile.getCompanyName(),
+                profile.getAddressLine1(),
+                profile.getAddressLine2(),
+                profile.getCity(),
+                profile.getState(),
+                profile.getZipCode(),
+                profile.getCountry(),
+                profile.getPhoneNumber() };
+        getDatabase(true).execSQL(sql, params);
     }
 
     public Cursor getProfile(int id) {
-        final String[] COLS = {Profiles.FULL_NAME, Profiles.EMAIL_ADDRESS };
-        final String[] SEL_ARGS = { Integer.toString(id) };
-        return getDatabase(false).query(PROFILES_TABLE_NAME, COLS, Profiles._ID + "=?", SEL_ARGS,
+        final String[] cols = {
+                Profiles.FULL_NAME,
+                Profiles.EMAIL_ADDRESS,
+                Profiles.COMPANY_NAME,
+                Profiles.ADDRESS_LINE_1,
+                Profiles.ADDRESS_LINE_2,
+                Profiles.CITY,
+                Profiles.STATE,
+                Profiles.ZIP_CODE,
+                Profiles.COUNTRY,
+                Profiles.PHONE_NUMBER
+        };
+
+        final String[] selectArgs = { Integer.toString(id) };
+        return getDatabase(false).query(PROFILES_TABLE_NAME, cols, Profiles._ID + "=?", selectArgs,
                 null, null, null, "1");
     }
 

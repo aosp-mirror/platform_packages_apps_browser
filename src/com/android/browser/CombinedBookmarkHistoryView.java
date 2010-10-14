@@ -16,25 +16,24 @@
 
 package com.android.browser;
 
+import com.android.browser.BreadCrumbView.Controller;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.Resources;
-import android.database.MatrixCursor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Vector;
@@ -46,7 +45,7 @@ interface BookmarksHistoryCallbacks {
 }
 
 public class CombinedBookmarkHistoryView extends LinearLayout
-        implements OnItemClickListener {
+        implements OnClickListener, Controller {
 
     final static String STARTING_FRAGMENT = "fragment";
 
@@ -58,6 +57,15 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     private Bundle mExtras;
 
     long mCurrentFragment;
+
+    View mTabs;
+    BreadCrumbView mCrumbs;
+    TextView mTabBookmarks;
+    TextView mTabHistory;
+    TextView mAddBookmark;
+
+    BrowserBookmarksPage mBookmarks;
+    BrowserHistoryPage mHistory;
 
     static class IconListenerSet implements IconListener {
         // Used to store favicons as we get them from the database
@@ -105,17 +113,19 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
 //        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        ListView list = (ListView) findViewById(android.R.id.list);
-        list.setOnItemClickListener(this);
-        MatrixCursor cursor = new MatrixCursor(new String[] { "name", "_id" });
-        cursor.newRow().add(res.getString(R.string.bookmarks)).add(FRAGMENT_ID_BOOKMARKS);
-        cursor.newRow().add(res.getString(R.string.history)).add(FRAGMENT_ID_HISTORY);
-        list.setAdapter(new SimpleCursorAdapter(context,
-                android.R.layout.simple_list_item_1, cursor,
-                new String[] { "name" }, new int[] { android.R.id.text1 }));
+        mTabs = findViewById(R.id.tabs);
+        mCrumbs = (BreadCrumbView) findViewById(R.id.crumbs);
+        mCrumbs.setController(this);
 
+        mTabBookmarks = (TextView) findViewById(R.id.bmtab);
+        mTabHistory = (TextView) findViewById(R.id.historytab);
+        mAddBookmark = (TextView) findViewById(R.id.addbm);
+        mAddBookmark.setOnClickListener(this);
+        mTabHistory.setOnClickListener(this);
+        mTabBookmarks.setOnClickListener(this);
         // Start up the default fragment
-        loadFragment(startingFragment, mExtras);
+        initFragments(mExtras);
+        loadFragment(startingFragment, mExtras, false);
 
         // XXX: Must do this before launching the AsyncTask to avoid a
         // potential crash if the icon database has not been created.
@@ -134,15 +144,25 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
     }
 
-    private void loadFragment(int id, Bundle extras) {
+    private void initFragments(Bundle extras) {
+        mBookmarks =  BrowserBookmarksPage.newInstance(mBrowserActivity, mCrumbs, extras);
+        mHistory = BrowserHistoryPage.newInstance(mBrowserActivity, extras);
+    }
+
+    private void loadFragment(int id, Bundle extras, boolean notify) {
         String fragmentClassName;
         Fragment fragment = null;
         switch (id) {
             case FRAGMENT_ID_BOOKMARKS:
-                fragment = BrowserBookmarksPage.newInstance(mBrowserActivity, extras);
+                fragment = mBookmarks;
+                mCrumbs.setVisibility(View.VISIBLE);
+                if (notify) {
+                    mCrumbs.notifyController();
+                }
                 break;
             case FRAGMENT_ID_HISTORY:
-                fragment = BrowserHistoryPage.newInstance(mBrowserActivity, extras);
+                fragment = mHistory;
+                mCrumbs.setVisibility(View.GONE);
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -156,9 +176,38 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (id == mCurrentFragment) return;
-        loadFragment((int) id, mExtras);
+    public void onClick(View view) {
+        if ((mTabHistory == view) && (mCurrentFragment != FRAGMENT_ID_HISTORY)) {
+            loadFragment(FRAGMENT_ID_HISTORY, mExtras, false);
+        } else if (mTabBookmarks == view) {
+            if (mCurrentFragment != FRAGMENT_ID_BOOKMARKS) {
+                loadFragment(FRAGMENT_ID_BOOKMARKS, mExtras, true);
+            } else {
+                mCrumbs.clear();
+            }
+        } else if (mAddBookmark == view) {
+            mBrowserActivity.bookmarkCurrentPage(mBookmarks.getFolderId());
+        }
+    }
+
+    /**
+     * BreadCrumb controller callback
+     */
+    @Override
+    public void onTop(int level, Object data) {
+        mBookmarks.onFolderChange(level, data);
+    }
+
+    /**
+     * callback for back key presses
+     */
+    boolean onBackPressed() {
+        if ((mCurrentFragment == FRAGMENT_ID_BOOKMARKS) &&
+                (mCrumbs.size() > 0)) {
+            mCrumbs.popView();
+            return true;
+        }
+        return false;
     }
 
 }

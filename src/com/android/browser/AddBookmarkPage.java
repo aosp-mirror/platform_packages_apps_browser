@@ -63,6 +63,8 @@ public class AddBookmarkPage extends Activity
         implements View.OnClickListener, TextView.OnEditorActionListener,
         AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static final long DEFAULT_FOLDER_ID = -1;
+
     private final String LOGTAG = "Bookmarks";
 
     // IDs for the CursorLoaders that are used.
@@ -194,7 +196,7 @@ public class AddBookmarkPage extends Activity
     }
 
     private void descendInto(String foldername, long id) {
-        if (id != -1) {
+        if (id != DEFAULT_FOLDER_ID) {
             mCurrentFolder = id;
             mPaths.add(new Folder(foldername, id));
             updatePathString();
@@ -358,9 +360,9 @@ public class AddBookmarkPage extends Activity
             url = mOriginalUrl = mMap.getString("url");
             mTouchIconUrl = mMap.getString("touch_icon_url");
             mThumbnail = (Bitmap) mMap.getParcelable("thumbnail");
-            mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, -1);
+            mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, DEFAULT_FOLDER_ID);
         }
-        if (mCurrentFolder == -1) {
+        if (mCurrentFolder == DEFAULT_FOLDER_ID) {
             mCurrentFolder = getBookmarksBarId(this);
         }
 
@@ -576,7 +578,7 @@ public class AddBookmarkPage extends Activity
                     } catch (ParseException e) {
                         throw new URISyntaxException("", "");
                     }
-                    if (address.mHost.length() == 0) {
+                    if (address.getHost().length() == 0) {
                         throw new URISyntaxException("", "");
                     }
                     url = address.toString();

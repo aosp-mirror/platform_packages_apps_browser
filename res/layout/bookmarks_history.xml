@@ -13,21 +13,74 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="@color/black"
->
-    <ListView android:id="@android:id/list"
-        android:layout_width="0dip"
-        android:layout_height="match_parent"
-        android:layout_weight="20"
-    />
-
-    <FrameLayout android:id="@+id/fragment"
-        android:layout_width="0dip"
-        android:layout_height="match_parent"
-        android:layout_weight="80"
-    />
+    android:paddingTop="8dip"
+    android:paddingLeft="16dip"
+    android:paddingRight="16dip"
+    android:orientation="vertical"
+    android:background="@color/black">
+    <RelativeLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dip">
+        <LinearLayout
+            android:id="@+id/tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dip"
+            android:paddingRight="16dip">
+            <TextView
+                android:id="@+id/historytab"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="32dip"
+                android:paddingRight="32dip"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center_vertical"
+                android:text="@string/tab_history"
+                android:drawableLeft="@drawable/ic_tab_history_selected"
+                android:drawablePadding="16dip" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/divider_vert" />
+            <TextView
+                android:id="@+id/bmtab"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="32dip"
+                android:paddingRight="32dip"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center_vertical"
+                android:text="@string/bookmarks"
+                android:drawableLeft="@drawable/ic_tab_bookmarks_selected"
+                android:drawablePadding="16dip" />
+            <com.android.browser.BreadCrumbView
+                android:id="@+id/crumbs"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="16dip"
+                android:paddingRight="16dip" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/addbm"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/add_new_bookmark"
+            android:layout_alignParentRight="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_favorite_off_normal"
+            android:drawablePadding="16dip" />
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fragment"
+        android:paddingTop="8dip"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.0" />
 </LinearLayout>

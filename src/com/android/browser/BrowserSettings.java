@@ -316,16 +316,35 @@ public class BrowserSettings extends Observable {
         // Load the autofill profile data from the database. We use a database separate
         // to the browser preference DB to make it easier to support multiple profiles
         // and switching between them.
-        mAutoFillProfile = new AutoFillProfile();
         AutoFillProfileDatabase autoFillDb = AutoFillProfileDatabase.getInstance(ctx);
         Cursor c = autoFillDb.getProfile(mActiveAutoFillProfileId);
 
         if (c.getCount() > 0) {
             c.moveToFirst();
-            mAutoFillProfile.setFullName(c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.FULL_NAME)));
-            mAutoFillProfile.setEmailAddress(c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.EMAIL_ADDRESS)));
+
+            String fullName = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.FULL_NAME));
+            String email = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.EMAIL_ADDRESS));
+            String company = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.COMPANY_NAME));
+            String addressLine1 = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.ADDRESS_LINE_1));
+            String addressLine2 = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.ADDRESS_LINE_2));
+            String city = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.CITY));
+            String state = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.STATE));
+            String zip = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.ZIP_CODE));
+            String country = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.COUNTRY));
+            String phone = c.getString(c.getColumnIndex(
+                    AutoFillProfileDatabase.Profiles.PHONE_NUMBER));
+            mAutoFillProfile = new AutoFillProfile(fullName, email, company,
+                    addressLine1, addressLine2, city, state, zip, country,
+                    phone);
         }
         c.close();
         autoFillDb.close();
@@ -686,21 +705,22 @@ public class BrowserSettings extends Observable {
     private class SaveProfileToDbTask extends AsyncTask<AutoFillProfile, Void, Void> {
 
         Context mContext;
+        AutoFillProfileDatabase mAutoFillProfileDb;
 
         public SaveProfileToDbTask(Context ctx) {
             mContext = ctx;
         }
 
         protected Void doInBackground(AutoFillProfile... values) {
-            AutoFillProfileDatabase db =
-                    AutoFillProfileDatabase.getInstance(mContext);
-            db.addOrUpdateProfile(mActiveAutoFillProfileId, values[0]);
+            mAutoFillProfileDb = AutoFillProfileDatabase.getInstance(mContext);
+            mAutoFillProfileDb.addOrUpdateProfile(mActiveAutoFillProfileId, values[0]);
             return null;
         }
 
         protected void onPostExecute(Void result) {
-            String message = mContext.getString(R.string.autofill_profile_successful_save);
-            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.autofill_profile_successful_save,
+                    Toast.LENGTH_SHORT).show();
+            mAutoFillProfileDb.close();
         }
     }
 

@@ -35,7 +35,7 @@ public class ShortcutActivity extends Activity
         Bundle extras = new Bundle();
         extras.putBoolean(BrowserBookmarksPage.EXTRA_SHORTCUT, true);
         extras.putBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW, true);
-        Fragment frag = BrowserBookmarksPage.newInstance(this, extras);
+        Fragment frag = BrowserBookmarksPage.newInstance(this, null, extras);
         transaction.add(android.R.id.content, frag);
         transaction.commit();
     }

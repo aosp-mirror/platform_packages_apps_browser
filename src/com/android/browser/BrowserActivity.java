@@ -67,6 +67,7 @@ import android.os.PowerManager;
 import android.os.Process;
 import android.os.SystemClock;
 import android.provider.Browser;
+import android.provider.BrowserContract;
 import android.provider.BrowserContract.Images;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
@@ -519,13 +520,6 @@ public class BrowserActivity extends Activity
                         current.getWebView().dumpRenderTree(true);
                     } else if ("about:debug.display".equals(urlData.mUrl)) {
                         current.getWebView().dumpDisplayTree();
-                    } else if (urlData.mUrl.startsWith("about:debug.drag")) {
-                        int index = urlData.mUrl.codePointAt(16) - '0';
-                        if (index <= 0 || index > 9) {
-                            current.getWebView().setDragTracker(null);
-                        } else {
-                            current.getWebView().setDragTracker(new MeshTracker(index));
-                        }
                     } else {
                         mSettings.toggleDebugSettings();
                     }
@@ -949,7 +943,6 @@ public class BrowserActivity extends Activity
         if (mActiveTabsPage != null) {
             removeActiveTabPage(true);
         }
-        removeComboView();
 
         cancelStopToast();
 
@@ -1289,8 +1282,11 @@ public class BrowserActivity extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // menu remains active, so ensure comboview is dismissed
-        removeComboView();
+        if (item.getGroupId() != R.id.CONTEXT_MENU) {
+            // menu remains active, so ensure comboview is dismissed
+            // if main menu option is selected
+            removeComboView();
+        }
         // check the action bar button before mCanChord check, as the prepare call
         // doesn't come for action bar buttons
         if (item.getItemId() == R.id.newtab) {
@@ -1341,7 +1337,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.add_bookmark_menu_id:
-                bookmarkCurrentPage();
+                bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID);
                 break;
 
             case R.id.stop_reload_menu_id:
@@ -1497,7 +1493,11 @@ public class BrowserActivity extends Activity
         return true;
     }
 
-    /* package */ void bookmarkCurrentPage() {
+    /**
+     * add the current page as a bookmark to the given folder id
+     * @param folderId use -1 for the default folder
+     */
+    /* package */ void bookmarkCurrentPage(long folderId) {
         Intent i = new Intent(BrowserActivity.this,
                 AddBookmarkPage.class);
         WebView w = getTopWindow();
@@ -1506,6 +1506,8 @@ public class BrowserActivity extends Activity
         i.putExtra("touch_icon_url", w.getTouchIconUrl());
         i.putExtra("thumbnail", createScreenshot(w, getDesiredThumbnailWidth(this),
                 getDesiredThumbnailHeight(this)));
+        i.putExtra(BrowserContract.Bookmarks.PARENT,
+                folderId);
         // Put the dialog at the upper right of the screen, covering the
         // star on the title bar.
         i.putExtra("gravity", Gravity.RIGHT | Gravity.TOP);
@@ -2231,7 +2233,9 @@ public class BrowserActivity extends Activity
                         // if tab page is showing, hide it
                         removeActiveTabPage(true);
                     } else if (mComboView != null) {
-                        removeComboView();
+                        if (!mComboView.onBackPressed()) {
+                            removeComboView();
+                        }
                     } else {
                         WebView subwindow = mTabControl.getCurrentSubWindow();
                         if (subwindow != null) {
@@ -2555,7 +2559,7 @@ public class BrowserActivity extends Activity
             String host;
             try {
                 WebAddress uri = new WebAddress(url);
-                host = uri.mHost;
+                host = uri.getHost();
             } catch (android.net.ParseException ex) {
                 host = "browser";
             }
@@ -3209,7 +3213,7 @@ public class BrowserActivity extends Activity
         WebAddress webAddress;
         try {
             webAddress = new WebAddress(url);
-            webAddress.mPath = encodePath(webAddress.mPath);
+            webAddress.setPath(encodePath(webAddress.getPath()));
         } catch (Exception e) {
             // This only happens for very bad urls, we want to chatch the
             // exception here
@@ -3233,7 +3237,7 @@ public class BrowserActivity extends Activity
                 Downloads.Impl.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         values.put(Downloads.Impl.COLUMN_MIME_TYPE, mimetype);
         values.put(Downloads.Impl.COLUMN_FILE_NAME_HINT, filename);
-        values.put(Downloads.Impl.COLUMN_DESCRIPTION, webAddress.mHost);
+        values.put(Downloads.Impl.COLUMN_DESCRIPTION, webAddress.getHost());
         if (contentLength > 0) {
             values.put(Downloads.Impl.COLUMN_TOTAL_BYTES, contentLength);
         }
@@ -3876,7 +3880,7 @@ public class BrowserActivity extends Activity
     public boolean onMenuItemClick(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.add_bookmark_menu_id:
-                bookmarkCurrentPage();
+                bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID);
                 return true;
             case R.id.shortcut_to_home_menu_id:
                 Tab current = mTabControl.getCurrentTab();
@@ -3920,7 +3924,7 @@ public class BrowserActivity extends Activity
         builder.setItems(choices, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 if (item == 0) {
-                    bookmarkCurrentPage();
+                    bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID);
                 } else if (item == 1) {
                 }
             }

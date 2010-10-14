@@ -11,6 +11,6 @@
     License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <dimen name="bookmarkThumbnailWidth">160dip</dimen>
-    <dimen name="bookmarkThumbnailHeight">180dip</dimen>
+    <dimen name="bookmarkThumbnailWidth">180dip</dimen>
+    <dimen name="bookmarkThumbnailHeight">120dip</dimen>
 </resources>
