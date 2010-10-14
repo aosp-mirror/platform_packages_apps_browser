@@ -209,6 +209,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         ImageView ic1 = (ImageView) view.findViewById(R.id.icon1);
         View spacer = view.findViewById(R.id.spacer);
         View ic2 = view.findViewById(R.id.icon2);
+        View div = view.findViewById(R.id.divider);
         tv1.setText(item.title);
         tv2.setText(item.url);
         int id = -1;
@@ -234,6 +235,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         }
         ic2.setVisibility(((TYPE_SUGGEST == item.type) || (TYPE_SEARCH == item.type))
                 ? View.VISIBLE : View.GONE);
+        div.setVisibility(ic2.getVisibility());
         spacer.setVisibility(((TYPE_SUGGEST == item.type) || (TYPE_SEARCH == item.type))
                 ? View.GONE : View.INVISIBLE);
         view.setOnClickListener(this);

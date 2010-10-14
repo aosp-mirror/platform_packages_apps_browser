@@ -171,7 +171,7 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void onEdit(String text) {
-        setDisplayTitle(text);
+        setDisplayTitle(text, true);
         if (text != null) {
             mUrlFocused.setSelection(text.length());
         }
@@ -237,6 +237,11 @@ public class TitleBarXLarge extends TitleBarBase
     @Override
     /* package */ void setDisplayTitle(String title) {
         mUrlFocused.setText(title, false);
+        mUrlUnfocused.setText(title);
+    }
+
+    void setDisplayTitle(String title, boolean filter) {
+        mUrlFocused.setText(title, filter);
         mUrlUnfocused.setText(title);
     }
 
