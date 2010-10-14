@@ -60,7 +60,7 @@
             <ImageView
                 android:id="@+id/lock"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 style="@style/HoloIcon"
                 android:visibility="gone" />
             <EditText

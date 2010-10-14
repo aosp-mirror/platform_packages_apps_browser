@@ -199,10 +199,8 @@ public class BrowserActivity extends Activity
             return;
         }
 
-        mSecLockIcon = Resources.getSystem().getDrawable(
-                android.R.drawable.ic_secure);
-        mMixLockIcon = Resources.getSystem().getDrawable(
-                android.R.drawable.ic_partial_secure);
+        mSecLockIcon = getResources().getDrawable(R.drawable.ic_secure);
+        mMixLockIcon = getResources().getDrawable(R.drawable.ic_partial_secure);
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);

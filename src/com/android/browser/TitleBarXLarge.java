@@ -105,6 +105,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlFocused.setUrlInputListener(this);
         mUrlUnfocused.setOnFocusChangeListener(this);
         mUrlFocused.setContainer(mFocusContainer);
+        mUnfocusContainer.setOnClickListener(this);
     }
 
     public void onFocusChange(View v, boolean hasFocus) {
@@ -119,7 +120,9 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void onClick(View v) {
-        if (mBackButton == v) {
+        if (mUnfocusContainer == v) {
+            mUrlUnfocused.requestFocus();
+        } else if (mBackButton == v) {
             mBrowserActivity.getTopWindow().goBack();
         } else if (mForwardButton == v) {
             mBrowserActivity.getTopWindow().goForward();
