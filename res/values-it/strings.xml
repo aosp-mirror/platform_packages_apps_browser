@@ -245,13 +245,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Spazio esaurito"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossibile visualizzare <xliff:g id="FILENAME">%s</xliff:g>"\n". Libera spazio sul telefono e riprova."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download non riuscito"</string>
-    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="5349772560166195586">"Nessuna scheda SD"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="5349772560166195586">"Archivio condiviso non disp."</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nessuna scheda SD"</string>
-    <!-- outdated translation 2616399456116301518 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="9049052105269200675">"Per scaricare <xliff:g id="FILENAME">%s</xliff:g> occorre una scheda SD."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="9049052105269200675">"Per scaricare <xliff:g id="FILENAME">%s</xliff:g> è necessario un archivio condiviso."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Per scaricare <xliff:g id="FILENAME">%s</xliff:g> occorre una scheda SD."</string>
-    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="4151068942919670243">"Scheda SD non disponibile"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="4151068942919670243">"Archivio condiviso non disp."</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Scheda SD non disponibile"</string>
-    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="7297514580933657663">"La scheda SD è piena. Per consentire i download, seleziona \"Disattiva archivio USB\" nella notifica."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="7297514580933657663">"L\'archivio condiviso è pieno. Per consentire i download, seleziona \"Disattiva archivio USB\" nella notifica."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La scheda SD è piena. Per consentire i download, seleziona \"Disattiva archivio USB\" nella notifica."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Impossibile aprire il file"</string>
     <string name="retry" msgid="1835923075542266721">"Riprova"</string>

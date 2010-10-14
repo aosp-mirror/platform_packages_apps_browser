@@ -245,13 +245,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Geen ruimte meer"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> kan niet worden gedownload."\n"Maak ruimte vrij op uw telefoon en probeer het opnieuw."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Downloaden is mislukt."</string>
-    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="5349772560166195586">"Geen SD-kaart"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="5349772560166195586">"Gedeelde opslag niet besch."</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Geen SD-kaart"</string>
-    <!-- outdated translation 2616399456116301518 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="9049052105269200675">"Een SD-kaart is vereist om <xliff:g id="FILENAME">%s</xliff:g> te kunnen downloaden."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="9049052105269200675">"Gedeelde opslag vereist om <xliff:g id="FILENAME">%s</xliff:g> te downloaden."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Een SD-kaart is vereist om <xliff:g id="FILENAME">%s</xliff:g> te kunnen downloaden."</string>
-    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="4151068942919670243">"SD-kaart niet beschikbaar"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="4151068942919670243">"Gedeelde opslag niet besch."</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kaart niet beschikbaar"</string>
-    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="7297514580933657663">"De SD-kaart wordt gebruikt. Als u downloads wilt toestaan, selecteert u \'USB-opslag uitschakelen\' in de melding."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="7297514580933657663">"De gedeelde opslag wordt gebruikt. Als u downloads wilt toestaan, selecteert u \'USB-opslag uitschakelen\' in de melding."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"De SD-kaart wordt gebruikt. Als u downloads wilt toestaan, selecteert u \'USB-opslag uitschakelen\' in de melding."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Kan bestand niet openen"</string>
     <string name="retry" msgid="1835923075542266721">"Opnieuw proberen"</string>
