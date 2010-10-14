@@ -1627,6 +1627,9 @@ public class BrowserActivity extends Activity
         if (v instanceof TitleBarBase) {
             return;
         }
+        if (!(v instanceof WebView)) {
+            return;
+        }
         WebView webview = (WebView) v;
         WebView.HitTestResult result = webview.getHitTestResult();
         if (result == null) {
