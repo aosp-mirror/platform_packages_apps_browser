@@ -18,9 +18,12 @@
  */
 -->
 <resources>
-    <style name="BrowserTheme" parent="@android:Theme.Holo">
+    <style name="BrowserTheme" parent="@android:Theme.Black">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:background">@color/black</item>
     </style>
     <style name="ActionBar" parent="@android:style/Widget.ActionBar">
         <item name="android:background">@color/black</item>
@@ -45,12 +48,15 @@
         <item name="android:background">@drawable/browserbarbutton</item>
     </style>
     <style name="TabTitleSelected" parent="@android:style/TextAppearance.Small">
-        <item name="android:textColor">@color/tab_title_selected</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="TabTitleUnselected" parent="@android:style/TextAppearance.Small">
-        <item name="android:textColor">@color/tab_title_unselected</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:textStyle">normal</item>
     </style>
+    <style name="SuggestionLineMedium" parent="@android:style/TextAppearance.Medium">
+    </style>
+    <style name="SuggestionLineSmall" parent="@android:style/TextAppearance.Small">
+    </style>
 </resources>
-

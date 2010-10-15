@@ -18,14 +18,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <TextView 
         android:id="@+id/username_view"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/username_text"
         android:text="@string/username"
         android:gravity="left"
         android:layout_marginTop="12dip"
@@ -34,8 +33,6 @@
             
     <EditText
         android:id="@+id/username_edit"
-        android:textSize="18sp"
-        android:textColor="@color/username_edit"
         android:scrollHorizontally="true"
         android:inputType="text"
         android:gravity="fill_horizontal"
@@ -48,8 +45,6 @@
         android:id="@+id/password_view"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/password_text"
         android:text="@string/password"
         android:gravity="left"
         android:layout_marginLeft="20dip"
@@ -57,8 +52,6 @@
             
     <EditText
         android:id="@+id/password_edit"
-        android:textSize="18sp"
-        android:textColor="@color/password_edit"
         android:scrollHorizontally="true"
         android:inputType="textPassword"
         android:gravity="fill_horizontal"

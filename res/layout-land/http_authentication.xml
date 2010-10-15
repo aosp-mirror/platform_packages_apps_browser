@@ -18,7 +18,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <TableLayout
         android:layout_width="match_parent"
@@ -28,15 +28,11 @@
     
         <TableRow>
             <TextView android:id="@+id/username_view"
-                android:textSize="18sp"
-                android:textColor="@color/username_text"
                 android:text="@string/username"
                 android:gravity="right"
                 android:layout_marginLeft="20dip" />
 
             <EditText android:id="@+id/username_edit"
-                android:textSize="18sp"
-                android:textColor="@color/username_edit"
                 android:scrollHorizontally="true"
                 android:autoText="false"
                 android:capitalize="none"
@@ -49,15 +45,11 @@
 
         <TableRow>
             <TextView android:id="@+id/password_view"
-                android:textSize="18sp"
-                android:textColor="@color/password_text"
                 android:text="@string/password"
                 android:gravity="right"
                 android:layout_marginLeft="20dip" />
     
             <EditText android:id="@+id/password_edit"
-                android:textSize="18sp"
-                android:textColor="@color/password_edit"
                 android:scrollHorizontally="true"
                 android:autoText="false"
                 android:capitalize="none"
