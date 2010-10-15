@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
@@ -171,34 +172,19 @@ public class TabScrollView extends HorizontalScrollView {
     }
 
     private void animateIn(View tab) {
-        ObjectAnimator animator = new ObjectAnimator<PropertyValuesHolder>(
-                mAnimationDuration, tab,
-                new PropertyValuesHolder<Integer>("TranslationX", 500, 0));
+        ObjectAnimator animator = ObjectAnimator.ofInt(tab, "TranslationX", 500, 0);
+        animator.setDuration(mAnimationDuration);
         animator.start();
     }
 
     private void animateOut(final View tab) {
-        ObjectAnimator animator = new ObjectAnimator<PropertyValuesHolder>(
-                mAnimationDuration, tab,
-                new PropertyValuesHolder<Integer>("TranslationX", 0,
-                        getScrollX() - tab.getRight()));
-        animator.addListener(new AnimatorListener() {
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-            }
-
+        ObjectAnimator animator = ObjectAnimator.ofInt(
+                tab, "TranslationX", 0, getScrollX() - tab.getRight());
+        animator.setDuration(mAnimationDuration);
+        animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mContentView.removeView(tab);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationStart(Animator animation) {
             }
         });
         animator.setInterpolator(new AccelerateInterpolator());
@@ -206,9 +192,8 @@ public class TabScrollView extends HorizontalScrollView {
     }
 
     private void animateScroll(int newscroll) {
-        ObjectAnimator animator = new ObjectAnimator<PropertyValuesHolder>(
-                mAnimationDuration, this,
-                new PropertyValuesHolder<Integer>("scroll", getScrollX(), newscroll));
+        ObjectAnimator animator = ObjectAnimator.ofInt(this, "scroll", getScrollX(), newscroll);
+        animator.setDuration(mAnimationDuration);
         animator.start();
     }
 

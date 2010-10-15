@@ -79,6 +79,8 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
         public void onSelect(String txt);
 
+        public void onFilterComplete(int count);
+
     }
 
     public SuggestionsAdapter(Context ctx, CompletionListener listener) {
@@ -179,7 +181,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             if (item != null) {
                 bindView(iv, item);
             } else {
-                iv.setVisibility((mResults.getLeftCount() == 0) ? View.GONE : 
+                iv.setVisibility((mResults.getLeftCount() == 0) ? View.GONE :
                         View.INVISIBLE);
             }
             item = getItem(position + mResults.getLineCount());
@@ -190,7 +192,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             if (item != null) {
                 bindView(iv, item);
             } else {
-                iv.setVisibility((mResults.getRightCount() == 0) ? View.GONE : 
+                iv.setVisibility((mResults.getRightCount() == 0) ? View.GONE :
                         View.INVISIBLE);
             }
             return view;
@@ -209,6 +211,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         ImageView ic1 = (ImageView) view.findViewById(R.id.icon1);
         View spacer = view.findViewById(R.id.spacer);
         View ic2 = view.findViewById(R.id.icon2);
+        View div = view.findViewById(R.id.divider);
         tv1.setText(item.title);
         tv2.setText(item.url);
         int id = -1;
@@ -234,6 +237,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         }
         ic2.setVisibility(((TYPE_SUGGEST == item.type) || (TYPE_SEARCH == item.type))
                 ? View.VISIBLE : View.GONE);
+        div.setVisibility(ic2.getVisibility());
         spacer.setVisibility(((TYPE_SUGGEST == item.type) || (TYPE_SEARCH == item.type))
                 ? View.GONE : View.INVISIBLE);
         view.setOnClickListener(this);
@@ -242,7 +246,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
     class SuggestFilter extends Filter {
 
-        int count;
         SuggestionResults results;
 
         @Override
@@ -267,14 +270,13 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
                 return res;
             }
             results = new SuggestionResults();
-            count = 0;
             if (constraint != null) {
                 for (CursorSource sc : mSources) {
                     sc.runQuery(constraint);
                 }
                 mixResults();
             }
-            res.count = count;
+            res.count = results.getLineCount();
             res.values = results;
             return res;
         }
@@ -282,9 +284,9 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         void mixResults() {
             for (int i = 0; i < mSources.size(); i++) {
                 CursorSource s = mSources.get(i);
-                int n = Math.min(s.getCount(), (mLandscapeMode ? mLinesLandscape 
+                int n = Math.min(s.getCount(), (mLandscapeMode ? mLinesLandscape
                         : mLinesPortrait));
-                boolean more = true;
+                boolean more = false;
                 for (int j = 0; j < n; j++) {
                     results.addResult(s.getItem());
                     more = s.moveToNext();
@@ -303,12 +305,12 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
                     }
                 }
             }
-
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults fresults) {
             mResults = (SuggestionResults) fresults.values;
+            mListener.onFilterComplete(fresults.count);
             notifyDataSetChanged();
         }
 
@@ -452,10 +454,10 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
                 selection = COMBINED_SELECTION;
             }
             Uri.Builder ub = BrowserContract.Combined.CONTENT_URI.buildUpon();
-            ub.appendQueryParameter(BrowserContract.PARAM_LIMIT, 
+            ub.appendQueryParameter(BrowserContract.PARAM_LIMIT,
                     Integer.toString(mLinesPortrait));
             mCursor =
-                    mContext.getContentResolver().query(ub.build(), COMBINED_PROJECTION, 
+                    mContext.getContentResolver().query(ub.build(), COMBINED_PROJECTION,
                             selection,
                             (constraint != null) ? args : null,
                             BrowserContract.Combined.VISITS + " DESC, " +
@@ -536,10 +538,10 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             String[] args = new String[] {constraint.toString()};
             String selection = BrowserContract.Searches.SEARCH + " LIKE ?";
             Uri.Builder ub = BrowserContract.Searches.CONTENT_URI.buildUpon();
-            ub.appendQueryParameter(BrowserContract.PARAM_LIMIT, 
+            ub.appendQueryParameter(BrowserContract.PARAM_LIMIT,
                     Integer.toString(mLinesPortrait));
             mCursor =
-                    mContext.getContentResolver().query(ub.build(), SEARCHES_PROJECTION, 
+                    mContext.getContentResolver().query(ub.build(), SEARCHES_PROJECTION,
                             selection,
                             args, BrowserContract.Searches.DATE + " DESC");
             if (mCursor != null) {

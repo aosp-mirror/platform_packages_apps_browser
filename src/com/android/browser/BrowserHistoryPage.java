@@ -167,6 +167,7 @@ public class BrowserHistoryPage extends Fragment
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.history, container, false);
         mList = (ExpandableListView) root.findViewById(android.R.id.list);
+        mList.setCacheColorHint(0);
         mList.setOnCreateContextMenuListener(this);
         mList.setOnChildClickListener(this);
         mAdapter = new HistoryAdapter(getActivity());
@@ -316,8 +317,8 @@ public class BrowserHistoryPage extends Fragment
     @Override
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
-        if (v instanceof BookmarkItem) {
-            mCallbacks.onUrlSelected(((BookmarkItem) v).getUrl(), false);
+        if (v instanceof HistoryItem) {
+            mCallbacks.onUrlSelected(((HistoryItem) v).getUrl(), false);
             return true;
         }
         return false;
@@ -331,9 +332,9 @@ public class BrowserHistoryPage extends Fragment
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
                 View convertView, ViewGroup parent) {
-            BookmarkItem item;
-            if (null == convertView || !(convertView instanceof BookmarkItem)) {
-                item = new BookmarkItem(getContext());
+            HistoryItem item;
+            if (null == convertView || !(convertView instanceof HistoryItem)) {
+                item = new HistoryItem(getContext());
                 // Add padding on the left so it will be indented from the
                 // arrows on the group views.
                 item.setPadding(item.getPaddingLeft() + 10,
@@ -341,7 +342,7 @@ public class BrowserHistoryPage extends Fragment
                         item.getPaddingRight(),
                         item.getPaddingBottom());
             } else {
-                item = (BookmarkItem) convertView;
+                item = (HistoryItem) convertView;
             }
 
             // Bail early if the Cursor is closed.

@@ -199,10 +199,8 @@ public class BrowserActivity extends Activity
             return;
         }
 
-        mSecLockIcon = Resources.getSystem().getDrawable(
-                android.R.drawable.ic_secure);
-        mMixLockIcon = Resources.getSystem().getDrawable(
-                android.R.drawable.ic_partial_secure);
+        mSecLockIcon = getResources().getDrawable(R.drawable.ic_secure);
+        mMixLockIcon = getResources().getDrawable(R.drawable.ic_partial_secure);
 
         // Create the tab control and our initial tab
         mTabControl = new TabControl(this);
@@ -1007,18 +1005,7 @@ public class BrowserActivity extends Activity
                 mSSLCertificateOnErrorError);
         }
         if (mHttpAuthenticationDialog != null) {
-            String title = ((TextView) mHttpAuthenticationDialog
-                    .findViewById(com.android.internal.R.id.alertTitle)).getText()
-                    .toString();
-            String name = ((TextView) mHttpAuthenticationDialog
-                    .findViewById(R.id.username_edit)).getText().toString();
-            String password = ((TextView) mHttpAuthenticationDialog
-                    .findViewById(R.id.password_edit)).getText().toString();
-            int focusId = mHttpAuthenticationDialog.getCurrentFocus()
-                    .getId();
-            mHttpAuthenticationDialog.dismiss();
-            showHttpAuthentication(mHttpAuthHandler, null, null, title,
-                    name, password, focusId);
+            mHttpAuthenticationDialog.reshow();
         }
     }
 
@@ -1625,6 +1612,9 @@ public class BrowserActivity extends Activity
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
         if (v instanceof TitleBarBase) {
+            return;
+        }
+        if (!(v instanceof WebView)) {
             return;
         }
         WebView webview = (WebView) v;
@@ -3629,73 +3619,23 @@ public class BrowserActivity extends Activity
     /**
      * Displays an http-authentication dialog.
      */
-    void showHttpAuthentication(final HttpAuthHandler handler,
-            final String host, final String realm, final String title,
-            final String name, final String password, int focusId) {
-        LayoutInflater factory = LayoutInflater.from(this);
-        final View v = factory
-                .inflate(R.layout.http_authentication, null);
-        if (name != null) {
-            ((EditText) v.findViewById(R.id.username_edit)).setText(name);
-        }
-        if (password != null) {
-            ((EditText) v.findViewById(R.id.password_edit)).setText(password);
-        }
-
-        String titleText = title;
-        if (titleText == null) {
-            titleText = getText(R.string.sign_in_to).toString().replace(
-                    "%s1", host).replace("%s2", realm);
-        }
-
-        mHttpAuthHandler = handler;
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle(titleText)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setView(v)
-                .setPositiveButton(R.string.action,
-                        new DialogInterface.OnClickListener() {
-                             public void onClick(DialogInterface dialog,
-                                     int whichButton) {
-                                String nm = ((EditText) v
-                                        .findViewById(R.id.username_edit))
-                                        .getText().toString();
-                                String pw = ((EditText) v
-                                        .findViewById(R.id.password_edit))
-                                        .getText().toString();
-                                BrowserActivity.this.setHttpAuthUsernamePassword
-                                        (host, realm, nm, pw);
-                                handler.proceed(nm, pw);
-                                mHttpAuthenticationDialog = null;
-                                mHttpAuthHandler = null;
-                            }})
-                .setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                    int whichButton) {
-                                handler.cancel();
-                                BrowserActivity.this.resetTitleAndRevertLockIcon();
-                                mHttpAuthenticationDialog = null;
-                                mHttpAuthHandler = null;
-                            }})
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        public void onCancel(DialogInterface dialog) {
-                            handler.cancel();
-                            BrowserActivity.this.resetTitleAndRevertLockIcon();
-                            mHttpAuthenticationDialog = null;
-                            mHttpAuthHandler = null;
-                        }})
-                .create();
-        // Make the IME appear when the dialog is displayed if applicable.
-        dialog.getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        dialog.show();
-        if (focusId != 0) {
-            dialog.findViewById(focusId).requestFocus();
-        } else {
-            v.findViewById(R.id.username_edit).requestFocus();
-        }
-        mHttpAuthenticationDialog = dialog;
+    void showHttpAuthentication(final HttpAuthHandler handler, String host, String realm) {
+        mHttpAuthenticationDialog = new HttpAuthenticationDialog(this, host, realm);
+        mHttpAuthenticationDialog.setOkListener(new HttpAuthenticationDialog.OkListener() {
+            public void onOk(String host, String realm, String username, String password) {
+                BrowserActivity.this.setHttpAuthUsernamePassword(host, realm, username, password);
+                handler.proceed(username, password);
+                mHttpAuthenticationDialog = null;
+            }
+        });
+        mHttpAuthenticationDialog.setCancelListener(new HttpAuthenticationDialog.CancelListener() {
+            public void onCancel() {
+                handler.cancel();
+                BrowserActivity.this.resetTitleAndRevertLockIcon();
+                mHttpAuthenticationDialog = null;
+            }
+        });
+        mHttpAuthenticationDialog.show();
     }
 
     public int getProgress() {
@@ -4251,8 +4191,7 @@ public class BrowserActivity extends Activity
 
     // as HttpAuthentication has different style for landscape / portrait, we
     // have to re-open it when configuration changed
-    private AlertDialog mHttpAuthenticationDialog;
-    private HttpAuthHandler mHttpAuthHandler;
+    private HttpAuthenticationDialog mHttpAuthenticationDialog;
 
     /*package*/ static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS =
                                             new FrameLayout.LayoutParams(

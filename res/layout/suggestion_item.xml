@@ -55,6 +55,13 @@
             android:layout_below="@android:id/text1"
             android:layout_alignLeft="@android:id/text1" />
     </RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/divider"
+        android:scaleType="center"
+        android:src="@drawable/divider_vert"
+        />
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
