@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -121,7 +122,11 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     }
 
     public void pushView(String name, Object data) {
-        Crumb crumb = new Crumb(name, true, data);
+        pushView(name, true, data);
+    }
+
+    public void pushView(String name, boolean canGoBack, Object data) {
+        Crumb crumb = new Crumb(name, canGoBack, data);
         pushCrumb(crumb);
     }
 
@@ -245,6 +250,10 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
             tv.setText(name);
             tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                     LayoutParams.MATCH_PARENT));
+            tv.setMaxWidth(mContext.getResources().getInteger(
+                    R.integer.max_width_crumb));
+            tv.setMaxLines(1);
+            tv.setEllipsize(TextUtils.TruncateAt.END);
             return tv;
         }
 

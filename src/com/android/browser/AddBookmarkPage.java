@@ -58,14 +58,20 @@ import android.widget.Toast;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class AddBookmarkPage extends Activity
         implements View.OnClickListener, TextView.OnEditorActionListener,
-        AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+        AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>,
+        BreadCrumbView.Controller {
 
     public static final long DEFAULT_FOLDER_ID = -1;
 
+    private static final int MAX_CRUMBS_SHOWN = 2;
+
     private final String LOGTAG = "Bookmarks";
+    // Set to true to see the crash on the code I would like to run.
+    private final boolean DEBUG_CRASH = false;
 
     // IDs for the CursorLoaders that are used.
     private final int LOADER_ID_FOLDER_CONTENTS = 0;
@@ -87,8 +93,8 @@ public class AddBookmarkPage extends Activity
     private View mAddNewFolder;
     private long mCurrentFolder = 0;
     private FolderAdapter mAdapter;
-    private ArrayList<Folder> mPaths;
-    private TextView    mPath;
+    private BreadCrumbView mCrumbs;
+    private View mFakeTitleBar;
 
     private static class Folder {
         String Name;
@@ -106,6 +112,51 @@ public class AddBookmarkPage extends Activity
 
     private InputMethodManager getInputMethodManager() {
         return (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+    }
+
+    @Override
+    public void onTop(int level, Object data) {
+        if (null == data) return;
+        mCurrentFolder = (Long) data;
+        Uri uri = BrowserContract.Bookmarks.buildFolderUri(mCurrentFolder);
+        LoaderManager manager = getLoaderManager();
+        CursorLoader loader = (CursorLoader) ((Loader) manager.getLoader(
+                LOADER_ID_FOLDER_CONTENTS));
+        loader.setUri(uri);
+        loader.forceLoad();
+        updateVisible();
+    }
+
+    /**
+     * Update the views shown to only show the two deepest levels of crumbs.
+     * Note that this method depends on internal knowledge of BreadCrumbView.
+     */
+    private void updateVisible() {
+      if (MAX_CRUMBS_SHOWN > 0) {
+          int invisibleCrumbs = mCrumbs.size() - MAX_CRUMBS_SHOWN;
+          // This class always uses a back button, which is the first child.
+          int childIndex = 1;
+          if (invisibleCrumbs > 0) {
+              int crumbIndex = 0;
+              while (crumbIndex < invisibleCrumbs) {
+                  // Set the crumb to GONE.
+                  mCrumbs.getChildAt(childIndex).setVisibility(View.GONE);
+                  childIndex++;
+                  // Each crumb is followed by a separator (except the last
+                  // one).  Also make it GONE
+                  mCrumbs.getChildAt(childIndex).setVisibility(View.GONE);
+                  childIndex++;
+                  // Move to the next crumb.
+                  crumbIndex++;
+              }
+          }
+          // Make sure the last two are visible.
+          int childCount = mCrumbs.getChildCount();
+          while (childIndex < childCount) {
+              mCrumbs.getChildAt(childIndex).setVisibility(View.VISIBLE);
+              childIndex++;
+          }
+      }
     }
 
     @Override
@@ -136,7 +187,8 @@ public class AddBookmarkPage extends Activity
                     // User has selected a folder.  Go back to the opening page
                     mFolderSelector.setVisibility(View.GONE);
                     mDefaultView.setVisibility(View.VISIBLE);
-                    setTitle(R.string.bookmark_this_page);
+                    mCrumbs.setVisibility(View.GONE);
+                    mFakeTitleBar.setVisibility(View.VISIBLE);
                 }
             } else if (save()) {
                 finish();
@@ -192,15 +244,15 @@ public class AddBookmarkPage extends Activity
     private void switchToFolderSelector() {
         mDefaultView.setVisibility(View.GONE);
         mFolderSelector.setVisibility(View.VISIBLE);
-        setTitle(R.string.containing_folder);
+        mCrumbs.setVisibility(View.VISIBLE);
+        mFakeTitleBar.setVisibility(View.GONE);
     }
 
     private void descendInto(String foldername, long id) {
         if (id != DEFAULT_FOLDER_ID) {
             mCurrentFolder = id;
-            mPaths.add(new Folder(foldername, id));
-            updatePathString();
-            getLoaderManager().restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
+            mCrumbs.pushView(foldername, id);
+            mCrumbs.notifyController();
         }
     }
 
@@ -253,6 +305,7 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.TITLE);
                 int parentIndex = cursor.getColumnIndexOrThrow(
                         BrowserContract.Bookmarks.PARENT);
+                Stack folderStack = new Stack();
                 while ((parent != BrowserProvider2.FIXED_ID_ROOT) &&
                         (parent != 0)) {
                     // First, find the folder corresponding to the current
@@ -269,29 +322,19 @@ public class AddBookmarkPage extends Activity
                                 + ") holding this bookmark does not exist!");
                     }
                     String name = cursor.getString(titleIndex);
-                    mPaths.add(1, new Folder(name, parent));
+                    folderStack.push(new Folder(name, parent));
                     parent = cursor.getLong(parentIndex);
                 }
+                while (!folderStack.isEmpty()) {
+                    Folder thisFolder = (Folder) folderStack.pop();
+                    mCrumbs.pushView(thisFolder.Name, thisFolder.Id);
+                }
                 getLoaderManager().stopLoader(LOADER_ID_ALL_FOLDERS);
-                updatePathString();
+                updateVisible();
                 break;
             default:
                 break;
         }
-    }
-
-    /**
-     * Update the TextViews in both modes to display the full path of the
-     * current location to insert.
-     */
-    private void updatePathString() {
-        String path = mPaths.get(0).Name;
-        int size = mPaths.size();
-        for (int i = 1; i < size; i++) {
-            path += " / " + mPaths.get(i).Name;
-        }
-        mPath.setText(path);
-        mFolder.setText(path);
     }
 
     @Override
@@ -329,15 +372,21 @@ public class AddBookmarkPage extends Activity
 
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        requestWindowFeature(Window.FEATURE_LEFT_ICON);
+        if (DEBUG_CRASH) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        } else {
+            requestWindowFeature(Window.FEATURE_LEFT_ICON);
+        }
 
         mMap = getIntent().getExtras();
 
         setContentView(R.layout.browser_add_bookmark);
 
-        setTitle(R.string.bookmark_this_page);
         Window window = getWindow();
-        window.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
+        if (!DEBUG_CRASH) {
+            setTitle(R.string.bookmark_this_page);
+            window.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
+        }
 
         String title = null;
         String url = null;
@@ -347,7 +396,11 @@ public class AddBookmarkPage extends Activity
             if (b != null) {
                 mMap = b;
                 mEditingExisting = true;
-                setTitle(R.string.edit_bookmark);
+                TextView fakeTitle = (TextView) findViewById(R.id.fake_title);
+                fakeTitle.setText(R.string.edit_bookmark);
+                if (!DEBUG_CRASH) {
+                    setTitle(R.string.bookmark_this_page);
+                }
             } else {
                 int gravity = mMap.getInt("gravity", -1);
                 if (gravity != -1) {
@@ -390,12 +443,16 @@ public class AddBookmarkPage extends Activity
         mAddNewFolder = findViewById(R.id.add_new_folder);
         mAddNewFolder.setOnClickListener(this);
 
-        mPath = (TextView) findViewById(R.id.path);
-                ListView list = (ListView) findViewById(R.id.list);
+        mCrumbs = (BreadCrumbView) findViewById(R.id.crumbs);
+        mCrumbs.setUseBackButton(true);
+        mCrumbs.setController(this);
+        mCrumbs.pushView(getString(R.string.bookmarks), false,
+                BrowserProvider2.FIXED_ID_ROOT);
 
-        mPaths = new ArrayList<Folder>();
-        mPaths.add(0, new Folder(getString(R.string.bookmarks), BrowserProvider2.FIXED_ID_ROOT));
+        mFakeTitleBar = findViewById(R.id.fake_title_bar);
+
         mAdapter = new FolderAdapter(this);
+        ListView list = (ListView) findViewById(R.id.list);
         list.setAdapter(mAdapter);
         list.setOnItemClickListener(this);
         LoaderManager manager = getLoaderManager();
@@ -443,35 +500,6 @@ public class AddBookmarkPage extends Activity
             if (cursor != null) cursor.close();
         }
         return BrowserProvider2.FIXED_ID_ROOT;
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (mFolderSelector.getVisibility() == View.VISIBLE
-                && KeyEvent.KEYCODE_BACK == event.getKeyCode()) {
-            if (KeyEvent.ACTION_UP == event.getAction()) {
-                if (mFolderNamer.getVisibility() == View.VISIBLE) {
-                    mFolderNamer.setVisibility(View.GONE);
-                    mAddNewFolder.setVisibility(View.VISIBLE);
-                    getInputMethodManager().hideSoftInputFromWindow(
-                            mFolderNamer.getWindowToken(), 0);
-                } else {
-                    int size = mPaths.size();
-                    if (1 == size) {
-                        // We have reached the top level
-                        finish();
-                    } else {
-                        // Go up a level
-                        mPaths.remove(size - 1);
-                        mCurrentFolder = mPaths.get(size - 2).Id;
-                        updatePathString();
-                        getLoaderManager().restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
-                    }
-                }
-            }
-            return true;
-        }
-        return super.dispatchKeyEvent(event);
     }
 
     /**
