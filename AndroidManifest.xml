@@ -177,7 +177,7 @@
         <activity android:name="AddBookmarkPage" android:label="Save bookmark"
                   android:theme="@style/Dialog"
                   android:configChanges="orientation|keyboardHidden"
-                  android:windowSoftInputMode="stateHidden">
+                  android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />
