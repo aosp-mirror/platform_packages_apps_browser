@@ -91,10 +91,12 @@ public class AddBookmarkPage extends Activity
     private View mFolderSelector;
     private EditText mFolderNamer;
     private View mAddNewFolder;
+    private View mAddSeparator;
     private long mCurrentFolder = 0;
     private FolderAdapter mAdapter;
     private BreadCrumbView mCrumbs;
-    private View mFakeTitleBar;
+    private TextView mFakeTitle;
+    private View mCrumbHolder;
 
     private static class Folder {
         String Name;
@@ -187,8 +189,8 @@ public class AddBookmarkPage extends Activity
                     // User has selected a folder.  Go back to the opening page
                     mFolderSelector.setVisibility(View.GONE);
                     mDefaultView.setVisibility(View.VISIBLE);
-                    mCrumbs.setVisibility(View.GONE);
-                    mFakeTitleBar.setVisibility(View.VISIBLE);
+                    mCrumbHolder.setVisibility(View.GONE);
+                    mFakeTitle.setVisibility(View.VISIBLE);
                 }
             } else if (save()) {
                 finish();
@@ -197,6 +199,7 @@ public class AddBookmarkPage extends Activity
             if (mFolderNamer.getVisibility() == View.VISIBLE) {
                 mFolderNamer.setVisibility(View.GONE);
                 mAddNewFolder.setVisibility(View.VISIBLE);
+                mAddSeparator.setVisibility(View.VISIBLE);
             } else {
                 finish();
             }
@@ -207,6 +210,7 @@ public class AddBookmarkPage extends Activity
             mFolderNamer.setText(R.string.new_folder);
             mFolderNamer.requestFocus();
             mAddNewFolder.setVisibility(View.GONE);
+            mAddSeparator.setVisibility(View.GONE);
             getInputMethodManager().showSoftInput(mFolderNamer,
                     InputMethodManager.SHOW_IMPLICIT);
         }
@@ -219,6 +223,7 @@ public class AddBookmarkPage extends Activity
             descendInto(name, id);
             mFolderNamer.setVisibility(View.GONE);
             mAddNewFolder.setVisibility(View.VISIBLE);
+            mAddSeparator.setVisibility(View.VISIBLE);
             getInputMethodManager().hideSoftInputFromWindow(
                     mFolderNamer.getWindowToken(), 0);
         }
@@ -244,8 +249,10 @@ public class AddBookmarkPage extends Activity
     private void switchToFolderSelector() {
         mDefaultView.setVisibility(View.GONE);
         mFolderSelector.setVisibility(View.VISIBLE);
-        mCrumbs.setVisibility(View.VISIBLE);
-        mFakeTitleBar.setVisibility(View.GONE);
+        mCrumbHolder.setVisibility(View.VISIBLE);
+        mFakeTitle.setVisibility(View.GONE);
+        mAddNewFolder.setVisibility(View.VISIBLE);
+        mAddSeparator.setVisibility(View.VISIBLE);
     }
 
     private void descendInto(String foldername, long id) {
@@ -396,8 +403,7 @@ public class AddBookmarkPage extends Activity
             if (b != null) {
                 mMap = b;
                 mEditingExisting = true;
-                TextView fakeTitle = (TextView) findViewById(R.id.fake_title);
-                fakeTitle.setText(R.string.edit_bookmark);
+                mFakeTitle.setText(R.string.edit_bookmark);
                 if (!DEBUG_CRASH) {
                     setTitle(R.string.bookmark_this_page);
                 }
@@ -442,14 +448,16 @@ public class AddBookmarkPage extends Activity
 
         mAddNewFolder = findViewById(R.id.add_new_folder);
         mAddNewFolder.setOnClickListener(this);
+        mAddSeparator = findViewById(R.id.add_divider);
 
         mCrumbs = (BreadCrumbView) findViewById(R.id.crumbs);
         mCrumbs.setUseBackButton(true);
         mCrumbs.setController(this);
         mCrumbs.pushView(getString(R.string.bookmarks), false,
                 BrowserProvider2.FIXED_ID_ROOT);
+        mCrumbHolder = findViewById(R.id.crumb_holder);
 
-        mFakeTitleBar = findViewById(R.id.fake_title_bar);
+        mFakeTitle = (TextView) findViewById(R.id.fake_title);
 
         mAdapter = new FolderAdapter(this);
         ListView list = (ListView) findViewById(R.id.list);
