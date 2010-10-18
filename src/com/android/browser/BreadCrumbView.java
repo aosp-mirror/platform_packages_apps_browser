@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -45,6 +46,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     private Controller mController;
     private List<Crumb> mCrumbs;
     private boolean mUseBackButton;
+    private Drawable mSeparatorDrawable;
 
     /**
      * @param context
@@ -76,6 +78,8 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     private void init(Context ctx) {
         mUseBackButton = false;
         mCrumbs = new ArrayList<Crumb>();
+        mSeparatorDrawable = ctx.getResources().getDrawable(
+                R.drawable.crumb_divider);
     }
 
     public void setUseBackButton(boolean useflag) {
@@ -164,7 +168,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
 
     private void addSeparator() {
         ImageView sep = new ImageView(mContext);
-        sep.setImageResource(R.drawable.crumb_divider);
+        sep.setImageDrawable(mSeparatorDrawable);
         sep.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.MATCH_PARENT));
         addView(sep);
@@ -219,6 +223,39 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
                 pop(false);
             }
             notifyController();
+        }
+    }
+    @Override
+    public int getBaseline() {
+        int ix = getChildCount();
+        if (ix > 0) {
+            // If there is at least one crumb, the baseline will be its
+            // baseline.
+            return getChildAt(ix-1).getBaseline();
+        }
+        return super.getBaseline();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int height = mSeparatorDrawable.getIntrinsicHeight();
+        if (mMeasuredHeight < height) {
+            // This should only be an issue if there are currently no separators
+            // showing; i.e. if there is one crumb and no back button.
+            int mode = View.MeasureSpec.getMode(heightMeasureSpec);
+            switch(mode) {
+                case View.MeasureSpec.AT_MOST:
+                    if (View.MeasureSpec.getSize(heightMeasureSpec) < height) {
+                        return;
+                    }
+                    break;
+                case View.MeasureSpec.EXACTLY:
+                    return;
+                default:
+                    break;
+            }
+            setMeasuredDimension(mMeasuredWidth, height);
         }
     }
 
