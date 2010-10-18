@@ -125,11 +125,12 @@
     <string name="location">Address</string>
     <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
     <string name="containing_folder">Add to</string>
-    <!-- Button text for a button that allows the user to add a new folder.  Also used as the title of the add bookmarks dialog on the page
-         that allows choosing the folder to place it in. -->
-    <string name="add_new_folder">Add new folder</string>
-    <!-- Default name for a new folder -->
+    <!-- Default name for a new folder and label for a button that allows the user to create a new folder
+         in the add bookmark dialog -->
     <string name="new_folder">New folder</string>
+    <!-- Label stating that the currently open folder has no subfolders
+         in the add bookmark dialog [CHAR-LIMIT=none]-->
+    <string name="no_subfolders">No subfolders</string>
     <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
     <string name="name">Label</string>
     <!-- Initial value in Location field in Bookmark dialog box -->
