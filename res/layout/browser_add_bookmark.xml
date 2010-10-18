@@ -19,38 +19,52 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
-
-    <com.android.browser.BreadCrumbView android:id="@+id/crumbs"
+    <RelativeLayout android:id="@+id/crumb_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        />
-    <LinearLayout android:id="@+id/fake_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         >
-        <ImageView
+        <com.android.browser.BreadCrumbView android:id="@+id/crumbs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_list_bookmark"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/add_divider"
             />
-        <TextView android:id="@+id/fake_title"
+        <!-- FIXME: The drawable does not line up properly. We may also want a
+            different asset in the final version. -->
+        <TextView
+            android:id="@+id/add_new_folder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bookmark_this_page"
-            android:layout_gravity="center_horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/crumbs"
+            android:drawableLeft="@drawable/ic_add_string"
+            android:text="@string/add_new_folder"
+            android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
+        <ImageView android:id="@+id/add_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/add_new_folder"
+            android:src="@drawable/crumb_divider"
+            />
+    </RelativeLayout>
+    <!-- FIXME: The drawable does not line up properly. We may also want a
+        different asset in the final version. -->
+    <TextView android:id="@+id/fake_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_list_bookmark"
+        android:text="@string/bookmark_this_page"
+        android:layout_gravity="left"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageView android:id="@+id/titleDivider"
+    <View android:id="@+id/titleDivider"
         android:layout_width="match_parent"
         android:layout_height="1dip"
-        android:scaleType="fitXY"
         android:gravity="fill_horizontal"
-        android:src="@drawable/dialog_divider_horizontal_light"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"/>
+        android:background="?android:attr/colorForeground"
+        />
 
     <!-- XXX Use a TableLayout instead -->
     <RelativeLayout android:id="@+id/default_view"
@@ -158,14 +172,6 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             />
-        <Button
-            android:id="@+id/add_new_folder"
-            android_marginTop="16dip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/add_new_folder"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
     <LinearLayout 
