@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -121,7 +122,11 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     }
 
     public void pushView(String name, Object data) {
-        Crumb crumb = new Crumb(name, true, data);
+        pushView(name, true, data);
+    }
+
+    public void pushView(String name, boolean canGoBack, Object data) {
+        Crumb crumb = new Crumb(name, canGoBack, data);
         pushCrumb(crumb);
     }
 
@@ -141,7 +146,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
         mBackButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.MATCH_PARENT));
         mBackButton.setOnClickListener(this);
-        mBackButton.setVisibility(View.GONE);
+        mBackButton.setVisibility(View.INVISIBLE);
         addView(mBackButton, 0);
     }
 
@@ -152,7 +157,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
         mCrumbs.add(crumb);
         addView(crumb.crumbView);
         if (mUseBackButton) {
-            mBackButton.setVisibility(crumb.canGoBack ? View.VISIBLE : View.GONE);
+            mBackButton.setVisibility(crumb.canGoBack ? View.VISIBLE : View.INVISIBLE);
         }
         crumb.crumbView.setOnClickListener(this);
     }
@@ -176,10 +181,10 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
             mCrumbs.remove(n - 1);
             if (mUseBackButton) {
                 Crumb top = getTopCrumb();
-                if (top != null) {
-                    mBackButton.setVisibility(top.canGoBack ? View.VISIBLE : View.GONE);
+                if (top != null && top.canGoBack) {
+                    mBackButton.setVisibility(View.VISIBLE);
                 } else {
-                    mBackButton.setVisibility(View.GONE);
+                    mBackButton.setVisibility(View.INVISIBLE);
                 }
             }
             if (notify) {
@@ -245,6 +250,10 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
             tv.setText(name);
             tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                     LayoutParams.MATCH_PARENT));
+            tv.setMaxWidth(mContext.getResources().getInteger(
+                    R.integer.max_width_crumb));
+            tv.setMaxLines(1);
+            tv.setEllipsize(TextUtils.TruncateAt.END);
             return tv;
         }
 

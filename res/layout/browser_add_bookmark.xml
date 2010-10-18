@@ -15,10 +15,33 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/add_bookmark_width"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
+
+    <com.android.browser.BreadCrumbView android:id="@+id/crumbs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <LinearLayout android:id="@+id/fake_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_list_bookmark"
+            />
+        <TextView android:id="@+id/fake_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bookmark_this_page"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
 
     <ImageView android:id="@+id/titleDivider"
         android:layout_width="match_parent"
@@ -29,6 +52,7 @@
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"/>
 
+    <!-- XXX Use a TableLayout instead -->
     <RelativeLayout android:id="@+id/default_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +77,7 @@
         <EditText
             android:id="@+id/title"
             android:layout_height="wrap_content"
-            android:layout_width="250dip"
+            android:layout_width="325dip"
             android:gravity="fill_horizontal"
             android:layout_alignBaseline="@+id/titleText"
             android:layout_toRightOf="@+id/titleText"
@@ -79,7 +103,7 @@
         <EditText
             android:id="@+id/address"
             android:layout_height="wrap_content"
-            android:layout_width="250dip"
+            android:layout_width="325dip"
             android:hint="@string/http"
             android:layout_alignBaseline="@+id/addressText"
             android:layout_alignLeft="@+id/title"
@@ -113,24 +137,11 @@
     </RelativeLayout>
 
     <LinearLayout android:id="@+id/folder_selector"
-        android:layout_width="500dip"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/folder_selector_height"
         android:orientation="vertical"
         android:visibility="gone"
         >
-
-        <TextView
-            android:id="@+id/path"
-            android:layout_marginTop="4dip"
-            android:layout_marginLeft="16dip"
-            android:layout_marginRight="16dip"
-            android:layout_marginBottom="4dip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:ellipsize="start"
-            android:text="@string/bookmarks"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ListView
             android:id="@+id/list"
