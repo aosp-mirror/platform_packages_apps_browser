@@ -133,9 +133,11 @@ public class BrowserSettings extends Observable {
 
 
     private AutoFillProfile mAutoFillProfile;
-    // TODO: For now we only support one autofill profile. Add support for
-    // multiple profiles later.
-    private int mActiveAutoFillProfileId = 1;
+    // Default to zero. In the case no profile is set up, the initial
+    // value will come from the AutoFillSettingsFragment when the user
+    // creates a profile. Otherwise, we'll read the ID of the last used
+    // profile from the prefs db.
+    private int autoFillActiveProfileId;
 
     // Preference keys that are used outside this class
     public final static String PREF_CLEAR_CACHE = "privacy_clear_cache";
@@ -159,6 +161,7 @@ public class BrowserSettings extends Observable {
             "privacy_clear_geolocation_access";
     public final static String PREF_AUTOFILL_ENABLED = "autofill_enabled";
     public final static String PREF_AUTOFILL_PROFILE = "autofill_profile";
+    public final static String PREF_AUTOFILL_ACTIVE_PROFILE_ID = "autofill_active_profile_id";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, " +
@@ -313,11 +316,15 @@ public class BrowserSettings extends Observable {
             pageCacheCapacity = 1;
         }
 
+        // Read the last active AutoFill profile id.
+        autoFillActiveProfileId = p.getInt(
+                PREF_AUTOFILL_ACTIVE_PROFILE_ID, autoFillActiveProfileId);
+
         // Load the autofill profile data from the database. We use a database separate
         // to the browser preference DB to make it easier to support multiple profiles
         // and switching between them.
         AutoFillProfileDatabase autoFillDb = AutoFillProfileDatabase.getInstance(ctx);
-        Cursor c = autoFillDb.getProfile(mActiveAutoFillProfileId);
+        Cursor c = autoFillDb.getProfile(autoFillActiveProfileId);
 
         if (c.getCount() > 0) {
             c.moveToFirst();
@@ -342,9 +349,9 @@ public class BrowserSettings extends Observable {
                     AutoFillProfileDatabase.Profiles.COUNTRY));
             String phone = c.getString(c.getColumnIndex(
                     AutoFillProfileDatabase.Profiles.PHONE_NUMBER));
-            mAutoFillProfile = new AutoFillProfile(fullName, email, company,
-                    addressLine1, addressLine2, city, state, zip, country,
-                    phone);
+            mAutoFillProfile = new AutoFillProfile(autoFillActiveProfileId,
+                    fullName, email, company, addressLine1, addressLine2, city,
+                    state, zip, country, phone);
         }
         c.close();
         autoFillDb.close();
@@ -528,6 +535,7 @@ public class BrowserSettings extends Observable {
 
     public void setAutoFillProfile(Context ctx, AutoFillProfile profile) {
         mAutoFillProfile = profile;
+        setActiveAutoFillProfileId(ctx, profile.getUniqueId());
         // Update the AutoFill DB
         new SaveProfileToDbTask(ctx).execute(mAutoFillProfile);
 
@@ -535,6 +543,14 @@ public class BrowserSettings extends Observable {
 
     public AutoFillProfile getAutoFillProfile() {
         return mAutoFillProfile;
+    }
+
+    private void setActiveAutoFillProfileId(Context context, int activeProfileId) {
+        autoFillActiveProfileId = activeProfileId;
+        Editor ed = PreferenceManager.
+            getDefaultSharedPreferences(context).edit();
+        ed.putInt(PREF_AUTOFILL_ACTIVE_PROFILE_ID, activeProfileId);
+        ed.apply();
     }
 
     /**
@@ -689,6 +705,8 @@ public class BrowserSettings extends Observable {
         rememberPasswords = true;
         saveFormData = true;
         autoFillEnabled = false;
+        // TODO: Should remove the autofill profile fully and
+        // set the active profile id to 0.
         openInBackground = false;
         autoFitPage = true;
         landscapeOnly = false;
@@ -713,7 +731,8 @@ public class BrowserSettings extends Observable {
 
         protected Void doInBackground(AutoFillProfile... values) {
             mAutoFillProfileDb = AutoFillProfileDatabase.getInstance(mContext);
-            mAutoFillProfileDb.addOrUpdateProfile(mActiveAutoFillProfileId, values[0]);
+            assert autoFillActiveProfileId > 0;
+            mAutoFillProfileDb.addOrUpdateProfile(autoFillActiveProfileId, values[0]);
             return null;
         }
 
