@@ -43,16 +43,16 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
         try {
             cursor = cr.query(data,
                     new String[] { Downloads.Impl._ID, Downloads.Impl._DATA,
-                    Downloads.Impl.COLUMN_MIME_TYPE, Downloads.COLUMN_STATUS },
+                    Downloads.Impl.COLUMN_MIME_TYPE, Downloads.Impl.COLUMN_STATUS },
                     null, null, null);
             if (cursor.moveToFirst()) {
                 String filename = cursor.getString(1);
                 String mimetype = cursor.getString(2);
                 String action = intent.getAction();
-                if (Downloads.ACTION_NOTIFICATION_CLICKED.equals(action)) {
+                if (Downloads.Impl.ACTION_NOTIFICATION_CLICKED.equals(action)) {
                     int status = cursor.getInt(3);
-                    if (Downloads.isStatusCompleted(status)
-                            && Downloads.isStatusSuccess(status)) {
+                    if (Downloads.Impl.isStatusCompleted(status)
+                            && Downloads.Impl.isStatusSuccess(status)) {
                         Intent launchIntent = new Intent(Intent.ACTION_VIEW);
                         Uri path = Uri.parse(filename);
                         // If there is no scheme, then it must be a file
