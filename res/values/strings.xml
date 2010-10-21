@@ -131,6 +131,12 @@
     <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
     <string name="no_subfolders">No subfolders</string>
+    <!-- Menu item to use the top level bookmarks folder to save a bookmark in. [CHAR-LIMIT=30]-->
+    <string name="add_to_bookmarks_menu_option">Bookmarks</string>
+    <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+    <string name="add_to_homescreen_menu_option">Home screen</string>
+    <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+    <string name="add_to_other_folder_menu_option">Other folder\u2026</string>
     <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
     <string name="name">Label</string>
     <!-- Initial value in Location field in Bookmark dialog box -->

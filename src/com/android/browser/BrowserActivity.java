@@ -103,11 +103,11 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebIconDatabase;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -130,7 +130,7 @@ import java.util.regex.Pattern;
 
 public class BrowserActivity extends Activity
         implements View.OnCreateContextMenuListener, DownloadListener,
-        PopupMenu.OnMenuItemClickListener, BookmarksHistoryCallbacks {
+        BookmarksHistoryCallbacks {
 
     /* Define some aliases to make these debugging flags easier to refer to.
      * This file imports android.provider.Browser, so we can't just refer to "Browser.DEBUG".
@@ -1490,9 +1490,17 @@ public class BrowserActivity extends Activity
         WebView w = getTopWindow();
         i.putExtra("url", w.getUrl());
         i.putExtra("title", w.getTitle());
-        i.putExtra("touch_icon_url", w.getTouchIconUrl());
+        String touchIconUrl = w.getTouchIconUrl();
+        if (touchIconUrl != null) {
+            i.putExtra("touch_icon_url", touchIconUrl);
+            WebSettings settings = w.getSettings();
+            if (settings != null) {
+                i.putExtra("user_agent", settings.getUserAgentString());
+            }
+        }
         i.putExtra("thumbnail", createScreenshot(w, getDesiredThumbnailWidth(this),
                 getDesiredThumbnailHeight(this)));
+        i.putExtra("favicon", w.getFavicon());
         i.putExtra(BrowserContract.Bookmarks.PARENT,
                 folderId);
         // Put the dialog at the upper right of the screen, covering the
@@ -2296,8 +2304,6 @@ public class BrowserActivity extends Activity
 
     static final int UPDATE_BOOKMARK_THUMBNAIL       = 108;
 
-    private static final int TOUCH_ICON_DOWNLOADED   = 109;
-
     private static final int OPEN_BOOKMARKS = 201;
 
     // Private handler for handling javascript and saving passwords
@@ -2372,14 +2378,6 @@ public class BrowserActivity extends Activity
                     if (view != null) {
                         updateScreenshot(view);
                     }
-                    break;
-
-                case TOUCH_ICON_DOWNLOADED:
-                    Bundle b = msg.getData();
-                    showSaveToHomescreenDialog(b.getString("url"),
-                        b.getString("title"),
-                        (Bitmap) b.getParcelable("touchIcon"),
-                        (Bitmap) b.getParcelable("favicon"));
                     break;
             }
         }
@@ -3806,52 +3804,6 @@ public class BrowserActivity extends Activity
         startActivity(intent);
     }
 
-    /* package */ void promptAddOrInstallBookmark(View anchor) {
-        PopupMenu popup = new PopupMenu(this, anchor);
-        popup.getMenuInflater().inflate(R.menu.bookmark_shortcut, popup.getMenu());
-        popup.setOnMenuItemClickListener(this);
-        popup.show();
-    }
-
-    /**
-     * popup menu item click listener
-     * @param item
-     */
-    public boolean onMenuItemClick(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.add_bookmark_menu_id:
-                bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID);
-                return true;
-            case R.id.shortcut_to_home_menu_id:
-                Tab current = mTabControl.getCurrentTab();
-                current.populatePickerData();
-                String touchIconUrl = mTabControl.getCurrentWebView().getTouchIconUrl();
-                if (touchIconUrl != null) {
-                    // Download the touch icon for this site then save
-                    // it to the
-                    // homescreen.
-                    Bundle b = new Bundle();
-                    b.putString("url", current.getUrl());
-                    b.putString("title", current.getTitle());
-                    b.putParcelable("favicon", current.getFavicon());
-                    Message msg = mHandler.obtainMessage(TOUCH_ICON_DOWNLOADED);
-                    msg.setData(b);
-                    new DownloadTouchIcon(BrowserActivity.this, msg,
-                            mTabControl.getCurrentWebView().getSettings().getUserAgentString())
-                            .execute(touchIconUrl);
-                } else {
-                    // add to homescreen, can do it immediately as there
-                    // is no touch
-                    // icon.
-                    showSaveToHomescreenDialog(
-                            current.getUrl(), current.getTitle(), null, current.getFavicon());
-                }
-                return true;
-            default:
-                return false;
-        }
-    }
-
     /* package */Dialog makeAddOrInstallDialog() {
         final Tab current = mTabControl.getCurrentTab();
         Resources resources = getResources();
@@ -3916,32 +3868,6 @@ public class BrowserActivity extends Activity
         mTitleBar.setVisibility(View.GONE);
         hideFakeTitleBar();
         mContentView.addView(mComboView, COVER_SCREEN_PARAMS);
-    }
-
-    private void showSaveToHomescreenDialog(String url, String title, Bitmap touchIcon,
-            Bitmap favicon) {
-        Intent intent = new Intent(this, SaveToHomescreenDialog.class);
-
-        // Just in case the user tries to save before a page finishes loading
-        // so the current history item, and therefore the page, is null.
-        if (null == url) {
-            url = mLastEnteredUrl;
-            // This can happen.
-            if (null == url) {
-                url = mSettings.getHomePage();
-            }
-        }
-
-        // In case the web page has not yet received its associated title.
-        if (title == null) {
-            title = url;
-        }
-
-        intent.putExtra("title", title);
-        intent.putExtra("url", url);
-        intent.putExtra("favicon", favicon);
-        intent.putExtra("touchIcon", touchIcon);
-        startActivity(intent);
     }
 
     // Called when loading from context menu or LOAD_URL message

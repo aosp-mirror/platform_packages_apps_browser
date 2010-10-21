@@ -127,7 +127,8 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mForwardButton == v) {
             mBrowserActivity.getTopWindow().goForward();
         } else if (mStar == v) {
-            mBrowserActivity.promptAddOrInstallBookmark(mStar);
+            mBrowserActivity.bookmarkCurrentPage(
+                    AddBookmarkPage.DEFAULT_FOLDER_ID);
         } else if (mAllButton == v) {
             mBrowserActivity.bookmarksOrHistoryPicker(false);
         } else if (mSearchButton == v) {
