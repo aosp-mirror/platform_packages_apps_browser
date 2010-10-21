@@ -24,7 +24,8 @@
     android:layout_height="56dip"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    >
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,16 +40,13 @@
         android:layout_height="wrap_content" >
         <TextView
             android:id="@android:id/text1"
-            style="?android:attr/dropDownItemStyle"
-            android:textAppearance="?android:attr/textAppearanceMediumInverse"
+            style="@style/SuggestionLineMedium"
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@android:id/text2"
-            style="?android:attr/dropDownItemStyle"
-            android:textAppearance="?android:attr/textAppearanceSmallInverse"
-            android:textColor="#323232"
+            style="@style/SuggestionLineSmall"
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -185,8 +185,10 @@
                     android:resource="@xml/bookmarks_searchable" />
         </activity>
 
-        <activity android:name="AddBookmarkPage" android:label="Save bookmark" android:theme="@style/Dialog.Holo"
-                  android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">
+        <activity android:name="AddBookmarkPage" android:label="Save bookmark"
+                  android:theme="@style/Dialog"
+                  android:configChanges="orientation|keyboardHidden"
+                  android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />

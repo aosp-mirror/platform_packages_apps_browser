@@ -43,6 +43,11 @@ public class AutoFillSettingsFragment extends Fragment {
     private EditText mCountryEdit;
     private EditText mPhoneEdit;
 
+    // For now we support just one profile so it's safe to hardcode the
+    // id to 1 here. In the future this unique identifier will be set
+    // dynamically.
+    private int mUniqueId = 1;
+
     public AutoFillSettingsFragment() {
 
     }
@@ -75,6 +80,7 @@ public class AutoFillSettingsFragment extends Fragment {
             public void onClick(View button) {
                 BrowserSettings.getInstance().setAutoFillProfile(getActivity(),
                         new AutoFillProfile(
+                                mUniqueId,
                                 mFullNameEdit.getText().toString(),
                                 mEmailEdit.getText().toString(),
                                 mCompanyEdit.getText().toString(),
