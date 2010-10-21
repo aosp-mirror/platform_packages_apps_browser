@@ -477,7 +477,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     private Intent createShortcutIntent(int position) {
         Cursor cursor = (Cursor) mAdapter.getItem(position);
         String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
-        String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
+        String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
         Bitmap touchIcon = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_TOUCH_ICON);
         Bitmap favicon = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON);
         return BookmarkUtils.createAddToHomeIntent(getActivity(), url, title, touchIcon, favicon);
