@@ -2304,6 +2304,10 @@ public class BrowserActivity extends Activity
                                         getString(
                                         R.string.choosertitle_sharevia));
                             }
+                            // close the cursor after its used
+                            if (c != null) {
+                                c.close();
+                            }
                             break;
                         case R.id.copy_link_context_menu_id:
                             copy(url);
