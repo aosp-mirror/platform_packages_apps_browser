@@ -16,7 +16,9 @@
 
 package com.android.browser;
 
+import android.app.DownloadManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.net.Proxy;
 import android.net.Uri;
 import android.net.http.AndroidHttpClient;
@@ -30,7 +32,6 @@ import org.apache.http.conn.params.ConnRouteParams;
 import java.io.IOException;
 
 import android.os.AsyncTask;
-import android.provider.Downloads;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
 
@@ -49,11 +50,17 @@ import android.webkit.URLUtil;
  */
 class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
 
+    public static final String URI = "uri";
+    public static final String USER_AGENT = "user_agent";
+    public static final String COOKIE_DATA = "cookie_data";
     BrowserActivity mActivity;
     ContentValues mValues;
+    DownloadManager.Request mRequest;
 
-    public FetchUrlMimeType(BrowserActivity activity) {
+    public FetchUrlMimeType(BrowserActivity activity,
+            DownloadManager.Request request) {
         mActivity = activity;
+        mRequest = request;
     }
 
     @Override
@@ -61,7 +68,7 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
         mValues = values[0];
 
         // Check to make sure we have a URI to download
-        String uri = mValues.getAsString(Downloads.Impl.COLUMN_URI);
+        String uri = mValues.getAsString(URI);
         if (uri == null || uri.length() == 0) {
             return null;
         }
@@ -69,21 +76,16 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
         // User agent is likely to be null, though the AndroidHttpClient
         // seems ok with that.
         AndroidHttpClient client = AndroidHttpClient.newInstance(
-                mValues.getAsString(Downloads.Impl.COLUMN_USER_AGENT));
+                mValues.getAsString(USER_AGENT));
         HttpHost httpHost = Proxy.getPreferredHttpHost(mActivity, uri);
         if (httpHost != null) {
             ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
         }
         HttpHead request = new HttpHead(uri);
 
-        String cookie = mValues.getAsString(Downloads.Impl.COLUMN_COOKIE_DATA);
+        String cookie = mValues.getAsString(COOKIE_DATA);
         if (cookie != null && cookie.length() > 0) {
             request.addHeader("Cookie", cookie);
-        }
-
-        String referer = mValues.getAsString(Downloads.Impl.COLUMN_REFERER);
-        if (referer != null && referer.length() > 0) {
-            request.addHeader("Referer", referer);
         }
 
         HttpResponse response;
@@ -117,24 +119,25 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
    @Override
     public void onPostExecute(String mimeType) {
        if (mimeType != null) {
-           String url = mValues.getAsString(Downloads.Impl.COLUMN_URI);
+           String url = mValues.getAsString(URI);
            if (mimeType.equalsIgnoreCase("text/plain") ||
                    mimeType.equalsIgnoreCase("application/octet-stream")) {
                String newMimeType =
                        MimeTypeMap.getSingleton().getMimeTypeFromExtension(
                            MimeTypeMap.getFileExtensionFromUrl(url));
                if (newMimeType != null) {
-                   mValues.put(Downloads.Impl.COLUMN_MIME_TYPE, newMimeType);
+                   mRequest.setMimeType(newMimeType);
                }
            }
            String filename = URLUtil.guessFileName(url,
                    null, mimeType);
-           mValues.put(Downloads.Impl.COLUMN_FILE_NAME_HINT, filename);
+           mRequest.setDestinationInExternalFilesDir(mActivity, null, filename);
        }
 
        // Start the download
-       final Uri contentUri =
-           mActivity.getContentResolver().insert(Downloads.Impl.CONTENT_URI, mValues);
+       DownloadManager manager = (DownloadManager) mActivity.getSystemService(
+               Context.DOWNLOAD_SERVICE);
+       manager.enqueue(mRequest);
     }
 
 }
