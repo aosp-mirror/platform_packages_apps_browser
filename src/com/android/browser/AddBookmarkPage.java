@@ -68,6 +68,10 @@ public class AddBookmarkPage extends Activity
         BreadCrumbView.Controller, PopupMenu.OnMenuItemClickListener {
 
     public static final long DEFAULT_FOLDER_ID = -1;
+    public static final String TOUCH_ICON_URL = "touch_icon_url";
+    // Place on an edited bookmark to remove the saved thumbnail
+    public static final String REMOVE_THUMBNAIL = "remove_thumbnail";
+    public static final String USER_AGENT = "user_agent";
 
     private static final int MAX_CRUMBS_SHOWN = 2;
 
@@ -492,9 +496,9 @@ public class AddBookmarkPage extends Activity
                     window.setAttributes(l);
                 }
             }
-            title = mMap.getString("title");
-            url = mOriginalUrl = mMap.getString("url");
-            mTouchIconUrl = mMap.getString("touch_icon_url");
+            title = mMap.getString(BrowserContract.Bookmarks.TITLE);
+            url = mOriginalUrl = mMap.getString(BrowserContract.Bookmarks.URL);
+            mTouchIconUrl = mMap.getString(TOUCH_ICON_URL);
             mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, DEFAULT_FOLDER_ID);
         }
         if (mCurrentFolder == DEFAULT_FOLDER_ID) {
@@ -602,13 +606,12 @@ public class AddBookmarkPage extends Activity
         public void run() {
             // Unbundle bookmark data.
             Bundle bundle = mMessage.getData();
-            String title = bundle.getString("title");
-            String url = bundle.getString("url");
-            boolean invalidateThumbnail = bundle.getBoolean(
-                    "invalidateThumbnail");
+            String title = bundle.getString(BrowserContract.Bookmarks.TITLE);
+            String url = bundle.getString(BrowserContract.Bookmarks.URL);
+            boolean invalidateThumbnail = bundle.getBoolean(REMOVE_THUMBNAIL);
             Bitmap thumbnail = invalidateThumbnail ? null
-                    : (Bitmap) bundle.getParcelable("thumbnail");
-            String touchIconUrl = bundle.getString("touchIconUrl");
+                    : (Bitmap) bundle.getParcelable(BrowserContract.Bookmarks.THUMBNAIL);
+            String touchIconUrl = bundle.getString(TOUCH_ICON_URL);
 
             // Save to the bookmarks DB.
             try {
@@ -644,10 +647,11 @@ public class AddBookmarkPage extends Activity
                         case TOUCH_ICON_DOWNLOADED:
                             Bundle b = msg.getData();
                             sendBroadcast(BookmarkUtils.createAddToHomeIntent(
-                                    AddBookmarkPage.this, b.getString("url"),
-                                    b.getString("title"),
-                                    (Bitmap) b.getParcelable("touchIcon"),
-                                    (Bitmap) b.getParcelable("favicon")));
+                                    AddBookmarkPage.this,
+                                    b.getString(BrowserContract.Bookmarks.URL),
+                                    b.getString(BrowserContract.Bookmarks.TITLE),
+                                    (Bitmap) b.getParcelable(BrowserContract.Bookmarks.TOUCH_ICON),
+                                    (Bitmap) b.getParcelable(BrowserContract.Bookmarks.FAVICON)));
                             break;
                     }
                 }
@@ -718,9 +722,9 @@ public class AddBookmarkPage extends Activity
         boolean urlUnmodified = url.equals(mOriginalUrl);
 
         if (mEditingExisting) {
-            mMap.putString("title", title);
-            mMap.putString("url", url);
-            mMap.putBoolean("invalidateThumbnail", !urlUnmodified);
+            mMap.putString(BrowserContract.Bookmarks.TITLE, title);
+            mMap.putString(BrowserContract.Bookmarks.URL, url);
+            mMap.putBoolean(REMOVE_THUMBNAIL, !urlUnmodified);
             // FIXME: This does not work yet
             mMap.putLong(BrowserContract.Bookmarks.PARENT, mCurrentFolder);
             setResult(RESULT_OK, (new Intent()).setAction(
@@ -729,17 +733,19 @@ public class AddBookmarkPage extends Activity
             Bitmap thumbnail;
             Bitmap favicon;
             if (urlUnmodified) {
-                thumbnail = (Bitmap) mMap.getParcelable("thumbnail");
-                favicon = (Bitmap) mMap.getParcelable("favicon");
+                thumbnail = (Bitmap) mMap.getParcelable(
+                        BrowserContract.Bookmarks.THUMBNAIL);
+                favicon = (Bitmap) mMap.getParcelable(
+                        BrowserContract.Bookmarks.FAVICON);
             } else {
                 thumbnail = null;
                 favicon = null;
             }
 
             Bundle bundle = new Bundle();
-            bundle.putString("title", title);
-            bundle.putString("url", url);
-            bundle.putParcelable("favicon", favicon);
+            bundle.putString(BrowserContract.Bookmarks.TITLE, title);
+            bundle.putString(BrowserContract.Bookmarks.URL, url);
+            bundle.putParcelable(BrowserContract.Bookmarks.FAVICON, favicon);
 
             if (mSaveToHomeScreen) {
                 if (mTouchIconUrl != null && urlUnmodified) {
@@ -747,16 +753,16 @@ public class AddBookmarkPage extends Activity
                             TOUCH_ICON_DOWNLOADED);
                     msg.setData(bundle);
                     DownloadTouchIcon icon = new DownloadTouchIcon(this, msg,
-                            mMap.getString("user_agent"));
+                            mMap.getString(USER_AGENT));
                     icon.execute(mTouchIconUrl);
                 } else {
                     sendBroadcast(BookmarkUtils.createAddToHomeIntent(this, url,
                             title, null /*touchIcon*/, favicon));
                 }
             } else {
-                bundle.putParcelable("thumbnail", thumbnail);
-                bundle.putBoolean("invalidateThumbnail", !urlUnmodified);
-                bundle.putString("touchIconUrl", mTouchIconUrl);
+                bundle.putParcelable(BrowserContract.Bookmarks.THUMBNAIL, thumbnail);
+                bundle.putBoolean(REMOVE_THUMBNAIL, !urlUnmodified);
+                bundle.putString(TOUCH_ICON_URL, mTouchIconUrl);
                 // Post a message to write to the DB.
                 Message msg = Message.obtain(mHandler, SAVE_BOOKMARK);
                 msg.setData(bundle);

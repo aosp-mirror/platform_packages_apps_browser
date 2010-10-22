@@ -1488,19 +1488,21 @@ public class BrowserActivity extends Activity
         Intent i = new Intent(BrowserActivity.this,
                 AddBookmarkPage.class);
         WebView w = getTopWindow();
-        i.putExtra("url", w.getUrl());
-        i.putExtra("title", w.getTitle());
+        i.putExtra(BrowserContract.Bookmarks.URL, w.getUrl());
+        i.putExtra(BrowserContract.Bookmarks.TITLE, w.getTitle());
         String touchIconUrl = w.getTouchIconUrl();
         if (touchIconUrl != null) {
-            i.putExtra("touch_icon_url", touchIconUrl);
+            i.putExtra(AddBookmarkPage.TOUCH_ICON_URL, touchIconUrl);
             WebSettings settings = w.getSettings();
             if (settings != null) {
-                i.putExtra("user_agent", settings.getUserAgentString());
+                i.putExtra(AddBookmarkPage.USER_AGENT,
+                        settings.getUserAgentString());
             }
         }
-        i.putExtra("thumbnail", createScreenshot(w, getDesiredThumbnailWidth(this),
+        i.putExtra(BrowserContract.Bookmarks.THUMBNAIL,
+                createScreenshot(w, getDesiredThumbnailWidth(this),
                 getDesiredThumbnailHeight(this)));
-        i.putExtra("favicon", w.getFavicon());
+        i.putExtra(BrowserContract.Bookmarks.FAVICON, w.getFavicon());
         i.putExtra(BrowserContract.Bookmarks.PARENT,
                 folderId);
         // Put the dialog at the upper right of the screen, covering the
@@ -2336,8 +2338,9 @@ public class BrowserActivity extends Activity
                         case R.id.bookmark_context_menu_id:
                             Intent intent = new Intent(BrowserActivity.this,
                                     AddBookmarkPage.class);
-                            intent.putExtra("url", url);
-                            intent.putExtra("title", title);
+                            intent.putExtra(BrowserContract.Bookmarks.URL, url);
+                            intent.putExtra(BrowserContract.Bookmarks.TITLE,
+                                    title);
                             startActivity(intent);
                             break;
                         case R.id.share_link_context_menu_id:
@@ -3830,35 +3833,13 @@ public class BrowserActivity extends Activity
      *                         Otherwise, start with the bookmarks tab.
      */
     /* package */ void bookmarksOrHistoryPicker(boolean startWithHistory) {
-        WebView current = mTabControl.getCurrentWebView();
-        if (current == null) {
+        if (mTabControl.getCurrentWebView() == null) {
             return;
         }
-        String title = current.getTitle();
-        String url = current.getUrl();
-        Bitmap thumbnail = createScreenshot(current, getDesiredThumbnailWidth(this),
-                getDesiredThumbnailHeight(this));
-
-        // Just in case the user opens bookmarks before a page finishes loading
-        // so the current history item, and therefore the page, is null.
-        if (null == url) {
-            url = mLastEnteredUrl;
-            // This can happen.
-            if (null == url) {
-                url = mSettings.getHomePage();
-            }
-        }
-        // In case the web page has not yet received its associated title.
-        if (title == null) {
-            title = url;
-        }
         Bundle extras = new Bundle();
-        extras.putString("title", title);
-        extras.putString("url", url);
-        extras.putParcelable("thumbnail", thumbnail);
         // Disable opening in a new window if we have maxed out the windows
-        extras.putBoolean("disable_new_window", !mTabControl.canCreateNewTab());
-        extras.putString("touch_icon_url", current.getTouchIconUrl());
+        extras.putBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW,
+                !mTabControl.canCreateNewTab());
 
         mComboView = new CombinedBookmarkHistoryView(this,
                 startWithHistory ? CombinedBookmarkHistoryView.FRAGMENT_ID_HISTORY

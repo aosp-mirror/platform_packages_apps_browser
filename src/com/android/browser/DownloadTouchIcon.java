@@ -34,6 +34,7 @@ import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
+import android.provider.BrowserContract;
 import android.provider.BrowserContract.Images;
 import android.webkit.WebView;
 
@@ -85,8 +86,8 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
 
     /**
      * Use this ctor to not store the touch icon in a database, rather add it to
-     * the passed Message's data bundle with the key "touchIcon" and then send
-     * the message.
+     * the passed Message's data bundle with the key
+     * {@link BrowserContract.Bookmarks#TOUCH_ICON} and then send the message.
      */
     public DownloadTouchIcon(Context context, Message msg, String userAgent) {
         mMessage = msg;
@@ -133,7 +134,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
                                 storeIcon(icon);
                             } else if (mMessage != null) {
                                 Bundle b = mMessage.getData();
-                                b.putParcelable("touchIcon", icon);
+                                b.putParcelable(BrowserContract.Bookmarks.TOUCH_ICON, icon);
                             }
                         }
                     }
