@@ -245,13 +245,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Tom for plass"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Kan ikke laste ned <xliff:g id="FILENAME">%s</xliff:g>."\n"Frigjør plass på telefonen og prøv på nytt."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Nedlasting mislykket"</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="5349772560166195586">"Delt lagring utilgj."</string>
+    <!-- outdated translation 5349772560166195586 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Delt lagring utilgj."</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Mangler minnekort"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="9049052105269200675">"Delt lagring kreves for å laste ned <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <!-- outdated translation 9049052105269200675 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Delt lagring kreves for å laste ned <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Du trenger et minnekort for å laste ned <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="4151068942919670243">"Delt lagring utilgj."</string>
+    <!-- outdated translation 4151068942919670243 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Delt lagring utilgj."</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Minnekort utilgjengelig"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="7297514580933657663">"Delt lagring er opptatt. Velg alternativet for å slå av USB-lagring i varselet for å tillate nedlastinger."</string>
+    <!-- outdated translation 7297514580933657663 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Delt lagring er opptatt. Velg alternativet for å slå av USB-lagring i varselet for å tillate nedlastinger."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Minnekortet er opptatt. For å tillate nedlasting, velg \"Slå av USB-lagring\" i varslingen."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Får ikke åpnet filen"</string>
     <string name="retry" msgid="1835923075542266721">"Prøv igjen"</string>
