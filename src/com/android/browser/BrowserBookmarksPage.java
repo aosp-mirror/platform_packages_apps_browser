@@ -354,8 +354,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         super.onCreate(icicle);
 
         Bundle args = getArguments();
-        mCreateShortcut = args == null ? false : args.getBoolean("create_shortcut", false);
-        mDisableNewWindow = args == null ? false : args.getBoolean("disable_new_window", false);
+        mCreateShortcut = args == null ? false : args.getBoolean(EXTRA_SHORTCUT, false);
+        mDisableNewWindow = args == null ? false : args.getBoolean(EXTRA_DISABLE_WINDOW, false);
     }
 
     @Override
@@ -477,7 +477,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     private Intent createShortcutIntent(int position) {
         Cursor cursor = (Cursor) mAdapter.getItem(position);
         String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
-        String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
+        String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
         Bitmap touchIcon = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_TOUCH_ICON);
         Bitmap favicon = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON);
         return BookmarkUtils.createAddToHomeIntent(getActivity(), url, title, touchIcon, favicon);
@@ -520,8 +520,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                     if (data != null && (extras = data.getExtras()) != null) {
                         // If there are extras, then we need to save
                         // the edited bookmark. This is done in updateRow()
-                        String title = extras.getString("title");
-                        String url = extras.getString("url");
+                        String title = extras.getString(BrowserContract.Bookmarks.TITLE);
+                        String url = extras.getString(BrowserContract.Bookmarks.URL);
                         if (title != null && url != null) {
                             updateRow(extras);
                         }
@@ -562,7 +562,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             values.put(BrowserContract.Bookmarks.URL, url);
         }
 
-        if (map.getBoolean("invalidateThumbnail") == true) {
+        if (map.getBoolean(AddBookmarkPage.REMOVE_THUMBNAIL)) {
             values.putNull(BrowserContract.Bookmarks.THUMBNAIL);
         }
 

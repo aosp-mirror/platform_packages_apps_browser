@@ -42,6 +42,7 @@ import android.provider.BrowserContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -52,6 +53,7 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,9 +65,13 @@ import java.util.Stack;
 public class AddBookmarkPage extends Activity
         implements View.OnClickListener, TextView.OnEditorActionListener,
         AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>,
-        BreadCrumbView.Controller {
+        BreadCrumbView.Controller, PopupMenu.OnMenuItemClickListener {
 
     public static final long DEFAULT_FOLDER_ID = -1;
+    public static final String TOUCH_ICON_URL = "touch_icon_url";
+    // Place on an edited bookmark to remove the saved thumbnail
+    public static final String REMOVE_THUMBNAIL = "remove_thumbnail";
+    public static final String USER_AGENT = "user_agent";
 
     private static final int MAX_CRUMBS_SHOWN = 2;
 
@@ -84,7 +90,6 @@ public class AddBookmarkPage extends Activity
     private boolean     mEditingExisting;
     private Bundle      mMap;
     private String      mTouchIconUrl;
-    private Bitmap      mThumbnail;
     private String      mOriginalUrl;
     private TextView mFolder;
     private View mDefaultView;
@@ -98,6 +103,7 @@ public class AddBookmarkPage extends Activity
     private TextView mFakeTitle;
     private View mCrumbHolder;
     private ListView mListView;
+    private boolean mSaveToHomeScreen;
 
     private static class Folder {
         String Name;
@@ -110,6 +116,7 @@ public class AddBookmarkPage extends Activity
 
     // Message IDs
     private static final int SAVE_BOOKMARK = 100;
+    private static final int TOUCH_ICON_DOWNLOADED = 101;
 
     private Handler mHandler;
 
@@ -207,6 +214,7 @@ public class AddBookmarkPage extends Activity
                     completeOrCancelFolderNaming(false);
                 } else {
                     // User has selected a folder.  Go back to the opening page
+                    mSaveToHomeScreen = false;
                     switchToDefaultView(true);
                 }
             } else if (save()) {
@@ -221,7 +229,14 @@ public class AddBookmarkPage extends Activity
                 finish();
             }
         } else if (v == mFolder) {
-            switchToFolderSelector();
+            // FIXME: We want to use mFolder as an anchor, but cannot until we
+            // fix the issue that the PopupMenu will not extend past the edge of
+            // the dialog.
+            PopupMenu popup = new PopupMenu(this, mFakeTitle);
+            popup.getMenuInflater().inflate(R.menu.folder_choice,
+                    popup.getMenu());
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
         } else if (v == mAddNewFolder) {
             mFolderNamer.setVisibility(View.VISIBLE);
             mFolderNamer.setText(R.string.new_folder);
@@ -232,6 +247,28 @@ public class AddBookmarkPage extends Activity
             getInputMethodManager().showSoftInput(mFolderNamer,
                     InputMethodManager.SHOW_IMPLICIT);
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.bookmarks:
+                mCurrentFolder = getBookmarksBarId(this);
+                mFolder.setText(item.getTitle());
+                mSaveToHomeScreen = false;
+                break;
+            case R.id.home_screen:
+                // Create a short cut to the home screen
+                mSaveToHomeScreen = true;
+                mFolder.setText(item.getTitle());
+                break;
+            case R.id.other:
+                switchToFolderSelector();
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 
     // Refresh the ListView to hide or show the empty view, as necessary.
@@ -459,10 +496,9 @@ public class AddBookmarkPage extends Activity
                     window.setAttributes(l);
                 }
             }
-            title = mMap.getString("title");
-            url = mOriginalUrl = mMap.getString("url");
-            mTouchIconUrl = mMap.getString("touch_icon_url");
-            mThumbnail = (Bitmap) mMap.getParcelable("thumbnail");
+            title = mMap.getString(BrowserContract.Bookmarks.TITLE);
+            url = mOriginalUrl = mMap.getString(BrowserContract.Bookmarks.URL);
+            mTouchIconUrl = mMap.getString(TOUCH_ICON_URL);
             mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, DEFAULT_FOLDER_ID);
         }
         if (mCurrentFolder == DEFAULT_FOLDER_ID) {
@@ -570,13 +606,12 @@ public class AddBookmarkPage extends Activity
         public void run() {
             // Unbundle bookmark data.
             Bundle bundle = mMessage.getData();
-            String title = bundle.getString("title");
-            String url = bundle.getString("url");
-            boolean invalidateThumbnail = bundle.getBoolean(
-                    "invalidateThumbnail");
+            String title = bundle.getString(BrowserContract.Bookmarks.TITLE);
+            String url = bundle.getString(BrowserContract.Bookmarks.URL);
+            boolean invalidateThumbnail = bundle.getBoolean(REMOVE_THUMBNAIL);
             Bitmap thumbnail = invalidateThumbnail ? null
-                    : (Bitmap) bundle.getParcelable("thumbnail");
-            String touchIconUrl = bundle.getString("touchIconUrl");
+                    : (Bitmap) bundle.getParcelable(BrowserContract.Bookmarks.THUMBNAIL);
+            String touchIconUrl = bundle.getString(TOUCH_ICON_URL);
 
             // Save to the bookmarks DB.
             try {
@@ -608,6 +643,15 @@ public class AddBookmarkPage extends Activity
                                 Toast.makeText(AddBookmarkPage.this, R.string.bookmark_not_saved,
                                         Toast.LENGTH_LONG).show();
                             }
+                            break;
+                        case TOUCH_ICON_DOWNLOADED:
+                            Bundle b = msg.getData();
+                            sendBroadcast(BookmarkUtils.createAddToHomeIntent(
+                                    AddBookmarkPage.this,
+                                    b.getString(BrowserContract.Bookmarks.URL),
+                                    b.getString(BrowserContract.Bookmarks.TITLE),
+                                    (Bitmap) b.getParcelable(BrowserContract.Bookmarks.TOUCH_ICON),
+                                    (Bitmap) b.getParcelable(BrowserContract.Bookmarks.FAVICON)));
                             break;
                     }
                 }
@@ -671,27 +715,61 @@ public class AddBookmarkPage extends Activity
             return false;
         }
 
+        if (mSaveToHomeScreen) {
+            mEditingExisting = false;
+        }
+
+        boolean urlUnmodified = url.equals(mOriginalUrl);
+
         if (mEditingExisting) {
-            mMap.putString("title", title);
-            mMap.putString("url", url);
-            mMap.putBoolean("invalidateThumbnail", !url.equals(mOriginalUrl));
+            mMap.putString(BrowserContract.Bookmarks.TITLE, title);
+            mMap.putString(BrowserContract.Bookmarks.URL, url);
+            mMap.putBoolean(REMOVE_THUMBNAIL, !urlUnmodified);
             // FIXME: This does not work yet
             mMap.putLong(BrowserContract.Bookmarks.PARENT, mCurrentFolder);
             setResult(RESULT_OK, (new Intent()).setAction(
                     getIntent().toString()).putExtras(mMap));
         } else {
-            // Post a message to write to the DB.
+            Bitmap thumbnail;
+            Bitmap favicon;
+            if (urlUnmodified) {
+                thumbnail = (Bitmap) mMap.getParcelable(
+                        BrowserContract.Bookmarks.THUMBNAIL);
+                favicon = (Bitmap) mMap.getParcelable(
+                        BrowserContract.Bookmarks.FAVICON);
+            } else {
+                thumbnail = null;
+                favicon = null;
+            }
+
             Bundle bundle = new Bundle();
-            bundle.putString("title", title);
-            bundle.putString("url", url);
-            bundle.putParcelable("thumbnail", mThumbnail);
-            bundle.putBoolean("invalidateThumbnail", !url.equals(mOriginalUrl));
-            bundle.putString("touchIconUrl", mTouchIconUrl);
-            Message msg = Message.obtain(mHandler, SAVE_BOOKMARK);
-            msg.setData(bundle);
-            // Start a new thread so as to not slow down the UI
-            Thread t = new Thread(new SaveBookmarkRunnable(getApplicationContext(), msg));
-            t.start();
+            bundle.putString(BrowserContract.Bookmarks.TITLE, title);
+            bundle.putString(BrowserContract.Bookmarks.URL, url);
+            bundle.putParcelable(BrowserContract.Bookmarks.FAVICON, favicon);
+
+            if (mSaveToHomeScreen) {
+                if (mTouchIconUrl != null && urlUnmodified) {
+                    Message msg = Message.obtain(mHandler,
+                            TOUCH_ICON_DOWNLOADED);
+                    msg.setData(bundle);
+                    DownloadTouchIcon icon = new DownloadTouchIcon(this, msg,
+                            mMap.getString(USER_AGENT));
+                    icon.execute(mTouchIconUrl);
+                } else {
+                    sendBroadcast(BookmarkUtils.createAddToHomeIntent(this, url,
+                            title, null /*touchIcon*/, favicon));
+                }
+            } else {
+                bundle.putParcelable(BrowserContract.Bookmarks.THUMBNAIL, thumbnail);
+                bundle.putBoolean(REMOVE_THUMBNAIL, !urlUnmodified);
+                bundle.putString(TOUCH_ICON_URL, mTouchIconUrl);
+                // Post a message to write to the DB.
+                Message msg = Message.obtain(mHandler, SAVE_BOOKMARK);
+                msg.setData(bundle);
+                // Start a new thread so as to not slow down the UI
+                Thread t = new Thread(new SaveBookmarkRunnable(getApplicationContext(), msg));
+                t.start();
+            }
             setResult(RESULT_OK);
             LogTag.logBookmarkAdded(url, "bookmarkview");
         }

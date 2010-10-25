@@ -159,7 +159,7 @@ public class BrowserHistoryPage extends Fragment
         setHasOptionsMenu(true);
 
         Bundle args = getArguments();
-        mDisableNewWindow = args.getBoolean("disable_new_window", false);
+        mDisableNewWindow = args.getBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW, false);
     }
 
     @Override

@@ -131,6 +131,12 @@
     <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
     <string name="no_subfolders">No subfolders</string>
+    <!-- Menu item to use the top level bookmarks folder to save a bookmark in. [CHAR-LIMIT=30]-->
+    <string name="add_to_bookmarks_menu_option">Bookmarks</string>
+    <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+    <string name="add_to_homescreen_menu_option">Home screen</string>
+    <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+    <string name="add_to_other_folder_menu_option">Other folder\u2026</string>
     <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
     <string name="name">Label</string>
     <!-- Initial value in Location field in Bookmark dialog box -->
@@ -652,23 +658,23 @@
     <!-- Title for a dialog informing the user that the download has failed -->
     <string name="download_failed_generic_dlg_title">Download unsuccessful</string>
     <!-- Dialog title [CHAR LIMIT=25] -->
-    <string name="download_no_sdcard_dlg_title" product="nosdcard">Shared storage unavailable</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard">USB storage unavailable</string>
     <!-- Dialog title -->
     <string name="download_no_sdcard_dlg_title" product="default">No SD card</string>
     <!-- Dialog message [CHAR LIMIT=NONE] -->
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard">Shared storage is required to download <xliff:g id="filename">%s</xliff:g>.</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard">USB storage is required to download <xliff:g id="filename">%s</xliff:g>.</string>
     <!-- Dialog message -->
     <string name="download_no_sdcard_dlg_msg" product="default">An SD card is required to download <xliff:g id="filename">%s</xliff:g>.</string>
     <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard">Shared storage unavailable</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard">USB storage unavailable</string>
     <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
     <string name="download_sdcard_busy_dlg_title" product="default">SD card unavailable</string>
     <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage [CHAR LIMIT=NONE] -->
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard">The shared storage is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard">The USB storage is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
     <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
