@@ -3807,26 +3807,6 @@ public class BrowserActivity extends Activity
         startActivity(intent);
     }
 
-    /* package */Dialog makeAddOrInstallDialog() {
-        final Tab current = mTabControl.getCurrentTab();
-        Resources resources = getResources();
-        CharSequence[] choices =
-                {resources.getString(R.string.save_to_bookmarks),
-                        resources.getString(R.string.create_shortcut_bookmark)};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.add_new_bookmark);
-        builder.setItems(choices, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                if (item == 0) {
-                    bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID);
-                } else if (item == 1) {
-                }
-            }
-        });
-        return builder.create();
-    }
-
     /**
      * Open the Go page.
      * @param startWithHistory If true, open starting on the history tab.
