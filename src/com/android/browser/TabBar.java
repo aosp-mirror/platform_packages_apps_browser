@@ -342,6 +342,10 @@ public class TabBar extends LinearLayout
 
         TabViewData(Tab tab) {
             mTab = tab;
+            WebView web = tab.getWebView();
+            if (web != null) {
+                setUrlAndTitle(web.getUrl(), web.getTitle());
+            }
         }
 
         void setUrlAndTitle(String url, String title) {
