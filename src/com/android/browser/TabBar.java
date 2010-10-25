@@ -419,9 +419,11 @@ public class TabBar extends LinearLayout
     @Override
     public void onRemoveTab(Tab tab) {
         TabViewData tvd = mTabMap.get(tab);
-        TabView tv = tvd.mTabView;
-        if (tv != null) {
-            mTabs.removeTab(tv);
+        if (tvd != null) {
+            TabView tv = tvd.mTabView;
+            if (tv != null) {
+                mTabs.removeTab(tv);
+            }
         }
         mTabMap.remove(tab);
     }
