@@ -189,7 +189,7 @@ public class BrowserSettings extends Observable {
 
     public static final Uri RLZ_PROVIDER_URI = Uri.parse("content://" + RLZ_PROVIDER + "/");
 
-    private TabControl mTabControl;
+    private Controller mController;
 
     // Single instance of the BrowserSettings for use in the Browser app.
     private static BrowserSettings sSingleton;
@@ -375,8 +375,8 @@ public class BrowserSettings extends Observable {
                     // One or more tabs could have been in voice search mode.
                     // Clear it, since the new SearchEngine may not support
                     // it, or may handle it differently.
-                    for (int i = 0; i < mTabControl.getTabCount(); i++) {
-                        mTabControl.getTab(i).revertVoiceSearchMode();
+                    for (int i = 0; i < mController.getTabControl().getTabCount(); i++) {
+                        mController.getTabControl().getTab(i).revertVoiceSearchMode();
                     }
                 }
                 searchEngine.close();
@@ -609,8 +609,8 @@ public class BrowserSettings extends Observable {
     /*
      * Package level method for associating the BrowserSettings with TabControl
      */
-    /* package */void setTabControl(TabControl tabControl) {
-        mTabControl = tabControl;
+    /* package */void setController(Controller ctrl) {
+        mController = ctrl;
         updateTabControlSettings();
     }
 
@@ -624,8 +624,8 @@ public class BrowserSettings extends Observable {
 
     /*package*/ void clearCache(Context context) {
         WebIconDatabase.getInstance().removeAllIcons();
-        if (mTabControl != null) {
-            WebView current = mTabControl.getCurrentWebView();
+        if (mController != null) {
+            WebView current = mController.getCurrentWebView();
             if (current != null) {
                 current.clearCache(true);
             }
@@ -644,8 +644,8 @@ public class BrowserSettings extends Observable {
 
     /* package */ void clearFormData(Context context) {
         WebViewDatabase.getInstance(context).clearFormData();
-        if (mTabControl != null) {
-            WebView currentTopView = mTabControl.getCurrentTopWebView();
+        if (mController!= null) {
+            WebView currentTopView = mController.getCurrentTopWebView();
             if (currentTopView != null) {
                 currentTopView.clearFormData();
             }
@@ -660,7 +660,7 @@ public class BrowserSettings extends Observable {
 
     private void updateTabControlSettings() {
         // Enable/disable the error console.
-        mTabControl.getBrowserActivity().setShouldShowErrorConsole(
+        mController.setShouldShowErrorConsole(
             showDebugSettings && showConsole);
     }
 

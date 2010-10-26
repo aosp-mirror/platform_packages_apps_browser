@@ -269,7 +269,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             break;
         case R.id.share_link_context_menu_id: {
             Cursor cursor = (Cursor) mAdapter.getItem(i.position);
-            BrowserActivity.sharePage(activity,
+            Controller.sharePage(activity,
                     cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE),
                     cursor.getString(BookmarksLoader.COLUMN_INDEX_URL),
                     getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON),
@@ -368,7 +368,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
         mGrid = (GridView) root.findViewById(R.id.grid);
         mGrid.setOnItemClickListener(this);
-        mGrid.setColumnWidth(BrowserActivity.getDesiredThumbnailWidth(getActivity()));
+        mGrid.setColumnWidth(Controller.getDesiredThumbnailWidth(getActivity()));
         if (!mCreateShortcut) {
             mGrid.setOnCreateContextMenuListener(this);
         }

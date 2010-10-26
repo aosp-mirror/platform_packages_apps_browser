@@ -21,16 +21,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.util.AttributeSet;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class BrowserHomepagePreference extends EditTextPreference {
     private String mCurrentPage;
@@ -102,7 +102,9 @@ public class BrowserHomepagePreference extends EditTextPreference {
     protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
             String url = getEditText().getText().toString();
-            if (!BrowserActivity.ACCEPTED_URI_SCHEMA.matcher(url).matches()) {
+            if (url.length() > 0
+                    && !UrlUtils.ACCEPTED_URI_SCHEMA.matcher(url)
+                            .matches()) {
                 int colon = url.indexOf(':');
                 int space = url.indexOf(' ');
                 if (colon == -1 && space == -1 && url.length() > 0) {

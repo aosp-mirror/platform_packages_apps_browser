@@ -16,7 +16,9 @@
 
 package com.android.browser;
 
-import android.content.Context;
+import com.android.common.speech.LoggingEvents;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -42,41 +44,42 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.common.speech.LoggingEvents;
-
 /**
  * This class represents a title bar for a particular "tab" or "window" in the
  * browser.
  */
 public class TitleBar extends TitleBarBase {
-    private TextView        mTitle;
-    private ImageView       mRtButton;
-    private Drawable        mCircularProgress;
-    private ProgressBar     mHorizontalProgress;
-    private ImageView       mStopButton;
-    private Drawable        mBookmarkDrawable;
-    private Drawable        mVoiceDrawable;
-    private boolean         mInLoad;
-    private BrowserActivity mBrowserActivity;
-    private View            mTitleBg;
-    private MyHandler       mHandler;
-    private Intent          mVoiceSearchIntent;
-    private boolean         mInVoiceMode;
-    private Drawable        mVoiceModeBackground;
-    private Drawable        mNormalBackground;
-    private Drawable        mLoadingBackground;
-    private ImageSpan       mArcsSpan;
-    private int             mLeftMargin;
-    private int             mRightMargin;
+
+    private Activity mActivity;
+    private UiController mController;
+    private TextView mTitle;
+    private ImageView mRtButton;
+    private Drawable mCircularProgress;
+    private ProgressBar mHorizontalProgress;
+    private ImageView mStopButton;
+    private Drawable mBookmarkDrawable;
+    private Drawable mVoiceDrawable;
+    private boolean mInLoad;
+    private View mTitleBg;
+    private MyHandler mHandler;
+    private Intent mVoiceSearchIntent;
+    private boolean mInVoiceMode;
+    private Drawable mVoiceModeBackground;
+    private Drawable mNormalBackground;
+    private Drawable mLoadingBackground;
+    private ImageSpan mArcsSpan;
+    private int mLeftMargin;
+    private int mRightMargin;
 
     private static int LONG_PRESS = 1;
 
-    public TitleBar(BrowserActivity context) {
-        super(context);
+    public TitleBar(Activity activity, UiController controller) {
+        super(activity);
         mHandler = new MyHandler();
-        LayoutInflater factory = LayoutInflater.from(context);
+        LayoutInflater factory = LayoutInflater.from(activity);
         factory.inflate(R.layout.title_bar, this);
-        mBrowserActivity = context;
+        mActivity = activity;
+        mController = controller;
 
         mTitle = (TextView) findViewById(R.id.title);
         mTitle.setCompoundDrawablePadding(5);
@@ -87,8 +90,8 @@ public class TitleBar extends TitleBarBase {
         mStopButton = (ImageView) findViewById(R.id.stop);
 
         mRtButton = (ImageView) findViewById(R.id.rt_btn);
-        Resources resources = context.getResources();
-        mCircularProgress = (Drawable) resources.getDrawable(
+        Resources resources = activity.getResources();
+        mCircularProgress = resources.getDrawable(
                 com.android.internal.R.drawable.search_spinner);
         DisplayMetrics metrics = resources.getDisplayMetrics();
         mLeftMargin = (int) TypedValue.applyDimension(
@@ -107,8 +110,9 @@ public class TitleBar extends TitleBarBase {
         // results intent - http://b/2546173
         //
         // TODO: Make a constant for this extra.
-        mVoiceSearchIntent.putExtra("android.speech.extras.SEND_APPLICATION_ID_EXTRA", false);
-        PackageManager pm = context.getPackageManager();
+        mVoiceSearchIntent.putExtra("android.speech.extras.SEND_APPLICATION_ID_EXTRA",
+                false);
+        PackageManager pm = activity.getPackageManager();
         ResolveInfo ri = pm.resolveActivity(mVoiceSearchIntent,
                 PackageManager.MATCH_DEFAULT_ONLY);
         if (ri == null) {
@@ -122,11 +126,12 @@ public class TitleBar extends TitleBarBase {
                 R.drawable.title_voice);
         mNormalBackground = mTitleBg.getBackground();
         mLoadingBackground = resources.getDrawable(R.drawable.title_loading);
-        mArcsSpan = new ImageSpan(context, R.drawable.arcs,
+        mArcsSpan = new ImageSpan(activity, R.drawable.arcs,
                 ImageSpan.ALIGN_BASELINE);
     }
 
     private class MyHandler extends Handler {
+        @Override
         public void handleMessage(Message msg) {
             if (msg.what == LONG_PRESS) {
                 // Prevent the normal action from happening by setting the title
@@ -135,16 +140,20 @@ public class TitleBar extends TitleBarBase {
                 // Need to call a special method on BrowserActivity for when the
                 // fake title bar is up, because its ViewGroup does not show a
                 // context menu.
-                mBrowserActivity.showTitleBarContextMenu();
+                // TODO:
+                // this test is not valid for all UIs; fix later
+                if (getParent() != null) {
+                    mActivity.openContextMenu(TitleBar.this);
+                }
             }
         }
     };
 
     @Override
     public void createContextMenu(ContextMenu menu) {
-        MenuInflater inflater = mBrowserActivity.getMenuInflater();
+        MenuInflater inflater = mActivity.getMenuInflater();
         inflater.inflate(R.menu.title_context, menu);
-        mBrowserActivity.onCreateContextMenu(menu, this, null);
+        mActivity.onCreateContextMenu(menu, this, null);
     }
 
     @Override
@@ -165,7 +174,7 @@ public class TitleBar extends TitleBarBase {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                int slop = ViewConfiguration.get(mBrowserActivity)
+                int slop = ViewConfiguration.get(mActivity)
                         .getScaledTouchSlop();
                 if ((int) event.getY() > getHeight() + slop) {
                     // We only trigger the actions in ACTION_UP if one or the
@@ -193,37 +202,37 @@ public class TitleBar extends TitleBarBase {
             case MotionEvent.ACTION_UP:
                 if (button.isPressed()) {
                     if (mInVoiceMode) {
-                        if (mBrowserActivity.getTabControl().getCurrentTab()
+                        if (mController.getTabControl().getCurrentTab()
                                 .voiceSearchSourceIsGoogle()) {
                             Intent i = new Intent(
                                     LoggingEvents.ACTION_LOG_EVENT);
                             i.putExtra(LoggingEvents.EXTRA_EVENT,
                                     LoggingEvents.VoiceSearch.RETRY);
-                            mBrowserActivity.sendBroadcast(i);
+                            mActivity.sendBroadcast(i);
                         }
-                        mBrowserActivity.startActivity(mVoiceSearchIntent);
+                        mActivity.startActivity(mVoiceSearchIntent);
                     } else if (mInLoad) {
-                        mBrowserActivity.stopLoading();
+                        mController.stopLoading();
                     } else {
-                        mBrowserActivity.bookmarkCurrentPage(
+                        mController.bookmarkCurrentPage(
                                 AddBookmarkPage.DEFAULT_FOLDER_ID);
                     }
                     button.setPressed(false);
                 } else if (mTitleBg.isPressed()) {
                     mHandler.removeMessages(LONG_PRESS);
                     if (mInVoiceMode) {
-                        if (mBrowserActivity.getTabControl().getCurrentTab()
+                        if (mController.getTabControl().getCurrentTab()
                                 .voiceSearchSourceIsGoogle()) {
                             Intent i = new Intent(
                                     LoggingEvents.ACTION_LOG_EVENT);
                             i.putExtra(LoggingEvents.EXTRA_EVENT,
                                     LoggingEvents.VoiceSearch.N_BEST_REVEAL);
-                            mBrowserActivity.sendBroadcast(i);
+                            mActivity.sendBroadcast(i);
                         }
-                        mBrowserActivity.showVoiceSearchResults(
+                        mController.showVoiceSearchResults(
                                 mTitle.getText().toString().trim());
                     } else {
-                        mBrowserActivity.editUrl();
+                        mController.editUrl();
                     }
                     mTitleBg.setPressed(false);
                 }
@@ -238,7 +247,8 @@ public class TitleBar extends TitleBarBase {
      * Change the TitleBar to or from voice mode.  If there is no package to
      * handle voice search, the TitleBar cannot be set to voice mode.
      */
-    /* package */ void setInVoiceMode(boolean inVoiceMode) {
+    @Override
+    void setInVoiceMode(boolean inVoiceMode) {
         if (mInVoiceMode == inVoiceMode) return;
         mInVoiceMode = inVoiceMode && mVoiceSearchIntent != null;
         Drawable titleDrawable;
@@ -272,7 +282,8 @@ public class TitleBar extends TitleBarBase {
     /**
      * Update the progress, from 0 to 100.
      */
-    /* package */ void setProgress(int newProgress) {
+    @Override
+    void setProgress(int newProgress) {
         if (newProgress >= mHorizontalProgress.getMax()) {
             mTitle.setCompoundDrawables(null, null, null, null);
             ((Animatable) mCircularProgress).stop();
@@ -312,7 +323,8 @@ public class TitleBar extends TitleBarBase {
      * @param title String to display.  If null, the loading string will be
      *      shown.
      */
-    /* package */ void setDisplayTitle(String title) {
+    @Override
+    void setDisplayTitle(String title) {
         if (title == null) {
             mTitle.setText(R.string.title_bar_loading);
         } else {

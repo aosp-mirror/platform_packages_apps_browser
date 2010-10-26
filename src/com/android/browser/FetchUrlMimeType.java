@@ -16,24 +16,23 @@
 
 package com.android.browser;
 
+import org.apache.http.Header;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpHead;
+import org.apache.http.conn.params.ConnRouteParams;
+
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Proxy;
-import android.net.Uri;
 import android.net.http.AndroidHttpClient;
-
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.Header;
-import org.apache.http.client.methods.HttpHead;
-import org.apache.http.conn.params.ConnRouteParams;
-
-import java.io.IOException;
-
 import android.os.AsyncTask;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
+
+import java.io.IOException;
 
 /**
  * This class is used to pull down the http headers of a given URL so that
@@ -53,11 +52,12 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, ContentValues> {
     public static final String URI = "uri";
     public static final String USER_AGENT = "user_agent";
     public static final String COOKIE_DATA = "cookie_data";
-    BrowserActivity mActivity;
+
+    Activity mActivity;
     ContentValues mValues;
     DownloadManager.Request mRequest;
 
-    public FetchUrlMimeType(BrowserActivity activity,
+    public FetchUrlMimeType(Activity activity,
             DownloadManager.Request request) {
         mActivity = activity;
         mRequest = request;

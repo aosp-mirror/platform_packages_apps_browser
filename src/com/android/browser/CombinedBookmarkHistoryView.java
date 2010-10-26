@@ -16,12 +16,11 @@
 
 package com.android.browser;
 
-import com.android.browser.BreadCrumbView.Controller;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -45,14 +44,15 @@ interface BookmarksHistoryCallbacks {
 }
 
 public class CombinedBookmarkHistoryView extends LinearLayout
-        implements OnClickListener, Controller {
+        implements OnClickListener, BreadCrumbView.Controller {
 
     final static String STARTING_FRAGMENT = "fragment";
 
     final static int FRAGMENT_ID_BOOKMARKS = 1;
     final static int FRAGMENT_ID_HISTORY = 2;
 
-    private BrowserActivity mBrowserActivity;
+    private UiController mUiController;
+    private Activity mActivity;
 
     private Bundle mExtras;
 
@@ -104,12 +104,14 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         return sIconListenerSet;
     }
 
-    public CombinedBookmarkHistoryView(Context context, int startingFragment, Bundle extras) {
-        super(context);
-        mBrowserActivity = (BrowserActivity) context;
+    public CombinedBookmarkHistoryView(Activity activity, UiController controller,
+            int startingFragment, Bundle extras) {
+        super(activity);
+        mUiController = controller;
+        mActivity = activity;
         mExtras = extras;
-        View v = LayoutInflater.from(context).inflate(R.layout.bookmarks_history, this);
-        Resources res = context.getResources();
+        View v = LayoutInflater.from(activity).inflate(R.layout.bookmarks_history, this);
+        Resources res = activity.getResources();
 
 //        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
@@ -136,7 +138,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         (new AsyncTask<Void, Void, Void>() {
             @Override
             public Void doInBackground(Void... v) {
-                Browser.requestAllIcons(mBrowserActivity.getContentResolver(),
+                Browser.requestAllIcons(mActivity.getContentResolver(),
                         Browser.BookmarkColumns.FAVICON + " is NULL", getIconListenerSet());
                 return null;
             }
@@ -145,8 +147,8 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     }
 
     private void initFragments(Bundle extras) {
-        mBookmarks =  BrowserBookmarksPage.newInstance(mBrowserActivity, mCrumbs, extras);
-        mHistory = BrowserHistoryPage.newInstance(mBrowserActivity, extras);
+        mBookmarks =  BrowserBookmarksPage.newInstance(mUiController, mCrumbs, extras);
+        mHistory = BrowserHistoryPage.newInstance(mUiController, extras);
     }
 
     private void loadFragment(int id, Bundle extras, boolean notify) {
@@ -169,7 +171,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         }
         mCurrentFragment = id;
 
-        FragmentManager fm = mBrowserActivity.getFragmentManager();
+        FragmentManager fm = mActivity.getFragmentManager();
         FragmentTransaction transaction = fm.openTransaction();
         transaction.replace(R.id.fragment, fragment);
         transaction.commit();
@@ -186,7 +188,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
                 mCrumbs.clear();
             }
         } else if (mAddBookmark == view) {
-            mBrowserActivity.bookmarkCurrentPage(mBookmarks.getFolderId());
+            mUiController.bookmarkCurrentPage(mBookmarks.getFolderId());
         }
     }
 

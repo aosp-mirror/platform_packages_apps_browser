@@ -35,7 +35,7 @@ import android.widget.LinearLayout;
  */
 public class TabScrollView extends HorizontalScrollView {
 
-    private BrowserActivity mBrowserActivity;
+    private Context mContext;
     private LinearLayout mContentView;
     private int mSelected;
     private Drawable mArrowLeft;
@@ -70,11 +70,11 @@ public class TabScrollView extends HorizontalScrollView {
     }
 
     private void init(Context ctx) {
-        mBrowserActivity = (BrowserActivity) ctx;
+        mContext = ctx;
         mAnimationDuration = ctx.getResources().getInteger(
                 R.integer.tab_animation_duration);
         setHorizontalScrollBarEnabled(false);
-        mContentView = new LinearLayout(mBrowserActivity);
+        mContentView = new LinearLayout(mContext);
         mContentView.setOrientation(LinearLayout.HORIZONTAL);
         mContentView.setLayoutParams(
                 new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
