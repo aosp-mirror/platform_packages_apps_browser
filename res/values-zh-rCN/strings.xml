@@ -252,7 +252,7 @@
     <!-- outdated translation 4151068942919670243 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"共享存储设备不可用"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD 卡不可用"</string>
     <!-- outdated translation 7297514580933657663 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"共享存储设备正忙。要允许下载，请在通知中选择“关闭 USB 存储设备”。"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 卡正忙。要允许下载，请在通知中选择“关闭 USB 存储”。"</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 卡正忙。要允许下载，请在通知中选择“关闭 USB 存储设备”。"</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"无法打开文件"</string>
     <string name="retry" msgid="1835923075542266721">"重试"</string>
     <string name="no_downloads" msgid="3947445710685021498">"下载历史记录为空。"</string>
