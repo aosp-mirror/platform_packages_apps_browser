@@ -488,7 +488,9 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
          * @return the subtitle string to use, or null if none
          */
         private String getUrl(String title, String url) {
-            if (TextUtils.isEmpty(title) || TextUtils.getTrimmedLength(title) == 0) {
+            if (TextUtils.isEmpty(title)
+                    || TextUtils.getTrimmedLength(title) == 0
+                    || title.equals(url)) {
                 return null;
             } else {
                 return stripUrl(url);
