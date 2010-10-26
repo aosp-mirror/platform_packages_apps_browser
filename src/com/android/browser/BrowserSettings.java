@@ -32,6 +32,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -132,12 +133,13 @@ public class BrowserSettings extends Observable {
     private static int pageCacheCapacity;
 
 
-    private AutoFillProfile mAutoFillProfile;
+    private AutoFillProfile autoFillProfile;
     // Default to zero. In the case no profile is set up, the initial
     // value will come from the AutoFillSettingsFragment when the user
     // creates a profile. Otherwise, we'll read the ID of the last used
     // profile from the prefs db.
     private int autoFillActiveProfileId;
+    private static final int NO_AUTOFILL_PROFILE_SET = 0;
 
     // Preference keys that are used outside this class
     public final static String PREF_CLEAR_CACHE = "privacy_clear_cache";
@@ -269,7 +271,7 @@ public class BrowserSettings extends Observable {
             s.setGeolocationDatabasePath(b.geolocationDatabasePath);
 
             // Active AutoFill profile data.
-            s.setAutoFillProfile(b.mAutoFillProfile);
+            s.setAutoFillProfile(b.autoFillProfile);
 
             b.updateTabControlSettings();
         }
@@ -349,7 +351,7 @@ public class BrowserSettings extends Observable {
                     AutoFillProfileDatabase.Profiles.COUNTRY));
             String phone = c.getString(c.getColumnIndex(
                     AutoFillProfileDatabase.Profiles.PHONE_NUMBER));
-            mAutoFillProfile = new AutoFillProfile(autoFillActiveProfileId,
+            autoFillProfile = new AutoFillProfile(autoFillActiveProfileId,
                     fullName, email, company, addressLine1, addressLine2, city,
                     state, zip, country, phone);
         }
@@ -533,16 +535,21 @@ public class BrowserSettings extends Observable {
         update();
     }
 
-    public void setAutoFillProfile(Context ctx, AutoFillProfile profile) {
-        mAutoFillProfile = profile;
-        setActiveAutoFillProfileId(ctx, profile.getUniqueId());
-        // Update the AutoFill DB
-        new SaveProfileToDbTask(ctx).execute(mAutoFillProfile);
-
+    public void setAutoFillProfile(Context ctx, AutoFillProfile profile, Message msg) {
+        if (profile != null) {
+            setActiveAutoFillProfileId(ctx, profile.getUniqueId());
+            // Update the AutoFill DB with the new profile.
+            new SaveProfileToDbTask(ctx, msg).execute(profile);
+        } else {
+            // Delete the current profile.
+            new DeleteProfileFromDbTask(ctx, msg).execute(autoFillProfile.getUniqueId());
+            setActiveAutoFillProfileId(ctx, NO_AUTOFILL_PROFILE_SET);
+        }
+        autoFillProfile = profile;
     }
 
     public AutoFillProfile getAutoFillProfile() {
-        return mAutoFillProfile;
+        return autoFillProfile;
     }
 
     private void setActiveAutoFillProfileId(Context context, int activeProfileId) {
@@ -676,6 +683,7 @@ public class BrowserSettings extends Observable {
         setHomePage(ctx, getFactoryResetHomeUrl(ctx));
         // reset appcache max size
         appCacheMaxSize = webStorageSizeManager.getAppCacheMaxSize();
+        setActiveAutoFillProfileId(ctx, NO_AUTOFILL_PROFILE_SET);
     }
 
     /*package*/ static String getFactoryResetHomeUrl(Context context) {
@@ -705,8 +713,6 @@ public class BrowserSettings extends Observable {
         rememberPasswords = true;
         saveFormData = true;
         autoFillEnabled = false;
-        // TODO: Should remove the autofill profile fully and
-        // set the active profile id to 0.
         openInBackground = false;
         autoFitPage = true;
         landscapeOnly = false;
@@ -720,27 +726,52 @@ public class BrowserSettings extends Observable {
         workersEnabled = true;  // only affects V8. JSC does not have a similar setting
     }
 
-    private class SaveProfileToDbTask extends AsyncTask<AutoFillProfile, Void, Void> {
-
+    private abstract class AutoFillProfileDbTask<T> extends AsyncTask<T, Void, Void> {
         Context mContext;
         AutoFillProfileDatabase mAutoFillProfileDb;
+        Message mCompleteMessage;
 
-        public SaveProfileToDbTask(Context ctx) {
+        public AutoFillProfileDbTask(Context ctx, Message msg) {
             mContext = ctx;
+            mCompleteMessage = msg;
+        }
+
+        protected void onPostExecute(Void result) {
+            if (mCompleteMessage != null) {
+                mCompleteMessage.sendToTarget();
+            }
+            mAutoFillProfileDb.close();
+        }
+
+        abstract protected Void doInBackground(T... values);
+    }
+
+
+    private class SaveProfileToDbTask extends AutoFillProfileDbTask<AutoFillProfile> {
+        public SaveProfileToDbTask(Context ctx, Message msg) {
+            super(ctx, msg);
         }
 
         protected Void doInBackground(AutoFillProfile... values) {
             mAutoFillProfileDb = AutoFillProfileDatabase.getInstance(mContext);
-            assert autoFillActiveProfileId > 0;
-            mAutoFillProfileDb.addOrUpdateProfile(autoFillActiveProfileId, values[0]);
+            assert autoFillActiveProfileId != NO_AUTOFILL_PROFILE_SET;
+            AutoFillProfile newProfile = values[0];
+            mAutoFillProfileDb.addOrUpdateProfile(autoFillActiveProfileId, newProfile);
             return null;
-        }
-
-        protected void onPostExecute(Void result) {
-            Toast.makeText(mContext, R.string.autofill_profile_successful_save,
-                    Toast.LENGTH_SHORT).show();
-            mAutoFillProfileDb.close();
         }
     }
 
+    private class DeleteProfileFromDbTask extends AutoFillProfileDbTask<Integer> {
+        public DeleteProfileFromDbTask(Context ctx, Message msg) {
+            super(ctx, msg);
+        }
+
+        protected Void doInBackground(Integer... values) {
+            mAutoFillProfileDb = AutoFillProfileDatabase.getInstance(mContext);
+            int id = values[0];
+            assert  id > 0;
+            mAutoFillProfileDb.dropProfile(id);
+            return null;
+        }
+    }
 }

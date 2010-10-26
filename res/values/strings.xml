@@ -392,6 +392,8 @@
     <string name="autofill_profile_editor_save_profile">Save profile</string>
     <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
     <string name="autofill_profile_successful_save">Profile saved</string>
+    <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
+    <string name="autofill_profile_successful_delete">Profile deleted</string>
     <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
     <string name="autofill_profile_editor_delete_profile">Delete profile data</string>
 
