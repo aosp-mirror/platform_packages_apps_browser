@@ -247,7 +247,7 @@
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Échec de téléchargement"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Stockage USB indisponible"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Aucune carte SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Stockage USB nécessaire pour télécharger <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Stockage USB requis pour télécharger <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Le téléchargement de <xliff:g id="FILENAME">%s</xliff:g> requiert une carte SD."</string>
     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Stockage USB indisponible"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Carte SD non disponible"</string>
