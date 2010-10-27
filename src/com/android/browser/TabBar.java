@@ -68,6 +68,8 @@ public class TabBar extends LinearLayout
     private boolean mTitleVisible;
     private boolean mShowUrlMode;
 
+    private Drawable mGenericFavicon;
+
     public TabBar(BrowserActivity context, TabControl tabcontrol, TitleBarXLarge titlebar) {
         super(context);
         Resources res = context.getResources();
@@ -86,6 +88,7 @@ public class TabBar extends LinearLayout
         mTabs = (TabScrollView) findViewById(R.id.tabs);
         mNewTab = (ImageButton) findViewById(R.id.newtab);
         mNewTab.setOnClickListener(this);
+        mGenericFavicon = res.getDrawable(R.drawable.app_web_browser_sm);
 
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
@@ -339,6 +342,10 @@ public class TabBar extends LinearLayout
 
         TabViewData(Tab tab) {
             mTab = tab;
+            WebView web = tab.getWebView();
+            if (web != null) {
+                setUrlAndTitle(web.getUrl(), web.getTitle());
+            }
         }
 
         void setUrlAndTitle(String url, String title) {
@@ -365,7 +372,7 @@ public class TabBar extends LinearLayout
             array[0] = new PaintDrawable(Color.BLACK);
             array[1] = new PaintDrawable(Color.WHITE);
             if (icon == null) {
-//                array[2] = mGenericFavicon;
+                array[2] = mGenericFavicon;
             } else {
                 array[2] = new BitmapDrawable(icon);
             }
@@ -441,7 +448,11 @@ public class TabBar extends LinearLayout
     }
 
     @Override
-    public void onPageStarted(Tab tab) {
+    public void onPageStarted(Tab tab, Bitmap favicon) {
+        TabViewData tvd = mTabMap.get(tab);
+        if (tvd != null) {
+            tvd.setFavicon(favicon);
+        }
     }
 
 

@@ -510,7 +510,7 @@ class Tab {
                 mActivity.onPageStarted(view, url, favicon);
             }
             if (getTabChangeListener() != null) {
-                getTabChangeListener().onPageStarted(Tab.this);
+                getTabChangeListener().onPageStarted(Tab.this, favicon);
             }
         }
 
