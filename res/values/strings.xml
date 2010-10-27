@@ -319,8 +319,14 @@
     <string name="pref_content_search_engine">Set search engine</string>
     <!-- Settings summary -->
     <string name="pref_content_search_engine_summary">Select a search engine</string>
-    <!-- Settings button label -->
-    <string name="pref_use_current">Use current page</string>
+    <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+    <string name="pref_set_homepage_to">Set to\u2026</string>
+    <!-- Settings button label to set the homepage to the current page [CHAR LIMIT=40] -->
+    <string name="pref_use_current">Current page</string>
+    <!-- Settings button label to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <string name="pref_use_blank">Blank page</string>
+    <!-- Settings button label to set the homepage to the default page [CHAR LIMIT=40] -->
+    <string name="pref_use_default">Default page</string>
     <!-- Settings label -->
     <string name="pref_content_autofit">Auto-fit pages</string>
     <!-- Settings summary -->
