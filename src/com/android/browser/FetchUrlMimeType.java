@@ -47,7 +47,7 @@ import android.webkit.URLUtil;
  * android.os.webkit.LoadListener rather than handling it here.
  *
  */
-class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
+class FetchUrlMimeType extends AsyncTask<ContentValues, String, ContentValues> {
 
     BrowserActivity mActivity;
     ContentValues mValues;
@@ -57,7 +57,7 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
     }
 
     @Override
-    public String doInBackground(ContentValues... values) {
+    public ContentValues doInBackground(ContentValues... values) {
         mValues = values[0];
 
         // Check to make sure we have a URI to download
@@ -87,7 +87,7 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
         }
 
         HttpResponse response;
-        String mimeType = null;
+        ContentValues result = new ContentValues();
         try {
             response = client.execute(request);
             // We could get a redirect here, but if we do lets let
@@ -96,11 +96,16 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
             if (response.getStatusLine().getStatusCode() == 200) {
                 Header header = response.getFirstHeader("Content-Type");
                 if (header != null) {
-                    mimeType = header.getValue();
+                    String mimeType = header.getValue();
                     final int semicolonIndex = mimeType.indexOf(';');
                     if (semicolonIndex != -1) {
                         mimeType = mimeType.substring(0, semicolonIndex);
                     }
+                    result.put("Content-Type", mimeType);
+                }
+                Header contentDispositionHeader = response.getFirstHeader("Content-Disposition");
+                if (contentDispositionHeader != null) {
+                    result.put("Content-Disposition", contentDispositionHeader.getValue());
                 }
             }
         } catch (IllegalArgumentException ex) {
@@ -111,11 +116,13 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
             client.close();
         }
 
-        return mimeType;
+        return result;
     }
 
    @Override
-    public void onPostExecute(String mimeType) {
+    public void onPostExecute(ContentValues values) {
+       final String mimeType = values.getAsString("Content-Type");
+       final String contentDisposition = values.getAsString("Content-Disposition");
        if (mimeType != null) {
            String url = mValues.getAsString(Downloads.Impl.COLUMN_URI);
            if (mimeType.equalsIgnoreCase("text/plain") ||
@@ -128,7 +135,7 @@ class FetchUrlMimeType extends AsyncTask<ContentValues, String, String> {
                }
            }
            String filename = URLUtil.guessFileName(url,
-                   null, mimeType);
+                   contentDisposition, mimeType);
            mValues.put(Downloads.Impl.COLUMN_FILE_NAME_HINT, filename);
        }
 
