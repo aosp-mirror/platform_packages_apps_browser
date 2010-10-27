@@ -62,23 +62,23 @@
     <string name="forward" msgid="4288210890526641577">"Εμπρός"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Ακύρωση"</string>
-    <!-- no translation found for location (3411848697912600125) -->
+    <string name="location" msgid="3411848697912600125">"Διεύθυνση"</string>
+    <string name="containing_folder" msgid="6771180232953030479">"Προσθήκη σε"</string>
+    <string name="new_folder" msgid="7743540149088867917">"Νέος φάκελος"</string>
+    <!-- no translation found for no_subfolders (5880411440592452802) -->
     <skip />
-    <!-- no translation found for containing_folder (6771180232953030479) -->
+    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
     <skip />
-    <!-- no translation found for add_new_folder (7027600176450718398) -->
+    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
     <skip />
-    <!-- no translation found for new_folder (7743540149088867917) -->
+    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
     <skip />
-    <!-- no translation found for name (5915607427720935681) -->
-    <skip />
+    <string name="name" msgid="5462672162695365387">"Ετικέτα"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Προσθήκη στους σελιδοδείκτες"</string>
-    <!-- no translation found for bookmark_this_page (7530739804320811054) -->
-    <skip />
+    <string name="bookmark_this_page" msgid="7530739804320811054">"Προσθήκη στους σελιδοδείκτες"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Επεξεργασία σελιδοδείκτη"</string>
-    <!-- no translation found for create_shortcut_bookmark (1995095662095484289) -->
-    <skip />
+    <!-- outdated translation 4528337239019328891 -->     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Προσθήκη στην αρχική οθόνη"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Άνοιγμα"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Διαγραφή σελιδοδείκτη"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Κατάργηση από τους σελιδοδείκτες"</string>
@@ -152,6 +152,52 @@
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Μορφοποίηση ιστοσελίδων για την προσαρμογή τους στο μέγεθος της οθόνης"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Προβολή μόνο σε τοπίο"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Προβολή σελίδων μόνο στον ευρύτερο προσανατολισμό τοπίου στην οθόνη"</string>
+    <string name="pref_personal_title" msgid="1447687455755683695">"Προσωπικές ρυθμίσεις"</string>
+    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Συγχρονισμός με Google Chrome"</string>
+    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Κάντε κοινή χρήση σελιδοδεικτών και άλλων δεδομένων μεταξύ του Προγράμματος περιήγησης του Android και του Google Chrome"</string>
+    <string name="pref_personal_google_account" msgid="952360133341490071">"Λογαριασμός Google"</string>
+    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Συγχρονισμός σελιδοδεικτών"</string>
+    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Συγχρονισμός σελιδοδεικτών μεταξύ του Προγράμματος περιήγησης του Android και του Google Chrome"</string>
+    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Έναρξη συγχρονισμού"</string>
+    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Επιλογή λογαριασμού"</string>
+    <!-- no translation found for pref_autofill_enabled (1174197447388234595) -->
+    <skip />
+    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
+    <skip />
+    <!-- no translation found for pref_autofill_profile_editor (1350709161524642663) -->
+    <skip />
+    <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
+    <skip />
+    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
+    <skip />
     <string name="pref_privacy_title" msgid="1052470980370846151">"Ρυθμίσεις απορρήτου"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Εκκαθάριση προσωρινής μνήμης"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Εκκαθάριση τοπικά αποθηκευμένου στη μνήμη cache περιεχομένου και βάσεων δεδομένων"</string>
@@ -178,10 +224,6 @@
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Αποθήκευση ονομάτων χρήστη και κωδικών πρόσβασης για ιστότοπους"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Απομνημόνευση δεδομένων φόρμας"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Απομνημόν.των δεδομ.που εισάγ.σε φόρμ.για μελλοντ.χρήση"</string>
-    <!-- no translation found for pref_autoFill_enabled (5348131327347999291) -->
-    <skip />
-    <!-- no translation found for pref_autoFill_enabled_summary (282122852215557397) -->
-    <skip />
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Εμφάνιση προειδοποιήσεων ασφαλείας"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Να εμφαν.προειδοπ.εάν υπάρχ.πρόβλ.με την ασφάλ.ιστότ."</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Αποδοχή cookie"</string>
@@ -259,10 +301,14 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Εξαντλήθηκε ο χώρος"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Δεν ήταν δυνατή η λήψη του <xliff:g id="FILENAME">%s</xliff:g>."\n"Απελευθερώστε λίγο χώρο στο τηλέφωνό σας και δοκιμάστε ξανά."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Ανεπιτυχής λήψη"</string>
-    <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Δεν υπάρχει κάρτα SD"</string>
-    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Για τη λήψη του <xliff:g id="FILENAME">%s</xliff:g> απαιτείται κάρτα SD."</string>
-    <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"Η κάρτα SD δεν είναι διαθέσιμη"</string>
-    <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"Η κάρτα SD είναι απασχολημένη. Για να επιτρέψετε τις λήψεις, στην ειδοποίηση επιλέξτε \"Απενεργοποίηση χώρου αποθήκευσης USB\"."</string>
+    <!-- outdated translation 5349772560166195586 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Κοιν. χώρος μη διαθέσιμος"</string>
+    <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Δεν υπάρχει κάρτα SD"</string>
+    <!-- outdated translation 9049052105269200675 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Απαιτείται κοινόχρηστος αποθηκευτικός χώρος για τη λήψη του <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Για τη λήψη του <xliff:g id="FILENAME">%s</xliff:g> απαιτείται κάρτα SD."</string>
+    <!-- outdated translation 4151068942919670243 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Κοιν. χώρος μη διαθέσιμος"</string>
+    <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Η κάρτα SD δεν είναι διαθέσιμη"</string>
+    <!-- outdated translation 7297514580933657663 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Ο κοινόχρηστος αποθηκευτικός χώρος είναι απασχολημένος. Για να επιτρέψετε τις λήψεις, επιλέξτε \"Απενεργοποίηση χώρου αποθήκευσης USB\" στην ειδοποίηση."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Η κάρτα SD είναι απασχολημένη. Για να επιτρέψετε τις λήψεις, επιλέξτε \"Απενεργοποίηση χώρου αποθήκευσης USB\" στην ειδοποίηση."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Δεν είναι δυνατό το άνοιγμα του αρχείου"</string>
     <string name="retry" msgid="1835923075542266721">"Επανάληψη"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Το ιστορικό λήψεων του προγράμματος περιήγησης είναι κενό."</string>
@@ -307,7 +353,10 @@
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Ακύρωση"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Ρύθμιση ταπετσαρίας..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Σελιδοδείκτες"</string>
-    <!-- no translation found for empty_bookmarks_folder (7843361614634930942) -->
-    <skip />
+    <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Δεν υπάρχουν σελιδοδείκτες"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Συγχρον. με Λογαριασμό Google"</string>
+    <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Οι σελιδοδείκτες σας Android δεν σχετίζονται με κάποιον Λογαριασμό Google"</string>
+    <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Καταργήστε τους σελιδοδείκτες σας Android"</string>
+    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Προσθ. τους σελιδοδείκτες Android στους σελιδοδείκτες του <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
 </resources>
