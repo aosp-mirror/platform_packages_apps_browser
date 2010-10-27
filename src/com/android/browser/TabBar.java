@@ -67,8 +67,10 @@ public class TabBar extends LinearLayout
     private boolean mUserRequestedUrlbar;
     private boolean mTitleVisible;
     private boolean mShowUrlMode;
+    private boolean mHasReceivedTitle;
 
     private Drawable mGenericFavicon;
+    private String mLoadingText;
 
     public TabBar(BrowserActivity context, TabControl tabcontrol, TitleBarXLarge titlebar) {
         super(context);
@@ -89,6 +91,7 @@ public class TabBar extends LinearLayout
         mNewTab = (ImageButton) findViewById(R.id.newtab);
         mNewTab.setOnClickListener(this);
         mGenericFavicon = res.getDrawable(R.drawable.app_web_browser_sm);
+        mLoadingText = res.getString(R.string.title_bar_loading);
 
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
@@ -355,7 +358,7 @@ public class TabBar extends LinearLayout
                 if (title != null) {
                     mTabView.setDisplayTitle(title);
                 } else if (url != null) {
-                    mTabView.setDisplayTitle(url);
+                    mTabView.setDisplayTitle(UrlUtils.stripUrl(url));
                 }
             }
         }
@@ -437,6 +440,7 @@ public class TabBar extends LinearLayout
 
     @Override
     public void onUrlAndTitle(Tab tab, String url, String title) {
+        mHasReceivedTitle = true;
         TabViewData tvd = mTabMap.get(tab);
         if (tvd != null) {
             tvd.setUrlAndTitle(url, title);
@@ -445,13 +449,21 @@ public class TabBar extends LinearLayout
 
     @Override
     public void onPageFinished(Tab tab) {
+        if (!mHasReceivedTitle) {
+            TabViewData tvd = mTabMap.get(tab);
+            if (tvd != null) {
+                tvd.setUrlAndTitle(tvd.mUrl, null);
+            }
+        }
     }
 
     @Override
-    public void onPageStarted(Tab tab, Bitmap favicon) {
+    public void onPageStarted(Tab tab, String url, Bitmap favicon) {
+        mHasReceivedTitle = false;
         TabViewData tvd = mTabMap.get(tab);
         if (tvd != null) {
             tvd.setFavicon(favicon);
+            tvd.setUrlAndTitle(url, mLoadingText);
         }
     }
 

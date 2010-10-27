@@ -695,7 +695,7 @@ class TabControl {
 
         public void onFavicon(Tab tab, Bitmap favicon);
 
-        public void onPageStarted(Tab tab, Bitmap favicon);
+        public void onPageStarted(Tab tab, String url, Bitmap favicon);
 
         public void onPageFinished(Tab tab);
 
