@@ -18,11 +18,13 @@ package com.android.browser;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,18 +34,22 @@ import android.util.AttributeSet;
 
 public class BrowserHomepagePreference extends EditTextPreference {
     private String mCurrentPage;
+    private AlertDialog mSetHomepageTo;
 
     public BrowserHomepagePreference(Context context, AttributeSet attrs,
             int defStyle) {
         super(context, attrs, defStyle);
+        createSetHomepageToDialog();
     }
 
     public BrowserHomepagePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        createSetHomepageToDialog();
     }
 
     public BrowserHomepagePreference(Context context) {
         super(context);
+        createSetHomepageToDialog();
     }
 
     @Override
@@ -54,10 +60,10 @@ public class BrowserHomepagePreference extends EditTextPreference {
         // page.
         ViewGroup parent = (ViewGroup) editText.getParent();
         Button button = new Button(getContext());
-        button.setText(R.string.pref_use_current);
+        button.setText(R.string.pref_set_homepage_to);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getEditText().setText(mCurrentPage);
+                mSetHomepageTo.show();
             }
         });
         if (parent instanceof LinearLayout) {
@@ -67,24 +73,46 @@ public class BrowserHomepagePreference extends EditTextPreference {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
+    private void createSetHomepageToDialog() {
+        Context context = getContext();
+        CharSequence[] setToChoices = new CharSequence[] {
+                context.getText(R.string.pref_use_current),
+                context.getText(R.string.pref_use_blank),
+                context.getText(R.string.pref_use_default),
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.pref_set_homepage_to);
+        builder.setItems(setToChoices, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    getEditText().setText(mCurrentPage);
+                } else if (which == 1) {
+                    getEditText().setText("about:blank");
+                } else if (which == 2) {
+                    getEditText().setText(BrowserSettings
+                            .getFactoryResetHomeUrl(getContext()));
+                }
+            }
+        });
+        mSetHomepageTo = builder.create();
+    }
+
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
             String url = getEditText().getText().toString();
-            if (url.length() > 0
-                    && !BrowserActivity.ACCEPTED_URI_SCHEMA.matcher(url)
-                            .matches()) {
+            if (!BrowserActivity.ACCEPTED_URI_SCHEMA.matcher(url).matches()) {
                 int colon = url.indexOf(':');
                 int space = url.indexOf(' ');
-                if (colon == -1 && space == -1) {
+                if (colon == -1 && space == -1 && url.length() > 0) {
                     // if no colon, no space, add "http://" to make it a url
                     getEditText().setText("http://" + url);
                 } else {
-                    // show an error dialog and change the positiveResult to
+                    // show an error toast and change the positiveResult to
                     // false so that the bad url will not override the old url
-                    new AlertDialog.Builder(this.getContext()).setMessage(
-                            R.string.bookmark_url_not_valid).setPositiveButton(
-                            R.string.ok, null).show();
+                    Toast.makeText(getContext(), R.string.bookmark_url_not_valid,
+                            Toast.LENGTH_SHORT).show();
                     positiveResult = false;
                 }
             }

@@ -62,23 +62,23 @@
     <string name="forward" msgid="4288210890526641577">"Fremad"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Annuller"</string>
-    <!-- no translation found for location (3411848697912600125) -->
+    <string name="location" msgid="3411848697912600125">"Adresse"</string>
+    <string name="containing_folder" msgid="6771180232953030479">"Føj til"</string>
+    <string name="new_folder" msgid="7743540149088867917">"Ny mappe"</string>
+    <!-- no translation found for no_subfolders (5880411440592452802) -->
     <skip />
-    <!-- no translation found for containing_folder (6771180232953030479) -->
+    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
     <skip />
-    <!-- no translation found for add_new_folder (7027600176450718398) -->
+    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
     <skip />
-    <!-- no translation found for new_folder (7743540149088867917) -->
+    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
     <skip />
-    <!-- no translation found for name (5915607427720935681) -->
-    <skip />
+    <string name="name" msgid="5462672162695365387">"Etiket"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Føj til bogmærker"</string>
-    <!-- no translation found for bookmark_this_page (7530739804320811054) -->
-    <skip />
+    <string name="bookmark_this_page" msgid="7530739804320811054">"Tilføj side som bogmærke"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Rediger bogmærke"</string>
-    <!-- no translation found for create_shortcut_bookmark (1995095662095484289) -->
-    <skip />
+    <!-- outdated translation 4528337239019328891 -->     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Føj til Startskærm"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Åbn"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Slet bogmærke"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Fjern fra bogmærker"</string>
@@ -152,6 +152,52 @@
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Tilpas websider, så de passer til skærmen"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Kun liggende visning"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Vis kun sider i den brede liggende retning"</string>
+    <string name="pref_personal_title" msgid="1447687455755683695">"Personlige indstillinger"</string>
+    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synkroniser med Google Chrome"</string>
+    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Del bogmærker og andre data mellem Android-browser og Google Chrome"</string>
+    <string name="pref_personal_google_account" msgid="952360133341490071">"Google-konto"</string>
+    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Synkroniser bogmærker"</string>
+    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Synkroniser bogmærker mellem Android-browser og Google Chrome"</string>
+    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Start synkronisering"</string>
+    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Vælg Google-konto at dele med"</string>
+    <!-- no translation found for pref_autofill_enabled (1174197447388234595) -->
+    <skip />
+    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
+    <skip />
+    <!-- no translation found for pref_autofill_profile_editor (1350709161524642663) -->
+    <skip />
+    <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
+    <skip />
+    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
+    <skip />
     <string name="pref_privacy_title" msgid="1052470980370846151">"Indstillinger for fortrolighed"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Ryd cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ryd lokalt cachelagret indhold og databaser"</string>
@@ -178,10 +224,6 @@
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Gem brugernavne og adgangskoder til websteder"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Husk formulardata"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Husk data, jeg indtaster i formularer, til senere brug"</string>
-    <!-- no translation found for pref_autoFill_enabled (5348131327347999291) -->
-    <skip />
-    <!-- no translation found for pref_autoFill_enabled_summary (282122852215557397) -->
-    <skip />
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Vis sikkerhedsadvarsler"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Vis en advarsel, hvis der er problemer med sikkerheden på et websted"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Accepter cookies"</string>
@@ -259,10 +301,14 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Der er ikke mere plads"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> kunne ikke downloades."\n"Frigør noget plads på din telefon, og prøv igen."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download mislykkedes"</string>
-    <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Der er intet SD-kort"</string>
-    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Et SD-kort er påkrævet for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"SD-kortet er ikke tilgængeligt"</string>
-    <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
+    <!-- outdated translation 5349772560166195586 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Delt hukommelse utilgæng."</string>
+    <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Der er intet SD-kort"</string>
+    <!-- outdated translation 9049052105269200675 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Delt hukommelse er påkrævet for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Et SD-kort er påkrævet for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <!-- outdated translation 4151068942919670243 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Delt hukommelse utilgæng."</string>
+    <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kortet er ikke tilgængeligt"</string>
+    <!-- outdated translation 7297514580933657663 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Delt hukommelse er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Kan ikke åbne filen"</string>
     <string name="retry" msgid="1835923075542266721">"Prøv igen"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Downloadoversigten er tom."</string>
@@ -307,7 +353,10 @@
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Annuller"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Indstiller tapet ..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bogmærker"</string>
-    <!-- no translation found for empty_bookmarks_folder (7843361614634930942) -->
-    <skip />
+    <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Der er ingen bogmærker"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Synkroniser med Google-konto"</string>
+    <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Dine Android-bogmærker er ikke tilknyttet en Google-konto"</string>
+    <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Fjern dine Android-bogmærker"</string>
+    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Føj dine Android-bogmærker til bogmærker for <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
 </resources>

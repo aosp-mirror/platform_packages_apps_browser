@@ -678,7 +678,7 @@ public class BrowserSettings extends Observable {
         appCacheMaxSize = webStorageSizeManager.getAppCacheMaxSize();
     }
 
-    private String getFactoryResetHomeUrl(Context context) {
+    /*package*/ static String getFactoryResetHomeUrl(Context context) {
         String url = context.getResources().getString(R.string.homepage_base);
         if (url.indexOf("{CID}") != -1) {
             url = url.replace("{CID}",

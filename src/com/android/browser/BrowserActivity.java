@@ -3212,33 +3212,28 @@ public class BrowserActivity extends Activity
             return;
         }
 
-        // XXX: Have to use the old url since the cookies were stored using the
-        // old percent-encoded url.
-        String cookies = CookieManager.getInstance().getCookie(url);
-
-        ContentValues values = new ContentValues();
-        values.put(Downloads.Impl.COLUMN_URI, webAddress.toString());
-        values.put(Downloads.Impl.COLUMN_COOKIE_DATA, cookies);
-        values.put(Downloads.Impl.COLUMN_USER_AGENT, userAgent);
-        values.put(Downloads.Impl.COLUMN_NOTIFICATION_PACKAGE,
-                getPackageName());
-        values.put(Downloads.Impl.COLUMN_NOTIFICATION_CLASS,
-                OpenDownloadReceiver.class.getCanonicalName());
-        values.put(Downloads.Impl.COLUMN_VISIBILITY,
-                Downloads.Impl.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        values.put(Downloads.Impl.COLUMN_MIME_TYPE, mimetype);
-        values.put(Downloads.Impl.COLUMN_FILE_NAME_HINT, filename);
-        values.put(Downloads.Impl.COLUMN_DESCRIPTION, webAddress.getHost());
-        if (contentLength > 0) {
-            values.put(Downloads.Impl.COLUMN_TOTAL_BYTES, contentLength);
-        }
+        String addressString = webAddress.toString(); 
+        Uri uri = Uri.parse(addressString);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setMimeType(mimetype);
+        request.setDestinationInExternalFilesDir(this, null, filename);
+        request.setDescription(webAddress.getHost());
         if (mimetype == null) {
+            ContentValues values = new ContentValues();
+            values.put(FetchUrlMimeType.URI, addressString);
+            // XXX: Have to use the old url since the cookies were stored using the
+            // old percent-encoded url.
+            String cookies = CookieManager.getInstance().getCookie(url);
+            values.put(FetchUrlMimeType.COOKIE_DATA, cookies);
+            values.put(FetchUrlMimeType.USER_AGENT, userAgent);
+
             // We must have long pressed on a link or image to download it. We
             // are not sure of the mimetype in this case, so do a head request
-            new FetchUrlMimeType(this).execute(values);
+            new FetchUrlMimeType(this, request).execute(values);
         } else {
-            final Uri contentUri =
-                    getContentResolver().insert(Downloads.Impl.CONTENT_URI, values);
+            DownloadManager manager
+                    = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            manager.enqueue(request);
         }
         Toast.makeText(this, R.string.download_pending, Toast.LENGTH_SHORT)
                 .show();

@@ -63,24 +63,26 @@
     <string name="forward" msgid="4288210890526641577">"Vinavant"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Interrumper"</string>
-    <!-- no translation found for location (3411848697912600125) -->
-    <skip />
+    <!-- outdated translation 969988560160364559 -->     <string name="location" msgid="3411848697912600125">"Adressa"</string>
     <!-- no translation found for containing_folder (6771180232953030479) -->
-    <skip />
-    <!-- no translation found for add_new_folder (7027600176450718398) -->
     <skip />
     <!-- no translation found for new_folder (7743540149088867917) -->
     <skip />
-    <!-- no translation found for name (5915607427720935681) -->
+    <!-- no translation found for no_subfolders (5880411440592452802) -->
     <skip />
+    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
+    <skip />
+    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
+    <skip />
+    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
+    <skip />
+    <!-- outdated translation 5990326151488445481 -->     <string name="name" msgid="5462672162695365387">"Num"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <!-- no translation found for save_to_bookmarks (6101482434920313244) -->
-    <skip />
+    <!-- outdated translation 588165100024086565 -->     <string name="save_to_bookmarks" msgid="6101482434920313244">"Agiuntar in segnapagina"</string>
     <!-- no translation found for bookmark_this_page (7530739804320811054) -->
     <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"Modifitgar il segnapagina"</string>
-    <!-- no translation found for create_shortcut_bookmark (1995095662095484289) -->
-    <skip />
+    <!-- outdated translation 9202323987633899835 -->     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Crear scursanidas sin il visur da partenza"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Avrir"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Stizzar il segnapagina"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Stizzar dals segnapaginas"</string>
@@ -160,6 +162,60 @@
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Adattar las paginas web al visur"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Visualisaziun mo en il format orizontal"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Mussar las paginas mo en il format pli lad orizontal"</string>
+    <!-- no translation found for pref_personal_title (1447687455755683695) -->
+    <skip />
+    <!-- no translation found for pref_personal_sync_with_chrome (1695182180332194033) -->
+    <skip />
+    <!-- no translation found for pref_personal_sync_with_chrome_summary (7414133931827321055) -->
+    <skip />
+    <!-- no translation found for pref_personal_google_account (952360133341490071) -->
+    <skip />
+    <!-- no translation found for pref_personal_sync_bookmarks (59237515966184432) -->
+    <skip />
+    <!-- no translation found for pref_personal_sync_bookmarks_summary (4791767605662205482) -->
+    <skip />
+    <!-- no translation found for pref_personal_start_syncing (6046972042512655232) -->
+    <skip />
+    <!-- no translation found for pref_personal_account_dialog_title (1390867119887955530) -->
+    <skip />
+    <!-- no translation found for pref_autofill_enabled (1174197447388234595) -->
+    <skip />
+    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
+    <skip />
+    <!-- no translation found for pref_autofill_profile_editor (1350709161524642663) -->
+    <skip />
+    <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
+    <skip />
+    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
+    <skip />
+    <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
+    <skip />
     <string name="pref_privacy_title" msgid="1052470980370846151">"Parameters da la protecziun da datas"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Stizzar il cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Stizzar las bancas da datas ed il cuntegn ord il cache local"</string>
@@ -186,10 +242,6 @@
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Memorisar ils nums d\'utilisader ed ils pleds-clav per las websites"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Memorisar las datas da formular"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Memorisar las datas endatadas en formulars per reutilisar ellas"</string>
-    <!-- no translation found for pref_autoFill_enabled (5348131327347999291) -->
-    <skip />
-    <!-- no translation found for pref_autoFill_enabled_summary (282122852215557397) -->
-    <skip />
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Avertiments da segirezza"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Mussar in avertiment en cas da problems da segirezza cun ina website"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Acceptar cookies"</string>
@@ -258,10 +310,14 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Capacitad da memorisar nunsuffizienta"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impussibel da telechargiar <xliff:g id="FILENAME">%s</xliff:g>."\n"Rumi la memoria da Voss telefon ed empruvai anc ina giada."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Telechargiada betg reussida"</string>
-    <string name="download_no_sdcard_dlg_title" msgid="605904452159416792">"Nagina carta SD"</string>
-    <string name="download_no_sdcard_dlg_msg" msgid="2616399456116301518">"Per telechargiar <xliff:g id="FILENAME">%s</xliff:g> è necessaria ina carta SD."</string>
-    <string name="download_sdcard_busy_dlg_title" msgid="6877712666046917741">"Carta SD betg disponibla"</string>
-    <string name="download_sdcard_busy_dlg_msg" msgid="3473883538192835204">"La carta SD è occupada. Tscherni «Deactivar la memoria USB» en l\'avis per permetter telechargiadas."</string>
+    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Nagina carta SD"</string>
+    <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nagina carta SD"</string>
+    <!-- outdated translation 2616399456116301518 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Per telechargiar <xliff:g id="FILENAME">%s</xliff:g> è necessaria ina carta SD."</string>
+    <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Per telechargiar <xliff:g id="FILENAME">%s</xliff:g> è necessaria ina carta SD."</string>
+    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Carta SD betg disponibla"</string>
+    <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Carta SD betg disponibla"</string>
+    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"La carta SD è occupada. Tscherni «Deactivar la memoria USB» en l\'avis per permetter telechargiadas."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La carta SD è occupada. Tscherni «Deactivar la memoria USB» en l\'avis per permetter telechargiadas."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Impussibel dad avrir la datoteca"</string>
     <string name="retry" msgid="1835923075542266721">"Repeter"</string>
     <string name="no_downloads" msgid="3947445710685021498">"La cronologia da telechargiadas è vida."</string>
@@ -312,5 +368,13 @@
     <!-- no translation found for empty_bookmarks_folder (7843361614634930942) -->
     <skip />
     <!-- no translation found for rlz_access_point (7165847807377650632) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_dialog_title (3325557652271172128) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_dialog_description (2187665745413495303) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_dialog_remove (8105572409059113340) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
     <skip />
 </resources>
