@@ -3187,6 +3187,8 @@ public class BrowserActivity extends Activity
         request.setDescription(webAddress.getHost());
         String cookies = CookieManager.getInstance().getCookie(url);
         request.addRequestHeader("cookie", cookies);
+        request.setNotificationVisibility(
+                DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         if (mimetype == null) {
             ContentValues values = new ContentValues();
             values.put(FetchUrlMimeType.URI, addressString);

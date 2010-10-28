@@ -232,7 +232,6 @@
         <receiver android:name=".OpenDownloadReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>
-                <data android:scheme="content" android:mimeType="vnd.android.cursor.item/download"/>
             </intent-filter>
         </receiver>
     </application>
