@@ -94,6 +94,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     public static final long FIXED_ID_ROOT = 1;
 
+    // BookmarkListWidgetService.ORDER_BY_CLAUSE has a copy of this default sort order
     static final String DEFAULT_BOOKMARKS_SORT_ORDER = "position ASC, _id ASC";
 
     static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);

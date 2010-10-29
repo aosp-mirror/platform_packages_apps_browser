@@ -14,12 +14,12 @@
      limitations under the License.
 -->
 
-<!-- 2x2 Widget displaying the user's bookmarks as thumbnails. -->
+<!-- 3x3 Widget displaying the user's bookmarks as a list with favicons. -->
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="146dip"
-    android:minHeight="146dip"
-    android:updatePeriodMillis="3600000"
+    android:minWidth="219dip"
+    android:minHeight="219dip"
+    android:updatePeriodMillis="0"
     android:previewImage="@drawable/preview"
-    android:initialLayout="@layout/bookmarkstackwidget">
+    android:initialLayout="@layout/bookmarklistwidget">
 </appwidget-provider>
