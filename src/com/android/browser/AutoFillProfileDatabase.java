@@ -142,6 +142,12 @@ public class AutoFillProfileDatabase {
                 null, null, null, "1");
     }
 
+    public void dropProfile(int id) {
+        final String sql = "DELETE FROM " + PROFILES_TABLE_NAME +" WHERE " + Profiles._ID + " = ?;";
+        final Object[] params = { id };
+        getDatabase(true).execSQL(sql, params);
+    }
+
     public void close() {
         mOpenHelper.close();
     }

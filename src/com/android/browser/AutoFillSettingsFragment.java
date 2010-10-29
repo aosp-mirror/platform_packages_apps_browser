@@ -18,6 +18,8 @@ package com.android.browser;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,13 +45,34 @@ public class AutoFillSettingsFragment extends Fragment {
     private EditText mCountryEdit;
     private EditText mPhoneEdit;
 
+    // Used to display toast after DB interactions complete.
+    private Handler mHandler;
+
+    private final static int PROFILE_SAVED_MSG = 100;
+    private final static int PROFILE_DELETED_MSG = 101;
+
     // For now we support just one profile so it's safe to hardcode the
     // id to 1 here. In the future this unique identifier will be set
     // dynamically.
     private int mUniqueId = 1;
 
     public AutoFillSettingsFragment() {
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                case PROFILE_SAVED_MSG:
+                    Toast.makeText(getActivity(), R.string.autofill_profile_successful_save,
+                            Toast.LENGTH_SHORT).show();
+                    break;
 
+                case PROFILE_DELETED_MSG:
+                    Toast.makeText(getActivity(), R.string.autofill_profile_successful_delete,
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                }
+            }
+        };
     }
 
     @Override
@@ -78,26 +101,43 @@ public class AutoFillSettingsFragment extends Fragment {
         Button saveButton = (Button)v.findViewById(R.id.autofill_profile_editor_save_button);
         saveButton.setOnClickListener(new OnClickListener() {
             public void onClick(View button) {
-                BrowserSettings.getInstance().setAutoFillProfile(getActivity(),
-                        new AutoFillProfile(
-                                mUniqueId,
-                                mFullNameEdit.getText().toString(),
-                                mEmailEdit.getText().toString(),
-                                mCompanyEdit.getText().toString(),
-                                mAddressLine1Edit.getText().toString(),
-                                mAddressLine2Edit.getText().toString(),
-                                mCityEdit.getText().toString(),
-                                mStateEdit.getText().toString(),
-                                mZipEdit.getText().toString(),
-                                mCountryEdit.getText().toString(),
-                                mPhoneEdit.getText().toString()));
+                AutoFillProfile newProfile = new AutoFillProfile(
+                        mUniqueId,
+                        mFullNameEdit.getText().toString(),
+                        mEmailEdit.getText().toString(),
+                        mCompanyEdit.getText().toString(),
+                        mAddressLine1Edit.getText().toString(),
+                        mAddressLine2Edit.getText().toString(),
+                        mCityEdit.getText().toString(),
+                        mStateEdit.getText().toString(),
+                        mZipEdit.getText().toString(),
+                        mCountryEdit.getText().toString(),
+                        mPhoneEdit.getText().toString());
+
+                BrowserSettings.getInstance().setAutoFillProfile(getActivity(), newProfile,
+                        mHandler.obtainMessage(PROFILE_SAVED_MSG));
             }
         });
 
         Button deleteButton = (Button)v.findViewById(R.id.autofill_profile_editor_delete_button);
         deleteButton.setOnClickListener(new OnClickListener() {
             public void onClick(View button) {
-                Toast.makeText(getActivity(), "TODO: Implement me", Toast.LENGTH_SHORT).show();
+                // Clear the UI.
+                mFullNameEdit.setText("");
+                mEmailEdit.setText("");
+                mCompanyEdit.setText("");
+                mAddressLine1Edit.setText("");
+                mAddressLine2Edit.setText("");
+                mCityEdit.setText("");
+                mStateEdit.setText("");
+                mZipEdit.setText("");
+                mCountryEdit.setText("");
+                mPhoneEdit.setText("");
+
+                // Update browser settings and native with a null profile. This will
+                // trigger the current profile to get deleted from the DB.
+                BrowserSettings.getInstance().setAutoFillProfile(getActivity(), null,
+                        mHandler.obtainMessage(PROFILE_DELETED_MSG));
             }
         });
 
