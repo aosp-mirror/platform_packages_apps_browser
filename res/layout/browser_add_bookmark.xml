@@ -30,8 +30,6 @@
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/add_divider"
             />
-        <!-- FIXME: The drawable does not line up properly. We may also want a
-            different asset in the final version. -->
         <TextView
             android:id="@+id/add_new_folder"
             android:layout_width="wrap_content"
@@ -39,6 +37,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignBaseline="@+id/crumbs"
             android:drawableLeft="@drawable/ic_add_string"
+            android:gravity="center_vertical"
             android:text="@string/new_folder"
             android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -49,14 +48,13 @@
             android:src="@drawable/crumb_divider"
             />
     </RelativeLayout>
-    <!-- FIXME: The drawable does not line up properly. We may also want a
-        different asset in the final version. -->
     <TextView android:id="@+id/fake_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_list_bookmark"
         android:text="@string/bookmark_this_page"
         android:layout_gravity="left"
+        android:gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <View android:id="@+id/titleDivider"
@@ -66,89 +64,80 @@
         android:background="?android:attr/colorForeground"
         />
 
-    <!-- XXX Use a TableLayout instead -->
-    <RelativeLayout android:id="@+id/default_view"
+    <TableLayout android:id="@+id/default_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="5dip"
-        android:paddingBottom="13dip"
+        android:stretchColumns="1"
+        android:paddingTop="20dip"
         android:paddingLeft="20dip"
         android:paddingRight="20dip" >
-    
+      <TableRow>
         <TextView 
             android:id="@+id/titleText"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="50dip"
             android:layout_marginBottom="40dip"
-            android:layout_marginTop="40dip"
             android:text="@string/name"
-            android:gravity="left"
             android:textAppearance="?android:attr/textAppearanceMedium" />
                 
         <EditText
             android:id="@+id/title"
             android:layout_height="wrap_content"
-            android:layout_width="325dip"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="20dip"
+            android:layout_marginLeft="20dip"
             android:gravity="fill_horizontal"
-            android:layout_alignBaseline="@+id/titleText"
-            android:layout_toRightOf="@+id/titleText"
             android:inputType="textCapSentences"
-            android:selectAllOnFocus="true"
             android:ellipsize="end"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-                
+      </TableRow>
 
-    
+      <TableRow>
         <TextView
             android:id="@+id/addressText"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/location"
             android:gravity="left"
-            android:layout_below="@+id/titleText"
-            android:layout_alignLeft="@+id/titleText"
             android:layout_marginBottom="40dip"
-            android:layout_marginRight="20dip"
             android:textAppearance="?android:attr/textAppearanceMedium" />
                 
         <EditText
             android:id="@+id/address"
             android:layout_height="wrap_content"
-            android:layout_width="325dip"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="20dip"
+            android:layout_marginLeft="20dip"
             android:hint="@string/http"
-            android:layout_alignBaseline="@+id/addressText"
-            android:layout_alignLeft="@+id/title"
             android:gravity="fill_horizontal"
             android:inputType="textUri"
-            android:selectAllOnFocus="true"
             android:ellipsize="end"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
+      </TableRow>
+      <TableRow>
         <TextView
             android:id="@+id/add_to"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/containing_folder"
-            android:layout_below="@+id/addressText"
-            android:layout_alignLeft="@+id/titleText"
-            android:layout_marginRight="20dip"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/folder"
             android:layout_height="wrap_content"
             android:layout_width="250dip"
-            android:layout_alignLeft="@+id/title"
-            android:layout_alignBaseline="@+id/add_to"
+            android:layout_marginRight="20dip"
+            android:layout_marginLeft="20dip"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:ellipsize="start"
             android:text="@string/bookmarks"
+            android:drawableLeft="@drawable/ic_menu_bookmarks"
+            android:layout_marginBottom="40dip"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    </RelativeLayout>
+      </TableRow>
+    </TableLayout>
 
     <LinearLayout android:id="@+id/folder_selector"
         android:layout_width="match_parent"

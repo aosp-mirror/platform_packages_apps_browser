@@ -16,9 +16,12 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/home_screen"
+        android:icon="@*android:drawable/ic_menu_home"
         android:title="@string/add_to_homescreen_menu_option"/>
     <item android:id="@+id/bookmarks"
+        android:icon="@drawable/ic_menu_bookmarks"
         android:title="@string/add_to_bookmarks_menu_option"/>
     <item android:id="@+id/other"
+        android:icon="@*android:drawable/ic_menu_archive"
         android:title="@string/add_to_other_folder_menu_option"/>
 </menu>
