@@ -3218,12 +3218,13 @@ public class BrowserActivity extends Activity
         request.setMimeType(mimetype);
         request.setDestinationInExternalFilesDir(this, null, filename);
         request.setDescription(webAddress.getHost());
+        String cookies = CookieManager.getInstance().getCookie(url);
+        request.addRequestHeader("cookie", cookies);
         if (mimetype == null) {
             ContentValues values = new ContentValues();
             values.put(FetchUrlMimeType.URI, addressString);
             // XXX: Have to use the old url since the cookies were stored using the
             // old percent-encoded url.
-            String cookies = CookieManager.getInstance().getCookie(url);
             values.put(FetchUrlMimeType.COOKIE_DATA, cookies);
             values.put(FetchUrlMimeType.USER_AGENT, userAgent);
 
