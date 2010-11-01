@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAA8H//+Ts\u003d",
+        "filename": "src/com/android/browser/Tab.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002416
+      },
+      "writtenOn": "2010-11-01T18:20:26Z",
+      "side": 1,
+      "message": "I really like your thinking (using a picture listener), but this may still result in a bad picture.  We definitely need to remove the picture listener eventually, but when the first new picture is received, it may not have useful data.  On the other hand, we don\u0027t want to save pictures several times.",
+      "revId": "5f21f816eb68150ab91b1face84b6f20804ae2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
