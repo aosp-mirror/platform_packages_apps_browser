@@ -59,9 +59,6 @@
             android:title="@string/menu_preferences"
             android:icon="@drawable/ic_menu_settings"
             android:alphabeticShortcut="p" />
-        <item android:id="@+id/save_webarchive_menu_id"
-            android:title="@string/menu_save_webarchive"
-             />
         <!-- followings are debug only -->
         <item android:id="@+id/dump_nav_menu_id"
             android:title="@string/dump_nav"

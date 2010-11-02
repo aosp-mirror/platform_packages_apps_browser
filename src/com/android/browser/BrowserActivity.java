@@ -1372,39 +1372,6 @@ public class BrowserActivity extends Activity
                 getTopWindow().showFindDialog(null);
                 break;
 
-            case R.id.save_webarchive_menu_id:
-                if (LOGD_ENABLED) {
-                    Log.d(LOGTAG, "Save as Web Archive");
-                }
-                String state = Environment.getExternalStorageState();
-                if (Environment.MEDIA_MOUNTED.equals(state)) {
-                    String directory = Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator;
-                    File dir = new File(directory);
-                    if (!dir.exists() && !dir.mkdirs()) {
-                      Log.e(LOGTAG, "Save as Web Archive: mkdirs for " + directory + " failed!");
-                      Toast.makeText(BrowserActivity.this, R.string.webarchive_failed,
-                          Toast.LENGTH_SHORT).show();
-                      break;
-                    }
-                    getTopWindow().saveWebArchive(directory, true, new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String value) {
-                            if (value != null) {
-                                Toast.makeText(BrowserActivity.this, R.string.webarchive_saved,
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(BrowserActivity.this, R.string.webarchive_failed,
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(BrowserActivity.this, R.string.webarchive_failed,
-                            Toast.LENGTH_SHORT).show();
-                }
-                break;
-
             case R.id.page_info_menu_id:
                 showPageInfo(mTabControl.getCurrentTab(), false);
                 break;
