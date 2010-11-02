@@ -14,27 +14,30 @@
      limitations under the License.
 -->
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <StackView
-        android:id="@+id/stackwidget_stack"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:paddingTop="16dip"
-        android:paddingBottom="8dip"
-        android:paddingLeft="8dip"
-        android:paddingRight="8dip"
-        android:background="#00000000"
-        android:cacheColorHint="#00000000"
-        android:autoStart="true" />
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="8dip"
+    android:background="#383847">
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/thumb"
+        android:src="@drawable/browser_thumbnail"
+        android:layout_height="24dp"
+        android:layout_width="24dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"/>
+    <TextView
+        android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_launcher_shortcut_browser_bookmark" />
-</RelativeLayout>
+        android:layout_gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/white"
+        android:paddingLeft="8dip"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:ellipsize="marquee"/>
+</LinearLayout>

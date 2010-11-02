@@ -200,19 +200,22 @@
                   android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">
         </activity>
 
+        <!-- Bookmark list homescreen widget -->
         <receiver
-            android:name=".widget.BookmarkStackWidgetProvider"
+            android:name=".widget.BookmarkListWidgetProvider"
             android:label="@string/bookmarks">
             <intent-filter>
                 <action
                     android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action
+                    android:name="com.android.browser.BOOKMARK_APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/bookmarkstackwidget" />
+                android:resource="@xml/bookmarklistwidget_info" />
         </receiver>
         <service
-            android:name=".widget.BookmarkStackWidgetService"
+            android:name=".widget.BookmarkListWidgetService"
             android:exported="true" />
 
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
