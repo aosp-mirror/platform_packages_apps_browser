@@ -41,7 +41,7 @@
                    android:label="@string/application_name"
                    android:icon="@drawable/ic_launcher_browser"
                    android:backupAgent=".BrowserBackupAgent"
-                   android:hardwareAccelerated="false"
+                   android:hardwareAccelerated="true"
                    android:taskAffinity="android.task.browser" >
 
         <provider android:name="BrowserProvider"

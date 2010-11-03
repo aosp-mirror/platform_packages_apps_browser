@@ -187,6 +187,7 @@ public class BrowserHistoryPage extends Fragment
     public void onDestroy() {
         super.onDestroy();
         CombinedBookmarkHistoryView.getIconListenerSet().removeListener(mIconReceiver);
+        getLoaderManager().stopLoader(LOADER_HISTORY);
     }
 
     @Override
