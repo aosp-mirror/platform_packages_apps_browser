@@ -242,13 +242,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         // It is possible that the view has been canceled when we get to
         // this point as back has a higher priority
         if (mCanceled) {
-            return true;
+            return false;
         }
         AdapterView.AdapterContextMenuInfo i =
             (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         // If we have no menu info, we can't tell which item was selected.
         if (i == null) {
-            return true;
+            return false;
         }
 
         switch (item.getItemId()) {
