@@ -3184,6 +3184,9 @@ public class BrowserActivity extends Activity
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setMimeType(mimetype);
         request.setDestinationInExternalFilesDir(this, null, filename);
+        // let this downloaded file be scanned by MediaScanner - so that it can show up
+        // in Gallery app, for example.
+        request.allowScanningByMediaScanner();
         request.setDescription(webAddress.getHost());
         String cookies = CookieManager.getInstance().getCookie(url);
         request.addRequestHeader("cookie", cookies);
