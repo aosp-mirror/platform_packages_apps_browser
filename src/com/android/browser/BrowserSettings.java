@@ -88,7 +88,6 @@ public class BrowserSettings extends Observable {
     private String homeUrl = "";
     private SearchEngine searchEngine;
     private boolean autoFitPage;
-    private boolean landscapeOnly;
     private boolean loadsPageInOverviewMode;
     private boolean showDebugSettings;
     // HTML5 API flags
@@ -412,11 +411,6 @@ public class BrowserSettings extends Observable {
         autoFitPage = p.getBoolean("autofit_pages", autoFitPage);
         loadsPageInOverviewMode = p.getBoolean("load_page",
                 loadsPageInOverviewMode);
-        boolean landscapeOnlyTemp =
-                p.getBoolean("landscape_only", landscapeOnly);
-        if (landscapeOnlyTemp != landscapeOnly) {
-            landscapeOnly = landscapeOnlyTemp;
-        }
         useWideViewPort = true; // use wide view port for either setting
         if (autoFitPage) {
             layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS;
@@ -657,9 +651,6 @@ public class BrowserSettings extends Observable {
         // Enable/disable the error console.
         mTabControl.getBrowserActivity().setShouldShowErrorConsole(
             showDebugSettings && showConsole);
-        mTabControl.getBrowserActivity().setRequestedOrientation(
-            landscapeOnly ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-            : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     /*package*/ void clearDatabases(Context context) {
@@ -715,7 +706,6 @@ public class BrowserSettings extends Observable {
         autoFillEnabled = false;
         openInBackground = false;
         autoFitPage = true;
-        landscapeOnly = false;
         loadsPageInOverviewMode = true;
         showDebugSettings = false;
         // HTML5 API flags
