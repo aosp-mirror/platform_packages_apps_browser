@@ -297,6 +297,13 @@ public class AddBookmarkPage extends Activity
         values.put(BrowserContract.Bookmarks.TITLE,
                 name);
         values.put(BrowserContract.Bookmarks.IS_FOLDER, 1);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
+            values.put(BrowserContract.Bookmarks.ACCOUNT_TYPE, accountType);
+            values.put(BrowserContract.Bookmarks.ACCOUNT_NAME, accountName);
+        }
         long currentFolder;
         Object data = mCrumbs.getTopData();
         if (data != null) {
