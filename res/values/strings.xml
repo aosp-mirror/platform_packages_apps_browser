@@ -141,13 +141,13 @@
     <string name="name">Label</string>
     <!-- Initial value in Location field in Bookmark dialog box -->
     <string name="http">http://</string>
-    <!-- Menu item that opens a dialog to save a bookmark for the current page -->
+    <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
     <string name="save_to_bookmarks">Add to Bookmarks</string>
     <!-- Title of the dialog to bookmark a page -->
     <string name="bookmark_this_page">Bookmark this page</string>
     <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
     <string name="edit_bookmark">Edit bookmark</string>
-    <!-- Context menu item to create a shortcut to the bookmark on the desktop -->
+    <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
     <string name="create_shortcut_bookmark">Add shortcut to home</string>
     <!-- Context menu item to open the currently highlighted bookmark -->
     <string name="open_bookmark">Open</string>
@@ -199,7 +199,7 @@
     <string name="open_in_new_window">Open in new window</string>
     <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
     <string name="goto_dot">Go</string>
-    <!-- Menu item that opens up a new incognito tab.  -->
+    <!-- Menu item that opens up a new incognito tab. [CHAR LIMIT=30] -->
     <string name="incognito_tab">Open new incognito tab</string>
     <!-- Menu item to switch to text selection mode for copy and paste. -->
     <string name="select_dot">Select text</string>
