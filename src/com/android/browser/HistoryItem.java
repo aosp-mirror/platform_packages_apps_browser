@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
- 
+
 package com.android.browser;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.provider.Browser;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  *  Layout representing a history item in the classic history viewer.
@@ -55,7 +51,7 @@ import android.widget.TextView;
             }
         };
     }
-    
+
     /* package */ void copyTo(HistoryItem item) {
         item.mTextView.setText(mTextView.getText());
         item.mUrlText.setText(mUrlText.getText());

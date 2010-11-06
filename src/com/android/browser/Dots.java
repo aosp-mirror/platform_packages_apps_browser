@@ -22,7 +22,6 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.util.Map;
 
 /**
  * Displays a series of dots.  The selected one is highlighted.

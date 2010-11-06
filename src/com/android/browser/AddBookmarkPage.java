@@ -21,14 +21,12 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.ParseException;
 import android.net.WebAddress;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Browser;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -37,11 +35,8 @@ import android.widget.Toast;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Date;
 
 public class AddBookmarkPage extends Activity {
-
-    private final String LOGTAG = "Bookmarks";
 
     private EditText    mTitle;
     private EditText    mAddress;
@@ -78,7 +73,7 @@ public class AddBookmarkPage extends Activity {
         setContentView(R.layout.browser_add_bookmark);
         setTitle(R.string.save_to_bookmarks);
         getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
-        
+
         String title = null;
         String url = null;
         mMap = getIntent().getExtras();
@@ -106,7 +101,7 @@ public class AddBookmarkPage extends Activity {
 
         mCancelButton = findViewById(R.id.cancel);
         mCancelButton.setOnClickListener(mCancel);
-        
+
         if (!getWindow().getDecorView().isInTouchMode()) {
             mButton.requestFocus();
         }
@@ -176,7 +171,7 @@ public class AddBookmarkPage extends Activity {
         createHandler();
 
         String title = mTitle.getText().toString().trim();
-        String unfilteredUrl = 
+        String unfilteredUrl =
                 BrowserActivity.fixUrl(mAddress.getText().toString());
         boolean emptyTitle = title.length() == 0;
         boolean emptyUrl = unfilteredUrl.trim().length() == 0;

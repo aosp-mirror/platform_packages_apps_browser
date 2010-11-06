@@ -154,7 +154,6 @@ import android.webkit.WebView;
     }
 
     private Mesh mMesh;
-    private Bitmap mBitmap;
     private int mWhich;
     private Paint mBGPaint;
 
@@ -171,7 +170,6 @@ import android.webkit.WebView;
     }
 
     @Override public void onBitmapChange(Bitmap bm) {
-        mBitmap = bm;
         mMesh.setBitmap(bm);
     }
 

@@ -423,7 +423,7 @@ public class BrowserBookmarksPage extends Activity implements
     };
 
     private AdapterView.OnItemClickListener mListener = new AdapterView.OnItemClickListener() {
-        public void onItemClick(AdapterView parent, View v, int position, long id) {
+        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             // It is possible that the view has been canceled when we get to
             // this point as back has a higher priority
             if (mCanceled) {

@@ -17,13 +17,10 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView;
 import android.webkit.GeolocationPermissions;
 import android.widget.Button;
 import android.widget.CheckBox;

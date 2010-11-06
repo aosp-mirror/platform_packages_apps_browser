@@ -26,7 +26,6 @@ import android.util.Log;
 import android.webkit.WebStorage;
 
 import java.io.File;
-import java.util.Set;
 
 
 /**
@@ -85,7 +84,6 @@ import java.util.Set;
 class WebStorageSizeManager {
     // Logging flags.
     private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
-    private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
     private final static String LOGTAG = "browser";
     // The default quota value for an origin.
     public final static long ORIGIN_DEFAULT_QUOTA = 3 * 1024 * 1024;  // 3MB

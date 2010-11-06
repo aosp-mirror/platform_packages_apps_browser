@@ -18,13 +18,10 @@ package com.android.browser;
 
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
-import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ContentUris;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -34,17 +31,13 @@ import android.provider.Downloads;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
 import java.io.File;
-import java.util.List;
 
 /**
  *  View showing the user's current browser downloads
@@ -65,11 +58,11 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     private View                    mSelectedView;
 
     private final static String LOGTAG = "BrowserDownloadPage";
-    @Override 
+    @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.browser_downloads_page);
-        
+
         setTitle(getText(R.string.download_title));
 
         mListView = (ExpandableListView) findViewById(android.R.id.list);
@@ -85,19 +78,19 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                 Downloads.Impl._DATA,
                 Downloads.Impl.COLUMN_MIME_TYPE},
                 null, Downloads.Impl.COLUMN_LAST_MODIFICATION + " DESC");
-        
+
         // only attach everything to the listbox if we can access
         // the download database. Otherwise, just show it empty
         if (mDownloadCursor != null) {
-            mStatusColumnId = 
+            mStatusColumnId =
                     mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_STATUS);
             mIdColumnId =
                     mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl._ID);
-            mTitleColumnId = 
+            mTitleColumnId =
                     mDownloadCursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_TITLE);
-            
+
             // Create a list "controller" for the data
-            mDownloadAdapter = new BrowserDownloadAdapter(this, 
+            mDownloadAdapter = new BrowserDownloadAdapter(this,
                     mDownloadCursor, mDownloadCursor.getColumnIndexOrThrow(
                     Downloads.Impl.COLUMN_LAST_MODIFICATION));
 
@@ -162,14 +155,14 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         }
         return true;
     }
-    
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean showCancel = getCancelableCount() > 0;
         menu.findItem(R.id.download_menu_cancel_all).setEnabled(showCancel);
         return super.onPrepareOptionsMenu(menu);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -295,7 +288,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             }
             mContextMenuPosition = packedPosition;
             menu.setHeaderTitle(mDownloadCursor.getString(mTitleColumnId));
-            
+
             MenuInflater inflater = getMenuInflater();
             int status = mDownloadCursor.getInt(mStatusColumnId);
             if (Downloads.Impl.isStatusSuccess(status)) {
@@ -365,7 +358,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         }
         return groupToShow;
     }
-    
+
     /**
      * Resume a given download
      * @param id Row id of the download to resume
@@ -373,7 +366,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
     private void resumeDownload(final long id) {
         // the relevant functionality doesn't exist in the download manager
     }
-    
+
     /**
      * Return the number of items in the list that can be canceled.
      * @return count
@@ -390,35 +383,35 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                 }
             }
         }
-        
+
         return count;
     }
-    
+
     /**
      * Prompt the user if they would like to clear the download history
      */
     private void promptCancelAll() {
         int count = getCancelableCount();
-        
+
         // If there is nothing to do, just return
         if (count == 0) {
             return;
         }
-        
+
         // Don't show the dialog if there is only one download
         if (count == 1) {
             cancelAllDownloads();
             return;
         }
-        String msg = 
+        String msg =
             getString(R.string.download_cancel_dlg_msg, count);
         new AlertDialog.Builder(this)
                 .setTitle(R.string.download_cancel_dlg_title)
                 .setIcon(R.drawable.ssl_icon)
                 .setMessage(msg)
-                .setPositiveButton(R.string.ok, 
+                .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, 
+                            public void onClick(DialogInterface dialog,
                                     int whichButton) {
                                 cancelAllDownloads();
                             }
@@ -426,7 +419,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
                  .setNegativeButton(R.string.cancel, null)
                  .show();
     }
-    
+
     /**
      * Cancel all downloads. As canceled downloads are not
      * listed, we removed them from the db. Removing a download
@@ -458,20 +451,6 @@ public class BrowserDownloadPage extends ExpandableListActivity {
             }
         }
     }
-    
-    private int getClearableCount() {
-        int count = 0;
-        if (mDownloadCursor.moveToFirst()) {
-            while (!mDownloadCursor.isAfterLast()) {
-                int status = mDownloadCursor.getInt(mStatusColumnId);
-                if (Downloads.Impl.isStatusCompleted(status)) {
-                    count++;
-                }
-                mDownloadCursor.moveToNext();
-            }
-        }
-        return count;
-    }
 
     /**
      * Open or delete content where the download db cursor currently is.  Sends
@@ -498,7 +477,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         // Open the selected item
         mDownloadAdapter.moveCursorToChildPosition(groupPosition,
                 childPosition);
-        
+
         hideCompletedDownload();
 
         int status = mDownloadCursor.getInt(mStatusColumnId);
@@ -511,7 +490,7 @@ public class BrowserDownloadPage extends ExpandableListActivity {
         }
         return true;
     }
-    
+
     /**
      * hides the notification for the download pointed by mDownloadCursor
      * if the download has completed.

@@ -40,7 +40,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.ViewStub;
 import android.webkit.WebIconDatabase.IconListener;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.Toast;
@@ -80,7 +79,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         setResultToParent(RESULT_OK, intent);
         finish();
     }
-    
+
     private void copy(CharSequence text) {
         try {
             IClipboard clip = IClipboard.Stub.asInterface(ServiceManager.getService("clipboard"));
@@ -171,7 +170,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         menu.findItem(R.id.clear_history_menu_id).setVisible(Browser.canClearHistory(this.getContentResolver()));
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -183,17 +182,17 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                         .removeParentChildRelationShips();
                 mAdapter.refreshData();
                 return true;
-                
+
             default:
                 break;
-        }  
+        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
-        ExpandableListContextMenuInfo i = 
+        ExpandableListContextMenuInfo i =
             (ExpandableListContextMenuInfo) menuInfo;
         // Do not allow a context menu to come up from the group views.
         if (!(i.targetView instanceof HistoryItem)) {
@@ -230,13 +229,13 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         send.setType("text/plain");
         ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
         menu.findItem(R.id.share_link_context_menu_id).setVisible(ri != null);
-        
+
         super.onCreateContextMenu(menu, v, menuInfo);
     }
-    
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        ExpandableListContextMenuInfo i = 
+        ExpandableListContextMenuInfo i =
             (ExpandableListContextMenuInfo) item.getMenuInfo();
         HistoryItem historyItem = (HistoryItem) i.targetView;
         String url = historyItem.getUrl();
@@ -277,7 +276,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         }
         return super.onContextItemSelected(item);
     }
-    
+
     @Override
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
@@ -299,7 +298,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
     private class HistoryAdapter extends DateSortedExpandableListAdapter {
         HistoryAdapter(Context context, Cursor cursor, int index) {
             super(context, cursor, index);
-            
+
         }
 
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild,

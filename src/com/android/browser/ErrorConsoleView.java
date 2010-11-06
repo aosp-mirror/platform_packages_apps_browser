@@ -17,13 +17,11 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -31,7 +29,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TwoLineListItem;
 
 import java.util.Vector;
 

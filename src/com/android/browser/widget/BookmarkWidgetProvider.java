@@ -16,12 +16,10 @@
 
 package com.android.browser.widget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 /**
  * Widget that shows a preview of the user's bookmarks.

@@ -173,7 +173,7 @@ public class DateSortedExpandableListAdapter implements ExpandableListAdapter {
                 int bin = mDateSorter.getIndex(getLong(mDateIndex));
                 // bin is the same as the group if the number of bins is the
                 // same as DateSorter
-                if (mDateSorter.DAY_COUNT == mNumberOfBins) return bin;
+                if (DateSorter.DAY_COUNT == mNumberOfBins) return bin;
                 // There are some empty bins.  Find the corresponding group.
                 group = 0;
                 for (int i = 0; i < bin; i++) {

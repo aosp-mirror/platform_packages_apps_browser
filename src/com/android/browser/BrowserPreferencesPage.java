@@ -16,29 +16,23 @@
 
 package com.android.browser;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
 import android.webkit.WebStorage;
-import android.webkit.WebView;
 
 public class BrowserPreferencesPage extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
-    private String LOGTAG = "BrowserPreferencesPage";
     /* package */ static final String CURRENT_PAGE = "currentPage";
 
     @Override
@@ -54,16 +48,16 @@ public class BrowserPreferencesPage extends PreferenceActivity
                 .getString(BrowserSettings.PREF_HOMEPAGE, null));
         ((BrowserHomepagePreference) e).setCurrentPage(
                 getIntent().getStringExtra(CURRENT_PAGE));
-        
+
         e = findPreference(BrowserSettings.PREF_EXTRAS_RESET_DEFAULTS);
         e.setOnPreferenceChangeListener(this);
-        
+
         e = findPreference(BrowserSettings.PREF_TEXT_SIZE);
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getVisualTextSizeName(
                 getPreferenceScreen().getSharedPreferences()
                 .getString(BrowserSettings.PREF_TEXT_SIZE, null)) );
-        
+
         e = findPreference(BrowserSettings.PREF_DEFAULT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getVisualDefaultZoomName(
@@ -170,7 +164,7 @@ public class BrowserPreferencesPage extends PreferenceActivity
                     pref.getKey()));
             return true;
         }
-        
+
         return false;
     }
 

@@ -90,8 +90,6 @@ class BrowserSettings extends Observable {
 
     private String jsFlags = "";
 
-    private final static String TAG = "BrowserSettings";
-
     // Development settings
     public WebSettings.LayoutAlgorithm layoutAlgorithm =
         WebSettings.LayoutAlgorithm.NARROW_COLUMNS;
@@ -190,13 +188,13 @@ class BrowserSettings extends Observable {
             s.setJavaScriptCanOpenWindowsAutomatically(
                     b.javaScriptCanOpenWindowsAutomatically);
             s.setDefaultTextEncodingName(b.defaultTextEncodingName);
-            s.setMinimumFontSize(b.minimumFontSize);
-            s.setMinimumLogicalFontSize(b.minimumLogicalFontSize);
-            s.setDefaultFontSize(b.defaultFontSize);
-            s.setDefaultFixedFontSize(b.defaultFixedFontSize);
+            s.setMinimumFontSize(BrowserSettings.minimumFontSize);
+            s.setMinimumLogicalFontSize(BrowserSettings.minimumLogicalFontSize);
+            s.setDefaultFontSize(BrowserSettings.defaultFontSize);
+            s.setDefaultFixedFontSize(BrowserSettings.defaultFixedFontSize);
             s.setNavDump(b.navDump);
-            s.setTextSize(b.textSize);
-            s.setDefaultZoom(b.zoomDensity);
+            s.setTextSize(BrowserSettings.textSize);
+            s.setDefaultZoom(BrowserSettings.zoomDensity);
             s.setLightTouchEnabled(b.lightTouch);
             s.setSaveFormData(b.saveFormData);
             s.setSavePassword(b.rememberPasswords);

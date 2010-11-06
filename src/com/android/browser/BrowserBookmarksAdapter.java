@@ -24,19 +24,16 @@ import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Browser;
 import android.provider.Browser.BookmarkColumns;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebIconDatabase;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -96,7 +93,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
 
         mCount = mCursor.getCount() + mExtraOffset;
     }
-    
+
     /**
      *  Return a hashmap with one row's Title, Url, and favicon.
      *  @param position  Position in the list.
@@ -111,7 +108,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         }
         mCursor.moveToPosition(position- mExtraOffset);
         String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
-        map.putString(Browser.BookmarkColumns.TITLE, 
+        map.putString(Browser.BookmarkColumns.TITLE,
                 mCursor.getString(Browser.HISTORY_PROJECTION_TITLE_INDEX));
         map.putString(Browser.BookmarkColumns.URL, url);
         byte[] data = mCursor.getBlob(Browser.HISTORY_PROJECTION_FAVICON_INDEX);
@@ -124,7 +121,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     }
 
     /**
-     *  Update a row in the database with new information. 
+     *  Update a row in the database with new information.
      *  Requeries the database if the information has changed.
      *  @param map  Bundle storing id, title and url of new information
      */
@@ -167,7 +164,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
     }
 
     /**
-     *  Delete a row from the database.  Requeries the database.  
+     *  Delete a row from the database.  Requeries the database.
      *  Does nothing if the provided position is out of range.
      *  @param position Position in the list.
      */
@@ -181,16 +178,16 @@ class BrowserBookmarksAdapter extends BaseAdapter {
         Bookmarks.removeFromBookmarks(null, mContentResolver, url, title);
         refreshList();
     }
-    
+
     /**
-     *  Delete all bookmarks from the db. Requeries the database.  
-     *  All bookmarks with become visited URLs or if never visited 
+     *  Delete all bookmarks from the db. Requeries the database.
+     *  All bookmarks with become visited URLs or if never visited
      *  are removed
      */
     public void deleteAllRows() {
         StringBuilder deleteIds = null;
         StringBuilder convertIds = null;
-        
+
         for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
             String url = mCursor.getString(Browser.HISTORY_PROJECTION_URL_INDEX);
             WebIconDatabase.getInstance().releaseIconForPageUrl(url);
@@ -221,15 +218,15 @@ class BrowserBookmarksAdapter extends BaseAdapter {
                 convertIds.append(" )");
             }
         }
-        
+
         if (deleteIds != null) {
-            mContentResolver.delete(Browser.BOOKMARKS_URI, deleteIds.toString(), 
+            mContentResolver.delete(Browser.BOOKMARKS_URI, deleteIds.toString(),
                 null);
         }
         if (convertIds != null) {
             ContentValues values = new ContentValues();
             values.put(Browser.BookmarkColumns.BOOKMARK, 0);
-            mContentResolver.update(Browser.BOOKMARKS_URI, values, 
+            mContentResolver.update(Browser.BOOKMARKS_URI, values,
                     convertIds.toString(), null);
         }
         refreshList();
@@ -565,7 +562,7 @@ class BrowserBookmarksAdapter extends BaseAdapter {
             refreshList();
         }
     }
-    
+
     private class MyDataSetObserver extends DataSetObserver {
         @Override
         public void onChanged() {

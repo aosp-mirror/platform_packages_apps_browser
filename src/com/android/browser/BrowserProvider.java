@@ -29,8 +29,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.database.AbstractCursor;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -47,8 +45,6 @@ import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.util.TypedValue;
-
 
 import java.io.File;
 import java.io.FilenameFilter;

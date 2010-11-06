@@ -44,7 +44,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -71,7 +70,6 @@ import android.speech.RecognizerResultsIntent;
 import android.text.IClipboard;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.ContextMenu;
@@ -104,12 +102,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AccountManagerFuture;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.accounts.AccountManagerCallback;
 
 import com.android.common.Search;
 import com.android.common.speech.LoggingEvents;
@@ -119,11 +111,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -140,7 +130,6 @@ public class BrowserActivity extends Activity
     /* Define some aliases to make these debugging flags easier to refer to.
      * This file imports android.provider.Browser, so we can't just refer to "Browser.DEBUG".
      */
-    private final static boolean DEBUG = com.android.browser.Browser.DEBUG;
     private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
     private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
 
