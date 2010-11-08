@@ -276,6 +276,9 @@ public class BrowserHistoryPage extends Fragment
     public boolean onContextItemSelected(MenuItem item) {
         ExpandableListContextMenuInfo i =
             (ExpandableListContextMenuInfo) item.getMenuInfo();
+        if (i == null) {
+            return false;
+        }
         HistoryItem historyItem = (HistoryItem) i.targetView;
         String url = historyItem.getUrl();
         String title = historyItem.getName();
