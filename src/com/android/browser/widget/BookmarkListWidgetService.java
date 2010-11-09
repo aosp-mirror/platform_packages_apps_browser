@@ -68,7 +68,6 @@ public class BookmarkListWidgetService extends RemoteViewsService {
 
     private Map<Integer, BookmarkFactory> mFactories;
     private Handler mUiHandler;
-    private HandlerThread mBackgroundThread;
     private BookmarksObserver mBookmarksObserver;
 
     @Override
@@ -111,7 +110,6 @@ public class BookmarkListWidgetService extends RemoteViewsService {
     public void onDestroy() {
         super.onDestroy();
         getContentResolver().unregisterContentObserver(mBookmarksObserver);
-        mBackgroundThread.quit();
     }
 
     private class BookmarksObserver extends ContentObserver {

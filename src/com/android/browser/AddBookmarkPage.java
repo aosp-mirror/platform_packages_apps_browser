@@ -229,10 +229,7 @@ public class AddBookmarkPage extends Activity
                 finish();
             }
         } else if (v == mFolder) {
-            // FIXME: We want to use mFolder as an anchor, but cannot until we
-            // fix the issue that the PopupMenu will not extend past the edge of
-            // the dialog.
-            PopupMenu popup = new PopupMenu(this, mFakeTitle);
+            PopupMenu popup = new PopupMenu(this, mFolder);
             popup.getMenuInflater().inflate(R.menu.folder_choice,
                     popup.getMenu());
             popup.setOnMenuItemClickListener(this);
