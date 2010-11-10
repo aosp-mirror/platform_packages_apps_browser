@@ -584,11 +584,14 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 qb.setTables(TABLE_BOOKMARKS_JOIN_IMAGES);
                 String[] args;
                 String query;
+                if (TextUtils.isEmpty(sortOrder)) {
+                    sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER;
+                }
                 if (!useAccount) {
                     qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);
                     query = qb.buildQuery(projection,
                             Bookmarks.PARENT + "=? AND " + Bookmarks.IS_DELETED + "=0",
-                            null, null, null, DEFAULT_BOOKMARKS_SORT_ORDER, null);
+                            null, null, null, sortOrder, null);
 
                     args = new String[] { Long.toString(FIXED_ID_ROOT) };
                 } else {
@@ -611,7 +614,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
                     query = qb.buildUnionQuery(
                             new String[] { bookmarksBarQuery, otherBookmarksQuery },
-                            DEFAULT_BOOKMARKS_SORT_ORDER, limit);
+                            sortOrder, limit);
 
                     args = new String[] {
                             accountType, accountName, accountType, accountName,

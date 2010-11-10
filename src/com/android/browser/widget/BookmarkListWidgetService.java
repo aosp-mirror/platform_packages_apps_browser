@@ -16,12 +16,14 @@
 
 package com.android.browser.widget;
 
+import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.R;
-import com.android.browser.provider.BrowserProvider2;
 
 import android.appwidget.AppWidgetManager;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -32,6 +34,7 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Bookmarks;
 import android.text.TextUtils;
@@ -43,6 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class BookmarkListWidgetService extends RemoteViewsService {
 
@@ -60,11 +64,12 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             BrowserContract.Bookmarks.URL,
             BrowserContract.Bookmarks.FAVICON,
             BrowserContract.Bookmarks.IS_FOLDER,
-            BrowserContract.Bookmarks.PARENT};
+            BrowserContract.Bookmarks.PARENT,
+            BrowserContract.Bookmarks.POSITION};
 
     // Ordering merged with DEFAULT_BOOKMARK_SORT_ORDER from BrowserProvider2
     private static final String ORDER_BY_CLAUSE =
-        Bookmarks.IS_FOLDER + " DESC, position ASC, _id ASC";
+            Bookmarks.IS_FOLDER + " DESC, position ASC, _id ASC";
 
     private Map<Integer, BookmarkFactory> mFactories;
     private Handler mUiHandler;
@@ -99,7 +104,7 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             long folderId = intent.getLongExtra(Bookmarks._ID, -1);
             BookmarkFactory fac = mFactories.get(widgetId);
             if (fac != null && folderId >= 0) {
-                fac.setFolder(folderId);
+                fac.changeFolder(folderId);
                 AppWidgetManager.getInstance(this).notifyAppWidgetViewDataChanged(widgetId, R.id.bookmarks_list);
             }
         }
@@ -142,19 +147,43 @@ public class BookmarkListWidgetService extends RemoteViewsService {
         }
     }
 
+    private static class Breadcrumb {
+        long mId;
+        String mTitle;
+        public Breadcrumb(long id, String title) {
+            mId = id;
+            mTitle = title;
+        }
+    }
+
     static class BookmarkFactory implements RemoteViewsService.RemoteViewsFactory {
         private List<RenderResult> mBookmarks;
         private Context mContext;
         private int mWidgetId;
-        private long mFolderId = BrowserProvider2.FIXED_ID_ROOT;
+        private String mAccountType;
+        private String mAccountName;
+        private Stack<Breadcrumb> mBreadcrumbs;
 
         public BookmarkFactory(Context context, int widgetId) {
+            mBreadcrumbs = new Stack<Breadcrumb>();
             mContext = context;
             mWidgetId = widgetId;
         }
 
-        void setFolder(long folderId) {
-            mFolderId = folderId;
+        void changeFolder(long folderId) {
+            if (mBookmarks == null) return;
+
+            if (!mBreadcrumbs.empty() && mBreadcrumbs.peek().mId == folderId) {
+                mBreadcrumbs.pop();
+                return;
+            }
+
+            for (RenderResult res : mBookmarks) {
+                if (res.mId == folderId) {
+                    mBreadcrumbs.push(new Breadcrumb(res.mId, res.mTitle));
+                    break;
+                }
+            }
         }
 
         @Override
@@ -181,13 +210,13 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             }
 
             RenderResult res = mBookmarks.get(position);
+            Breadcrumb folder = mBreadcrumbs.empty() ? null : mBreadcrumbs.peek();
 
             RemoteViews views = new RemoteViews(
                     mContext.getPackageName(), R.layout.bookmarklistwidget_item);
             Intent fillin;
             if (res.mIsFolder) {
                 long nfi = res.mId;
-                if (nfi == mFolderId) nfi = res.mParentId;
                 fillin = new Intent(ACTION_CHANGE_FOLDER, null,
                         mContext, BookmarkListWidgetService.class)
                         .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetId)
@@ -207,7 +236,7 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             views.setTextViewText(R.id.label, displayTitle);
             views.setDrawableParameters(R.id.list_item, true, 0, -1, null, -1);
             if (res.mIsFolder) {
-                if (res.mId == mFolderId) {
+                if (folder != null && res.mId == folder.mId) {
                     views.setDrawableParameters(R.id.list_item, true, 140, -1, null, -1);
                     views.setImageViewResource(R.id.thumb, R.drawable.ic_back_normal);
                 } else {
@@ -236,6 +265,9 @@ public class BookmarkListWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            mAccountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+            mAccountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
             loadData();
         }
 
@@ -258,23 +290,34 @@ public class BookmarkListWidgetService extends RemoteViewsService {
 
         void update() {
             recycleBitmaps();
-            String where;
+            String where = null;
+            Breadcrumb folder = mBreadcrumbs.empty() ? null : mBreadcrumbs.peek();
+            Uri uri;
             if (USE_FOLDERS) {
-                where = String.format("%s == %d", Bookmarks.PARENT, mFolderId);
-                if (mFolderId != BrowserProvider2.FIXED_ID_ROOT) {
-                    where = String.format("%s OR %s == %d", where,
-                        Bookmarks._ID, mFolderId);
+                uri = BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER;
+                if (folder != null) {
+                    uri = ContentUris.withAppendedId(uri, folder.mId);
                 }
             } else {
+                uri = BrowserContract.Bookmarks.CONTENT_URI;
                 where = Bookmarks.IS_FOLDER + " == 0";
+            }
+            if (!TextUtils.isEmpty(mAccountType) && !TextUtils.isEmpty(mAccountName)) {
+                uri = uri.buildUpon()
+                        .appendQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE, mAccountType)
+                        .appendQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME, mAccountName).build();
             }
             Cursor c = null;
             try {
-                c = mContext.getContentResolver().query(
-                        BrowserContract.Bookmarks.CONTENT_URI, PROJECTION,
+                c = mContext.getContentResolver().query(uri, PROJECTION,
                         where, null, ORDER_BY_CLAUSE);
                 if (c != null) {
-                    mBookmarks = new ArrayList<RenderResult>(c.getCount());
+                    mBookmarks = new ArrayList<RenderResult>(c.getCount() + 1);
+                    if (folder != null) {
+                        RenderResult res = new RenderResult(folder.mId, folder.mTitle, null);
+                        res.mIsFolder = true;
+                        mBookmarks.add(res);
+                    }
                     while (c.moveToNext()) {
                         long id = c.getLong(0);
                         String title = c.getString(1);
@@ -289,13 +332,7 @@ public class BookmarkListWidgetService extends RemoteViewsService {
                                     blob, 0, blob.length, options);
                         }
                         res.mIsFolder = c.getInt(4) != 0;
-                        res.mParentId = c.getLong(5);
-                        if (res.mId == mFolderId) {
-                            // Make sure this is first
-                            mBookmarks.add(0, res);
-                        } else {
-                            mBookmarks.add(res);
-                        }
+                        mBookmarks.add(res);
                     }
                 }
             } catch (IllegalStateException e) {
@@ -326,7 +363,6 @@ public class BookmarkListWidgetService extends RemoteViewsService {
         final String mUrl;
         Bitmap mBitmap;
         boolean mIsFolder;
-        long mParentId;
         long mId;
 
         RenderResult(long id, String title, String url) {
