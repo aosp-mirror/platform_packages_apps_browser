@@ -1542,6 +1542,11 @@ public class Controller
     }
 
     public boolean onContextItemSelected(MenuItem item) {
+        // Let the History and Bookmark fragments handle menus they created.
+        if (item.getGroupId() == R.id.CONTEXT_MENU) {
+            return false;
+        }
+
         // chording is not an issue with context menus, but we use the same
         // options selector, so set mCanChord to true so we can access them.
         mCanChord = true;
