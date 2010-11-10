@@ -65,14 +65,10 @@
     <string name="location" msgid="3411848697912600125">"Адрес"</string>
     <string name="containing_folder" msgid="6771180232953030479">"Добавить в"</string>
     <string name="new_folder" msgid="7743540149088867917">"Новая папка"</string>
-    <!-- no translation found for no_subfolders (5880411440592452802) -->
-    <skip />
-    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
-    <skip />
-    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
-    <skip />
-    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
-    <skip />
+    <string name="no_subfolders" msgid="5880411440592452802">"Нет подпапок"</string>
+    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Закладки"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Главный экран"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"Другая папка…"</string>
     <string name="name" msgid="5462672162695365387">"Ярлык"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Добавить в Закладки"</string>
@@ -147,11 +143,15 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"Домашняя страница"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Поисковая система"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Выберите поисковую систему"</string>
-    <string name="pref_use_current" msgid="1493179933653044553">"Использовать текущую страницу"</string>
+    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
+    <skip />
+    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"Использовать текущую страницу"</string>
+    <!-- no translation found for pref_use_blank (8503238592551111169) -->
+    <skip />
+    <!-- no translation found for pref_use_default (192587563274735878) -->
+    <skip />
     <string name="pref_content_autofit" msgid="8260474534053660809">"Мобильный вид"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Адаптировать контент к размеру экрана мобильного устройства"</string>
-    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Только горизонтально"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Показывать страницы только в горизонтальной ориентации"</string>
     <string name="pref_personal_title" msgid="1447687455755683695">"Личные настройки"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Синхронизировать с Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Совместно использовать закладки и другие данные в браузере Android и Google Chrome"</string>
@@ -160,44 +160,27 @@
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Синхронизировать закладки браузера Android и Google Chrome"</string>
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Синхронизировать"</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Выберите аккаунт Google"</string>
-    <!-- no translation found for pref_autofill_enabled (1174197447388234595) -->
+    <string name="pref_autofill_enabled" msgid="1174197447388234595">"Автозаполнение форм"</string>
+    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Заполнение веб-форм одним кликом"</string>
+    <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Настройки автозаполнения"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Настройка и управление данными для автозаполняемых форм"</string>
+    <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Полное имя:"</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Эл. почта:"</string>
+    <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Название компании:"</string>
+    <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Адресная строка 1:"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Адрес, почтовый ящик, адрес до востребования"</string>
+    <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Адресная строка 2:"</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"Квартира, офис, блок, здание, этаж и т. д."</string>
+    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"Город:"</string>
+    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"Штат / провинция / регион:"</string>
+    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Почтовый индекс:"</string>
+    <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Страна:"</string>
+    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Номер телефона:"</string>
+    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Сохранить профиль"</string>
+    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Профиль сохранен"</string>
+    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
     <skip />
-    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor (1350709161524642663) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
-    <skip />
+    <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"Удалить данные профиля"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Настройки конфиденциальности"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Очистить кэш"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Удалить контент и данные, сохраненные браузером"</string>
@@ -301,13 +284,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Недостаточно места"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Невозможно загрузить <xliff:g id="FILENAME">%s</xliff:g>."\n"Освободите место в памяти телефона и повторите попытку."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Ошибка загрузки"</string>
-    <!-- outdated translation 5349772560166195586 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Накопитель недоступен"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-накопитель недоступен"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD-карта отсутствует"</string>
-    <!-- outdated translation 9049052105269200675 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Для загрузки файла <xliff:g id="FILENAME">%s</xliff:g> требуется общий накопитель."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Для загрузки файла <xliff:g id="FILENAME">%s</xliff:g> требуется USB-накопитель."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Для загрузки <xliff:g id="FILENAME">%s</xliff:g> необходима SD-карта."</string>
-    <!-- outdated translation 4151068942919670243 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Накопитель недоступен"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB-накопитель недоступен"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-карта недоступна"</string>
-    <!-- outdated translation 7297514580933657663 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Общий накопитель занят. Чтобы разрешить загрузки, выберите \"Отключить USB-накопитель\" в уведомлении."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB-накопитель занят. Чтобы разрешить загрузки, выберите \"Выключить USB-накопитель\" в уведомлении."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-карта занята. Чтобы разрешить загрузки, выберите \"Отключить USB-накопитель\" в уведомлении."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Невозможно открыть файл"</string>
     <string name="retry" msgid="1835923075542266721">"Повторить попытку"</string>
