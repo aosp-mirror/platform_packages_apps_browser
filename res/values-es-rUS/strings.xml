@@ -143,11 +143,15 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"Definir página de inicio"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Establecer el motor de búsqueda"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Seleccionar un motor de búsqueda"</string>
-    <string name="pref_use_current" msgid="1493179933653044553">"Utilizar la página actual"</string>
+    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
+    <skip />
+    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"Utilizar la página actual"</string>
+    <!-- no translation found for pref_use_blank (8503238592551111169) -->
+    <skip />
+    <!-- no translation found for pref_use_default (192587563274735878) -->
+    <skip />
     <string name="pref_content_autofit" msgid="8260474534053660809">"Ajuste automát. de pág."</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatea las páginas web para que se ajusten a la pantalla"</string>
-    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Visualización horizontal solamente"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Mostrar páginas sólo en la orientación de pantalla horizontal más ancha"</string>
     <string name="pref_personal_title" msgid="1447687455755683695">"Configuración personal"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Sincronización con Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Compartir favoritos &amp; otros datos entre el navegador Android y Google Chrome"</string>
@@ -157,7 +161,7 @@
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Iniciar la sincr."</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Selec cta Google p/comp"</string>
     <string name="pref_autofill_enabled" msgid="1174197447388234595">"Formulario de autollenado"</string>
-    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completa formularios web con un sólo clic"</string>
+    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completa formularios web con un clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Configuración de autollenado"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configurar y administrar datos para los formularios de autollenado"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nombre completo:"</string>
@@ -174,6 +178,8 @@
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Teléfono:"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Guardar perfil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Perfil guardado"</string>
+    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
+    <skip />
     <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"Eliminar datos de perfil"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Configuración de privacidad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Borrar memoria caché"</string>

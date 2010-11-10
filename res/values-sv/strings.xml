@@ -65,14 +65,10 @@
     <string name="location" msgid="3411848697912600125">"Adress"</string>
     <string name="containing_folder" msgid="6771180232953030479">"Lägg till"</string>
     <string name="new_folder" msgid="7743540149088867917">"Ny mapp"</string>
-    <!-- no translation found for no_subfolders (5880411440592452802) -->
-    <skip />
-    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
-    <skip />
-    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
-    <skip />
-    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
-    <skip />
+    <string name="no_subfolders" msgid="5880411440592452802">"Inga undermappar"</string>
+    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Bokmärken"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Startsida"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"En annan mapp"</string>
     <string name="name" msgid="5462672162695365387">"Etikett"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Lägg till i bokmärken"</string>
@@ -147,11 +143,15 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"Ange startsida"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Ange sökmotor"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Välj en sökmotor"</string>
-    <string name="pref_use_current" msgid="1493179933653044553">"Använd aktuell sida"</string>
+    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
+    <skip />
+    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"Använd aktuell sida"</string>
+    <!-- no translation found for pref_use_blank (8503238592551111169) -->
+    <skip />
+    <!-- no translation found for pref_use_default (192587563274735878) -->
+    <skip />
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autoanpassa sidor"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Anpassa webbsidor efter skärmen"</string>
-    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Endast liggande"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Visa bara sidor i det bredare, liggande formatet"</string>
     <string name="pref_personal_title" msgid="1447687455755683695">"Personliga inställningar"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synkronisera med Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Dela bokmärken och andra data mellan Androids webbläsare och Google Chrome"</string>
@@ -160,44 +160,27 @@
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Synkronisera bokmärken mellan Androids webbläsare och Google Chrome"</string>
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Synkronisera nu"</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Välj Google-konto"</string>
-    <!-- no translation found for pref_autofill_enabled (1174197447388234595) -->
+    <string name="pref_autofill_enabled" msgid="1174197447388234595">"Automatisk ifyllning av formulär"</string>
+    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Fyll i webbformulär med ett enda klick"</string>
+    <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Inställningar för Autofyll"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Konfigurera och hantera data för automatisk ifyllning av formulär"</string>
+    <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Fullständigt namn:"</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-post:"</string>
+    <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Företagsnamn:"</string>
+    <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Adressrad 1:"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Gatuadress, postboxadress, c/o"</string>
+    <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Adressrad 2:"</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"Lägenhetsnummer, byggnad, våning med mera"</string>
+    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"Stad:"</string>
+    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"Stat/provins/region:"</string>
+    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Postnummer:"</string>
+    <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Land:"</string>
+    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
+    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Spara profil"</string>
+    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profilen har sparats"</string>
+    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
     <skip />
-    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor (1350709161524642663) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
-    <skip />
+    <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"Ta bort profildata"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Sekretessinställningar"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Rensa cacheminne"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ta bort innehåll och databaser som cachelagrats lokalt"</string>
@@ -301,13 +284,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Slut på ledigt diskutrymme"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> gick inte att hämta."\n"Frigör lite utrymme i telefonen och försök igen."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Det gick inte att hämta"</string>
-    <!-- outdated translation 5349772560166195586 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Ingen delad lagringsenhet"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-enhet ej tillgänglig"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Inget SD-kort"</string>
-    <!-- outdated translation 9049052105269200675 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Du behöver en delad lagringsenhet för att hämta <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Du behöver en USB-lagringsenhet för att hämta <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Du behöver ett SD-kort för att hämta <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <!-- outdated translation 4151068942919670243 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Ingen delad lagringsenhet"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB-enhet ej tillgänglig"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kortet är inte tillgängligt"</string>
-    <!-- outdated translation 7297514580933657663 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"SD-kortet är upptaget. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i aviseringen."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB-lagringsenheten är upptagen. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i aviseringen."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-kortet är upptaget. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i meddelandet."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Det går inte att öppna filen"</string>
     <string name="retry" msgid="1835923075542266721">"Försök igen"</string>
