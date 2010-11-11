@@ -65,14 +65,10 @@
     <string name="location" msgid="3411848697912600125">"주소"</string>
     <string name="containing_folder" msgid="6771180232953030479">"추가할 위치"</string>
     <string name="new_folder" msgid="7743540149088867917">"새 폴더"</string>
-    <!-- no translation found for no_subfolders (5880411440592452802) -->
-    <skip />
-    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
-    <skip />
-    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
-    <skip />
-    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
-    <skip />
+    <string name="no_subfolders" msgid="5880411440592452802">"하위 폴더 없음"</string>
+    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"북마크"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"홈 화면"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"기타 폴더…"</string>
     <string name="name" msgid="5462672162695365387">"라벨"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"북마크에 추가"</string>
@@ -147,11 +143,15 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"홈페이지 설정"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"검색 엔진 설정"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"검색 엔진 선택"</string>
-    <string name="pref_use_current" msgid="1493179933653044553">"현재 페이지 사용"</string>
+    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
+    <skip />
+    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"현재 페이지 사용"</string>
+    <!-- no translation found for pref_use_blank (8503238592551111169) -->
+    <skip />
+    <!-- no translation found for pref_use_default (192587563274735878) -->
+    <skip />
     <string name="pref_content_autofit" msgid="8260474534053660809">"페이지 자동 맞춤"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"화면에 맞게 웹페이지 형식 지정"</string>
-    <string name="pref_content_landscape_only" msgid="2022546812766219672">"가로 표시 전용"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"넓은 가로 방향 화면으로만 페이지 표시"</string>
     <string name="pref_personal_title" msgid="1447687455755683695">"개인 설정"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Google 크롬과 동기화"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Android 브라우저와 Google 크롬 간에 북마크 및 기타 데이터 공유"</string>
@@ -160,44 +160,27 @@
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Android 브라우저와 Google 크롬 간의 북마크 동기화"</string>
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"동기화 시작"</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"공유할 Google 계정 선택"</string>
-    <!-- no translation found for pref_autofill_enabled (1174197447388234595) -->
+    <string name="pref_autofill_enabled" msgid="1174197447388234595">"양식 자동완성"</string>
+    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"클릭 한 번으로 웹 양식 작성"</string>
+    <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"자동완성 설정"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"자동완성된 양식의 데이터 설정 및 관리"</string>
+    <string name="autofill_profile_editor_name" msgid="8566130291459685955">"이름:"</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"이메일:"</string>
+    <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"회사 이름:"</string>
+    <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"주소 입력란 1:"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"번지, 사서함, c/o"</string>
+    <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"주소 입력란 2:"</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"아파트, 빌딩, 층 등"</string>
+    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"도시:"</string>
+    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"시/도/지역:"</string>
+    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"우편번호:"</string>
+    <string name="autofill_profile_editor_country" msgid="7234470301239156656">"국가:"</string>
+    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"전화:"</string>
+    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"프로필 저장"</string>
+    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"프로필 저장됨"</string>
+    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
     <skip />
-    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor (1350709161524642663) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
-    <skip />
+    <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"프로필 데이터 삭제"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"개인정보 설정"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"캐시 지우기"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"로컬로 캐시된 콘텐츠 및 데이터베이스 삭제"</string>
@@ -301,13 +284,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"여유 공간이 없음"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드할 수 없습니다."\n"휴대전화에서 여유 공간을 늘린 후에 다시 시도하세요."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"다운로드 실패"</string>
-    <!-- outdated translation 5349772560166195586 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"공유 저장장치를 사용할 수 없음"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB 저장소를 사용할 수 없음"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD 카드 없음"</string>
-    <!-- outdated translation 9049052105269200675 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 공유 저장장치가 필요합니다."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 USB 저장소가 필요합니다."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 SD 카드가 필요합니다."</string>
-    <!-- outdated translation 4151068942919670243 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"공유 저장장치를 사용할 수 없음"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB 저장소를 사용할 수 없음"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD 카드를 사용할 수 없음"</string>
-    <!-- outdated translation 7297514580933657663 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"공유 저장용량이 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 선택하세요."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB 저장소가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 사용 안함\'을 선택하세요."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 카드가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 선택하세요."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"파일을 열 수 없음"</string>
     <string name="retry" msgid="1835923075542266721">"다시 시도"</string>

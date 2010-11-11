@@ -65,14 +65,10 @@
     <string name="location" msgid="3411848697912600125">"地址"</string>
     <string name="containing_folder" msgid="6771180232953030479">"新增至"</string>
     <string name="new_folder" msgid="7743540149088867917">"新資料夾"</string>
-    <!-- no translation found for no_subfolders (5880411440592452802) -->
-    <skip />
-    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
-    <skip />
-    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
-    <skip />
-    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
-    <skip />
+    <string name="no_subfolders" msgid="5880411440592452802">"沒有子資料夾"</string>
+    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"書籤"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"主螢幕"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"其他資料夾..."</string>
     <string name="name" msgid="5462672162695365387">"標籤"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"加入書籤"</string>
@@ -147,11 +143,15 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"設定首頁"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"設定搜尋引擎"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"選取搜尋引擎"</string>
-    <string name="pref_use_current" msgid="1493179933653044553">"使用目前的網頁"</string>
+    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
+    <skip />
+    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"使用目前的網頁"</string>
+    <!-- no translation found for pref_use_blank (8503238592551111169) -->
+    <skip />
+    <!-- no translation found for pref_use_default (192587563274735878) -->
+    <skip />
     <string name="pref_content_autofit" msgid="8260474534053660809">"自動調整頁面"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"配合螢幕大小調整網頁版面"</string>
-    <string name="pref_content_landscape_only" msgid="2022546812766219672">"僅以水平模式顯示"</string>
-    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"僅以橫向寬螢幕瀏覽模式顯示網頁"</string>
     <string name="pref_personal_title" msgid="1447687455755683695">"個人設定"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"與Google 瀏覽器保持同步"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"共享「Android 瀏覽器」和「Google 瀏覽器」之間的書籤及其他資料"</string>
@@ -160,44 +160,27 @@
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"同步處理「Android 瀏覽器」和「Google 瀏覽器」之間的書籤"</string>
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"開始同步"</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"請選取要與其共用的 Google 帳戶"</string>
-    <!-- no translation found for pref_autofill_enabled (1174197447388234595) -->
+    <string name="pref_autofill_enabled" msgid="1174197447388234595">"表單自動填入"</string>
+    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"輕按一下即可填妥網頁表單"</string>
+    <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自動填入設定"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"設定和管理自動填入的表單資料"</string>
+    <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"電子郵件："</string>
+    <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"公司名稱："</string>
+    <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"地址行 1："</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"路街巷弄、郵政信箱、代收人"</string>
+    <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"地址行 2："</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"門牌號碼、樓層等"</string>
+    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"市區鄉鎮："</string>
+    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"州/省/地區："</string>
+    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"郵遞區號："</string>
+    <string name="autofill_profile_editor_country" msgid="7234470301239156656">"國家/地區："</string>
+    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"電話："</string>
+    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"儲存設定檔"</string>
+    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"設定檔已儲存"</string>
+    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
     <skip />
-    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor (1350709161524642663) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
-    <skip />
+    <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"刪除設定檔資料"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"隱私設定"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除快取"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除本機快取內容與資料庫"</string>
@@ -301,13 +284,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"空間不足"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"無法下載 <xliff:g id="FILENAME">%s</xliff:g>。"\n" 請清除手機上的空間或再試一次。"</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"下載失敗"</string>
-    <!-- outdated translation 5349772560166195586 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"沒有可用的共用儲存裝置"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"沒有可用的 USB 儲存裝置"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"沒有 SD 卡"</string>
-    <!-- outdated translation 9049052105269200675 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"必須掛接共用儲存裝置才能下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"必須掛接 USB 儲存裝置才能下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"需要 SD 卡下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
-    <!-- outdated translation 4151068942919670243 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"沒有可用的共用儲存裝置"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"沒有可用的 USB 儲存裝置"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"無法使用 SD 卡"</string>
-    <!-- outdated translation 7297514580933657663 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"共用儲存裝置忙碌中。如要允許下載，請選取通知中的 [停用 USB 儲存裝置]。"</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB 儲存裝置忙碌中。如要允許下載，請選取通知中的 [關閉 USB 儲存裝置]。"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 記憶卡忙碌中。如要允許下載，請選取通知中的 [停用 USB 儲存裝置]。"</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"無法開啟檔案"</string>
     <string name="retry" msgid="1835923075542266721">"重試"</string>

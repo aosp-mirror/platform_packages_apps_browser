@@ -25,6 +25,8 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -45,6 +47,9 @@ import android.provider.ContactsContract.RawContacts;
 import android.provider.SyncStateContract;
 import android.text.TextUtils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 public class BrowserProvider2 extends SQLiteContentProvider {
@@ -275,8 +280,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
             // TODO indices
 
-            createDefaultBookmarks(db);
-
             db.execSQL("CREATE TABLE " + TABLE_HISTORY + "(" +
                     History._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     History.TITLE + " TEXT," +
@@ -339,6 +342,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 "FROM bookmarks LEFT OUTER JOIN images ON bookmarks.url = images.url_key WHERE url NOT IN (SELECT url FROM history)");
 
             mSyncHelper.createDatabase(db);
+
+            createDefaultBookmarks(db);
         }
 
         @Override
@@ -377,9 +382,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         }
 
         private void addDefaultBookmarks(SQLiteDatabase db, long parentId) {
-            final CharSequence[] bookmarks = getContext().getResources().getTextArray(
+            Resources res = getContext().getResources();
+            final CharSequence[] bookmarks = res.getTextArray(
                     R.array.bookmarks);
             int size = bookmarks.length;
+            TypedArray preloads = res.obtainTypedArray(R.array.bookmark_preloads);
             try {
                 String parent = Long.toString(parentId);
                 String now = Long.toString(System.currentTimeMillis());
@@ -401,8 +408,47 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             Integer.toString(i) + "," +
                             now +
                             ");");
+
+                    int faviconId = preloads.getResourceId(i, 0);
+                    int thumbId = preloads.getResourceId(i + 1, 0);
+                    byte[] thumb = null, favicon = null;
+                    try {
+                        thumb = readRaw(res, thumbId);
+                    } catch (IOException e) {
+                    }
+                    try {
+                        favicon = readRaw(res, faviconId);
+                    } catch (IOException e) {
+                    }
+                    if (thumb != null || favicon != null) {
+                        ContentValues imageValues = new ContentValues();
+                        imageValues.put(Images.URL, bookmarkDestination.toString());
+                        if (favicon != null) {
+                            imageValues.put(Images.FAVICON, favicon);
+                        }
+                        if (thumb != null) {
+                            imageValues.put(Images.THUMBNAIL, thumb);
+                        }
+                        db.insert(TABLE_IMAGES, Images.FAVICON, imageValues);
+                    }
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
+            }
+        }
+
+        private byte[] readRaw(Resources res, int id) throws IOException {
+            InputStream is = res.openRawResource(id);
+            try {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[4096];
+                int read;
+                while ((read = is.read(buf)) > 0) {
+                    bos.write(buf, 0, read);
+                }
+                bos.flush();
+                return bos.toByteArray();
+            } finally {
+                is.close();
             }
         }
 
@@ -844,7 +890,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 insertSettingsInTransaction(db, values);
                 break;
             }
-            
+
             default: {
                 throw new UnsupportedOperationException("Unknown insert URI " + uri);
             }
