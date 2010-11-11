@@ -245,13 +245,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Espace insuffisant"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossible d\'afficher <xliff:g id="FILENAME">%s</xliff:g>"\n". Libérez de l\'espace sur votre téléphone, puis réessayez."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Échec de téléchargement"</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Stockage USB indisponible"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Mémoire USB indisponible"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Aucune carte SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Stockage USB requis pour télécharger <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Une mémoire de stockage USB est requise pour télécharger <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Le téléchargement de <xliff:g id="FILENAME">%s</xliff:g> requiert une carte SD."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Stockage USB indisponible"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Mémoire USB indisponible"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Carte SD non disponible"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Le stockage USB est occupé. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver le stockage USB\" dans la notification."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"La mémoire de stockage USB est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver le stockage USB\" dans la notification."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La carte SD est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver le stockage USB\" dans la notification."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Fichier impossible à ouvrir"</string>
     <string name="retry" msgid="1835923075542266721">"Réessayer"</string>

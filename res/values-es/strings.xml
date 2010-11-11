@@ -115,7 +115,7 @@
     <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Establecer como fondo de pantalla"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Llamar…"</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Añadir contacto"</string>
-    <string name="contextmenu_send_mail" msgid="1014513374828775660">"Enviar mensaje de correo electrónico"</string>
+    <string name="contextmenu_send_mail" msgid="1014513374828775660">"Enviar email"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Mapa"</string>
     <string name="choosertitle_sharevia" msgid="4600490613341909086">"Compartir a través de"</string>
     <string name="clear" msgid="7070043081700011461">"Borrar"</string>

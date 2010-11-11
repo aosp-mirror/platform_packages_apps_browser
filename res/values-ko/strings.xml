@@ -245,13 +245,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"여유 공간이 없음"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드할 수 없습니다."\n"휴대전화에서 여유 공간을 늘린 후에 다시 시도하세요."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"다운로드 실패"</string>
-    <!-- outdated translation 5349772560166195586 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"공유 저장장치를 사용할 수 없음"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB 저장소를 사용할 수 없음"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD 카드 없음"</string>
-    <!-- outdated translation 9049052105269200675 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 공유 저장장치가 필요합니다."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 USB 저장소가 필요합니다."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 SD 카드가 필요합니다."</string>
-    <!-- outdated translation 4151068942919670243 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"공유 저장장치를 사용할 수 없음"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB 저장소를 사용할 수 없음"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD 카드를 사용할 수 없음"</string>
-    <!-- outdated translation 7297514580933657663 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"공유 저장용량이 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 선택하세요."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB 저장소가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 사용 안함\'을 선택하세요."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 카드가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 선택하세요."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"파일을 열 수 없음"</string>
     <string name="retry" msgid="1835923075542266721">"다시 시도"</string>
