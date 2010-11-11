@@ -22,6 +22,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.provider.BrowserContract;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -32,24 +34,21 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * adapter to wrap multiple cursors for url/search completions
  */
 public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnClickListener {
 
-    static final int TYPE_SEARCH = 0;
-    static final int TYPE_SUGGEST = 1;
-    static final int TYPE_BOOKMARK = 2;
-    static final int TYPE_SUGGEST_URL = 3;
-    static final int TYPE_HISTORY = 4;
+    static final int TYPE_BOOKMARK = 0;
+    static final int TYPE_SUGGEST_URL = 1;
+    static final int TYPE_HISTORY = 2;
+    static final int TYPE_SEARCH = 3;
+    static final int TYPE_SUGGEST = 4;
 
     private static final String[] COMBINED_PROJECTION =
             {BrowserContract.Combined._ID, BrowserContract.Combined.TITLE,
@@ -62,12 +61,14 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
     Context mContext;
     Filter mFilter;
-    SuggestionResults mResults;
+    SuggestionResults mMixedResults;
+    List<SuggestItem> mSuggestResults, mFilterResults;
     List<CursorSource> mSources;
     boolean mLandscapeMode;
     CompletionListener mListener;
     int mLinesPortrait;
     int mLinesLandscape;
+    Object mResultsLock = new Object();
 
     interface CompletionListener {
 
@@ -87,21 +88,21 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         mLinesLandscape = mContext.getResources().
                 getInteger(R.integer.max_suggest_lines_landscape);
         mFilter = new SuggestFilter();
-        addSource(new SuggestCursor());
         addSource(new SearchesCursor());
         addSource(new CombinedCursor());
     }
 
     public void setLandscapeMode(boolean mode) {
         mLandscapeMode = mode;
+        notifyDataSetChanged();
     }
 
     public int getLeftCount() {
-        return mResults.getLeftCount();
+        return mMixedResults.getLeftCount();
     }
 
     public int getRightCount() {
-        return mResults.getRightCount();
+        return mMixedResults.getRightCount();
     }
 
     public void addSource(CursorSource c) {
@@ -131,32 +132,32 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
     @Override
     public int getCount() {
-        return (mResults == null) ? 0 : mResults.getLineCount();
+        return (mMixedResults == null) ? 0 : mMixedResults.getLineCount();
     }
 
     @Override
     public SuggestItem getItem(int position) {
-        if (mResults == null) {
+        if (mMixedResults == null) {
             return null;
         }
         if (mLandscapeMode) {
-            if (position >= mResults.getLineCount()) {
+            if (position >= mMixedResults.getLineCount()) {
                 // right column
-                position = position - mResults.getLineCount();
+                position = position - mMixedResults.getLineCount();
                 // index in column
-                if (position >= mResults.getRightCount()) {
+                if (position >= mMixedResults.getRightCount()) {
                     return null;
                 }
-                return mResults.items.get(position + mResults.getLeftCount());
+                return mMixedResults.items.get(position + mMixedResults.getLeftCount());
             } else {
                 // left column
-                if (position >= mResults.getLeftCount()) {
+                if (position >= mMixedResults.getLeftCount()) {
                     return null;
                 }
-                return mResults.items.get(position);
+                return mMixedResults.items.get(position);
             }
         } else {
-            return mResults.items.get(position);
+            return mMixedResults.items.get(position);
         }
     }
 
@@ -168,34 +169,35 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final LayoutInflater inflater = LayoutInflater.from(mContext);
+        View view = convertView;
+        if (view == null) {
+            view = inflater.inflate(R.layout.suggestion_two_column, parent, false);
+        }
+        View s1 = view.findViewById(R.id.suggest1);
+        View s2 = view.findViewById(R.id.suggest2);
+        View div = view.findViewById(R.id.suggestion_divider);
         if (mLandscapeMode) {
-            View view = inflater.inflate(R.layout.suggestion_two_column, parent, false);
             SuggestItem item = getItem(position);
-            View iv = view.findViewById(R.id.suggest1);
-            LayoutParams lp = new LayoutParams(iv.getLayoutParams());
-            lp.weight = 0.5f;
-            iv.setLayoutParams(lp);
+            div.setVisibility(View.VISIBLE);
             if (item != null) {
-                bindView(iv, item);
+                s1.setVisibility(View.VISIBLE);
+                bindView(s1, item);
             } else {
-                iv.setVisibility((mResults.getLeftCount() == 0) ? View.GONE :
-                        View.INVISIBLE);
+                s1.setVisibility(View.INVISIBLE);
             }
-            item = getItem(position + mResults.getLineCount());
-            iv = view.findViewById(R.id.suggest2);
-            lp = new LayoutParams(iv.getLayoutParams());
-            lp.weight = 0.5f;
-            iv.setLayoutParams(lp);
+            item = getItem(position + mMixedResults.getLineCount());
             if (item != null) {
-                bindView(iv, item);
+                s2.setVisibility(View.VISIBLE);
+                bindView(s2, item);
             } else {
-                iv.setVisibility((mResults.getRightCount() == 0) ? View.GONE :
-                        View.INVISIBLE);
+                s2.setVisibility(View.INVISIBLE);
             }
             return view;
         } else {
-            View view = inflater.inflate(R.layout.suggestion_item, parent, false);
-            bindView(view, getItem(position));
+            s1.setVisibility(View.VISIBLE);
+            div.setVisibility(View.GONE);
+            s2.setVisibility(View.GONE);
+            bindView(s1, getItem(position));
             return view;
         }
     }
@@ -241,9 +243,52 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         ic2.setOnClickListener(this);
     }
 
-    class SuggestFilter extends Filter {
+    class SlowFilterTask extends AsyncTask<CharSequence, Void, List<SuggestItem>> {
 
-        SuggestionResults results;
+        @Override
+        protected List<SuggestItem> doInBackground(CharSequence... params) {
+            SuggestCursor cursor = new SuggestCursor();
+            cursor.runQuery(params[0]);
+            List<SuggestItem> results = new ArrayList<SuggestItem>();
+            int count = cursor.getCount();
+            for (int i = 0; i < count; i++) {
+                results.add(cursor.getItem());
+                cursor.moveToNext();
+            }
+            cursor.close();
+            return results;
+        }
+
+        @Override
+        protected void onPostExecute(List<SuggestItem> items) {
+            mSuggestResults = items;
+            mMixedResults = buildSuggestionResults();
+            notifyDataSetChanged();
+            mListener.onFilterComplete(mMixedResults.getLineCount());
+        }
+    }
+
+    SuggestionResults buildSuggestionResults() {
+        SuggestionResults mixed = new SuggestionResults();
+        List<SuggestItem> filter, suggest;
+        synchronized (mResultsLock) {
+            filter = mFilterResults;
+            suggest = mSuggestResults;
+        }
+        if (filter != null) {
+            for (SuggestItem item : filter) {
+                mixed.addResult(item);
+            }
+        }
+        if (suggest != null) {
+            for (SuggestItem item : suggest) {
+                mixed.addResult(item);
+            }
+        }
+        return mixed;
+    }
+
+    class SuggestFilter extends Filter {
 
         @Override
         public CharSequence convertResultToString(Object item) {
@@ -258,6 +303,10 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             }
         }
 
+        void startSuggestionsAsync(final CharSequence constraint) {
+            new SlowFilterTask().execute(constraint);
+        }
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults res = new FilterResults();
@@ -266,47 +315,40 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
                 res.values = null;
                 return res;
             }
-            results = new SuggestionResults();
+            startSuggestionsAsync(constraint);
+            List<SuggestItem> filterResults = new ArrayList<SuggestItem>();
             if (constraint != null) {
                 for (CursorSource sc : mSources) {
                     sc.runQuery(constraint);
                 }
-                mixResults();
+                mixResults(filterResults);
             }
-            res.count = results.getLineCount();
-            res.values = results;
+            synchronized (mResultsLock) {
+                mFilterResults = filterResults;
+            }
+            SuggestionResults mixed = buildSuggestionResults();
+            res.count = mixed.getLineCount();
+            res.values = mixed;
             return res;
         }
 
-        void mixResults() {
+        void mixResults(List<SuggestItem> results) {
+            int maxLines = mLandscapeMode ? mLinesLandscape : (mLinesPortrait / 2);
             for (int i = 0; i < mSources.size(); i++) {
                 CursorSource s = mSources.get(i);
-                int n = Math.min(s.getCount(), (mLandscapeMode ? mLinesLandscape
-                        : mLinesPortrait));
+                int n = Math.min(s.getCount(), maxLines);
+                maxLines -= n;
                 boolean more = false;
                 for (int j = 0; j < n; j++) {
-                    results.addResult(s.getItem());
+                    results.add(s.getItem());
                     more = s.moveToNext();
-                }
-                if (s instanceof SuggestCursor) {
-                    int k = n;
-                    while (more && (k < mLinesPortrait)) {
-                        SuggestItem item  = s.getItem();
-                        if (item.type == TYPE_SUGGEST_URL) {
-                            results.addResult(item);
-                            break;
-                        }
-                        more = s.moveToNext();
-                        k++;
-
-                    }
                 }
             }
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults fresults) {
-            mResults = (SuggestionResults) fresults.values;
+            mMixedResults = (SuggestionResults) fresults.values;
             mListener.onFilterComplete(fresults.count);
             notifyDataSetChanged();
         }
@@ -343,20 +385,22 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
         int getLineCount() {
             if (mLandscapeMode) {
-                return Math.max(getLeftCount(), getRightCount());
+                return Math.min(mLinesLandscape,
+                        Math.max(getLeftCount(), getRightCount()));
             } else {
-                return getLeftCount() + getRightCount();
+                return Math.min(mLinesPortrait, getLeftCount() + getRightCount());
             }
         }
 
         int getLeftCount() {
-            return counts[TYPE_SEARCH] + counts[TYPE_SUGGEST];
-        }
-
-        int getRightCount() {
             return counts[TYPE_BOOKMARK] + counts[TYPE_HISTORY] + counts[TYPE_SUGGEST_URL];
         }
 
+        int getRightCount() {
+            return counts[TYPE_SEARCH] + counts[TYPE_SUGGEST];
+        }
+
+        @Override
         public String toString() {
             if (items == null) return null;
             if (items.size() == 0) return "[]";
@@ -569,6 +613,11 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             }
         }
 
+    }
+
+    public void clearCache() {
+        mFilterResults = null;
+        mSuggestResults = null;
     }
 
 }
