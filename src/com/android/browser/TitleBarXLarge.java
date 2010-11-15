@@ -137,7 +137,7 @@ public class TitleBarXLarge extends TitleBarBase
             stopOrRefresh();
         } else if (mGoButton == v) {
             if (!TextUtils.isEmpty(mUrlFocused.getText())) {
-                onAction(mUrlFocused.getText().toString());
+                onAction(mUrlFocused.getText().toString(), null);
             }
         } else if (mClearButton == v) {
             mUrlFocused.setText("");
@@ -154,12 +154,15 @@ public class TitleBarXLarge extends TitleBarBase
     // UrlInputListener implementation
 
     @Override
-    public void onAction(String text) {
+    public void onAction(String text, String extra) {
         mBrowserActivity.getTabControl().getCurrentTopWebView().requestFocus();
         mBrowserActivity.hideFakeTitleBar();
         Intent i = new Intent();
         i.setAction(Intent.ACTION_SEARCH);
         i.putExtra(SearchManager.QUERY, text);
+        if (extra != null) {
+            i.putExtra(SearchManager.EXTRA_DATA_KEY, extra);
+        }
         mBrowserActivity.onNewIntent(i);
         setUrlMode(false);
         setDisplayTitle(text);

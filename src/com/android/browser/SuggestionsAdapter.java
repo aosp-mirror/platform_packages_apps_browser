@@ -73,7 +73,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
         public void onSearch(String txt);
 
-        public void onSelect(String txt);
+        public void onSelect(String txt, String extraData);
 
         public void onFilterComplete(int count);
 
@@ -119,7 +119,8 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             mListener.onSearch(item.title);
         } else {
             SuggestItem item = (SuggestItem) v.getTag();
-            mListener.onSelect((TextUtils.isEmpty(item.url)? item.title : item.url));
+            mListener.onSelect((TextUtils.isEmpty(item.url)? item.title : item.url),
+                    item.extra);
         }
     }
 
@@ -378,6 +379,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         String title;
         String url;
         int type;
+        String extra;
 
         public SuggestItem(String text, String u, int t) {
             title = text;
@@ -541,7 +543,10 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
                 String uri = mCursor.getString(
                         mCursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_INTENT_DATA));
                 int type = (TextUtils.isEmpty(url)) ? TYPE_SUGGEST : TYPE_SUGGEST_URL;
-                return new SuggestItem(title, url, type);
+                SuggestItem item = new SuggestItem(title, url, type);
+                item.extra = mCursor.getString(
+                        mCursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA));
+                return item;
             }
             return null;
         }
