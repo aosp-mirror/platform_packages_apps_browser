@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.DownloadManager;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -53,7 +54,11 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
             Intent launchIntent = new Intent(Intent.ACTION_VIEW);
             launchIntent.setDataAndType(uri, context.getContentResolver().getType(uri));
             launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(launchIntent);
+            try {
+                context.startActivity(launchIntent);
+            } catch (ActivityNotFoundException e) {
+                openDownloadsPage(context);
+            }
         }
     }
 
