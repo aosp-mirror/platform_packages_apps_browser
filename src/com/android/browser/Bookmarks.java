@@ -108,22 +108,21 @@ import java.io.ByteArrayOutputStream;
             ContentResolver cr, String url, String title) {
         Cursor cursor = null;
         try {
-            cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
+            Uri uri = BookmarkUtils.getBookmarksUri(context);
+            cursor = cr.query(uri,
                     new String[] { BrowserContract.Bookmarks._ID },
                     BrowserContract.Bookmarks.URL + " = ? AND " +
                             BrowserContract.Bookmarks.TITLE + " = ?",
                     new String[] { url, title },
                     null);
 
-            // Should be in the database no matter what
             if (!cursor.moveToFirst()) {
-                throw new AssertionError("URL is not in the database! " + url
-                        + " " + title);
+                return;
             }
 
             // Remove from bookmarks
             WebIconDatabase.getInstance().releaseIconForPageUrl(url);
-            Uri uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI,
+            uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI,
                     cursor.getLong(0));
             cr.delete(uri, null, null);
             if (context != null) {
