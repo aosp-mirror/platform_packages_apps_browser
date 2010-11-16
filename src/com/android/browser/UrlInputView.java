@@ -114,7 +114,7 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        finishInput(getText().toString());
+        finishInput(getText().toString(), null);
         return true;
     }
 
@@ -123,7 +123,7 @@ public class UrlInputView extends AutoCompleteTextView
         if (hasFocus) {
             forceIme();
         } else {
-            finishInput(null);
+            finishInput(null, null);
         }
         if (mWrappedFocusListener != null) {
             mWrappedFocusListener.onFocusChange(v, hasFocus);
@@ -138,14 +138,14 @@ public class UrlInputView extends AutoCompleteTextView
         mInputManager.showSoftInput(this, 0);
     }
 
-    private void finishInput(String url) {
+    private void finishInput(String url, String extra) {
         this.dismissDropDown();
         this.setSelection(0,0);
         mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
         if (url == null) {
             mListener.onDismiss();
         } else {
-            mListener.onAction(url);
+            mListener.onAction(url, extra);
         }
     }
 
@@ -157,15 +157,15 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     @Override
-    public void onSelect(String url) {
-        finishInput(url);
+    public void onSelect(String url, String extra) {
+        finishInput(url, extra);
     }
 
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent evt) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             // catch back key in order to do slightly more cleanup than usual
-            finishInput(null);
+            finishInput(null, null);
             return true;
         }
         return super.onKeyPreIme(keyCode, evt);
@@ -175,7 +175,7 @@ public class UrlInputView extends AutoCompleteTextView
 
         public void onDismiss();
 
-        public void onAction(String text);
+        public void onAction(String text, String extra);
 
         public void onEdit(String text);
 

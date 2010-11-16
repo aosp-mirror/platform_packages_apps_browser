@@ -1260,11 +1260,11 @@ public class BrowserActivity extends Activity
     }
 
     @Override
-    public ActionMode onStartActionMode(ActionMode.Callback callback) {
-        mActionMode = super.onStartActionMode(callback);
+    public void onActionModeStarted(ActionMode mode) {
+        super.onActionModeStarted(mode);
         hideFakeTitleBar();
         // Would like to change the MENU, but onEndActionMode may not be called
-        return mActionMode;
+        // TODO onActionModeFinished will notify when an action mode ends
     }
 
     @Override
@@ -3184,9 +3184,14 @@ public class BrowserActivity extends Activity
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setMimeType(mimetype);
         request.setDestinationInExternalFilesDir(this, null, filename);
+        // let this downloaded file be scanned by MediaScanner - so that it can show up
+        // in Gallery app, for example.
+        request.allowScanningByMediaScanner();
         request.setDescription(webAddress.getHost());
         String cookies = CookieManager.getInstance().getCookie(url);
         request.addRequestHeader("cookie", cookies);
+        request.setNotificationVisibility(
+                DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         if (mimetype == null) {
             ContentValues values = new ContentValues();
             values.put(FetchUrlMimeType.URI, addressString);

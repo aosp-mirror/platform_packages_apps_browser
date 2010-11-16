@@ -99,8 +99,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     public static final long FIXED_ID_ROOT = 1;
 
-    // BookmarkListWidgetService.ORDER_BY_CLAUSE has a copy of this default sort order
-    static final String DEFAULT_BOOKMARKS_SORT_ORDER = "position ASC, _id ASC";
+    // Default sort order for unsync'd bookmarks
+    static final String DEFAULT_BOOKMARKS_SORT_ORDER =
+            Bookmarks.IS_FOLDER + " DESC, position ASC, _id ASC";
+
+    // Default sort order for sync'd bookmarks
+    static final String DEFAULT_BOOKMARKS_SORT_ORDER_SYNC = "position ASC, _id ASC";
 
     static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -604,7 +608,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
                 // Set a default sort order if one isn't specified
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER;
+                    if (!TextUtils.isEmpty(accountType)
+                            && !TextUtils.isEmpty(accountName)) {
+                        sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER_SYNC;
+                    } else {
+                        sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER;
+                    }
                 }
 
                 qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);
@@ -630,8 +639,13 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 qb.setTables(TABLE_BOOKMARKS_JOIN_IMAGES);
                 String[] args;
                 String query;
+                // Set a default sort order if one isn't specified
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER;
+                    if (useAccount) {
+                        sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER_SYNC;
+                    } else {
+                        sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER;
+                    }
                 }
                 if (!useAccount) {
                     qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);

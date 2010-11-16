@@ -19,15 +19,9 @@ package com.android.browser;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.Downloads;
-import android.widget.Toast;
-
-import java.io.File;
 
 /**
  * This {@link BroadcastReceiver} handles clicks to notifications that
@@ -36,49 +30,45 @@ import java.io.File;
  * a complete, successful download will open the file.
  */
 public class OpenDownloadReceiver extends BroadcastReceiver {
+    @Override
     public void onReceive(Context context, Intent intent) {
-        ContentResolver cr = context.getContentResolver();
-        Uri data = intent.getData();
-        Cursor cursor = null;
-        try {
-            cursor = cr.query(data,
-                    new String[] { Downloads.Impl._ID, Downloads.Impl._DATA,
-                    Downloads.Impl.COLUMN_MIME_TYPE, Downloads.Impl.COLUMN_STATUS },
-                    null, null, null);
-            if (cursor.moveToFirst()) {
-                String filename = cursor.getString(1);
-                String mimetype = cursor.getString(2);
-                String action = intent.getAction();
-                if (Downloads.Impl.ACTION_NOTIFICATION_CLICKED.equals(action)) {
-                    int status = cursor.getInt(3);
-                    if (Downloads.Impl.isStatusCompleted(status)
-                            && Downloads.Impl.isStatusSuccess(status)) {
-                        Intent launchIntent = new Intent(Intent.ACTION_VIEW);
-                        Uri path = Uri.parse(filename);
-                        // If there is no scheme, then it must be a file
-                        if (path.getScheme() == null) {
-                            path = Uri.fromFile(new File(filename));
-                        }
-                        launchIntent.setDataAndType(path, mimetype);
-                        launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        try {
-                            context.startActivity(launchIntent);
-                        } catch (ActivityNotFoundException ex) {
-                            Toast.makeText(context,
-                                    R.string.download_no_application_title,
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        // Open the downloads page
-                        Intent pageView = new Intent(
-                                DownloadManager.ACTION_VIEW_DOWNLOADS);
-                        pageView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(pageView);
-                    }
-                }
-            }
-        } finally {
-            if (cursor != null) cursor.close();
+        String action = intent.getAction();
+        if (!DownloadManager.ACTION_NOTIFICATION_CLICKED.equals(action)) {
+            openDownloadsPage(context);
+            return;
         }
+        long ids[] = intent.getLongArrayExtra(
+                DownloadManager.EXTRA_NOTIFICATION_CLICK_DOWNLOAD_IDS);
+        if (ids == null || ids.length == 0) {
+            openDownloadsPage(context);
+            return;
+        }
+        long id = ids[0];
+        DownloadManager manager = (DownloadManager) context.getSystemService(
+                Context.DOWNLOAD_SERVICE);
+        Uri uri = manager.getUriForDownloadedFile(id);
+        if (uri == null) {
+            // Open the downloads page
+            openDownloadsPage(context);
+        } else {
+            Intent launchIntent = new Intent(Intent.ACTION_VIEW);
+            launchIntent.setDataAndType(uri, context.getContentResolver().getType(uri));
+            launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+                context.startActivity(launchIntent);
+            } catch (ActivityNotFoundException e) {
+                openDownloadsPage(context);
+            }
+        }
+    }
+
+    /**
+     * Open the Activity which shows a list of all downloads.
+     * @param context
+     */
+    private void openDownloadsPage(Context context) {
+        Intent pageView = new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS);
+        pageView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(pageView);
     }
 }

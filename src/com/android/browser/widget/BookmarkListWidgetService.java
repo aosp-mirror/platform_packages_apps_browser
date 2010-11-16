@@ -67,10 +67,6 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             BrowserContract.Bookmarks.PARENT,
             BrowserContract.Bookmarks.POSITION};
 
-    // Ordering merged with DEFAULT_BOOKMARK_SORT_ORDER from BrowserProvider2
-    private static final String ORDER_BY_CLAUSE =
-            Bookmarks.IS_FOLDER + " DESC, position ASC, _id ASC";
-
     private Map<Integer, BookmarkFactory> mFactories;
     private Handler mUiHandler;
     private BookmarksObserver mBookmarksObserver;
@@ -310,7 +306,7 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             Cursor c = null;
             try {
                 c = mContext.getContentResolver().query(uri, PROJECTION,
-                        where, null, ORDER_BY_CLAUSE);
+                        where, null, null);
                 if (c != null) {
                     mBookmarks = new ArrayList<RenderResult>(c.getCount() + 1);
                     if (folder != null) {
