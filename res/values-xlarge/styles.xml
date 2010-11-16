@@ -46,7 +46,7 @@
         <item name="android:height">48dip</item>
         <item name="android:padding">0dip</item>
         <item name="android:background">@drawable/tabbar_bg</item>
-        <item name="android:displayOptions">hideHome</item>
+        <item name="android:displayOptions"></item>
     </style>
     <style name="ActionButton">
         <item name="android:background">@drawable/browserbarbutton</item>
