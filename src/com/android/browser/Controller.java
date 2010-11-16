@@ -47,6 +47,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceActivity;
 import android.provider.Browser;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.History;
@@ -114,6 +115,8 @@ public class Controller
     // activity requestCode
     final static int PREFERENCES_PAGE = 3;
     final static int FILE_SELECTED = 4;
+    final static int AUTOFILL_SETUP = 5;
+
     private final static int WAKELOCK_TIMEOUT = 5 * 60 * 1000; // 5 minutes
 
     // As the ids are dynamically created, we can't guarantee that they will
@@ -142,6 +145,8 @@ public class Controller
     private IntentHandler mIntentHandler;
     private PageDialogsHandler mPageDialogsHandler;
     private NetworkStateHandler mNetworkHandler;
+
+    private Message mAutoFillSetupMessage;
 
     private boolean mShouldShowErrorConsole;
 
@@ -1049,6 +1054,15 @@ public class Controller
                 if (null == mUploadHandler) break;
                 mUploadHandler.onResult(resultCode, intent);
                 mUploadHandler = null;
+                break;
+            case AUTOFILL_SETUP:
+                // Determine whether a profile was actually set up or not
+                // and if so, send the message back to the WebTextView to
+                // fill the form with the new profile.
+                if (getSettings().getAutoFillProfile() != null) {
+                    mAutoFillSetupMessage.sendToTarget();
+                    mAutoFillSetupMessage = null;
+                }
                 break;
             default:
                 break;
@@ -2409,4 +2423,14 @@ public class Controller
         return mMenuIsDown;
     }
 
+    public void setupAutoFill(Message message) {
+        // Open the settings activity at the AutoFill profile fragment so that
+        // the user can create a new profile. When they return, we will dispatch
+        // the message so that we can autofill the form using their new profile.
+        Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
+        intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT,
+                AutoFillSettingsFragment.class.getName());
+        mAutoFillSetupMessage = message;
+        mActivity.startActivityForResult(intent, AUTOFILL_SETUP);
+    }
 }

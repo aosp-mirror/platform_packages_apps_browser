@@ -54,6 +54,7 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1060,6 +1061,35 @@ class Tab {
         @Override
         public void getVisitedHistory(final ValueCallback<String[]> callback) {
             mWebViewController.getVisitedHistory(callback);
+        }
+
+        @Override
+        public void setupAutoFill(Message message) {
+            // Prompt the user to set up their profile.
+            final Message msg = message;
+            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+            builder.setMessage(R.string.autofill_setup_dialog_message)
+                   .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int id) {
+                           // Take user to the AutoFill profile editor. When they return,
+                           // we will send the message that we pass here which will trigger
+                           // the form to get filled out with their new profile.
+                           mWebViewController.setupAutoFill(msg);
+                       }
+                   })
+                   .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int id) {
+                           // Disable autofill and show a toast with how to turn it on again.
+                           BrowserSettings s = BrowserSettings.getInstance();
+                           s.addObserver(mMainView.getSettings());
+                           s.disableAutoFill(mActivity);
+                           s.update();
+                           Toast.makeText(mActivity, R.string.autofill_setup_dialog_negative_toast,
+                                   Toast.LENGTH_LONG).show();
+                       }
+                   }).show();
         }
     };
 

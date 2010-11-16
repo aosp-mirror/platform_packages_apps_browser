@@ -567,6 +567,13 @@ public class BrowserSettings extends Observable {
         ed.apply();
     }
 
+    /* package */ void disableAutoFill(Context ctx) {
+        autoFillEnabled = false;
+        Editor ed = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
+        ed.putBoolean(PREF_AUTOFILL_ENABLED, false);
+        ed.apply();
+    }
+
     /**
      * Add a WebSettings object to the list of observers that will be updated
      * when update() is called.

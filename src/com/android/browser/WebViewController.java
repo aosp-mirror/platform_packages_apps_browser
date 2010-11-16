@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.HttpAuthHandler;
@@ -101,5 +102,7 @@ public interface WebViewController {
     boolean switchToTab(int tabindex);
 
     void closeTab(Tab tab);
+
+    void setupAutoFill(Message message);
 
 }
