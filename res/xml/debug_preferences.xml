@@ -54,6 +54,11 @@
         android:defaultValue="false"
         android:title="@string/pref_development_nav_dump" />
 
+    <CheckBoxPreference
+        android:key="enable_hardware_accel"
+        android:defaultValue="false"
+        android:title="@string/pref_development_hardware_accel" />
+
     <EditTextPreference
         android:key="js_engine_flags"
         android:title="@string/js_engine_flags"

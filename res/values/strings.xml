@@ -520,6 +520,8 @@
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_nav_dump" translatable="false">Enable nav cache dump</string>
     <!-- Do not tranlsate.  Development option -->
+    <string name="pref_development_hardware_accel" translatable="false">Enable OpenGL Rendering</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="js_engine_flags" translatable="false">Set JS flags</string>
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_uastring" translatable="false">UAString</string>
