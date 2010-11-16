@@ -705,7 +705,7 @@ class Tab {
                                 mWebViewController.showSslCertificateOnError(view,
                                         handler, error);
                             }
-                        }).setNegativeButton(R.string.cancel,
+                        }).setNegativeButton(R.string.ssl_go_back,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                     int whichButton) {
