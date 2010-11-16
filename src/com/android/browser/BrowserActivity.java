@@ -1262,6 +1262,7 @@ public class BrowserActivity extends Activity
     @Override
     public void onActionModeStarted(ActionMode mode) {
         super.onActionModeStarted(mode);
+        mActionMode = mode;
         hideFakeTitleBar();
         // Would like to change the MENU, but onEndActionMode may not be called
         // TODO onActionModeFinished will notify when an action mode ends
