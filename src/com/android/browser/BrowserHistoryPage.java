@@ -32,8 +32,10 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Browser;
+import android.provider.BrowserContract;
 import android.provider.BrowserContract.History;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -47,6 +49,7 @@ import android.webkit.WebIconDatabase.IconListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -57,6 +60,7 @@ public class BrowserHistoryPage extends Fragment
         implements LoaderCallbacks<Cursor>, OnChildClickListener {
 
     static final int LOADER_HISTORY = 1;
+    static final int LOADER_MOST_VISITED = 2;
 
     BookmarksHistoryCallbacks mCallbacks;
     ExpandableListView mList;
@@ -64,6 +68,7 @@ public class BrowserHistoryPage extends Fragment
     HistoryAdapter mAdapter;
     boolean mDisableNewWindow;
     HistoryItem mContextHeader;
+    String mMostVisitsLimit;
 
     // Implementation of WebIconDatabase.IconListener
     class IconReceiver implements IconListener {
@@ -83,6 +88,7 @@ public class BrowserHistoryPage extends Fragment
                 History.TITLE, // 2
                 History.URL, // 3
                 History.FAVICON, // 4
+                History.VISITS // 5
         };
 
         static final int INDEX_ID = 0;
@@ -90,6 +96,7 @@ public class BrowserHistoryPage extends Fragment
         static final int INDEX_TITE = 2;
         static final int INDEX_URL = 3;
         static final int INDEX_FAVICON = 4;
+        static final int INDEX_VISITS = 5;
     }
 
     private void copy(CharSequence text) {
@@ -114,6 +121,16 @@ public class BrowserHistoryPage extends Fragment
                 return loader;
             }
 
+            case LOADER_MOST_VISITED: {
+                Uri uri = History.CONTENT_URI
+                        .buildUpon()
+                        .appendQueryParameter(BrowserContract.PARAM_LIMIT, mMostVisitsLimit)
+                        .build();
+                CursorLoader loader = new CursorLoader(getActivity(), uri,
+                        HistoryQuery.PROJECTION, null, null, History.VISITS + " DESC");
+                return loader;
+            }
+
             default: {
                 throw new IllegalArgumentException();
             }
@@ -129,20 +146,15 @@ public class BrowserHistoryPage extends Fragment
                 // Add an empty view late, so it does not claim an empty
                 // history before the adapter is present
                 mList.setEmptyView(mEmptyView);
+                break;
+            }
 
-                // Do not post the runnable if there is nothing in the list.
-                if (mList.getExpandableListAdapter().getGroupCount() > 0) {
-                    mList.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            // In case the history gets cleared before this
-                            // event happens
-                            if (mList.getExpandableListAdapter().getGroupCount() > 0) {
-                                mList.expandGroup(0);
-                            }
-                        }
-                    });
-                }
+            case LOADER_MOST_VISITED: {
+                mAdapter.changeMostVisitedCursor(data);
+
+                // Add an empty view late, so it does not claim an empty
+                // history before the adapter is present
+                mList.setEmptyView(mEmptyView);
                 break;
             }
 
@@ -160,6 +172,8 @@ public class BrowserHistoryPage extends Fragment
 
         Bundle args = getArguments();
         mDisableNewWindow = args.getBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW, false);
+        int mvlimit = getResources().getInteger(R.integer.most_visits_limit);
+        mMostVisitsLimit = Integer.toString(mvlimit);
     }
 
     @Override
@@ -177,6 +191,7 @@ public class BrowserHistoryPage extends Fragment
 
         // Start the loader
         getLoaderManager().initLoader(LOADER_HISTORY, null, this);
+        getLoaderManager().initLoader(LOADER_MOST_VISITED, null, this);
 
         // Register to receive icons in case they haven't all been loaded.
         CombinedBookmarkHistoryView.getIconListenerSet().addListener(mIconReceiver);
@@ -188,6 +203,7 @@ public class BrowserHistoryPage extends Fragment
         super.onDestroy();
         CombinedBookmarkHistoryView.getIconListenerSet().removeListener(mIconReceiver);
         getLoaderManager().stopLoader(LOADER_HISTORY);
+        getLoaderManager().stopLoader(LOADER_MOST_VISITED);
     }
 
     @Override
@@ -329,8 +345,99 @@ public class BrowserHistoryPage extends Fragment
     }
 
     private class HistoryAdapter extends DateSortedExpandableListAdapter {
+        private Cursor mMostVisited, mHistoryCursor;
+
         HistoryAdapter(Context context) {
             super(context, HistoryQuery.INDEX_DATE_LAST_VISITED);
+        }
+
+        @Override
+        public void changeCursor(Cursor cursor) {
+            mHistoryCursor = cursor;
+            super.changeCursor(cursor);
+        }
+
+        void changeMostVisitedCursor(Cursor cursor) {
+            if (mMostVisited == cursor) {
+                return;
+            }
+            if (mMostVisited != null) {
+                mMostVisited.unregisterDataSetObserver(mDataSetObserver);
+                mMostVisited.close();
+            }
+            mMostVisited = cursor;
+            mMostVisited.registerDataSetObserver(mDataSetObserver);
+        }
+
+        @Override
+        public long getChildId(int groupPosition, int childPosition) {
+            if (!mDataValid) return 0;
+            if (moveCursorToChildPosition(groupPosition, childPosition)) {
+                Cursor cursor = getCursor(groupPosition);
+                return cursor.getLong(HistoryQuery.INDEX_ID);
+            }
+            return 0;
+        }
+
+        @Override
+        public int getGroupCount() {
+            return super.getGroupCount() + (mMostVisited != null ? 1 : 0);
+        }
+
+        @Override
+        public int getChildrenCount(int groupPosition) {
+            if (groupPosition >= super.getGroupCount()) {
+                return mMostVisited.getCount();
+            }
+            return super.getChildrenCount(groupPosition);
+        }
+
+        @Override
+        public boolean isEmpty() {
+            if (!super.isEmpty()) {
+                return false;
+            }
+            return mMostVisited == null
+                    || mMostVisited.isClosed()
+                    || mMostVisited.getCount() == 0;
+        }
+
+        Cursor getCursor(int groupPosition) {
+            if (groupPosition >= super.getGroupCount()) {
+                return mMostVisited;
+            }
+            return mHistoryCursor;
+        }
+
+        @Override
+        public View getGroupView(int groupPosition, boolean isExpanded,
+                View convertView, ViewGroup parent) {
+            if (groupPosition >= super.getGroupCount()) {
+                if (!mDataValid) throw new IllegalStateException("Data is not valid");
+                TextView item;
+                if (null == convertView || !(convertView instanceof TextView)) {
+                    LayoutInflater factory = LayoutInflater.from(getContext());
+                    item = (TextView) factory.inflate(R.layout.history_header, null);
+                } else {
+                    item = (TextView) convertView;
+                }
+                item.setText(R.string.tab_most_visited);
+                return item;
+            }
+            return super.getGroupView(groupPosition, isExpanded, convertView, parent);
+        }
+
+        @Override
+        boolean moveCursorToChildPosition(
+                int groupPosition, int childPosition) {
+            if (groupPosition >= super.getGroupCount()) {
+                if (mDataValid && !mMostVisited.isClosed()) {
+                    mMostVisited.moveToPosition(childPosition);
+                    return true;
+                }
+                return false;
+            }
+            return super.moveCursorToChildPosition(groupPosition, childPosition);
         }
 
         @Override
@@ -354,10 +461,11 @@ public class BrowserHistoryPage extends Fragment
                 return item;
             }
 
-            item.setName(getString(HistoryQuery.INDEX_TITE));
-            String url = getString(HistoryQuery.INDEX_URL);
+            Cursor cursor = getCursor(groupPosition);
+            item.setName(cursor.getString(HistoryQuery.INDEX_TITE));
+            String url = cursor.getString(HistoryQuery.INDEX_URL);
             item.setUrl(url);
-            byte[] data = getBlob(HistoryQuery.INDEX_FAVICON);
+            byte[] data = cursor.getBlob(HistoryQuery.INDEX_FAVICON);
             if (data != null) {
                 item.setFavicon(BitmapFactory.decodeByteArray(data, 0,
                         data.length));
