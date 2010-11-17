@@ -52,7 +52,7 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
             openDownloadsPage(context);
         } else {
             Intent launchIntent = new Intent(Intent.ACTION_VIEW);
-            launchIntent.setDataAndType(uri, context.getContentResolver().getType(uri));
+            launchIntent.setDataAndType(uri, manager.getMimeTypeForDownloadedFile(id));
             launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             try {
                 context.startActivity(launchIntent);
