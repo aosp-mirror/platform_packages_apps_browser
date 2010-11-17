@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#00000000"
+    android:background="@null"
     android:focusable="true"
     android:clickable="true">
     <LinearLayout
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dip"
-        android:background="#383847">
+        android:background="@color/bookmarkWidgetHeader">
         <ImageView
             android:id="@+id/logo"
             android:layout_width="32dp"
@@ -40,15 +40,14 @@
             android:layout_gravity="center_vertical"
             android:text="@string/tab_bookmarks"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white"
             android:paddingLeft="8dip" />
     </LinearLayout>
     <ListView
         android:id="@+id/bookmarks_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#2b2b3c"
-        android:cacheColorHint="#2b2b3c"
-        android:dividerHeight="0dp"
-        android:divider="#00000000" />
+        android:background="@color/bookmarkWidgetItemBackground"
+        android:cacheColorHint="@color/bookmarkWidgetItemBackground"
+        android:dividerHeight="1px"
+        android:divider="@color/bookmarkWidgetDivider" />
 </LinearLayout>
