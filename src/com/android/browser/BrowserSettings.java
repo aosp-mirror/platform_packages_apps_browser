@@ -547,8 +547,10 @@ public class BrowserSettings extends Observable {
             new SaveProfileToDbTask(ctx, msg).execute(profile);
         } else {
             // Delete the current profile.
-            new DeleteProfileFromDbTask(ctx, msg).execute(autoFillProfile.getUniqueId());
-            setActiveAutoFillProfileId(ctx, NO_AUTOFILL_PROFILE_SET);
+            if (autoFillProfile != null) {
+                new DeleteProfileFromDbTask(ctx, msg).execute(autoFillProfile.getUniqueId());
+                setActiveAutoFillProfileId(ctx, NO_AUTOFILL_PROFILE_SET);
+            }
         }
         autoFillProfile = profile;
     }
