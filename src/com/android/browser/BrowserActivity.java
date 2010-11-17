@@ -24,7 +24,6 @@ import com.android.common.speech.LoggingEvents;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -43,7 +42,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -71,7 +69,6 @@ import android.provider.BrowserContract;
 import android.provider.BrowserContract.Images;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
-import android.provider.Downloads;
 import android.provider.MediaStore;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
@@ -105,7 +102,6 @@ import android.webkit.WebHistoryItem;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -172,8 +168,19 @@ public class BrowserActivity extends Activity
             Log.v(LOGTAG, this + " onStart");
         }
         super.onCreate(icicle);
-        // test the browser in OpenGL
-        // requestWindowFeature(Window.FEATURE_OPENGL);
+
+        // Keep a settings instance handy.
+        mSettings = BrowserSettings.getInstance();
+
+        // render the browser in OpenGL
+        if (mSettings.isHardwareAccelerated()) {
+            // Set the flag in the activity's window
+            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                    WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        } else {
+            // Clear the flag in the activity's window
+            this.getWindow().setFlags(0, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        }
 
         // enable this to test the browser in 32bit
         if (false) {
@@ -188,9 +195,6 @@ public class BrowserActivity extends Activity
         }
 
         mResolver = getContentResolver();
-
-        // Keep a settings instance handy.
-        mSettings = BrowserSettings.getInstance();
 
         // If this was a web search request, pass it on to the default web
         // search provider and finish this activity.
@@ -1262,6 +1266,7 @@ public class BrowserActivity extends Activity
     @Override
     public void onActionModeStarted(ActionMode mode) {
         super.onActionModeStarted(mode);
+        mActionMode = mode;
         hideFakeTitleBar();
         // Would like to change the MENU, but onEndActionMode may not be called
         // TODO onActionModeFinished will notify when an action mode ends

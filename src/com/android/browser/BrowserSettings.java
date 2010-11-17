@@ -115,6 +115,7 @@ public class BrowserSettings extends Observable {
     private boolean tracing = false;
     private boolean lightTouch = false;
     private boolean navDump = false;
+    private boolean hardwareAccelerated = false;
 
     // By default the error console is shown once the user navigates to about:debug.
     // The setting can be then toggled from the settings menu.
@@ -446,6 +447,12 @@ public class BrowserSettings extends Observable {
             navDump = p.getBoolean("enable_nav_dump", navDump);
             userAgent = Integer.parseInt(p.getString("user_agent", "0"));
         }
+
+        // This setting can only be modified when the debug settings have been
+        // enabled but it is read and used by the browser at startup so we must
+        // initialize it regardless of the status of the debug settings.
+        hardwareAccelerated = p.getBoolean("enable_hardware_accel", hardwareAccelerated);
+
         // JS flags is loaded from DB even if showDebugSettings is false,
         // so that it can be set once and be effective all the time.
         jsFlags = p.getString("js_engine_flags", "");
@@ -517,6 +524,10 @@ public class BrowserSettings extends Observable {
 
     public boolean isNavDump() {
         return navDump;
+    }
+
+    public boolean isHardwareAccelerated() {
+        return hardwareAccelerated;
     }
 
     public boolean showDebugSettings() {
