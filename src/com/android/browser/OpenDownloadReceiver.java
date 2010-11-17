@@ -22,6 +22,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.HandlerThread;
 
 /**
  * This {@link BroadcastReceiver} handles clicks to notifications that
@@ -30,8 +32,14 @@ import android.net.Uri;
  * a complete, successful download will open the file.
  */
 public class OpenDownloadReceiver extends BroadcastReceiver {
+    private static Handler sAsyncHandler;
+    static {
+        HandlerThread thr = new HandlerThread("Open browser download async");
+        thr.start();
+        sAsyncHandler = new Handler(thr.getLooper());
+    }
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
         String action = intent.getAction();
         if (!DownloadManager.ACTION_NOTIFICATION_CLICKED.equals(action)) {
             openDownloadsPage(context);
@@ -43,7 +51,19 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
             openDownloadsPage(context);
             return;
         }
-        long id = ids[0];
+        final long id = ids[0];
+        final PendingResult result = goAsync();
+        Runnable worker = new Runnable() {
+            @Override
+            public void run() {
+                onReceiveAsync(context, id);
+                result.finish();
+            }
+        };
+        sAsyncHandler.post(worker);
+    }
+
+    private void onReceiveAsync(Context context, long id) {
         DownloadManager manager = (DownloadManager) context.getSystemService(
                 Context.DOWNLOAD_SERVICE);
         Uri uri = manager.getUriForDownloadedFile(id);
