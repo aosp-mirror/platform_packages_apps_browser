@@ -143,13 +143,10 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"Definir página de inicio"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Establecer el motor de búsqueda"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Seleccionar un motor de búsqueda"</string>
-    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
-    <skip />
-    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"Utilizar la página actual"</string>
-    <!-- no translation found for pref_use_blank (8503238592551111169) -->
-    <skip />
-    <!-- no translation found for pref_use_default (192587563274735878) -->
-    <skip />
+    <string name="pref_set_homepage_to" msgid="7196350233061395098">"Configurado en"</string>
+    <string name="pref_use_current" msgid="1778622474040406672">"Página actual"</string>
+    <string name="pref_use_blank" msgid="8503238592551111169">"Página en blanco"</string>
+    <string name="pref_use_default" msgid="192587563274735878">"Página predeterminada"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Ajuste automát. de pág."</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatea las páginas web para que se ajusten a la pantalla"</string>
     <string name="pref_personal_title" msgid="1447687455755683695">"Configuración personal"</string>
@@ -178,8 +175,7 @@
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Teléfono:"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Guardar perfil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Perfil guardado"</string>
-    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
-    <skip />
+    <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Perfil eliminado"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"Eliminar datos de perfil"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Configuración de privacidad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Borrar memoria caché"</string>
