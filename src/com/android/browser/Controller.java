@@ -1776,25 +1776,23 @@ public class Controller
         // best scale factor
         int thumbnailWidth = thumbnail.getWidth();
         int thumbnailHeight = thumbnail.getHeight();
-        float scaleFactorX = 1.0f;
-        float scaleFactorY = 1.0f;
+        float scaleFactor = 1.0f;
         if (thumbnailWidth > 0) {
-            scaleFactorX = (float) width / (float)thumbnailWidth;
+            scaleFactor = (float) width / (float)thumbnailWidth;
         } else {
             return null;
         }
+
         if (view.getWidth() > view.getHeight() &&
                 thumbnailHeight < view.getHeight() && thumbnailHeight > 0) {
             // If the device is in landscape and the page is shorter
-            // than the height of the view, stretch the thumbnail to fill the
-            // space.
-            scaleFactorY = (float) height / (float)thumbnailHeight;
-        } else {
-            // In the portrait case, this looks nice.
-            scaleFactorY = scaleFactorX;
+            // than the height of the view, center the thumnail and crop the sides
+            scaleFactor = (float) height / (float)thumbnailHeight;
+            float wx = (thumbnailWidth * scaleFactor) - width;
+            canvas.translate((int) -(wx / 2), 0);
         }
 
-        canvas.scale(scaleFactorX, scaleFactorY);
+        canvas.scale(scaleFactor, scaleFactor);
 
         thumbnail.draw(canvas);
         return bm;
