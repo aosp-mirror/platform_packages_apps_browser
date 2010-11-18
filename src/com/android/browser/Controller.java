@@ -139,7 +139,6 @@ public class Controller
     private UrlHandler mUrlHandler;
     private UploadHandler mUploadHandler;
     private IntentHandler mIntentHandler;
-    private DownloadHandler mDownloadHandler;
     private PageDialogsHandler mPageDialogsHandler;
     private NetworkStateHandler mNetworkHandler;
 
@@ -213,7 +212,6 @@ public class Controller
 
         mUrlHandler = new UrlHandler(this);
         mIntentHandler = new IntentHandler(mActivity, this);
-        mDownloadHandler = new DownloadHandler(mActivity);
         mPageDialogsHandler = new PageDialogsHandler(mActivity, this);
 
         PowerManager pm = (PowerManager) mActivity
@@ -405,8 +403,8 @@ public class Controller
                                 break;
                             case R.id.save_link_context_menu_id:
                             case R.id.download_context_menu_id:
-                                mDownloadHandler
-                                    .onDownloadStartNoStream(url, null, null, null, -1);
+                                DownloadHandler.onDownloadStartNoStream(
+                                        mActivity, url, null, null, null);
                                 break;
                         }
                         break;
@@ -909,8 +907,8 @@ public class Controller
     @Override
     public void onDownloadStart(Tab tab, String url, String userAgent,
             String contentDisposition, String mimetype, long contentLength) {
-        mDownloadHandler.onDownloadStart(url, userAgent, contentDisposition,
-                mimetype, contentLength);
+        DownloadHandler.onDownloadStart(mActivity, url, userAgent,
+                contentDisposition, mimetype);
         if (tab.getWebView().copyBackForwardList().getSize() == 0) {
             // This Tab was opened for the sole purpose of downloading a
             // file. Remove it.
@@ -1271,7 +1269,7 @@ public class Controller
                 menu.findItem(R.id.view_image_context_menu_id).setIntent(
                         new Intent(Intent.ACTION_VIEW, Uri.parse(extra)));
                 menu.findItem(R.id.download_context_menu_id).
-                        setOnMenuItemClickListener(new Download(extra));
+                        setOnMenuItemClickListener(new Download(mActivity, extra));
                 menu.findItem(R.id.set_wallpaper_context_menu_id).
                         setOnMenuItemClickListener(new WallpaperHandler(mActivity,
                                 extra));
@@ -1862,15 +1860,18 @@ public class Controller
         }
     }
 
-    private class Download implements OnMenuItemClickListener {
+    private static class Download implements OnMenuItemClickListener {
+        private Activity mActivity;
         private String mText;
 
         public boolean onMenuItemClick(MenuItem item) {
-            mDownloadHandler.onDownloadStartNoStream(mText, null, null, null, -1);
+            DownloadHandler.onDownloadStartNoStream(mActivity, mText, null,
+                    null, null);
             return true;
         }
 
-        public Download(String toDownload) {
+        public Download(Activity activity, String toDownload) {
+            mActivity = activity;
             mText = toDownload;
         }
     }
