@@ -13,12 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.android.browser;
+
+import android.net.Uri;
+import android.util.Patterns;
+import android.webkit.URLUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Utility methods for Url manipulation
+ */
 public class UrlUtils {
+
+    static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
+            "(?i)" + // switch on case insensitive matching
+            "(" +    // begin group for schema
+            "(?:http|https|file):\\/\\/" +
+            "|(?:inline|data|about|content|javascript):" +
+            ")" +
+            "(.*)" );
+
+    // Google search
+    private final static String QUICKSEARCH_G = "http://www.google.com/m?q=%s";
+    private final static String QUERY_PLACE_HOLDER = "%s";
 
     // Regular expression which matches http://, followed by some stuff, followed by
     // optionally a trailing slash, all matched as separate groups.
@@ -46,4 +66,83 @@ public class UrlUtils {
             return url;
         }
     }
+
+    protected static String smartUrlFilter(Uri inUri) {
+        if (inUri != null) {
+            return smartUrlFilter(inUri.toString());
+        }
+        return null;
+    }
+
+    /**
+     * Attempts to determine whether user input is a URL or search
+     * terms.  Anything with a space is passed to search.
+     *
+     * Converts to lowercase any mistakenly uppercased schema (i.e.,
+     * "Http://" converts to "http://"
+     *
+     * @return Original or modified URL
+     *
+     */
+    protected static String smartUrlFilter(String url) {
+
+        String inUrl = url.trim();
+        boolean hasSpace = inUrl.indexOf(' ') != -1;
+
+        Matcher matcher = ACCEPTED_URI_SCHEMA.matcher(inUrl);
+        if (matcher.matches()) {
+            // force scheme to lowercase
+            String scheme = matcher.group(1);
+            String lcScheme = scheme.toLowerCase();
+            if (!lcScheme.equals(scheme)) {
+                inUrl = lcScheme + matcher.group(2);
+            }
+            if (hasSpace) {
+                inUrl = inUrl.replace(" ", "%20");
+            }
+            return inUrl;
+        }
+        if (!hasSpace) {
+            if (Patterns.WEB_URL.matcher(inUrl).matches()) {
+                return URLUtil.guessUrl(inUrl);
+            }
+        }
+
+        // FIXME: Is this the correct place to add to searches?
+        // what if someone else calls this function?
+
+//        Browser.addSearchUrl(mBrowser.getContentResolver(), inUrl);
+        return URLUtil.composeSearchUrl(inUrl, QUICKSEARCH_G, QUERY_PLACE_HOLDER);
+    }
+
+    /* package */ static String fixUrl(String inUrl) {
+        // FIXME: Converting the url to lower case
+        // duplicates functionality in smartUrlFilter().
+        // However, changing all current callers of fixUrl to
+        // call smartUrlFilter in addition may have unwanted
+        // consequences, and is deferred for now.
+        int colon = inUrl.indexOf(':');
+        boolean allLower = true;
+        for (int index = 0; index < colon; index++) {
+            char ch = inUrl.charAt(index);
+            if (!Character.isLetter(ch)) {
+                break;
+            }
+            allLower &= Character.isLowerCase(ch);
+            if (index == colon - 1 && !allLower) {
+                inUrl = inUrl.substring(0, colon).toLowerCase()
+                        + inUrl.substring(colon);
+            }
+        }
+        if (inUrl.startsWith("http://") || inUrl.startsWith("https://"))
+            return inUrl;
+        if (inUrl.startsWith("http:") ||
+                inUrl.startsWith("https:")) {
+            if (inUrl.startsWith("http:/") || inUrl.startsWith("https:/")) {
+                inUrl = inUrl.replaceFirst("/", "//");
+            } else inUrl = inUrl.replaceFirst(":", "://");
+        }
+        return inUrl;
+    }
+
 }

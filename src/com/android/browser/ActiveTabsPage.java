@@ -21,7 +21,6 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,17 +32,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ActiveTabsPage extends LinearLayout {
-    private static final String LOGTAG = "TabPicker";
-    private final BrowserActivity   mBrowserActivity;
-    private final LayoutInflater    mFactory;
-    private final TabControl        mControl;
-    private final TabsListAdapter   mAdapter;
-    private final ListView          mListView;
 
-    public ActiveTabsPage(BrowserActivity context, TabControl control) {
+    private static final String LOGTAG = "TabPicker";
+
+    private final LayoutInflater mFactory;
+    private final UiController mUiController;
+    private final TabControl mControl;
+    private final TabsListAdapter mAdapter;
+    private final ListView mListView;
+
+    public ActiveTabsPage(Context context, UiController control) {
         super(context);
-        mBrowserActivity = context;
-        mControl = control;
+        mUiController = control;
+        mControl = control.getTabControl();
         mFactory = LayoutInflater.from(context);
         mFactory.inflate(R.layout.active_tabs, this);
         mListView = (ListView) findViewById(R.id.list);
@@ -58,19 +59,19 @@ public class ActiveTabsPage extends LinearLayout {
                     boolean needToAttach = false;
                     if (position == -2) {
                         // Create a new tab
-                        mBrowserActivity.openTabToHomePage();
+                        mUiController.openTabToHomePage();
                     } else if (position == -1) {
                         // Create a new incognito tab
-                        mBrowserActivity.openIncognitoTab();
+                        mUiController.openIncognitoTab();
                     } else {
                         // Open the corresponding tab
                         // If the tab is the current one, switchToTab will
                         // do nothing and return, so we need to make sure
                         // it gets attached back to its mContentView in
                         // removeActiveTabPage
-                        needToAttach = !mBrowserActivity.switchToTab(position);
+                        needToAttach = !mUiController.switchToTab(position);
                     }
-                    mBrowserActivity.removeActiveTabPage(needToAttach);
+                    mUiController.removeActiveTabsPage(needToAttach);
                 }
         });
     }
@@ -186,11 +187,11 @@ public class ActiveTabsPage extends LinearLayout {
                 final int closePosition = position;
                 close.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            mBrowserActivity.closeTab(
+                            mUiController.closeTab(
                                     mControl.getTab(closePosition));
                             if (tabCount == 1) {
-                                mBrowserActivity.openTabToHomePage();
-                                mBrowserActivity.removeActiveTabPage(false);
+                                mUiController.openTabToHomePage();
+                                mUiController.removeActiveTabsPage(false);
                             } else {
                                 mNotified = true;
                                 notifyDataSetChanged();

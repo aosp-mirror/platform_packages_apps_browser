@@ -143,13 +143,10 @@
     <string name="pref_content_homepage" msgid="6082437160778559806">"홈페이지 설정"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"검색 엔진 설정"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"검색 엔진 선택"</string>
-    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
-    <skip />
-    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"현재 페이지 사용"</string>
-    <!-- no translation found for pref_use_blank (8503238592551111169) -->
-    <skip />
-    <!-- no translation found for pref_use_default (192587563274735878) -->
-    <skip />
+    <string name="pref_set_homepage_to" msgid="7196350233061395098">"다음으로 설정:"</string>
+    <string name="pref_use_current" msgid="1778622474040406672">"현재 페이지"</string>
+    <string name="pref_use_blank" msgid="8503238592551111169">"빈 페이지"</string>
+    <string name="pref_use_default" msgid="192587563274735878">"기본 페이지"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"페이지 자동 맞춤"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"화면에 맞게 웹페이지 형식 지정"</string>
     <string name="pref_personal_title" msgid="1447687455755683695">"개인 설정"</string>
@@ -178,8 +175,7 @@
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"전화:"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"프로필 저장"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"프로필 저장됨"</string>
-    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
-    <skip />
+    <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"프로필이 삭제되었습니다."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"프로필 데이터 삭제"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"개인정보 설정"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"캐시 지우기"</string>

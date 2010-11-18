@@ -18,6 +18,7 @@ package com.android.browser;
 
 import com.android.browser.UrlInputView.UrlInputListener;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -42,10 +43,11 @@ public class TitleBarXLarge extends TitleBarBase
 
     private static final int PROGRESS_MAX = 100;
 
-    private BrowserActivity mBrowserActivity;
+    private Activity mActivity;
+    private UiController mUiController;
+
     private Drawable mStopDrawable;
     private Drawable mReloadDrawable;
-
 
     private View mContainer;
     private View mBackButton;
@@ -63,13 +65,14 @@ public class TitleBarXLarge extends TitleBarBase
     private TextView mUrlUnfocused;
     private boolean mInLoad;
 
-    public TitleBarXLarge(BrowserActivity context) {
-        super(context);
-        mBrowserActivity = context;
-        Resources resources = context.getResources();
+    public TitleBarXLarge(Activity activity, UiController controller) {
+        super(activity);
+        mActivity = activity;
+        mUiController = controller;
+        Resources resources = activity.getResources();
         mStopDrawable = resources.getDrawable(R.drawable.ic_stop_normal);
         mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_normal);
-        rebuildLayout(context, true);
+        rebuildLayout(activity, true);
     }
 
     private void rebuildLayout(Context context, boolean rebuildData) {
@@ -123,14 +126,14 @@ public class TitleBarXLarge extends TitleBarBase
         if (mUnfocusContainer == v) {
             mUrlUnfocused.requestFocus();
         } else if (mBackButton == v) {
-            mBrowserActivity.getTopWindow().goBack();
+            mUiController.getCurrentTopWebView().goBack();
         } else if (mForwardButton == v) {
-            mBrowserActivity.getTopWindow().goForward();
+            mUiController.getCurrentTopWebView().goForward();
         } else if (mStar == v) {
-            mBrowserActivity.bookmarkCurrentPage(
+            mUiController.bookmarkCurrentPage(
                     AddBookmarkPage.DEFAULT_FOLDER_ID);
         } else if (mAllButton == v) {
-            mBrowserActivity.bookmarksOrHistoryPicker(false);
+            mUiController.bookmarksOrHistoryPicker(false);
         } else if (mSearchButton == v) {
             search();
         } else if (mStopButton == v) {
@@ -155,25 +158,25 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void onAction(String text, String extra) {
-        mBrowserActivity.getTabControl().getCurrentTopWebView().requestFocus();
-        mBrowserActivity.hideFakeTitleBar();
+        mUiController.getCurrentTopWebView().requestFocus();
+        ((BaseUi) mUiController.getUi()).hideFakeTitleBar();
         Intent i = new Intent();
         i.setAction(Intent.ACTION_SEARCH);
         i.putExtra(SearchManager.QUERY, text);
         if (extra != null) {
             i.putExtra(SearchManager.EXTRA_DATA_KEY, extra);
         }
-        mBrowserActivity.onNewIntent(i);
+        mUiController.handleNewIntent(i);
         setUrlMode(false);
         setDisplayTitle(text);
     }
 
     @Override
     public void onDismiss() {
-        mBrowserActivity.getTabControl().getCurrentTopWebView().requestFocus();
-        mBrowserActivity.hideFakeTitleBar();
+        mUiController.getCurrentTopWebView().requestFocus();
+        ((BaseUi) mUiController.getUi()).hideFakeTitleBar();
         setUrlMode(false);
-        setDisplayTitle(mBrowserActivity.getTabControl().getCurrentWebView().getUrl());
+        setDisplayTitle(mUiController.getCurrentWebView().getUrl());
     }
 
     @Override
@@ -202,9 +205,9 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void createContextMenu(ContextMenu menu) {
-        MenuInflater inflater = mBrowserActivity.getMenuInflater();
+        MenuInflater inflater = mActivity.getMenuInflater();
         inflater.inflate(R.menu.title_context, menu);
-        mBrowserActivity.onCreateContextMenu(menu, this, null);
+        mActivity.onCreateContextMenu(menu, this, null);
     }
 
     private void search() {
@@ -214,9 +217,9 @@ public class TitleBarXLarge extends TitleBarBase
 
     private void stopOrRefresh() {
         if (mInLoad) {
-            mBrowserActivity.stopLoading();
+            mUiController.stopLoading();
         } else {
-            mBrowserActivity.getTopWindow().reload();
+            mUiController.getCurrentTopWebView().reload();
         }
     }
 

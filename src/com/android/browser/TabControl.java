@@ -16,10 +16,10 @@
 
 package com.android.browser;
 
-import android.graphics.Bitmap;
+import com.android.browser.IntentHandler.UrlData;
+
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebView;
 
@@ -39,43 +39,25 @@ class TabControl {
     private ArrayList<Tab> mTabQueue;
     // Current position in mTabs.
     private int mCurrentTab = -1;
-    // A private instance of BrowserActivity to interface with when adding and
-    // switching between tabs.
-    private final BrowserActivity mActivity;
-    // Directory to store thumbnails for each WebView.
+    // the main browser controller
+    private final Controller mController;
+
     private final File mThumbnailDir;
-    // Use on screen zoom buttons
-    private boolean mDisplayZoomControls;
 
     /**
-     * Construct a new TabControl object that interfaces with the given
-     * BrowserActivity instance.
-     * @param activity A BrowserActivity instance that TabControl will interface
-     *                 with.
+     * Construct a new TabControl object
      */
-    TabControl(BrowserActivity activity) {
-        mActivity = activity;
-        mThumbnailDir = activity.getDir("thumbnails", 0);
-        mDisplayZoomControls = true;
-        mMaxTabs = activity.getResources().getInteger(R.integer.max_tabs);
+    TabControl(Controller controller) {
+        mController = controller;
+        mThumbnailDir = mController.getActivity()
+                .getDir("thumbnails", 0);
+        mMaxTabs = mController.getMaxTabs();
         mTabs = new ArrayList<Tab>(mMaxTabs);
         mTabQueue = new ArrayList<Tab>(mMaxTabs);
     }
 
     File getThumbnailDir() {
         return mThumbnailDir;
-    }
-
-    BrowserActivity getBrowserActivity() {
-        return mActivity;
-    }
-
-    /**
-     * Set if the webview should use the on screen zoom controls
-     * @param enabled
-     */
-    void setDisplayZoomControls(boolean enabled) {
-        mDisplayZoomControls = enabled;
     }
 
     /**
@@ -188,13 +170,10 @@ class TabControl {
         final WebView w = createNewWebView(privateBrowsing);
 
         // Create a new tab and add it to the tab list
-        Tab t = new Tab(mActivity, w, closeOnExit, appId, url);
+        Tab t = new Tab(mController, w, closeOnExit, appId, url);
         mTabs.add(t);
         // Initially put the tab in the background.
         t.putInBackground();
-        if (mTabChangeListener != null) {
-            mTabChangeListener.onNewTab(t);
-        }
         return t;
     }
 
@@ -259,9 +238,6 @@ class TabControl {
 
         // Remove it from the queue of viewed tabs.
         mTabQueue.remove(t);
-        if (mTabChangeListener != null) {
-            mTabChangeListener.onRemoveTab(t);
-        }
         return true;
     }
 
@@ -357,7 +333,7 @@ class TabControl {
                 } else {
                     // Create a new tab and don't restore the state yet, add it
                     // to the tab list
-                    Tab t = new Tab(mActivity, null, false, null, null);
+                    Tab t = new Tab(mController, null, false, null, null);
                     if (state != null) {
                         t.setSavedState(state);
                         t.populatePickerDataFromSavedState();
@@ -551,7 +527,7 @@ class TabControl {
      * requires a load, whether it was due to the fact that it was deleted, or
      * it is because it was a voice search.
      */
-    boolean recreateWebView(Tab t, BrowserActivity.UrlData urlData) {
+    boolean recreateWebView(Tab t, UrlData urlData) {
         final String url = urlData.mUrl;
         final WebView w = t.getWebView();
         if (w != null) {
@@ -598,22 +574,7 @@ class TabControl {
      *        WebView.
      */
     private WebView createNewWebView(boolean privateBrowsing) {
-        // Create a new WebView
-        ScrollWebView w = new ScrollWebView(mActivity, null,
-                android.R.attr.webViewStyle, privateBrowsing);
-        w.setScrollListener(mActivity.getScrollListener());
-        w.setScrollbarFadingEnabled(true);
-        w.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-        w.setMapTrackballToArrowKeys(false); // use trackball directly
-        // Enable the built-in zoom
-        w.getSettings().setBuiltInZoomControls(true);
-        w.getSettings().setDisplayZoomControls(mDisplayZoomControls);
-        // Add this WebView to the settings observer list and update the
-        // settings
-        final BrowserSettings s = BrowserSettings.getInstance();
-        s.addObserver(w.getSettings()).update(s, null);
-
-        return w;
+        return mController.getWebViewFactory().createWebView(privateBrowsing);
     }
 
     /**
@@ -679,43 +640,6 @@ class TabControl {
             }
         }
         return true;
-    }
-
-    interface TabChangeListener {
-
-        public void onNewTab(Tab tab);
-
-        public void onRemoveTab(Tab tab);
-
-        public void onCurrentTab(Tab tab);
-
-        public void onProgress(Tab tab, int progress);
-
-        public void onUrlAndTitle(Tab tab, String url, String title);
-
-        public void onFavicon(Tab tab, Bitmap favicon);
-
-        public void onPageStarted(Tab tab, String url, Bitmap favicon);
-
-        public void onPageFinished(Tab tab);
-
-    }
-
-    private TabChangeListener mTabChangeListener;
-
-    /**
-     * register the TabChangeListener with the tab control
-     * @param listener
-     */
-    void setOnTabChangeListener(TabChangeListener listener) {
-        mTabChangeListener = listener;
-    }
-
-    /**
-     * get the current TabChangeListener (used by the tabs)
-     */
-    TabChangeListener getTabChangeListener() {
-        return mTabChangeListener;
     }
 
 }
