@@ -56,7 +56,7 @@
 
     <CheckBoxPreference
         android:key="enable_hardware_accel"
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:title="@string/pref_development_hardware_accel" />
 
     <EditTextPreference

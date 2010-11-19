@@ -115,7 +115,7 @@ public class BrowserSettings extends Observable {
     private boolean tracing = false;
     private boolean lightTouch = false;
     private boolean navDump = false;
-    private boolean hardwareAccelerated = false;
+    private boolean hardwareAccelerated = true;
 
     // By default the error console is shown once the user navigates to about:debug.
     // The setting can be then toggled from the settings menu.
