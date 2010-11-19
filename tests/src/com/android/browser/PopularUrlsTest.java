@@ -173,6 +173,20 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
                 return true;
             }
+
+            /**
+             * Confirms and logs Javascript beforeUnload
+             */
+            @Override
+            public boolean onJsBeforeUnload(WebView view, String url, String message,
+                    JsResult result) {
+               String logMsg = String.format("JS Before Unload '%s' received from %s",
+                        message, url);
+                Log.w(TAG, logMsg);
+                result.confirm();
+
+                return true;
+            }
         });
 
         webView.setWebViewClient(new TestWebViewClient(webView.getWebViewClient()) {
