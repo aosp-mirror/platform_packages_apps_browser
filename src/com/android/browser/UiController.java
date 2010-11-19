@@ -19,6 +19,8 @@ package com.android.browser;
 import android.content.Intent;
 import android.webkit.WebView;
 
+import java.util.List;
+
 
 /**
  * UI aspect of the controller
@@ -32,6 +34,8 @@ public interface UiController extends BookmarksHistoryCallbacks {
     WebView getCurrentTopWebView();
 
     TabControl getTabControl();
+
+    List<Tab> getTabs();
 
     Tab openTabToHomePage();
 

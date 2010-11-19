@@ -26,6 +26,7 @@ import android.webkit.WebView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 
 class TabControl {
@@ -96,6 +97,13 @@ class TabControl {
             return null;
         }
         return t.getSubWebView();
+    }
+
+    /**
+     * return the list of tabs
+     */
+    List<Tab> getTabs() {
+        return mTabs;
     }
 
     /**
@@ -281,10 +289,14 @@ class TabControl {
     /**
      * Restore the state of all the tabs.
      * @param inState The saved state of all the tabs.
+     * @param restoreIncognitoTabs Restoring private browsing tabs
+     * @param restoreAll All webviews get restored, not just the current tab
+     *        (this does not override handling of incognito tabs)
      * @return True if there were previous tabs that were restored. False if
      *         there was no saved state or restoring the state failed.
      */
-    boolean restoreState(Bundle inState, boolean dontRestoreIncognitoTabs) {
+    boolean restoreState(Bundle inState, boolean restoreIncognitoTabs,
+            boolean restoreAll) {
         final int numTabs = (inState == null)
                 ? -1 : inState.getInt(Tab.NUMTABS, -1);
         if (numTabs == -1) {
@@ -295,7 +307,7 @@ class TabControl {
             // Determine whether the saved current tab can be restored, and
             // if not, which tab will take its place.
             int currentTab = -1;
-            if (!dontRestoreIncognitoTabs
+            if (restoreIncognitoTabs
                     || !inState.getBundle(Tab.WEBVIEW + oldCurrentTab).getBoolean(Tab.INCOGNITO)) {
                 currentTab = oldCurrentTab;
             } else {
@@ -317,13 +329,15 @@ class TabControl {
             for (int i = 0; i < numTabs; i++) {
                 Bundle state = inState.getBundle(Tab.WEBVIEW + i);
 
-                if (dontRestoreIncognitoTabs && state != null && state.getBoolean(Tab.INCOGNITO)) {
+                if (!restoreIncognitoTabs && state != null && state.getBoolean(Tab.INCOGNITO)) {
                     originalTabIndices.put(i, -1);
-                } else if (i == currentTab) {
+                } else if (i == currentTab || restoreAll) {
                     Tab t = createNewTab();
                     // Me must set the current tab before restoring the state
                     // so that all the client classes are set.
-                    setCurrentTab(t);
+                    if (i == currentTab) {
+                        setCurrentTab(t);
+                    }
                     if (!t.restoreState(state)) {
                         Log.w(LOGTAG, "Fail in restoreState, load home page.");
                         t.getWebView().loadUrl(BrowserSettings.getInstance()

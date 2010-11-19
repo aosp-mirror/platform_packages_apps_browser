@@ -43,6 +43,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.List;
+
 /**
  * UI interface definitions
  */
@@ -280,6 +282,11 @@ public class BaseUi implements UI, WebViewFactory {
     }
 
     @Override
+    public boolean needsRestoreAllTabs() {
+        return mXLargeScreenSize;
+    }
+
+    @Override
     public void addTab(Tab tab) {
         if (mXLargeScreenSize) {
             mTabBar.onNewTab(tab);
@@ -310,6 +317,13 @@ public class BaseUi implements UI, WebViewFactory {
         resetTitleIconAndProgress(tab);
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
+    }
+
+    @Override
+    public void updateTabs(List<Tab> tabs) {
+        if (mXLargeScreenSize) {
+            mTabBar.updateTabs(tabs);
+        }
     }
 
     @Override
