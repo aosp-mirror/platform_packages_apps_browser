@@ -1903,10 +1903,9 @@ public class Controller
     }
 
     protected void setActiveTab(Tab tab) {
-        // Update the UI before setting the current tab in TabControl
-        // so the UI can access the old tab to switch over from
-        mUi.setActiveTab(tab);
         mTabControl.setCurrentTab(tab);
+        // the tab is guaranteed to have a webview after setCurrentTab
+        mUi.setActiveTab(tab);
     }
 
     protected void closeEmptyChildTab() {

@@ -66,6 +66,7 @@ public class BaseUi implements UI, WebViewFactory {
     Activity mActivity;
     UiController mUiController;
     TabControl mTabControl;
+    private Tab mActiveTab;
 
     private Drawable mSecLockIcon;
     private Drawable mMixLockIcon;
@@ -295,14 +296,20 @@ public class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void setActiveTab(Tab tab) {
-        Tab current = mTabControl.getCurrentTab();
-        if ((tab != current) && (current != null)) {
-            removeTabFromContentView(current);
+        if ((tab != mActiveTab) && (mActiveTab != null)) {
+            removeTabFromContentView(mActiveTab);
         }
+        mActiveTab = tab;
         attachTabToContentView(tab);
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
 
         WebView view = tab.getWebView();
+        // TabControl.setCurrentTab has been called before this,
+        // so the tab is guaranteed to have a webview
+        if (view == null) {
+            Log.e(LOGTAG, "active tab with no webview detected");
+            return;
+        }
         view.setEmbeddedTitleBar(mTitleBar);
         if (tab.isInVoiceSearchMode()) {
             showVoiceTitleBar(tab.getVoiceDisplayTitle());
@@ -328,8 +335,9 @@ public class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void removeTab(Tab tab) {
-        if (mTabControl.getCurrentTab() == tab) {
+        if (mActiveTab == tab) {
             removeTabFromContentView(tab);
+            mActiveTab = null;
         }
         if (mXLargeScreenSize) {
             mTabBar.onRemoveTab(tab);
