@@ -40,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -96,18 +97,21 @@ public class TabBar extends LinearLayout
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
 
-        // build tabs
-        int tabcount = mTabControl.getTabCount();
-        for (int i = 0; i < tabcount; i++) {
-            Tab tab = mTabControl.getTab(i);
-            TabViewData data = buildTab(tab);
-            TabView tv = buildView(data);
-        }
-        mTabs.setSelectedTab(mTabControl.getCurrentIndex());
+        updateTabs(mUiController.getTabs());
 
         mUserRequestedUrlbar = false;
         mTitleVisible = true;
         mButtonWidth = -1;
+    }
+
+    void updateTabs(List<Tab> tabs) {
+        mTabs.clearTabs();
+        mTabMap.clear();
+        for (Tab tab : tabs) {
+            TabViewData data = buildTab(tab);
+            TabView tv = buildView(data);
+        }
+        mTabs.setSelectedTab(mTabControl.getCurrentIndex());
     }
 
     @Override
@@ -270,7 +274,7 @@ public class TabBar extends LinearLayout
             }
             if (mTabData.mTab != null) {
                 mIncognito.setVisibility(
-                        mTabData.mTab.getWebView().isPrivateBrowsingEnabled() ?
+                        mTabData.mTab.isPrivateBrowsingEnabled() ?
                         View.VISIBLE : View.GONE);
             }
         }
