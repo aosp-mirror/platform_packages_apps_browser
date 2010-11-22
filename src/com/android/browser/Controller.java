@@ -1193,7 +1193,15 @@ public class Controller
         menu.setGroupVisible(R.id.ANCHOR_MENU,
                 type == WebView.HitTestResult.SRC_ANCHOR_TYPE
                 || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE);
-
+        boolean hitText = type == WebView.HitTestResult.SRC_ANCHOR_TYPE
+                || type == WebView.HitTestResult.PHONE_TYPE
+                || type == WebView.HitTestResult.EMAIL_TYPE
+                || type == WebView.HitTestResult.GEO_TYPE;
+        menu.setGroupVisible(R.id.SELECT_TEXT_MENU, hitText);
+        if (hitText) {
+            menu.findItem(R.id.select_text_menu_id)
+                    .setOnMenuItemClickListener(new SelectText(webview));
+        }
         // Setup custom handling depending on the type
         switch (type) {
             case WebView.HitTestResult.PHONE_TYPE:
@@ -1882,6 +1890,22 @@ public class Controller
             mActivity = activity;
             mText = toDownload;
         }
+    }
+
+    private static class SelectText implements OnMenuItemClickListener {
+        private WebView mWebView;
+
+        public boolean onMenuItemClick(MenuItem item) {
+            if (mWebView != null) {
+                return mWebView.selectText();
+            }
+            return false;
+        }
+
+        public SelectText(WebView webView) {
+            mWebView = webView;
+        }
+
     }
 
     /********************** TODO: UI stuff *****************************/
