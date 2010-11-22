@@ -394,6 +394,13 @@ public class Controller
                             case R.id.view_image_context_menu_id:
                                 loadUrlFromContext(getCurrentTopWebView(), url);
                                 break;
+                            case R.id.open_newtab_context_menu_id:
+                                final Tab parent = mTabControl.getCurrentTab();
+                                final Tab newTab = openTab(url, false);
+                                if (newTab != null && newTab != parent) {
+                                    parent.addChildTab(newTab);
+                                }
+                                break;
                             case R.id.bookmark_context_menu_id:
                                 Intent intent = new Intent(mActivity,
                                         AddBookmarkPage.class);
@@ -1156,7 +1163,7 @@ public class Controller
         if (!(v instanceof WebView)) {
             return;
         }
-        WebView webview = (WebView) v;
+        final WebView webview = (WebView) v;
         WebView.HitTestResult result = webview.getHitTestResult();
         if (result == null) {
             return;
@@ -1253,17 +1260,36 @@ public class Controller
                         = menu.findItem(R.id.open_newtab_context_menu_id);
                 newTabItem.setVisible(showNewTab);
                 if (showNewTab) {
-                    newTabItem.setOnMenuItemClickListener(
-                            new MenuItem.OnMenuItemClickListener() {
-                                public boolean onMenuItemClick(MenuItem item) {
-                                    final Tab parent = mTabControl.getCurrentTab();
-                                    final Tab newTab = openTab(extra, false);
-                                    if (newTab != parent) {
-                                        parent.addChildTab(newTab);
+                    if (WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE == type) {
+                        newTabItem.setOnMenuItemClickListener(
+                                new MenuItem.OnMenuItemClickListener() {
+                                    @Override
+                                    public boolean onMenuItemClick(MenuItem item) {
+                                        final HashMap<String, WebView> hrefMap =
+                                                new HashMap<String, WebView>();
+                                        hrefMap.put("webview", webview);
+                                        final Message msg = mHandler.obtainMessage(
+                                                FOCUS_NODE_HREF,
+                                                R.id.open_newtab_context_menu_id,
+                                                0, hrefMap);
+                                        webview.requestFocusNodeHref(msg);
+                                        return true;
                                     }
-                                    return true;
-                                }
-                            });
+                                });
+                    } else {
+                        newTabItem.setOnMenuItemClickListener(
+                                new MenuItem.OnMenuItemClickListener() {
+                                    @Override
+                                    public boolean onMenuItemClick(MenuItem item) {
+                                        final Tab parent = mTabControl.getCurrentTab();
+                                        final Tab newTab = openTab(extra, false);
+                                        if (newTab != parent) {
+                                            parent.addChildTab(newTab);
+                                        }
+                                        return true;
+                                    }
+                                });
+                    }
                 }
                 menu.findItem(R.id.bookmark_context_menu_id).setVisible(
                         Bookmarks.urlHasAcceptableScheme(extra));
