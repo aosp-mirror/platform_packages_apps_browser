@@ -25,7 +25,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -35,6 +34,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ParseException;
 import android.net.Uri;
 import android.net.WebAddress;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -60,7 +60,6 @@ import android.widget.Toast;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class AddBookmarkPage extends Activity
@@ -73,6 +72,9 @@ public class AddBookmarkPage extends Activity
     // Place on an edited bookmark to remove the saved thumbnail
     public static final String REMOVE_THUMBNAIL = "remove_thumbnail";
     public static final String USER_AGENT = "user_agent";
+
+    /* package */ static final String EXTRA_EDIT_BOOKMARK = "bookmark";
+    /* package */ static final String EXTRA_IS_FOLDER = "is_folder";
 
     private static final int MAX_CRUMBS_SHOWN = 2;
 
@@ -89,6 +91,7 @@ public class AddBookmarkPage extends Activity
     private TextView    mButton;
     private View        mCancelButton;
     private boolean     mEditingExisting;
+    private boolean     mEditingFolder;
     private Bundle      mMap;
     private String      mTouchIconUrl;
     private String      mOriginalUrl;
@@ -238,6 +241,9 @@ public class AddBookmarkPage extends Activity
             PopupMenu popup = new PopupMenu(this, mFolder);
             popup.getMenuInflater().inflate(R.menu.folder_choice,
                     popup.getMenu());
+            if (mEditingFolder) {
+                popup.getMenu().removeItem(R.id.home_screen);
+            }
             popup.setOnMenuItemClickListener(this);
             popup.show();
         } else if (v == mAddNewFolder) {
@@ -501,11 +507,15 @@ public class AddBookmarkPage extends Activity
         mFakeTitle = (TextView) findViewById(R.id.fake_title);
 
         if (mMap != null) {
-            Bundle b = mMap.getBundle("bookmark");
+            Bundle b = mMap.getBundle(EXTRA_EDIT_BOOKMARK);
             if (b != null) {
+                mEditingFolder = mMap.getBoolean(EXTRA_IS_FOLDER, false);
                 mMap = b;
                 mEditingExisting = true;
                 mFakeTitle.setText(R.string.edit_bookmark);
+                if (mEditingFolder) {
+                    findViewById(R.id.row_address).setVisibility(View.GONE);
+                }
             } else {
                 int gravity = mMap.getInt("gravity", -1);
                 if (gravity != -1) {
@@ -648,6 +658,28 @@ public class AddBookmarkPage extends Activity
         }
     }
 
+    private static class UpdateBookmarkTask extends AsyncTask<ContentValues, Void, Void> {
+        Context mContext;
+        Long mId;
+
+        public UpdateBookmarkTask(Context context, long id) {
+            mContext = context;
+            mId = id;
+        }
+
+        @Override
+        protected Void doInBackground(ContentValues... params) {
+            if (params.length != 1) {
+                throw new IllegalArgumentException("No ContentValues provided!");
+            }
+            Uri uri = ContentUris.withAppendedId(BookmarkUtils.getBookmarksUri(mContext), mId);
+            mContext.getContentResolver().update(
+                    uri,
+                    params[0], null, null);
+            return null;
+        }
+    }
+
     private void createHandler() {
         if (mHandler == null) {
             mHandler = new Handler() {
@@ -691,7 +723,7 @@ public class AddBookmarkPage extends Activity
         boolean emptyTitle = title.length() == 0;
         boolean emptyUrl = unfilteredUrl.trim().length() == 0;
         Resources r = getResources();
-        if (emptyTitle || emptyUrl) {
+        if (emptyTitle || (emptyUrl && !mEditingFolder)) {
             if (emptyTitle) {
                 mTitle.setError(r.getText(R.string.bookmark_needs_title));
             }
@@ -702,36 +734,38 @@ public class AddBookmarkPage extends Activity
 
         }
         String url = unfilteredUrl.trim();
-        try {
-            // We allow bookmarks with a javascript: scheme, but these will in most cases
-            // fail URI parsing, so don't try it if that's the kind of bookmark we have.
+        if (!mEditingFolder) {
+            try {
+                // We allow bookmarks with a javascript: scheme, but these will in most cases
+                // fail URI parsing, so don't try it if that's the kind of bookmark we have.
 
-            if (!url.toLowerCase().startsWith("javascript:")) {
-                URI uriObj = new URI(url);
-                String scheme = uriObj.getScheme();
-                if (!Bookmarks.urlHasAcceptableScheme(url)) {
-                    // If the scheme was non-null, let the user know that we
-                    // can't save their bookmark. If it was null, we'll assume
-                    // they meant http when we parse it in the WebAddress class.
-                    if (scheme != null) {
-                        mAddress.setError(r.getText(R.string.bookmark_cannot_save_url));
-                        return false;
+                if (!url.toLowerCase().startsWith("javascript:")) {
+                    URI uriObj = new URI(url);
+                    String scheme = uriObj.getScheme();
+                    if (!Bookmarks.urlHasAcceptableScheme(url)) {
+                        // If the scheme was non-null, let the user know that we
+                        // can't save their bookmark. If it was null, we'll assume
+                        // they meant http when we parse it in the WebAddress class.
+                        if (scheme != null) {
+                            mAddress.setError(r.getText(R.string.bookmark_cannot_save_url));
+                            return false;
+                        }
+                        WebAddress address;
+                        try {
+                            address = new WebAddress(unfilteredUrl);
+                        } catch (ParseException e) {
+                            throw new URISyntaxException("", "");
+                        }
+                        if (address.getHost().length() == 0) {
+                            throw new URISyntaxException("", "");
+                        }
+                        url = address.toString();
                     }
-                    WebAddress address;
-                    try {
-                        address = new WebAddress(unfilteredUrl);
-                    } catch (ParseException e) {
-                        throw new URISyntaxException("", "");
-                    }
-                    if (address.getHost().length() == 0) {
-                        throw new URISyntaxException("", "");
-                    }
-                    url = address.toString();
                 }
+            } catch (URISyntaxException e) {
+                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
+                return false;
             }
-        } catch (URISyntaxException e) {
-            mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
-            return false;
         }
 
         if (mSaveToHomeScreen) {
@@ -741,13 +775,20 @@ public class AddBookmarkPage extends Activity
         boolean urlUnmodified = url.equals(mOriginalUrl);
 
         if (mEditingExisting) {
-            mMap.putString(BrowserContract.Bookmarks.TITLE, title);
-            mMap.putString(BrowserContract.Bookmarks.URL, url);
-            mMap.putBoolean(REMOVE_THUMBNAIL, !urlUnmodified);
-            // FIXME: This does not work yet
-            mMap.putLong(BrowserContract.Bookmarks.PARENT, mCurrentFolder);
-            setResult(RESULT_OK, (new Intent()).setAction(
-                    getIntent().toString()).putExtras(mMap));
+            Long id = mMap.getLong(BrowserContract.Bookmarks._ID);
+            ContentValues values = new ContentValues();
+            values.put(BrowserContract.Bookmarks.TITLE, title);
+            values.put(BrowserContract.Bookmarks.PARENT, mCurrentFolder);
+            if (!mEditingFolder) {
+                values.put(BrowserContract.Bookmarks.URL, url);
+                if (!urlUnmodified) {
+                    values.putNull(BrowserContract.Bookmarks.THUMBNAIL);
+                }
+            }
+            if (values.size() > 0) {
+                new UpdateBookmarkTask(getApplicationContext(), id).execute(values);
+            }
+            setResult(RESULT_OK);
         } else {
             Bitmap thumbnail;
             Bitmap favicon;
@@ -794,5 +835,4 @@ public class AddBookmarkPage extends Activity
         }
         return true;
     }
-
 }

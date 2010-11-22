@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -29,8 +30,10 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.Browser;
-import android.util.Log;
+import android.provider.BrowserContract;
+import android.text.TextUtils;
 
 class BookmarkUtils {
     private final static String LOGTAG = "BookmarkUtils";
@@ -165,4 +168,17 @@ class BookmarkUtils {
         canvas.drawBitmap(favicon, null, r, p);
     }
 
+    /* package */ static Uri getBookmarksUri(Context context) {
+        Uri uri = BrowserContract.Bookmarks.CONTENT_URI;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
+            uri = uri.buildUpon()
+                    .appendQueryParameter(BrowserContract.Bookmarks.PARAM_ACCOUNT_NAME, accountName)
+                    .appendQueryParameter(BrowserContract.Bookmarks.PARAM_ACCOUNT_TYPE, accountType)
+                    .build();
+        }
+        return uri;
+    }
 };
