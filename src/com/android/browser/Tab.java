@@ -36,7 +36,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewStub;
 import android.webkit.ConsoleMessage;
 import android.webkit.DownloadListener;
@@ -53,7 +52,6 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -1278,15 +1276,7 @@ class Tab {
      */
     boolean createSubWindow() {
         if (mSubView == null) {
-            mWebViewController.endActionMode();
-            mSubViewContainer = mInflateService.inflate(
-                    R.layout.browser_subwindow, null);
-            mSubView = (WebView) mSubViewContainer.findViewById(R.id.webview);
-            mSubView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-            // use trackball directly
-            mSubView.setMapTrackballToArrowKeys(false);
-            // Enable the built-in zoom
-            mSubView.getSettings().setBuiltInZoomControls(true);
+            mWebViewController.createSubWindow(this);
             mSubView.setWebViewClient(new SubWindowClient(mWebViewClient,
                     mWebViewController));
             mSubView.setWebChromeClient(new SubWindowChromeClient(
@@ -1307,15 +1297,6 @@ class Tab {
                 }
             });
             mSubView.setOnCreateContextMenuListener(mActivity);
-            final BrowserSettings s = BrowserSettings.getInstance();
-            s.addObserver(mSubView.getSettings()).update(s, null);
-            final ImageButton cancel = (ImageButton) mSubViewContainer
-                    .findViewById(R.id.subwindow_close);
-            cancel.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    mSubView.getWebChromeClient().onCloseWindow(mSubView);
-                }
-            });
             return true;
         }
         return false;
@@ -1463,8 +1444,16 @@ class Tab {
         return mSubView;
     }
 
+    void setSubWebView(WebView subView) {
+        mSubView = subView;
+    }
+
     View getSubViewContainer() {
         return mSubViewContainer;
+    }
+
+    void setSubViewContainer(View subViewContainer) {
+        mSubViewContainer = subViewContainer;
     }
 
     /**

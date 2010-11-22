@@ -39,6 +39,10 @@ public interface WebViewController {
 
     TabControl getTabControl();
 
+    WebViewFactory getWebViewFactory();
+
+    void createSubWindow(Tab tab);
+
     void onPageStarted(Tab tab, WebView view, String url, Bitmap favicon);
 
     void onPageFinished(Tab tab, String url);

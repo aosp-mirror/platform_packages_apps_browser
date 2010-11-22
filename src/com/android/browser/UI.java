@@ -25,6 +25,7 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
+import android.webkit.WebView;
 
 import java.util.List;
 
@@ -56,6 +57,8 @@ public interface UI extends ScrollListener {
     public void detachTab(Tab tab);
 
     public void attachTab(Tab tab);
+
+    public void createSubWindow(Tab tab, WebView subWebView);
 
     public void attachSubWindow(View subContainer);
 

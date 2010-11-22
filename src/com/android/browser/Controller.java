@@ -306,8 +306,19 @@ public class Controller
         mFactory = factory;
     }
 
-    WebViewFactory getWebViewFactory() {
+    @Override
+    public WebViewFactory getWebViewFactory() {
         return mFactory;
+    }
+
+    @Override
+    public void createSubWindow(Tab tab) {
+        endActionMode();
+        WebView mainView = tab.getWebView();
+        WebView subView = mFactory.createWebView((mainView == null)
+                ? false
+                : mainView.isPrivateBrowsingEnabled());
+        mUi.createSubWindow(tab, subView);
     }
 
     @Override
