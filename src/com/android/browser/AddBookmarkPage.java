@@ -31,6 +31,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.ParseException;
 import android.net.Uri;
 import android.net.WebAddress;
@@ -104,6 +105,7 @@ public class AddBookmarkPage extends Activity
     private View mCrumbHolder;
     private ListView mListView;
     private boolean mSaveToHomeScreen;
+    private long mRootFolder;
 
     private static class Folder {
         String Name;
@@ -200,7 +202,11 @@ public class AddBookmarkPage extends Activity
             if (data != null) {
                 Folder folder = (Folder) data;
                 mCurrentFolder = folder.Id;
-                mFolder.setText(folder.Name);
+                int resource = mCurrentFolder == mRootFolder ?
+                        R.drawable.ic_menu_bookmarks :
+                        com.android.internal.R.drawable.ic_menu_archive;
+                Drawable drawable = getResources().getDrawable(resource);
+                updateFolderLabel(folder.Name, drawable);
             }
         }
     }
@@ -250,14 +256,14 @@ public class AddBookmarkPage extends Activity
     public boolean onMenuItemClick(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.bookmarks:
-                mCurrentFolder = getBookmarksBarId(this);
-                mFolder.setText(item.getTitle());
+                mCurrentFolder = mRootFolder;
+                updateFolderLabel(item.getTitle(), item.getIcon());
                 mSaveToHomeScreen = false;
                 break;
             case R.id.home_screen:
                 // Create a short cut to the home screen
                 mSaveToHomeScreen = true;
-                mFolder.setText(item.getTitle());
+                updateFolderLabel(item.getTitle(), item.getIcon());
                 break;
             case R.id.other:
                 switchToFolderSelector();
@@ -309,7 +315,7 @@ public class AddBookmarkPage extends Activity
         if (data != null) {
             currentFolder = ((Folder) data).Id;
         } else {
-            currentFolder = getBookmarksBarId(this);
+            currentFolder = mRootFolder;
         }
         values.put(BrowserContract.Bookmarks.PARENT, currentFolder);
         Uri uri = getContentResolver().insert(
@@ -404,7 +410,9 @@ public class AddBookmarkPage extends Activity
                     }
                     String name = cursor.getString(titleIndex);
                     if (parent == mCurrentFolder) {
-                        mFolder.setText(name);
+                        Drawable draw = getResources().getDrawable(
+                                com.android.internal.R.drawable.ic_menu_archive);
+                        updateFolderLabel(name, draw);
                     }
                     folderStack.push(new Folder(name, parent));
                     parent = cursor.getLong(parentIndex);
@@ -419,6 +427,18 @@ public class AddBookmarkPage extends Activity
             default:
                 break;
         }
+    }
+
+    /**
+     * Update the name and image to show where the bookmark will be added
+     * @param name Name of the location to save (folder name, bookmarks, or home
+     *             screen.
+     * @param drawable Image to show corresponding to the save location.
+     */
+    void updateFolderLabel(CharSequence name, Drawable drawable) {
+        mFolder.setText(name);
+        mFolder.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null,
+                null);
     }
 
     @Override
@@ -464,8 +484,6 @@ public class AddBookmarkPage extends Activity
         super.onCreate(icicle);
         if (DEBUG_CRASH) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
-        } else {
-            requestWindowFeature(Window.FEATURE_LEFT_ICON);
         }
 
         mMap = getIntent().getExtras();
@@ -474,8 +492,7 @@ public class AddBookmarkPage extends Activity
 
         Window window = getWindow();
         if (!DEBUG_CRASH) {
-            setTitle(R.string.bookmark_this_page);
-            window.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_list_bookmark);
+            setTitle("");
         }
 
         String title = null;
@@ -489,9 +506,6 @@ public class AddBookmarkPage extends Activity
                 mMap = b;
                 mEditingExisting = true;
                 mFakeTitle.setText(R.string.edit_bookmark);
-                if (!DEBUG_CRASH) {
-                    setTitle(R.string.bookmark_this_page);
-                }
             } else {
                 int gravity = mMap.getInt("gravity", -1);
                 if (gravity != -1) {
@@ -505,8 +519,9 @@ public class AddBookmarkPage extends Activity
             mTouchIconUrl = mMap.getString(TOUCH_ICON_URL);
             mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, DEFAULT_FOLDER_ID);
         }
+        mRootFolder = getBookmarksBarId(this);
         if (mCurrentFolder == DEFAULT_FOLDER_ID) {
-            mCurrentFolder = getBookmarksBarId(this);
+            mCurrentFolder = mRootFolder;
         }
 
         mTitle = (EditText) findViewById(R.id.title);

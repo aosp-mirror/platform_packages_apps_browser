@@ -83,6 +83,7 @@ import java.io.File;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Controller for browser
@@ -239,11 +240,12 @@ public class Controller
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
 
-        boolean dontRestoreIncognitoTabs = lastActiveDate == null
+        boolean restoreIncognitoTabs = !(lastActiveDate == null
             || lastActiveDate.before(yesterday)
-            || lastActiveDate.after(today);
+            || lastActiveDate.after(today));
 
-        if (!mTabControl.restoreState(icicle, dontRestoreIncognitoTabs)) {
+        if (!mTabControl.restoreState(icicle, restoreIncognitoTabs,
+                mUi.needsRestoreAllTabs())) {
             // there is no quit on Android. But if we can't restore the state,
             // we can treat it as a new Browser, remove the old session cookies.
             CookieManager.getInstance().removeSessionCookie();
@@ -280,7 +282,8 @@ public class Controller
                 loadUrlDataIn(t, urlData);
             }
         } else {
-            if (dontRestoreIncognitoTabs) {
+            mUi.updateTabs(mTabControl.getTabs());
+            if (!restoreIncognitoTabs) {
                 WebView.cleanupPrivateBrowsingFiles(mActivity);
             }
             // TabControl.restoreState() will create a new tab even if
@@ -336,6 +339,11 @@ public class Controller
     @Override
     public TabControl getTabControl() {
         return mTabControl;
+    }
+
+    @Override
+    public List<Tab> getTabs() {
+        return mTabControl.getTabs();
     }
 
     // Open the icon database and retain all the icons for visited sites.

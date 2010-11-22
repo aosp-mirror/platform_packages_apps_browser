@@ -26,6 +26,8 @@ import android.view.Menu;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
 
+import java.util.List;
+
 /**
  * UI interface definitions
  */
@@ -41,11 +43,15 @@ public interface UI extends ScrollListener {
 
     public boolean onBackKey();
 
+    public boolean needsRestoreAllTabs();
+
     public void addTab(Tab tab);
 
     public void removeTab(Tab tab);
 
     public void setActiveTab(Tab tab);
+
+    public void updateTabs(List<Tab> tabs);
 
     public void detachTab(Tab tab);
 
