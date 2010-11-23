@@ -34,12 +34,15 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -66,6 +69,7 @@ public class BaseUi implements UI, WebViewFactory {
     Activity mActivity;
     UiController mUiController;
     TabControl mTabControl;
+    private Tab mActiveTab;
 
     private Drawable mSecLockIcon;
     private Drawable mMixLockIcon;
@@ -161,6 +165,16 @@ public class BaseUi implements UI, WebViewFactory {
         final BrowserSettings s = BrowserSettings.getInstance();
         s.addObserver(w.getSettings()).update(s, null);
         return w;
+    }
+
+    @Override
+    public WebView createSubWebView(boolean privateBrowsing) {
+        ScrollWebView web = (ScrollWebView) createWebView(privateBrowsing);
+        if (mXLargeScreenSize) {
+            // no scroll listener for subview
+            web.setScrollListener(null);
+        }
+        return web;
     }
 
     void stopWebViewScrolling() {
@@ -295,14 +309,20 @@ public class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void setActiveTab(Tab tab) {
-        Tab current = mTabControl.getCurrentTab();
-        if ((tab != current) && (current != null)) {
-            removeTabFromContentView(current);
+        if ((tab != mActiveTab) && (mActiveTab != null)) {
+            removeTabFromContentView(mActiveTab);
         }
+        mActiveTab = tab;
         attachTabToContentView(tab);
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
 
         WebView view = tab.getWebView();
+        // TabControl.setCurrentTab has been called before this,
+        // so the tab is guaranteed to have a webview
+        if (view == null) {
+            Log.e(LOGTAG, "active tab with no webview detected");
+            return;
+        }
         view.setEmbeddedTitleBar(mTitleBar);
         if (tab.isInVoiceSearchMode()) {
             showVoiceTitleBar(tab.getVoiceDisplayTitle());
@@ -328,8 +348,9 @@ public class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void removeTab(Tab tab) {
-        if (mTabControl.getCurrentTab() == tab) {
+        if (mActiveTab == tab) {
             removeTabFromContentView(tab);
+            mActiveTab = null;
         }
         if (mXLargeScreenSize) {
             mTabBar.onRemoveTab(tab);
@@ -407,6 +428,33 @@ public class BaseUi implements UI, WebViewFactory {
     }
 
     /**
+     * create a sub window container and webview for the tab
+     * Note: this methods operates through side-effects for now
+     * it sets both the subView and subViewContainer for the given tab
+     * @param tab tab to create the sub window for
+     * @param subView webview to be set as a subwindow for the tab
+     */
+    @Override
+    public void createSubWindow(Tab tab, WebView subView) {
+        View subViewContainer = mActivity.getLayoutInflater().inflate(
+                R.layout.browser_subwindow, null);
+        ViewGroup inner = (ViewGroup) subViewContainer
+                .findViewById(R.id.inner_container);
+        inner.addView(subView, new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
+        final ImageButton cancel = (ImageButton) subViewContainer
+                .findViewById(R.id.subwindow_close);
+        final WebView cancelSubView = subView;
+        cancel.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                cancelSubView.getWebChromeClient().onCloseWindow(cancelSubView);
+            }
+        });
+        tab.setSubWebView(subView);
+        tab.setSubViewContainer(subViewContainer);
+    }
+
+    /**
      * Remove the sub window from the content view.
      */
     @Override
@@ -420,6 +468,10 @@ public class BaseUi implements UI, WebViewFactory {
      */
     @Override
     public void attachSubWindow(View container) {
+        if (container.getParent() != null) {
+            // already attached, remove first
+            ((ViewGroup) container.getParent()).removeView(container);
+        }
         mContentView.addView(container, COVER_SCREEN_PARAMS);
     }
 

@@ -547,8 +547,10 @@ public class BrowserSettings extends Observable {
             new SaveProfileToDbTask(ctx, msg).execute(profile);
         } else {
             // Delete the current profile.
-            new DeleteProfileFromDbTask(ctx, msg).execute(autoFillProfile.getUniqueId());
-            setActiveAutoFillProfileId(ctx, NO_AUTOFILL_PROFILE_SET);
+            if (autoFillProfile != null) {
+                new DeleteProfileFromDbTask(ctx, msg).execute(autoFillProfile.getUniqueId());
+                setActiveAutoFillProfileId(ctx, NO_AUTOFILL_PROFILE_SET);
+            }
         }
         autoFillProfile = profile;
     }
@@ -562,6 +564,13 @@ public class BrowserSettings extends Observable {
         Editor ed = PreferenceManager.
             getDefaultSharedPreferences(context).edit();
         ed.putInt(PREF_AUTOFILL_ACTIVE_PROFILE_ID, activeProfileId);
+        ed.apply();
+    }
+
+    /* package */ void disableAutoFill(Context ctx) {
+        autoFillEnabled = false;
+        Editor ed = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
+        ed.putBoolean(PREF_AUTOFILL_ENABLED, false);
         ed.apply();
     }
 

@@ -47,6 +47,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceActivity;
 import android.provider.Browser;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.History;
@@ -114,6 +115,8 @@ public class Controller
     // activity requestCode
     final static int PREFERENCES_PAGE = 3;
     final static int FILE_SELECTED = 4;
+    final static int AUTOFILL_SETUP = 5;
+
     private final static int WAKELOCK_TIMEOUT = 5 * 60 * 1000; // 5 minutes
 
     // As the ids are dynamically created, we can't guarantee that they will
@@ -142,6 +145,8 @@ public class Controller
     private IntentHandler mIntentHandler;
     private PageDialogsHandler mPageDialogsHandler;
     private NetworkStateHandler mNetworkHandler;
+
+    private Message mAutoFillSetupMessage;
 
     private boolean mShouldShowErrorConsole;
 
@@ -306,8 +311,19 @@ public class Controller
         mFactory = factory;
     }
 
-    WebViewFactory getWebViewFactory() {
+    @Override
+    public WebViewFactory getWebViewFactory() {
         return mFactory;
+    }
+
+    @Override
+    public void createSubWindow(Tab tab) {
+        endActionMode();
+        WebView mainView = tab.getWebView();
+        WebView subView = mFactory.createWebView((mainView == null)
+                ? false
+                : mainView.isPrivateBrowsingEnabled());
+        mUi.createSubWindow(tab, subView);
     }
 
     @Override
@@ -393,6 +409,13 @@ public class Controller
                             case R.id.open_context_menu_id:
                             case R.id.view_image_context_menu_id:
                                 loadUrlFromContext(getCurrentTopWebView(), url);
+                                break;
+                            case R.id.open_newtab_context_menu_id:
+                                final Tab parent = mTabControl.getCurrentTab();
+                                final Tab newTab = openTab(url, false);
+                                if (newTab != null && newTab != parent) {
+                                    parent.addChildTab(newTab);
+                                }
                                 break;
                             case R.id.bookmark_context_menu_id:
                                 Intent intent = new Intent(mActivity,
@@ -1032,6 +1055,15 @@ public class Controller
                 mUploadHandler.onResult(resultCode, intent);
                 mUploadHandler = null;
                 break;
+            case AUTOFILL_SETUP:
+                // Determine whether a profile was actually set up or not
+                // and if so, send the message back to the WebTextView to
+                // fill the form with the new profile.
+                if (getSettings().getAutoFillProfile() != null) {
+                    mAutoFillSetupMessage.sendToTarget();
+                    mAutoFillSetupMessage = null;
+                }
+                break;
             default:
                 break;
         }
@@ -1156,7 +1188,7 @@ public class Controller
         if (!(v instanceof WebView)) {
             return;
         }
-        WebView webview = (WebView) v;
+        final WebView webview = (WebView) v;
         WebView.HitTestResult result = webview.getHitTestResult();
         if (result == null) {
             return;
@@ -1193,7 +1225,15 @@ public class Controller
         menu.setGroupVisible(R.id.ANCHOR_MENU,
                 type == WebView.HitTestResult.SRC_ANCHOR_TYPE
                 || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE);
-
+        boolean hitText = type == WebView.HitTestResult.SRC_ANCHOR_TYPE
+                || type == WebView.HitTestResult.PHONE_TYPE
+                || type == WebView.HitTestResult.EMAIL_TYPE
+                || type == WebView.HitTestResult.GEO_TYPE;
+        menu.setGroupVisible(R.id.SELECT_TEXT_MENU, hitText);
+        if (hitText) {
+            menu.findItem(R.id.select_text_menu_id)
+                    .setOnMenuItemClickListener(new SelectText(webview));
+        }
         // Setup custom handling depending on the type
         switch (type) {
             case WebView.HitTestResult.PHONE_TYPE:
@@ -1245,17 +1285,36 @@ public class Controller
                         = menu.findItem(R.id.open_newtab_context_menu_id);
                 newTabItem.setVisible(showNewTab);
                 if (showNewTab) {
-                    newTabItem.setOnMenuItemClickListener(
-                            new MenuItem.OnMenuItemClickListener() {
-                                public boolean onMenuItemClick(MenuItem item) {
-                                    final Tab parent = mTabControl.getCurrentTab();
-                                    final Tab newTab = openTab(extra, false);
-                                    if (newTab != parent) {
-                                        parent.addChildTab(newTab);
+                    if (WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE == type) {
+                        newTabItem.setOnMenuItemClickListener(
+                                new MenuItem.OnMenuItemClickListener() {
+                                    @Override
+                                    public boolean onMenuItemClick(MenuItem item) {
+                                        final HashMap<String, WebView> hrefMap =
+                                                new HashMap<String, WebView>();
+                                        hrefMap.put("webview", webview);
+                                        final Message msg = mHandler.obtainMessage(
+                                                FOCUS_NODE_HREF,
+                                                R.id.open_newtab_context_menu_id,
+                                                0, hrefMap);
+                                        webview.requestFocusNodeHref(msg);
+                                        return true;
                                     }
-                                    return true;
-                                }
-                            });
+                                });
+                    } else {
+                        newTabItem.setOnMenuItemClickListener(
+                                new MenuItem.OnMenuItemClickListener() {
+                                    @Override
+                                    public boolean onMenuItemClick(MenuItem item) {
+                                        final Tab parent = mTabControl.getCurrentTab();
+                                        final Tab newTab = openTab(extra, false);
+                                        if (newTab != parent) {
+                                            parent.addChildTab(newTab);
+                                        }
+                                        return true;
+                                    }
+                                });
+                    }
                 }
                 menu.findItem(R.id.bookmark_context_menu_id).setVisible(
                         Bookmarks.urlHasAcceptableScheme(extra));
@@ -1884,6 +1943,22 @@ public class Controller
         }
     }
 
+    private static class SelectText implements OnMenuItemClickListener {
+        private WebView mWebView;
+
+        public boolean onMenuItemClick(MenuItem item) {
+            if (mWebView != null) {
+                return mWebView.selectText();
+            }
+            return false;
+        }
+
+        public SelectText(WebView webView) {
+            mWebView = webView;
+        }
+
+    }
+
     /********************** TODO: UI stuff *****************************/
 
     // these methods have been copied, they still need to be cleaned up
@@ -1903,10 +1978,9 @@ public class Controller
     }
 
     protected void setActiveTab(Tab tab) {
-        // Update the UI before setting the current tab in TabControl
-        // so the UI can access the old tab to switch over from
-        mUi.setActiveTab(tab);
         mTabControl.setCurrentTab(tab);
+        // the tab is guaranteed to have a webview after setCurrentTab
+        mUi.setActiveTab(tab);
     }
 
     protected void closeEmptyChildTab() {
@@ -2349,4 +2423,14 @@ public class Controller
         return mMenuIsDown;
     }
 
+    public void setupAutoFill(Message message) {
+        // Open the settings activity at the AutoFill profile fragment so that
+        // the user can create a new profile. When they return, we will dispatch
+        // the message so that we can autofill the form using their new profile.
+        Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
+        intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT,
+                AutoFillSettingsFragment.class.getName());
+        mAutoFillSetupMessage = message;
+        mActivity.startActivityForResult(intent, AUTOFILL_SETUP);
+    }
 }

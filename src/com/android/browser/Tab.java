@@ -36,7 +36,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewStub;
 import android.webkit.ConsoleMessage;
 import android.webkit.DownloadListener;
@@ -53,9 +52,9 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -706,7 +705,7 @@ class Tab {
                                 mWebViewController.showSslCertificateOnError(view,
                                         handler, error);
                             }
-                        }).setNegativeButton(R.string.cancel,
+                        }).setNegativeButton(R.string.ssl_go_back,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                     int whichButton) {
@@ -1063,6 +1062,35 @@ class Tab {
         public void getVisitedHistory(final ValueCallback<String[]> callback) {
             mWebViewController.getVisitedHistory(callback);
         }
+
+        @Override
+        public void setupAutoFill(Message message) {
+            // Prompt the user to set up their profile.
+            final Message msg = message;
+            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+            builder.setMessage(R.string.autofill_setup_dialog_message)
+                   .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int id) {
+                           // Take user to the AutoFill profile editor. When they return,
+                           // we will send the message that we pass here which will trigger
+                           // the form to get filled out with their new profile.
+                           mWebViewController.setupAutoFill(msg);
+                       }
+                   })
+                   .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int id) {
+                           // Disable autofill and show a toast with how to turn it on again.
+                           BrowserSettings s = BrowserSettings.getInstance();
+                           s.addObserver(mMainView.getSettings());
+                           s.disableAutoFill(mActivity);
+                           s.update();
+                           Toast.makeText(mActivity, R.string.autofill_setup_dialog_negative_toast,
+                                   Toast.LENGTH_LONG).show();
+                       }
+                   }).show();
+        }
     };
 
     // -------------------------------------------------------------------------
@@ -1278,15 +1306,7 @@ class Tab {
      */
     boolean createSubWindow() {
         if (mSubView == null) {
-            mWebViewController.endActionMode();
-            mSubViewContainer = mInflateService.inflate(
-                    R.layout.browser_subwindow, null);
-            mSubView = (WebView) mSubViewContainer.findViewById(R.id.webview);
-            mSubView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-            // use trackball directly
-            mSubView.setMapTrackballToArrowKeys(false);
-            // Enable the built-in zoom
-            mSubView.getSettings().setBuiltInZoomControls(true);
+            mWebViewController.createSubWindow(this);
             mSubView.setWebViewClient(new SubWindowClient(mWebViewClient,
                     mWebViewController));
             mSubView.setWebChromeClient(new SubWindowChromeClient(
@@ -1307,15 +1327,6 @@ class Tab {
                 }
             });
             mSubView.setOnCreateContextMenuListener(mActivity);
-            final BrowserSettings s = BrowserSettings.getInstance();
-            s.addObserver(mSubView.getSettings()).update(s, null);
-            final ImageButton cancel = (ImageButton) mSubViewContainer
-                    .findViewById(R.id.subwindow_close);
-            cancel.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    mSubView.getWebChromeClient().onCloseWindow(mSubView);
-                }
-            });
             return true;
         }
         return false;
@@ -1463,8 +1474,16 @@ class Tab {
         return mSubView;
     }
 
+    void setSubWebView(WebView subView) {
+        mSubView = subView;
+    }
+
     View getSubViewContainer() {
         return mSubViewContainer;
+    }
+
+    void setSubViewContainer(View subViewContainer) {
+        mSubViewContainer = subViewContainer;
     }
 
     /**

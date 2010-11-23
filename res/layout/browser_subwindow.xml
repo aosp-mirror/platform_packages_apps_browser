@@ -28,12 +28,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@android:drawable/dialog_frame" >
-            <WebView android:id="@+id/webview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fadeScrollbars="true"
-                android:scrollbarStyle="outsideOverlay"
-                android:layout_weight="1" />
         </LinearLayout>
     </FrameLayout>
     <LinearLayout

@@ -75,6 +75,9 @@
     <!-- Label for a button on an SSL error dialog that lets the user view the
         certificate -->
     <string name="view_certificate">View certificate</string>
+    <!-- Label for a button on an SSL error dialog that lets the user go back to
+         the last page they were on instead of continuing to the new page. [CHAR-LIMIT=20] -->
+    <string name="ssl_go_back">Go back</string>
 
     <!-- Message in an SSL Error dialog -->
     <string name="ssl_untrusted">This certificate is not from a trusted authority.</string>
@@ -392,6 +395,12 @@
     <string name="autofill_profile_successful_delete">Profile deleted</string>
     <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
     <string name="autofill_profile_editor_delete_profile">Delete profile data</string>
+
+    <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+    <string name="autofill_setup_dialog_message">Browser can automatically complete web forms like this one. Would you like to set up your profile?</string>
+    <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
+         it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+    <string name="autofill_setup_dialog_negative_toast">AutoFill can always be configured through Browser Settings -&gt; Personal Settings.</string>
 
     <!-- Settings screen, section title -->
     <string name="pref_privacy_title">Privacy settings</string>
