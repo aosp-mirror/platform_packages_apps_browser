@@ -21,17 +21,22 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -44,7 +49,7 @@ interface BookmarksHistoryCallbacks {
 }
 
 public class CombinedBookmarkHistoryView extends LinearLayout
-        implements OnClickListener, BreadCrumbView.Controller {
+        implements OnClickListener, BreadCrumbView.Controller, OnMenuItemClickListener {
 
     final static String STARTING_FRAGMENT = "fragment";
 
@@ -63,6 +68,8 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     TextView mTabBookmarks;
     TextView mTabHistory;
     TextView mAddBookmark;
+    TextView mSelectBookmarkView;
+    View mSeperateSelectAdd;
 
     BrowserBookmarksPage mBookmarks;
     BrowserHistoryPage mHistory;
@@ -122,9 +129,20 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         mTabBookmarks = (TextView) findViewById(R.id.bmtab);
         mTabHistory = (TextView) findViewById(R.id.historytab);
         mAddBookmark = (TextView) findViewById(R.id.addbm);
+        mSeperateSelectAdd = findViewById(R.id.seperate_select_add);
+        mSelectBookmarkView = (TextView) findViewById(R.id.select_bookmark_view);
         mAddBookmark.setOnClickListener(this);
         mTabHistory.setOnClickListener(this);
         mTabBookmarks.setOnClickListener(this);
+        mSelectBookmarkView.setOnClickListener(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        int bookmarksView =
+            prefs.getInt(BrowserBookmarksPage.PREF_SELECTED_VIEW, BrowserBookmarksPage.VIEW_THUMBNAILS);
+        if (bookmarksView == BrowserBookmarksPage.VIEW_THUMBNAILS) {
+            mSelectBookmarkView.setText(R.string.bookmark_thumbnail_view);
+        } else {
+            mSelectBookmarkView.setText(R.string.bookmark_list_view);
+        }
         // Start up the default fragment
         initFragments(mExtras);
         loadFragment(startingFragment, mExtras, false);
@@ -157,6 +175,8 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         switch (id) {
             case FRAGMENT_ID_BOOKMARKS:
                 fragment = mBookmarks;
+                mSeperateSelectAdd.setVisibility(View.VISIBLE);
+                mSelectBookmarkView.setVisibility(View.VISIBLE);
                 mCrumbs.setVisibility(View.VISIBLE);
                 if (notify) {
                     mCrumbs.notifyController();
@@ -165,6 +185,8 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             case FRAGMENT_ID_HISTORY:
                 fragment = mHistory;
                 mCrumbs.setVisibility(View.GONE);
+                mSeperateSelectAdd.setVisibility(View.GONE);
+                mSelectBookmarkView.setVisibility(View.GONE);
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -189,6 +211,12 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             }
         } else if (mAddBookmark == view) {
             mUiController.bookmarkCurrentPage(mBookmarks.getFolderId());
+        } else if (mSelectBookmarkView == view) {
+            PopupMenu popup = new PopupMenu(mContext, mSelectBookmarkView);
+            popup.getMenuInflater().inflate(R.menu.bookmark_view,
+                    popup.getMenu());
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
         }
     }
 
@@ -207,6 +235,21 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         if ((mCurrentFragment == FRAGMENT_ID_BOOKMARKS) &&
                 (mCrumbs.size() > 0)) {
             mCrumbs.popView();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.list_view:
+            mSelectBookmarkView.setText(R.string.bookmark_list_view);
+            mBookmarks.selectView(BrowserBookmarksPage.VIEW_LIST);
+            return true;
+        case R.id.thumbnail_view:
+            mSelectBookmarkView.setText(R.string.bookmark_thumbnail_view);
+            mBookmarks.selectView(BrowserBookmarksPage.VIEW_THUMBNAILS);
             return true;
         }
         return false;

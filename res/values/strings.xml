@@ -184,11 +184,11 @@
             showing. -->
     <string name="bookmark_page">Bookmark last-viewed page</string>
     <!-- Menu item in the page that displays all bookmarks.  Switches to
-            a grid view which shows thumbnails -->
-    <string name="switch_to_thumbnails">Thumbnail view</string>
+            a grid view which shows thumbnails [CHAR LIMIT=50] -->
+    <string name="bookmark_thumbnail_view">Thumbnail view</string>
     <!-- Menu item in the page that displays all bookmarks.  Switches to a
-            list view which shows titles -->
-    <string name="switch_to_list">List view</string>
+            list view which shows titles [CHAR LIMIT=50] -->
+    <string name="bookmark_list_view">List view</string>
     <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,

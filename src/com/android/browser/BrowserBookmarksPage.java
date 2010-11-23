@@ -31,6 +31,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -53,6 +54,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 /**
@@ -77,15 +79,20 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public static final String PREF_ACCOUNT_NAME = "acct_name";
 
     static final String DEFAULT_ACCOUNT = "local";
+    static final int VIEW_THUMBNAILS = 1;
+    static final int VIEW_LIST = 2;
+    static final String PREF_SELECTED_VIEW = "bookmarks_view";
 
     BookmarksHistoryCallbacks mCallbacks;
     GridView mGrid;
+    ListView mList;
     BrowserBookmarksAdapter mAdapter;
     boolean mDisableNewWindow;
     BookmarkItem mContextHeader;
     boolean mCanceled = false;
     boolean mCreateShortcut;
     View mEmptyView;
+    int mCurrentView;
 
     BreadCrumbView mCrumbs;
 
@@ -134,9 +141,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 if (cursor == null || cursor.getCount() == 0) {
                     mEmptyView.setVisibility(View.VISIBLE);
                     mGrid.setVisibility(View.GONE);
+                    mList.setVisibility(View.GONE);
                 } else {
                     mEmptyView.setVisibility(View.GONE);
-                    mGrid.setVisibility(View.VISIBLE);
+                    setupBookmarkView();
                 }
 
                 // Give the new data to the adapter
@@ -372,13 +380,19 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         if (!mCreateShortcut) {
             mGrid.setOnCreateContextMenuListener(this);
         }
-
-        mAdapter = new BrowserBookmarksAdapter(getActivity());
-        mGrid.setAdapter(mAdapter);
+        mList = (ListView) root.findViewById(R.id.list);
+        mList.setOnItemClickListener(this);
+        if (!mCreateShortcut) {
+            mList.setOnCreateContextMenuListener(this);
+            registerForContextMenu(mList);
+        }
 
         // Start the loaders
         LoaderManager lm = getLoaderManager();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        mCurrentView =
+            prefs.getInt(PREF_SELECTED_VIEW, BrowserBookmarksPage.VIEW_THUMBNAILS);
+        mAdapter = new BrowserBookmarksAdapter(getActivity(), mCurrentView);
         String accountType = prefs.getString(PREF_ACCOUNT_TYPE, DEFAULT_ACCOUNT);
         String accountName = prefs.getString(PREF_ACCOUNT_NAME, DEFAULT_ACCOUNT);
         if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
@@ -609,4 +623,36 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         cm.setPrimaryClip(ClipData.newRawUri(null, null, Uri.parse(text.toString())));
     }
 
+    void selectView(int view) {
+        if (view == mCurrentView) {
+            return;
+        }
+        mCurrentView = view;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Editor edit = prefs.edit();
+        edit.putInt(PREF_SELECTED_VIEW, mCurrentView);
+        edit.apply();
+        if (mEmptyView.getVisibility() == View.VISIBLE) {
+            return;
+        }
+        setupBookmarkView();
+    }
+
+    private void setupBookmarkView() {
+        mAdapter.selectView(mCurrentView);
+        switch (mCurrentView) {
+        case VIEW_THUMBNAILS:
+            mList.setAdapter(null);
+            mGrid.setAdapter(mAdapter);
+            mGrid.setVisibility(View.VISIBLE);
+            mList.setVisibility(View.GONE);
+            break;
+        case VIEW_LIST:
+            mGrid.setAdapter(null);
+            mList.setAdapter(mAdapter);
+            mGrid.setVisibility(View.GONE);
+            mList.setVisibility(View.VISIBLE);
+            break;
+        }
+    }
 }

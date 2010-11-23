@@ -76,6 +76,23 @@
             android:background="@null"
             android:drawableLeft="@drawable/ic_favorite_off_normal"
             android:drawablePadding="16dip" />
+        <ImageView
+            android:id="@+id/seperate_select_add"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/addbm"
+            android:paddingRight="16dip"
+            android:src="@drawable/divider_vert" />
+        <TextView
+            android:id="@+id/select_bookmark_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/switch_to_thumbnails"
+            android:layout_toLeftOf="@id/seperate_select_add"
+            android:paddingRight="16dip"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_vertical"
+            android:background="@null" />
     </RelativeLayout>
     <FrameLayout
         android:id="@+id/fragment"
