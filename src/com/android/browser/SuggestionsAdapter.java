@@ -513,7 +513,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
                 mCursor.close();
             }
             String like = constraint + "%";
-            String[] args = new String[] {constraint.toString()};
+            String[] args = new String[] {like};
             String selection = BrowserContract.Searches.SEARCH + " LIKE ?";
             Uri.Builder ub = BrowserContract.Searches.CONTENT_URI.buildUpon();
             ub.appendQueryParameter(BrowserContract.PARAM_LIMIT,
