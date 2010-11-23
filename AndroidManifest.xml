@@ -39,7 +39,7 @@
 
     <application   android:name="Browser"
                    android:label="@string/application_name"
-                   android:icon="@drawable/ic_launcher_browser"
+                   android:icon="@mipmap/ic_launcher_browser"
                    android:backupAgent=".BrowserBackupAgent"
                    android:hardwareAccelerated="false"
                    android:taskAffinity="android.task.browser" >
@@ -147,7 +147,7 @@
         <activity android:name="ShortcutActivity"
             android:theme="@style/ShortcutTheme"
             android:label="@string/shortcut_bookmark"
-            android:icon="@drawable/ic_launcher_shortcut_browser_bookmark">
+            android:icon="@mipmap/ic_launcher_shortcut_browser_bookmark">
 
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
