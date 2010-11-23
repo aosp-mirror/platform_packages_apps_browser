@@ -105,12 +105,12 @@ class BookmarkUtils {
             // Want to create a shortcut icon on the homescreen, so the icon
             // background is the red bookmark.
             return BitmapFactory.decodeResource(context.getResources(),
-                    R.drawable.ic_launcher_shortcut_browser_bookmark);
+                    R.mipmap.ic_launcher_shortcut_browser_bookmark);
         } else if (type == BookmarkIconType.ICON_INSTALLABLE_WEB_APP) {
             // Use the web browser icon as the background for the icon for an installable
             // web app.
             return BitmapFactory.decodeResource(context.getResources(),
-                    R.drawable.ic_launcher_browser);
+                    R.mipmap.ic_launcher_browser);
         }
         return null;
     }
