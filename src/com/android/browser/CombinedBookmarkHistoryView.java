@@ -200,6 +200,19 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     }
 
     @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        FragmentManager fm = mActivity.getFragmentManager();
+        FragmentTransaction transaction = fm.openTransaction();
+        if (mCurrentFragment == FRAGMENT_ID_BOOKMARKS) {
+            transaction.remove(mBookmarks);
+        } else if (mCurrentFragment == FRAGMENT_ID_HISTORY) {
+            transaction.remove(mHistory);
+        }
+        transaction.commit();
+    }
+
+    @Override
     public void onClick(View view) {
         if ((mTabHistory == view) && (mCurrentFragment != FRAGMENT_ID_HISTORY)) {
             loadFragment(FRAGMENT_ID_HISTORY, mExtras, false);
