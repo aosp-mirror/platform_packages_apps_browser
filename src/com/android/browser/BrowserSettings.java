@@ -723,7 +723,7 @@ public class BrowserSettings extends Observable {
         showSecurityWarnings = true;
         rememberPasswords = true;
         saveFormData = true;
-        autoFillEnabled = false;
+        autoFillEnabled = true;
         openInBackground = false;
         autoFitPage = true;
         loadsPageInOverviewMode = true;
