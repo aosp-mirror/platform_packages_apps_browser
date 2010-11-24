@@ -27,18 +27,21 @@
     android:baselineAligned="false">
     <include
         android:id="@+id/suggest1"
-        layout="@layout/suggestion_item"
+        android:layout_height="56dip"
         android:layout_width="0dip"
         android:layout_weight="1"
+        layout="@layout/suggestion_item"
     />
     <ImageView
+      android:id="@+id/suggestion_divider"
       android:layout_width="wrap_content"
       android:layout_height="56dip"
       android:background="@drawable/list_divider_vert" />
     <include
         android:id="@+id/suggest2"
-        layout="@layout/suggestion_item"
+        android:layout_height="56dip"
         android:layout_width="0dip"
         android:layout_weight="1"
+        layout="@layout/suggestion_item"
     />
 </LinearLayout>
