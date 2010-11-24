@@ -113,4 +113,9 @@ class BrowserBookmarksAdapter extends CursorAdapter {
         }
         mCurrentView = view;
     }
+
+    @Override
+    public Cursor getItem(int position) {
+        return (Cursor) super.getItem(position);
+    }
 }
