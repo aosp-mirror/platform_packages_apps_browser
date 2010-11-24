@@ -34,6 +34,7 @@ import android.content.DialogInterface;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.preference.Preference;
@@ -80,31 +81,46 @@ public class PersonalPreferencesFragment extends PreferenceFragment
         refreshUi(context);
     }
 
-    void refreshUi(Context context) {
-        AccountManager am = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
-        Account[] accounts = am.getAccountsByType("com.google");
-        if (accounts == null || accounts.length == 0) {
-            // No Google accounts setup, don't offer Chrome sync
-            if (mChromeSync != null) {
-                getPreferenceScreen().removePreference(mChromeSync);
-            }
-        } else {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            Bundle args = mChromeSync.getExtras();
-            args.putParcelableArray("accounts", accounts);
-            mEnabled = BrowserContract.Settings.isSyncEnabled(context);
-            if (!mEnabled) {
-                // Google accounts are present, but Chrome sync isn't enabled yet.
-                // Setup a link to the enable wizard
-                mChromeSync.setSummary(R.string.pref_personal_sync_with_chrome_summary);
-            } else {
-                // Chrome sync is enabled, setup a link to account switcher
-                String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
-                mChromeSync.setSummary(accountName);
-                args.putString("curAccount", accountName);
-            }
-            mChromeSync.setOnPreferenceClickListener(this);
+    private class GetAccountsTask extends AsyncTask<Void, Void, Void> {
+        private Context mContext;
+
+        GetAccountsTask(Context ctx) {
+            mContext = ctx;
         }
+
+        protected Void doInBackground(Void... unused) {
+            AccountManager am = (AccountManager) mContext.getSystemService(Context.ACCOUNT_SERVICE);
+            Account[] accounts = am.getAccountsByType("com.google");
+            if (accounts == null || accounts.length == 0) {
+                // No Google accounts setup, don't offer Chrome sync
+                if (mChromeSync != null) {
+                    getPreferenceScreen().removePreference(mChromeSync);
+                }
+            } else {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+                Bundle args = mChromeSync.getExtras();
+                args.putParcelableArray("accounts", accounts);
+                mEnabled = BrowserContract.Settings.isSyncEnabled(mContext);
+                if (!mEnabled) {
+                    // Google accounts are present, but Chrome sync isn't enabled yet.
+                    // Setup a link to the enable wizard
+                    mChromeSync.setSummary(R.string.pref_personal_sync_with_chrome_summary);
+                } else {
+                    // Chrome sync is enabled, setup a link to account switcher
+                    String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME,
+                            null);
+                    mChromeSync.setSummary(accountName);
+                    args.putString("curAccount", accountName);
+                }
+                mChromeSync.setOnPreferenceClickListener(PersonalPreferencesFragment.this);
+            }
+
+            return null;
+        }
+    }
+
+    void refreshUi(Context context) {
+        new GetAccountsTask(context).execute();
 
         PreferenceScreen autoFillSettings =
                 (PreferenceScreen)findPreference(BrowserSettings.PREF_AUTOFILL_PROFILE);
