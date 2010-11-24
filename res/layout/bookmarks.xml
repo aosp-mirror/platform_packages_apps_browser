@@ -14,36 +14,49 @@
      limitations under the License.
 -->
 
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <GridView
-        android:id="@+id/grid"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/header_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:horizontalSpacing="16dip"
-        android:verticalSpacing="16dip"
-        android:stretchMode="spacingWidth"
-        android:scrollbarStyle="insideInset"
-        android:listSelector="@android:drawable/gallery_thumb"
-        android:drawSelectorOnTop="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:numColumns="auto_fit" />
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:visibility="gone"/>
-    <TextView
-        android:id="@android:id/empty"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/empty_bookmarks_folder"
         android:visibility="gone" />
-</FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <GridView
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="16dip"
+            android:verticalSpacing="16dip"
+            android:stretchMode="spacingWidth"
+            android:scrollbarStyle="insideInset"
+            android:listSelector="@android:drawable/gallery_thumb"
+            android:drawSelectorOnTop="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:numColumns="auto_fit" />
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/empty_bookmarks_folder"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>
