@@ -199,6 +199,18 @@ public class BrowserSettings extends Observable {
     private HashMap<WebSettings,Observer> mWebSettingsToObservers =
         new HashMap<WebSettings,Observer>();
 
+    private boolean mLoadFromDbComplete;
+
+    public void waitForLoadFromDbToComplete() {
+        synchronized (sSingleton) {
+            while (!mLoadFromDbComplete) {
+                try {
+                    sSingleton.wait();
+                } catch (InterruptedException e) { }
+            }
+        }
+    }
+
     /*
      * An observer wrapper for updating a WebSettings object with the new
      * settings after a call to BrowserSettings.update().
@@ -278,7 +290,8 @@ public class BrowserSettings extends Observable {
     }
 
     /**
-     * Load settings from the browser app's database.
+     * Load settings from the browser app's database. It is performed in
+     * an AsyncTask as it involves plenty of slow disk IO.
      * NOTE: Strings used for the preferences must match those specified
      * in the various preference XML files.
      * @param ctx A Context object used to query the browser's settings
@@ -286,81 +299,105 @@ public class BrowserSettings extends Observable {
      *            stored in this BrowserSettings object. This will update all
      *            observers of this object.
      */
-    public void loadFromDb(final Context ctx) {
-        SharedPreferences p =
-                PreferenceManager.getDefaultSharedPreferences(ctx);
-        // Set the default value for the Application Caches path.
-        appCachePath = ctx.getDir("appcache", 0).getPath();
-        // Determine the maximum size of the application cache.
-        webStorageSizeManager = new WebStorageSizeManager(
-                ctx,
-                new WebStorageSizeManager.StatFsDiskInfo(appCachePath),
-                new WebStorageSizeManager.WebKitAppCacheInfo(appCachePath));
-        appCacheMaxSize = webStorageSizeManager.getAppCacheMaxSize();
-        // Set the default value for the Database path.
-        databasePath = ctx.getDir("databases", 0).getPath();
-        // Set the default value for the Geolocation database path.
-        geolocationDatabasePath = ctx.getDir("geolocation", 0).getPath();
+    public void asyncLoadFromDb(final Context ctx) {
+        mLoadFromDbComplete = false;
+        // Run the initial settings load in an AsyncTask as it hits the
+        // disk multiple times through SharedPreferences and SQLite. We
+        // need to be certain though that this has completed before we start
+        // to load pages though, so in the worst case we will block waiting
+        // for it to finish in BrowserActivity.onCreate().
+         new LoadFromDbTask(ctx).execute();
+    }
 
-        if (p.getString(PREF_HOMEPAGE, "") == "") {
-            // No home page preferences is set, set it to default.
-            setHomePage(ctx, getFactoryResetHomeUrl(ctx));
+    private class LoadFromDbTask extends AsyncTask<Void, Void, Void> {
+        private Context mContext;
+
+        public LoadFromDbTask(Context context) {
+            mContext = context;
         }
 
-        // the cost of one cached page is ~3M (measured using nytimes.com). For
-        // low end devices, we only cache one page. For high end devices, we try
-        // to cache more pages, currently choose 5.
-        ActivityManager am = (ActivityManager) ctx
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        if (am.getMemoryClass() > 16) {
-            pageCacheCapacity = 5;
-        } else {
-            pageCacheCapacity = 1;
+        protected Void doInBackground(Void... unused) {
+            SharedPreferences p =
+                    PreferenceManager.getDefaultSharedPreferences(mContext);
+            // Set the default value for the Application Caches path.
+            appCachePath = mContext.getDir("appcache", 0).getPath();
+            // Determine the maximum size of the application cache.
+            webStorageSizeManager = new WebStorageSizeManager(
+                    mContext,
+                    new WebStorageSizeManager.StatFsDiskInfo(appCachePath),
+                    new WebStorageSizeManager.WebKitAppCacheInfo(appCachePath));
+            appCacheMaxSize = webStorageSizeManager.getAppCacheMaxSize();
+            // Set the default value for the Database path.
+            databasePath = mContext.getDir("databases", 0).getPath();
+            // Set the default value for the Geolocation database path.
+            geolocationDatabasePath = mContext.getDir("geolocation", 0).getPath();
+
+            if (p.getString(PREF_HOMEPAGE, "") == "") {
+                // No home page preferences is set, set it to default.
+                setHomePage(mContext, getFactoryResetHomeUrl(mContext));
+            }
+
+            // the cost of one cached page is ~3M (measured using nytimes.com). For
+            // low end devices, we only cache one page. For high end devices, we try
+            // to cache more pages, currently choose 5.
+            ActivityManager am = (ActivityManager) mContext
+                    .getSystemService(Context.ACTIVITY_SERVICE);
+            if (am.getMemoryClass() > 16) {
+                pageCacheCapacity = 5;
+            } else {
+                pageCacheCapacity = 1;
+            }
+
+            // Read the last active AutoFill profile id.
+            autoFillActiveProfileId = p.getInt(
+                    PREF_AUTOFILL_ACTIVE_PROFILE_ID, autoFillActiveProfileId);
+
+            // Load the autofill profile data from the database. We use a database separate
+            // to the browser preference DB to make it easier to support multiple profiles
+            // and switching between them.
+            AutoFillProfileDatabase autoFillDb = AutoFillProfileDatabase.getInstance(mContext);
+            Cursor c = autoFillDb.getProfile(autoFillActiveProfileId);
+
+            if (c.getCount() > 0) {
+                c.moveToFirst();
+
+                String fullName = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.FULL_NAME));
+                String email = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.EMAIL_ADDRESS));
+                String company = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.COMPANY_NAME));
+                String addressLine1 = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.ADDRESS_LINE_1));
+                String addressLine2 = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.ADDRESS_LINE_2));
+                String city = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.CITY));
+                String state = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.STATE));
+                String zip = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.ZIP_CODE));
+                String country = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.COUNTRY));
+                String phone = c.getString(c.getColumnIndex(
+                        AutoFillProfileDatabase.Profiles.PHONE_NUMBER));
+                autoFillProfile = new AutoFillProfile(autoFillActiveProfileId,
+                        fullName, email, company, addressLine1, addressLine2, city,
+                        state, zip, country, phone);
+            }
+            c.close();
+            autoFillDb.close();
+
+            // PreferenceManager.setDefaultValues is TOO SLOW, need to manually keep
+            // the defaults in sync
+            syncSharedPreferences(mContext, p);
+
+            synchronized (sSingleton) {
+                mLoadFromDbComplete = true;
+                sSingleton.notify();
+            }
+            return null;
         }
-
-        // Read the last active AutoFill profile id.
-        autoFillActiveProfileId = p.getInt(
-                PREF_AUTOFILL_ACTIVE_PROFILE_ID, autoFillActiveProfileId);
-
-        // Load the autofill profile data from the database. We use a database separate
-        // to the browser preference DB to make it easier to support multiple profiles
-        // and switching between them.
-        AutoFillProfileDatabase autoFillDb = AutoFillProfileDatabase.getInstance(ctx);
-        Cursor c = autoFillDb.getProfile(autoFillActiveProfileId);
-
-        if (c.getCount() > 0) {
-            c.moveToFirst();
-
-            String fullName = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.FULL_NAME));
-            String email = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.EMAIL_ADDRESS));
-            String company = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.COMPANY_NAME));
-            String addressLine1 = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.ADDRESS_LINE_1));
-            String addressLine2 = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.ADDRESS_LINE_2));
-            String city = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.CITY));
-            String state = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.STATE));
-            String zip = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.ZIP_CODE));
-            String country = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.COUNTRY));
-            String phone = c.getString(c.getColumnIndex(
-                    AutoFillProfileDatabase.Profiles.PHONE_NUMBER));
-            autoFillProfile = new AutoFillProfile(autoFillActiveProfileId,
-                    fullName, email, company, addressLine1, addressLine2, city,
-                    state, zip, country, phone);
-        }
-        c.close();
-        autoFillDb.close();
-
-        // PreferenceManager.setDefaultValues is TOO SLOW, need to manually keep
-        // the defaults in sync
-        syncSharedPreferences(ctx, p);
     }
 
     /* package */ void syncSharedPreferences(Context ctx, SharedPreferences p) {

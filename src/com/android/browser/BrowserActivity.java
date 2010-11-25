@@ -52,6 +52,11 @@ public class BrowserActivity extends Activity {
         }
         super.onCreate(icicle);
 
+        // We load the first set of BrowserSettings from the db asynchronously
+        // but if it has not completed at this point, we have no choice but
+        // to block waiting for them to finish loading. :(
+        BrowserSettings.getInstance().waitForLoadFromDbToComplete();
+
         // render the browser in OpenGL
         if (BrowserSettings.getInstance().isHardwareAccelerated()) {
             // Set the flag in the activity's window
