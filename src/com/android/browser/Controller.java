@@ -363,23 +363,40 @@ public class Controller
     }
 
     // Open the icon database and retain all the icons for visited sites.
+    // This is done on a background thread so as not to stall startup.
     private void retainIconsOnStartup() {
-        final WebIconDatabase db = WebIconDatabase.getInstance();
-        db.open(mActivity.getDir("icons", 0).getPath());
-        Cursor c = null;
-        try {
-            c = Browser.getAllBookmarks(mActivity.getContentResolver());
-            if (c.moveToFirst()) {
-                int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
-                do {
-                    String url = c.getString(urlIndex);
-                    db.retainIconForPageUrl(url);
-                } while (c.moveToNext());
+        // WebIconDatabase needs to be retrieved on the UI thread so that if
+        // it has not been created successfully yet the Handler is started on the
+        // UI thread.
+        new RetainIconsOnStartupTask(WebIconDatabase.getInstance()).execute();
+    }
+
+    private class RetainIconsOnStartupTask extends AsyncTask<Void, Void, Void> {
+        private WebIconDatabase mDb;
+
+        public RetainIconsOnStartupTask(WebIconDatabase db) {
+            mDb = db;
+        }
+
+        protected Void doInBackground(Void... unused) {
+            mDb.open(mActivity.getDir("icons", 0).getPath());
+            Cursor c = null;
+            try {
+                c = Browser.getAllBookmarks(mActivity.getContentResolver());
+                if (c.moveToFirst()) {
+                    int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
+                    do {
+                        String url = c.getString(urlIndex);
+                        mDb.retainIconForPageUrl(url);
+                    } while (c.moveToNext());
+                }
+            } catch (IllegalStateException e) {
+                Log.e(LOGTAG, "retainIconsOnStartup", e);
+            } finally {
+                if (c != null) c.close();
             }
-        } catch (IllegalStateException e) {
-            Log.e(LOGTAG, "retainIconsOnStartup", e);
-        } finally {
-            if (c!= null) c.close();
+
+            return null;
         }
     }
 
