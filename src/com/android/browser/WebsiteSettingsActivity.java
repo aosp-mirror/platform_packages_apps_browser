@@ -25,7 +25,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Browser;
+import android.provider.BrowserContract.Bookmarks;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -262,15 +262,15 @@ public class WebsiteSettingsActivity extends ListActivity {
 
             // Check the bookmark DB. If we have data for a host used by any of
             // our origins, use it to set their title and favicon
-            Cursor c = getContext().getContentResolver().query(Browser.BOOKMARKS_URI,
-                    new String[] { Browser.BookmarkColumns.URL, Browser.BookmarkColumns.TITLE,
-                    Browser.BookmarkColumns.FAVICON }, "bookmark = 1", null, null);
+            Cursor c = getContext().getContentResolver().query(Bookmarks.CONTENT_URI,
+                    new String[] { Bookmarks.URL, Bookmarks.TITLE, Bookmarks.FAVICON },
+                    Bookmarks.IS_FOLDER + " == 0", null, null);
 
             if (c != null) {
                 if (c.moveToFirst()) {
-                    int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
-                    int titleIndex = c.getColumnIndex(Browser.BookmarkColumns.TITLE);
-                    int faviconIndex = c.getColumnIndex(Browser.BookmarkColumns.FAVICON);
+                    int urlIndex = c.getColumnIndex(Bookmarks.URL);
+                    int titleIndex = c.getColumnIndex(Bookmarks.TITLE);
+                    int faviconIndex = c.getColumnIndex(Bookmarks.FAVICON);
                     do {
                         String url = c.getString(urlIndex);
                         String host = Uri.parse(url).getHost();
