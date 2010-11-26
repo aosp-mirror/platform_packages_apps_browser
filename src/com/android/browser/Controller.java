@@ -255,7 +255,7 @@ public class Controller
             // we can treat it as a new Browser, remove the old session cookies.
             CookieManager.getInstance().removeSessionCookie();
             // remove any incognito files
-            WebView.cleanupPrivateBrowsingFiles(mActivity);
+            WebView.cleanupPrivateBrowsingFiles();
             final Bundle extra = intent.getExtras();
             // Create an initial tab.
             // If the intent is ACTION_VIEW and data is not null, the Browser is
@@ -289,7 +289,7 @@ public class Controller
         } else {
             mUi.updateTabs(mTabControl.getTabs());
             if (!restoreIncognitoTabs) {
-                WebView.cleanupPrivateBrowsingFiles(mActivity);
+                WebView.cleanupPrivateBrowsingFiles();
             }
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails.
@@ -2178,7 +2178,7 @@ public class Controller
         Tab newtab = mTabControl.getTab(currentIndex);
         setActiveTab(newtab);
         if (!mTabControl.hasAnyOpenIncognitoTabs()) {
-            WebView.cleanupPrivateBrowsingFiles(mActivity);
+            WebView.cleanupPrivateBrowsingFiles();
         }
     }
 
