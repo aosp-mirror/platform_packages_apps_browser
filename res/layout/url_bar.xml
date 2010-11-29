@@ -116,7 +116,8 @@
                 android:lines="1"
                 android:scrollHorizontally="true"
                 android:inputType="textUri"
-                android:imeOptions="actionGo" />
+                android:imeOptions="actionGo"
+                style="@style/Suggestions" />
             <ImageView
                 android:id="@+id/clear"
                 android:src="@drawable/ic_clear_search"

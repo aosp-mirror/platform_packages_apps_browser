@@ -51,6 +51,8 @@
     <style name="ActionButton">
         <item name="android:background">@drawable/browserbarbutton</item>
     </style>
+    <style name="Suggestions" parent="@android:style/Widget.Holo.Light.AutoCompleteTextView">
+    </style>
     <style name="SuggestionLineMedium"
             parent="@android:style/TextAppearance.Holo.Medium.Inverse">
     </style>
