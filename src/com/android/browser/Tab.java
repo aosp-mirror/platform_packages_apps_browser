@@ -497,8 +497,10 @@ class Tab {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            LogTag.logPageFinishedLoading(
-                    url, SystemClock.uptimeMillis() - mLoadStartTime);
+            if (!isPrivateBrowsingEnabled()) {
+                LogTag.logPageFinishedLoading(
+                        url, SystemClock.uptimeMillis() - mLoadStartTime);
+            }
             mInPageLoad = false;
 
             mWebViewController.onPageFinished(Tab.this, url);
