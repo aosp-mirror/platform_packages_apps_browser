@@ -42,6 +42,8 @@
     <string name="ssl_continue" msgid="8031515015829358457">"Continue"</string>
     <string name="security_warning" msgid="6607795404322797541">"Security warning"</string>
     <string name="view_certificate" msgid="1472768887529093862">"View certificate"</string>
+    <!-- no translation found for ssl_go_back (4598951822061593819) -->
+    <skip />
     <string name="ssl_untrusted" msgid="5369967226521102194">"This certificate is not from a trusted authority."</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"The name of the site does not match the name on the certificate."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"This certificate has expired."</string>
@@ -67,6 +69,10 @@
     <!-- no translation found for containing_folder (6771180232953030479) -->
     <skip />
     <!-- no translation found for new_folder (7743540149088867917) -->
+    <skip />
+    <!-- no translation found for edit_folder (621817453133656156) -->
+    <skip />
+    <!-- no translation found for delete_folder (2046483129024501116) -->
     <skip />
     <!-- no translation found for no_subfolders (5880411440592452802) -->
     <skip />
@@ -97,8 +103,10 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"This URL cannot be bookmarked."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Delete"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Bookmark last viewed page"</string>
-    <string name="switch_to_thumbnails" msgid="5493351529609043151">"Thumbnail view"</string>
-    <string name="switch_to_list" msgid="8900531247982121055">"List View"</string>
+    <!-- no translation found for bookmark_thumbnail_view (3104780739986130377) -->
+    <skip />
+    <!-- no translation found for bookmark_list_view (7394379479920174576) -->
+    <skip />
     <string name="current_page" msgid="7510129573681663135">"from "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Bookmark \"<xliff:g id="BOOKMARK">%s</xliff:g>\" will be deleted."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Open in new window"</string>
@@ -117,6 +125,10 @@
     <string name="menu_save_webarchive" msgid="3934652434001459581">"Save as Web Archive"</string>
     <string name="webarchive_saved" msgid="7045250341467345007">"Web archive saved."</string>
     <string name="webarchive_failed" msgid="2880998204746620260">"Failed to save web archive."</string>
+    <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
+    <skip />
+    <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
+    <skip />
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Open"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Open in new window"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Bookmark link"</string>
@@ -217,6 +229,10 @@
     <skip />
     <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
     <skip />
+    <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
+    <skip />
+    <!-- no translation found for autofill_setup_dialog_negative_toast (4653039631354546610) -->
+    <skip />
     <string name="pref_privacy_title" msgid="1052470980370846151">"Privacy settings"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Clear cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Clear locally cached content and databases"</string>
@@ -313,7 +329,8 @@
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download unsuccessful"</string>
     <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"No SD card"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"No SD card"</string>
-    <!-- outdated translation 2616399456116301518 -->     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"An SD card is required to download <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <!-- no translation found for download_no_sdcard_dlg_msg (3144652102051031721) -->
+    <skip />
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"An SD card is required to download <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"SD card unavailable"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD card unavailable"</string>
