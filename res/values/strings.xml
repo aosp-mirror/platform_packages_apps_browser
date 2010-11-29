@@ -871,4 +871,10 @@
 
     <!-- Button allowing users to import all of their existing bookmarks into an account when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
     <string name="import_bookmarks_dialog_import">Add your Android bookmarks to bookmarks for <xliff:g id="Google account" example="account@example.com">%s</xliff:g></string>
+
+    <!-- Url Selection Action Mode -->
+
+    <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+    <string name="menu_share_url">Share</string>
+
 </resources>

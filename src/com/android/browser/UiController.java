@@ -75,4 +75,6 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     void endActionMode();
 
+    void shareCurrentPage();
+
 }

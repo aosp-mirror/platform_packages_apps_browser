@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 style="@style/HoloIcon"
                 android:visibility="gone" />
-            <EditText
+            <TextView
                 android:id="@+id/url_unfocused"
                 android:layout_width="0dip"
                 android:layout_weight="1.0"
@@ -76,9 +76,7 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:lines="1"
-                android:scrollHorizontally="true"
-                android:inputType="textUri"
-                android:imeOptions="actionGo" />
+                android:scrollHorizontally="true" />
             <ImageButton
                 android:id="@+id/star"
                 android:src="@drawable/ic_favorite_off_normal"

@@ -22,7 +22,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -36,7 +35,8 @@ import android.widget.TextView.OnEditorActionListener;
  * handling suggestions
  */
 public class UrlInputView extends AutoCompleteTextView
-        implements OnFocusChangeListener, OnEditorActionListener, CompletionListener {
+        implements OnFocusChangeListener, OnEditorActionListener,
+        CompletionListener {
 
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
@@ -66,9 +66,15 @@ public class UrlInputView extends AutoCompleteTextView
         super.setOnFocusChangeListener(this);
         mAdapter = new SuggestionsAdapter(ctx, this);
         setAdapter(mAdapter);
-        setSelectAllOnFocus(false);
+        setSelectAllOnFocus(true);
         onConfigurationChanged(ctx.getResources().getConfiguration());
         setThreshold(1);
+    }
+
+    void setController(UiController controller) {
+        UrlSelectionActionMode urlSelectionMode
+                = new UrlSelectionActionMode(controller);
+        setCustomSelectionActionModeCallback(urlSelectionMode);
     }
 
     void setContainer(View container) {
@@ -106,12 +112,6 @@ public class UrlInputView extends AutoCompleteTextView
         if (getLeft() != -getDropDownHorizontalOffset()) {
             setDropDownHorizontalOffset(-getLeft());
         }
-    }
-
-    @Override
-    public ActionMode startActionMode(ActionMode.Callback callback) {
-        // suppress selection action mode
-        return null;
     }
 
     @Override
