@@ -42,7 +42,7 @@
         android:id="@+id/select_bookmark_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/switch_to_thumbnails"
+        android:text="@string/bookmark_thumbnail_view"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:gravity="center_vertical" />
 
