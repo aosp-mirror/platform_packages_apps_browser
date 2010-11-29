@@ -24,8 +24,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Browser;
+import android.provider.BrowserContract.Bookmarks;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -242,67 +243,94 @@ public class WebsiteSettingsActivity extends ListActivity {
 
         public void populateIcons(Map<String, Site> sites) {
             // Create a map from host to origin. This is used to add metadata
-            // (title, icon) for this origin from the bookmarks DB.
-            HashMap<String, Set<Site>> hosts = new HashMap<String, Set<Site>>();
-            Set<Map.Entry<String, Site>> elements = sites.entrySet();
-            Iterator<Map.Entry<String, Site>> originIter = elements.iterator();
-            while (originIter.hasNext()) {
-                Map.Entry<String, Site> entry = originIter.next();
-                Site site = entry.getValue();
-                String host = Uri.parse(entry.getKey()).getHost();
-                Set<Site> hostSites = null;
-                if (hosts.containsKey(host)) {
-                    hostSites = (Set<Site>)hosts.get(host);
-                } else {
-                    hostSites = new HashSet<Site>();
-                    hosts.put(host, hostSites);
-                }
-                hostSites.add(site);
+            // (title, icon) for this origin from the bookmarks DB. We must do
+            // the DB access on a background thread.
+            new UpdateFromBookmarksDbTask(this.getContext(), sites).execute();
+        }
+
+        private class UpdateFromBookmarksDbTask extends AsyncTask<Void, Void, Void> {
+
+            private Context mContext;
+            private boolean mDataSetChanged;
+            private Map<String, Site> mSites;
+
+            public UpdateFromBookmarksDbTask(Context ctx, Map<String, Site> sites) {
+                mContext = ctx;
+                mSites = sites;
             }
 
-            // Check the bookmark DB. If we have data for a host used by any of
-            // our origins, use it to set their title and favicon
-            Cursor c = getContext().getContentResolver().query(Browser.BOOKMARKS_URI,
-                    new String[] { Browser.BookmarkColumns.URL, Browser.BookmarkColumns.TITLE,
-                    Browser.BookmarkColumns.FAVICON }, "bookmark = 1", null, null);
-
-            if (c != null) {
-                if (c.moveToFirst()) {
-                    int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
-                    int titleIndex = c.getColumnIndex(Browser.BookmarkColumns.TITLE);
-                    int faviconIndex = c.getColumnIndex(Browser.BookmarkColumns.FAVICON);
-                    do {
-                        String url = c.getString(urlIndex);
-                        String host = Uri.parse(url).getHost();
-                        if (hosts.containsKey(host)) {
-                            String title = c.getString(titleIndex);
-                            Bitmap bmp = null;
-                            byte[] data = c.getBlob(faviconIndex);
-                            if (data != null) {
-                                bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                            }
-                            Set matchingSites = (Set) hosts.get(host);
-                            Iterator<Site> sitesIter = matchingSites.iterator();
-                            while (sitesIter.hasNext()) {
-                                Site site = sitesIter.next();
-                                // We should only set the title if the bookmark is for the root
-                                // (i.e. www.google.com), as website settings act on the origin
-                                // as a whole rather than a single page under that origin. If the
-                                // user has bookmarked a page under the root but *not* the root,
-                                // then we risk displaying the title of that page which may or
-                                // may not have any relevance to the origin.
-                                if (url.equals(site.getOrigin()) ||
-                                        (new String(site.getOrigin()+"/")).equals(url)) {
-                                    site.setTitle(title);
-                                }
-                                if (bmp != null) {
-                                    site.setIcon(bmp);
-                                }
-                            }
-                        }
-                    } while (c.moveToNext());
+            protected Void doInBackground(Void... unused) {
+                HashMap<String, Set<Site>> hosts = new HashMap<String, Set<Site>>();
+                Set<Map.Entry<String, Site>> elements = mSites.entrySet();
+                Iterator<Map.Entry<String, Site>> originIter = elements.iterator();
+                while (originIter.hasNext()) {
+                    Map.Entry<String, Site> entry = originIter.next();
+                    Site site = entry.getValue();
+                    String host = Uri.parse(entry.getKey()).getHost();
+                    Set<Site> hostSites = null;
+                    if (hosts.containsKey(host)) {
+                        hostSites = (Set<Site>)hosts.get(host);
+                    } else {
+                        hostSites = new HashSet<Site>();
+                        hosts.put(host, hostSites);
+                    }
+                    hostSites.add(site);
                 }
-                c.close();
+
+                // Check the bookmark DB. If we have data for a host used by any of
+                // our origins, use it to set their title and favicon
+                Cursor c = mContext.getContentResolver().query(Bookmarks.CONTENT_URI,
+                        new String[] { Bookmarks.URL, Bookmarks.TITLE, Bookmarks.FAVICON },
+                        Bookmarks.IS_FOLDER + " == 0", null, null);
+
+                if (c != null) {
+                    if (c.moveToFirst()) {
+                        int urlIndex = c.getColumnIndex(Bookmarks.URL);
+                        int titleIndex = c.getColumnIndex(Bookmarks.TITLE);
+                        int faviconIndex = c.getColumnIndex(Bookmarks.FAVICON);
+                        do {
+                            String url = c.getString(urlIndex);
+                            String host = Uri.parse(url).getHost();
+                            if (hosts.containsKey(host)) {
+                                String title = c.getString(titleIndex);
+                                Bitmap bmp = null;
+                                byte[] data = c.getBlob(faviconIndex);
+                                if (data != null) {
+                                    bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                }
+                                Set matchingSites = (Set) hosts.get(host);
+                                Iterator<Site> sitesIter = matchingSites.iterator();
+                                while (sitesIter.hasNext()) {
+                                    Site site = sitesIter.next();
+                                    // We should only set the title if the bookmark is for the root
+                                    // (i.e. www.google.com), as website settings act on the origin
+                                    // as a whole rather than a single page under that origin. If the
+                                    // user has bookmarked a page under the root but *not* the root,
+                                    // then we risk displaying the title of that page which may or
+                                    // may not have any relevance to the origin.
+                                    if (url.equals(site.getOrigin()) ||
+                                            (new String(site.getOrigin()+"/")).equals(url)) {
+                                        mDataSetChanged = true;
+                                        site.setTitle(title);
+                                    }
+
+                                    if (bmp != null) {
+                                        mDataSetChanged = true;
+                                        site.setIcon(bmp);
+                                    }
+                                }
+                            }
+                        } while (c.moveToNext());
+                    }
+                    c.close();
+                }
+            return null;
+            }
+
+            protected void onPostExecute(Void unused) {
+                if (mDataSetChanged) {
+                    notifyDataSetChanged();
+                }
             }
         }
 

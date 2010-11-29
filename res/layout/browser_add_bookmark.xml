@@ -93,7 +93,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
       </TableRow>
 
-      <TableRow>
+      <TableRow
+          android:id="@+id/row_address">
         <TextView
             android:id="@+id/addressText"
             android:layout_height="wrap_content"

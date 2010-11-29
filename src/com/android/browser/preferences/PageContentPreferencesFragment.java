@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 
 public class PageContentPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
@@ -63,6 +64,13 @@ public class PageContentPreferencesFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object objValue) {
+        if (getActivity() == null) {
+            // We aren't attached, so don't accept preferences changes from the
+            // invisible UI.
+            Log.w("PageContentPreferencesFragment", "onPreferenceChange called from detached fragment!");
+            return false;
+        }
+
         if (pref.getKey().equals(BrowserSettings.PREF_HOMEPAGE)) {
             String value = (String) objValue;
             boolean needUpdate = value.indexOf(' ') != -1;

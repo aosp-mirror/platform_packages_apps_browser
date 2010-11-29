@@ -135,7 +135,7 @@
 
         <CheckBoxPreference
                 android:key="autofill_enabled"
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:title="@string/pref_autofill_enabled"
                 android:summary="@string/pref_autofill_enabled_summary" />
 

@@ -18,7 +18,6 @@ package com.android.browser;
 
 import com.android.browser.SuggestionsAdapter.CompletionListener;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
@@ -68,6 +67,7 @@ public class UrlInputView extends AutoCompleteTextView
         setAdapter(mAdapter);
         setSelectAllOnFocus(false);
         onConfigurationChanged(ctx.getResources().getConfiguration());
+        setThreshold(1);
     }
 
     void setContainer(View container) {
@@ -76,29 +76,35 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     protected void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
         mLandscape = (config.orientation &
                 Configuration.ORIENTATION_LANDSCAPE) > 0;
+        mAdapter.setLandscapeMode(mLandscape);
         if (isPopupShowing() && (getVisibility() == View.VISIBLE)) {
-            dismissDropDown();
-            getFilter().filter(getText());
+            setupDropDown();
         }
     }
 
     @Override
     public void showDropDown() {
+        setupDropDown();
+        super.showDropDown();
+    }
+
+    @Override
+    public void dismissDropDown() {
+        super.dismissDropDown();
+        mAdapter.clearCache();
+    }
+
+    private void setupDropDown() {
         int width = mContainer.getWidth();
-        if (mLandscape && ((mAdapter.getLeftCount() == 0) ||
-                (mAdapter.getRightCount() == 0))) {
-            width = width / 2;
-        }
         if (width != getDropDownWidth()) {
             setDropDownWidth(width);
         }
         if (getLeft() != -getDropDownHorizontalOffset()) {
             setDropDownHorizontalOffset(-getLeft());
         }
-        mAdapter.setLandscapeMode(mLandscape);
-        super.showDropDown();
     }
 
     @Override

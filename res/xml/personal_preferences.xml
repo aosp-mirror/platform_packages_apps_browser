@@ -24,6 +24,7 @@
     <CheckBoxPreference android:key="autofill_enabled"
         android:title="@string/pref_autofill_enabled"
         android:summary="@string/pref_autofill_enabled_summary"
+        android:defaultValue="true"
     />
 
     <PreferenceScreen

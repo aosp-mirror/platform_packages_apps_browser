@@ -22,16 +22,14 @@
     android:paddingRight="16dip"
     android:orientation="vertical"
     android:background="@color/black">
-    <RelativeLayout
-        android:id="@+id/bar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dip">
+
         <LinearLayout
             android:id="@+id/tabs"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="16dip"
-            android:paddingRight="16dip">
+            android:layout_height="match_parent">
             <TextView
                 android:id="@+id/historytab"
                 android:layout_width="wrap_content"
@@ -58,25 +56,34 @@
                 android:text="@string/bookmarks"
                 android:drawableLeft="@drawable/ic_tab_bookmarks_selected"
                 android:drawablePadding="16dip" />
-            <com.android.browser.BreadCrumbView
-                android:id="@+id/crumbs"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="16dip"
-                android:paddingRight="16dip" />
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/header_container"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/seperate_select_add"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="16dip"
+            android:paddingLeft="16dip"
+            android:src="@drawable/divider_vert" />
+
         <TextView
             android:id="@+id/addbm"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/add_new_bookmark"
-            android:layout_alignParentRight="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="center_vertical"
             android:background="@null"
             android:drawableLeft="@drawable/ic_favorite_off_normal"
             android:drawablePadding="16dip" />
-    </RelativeLayout>
+
+    </LinearLayout>
     <FrameLayout
         android:id="@+id/fragment"
         android:paddingTop="8dip"

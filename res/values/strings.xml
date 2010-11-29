@@ -131,6 +131,10 @@
     <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
     <string name="new_folder">New folder</string>
+    <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+    <string name="edit_folder">Edit folder</string>
+    <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+    <string name="delete_folder">Delete folder</string>
     <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
     <string name="no_subfolders">No subfolders</string>
@@ -184,11 +188,11 @@
             showing. -->
     <string name="bookmark_page">Bookmark last-viewed page</string>
     <!-- Menu item in the page that displays all bookmarks.  Switches to
-            a grid view which shows thumbnails -->
-    <string name="switch_to_thumbnails">Thumbnail view</string>
+            a grid view which shows thumbnails [CHAR LIMIT=50] -->
+    <string name="bookmark_thumbnail_view">Thumbnail view</string>
     <!-- Menu item in the page that displays all bookmarks.  Switches to a
-            list view which shows titles -->
-    <string name="switch_to_list">List view</string>
+            list view which shows titles [CHAR LIMIT=50] -->
+    <string name="bookmark_list_view">List view</string>
     <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
@@ -230,6 +234,10 @@
     <string name="webarchive_saved">Web archive saved.</string>
     <!-- Toast informing the user that saving the page has failed. -->
     <string name="webarchive_failed">Failed to save web archive.</string>
+    <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+    <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> bookmarks</string>
+    <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+    <string name="contextheader_folder_empty">Empty folder</string>
     <!-- Context Menu item open the currently selected link in the current
             window.-->
     <string name="contextmenu_openlink">Open</string>

@@ -17,62 +17,51 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 public class ShortcutActivity extends Activity
-    implements BookmarksHistoryCallbacks {
+    implements BookmarksPageCallbacks {
+
+    private BrowserBookmarksPage mBookmarks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO: Is this needed?
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction transaction = fm.openTransaction();
-        Bundle extras = new Bundle();
-        extras.putBoolean(BrowserBookmarksPage.EXTRA_SHORTCUT, true);
-        extras.putBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW, true);
-        Fragment frag = BrowserBookmarksPage.newInstance(this, null, extras);
-        transaction.add(android.R.id.content, frag);
-        transaction.commit();
+        mBookmarks = BrowserBookmarksPage.newInstance(this, null, null);
+        mBookmarks.setEnableContextMenu(false);
+        mBookmarks.setShowRootFolder(true);
+        getFragmentManager()
+                .openTransaction()
+                .add(android.R.id.content, mBookmarks)
+                .commit();
     }
 
+    // BookmarksPageCallbacks
 
-    /**
-     * handle fragment startActivity
-     */
     @Override
-    public void startActivityFromFragment(Fragment f, Intent intent, int requestCode) {
+    public boolean onBookmarkSelected(Cursor c, boolean isFolder) {
+        if (isFolder) {
+            return false;
+        }
+        Intent intent = BrowserBookmarksPage.createShortcutIntent(this, c);
         setResult(RESULT_OK, intent);
         finish();
+        return true;
     }
 
     @Override
-    public void finish() {
-        super.finish();
+    public boolean onOpenInNewWindow(Cursor c) {
+        return false;
     }
 
-    // BookmarksHistoryCallbacks
-
-    /**
-     * not used for shortcuts
-     */
     @Override
-    public void onRemoveParentChildRelationships() {}
-
-    @Override
-    public void onComboCanceled() {
-        setResult(RESULT_CANCELED);
-        finish();
+    public void onBackPressed() {
+        if (!mBookmarks.onBackPressed()) {
+            super.onBackPressed();
+        }
     }
-
-    /**
-     * not used for shortcuts
-     */
-    @Override
-    public void onUrlSelected(String url, boolean newWindow) {}
-
 }

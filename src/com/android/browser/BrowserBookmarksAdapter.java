@@ -20,42 +20,102 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CursorAdapter;
 import android.widget.ImageView;
-import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-class BrowserBookmarksAdapter extends ResourceCursorAdapter {
+class BrowserBookmarksAdapter extends CursorAdapter {
+    LayoutInflater mInflater;
+    int mCurrentView;
+
     /**
      *  Create a new BrowserBookmarksAdapter.
      */
-    public BrowserBookmarksAdapter(Context context) {
+    public BrowserBookmarksAdapter(Context context, int defaultView) {
         // Make sure to tell the CursorAdapter to avoid the observer and auto-requery
         // since the Loader will do that for us.
-        super(context, R.layout.bookmark_thumbnail, null);
+        super(context, null);
+        mInflater = LayoutInflater.from(context);
+        selectView(defaultView);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        if (mCurrentView == BrowserBookmarksPage.VIEW_LIST) {
+            bindListView(view, context, cursor);
+        } else {
+            bindGridView(view, context, cursor);
+        }
+    }
+
+    void bindGridView(View view, Context context, Cursor cursor) {
         ImageView thumb = (ImageView) view.findViewById(R.id.thumb);
         TextView tv = (TextView) view.findViewById(R.id.label);
 
         tv.setText(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
-        Bitmap thumbnail = null;
         if (cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0) {
             // folder
             thumb.setImageResource(R.drawable.ic_folder);
         } else {
-            byte[] data = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_THUMBNAIL);
-            if (data != null) {
-                thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
+            byte[] thumbData = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_THUMBNAIL);
+            Bitmap thumbBitmap = null;
+            if (thumbData != null) {
+                thumbBitmap = BitmapFactory.decodeByteArray(thumbData, 0, thumbData.length);
             }
 
-            if (thumbnail == null) {
+            if (thumbBitmap == null) {
                 thumb.setImageResource(R.drawable.browser_thumbnail);
             } else {
-                thumb.setImageBitmap(thumbnail);
+                thumb.setImageBitmap(thumbBitmap);
             }
         }
+    }
+
+    void bindListView(View view, Context context, Cursor cursor) {
+        ImageView favicon = (ImageView) view.findViewById(R.id.favicon);
+        TextView tv = (TextView) view.findViewById(R.id.label);
+
+        tv.setText(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
+        if (cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0) {
+            // folder
+            favicon.setImageResource(R.drawable.ic_folder);
+        } else {
+            byte[] faviconData = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_FAVICON);
+            Bitmap faviconBitmap = null;
+            if (faviconData != null) {
+                faviconBitmap = BitmapFactory.decodeByteArray(faviconData, 0, faviconData.length);
+            }
+
+            if (faviconBitmap == null) {
+                favicon.setImageResource(R.drawable.app_web_browser_sm);
+            } else {
+                favicon.setImageBitmap(faviconBitmap);
+            }
+        }
+    }
+
+    @Override
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        if (mCurrentView == BrowserBookmarksPage.VIEW_LIST) {
+            return mInflater.inflate(R.layout.bookmark_list, parent, false);
+        } else {
+            return mInflater.inflate(R.layout.bookmark_thumbnail, parent, false);
+        }
+    }
+
+    public void selectView(int view) {
+        if (view != BrowserBookmarksPage.VIEW_LIST
+                && view != BrowserBookmarksPage.VIEW_THUMBNAILS) {
+            throw new IllegalArgumentException("Unknown view specified: " + view);
+        }
+        mCurrentView = view;
+    }
+
+    @Override
+    public Cursor getItem(int position) {
+        return (Cursor) super.getItem(position);
     }
 }
