@@ -55,6 +55,8 @@
         <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:textStyle">normal</item>
     </style>
+    <style name="Suggestions" parent="@android:style/Widget.AutoCompleteTextView">
+    </style>
     <style name="SuggestionLineMedium" parent="@android:style/TextAppearance.Medium">
     </style>
     <style name="SuggestionLineSmall" parent="@android:style/TextAppearance.Small">

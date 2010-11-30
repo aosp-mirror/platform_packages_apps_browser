@@ -41,6 +41,8 @@
     <string name="ssl_continue" msgid="8031515015829358457">"Fortsæt"</string>
     <string name="security_warning" msgid="6607795404322797541">"Sikkerhedsadvarsel"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Vis certifikat"</string>
+    <!-- no translation found for ssl_go_back (4598951822061593819) -->
+    <skip />
     <string name="ssl_untrusted" msgid="5369967226521102194">"Dette certifikat stammer ikke fra en troværdig kilde."</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"Navnet på dette websted stemmer ikke overens med navnet på certifikatet."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Dette certifikat er udløbet."</string>
@@ -65,6 +67,10 @@
     <string name="location" msgid="3411848697912600125">"Adresse"</string>
     <string name="containing_folder" msgid="6771180232953030479">"Føj til"</string>
     <string name="new_folder" msgid="7743540149088867917">"Ny mappe"</string>
+    <!-- no translation found for edit_folder (621817453133656156) -->
+    <skip />
+    <!-- no translation found for delete_folder (2046483129024501116) -->
+    <skip />
     <string name="no_subfolders" msgid="5880411440592452802">"Ingen undermapper"</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Bogmærker"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Startskærm"</string>
@@ -74,7 +80,7 @@
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Føj til bogmærker"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Tilføj side som bogmærke"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Rediger bogmærke"</string>
-    <!-- outdated translation 4528337239019328891 -->     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Føj til Startskærm"</string>
+    <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Føj genvej til startskærm"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Åbn"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Slet bogmærke"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Fjern fra bogmærker"</string>
@@ -89,8 +95,10 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Denne webadresse kan ikke tilføjes som bogmærke."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Slet"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Opret bogmærke for sidst viste side"</string>
-    <string name="switch_to_thumbnails" msgid="5493351529609043151">"Miniaturevisning"</string>
-    <string name="switch_to_list" msgid="8900531247982121055">"Listevisning"</string>
+    <!-- no translation found for bookmark_thumbnail_view (3104780739986130377) -->
+    <skip />
+    <!-- no translation found for bookmark_list_view (7394379479920174576) -->
+    <skip />
     <string name="current_page" msgid="7510129573681663135">"fra "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Bogmærket \"<xliff:g id="BOOKMARK">%s</xliff:g>\" slettes."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Åbn i et nyt vindue"</string>
@@ -108,6 +116,10 @@
     <string name="menu_save_webarchive" msgid="3934652434001459581">"Gem som webarkiv"</string>
     <string name="webarchive_saved" msgid="7045250341467345007">"Webarkivet blev gemt."</string>
     <string name="webarchive_failed" msgid="2880998204746620260">"Webarkivet blev ikke gemt."</string>
+    <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
+    <skip />
+    <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
+    <skip />
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Åbn"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Åbn i et nyt vindue"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Opret et bogmærke for linket"</string>
@@ -177,6 +189,10 @@
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profilen er gemt"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profilen er slettet"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"Slet profildata"</string>
+    <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
+    <skip />
+    <!-- no translation found for autofill_setup_dialog_negative_toast (4653039631354546610) -->
+    <skip />
     <string name="pref_privacy_title" msgid="1052470980370846151">"Indstillinger for fortrolighed"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Ryd cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ryd lokalt cachelagret indhold og databaser"</string>

@@ -81,14 +81,14 @@ public class PersonalPreferencesFragment extends PreferenceFragment
         refreshUi(context);
     }
 
-    private class GetAccountsTask extends AsyncTask<Void, Void, Void> {
+    private class GetAccountsTask extends AsyncTask<Void, Void, String> {
         private Context mContext;
 
         GetAccountsTask(Context ctx) {
             mContext = ctx;
         }
 
-        protected Void doInBackground(Void... unused) {
+        protected String doInBackground(Void... unused) {
             AccountManager am = (AccountManager) mContext.getSystemService(Context.ACCOUNT_SERVICE);
             Account[] accounts = am.getAccountsByType("com.google");
             if (accounts == null || accounts.length == 0) {
@@ -97,25 +97,33 @@ public class PersonalPreferencesFragment extends PreferenceFragment
                     getPreferenceScreen().removePreference(mChromeSync);
                 }
             } else {
+                // Google accounts are present.
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
                 Bundle args = mChromeSync.getExtras();
                 args.putParcelableArray("accounts", accounts);
                 mEnabled = BrowserContract.Settings.isSyncEnabled(mContext);
+                mChromeSync.setOnPreferenceClickListener(PersonalPreferencesFragment.this);
+
                 if (!mEnabled) {
-                    // Google accounts are present, but Chrome sync isn't enabled yet.
                     // Setup a link to the enable wizard
-                    mChromeSync.setSummary(R.string.pref_personal_sync_with_chrome_summary);
+                    return mContext.getResources().getString(
+                            R.string.pref_personal_sync_with_chrome_summary);
                 } else {
                     // Chrome sync is enabled, setup a link to account switcher
-                    String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME,
-                            null);
-                    mChromeSync.setSummary(accountName);
+                    String accountName = prefs.getString(
+                            BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
                     args.putString("curAccount", accountName);
+                    return accountName;
                 }
-                mChromeSync.setOnPreferenceClickListener(PersonalPreferencesFragment.this);
             }
 
             return null;
+        }
+
+        protected void onPostExecute(String summary) {
+            if (summary != null) {
+                mChromeSync.setSummary(summary);
+            }
         }
     }
 
