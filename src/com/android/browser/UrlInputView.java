@@ -20,6 +20,7 @@ import com.android.browser.SuggestionsAdapter.CompletionListener;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.KeyEvent;
@@ -148,7 +149,7 @@ public class UrlInputView extends AutoCompleteTextView
         this.dismissDropDown();
         this.setSelection(0,0);
         mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
-        if (url == null) {
+        if (TextUtils.isEmpty(url)) {
             mListener.onDismiss();
         } else {
             mListener.onAction(url, extra);
