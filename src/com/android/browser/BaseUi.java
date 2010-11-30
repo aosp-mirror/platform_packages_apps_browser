@@ -201,6 +201,9 @@ public class BaseUi implements UI, WebViewFactory {
         if (mActiveTabsPage != null) {
             mUiController.removeActiveTabsPage(true);
         }
+        if (isCustomViewShowing()) {
+            onHideCustomView();
+        }
         cancelStopToast();
         mActivityPaused = true;
     }
