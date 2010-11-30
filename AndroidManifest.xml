@@ -168,10 +168,6 @@
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
-        <activity android:name="WebsiteSettingsActivity" android:label=""
-                  android:configChanges="orientation|keyboardHidden">
-        </activity>
-
         <activity android:name="BookmarkSearch"
                   android:label="@string/bookmarks_search"
                   android:stateNotNeeded="true"
