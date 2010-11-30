@@ -69,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:stretchColumns="1"
+        android:shrinkColumns="1"
         android:paddingTop="20dip"
         android:paddingLeft="20dip"
         android:paddingRight="20dip" >
