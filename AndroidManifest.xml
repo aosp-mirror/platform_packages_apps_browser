@@ -160,8 +160,7 @@
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
-        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences"
-                  android:configChanges="orientation|keyboardHidden">
+        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences">
         </activity>
 
         <activity android:name="BrowserHistoryPage" android:label=""
