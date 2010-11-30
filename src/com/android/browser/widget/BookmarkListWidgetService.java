@@ -24,6 +24,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -31,9 +32,8 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.net.Uri;
-import android.os.Binder;
+import android.os.AsyncTask;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Bookmarks;
@@ -101,7 +101,6 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             BookmarkFactory fac = mFactories.get(widgetId);
             if (fac != null && folderId >= 0) {
                 fac.changeFolder(folderId);
-                AppWidgetManager.getInstance(this).notifyAppWidgetViewDataChanged(widgetId, R.id.bookmarks_list);
             }
         }
         return START_STICKY;
@@ -123,10 +122,11 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             super.onChange(selfChange);
 
             // Update all the bookmark widgets
-            sendBroadcast(new Intent(
-                    BookmarkListWidgetProvider.ACTION_BOOKMARK_APPWIDGET_UPDATE,
-                    null, BookmarkListWidgetService.this,
-                    BookmarkListWidgetProvider.class));
+            if (mFactories != null) {
+                for (BookmarkFactory fac : mFactories.values()) {
+                    fac.loadData();
+                }
+            }
         }
     }
 
@@ -137,7 +137,10 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             Log.w(TAG, "Missing EXTRA_APPWIDGET_ID!");
             return null;
         } else {
-            BookmarkFactory fac = new BookmarkFactory(this, widgetId);
+            BookmarkFactory fac = mFactories.get(widgetId);
+            if (fac == null) {
+                fac = new BookmarkFactory(getApplicationContext(), widgetId);
+            }
             mFactories.put(widgetId, fac);
             return fac;
         }
@@ -152,13 +155,15 @@ public class BookmarkListWidgetService extends RemoteViewsService {
         }
     }
 
-    static class BookmarkFactory implements RemoteViewsService.RemoteViewsFactory {
+    static class BookmarkFactory implements RemoteViewsService.RemoteViewsFactory,
+            OnSharedPreferenceChangeListener {
         private List<RenderResult> mBookmarks;
         private Context mContext;
         private int mWidgetId;
         private String mAccountType;
         private String mAccountName;
         private Stack<Breadcrumb> mBreadcrumbs;
+        private LoadBookmarksTask mLoadTask;
 
         public BookmarkFactory(Context context, int widgetId) {
             mBreadcrumbs = new Stack<Breadcrumb>();
@@ -171,12 +176,14 @@ public class BookmarkListWidgetService extends RemoteViewsService {
 
             if (!mBreadcrumbs.empty() && mBreadcrumbs.peek().mId == folderId) {
                 mBreadcrumbs.pop();
+                loadData();
                 return;
             }
 
             for (RenderResult res : mBookmarks) {
                 if (res.mId == folderId) {
                     mBreadcrumbs.push(new Breadcrumb(res.mId, res.mTitle));
+                    loadData();
                     break;
                 }
             }
@@ -264,30 +271,55 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
             mAccountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
             mAccountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+            prefs.registerOnSharedPreferenceChangeListener(this);
             loadData();
         }
 
         @Override
         public void onDestroy() {
             recycleBitmaps();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            prefs.unregisterOnSharedPreferenceChangeListener(this);
         }
 
         @Override
         public void onDataSetChanged() {
-            loadData();
         }
 
         void loadData() {
-            // Reset identity since this could be an IPC call
-            long token = Binder.clearCallingIdentity();
-            update();
-            Binder.restoreCallingIdentity(token);
+            if (mLoadTask != null) {
+                mLoadTask.cancel(false);
+            }
+            mLoadTask = new LoadBookmarksTask();
+            mLoadTask.execute();
         }
 
-        void update() {
-            recycleBitmaps();
+        class LoadBookmarksTask extends AsyncTask<Void, Void, List<RenderResult>> {
+            private Breadcrumb mFolder;
+
+            @Override
+            protected void onPreExecute() {
+                mFolder = mBreadcrumbs.empty() ? null : mBreadcrumbs.peek();
+            }
+
+            @Override
+            protected List<RenderResult> doInBackground(Void... params) {
+                return loadBookmarks(mFolder);
+            }
+
+            @Override
+            protected void onPostExecute(List<RenderResult> result) {
+                if (!isCancelled() && result != null) {
+                    recycleBitmaps();
+                    mBookmarks = result;
+                    AppWidgetManager.getInstance(mContext)
+                            .notifyAppWidgetViewDataChanged(mWidgetId, R.id.bookmarks_list);
+                }
+            }
+        }
+
+        List<RenderResult> loadBookmarks(Breadcrumb folder) {
             String where = null;
-            Breadcrumb folder = mBreadcrumbs.empty() ? null : mBreadcrumbs.peek();
             Uri uri;
             if (USE_FOLDERS) {
                 uri = BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER;
@@ -301,18 +333,21 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             if (!TextUtils.isEmpty(mAccountType) && !TextUtils.isEmpty(mAccountName)) {
                 uri = uri.buildUpon()
                         .appendQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE, mAccountType)
-                        .appendQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME, mAccountName).build();
+                        .appendQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME, mAccountName)
+                        .build();
             }
             Cursor c = null;
             try {
                 c = mContext.getContentResolver().query(uri, PROJECTION,
                         where, null, null);
                 if (c != null) {
-                    mBookmarks = new ArrayList<RenderResult>(c.getCount() + 1);
+                    ArrayList<RenderResult> bookmarks
+                            = new ArrayList<RenderResult>(c.getCount() + 1);
                     if (folder != null) {
-                        RenderResult res = new RenderResult(folder.mId, folder.mTitle, null);
+                        RenderResult res = new RenderResult(
+                                folder.mId, folder.mTitle, null);
                         res.mIsFolder = true;
-                        mBookmarks.add(res);
+                        bookmarks.add(res);
                     }
                     while (c.moveToNext()) {
                         long id = c.getLong(0);
@@ -328,8 +363,9 @@ public class BookmarkListWidgetService extends RemoteViewsService {
                                     blob, 0, blob.length, options);
                         }
                         res.mIsFolder = c.getInt(4) != 0;
-                        mBookmarks.add(res);
+                        bookmarks.add(res);
                     }
+                    return bookmarks;
                 }
             } catch (IllegalStateException e) {
                 Log.e(TAG, "update bookmark widget", e);
@@ -338,6 +374,7 @@ public class BookmarkListWidgetService extends RemoteViewsService {
                     c.close();
                 }
             }
+            return null;
         }
 
         private void recycleBitmaps() {
@@ -349,6 +386,21 @@ public class BookmarkListWidgetService extends RemoteViewsService {
                         res.mBitmap = null;
                     }
                 }
+            }
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(
+                SharedPreferences prefs, String key) {
+            if (BrowserBookmarksPage.PREF_ACCOUNT_TYPE.equals(key)) {
+                mAccountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+                mBreadcrumbs.clear();
+                loadData();
+            }
+            if (BrowserBookmarksPage.PREF_ACCOUNT_NAME.equals(key)) {
+                mAccountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+                mBreadcrumbs.clear();
+                loadData();
             }
         }
     }
