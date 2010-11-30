@@ -42,6 +42,8 @@ public interface WebViewController {
 
     WebViewFactory getWebViewFactory();
 
+    void onSetWebView(Tab tab, WebView view);
+
     void createSubWindow(Tab tab);
 
     void onPageStarted(Tab tab, WebView view, String url, Bitmap favicon);

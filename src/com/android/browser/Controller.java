@@ -317,6 +317,11 @@ public class Controller
     }
 
     @Override
+    public void onSetWebView(Tab tab, WebView view) {
+        mUi.onSetWebView(tab, view);
+    }
+
+    @Override
     public void createSubWindow(Tab tab) {
         endActionMode();
         WebView mainView = tab.getWebView();
