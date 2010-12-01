@@ -18,8 +18,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="8dip"
-    android:paddingLeft="16dip"
-    android:paddingRight="16dip"
     android:orientation="vertical"
     android:background="@color/black">
     <LinearLayout
@@ -29,22 +27,8 @@
         <LinearLayout
             android:id="@+id/tabs"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/historytab"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="32dip"
-                android:paddingRight="32dip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:gravity="center_vertical"
-                android:text="@string/tab_history"
-                android:drawableLeft="@drawable/ic_tab_history_selected"
-                android:drawablePadding="16dip" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/divider_vert" />
+            android:layout_height="match_parent"
+            style="@style/ActionBarStyle">
             <TextView
                 android:id="@+id/bmtab"
                 android:layout_width="wrap_content"
@@ -55,7 +39,26 @@
                 android:gravity="center_vertical"
                 android:text="@string/bookmarks"
                 android:drawableLeft="@drawable/ic_tab_bookmarks_selected"
-                android:drawablePadding="16dip" />
+                android:drawablePadding="16dip"
+                android:background="@drawable/tab_background" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:src="@drawable/divider_vert" />
+            <TextView
+                android:id="@+id/historytab"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="32dip"
+                android:paddingRight="32dip"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center_vertical"
+                android:text="@string/tab_history"
+                android:drawableLeft="@drawable/ic_tab_history_selected"
+                android:drawablePadding="16dip"
+                android:background="@drawable/tab_background" />
         </LinearLayout>
 
         <FrameLayout
@@ -82,6 +85,22 @@
             android:background="@null"
             android:drawableLeft="@drawable/ic_favorite_off_normal"
             android:drawablePadding="16dip" />
+
+        <ImageView
+            android:id="@+id/seperate_select_add"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dip"
+            android:src="@drawable/divider_vert" />
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_home"
+            android:paddingRight="16dip"
+            android:paddingLeft="16dip"
+            android:scaleType="center" />
 
     </LinearLayout>
     <FrameLayout
