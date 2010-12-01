@@ -37,7 +37,7 @@
             android:verticalSpacing="16dip"
             android:stretchMode="spacingWidth"
             android:scrollbarStyle="insideInset"
-            android:listSelector="@android:drawable/gallery_thumb"
+            android:listSelector="@drawable/bookmark_thumb_selector"
             android:drawSelectorOnTop="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
