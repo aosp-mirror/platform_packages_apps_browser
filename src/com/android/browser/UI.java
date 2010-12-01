@@ -58,6 +58,8 @@ public interface UI extends ScrollListener {
 
     public void attachTab(Tab tab);
 
+    public void onSetWebView(Tab tab, WebView view);
+
     public void createSubWindow(Tab tab, WebView subWebView);
 
     public void attachSubWindow(View subContainer);

@@ -18,9 +18,7 @@ package com.android.browser.preferences;
 
 import com.android.browser.BrowserSettings;
 import com.android.browser.R;
-import com.android.browser.WebsiteSettingsActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -44,8 +42,7 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
 
         PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(
                 BrowserSettings.PREF_WEBSITE_SETTINGS);
-        Intent intent = new Intent(getActivity(), WebsiteSettingsActivity.class);
-        websiteSettings.setIntent(intent);
+        websiteSettings.setFragment(WebsiteSettingsFragment.class.getName());
     }
 
     /*

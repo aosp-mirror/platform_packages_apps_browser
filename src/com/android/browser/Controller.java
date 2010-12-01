@@ -317,6 +317,11 @@ public class Controller
     }
 
     @Override
+    public void onSetWebView(Tab tab, WebView view) {
+        mUi.onSetWebView(tab, view);
+    }
+
+    @Override
     public void createSubWindow(Tab tab) {
         endActionMode();
         WebView mainView = tab.getWebView();
@@ -543,13 +548,15 @@ public class Controller
             Log.e(LOGTAG, "BrowserActivity is already paused.");
             return;
         }
-        mTabControl.pauseCurrentTab();
         mActivityPaused = true;
-        if (mTabControl.getCurrentIndex() >= 0 &&
-                !pauseWebViewTimers(mActivityPaused)) {
-            mWakeLock.acquire();
-            mHandler.sendMessageDelayed(mHandler
-                    .obtainMessage(RELEASE_WAKELOCK), WAKELOCK_TIMEOUT);
+        Tab tab = mTabControl.getCurrentTab();
+        if (tab != null) {
+            tab.pause();
+            if (!pauseWebViewTimers(tab)) {
+                mWakeLock.acquire();
+                mHandler.sendMessageDelayed(mHandler
+                        .obtainMessage(RELEASE_WAKELOCK), WAKELOCK_TIMEOUT);
+            }
         }
         mUi.onPause();
         mNetworkHandler.onPause();
@@ -575,10 +582,12 @@ public class Controller
             Log.e(LOGTAG, "BrowserActivity is already resumed.");
             return;
         }
-        mTabControl.resumeCurrentTab();
         mActivityPaused = false;
-        resumeWebViewTimers();
-
+        Tab current = mTabControl.getCurrentTab();
+        if (current != null) {
+            current.resume();
+            resumeWebViewTimers(current);
+        }
         if (mWakeLock.isHeld()) {
             mHandler.removeMessages(RELEASE_WAKELOCK);
             mWakeLock.release();
@@ -588,9 +597,11 @@ public class Controller
         WebView.enablePlatformNotifications();
     }
 
-    private void resumeWebViewTimers() {
-        Tab tab = mTabControl.getCurrentTab();
-        if (tab == null) return; // monkey can trigger this
+    /**
+     * resume all WebView timers using the WebView instance of the given tab 
+     * @param tab guaranteed non-null
+     */
+    private void resumeWebViewTimers(Tab tab) {
         boolean inLoad = tab.inPageLoad();
         if ((!mActivityPaused && !inLoad) || (mActivityPaused && inLoad)) {
             CookieSyncManager.getInstance().startSync();
@@ -601,19 +612,23 @@ public class Controller
         }
     }
 
-    private boolean pauseWebViewTimers(boolean activityPaused) {
-        Tab tab = mTabControl.getCurrentTab();
-        boolean inLoad = tab.inPageLoad();
-        if (activityPaused && !inLoad) {
+    /**
+     * Pause all WebView timers using the WebView of the given tab
+     * @param tab
+     * @return true if the timers are paused or tab is null
+     */
+    private boolean pauseWebViewTimers(Tab tab) {
+        if (tab == null) {
+            return true;
+        } else if (!tab.inPageLoad()) {
             CookieSyncManager.getInstance().stopSync();
             WebView w = getCurrentWebView();
             if (w != null) {
                 w.pauseTimers();
             }
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     void onDestroy() {
@@ -708,7 +723,7 @@ public class Controller
         // to start the timer. As we won't switch tabs while an activity is in
         // pause state, we can ensure calling resume and pause in pair.
         if (mActivityPaused) {
-            resumeWebViewTimers();
+            resumeWebViewTimers(tab);
         }
         mLoadStopped = false;
         if (!mNetworkHandler.isNetworkUp()) {
@@ -749,7 +764,7 @@ public class Controller
         }
         // pause the WebView timer and release the wake lock if it is finished
         // while BrowserActivity is in pause state.
-        if (mActivityPaused && pauseWebViewTimers(mActivityPaused)) {
+        if (mActivityPaused && pauseWebViewTimers(tab)) {
             if (mWakeLock.isHeld()) {
                 mHandler.removeMessages(RELEASE_WAKELOCK);
                 mWakeLock.release();
@@ -2312,7 +2327,7 @@ public class Controller
                     // force the tab's inLoad() to be false as we are going to
                     // either finish the activity or remove the tab. This will
                     // ensure pauseWebViewTimers() taking action.
-                    mTabControl.getCurrentTab().clearInPageLoad();
+                    current.clearInPageLoad();
                     if (mTabControl.getTabCount() == 1) {
                         mActivity.finish();
                         return;
@@ -2321,7 +2336,7 @@ public class Controller
                         Log.e(LOGTAG, "BrowserActivity is already paused "
                                 + "while handing goBackOnePageOrQuit.");
                     }
-                    pauseWebViewTimers(true);
+                    pauseWebViewTimers(current);
                     removeTab(current);
                 }
                 /*

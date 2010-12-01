@@ -14,56 +14,62 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.browser.preferences;
+
+import com.android.browser.R;
+import com.android.browser.WebStorageSizeManager;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
+import android.app.FragmentTransaction;
+import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.provider.BrowserContract.Bookmarks;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
-import android.webkit.WebIconDatabase;
 import android.webkit.WebStorage;
-import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
 /**
  * Manage the settings for an origin.
  * We use it to keep track of the 'HTML5' settings, i.e. database (webstorage)
  * and Geolocation.
  */
-public class WebsiteSettingsActivity extends ListActivity {
+public class WebsiteSettingsFragment extends ListFragment implements OnClickListener {
 
+    private static final String EXTRA_SITE = "site";
     private String LOGTAG = "WebsiteSettingsActivity";
     private static String sMBStored = null;
     private SiteAdapter mAdapter = null;
+    private Site mSite = null;
 
-    static class Site {
+    static class Site implements Serializable {
         private String mOrigin;
         private String mTitle;
         private Bitmap mIcon;
@@ -169,6 +175,10 @@ public class WebsiteSettingsActivity extends ListActivity {
         private Site mCurrentSite;
 
         public SiteAdapter(Context context, int rsc) {
+            this(context, rsc, null);
+        }
+
+        public SiteAdapter(Context context, int rsc, Site site) {
             super(context, rsc);
             mResource = rsc;
             mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -184,7 +194,10 @@ public class WebsiteSettingsActivity extends ListActivity {
                     R.drawable.ic_list_gps_on);
             mLocationDisallowedIcon = BitmapFactory.decodeResource(getResources(),
                     R.drawable.ic_list_gps_denied);
-            askForOrigins();
+            mCurrentSite = site;
+            if (mCurrentSite == null) {
+                askForOrigins();
+            }
         }
 
         /**
@@ -409,6 +422,7 @@ public class WebsiteSettingsActivity extends ListActivity {
             }
         }
 
+        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view;
             final TextView title;
@@ -434,7 +448,6 @@ public class WebsiteSettingsActivity extends ListActivity {
             locationIcon.setVisibility(View.GONE);
 
             if (mCurrentSite == null) {
-                setTitle(getString(R.string.pref_extras_website_settings));
 
                 Site site = getItem(position);
                 title.setText(site.getPrettyTitle());
@@ -494,7 +507,6 @@ public class WebsiteSettingsActivity extends ListActivity {
                 locationIcon.setVisibility(View.GONE);
                 usageIcon.setVisibility(View.GONE);
                 featureIcon.setVisibility(View.VISIBLE);
-                setTitle(mCurrentSite.getPrettyTitle());
                 String origin = mCurrentSite.getOrigin();
                 switch (mCurrentSite.getFeatureByIndex(position)) {
                     case Site.FEATURE_WEB_STORAGE:
@@ -551,7 +563,7 @@ public class WebsiteSettingsActivity extends ListActivity {
                                     // origins list.
                                     mCurrentSite.removeFeature(Site.FEATURE_WEB_STORAGE);
                                     if (mCurrentSite.getFeatureCount() == 0) {
-                                        mCurrentSite = null;
+                                        finish();
                                     }
                                     askForOrigins();
                                     notifyDataSetChanged();
@@ -570,7 +582,7 @@ public class WebsiteSettingsActivity extends ListActivity {
                                     GeolocationPermissions.getInstance().clear(mCurrentSite.getOrigin());
                                     mCurrentSite.removeFeature(Site.FEATURE_GEOLOCATION);
                                     if (mCurrentSite.getFeatureCount() == 0) {
-                                        mCurrentSite = null;
+                                        finish();
                                     }
                                     askForOrigins();
                                     notifyDataSetChanged();
@@ -581,8 +593,14 @@ public class WebsiteSettingsActivity extends ListActivity {
                         break;
                 }
             } else {
-                mCurrentSite = (Site) view.getTag();
-                notifyDataSetChanged();
+                Site site = (Site) view.getTag();
+                PreferenceActivity activity = (PreferenceActivity) getActivity();
+                if (activity != null) {
+                    Bundle args = new Bundle();
+                    args.putSerializable(EXTRA_SITE, site);
+                    activity.startPreferencePanel(WebsiteSettingsFragment.class.getName(), args, 0,
+                            site.getPrettyTitle(), null, 0);
+                }
             }
         }
 
@@ -591,67 +609,64 @@ public class WebsiteSettingsActivity extends ListActivity {
         }
     }
 
-    /**
-     * Intercepts the back key to immediately notify
-     * NativeDialog that we are done.
-     */
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if ((event.getKeyCode() == KeyEvent.KEYCODE_BACK)
-            && (event.getAction() == KeyEvent.ACTION_DOWN)) {
-            if ((mAdapter != null) && (mAdapter.backKeyPressed())){
-                return true; // event consumed
-            }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.website_settings, container, false);
+        Bundle args = getArguments();
+        if (args != null) {
+            mSite = (Site) args.getSerializable(EXTRA_SITE);
         }
-        return super.dispatchKeyEvent(event);
+        if (mSite == null) {
+            View clear = view.findViewById(R.id.clear_all_button);
+            clear.setVisibility(View.VISIBLE);
+            clear.setOnClickListener(this);
+        }
+        return view;
     }
 
     @Override
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (sMBStored == null) {
             sMBStored = getString(R.string.webstorage_origin_summary_mb_stored);
         }
-        mAdapter = new SiteAdapter(this, R.layout.website_settings_row);
-        setListAdapter(mAdapter);
+        mAdapter = new SiteAdapter(getActivity(), R.layout.website_settings_row);
+        if (mSite != null) {
+            mAdapter.mCurrentSite = mSite;
+        }
+        getListView().setAdapter(mAdapter);
         getListView().setOnItemClickListener(mAdapter);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.websitesettings, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If we are not on the sites list (rather on the page for a specific site) or
-        // we aren't listing any sites hide the clear all button (and hence the menu).
-        return  mAdapter.currentSite() == null && mAdapter.getCount() > 0;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.website_settings_menu_clear_all:
-                // Show the prompt to clear all origins of their data and geolocation permissions.
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.website_settings_clear_all_dialog_title)
-                        .setMessage(R.string.website_settings_clear_all_dialog_message)
-                        .setPositiveButton(R.string.website_settings_clear_all_dialog_ok_button,
-                                new AlertDialog.OnClickListener() {
-                                    public void onClick(DialogInterface dlg, int which) {
-                                        WebStorage.getInstance().deleteAllData();
-                                        GeolocationPermissions.getInstance().clearAll();
-                                        WebStorageSizeManager.resetLastOutOfSpaceNotificationTime();
-                                        mAdapter.askForOrigins();
-                                        finish();
-                                    }})
-                        .setNegativeButton(R.string.website_settings_clear_all_dialog_cancel_button, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-                return true;
+    private void finish() {
+        PreferenceActivity activity = (PreferenceActivity) getActivity();
+        if (activity != null) {
+            activity.finishPreferencePanel(this, 0, null);
         }
-        return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+        case R.id.clear_all_button:
+         // Show the prompt to clear all origins of their data and geolocation permissions.
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.website_settings_clear_all_dialog_title)
+                    .setMessage(R.string.website_settings_clear_all_dialog_message)
+                    .setPositiveButton(R.string.website_settings_clear_all_dialog_ok_button,
+                            new AlertDialog.OnClickListener() {
+                                public void onClick(DialogInterface dlg, int which) {
+                                    WebStorage.getInstance().deleteAllData();
+                                    GeolocationPermissions.getInstance().clearAll();
+                                    WebStorageSizeManager.resetLastOutOfSpaceNotificationTime();
+                                    mAdapter.askForOrigins();
+                                    finish();
+                                }})
+                    .setNegativeButton(R.string.website_settings_clear_all_dialog_cancel_button, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            break;
+        }
     }
 }

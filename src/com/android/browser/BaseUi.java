@@ -201,6 +201,9 @@ public class BaseUi implements UI, WebViewFactory {
         if (mActiveTabsPage != null) {
             mUiController.removeActiveTabsPage(true);
         }
+        if (isCustomViewShowing()) {
+            onHideCustomView();
+        }
         cancelStopToast();
         mActivityPaused = true;
     }
@@ -425,6 +428,24 @@ public class BaseUi implements UI, WebViewFactory {
             mErrorConsoleContainer.removeView(errorConsole);
         }
         mainView.setEmbeddedTitleBar(null);
+    }
+
+    @Override
+    public void onSetWebView(Tab tab, WebView webView) {
+        View container = tab.getViewContainer();
+        if (container == null) {
+            // The tab consists of a container view, which contains the main
+            // WebView, as well as any other UI elements associated with the tab.
+            container = mActivity.getLayoutInflater().inflate(R.layout.tab,
+                    null);
+            tab.setViewContainer(container);
+        }
+        if (tab.getWebView() != webView) {
+            // Just remove the old one.
+            FrameLayout wrapper =
+                    (FrameLayout) container.findViewById(R.id.webview_wrapper);
+            wrapper.removeView(tab.getWebView());
+        }
     }
 
     /**

@@ -600,20 +600,6 @@ class TabControl {
         return setCurrentTab(newTab, false);
     }
 
-    void pauseCurrentTab() {
-        Tab t = getCurrentTab();
-        if (t != null) {
-            t.pause();
-        }
-    }
-
-    void resumeCurrentTab() {
-        Tab t = getCurrentTab();
-        if (t != null) {
-            t.resume();
-        }
-    }
-
     /**
      * If force is true, this method skips the check for newTab == current.
      */

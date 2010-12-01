@@ -85,7 +85,7 @@ class Tab {
     // The Geolocation permissions prompt
     private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
     // Main WebView wrapper
-    private LinearLayout mContainer;
+    private View mContainer;
     // Main WebView
     private WebView mMainView;
     // Subwindow container
@@ -128,8 +128,6 @@ class Tab {
     // the lock icon type and previous lock icon type for the tab
     private int mLockIconType;
     private int mPrevLockIconType;
-    // Inflation service for making subwindows.
-    private final LayoutInflater mInflateService;
     // The listener that gets invoked when a download is started from the
     // mMainView
     private final DownloadListener mDownloadListener;
@@ -497,8 +495,10 @@ class Tab {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            LogTag.logPageFinishedLoading(
-                    url, SystemClock.uptimeMillis() - mLoadStartTime);
+            if (!isPrivateBrowsingEnabled()) {
+                LogTag.logPageFinishedLoading(
+                        url, SystemClock.uptimeMillis() - mLoadStartTime);
+            }
             mInPageLoad = false;
 
             mWebViewController.onPageFinished(Tab.this, url);
@@ -1203,11 +1203,6 @@ class Tab {
         mInPageLoad = false;
         mInForeground = false;
 
-        mInflateService = LayoutInflater.from(mActivity);
-
-        // The tab consists of a container view, which contains the main
-        // WebView, as well as any other UI elements associated with the tab.
-        mContainer = (LinearLayout) mInflateService.inflate(R.layout.tab, null);
 
         mDownloadListener = new DownloadListener() {
             public void onDownloadStart(String url, String userAgent,
@@ -1244,16 +1239,14 @@ class Tab {
         if (mMainView == w) {
             return;
         }
+
         // If the WebView is changing, the page will be reloaded, so any ongoing
         // Geolocation permission requests are void.
         if (mGeolocationPermissionsPrompt != null) {
             mGeolocationPermissionsPrompt.hide();
         }
 
-        // Just remove the old one.
-        FrameLayout wrapper =
-                (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
-        wrapper.removeView(mMainView);
+        mWebViewController.onSetWebView(this, w);
 
         // set the new one
         mMainView = w;
@@ -1447,6 +1440,10 @@ class Tab {
      */
     WebView getWebView() {
         return mMainView;
+    }
+
+    void setViewContainer(View container) {
+        mContainer = container;
     }
 
     View getViewContainer() {

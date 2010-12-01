@@ -16,17 +16,19 @@
 
 package com.android.browser;
 
+import com.android.browser.preferences.WebsiteSettingsFragment;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.StatFs;
+import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.webkit.WebStorage;
 
 import java.io.File;
-import java.util.Set;
 
 
 /**
@@ -82,7 +84,7 @@ import java.util.Set;
  * the user can free some of the Web storage space by deleting all the data used
  * by an origin.
  */
-class WebStorageSizeManager {
+public class WebStorageSizeManager {
     // Logging flags.
     private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
     private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
@@ -346,7 +348,7 @@ class WebStorageSizeManager {
     // Reset the notification time; we use this iff the user
     // use clear all; we reset it to some time in the future instead
     // of just setting it to -1, as the clear all method is asynchronous
-    static void resetLastOutOfSpaceNotificationTime() {
+    public static void resetLastOutOfSpaceNotificationTime() {
         mLastOutOfSpaceNotificationTime = System.currentTimeMillis() -
             NOTIFICATION_INTERVAL + RESET_NOTIFICATION_INTERVAL;
     }
@@ -403,7 +405,9 @@ class WebStorageSizeManager {
             CharSequence text = mContext.getString(
                     R.string.webstorage_outofspace_notification_text);
             long when = System.currentTimeMillis();
-            Intent intent = new Intent(mContext, WebsiteSettingsActivity.class);
+            Intent intent = new Intent(mContext, BrowserPreferencesPage.class);
+            intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT,
+                    WebsiteSettingsFragment.class.getName());
             PendingIntent contentIntent =
                 PendingIntent.getActivity(mContext, 0, intent, 0);
             Notification notification = new Notification(icon, title, when);

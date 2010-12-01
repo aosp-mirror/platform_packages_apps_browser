@@ -366,7 +366,10 @@ public class BrowserHistoryPage extends Fragment
                 mMostVisited.close();
             }
             mMostVisited = cursor;
-            mMostVisited.registerDataSetObserver(mDataSetObserver);
+            if (mMostVisited != null) {
+                mMostVisited.registerDataSetObserver(mDataSetObserver);
+            }
+            notifyDataSetChanged();
         }
 
         @Override
