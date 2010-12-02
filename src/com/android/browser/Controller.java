@@ -493,6 +493,22 @@ public class Controller
 
     }
 
+    @Override
+    public void shareCurrentPage() {
+        shareCurrentPage(mTabControl.getCurrentTab());
+    }
+
+    private void shareCurrentPage(Tab tab) {
+        if (tab != null) {
+            tab.populatePickerData();
+            sharePage(mActivity, tab.getTitle(),
+                    tab.getUrl(), tab.getFavicon(),
+                    createScreenshot(tab.getWebView(),
+                            getDesiredThumbnailWidth(mActivity),
+                            getDesiredThumbnailHeight(mActivity)));
+        }
+    }
+
     /**
      * Share a page, providing the title, url, favicon, and a screenshot.  Uses
      * an {@link Intent} to launch the Activity chooser.
@@ -599,7 +615,7 @@ public class Controller
     }
 
     /**
-     * resume all WebView timers using the WebView instance of the given tab 
+     * resume all WebView timers using the WebView instance of the given tab
      * @param tab guaranteed non-null
      */
     private void resumeWebViewTimers(Tab tab) {
@@ -1581,12 +1597,7 @@ public class Controller
                     mCanChord = false;
                     return false;
                 }
-                currentTab.populatePickerData();
-                sharePage(mActivity, currentTab.getTitle(),
-                        currentTab.getUrl(), currentTab.getFavicon(),
-                        createScreenshot(currentTab.getWebView(),
-                                getDesiredThumbnailWidth(mActivity),
-                                getDesiredThumbnailHeight(mActivity)));
+                shareCurrentPage(currentTab);
                 break;
 
             case R.id.dump_nav_menu_id:

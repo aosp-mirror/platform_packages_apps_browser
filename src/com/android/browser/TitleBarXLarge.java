@@ -26,12 +26,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,11 +36,10 @@ import android.widget.TextView;
  * tabbed title bar for xlarge screen browser
  */
 public class TitleBarXLarge extends TitleBarBase
-    implements UrlInputListener, OnClickListener, OnFocusChangeListener {
+    implements UrlInputListener, OnClickListener {
 
     private static final int PROGRESS_MAX = 100;
 
-    private Activity mActivity;
     private UiController mUiController;
 
     private Drawable mStopDrawable;
@@ -67,7 +63,6 @@ public class TitleBarXLarge extends TitleBarBase
 
     public TitleBarXLarge(Activity activity, UiController controller) {
         super(activity);
-        mActivity = activity;
         mUiController = controller;
         Resources resources = activity.getResources();
         mStopDrawable = resources.getDrawable(R.drawable.ic_stop_normal);
@@ -106,25 +101,15 @@ public class TitleBarXLarge extends TitleBarBase
         mGoButton.setOnClickListener(this);
         mClearButton.setOnClickListener(this);
         mUrlFocused.setUrlInputListener(this);
-        mUrlUnfocused.setOnFocusChangeListener(this);
         mUrlFocused.setContainer(mFocusContainer);
+        mUrlFocused.setController(mUiController);
         mUnfocusContainer.setOnClickListener(this);
-    }
-
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            setUrlMode(true);
-            mUrlFocused.selectAll();
-            mUrlFocused.requestFocus();
-            mUrlFocused.setDropDownWidth(mUnfocusContainer.getWidth());
-            mUrlFocused.setDropDownHorizontalOffset(-mUrlFocused.getLeft());
-        }
     }
 
     @Override
     public void onClick(View v) {
         if (mUnfocusContainer == v) {
-            mUrlUnfocused.requestFocus();
+            setUrlMode(true);
         } else if (mBackButton == v) {
             mUiController.getCurrentTopWebView().goBack();
         } else if (mForwardButton == v) {
@@ -190,6 +175,10 @@ public class TitleBarXLarge extends TitleBarBase
     private void setUrlMode(boolean focused) {
         swapUrlContainer(focused);
         if (focused) {
+            mUrlFocused.selectAll();
+            mUrlFocused.requestFocus();
+            mUrlFocused.setDropDownWidth(mUnfocusContainer.getWidth());
+            mUrlFocused.setDropDownHorizontalOffset(-mUrlFocused.getLeft());
             mSearchButton.setVisibility(View.GONE);
             mGoButton.setVisibility(View.VISIBLE);
         } else {
@@ -201,13 +190,6 @@ public class TitleBarXLarge extends TitleBarBase
     private void swapUrlContainer(boolean focus) {
         mUnfocusContainer.setVisibility(focus ? View.GONE : View.VISIBLE);
         mFocusContainer.setVisibility(focus ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    public void createContextMenu(ContextMenu menu) {
-        MenuInflater inflater = mActivity.getMenuInflater();
-        inflater.inflate(R.menu.title_context, menu);
-        mActivity.onCreateContextMenu(menu, this, null);
     }
 
     private void search() {
