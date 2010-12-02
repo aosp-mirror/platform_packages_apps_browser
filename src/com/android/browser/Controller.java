@@ -548,6 +548,7 @@ public class Controller
             Log.e(LOGTAG, "BrowserActivity is already paused.");
             return;
         }
+        CookieManager.getInstance().flushCookieStore();
         mActivityPaused = true;
         Tab tab = mTabControl.getCurrentTab();
         if (tab != null) {

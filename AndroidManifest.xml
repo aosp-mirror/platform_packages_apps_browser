@@ -41,7 +41,7 @@
                    android:label="@string/application_name"
                    android:icon="@mipmap/ic_launcher_browser"
                    android:backupAgent=".BrowserBackupAgent"
-                   android:hardwareAccelerated="false"
+                   android:hardwareAccelerated="true"
                    android:taskAffinity="android.task.browser" >
 
         <provider android:name="BrowserProvider"
@@ -66,6 +66,7 @@
                   android:alwaysRetainTaskState="true"
                   android:configChanges="orientation|keyboardHidden"
                   android:theme="@style/BrowserTheme"
+                  android:hardwareAccelerated="false"
                   android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.speech.action.VOICE_SEARCH_RESULTS" />
