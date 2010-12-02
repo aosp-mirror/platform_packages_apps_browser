@@ -164,14 +164,18 @@ public class TitleBar extends LinearLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         ImageView button = mInLoad ? mStopButton : mRtButton;
+        int slop = ViewConfiguration.get(mBrowserActivity).getScaledTouchSlop();
+        // Use the slop to make the touch area bigger for bookmarks and stop button
+        Rect buttonRect = new Rect(button.getLeft() - slop, 0, button.getRight() + slop,
+                button.getHeight());
+        Rect titleRect = new Rect(mTitleBg.getLeft(), 0, mTitleBg.getRight(), mTitleBg.getHeight());
+        int x = (int)event.getX();
+        int y = (int)event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                // Make all touches hit either the textfield or the button,
-                // depending on which side of the right edge of the textfield
-                // they hit.
-                if ((int) event.getX() > mTitleBg.getRight()) {
+                if (buttonRect.contains(x, y)) {
                     button.setPressed(true);
-                } else {
+                } else if (titleRect.contains(x, y)) {
                     mTitleBg.setPressed(true);
                     mHandler.sendMessageDelayed(mHandler.obtainMessage(
                             LONG_PRESS),
@@ -179,24 +183,13 @@ public class TitleBar extends LinearLayout {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                int slop = ViewConfiguration.get(mBrowserActivity)
-                        .getScaledTouchSlop();
-                if ((int) event.getY() > getHeight() + slop) {
-                    // We only trigger the actions in ACTION_UP if one or the
-                    // other is pressed.  Since the user moved off the title
-                    // bar, mark both as not pressed.
+                if (mTitleBg.isPressed() && !titleRect.contains(x, y)) {
                     mTitleBg.setPressed(false);
-                    button.setPressed(false);
                     mHandler.removeMessages(LONG_PRESS);
-                    break;
                 }
-                int x = (int) event.getX();
-                int titleRight = mTitleBg.getRight();
-                if (mTitleBg.isPressed() && x > titleRight + slop) {
-                    mTitleBg.setPressed(false);
-                    mHandler.removeMessages(LONG_PRESS);
-                } else if (button.isPressed() && x < titleRight - slop) {
+                if (button.isPressed() && !buttonRect.contains(x, y)) {
                     button.setPressed(false);
+                    mHandler.removeMessages(LONG_PRESS);
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
