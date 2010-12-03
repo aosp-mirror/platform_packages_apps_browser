@@ -1026,6 +1026,11 @@ public class Controller
         }
     }
 
+    @Override
+    public void bookmarkedStatusHasChanged(Tab tab) {
+        mUi.bookmarkedStatusHasChanged(tab);
+    }
+
     // end WebViewController
 
     protected void pageUp() {

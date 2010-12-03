@@ -77,12 +77,13 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:scrollHorizontally="true" />
-            <ImageButton
+            <view class="com.android.browser.TitleBarXLarge$CustomCheck"
                 android:id="@+id/star"
-                android:src="@drawable/ic_favorite_off_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 style="@style/HoloButton"
+                android:focusable="false"
+                android:button="@android:drawable/btn_star"
                 android:background="@drawable/browserbarbutton" />
         </LinearLayout>
         <LinearLayout

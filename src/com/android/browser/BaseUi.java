@@ -256,6 +256,15 @@ public class BaseUi implements UI, WebViewFactory {
     }
 
     @Override
+    public void bookmarkedStatusHasChanged(Tab tab) {
+        if (tab.inForeground() && mXLargeScreenSize) {
+            boolean isBookmark = tab.isBookmarkedSite();
+            ((TitleBarXLarge) mTitleBar).setCurrentUrlIsBookmark(isBookmark);
+            ((TitleBarXLarge) mFakeTitleBar).setCurrentUrlIsBookmark(isBookmark);
+        }
+    }
+
+    @Override
     public void onPageFinished(Tab tab, String url) {
         if (mXLargeScreenSize) {
             mTabBar.onPageFinished(tab);
@@ -336,6 +345,7 @@ public class BaseUi implements UI, WebViewFactory {
             // Request focus on the top window.
             mTabBar.onSetActiveTab(tab);
         }
+        bookmarkedStatusHasChanged(tab);
         resetTitleIconAndProgress(tab);
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();

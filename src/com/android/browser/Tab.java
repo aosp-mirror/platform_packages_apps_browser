@@ -25,12 +25,16 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemClock;
+import android.provider.BrowserContract;
 import android.speech.RecognizerResultsIntent;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -143,6 +147,14 @@ class Tab {
         String  mTitle;
         Bitmap  mFavicon;
     }
+
+    // Whether or not the currently shown page is a bookmarked site.  Will be
+    // out of date when loading a new page until the mBookmarkAsyncTask returns.
+    private boolean mIsBookmarkedSite;
+    // Used to determine whether the current site is bookmarked.
+    private AsyncTask<Void, Void, Boolean> mBookmarkAsyncTask;
+
+    public boolean isBookmarkedSite() { return mIsBookmarkedSite; }
 
     // Used for saving and restoring each Tab
     static final String WEBVIEW = "webview";
@@ -488,9 +500,42 @@ class Tab {
                 }
             }
 
-
             // finally update the UI in the activity if it is in the foreground
             mWebViewController.onPageStarted(Tab.this, view, url, favicon);
+
+            final String urlInQuestion = url;
+            if (mBookmarkAsyncTask != null) {
+                mBookmarkAsyncTask.cancel(true);
+            }
+            mBookmarkAsyncTask = new AsyncTask<Void, Void, Boolean>() {
+                @Override
+                protected Boolean doInBackground(Void... unused) {
+                    // Check to see if the site is bookmarked
+                    Cursor cursor = null;
+                    try {
+                        cursor = mActivity.getContentResolver().query(
+                                BrowserContract.Bookmarks.CONTENT_URI,
+                                new String[] { BrowserContract.Bookmarks.URL },
+                                BrowserContract.Bookmarks.URL + " == ?",
+                                new String[] { urlInQuestion },
+                                null);
+                        return cursor.moveToFirst();
+                    } catch (SQLiteException e) {
+                        Log.e(LOGTAG, "Error checking for bookmark: " + e);
+                        return false;
+                    } finally {
+                        if (cursor != null) cursor.close();
+                    }
+                }
+                @Override
+                protected void onPostExecute(Boolean isBookmarked) {
+                    if (this == mBookmarkAsyncTask) {
+                        mIsBookmarkedSite = isBookmarked;
+                        mWebViewController.bookmarkedStatusHasChanged(Tab.this);
+                    }
+                }
+            };
+            mBookmarkAsyncTask.execute();
         }
 
         @Override
