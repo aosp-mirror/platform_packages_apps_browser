@@ -19,9 +19,9 @@ package com.android.browser;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,7 +37,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -56,6 +55,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     private final static String sInputFile = "popular_urls.txt";
     private final static String sOutputFile = "test_output.txt";
     private final static String sStatusFile = "test_status.txt";
+    private final static File sExternalStorage = Environment.getExternalStorageDirectory();
 
     private final static int PERF_LOOPCOUNT = 10;
     private final static int STABILITY_LOOPCOUNT = 1;
@@ -83,7 +83,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         mInst = getInstrumentation();
         mInst.waitForIdleSync();
 
-        mStatus = RunStatus.load(getInstrumentation().getContext());
+        mStatus = RunStatus.load();
     }
 
     @Override
@@ -95,10 +95,15 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         super.tearDown();
     }
 
-    BufferedReader getInputStream() throws IOException {
-        AssetManager assets = getInstrumentation().getContext().getAssets();
-        return new BufferedReader(
-            new InputStreamReader(assets.open(sInputFile)));
+    BufferedReader getInputStream() throws FileNotFoundException {
+        return getInputStream(sInputFile);
+    }
+
+    BufferedReader getInputStream(String inputFile) throws FileNotFoundException {
+        FileReader fileReader = new FileReader(new File(sExternalStorage, inputFile));
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        return bufferedReader;
     }
 
     OutputStreamWriter getOutputStream() throws IOException {
@@ -106,9 +111,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     }
 
     OutputStreamWriter getOutputStream(String outputFile) throws IOException {
-        File file = new File(getInstrumentation().getContext()
-                .getExternalFilesDir(null), outputFile);
-        return new FileWriter(file, mStatus.getIsRecovery());
+        return new FileWriter(new File(sExternalStorage, outputFile), mStatus.getIsRecovery());
     }
 
     /**
@@ -313,13 +316,12 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             }
         }
 
-        public static RunStatus load(Context context) throws IOException {
-            return load(context, sStatusFile);
+        public static RunStatus load() throws IOException {
+            return load(sStatusFile);
         }
 
-        public static RunStatus load(Context context, String file) throws IOException {
-            return new RunStatus(new File(
-                    context.getExternalFilesDir(null), file));
+        public static RunStatus load(String file) throws IOException {
+            return new RunStatus(new File(sExternalStorage, file));
         }
 
         public void write() throws IOException {
