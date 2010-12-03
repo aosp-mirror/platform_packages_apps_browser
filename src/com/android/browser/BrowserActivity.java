@@ -39,6 +39,9 @@ import android.view.accessibility.AccessibilityManager;
 
 public class BrowserActivity extends Activity {
 
+    public static final String ACTION_RESTART = "--restart--";
+    private static final String EXTRA_STATE = "state";
+
     private final static String LOGTAG = "browser";
 
     private final static boolean LOGV_ENABLED =
@@ -94,6 +97,10 @@ public class BrowserActivity extends Activity {
         mController.setUi(mUi);
         mController.setWebViewFactory((BaseUi) mUi);
 
+        Bundle state = getIntent().getBundleExtra(EXTRA_STATE);
+        if (state != null && icicle == null) {
+            icicle = state;
+        }
         mController.start(icicle, getIntent());
     }
 
@@ -104,6 +111,16 @@ public class BrowserActivity extends Activity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+        if (ACTION_RESTART.equals(intent.getAction())) {
+            Bundle outState = new Bundle();
+            mController.onSaveInstanceState(outState);
+            finish();
+            getApplicationContext().startActivity(
+                    new Intent(getApplicationContext(), BrowserActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra(EXTRA_STATE, outState));
+            return;
+        }
         mController.handleNewIntent(intent);
     }
 
