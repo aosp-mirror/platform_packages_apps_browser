@@ -357,8 +357,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
         BookmarkItem header = new BookmarkItem(activity);
         populateBookmarkItem(cursor, header, isFolder);
-        new LookupBookmarkCount(getActivity(), header)
-                .execute(cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
         menu.setHeaderView(header);
 
         int count = menu.size();
@@ -374,6 +372,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             Bitmap bitmap =
                 BitmapFactory.decodeResource(getResources(), R.drawable.ic_folder);
             item.setFavicon(bitmap);
+            new LookupBookmarkCount(getActivity(), item)
+                    .execute(cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
         } else {
             String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
             item.setUrl(url);
