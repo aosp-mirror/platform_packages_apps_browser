@@ -245,15 +245,14 @@ public class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void onPageStarted(Tab tab, String url, Bitmap favicon) {
-        if (mXLargeScreenSize) {
-            mTabBar.onPageStarted(tab, url, favicon);
-        }
         if (tab.inForeground()) {
             resetLockIcon(tab, url);
             setUrlTitle(tab, url, null);
             setFavicon(tab, favicon);
         }
-
+        if (mXLargeScreenSize) {
+            mTabBar.onPageStarted(tab, url, favicon);
+        }
     }
 
     @Override
@@ -706,7 +705,7 @@ public class BaseUi implements UI, WebViewFactory {
             setUrlTitle(tab, item.getUrl(), item.getTitle());
             setFavicon(tab, item.getFavicon());
         } else {
-            setUrlTitle(tab, null, null);
+            setUrlTitle(tab, null, mActivity.getString(R.string.new_tab));
             setFavicon(tab, null);
         }
     }
@@ -850,12 +849,7 @@ public class BaseUi implements UI, WebViewFactory {
     @Override
     public void setUrlTitle(Tab tab, String url, String title) {
         if (TextUtils.isEmpty(title)) {
-            if (TextUtils.isEmpty(url)) {
-                title = mActivity.getResources()
-                        .getString(R.string.title_bar_loading);
-            } else {
-                title = url;
-            }
+            title = url;
         }
         if (tab.isInVoiceSearchMode()) return;
         if (tab.inForeground()) {

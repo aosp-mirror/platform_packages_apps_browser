@@ -337,7 +337,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
             // Set the default value for the Geolocation database path.
             geolocationDatabasePath = mContext.getDir("geolocation", 0).getPath();
 
-            if (p.getString(PREF_HOMEPAGE, "") == "") {
+            if (p.getString(PREF_HOMEPAGE, null) == null) {
                 // No home page preferences is set, set it to default.
                 setHomePage(mContext, getFactoryResetHomeUrl(mContext));
             }

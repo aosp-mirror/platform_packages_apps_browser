@@ -454,7 +454,6 @@ public class TabBar extends LinearLayout
         mHasReceivedTitle = false;
         TabViewData tvd = mTabMap.get(tab);
         if (tvd != null) {
-            tvd.setUrlAndTitle(url, null);
             tvd.setFavicon(favicon);
             tvd.setUrlAndTitle(url, mLoadingText);
         }

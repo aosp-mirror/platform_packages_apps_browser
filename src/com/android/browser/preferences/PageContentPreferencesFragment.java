@@ -72,29 +72,8 @@ public class PageContentPreferencesFragment extends PreferenceFragment
         }
 
         if (pref.getKey().equals(BrowserSettings.PREF_HOMEPAGE)) {
-            String value = (String) objValue;
-            boolean needUpdate = value.indexOf(' ') != -1;
-            if (needUpdate) {
-                value = value.trim().replace(" ", "%20");
-            }
-            if (value.length() != 0 && Uri.parse(value).getScheme() == null) {
-                value = "http://" + value;
-                needUpdate = true;
-            }
-            // Set the summary value.
-            pref.setSummary(value);
-            if (needUpdate) {
-                // Update through the EditText control as it has a cached copy
-                // of the string and it will handle persisting the value
-                ((EditTextPreference) pref).setText(value);
-
-                // as we update the value above, we need to return false
-                // here so that setText() is not called by EditTextPref
-                // with the old value.
-                return false;
-            } else {
-                return true;
-            }
+            pref.setSummary((String) objValue);
+            return true;
         } else if (pref.getKey().equals(BrowserSettings.PREF_TEXT_SIZE)) {
             pref.setSummary(getVisualTextSizeName((String) objValue));
             return true;
