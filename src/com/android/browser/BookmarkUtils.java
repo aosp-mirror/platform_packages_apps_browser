@@ -70,14 +70,14 @@ class BookmarkUtils {
 
             if (icon != null) {
                 // Now draw the correct icon background into our new bitmap.
-                canvas.drawBitmap(icon, null, iconBounds, null);
+                Paint p = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+                canvas.drawBitmap(icon, null, iconBounds, p);
             }
 
             // If we have a favicon, overlay it in a nice rounded white box on top of the
             // background.
             if (favicon != null) {
-                drawFaviconToCanvas(favicon, canvas, iconBounds,
-                        context.getResources().getDisplayMetrics().density);
+                drawFaviconToCanvas(context, favicon, canvas, iconBounds);
             }
         }
         return bm;
@@ -139,8 +139,8 @@ class BookmarkUtils {
         canvas.drawPath(path, paint);
     }
 
-    private static void drawFaviconToCanvas(Bitmap favicon, Canvas canvas, Rect iconBounds,
-            float density) {
+    private static void drawFaviconToCanvas(Context context, Bitmap favicon, Canvas canvas,
+            Rect iconBounds) {
         // Make a Paint for the white background rectangle and for
         // filtering the favicon.
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
@@ -148,15 +148,16 @@ class BookmarkUtils {
         p.setColor(Color.WHITE);
 
         // Create a rectangle that is slightly wider than the favicon
-        final float iconSize = 16 * density; // 16x16 favicon
-        final float padding = 2 * density; // white padding around icon
-        final float rectSize = iconSize + 2 * padding;
-        final float x = iconBounds.exactCenterX() - (rectSize / 2);
-        // Note: Subtract 2 dip from the y position since the box is
+        int faviconDimension = context.getResources().getDimensionPixelSize(R.dimen.favicon_size);
+        int faviconPaddedRectDimension = context.getResources().getDimensionPixelSize(
+                R.dimen.favicon_padded_size);
+        float padding = (faviconPaddedRectDimension - faviconDimension) / 2;
+        final float x = iconBounds.exactCenterX() - (faviconPaddedRectDimension / 2);
+        // Note: Subtract from the y position since the box is
         // slightly higher than center. Use padding since it is already
-        // 2 * density.
-        final float y = iconBounds.exactCenterY() - (rectSize / 2) - padding;
-        RectF r = new RectF(x, y, x + rectSize, y + rectSize);
+        // device independent.
+        final float y = iconBounds.exactCenterY() - (faviconPaddedRectDimension / 2) - padding;
+        RectF r = new RectF(x, y, x + faviconPaddedRectDimension, y + faviconPaddedRectDimension);
 
         // Draw a white rounded rectangle behind the favicon
         canvas.drawRoundRect(r, 2, 2, p);
@@ -165,7 +166,7 @@ class BookmarkUtils {
         // rectangle but inset by the padding
         // (results in a 16x16 favicon).
         r.inset(padding, padding);
-        canvas.drawBitmap(favicon, null, r, p);
+        canvas.drawBitmap(favicon, null, r, null);
     }
 
     /* package */ static Uri getBookmarksUri(Context context) {

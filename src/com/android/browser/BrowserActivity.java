@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -95,14 +97,9 @@ public class BrowserActivity extends Activity {
         mController.start(icicle, getIntent());
     }
 
+    @VisibleForTesting
     Controller getController() {
         return mController;
-    }
-
-    // TODO: this is here for the test classes
-    // remove once tests are fixed
-    TabControl getTabControl() {
-        return mController.getTabControl();
     }
 
     @Override

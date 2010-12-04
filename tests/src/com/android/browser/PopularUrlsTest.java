@@ -17,11 +17,13 @@
 package com.android.browser;
 
 import android.app.Instrumentation;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.net.http.SslError;
-import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.HttpAuthHandler;
 import android.webkit.JsPromptResult;
@@ -35,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -53,13 +56,13 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     private final static String sInputFile = "popular_urls.txt";
     private final static String sOutputFile = "test_output.txt";
     private final static String sStatusFile = "test_status.txt";
-    private final static File sExternalStorage = Environment.getExternalStorageDirectory();
 
     private final static int PERF_LOOPCOUNT = 10;
     private final static int STABILITY_LOOPCOUNT = 1;
     private final static int PAGE_LOAD_TIMEOUT = 120000; // 2 minutes
 
     private BrowserActivity mActivity = null;
+    private Controller mController = null;
     private Instrumentation mInst = null;
     private CountDownLatch mLatch = new CountDownLatch(1);
     private RunStatus mStatus;
@@ -76,10 +79,11 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("about:blank"));
         setActivityIntent(i);
         mActivity = getActivity();
+        mController = mActivity.getController();
         mInst = getInstrumentation();
         mInst.waitForIdleSync();
 
-        mStatus = RunStatus.load();
+        mStatus = RunStatus.load(getInstrumentation().getContext());
     }
 
     @Override
@@ -91,16 +95,10 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         super.tearDown();
     }
 
-    static BufferedReader getInputStream() throws FileNotFoundException {
-        return getInputStream(sInputFile);
-    }
-
-    static BufferedReader getInputStream(String inputFile) throws FileNotFoundException {
-        String path = sExternalStorage + File.separator + inputFile;
-        FileReader fileReader = new FileReader(path);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-        return bufferedReader;
+    BufferedReader getInputStream() throws IOException {
+        AssetManager assets = getInstrumentation().getContext().getAssets();
+        return new BufferedReader(
+            new InputStreamReader(assets.open(sInputFile)));
     }
 
     OutputStreamWriter getOutputStream() throws IOException {
@@ -108,10 +106,8 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     }
 
     OutputStreamWriter getOutputStream(String outputFile) throws IOException {
-        String path = sExternalStorage + File.separator + outputFile;
-
-        File file = new File(path);
-
+        File file = new File(getInstrumentation().getContext()
+                .getExternalFilesDir(null), outputFile);
         return new FileWriter(file, mStatus.getIsRecovery());
     }
 
@@ -120,7 +116,16 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
      * and wrapping the WebView's helper clients.
      */
     void setUpBrowser() {
-        Tab tab = mActivity.getTabControl().getCurrentTab();
+        mInst.runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                setupBrowserInternal();
+            }
+        });
+    }
+
+    void setupBrowserInternal() {
+        Tab tab = mController.getTabControl().getCurrentTab();
         WebView webView = tab.getWebView();
 
         webView.setWebChromeClient(new TestWebChromeClient(webView.getWebChromeClient()) {
@@ -219,6 +224,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
              */
             @Override
             public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
                 if (!pageLoadFinishCalled) {
                     pageLoadFinishCalled = true;
                     if (pageProgressFull) {
@@ -252,7 +258,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             // try to stop page load
             mInst.runOnMainSync(new Runnable(){
                 public void run() {
-                    mActivity.getTabControl().getCurrentTab().getWebView().stopLoading();
+                    mController.getTabControl().getCurrentTab().getWebView().stopLoading();
                 }
             });
             // try to wait for count down latch again
@@ -270,8 +276,8 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         private String url;
         private boolean isRecovery;
 
-        private RunStatus(String file) throws IOException {
-            mFile = new File(file);
+        private RunStatus(File file) throws IOException {
+            mFile = file;
             FileReader input = null;
             BufferedReader reader = null;
             isRecovery = false;
@@ -307,12 +313,13 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             }
         }
 
-        public static RunStatus load() throws IOException {
-            return load(sStatusFile);
+        public static RunStatus load(Context context) throws IOException {
+            return load(context, sStatusFile);
         }
 
-        public static RunStatus load(String file) throws IOException {
-            return new RunStatus(sExternalStorage + File.separator + file);
+        public static RunStatus load(Context context, String file) throws IOException {
+            return new RunStatus(new File(
+                    context.getExternalFilesDir(null), file));
         }
 
         public void write() throws IOException {
@@ -380,14 +387,16 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     void loopUrls(BufferedReader input, OutputStreamWriter writer,
             boolean clearCache, int loopCount)
             throws IOException, InterruptedException {
-        Tab tab = mActivity.getTabControl().getCurrentTab();
+        Tab tab = mController.getTabControl().getCurrentTab();
         WebView webView = tab.getWebView();
 
         List<String> pages = new LinkedList<String>();
 
         String page;
         while (null != (page = input.readLine())) {
-            pages.add(page);
+            if (!TextUtils.isEmpty(page)) {
+                pages.add(page);
+            }
         }
 
         Iterator<String> iterator = pages.iterator();

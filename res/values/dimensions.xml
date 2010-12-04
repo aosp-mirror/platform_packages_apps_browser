@@ -24,4 +24,6 @@
     <dimen name="add_bookmark_width">500dip</dimen>
     <dimen name="folder_selector_height">300dip</dimen>
     <dimen name="widgetItemMinHeight">48dip</dimen>
+    <dimen name="favicon_size">16dip</dimen>
+    <dimen name="favicon_padded_size">20dip</dimen>
 </resources>

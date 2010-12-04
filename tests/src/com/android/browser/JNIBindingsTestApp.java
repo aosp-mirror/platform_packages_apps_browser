@@ -50,6 +50,7 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
     private static final int MSG_WEBKIT_DATA_READY = 101;
 
     private BrowserActivity mActivity = null;
+    private Controller mController = null;
     private Instrumentation mInst = null;
 
     private boolean mTestDone = false;
@@ -111,6 +112,7 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
         super.setUp();
 
         mActivity = getActivity();
+        mController = mActivity.getController();
         mInst = getInstrumentation();
         mInst.waitForIdleSync();
 
@@ -147,7 +149,7 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
      * and wrapping the WebView's helper clients.
      */
     void setUpBrowser() {
-        Tab tab = mActivity.getTabControl().getCurrentTab();
+        Tab tab = mController.getTabControl().getCurrentTab();
         WebView webView = tab.getWebView();
         webView.addJavascriptInterface(new JNIBindingsTest(this), "JNIBindingsTest");
 
@@ -229,7 +231,7 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
     public void testJNIBindings() {
         setUpBrowser();
 
-        Tab tab = mActivity.getTabControl().getCurrentTab();
+        Tab tab = mController.getTabControl().getCurrentTab();
         WebView webView = tab.getWebView();
         webView.loadUrl("file://" + SDCARD_BINDINGS_TEST_HTML);
         synchronized(this) {
