@@ -2152,10 +2152,7 @@ public class Controller
         removeComboView();
         final Tab current = mTabControl.getCurrentTab();
         if (mTabControl.getTabCount() == 1) {
-            // This is the last tab.  Open a new one, with the home
-            // page and close the current one.
-            openTabToHomePage();
-            closeTab(current);
+            mActivity.finish();
             return;
         }
         final Tab parent = current.getParentTab();
