@@ -38,6 +38,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebView;
@@ -70,6 +71,7 @@ public class BaseUi implements UI, WebViewFactory {
     UiController mUiController;
     TabControl mTabControl;
     private Tab mActiveTab;
+    private InputMethodManager mInputManager;
 
     private Drawable mSecLockIcon;
     private Drawable mMixLockIcon;
@@ -107,6 +109,8 @@ public class BaseUi implements UI, WebViewFactory {
         mUiController = controller;
         mTabControl = controller.getTabControl();
         Resources res = mActivity.getResources();
+        mInputManager = (InputMethodManager)
+                browser.getSystemService(Activity.INPUT_METHOD_SERVICE);
         mSecLockIcon = res.getDrawable(R.drawable.ic_secure);
         mMixLockIcon = res.getDrawable(R.drawable.ic_partial_secure);
 
@@ -583,6 +587,11 @@ public class BaseUi implements UI, WebViewFactory {
                 extras);
         mTitleBar.setVisibility(View.GONE);
         hideFakeTitleBar();
+        dismissIME();
+        if (mActiveTab != null) {
+            WebView web = mActiveTab.getWebView();
+            mActiveTab.putInBackground();
+        }
         mContentView.addView(mComboView, COVER_SCREEN_PARAMS);
     }
 
@@ -595,6 +604,9 @@ public class BaseUi implements UI, WebViewFactory {
             mContentView.removeView(mComboView);
             mTitleBar.setVisibility(View.VISIBLE);
             mComboView = null;
+        }
+        if (mActiveTab != null) {
+            mActiveTab.putInForeground();
         }
     }
 
@@ -656,6 +668,13 @@ public class BaseUi implements UI, WebViewFactory {
         mTitleBar.setDisplayTitle(url);
         mFakeTitleBar.setInVoiceMode(false);
         mFakeTitleBar.setDisplayTitle(url);
+    }
+
+    private void dismissIME() {
+        if (mInputManager.isActive()) {
+            mInputManager.hideSoftInputFromWindow(mContentView.getWindowToken(),
+                    0);
+        }
     }
 
     // -------------------------------------------------------------------------
@@ -745,8 +764,6 @@ public class BaseUi implements UI, WebViewFactory {
 
     /**
      * Remove the active tabs page.
-     * @param needToAttach If true, the active tabs page did not attach a tab
-     *                     to the content view, so we need to do that here.
      */
     public void removeActiveTabsPage() {
         mContentView.removeView(mActiveTabsPage);
