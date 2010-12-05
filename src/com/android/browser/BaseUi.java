@@ -694,7 +694,7 @@ public class BaseUi implements UI, WebViewFactory {
         if (current == null) {
             return;
         }
-        resetTitleAndIcon(current);
+        resetTitleAndIcon(tab, current);
         int progress = current.getProgress();
         current.getWebChromeClient().onProgressChanged(current, progress);
     }
@@ -703,14 +703,13 @@ public class BaseUi implements UI, WebViewFactory {
     public void resetTitleAndIcon(Tab tab) {
         WebView current = tab.getWebView();
         if (current != null) {
-            resetTitleAndIcon(current);
+            resetTitleAndIcon(tab, current);
         }
     }
 
     // Reset the title and the icon based on the given item.
-    private void resetTitleAndIcon(WebView view) {
+    private void resetTitleAndIcon(Tab tab, WebView view) {
         WebHistoryItem item = view.copyBackForwardList().getCurrentItem();
-        Tab tab = mTabControl.getTabFromView(view);
         if (item != null) {
             setUrlTitle(tab, item.getUrl(), item.getTitle());
             setFavicon(tab, item.getFavicon());
