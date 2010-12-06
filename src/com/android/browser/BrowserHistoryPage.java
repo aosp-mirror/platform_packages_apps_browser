@@ -214,7 +214,7 @@ public class BrowserHistoryPage extends Fragment
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.clear_history_menu_id).setVisible(
-                Browser.canClearHistory(getActivity().getContentResolver()));
+                mAdapter != null && !mAdapter.isEmpty());
     }
 
     @Override
