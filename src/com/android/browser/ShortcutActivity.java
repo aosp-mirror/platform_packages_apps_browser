@@ -19,6 +19,7 @@ package com.android.browser;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
 public class ShortcutActivity extends Activity
@@ -33,7 +34,8 @@ public class ShortcutActivity extends Activity
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
         mBookmarks = BrowserBookmarksPage.newInstance(this, null, null);
         mBookmarks.setEnableContextMenu(false);
-        mBookmarks.setShowRootFolder(true);
+        mBookmarks.setBreadCrumbMaxVisible(2);
+        mBookmarks.setBreadCrumbUseBackButton(true);
         getFragmentManager()
                 .openTransaction()
                 .add(android.R.id.content, mBookmarks)
@@ -63,5 +65,9 @@ public class ShortcutActivity extends Activity
         if (!mBookmarks.onBackPressed()) {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onFolderChanged(int level, Uri uri) {
     }
 }

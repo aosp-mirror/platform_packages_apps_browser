@@ -22,34 +22,28 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.util.AttributeSet;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class BrowserHomepagePreference extends EditTextPreference {
     private String mCurrentPage;
-    private AlertDialog mSetHomepageTo;
 
     public BrowserHomepagePreference(Context context, AttributeSet attrs,
             int defStyle) {
         super(context, attrs, defStyle);
-        createSetHomepageToDialog();
     }
 
     public BrowserHomepagePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        createSetHomepageToDialog();
     }
 
     public BrowserHomepagePreference(Context context) {
         super(context);
-        createSetHomepageToDialog();
     }
 
     @Override
@@ -58,66 +52,40 @@ public class BrowserHomepagePreference extends EditTextPreference {
         super.onAddEditTextToDialogView(dialogView, editText);
         // Now the EditText has a parent.  Add a button to set to the current
         // page.
-        ViewGroup parent = (ViewGroup) editText.getParent();
-        Button button = new Button(getContext());
-        button.setText(R.string.pref_set_homepage_to);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mSetHomepageTo.show();
-            }
-        });
-        if (parent instanceof LinearLayout) {
-            ((LinearLayout) parent).setGravity(Gravity.CENTER_HORIZONTAL);
-        }
-        parent.addView(button, ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        createButtons((ViewGroup) editText.getParent());
     }
 
-    private void createSetHomepageToDialog() {
-        Context context = getContext();
-        CharSequence[] setToChoices = new CharSequence[] {
-                context.getText(R.string.pref_use_current),
-                context.getText(R.string.pref_use_blank),
-                context.getText(R.string.pref_use_default),
-        };
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.pref_set_homepage_to);
-        builder.setItems(setToChoices, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    getEditText().setText(mCurrentPage);
-                } else if (which == 1) {
-                    getEditText().setText("about:blank");
-                } else if (which == 2) {
-                    getEditText().setText(BrowserSettings
-                            .getFactoryResetHomeUrl(getContext()));
-                }
-            }
-        });
-        mSetHomepageTo = builder.create();
+    void createButtons(ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflater.inflate(R.layout.pref_homepage_buttons, parent);
+        v.findViewById(R.id.use_current).setOnClickListener(mOnClick);
+        v.findViewById(R.id.use_default).setOnClickListener(mOnClick);
     }
+
+    OnClickListener mOnClick = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+            case R.id.use_current:
+                getEditText().setText(mCurrentPage);
+                break;
+            case R.id.use_default:
+                getEditText().setText(
+                        BrowserSettings.getFactoryResetHomeUrl(getContext()));
+                break;
+            }
+        }
+    };
 
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
-            String url = getEditText().getText().toString();
-            if (url.length() > 0
-                    && !UrlUtils.ACCEPTED_URI_SCHEMA.matcher(url)
-                            .matches()) {
-                int colon = url.indexOf(':');
-                int space = url.indexOf(' ');
-                if (colon == -1 && space == -1 && url.length() > 0) {
-                    // if no colon, no space, add "http://" to make it a url
-                    getEditText().setText("http://" + url);
-                } else {
-                    // show an error toast and change the positiveResult to
-                    // false so that the bad url will not override the old url
-                    Toast.makeText(getContext(), R.string.bookmark_url_not_valid,
-                            Toast.LENGTH_SHORT).show();
-                    positiveResult = false;
-                }
+            String url = getEditText().getText().toString().trim();
+            if (url.length() > 0) {
+                url = UrlUtils.smartUrlFilter(url);
             }
+            getEditText().setText(url);
         }
         super.onDialogClosed(positiveResult);
     }

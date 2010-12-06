@@ -108,10 +108,6 @@ public class Controller
 
     private static final int EMPTY_MENU = -1;
 
-    // Keep this initial progress in sync with initialProgressValue (* 100)
-    // in ProgressTracker.cpp
-    private final static int INITIAL_PROGRESS = 10;
-
     // activity requestCode
     final static int PREFERENCES_PAGE = 3;
     final static int FILE_SELECTED = 4;
@@ -564,7 +560,6 @@ public class Controller
             Log.e(LOGTAG, "BrowserActivity is already paused.");
             return;
         }
-        CookieManager.getInstance().flushCookieStore();
         mActivityPaused = true;
         Tab tab = mTabControl.getCurrentTab();
         if (tab != null) {
@@ -749,10 +744,6 @@ public class Controller
         endActionMode();
 
         mUi.onPageStarted(tab, url, favicon);
-
-        // Show some progress so that the user knows the page is beginning to
-        // load
-        onProgressChanged(tab, INITIAL_PROGRESS);
 
         // update the bookmark database for favicon
         maybeUpdateFavicon(tab, null, url, favicon);
@@ -2247,7 +2238,6 @@ public class Controller
      * @param url The URL to load.
      */
     protected void loadUrl(WebView view, String url) {
-        updateTitleBarForNewLoad(view, url);
         view.loadUrl(url);
     }
 
@@ -2258,7 +2248,6 @@ public class Controller
      * @param data The UrlData being loaded.
      */
     protected void loadUrlDataIn(Tab t, UrlData data) {
-        updateTitleBarForNewLoad(t.getWebView(), data.mUrl);
         data.loadIn(t);
     }
 
@@ -2276,25 +2265,6 @@ public class Controller
 
     void resetTitleAndIcon(Tab tab) {
         mUi.resetTitleAndIcon(tab);
-    }
-
-    /**
-     * If the WebView is the top window, update the title bar to reflect
-     * loading the new URL.  i.e. set its text, clear the favicon (which
-     * will be set once the page begins loading), and set the progress to
-     * INITIAL_PROGRESS to show that the page has begun to load. Called
-     * by loadUrl and loadUrlDataIn.
-     * @param view The WebView that is starting a load.
-     * @param url The URL that is being loaded.
-     */
-    private void updateTitleBarForNewLoad(WebView view, String url) {
-        if (view == getCurrentTopWebView()) {
-            // TODO we should come with a tab and not with a view
-            Tab tab = mTabControl.getTabFromView(view);
-            setUrlTitle(tab, url, null);
-            mUi.setFavicon(tab, null);
-            onProgressChanged(tab, INITIAL_PROGRESS);
-        }
     }
 
     /**

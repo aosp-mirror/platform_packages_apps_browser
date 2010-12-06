@@ -56,7 +56,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +65,7 @@ interface BookmarksPageCallbacks {
     boolean onBookmarkSelected(Cursor c, boolean isFolder);
     // Return true if handled
     boolean onOpenInNewWindow(Cursor c);
+    void onFolderChanged(int level, Uri uri);
 }
 
 /**
@@ -103,10 +103,12 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     View mEmptyView;
     int mCurrentView;
     View mHeader;
-    View mRootFolderView;
     ViewGroup mHeaderContainer;
     BreadCrumbView mCrumbs;
     TextView mSelectBookmarkView;
+    int mCrumbVisibility = View.VISIBLE;
+    int mCrumbMaxVisible = -1;
+    boolean mCrumbBackButton = false;
 
     static BrowserBookmarksPage newInstance(BookmarksPageCallbacks cb,
             Bundle args, ViewGroup headerContainer) {
@@ -240,20 +242,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             }
         }
         return -1;
-    }
-
-    public void onFolderChange(int level, Object data) {
-        Uri uri = (Uri) data;
-        if (uri == null) {
-            // top level
-            uri = BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER;
-        }
-        LoaderManager manager = getLoaderManager();
-        BookmarksLoader loader =
-                (BookmarksLoader) ((Loader<?>) manager.getLoader(LOADER_BOOKMARKS));
-        loader.setUri(uri);
-        loader.forceLoad();
-
     }
 
     @Override
@@ -420,11 +408,16 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         mHeader = inflater.inflate(R.layout.bookmarks_header, hc, true);
         mCrumbs = (BreadCrumbView) mHeader.findViewById(R.id.crumbs);
         mCrumbs.setController(this);
+        mCrumbs.setUseBackButton(mCrumbBackButton);
+        mCrumbs.setMaxVisible(mCrumbMaxVisible);
+        mCrumbs.setVisibility(mCrumbVisibility);
+        String name = getString(R.string.bookmarks);
+        mCrumbs.pushView(name, false, BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER);
+        if (mCallbacks != null) {
+            mCallbacks.onFolderChanged(1, BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER);
+        }
         mSelectBookmarkView = (TextView) mHeader.findViewById(R.id.select_bookmark_view);
         mSelectBookmarkView.setOnClickListener(this);
-        mRootFolderView = mHeader.findViewById(R.id.root_folder);
-        mRootFolderView.setOnClickListener(this);
-        setShowRootFolder(mShowRootFolder);
 
         // Start the loaders
         LoaderManager lm = getLoaderManager();
@@ -432,9 +425,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         mCurrentView =
             prefs.getInt(PREF_SELECTED_VIEW, BrowserBookmarksPage.VIEW_THUMBNAILS);
         if (mCurrentView == BrowserBookmarksPage.VIEW_THUMBNAILS) {
-            mSelectBookmarkView.setText(R.string.bookmark_thumbnail_view);
-        } else {
             mSelectBookmarkView.setText(R.string.bookmark_list_view);
+        } else {
+            mSelectBookmarkView.setText(R.string.bookmark_thumbnail_view);
         }
         mAdapter = new BrowserBookmarksAdapter(getActivity(), mCurrentView);
         String accountType = prefs.getString(PREF_ACCOUNT_TYPE, DEFAULT_ACCOUNT);
@@ -457,17 +450,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         CombinedBookmarkHistoryView.getIconListenerSet().addListener(this);
 
         return root;
-    }
-
-    public void setShowRootFolder(boolean show) {
-        mShowRootFolder = show;
-        if (mRootFolderView != null) {
-            if (mShowRootFolder) {
-                mRootFolderView.setVisibility(View.VISIBLE);
-            } else {
-                mRootFolderView.setVisibility(View.GONE);
-            }
-        }
     }
 
     @Override
@@ -505,17 +487,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
         if (isFolder) {
             String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
-            LoaderManager manager = getLoaderManager();
-            BookmarksLoader loader =
-                    (BookmarksLoader) ((Loader<?>) manager.getLoader(LOADER_BOOKMARKS));
             Uri uri = ContentUris.withAppendedId(
                     BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER, id);
             if (mCrumbs != null) {
                 // update crumbs
                 mCrumbs.pushView(title, uri);
             }
-            loader.setUri(uri);
-            loader.forceLoad();
+            loadFolder(uri);
         }
     }
 
@@ -636,6 +614,11 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             return;
         }
         mCurrentView = view;
+        if (mCurrentView == BrowserBookmarksPage.VIEW_THUMBNAILS) {
+            mSelectBookmarkView.setText(R.string.bookmark_list_view);
+        } else {
+            mSelectBookmarkView.setText(R.string.bookmark_thumbnail_view);
+        }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Editor edit = prefs.edit();
         edit.putInt(PREF_SELECTED_VIEW, mCurrentView);
@@ -664,28 +647,39 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
     }
 
-    public BreadCrumbView getBreadCrumb() {
-        return mCrumbs;
-    }
-
     /**
      * BreadCrumb controller callback
      */
     @Override
     public void onTop(int level, Object data) {
-        onFolderChange(level, data);
+        Uri uri = (Uri) data;
+        if (uri == null) {
+            // top level
+            uri = BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER;
+        }
+        loadFolder(uri);
+    }
+
+    /**
+     * @param uri
+     */
+    private void loadFolder(Uri uri) {
+        LoaderManager manager = getLoaderManager();
+        BookmarksLoader loader =
+                (BookmarksLoader) ((Loader<?>) manager.getLoader(LOADER_BOOKMARKS));
+        loader.setUri(uri);
+        loader.forceLoad();
+        if (mCallbacks != null) {
+            mCallbacks.onFolderChanged(mCrumbs.getTopLevel(), uri);
+        }
     }
 
     @Override
     public void onClick(View view) {
         if (mSelectBookmarkView == view) {
-            PopupMenu popup = new PopupMenu(getActivity(), mSelectBookmarkView);
-            popup.getMenuInflater().inflate(R.menu.bookmark_view,
-                    popup.getMenu());
-            popup.setOnMenuItemClickListener(this);
-            popup.show();
-        } else if (mRootFolderView == view) {
-            mCrumbs.clear();
+            selectView(mCurrentView == BrowserBookmarksPage.VIEW_LIST
+                    ? BrowserBookmarksPage.VIEW_THUMBNAILS
+                    : BrowserBookmarksPage.VIEW_LIST);
         }
     }
 
@@ -693,11 +687,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.list_view:
-            mSelectBookmarkView.setText(R.string.bookmark_list_view);
             selectView(BrowserBookmarksPage.VIEW_LIST);
             return true;
         case R.id.thumbnail_view:
-            mSelectBookmarkView.setText(R.string.bookmark_thumbnail_view);
             selectView(BrowserBookmarksPage.VIEW_THUMBNAILS);
             return true;
         }
@@ -766,6 +758,27 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             } else if (result == 0) {
                 mHeader.setUrl(mContext.getString(R.string.contextheader_folder_empty));
             }
+        }
+    }
+
+    public void setBreadCrumbVisibility(int visibility) {
+        mCrumbVisibility = visibility;
+        if (mCrumbs != null) {
+            mCrumbs.setVisibility(mCrumbVisibility);
+        }
+    }
+
+    public void setBreadCrumbUseBackButton(boolean use) {
+        mCrumbBackButton = use;
+        if (mCrumbs != null) {
+            mCrumbs.setUseBackButton(mCrumbBackButton);
+        }
+    }
+
+    public void setBreadCrumbMaxVisible(int max) {
+        mCrumbMaxVisible = max;
+        if (mCrumbs != null) {
+            mCrumbs.setMaxVisible(mCrumbMaxVisible);
         }
     }
 }

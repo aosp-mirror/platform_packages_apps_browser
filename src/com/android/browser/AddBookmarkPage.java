@@ -140,42 +140,9 @@ public class AddBookmarkPage extends Activity
                 LOADER_ID_FOLDER_CONTENTS));
         loader.setUri(uri);
         loader.forceLoad();
-        updateVisible();
         if (mFolderNamer.getVisibility() == View.VISIBLE) {
             completeOrCancelFolderNaming(true);
         }
-    }
-
-    /**
-     * Update the views shown to only show the two deepest levels of crumbs.
-     * Note that this method depends on internal knowledge of BreadCrumbView.
-     */
-    private void updateVisible() {
-      if (MAX_CRUMBS_SHOWN > 0) {
-          int invisibleCrumbs = mCrumbs.size() - MAX_CRUMBS_SHOWN;
-          // This class always uses a back button, which is the first child.
-          int childIndex = 1;
-          if (invisibleCrumbs > 0) {
-              int crumbIndex = 0;
-              while (crumbIndex < invisibleCrumbs) {
-                  // Set the crumb to GONE.
-                  mCrumbs.getChildAt(childIndex).setVisibility(View.GONE);
-                  childIndex++;
-                  // Each crumb is followed by a separator (except the last
-                  // one).  Also make it GONE
-                  mCrumbs.getChildAt(childIndex).setVisibility(View.GONE);
-                  childIndex++;
-                  // Move to the next crumb.
-                  crumbIndex++;
-              }
-          }
-          // Make sure the last two are visible.
-          int childCount = mCrumbs.getChildCount();
-          while (childIndex < childCount) {
-              mCrumbs.getChildAt(childIndex).setVisibility(View.VISIBLE);
-              childIndex++;
-          }
-      }
     }
 
     @Override
@@ -428,7 +395,6 @@ public class AddBookmarkPage extends Activity
                     mCrumbs.pushView(thisFolder.Name, thisFolder);
                 }
                 getLoaderManager().stopLoader(LOADER_ID_ALL_FOLDERS);
-                updateVisible();
                 break;
             default:
                 break;
@@ -566,6 +532,7 @@ public class AddBookmarkPage extends Activity
         mCrumbs.pushView(name, false,
                 new Folder(name, BrowserProvider2.FIXED_ID_ROOT));
         mCrumbHolder = findViewById(R.id.crumb_holder);
+        mCrumbs.setMaxVisible(MAX_CRUMBS_SHOWN);
 
         mAdapter = new FolderAdapter(this);
         mListView = (ListView) findViewById(R.id.list);

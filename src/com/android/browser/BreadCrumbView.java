@@ -47,6 +47,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     private List<Crumb> mCrumbs;
     private boolean mUseBackButton;
     private Drawable mSeparatorDrawable;
+    private int mMaxVisible = -1;
 
     /**
      * @param context
@@ -80,20 +81,29 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
         mCrumbs = new ArrayList<Crumb>();
         mSeparatorDrawable = ctx.getResources().getDrawable(
                 R.drawable.crumb_divider);
+        addBackButton();
     }
 
     public void setUseBackButton(boolean useflag) {
         mUseBackButton = useflag;
-        if (mUseBackButton && (mBackButton == null)) {
-            addBackButton();
-        } else if (!mUseBackButton && (mBackButton != null)) {
-            removeView(mBackButton);
-            mBackButton = null;
-        }
+        updateVisible();
     }
 
     public void setController(Controller ctl) {
         mController = ctl;
+    }
+
+    public int getMaxVisible() {
+        return mMaxVisible;
+    }
+
+    public void setMaxVisible(int max) {
+        mMaxVisible = max;
+        updateVisible();
+    }
+
+    public int getTopLevel() {
+        return mCrumbs.size();
     }
 
     public Object getTopData() {
@@ -155,14 +165,12 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     }
 
     private void pushCrumb(Crumb crumb) {
-        if (!mUseBackButton || (mCrumbs.size() > 0)) {
+        if (mCrumbs.size() > 0) {
             addSeparator();
         }
         mCrumbs.add(crumb);
         addView(crumb.crumbView);
-        if (mUseBackButton) {
-            mBackButton.setVisibility(crumb.canGoBack ? View.VISIBLE : View.INVISIBLE);
-        }
+        updateVisible();
         crumb.crumbView.setOnClickListener(this);
     }
 
@@ -191,9 +199,51 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
                     mBackButton.setVisibility(View.INVISIBLE);
                 }
             }
+            updateVisible();
             if (notify) {
                 notifyController();
             }
+        }
+    }
+
+    private void updateVisible() {
+        // start at index 1 (0 == back button)
+        int childIndex = 1;
+        if (mMaxVisible >= 0) {
+            int invisibleCrumbs = size() - mMaxVisible;
+            if (invisibleCrumbs > 0) {
+                int crumbIndex = 0;
+                while (crumbIndex < invisibleCrumbs) {
+                    // Set the crumb to GONE.
+                    getChildAt(childIndex).setVisibility(View.GONE);
+                    childIndex++;
+                    // Each crumb is followed by a separator (except the last
+                    // one).  Also make it GONE
+                    if (getChildAt(childIndex) != null) {
+                        getChildAt(childIndex).setVisibility(View.GONE);
+                    }
+                    childIndex++;
+                    // Move to the next crumb.
+                    crumbIndex++;
+                }
+            }
+            // Make sure the last two are visible.
+            int childCount = getChildCount();
+            while (childIndex < childCount) {
+                getChildAt(childIndex).setVisibility(View.VISIBLE);
+                childIndex++;
+            }
+        } else {
+            int count = getChildCount();
+            for (int i = childIndex; i < count ; i++) {
+                getChildAt(i).setVisibility(View.VISIBLE);
+            }
+        }
+        if (mUseBackButton) {
+            boolean canGoBack = getTopCrumb() != null ? getTopCrumb().canGoBack : false;
+            mBackButton.setVisibility(canGoBack ? View.VISIBLE : View.INVISIBLE);
+        } else {
+            mBackButton.setVisibility(View.GONE);
         }
     }
 
@@ -240,7 +290,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int height = mSeparatorDrawable.getIntrinsicHeight();
-        if (mMeasuredHeight < height) {
+        if (getMeasuredHeight() < height) {
             // This should only be an issue if there are currently no separators
             // showing; i.e. if there is one crumb and no back button.
             int mode = View.MeasureSpec.getMode(heightMeasureSpec);
@@ -255,7 +305,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
                 default:
                     break;
             }
-            setMeasuredDimension(mMeasuredWidth, height);
+            setMeasuredDimension(getMeasuredWidth(), height);
         }
     }
 

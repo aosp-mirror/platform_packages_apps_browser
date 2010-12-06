@@ -24,6 +24,7 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -68,8 +69,7 @@ import java.util.Observable;
  * To remove an observer:
  * s.deleteObserver(webView.getSettings());
  */
-public class BrowserSettings extends Observable {
-
+public class BrowserSettings extends Observable implements OnSharedPreferenceChangeListener {
     // Private variables for settings
     // NOTE: these defaults need to be kept in sync with the XML
     // until the performance of PreferenceManager.setDefaultValues()
@@ -164,6 +164,8 @@ public class BrowserSettings extends Observable {
     public final static String PREF_AUTOFILL_ENABLED = "autofill_enabled";
     public final static String PREF_AUTOFILL_PROFILE = "autofill_profile";
     public final static String PREF_AUTOFILL_ACTIVE_PROFILE_ID = "autofill_active_profile_id";
+    public final static String PREF_HARDWARE_ACCEL = "enable_hardware_accel";
+    public final static String PREF_USER_AGENT = "user_agent";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, " +
@@ -188,6 +190,9 @@ public class BrowserSettings extends Observable {
     public static final String RLZ_PROVIDER = "com.google.android.partnersetup.rlzappprovider";
 
     public static final Uri RLZ_PROVIDER_URI = Uri.parse("content://" + RLZ_PROVIDER + "/");
+
+    // Set to true to enable some of the about:debug options
+    public static final boolean DEV_BUILD = true;
 
     private Controller mController;
 
@@ -332,7 +337,7 @@ public class BrowserSettings extends Observable {
             // Set the default value for the Geolocation database path.
             geolocationDatabasePath = mContext.getDir("geolocation", 0).getPath();
 
-            if (p.getString(PREF_HOMEPAGE, "") == "") {
+            if (p.getString(PREF_HOMEPAGE, null) == null) {
                 // No home page preferences is set, set it to default.
                 setHomePage(mContext, getFactoryResetHomeUrl(mContext));
             }
@@ -390,6 +395,7 @@ public class BrowserSettings extends Observable {
 
             // PreferenceManager.setDefaultValues is TOO SLOW, need to manually keep
             // the defaults in sync
+            p.registerOnSharedPreferenceChangeListener(BrowserSettings.this);
             syncSharedPreferences(mContext, p);
 
             synchronized (sSingleton) {
@@ -482,13 +488,13 @@ public class BrowserSettings extends Observable {
             tracing = p.getBoolean("enable_tracing", tracing);
             lightTouch = p.getBoolean("enable_light_touch", lightTouch);
             navDump = p.getBoolean("enable_nav_dump", navDump);
-            userAgent = Integer.parseInt(p.getString("user_agent", "0"));
         }
 
-        // This setting can only be modified when the debug settings have been
-        // enabled but it is read and used by the browser at startup so we must
-        // initialize it regardless of the status of the debug settings.
-        hardwareAccelerated = p.getBoolean("enable_hardware_accel", hardwareAccelerated);
+        // Only set these on startup if it is a dev build
+        if (DEV_BUILD) {
+            userAgent = Integer.parseInt(p.getString(PREF_USER_AGENT, "0"));
+            hardwareAccelerated = p.getBoolean(PREF_HARDWARE_ACCEL, hardwareAccelerated);
+        }
 
         // JS flags is loaded from DB even if showDebugSettings is false,
         // so that it can be set once and be effective all the time.
@@ -642,10 +648,10 @@ public class BrowserSettings extends Observable {
     }
 
     /*
-     * Package level method for obtaining a single app instance of the
+     * Application level method for obtaining a single app instance of the
      * BrowserSettings.
      */
-    /*package*/ static BrowserSettings getInstance() {
+    public static BrowserSettings getInstance() {
         if (sSingleton == null ) {
             sSingleton = new BrowserSettings();
         }
@@ -819,6 +825,17 @@ public class BrowserSettings extends Observable {
             assert  id > 0;
             mAutoFillProfileDb.dropProfile(id);
             return null;
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(
+            SharedPreferences p, String key) {
+        if (PREF_HARDWARE_ACCEL.equals(key)) {
+            hardwareAccelerated = p.getBoolean(PREF_HARDWARE_ACCEL, hardwareAccelerated);
+        } else if (PREF_USER_AGENT.equals(key)) {
+            userAgent = Integer.parseInt(p.getString(PREF_USER_AGENT, "0"));
+            update();
         }
     }
 }

@@ -24,6 +24,7 @@ import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
@@ -66,6 +67,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     TextView mAddBookmark;
     View mSeperateSelectAdd;
     ViewGroup mBookmarksHeader;
+    View mHome;
 
     BrowserBookmarksPage mBookmarks;
     BrowserHistoryPage mHistory;
@@ -125,9 +127,11 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         mTabHistory = (TextView) findViewById(R.id.historytab);
         mAddBookmark = (TextView) findViewById(R.id.addbm);
         mSeperateSelectAdd = findViewById(R.id.seperate_select_add);
+        mHome = findViewById(R.id.home);
         mAddBookmark.setOnClickListener(this);
         mTabHistory.setOnClickListener(this);
         mTabBookmarks.setOnClickListener(this);
+        mHome.setOnClickListener(this);
         // Start up the default fragment
         initFragments(mExtras);
         loadFragment(startingFragment, mExtras, false);
@@ -164,11 +168,25 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             mUiController.onUrlSelected(BrowserBookmarksPage.getUrl(c), false);
             return true;
         }
+
+        @Override
+        public void onFolderChanged(int level, Uri uri) {
+            // 1 is "bookmarks" root folder
+            if (level <= 1) {
+                mTabs.setVisibility(View.VISIBLE);
+                mBookmarks.setBreadCrumbVisibility(View.INVISIBLE);
+            } else {
+                mTabs.setVisibility(View.GONE);
+                mBookmarks.setBreadCrumbVisibility(View.VISIBLE);
+            }
+        }
     };
 
     private void initFragments(Bundle extras) {
         mBookmarks = BrowserBookmarksPage.newInstance(mBookmarkCallbackWrapper,
                 extras, mBookmarksHeader);
+        mBookmarks.setBreadCrumbMaxVisible(2);
+        mBookmarks.setBreadCrumbUseBackButton(true);
         mHistory = BrowserHistoryPage.newInstance(mUiController, extras);
     }
 
@@ -180,11 +198,15 @@ public class CombinedBookmarkHistoryView extends LinearLayout
                 fragment = mBookmarks;
                 mSeperateSelectAdd.setVisibility(View.VISIBLE);
                 mBookmarksHeader.setVisibility(View.VISIBLE);
+                mTabBookmarks.setActivated(true);
+                mTabHistory.setActivated(false);
                 break;
             case FRAGMENT_ID_HISTORY:
                 fragment = mHistory;
                 mBookmarksHeader.setVisibility(View.INVISIBLE);
                 mSeperateSelectAdd.setVisibility(View.INVISIBLE);
+                mTabBookmarks.setActivated(false);
+                mTabHistory.setActivated(true);
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -217,14 +239,12 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         } else if (mTabBookmarks == view) {
             if (mCurrentFragment != FRAGMENT_ID_BOOKMARKS) {
                 loadFragment(FRAGMENT_ID_BOOKMARKS, mExtras, true);
-            } else {
-                BreadCrumbView crumbs = mBookmarks.getBreadCrumb();
-                if (crumbs != null) {
-                    crumbs.clear();
-                }
             }
         } else if (mAddBookmark == view) {
             mUiController.bookmarkCurrentPage(mBookmarks.getFolderId());
+        } else if (mHome == view) {
+            BrowserSettings settings = BrowserSettings.getInstance();
+            mUiController.onUrlSelected(settings.getHomePage(), false);
         }
     }
 

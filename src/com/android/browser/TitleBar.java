@@ -320,13 +320,13 @@ public class TitleBar extends TitleBarBase {
 
     /**
      * Update the text displayed in the title bar.
-     * @param title String to display.  If null, the loading string will be
+     * @param title String to display.  If null, the new tab string will be
      *      shown.
      */
     @Override
     void setDisplayTitle(String title) {
         if (title == null) {
-            mTitle.setText(R.string.title_bar_loading);
+            mTitle.setText(R.string.new_tab);
         } else {
             if (mInVoiceMode) {
                 // Add two spaces.  The second one will be replaced with an
