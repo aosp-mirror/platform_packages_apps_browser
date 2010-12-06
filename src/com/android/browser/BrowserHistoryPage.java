@@ -22,6 +22,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ClipboardManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -221,6 +222,7 @@ public class BrowserHistoryPage extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear_history_menu_id:
+                final ContentResolver resolver = getActivity().getContentResolver();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                         .setTitle(R.string.clear)
                         .setMessage(R.string.pref_privacy_clear_history_dlg)
@@ -230,7 +232,7 @@ public class BrowserHistoryPage extends Fragment
                              @Override
                              public void onClick(DialogInterface dialog, int which) {
                                  if (which == DialogInterface.BUTTON_POSITIVE) {
-                                     Browser.clearHistory(getActivity().getContentResolver());
+                                     Browser.clearHistory(resolver);
                                      mCallbacks.onRemoveParentChildRelationships();
                                  }
                              }
