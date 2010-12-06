@@ -405,7 +405,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             hc = (ViewGroup) root.findViewById(R.id.header_container);
             hc.setVisibility(View.VISIBLE);
         }
-        mHeader = inflater.inflate(R.layout.bookmarks_header, hc, true);
+        mHeader = inflater.inflate(R.layout.bookmarks_header, hc, false);
+        hc.addView(mHeader);
         mCrumbs = (BreadCrumbView) mHeader.findViewById(R.id.crumbs);
         mCrumbs.setController(this);
         mCrumbs.setUseBackButton(mCrumbBackButton);
