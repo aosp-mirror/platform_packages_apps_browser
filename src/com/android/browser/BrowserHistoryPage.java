@@ -34,6 +34,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.provider.BrowserContract;
@@ -223,6 +224,7 @@ public class BrowserHistoryPage extends Fragment
         switch (item.getItemId()) {
             case R.id.clear_history_menu_id:
                 final ContentResolver resolver = getActivity().getContentResolver();
+                final ClearHistoryTask clear = new ClearHistoryTask(resolver, mCallbacks);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                         .setTitle(R.string.clear)
                         .setMessage(R.string.pref_privacy_clear_history_dlg)
@@ -232,8 +234,7 @@ public class BrowserHistoryPage extends Fragment
                              @Override
                              public void onClick(DialogInterface dialog, int which) {
                                  if (which == DialogInterface.BUTTON_POSITIVE) {
-                                     Browser.clearHistory(resolver);
-                                     mCallbacks.onRemoveParentChildRelationships();
+                                     clear.execute();
                                  }
                              }
                         });
@@ -245,6 +246,27 @@ public class BrowserHistoryPage extends Fragment
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    static class ClearHistoryTask extends AsyncTask<Void, Void, Void> {
+        ContentResolver mResolver;
+        BookmarksHistoryCallbacks mCallbacks;
+
+        public ClearHistoryTask(ContentResolver resolver,
+                BookmarksHistoryCallbacks callbacks) {
+            mResolver = resolver;
+            mCallbacks = callbacks;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            Browser.clearHistory(mResolver);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            mCallbacks.onRemoveParentChildRelationships();
+        }
     }
 
     @Override
