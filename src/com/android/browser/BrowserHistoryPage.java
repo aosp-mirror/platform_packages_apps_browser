@@ -376,7 +376,6 @@ public class BrowserHistoryPage extends Fragment
 
         @Override
         public long getChildId(int groupPosition, int childPosition) {
-            if (!mDataValid) return 0;
             if (moveCursorToChildPosition(groupPosition, childPosition)) {
                 Cursor cursor = getCursor(groupPosition);
                 return cursor.getLong(HistoryQuery.INDEX_ID);
@@ -418,7 +417,9 @@ public class BrowserHistoryPage extends Fragment
         public View getGroupView(int groupPosition, boolean isExpanded,
                 View convertView, ViewGroup parent) {
             if (groupPosition >= super.getGroupCount()) {
-                if (!mDataValid) throw new IllegalStateException("Data is not valid");
+                if (mMostVisited == null || mMostVisited.isClosed()) {
+                    throw new IllegalStateException("Data is not valid");
+                }
                 TextView item;
                 if (null == convertView || !(convertView instanceof TextView)) {
                     LayoutInflater factory = LayoutInflater.from(getContext());
@@ -436,7 +437,7 @@ public class BrowserHistoryPage extends Fragment
         boolean moveCursorToChildPosition(
                 int groupPosition, int childPosition) {
             if (groupPosition >= super.getGroupCount()) {
-                if (mDataValid && !mMostVisited.isClosed()) {
+                if (mMostVisited != null && !mMostVisited.isClosed()) {
                     mMostVisited.moveToPosition(childPosition);
                     return true;
                 }
