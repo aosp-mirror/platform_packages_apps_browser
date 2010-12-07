@@ -349,7 +349,6 @@ public class BaseUi implements UI, WebViewFactory {
             // Request focus on the top window.
             mTabBar.onSetActiveTab(tab);
         }
-        bookmarkedStatusHasChanged(tab);
         resetTitleIconAndProgress(tab);
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
