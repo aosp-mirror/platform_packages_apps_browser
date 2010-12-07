@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import android.os.FileUtils;
 import android.util.Log;
 
 import android.app.Application;
@@ -47,16 +48,21 @@ public class Browser extends Application {
     public Browser() {
     }
 
+    @Override
     public void onCreate() {
+        super.onCreate();
+
+        // Set the umask so that native code creates files with the correct
+        // permissions (0660)
+        FileUtils.setUMask(FileUtils.S_IRWXO);
         if (LOGV_ENABLED)
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
+
         // Fix heap utilization for better heap size characteristics.
         VMRuntime.getRuntime().setTargetHeapUtilization(
                 TARGET_HEAP_UTILIZATION);
         // create CookieSyncManager with current Context
         CookieSyncManager.createInstance(this);
-        // remove all expired cookies
-        CookieManager.getInstance().removeExpiredCookie();
         BrowserSettings.getInstance().asyncLoadFromDb(this);
     }
 

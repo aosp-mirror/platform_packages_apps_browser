@@ -130,7 +130,9 @@ public class BrowserActivity extends Activity {
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
         }
-        mController.onResume();
+        if (mController != null) {
+            mController.onResume();
+        }
     }
 
     @Override
@@ -167,7 +169,9 @@ public class BrowserActivity extends Activity {
 
     @Override
     protected void onPause() {
-        mController.onPause();
+        if (mController != null) {
+            mController.onPause();
+        }
         super.onPause();
     }
 
@@ -177,7 +181,9 @@ public class BrowserActivity extends Activity {
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
-        mController.onDestroy();
+        if (mController != null) {
+            mController.onDestroy();
+        }
         mUi = null;
         mController = null;
     }

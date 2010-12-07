@@ -26,9 +26,11 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,7 +50,7 @@ public class TitleBarXLarge extends TitleBarBase
     private View mContainer;
     private View mBackButton;
     private View mForwardButton;
-    private View mStar;
+    private CheckBox mStar;
     private View mSearchButton;
     private View mFocusContainer;
     private View mUnfocusContainer;
@@ -82,7 +84,7 @@ public class TitleBarXLarge extends TitleBarBase
         // back/forward.  Probably should be done inside onPageStarted.
         mBackButton = findViewById(R.id.back);
         mForwardButton = findViewById(R.id.forward);
-        mStar = findViewById(R.id.star);
+        mStar = (CheckBox) findViewById(R.id.star);
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = findViewById(R.id.search);
         mLockIcon = (ImageView) findViewById(R.id.lock);
@@ -104,6 +106,10 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlFocused.setContainer(mFocusContainer);
         mUrlFocused.setController(mUiController);
         mUnfocusContainer.setOnClickListener(this);
+    }
+
+    public void setCurrentUrlIsBookmark(boolean isBookmark) {
+        mStar.setChecked(isBookmark);
     }
 
     @Override
@@ -237,4 +243,25 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlUnfocused.setText(title);
     }
 
+    /**
+     * Custom CheckBox which does not toggle when pressed.  Used by mStar.
+     */
+    public static class CustomCheck extends CheckBox {
+        public CustomCheck(Context context) {
+            super(context);
+        }
+
+        public CustomCheck(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public CustomCheck(Context context, AttributeSet attrs, int defStyle) {
+            super(context, attrs, defStyle);
+        }
+
+        @Override
+        public void toggle() {
+            // Do nothing
+        }
+    }
 }

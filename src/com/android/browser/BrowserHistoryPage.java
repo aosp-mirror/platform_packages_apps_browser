@@ -22,6 +22,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ClipboardManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -33,6 +34,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.provider.BrowserContract;
@@ -214,13 +216,15 @@ public class BrowserHistoryPage extends Fragment
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.clear_history_menu_id).setVisible(
-                Browser.canClearHistory(getActivity().getContentResolver()));
+                mAdapter != null && !mAdapter.isEmpty());
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear_history_menu_id:
+                final ContentResolver resolver = getActivity().getContentResolver();
+                final ClearHistoryTask clear = new ClearHistoryTask(resolver, mCallbacks);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                         .setTitle(R.string.clear)
                         .setMessage(R.string.pref_privacy_clear_history_dlg)
@@ -230,8 +234,7 @@ public class BrowserHistoryPage extends Fragment
                              @Override
                              public void onClick(DialogInterface dialog, int which) {
                                  if (which == DialogInterface.BUTTON_POSITIVE) {
-                                     Browser.clearHistory(getActivity().getContentResolver());
-                                     mCallbacks.onRemoveParentChildRelationships();
+                                     clear.execute();
                                  }
                              }
                         });
@@ -243,6 +246,27 @@ public class BrowserHistoryPage extends Fragment
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    static class ClearHistoryTask extends AsyncTask<Void, Void, Void> {
+        ContentResolver mResolver;
+        BookmarksHistoryCallbacks mCallbacks;
+
+        public ClearHistoryTask(ContentResolver resolver,
+                BookmarksHistoryCallbacks callbacks) {
+            mResolver = resolver;
+            mCallbacks = callbacks;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            Browser.clearHistory(mResolver);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            mCallbacks.onRemoveParentChildRelationships();
+        }
     }
 
     @Override
@@ -374,7 +398,6 @@ public class BrowserHistoryPage extends Fragment
 
         @Override
         public long getChildId(int groupPosition, int childPosition) {
-            if (!mDataValid) return 0;
             if (moveCursorToChildPosition(groupPosition, childPosition)) {
                 Cursor cursor = getCursor(groupPosition);
                 return cursor.getLong(HistoryQuery.INDEX_ID);
@@ -416,7 +439,9 @@ public class BrowserHistoryPage extends Fragment
         public View getGroupView(int groupPosition, boolean isExpanded,
                 View convertView, ViewGroup parent) {
             if (groupPosition >= super.getGroupCount()) {
-                if (!mDataValid) throw new IllegalStateException("Data is not valid");
+                if (mMostVisited == null || mMostVisited.isClosed()) {
+                    throw new IllegalStateException("Data is not valid");
+                }
                 TextView item;
                 if (null == convertView || !(convertView instanceof TextView)) {
                     LayoutInflater factory = LayoutInflater.from(getContext());
@@ -434,7 +459,7 @@ public class BrowserHistoryPage extends Fragment
         boolean moveCursorToChildPosition(
                 int groupPosition, int childPosition) {
             if (groupPosition >= super.getGroupCount()) {
-                if (mDataValid && !mMostVisited.isClosed()) {
+                if (mMostVisited != null && !mMostVisited.isClosed()) {
                     mMostVisited.moveToPosition(childPosition);
                     return true;
                 }

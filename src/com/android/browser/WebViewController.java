@@ -107,4 +107,6 @@ public interface WebViewController {
 
     void setupAutoFill(Message message);
 
+    void bookmarkedStatusHasChanged(Tab tab);
+
 }

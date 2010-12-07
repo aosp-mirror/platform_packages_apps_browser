@@ -38,6 +38,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebView;
@@ -70,6 +71,7 @@ public class BaseUi implements UI, WebViewFactory {
     UiController mUiController;
     TabControl mTabControl;
     private Tab mActiveTab;
+    private InputMethodManager mInputManager;
 
     private Drawable mSecLockIcon;
     private Drawable mMixLockIcon;
@@ -107,6 +109,8 @@ public class BaseUi implements UI, WebViewFactory {
         mUiController = controller;
         mTabControl = controller.getTabControl();
         Resources res = mActivity.getResources();
+        mInputManager = (InputMethodManager)
+                browser.getSystemService(Activity.INPUT_METHOD_SERVICE);
         mSecLockIcon = res.getDrawable(R.drawable.ic_secure);
         mMixLockIcon = res.getDrawable(R.drawable.ic_partial_secure);
 
@@ -256,6 +260,15 @@ public class BaseUi implements UI, WebViewFactory {
     }
 
     @Override
+    public void bookmarkedStatusHasChanged(Tab tab) {
+        if (tab.inForeground() && mXLargeScreenSize) {
+            boolean isBookmark = tab.isBookmarkedSite();
+            ((TitleBarXLarge) mTitleBar).setCurrentUrlIsBookmark(isBookmark);
+            ((TitleBarXLarge) mFakeTitleBar).setCurrentUrlIsBookmark(isBookmark);
+        }
+    }
+
+    @Override
     public void onPageFinished(Tab tab, String url) {
         if (mXLargeScreenSize) {
             mTabBar.onPageFinished(tab);
@@ -336,6 +349,7 @@ public class BaseUi implements UI, WebViewFactory {
             // Request focus on the top window.
             mTabBar.onSetActiveTab(tab);
         }
+        bookmarkedStatusHasChanged(tab);
         resetTitleIconAndProgress(tab);
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
@@ -573,6 +587,11 @@ public class BaseUi implements UI, WebViewFactory {
                 extras);
         mTitleBar.setVisibility(View.GONE);
         hideFakeTitleBar();
+        dismissIME();
+        if (mActiveTab != null) {
+            WebView web = mActiveTab.getWebView();
+            mActiveTab.putInBackground();
+        }
         mContentView.addView(mComboView, COVER_SCREEN_PARAMS);
     }
 
@@ -585,6 +604,9 @@ public class BaseUi implements UI, WebViewFactory {
             mContentView.removeView(mComboView);
             mTitleBar.setVisibility(View.VISIBLE);
             mComboView = null;
+        }
+        if (mActiveTab != null) {
+            mActiveTab.putInForeground();
         }
     }
 
@@ -648,6 +670,13 @@ public class BaseUi implements UI, WebViewFactory {
         mFakeTitleBar.setDisplayTitle(url);
     }
 
+    private void dismissIME() {
+        if (mInputManager.isActive()) {
+            mInputManager.hideSoftInputFromWindow(mContentView.getWindowToken(),
+                    0);
+        }
+    }
+
     // -------------------------------------------------------------------------
 
     @Override
@@ -684,7 +713,7 @@ public class BaseUi implements UI, WebViewFactory {
         if (current == null) {
             return;
         }
-        resetTitleAndIcon(current);
+        resetTitleAndIcon(tab, current);
         int progress = current.getProgress();
         current.getWebChromeClient().onProgressChanged(current, progress);
     }
@@ -693,14 +722,13 @@ public class BaseUi implements UI, WebViewFactory {
     public void resetTitleAndIcon(Tab tab) {
         WebView current = tab.getWebView();
         if (current != null) {
-            resetTitleAndIcon(current);
+            resetTitleAndIcon(tab, current);
         }
     }
 
     // Reset the title and the icon based on the given item.
-    private void resetTitleAndIcon(WebView view) {
+    private void resetTitleAndIcon(Tab tab, WebView view) {
         WebHistoryItem item = view.copyBackForwardList().getCurrentItem();
-        Tab tab = mTabControl.getTabFromView(view);
         if (item != null) {
             setUrlTitle(tab, item.getUrl(), item.getTitle());
             setFavicon(tab, item.getFavicon());
@@ -736,8 +764,6 @@ public class BaseUi implements UI, WebViewFactory {
 
     /**
      * Remove the active tabs page.
-     * @param needToAttach If true, the active tabs page did not attach a tab
-     *                     to the content view, so we need to do that here.
      */
     public void removeActiveTabsPage() {
         mContentView.removeView(mActiveTabsPage);
