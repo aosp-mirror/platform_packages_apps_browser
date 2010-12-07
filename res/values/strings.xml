@@ -370,6 +370,8 @@
     <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
     <string name="pref_autofill_profile_editor_summary">Set up &amp; manage data for AutoFilled forms</string>
 
+    <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+    <string name="autofill_profile_editor_heading">AutoFill will use your profile to help you complete web forms in a single click.</string>
     <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
     <string name="autofill_profile_editor_name">Full name:</string>
     <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
@@ -402,7 +404,7 @@
     <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
     <string name="autofill_profile_successful_delete">Profile deleted</string>
     <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
-    <string name="autofill_profile_editor_delete_profile">Delete profile data</string>
+    <string name="autofill_profile_editor_delete_profile">Delete profile</string>
 
     <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
     <string name="autofill_setup_dialog_message">Browser can automatically complete web forms like this one. Would you like to set up your profile?</string>

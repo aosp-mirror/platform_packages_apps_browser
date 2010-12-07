@@ -16,8 +16,7 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -27,8 +26,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/pref_autofill_profile_editor" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/autofill_profile_editor_heading" />
 
     <View
         android:layout_height="20dip"
@@ -37,52 +36,47 @@
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:shrinkColumns="1"
         android:stretchColumns="1">
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/autofill_profile_editor_name" />
             <EditText android:id="@+id/autofill_profile_editor_name_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="center_vertical"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textPersonName|textCapWords"
                 android:singleLine="true" />
         </TableRow>
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/autofill_profile_editor_company_name" />
             <EditText android:id="@+id/autofill_profile_editor_company_name_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="center_vertical"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textCapWords"
                 android:singleLine="true" />
         </TableRow>
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,20 +92,17 @@
                     android:text="@string/autofill_profile_editor_address_line_1_hint" />
             </LinearLayout>
             <EditText android:id="@+id/autofill_profile_editor_address_line_1_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="center_vertical"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textCapWords"
                 android:singleLine="true" />
         </TableRow>
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,115 +120,110 @@
             <EditText android:id="@+id/autofill_profile_editor_address_line_2_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="bottom"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textCapWords"
                 android:singleLine="true" />
         </TableRow>
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/autofill_profile_editor_city" />
             <EditText android:id="@+id/autofill_profile_editor_city_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="center_vertical"
+                android:layout_margin="2dip"
                 android:inputType="textCapWords"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:singleLine="true" />
         </TableRow>
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/autofill_profile_editor_state" />
             <EditText android:id="@+id/autofill_profile_editor_state_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="center_vertical"
+                android:layout_margin="2dip"
                 android:inputType="textCapWords"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:singleLine="true" />
         </TableRow>
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/autofill_profile_editor_zip_code" />
             <EditText android:id="@+id/autofill_profile_editor_zip_code_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="center_vertical"
+                android:layout_margin="2dip"
                 android:inputType="textCapCharacters"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:singleLine="true" />
         </TableRow>
-       <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/autofill_profile_editor_country" />
             <EditText android:id="@+id/autofill_profile_editor_country_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="center_vertical"
+                android:layout_margin="2dip"
                 android:inputType="textCapWords"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:singleLine="true" />
         </TableRow>
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/autofill_profile_editor_phone_number" />
             <EditText android:id="@+id/autofill_profile_editor_phone_number_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="center_vertical"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:singleLine="true"
                 android:phoneNumber="true" />
         </TableRow>
-        <TableRow
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="10dip"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/autofill_profile_editor_email_address" />
             <EditText android:id="@+id/autofill_profile_editor_email_address_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
+                android:gravity="center_vertical"
+                android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textEmailAddress"
                 android:singleLine="true" />
