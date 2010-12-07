@@ -30,10 +30,12 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Instrumentation;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.webkit.HttpAuthHandler;
@@ -61,6 +63,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
     private BrowserActivity mActivity = null;
     private Instrumentation mInst = null;
+    private PowerManager.WakeLock mWakeLock = null;
     private CountDownLatch mLatch = new CountDownLatch(1);
     private RunStatus mStatus;
 
@@ -73,6 +76,12 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         super.setUp();
 
         mActivity = getActivity();
+
+        // need to fix wake lock so we do not go into sleep mode
+        PowerManager pm = (PowerManager) mActivity.getSystemService(Context.POWER_SERVICE);
+        mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, TAG);
+        mWakeLock.acquire();
+
         mInst = getInstrumentation();
         mInst.waitForIdleSync();
 
@@ -83,6 +92,10 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
     protected void tearDown() throws Exception {
         if (mStatus != null) {
             mStatus.cleanUp();
+        }
+
+        if (mWakeLock != null) {
+            mWakeLock.release();
         }
 
         super.tearDown();
