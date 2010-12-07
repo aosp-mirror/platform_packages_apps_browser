@@ -200,7 +200,7 @@ public class TitleBarXLarge extends TitleBarBase
 
     private void search() {
         setDisplayTitle("");
-        mUrlUnfocused.requestFocus();
+        setUrlMode(true);
     }
 
     private void stopOrRefresh() {
