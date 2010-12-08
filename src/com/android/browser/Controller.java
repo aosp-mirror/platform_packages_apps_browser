@@ -33,6 +33,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -191,6 +192,9 @@ public class Controller
     private boolean mLoadStopped;
 
     private Handler mHandler;
+    // Checks to see when the bookmarks database has changed, and updates the
+    // Tabs' notion of whether they represent bookmarked sites.
+    private ContentObserver mBookmarksObserver;
 
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
@@ -221,6 +225,18 @@ public class Controller
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
 
         startHandler();
+        mBookmarksObserver = new ContentObserver(mHandler) {
+            @Override
+            public void onChange(boolean selfChange) {
+                int size = mTabControl.getTabCount();
+                for (int i = 0; i < size; i++) {
+                    mTabControl.getTab(i).updateBookmarkedStatus();
+                }
+            }
+
+        };
+        browser.getContentResolver().registerContentObserver(
+                BrowserContract.Bookmarks.CONTENT_URI, true, mBookmarksObserver);
 
         mNetworkHandler = new NetworkStateHandler(mActivity, this);
         // Start watching the default geolocation permissions
@@ -249,7 +265,14 @@ public class Controller
                 mUi.needsRestoreAllTabs())) {
             // there is no quit on Android. But if we can't restore the state,
             // we can treat it as a new Browser, remove the old session cookies.
-            CookieManager.getInstance().removeSessionCookie();
+            AsyncTask cookieCleaningTask = new AsyncTask<Object, Void, Void>() {
+                protected Void doInBackground(Object... none) {
+                    CookieManager.getInstance().removeSessionCookie();
+                    return null;
+                }
+            };
+            cookieCleaningTask.execute();
+
             // remove any incognito files
             WebView.cleanupPrivateBrowsingFiles();
             final Bundle extra = intent.getExtras();
@@ -277,6 +300,11 @@ public class Controller
                 }
             }
 
+            // Wait for sessions cookies to be cleared before loading urls
+            try {
+                cookieCleaningTask.get();
+            } catch(InterruptedException e) {
+            } catch(java.util.concurrent.ExecutionException e) {}
             if (urlData.isEmpty()) {
                 loadUrl(webView, mSettings.getHomePage());
             } else {
@@ -656,6 +684,7 @@ public class Controller
             dismissSubWindow(t);
             removeTab(t);
         }
+        mActivity.getContentResolver().unregisterContentObserver(mBookmarksObserver);
         // Destroy all the tabs
         mTabControl.destroy();
         WebIconDatabase.getInstance().close();

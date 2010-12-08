@@ -503,39 +503,7 @@ class Tab {
             // finally update the UI in the activity if it is in the foreground
             mWebViewController.onPageStarted(Tab.this, view, url, favicon);
 
-            final String urlInQuestion = url;
-            if (mBookmarkAsyncTask != null) {
-                mBookmarkAsyncTask.cancel(true);
-            }
-            mBookmarkAsyncTask = new AsyncTask<Void, Void, Boolean>() {
-                @Override
-                protected Boolean doInBackground(Void... unused) {
-                    // Check to see if the site is bookmarked
-                    Cursor cursor = null;
-                    try {
-                        cursor = mActivity.getContentResolver().query(
-                                BrowserContract.Bookmarks.CONTENT_URI,
-                                new String[] { BrowserContract.Bookmarks.URL },
-                                BrowserContract.Bookmarks.URL + " == ?",
-                                new String[] { urlInQuestion },
-                                null);
-                        return cursor.moveToFirst();
-                    } catch (SQLiteException e) {
-                        Log.e(LOGTAG, "Error checking for bookmark: " + e);
-                        return false;
-                    } finally {
-                        if (cursor != null) cursor.close();
-                    }
-                }
-                @Override
-                protected void onPostExecute(Boolean isBookmarked) {
-                    if (this == mBookmarkAsyncTask) {
-                        mIsBookmarkedSite = isBookmarked;
-                        mWebViewController.bookmarkedStatusHasChanged(Tab.this);
-                    }
-                }
-            };
-            mBookmarkAsyncTask.execute();
+            updateBookmarkedStatusForUrl(url);
         }
 
         @Override
@@ -1450,6 +1418,7 @@ class Tab {
         if (mQueuedErrors != null && mQueuedErrors.size() >  0) {
             showError(mQueuedErrors.getFirst());
         }
+        mWebViewController.bookmarkedStatusHasChanged(this);
     }
 
     void putInBackground() {
@@ -1825,6 +1794,57 @@ class Tab {
             return false;
         }
         return true;
+    }
+
+    public void updateBookmarkedStatus() {
+        if (mMainView == null) {
+            return;
+        }
+        String url = mMainView.getUrl();
+        if (url == null) {
+            return;
+        }
+        updateBookmarkedStatusForUrl(url);
+    }
+
+    /**
+     * Update mIsBookmarkedSite, using urlInQuestion to compare.
+     * @param urlInQuestion URL of the current page, to be checked in the
+     *          bookmarks database.
+     */
+    private void updateBookmarkedStatusForUrl(final String urlInQuestion) {
+        if (mBookmarkAsyncTask != null) {
+            mBookmarkAsyncTask.cancel(true);
+        }
+        mBookmarkAsyncTask = new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... unused) {
+                // Check to see if the site is bookmarked
+                Cursor cursor = null;
+                try {
+                    cursor = mActivity.getContentResolver().query(
+                            BrowserContract.Bookmarks.CONTENT_URI,
+                            new String[] { BrowserContract.Bookmarks.URL },
+                            BrowserContract.Bookmarks.URL + " == ?",
+                            new String[] { urlInQuestion },
+                            null);
+                    return cursor.moveToFirst();
+                } catch (SQLiteException e) {
+                    Log.e(LOGTAG, "Error checking for bookmark: " + e);
+                    return false;
+                } finally {
+                    if (cursor != null) cursor.close();
+                }
+            }
+            @Override
+            protected void onPostExecute(Boolean isBookmarked) {
+                if (this == mBookmarkAsyncTask) {
+                    mIsBookmarkedSite = isBookmarked;
+                    mWebViewController.bookmarkedStatusHasChanged(Tab.this);
+                }
+            }
+        };
+        mBookmarkAsyncTask.execute();
     }
 
 }
