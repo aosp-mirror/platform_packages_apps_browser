@@ -21,9 +21,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 public class ShortcutActivity extends Activity
-    implements BookmarksPageCallbacks {
+    implements BookmarksPageCallbacks, OnClickListener {
 
     private BrowserBookmarksPage mBookmarks;
 
@@ -32,14 +34,16 @@ public class ShortcutActivity extends Activity
         super.onCreate(savedInstanceState);
         // TODO: Is this needed?
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
-        mBookmarks = BrowserBookmarksPage.newInstance(this, null, null);
+        setContentView(R.layout.pick_bookmark);
+        mBookmarks = (BrowserBookmarksPage) getFragmentManager()
+                .findFragmentById(R.id.bookmarks);
         mBookmarks.setEnableContextMenu(false);
         mBookmarks.setBreadCrumbMaxVisible(2);
         mBookmarks.setBreadCrumbUseBackButton(true);
-        getFragmentManager()
-                .openTransaction()
-                .add(android.R.id.content, mBookmarks)
-                .commit();
+        View cancel = findViewById(R.id.cancel);
+        if (cancel != null) {
+            cancel.setOnClickListener(this);
+        }
     }
 
     // BookmarksPageCallbacks
@@ -69,5 +73,14 @@ public class ShortcutActivity extends Activity
 
     @Override
     public void onFolderChanged(int level, Uri uri) {
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+        case R.id.cancel:
+            finish();
+            break;
+        }
     }
 }
