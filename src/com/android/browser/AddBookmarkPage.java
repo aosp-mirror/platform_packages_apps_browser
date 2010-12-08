@@ -339,11 +339,16 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.TITLE,
                         BrowserContract.Bookmarks.IS_FOLDER
                 };
+                String where = BrowserContract.Bookmarks.IS_FOLDER + " != 0";
+                if (mEditingFolder) {
+                    where += " AND " + BrowserContract.Bookmarks._ID + " != "
+                            + mMap.getLong(BrowserContract.Bookmarks._ID);
+                }
                 return new CursorLoader(this,
                         BrowserContract.Bookmarks.buildFolderUri(
                         mCurrentFolder),
                         projection,
-                        BrowserContract.Bookmarks.IS_FOLDER + " != 0",
+                        where,
                         null,
                         null);
             default:
@@ -452,6 +457,7 @@ public class AddBookmarkPage extends Activity
         }
     }
 
+    @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         if (DEBUG_CRASH) {
