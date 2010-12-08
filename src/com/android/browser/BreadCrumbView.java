@@ -254,7 +254,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
         }
     }
 
-    private Crumb getTopCrumb() {
+    Crumb getTopCrumb() {
         Crumb crumb = null;
         if (mCrumbs.size() > 0) {
             crumb = mCrumbs.get(mCrumbs.size() - 1);

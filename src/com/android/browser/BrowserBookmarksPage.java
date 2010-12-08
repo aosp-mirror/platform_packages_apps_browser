@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import com.android.browser.BreadCrumbView.Crumb;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -698,12 +700,16 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     }
 
     public boolean onBackPressed() {
-        if (mCrumbs != null &&
-                mCrumbs.size() > 0) {
+        if (canGoBack()) {
             mCrumbs.popView();
             return true;
         }
         return false;
+    }
+
+    private boolean canGoBack() {
+        Crumb c = mCrumbs.getTopCrumb();
+        return c != null && c.canGoBack;
     }
 
     public void setCallbackListener(BookmarksPageCallbacks callbackListener) {
