@@ -265,13 +265,8 @@ public class Controller
                 mUi.needsRestoreAllTabs())) {
             // there is no quit on Android. But if we can't restore the state,
             // we can treat it as a new Browser, remove the old session cookies.
-            AsyncTask cookieCleaningTask = new AsyncTask<Object, Void, Void>() {
-                protected Void doInBackground(Object... none) {
-                    CookieManager.getInstance().removeSessionCookie();
-                    return null;
-                }
-            };
-            cookieCleaningTask.execute();
+            // This is done async in the CookieManager.
+            CookieManager.getInstance().removeSessionCookie();
 
             // remove any incognito files
             WebView.cleanupPrivateBrowsingFiles();
@@ -300,11 +295,6 @@ public class Controller
                 }
             }
 
-            // Wait for sessions cookies to be cleared before loading urls
-            try {
-                cookieCleaningTask.get();
-            } catch(InterruptedException e) {
-            } catch(java.util.concurrent.ExecutionException e) {}
             if (urlData.isEmpty()) {
                 loadUrl(webView, mSettings.getHomePage());
             } else {
