@@ -195,6 +195,7 @@ public class Controller
     // Checks to see when the bookmarks database has changed, and updates the
     // Tabs' notion of whether they represent bookmarked sites.
     private ContentObserver mBookmarksObserver;
+    private DataController mDataController;
 
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
@@ -213,6 +214,7 @@ public class Controller
     public Controller(Activity browser) {
         mActivity = browser;
         mSettings = BrowserSettings.getInstance();
+        mDataController = DataController.getInstance(mActivity);
         mTabControl = new TabControl(this);
         mSettings.setController(this);
 
@@ -843,42 +845,7 @@ public class Controller
         }
         // Update the title in the history database if not in private browsing mode
         if (!tab.isPrivateBrowsingEnabled()) {
-            new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... unused) {
-                    // See if we can find the current url in our history
-                    // database and add the new title to it.
-                    String url = pageUrl;
-                    if (url.startsWith("http://www.")) {
-                        url = url.substring(11);
-                    } else if (url.startsWith("http://")) {
-                        url = url.substring(4);
-                    }
-                    // Escape wildcards for LIKE operator.
-                    url = url.replace("\\", "\\\\").replace("%", "\\%")
-                            .replace("_", "\\_");
-                    Cursor c = null;
-                    try {
-                        final ContentResolver cr =
-                                getActivity().getContentResolver();
-                        String selection = History.URL + " LIKE ? ESCAPE '\\'";
-                        String [] selectionArgs = new String[] { "%" + url };
-                        ContentValues values = new ContentValues();
-                        values.put(History.TITLE, title);
-                        cr.update(History.CONTENT_URI, values, selection,
-                                selectionArgs);
-                    } catch (IllegalStateException e) {
-                        Log.e(LOGTAG, "Tab onReceived title", e);
-                    } catch (SQLiteException ex) {
-                        Log.e(LOGTAG,
-                                "onReceivedTitle() caught SQLiteException: ",
-                                ex);
-                    } finally {
-                        if (c != null) c.close();
-                    }
-                    return null;
-                }
-            }.execute();
+            mDataController.updateHistoryTitle(pageUrl, title);
         }
     }
 
@@ -924,28 +891,7 @@ public class Controller
         if (url.regionMatches(true, 0, "about:", 0, 6)) {
             return;
         }
-        // remove "client" before updating it to the history so that it wont
-        // show up in the auto-complete list.
-        int index = url.indexOf("client=ms-");
-        if (index > 0 && url.contains(".google.")) {
-            int end = url.indexOf('&', index);
-            if (end > 0) {
-                url = url.substring(0, index)
-                        .concat(url.substring(end + 1));
-            } else {
-                // the url.charAt(index-1) should be either '?' or '&'
-                url = url.substring(0, index-1);
-            }
-        }
-        final ContentResolver cr = getActivity().getContentResolver();
-        final String newUrl = url;
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... unused) {
-                Browser.updateVisitedHistory(cr, newUrl, true);
-                return null;
-            }
-        }.execute();
+        mDataController.updateVisitedHistory(url);
         WebIconDatabase.getInstance().retainIconForPageUrl(url);
     }
 
