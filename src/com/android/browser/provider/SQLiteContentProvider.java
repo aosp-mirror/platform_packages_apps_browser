@@ -19,26 +19,27 @@ package com.android.browser.provider;
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteTransactionListener;
 import android.net.Uri;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * General purpose {@link ContentProvider} base class that uses SQLiteDatabase for storage.
  */
-public abstract class SQLiteContentProvider extends ContentProvider
-        implements SQLiteTransactionListener {
+public abstract class SQLiteContentProvider extends ContentProvider {
 
     private static final String TAG = "SQLiteContentProvider";
 
     private SQLiteOpenHelper mOpenHelper;
-    private volatile boolean mNotifyChange;
+    private Set<Uri> mChangedUris;
     protected SQLiteDatabase mDb;
 
     private final ThreadLocal<Boolean> mApplyingBatch = new ThreadLocal<Boolean>();
@@ -53,6 +54,7 @@ public abstract class SQLiteContentProvider extends ContentProvider
     public boolean onCreate() {
         Context context = getContext();
         mOpenHelper = getDatabaseHelper(context);
+        mChangedUris = new HashSet<Uri>();
         return true;
     }
 
@@ -80,10 +82,14 @@ public abstract class SQLiteContentProvider extends ContentProvider
             boolean callerIsSyncAdapter);
 
     /**
-     * Called when the provider needs to notify the system of a change.
-     * @param callerIsSyncAdapter true if the caller that caused the change was a sync adapter.
+     * Call this to add a URI to the list of URIs to be notified when the transaction
+     * is committed.
      */
-    public abstract void notifyChange(boolean callerIsSyncAdapter);
+    protected void postNotifyUri(Uri uri) {
+        synchronized (mChangedUris) {
+            mChangedUris.add(uri);
+        }
+    }
 
     public boolean isCallerSyncAdapter(Uri uri) {
         return false;
@@ -104,12 +110,9 @@ public abstract class SQLiteContentProvider extends ContentProvider
         boolean applyingBatch = applyingBatch();
         if (!applyingBatch) {
             mDb = mOpenHelper.getWritableDatabase();
-            mDb.beginTransactionWithListener(this);
+            mDb.beginTransaction();
             try {
                 result = insertInTransaction(uri, values, callerIsSyncAdapter);
-                if (result != null) {
-                    mNotifyChange = true;
-                }
                 mDb.setTransactionSuccessful();
             } finally {
                 mDb.endTransaction();
@@ -118,9 +121,6 @@ public abstract class SQLiteContentProvider extends ContentProvider
             onEndTransaction(callerIsSyncAdapter);
         } else {
             result = insertInTransaction(uri, values, callerIsSyncAdapter);
-            if (result != null) {
-                mNotifyChange = true;
-            }
         }
         return result;
     }
@@ -130,13 +130,10 @@ public abstract class SQLiteContentProvider extends ContentProvider
         int numValues = values.length;
         boolean callerIsSyncAdapter = isCallerSyncAdapter(uri);
         mDb = mOpenHelper.getWritableDatabase();
-        mDb.beginTransactionWithListener(this);
+        mDb.beginTransaction();
         try {
             for (int i = 0; i < numValues; i++) {
                 Uri result = insertInTransaction(uri, values[i], callerIsSyncAdapter);
-                if (result != null) {
-                    mNotifyChange = true;
-                }
                 mDb.yieldIfContendedSafely();
             }
             mDb.setTransactionSuccessful();
@@ -155,13 +152,10 @@ public abstract class SQLiteContentProvider extends ContentProvider
         boolean applyingBatch = applyingBatch();
         if (!applyingBatch) {
             mDb = mOpenHelper.getWritableDatabase();
-            mDb.beginTransactionWithListener(this);
+            mDb.beginTransaction();
             try {
                 count = updateInTransaction(uri, values, selection, selectionArgs,
                         callerIsSyncAdapter);
-                if (count > 0) {
-                    mNotifyChange = true;
-                }
                 mDb.setTransactionSuccessful();
             } finally {
                 mDb.endTransaction();
@@ -170,9 +164,6 @@ public abstract class SQLiteContentProvider extends ContentProvider
             onEndTransaction(callerIsSyncAdapter);
         } else {
             count = updateInTransaction(uri, values, selection, selectionArgs, callerIsSyncAdapter);
-            if (count > 0) {
-                mNotifyChange = true;
-            }
         }
 
         return count;
@@ -185,12 +176,9 @@ public abstract class SQLiteContentProvider extends ContentProvider
         boolean applyingBatch = applyingBatch();
         if (!applyingBatch) {
             mDb = mOpenHelper.getWritableDatabase();
-            mDb.beginTransactionWithListener(this);
+            mDb.beginTransaction();
             try {
                 count = deleteInTransaction(uri, selection, selectionArgs, callerIsSyncAdapter);
-                if (count > 0) {
-                    mNotifyChange = true;
-                }
                 mDb.setTransactionSuccessful();
             } finally {
                 mDb.endTransaction();
@@ -199,9 +187,6 @@ public abstract class SQLiteContentProvider extends ContentProvider
             onEndTransaction(callerIsSyncAdapter);
         } else {
             count = deleteInTransaction(uri, selection, selectionArgs, callerIsSyncAdapter);
-            if (count > 0) {
-                mNotifyChange = true;
-            }
         }
         return count;
     }
@@ -213,7 +198,7 @@ public abstract class SQLiteContentProvider extends ContentProvider
         int opCount = 0;
         boolean callerIsSyncAdapter = false;
         mDb = mOpenHelper.getWritableDatabase();
-        mDb.beginTransactionWithListener(this);
+        mDb.beginTransaction();
         try {
             mApplyingBatch.set(true);
             final int numOperations = operations.size();
@@ -246,31 +231,15 @@ public abstract class SQLiteContentProvider extends ContentProvider
         }
     }
 
-    @Override
-    public void onBegin() {
-        onBeginTransaction();
-    }
-
-    @Override
-    public void onCommit() {
-        beforeTransactionCommit();
-    }
-
-    @Override
-    public void onRollback() {
-        // not used
-    }
-
-    protected void onBeginTransaction() {
-    }
-
-    protected void beforeTransactionCommit() {
-    }
-
     protected void onEndTransaction(boolean callerIsSyncAdapter) {
-        if (mNotifyChange) {
-            mNotifyChange = false;
-            notifyChange(callerIsSyncAdapter);
+        Set<Uri> changed;
+        synchronized (mChangedUris) {
+            changed = new HashSet<Uri>(mChangedUris);
+            mChangedUris.clear();
+        }
+        ContentResolver resolver = getContext().getContentResolver();
+        for (Uri uri : changed) {
+            resolver.notifyChange(uri, null, !callerIsSyncAdapter);
         }
     }
 }

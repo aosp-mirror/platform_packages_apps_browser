@@ -65,6 +65,7 @@ import android.text.TextUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class BrowserProvider2 extends SQLiteContentProvider {
@@ -578,13 +579,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         return uri.getBooleanQueryParameter(BrowserContract.CALLER_IS_SYNCADAPTER, false);
     }
 
-    @Override
-    public void notifyChange(boolean callerIsSyncAdapter) {
-        ContentResolver resolver = getContext().getContentResolver();
-        resolver.notifyChange(BrowserContract.AUTHORITY_URI, null, !callerIsSyncAdapter);
-        resolver.notifyChange(LEGACY_AUTHORITY_URI, null, !callerIsSyncAdapter);
-    }
-
     @VisibleForTesting
     public void setWidgetObserver(ContentObserver obs) {
         mWidgetObserver = obs;
@@ -989,6 +983,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             boolean callerIsSyncAdapter) {
         final int match = URI_MATCHER.match(uri);
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int deleted = 0;
         switch (match) {
             case BOOKMARKS_ID: {
                 selection = DatabaseUtils.concatenateWhere(selection,
@@ -1002,12 +997,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 Object[] withAccount = getSelectionWithAccounts(uri, selection, selectionArgs);
                 selection = (String) withAccount[0];
                 selectionArgs = (String[]) withAccount[1];
-                int deleted = deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
+                deleted = deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
                 pruneImages();
                 if (deleted > 0) {
                     refreshWidgets();
                 }
-                return deleted;
+                break;
             }
 
             case HISTORY_ID: {
@@ -1018,9 +1013,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
             case HISTORY: {
                 filterSearchClient(selectionArgs);
-                int deleted = db.delete(TABLE_HISTORY, selection, selectionArgs);
+                deleted = db.delete(TABLE_HISTORY, selection, selectionArgs);
                 pruneImages();
-                return deleted;
+                break;
             }
 
             case SEARCHES_ID: {
@@ -1030,17 +1025,20 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case SEARCHES: {
-                return db.delete(TABLE_SEARCHES, selection, selectionArgs);
+                deleted = db.delete(TABLE_SEARCHES, selection, selectionArgs);
+                break;
             }
 
             case SYNCSTATE: {
-                return mSyncHelper.delete(db, selection, selectionArgs);
+                deleted = mSyncHelper.delete(db, selection, selectionArgs);
+                break;
             }
             case SYNCSTATE_ID: {
                 String selectionWithId =
                         (SyncStateContract.Columns._ID + "=" + ContentUris.parseId(uri) + " ")
                         + (selection == null ? "" : " AND (" + selection + ")");
-                return mSyncHelper.delete(db, selectionWithId, selectionArgs);
+                deleted = mSyncHelper.delete(db, selectionWithId, selectionArgs);
+                break;
             }
             case LEGACY_ID: {
                 selection = DatabaseUtils.concatenateWhere(
@@ -1064,7 +1062,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 }
                 Cursor c = qb.query(db, projection, selection, selectionArgs,
                         null, null, null);
-                int deleted = 0;
                 while (c.moveToNext()) {
                     long id = c.getLong(0);
                     boolean isBookmark = c.getInt(1) != 0;
@@ -1081,10 +1078,17 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                                 new String[] { Long.toString(id) });
                     }
                 }
-                return deleted;
+                break;
+            }
+            default: {
+                throw new UnsupportedOperationException("Unknown delete URI " + uri);
             }
         }
-        throw new UnsupportedOperationException("Unknown delete URI " + uri);
+        if (deleted > 0) {
+            postNotifyUri(uri);
+            postNotifyUri(LEGACY_AUTHORITY_URI);
+        }
+        return deleted;
     }
 
     long queryDefaultFolderId(String accountName, String accountType) {
@@ -1214,6 +1218,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         }
 
         if (id >= 0) {
+            postNotifyUri(uri);
+            postNotifyUri(LEGACY_AUTHORITY_URI);
             return ContentUris.withAppendedId(uri, id);
         } else {
             return null;
@@ -1322,6 +1328,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 values.remove(BookmarkColumns.USER_ENTERED);
             }
         }
+        int modified = 0;
         switch (match) {
             case BOOKMARKS_ID: {
                 selection = DatabaseUtils.concatenateWhere(selection,
@@ -1334,13 +1341,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 Object[] withAccount = getSelectionWithAccounts(uri, selection, selectionArgs);
                 selection = (String) withAccount[0];
                 selectionArgs = (String[]) withAccount[1];
-                int updated = updateBookmarksInTransaction(values, selection, selectionArgs,
+                modified = updateBookmarksInTransaction(values, selection, selectionArgs,
                         callerIsSyncAdapter);
-                pruneImages();
-                if (updated > 0) {
+                if (modified > 0) {
                     refreshWidgets();
                 }
-                return updated;
+                break;
             }
 
             case HISTORY_ID: {
@@ -1350,14 +1356,14 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case HISTORY: {
-                int updated = updateHistoryInTransaction(values, selection, selectionArgs);
-                pruneImages();
-                return updated;
+                modified = updateHistoryInTransaction(values, selection, selectionArgs);
+                break;
             }
 
             case SYNCSTATE: {
-                return mSyncHelper.update(mDb, values,
+                modified = mSyncHelper.update(mDb, values,
                         appendAccountToSelection(uri, selection), selectionArgs);
+                break;
             }
 
             case SYNCSTATE_ID: {
@@ -1365,8 +1371,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 String selectionWithId =
                         (SyncStateContract.Columns._ID + "=" + ContentUris.parseId(uri) + " ")
                         + (selection == null ? "" : " AND (" + selection + ")");
-                return mSyncHelper.update(mDb, values,
+                modified = mSyncHelper.update(mDb, values,
                         selectionWithId, selectionArgs);
+                break;
             }
 
             case IMAGES: {
@@ -1374,23 +1381,104 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 if (TextUtils.isEmpty(url)) {
                     throw new IllegalArgumentException("Images.URL is required");
                 }
+                if (!shouldUpdateImages(db, url, values)) {
+                    return 0;
+                }
                 int count = db.update(TABLE_IMAGES, values, Images.URL + "=?",
                         new String[] { url });
                 if (count == 0) {
                     db.insertOrThrow(TABLE_IMAGES, Images.FAVICON, values);
                     count = 1;
                 }
-                if (count > 0) {
+                if (getUrlCount(db, TABLE_BOOKMARKS, url) > 0) {
+                    postNotifyUri(Bookmarks.CONTENT_URI);
                     refreshWidgets();
                 }
+                if (getUrlCount(db, TABLE_HISTORY, url) > 0) {
+                    postNotifyUri(History.CONTENT_URI);
+                }
+                postNotifyUri(LEGACY_AUTHORITY_URI);
+                pruneImages();
                 return count;
             }
 
             case SEARCHES: {
-                return db.update(TABLE_SEARCHES, values, selection, selectionArgs);
+                modified = db.update(TABLE_SEARCHES, values, selection, selectionArgs);
+                break;
+            }
+
+            default: {
+                throw new UnsupportedOperationException("Unknown update URI " + uri);
             }
         }
-        throw new UnsupportedOperationException("Unknown update URI " + uri);
+        pruneImages();
+        if (modified > 0) {
+            postNotifyUri(uri);
+            postNotifyUri(LEGACY_AUTHORITY_URI);
+        }
+        return modified;
+    }
+
+    // We want to avoid sending out more URI notifications than we have to
+    // Thus, we check to see if the images we are about to store are already there
+    // This is used because things like a site's favion or touch icon is rarely
+    // changed, but the browser tries to update it every time the page loads.
+    // Without this, we will always send out 3 URI notifications per page load.
+    // With this, that drops to 0 or 1, depending on if the thumbnail changed.
+    private boolean shouldUpdateImages(
+            SQLiteDatabase db, String url, ContentValues values) {
+        final String[] projection = new String[] {
+                Images.FAVICON,
+                Images.THUMBNAIL,
+                Images.TOUCH_ICON,
+        };
+        Cursor cursor = db.query(TABLE_IMAGES, projection, Images.URL + "=?",
+                new String[] { url }, null, null, null);
+        byte[] nfavicon = values.getAsByteArray(Images.FAVICON);
+        byte[] nthumb = values.getAsByteArray(Images.THUMBNAIL);
+        byte[] ntouch = values.getAsByteArray(Images.TOUCH_ICON);
+        byte[] cfavicon = null;
+        byte[] cthumb = null;
+        byte[] ctouch = null;
+        try {
+            while (cursor.moveToNext()) {
+                if (nfavicon != null) {
+                    cfavicon = cursor.getBlob(0);
+                    if (!Arrays.equals(nfavicon, cfavicon)) {
+                        return true;
+                    }
+                }
+                if (nthumb != null) {
+                    cthumb = cursor.getBlob(1);
+                    if (!Arrays.equals(nthumb, cthumb)) {
+                        return true;
+                    }
+                }
+                if (ntouch != null) {
+                    ctouch = cursor.getBlob(2);
+                    if (!Arrays.equals(ntouch, ctouch)) {
+                        return true;
+                    }
+                }
+            }
+        } finally {
+            cursor.close();
+        }
+        return false;
+    }
+
+    int getUrlCount(SQLiteDatabase db, String table, String url) {
+        Cursor c = db.query(table, new String[] { "COUNT(*)" },
+                "url = ?", new String[] { url }, null, null, null);
+        try {
+            int count = 0;
+            if (c.moveToFirst()) {
+                count = c.getInt(0);
+            }
+            return count;
+        } finally {
+            c.close();
+        }
     }
 
     /**
