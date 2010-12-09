@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.webkit.WebView;
 
@@ -98,22 +99,11 @@ public class UrlHandler {
         if (rlzProviderPresent()) {
             Uri siteUri = Uri.parse(url);
             if (needsRlzString(siteUri)) {
-                String rlz = null;
-                Cursor cur = null;
-                try {
-                    cur = mActivity.getContentResolver()
-                            .query(getRlzUri(), null, null, null, null);
-                    if (cur != null && cur.moveToFirst() && !cur.isNull(0)) {
-                        url = siteUri.buildUpon()
-                                     .appendQueryParameter("rlz", cur.getString(0))
-                                     .build().toString();
-                    }
-                } finally {
-                    if (cur != null) {
-                        cur.close();
-                    }
-                }
-                mController.loadUrl(view, url);
+                // Need to look up the RLZ info from a database, so do it in an
+                // AsyncTask. Although we are not overriding the URL load synchronously,
+                // we guarantee that we will handle this URL load after the task executes,
+                // so it's safe to just return true to WebCore now to stop its own loading.
+                new RLZTask(siteUri, view).execute();
                 return true;
             }
         }
@@ -171,6 +161,39 @@ public class UrlHandler {
             return true;
         }
         return false;
+    }
+
+    private class RLZTask extends AsyncTask<Void, Void, String> {
+        private Uri mSiteUri;
+        private WebView mWebView;
+
+        public RLZTask(Uri uri, WebView webView) {
+            mSiteUri = uri;
+            mWebView = webView;
+        }
+
+        protected String doInBackground(Void... unused) {
+            String result = mSiteUri.toString();
+            Cursor cur = null;
+            try {
+                cur = mActivity.getContentResolver()
+                        .query(getRlzUri(), null, null, null, null);
+                if (cur != null && cur.moveToFirst() && !cur.isNull(0)) {
+                    result = mSiteUri.buildUpon()
+                           .appendQueryParameter("rlz", cur.getString(0))
+                           .build().toString();
+                }
+            } finally {
+                if (cur != null) {
+                    cur.close();
+                }
+            }
+            return result;
+        }
+
+        protected void onPostExecute(String result) {
+            mController.loadUrl(mWebView, result);
+        }
     }
 
     // Determine whether the RLZ provider is present on the system.
