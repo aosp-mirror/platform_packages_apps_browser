@@ -2179,6 +2179,8 @@ public class Controller
      */
     @Override
     public boolean switchToTab(int index) {
+        // hide combo view if open
+        removeComboView();
         Tab tab = mTabControl.getTab(index);
         Tab currentTab = mTabControl.getCurrentTab();
         if (tab == null || tab == currentTab) {
@@ -2195,6 +2197,8 @@ public class Controller
 
     @Override
     public void closeCurrentTab() {
+        // hide combo view if open
+        removeComboView();
         final Tab current = mTabControl.getCurrentTab();
         if (mTabControl.getTabCount() == 1) {
             // This is the last tab.  Open a new one, with the home
@@ -2228,6 +2232,8 @@ public class Controller
      */
     @Override
     public void closeTab(Tab tab) {
+        // hide combo view if open
+        removeComboView();
         int currentIndex = mTabControl.getCurrentIndex();
         int removeIndex = mTabControl.getTabIndex(tab);
         removeTab(tab);
