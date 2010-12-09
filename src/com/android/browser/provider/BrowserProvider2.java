@@ -697,6 +697,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case HISTORY: {
+                filterSearchClient(selectionArgs);
                 if (sortOrder == null) {
                     sortOrder = DEFAULT_SORT_HISTORY;
                 }
@@ -803,6 +804,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case HISTORY: {
+                filterSearchClient(selectionArgs);
                 return db.delete(TABLE_HISTORY, selection, selectionArgs);
             }
 
@@ -877,6 +879,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 if (!values.containsKey(History.DATE_CREATED)) {
                     values.put(History.DATE_CREATED, System.currentTimeMillis());
                 }
+                String url = values.getAsString(History.URL);
+                url = filterSearchClient(url);
+                values.put(History.URL, url);
 
                 // Extract out the image values so they can be inserted into the images table
                 ContentValues imageValues = extractImageValues(values,
@@ -915,6 +920,32 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         } else {
             return null;
         }
+    }
+
+    private void filterSearchClient(String[] selectionArgs) {
+        if (selectionArgs != null) {
+            for (int i = 0; i < selectionArgs.length; i++) {
+                selectionArgs[i] = filterSearchClient(selectionArgs[i]);
+            }
+        }
+    }
+
+    // Filters out the client=ms- param for search urls
+    private String filterSearchClient(String url) {
+        // remove "client" before updating it to the history so that it wont
+        // show up in the auto-complete list.
+        int index = url.indexOf("client=ms-");
+        if (index > 0 && url.contains(".google.")) {
+            int end = url.indexOf('&', index);
+            if (end > 0) {
+                url = url.substring(0, index)
+                        .concat(url.substring(end + 1));
+            } else {
+                // the url.charAt(index-1) should be either '?' or '&'
+                url = url.substring(0, index-1);
+            }
+        }
+        return url;
     }
 
     /**
@@ -1086,6 +1117,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     int updateHistoryInTransaction(ContentValues values, String selection, String[] selectionArgs) {
         int count = 0;
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        filterSearchClient(selectionArgs);
         Cursor cursor = query(History.CONTENT_URI,
                 new String[] { History._ID, History.URL },
                 selection, selectionArgs, null);
@@ -1095,7 +1127,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             boolean updatingUrl = values.containsKey(History.URL);
             String url = null;
             if (updatingUrl) {
-                url = values.getAsString(History.URL);
+                url = filterSearchClient(values.getAsString(History.URL));
+                values.put(History.URL, url);
             }
             ContentValues imageValues = extractImageValues(values, url);
 
