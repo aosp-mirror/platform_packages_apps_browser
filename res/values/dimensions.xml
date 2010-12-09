@@ -13,12 +13,14 @@
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The width of a selected tab -->
-    <dimen
-        name="tab_width_selected">300dp</dimen>
+    <dimen name="tab_width_selected">280dp</dimen>
     <!-- The width of an unselected tab -->
-    <dimen
-        name="tab_width_unselected">300dp</dimen>
-
+    <dimen name="tab_width_unselected">240dp</dimen>
+    <dimen name="tab_height">44dp</dimen>
+    <dimen name="tab_overlap">8dp</dimen>
+    <dimen name="tab_slice">18dp</dimen>
+    <dimen name="tab_padding">16dp</dimen>
+    <dimen name="max_tab_width">300dp</dimen>
     <dimen name="bookmarkThumbnailWidth">90dip</dimen>
     <dimen name="bookmarkThumbnailHeight">80dip</dimen>
     <dimen name="add_bookmark_width">500dip</dimen>

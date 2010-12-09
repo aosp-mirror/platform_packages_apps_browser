@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dip"
         android:orientation="horizontal"
-        android:background="@drawable/urlbar_bg">
+        android:background="@drawable/bg_urlbar">
         <ImageButton
             android:id="@+id/back"
             android:src="@drawable/ic_back_normal"

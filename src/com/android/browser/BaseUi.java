@@ -508,6 +508,13 @@ public class BaseUi implements UI, WebViewFactory {
         mContentView.addView(container, COVER_SCREEN_PARAMS);
     }
 
+    int getTitleBarWidth() {
+        if (mTitleBar != null) {
+            return mTitleBar.getWidth();
+        }
+        return 0;
+    }
+
     void showFakeTitleBar() {
         if (!isFakeTitleBarShowing() && mActiveTabsPage == null &&
                 !mActivityPaused) {

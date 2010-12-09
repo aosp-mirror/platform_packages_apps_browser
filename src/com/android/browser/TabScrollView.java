@@ -17,10 +17,8 @@
 package com.android.browser;
 
 import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -41,6 +39,7 @@ public class TabScrollView extends HorizontalScrollView {
     private Drawable mArrowLeft;
     private Drawable mArrowRight;
     private int mAnimationDuration;
+    private int mTabOverlap;
 
     /**
      * @param context
@@ -73,8 +72,10 @@ public class TabScrollView extends HorizontalScrollView {
         mContext = ctx;
         mAnimationDuration = ctx.getResources().getInteger(
                 R.integer.tab_animation_duration);
+        mTabOverlap = (int) ctx.getResources().getDimension(R.dimen.tab_overlap);
         setHorizontalScrollBarEnabled(false);
-        mContentView = new LinearLayout(mContext);
+        setOverScrollMode(OVER_SCROLL_NEVER);
+        mContentView = new TabLayout(mContext);
         mContentView.setOrientation(LinearLayout.HORIZONTAL);
         mContentView.setLayoutParams(
                 new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
@@ -209,6 +210,51 @@ public class TabScrollView extends HorizontalScrollView {
      */
     public int getScroll() {
         return getScrollX();
+    }
+
+    class TabLayout extends LinearLayout {
+
+        public TabLayout(Context context) {
+            super(context);
+            setChildrenDrawingOrderEnabled(true);
+        }
+
+        @Override
+        protected void onMeasure(int hspec, int vspec) {
+            super.onMeasure(hspec, vspec);
+            int w = getMeasuredWidth();
+            w -= Math.max(0, mContentView.getChildCount() - 1) * mTabOverlap;
+            setMeasuredDimension(w, getMeasuredHeight());
+        }
+
+        @Override
+        protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+            super.onLayout(changed, left, top, right, bottom);
+            if (getChildCount() > 1) {
+                int nextLeft = getChildAt(0).getRight() - mTabOverlap;
+                for (int i = 1; i < getChildCount(); i++) {
+                    View tab = getChildAt(i);
+                    int w = tab.getRight() - tab.getLeft();
+                    tab.layout(nextLeft, tab.getTop(), nextLeft + w, tab.getBottom());
+                    nextLeft += w - mTabOverlap;
+                }
+            }
+        }
+
+        @Override
+        protected int getChildDrawingOrder(int count, int i) {
+            int next = -1;
+            if ((i == (count - 1)) && (mSelected >= 0)) {
+                next = mSelected;
+            } else {
+                next = count - i - 1;
+                if (next <= mSelected) {
+                    next--;
+                }
+            }
+            return next;
+        }
+
     }
 
 }

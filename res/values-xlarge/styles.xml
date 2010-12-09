@@ -43,9 +43,8 @@
     <style name="ShortCutTheme" parent="@android:Theme.Holo">
     </style>
     <style name="ActionBarStyle">
-        <item name="android:height">48dip</item>
-        <item name="android:padding">0dip</item>
-        <item name="android:background">@drawable/tabbar_bg</item>
+        <item name="android:height">56dip</item>
+        <item name="android:background">@drawable/bg_browsertabs</item>
         <item name="android:displayOptions"></item>
     </style>
     <style name="ActionButton">

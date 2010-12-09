@@ -19,7 +19,7 @@
     <!--  The maximum number of open tabs -->
     <integer name="max_tabs">16</integer>
     <!--  The duration of the tab animations in millisecs  -->
-    <integer name="tab_animation_duration">500</integer>
+    <integer name="tab_animation_duration">200</integer>
     <integer name="max_width_crumb">200</integer>
     <!-- The maximum number of most visited URLs in the history tab -->
     <integer name="most_visits_limit">10</integer>

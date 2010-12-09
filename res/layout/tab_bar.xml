@@ -14,20 +14,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tabbarcontent"
     android:layout_width="match_parent"
-    android:layout_height="48dip"
+    android:layout_height="56dip"
     android:orientation="horizontal"
+    android:paddingLeft="12dip"
+    android:paddingTop="12dip"
+    android:paddingRight="0dip"
+    android:paddingBottom="0dip"
     style="@style/ActionBarStyle"
     >
     <com.android.browser.TabScrollView
         android:id="@+id/tabs"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="44dip"
         android:orientation="horizontal" />
     <ImageButton
         android:id="@+id/newtab"
         android:src="@drawable/ic_menu_new_window"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="44dip"
         style="@style/HoloButton"
-        android:background="@drawable/browserbarbutton" />
+        android:background="@drawable/browsertab_add" />
 </merge>
