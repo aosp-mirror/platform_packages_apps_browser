@@ -38,6 +38,10 @@ public class UrlInputView extends AutoCompleteTextView
         implements OnFocusChangeListener, OnEditorActionListener,
         CompletionListener {
 
+
+    static final String TYPED = "browser-type";
+    static final String SUGGESTED = "browser-suggest";
+
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
     private SuggestionsAdapter mAdapter;
@@ -121,7 +125,7 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        finishInput(getText().toString(), null);
+        finishInput(getText().toString(), null, TYPED);
         return true;
     }
 
@@ -130,7 +134,7 @@ public class UrlInputView extends AutoCompleteTextView
         if (hasFocus) {
             forceIme();
         } else {
-            finishInput(null, null);
+            finishInput(null, null, null);
         }
         if (mWrappedFocusListener != null) {
             mWrappedFocusListener.onFocusChange(v, hasFocus);
@@ -145,14 +149,14 @@ public class UrlInputView extends AutoCompleteTextView
         mInputManager.showSoftInput(this, 0);
     }
 
-    private void finishInput(String url, String extra) {
+    private void finishInput(String url, String extra, String source) {
         this.dismissDropDown();
         this.setSelection(0,0);
         mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
         if (TextUtils.isEmpty(url)) {
             mListener.onDismiss();
         } else {
-            mListener.onAction(url, extra);
+            mListener.onAction(url, extra, source);
         }
     }
 
@@ -165,14 +169,14 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     public void onSelect(String url, String extra) {
-        finishInput(url, extra);
+        finishInput(url, extra, SUGGESTED);
     }
 
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent evt) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             // catch back key in order to do slightly more cleanup than usual
-            finishInput(null, null);
+            finishInput(null, null, null);
             return true;
         }
         return super.onKeyPreIme(keyCode, evt);
@@ -182,7 +186,7 @@ public class UrlInputView extends AutoCompleteTextView
 
         public void onDismiss();
 
-        public void onAction(String text, String extra);
+        public void onAction(String text, String extra, String source);
 
         public void onEdit(String text);
 
