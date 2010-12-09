@@ -2107,9 +2107,19 @@ public class Controller
         }
     }
 
+    @Override
+    public Tab openTabToHomePage() {
+        // check for max tabs
+        if (mTabControl.canCreateNewTab()) {
+            return openTabAndShow(mSettings.getHomePage(), false, null);
+        } else {
+            mUi.showMaxTabsWarning();
+            return null;
+        }
+    }
+
     // A wrapper function of {@link #openTabAndShow(UrlData, boolean, String)}
     // that accepts url as string.
-
     protected Tab openTabAndShow(String url, boolean closeOnExit, String appId) {
         return openTabAndShow(new UrlData(url), closeOnExit, appId);
     }
@@ -2166,8 +2176,10 @@ public class Controller
             addTab(tab);
             setActiveTab(tab);
             return tab;
+        } else {
+            mUi.showMaxTabsWarning();
+            return null;
         }
-        return null;
     }
 
     /**
@@ -2188,11 +2200,6 @@ public class Controller
         }
         setActiveTab(tab);
         return true;
-    }
-
-    @Override
-    public Tab openTabToHomePage() {
-        return openTabAndShow(mSettings.getHomePage(), false, null);
     }
 
     @Override

@@ -932,4 +932,12 @@ public class BaseUi implements UI, WebViewFactory {
         return mVideoProgressView;
     }
 
+    @Override
+    public void showMaxTabsWarning() {
+        Toast warning = Toast.makeText(mActivity,
+                mActivity.getString(R.string.max_tabs_warning),
+                Toast.LENGTH_SHORT);
+        warning.show();
+    }
+
 }
