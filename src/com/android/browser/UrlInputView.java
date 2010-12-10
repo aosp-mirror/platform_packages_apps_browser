@@ -89,7 +89,7 @@ public class UrlInputView extends AutoCompleteTextView
     protected void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
         mLandscape = (config.orientation &
-                Configuration.ORIENTATION_LANDSCAPE) > 0;
+                Configuration.ORIENTATION_LANDSCAPE) != 0;
         mAdapter.setLandscapeMode(mLandscape);
         if (isPopupShowing() && (getVisibility() == View.VISIBLE)) {
             setupDropDown();
@@ -116,6 +116,7 @@ public class UrlInputView extends AutoCompleteTextView
         if (getLeft() != -getDropDownHorizontalOffset()) {
             setDropDownHorizontalOffset(-getLeft());
         }
+        setDropDownVerticalOffset(8);
     }
 
     @Override
@@ -151,7 +152,6 @@ public class UrlInputView extends AutoCompleteTextView
 
     private void finishInput(String url, String extra, String source) {
         this.dismissDropDown();
-        this.setSelection(0,0);
         mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
         if (TextUtils.isEmpty(url)) {
             mListener.onDismiss();

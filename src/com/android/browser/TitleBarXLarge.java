@@ -26,20 +26,21 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
-import android.util.AttributeSet;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CheckBox;
+import android.view.View.OnFocusChangeListener;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * tabbed title bar for xlarge screen browser
  */
 public class TitleBarXLarge extends TitleBarBase
-    implements UrlInputListener, OnClickListener {
+    implements UrlInputListener, OnClickListener, OnFocusChangeListener,
+    TextWatcher {
 
     private static final int PROGRESS_MAX = 100;
 
@@ -51,17 +52,16 @@ public class TitleBarXLarge extends TitleBarBase
     private View mContainer;
     private View mBackButton;
     private View mForwardButton;
-    private CheckBox mStar;
+    private ImageView mStar;
     private View mSearchButton;
-    private View mFocusContainer;
-    private View mUnfocusContainer;
+    private View mUrlContainer;
     private View mGoButton;
     private ImageView mStopButton;
     private View mAllButton;
     private View mClearButton;
+    private View mVoiceSearch;
     private PageProgressView mProgressView;
-    private UrlInputView mUrlFocused;
-    private TextView mUrlUnfocused;
+    private UrlInputView mUrlInput;
     private boolean mInLoad;
 
     public TitleBarXLarge(Activity activity, UiController controller) {
@@ -78,23 +78,21 @@ public class TitleBarXLarge extends TitleBarBase
         factory.inflate(R.layout.url_bar, this);
 
         mContainer = findViewById(R.id.taburlbar);
-        mUrlFocused = (UrlInputView) findViewById(R.id.url_focused);
-        mUrlUnfocused = (TextView) findViewById(R.id.url_unfocused);
+        mUrlInput = (UrlInputView) findViewById(R.id.url_focused);
         mAllButton = findViewById(R.id.all_btn);
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
         mBackButton = findViewById(R.id.back);
         mForwardButton = findViewById(R.id.forward);
-        mStar = (CheckBox) findViewById(R.id.star);
+        mStar = (ImageView) findViewById(R.id.star);
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = findViewById(R.id.search);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mGoButton = findViewById(R.id.go);
         mClearButton = findViewById(R.id.clear);
+        mVoiceSearch = findViewById(R.id.voicesearch);
         mProgressView = (PageProgressView) findViewById(R.id.progress);
-        mFocusContainer = findViewById(R.id.urlbar_focused);
-        mUnfocusContainer = findViewById(R.id.urlbar_unfocused);
-
+        mUrlContainer = findViewById(R.id.urlbar_focused);
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
         mStar.setOnClickListener(this);
@@ -103,21 +101,28 @@ public class TitleBarXLarge extends TitleBarBase
         mSearchButton.setOnClickListener(this);
         mGoButton.setOnClickListener(this);
         mClearButton.setOnClickListener(this);
-        mUrlFocused.setUrlInputListener(this);
-        mUrlFocused.setContainer(mFocusContainer);
-        mUrlFocused.setController(mUiController);
-        mUnfocusContainer.setOnClickListener(this);
+        mUrlContainer.setOnClickListener(this);
+        mUrlInput.setUrlInputListener(this);
+        mUrlInput.setContainer(mUrlContainer);
+        mUrlInput.setController(mUiController);
+        mUrlInput.setOnFocusChangeListener(this);
+        mUrlInput.setSelectAllOnFocus(true);
+        mUrlInput.addTextChangedListener(this);
+        setUrlMode(false);
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        setUrlMode(hasFocus);
     }
 
     public void setCurrentUrlIsBookmark(boolean isBookmark) {
-        mStar.setChecked(isBookmark);
+        mStar.setActivated(isBookmark);
     }
 
     @Override
     public void onClick(View v) {
-        if (mUnfocusContainer == v) {
-            setUrlMode(true);
-        } else if (mBackButton == v) {
+        if (mBackButton == v) {
             mUiController.getCurrentTopWebView().goBack();
         } else if (mForwardButton == v) {
             mUiController.getCurrentTopWebView().goForward();
@@ -131,12 +136,12 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mStopButton == v) {
             stopOrRefresh();
         } else if (mGoButton == v) {
-            if (!TextUtils.isEmpty(mUrlFocused.getText())) {
-                onAction(mUrlFocused.getText().toString(), null,
+            if (!TextUtils.isEmpty(mUrlInput.getText())) {
+                onAction(mUrlInput.getText().toString(), null,
                         UrlInputView.TYPED);
             }
         } else if (mClearButton == v) {
-            mUrlFocused.setText("");
+            clearOrClose();
         }
     }
 
@@ -146,6 +151,16 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     void setFavicon(Bitmap icon) { }
+
+    private void clearOrClose() {
+        if (TextUtils.isEmpty(mUrlInput.getText())) {
+            // close
+            setUrlMode(false);
+        } else {
+            // clear
+            mUrlInput.setText("");
+        }
+    }
 
     // UrlInputListener implementation
 
@@ -181,31 +196,30 @@ public class TitleBarXLarge extends TitleBarBase
     public void onEdit(String text) {
         setDisplayTitle(text, true);
         if (text != null) {
-            mUrlFocused.setSelection(text.length());
+            mUrlInput.setSelection(text.length());
         }
     }
 
     private void setUrlMode(boolean focused) {
-        swapUrlContainer(focused);
         if (focused) {
-            mUrlFocused.selectAll();
-            mUrlFocused.requestFocus();
-            mUrlFocused.setDropDownWidth(mUnfocusContainer.getWidth());
-            mUrlFocused.setDropDownHorizontalOffset(-mUrlFocused.getLeft());
+            mUrlInput.setDropDownWidth(mUrlContainer.getWidth());
+            mUrlInput.setDropDownHorizontalOffset(-mUrlInput.getLeft());
             mSearchButton.setVisibility(View.GONE);
-            mGoButton.setVisibility(View.VISIBLE);
+            mStar.setVisibility(View.GONE);
+            mClearButton.setVisibility(View.VISIBLE);
+            updateSearchMode();
         } else {
+            mUrlInput.clearFocus();
             mSearchButton.setVisibility(View.VISIBLE);
             mGoButton.setVisibility(View.GONE);
+            mVoiceSearch.setVisibility(View.GONE);
+            mStar.setVisibility(View.VISIBLE);
+            mClearButton.setVisibility(View.GONE);
         }
     }
 
-    private void swapUrlContainer(boolean focus) {
-        mUnfocusContainer.setVisibility(focus ? View.GONE : View.VISIBLE);
-        mFocusContainer.setVisibility(focus ? View.VISIBLE : View.GONE);
-    }
-
     private void search() {
+        mUrlInput.requestFocus();
         setDisplayTitle("");
         setUrlMode(true);
     }
@@ -239,36 +253,42 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
+    private void updateSearchMode() {
+        setSearchMode(TextUtils.isEmpty(mUrlInput.getText()));
+    }
+
+    private void setSearchMode(boolean voiceSearchEnabled) {
+        mVoiceSearch.setVisibility(voiceSearchEnabled ? View.VISIBLE :
+                View.GONE);
+        mGoButton.setVisibility(voiceSearchEnabled ? View.GONE :
+                View.VISIBLE);
+    }
+
     @Override
     /* package */ void setDisplayTitle(String title) {
-        mUrlFocused.setText(title, false);
-        mUrlUnfocused.setText(title);
+        mUrlInput.setText(title, false);
     }
 
     void setDisplayTitle(String title, boolean filter) {
-        mUrlFocused.setText(title, filter);
-        mUrlUnfocused.setText(title);
+        mUrlInput.setText(title, filter);
     }
 
-    /**
-     * Custom CheckBox which does not toggle when pressed.  Used by mStar.
-     */
-    public static class CustomCheck extends CheckBox {
-        public CustomCheck(Context context) {
-            super(context);
-        }
+    // UrlInput text watcher
 
-        public CustomCheck(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        public CustomCheck(Context context, AttributeSet attrs, int defStyle) {
-            super(context, attrs, defStyle);
-        }
-
-        @Override
-        public void toggle() {
-            // Do nothing
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (mUrlInput.hasFocus()) {
+            // check if url input is empty and adjust voice search state
+            updateSearchMode();
         }
     }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
 }
