@@ -41,8 +41,7 @@
     <string name="ssl_continue" msgid="8031515015829358457">"続行"</string>
     <string name="security_warning" msgid="6607795404322797541">"セキュリティ警告"</string>
     <string name="view_certificate" msgid="1472768887529093862">"証明書を表示"</string>
-    <!-- no translation found for ssl_go_back (4598951822061593819) -->
-    <skip />
+    <string name="ssl_go_back" msgid="4598951822061593819">"戻る"</string>
     <string name="ssl_untrusted" msgid="5369967226521102194">"この証明書は信頼できる認証機関のものではありません。"</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"サイト名と証明書上の名前が一致しません。"</string>
     <string name="ssl_expired" msgid="5739349389499575559">"この証明書は有効期限切れです。"</string>
@@ -67,10 +66,8 @@
     <string name="location" msgid="3411848697912600125">"アドレス"</string>
     <string name="containing_folder" msgid="6771180232953030479">"追加先"</string>
     <string name="new_folder" msgid="7743540149088867917">"新しいフォルダ"</string>
-    <!-- no translation found for edit_folder (621817453133656156) -->
-    <skip />
-    <!-- no translation found for delete_folder (2046483129024501116) -->
-    <skip />
+    <string name="edit_folder" msgid="621817453133656156">"フォルダを編集"</string>
+    <string name="delete_folder" msgid="2046483129024501116">"フォルダを削除"</string>
     <string name="no_subfolders" msgid="5880411440592452802">"サブフォルダなし"</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"ブックマーク"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"ホーム画面"</string>
@@ -95,10 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"このURLはブックマークに追加できません。"</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"削除"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"最後に表示したページをブックマークする"</string>
-    <!-- no translation found for bookmark_thumbnail_view (3104780739986130377) -->
-    <skip />
-    <!-- no translation found for bookmark_list_view (7394379479920174576) -->
-    <skip />
+    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"サムネイル表示"</string>
+    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"リスト表示"</string>
     <string name="current_page" msgid="7510129573681663135">"URL "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"ブックマーク「<xliff:g id="BOOKMARK">%s</xliff:g>」を削除します。"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"新しいウィンドウで開く"</string>
@@ -116,10 +111,8 @@
     <string name="menu_save_webarchive" msgid="3934652434001459581">"ウェブアーカイブとして保存"</string>
     <string name="webarchive_saved" msgid="7045250341467345007">"ウェブアーカイブを保存しました。"</string>
     <string name="webarchive_failed" msgid="2880998204746620260">"ウェブアーカイブを保存できませんでした。"</string>
-    <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
-    <skip />
-    <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
-    <skip />
+    <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g>件のブックマーク"</string>
+    <string name="contextheader_folder_empty" msgid="974171637803391651">"空のフォルダ"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"開く"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"新しいウィンドウで開く"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"リンクをブックマーク"</string>
@@ -173,6 +166,8 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"1回タップするだけでウェブフォームに入力できます"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自動入力設定"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"自動入力フォーム用のデータの設定と管理"</string>
+    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
+    <skip />
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"氏名:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"メール:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"会社名:"</string>
@@ -188,11 +183,9 @@
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"プロフィールを保存"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"プロフィールが保存されました"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"プロフィールを削除しました"</string>
-    <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"プロフィールを削除"</string>
-    <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
-    <skip />
-    <!-- no translation found for autofill_setup_dialog_negative_toast (4653039631354546610) -->
-    <skip />
+    <!-- outdated translation 7112035941146003753 -->     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"プロフィールを削除"</string>
+    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"このようなウェブフォームにブラウザで自動入力できます。プロフィールを設定しますか？"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"自動入力はいつでも[ブラウザ設定] -&gt; [個人設定]から設定できます。"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"プライバシー設定"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"キャッシュを消去"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"ローカルにキャッシュしたコンテンツとデータベースを消去する"</string>
@@ -354,4 +347,6 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"AndroidのブックマークはGoogleアカウントに関連付けられていません"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Androidのブックマークを削除"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Androidのブックマークを<xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>のブックマークに追加"</string>
+    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <skip />
 </resources>

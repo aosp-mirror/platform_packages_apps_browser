@@ -42,8 +42,7 @@
     <string name="ssl_continue" msgid="8031515015829358457">"متابعة"</string>
     <string name="security_warning" msgid="6607795404322797541">"تحذير أمان"</string>
     <string name="view_certificate" msgid="1472768887529093862">"عرض الشهادة"</string>
-    <!-- no translation found for ssl_go_back (4598951822061593819) -->
-    <skip />
+    <string name="ssl_go_back" msgid="4598951822061593819">"رجوع"</string>
     <string name="ssl_untrusted" msgid="5369967226521102194">"هذه الشهادة ليست من جهة موثوق بها."</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"اسم الموقع لا يتطابق مع الاسم على الشهادة."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"انتهت صلاحية هذه الشهادة."</string>
@@ -70,10 +69,8 @@
     <skip />
     <!-- no translation found for new_folder (7743540149088867917) -->
     <skip />
-    <!-- no translation found for edit_folder (621817453133656156) -->
-    <skip />
-    <!-- no translation found for delete_folder (2046483129024501116) -->
-    <skip />
+    <string name="edit_folder" msgid="621817453133656156">"تعديل مجلد"</string>
+    <string name="delete_folder" msgid="2046483129024501116">"حذف مجلد"</string>
     <!-- no translation found for no_subfolders (5880411440592452802) -->
     <skip />
     <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
@@ -103,10 +100,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"لا يمكن وضع إشارة على عنوان URL هذا."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"حذف"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"وضع إشارة على آخر صفحة تم عرضها"</string>
-    <!-- no translation found for bookmark_thumbnail_view (3104780739986130377) -->
-    <skip />
-    <!-- no translation found for bookmark_list_view (7394379479920174576) -->
-    <skip />
+    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"عرض صورة مصغرة"</string>
+    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"عرض القائمة"</string>
     <string name="current_page" msgid="7510129573681663135">"من "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"سيتم حذف الإشارة \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"فتح في نافذة جديدة"</string>
@@ -128,10 +123,8 @@
     <skip />
     <!-- no translation found for webarchive_failed (2880998204746620260) -->
     <skip />
-    <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
-    <skip />
-    <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
-    <skip />
+    <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> من الإشارات المرجعية"</string>
+    <string name="contextheader_folder_empty" msgid="974171637803391651">"المجلد فارغ"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"فتح"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"فتح في نافذة جديدة"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"وضع إشارة على الرابط"</string>
@@ -202,6 +195,8 @@
     <skip />
     <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
     <skip />
+    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
+    <skip />
     <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
     <skip />
     <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
@@ -232,12 +227,10 @@
     <skip />
     <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
     <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
+    <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
     <skip />
-    <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
-    <skip />
-    <!-- no translation found for autofill_setup_dialog_negative_toast (4653039631354546610) -->
-    <skip />
+    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"يستطيع المتصفح إكمال نماذج ويب مثل هذا النموذج. هل تريد إعداد ملفك الشخصي؟"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"يمكن تهيئة ميزة الملء التلقائي من خلال إعدادات المتصفح -&gt; الإعدادات الشخصية."</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"إعدادات الخصوصية"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"محو ذاكرة التخزين المؤقت"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"محو قواعد البيانات والمحتوى المخزن مؤقتًا محليًا"</string>
@@ -397,5 +390,7 @@
     <!-- no translation found for import_bookmarks_dialog_remove (8105572409059113340) -->
     <skip />
     <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
+    <skip />
+    <!-- no translation found for menu_share_url (5851814357333739700) -->
     <skip />
 </resources>
