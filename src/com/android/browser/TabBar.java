@@ -22,7 +22,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -74,6 +80,17 @@ public class TabBar extends LinearLayout
     private Drawable mGenericFavicon;
     private String mLoadingText;
 
+    private Drawable mActiveDrawable;
+    private Drawable mInactiveDrawable;
+
+    private Bitmap mShaderBuffer;
+    private Canvas mShaderCanvas;
+    private Paint mShaderPaint;
+    private int mTabHeight;
+    private int mTabOverlap;
+    private int mTabSliceWidth;
+    private int mTabPadding;
+
     public TabBar(Activity activity, UiController controller, BaseUi ui) {
         super(activity);
         mActivity = activity;
@@ -83,16 +100,20 @@ public class TabBar extends LinearLayout
         Resources res = activity.getResources();
         mTabWidthSelected = (int) res.getDimension(R.dimen.tab_width_selected);
         mTabWidthUnselected = (int) res.getDimension(R.dimen.tab_width_unselected);
+        mActiveDrawable = res.getDrawable(R.drawable.bg_urlbar);
+        mInactiveDrawable = res.getDrawable(R.drawable.browsertab_inactive);
 
         mTabMap = new HashMap<Tab, TabViewData>();
         Resources resources = activity.getResources();
         LayoutInflater factory = LayoutInflater.from(activity);
         factory.inflate(R.layout.tab_bar, this);
+        setPadding(12, 12, 0, 0);
         mTabs = (TabScrollView) findViewById(R.id.tabs);
         mNewTab = (ImageButton) findViewById(R.id.newtab);
         mNewTab.setOnClickListener(this);
         mGenericFavicon = res.getDrawable(R.drawable.app_web_browser_sm);
         mLoadingText = res.getString(R.string.title_bar_loading);
+        setChildrenDrawingOrderEnabled(true);
 
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
@@ -102,6 +123,22 @@ public class TabBar extends LinearLayout
         mUserRequestedUrlbar = false;
         mTitleVisible = true;
         mButtonWidth = -1;
+        // tab dimensions
+        mTabHeight = (int) res.getDimension(R.dimen.tab_height);
+        mTabOverlap = (int) res.getDimension(R.dimen.tab_overlap);
+        mTabSliceWidth = (int) res.getDimension(R.dimen.tab_slice);
+        mTabPadding = (int) res.getDimension(R.dimen.tab_padding);
+        int maxTabWidth = (int) res.getDimension(R.dimen.max_tab_width);
+        // shader initialization
+        mShaderBuffer = Bitmap.createBitmap(maxTabWidth, mTabHeight,
+                Bitmap.Config.ARGB_8888);
+        mShaderCanvas = new Canvas(mShaderBuffer);
+        mShaderPaint = new Paint();
+        BitmapShader shader = new BitmapShader(mShaderBuffer,
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        mShaderPaint.setShader(shader);
+        mShaderPaint.setStyle(Paint.Style.FILL);
+        mShaderPaint.setAntiAlias(true);
     }
 
     void updateTabs(List<Tab> tabs) {
@@ -115,17 +152,31 @@ public class TabBar extends LinearLayout
     }
 
     @Override
+    protected void onMeasure(int hspec, int vspec) {
+        super.onMeasure(hspec, vspec);
+        int w = getMeasuredWidth();
+        // adjust for new tab overlap
+        w -= mTabOverlap;
+        setMeasuredDimension(w, getMeasuredHeight());
+    }
+
+    @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        // use paddingLeft and paddingTop
+        int pl = getPaddingLeft();
+        int pt = getPaddingTop();
         if (mButtonWidth == -1) {
-            mButtonWidth = mNewTab.getMeasuredWidth();
+            mButtonWidth = mNewTab.getMeasuredWidth() - mTabOverlap;
         }
         int sw = mTabs.getMeasuredWidth();
-        int w = right-left;
+        int w = right - left - pl;
         if (w-sw < mButtonWidth) {
             sw = w - mButtonWidth;
         }
-        mTabs.layout(0, 0, sw, bottom-top );
-        mNewTab.layout(sw, 0, sw+mButtonWidth, bottom-top);
+        mTabs.layout(pl, pt, pl + sw, bottom - top);
+        // adjust for overlap
+        mNewTab.layout(pl + sw - mTabOverlap, pt,
+                pl + sw + mButtonWidth - mTabOverlap, bottom - top);
     }
 
     public void onClick(View view) {
@@ -212,6 +263,12 @@ public class TabBar extends LinearLayout
         return tv;
     }
 
+    @Override
+    protected int getChildDrawingOrder(int count, int i) {
+        // reverse
+        return count - 1 - i;
+    }
+
     /**
      * View used in the tab bar
      */
@@ -226,16 +283,21 @@ public class TabBar extends LinearLayout
         ImageView mClose;
         boolean mSelected;
         boolean mInLoad;
+        Path mPath;
+        int[] mWindowPos;
 
         /**
          * @param context
          */
         public TabView(Context context, TabViewData tab) {
             super(context);
+            setWillNotDraw(false);
+            mPath = new Path();
+            mWindowPos = new int[2];
             mTabData = tab;
             setGravity(Gravity.CENTER_VERTICAL);
             setOrientation(LinearLayout.HORIZONTAL);
-            setBackgroundResource(R.drawable.tab_background);
+            setPadding(0, 0, mTabPadding, 0);
             LayoutInflater inflater = LayoutInflater.from(getContext());
             mTabContent = inflater.inflate(R.layout.tab_title, this, true);
             mTitle = (TextView) mTabContent.findViewById(R.id.title);
@@ -286,11 +348,11 @@ public class TabBar extends LinearLayout
             mTitle.setTextAppearance(mActivity, mSelected ?
                     R.style.TabTitleSelected : R.style.TabTitleUnselected);
             setHorizontalFadingEdgeEnabled(!mSelected);
-            setFadingEdgeLength(50);
             super.setActivated(selected);
-            setLayoutParams(new LayoutParams(selected ?
-                    mTabWidthSelected : mTabWidthUnselected,
-                    LayoutParams.MATCH_PARENT));
+            LayoutParams lp = (LinearLayout.LayoutParams) getLayoutParams();
+            lp.width = selected ? mTabWidthSelected : mTabWidthUnselected;
+            lp.height =  LayoutParams.MATCH_PARENT;
+            setLayoutParams(lp);
         }
 
         void setDisplayTitle(String title) {
@@ -326,6 +388,42 @@ public class TabBar extends LinearLayout
             } else {
                 mUiController.closeTab(mTabData.mTab);
             }
+        }
+
+        @Override
+        protected void onLayout(boolean changed, int l, int t, int r, int b) {
+            super.onLayout(changed, l, t, r, b);
+            setTabPath(mPath, 0, 0, r - l, b - t);
+        }
+
+        @Override
+        protected void dispatchDraw(Canvas canvas) {
+            int state = canvas.save();
+            int[] pos = new int[2];
+            getLocationInWindow(mWindowPos);
+            Drawable drawable = mSelected ? mActiveDrawable : mInactiveDrawable;
+            drawable.setBounds(0, 0, mUi.getTitleBarWidth(), getHeight());
+            drawClipped(canvas, drawable, mPath, mWindowPos[0]);
+            canvas.restoreToCount(state);
+            super.dispatchDraw(canvas);
+        }
+
+        private void drawClipped(Canvas canvas, Drawable drawable,
+                Path clipPath, int left) {
+            mShaderCanvas.drawColor(Color.TRANSPARENT);
+            mShaderCanvas.translate(-left, 0);
+            drawable.draw(mShaderCanvas);
+            canvas.drawPath(clipPath, mShaderPaint);
+            mShaderCanvas.translate(left, 0);
+        }
+
+        private void setTabPath(Path path, int l, int t, int r, int b) {
+            path.reset();
+            path.moveTo(l, b);
+            path.lineTo(l, t);
+            path.lineTo(r - mTabSliceWidth, t);
+            path.lineTo(r, b);
+            path.close();
         }
 
     }
