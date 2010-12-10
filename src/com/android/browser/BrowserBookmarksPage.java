@@ -42,6 +42,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Accounts;
+import android.provider.BrowserContract.ChromeSyncColumns;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -331,6 +332,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         Cursor cursor = mAdapter.getItem(info.position);
+        if (!canEdit(cursor)) {
+            return;
+        }
         boolean isFolder
                 = cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
 
@@ -353,6 +357,11 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         for (int i = 0; i < count; i++) {
             menu.getItem(i).setOnMenuItemClickListener(mContextItemClickListener);
         }
+    }
+
+    boolean canEdit(Cursor c) {
+        String unique = c.getString(BookmarksLoader.COLUMN_INDEX_SERVER_UNIQUE);
+        return !ChromeSyncColumns.FOLDER_NAME_OTHER_BOOKMARKS.equals(unique);
     }
 
     private void populateBookmarkItem(Cursor cursor, BookmarkItem item, boolean isFolder) {
