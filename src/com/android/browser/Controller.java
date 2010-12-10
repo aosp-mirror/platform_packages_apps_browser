@@ -450,7 +450,7 @@ public class Controller
                                 break;
                             case R.id.open_newtab_context_menu_id:
                                 final Tab parent = mTabControl.getCurrentTab();
-                                final Tab newTab = openTab(url, false);
+                                final Tab newTab = openTab(parent, url, false);
                                 if (newTab != null && newTab != parent) {
                                     parent.addChildTab(newTab);
                                 }
@@ -856,8 +856,8 @@ public class Controller
     }
 
     @Override
-    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        return mUrlHandler.shouldOverrideUrlLoading(view, url);
+    public boolean shouldOverrideUrlLoading(Tab tab, WebView view, String url) {
+        return mUrlHandler.shouldOverrideUrlLoading(tab, view, url);
     }
 
     @Override
@@ -1114,7 +1114,7 @@ public class Controller
         removeComboView();
         if (!TextUtils.isEmpty(url)) {
             if (newTab) {
-                openTab(url, false);
+                openTab(mTabControl.getCurrentTab(), url, false);
             } else {
                 final Tab currentTab = mTabControl.getCurrentTab();
                 dismissSubWindow(currentTab);
@@ -1317,7 +1317,8 @@ public class Controller
                                     @Override
                                     public boolean onMenuItemClick(MenuItem item) {
                                         final Tab parent = mTabControl.getCurrentTab();
-                                        final Tab newTab = openTab(extra, false);
+                                        final Tab newTab = openTab(parent,
+                                                extra, false);
                                         if (newTab != parent) {
                                             parent.addChildTab(newTab);
                                         }
@@ -2057,29 +2058,40 @@ public class Controller
     public Tab openTabToHomePage() {
         // check for max tabs
         if (mTabControl.canCreateNewTab()) {
-            return openTabAndShow(mSettings.getHomePage(), false, null);
+            return openTabAndShow(null, new UrlData(mSettings.getHomePage()),
+                    false, null);
         } else {
             mUi.showMaxTabsWarning();
             return null;
         }
     }
 
-    // A wrapper function of {@link #openTabAndShow(UrlData, boolean, String)}
-    // that accepts url as string.
-    protected Tab openTabAndShow(String url, boolean closeOnExit, String appId) {
-        return openTabAndShow(new UrlData(url), closeOnExit, appId);
+    protected Tab openTab(Tab parent, String url, boolean forceForeground) {
+        if (mSettings.openInBackground() && !forceForeground) {
+            Tab tab = mTabControl.createNewTab(false, null, null,
+                    (parent != null) && parent.isPrivateBrowsingEnabled());
+            if (tab != null) {
+                addTab(tab);
+                WebView view = tab.getWebView();
+                loadUrl(view, url);
+            }
+            return tab;
+        } else {
+            return openTabAndShow(parent, new UrlData(url), false, null);
+        }
     }
+
 
     // This method does a ton of stuff. It will attempt to create a new tab
     // if we haven't reached MAX_TABS. Otherwise it uses the current tab. If
     // url isn't null, it will load the given url.
-
-    public Tab openTabAndShow(UrlData urlData, boolean closeOnExit,
+    public Tab openTabAndShow(Tab parent, UrlData urlData, boolean closeOnExit,
             String appId) {
         final Tab currentTab = mTabControl.getCurrentTab();
         if (mTabControl.canCreateNewTab()) {
             final Tab tab = mTabControl.createNewTab(closeOnExit, appId,
-                    urlData.mUrl, false);
+                    urlData.mUrl,
+                    (parent != null) && parent.isPrivateBrowsingEnabled());
             WebView webview = tab.getWebView();
             // We must set the new tab as the current tab to reflect the old
             // animation behavior.
@@ -2097,20 +2109,6 @@ public class Controller
                 loadUrlDataIn(currentTab, urlData);
             }
             return currentTab;
-        }
-    }
-
-    protected Tab openTab(String url, boolean forceForeground) {
-        if (mSettings.openInBackground() && !forceForeground) {
-            Tab tab = mTabControl.createNewTab();
-            if (tab != null) {
-                addTab(tab);
-                WebView view = tab.getWebView();
-                loadUrl(view, url);
-            }
-            return tab;
-        } else {
-            return openTabAndShow(url, false, null);
         }
     }
 

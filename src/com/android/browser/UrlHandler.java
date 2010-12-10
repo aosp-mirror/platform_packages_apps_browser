@@ -50,7 +50,7 @@ public class UrlHandler {
         mActivity = mController.getActivity();
     }
 
-    boolean shouldOverrideUrlLoading(WebView view, String url) {
+    boolean shouldOverrideUrlLoading(Tab tab, WebView view, String url) {
         if (view.isPrivateBrowsingEnabled()) {
             // Don't allow urls to leave the browser app when in
             // private browsing mode
@@ -156,7 +156,7 @@ public class UrlHandler {
         }
 
         if (mController.isMenuDown()) {
-            mController.openTab(url, false);
+            mController.openTab(tab, url, false);
             mActivity.closeOptionsMenu();
             return true;
         }

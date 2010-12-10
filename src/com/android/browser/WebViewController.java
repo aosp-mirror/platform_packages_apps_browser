@@ -56,7 +56,7 @@ public interface WebViewController {
 
     void onFavicon(Tab tab, WebView view, Bitmap icon);
 
-    boolean shouldOverrideUrlLoading(WebView view, String url);
+    boolean shouldOverrideUrlLoading(Tab tab, WebView view, String url);
 
     boolean shouldOverrideKeyEvent(KeyEvent event);
 
@@ -99,7 +99,8 @@ public interface WebViewController {
 
     void dismissSubWindow(Tab tab);
 
-    Tab openTabAndShow(UrlData urlData, boolean closeOnExit, String appId);
+    Tab openTabAndShow(Tab parent, UrlData urlData, boolean closeOnExit,
+            String appId);
 
     boolean switchToTab(int tabindex);
 

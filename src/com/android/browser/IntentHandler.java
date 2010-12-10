@@ -155,7 +155,7 @@ public class IntentHandler {
                         // MAX_TABS. Then the url will be opened in the current
                         // tab. If a new tab is created, it will have "true" for
                         // exit on close.
-                        mController.openTabAndShow(urlData, true, appId);
+                        mController.openTabAndShow(null, urlData, true, appId);
                     }
                 }
             } else {
