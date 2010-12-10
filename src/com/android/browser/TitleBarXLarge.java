@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -131,7 +132,8 @@ public class TitleBarXLarge extends TitleBarBase
             stopOrRefresh();
         } else if (mGoButton == v) {
             if (!TextUtils.isEmpty(mUrlFocused.getText())) {
-                onAction(mUrlFocused.getText().toString(), null);
+                onAction(mUrlFocused.getText().toString(), null,
+                        UrlInputView.TYPED);
             }
         } else if (mClearButton == v) {
             mUrlFocused.setText("");
@@ -148,7 +150,7 @@ public class TitleBarXLarge extends TitleBarBase
     // UrlInputListener implementation
 
     @Override
-    public void onAction(String text, String extra) {
+    public void onAction(String text, String extra, String source) {
         mUiController.getCurrentTopWebView().requestFocus();
         ((BaseUi) mUiController.getUi()).hideFakeTitleBar();
         Intent i = new Intent();
@@ -156,6 +158,11 @@ public class TitleBarXLarge extends TitleBarBase
         i.putExtra(SearchManager.QUERY, text);
         if (extra != null) {
             i.putExtra(SearchManager.EXTRA_DATA_KEY, extra);
+        }
+        if (source != null) {
+            Bundle appData = new Bundle();
+            appData.putString(com.android.common.Search.SOURCE, source);
+            i.putExtra(SearchManager.APP_DATA, appData);
         }
         mUiController.handleNewIntent(i);
         setUrlMode(false);

@@ -40,6 +40,7 @@ public class ShortcutActivity extends Activity
         mBookmarks.setEnableContextMenu(false);
         mBookmarks.setBreadCrumbMaxVisible(2);
         mBookmarks.setBreadCrumbUseBackButton(true);
+        mBookmarks.setCallbackListener(this);
         View cancel = findViewById(R.id.cancel);
         if (cancel != null) {
             cancel.setOnClickListener(this);

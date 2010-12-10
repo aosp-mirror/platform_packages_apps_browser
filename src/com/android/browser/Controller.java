@@ -265,13 +265,8 @@ public class Controller
                 mUi.needsRestoreAllTabs())) {
             // there is no quit on Android. But if we can't restore the state,
             // we can treat it as a new Browser, remove the old session cookies.
-            AsyncTask cookieCleaningTask = new AsyncTask<Object, Void, Void>() {
-                protected Void doInBackground(Object... none) {
-                    CookieManager.getInstance().removeSessionCookie();
-                    return null;
-                }
-            };
-            cookieCleaningTask.execute();
+            // This is done async in the CookieManager.
+            CookieManager.getInstance().removeSessionCookie();
 
             // remove any incognito files
             WebView.cleanupPrivateBrowsingFiles();
@@ -300,11 +295,6 @@ public class Controller
                 }
             }
 
-            // Wait for sessions cookies to be cleared before loading urls
-            try {
-                cookieCleaningTask.get();
-            } catch(InterruptedException e) {
-            } catch(java.util.concurrent.ExecutionException e) {}
             if (urlData.isEmpty()) {
                 loadUrl(webView, mSettings.getHomePage());
             } else {
@@ -2189,6 +2179,8 @@ public class Controller
      */
     @Override
     public boolean switchToTab(int index) {
+        // hide combo view if open
+        removeComboView();
         Tab tab = mTabControl.getTab(index);
         Tab currentTab = mTabControl.getCurrentTab();
         if (tab == null || tab == currentTab) {
@@ -2205,6 +2197,8 @@ public class Controller
 
     @Override
     public void closeCurrentTab() {
+        // hide combo view if open
+        removeComboView();
         final Tab current = mTabControl.getCurrentTab();
         if (mTabControl.getTabCount() == 1) {
             // This is the last tab.  Open a new one, with the home
@@ -2238,6 +2232,8 @@ public class Controller
      */
     @Override
     public void closeTab(Tab tab) {
+        // hide combo view if open
+        removeComboView();
         int currentIndex = mTabControl.getCurrentIndex();
         int removeIndex = mTabControl.getTabIndex(tab);
         removeTab(tab);
