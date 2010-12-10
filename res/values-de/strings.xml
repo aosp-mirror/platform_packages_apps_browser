@@ -284,8 +284,8 @@
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Diese Website hat Zugriff auf Ihren Standort. Ändern Sie diese Einstellung unter Einstellungen -&gt; Website-Einstellungen."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Diese Website hat keinen Zugriff auf Ihren Standort. Ändern Sie diese Einstellung unter Einstellungen -&gt; Website-Einstellungen."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Standortzugriff löschen"</string>
-    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Diese Website hat derzeit Zugriff auf Ihren Standort."</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Diese Website hat derzeit keinen Zugriff auf Ihren Standort."</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Website hat Zugriff auf Ihren Standort."</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Website hat keinen Zugriff auf Ihren Standort."</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Standortzugriff löschen"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Der Standortzugriff für diese Website wird gelöscht."</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Zugriff löschen"</string>

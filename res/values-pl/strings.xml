@@ -92,7 +92,7 @@
     <string name="current_page" msgid="7510129573681663135">"z "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Zakładka „<xliff:g id="BOOKMARK">%s</xliff:g>” zostanie usunięta."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Otwórz w nowym oknie"</string>
-    <string name="goto_dot" msgid="3895839050522602723">"Przejdź"</string>
+    <string name="goto_dot" msgid="3895839050522602723">"OK"</string>
     <string name="find_dot" msgid="6259312434696611957">"Znajdź na stronie"</string>
     <string name="select_dot" msgid="6299170761900561967">"Zaznacz tekst"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Bieżące okna"</string>
