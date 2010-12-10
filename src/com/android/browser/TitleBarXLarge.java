@@ -33,6 +33,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.webkit.WebView;
 import android.widget.ImageView;
 
 /**
@@ -186,10 +187,16 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void onDismiss() {
-        mUiController.getCurrentTopWebView().requestFocus();
+        WebView top = mUiController.getCurrentTopWebView();
+        if (top != null) {
+            mUiController.getCurrentTopWebView().requestFocus();
+        }
         ((BaseUi) mUiController.getUi()).hideFakeTitleBar();
         setUrlMode(false);
-        setDisplayTitle(mUiController.getCurrentWebView().getUrl());
+        // if top != null current must be set
+        if (top != null) {
+            setDisplayTitle(mUiController.getCurrentWebView().getUrl());
+        }
     }
 
     @Override
