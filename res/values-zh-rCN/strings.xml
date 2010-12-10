@@ -41,8 +41,7 @@
     <string name="ssl_continue" msgid="8031515015829358457">"继续"</string>
     <string name="security_warning" msgid="6607795404322797541">"安全警告"</string>
     <string name="view_certificate" msgid="1472768887529093862">"查看证书"</string>
-    <!-- no translation found for ssl_go_back (4598951822061593819) -->
-    <skip />
+    <string name="ssl_go_back" msgid="4598951822061593819">"返回"</string>
     <string name="ssl_untrusted" msgid="5369967226521102194">"该证书并非来自可信的授权中心。"</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"网站的名称与证书上的名称不一致。"</string>
     <string name="ssl_expired" msgid="5739349389499575559">"该证书已过期。"</string>
@@ -67,10 +66,8 @@
     <string name="location" msgid="3411848697912600125">"地址"</string>
     <string name="containing_folder" msgid="6771180232953030479">"添加到"</string>
     <string name="new_folder" msgid="7743540149088867917">"新建文件夹"</string>
-    <!-- no translation found for edit_folder (621817453133656156) -->
-    <skip />
-    <!-- no translation found for delete_folder (2046483129024501116) -->
-    <skip />
+    <string name="edit_folder" msgid="621817453133656156">"修改文件夹"</string>
+    <string name="delete_folder" msgid="2046483129024501116">"删除文件夹"</string>
     <string name="no_subfolders" msgid="5880411440592452802">"无子文件夹"</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"书签"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"主屏幕"</string>
@@ -95,10 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"无法将此网址添加到书签。"</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"删除"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"将上次查看过的网页加为书签"</string>
-    <!-- no translation found for bookmark_thumbnail_view (3104780739986130377) -->
-    <skip />
-    <!-- no translation found for bookmark_list_view (7394379479920174576) -->
-    <skip />
+    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"缩略图视图"</string>
+    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"列表视图"</string>
     <string name="current_page" msgid="7510129573681663135">"来源 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"将会删除书签“<xliff:g id="BOOKMARK">%s</xliff:g>”。"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"在新窗口中打开"</string>
@@ -116,10 +111,8 @@
     <string name="menu_save_webarchive" msgid="3934652434001459581">"另存为网络存档"</string>
     <string name="webarchive_saved" msgid="7045250341467345007">"网络存档已保存。"</string>
     <string name="webarchive_failed" msgid="2880998204746620260">"无法保存网络存档。"</string>
-    <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
-    <skip />
-    <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
-    <skip />
+    <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> 个书签"</string>
+    <string name="contextheader_folder_empty" msgid="974171637803391651">"空文件夹"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"打开"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"在新窗口中打开"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"将链接加入书签"</string>
@@ -173,6 +166,8 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"只需点击一下，即可填完网络表单"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自动填充设置"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"设置和管理自动填充表单的数据"</string>
+    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
+    <skip />
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"电子邮件地址："</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"公司名称："</string>
@@ -188,11 +183,9 @@
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"保存个人资料"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"个人资料已保存"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"个人资料已删除"</string>
-    <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"删除个人资料数据"</string>
-    <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
-    <skip />
-    <!-- no translation found for autofill_setup_dialog_negative_toast (4653039631354546610) -->
-    <skip />
+    <!-- outdated translation 7112035941146003753 -->     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"删除个人资料数据"</string>
+    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"浏览器可自动填充网络表单（例如该表单）。您希望设置个人资料吗？"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"您可以随时通过“浏览器设置”-&gt;“个人设置”对自动填充功能进行配置。"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"隐私权设置"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除缓存"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除存储在本地缓存中的内容和数据库"</string>
@@ -354,4 +347,6 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Android 书签尚未与 Google 帐户关联"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"删除 Android 书签"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"将 Android 书签添加到 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的书签中"</string>
+    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <skip />
 </resources>

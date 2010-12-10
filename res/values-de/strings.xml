@@ -41,8 +41,7 @@
     <string name="ssl_continue" msgid="8031515015829358457">"Fortfahren"</string>
     <string name="security_warning" msgid="6607795404322797541">"Sicherheitswarnung"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Zertifikat anzeigen"</string>
-    <!-- no translation found for ssl_go_back (4598951822061593819) -->
-    <skip />
+    <string name="ssl_go_back" msgid="4598951822061593819">"Zurück"</string>
     <string name="ssl_untrusted" msgid="5369967226521102194">"Dieses Zertifikat wurde nicht von einer vertrauenswürdigen Stelle ausgegeben."</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"Der Name der Website stimmt nicht mit dem Namen auf dem Zertifikat überein."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Dieses Zertifikat ist abgelaufen."</string>
@@ -67,10 +66,8 @@
     <string name="location" msgid="3411848697912600125">"Adresse"</string>
     <string name="containing_folder" msgid="6771180232953030479">"Hinzufügen zu"</string>
     <string name="new_folder" msgid="7743540149088867917">"Neuer Ordner"</string>
-    <!-- no translation found for edit_folder (621817453133656156) -->
-    <skip />
-    <!-- no translation found for delete_folder (2046483129024501116) -->
-    <skip />
+    <string name="edit_folder" msgid="621817453133656156">"Ordner bearbeiten"</string>
+    <string name="delete_folder" msgid="2046483129024501116">"Ordner löschen"</string>
     <string name="no_subfolders" msgid="5880411440592452802">"Keine Unterordner"</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Lesezeichen"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Startbildschirm"</string>
@@ -95,10 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Diese URL kann nicht als Lesezeichen gespeichert werden."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Löschen"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Lesezeichen für zuletzt besuchte Seite"</string>
-    <!-- no translation found for bookmark_thumbnail_view (3104780739986130377) -->
-    <skip />
-    <!-- no translation found for bookmark_list_view (7394379479920174576) -->
-    <skip />
+    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniaturansicht"</string>
+    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Listenansicht"</string>
     <string name="current_page" msgid="7510129573681663135">"von "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Lesezeichen \"<xliff:g id="BOOKMARK">%s</xliff:g>\" wird gelöscht."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"In neuem Fenster öffnen"</string>
@@ -116,10 +111,8 @@
     <string name="menu_save_webarchive" msgid="3934652434001459581">"Als Webarchiv speichern"</string>
     <string name="webarchive_saved" msgid="7045250341467345007">"Webarchiv gespeichert."</string>
     <string name="webarchive_failed" msgid="2880998204746620260">"Das Webarchiv wurde nicht gespeichert."</string>
-    <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
-    <skip />
-    <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
-    <skip />
+    <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> Lesezeichen"</string>
+    <string name="contextheader_folder_empty" msgid="974171637803391651">"Leerer Ordner"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Öffnen"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"In neuem Fenster öffnen"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Link zu Lesezeichen hinzufügen"</string>
@@ -173,6 +166,8 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Onlineformulare mit einem einzigen Klick ausfüllen"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"AutoFill-Einstellungen"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Angaben für das automatische Ausfüllen von Formularen festlegen und verwalten"</string>
+    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
+    <skip />
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Vollständiger Name:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-Mail:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Name des Unternehmens:"</string>
@@ -188,11 +183,9 @@
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Profil speichern"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profil wurde gespeichert."</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profil gelöscht"</string>
-    <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"Profildaten löschen"</string>
-    <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
-    <skip />
-    <!-- no translation found for autofill_setup_dialog_negative_toast (4653039631354546610) -->
-    <skip />
+    <!-- outdated translation 7112035941146003753 -->     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Profildaten löschen"</string>
+    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Browser können solche Webformulare automatisch vervollständigen. Möchten Sie Ihr Profil anlegen?"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"AutoFill kann stets über \"Browsereinstellungen\" &gt; \"Persönliche Einstellungen\" konfiguriert werden."</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Datenschutzeinstellungen"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Cache löschen"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Content und Datenbanken aus dem lokalen Cache löschen"</string>
@@ -335,8 +328,8 @@
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Diese Website hat Zugriff auf Ihren Standort. Ändern Sie diese Einstellung unter Einstellungen -&gt; Website-Einstellungen."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Diese Website hat keinen Zugriff auf Ihren Standort. Ändern Sie diese Einstellung unter Einstellungen -&gt; Website-Einstellungen."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Standortzugriff löschen"</string>
-    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Diese Website hat derzeit Zugriff auf Ihren Standort."</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Diese Website hat derzeit keinen Zugriff auf Ihren Standort."</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Website hat Zugriff auf Ihren Standort."</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Website hat keinen Zugriff auf Ihren Standort."</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Standortzugriff löschen"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Der Standortzugriff für diese Website wird gelöscht."</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Zugriff löschen"</string>
@@ -354,4 +347,6 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Ihre Android-Lesezeichen sind mit keinem Google-Konto verknüpft."</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Android-Lesezeichen entfernen"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Ihre Android-Lesezeichen den Lesezeichen für <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> hinzufügen"</string>
+    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <skip />
 </resources>
