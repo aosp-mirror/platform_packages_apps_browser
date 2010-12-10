@@ -498,10 +498,12 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             Uri.Builder ub = BrowserContract.Combined.CONTENT_URI.buildUpon();
             ub.appendQueryParameter(BrowserContract.PARAM_LIMIT,
                     Integer.toString(mLinesPortrait));
+            BookmarkUtils.addAccountInfo(mContext, ub);
             mCursor =
                     mContext.getContentResolver().query(ub.build(), COMBINED_PROJECTION,
                             selection,
                             (constraint != null) ? args : null,
+                            BrowserContract.Combined.IS_BOOKMARK + " DESC, " +
                             BrowserContract.Combined.VISITS + " DESC, " +
                             BrowserContract.Combined.DATE_LAST_VISITED + " DESC");
             if (mCursor != null) {

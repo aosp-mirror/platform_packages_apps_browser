@@ -170,16 +170,21 @@ class BookmarkUtils {
     }
 
     /* package */ static Uri getBookmarksUri(Context context) {
+        return addAccountInfo(context,
+                BrowserContract.Bookmarks.CONTENT_URI.buildUpon()).build();
+    }
+
+    /* package */ static Uri.Builder addAccountInfo(Context context, Uri.Builder ub) {
         Uri uri = BrowserContract.Bookmarks.CONTENT_URI;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
         String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
         if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
-            uri = uri.buildUpon()
-                    .appendQueryParameter(BrowserContract.Bookmarks.PARAM_ACCOUNT_NAME, accountName)
-                    .appendQueryParameter(BrowserContract.Bookmarks.PARAM_ACCOUNT_TYPE, accountType)
-                    .build();
+            ub.appendQueryParameter(
+                    BrowserContract.Bookmarks.PARAM_ACCOUNT_NAME,accountName);
+            ub.appendQueryParameter(
+                    BrowserContract.Bookmarks.PARAM_ACCOUNT_TYPE, accountType);
         }
-        return uri;
+        return ub;
     }
-};
+}
