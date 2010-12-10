@@ -222,19 +222,6 @@ public class IntentHandler {
                     // But currently, we get the user-typed URL from search box as well.
                     url = UrlUtils.fixUrl(url);
                     url = UrlUtils.smartUrlFilter(url);
-                    final ContentResolver cr = mActivity.getContentResolver();
-                    final String newUrl = url;
-                    if (mTabControl == null
-                            || mTabControl.getCurrentWebView() == null
-                            || !mTabControl.getCurrentWebView().isPrivateBrowsingEnabled()) {
-                        new AsyncTask<Void, Void, Void>() {
-                            @Override
-                            protected Void doInBackground(Void... unused) {
-                                Browser.updateVisitedHistory(cr, newUrl, false);
-                                return null;
-                            }
-                        }.execute();
-                    }
                     String searchSource = "&source=android-" + GOOGLE_SEARCH_SOURCE_SUGGEST + "&";
                     if (url.contains(searchSource)) {
                         String source = null;
@@ -311,7 +298,6 @@ public class IntentHandler {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... unused) {
-                        Browser.updateVisitedHistory(cr, newUrl, false);
                         Browser.addSearchUrl(cr, newUrl);
                     return null;
                 }
