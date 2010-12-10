@@ -622,12 +622,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
 
             case BOOKMARKS_FOLDER: {
-                // Don't allow selections to be applied to the default folder
-                if (!TextUtils.isEmpty(selection) || selectionArgs != null) {
-                    throw new UnsupportedOperationException(
-                            "selections aren't supported on this URI");
-                }
-
                 // Look for an account
                 boolean useAccount = false;
                 String accountType = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE);
@@ -649,37 +643,49 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 }
                 if (!useAccount) {
                     qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);
-                    query = qb.buildQuery(projection,
-                            Bookmarks.PARENT + "=? AND " + Bookmarks.IS_DELETED + "=0",
-                            null, null, null, sortOrder, null);
-
+                    String where = Bookmarks.PARENT + "=? AND " + Bookmarks.IS_DELETED + "=0";
+                    where = DatabaseUtils.concatenateWhere(where, selection);
                     args = new String[] { Long.toString(FIXED_ID_ROOT) };
+                    if (selectionArgs != null) {
+                        args = DatabaseUtils.appendSelectionArgs(args, selectionArgs);
+                    }
+                    query = qb.buildQuery(projection, where, null, null, sortOrder, null);
                 } else {
                     qb.setProjectionMap(BOOKMARKS_PROJECTION_MAP);
+                    String where = Bookmarks.ACCOUNT_TYPE + "=? AND " +
+                            Bookmarks.ACCOUNT_NAME + "=? " +
+                            "AND parent = " +
+                            "(SELECT _id FROM " + TABLE_BOOKMARKS + " WHERE " +
+                            ChromeSyncColumns.SERVER_UNIQUE + "=" +
+                            "'" + ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR + "' " +
+                            "AND account_type = ? AND account_name = ?) " +
+                            "AND " + Bookmarks.IS_DELETED + "=0";
+                    where = DatabaseUtils.concatenateWhere(where, selection);
                     String bookmarksBarQuery = qb.buildQuery(projection,
-                            Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? " +
-                                    "AND parent = " +
-                                        "(SELECT _id FROM " + TABLE_BOOKMARKS + " WHERE " +
-                                        ChromeSyncColumns.SERVER_UNIQUE + "=" +
-                                        "'" + ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR + "' " +
-                                        "AND account_type = ? AND account_name = ?) " +
-                                    "AND " + Bookmarks.IS_DELETED + "=0",
-                            null, null, null, null, null);
+                            where, null, null, null, null);
+                    args = new String[] {accountType, accountName,
+                            accountType, accountName};
+                    if (selectionArgs != null) {
+                        args = DatabaseUtils.appendSelectionArgs(args, selectionArgs);
+                    }
 
+                    where = Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=?" +
+                            " AND " + ChromeSyncColumns.SERVER_UNIQUE + "=?";
+                    where = DatabaseUtils.concatenateWhere(where, selection);
                     qb.setProjectionMap(OTHER_BOOKMARKS_PROJECTION_MAP);
                     String otherBookmarksQuery = qb.buildQuery(projection,
-                            Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=?" +
-                                    " AND " + ChromeSyncColumns.SERVER_UNIQUE + "=?",
-                            null, null, null, null, null);
+                            where, null, null, null, null);
 
                     query = qb.buildUnionQuery(
                             new String[] { bookmarksBarQuery, otherBookmarksQuery },
                             sortOrder, limit);
 
-                    args = new String[] {
-                            accountType, accountName, accountType, accountName,
+                    args = DatabaseUtils.appendSelectionArgs(args, new String[] {
                             accountType, accountName, ChromeSyncColumns.FOLDER_NAME_OTHER_BOOKMARKS,
-                            };
+                            });
+                    if (selectionArgs != null) {
+                        args = DatabaseUtils.appendSelectionArgs(args, selectionArgs);
+                    }
                 }
 
                 Cursor cursor = db.rawQuery(query, args);
