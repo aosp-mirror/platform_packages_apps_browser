@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import android.app.Instrumentation;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -25,6 +24,7 @@ import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.DownloadListener;
 import android.webkit.HttpAuthHandler;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
@@ -188,6 +188,16 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
                 return true;
             }
+
+            /*
+             * Skip the unload confirmation
+             */
+            @Override
+            public boolean onJsBeforeUnload(
+                    WebView view, String url, String message, JsResult result) {
+                result.confirm();
+                return true;
+            }
         });
 
         webView.setWebViewClient(new TestWebViewClient(webView.getWebViewClient()) {
@@ -237,6 +247,15 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 }
             }
 
+        });
+
+        webView.setDownloadListener(new DownloadListener() {
+
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition,
+                    String mimetype, long contentLength) {
+                Log.v(TAG, String.format("Download request ignored: %s", url));
+            }
         });
     }
 
