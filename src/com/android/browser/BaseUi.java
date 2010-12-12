@@ -132,9 +132,9 @@ public class BaseUi implements UI, WebViewFactory {
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
 
         if (mXLargeScreenSize) {
-            mTitleBar = new TitleBarXLarge(mActivity, mUiController);
+            mTitleBar = new TitleBarXLarge(mActivity, mUiController, this);
             mTitleBar.setProgress(100);
-            mFakeTitleBar = new TitleBarXLarge(mActivity, mUiController);
+            mFakeTitleBar = new TitleBarXLarge(mActivity, mUiController, this);
             ActionBar actionBar = mActivity.getActionBar();
             mTabBar = new TabBar(mActivity, mUiController, this);
             actionBar.setCustomNavigationMode(mTabBar);
@@ -515,6 +515,11 @@ public class BaseUi implements UI, WebViewFactory {
         return 0;
     }
 
+    void editUrl(boolean clearInput) {
+        showFakeTitleBar();
+        ((TitleBarXLarge) mFakeTitleBar).onEditUrl(clearInput);
+    }
+
     void showFakeTitleBar() {
         if (!isFakeTitleBarShowing() && mActiveTabsPage == null &&
                 !mActivityPaused) {
@@ -781,8 +786,11 @@ public class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void onActionModeStarted(ActionMode mode) {
-        // hide the fake title bar when CAB is shown
-        hideFakeTitleBar();
+        if (!mXLargeScreenSize
+                || !((TitleBarXLarge) mFakeTitleBar).isEditingUrl()) {
+            // hide the fake title bar when CAB is shown
+            hideFakeTitleBar();
+        }
     }
 
     @Override

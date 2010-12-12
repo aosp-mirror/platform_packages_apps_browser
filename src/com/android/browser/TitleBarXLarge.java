@@ -46,6 +46,7 @@ public class TitleBarXLarge extends TitleBarBase
     private static final int PROGRESS_MAX = 100;
 
     private UiController mUiController;
+    private BaseUi mUi;
 
     private Drawable mStopDrawable;
     private Drawable mReloadDrawable;
@@ -63,11 +64,14 @@ public class TitleBarXLarge extends TitleBarBase
     private View mVoiceSearch;
     private PageProgressView mProgressView;
     private UrlInputView mUrlInput;
+
     private boolean mInLoad;
 
-    public TitleBarXLarge(Activity activity, UiController controller) {
+    public TitleBarXLarge(Activity activity, UiController controller,
+            BaseUi ui) {
         super(activity);
         mUiController = controller;
+        mUi = ui;
         Resources resources = activity.getResources();
         mStopDrawable = resources.getDrawable(R.drawable.ic_stop_normal);
         mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_normal);
@@ -94,6 +98,7 @@ public class TitleBarXLarge extends TitleBarBase
         mVoiceSearch = findViewById(R.id.voicesearch);
         mProgressView = (PageProgressView) findViewById(R.id.progress);
         mUrlContainer = findViewById(R.id.urlbar_focused);
+
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
         mStar.setOnClickListener(this);
@@ -121,9 +126,30 @@ public class TitleBarXLarge extends TitleBarBase
         mStar.setActivated(isBookmark);
     }
 
+    /**
+     * called from the Ui when the user wants to edit
+     * Note: only the fake titlebar will get this callback
+     * independent of which input field started the edit mode
+     * @param clearInput clear the input field
+     */
+    void onEditUrl(boolean clearInput) {
+        mUrlInput.requestFocusFromTouch();
+        if (clearInput) {
+            mUrlInput.setText("");
+        }
+    }
+
+    boolean isEditingUrl() {
+        return mUrlInput.hasFocus();
+    }
+
     @Override
     public void onClick(View v) {
-        if (mBackButton == v) {
+        if (mUrlInput == v) {
+            if (!mUrlInput.hasFocus()) {
+                mUi.editUrl(false);
+            }
+        } else if (mBackButton == v) {
             mUiController.getCurrentTopWebView().goBack();
         } else if (mForwardButton == v) {
             mUiController.getCurrentTopWebView().goForward();
@@ -133,7 +159,7 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mAllButton == v) {
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mSearchButton == v) {
-            search();
+            mUi.editUrl(true);
         } else if (mStopButton == v) {
             stopOrRefresh();
         } else if (mGoButton == v) {
@@ -165,6 +191,10 @@ public class TitleBarXLarge extends TitleBarBase
 
     // UrlInputListener implementation
 
+    /**
+     * callback from suggestion dropdown
+     * user selected a suggestion
+     */
     @Override
     public void onAction(String text, String extra, String source) {
         mUiController.getCurrentTopWebView().requestFocus();
@@ -199,6 +229,10 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
+    /**
+     * callback from the suggestion dropdown
+     * copy text to input field and stay in edit mode
+     */
     @Override
     public void onEdit(String text) {
         setDisplayTitle(text, true);
@@ -207,7 +241,7 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    private void setUrlMode(boolean focused) {
+    void setUrlMode(boolean focused) {
         if (focused) {
             mUrlInput.setDropDownWidth(mUrlContainer.getWidth());
             mUrlInput.setDropDownHorizontalOffset(-mUrlInput.getLeft());
@@ -223,12 +257,6 @@ public class TitleBarXLarge extends TitleBarBase
             mStar.setVisibility(View.VISIBLE);
             mClearButton.setVisibility(View.GONE);
         }
-    }
-
-    private void search() {
-        mUrlInput.requestFocus();
-        setDisplayTitle("");
-        setUrlMode(true);
     }
 
     private void stopOrRefresh() {
@@ -285,7 +313,7 @@ public class TitleBarXLarge extends TitleBarBase
     @Override
     public void afterTextChanged(Editable s) {
         if (mUrlInput.hasFocus()) {
-            // check if url input is empty and adjust voice search state
+            // check if input field is empty and adjust voice search state
             updateSearchMode();
         }
     }
