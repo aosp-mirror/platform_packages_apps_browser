@@ -102,9 +102,9 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Impussibel d\'agiuntar questa URL a Voss segnapaginas."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Stizzar"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Segnapagina per l\'ultima pagina visitada"</string>
-    <!-- no translation found for bookmark_thumbnail_view (3104780739986130377) -->
+    <!-- no translation found for bookmark_thumbnail_view (3164068314718522138) -->
     <skip />
-    <!-- no translation found for bookmark_list_view (7394379479920174576) -->
+    <!-- no translation found for bookmark_list_view (7848510619500937839) -->
     <skip />
     <string name="current_page" msgid="7510129573681663135">"da "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"\"Il segnapagina \"\"<xliff:g id="BOOKMARK">%s</xliff:g>\"\" vegn stizzà.\""</string>
@@ -197,6 +197,8 @@
     <skip />
     <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
     <skip />
+    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
+    <skip />
     <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
     <skip />
     <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
@@ -227,7 +229,7 @@
     <skip />
     <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
     <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (7112035941146003753) -->
+    <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
     <skip />
     <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
     <skip />
@@ -399,5 +401,7 @@
     <!-- no translation found for import_bookmarks_dialog_remove (8105572409059113340) -->
     <skip />
     <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
+    <skip />
+    <!-- no translation found for menu_share_url (5851814357333739700) -->
     <skip />
 </resources>

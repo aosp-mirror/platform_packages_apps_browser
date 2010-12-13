@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.net.Uri;
 import android.provider.BrowserContract.Bookmarks;
+import android.provider.BrowserContract.ChromeSyncColumns;
 import android.text.TextUtils;
 
 public class BookmarksLoader extends CursorLoader {
@@ -34,6 +35,7 @@ public class BookmarksLoader extends CursorLoader {
     public static final int COLUMN_INDEX_TOUCH_ICON = 5;
     public static final int COLUMN_INDEX_IS_FOLDER = 6;
     public static final int COLUMN_INDEX_PARENT = 8;
+    public static final int COLUMN_INDEX_SERVER_UNIQUE = 9;
 
     public static final String[] PROJECTION = new String[] {
         Bookmarks._ID, // 0
@@ -45,6 +47,7 @@ public class BookmarksLoader extends CursorLoader {
         Bookmarks.IS_FOLDER, // 6
         Bookmarks.POSITION, // 7
         Bookmarks.PARENT, // 8
+        ChromeSyncColumns.SERVER_UNIQUE, // 9
     };
 
     private String mAccountType;
@@ -62,7 +65,7 @@ public class BookmarksLoader extends CursorLoader {
         super.setUri(addAccount(uri, mAccountType, mAccountName));
     }
 
-    private static Uri addAccount(Uri uri, String accountType, String accountName) {
+    static Uri addAccount(Uri uri, String accountType, String accountName) {
         if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
             return uri.buildUpon().appendQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE, accountType).
                     appendQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME, accountName).build();

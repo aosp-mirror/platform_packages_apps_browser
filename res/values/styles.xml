@@ -41,8 +41,7 @@
         <item name="android:windowExitAnimation">@anim/title_bar_exit</item>
     </style>
         <style name="HoloIcon">
-        <item name="android:paddingLeft">16dip</item>
-        <item name="android:paddingRight">16dip</item>
+        <item name="android:layout_marginLeft">16dip</item>
     </style>
     <style name="HoloButton" parent="@style/HoloIcon">
         <item name="android:background">@drawable/browserbarbutton</item>

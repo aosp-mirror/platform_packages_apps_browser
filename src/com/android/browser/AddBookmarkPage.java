@@ -129,16 +129,29 @@ public class AddBookmarkPage extends Activity
         return (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
 
+    private Uri getUriForFolder(long folder) {
+        Uri uri;
+        if (folder == mRootFolder) {
+            uri = BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER;
+        } else {
+            uri = BrowserContract.Bookmarks.buildFolderUri(folder);
+        }
+        String[] accountInfo = getAccountNameAndType(this);
+        if (accountInfo != null) {
+            uri = BookmarksLoader.addAccount(uri, accountInfo[1], accountInfo[0]);
+        }
+        return uri;
+    }
+
     @Override
     public void onTop(int level, Object data) {
         if (null == data) return;
         Folder folderData = (Folder) data;
         long folder = folderData.Id;
-        Uri uri = BrowserContract.Bookmarks.buildFolderUri(folder);
         LoaderManager manager = getLoaderManager();
         CursorLoader loader = (CursorLoader) ((Loader) manager.getLoader(
                 LOADER_ID_FOLDER_CONTENTS));
-        loader.setUri(uri);
+        loader.setUri(getUriForFolder(folder));
         loader.forceLoad();
         if (mFolderNamer.getVisibility() == View.VISIBLE) {
             completeOrCancelFolderNaming(true);
@@ -276,12 +289,10 @@ public class AddBookmarkPage extends Activity
         values.put(BrowserContract.Bookmarks.TITLE,
                 name);
         values.put(BrowserContract.Bookmarks.IS_FOLDER, 1);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
-        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
-        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
-            values.put(BrowserContract.Bookmarks.ACCOUNT_TYPE, accountType);
-            values.put(BrowserContract.Bookmarks.ACCOUNT_NAME, accountName);
+        String[] accountInfo = getAccountNameAndType(this);
+        if (accountInfo != null) {
+            values.put(BrowserContract.Bookmarks.ACCOUNT_TYPE, accountInfo[1]);
+            values.put(BrowserContract.Bookmarks.ACCOUNT_NAME, accountInfo[0]);
         }
         long currentFolder;
         Object data = mCrumbs.getTopData();
@@ -345,12 +356,11 @@ public class AddBookmarkPage extends Activity
                             + mMap.getLong(BrowserContract.Bookmarks._ID);
                 }
                 return new CursorLoader(this,
-                        BrowserContract.Bookmarks.buildFolderUri(
-                        mCurrentFolder),
+                        getUriForFolder(mCurrentFolder),
                         projection,
                         where,
                         null,
-                        null);
+                        BrowserContract.Bookmarks._ID + " ASC");
             default:
                 throw new AssertionError("Asking for nonexistant loader!");
         }
@@ -370,22 +380,18 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.TITLE);
                 int parentIndex = cursor.getColumnIndexOrThrow(
                         BrowserContract.Bookmarks.PARENT);
-                Stack folderStack = new Stack();
-                while ((parent != BrowserProvider2.FIXED_ID_ROOT) &&
-                        (parent != 0)) {
+                // If the user is editing anything inside the "Other Bookmarks"
+                // folder, we need to stop searching up when we reach its parent.
+                // Find the root folder
+                moveCursorToFolder(cursor, mRootFolder, idIndex);
+                // omniparent is the folder which contains root, and therefore
+                // also the parent of the "Other Bookmarks" folder.
+                long omniparent = cursor.getLong(parentIndex);
+                Stack<Folder> folderStack = new Stack<Folder>();
+                while ((parent != mRootFolder) && (parent != 0) && (parent != omniparent)) {
                     // First, find the folder corresponding to the current
                     // folder
-                    if (!cursor.moveToFirst()) {
-                        throw new AssertionError("No folders in the database!");
-                    }
-                    long folder;
-                    do {
-                        folder = cursor.getLong(idIndex);
-                    } while (folder != parent && cursor.moveToNext());
-                    if (cursor.isAfterLast()) {
-                        throw new AssertionError("Folder(id=" + parent
-                                + ") holding this bookmark does not exist!");
-                    }
+                    moveCursorToFolder(cursor, parent, idIndex);
                     String name = cursor.getString(titleIndex);
                     if (parent == mCurrentFolder) {
                         Drawable draw = getResources().getDrawable(
@@ -396,13 +402,36 @@ public class AddBookmarkPage extends Activity
                     parent = cursor.getLong(parentIndex);
                 }
                 while (!folderStack.isEmpty()) {
-                    Folder thisFolder = (Folder) folderStack.pop();
+                    Folder thisFolder = folderStack.pop();
                     mCrumbs.pushView(thisFolder.Name, thisFolder);
                 }
                 getLoaderManager().stopLoader(LOADER_ID_ALL_FOLDERS);
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * Move cursor to the position that has folderToFind as its "_id".
+     * @param cursor Cursor containing folders in the bookmarks database
+     * @param folderToFind "_id" of the folder to move to.
+     * @param idIndex Index in cursor of "_id"
+     * @throws AssertionError if cursor is empty or there is no row with folderToFind
+     *      as its "_id".
+     */
+    void moveCursorToFolder(Cursor cursor, long folderToFind, int idIndex)
+            throws AssertionError {
+        if (!cursor.moveToFirst()) {
+            throw new AssertionError("No folders in the database!");
+        }
+        long folder;
+        do {
+            folder = cursor.getLong(idIndex);
+        } while (folder != folderToFind && cursor.moveToNext());
+        if (cursor.isAfterLast()) {
+            throw new AssertionError("Folder(id=" + folderToFind
+                    + ") holding this bookmark does not exist!");
         }
     }
 
@@ -535,8 +564,7 @@ public class AddBookmarkPage extends Activity
         mCrumbs.setUseBackButton(true);
         mCrumbs.setController(this);
         String name = getString(R.string.bookmarks);
-        mCrumbs.pushView(name, false,
-                new Folder(name, BrowserProvider2.FIXED_ID_ROOT));
+        mCrumbs.pushView(name, false, new Folder(name, mRootFolder));
         mCrumbHolder = findViewById(R.id.crumb_holder);
         mCrumbs.setMaxVisible(MAX_CRUMBS_SHOWN);
 
@@ -547,7 +575,7 @@ public class AddBookmarkPage extends Activity
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
         LoaderManager manager = getLoaderManager();
-        if (mCurrentFolder != BrowserProvider2.FIXED_ID_ROOT) {
+        if (mCurrentFolder != mRootFolder) {
             // Find all the folders
             manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
         }
@@ -560,15 +588,26 @@ public class AddBookmarkPage extends Activity
         }
     }
 
+    /**
+     * Get the account name and type of the currently synced account.
+     * @param context Context to access preferences.
+     * @return null if no account name or type.  Otherwise, the result will be
+     *      an array of two Strings, the accountName and accountType, respectively.
+     */
+    private String[] getAccountNameAndType(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+        if (TextUtils.isEmpty(accountName) || TextUtils.isEmpty(accountType)) {
+            return null;
+        }
+        return new String[] { accountName, accountType };
+    }
+
     // FIXME: Use a CursorLoader
     private long getBookmarksBarId(Context context) {
-        SharedPreferences prefs
-                = PreferenceManager.getDefaultSharedPreferences(context);
-        String accountName =
-                prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
-        String accountType =
-                prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
-        if (TextUtils.isEmpty(accountName) || TextUtils.isEmpty(accountType)) {
+        String[] accountInfo = getAccountNameAndType(context);
+        if (accountInfo == null) {
             return BrowserProvider2.FIXED_ID_ROOT;
         }
         Cursor cursor = null;
@@ -582,8 +621,8 @@ public class AddBookmarkPage extends Activity
                     new String[] {
                             BrowserContract.ChromeSyncColumns
                                     .FOLDER_NAME_BOOKMARKS_BAR,
-                            accountName,
-                            accountType },
+                            accountInfo[0],
+                            accountInfo[1] },
                     null);
             if (cursor != null && cursor.moveToFirst()) {
                 return cursor.getLong(0);

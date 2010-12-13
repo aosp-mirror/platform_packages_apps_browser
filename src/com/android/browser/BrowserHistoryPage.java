@@ -28,6 +28,7 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -36,9 +37,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.BrowserContract;
-import android.provider.BrowserContract.History;
+import android.provider.BrowserContract.Combined;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -85,12 +88,13 @@ public class BrowserHistoryPage extends Fragment
 
     static interface HistoryQuery {
         static final String[] PROJECTION = new String[] {
-                History._ID, // 0
-                History.DATE_LAST_VISITED, // 1
-                History.TITLE, // 2
-                History.URL, // 3
-                History.FAVICON, // 4
-                History.VISITS // 5
+                Combined._ID, // 0
+                Combined.DATE_LAST_VISITED, // 1
+                Combined.TITLE, // 2
+                Combined.URL, // 3
+                Combined.FAVICON, // 4
+                Combined.VISITS, // 5
+                Combined.IS_BOOKMARK, // 6
         };
 
         static final int INDEX_ID = 0;
@@ -99,6 +103,7 @@ public class BrowserHistoryPage extends Fragment
         static final int INDEX_URL = 3;
         static final int INDEX_FAVICON = 4;
         static final int INDEX_VISITS = 5;
+        static final int INDEX_IS_BOOKMARK = 6;
     }
 
     private void copy(CharSequence text) {
@@ -116,20 +121,32 @@ public class BrowserHistoryPage extends Fragment
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getActivity());
+        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+        Uri.Builder combinedBuilder = Combined.CONTENT_URI.buildUpon();
+        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountName)) {
+            combinedBuilder.appendQueryParameter(BrowserContract.Bookmarks.PARAM_ACCOUNT_TYPE, accountType);
+            combinedBuilder.appendQueryParameter(BrowserContract.Bookmarks.PARAM_ACCOUNT_NAME, accountName);
+        }
+
         switch (id) {
             case LOADER_HISTORY: {
-                CursorLoader loader = new CursorLoader(getActivity(), History.CONTENT_URI,
-                        HistoryQuery.PROJECTION, null, null, null);
+                String sort = Combined.DATE_LAST_VISITED + " DESC";
+                String where = Combined.VISITS + " > 0";
+                CursorLoader loader = new CursorLoader(getActivity(), combinedBuilder.build(),
+                        HistoryQuery.PROJECTION, where, null, sort);
                 return loader;
             }
 
             case LOADER_MOST_VISITED: {
-                Uri uri = History.CONTENT_URI
-                        .buildUpon()
+                Uri uri = combinedBuilder
                         .appendQueryParameter(BrowserContract.PARAM_LIMIT, mMostVisitsLimit)
                         .build();
+                String where = Combined.VISITS + " > 0";
                 CursorLoader loader = new CursorLoader(getActivity(), uri,
-                        HistoryQuery.PROJECTION, null, null, History.VISITS + " DESC");
+                        HistoryQuery.PROJECTION, where, null, Combined.VISITS + " DESC");
                 return loader;
             }
 
@@ -501,6 +518,7 @@ public class BrowserHistoryPage extends Fragment
                 item.setFavicon(CombinedBookmarkHistoryView
                         .getIconListenerSet().getFavicon(url));
             }
+            item.setIsBookmark(cursor.getInt(HistoryQuery.INDEX_IS_BOOKMARK) == 1);
             return item;
         }
     }

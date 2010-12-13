@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Elegir el archivo para cargar"</string>
     <string name="new_tab" msgid="4505722538297295141">"Ventana nueva"</string>
     <string name="new_incognito_tab" msgid="5821404839654751753">"Nueva ventana de incógnito"</string>
-    <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
+    <string name="active_tabs" msgid="3050623868203544623">"Ventanas"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcadores"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Más visitados"</string>
     <string name="tab_history" msgid="1979267558744613746">"Historial"</string>
@@ -41,8 +41,7 @@
     <string name="ssl_continue" msgid="8031515015829358457">"Continuar"</string>
     <string name="security_warning" msgid="6607795404322797541">"Advertencia de seguridad"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Ver certificado"</string>
-    <!-- no translation found for ssl_go_back (4598951822061593819) -->
-    <skip />
+    <string name="ssl_go_back" msgid="4598951822061593819">"Volver"</string>
     <string name="ssl_untrusted" msgid="5369967226521102194">"Este certificado no proviene de una fuente confiable."</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"El nombre del sitio no coincide con el nombre del certificado."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Este certificado ha expirado."</string>
@@ -67,10 +66,8 @@
     <string name="location" msgid="3411848697912600125">"Dirección"</string>
     <string name="containing_folder" msgid="6771180232953030479">"Agregar a"</string>
     <string name="new_folder" msgid="7743540149088867917">"Carpeta nueva"</string>
-    <!-- no translation found for edit_folder (621817453133656156) -->
-    <skip />
-    <!-- no translation found for delete_folder (2046483129024501116) -->
-    <skip />
+    <string name="edit_folder" msgid="621817453133656156">"Editar carpeta"</string>
+    <string name="delete_folder" msgid="2046483129024501116">"Eliminar carpeta"</string>
     <string name="no_subfolders" msgid="5880411440592452802">"No hay subcarpetas"</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Marcadores"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Pantalla principal"</string>
@@ -95,10 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"No se puede agregar esta URL a los marcadores."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Eliminar"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Última página vista del marcador"</string>
-    <!-- no translation found for bookmark_thumbnail_view (3104780739986130377) -->
-    <skip />
-    <!-- no translation found for bookmark_list_view (7394379479920174576) -->
-    <skip />
+    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Vista en miniatura"</string>
+    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Vista de lista"</string>
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"El marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\" se eliminará."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Abrir en una ventana nueva"</string>
@@ -116,10 +111,8 @@
     <string name="menu_save_webarchive" msgid="3934652434001459581">"Guardar como Archivo web"</string>
     <string name="webarchive_saved" msgid="7045250341467345007">"Archivo web guardado."</string>
     <string name="webarchive_failed" msgid="2880998204746620260">"Error al guardar el archivo web."</string>
-    <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
-    <skip />
-    <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
-    <skip />
+    <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> Marcadores"</string>
+    <string name="contextheader_folder_empty" msgid="974171637803391651">"Vaciar carpeta"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Abrir en una ventana nueva"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Enlace del marcador"</string>
@@ -173,6 +166,8 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completa formularios web con un clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Configuración de autollenado"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configurar y administrar datos para los formularios de autollenado"</string>
+    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
+    <skip />
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nombre completo:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Correo electrónico:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Nombre de la empresa:"</string>
@@ -188,11 +183,9 @@
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Guardar perfil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Perfil guardado"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Perfil eliminado"</string>
-    <string name="autofill_profile_editor_delete_profile" msgid="7112035941146003753">"Eliminar datos de perfil"</string>
-    <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
-    <skip />
-    <!-- no translation found for autofill_setup_dialog_negative_toast (4653039631354546610) -->
-    <skip />
+    <!-- outdated translation 7112035941146003753 -->     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Eliminar datos de perfil"</string>
+    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"El navegador puede completar formularios web como este de forma automática. ¿Deseas configurar tu perfil?"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Autocomp se conf en cualq mom. c Conf del naveg -&gt; Conf pnal"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Configuración de privacidad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Borrar memoria caché"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Borrar el contenido y las bases de datos de la memoria caché local"</string>
@@ -354,4 +347,6 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Tus favoritos de Android no están asociados con una cuenta de Google."</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Eliminar tus favoritos de Android"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Agrega tus favoritos de Android a tus favoritos para <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <skip />
 </resources>

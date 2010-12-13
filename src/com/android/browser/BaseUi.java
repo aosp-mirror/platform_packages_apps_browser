@@ -508,6 +508,13 @@ public class BaseUi implements UI, WebViewFactory {
         mContentView.addView(container, COVER_SCREEN_PARAMS);
     }
 
+    int getTitleBarWidth() {
+        if (mTitleBar != null) {
+            return mTitleBar.getWidth();
+        }
+        return 0;
+    }
+
     void showFakeTitleBar() {
         if (!isFakeTitleBarShowing() && mActiveTabsPage == null &&
                 !mActivityPaused) {
@@ -930,6 +937,14 @@ public class BaseUi implements UI, WebViewFactory {
                     R.layout.video_loading_progress, null);
         }
         return mVideoProgressView;
+    }
+
+    @Override
+    public void showMaxTabsWarning() {
+        Toast warning = Toast.makeText(mActivity,
+                mActivity.getString(R.string.max_tabs_warning),
+                Toast.LENGTH_SHORT);
+        warning.show();
     }
 
 }

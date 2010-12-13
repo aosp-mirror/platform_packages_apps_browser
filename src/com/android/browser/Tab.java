@@ -533,7 +533,8 @@ class Tab {
                 mActivity.sendBroadcast(logIntent);
             }
             if (mInForeground) {
-                return mWebViewController.shouldOverrideUrlLoading(view, url);
+                return mWebViewController.shouldOverrideUrlLoading(Tab.this,
+                        view, url);
             } else {
                 return false;
             }
@@ -783,6 +784,7 @@ class Tab {
                 transport.setWebView(mSubView);
             } else {
                 final Tab newTab = mWebViewController.openTabAndShow(
+                        Tab.this,
                         IntentHandler.EMPTY_URL_DATA, false, null);
                 if (newTab != Tab.this) {
                     Tab.this.addChildTab(newTab);

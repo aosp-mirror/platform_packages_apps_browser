@@ -879,4 +879,8 @@
     <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
     <string name="menu_share_url">Share</string>
 
+    <!-- Toast to inform the user that the maximum number of tabs has been
+         reached. [CHAR LIMIT=50] -->
+    <string name="max_tabs_warning">No more tabs available</string>
+
 </resources>

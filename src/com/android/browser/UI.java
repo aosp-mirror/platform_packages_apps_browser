@@ -131,4 +131,7 @@ public interface UI extends ScrollListener {
     View getVideoLoadingProgressView();
 
     void bookmarkedStatusHasChanged(Tab tab);
+
+    void showMaxTabsWarning();
+
 }

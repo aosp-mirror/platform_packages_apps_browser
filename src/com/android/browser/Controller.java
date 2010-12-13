@@ -195,6 +195,7 @@ public class Controller
     // Checks to see when the bookmarks database has changed, and updates the
     // Tabs' notion of whether they represent bookmarked sites.
     private ContentObserver mBookmarksObserver;
+    private DataController mDataController;
 
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
@@ -213,6 +214,7 @@ public class Controller
     public Controller(Activity browser) {
         mActivity = browser;
         mSettings = BrowserSettings.getInstance();
+        mDataController = DataController.getInstance(mActivity);
         mTabControl = new TabControl(this);
         mSettings.setController(this);
 
@@ -448,7 +450,7 @@ public class Controller
                                 break;
                             case R.id.open_newtab_context_menu_id:
                                 final Tab parent = mTabControl.getCurrentTab();
-                                final Tab newTab = openTab(url, false);
+                                final Tab newTab = openTab(parent, url, false);
                                 if (newTab != null && newTab != parent) {
                                     parent.addChildTab(newTab);
                                 }
@@ -843,42 +845,7 @@ public class Controller
         }
         // Update the title in the history database if not in private browsing mode
         if (!tab.isPrivateBrowsingEnabled()) {
-            new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... unused) {
-                    // See if we can find the current url in our history
-                    // database and add the new title to it.
-                    String url = pageUrl;
-                    if (url.startsWith("http://www.")) {
-                        url = url.substring(11);
-                    } else if (url.startsWith("http://")) {
-                        url = url.substring(4);
-                    }
-                    // Escape wildcards for LIKE operator.
-                    url = url.replace("\\", "\\\\").replace("%", "\\%")
-                            .replace("_", "\\_");
-                    Cursor c = null;
-                    try {
-                        final ContentResolver cr =
-                                getActivity().getContentResolver();
-                        String selection = History.URL + " LIKE ? ESCAPE '\\'";
-                        String [] selectionArgs = new String[] { "%" + url };
-                        ContentValues values = new ContentValues();
-                        values.put(History.TITLE, title);
-                        cr.update(History.CONTENT_URI, values, selection,
-                                selectionArgs);
-                    } catch (IllegalStateException e) {
-                        Log.e(LOGTAG, "Tab onReceived title", e);
-                    } catch (SQLiteException ex) {
-                        Log.e(LOGTAG,
-                                "onReceivedTitle() caught SQLiteException: ",
-                                ex);
-                    } finally {
-                        if (c != null) c.close();
-                    }
-                    return null;
-                }
-            }.execute();
+            mDataController.updateHistoryTitle(pageUrl, title);
         }
     }
 
@@ -889,8 +856,8 @@ public class Controller
     }
 
     @Override
-    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        return mUrlHandler.shouldOverrideUrlLoading(view, url);
+    public boolean shouldOverrideUrlLoading(Tab tab, WebView view, String url) {
+        return mUrlHandler.shouldOverrideUrlLoading(tab, view, url);
     }
 
     @Override
@@ -924,28 +891,7 @@ public class Controller
         if (url.regionMatches(true, 0, "about:", 0, 6)) {
             return;
         }
-        // remove "client" before updating it to the history so that it wont
-        // show up in the auto-complete list.
-        int index = url.indexOf("client=ms-");
-        if (index > 0 && url.contains(".google.")) {
-            int end = url.indexOf('&', index);
-            if (end > 0) {
-                url = url.substring(0, index)
-                        .concat(url.substring(end + 1));
-            } else {
-                // the url.charAt(index-1) should be either '?' or '&'
-                url = url.substring(0, index-1);
-            }
-        }
-        final ContentResolver cr = getActivity().getContentResolver();
-        final String newUrl = url;
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... unused) {
-                Browser.updateVisitedHistory(cr, newUrl, true);
-                return null;
-            }
-        }.execute();
+        mDataController.updateVisitedHistory(url);
         WebIconDatabase.getInstance().retainIconForPageUrl(url);
     }
 
@@ -1168,7 +1114,7 @@ public class Controller
         removeComboView();
         if (!TextUtils.isEmpty(url)) {
             if (newTab) {
-                openTab(url, false);
+                openTab(mTabControl.getCurrentTab(), url, false);
             } else {
                 final Tab currentTab = mTabControl.getCurrentTab();
                 dismissSubWindow(currentTab);
@@ -1371,7 +1317,8 @@ public class Controller
                                     @Override
                                     public boolean onMenuItemClick(MenuItem item) {
                                         final Tab parent = mTabControl.getCurrentTab();
-                                        final Tab newTab = openTab(extra, false);
+                                        final Tab newTab = openTab(parent,
+                                                extra, false);
                                         if (newTab != parent) {
                                             parent.addChildTab(newTab);
                                         }
@@ -2107,23 +2054,44 @@ public class Controller
         }
     }
 
-    // A wrapper function of {@link #openTabAndShow(UrlData, boolean, String)}
-    // that accepts url as string.
-
-    protected Tab openTabAndShow(String url, boolean closeOnExit, String appId) {
-        return openTabAndShow(new UrlData(url), closeOnExit, appId);
+    @Override
+    public Tab openTabToHomePage() {
+        // check for max tabs
+        if (mTabControl.canCreateNewTab()) {
+            return openTabAndShow(null, new UrlData(mSettings.getHomePage()),
+                    false, null);
+        } else {
+            mUi.showMaxTabsWarning();
+            return null;
+        }
     }
+
+    protected Tab openTab(Tab parent, String url, boolean forceForeground) {
+        if (mSettings.openInBackground() && !forceForeground) {
+            Tab tab = mTabControl.createNewTab(false, null, null,
+                    (parent != null) && parent.isPrivateBrowsingEnabled());
+            if (tab != null) {
+                addTab(tab);
+                WebView view = tab.getWebView();
+                loadUrl(view, url);
+            }
+            return tab;
+        } else {
+            return openTabAndShow(parent, new UrlData(url), false, null);
+        }
+    }
+
 
     // This method does a ton of stuff. It will attempt to create a new tab
     // if we haven't reached MAX_TABS. Otherwise it uses the current tab. If
     // url isn't null, it will load the given url.
-
-    public Tab openTabAndShow(UrlData urlData, boolean closeOnExit,
+    public Tab openTabAndShow(Tab parent, UrlData urlData, boolean closeOnExit,
             String appId) {
         final Tab currentTab = mTabControl.getCurrentTab();
         if (mTabControl.canCreateNewTab()) {
             final Tab tab = mTabControl.createNewTab(closeOnExit, appId,
-                    urlData.mUrl, false);
+                    urlData.mUrl,
+                    (parent != null) && parent.isPrivateBrowsingEnabled());
             WebView webview = tab.getWebView();
             // We must set the new tab as the current tab to reflect the old
             // animation behavior.
@@ -2144,20 +2112,6 @@ public class Controller
         }
     }
 
-    protected Tab openTab(String url, boolean forceForeground) {
-        if (mSettings.openInBackground() && !forceForeground) {
-            Tab tab = mTabControl.createNewTab();
-            if (tab != null) {
-                addTab(tab);
-                WebView view = tab.getWebView();
-                loadUrl(view, url);
-            }
-            return tab;
-        } else {
-            return openTabAndShow(url, false, null);
-        }
-    }
-
     @Override
     public Tab openIncognitoTab() {
         if (mTabControl.canCreateNewTab()) {
@@ -2166,8 +2120,10 @@ public class Controller
             addTab(tab);
             setActiveTab(tab);
             return tab;
+        } else {
+            mUi.showMaxTabsWarning();
+            return null;
         }
-        return null;
     }
 
     /**
@@ -2188,11 +2144,6 @@ public class Controller
         }
         setActiveTab(tab);
         return true;
-    }
-
-    @Override
-    public Tab openTabToHomePage() {
-        return openTabAndShow(mSettings.getHomePage(), false, null);
     }
 
     @Override

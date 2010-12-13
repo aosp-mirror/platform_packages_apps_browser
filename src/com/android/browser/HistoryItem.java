@@ -18,6 +18,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.provider.Browser;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -41,10 +42,10 @@ import android.widget.CompoundButton;
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
                 if (isChecked) {
-                    // FIXME: For now, add at the root level.  Should we
-                    // open AddBookmark from here?
-                    Bookmarks.addBookmark(getContext(), true, mUrl, getName(), null, true, 0);
-                    LogTag.logBookmarkAdded(mUrl, "history");
+                    // Uncheck ourseves. When the bookmark is actually added,
+                    // we will be notified
+                    setIsBookmark(false);
+                    Browser.saveBookmark(getContext(), getName(), mUrl);
                 } else {
                     Bookmarks.removeFromBookmarks(getContext(),
                             getContext().getContentResolver(), mUrl, getName());
