@@ -26,11 +26,10 @@ import java.util.Map;
 /**
  *  Manage WebView scroll events
  */
-public class ScrollWebView extends WebView {
+public class ScrollWebView extends WebView implements Runnable {
 
     private ScrollListener mScrollListener;
     private boolean mIsCancelled;
-    private Runnable mScrollRunnable;
 
     /**
      * @param context
@@ -68,6 +67,13 @@ public class ScrollWebView extends WebView {
         super(context);
     }
 
+    // scroll runnable implementation
+    public void run() {
+        if (!mIsCancelled && (mScrollListener != null)) {
+            mScrollListener.onScroll(getVisibleTitleHeight());
+        }
+    }
+
     void hideEmbeddedTitleBar() {
         scrollBy(0, getVisibleTitleHeight());
     }
@@ -77,13 +83,7 @@ public class ScrollWebView extends WebView {
         super.setEmbeddedTitleBar(title);
         if (title != null && mScrollListener != null) {
             // allow the scroll listener to initialize its state
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    mScrollListener.onScroll((title.getHeight() == 0 ||
-                            getVisibleTitleHeight() > 0));
-                }
-            });
+            post(this);
         }
     }
 
@@ -97,7 +97,7 @@ public class ScrollWebView extends WebView {
     protected void onScrollChanged(int l, final int t, int ol, int ot) {
         super.onScrollChanged(l, t, ol, ot);
         if (!mIsCancelled) {
-            post(mScrollRunnable);
+            post(this);
         } else {
             mIsCancelled = false;
         }
@@ -105,21 +105,12 @@ public class ScrollWebView extends WebView {
 
     void setScrollListener(ScrollListener l) {
         mScrollListener = l;
-        if (mScrollListener != null) {
-            mScrollRunnable = new Runnable() {
-                public void run() {
-                    if (!mIsCancelled) {
-                        mScrollListener.onScroll(getVisibleTitleHeight() > 0);
-                    }
-                }
-            };
-        }
     }
 
     // callback for scroll events
 
     interface ScrollListener {
-        public void onScroll(boolean titleVisible);
+        public void onScroll(int visibleTitleHeight);
     }
 
 }

@@ -160,7 +160,7 @@ public class BaseUi implements UI, WebViewFactory {
         // Enable the built-in zoom
         w.getSettings().setBuiltInZoomControls(true);
         if (mXLargeScreenSize) {
-            w.setScrollListener(mTabBar);
+            w.setScrollListener(this);
             w.getSettings().setDisplayZoomControls(false);
         }
 
@@ -848,9 +848,9 @@ public class BaseUi implements UI, WebViewFactory {
     }
 
     @Override
-    public void onScroll(boolean titleVisible) {
+    public void onScroll(int visibleTitleHeight) {
         if (mTabBar != null) {
-            mTabBar.onScroll(titleVisible);
+            mTabBar.onScroll(visibleTitleHeight);
         }
     }
 
