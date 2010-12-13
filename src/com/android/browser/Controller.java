@@ -270,8 +270,6 @@ public class Controller
             // This is done async in the CookieManager.
             CookieManager.getInstance().removeSessionCookie();
 
-            // remove any incognito files
-            WebView.cleanupPrivateBrowsingFiles();
             final Bundle extra = intent.getExtras();
             // Create an initial tab.
             // If the intent is ACTION_VIEW and data is not null, the Browser is
@@ -304,9 +302,6 @@ public class Controller
             }
         } else {
             mUi.updateTabs(mTabControl.getTabs());
-            if (!restoreIncognitoTabs) {
-                WebView.cleanupPrivateBrowsingFiles();
-            }
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails.
             setActiveTab(mTabControl.getCurrentTab());
@@ -2193,9 +2188,6 @@ public class Controller
         }
         Tab newtab = mTabControl.getTab(currentIndex);
         setActiveTab(newtab);
-        if (!mTabControl.hasAnyOpenIncognitoTabs()) {
-            WebView.cleanupPrivateBrowsingFiles();
-        }
     }
 
     /**************** TODO: Url loading clean up *******************************/
