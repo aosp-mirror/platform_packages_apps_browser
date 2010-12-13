@@ -247,6 +247,14 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 }
             }
 
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (!(url.startsWith("http://") || url.startsWith("https://"))) {
+                    Log.v(TAG, String.format("suppressing non-http url scheme: %s", url));
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, url);
+            }
         });
 
         webView.setDownloadListener(new DownloadListener() {
