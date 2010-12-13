@@ -16,19 +16,15 @@
 
 package com.android.browser;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -52,16 +48,16 @@ import java.util.List;
 /**
  * UI interface definitions
  */
-public class BaseUi implements UI, WebViewFactory {
+public abstract class BaseUi implements UI, WebViewFactory {
 
     private static final String LOGTAG = "BaseUi";
 
-    private static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS =
+    protected static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS =
         new FrameLayout.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.MATCH_PARENT);
 
-    private static final FrameLayout.LayoutParams COVER_SCREEN_GRAVITY_CENTER =
+    protected static final FrameLayout.LayoutParams COVER_SCREEN_GRAVITY_CENTER =
         new FrameLayout.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -76,13 +72,9 @@ public class BaseUi implements UI, WebViewFactory {
     private Drawable mSecLockIcon;
     private Drawable mMixLockIcon;
 
-    private boolean mXLargeScreenSize;
     private FrameLayout mBrowserFrameLayout;
-    private FrameLayout mContentView;
+    protected FrameLayout mContentView;
     private FrameLayout mCustomViewContainer;
-    private TitleBarBase mTitleBar;
-    private TitleBarBase mFakeTitleBar;
-    private TabBar mTabBar;
 
     private View mCustomView;
     private WebChromeClient.CustomViewCallback mCustomViewCallback;
@@ -92,15 +84,11 @@ public class BaseUi implements UI, WebViewFactory {
     private LinearLayout mErrorConsoleContainer = null;
 
     private Toast mStopToast;
-    private ActiveTabsPage mActiveTabsPage;
 
     // the default <video> poster
     private Bitmap mDefaultVideoPoster;
     // the video progress view
     private View mVideoProgressView;
-
-    boolean mExtendedMenuOpen;
-    boolean mOptionsMenuOpen;
 
     private boolean mActivityPaused;
 
@@ -114,11 +102,6 @@ public class BaseUi implements UI, WebViewFactory {
         mSecLockIcon = res.getDrawable(R.drawable.ic_secure);
         mMixLockIcon = res.getDrawable(R.drawable.ic_partial_secure);
 
-
-        mXLargeScreenSize = (res.getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                == Configuration.SCREENLAYOUT_SIZE_XLARGE;
-
         FrameLayout frameLayout = (FrameLayout) mActivity.getWindow()
                 .getDecorView().findViewById(android.R.id.content);
         mBrowserFrameLayout = (FrameLayout) LayoutInflater.from(mActivity)
@@ -131,61 +114,23 @@ public class BaseUi implements UI, WebViewFactory {
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
 
-        if (mXLargeScreenSize) {
-            mTitleBar = new TitleBarXLarge(mActivity, mUiController, this);
-            mTitleBar.setProgress(100);
-            mFakeTitleBar = new TitleBarXLarge(mActivity, mUiController, this);
-            ActionBar actionBar = mActivity.getActionBar();
-            mTabBar = new TabBar(mActivity, mUiController, this);
-            actionBar.setCustomNavigationMode(mTabBar);
-        } else {
-            mTitleBar = new TitleBar(mActivity, mUiController);
-            // mTitleBar will be always be shown in the fully loaded mode on
-            // phone
-            mTitleBar.setProgress(100);
-            mFakeTitleBar = new TitleBar(mActivity, mUiController);
-        }
     }
 
-    // webview factory
-
-    @Override
-    public WebView createWebView(boolean privateBrowsing) {
-        // Create a new WebView
-        ScrollWebView w = new ScrollWebView(mActivity, null,
-                android.R.attr.webViewStyle, privateBrowsing);
+    /**
+     * common webview initialization
+     * @param w the webview to initialize
+     */
+    protected void initWebViewSettings(WebView w) {
         w.setScrollbarFadingEnabled(true);
         w.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         w.setMapTrackballToArrowKeys(false); // use trackball directly
         // Enable the built-in zoom
         w.getSettings().setBuiltInZoomControls(true);
-        if (mXLargeScreenSize) {
-            w.setScrollListener(this);
-            w.getSettings().setDisplayZoomControls(false);
-        }
 
         // Add this WebView to the settings observer list and update the
         // settings
         final BrowserSettings s = BrowserSettings.getInstance();
         s.addObserver(w.getSettings()).update(s, null);
-        return w;
-    }
-
-    @Override
-    public WebView createSubWebView(boolean privateBrowsing) {
-        ScrollWebView web = (ScrollWebView) createWebView(privateBrowsing);
-        if (mXLargeScreenSize) {
-            // no scroll listener for subview
-            web.setScrollListener(null);
-        }
-        return web;
-    }
-
-    void stopWebViewScrolling() {
-        ScrollWebView web = (ScrollWebView) mUiController.getCurrentWebView();
-        if (web != null) {
-            web.stopScroll();
-        }
     }
 
     private void cancelStopToast() {
@@ -198,13 +143,6 @@ public class BaseUi implements UI, WebViewFactory {
     // lifecycle
 
     public void onPause() {
-        // FIXME: This removes the active tabs page and resets the menu to
-        // MAIN_MENU.  A better solution might be to do this work in onNewIntent
-        // but then we would need to save it in onSaveInstanceState and restore
-        // it in onCreate/onRestoreInstanceState
-        if (mActiveTabsPage != null) {
-            mUiController.removeActiveTabsPage(true);
-        }
         if (isCustomViewShowing()) {
             onHideCustomView();
         }
@@ -216,8 +154,8 @@ public class BaseUi implements UI, WebViewFactory {
         mActivityPaused = false;
     }
 
-    public void onDestroy() {
-        hideFakeTitleBar();
+    protected boolean isActivityPaused() {
+        return mActivityPaused;
     }
 
     public void onConfigurationChanged(Configuration config) {
@@ -227,11 +165,6 @@ public class BaseUi implements UI, WebViewFactory {
 
     @Override
     public boolean onBackKey() {
-        if (mActiveTabsPage != null) {
-            // if tab page is showing, hide it
-            mUiController.removeActiveTabsPage(true);
-            return true;
-        }
         if (mComboView != null) {
             if (!mComboView.onBackPressed()) {
                 mUiController.removeComboView();
@@ -254,25 +187,15 @@ public class BaseUi implements UI, WebViewFactory {
             setUrlTitle(tab, url, null);
             setFavicon(tab, favicon);
         }
-        if (mXLargeScreenSize) {
-            mTabBar.onPageStarted(tab, url, favicon);
-        }
     }
 
     @Override
     public void bookmarkedStatusHasChanged(Tab tab) {
-        if (tab.inForeground() && mXLargeScreenSize) {
-            boolean isBookmark = tab.isBookmarkedSite();
-            ((TitleBarXLarge) mTitleBar).setCurrentUrlIsBookmark(isBookmark);
-            ((TitleBarXLarge) mFakeTitleBar).setCurrentUrlIsBookmark(isBookmark);
-        }
+        // no op in base case
     }
 
     @Override
     public void onPageFinished(Tab tab, String url) {
-        if (mXLargeScreenSize) {
-            mTabBar.onPageFinished(tab);
-        }
         if (tab.inForeground()) {
             // Reset the title and icon in case we stopped a provisional load.
             resetTitleAndIcon(tab);
@@ -292,34 +215,12 @@ public class BaseUi implements UI, WebViewFactory {
     }
 
     @Override
-    public void onProgressChanged(Tab tab, int progress) {
-        if (mXLargeScreenSize) {
-            mTabBar.onProgress(tab, progress);
-        }
-        if (tab.inForeground()) {
-            mFakeTitleBar.setProgress(progress);
-            if (progress == 100) {
-                if (!mOptionsMenuOpen || !mExtendedMenuOpen) {
-                    hideFakeTitleBar();
-                }
-            } else {
-                if (!mOptionsMenuOpen || mExtendedMenuOpen) {
-                    showFakeTitleBar();
-                }
-            }
-        }
-    }
-
-    @Override
     public boolean needsRestoreAllTabs() {
-        return mXLargeScreenSize;
+        return false;
     }
 
     @Override
     public void addTab(Tab tab) {
-        if (mXLargeScreenSize) {
-            mTabBar.onNewTab(tab);
-        }
     }
 
     @Override
@@ -330,7 +231,6 @@ public class BaseUi implements UI, WebViewFactory {
         mActiveTab = tab;
         attachTabToContentView(tab);
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
-
         WebView view = tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
         // so the tab is guaranteed to have a webview
@@ -338,16 +238,11 @@ public class BaseUi implements UI, WebViewFactory {
             Log.e(LOGTAG, "active tab with no webview detected");
             return;
         }
-        view.setEmbeddedTitleBar(mTitleBar);
+        view.setEmbeddedTitleBar(getEmbeddedTitleBar());
         if (tab.isInVoiceSearchMode()) {
             showVoiceTitleBar(tab.getVoiceDisplayTitle());
         } else {
             revertVoiceTitleBar(tab);
-        }
-
-        if (mXLargeScreenSize) {
-            // Request focus on the top window.
-            mTabBar.onSetActiveTab(tab);
         }
         resetTitleIconAndProgress(tab);
         updateLockIconToLatest(tab);
@@ -356,9 +251,6 @@ public class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void updateTabs(List<Tab> tabs) {
-        if (mXLargeScreenSize) {
-            mTabBar.updateTabs(tabs);
-        }
     }
 
     @Override
@@ -366,9 +258,6 @@ public class BaseUi implements UI, WebViewFactory {
         if (mActiveTab == tab) {
             removeTabFromContentView(tab);
             mActiveTab = null;
-        }
-        if (mXLargeScreenSize) {
-            mTabBar.onRemoveTab(tab);
         }
     }
 
@@ -508,21 +397,8 @@ public class BaseUi implements UI, WebViewFactory {
         mContentView.addView(container, COVER_SCREEN_PARAMS);
     }
 
-    int getTitleBarWidth() {
-        if (mTitleBar != null) {
-            return mTitleBar.getWidth();
-        }
-        return 0;
-    }
-
-    void editUrl(boolean clearInput) {
-        showFakeTitleBar();
-        ((TitleBarXLarge) mFakeTitleBar).onEditUrl(clearInput);
-    }
-
     void showFakeTitleBar() {
-        if (!isFakeTitleBarShowing() && mActiveTabsPage == null &&
-                !mActivityPaused) {
+        if (!isFakeTitleBarShowing() && !isActivityPaused()) {
             WebView mainView = mUiController.getCurrentWebView();
             // if there is no current WebView, don't show the faked title bar;
             if (mainView == null) {
@@ -535,57 +411,35 @@ public class BaseUi implements UI, WebViewFactory {
                 // (i.e. find or select) is showing.
                 return;
             }
-            if (mXLargeScreenSize) {
-                mContentView.addView(mFakeTitleBar);
-                mTabBar.onShowTitleBar();
-            } else {
-                WindowManager manager = (WindowManager)
-                        mActivity.getSystemService(Context.WINDOW_SERVICE);
-
-                // Add the title bar to the window manager so it can receive
-                // touches
-                // while the menu is up
-                WindowManager.LayoutParams params =
-                        new WindowManager.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                WindowManager.LayoutParams.TYPE_APPLICATION,
-                                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                                PixelFormat.TRANSLUCENT);
-                params.gravity = Gravity.TOP;
-                boolean atTop = mainView.getScrollY() == 0;
-                params.windowAnimations = atTop ? 0 : R.style.TitleBar;
-                manager.addView(mFakeTitleBar, params);
-            }
+            attachFakeTitleBar(mainView);
         }
     }
 
-    void hideFakeTitleBar() {
-        if (!isFakeTitleBarShowing()) return;
-        if (mXLargeScreenSize) {
-            mContentView.removeView(mFakeTitleBar);
-            mTabBar.onHideTitleBar();
-        } else {
-            WindowManager.LayoutParams params =
-                    (WindowManager.LayoutParams) mFakeTitleBar.getLayoutParams();
-            WebView mainView = mUiController.getCurrentWebView();
-            // Although we decided whether or not to animate based on the
-            // current
-            // scroll position, the scroll position may have changed since the
-            // fake title bar was displayed. Make sure it has the appropriate
-            // animation/lack thereof before removing.
-            params.windowAnimations =
-                    mainView != null && mainView.getScrollY() == 0 ?
-                            0 : R.style.TitleBar;
-            WindowManager manager = (WindowManager) mActivity
-                    .getSystemService(Context.WINDOW_SERVICE);
-            manager.updateViewLayout(mFakeTitleBar, params);
-            manager.removeView(mFakeTitleBar);
-        }
+    protected abstract void attachFakeTitleBar(WebView mainView);
+
+    protected abstract void hideFakeTitleBar();
+
+    protected abstract boolean isFakeTitleBarShowing();
+
+    protected abstract TitleBarBase getFakeTitleBar();
+
+    protected abstract TitleBarBase getEmbeddedTitleBar();
+
+    @Override
+    public void showVoiceTitleBar(String title) {
+        getEmbeddedTitleBar().setInVoiceMode(true);
+        getEmbeddedTitleBar().setDisplayTitle(title);
+        getFakeTitleBar().setInVoiceMode(true);
+        getFakeTitleBar().setDisplayTitle(title);
     }
 
-    boolean isFakeTitleBarShowing() {
-        return (mFakeTitleBar.getParent() != null);
+    @Override
+    public void revertVoiceTitleBar(Tab tab) {
+        getEmbeddedTitleBar().setInVoiceMode(false);
+        String url = tab.getCurrentUrl();
+        getEmbeddedTitleBar().setDisplayTitle(url);
+        getFakeTitleBar().setInVoiceMode(false);
+        getFakeTitleBar().setDisplayTitle(url);
     }
 
     @Override
@@ -596,7 +450,7 @@ public class BaseUi implements UI, WebViewFactory {
                         CombinedBookmarkHistoryView.FRAGMENT_ID_HISTORY
                         : CombinedBookmarkHistoryView.FRAGMENT_ID_BOOKMARKS,
                 extras);
-        mTitleBar.setVisibility(View.GONE);
+        getEmbeddedTitleBar().setVisibility(View.GONE);
         hideFakeTitleBar();
         dismissIME();
         if (mActiveTab != null) {
@@ -613,7 +467,7 @@ public class BaseUi implements UI, WebViewFactory {
     public void hideComboView() {
         if (mComboView != null) {
             mContentView.removeView(mComboView);
-            mTitleBar.setVisibility(View.VISIBLE);
+            getEmbeddedTitleBar().setVisibility(View.VISIBLE);
             mComboView = null;
         }
         if (mActiveTab != null) {
@@ -664,28 +518,17 @@ public class BaseUi implements UI, WebViewFactory {
         return mCustomView != null;
     }
 
-    @Override
-    public void showVoiceTitleBar(String title) {
-        mTitleBar.setInVoiceMode(true);
-        mTitleBar.setDisplayTitle(title);
-        mFakeTitleBar.setInVoiceMode(true);
-        mFakeTitleBar.setDisplayTitle(title);
-    }
-
-    @Override
-    public void revertVoiceTitleBar(Tab tab) {
-        mTitleBar.setInVoiceMode(false);
-        String url = tab.getCurrentUrl();
-        mTitleBar.setDisplayTitle(url);
-        mFakeTitleBar.setInVoiceMode(false);
-        mFakeTitleBar.setDisplayTitle(url);
-    }
-
-    private void dismissIME() {
+    protected void dismissIME() {
         if (mInputManager.isActive()) {
             mInputManager.hideSoftInputFromWindow(mContentView.getWindowToken(),
                     0);
         }
+    }
+
+    @Override
+    public boolean showsWeb() {
+        return mCustomView == null
+            && mComboView == null;
     }
 
     // -------------------------------------------------------------------------
@@ -710,7 +553,7 @@ public class BaseUi implements UI, WebViewFactory {
     /**
      * Update the lock icon to correspond to our latest state.
      */
-    private void updateLockIconToLatest(Tab t) {
+    protected void updateLockIconToLatest(Tab t) {
         if (t != null) {
             updateLockIconImage(t.getLockIconType());
         }
@@ -719,7 +562,7 @@ public class BaseUi implements UI, WebViewFactory {
     /**
      * Reset the title, favicon, and progress.
      */
-    private void resetTitleIconAndProgress(Tab tab) {
+    protected void resetTitleIconAndProgress(Tab tab) {
         WebView current = tab.getWebView();
         if (current == null) {
             return;
@@ -759,38 +602,27 @@ public class BaseUi implements UI, WebViewFactory {
         } else if (lockIconType == Tab.LOCK_ICON_MIXED) {
             d = mMixLockIcon;
         }
-        mTitleBar.setLock(d);
-        mFakeTitleBar.setLock(d);
+        getEmbeddedTitleBar().setLock(d);
+        getFakeTitleBar().setLock(d);
     }
-
-    // active tabs page
-
-    public void showActiveTabsPage() {
-        mActiveTabsPage = new ActiveTabsPage(mActivity, mUiController);
-        mTitleBar.setVisibility(View.GONE);
-        hideFakeTitleBar();
-        mContentView.addView(mActiveTabsPage, COVER_SCREEN_PARAMS);
-        mActiveTabsPage.requestFocus();
-    }
-
-    /**
-     * Remove the active tabs page.
-     */
-    public void removeActiveTabsPage() {
-        mContentView.removeView(mActiveTabsPage);
-        mTitleBar.setVisibility(View.VISIBLE);
-        mActiveTabsPage = null;
-    }
-
-    // action mode callbacks
 
     @Override
-    public void onActionModeStarted(ActionMode mode) {
-        if (!mXLargeScreenSize
-                || !((TitleBarXLarge) mFakeTitleBar).isEditingUrl()) {
-            // hide the fake title bar when CAB is shown
-            hideFakeTitleBar();
+    public void setUrlTitle(Tab tab, String url, String title) {
+        if (TextUtils.isEmpty(title)) {
+            title = url;
         }
+        if (tab.isInVoiceSearchMode()) return;
+        if (tab.inForeground()) {
+            getEmbeddedTitleBar().setDisplayTitle(url);
+            getFakeTitleBar().setDisplayTitle(url);
+        }
+    }
+
+    // Set the favicon in the title bar.
+    @Override
+    public void setFavicon(Tab tab, Bitmap icon) {
+        getEmbeddedTitleBar().setFavicon(icon);
+        getFakeTitleBar().setFavicon(icon);
     }
 
     @Override
@@ -802,56 +634,41 @@ public class BaseUi implements UI, WebViewFactory {
         }
     }
 
+    // active tabs page
+
+    public void showActiveTabsPage() {
+    }
+
+    /**
+     * Remove the active tabs page.
+     */
+    public void removeActiveTabsPage() {
+    }
+
     // menu handling callbacks
 
     @Override
     public void onOptionsMenuOpened() {
-        mOptionsMenuOpen = true;
-        // options menu opened, show fake title bar
-        showFakeTitleBar();
     }
 
     @Override
     public void onExtendedMenuOpened() {
-        // Switching the menu to expanded view, so hide the
-        // title bar.
-        mExtendedMenuOpen = true;
-        hideFakeTitleBar();
     }
 
     @Override
     public void onOptionsMenuClosed(boolean inLoad) {
-        mOptionsMenuOpen = false;
-        if (!inLoad) {
-            hideFakeTitleBar();
-        }
     }
 
     @Override
     public void onExtendedMenuClosed(boolean inLoad) {
-        mExtendedMenuOpen = false;
-        if (inLoad) {
-            showFakeTitleBar();
-        }
     }
 
     @Override
     public void onContextMenuCreated(Menu menu) {
-        hideFakeTitleBar();
     }
 
     @Override
     public void onContextMenuClosed(Menu menu, boolean inLoad) {
-        if (inLoad) {
-            showFakeTitleBar();
-        }
-    }
-
-    @Override
-    public void onScroll(int visibleTitleHeight) {
-        if (mTabBar != null) {
-            mTabBar.onScroll(visibleTitleHeight);
-        }
     }
 
     // error console
@@ -887,41 +704,9 @@ public class BaseUi implements UI, WebViewFactory {
     }
 
     @Override
-    public void setUrlTitle(Tab tab, String url, String title) {
-        if (TextUtils.isEmpty(title)) {
-            title = url;
-        }
-        if (tab.isInVoiceSearchMode()) return;
-        if (tab.inForeground()) {
-            mTitleBar.setDisplayTitle(url);
-            mFakeTitleBar.setDisplayTitle(url);
-        }
-        if (mXLargeScreenSize) {
-            mTabBar.onUrlAndTitle(tab, url, title);
-        }
-    }
-
-    // Set the favicon in the title bar.
-    @Override
-    public void setFavicon(Tab tab, Bitmap icon) {
-        mTitleBar.setFavicon(icon);
-        mFakeTitleBar.setFavicon(icon);
-        if (mXLargeScreenSize) {
-            mTabBar.onFavicon(tab, icon);
-        }
-    }
-    @Override
-    public boolean showsWeb() {
-        return mCustomView == null && mActiveTabsPage == null
-            && mComboView == null;
-    }
-
-    @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        if (!mXLargeScreenSize) {
-            final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
-            newtab.setEnabled(mUiController.getTabControl().canCreateNewTab());
-        }
+        final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
+        newtab.setEnabled(mUiController.getTabControl().canCreateNewTab());
     }
 
     // -------------------------------------------------------------------------

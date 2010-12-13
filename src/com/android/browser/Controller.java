@@ -1447,12 +1447,6 @@ public class Controller
             // if main menu option is selected
             removeComboView();
         }
-        // check the action bar button before mCanChord check, as the prepare call
-        // doesn't come for action bar buttons
-        if (item.getItemId() == R.id.newtab) {
-            openTabToHomePage();
-            return true;
-        }
         if (!mCanChord) {
             // The user has already fired a shortcut with this hold down of the
             // menu key.

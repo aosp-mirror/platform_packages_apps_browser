@@ -46,7 +46,7 @@ public class TitleBarXLarge extends TitleBarBase
     private static final int PROGRESS_MAX = 100;
 
     private UiController mUiController;
-    private BaseUi mUi;
+    private XLargeUi mUi;
 
     private Drawable mStopDrawable;
     private Drawable mReloadDrawable;
@@ -68,7 +68,7 @@ public class TitleBarXLarge extends TitleBarBase
     private boolean mInLoad;
 
     public TitleBarXLarge(Activity activity, UiController controller,
-            BaseUi ui) {
+            XLargeUi ui) {
         super(activity);
         mUiController = controller;
         mUi = ui;
@@ -198,7 +198,7 @@ public class TitleBarXLarge extends TitleBarBase
     @Override
     public void onAction(String text, String extra, String source) {
         mUiController.getCurrentTopWebView().requestFocus();
-        ((BaseUi) mUiController.getUi()).hideFakeTitleBar();
+        mUi.hideFakeTitleBar();
         Intent i = new Intent();
         i.setAction(Intent.ACTION_SEARCH);
         i.putExtra(SearchManager.QUERY, text);
@@ -221,7 +221,7 @@ public class TitleBarXLarge extends TitleBarBase
         if (top != null) {
             mUiController.getCurrentTopWebView().requestFocus();
         }
-        ((BaseUi) mUiController.getUi()).hideFakeTitleBar();
+        mUi.hideFakeTitleBar();
         setUrlMode(false);
         // if top != null current must be set
         if (top != null) {

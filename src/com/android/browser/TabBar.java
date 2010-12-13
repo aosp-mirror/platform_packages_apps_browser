@@ -59,7 +59,7 @@ public class TabBar extends LinearLayout
     private Activity mActivity;
     private UiController mUiController;
     private TabControl mTabControl;
-    private BaseUi mUi;
+    private XLargeUi mUi;
 
     private final int mTabWidthSelected;
     private final int mTabWidthUnselected;
@@ -89,7 +89,7 @@ public class TabBar extends LinearLayout
     private int mTabSliceWidth;
     private int mTabPadding;
 
-    public TabBar(Activity activity, UiController controller, BaseUi ui) {
+    public TabBar(Activity activity, UiController controller, XLargeUi ui) {
         super(activity);
         mActivity = activity;
         mUiController = controller;
