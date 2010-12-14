@@ -25,7 +25,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
@@ -232,7 +231,7 @@ public class TabBar extends LinearLayout
     public void onScroll(int visibleTitleHeight) {
         // isLoading is using the current tab, which initially might not be set yet
         if (mTabControl.getCurrentTab() != null) {
-            if ((mVisibleTitleHeight > 0) && (visibleTitleHeight == 0)
+            if ((mVisibleTitleHeight != 0) && (visibleTitleHeight == 0)
                     && !isLoading()) {
                 if (mUserRequestedUrlbar) {
                     mUi.hideFakeTitleBar();
@@ -320,7 +319,11 @@ public class TabBar extends LinearLayout
         }
 
         void showIndicator(boolean show) {
-            mIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
+            if (mSelected) {
+                mIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
+            } else {
+                mIndicator.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -356,6 +359,7 @@ public class TabBar extends LinearLayout
         public void setActivated(boolean selected) {
             mSelected = selected;
             mClose.setVisibility(mSelected ? View.VISIBLE : View.GONE);
+            mIndicator.setVisibility(View.GONE);
             mTitle.setTextAppearance(mActivity, mSelected ?
                     R.style.TabTitleSelected : R.style.TabTitleUnselected);
             setHorizontalFadingEdgeEnabled(!mSelected);
@@ -508,7 +512,11 @@ public class TabBar extends LinearLayout
             tvd.setProgress(tvd.mProgress);
             // update the scroll state
             WebView webview = tab.getWebView();
-            onScroll(webview.getVisibleTitleHeight());
+            if (webview != null) {
+                int h = webview.getVisibleTitleHeight();
+                mVisibleTitleHeight = h -1;
+                onScroll(h);
+            }
         }
     }
 
