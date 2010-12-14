@@ -36,7 +36,6 @@ import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
@@ -51,10 +50,10 @@ import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceActivity;
 import android.provider.Browser;
 import android.provider.BrowserContract;
-import android.provider.BrowserContract.History;
 import android.provider.BrowserContract.Images;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
+import android.speech.RecognizerIntent;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -94,6 +93,9 @@ public class Controller
         implements WebViewController, UiController {
 
     private static final String LOGTAG = "Controller";
+    private static final String SEND_APP_ID_EXTRA =
+        "android.speech.extras.SEND_APPLICATION_ID_EXTRA";
+
 
     // public message ids
     public final static int LOAD_URL = 1001;
@@ -1007,6 +1009,16 @@ public class Controller
         String url = (getCurrentTopWebView() == null) ? null : getCurrentTopWebView().getUrl();
         startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
                 null, false);
+    }
+
+    public void startVoiceSearch() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_WEB_SEARCH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
+                mActivity.getComponentName().flattenToString());
+        intent.putExtra(SEND_APP_ID_EXTRA, false);
+        mActivity.startActivity(intent);
     }
 
     public void activateVoiceSearchMode(String title) {

@@ -46,7 +46,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         super(browser, controller);
         mTitleBar = new TitleBarXLarge(mActivity, mUiController, this);
         mTitleBar.setProgress(100);
+        mTitleBar.setEditable(false);
         mFakeTitleBar = new TitleBarXLarge(mActivity, mUiController, this);
+        mFakeTitleBar.setEditable(true);
         ActionBar actionBar = mActivity.getActionBar();
         mTabBar = new TabBar(mActivity, mUiController, this);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -217,5 +219,27 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         super.setFavicon(tab, icon);
         mTabBar.onFavicon(tab, icon);
     }
+
+    @Override
+    public void showVoiceTitleBar(String title) {
+        List<String> vsresults = null;
+        if (getActiveTab() != null) {
+            vsresults = getActiveTab().getVoiceSearchResults();
+        }
+        mTitleBar.setInVoiceMode(true, null);
+        mTitleBar.setDisplayTitle(title);
+        mFakeTitleBar.setInVoiceMode(true, vsresults);
+        mFakeTitleBar.setDisplayTitle(title);
+    }
+
+    @Override
+    public void revertVoiceTitleBar(Tab tab) {
+        mTitleBar.setInVoiceMode(false, null);
+        String url = tab.getCurrentUrl();
+        mTitleBar.setDisplayTitle(url);
+        mFakeTitleBar.setInVoiceMode(false, null);
+        mFakeTitleBar.setDisplayTitle(url);
+    }
+
 
 }

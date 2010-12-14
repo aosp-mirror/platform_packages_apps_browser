@@ -249,6 +249,10 @@ public abstract class BaseUi implements UI, WebViewFactory {
         tab.getTopWindow().requestFocus();
     }
 
+    Tab getActiveTab() {
+        return mActiveTab;
+    }
+
     @Override
     public void updateTabs(List<Tab> tabs) {
     }

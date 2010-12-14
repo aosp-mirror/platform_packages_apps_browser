@@ -23,7 +23,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.provider.BrowserContract;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -69,6 +68,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
     int mLinesPortrait;
     int mLinesLandscape;
     Object mResultsLock = new Object();
+    List<String> mVoiceResults;
 
     interface CompletionListener {
 
@@ -90,6 +90,12 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         mFilter = new SuggestFilter();
         addSource(new SearchesCursor());
         addSource(new CombinedCursor());
+    }
+
+    void setVoiceResults(List<String> voiceResults) {
+        mVoiceResults = voiceResults;
+        notifyDataSetInvalidated();
+
     }
 
     public void setLandscapeMode(boolean mode) {
@@ -132,11 +138,18 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
     @Override
     public int getCount() {
+        if (mVoiceResults != null) {
+            return mVoiceResults.size();
+        }
         return (mMixedResults == null) ? 0 : mMixedResults.getLineCount();
     }
 
     @Override
     public SuggestItem getItem(int position) {
+        if (mVoiceResults != null) {
+            return new SuggestItem(mVoiceResults.get(position), null,
+                    TYPE_SEARCH);
+        }
         if (mMixedResults == null) {
             return null;
         }
@@ -176,7 +189,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         View s1 = view.findViewById(R.id.suggest1);
         View s2 = view.findViewById(R.id.suggest2);
         View div = view.findViewById(R.id.suggestion_divider);
-        if (mLandscapeMode) {
+        if (mLandscapeMode  && (mVoiceResults == null)) {
             SuggestItem item = getItem(position);
             div.setVisibility(View.VISIBLE);
             if (item != null) {
@@ -310,25 +323,30 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults res = new FilterResults();
-            if (TextUtils.isEmpty(constraint)) {
-                res.count = 0;
-                res.values = null;
-                return res;
-            }
-            startSuggestionsAsync(constraint);
-            List<SuggestItem> filterResults = new ArrayList<SuggestItem>();
-            if (constraint != null) {
-                for (CursorSource sc : mSources) {
-                    sc.runQuery(constraint);
+            if (mVoiceResults == null) {
+                if (TextUtils.isEmpty(constraint)) {
+                    res.count = 0;
+                    res.values = null;
+                    return res;
                 }
-                mixResults(filterResults);
+                startSuggestionsAsync(constraint);
+                List<SuggestItem> filterResults = new ArrayList<SuggestItem>();
+                if (constraint != null) {
+                    for (CursorSource sc : mSources) {
+                        sc.runQuery(constraint);
+                    }
+                    mixResults(filterResults);
+                }
+                synchronized (mResultsLock) {
+                    mFilterResults = filterResults;
+                }
+                SuggestionResults mixed = buildSuggestionResults();
+                res.count = mixed.getLineCount();
+                res.values = mixed;
+            } else {
+                res.count = mVoiceResults.size();
+                res.values = mVoiceResults;
             }
-            synchronized (mResultsLock) {
-                mFilterResults = filterResults;
-            }
-            SuggestionResults mixed = buildSuggestionResults();
-            res.count = mixed.getLineCount();
-            res.values = mixed;
             return res;
         }
 
@@ -348,8 +366,10 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults fresults) {
-            mMixedResults = (SuggestionResults) fresults.values;
-            mListener.onFilterComplete(fresults.count);
+            if (fresults.values instanceof SuggestionResults) {
+                mMixedResults = (SuggestionResults) fresults.values;
+                mListener.onFilterComplete(fresults.count);
+            }
             notifyDataSetChanged();
         }
 
