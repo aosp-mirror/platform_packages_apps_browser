@@ -240,10 +240,10 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             views.setDrawableParameters(R.id.list_item, true, 0, -1, null, -1);
             if (res.mIsFolder) {
                 if (folder != null && res.mId == folder.mId) {
+                    views.setImageViewResource(R.id.thumb, R.drawable.btn_ic_back_bookmark_widget_holo_dark);
                     views.setDrawableParameters(R.id.list_item, true, 255, -1, null, -1);
-                    views.setImageViewResource(R.id.thumb, R.drawable.ic_back_normal);
                 } else {
-                    views.setImageViewResource(R.id.thumb, R.drawable.ic_folder);
+                    views.setImageViewResource(R.id.thumb, R.drawable.ic_folder_bookmark_widget_holo_dark);
                 }
             } else {
                 if (res.mBitmap != null) {

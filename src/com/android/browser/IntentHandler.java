@@ -84,6 +84,14 @@ public class IntentHandler {
             // just resume the browser
             return;
         }
+        if (BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(action)) {
+            mController.bookmarksOrHistoryPicker(false);
+            return;
+        }
+        if (BrowserActivity.ACTION_SHOW_BROWSER.equals(action)) {
+            mController.removeComboView();
+            return;
+        }
         // In case the SearchDialog is open.
         ((SearchManager) mActivity.getSystemService(Context.SEARCH_SERVICE))
                 .stopSearch();

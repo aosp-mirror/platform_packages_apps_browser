@@ -448,6 +448,9 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void showComboView(boolean startWithHistory, Bundle extras) {
+        if (mComboView != null) {
+            return;
+        }
         mComboView = new CombinedBookmarkHistoryView(mActivity,
                 mUiController,
                 startWithHistory ?

@@ -369,7 +369,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         if (isFolder) {
             item.setUrl(null);
             Bitmap bitmap =
-                BitmapFactory.decodeResource(getResources(), R.drawable.ic_folder);
+                BitmapFactory.decodeResource(getResources(), R.drawable.ic_folder_bookmark_widget_holo_dark);
             item.setFavicon(bitmap);
             new LookupBookmarkCount(getActivity(), item)
                     .execute(cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
@@ -472,6 +472,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
         mCrumbs.setController(null);
         mCrumbs = null;
+        getLoaderManager().stopLoader(LOADER_BOOKMARKS);
     }
 
     @Override

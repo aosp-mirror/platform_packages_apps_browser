@@ -318,6 +318,9 @@ public class Controller
         if (jsFlags.trim().length() != 0) {
             getCurrentWebView().setJsFlags(jsFlags);
         }
+        if (BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(intent.getAction())) {
+            bookmarksOrHistoryPicker(false);
+        }
     }
 
     void setWebViewFactory(WebViewFactory factory) {
@@ -1128,14 +1131,6 @@ public class Controller
                 loadUrl(getCurrentTopWebView(), url);
             }
         }
-    }
-
-    /**
-     * callback from ComboPage when dismissed
-     */
-    @Override
-    public void onComboCanceled() {
-        removeComboView();
     }
 
     /**

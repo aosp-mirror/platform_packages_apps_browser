@@ -39,6 +39,8 @@ import android.view.accessibility.AccessibilityManager;
 
 public class BrowserActivity extends Activity {
 
+    public static final String ACTION_SHOW_BOOKMARKS = "show_bookmarks";
+    public static final String ACTION_SHOW_BROWSER = "show_browser";
     public static final String ACTION_RESTART = "--restart--";
     private static final String EXTRA_STATE = "state";
 
