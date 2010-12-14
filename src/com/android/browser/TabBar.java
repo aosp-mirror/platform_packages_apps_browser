@@ -25,7 +25,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
@@ -73,8 +72,7 @@ public class TabBar extends LinearLayout
     private Map<Tab, TabViewData> mTabMap;
 
     private boolean mUserRequestedUrlbar;
-    private boolean mTitleVisible;
-    private boolean mShowUrlMode;
+    private int mVisibleTitleHeight;
     private boolean mHasReceivedTitle;
 
     private Drawable mGenericFavicon;
@@ -121,7 +119,7 @@ public class TabBar extends LinearLayout
         updateTabs(mUiController.getTabs());
 
         mUserRequestedUrlbar = false;
-        mTitleVisible = true;
+        mVisibleTitleHeight = 1;
         mButtonWidth = -1;
         // tab dimensions
         mTabHeight = (int) res.getDimension(R.dimen.tab_height);
@@ -204,18 +202,24 @@ public class TabBar extends LinearLayout
         mUserRequestedUrlbar = true;
     }
 
-    private void setShowUrlMode(boolean showUrl) {
-        mShowUrlMode = showUrl;
+    private void showTitleBarIndicator(boolean show) {
+        Tab tab = mTabControl.getCurrentTab();
+        if (tab != null) {
+            TabViewData tvd = mTabMap.get(tab);
+            if (tvd != null) {
+                tvd.mTabView.showIndicator(show);
+            }
+        }
     }
 
     // callback after fake titlebar is shown
     void onShowTitleBar() {
-        setShowUrlMode(false);
+        showTitleBarIndicator(false);
     }
 
     // callback after fake titlebar is hidden
     void onHideTitleBar() {
-        setShowUrlMode(!mTitleVisible);
+        showTitleBarIndicator(mVisibleTitleHeight == 0);
         Tab tab = mTabControl.getCurrentTab();
         tab.getWebView().requestFocus();
         mUserRequestedUrlbar = false;
@@ -224,22 +228,22 @@ public class TabBar extends LinearLayout
     // webview scroll listener
 
     @Override
-    public void onScroll(boolean titleVisible) {
+    public void onScroll(int visibleTitleHeight) {
         // isLoading is using the current tab, which initially might not be set yet
         if (mTabControl.getCurrentTab() != null) {
-            mTitleVisible = titleVisible;
-            if (!mShowUrlMode && !mTitleVisible && !isLoading()) {
+            if ((mVisibleTitleHeight != 0) && (visibleTitleHeight == 0)
+                    && !isLoading()) {
                 if (mUserRequestedUrlbar) {
                     mUi.hideFakeTitleBar();
                 } else {
-                    setShowUrlMode(true);
+                    showTitleBarIndicator(true);
                 }
-            } else if (mTitleVisible && !isLoading()) {
-                if (mShowUrlMode) {
-                    setShowUrlMode(false);
-                }
+            } else if ((mVisibleTitleHeight == 0) && (visibleTitleHeight != 0)
+                    && !isLoading()) {
+                showTitleBarIndicator(false);
             }
         }
+        mVisibleTitleHeight = visibleTitleHeight;
     }
 
     @Override
@@ -277,6 +281,7 @@ public class TabBar extends LinearLayout
         TabViewData mTabData;
         View mTabContent;
         TextView mTitle;
+        View mIndicator;
         View mIncognito;
         ImageView mIconView;
         ImageView mLock;
@@ -297,7 +302,7 @@ public class TabBar extends LinearLayout
             mTabData = tab;
             setGravity(Gravity.CENTER_VERTICAL);
             setOrientation(LinearLayout.HORIZONTAL);
-            setPadding(0, 0, mTabPadding, 0);
+            setPadding(mTabPadding, 0, 0, 0);
             LayoutInflater inflater = LayoutInflater.from(getContext());
             mTabContent = inflater.inflate(R.layout.tab_title, this, true);
             mTitle = (TextView) mTabContent.findViewById(R.id.title);
@@ -306,10 +311,19 @@ public class TabBar extends LinearLayout
             mClose = (ImageView) mTabContent.findViewById(R.id.close);
             mClose.setOnClickListener(this);
             mIncognito = mTabContent.findViewById(R.id.incognito);
+            mIndicator = mTabContent.findViewById(R.id.chevron);
             mSelected = false;
             mInLoad = false;
             // update the status
             updateFromData();
+        }
+
+        void showIndicator(boolean show) {
+            if (mSelected) {
+                mIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
+            } else {
+                mIndicator.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -345,6 +359,7 @@ public class TabBar extends LinearLayout
         public void setActivated(boolean selected) {
             mSelected = selected;
             mClose.setVisibility(mSelected ? View.VISIBLE : View.GONE);
+            mIndicator.setVisibility(View.GONE);
             mTitle.setTextAppearance(mActivity, mSelected ?
                     R.style.TabTitleSelected : R.style.TabTitleUnselected);
             setHorizontalFadingEdgeEnabled(!mSelected);
@@ -497,7 +512,11 @@ public class TabBar extends LinearLayout
             tvd.setProgress(tvd.mProgress);
             // update the scroll state
             WebView webview = tab.getWebView();
-            onScroll(webview.getVisibleTitleHeight() > 0);
+            if (webview != null) {
+                int h = webview.getVisibleTitleHeight();
+                mVisibleTitleHeight = h -1;
+                onScroll(h);
+            }
         }
     }
 

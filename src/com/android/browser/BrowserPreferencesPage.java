@@ -18,14 +18,28 @@ package com.android.browser;
 
 import com.android.browser.preferences.DebugPreferencesFragment;
 
+import android.app.ActionBar;
+import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
 
 import java.util.List;
 
 public class BrowserPreferencesPage extends PreferenceActivity {
 
     public static final String CURRENT_PAGE = "currentPage";
+
+    @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayOptions(
+                    ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        }
+    }
 
     /**
      * Populate the activity with the top-level headers.
@@ -50,5 +64,20 @@ public class BrowserPreferencesPage extends PreferenceActivity {
         BrowserSettings.getInstance().syncSharedPreferences(
                 getApplicationContext(),
                 PreferenceManager.getDefaultSharedPreferences(this));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getFragmentManager().countBackStackEntries() > 0) {
+                    getFragmentManager().popBackStack();
+                } else {
+                    finish();
+                }
+                return true;
+        }
+
+        return false;
     }
 }
