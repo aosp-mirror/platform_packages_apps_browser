@@ -64,7 +64,7 @@
     <string name="stop" msgid="5687251076030630074">"Detener"</string>
     <string name="reload" msgid="8585220783228408062">"Actualizar"</string>
     <string name="back" msgid="8414603107175713668">"Atrás"</string>
-    <string name="forward" msgid="4288210890526641577">"Reenviar"</string>
+    <string name="forward" msgid="4288210890526641577">"Siguiente"</string>
     <string name="save" msgid="5922311934992468496">"Aceptar"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Cancelar"</string>
     <string name="location" msgid="969988560160364559">"Ubicación"</string>
