@@ -100,8 +100,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Túto adresu URL nemožno pridať do záložiek."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Odstrániť"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Pridať poslednú zobrazenú stránku medzi záložky"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Zobraziť ako miniatúry"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Zobraziť zoznam"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniatúry"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Zoznam"</string>
     <string name="current_page" msgid="7510129573681663135">"od "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Záložka <xliff:g id="BOOKMARK">%s</xliff:g> bude odstránená."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Otvoriť v novom okne"</string>
@@ -230,7 +230,7 @@
     <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
     <skip />
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Prehliadač dokáže automaticky vyplniť webové formuláre, ako je tento. Chcete nastaviť svoj profil?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Funkciu Automatické dopĺňanie môžete nakonfigurovať po prejdení na položku Nastavenia prehliadača –&gt; Osobné nastavenia."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Funkciu Automatické dopĺňanie môžete nakonfigurovať prechodom na položku Nastavenia prehliadača –&gt; Osobné nastavenia."</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Nastavenia ochrany osobných údajov"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Vymazať medzipamäť"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Vymazať všetok obsah a databázy uložené do miestnej medzipamäte"</string>
@@ -391,6 +391,7 @@
     <skip />
     <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
     <skip />
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"Zdieľať"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

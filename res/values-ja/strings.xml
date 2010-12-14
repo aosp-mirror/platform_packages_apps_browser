@@ -92,8 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"このURLはブックマークに追加できません。"</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"削除"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"最後に表示したページをブックマークする"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"サムネイル表示"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"リスト表示"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"サムネイル"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"リスト"</string>
     <string name="current_page" msgid="7510129573681663135">"URL "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"ブックマーク「<xliff:g id="BOOKMARK">%s</xliff:g>」を削除します。"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"新しいウィンドウで開く"</string>
@@ -347,6 +347,7 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"AndroidのブックマークはGoogleアカウントに関連付けられていません"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Androidのブックマークを削除"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Androidのブックマークを<xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>のブックマークに追加"</string>
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"共有"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

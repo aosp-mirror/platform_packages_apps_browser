@@ -100,8 +100,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Закладка для цієї URL-адр. неможлива"</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Видалити"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Створ. закладку для ост. стор."</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Перегляд ескізів"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Перегляд списку"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Ескізи"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Список"</string>
     <string name="current_page" msgid="7510129573681663135">"з "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Закладку \"<xliff:g id="BOOKMARK">%s</xliff:g>\" буде видалено."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Відкрити в нов. вікні"</string>
@@ -230,7 +230,7 @@
     <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
     <skip />
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Веб-переглядач може автоматично заповнювати подібні веб-форми. Налаштувати ваш профіль?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Автозаповнення можна завжди налаштувати за допомогою команд \"Налаштування веб-переглядача\" –&gt; \"Персональні налаштування\"."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Автозаповнення можна завжди налаштувати за допомогою меню \"Налаштування веб-переглядача\" –&gt; \"Персональні налаштування\"."</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Налашт. конфіденц."</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Очистити кеш"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Очистити локально кешов. вміст і бази даних"</string>
@@ -391,6 +391,7 @@
     <skip />
     <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
     <skip />
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"Надіслати"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

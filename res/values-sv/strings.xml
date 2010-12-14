@@ -92,8 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Det går inte att spara webbadressen som ett bokmärke"</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Ta bort"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Skapa bokmärke för den senast visade sidan"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniatyrvy"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Listvy"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniatyrer"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Lista"</string>
     <string name="current_page" msgid="7510129573681663135">"från "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Bokmärket <xliff:g id="BOOKMARK">%s</xliff:g> tas bort."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Öppna i nytt fönster"</string>
@@ -347,6 +347,7 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Dina Android-bokmärken har inte kopplats till något Google-konto"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Ta bort dina Android-bokmärken"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Lägg till dina Android-bokmärken i bokmärkena för <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"Dela"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

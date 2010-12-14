@@ -100,8 +100,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Ezt az URL-t nem lehet a könyvjelzők közé tenni."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Törlés"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Az utoljára megtekintett oldal felvétele a könyvjelzők közé"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Indexképek"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Lista"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Indexképek"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Lista"</string>
     <string name="current_page" msgid="7510129573681663135">"innen: "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"A(z) \"<xliff:g id="BOOKMARK">%s</xliff:g>\" könyvjelző törlésre kerül."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Megnyitás új ablakban"</string>
@@ -391,6 +391,7 @@
     <skip />
     <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
     <skip />
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"Megosztás"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>
