@@ -16,23 +16,32 @@
 
 package com.android.browser.provider;
 
+import com.android.browser.BookmarkUtils;
+import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.R;
 import com.android.common.content.SyncStateContentProviderHelper;
 
 import android.accounts.Account;
+import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.database.AbstractCursor;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.preference.PreferenceManager;
+import android.provider.BaseColumns;
+import android.provider.Browser.BookmarkColumns;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Accounts;
 import android.provider.BrowserContract.Bookmarks;
@@ -78,10 +87,20 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     static final String DEFAULT_SORT_SEARCHES = Searches.DATE + " DESC";
 
+    private static final String[] SUGGEST_PROJECTION = new String[] {
+            Bookmarks._ID,
+            Bookmarks.URL,
+            Bookmarks.TITLE};
+
+    private static final String SUGGEST_SELECTION =
+            "url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ?"
+            + " OR title LIKE ?";
+
     static final int BOOKMARKS = 1000;
     static final int BOOKMARKS_ID = 1001;
     static final int BOOKMARKS_FOLDER = 1002;
     static final int BOOKMARKS_FOLDER_ID = 1003;
+    static final int BOOKMARKS_SUGGESTIONS = 1004;
 
     static final int HISTORY = 2000;
     static final int HISTORY_ID = 2001;
@@ -100,6 +119,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final int ACCOUNTS = 7000;
 
     static final int SETTINGS = 8000;
+
+    static final int LEGACY = 9000;
+    static final int LEGACY_ID = 9001;
 
     public static final long FIXED_ID_ROOT = 1;
 
@@ -132,6 +154,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "bookmarks/#", BOOKMARKS_ID);
         matcher.addURI(authority, "bookmarks/folder", BOOKMARKS_FOLDER);
         matcher.addURI(authority, "bookmarks/folder/#", BOOKMARKS_FOLDER_ID);
+        matcher.addURI(authority,
+                "bookmarks/" + SearchManager.SUGGEST_URI_PATH_QUERY,
+                BOOKMARKS_SUGGESTIONS);
         matcher.addURI(authority, "history", HISTORY);
         matcher.addURI(authority, "history/#", HISTORY_ID);
         matcher.addURI(authority, "searches", SEARCHES);
@@ -142,6 +167,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "combined", COMBINED);
         matcher.addURI(authority, "combined/#", COMBINED_ID);
         matcher.addURI(authority, "settings", SETTINGS);
+
+        // Legacy
+        matcher.addURI(LEGACY_AUTHORITY, "searches", SEARCHES);
+        matcher.addURI(LEGACY_AUTHORITY, "searches/#", SEARCHES_ID);
+        matcher.addURI(LEGACY_AUTHORITY, "bookmarks", LEGACY);
+        matcher.addURI(LEGACY_AUTHORITY, "bookmarks/#", LEGACY_ID);
+        matcher.addURI(LEGACY_AUTHORITY,
+                "bookmarks/" + SearchManager.SUGGEST_URI_PATH_QUERY,
+                BOOKMARKS_SUGGESTIONS);
 
         // Projection maps
         HashMap<String, String> map;
@@ -688,6 +722,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 return cursor;
             }
 
+            case BOOKMARKS_SUGGESTIONS: {
+                return doSuggestQuery(selection, selectionArgs, limit);
+            }
+
             case HISTORY_ID: {
                 selection = DatabaseUtils.concatenateWhere(selection, TABLE_HISTORY + "._id=?");
                 selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
@@ -737,12 +775,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 break;
             }
 
+            case LEGACY_ID:
             case COMBINED_ID: {
-                selection = DatabaseUtils.concatenateWhere(selection, Combined._ID +"=?");
+                selection = DatabaseUtils.concatenateWhere(
+                        selection, Combined._ID + " = CAST(? AS INTEGER)");
                 selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
                         new String[] { Long.toString(ContentUris.parseId(uri)) });
                 // fall through
             }
+            case LEGACY:
             case COMBINED: {
                 qb = new SQLiteQueryBuilder();
                 String[] args = createCombinedQuery(uri, projection, qb);
@@ -769,6 +810,48 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 limit);
         cursor.setNotificationUri(getContext().getContentResolver(), BrowserContract.AUTHORITY_URI);
         return cursor;
+    }
+
+    private Cursor doSuggestQuery(String selection, String[] selectionArgs, String limit) {
+        if (selectionArgs[0] == null) {
+            return null;
+        } else {
+            String like = selectionArgs[0] + "%";
+            if (selectionArgs[0].startsWith("http")
+                    || selectionArgs[0].startsWith("file")) {
+                selectionArgs[0] = like;
+            } else {
+                selectionArgs = new String[5];
+                selectionArgs[0] = "http://" + like;
+                selectionArgs[1] = "http://www." + like;
+                selectionArgs[2] = "https://" + like;
+                selectionArgs[3] = "https://www." + like;
+                // To match against titles.
+                selectionArgs[4] = like;
+                selection = SUGGEST_SELECTION;
+            }
+        }
+        selection = DatabaseUtils.concatenateWhere(selection,
+                Bookmarks.IS_DELETED + "=0 AND " + Bookmarks.IS_FOLDER + "=0");
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
+            selection = DatabaseUtils.concatenateWhere(selection,
+                    Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? ");
+            selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                    new String[] { accountType, accountName });
+        } else {
+            selection = DatabaseUtils.concatenateWhere(selection,
+                    Bookmarks.ACCOUNT_TYPE + " IS NULL AND " +
+                    Bookmarks.ACCOUNT_NAME + " IS NULL ");
+        }
+        Cursor c = mOpenHelper.getReadableDatabase().query(TABLE_BOOKMARKS,
+                SUGGEST_PROJECTION, selection, selectionArgs, null, null,
+                DEFAULT_BOOKMARKS_SORT_ORDER, null);
+
+        return new SuggestionsCursor(c);
     }
 
     private String[] createCombinedQuery(
@@ -819,33 +902,35 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         return args;
     }
 
+    int deleteBookmarks(String selection, String[] selectionArgs,
+            boolean callerIsSyncAdapter) {
+        //TODO cascade deletes down from folders
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        if (callerIsSyncAdapter) {
+            return db.delete(TABLE_BOOKMARKS, selection, selectionArgs);
+        }
+        ContentValues values = new ContentValues();
+        values.put(Bookmarks.DATE_MODIFIED, System.currentTimeMillis());
+        values.put(Bookmarks.IS_DELETED, 1);
+        return updateInTransaction(Bookmarks.CONTENT_URI, values,
+                selection, selectionArgs, callerIsSyncAdapter);
+    }
+
     @Override
     public int deleteInTransaction(Uri uri, String selection, String[] selectionArgs,
             boolean callerIsSyncAdapter) {
         final int match = URI_MATCHER.match(uri);
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (match) {
-            case BOOKMARKS_ID:
+            case BOOKMARKS_ID: {
+                selection = DatabaseUtils.concatenateWhere(selection,
+                        TABLE_BOOKMARKS + "._id=?");
+                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                        new String[] { Long.toString(ContentUris.parseId(uri)) });
+                // fall through
+            }
             case BOOKMARKS: {
-                //TODO cascade deletes down from folders
-                if (!callerIsSyncAdapter) {
-                    // If the caller isn't a sync adapter just go through and update all the
-                    // bookmarks to have the deleted flag set.
-                    ContentValues values = new ContentValues();
-                    values.put(Bookmarks.DATE_MODIFIED, System.currentTimeMillis());
-                    values.put(Bookmarks.IS_DELETED, 1);
-                    return updateInTransaction(uri, values, selection, selectionArgs,
-                            callerIsSyncAdapter);
-                } else {
-                    // Sync adapters are allowed to actually delete things
-                    if (match == BOOKMARKS_ID) {
-                        selection = DatabaseUtils.concatenateWhere(selection,
-                                TABLE_BOOKMARKS + "._id=?");
-                        selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
-                                new String[] { Long.toString(ContentUris.parseId(uri)) });
-                    }
-                    return db.delete(TABLE_BOOKMARKS, selection, selectionArgs);
-                }
+                return deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
             }
 
             case HISTORY_ID: {
@@ -878,15 +963,93 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                         + (selection == null ? "" : " AND (" + selection + ")");
                 return mSyncHelper.delete(db, selectionWithId, selectionArgs);
             }
+            case LEGACY_ID: {
+                selection = DatabaseUtils.concatenateWhere(
+                        selection, Combined._ID + " = CAST(? AS INTEGER)");
+                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                        new String[] { Long.toString(ContentUris.parseId(uri)) });
+                // fall through
+            }
+            case LEGACY: {
+                String[] projection = new String[] { Combined._ID,
+                        Combined.IS_BOOKMARK, Combined.URL };
+                SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+                uri = BookmarkUtils.addAccountInfo(getContext(), uri.buildUpon())
+                        .build();
+                String[] args = createCombinedQuery(uri, projection, qb);
+                if (selectionArgs == null) {
+                    selectionArgs = args;
+                } else {
+                    selectionArgs = DatabaseUtils.appendSelectionArgs(
+                            args, selectionArgs);
+                }
+                Cursor c = qb.query(db, projection, selection, selectionArgs,
+                        null, null, null);
+                int deleted = 0;
+                while (c.moveToNext()) {
+                    long id = c.getLong(0);
+                    boolean isBookmark = c.getInt(1) != 0;
+                    String url = c.getString(2);
+                    if (isBookmark) {
+                        deleted += deleteBookmarks(Bookmarks._ID + "=?",
+                                new String[] { Long.toString(id) },
+                                callerIsSyncAdapter);
+                        db.delete(TABLE_HISTORY, History.URL + "=?",
+                                new String[] { url });
+                    } else {
+                        deleted += db.delete(TABLE_HISTORY,
+                                Bookmarks._ID + "=?",
+                                new String[] { Long.toString(id) });
+                    }
+                }
+                return deleted;
+            }
         }
         throw new UnsupportedOperationException("Unknown update URI " + uri);
     }
 
+    long queryDefaultFolderId(String accountName, String accountType) {
+        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
+            final SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+            Cursor c = db.query(TABLE_BOOKMARKS, new String[] { Bookmarks._ID },
+                    ChromeSyncColumns.SERVER_UNIQUE + " = ?" +
+                    " AND account_type = ? AND account_name = ?",
+                    new String[] { ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR,
+                    accountType, accountName }, null, null, null);
+            if (c.moveToFirst()) {
+                return c.getLong(0);
+            }
+        }
+        return FIXED_ID_ROOT;
+    }
+
     @Override
     public Uri insertInTransaction(Uri uri, ContentValues values, boolean callerIsSyncAdapter) {
-        final int match = URI_MATCHER.match(uri);
+        int match = URI_MATCHER.match(uri);
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         long id = -1;
+        if (match == LEGACY) {
+            // Intercept and route to the correct table
+            Integer bookmark = values.getAsInteger(BookmarkColumns.BOOKMARK);
+            values.remove(BookmarkColumns.BOOKMARK);
+            if (bookmark == null || bookmark == 0) {
+                match = HISTORY;
+            } else {
+                match = BOOKMARKS;
+                values.remove(BookmarkColumns.DATE);
+                values.remove(BookmarkColumns.VISITS);
+                values.remove(BookmarkColumns.USER_ENTERED);
+                SharedPreferences prefs = PreferenceManager
+                        .getDefaultSharedPreferences(getContext());
+                String accountType = prefs.getString(
+                        BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
+                String accountName = prefs.getString(
+                        BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
+                values.put(Bookmarks.ACCOUNT_TYPE, accountType);
+                values.put(Bookmarks.ACCOUNT_NAME, accountName);
+                values.put(Bookmarks.IS_FOLDER, 0);
+            }
+        }
         switch (match) {
             case BOOKMARKS: {
                 // Mark rows dirty if they're not coming from a sync adapter
@@ -897,9 +1060,13 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     values.put(Bookmarks.DIRTY, 1);
 
                     // If no parent is set default to the "Bookmarks Bar" folder
-                    // TODO set the parent based on the account info
                     if (!values.containsKey(Bookmarks.PARENT)) {
-                        values.put(Bookmarks.PARENT, FIXED_ID_ROOT);
+                        String accountType = values
+                                .getAsString(Bookmarks.ACCOUNT_TYPE);
+                        String accountName = values
+                                .getAsString(Bookmarks.ACCOUNT_NAME);
+                        values.put(Bookmarks.PARENT,
+                                queryDefaultFolderId(accountName, accountType));
                     }
                 }
 
@@ -1052,8 +1219,29 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     @Override
     public int updateInTransaction(Uri uri, ContentValues values, String selection,
             String[] selectionArgs, boolean callerIsSyncAdapter) {
-        final int match = URI_MATCHER.match(uri);
+        int match = URI_MATCHER.match(uri);
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        if (match == LEGACY || match == LEGACY_ID) {
+            // Intercept and route to the correct table
+            Integer bookmark = values.getAsInteger(BookmarkColumns.BOOKMARK);
+            values.remove(BookmarkColumns.BOOKMARK);
+            if (bookmark == null || bookmark == 0) {
+                if (match == LEGACY) {
+                    match = HISTORY;
+                } else {
+                    match = HISTORY_ID;
+                }
+            } else {
+                if (match == LEGACY) {
+                    match = BOOKMARKS;
+                } else {
+                    match = BOOKMARKS_ID;
+                }
+                values.remove(BookmarkColumns.DATE);
+                values.remove(BookmarkColumns.VISITS);
+                values.remove(BookmarkColumns.USER_ENTERED);
+            }
+        }
         switch (match) {
             case BOOKMARKS_ID: {
                 selection = DatabaseUtils.concatenateWhere(selection,
@@ -1266,5 +1454,97 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             imageValues.put(Images.URL,  url);
         }
         return imageValues;
+    }
+
+    static class SuggestionsCursor extends AbstractCursor {
+        private static final int URL_INDEX = 1;
+        private static final int TITLE_INDEX = 2;
+        // shared suggestion array index, make sure to match COLUMNS
+        private static final int SUGGEST_COLUMN_INTENT_ACTION_ID = 1;
+        private static final int SUGGEST_COLUMN_INTENT_DATA_ID = 2;
+        private static final int SUGGEST_COLUMN_TEXT_1_ID = 3;
+        private static final int SUGGEST_COLUMN_TEXT_2_TEXT_ID = 4;
+        private static final int SUGGEST_COLUMN_TEXT_2_URL_ID = 5;
+        private static final int SUGGEST_COLUMN_ICON_1_ID = 6;
+
+        // shared suggestion columns
+        private static final String[] COLUMNS = new String[] {
+                BaseColumns._ID,
+                SearchManager.SUGGEST_COLUMN_INTENT_ACTION,
+                SearchManager.SUGGEST_COLUMN_INTENT_DATA,
+                SearchManager.SUGGEST_COLUMN_TEXT_1,
+                SearchManager.SUGGEST_COLUMN_TEXT_2,
+                SearchManager.SUGGEST_COLUMN_TEXT_2_URL,
+                SearchManager.SUGGEST_COLUMN_ICON_1};
+
+        private Cursor mSource;
+
+        public SuggestionsCursor(Cursor cursor) {
+            mSource = cursor;
+        }
+
+        @Override
+        public String[] getColumnNames() {
+            return COLUMNS;
+        }
+
+        @Override
+        public String getString(int columnIndex) {
+            switch (columnIndex) {
+            case 0:
+                return mSource.getString(columnIndex);
+            case SUGGEST_COLUMN_INTENT_ACTION_ID:
+                return Intent.ACTION_VIEW;
+            case SUGGEST_COLUMN_INTENT_DATA_ID:
+            case SUGGEST_COLUMN_TEXT_2_TEXT_ID:
+            case SUGGEST_COLUMN_TEXT_2_URL_ID:
+                return mSource.getString(URL_INDEX);
+            case SUGGEST_COLUMN_TEXT_1_ID:
+                return mSource.getString(TITLE_INDEX);
+            case SUGGEST_COLUMN_ICON_1_ID:
+                return Integer.toString(R.drawable.ic_favorite_off_normal);
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return mSource.getCount();
+        }
+
+        @Override
+        public double getDouble(int column) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public float getFloat(int column) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int getInt(int column) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public long getLong(int column) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public short getShort(int column) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public boolean isNull(int column) {
+            return getString(column) == null;
+        }
+
+        @Override
+        public boolean onMove(int oldPosition, int newPosition) {
+            return mSource.moveToPosition(newPosition);
+        }
     }
 }
