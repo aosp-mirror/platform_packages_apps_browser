@@ -434,6 +434,8 @@ public class Controller
                     {
                         String url = (String) msg.getData().get("url");
                         String title = (String) msg.getData().get("title");
+                        String src = (String) msg.getData().get("src");
+                        if (url == "") url = src; // use image if no anchor
                         if (TextUtils.isEmpty(url)) {
                             break;
                         }
@@ -445,8 +447,10 @@ public class Controller
                         }
                         switch (msg.arg1) {
                             case R.id.open_context_menu_id:
-                            case R.id.view_image_context_menu_id:
                                 loadUrlFromContext(getCurrentTopWebView(), url);
+                                break;
+                            case R.id.view_image_context_menu_id:
+                                loadUrlFromContext(getCurrentTopWebView(), src);
                                 break;
                             case R.id.open_newtab_context_menu_id:
                                 final Tab parent = mTabControl.getCurrentTab();
