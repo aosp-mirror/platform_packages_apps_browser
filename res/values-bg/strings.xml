@@ -100,8 +100,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Не може да бъде създадена отметка към този URL адрес."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Изтриване"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Отметка към последно разглежданата страница"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Изглед с миниизображения"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Списъчен изглед"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Миниизображения"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Списък"</string>
     <string name="current_page" msgid="7510129573681663135">"от "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Отметката „<xliff:g id="BOOKMARK">%s</xliff:g>“ ще бъде изтрита."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Отваряне в нов прозорец"</string>
@@ -229,7 +229,7 @@
     <skip />
     <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
     <skip />
-    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Браузърът може автоматично да попълва уеб формуляри като този. Искате ли да настроите профила си?"</string>
+    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Браузърът може автоматично да попълва уеб формуляри като този. Искате ли да настроите потребителския си профил?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Автоматичното попълване винаги може да се конфигурира от „Настройки на браузъра“ -&gt; „Лични настройки“."</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Настройки за поверителност"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Изчистване на кеша"</string>
@@ -391,6 +391,7 @@
     <skip />
     <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
     <skip />
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"Споделяне"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

@@ -42,7 +42,7 @@
     <string name="ssl_continue" msgid="8031515015829358457">"Настави"</string>
     <string name="security_warning" msgid="6607795404322797541">"Безбедносно упозорење"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Прикажи сертификат"</string>
-    <string name="ssl_go_back" msgid="4598951822061593819">"Врати се"</string>
+    <string name="ssl_go_back" msgid="4598951822061593819">"Назад"</string>
     <string name="ssl_untrusted" msgid="5369967226521102194">"Овај сертификат не потиче од поузданог ауторитета."</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"Назив сајта се не подудара са називом на сертификату."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Овај сертификат је истекао."</string>
@@ -100,8 +100,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Ова URL адреса не може да се обележи."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Брисање"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Обележи последњу приказану страницу"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Приказ сличица"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Приказ листе"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Сличице"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Листа"</string>
     <string name="current_page" msgid="7510129573681663135">"са "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Обележивач „<xliff:g id="BOOKMARK">%s</xliff:g>“ ће бити избрисан."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Отвори у новом прозору"</string>
@@ -230,7 +230,7 @@
     <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
     <skip />
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Прегледач може аутоматски да попуњава веб обрасце попут овог. Желите ли да подесите профил?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Аутоматско попуњавање увек можете конфигурисати преко Подешавања прегледача – &gt; Лична подешавања."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Аутоматско попуњавање увек можете да конфигуришете преко Подешавања прегледача – &gt; Лична подешавања."</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Подешавања приватности"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Обриши кеш"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Брисање садржаја и база података из локалног кеша"</string>
@@ -391,6 +391,7 @@
     <skip />
     <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
     <skip />
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"Дели"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

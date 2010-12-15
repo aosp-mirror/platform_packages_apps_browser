@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.ScrollWebView.ScrollListener;
-
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -32,7 +30,7 @@ import java.util.List;
 /**
  * UI interface definitions
  */
-public interface UI extends ScrollListener {
+public interface UI {
 
     public void onPause();
 

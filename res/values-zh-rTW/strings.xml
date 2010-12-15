@@ -92,8 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"無法將此網址加入書籤。"</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"刪除"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"將最後瀏覽的網頁加入書籤"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"縮圖檢視"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"清單檢視"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"縮圖"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"清單"</string>
     <string name="current_page" msgid="7510129573681663135">"來源 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"刪除「<xliff:g id="BOOKMARK">%s</xliff:g>」書籤？"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"在新視窗開啟"</string>
@@ -184,8 +184,8 @@
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"設定檔已儲存"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"個人資料已刪除"</string>
     <!-- outdated translation 7112035941146003753 -->     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"刪除設定檔資料"</string>
-    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"瀏覽器可以自動填寫這類網路表單，您要設定您的個人資料嗎？"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"自動填入功能可隨時透過 [瀏覽器設定] -&gt; [個人設定] 加以設定。"</string>
+    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"瀏覽器可以自動填寫這類網路表單，您要建立個人資料嗎？"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"自動填入功能可隨時透過 [瀏覽器設定] -&gt; [個人設定] 加以調整。"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"隱私設定"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除快取"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除本機快取內容與資料庫"</string>
@@ -347,6 +347,7 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"您的 Android 書籤未與任何 Google 帳戶建立關聯"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"移除您的 Android 書籤"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"將您的 Android 書籤新增至 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的書籤"</string>
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"分享"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

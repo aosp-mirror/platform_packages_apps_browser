@@ -92,8 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"URL을 북마크에 추가할 수 없습니다."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"삭제"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"마지막으로 본 페이지를 북마크 설정"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"미리보기 이미지 보기"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"목록 보기"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"미리보기 이미지"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"목록"</string>
     <string name="current_page" msgid="7510129573681663135">"북마크할 페이지 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"\'<xliff:g id="BOOKMARK">%s</xliff:g>\' 북마크가 삭제됩니다."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"새 창에서 열기"</string>
@@ -347,6 +347,7 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"사용자의 Android 북마크는 Google 계정과 연결되지 않았습니다."</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Android 북마크 삭제"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"<xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>에 대한 북마크에 Android 북마크 추가"</string>
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"공유"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

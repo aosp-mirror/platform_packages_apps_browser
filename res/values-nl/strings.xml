@@ -92,8 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"U kunt geen bladwijzer instellen voor deze URL."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Verwijderen"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Bladwijzer voor laatst weergegeven pagina"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniatuurweergave"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Lijstweergave"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniaturen"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Lijst"</string>
     <string name="current_page" msgid="7510129573681663135">"van "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Bladwijzer \'<xliff:g id="BOOKMARK">%s</xliff:g>\' wordt verwijderd."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Openen in een nieuw venster"</string>
@@ -347,6 +347,7 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Uw Android-bladwijzers zijn niet gekoppeld aan een Google-account"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Uw Android-bladwijzers verwijderen"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Uw Android-bladwijzers toevoegen aan bladwijzers voor <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"Delen"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

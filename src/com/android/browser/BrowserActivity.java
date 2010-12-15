@@ -93,7 +93,14 @@ public class BrowserActivity extends Activity {
         }
 
         mController = new Controller(this);
-        mUi = new BaseUi(this, mController);
+        boolean xlarge = (getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        if (xlarge) {
+            mUi = new XLargeUi(this, mController);
+        } else {
+            mUi = new PhoneUi(this, mController);
+        }
         mController.setUi(mUi);
         mController.setWebViewFactory((BaseUi) mUi);
 

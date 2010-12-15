@@ -92,8 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"L\'URL non può essere aggiunto ai segnalibri."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Elimina"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Aggiungi ultima pagina visualizzata ai segnalibri"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Visualizzazione miniatura"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Visualizzazione elenco"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniature"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Elenco"</string>
     <string name="current_page" msgid="7510129573681663135">"da "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Il segnalibro \"<xliff:g id="BOOKMARK">%s</xliff:g>\" verrà eliminato."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Apri in nuova finestra"</string>
@@ -347,6 +347,7 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"I tuoi Segnalibri Android non sono associati a un account Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Rimuovi i tuoi Segnalibri Android"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Aggiungi i tuoi Segnalibri Android a quelli per <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"Condividi"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>

@@ -92,8 +92,8 @@
     <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Невозможно добавить этот URL в закладки"</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Удалить"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Добавить в закладки последнюю просмотренную страницу"</string>
-    <!-- outdated translation 3104780739986130377 -->     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Значки"</string>
-    <!-- outdated translation 7394379479920174576 -->     <string name="bookmark_list_view" msgid="7848510619500937839">"Список"</string>
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Изображения"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Список"</string>
     <string name="current_page" msgid="7510129573681663135">"на "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Закладка \"<xliff:g id="BOOKMARK">%s</xliff:g>\" будет удалена."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Открыть в новом окне"</string>
@@ -347,6 +347,7 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Закладки Android не связаны с аккаунтом Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Удалить закладки Android"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Добавить закладки Android в аккаунт <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
+    <string name="menu_share_url" msgid="5851814357333739700">"Отправить"</string>
+    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
     <skip />
 </resources>
