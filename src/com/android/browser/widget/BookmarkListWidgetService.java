@@ -64,8 +64,14 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             BrowserContract.Bookmarks.URL,
             BrowserContract.Bookmarks.FAVICON,
             BrowserContract.Bookmarks.IS_FOLDER,
-            BrowserContract.Bookmarks.PARENT,
-            BrowserContract.Bookmarks.POSITION};
+            BrowserContract.Bookmarks.TOUCH_ICON,
+            BrowserContract.Bookmarks.POSITION /* needed for order by */};
+    private static final int BOOKMARK_INDEX_ID = 0;
+    private static final int BOOKMARK_INDEX_TITLE = 1;
+    private static final int BOOKMARK_INDEX_URL = 2;
+    private static final int BOOKMARK_INDEX_FAVICON = 3;
+    private static final int BOOKMARK_INDEX_IS_FOLDER = 4;
+    private static final int BOOKMARK_INDEX_TOUCH_ICON = 5;
 
     private Map<Integer, BookmarkFactory> mFactories;
     private Handler mUiHandler;
@@ -350,19 +356,24 @@ public class BookmarkListWidgetService extends RemoteViewsService {
                         bookmarks.add(res);
                     }
                     while (c.moveToNext()) {
-                        long id = c.getLong(0);
-                        String title = c.getString(1);
-                        String url = c.getString(2);
+                        long id = c.getLong(BOOKMARK_INDEX_ID);
+                        String title = c.getString(BOOKMARK_INDEX_TITLE);
+                        String url = c.getString(BOOKMARK_INDEX_URL);
                         RenderResult res = new RenderResult(id, title, url);
-                        byte[] blob = c.getBlob(3);
-                        if (blob != null) {
-                            // RemoteViews require a valid bitmap config
-                            Options options = new Options();
-                            options.inPreferredConfig = Config.ARGB_8888;
-                            res.mBitmap = BitmapFactory.decodeByteArray(
-                                    blob, 0, blob.length, options);
+                        res.mIsFolder = c.getInt(BOOKMARK_INDEX_IS_FOLDER) != 0;
+                        if (!res.mIsFolder) {
+                            byte[] blob = c.getBlob(BOOKMARK_INDEX_TOUCH_ICON);
+                            if (blob == null || blob.length == 0) {
+                                blob = c.getBlob(BOOKMARK_INDEX_FAVICON);
+                            }
+                            if (blob != null) {
+                                // RemoteViews require a valid bitmap config
+                                Options options = new Options();
+                                options.inPreferredConfig = Config.ARGB_8888;
+                                res.mBitmap = BitmapFactory.decodeByteArray(
+                                        blob, 0, blob.length, options);
+                            }
                         }
-                        res.mIsFolder = c.getInt(4) != 0;
                         bookmarks.add(res);
                     }
                     return bookmarks;
