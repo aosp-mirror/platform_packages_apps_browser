@@ -21,8 +21,12 @@ import com.android.browser.ScrollWebView.ScrollListener;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.ActionMode;
+import android.view.Gravity;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 
 import java.util.List;
 
@@ -33,10 +37,14 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     private static final String LOGTAG = "XLargeUi";
 
+    private ActionBar mActionBar;
     private TabBar mTabBar;
 
     private TitleBarXLarge mTitleBar;
     private TitleBarXLarge mFakeTitleBar;
+
+    private boolean mUseQuickControls;
+    private PieControl mPieControl;
 
     /**
      * @param browser
@@ -49,10 +57,51 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         mTitleBar.setEditable(false);
         mFakeTitleBar = new TitleBarXLarge(mActivity, mUiController, this);
         mFakeTitleBar.setEditable(true);
-        ActionBar actionBar = mActivity.getActionBar();
         mTabBar = new TabBar(mActivity, mUiController, this);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(mTabBar);
+        mActionBar = mActivity.getActionBar();
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(mTabBar);
+        setUseQuickControls(BrowserSettings.getInstance().useQuickControls());
+    }
+
+    private void setUseQuickControls(boolean useQuickControls) {
+        mUseQuickControls = useQuickControls;
+        if (useQuickControls) {
+            checkTabCount();
+            mPieControl = new PieControl(mActivity, mUiController, this);
+            mPieControl.attachToContainer(mContentView);
+            setFakeTitleBarGravity(Gravity.BOTTOM);
+
+            // remove embedded title bar if present
+            WebView web = mTabControl.getCurrentWebView();
+            if ((web != null) && (web.getVisibleTitleHeight() > 0)) {
+                web.setEmbeddedTitleBar(null);
+            }
+        } else {
+            mActivity.getActionBar().show();
+            if (mPieControl != null) {
+                mPieControl.removeFromContainer(mContentView);
+            }
+            setFakeTitleBarGravity(Gravity.TOP);
+            // remove embedded title bar if present
+            WebView web = mTabControl.getCurrentWebView();
+            if ((web != null) && (web.getVisibleTitleHeight() == 0)) {
+                web.setEmbeddedTitleBar(mTitleBar);
+            }
+        }
+        mTabBar.setUseQuickControls(mUseQuickControls);
+        mFakeTitleBar.setUseQuickControls(mUseQuickControls);
+    }
+
+    private void checkTabCount() {
+        if (mUseQuickControls) {
+            int n = mTabBar.getTabCount();
+            if (n >= 2) {
+                mActivity.getActionBar().show();
+            } else if (n == 1) {
+                mActivity.getActionBar().hide();
+            }
+        }
     }
 
     @Override
@@ -114,6 +163,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     public void onPageFinished(Tab tab, String url) {
         mTabBar.onPageFinished(tab);
         super.onPageFinished(tab, url);
+        if (mUseQuickControls) {
+            mFakeTitleBar.setShowProgressOnly(false);
+        }
     }
 
     @Override
@@ -123,7 +175,17 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             mFakeTitleBar.setProgress(progress);
             if (progress == 100) {
                 hideFakeTitleBar();
+                if (mUseQuickControls) {
+                    mFakeTitleBar.setShowProgressOnly(false);
+                    setFakeTitleBarGravity(Gravity.BOTTOM);
+                }
             } else {
+                if (mUseQuickControls) {
+                    mFakeTitleBar.setShowProgressOnly(true);
+                    if (!isFakeTitleBarShowing()) {
+                        setFakeTitleBarGravity(Gravity.TOP);
+                    }
+                }
                 showFakeTitleBar();
             }
         }
@@ -137,28 +199,55 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     public void addTab(Tab tab) {
         mTabBar.onNewTab(tab);
+        checkTabCount();
     }
 
     @Override
     public void setActiveTab(Tab tab) {
         super.setActiveTab(tab);
+        ScrollWebView view = (ScrollWebView) tab.getWebView();
+        // TabControl.setCurrentTab has been called before this,
+        // so the tab is guaranteed to have a webview
+        if (view == null) {
+            Log.e(LOGTAG, "active tab with no webview detected");
+            return;
+        }
+        // Request focus on the top window.
+        if (mUseQuickControls) {
+            mPieControl.forceToTop(mContentView);
+            view.setScrollListener(null);
+            mTabBar.showTitleBarIndicator(false);
+        } else {
+            view.setEmbeddedTitleBar(mTitleBar);
+            view.setScrollListener(this);
+        }
         mTabBar.onSetActiveTab(tab);
+        if (tab.isInVoiceSearchMode()) {
+            showVoiceTitleBar(tab.getVoiceDisplayTitle());
+        } else {
+            revertVoiceTitleBar(tab);
+        }
+        resetTitleIconAndProgress(tab);
+        updateLockIconToLatest(tab);
+        tab.getTopWindow().requestFocus();
     }
 
     @Override
     public void updateTabs(List<Tab> tabs) {
         mTabBar.updateTabs(tabs);
+        checkTabCount();
     }
 
     @Override
     public void removeTab(Tab tab) {
         super.removeTab(tab);
         mTabBar.onRemoveTab(tab);
+        checkTabCount();
     }
 
-    int getTitleBarWidth() {
-        if (mTitleBar != null) {
-            return mTitleBar.getWidth();
+    int getContentWidth() {
+        if (mContentView != null) {
+            return mContentView.getWidth();
         }
         return 0;
     }
@@ -166,6 +255,22 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     void editUrl(boolean clearInput) {
         showFakeTitleBar();
         mFakeTitleBar.onEditUrl(clearInput);
+    }
+
+    void setFakeTitleBarGravity(int gravity) {
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)
+                mFakeTitleBar.getLayoutParams();
+        if (lp == null) {
+            lp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT);
+        }
+        lp.gravity = gravity;
+        mFakeTitleBar.setLayoutParams(lp);
+    }
+
+    void showFakeTitleBarAndEdit() {
+        showFakeTitleBar();
+        mFakeTitleBar.onEditUrl(false);
     }
 
     @Override
@@ -204,6 +309,20 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         if (mFakeTitleBar.isEditingUrl()) {
             // hide the fake title bar when CAB is shown
             hideFakeTitleBar();
+        }
+    }
+
+    @Override
+    public void onActionModeFinished(boolean inLoad) {
+        checkTabCount();
+        if (inLoad) {
+            // the titlebar was removed when the CAB was shown
+            // if the page is loading, show it again
+            mFakeTitleBar.setShowProgressOnly(true);
+            if (!isFakeTitleBarShowing()) {
+                setFakeTitleBarGravity(Gravity.TOP);
+            }
+            showFakeTitleBar();
         }
     }
 

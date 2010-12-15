@@ -231,22 +231,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mActiveTab = tab;
         attachTabToContentView(tab);
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
-        WebView view = tab.getWebView();
-        // TabControl.setCurrentTab has been called before this,
-        // so the tab is guaranteed to have a webview
-        if (view == null) {
-            Log.e(LOGTAG, "active tab with no webview detected");
-            return;
-        }
-        view.setEmbeddedTitleBar(getEmbeddedTitleBar());
-        if (tab.isInVoiceSearchMode()) {
-            showVoiceTitleBar(tab.getVoiceDisplayTitle());
-        } else {
-            revertVoiceTitleBar(tab);
-        }
-        resetTitleIconAndProgress(tab);
-        updateLockIconToLatest(tab);
-        tab.getTopWindow().requestFocus();
     }
 
     Tab getActiveTab() {

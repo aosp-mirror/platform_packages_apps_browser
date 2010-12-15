@@ -19,6 +19,7 @@ package com.android.browser;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.Menu;
@@ -115,6 +116,27 @@ public class PhoneUi extends BaseUi {
                 }
             }
         }
+    }
+
+    @Override
+    public void setActiveTab(Tab tab) {
+        super.setActiveTab(tab);
+        WebView view = tab.getWebView();
+        // TabControl.setCurrentTab has been called before this,
+        // so the tab is guaranteed to have a webview
+        if (view == null) {
+            Log.e(LOGTAG, "active tab with no webview detected");
+            return;
+        }
+        view.setEmbeddedTitleBar(getEmbeddedTitleBar());
+        if (tab.isInVoiceSearchMode()) {
+            showVoiceTitleBar(tab.getVoiceDisplayTitle());
+        } else {
+            revertVoiceTitleBar(tab);
+        }
+        resetTitleIconAndProgress(tab);
+        updateLockIconToLatest(tab);
+        tab.getTopWindow().requestFocus();
     }
 
     @Override

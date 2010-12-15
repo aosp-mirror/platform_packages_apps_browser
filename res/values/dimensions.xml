@@ -28,4 +28,7 @@
     <dimen name="widgetItemMinHeight">48dip</dimen>
     <dimen name="favicon_size">16dip</dimen>
     <dimen name="favicon_padded_size">20dip</dimen>
+    <dimen name="qc_radius">130dip</dimen>
+    <dimen name="qc_radius_inc">100dip</dimen>
+    <dimen name="qc_slop">15dip</dimen>
 </resources>

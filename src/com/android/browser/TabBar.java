@@ -88,6 +88,7 @@ public class TabBar extends LinearLayout
     private int mTabOverlap;
     private int mTabSliceWidth;
     private int mTabPadding;
+    private boolean mUseQuickControls;
 
     public TabBar(Activity activity, UiController controller, XLargeUi ui) {
         super(activity);
@@ -139,6 +140,14 @@ public class TabBar extends LinearLayout
         mShaderPaint.setAntiAlias(true);
     }
 
+    void setUseQuickControls(boolean useQuickControls) {
+        mUseQuickControls = useQuickControls;
+    }
+
+    int getTabCount() {
+        return mTabMap.size();
+    }
+
     void updateTabs(List<Tab> tabs) {
         mTabs.clearTabs();
         mTabMap.clear();
@@ -182,6 +191,7 @@ public class TabBar extends LinearLayout
         if (mNewTab == view) {
             mUiController.openTabToHomePage();
         } else if (mTabs.getSelectedTab() == view) {
+            if (mUseQuickControls) return;
             if (mUi.isFakeTitleBarShowing() && !isLoading()) {
                 mUi.hideFakeTitleBar();
             } else {
@@ -202,7 +212,7 @@ public class TabBar extends LinearLayout
         mUserRequestedUrlbar = true;
     }
 
-    private void showTitleBarIndicator(boolean show) {
+    void showTitleBarIndicator(boolean show) {
         Tab tab = mTabControl.getCurrentTab();
         if (tab != null) {
             TabViewData tvd = mTabMap.get(tab);
@@ -229,6 +239,7 @@ public class TabBar extends LinearLayout
 
     @Override
     public void onScroll(int visibleTitleHeight) {
+        if (mUseQuickControls) return;
         // isLoading is using the current tab, which initially might not be set yet
         if (mTabControl.getCurrentTab() != null) {
             if ((mVisibleTitleHeight != 0) && (visibleTitleHeight == 0)
@@ -417,7 +428,7 @@ public class TabBar extends LinearLayout
             int[] pos = new int[2];
             getLocationInWindow(mWindowPos);
             Drawable drawable = mSelected ? mActiveDrawable : mInactiveDrawable;
-            drawable.setBounds(0, 0, mUi.getTitleBarWidth(), getHeight());
+            drawable.setBounds(0, 0, mUi.getContentWidth(), getHeight());
             drawClipped(canvas, drawable, mPath, mWindowPos[0]);
             canvas.restoreToCount(state);
             super.dispatchDraw(canvas);

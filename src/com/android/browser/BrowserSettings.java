@@ -117,6 +117,9 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     private boolean navDump = false;
     private boolean hardwareAccelerated = true;
 
+    // Lab settings
+    private boolean quickControls = false;
+
     // By default the error console is shown once the user navigates to about:debug.
     // The setting can be then toggled from the settings menu.
     private boolean showConsole = true;
@@ -166,6 +169,8 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     public final static String PREF_AUTOFILL_ACTIVE_PROFILE_ID = "autofill_active_profile_id";
     public final static String PREF_HARDWARE_ACCEL = "enable_hardware_accel";
     public final static String PREF_USER_AGENT = "user_agent";
+
+    public final static String PREF_QUICK_CONTROLS = "enable_quick_controls";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, " +
@@ -490,6 +495,8 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
             navDump = p.getBoolean("enable_nav_dump", navDump);
         }
 
+        quickControls = p.getBoolean(PREF_QUICK_CONTROLS, quickControls);
+
         // Only set these on startup if it is a dev build
         if (DEV_BUILD) {
             userAgent = Integer.parseInt(p.getString(PREF_USER_AGENT, "0"));
@@ -571,6 +578,10 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
 
     public boolean isHardwareAccelerated() {
         return hardwareAccelerated;
+    }
+
+    public boolean useQuickControls() {
+        return quickControls;
     }
 
     public boolean showDebugSettings() {
@@ -836,6 +847,8 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         } else if (PREF_USER_AGENT.equals(key)) {
             userAgent = Integer.parseInt(p.getString(PREF_USER_AGENT, "0"));
             update();
+        } else if (PREF_QUICK_CONTROLS.equals(key)) {
+            quickControls = p.getBoolean(PREF_QUICK_CONTROLS, quickControls);
         }
     }
 }

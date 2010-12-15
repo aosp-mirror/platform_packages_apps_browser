@@ -73,6 +73,7 @@ public class TitleBarXLarge extends TitleBarBase
 
     private boolean mInLoad;
     private boolean mEditable;
+    private boolean mUseQuickControls;
 
     public TitleBarXLarge(Activity activity, UiController controller,
             XLargeUi ui) {
@@ -137,6 +138,29 @@ public class TitleBarXLarge extends TitleBarBase
             mUrlInput.setOnClickListener(this);
         } else {
             mUrlContainer.setOnClickListener(null);
+        }
+    }
+
+    void setUseQuickControls(boolean useQuickControls) {
+        mUseQuickControls = useQuickControls;
+        if (mUseQuickControls) {
+            mBackButton.setVisibility(View.GONE);
+            mForwardButton.setVisibility(View.GONE);
+            mStopButton.setVisibility(View.GONE);
+            mAllButton.setVisibility(View.GONE);
+        } else {
+            mBackButton.setVisibility(View.VISIBLE);
+            mForwardButton.setVisibility(View.VISIBLE);
+            mStopButton.setVisibility(View.VISIBLE);
+            mAllButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    void setShowProgressOnly(boolean progress) {
+        if (progress) {
+            mContainer.setVisibility(View.GONE);
+        } else {
+            mContainer.setVisibility(View.VISIBLE);
         }
     }
 
@@ -291,12 +315,16 @@ public class TitleBarXLarge extends TitleBarBase
             updateSearchMode();
         } else {
             mUrlInput.clearFocus();
-            mSearchButton.setVisibility(View.VISIBLE);
             mGoButton.setVisibility(View.GONE);
             mVoiceSearch.setVisibility(View.GONE);
             mStar.setVisibility(View.VISIBLE);
             mClearButton.setVisibility(View.GONE);
             mVoiceSearchIndicator.setVisibility(View.GONE);
+            if (mUseQuickControls) {
+                mSearchButton.setVisibility(View.GONE);
+            } else {
+                mSearchButton.setVisibility(View.VISIBLE);
+            }
         }
     }
 
