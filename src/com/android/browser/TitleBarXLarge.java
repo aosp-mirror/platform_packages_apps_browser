@@ -186,6 +186,11 @@ public class TitleBarXLarge extends TitleBarBase
      * @param clearInput clear the input field
      */
     void onEditUrl(boolean clearInput) {
+        // editing takes preference of progress
+        mContainer.setVisibility(View.VISIBLE);
+        if (mUseQuickControls) {
+            mProgressView.setVisibility(View.GONE);
+        }
         if (!mUrlInput.hasFocus()) {
             mUrlInput.requestFocus();
         }
@@ -341,16 +346,21 @@ public class TitleBarXLarge extends TitleBarBase
      */
     @Override
     void setProgress(int newProgress) {
+        boolean blockvisuals = mUseQuickControls && isEditingUrl();
         if (newProgress >= PROGRESS_MAX) {
-            mProgressView.setProgress(PageProgressView.MAX_PROGRESS);
-            mProgressView.setVisibility(View.GONE);
+            if (!blockvisuals) {
+                mProgressView.setProgress(PageProgressView.MAX_PROGRESS);
+                mProgressView.setVisibility(View.GONE);
+                mStopButton.setImageDrawable(mReloadDrawable);
+            }
             mInLoad = false;
-            mStopButton.setImageDrawable(mReloadDrawable);
         } else {
             if (!mInLoad) {
-                mProgressView.setVisibility(View.VISIBLE);
+                if (!blockvisuals) {
+                    mProgressView.setVisibility(View.VISIBLE);
+                    mStopButton.setImageDrawable(mStopDrawable);
+                }
                 mInLoad = true;
-                mStopButton.setImageDrawable(mStopDrawable);
             }
             mProgressView.setProgress(newProgress * PageProgressView.MAX_PROGRESS
                     / PROGRESS_MAX);

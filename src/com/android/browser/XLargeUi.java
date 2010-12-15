@@ -174,13 +174,15 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         if (tab.inForeground()) {
             mFakeTitleBar.setProgress(progress);
             if (progress == 100) {
-                hideFakeTitleBar();
-                if (mUseQuickControls) {
-                    mFakeTitleBar.setShowProgressOnly(false);
-                    setFakeTitleBarGravity(Gravity.BOTTOM);
+                if (!mFakeTitleBar.isEditingUrl()) {
+                    hideFakeTitleBar();
+                    if (mUseQuickControls) {
+                        mFakeTitleBar.setShowProgressOnly(false);
+                        setFakeTitleBarGravity(Gravity.BOTTOM);
+                    }
                 }
             } else {
-                if (mUseQuickControls) {
+                if (mUseQuickControls && !mFakeTitleBar.isEditingUrl()) {
                     mFakeTitleBar.setShowProgressOnly(true);
                     if (!isFakeTitleBarShowing()) {
                         setFakeTitleBarGravity(Gravity.TOP);
@@ -269,6 +271,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     void showFakeTitleBarAndEdit() {
+        mFakeTitleBar.setShowProgressOnly(false);
+        setFakeTitleBarGravity(Gravity.BOTTOM);
         showFakeTitleBar();
         mFakeTitleBar.onEditUrl(false);
     }
@@ -306,7 +310,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void onActionModeStarted(ActionMode mode) {
-        if (mFakeTitleBar.isEditingUrl()) {
+        if (!mFakeTitleBar.isEditingUrl()) {
             // hide the fake title bar when CAB is shown
             hideFakeTitleBar();
         }
