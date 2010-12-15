@@ -94,8 +94,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
     void setVoiceResults(List<String> voiceResults) {
         mVoiceResults = voiceResults;
-        notifyDataSetInvalidated();
-
+        notifyDataSetChanged();
     }
 
     public void setLandscapeMode(boolean mode) {
