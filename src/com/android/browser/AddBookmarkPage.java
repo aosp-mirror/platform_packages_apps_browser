@@ -79,8 +79,6 @@ public class AddBookmarkPage extends Activity
     private static final int MAX_CRUMBS_SHOWN = 2;
 
     private final String LOGTAG = "Bookmarks";
-    // Set to true to see the crash on the code I would like to run.
-    private final boolean DEBUG_CRASH = false;
 
     // IDs for the CursorLoaders that are used.
     private final int LOADER_ID_FOLDER_CONTENTS = 0;
@@ -489,18 +487,13 @@ public class AddBookmarkPage extends Activity
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        if (DEBUG_CRASH) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-        }
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         mMap = getIntent().getExtras();
 
         setContentView(R.layout.browser_add_bookmark);
 
         Window window = getWindow();
-        if (!DEBUG_CRASH) {
-            setTitle("");
-        }
 
         String title = null;
         String url = null;
