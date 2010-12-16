@@ -356,7 +356,13 @@ public class PieMenu extends FrameLayout {
             deselect();
             return false;
         } else if (MotionEvent.ACTION_MOVE == action) {
-            View v = findView((int) x, (int) y);
+            PointF polar = getPolar(x, y);
+            if (polar.y > mRadius + 2 * mRadiusInc) {
+                show(false);
+                deselect();
+                return false;
+            }
+            View v = findView(polar);
             if (mCurrentView != v) {
                 onEnter(v);
                 invalidate();
@@ -414,30 +420,40 @@ public class PieMenu extends FrameLayout {
         return ((MenuTag) v.getTag()).level;
     }
 
-    private View findView(int x, int y) {
+    private PointF getPolar(float x, float y) {
+        PointF res = new PointF();
         // get angle and radius from x/y
-        float angle = (float) Math.PI / 2;
+        res.x = (float) Math.PI / 2;
         x = mCenter.x - x;
         if (mCenter.x < mSlop) {
             x = -x;
         }
         y = mCenter.y - y;
-        float dist = (float) Math.sqrt(x * x + y * y);
+        res.y = (float) Math.sqrt(x * x + y * y);
         if (y > 0) {
-            angle = (float) Math.asin(x / dist);
+            res.x = (float) Math.asin(x / res.y);
         } else if (y < 0) {
-            angle = (float) (Math.PI - Math.asin(x / dist ));
+            res.x = (float) (Math.PI - Math.asin(x / res.y ));
         }
+        return res;
+    }
+
+    /**
+     *
+     * @param polar x: angle, y: dist
+     * @return
+     */
+    private View findView(PointF polar) {
         // find the matching item:
         for (View parent : mStack) {
             List<View> subs = mMenu.get(parent);
             if (subs != null) {
                 for (View item : subs) {
                     MenuTag tag = (MenuTag) item.getTag();
-                    if ((tag.inner < dist)
-                            && (tag.outer > dist)
-                            && (tag.start < angle)
-                            && (tag.start + tag.sweep > angle)) {
+                    if ((tag.inner < polar.y)
+                            && (tag.outer > polar.y)
+                            && (tag.start < polar.x)
+                            && (tag.start + tag.sweep > polar.x)) {
                         return item;
                     }
                 }
