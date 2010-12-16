@@ -57,6 +57,7 @@ import android.speech.RecognizerIntent;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -399,6 +400,7 @@ public class Controller
             mDb = db;
         }
 
+        @Override
         protected Void doInBackground(Void... unused) {
             mDb.open(mActivity.getDir("icons", 0).getPath());
             Cursor c = null;
@@ -1891,33 +1893,38 @@ public class Controller
         final String url = view.getUrl();
         final String originalUrl = view.getOriginalUrl();
 
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... unused) {
-                Cursor cursor = null;
-                try {
-                    cursor = Bookmarks.queryCombinedForUrl(cr, originalUrl, url);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        final ByteArrayOutputStream os =
-                                new ByteArrayOutputStream();
-                        bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+        // Only update thumbnails for web urls (http(s)://), not for
+        // about:, javascript:, data:, etc...
+        if (Patterns.WEB_URL.matcher(url).matches()) {
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... unused) {
+                    Cursor cursor = null;
+                    try {
+                        // TODO: Clean this up
+                        cursor = Bookmarks.queryCombinedForUrl(cr, originalUrl, url);
+                        if (cursor != null && cursor.moveToFirst()) {
+                            final ByteArrayOutputStream os =
+                                    new ByteArrayOutputStream();
+                            bm.compress(Bitmap.CompressFormat.PNG, 100, os);
 
-                        ContentValues values = new ContentValues();
-                        values.put(Images.THUMBNAIL, os.toByteArray());
-                        values.put(Images.URL, cursor.getString(0));
+                            ContentValues values = new ContentValues();
+                            values.put(Images.THUMBNAIL, os.toByteArray());
+                            values.put(Images.URL, cursor.getString(0));
 
-                        do {
-                            cr.update(Images.CONTENT_URI, values, null, null);
-                        } while (cursor.moveToNext());
+                            do {
+                                cr.update(Images.CONTENT_URI, values, null, null);
+                            } while (cursor.moveToNext());
+                        }
+                    } catch (IllegalStateException e) {
+                        // Ignore
+                    } finally {
+                        if (cursor != null) cursor.close();
                     }
-                } catch (IllegalStateException e) {
-                    // Ignore
-                } finally {
-                    if (cursor != null) cursor.close();
+                    return null;
                 }
-                return null;
-            }
-        }.execute();
+            }.execute();
+        }
     }
 
     private class Copy implements OnMenuItemClickListener {
