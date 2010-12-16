@@ -30,6 +30,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
@@ -360,6 +361,10 @@ public class PieMenu extends FrameLayout {
             if (polar.y > mRadius + 2 * mRadiusInc) {
                 show(false);
                 deselect();
+                evt.setAction(MotionEvent.ACTION_DOWN);
+                if (getParent() != null) {
+                    ((ViewGroup) getParent()).dispatchTouchEvent(evt);
+                }
                 return false;
             }
             View v = findView(polar);
