@@ -36,7 +36,6 @@ import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
@@ -51,10 +50,10 @@ import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceActivity;
 import android.provider.Browser;
 import android.provider.BrowserContract;
-import android.provider.BrowserContract.History;
 import android.provider.BrowserContract.Images;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
+import android.speech.RecognizerIntent;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -94,6 +93,9 @@ public class Controller
         implements WebViewController, UiController {
 
     private static final String LOGTAG = "Controller";
+    private static final String SEND_APP_ID_EXTRA =
+        "android.speech.extras.SEND_APPLICATION_ID_EXTRA";
+
 
     // public message ids
     public final static int LOAD_URL = 1001;
@@ -316,6 +318,9 @@ public class Controller
         if (jsFlags.trim().length() != 0) {
             getCurrentWebView().setJsFlags(jsFlags);
         }
+        if (BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(intent.getAction())) {
+            bookmarksOrHistoryPicker(false);
+        }
     }
 
     void setWebViewFactory(WebViewFactory factory) {
@@ -429,6 +434,8 @@ public class Controller
                     {
                         String url = (String) msg.getData().get("url");
                         String title = (String) msg.getData().get("title");
+                        String src = (String) msg.getData().get("src");
+                        if (url == "") url = src; // use image if no anchor
                         if (TextUtils.isEmpty(url)) {
                             break;
                         }
@@ -440,8 +447,10 @@ public class Controller
                         }
                         switch (msg.arg1) {
                             case R.id.open_context_menu_id:
-                            case R.id.view_image_context_menu_id:
                                 loadUrlFromContext(getCurrentTopWebView(), url);
+                                break;
+                            case R.id.view_image_context_menu_id:
+                                loadUrlFromContext(getCurrentTopWebView(), src);
                                 break;
                             case R.id.open_newtab_context_menu_id:
                                 final Tab parent = mTabControl.getCurrentTab();
@@ -1009,6 +1018,16 @@ public class Controller
                 null, false);
     }
 
+    public void startVoiceSearch() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_WEB_SEARCH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
+                mActivity.getComponentName().flattenToString());
+        intent.putExtra(SEND_APP_ID_EXTRA, false);
+        mActivity.startActivity(intent);
+    }
+
     public void activateVoiceSearchMode(String title) {
         mUi.showVoiceTitleBar(title);
     }
@@ -1116,14 +1135,6 @@ public class Controller
                 loadUrl(getCurrentTopWebView(), url);
             }
         }
-    }
-
-    /**
-     * callback from ComboPage when dismissed
-     */
-    @Override
-    public void onComboCanceled() {
-        removeComboView();
     }
 
     /**
@@ -2141,10 +2152,7 @@ public class Controller
         removeComboView();
         final Tab current = mTabControl.getCurrentTab();
         if (mTabControl.getTabCount() == 1) {
-            // This is the last tab.  Open a new one, with the home
-            // page and close the current one.
-            openTabToHomePage();
-            closeTab(current);
+            mActivity.finish();
             return;
         }
         final Tab parent = current.getParentTab();

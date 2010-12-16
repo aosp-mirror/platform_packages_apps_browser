@@ -43,7 +43,6 @@ import java.util.Vector;
 interface BookmarksHistoryCallbacks {
     public void onUrlSelected(String url, boolean newWindow);
     public void onRemoveParentChildRelationships();
-    public void onComboCanceled();
 }
 
 public class CombinedBookmarkHistoryView extends LinearLayout

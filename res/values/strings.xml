@@ -590,6 +590,13 @@
         <item>EUC-KR</item>
     </string-array>
     <string name="pref_default_text_encoding_default" translatable="false">Latin-1</string>
+    <!-- Title for lab settings [CHAR LIMIT=25] -->
+    <string name="pref_lab_title">Lab</string>
+    <!-- Title for lab quick controls feature [CHAR LIMIT=40] -->
+    <string name="pref_lab_quick_controls">Quick Controls</string>
+    <!-- Summary for lab quick controls feature [CHAR LIMIT=80] -->
+    <string name="pref_lab_quick_controls_summary">
+        Swipe thumb from left or right edge to access quick controls</string>
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>
@@ -760,7 +767,7 @@
             user signs up the device with a Google sites account, the site's
             domain will be appended. -->
     <string name="homepage_base" translatable="false">
-        http://www.google.com/m?client=ms-{CID}&amp;source=android-home</string>
+        http://www.google.com/webhp?client=ms-{CID}&amp;source=android-home</string>
 
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">

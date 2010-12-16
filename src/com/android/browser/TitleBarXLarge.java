@@ -36,6 +36,8 @@ import android.view.View.OnFocusChangeListener;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
+import java.util.List;
+
 /**
  * tabbed title bar for xlarge screen browser
  */
@@ -62,10 +64,16 @@ public class TitleBarXLarge extends TitleBarBase
     private View mAllButton;
     private View mClearButton;
     private View mVoiceSearch;
+    private View mVoiceSearchIndicator;
     private PageProgressView mProgressView;
     private UrlInputView mUrlInput;
+    private Drawable mFocusDrawable;
+    private Drawable mUnfocusDrawable;
+    private boolean mInVoiceMode;
 
     private boolean mInLoad;
+    private boolean mEditable;
+    private boolean mUseQuickControls;
 
     public TitleBarXLarge(Activity activity, UiController controller,
             XLargeUi ui) {
@@ -75,7 +83,12 @@ public class TitleBarXLarge extends TitleBarBase
         Resources resources = activity.getResources();
         mStopDrawable = resources.getDrawable(R.drawable.ic_stop_normal);
         mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_normal);
+        mFocusDrawable = resources.getDrawable(
+                R.drawable.textfield_active_holo_dark);
+        mUnfocusDrawable = resources.getDrawable(
+                R.drawable.textfield_default_holo_dark);
         rebuildLayout(activity, true);
+        mInVoiceMode = false;
     }
 
     private void rebuildLayout(Context context, boolean rebuildData) {
@@ -98,7 +111,7 @@ public class TitleBarXLarge extends TitleBarBase
         mVoiceSearch = findViewById(R.id.voicesearch);
         mProgressView = (PageProgressView) findViewById(R.id.progress);
         mUrlContainer = findViewById(R.id.urlbar_focused);
-
+        mVoiceSearchIndicator = findViewById(R.id.voice_icon);
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
         mStar.setOnClickListener(this);
@@ -107,6 +120,7 @@ public class TitleBarXLarge extends TitleBarBase
         mSearchButton.setOnClickListener(this);
         mGoButton.setOnClickListener(this);
         mClearButton.setOnClickListener(this);
+        mVoiceSearch.setOnClickListener(this);
         mUrlContainer.setOnClickListener(this);
         mUrlInput.setUrlInputListener(this);
         mUrlInput.setContainer(mUrlContainer);
@@ -117,9 +131,48 @@ public class TitleBarXLarge extends TitleBarBase
         setUrlMode(false);
     }
 
+    public void setEditable(boolean editable) {
+        mEditable = editable;
+        mUrlInput.setFocusable(mEditable);
+        if (!mEditable) {
+            mUrlInput.setOnClickListener(this);
+        } else {
+            mUrlContainer.setOnClickListener(null);
+        }
+    }
+
+    void setUseQuickControls(boolean useQuickControls) {
+        mUseQuickControls = useQuickControls;
+        if (mUseQuickControls) {
+            mBackButton.setVisibility(View.GONE);
+            mForwardButton.setVisibility(View.GONE);
+            mStopButton.setVisibility(View.GONE);
+            mAllButton.setVisibility(View.GONE);
+        } else {
+            mBackButton.setVisibility(View.VISIBLE);
+            mForwardButton.setVisibility(View.VISIBLE);
+            mStopButton.setVisibility(View.VISIBLE);
+            mAllButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    void setShowProgressOnly(boolean progress) {
+        if (progress) {
+            mContainer.setVisibility(View.GONE);
+        } else {
+            mContainer.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
-        setUrlMode(hasFocus);
+        if (!mEditable && hasFocus) {
+            mUi.editUrl(false);
+        } else {
+            setUrlMode(hasFocus);
+        }
+        mUrlContainer.setBackgroundDrawable(hasFocus
+                ? mFocusDrawable : mUnfocusDrawable);
     }
 
     public void setCurrentUrlIsBookmark(boolean isBookmark) {
@@ -133,9 +186,18 @@ public class TitleBarXLarge extends TitleBarBase
      * @param clearInput clear the input field
      */
     void onEditUrl(boolean clearInput) {
-        mUrlInput.requestFocusFromTouch();
+        // editing takes preference of progress
+        mContainer.setVisibility(View.VISIBLE);
+        if (mUseQuickControls) {
+            mProgressView.setVisibility(View.GONE);
+        }
+        if (!mUrlInput.hasFocus()) {
+            mUrlInput.requestFocus();
+        }
         if (clearInput) {
             mUrlInput.setText("");
+        } else if (mInVoiceMode) {
+            mUrlInput.showDropDown();
         }
     }
 
@@ -146,6 +208,8 @@ public class TitleBarXLarge extends TitleBarBase
     @Override
     public void onClick(View v) {
         if (mUrlInput == v) {
+            mUi.editUrl(false);
+        } else if (mUrlContainer == v) {
             if (!mUrlInput.hasFocus()) {
                 mUi.editUrl(false);
             }
@@ -169,6 +233,8 @@ public class TitleBarXLarge extends TitleBarBase
             }
         } else if (mClearButton == v) {
             clearOrClose();
+        } else if (mVoiceSearch == v) {
+            mUiController.startVoiceSearch();
         }
     }
 
@@ -224,7 +290,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUi.hideFakeTitleBar();
         setUrlMode(false);
         // if top != null current must be set
-        if (top != null) {
+        if ((top != null) && !mInVoiceMode) {
             setDisplayTitle(mUiController.getCurrentWebView().getUrl());
         }
     }
@@ -248,14 +314,22 @@ public class TitleBarXLarge extends TitleBarBase
             mSearchButton.setVisibility(View.GONE);
             mStar.setVisibility(View.GONE);
             mClearButton.setVisibility(View.VISIBLE);
+            if (mInVoiceMode) {
+                mVoiceSearchIndicator.setVisibility(View.VISIBLE);
+            }
             updateSearchMode();
         } else {
             mUrlInput.clearFocus();
-            mSearchButton.setVisibility(View.VISIBLE);
             mGoButton.setVisibility(View.GONE);
             mVoiceSearch.setVisibility(View.GONE);
             mStar.setVisibility(View.VISIBLE);
             mClearButton.setVisibility(View.GONE);
+            mVoiceSearchIndicator.setVisibility(View.GONE);
+            if (mUseQuickControls) {
+                mSearchButton.setVisibility(View.GONE);
+            } else {
+                mSearchButton.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -272,16 +346,21 @@ public class TitleBarXLarge extends TitleBarBase
      */
     @Override
     void setProgress(int newProgress) {
+        boolean blockvisuals = mUseQuickControls && isEditingUrl();
         if (newProgress >= PROGRESS_MAX) {
-            mProgressView.setProgress(PageProgressView.MAX_PROGRESS);
-            mProgressView.setVisibility(View.GONE);
+            if (!blockvisuals) {
+                mProgressView.setProgress(PageProgressView.MAX_PROGRESS);
+                mProgressView.setVisibility(View.GONE);
+                mStopButton.setImageDrawable(mReloadDrawable);
+            }
             mInLoad = false;
-            mStopButton.setImageDrawable(mReloadDrawable);
         } else {
             if (!mInLoad) {
-                mProgressView.setVisibility(View.VISIBLE);
+                if (!blockvisuals) {
+                    mProgressView.setVisibility(View.VISIBLE);
+                    mStopButton.setImageDrawable(mStopDrawable);
+                }
                 mInLoad = true;
-                mStopButton.setImageDrawable(mStopDrawable);
             }
             mProgressView.setProgress(newProgress * PageProgressView.MAX_PROGRESS
                     / PROGRESS_MAX);
@@ -315,6 +394,8 @@ public class TitleBarXLarge extends TitleBarBase
         if (mUrlInput.hasFocus()) {
             // check if input field is empty and adjust voice search state
             updateSearchMode();
+            // clear voice mode when user types
+            setInVoiceMode(false, null);
         }
     }
 
@@ -324,6 +405,20 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+    // voicesearch
+
+    @Override
+    public void setInVoiceMode(boolean voicemode) {
+        setInVoiceMode(voicemode, null);
+    }
+
+    public void setInVoiceMode(boolean voicemode, List<String> voiceResults) {
+        mInVoiceMode = voicemode;
+        mUrlInput.setVoiceResults(voiceResults);
+        mVoiceSearchIndicator.setVisibility(mInVoiceMode
+                ? View.VISIBLE : View.GONE);
     }
 
 }

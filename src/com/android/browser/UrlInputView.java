@@ -30,6 +30,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import java.util.List;
+
 /**
  * url/search input view
  * handling suggestions
@@ -48,6 +50,7 @@ public class UrlInputView extends AutoCompleteTextView
     private OnFocusChangeListener mWrappedFocusListener;
     private View mContainer;
     private boolean mLandscape;
+    private boolean mInVoiceMode;
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -83,6 +86,11 @@ public class UrlInputView extends AutoCompleteTextView
 
     void setContainer(View container) {
         mContainer = container;
+    }
+
+    void setVoiceResults(List<String> voiceResults) {
+        mAdapter.setVoiceResults(voiceResults);
+        mInVoiceMode = (voiceResults != null);
     }
 
     @Override
@@ -134,6 +142,10 @@ public class UrlInputView extends AutoCompleteTextView
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
             forceIme();
+            if (mInVoiceMode) {
+                performFiltering(getText().toString(), 0);
+                showDropDown();
+            }
         } else {
             finishInput(null, null, null);
         }

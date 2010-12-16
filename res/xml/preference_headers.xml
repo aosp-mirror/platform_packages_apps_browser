@@ -35,4 +35,9 @@
     <header android:fragment="com.android.browser.preferences.AdvancedPreferencesFragment"
         android:title="@string/pref_extras_title"
     />
+
+    <header android:fragment="com.android.browser.preferences.LabPreferencesFragment"
+        android:title="@string/pref_lab_title"
+    />
+
 </preference-headers>

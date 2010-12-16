@@ -209,8 +209,8 @@ public class BrowserHistoryPage extends Fragment
         mEmptyView = root.findViewById(android.R.id.empty);
 
         // Start the loader
-        getLoaderManager().initLoader(LOADER_HISTORY, null, this);
-        getLoaderManager().initLoader(LOADER_MOST_VISITED, null, this);
+        getLoaderManager().restartLoader(LOADER_HISTORY, null, this);
+        getLoaderManager().restartLoader(LOADER_MOST_VISITED, null, this);
 
         // Register to receive icons in case they haven't all been loaded.
         CombinedBookmarkHistoryView.getIconListenerSet().addListener(mIconReceiver);

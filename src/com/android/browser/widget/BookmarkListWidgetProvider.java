@@ -79,6 +79,10 @@ public class BookmarkListWidgetProvider extends AppWidgetProvider {
 
     private void performUpdate(Context context,
             AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        Intent launchBrowser = new Intent(BrowserActivity.ACTION_SHOW_BROWSER,
+                null, context, BrowserActivity.class);
+        Intent launchBookmarks = new Intent(BrowserActivity.ACTION_SHOW_BOOKMARKS,
+                null, context, BrowserActivity.class);
         // Update the widgets
         for (int appWidgetId : appWidgetIds) {
             Intent updateIntent = new Intent(context, BookmarkListWidgetService.class);
@@ -92,9 +96,10 @@ public class BookmarkListWidgetProvider extends AppWidgetProvider {
             views.setPendingIntentTemplate(R.id.bookmarks_list,
                     PendingIntent.getService(context, 0, ic,
                     PendingIntent.FLAG_UPDATE_CURRENT));
-            Intent launch = new Intent(context, BrowserActivity.class);
-            views.setOnClickPendingIntent(R.id.header, PendingIntent
-                    .getActivity(context, 0, launch, PendingIntent.FLAG_CANCEL_CURRENT));
+            views.setOnClickPendingIntent(R.id.header_browser, PendingIntent
+                    .getActivity(context, 0, launchBrowser, PendingIntent.FLAG_CANCEL_CURRENT));
+            views.setOnClickPendingIntent(R.id.header_bookmarks, PendingIntent
+                    .getActivity(context, 0, launchBookmarks, PendingIntent.FLAG_CANCEL_CURRENT));
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }

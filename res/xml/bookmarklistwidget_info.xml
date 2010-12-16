@@ -20,6 +20,6 @@
     android:minWidth="219dip"
     android:minHeight="219dip"
     android:updatePeriodMillis="0"
-    android:previewImage="@drawable/preview"
+    android:previewImage="@drawable/browser_widget_preview"
     android:initialLayout="@layout/bookmarklistwidget">
 </appwidget-provider>

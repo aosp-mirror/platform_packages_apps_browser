@@ -50,7 +50,7 @@
     </RelativeLayout>
     <TextView android:id="@+id/fake_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="?android:attr/listPreferredItemHeight"
         android:drawableLeft="@drawable/ic_list_bookmark"
         android:text="@string/bookmark_this_page"
         android:layout_gravity="left"

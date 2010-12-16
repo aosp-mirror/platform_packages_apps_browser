@@ -48,7 +48,14 @@
             android:layout_weight="1.0"
             android:layout_marginLeft="16dip"
             android:orientation="horizontal"
-            android:background="@drawable/textfield_active_holo_dark">
+            android:background="@drawable/textfield_default_holo_dark">
+            <ImageView
+                android:id="@+id/voice_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_search_light"
+                style="@style/HoloIcon"
+                android:visibility="gone" />
             <ImageView
                 android:id="@+id/lock"
                 android:layout_width="wrap_content"

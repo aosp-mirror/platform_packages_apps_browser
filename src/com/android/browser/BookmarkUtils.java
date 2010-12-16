@@ -35,7 +35,7 @@ import android.provider.Browser;
 import android.provider.BrowserContract;
 import android.text.TextUtils;
 
-class BookmarkUtils {
+public class BookmarkUtils {
     private final static String LOGTAG = "BookmarkUtils";
 
     // XXX: There is no public string defining this intent so if Home changes the value, we
@@ -174,7 +174,7 @@ class BookmarkUtils {
                 BrowserContract.Bookmarks.CONTENT_URI.buildUpon()).build();
     }
 
-    /* package */ static Uri.Builder addAccountInfo(Context context, Uri.Builder ub) {
+    public static Uri.Builder addAccountInfo(Context context, Uri.Builder ub) {
         Uri uri = BrowserContract.Bookmarks.CONTENT_URI;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
