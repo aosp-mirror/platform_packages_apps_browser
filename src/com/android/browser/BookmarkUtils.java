@@ -44,8 +44,9 @@ public class BookmarkUtils {
 
     enum BookmarkIconType {
         ICON_INSTALLABLE_WEB_APP, // Icon for an installable web app (launches WebAppRuntime).
-        ICON_HOME_SHORTCUT        // Icon for a shortcut on the home screen (launches Browser).
-    };
+        ICON_HOME_SHORTCUT,        // Icon for a shortcut on the home screen (launches Browser).
+        ICON_WIDGET,
+    }
 
     /**
      * Creates an icon to be associated with this bookmark. If available, the apple touch icon
@@ -56,6 +57,20 @@ public class BookmarkUtils {
         int iconDimension = context.getResources().getDimensionPixelSize(
                 android.R.dimen.app_icon_size);
 
+        return createIcon(context, touchIcon, favicon, type, iconDimension);
+    }
+
+    public static Bitmap createListWidgetIcon(Context context, Bitmap touchIcon,
+            Bitmap favicon) {
+        int iconDimension = context.getResources().getDimensionPixelSize(
+                R.dimen.bookmark_widget_favicon_size);
+
+        return createIcon(context, touchIcon, favicon,
+                BookmarkIconType.ICON_WIDGET, iconDimension);
+    }
+
+    private static Bitmap createIcon(Context context, Bitmap touchIcon,
+            Bitmap favicon, BookmarkIconType type, int iconDimension) {
         Bitmap bm = Bitmap.createBitmap(iconDimension, iconDimension, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bm);
         Rect iconBounds = new Rect(0, 0, bm.getWidth(), bm.getHeight());
@@ -77,7 +92,7 @@ public class BookmarkUtils {
             // If we have a favicon, overlay it in a nice rounded white box on top of the
             // background.
             if (favicon != null) {
-                drawFaviconToCanvas(context, favicon, canvas, iconBounds);
+                drawFaviconToCanvas(context, favicon, canvas, iconBounds, type);
             }
         }
         return bm;
@@ -139,28 +154,40 @@ public class BookmarkUtils {
         canvas.drawPath(path, paint);
     }
 
-    private static void drawFaviconToCanvas(Context context, Bitmap favicon, Canvas canvas,
-            Rect iconBounds) {
+    private static void drawFaviconToCanvas(Context context, Bitmap favicon,
+            Canvas canvas, Rect iconBounds, BookmarkIconType type) {
         // Make a Paint for the white background rectangle and for
         // filtering the favicon.
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
         p.setStyle(Paint.Style.FILL_AND_STROKE);
-        p.setColor(Color.WHITE);
+        if (type == BookmarkIconType.ICON_WIDGET) {
+            p.setColor(context.getResources()
+                    .getColor(R.color.bookmarkWidgetFaviconBackground));
+        } else {
+            p.setColor(Color.WHITE);
+        }
 
         // Create a rectangle that is slightly wider than the favicon
         int faviconDimension = context.getResources().getDimensionPixelSize(R.dimen.favicon_size);
-        int faviconPaddedRectDimension = context.getResources().getDimensionPixelSize(
-                R.dimen.favicon_padded_size);
+        int faviconPaddedRectDimension;
+        if (type == BookmarkIconType.ICON_WIDGET) {
+            faviconPaddedRectDimension = canvas.getWidth();
+        } else {
+            faviconPaddedRectDimension = context.getResources().getDimensionPixelSize(
+                    R.dimen.favicon_padded_size);
+        }
         float padding = (faviconPaddedRectDimension - faviconDimension) / 2;
         final float x = iconBounds.exactCenterX() - (faviconPaddedRectDimension / 2);
-        // Note: Subtract from the y position since the box is
-        // slightly higher than center. Use padding since it is already
-        // device independent.
-        final float y = iconBounds.exactCenterY() - (faviconPaddedRectDimension / 2) - padding;
+        float y = iconBounds.exactCenterY() - (faviconPaddedRectDimension / 2);
+        if (type != BookmarkIconType.ICON_WIDGET) {
+            // Note: Subtract from the y position since the box is
+            // slightly higher than center. Use padding since it is already
+            // device independent.
+            y -= padding;
+        }
         RectF r = new RectF(x, y, x + faviconPaddedRectDimension, y + faviconPaddedRectDimension);
-
         // Draw a white rounded rectangle behind the favicon
-        canvas.drawRoundRect(r, 2, 2, p);
+        canvas.drawRoundRect(r, 3, 3, p);
 
         // Draw the favicon in the same rectangle as the rounded
         // rectangle but inset by the padding
