@@ -33,6 +33,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class PersonalPreferencesFragment extends PreferenceFragment
 
     Preference mChromeSync;
     boolean mEnabled;
+    SharedPreferences mSharedPrefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,10 +78,31 @@ public class PersonalPreferencesFragment extends PreferenceFragment
         super.onResume();
 
         // Setup the proper state for the sync with chrome item
-        Context context = getActivity();
         mChromeSync = findPreference(PREF_CHROME_SYNC);
-        refreshUi(context);
+        refreshUi();
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mSharedPrefs.registerOnSharedPreferenceChangeListener(mListener);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        mSharedPrefs.unregisterOnSharedPreferenceChangeListener(mListener);
+    }
+
+    OnSharedPreferenceChangeListener mListener
+            = new OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(
+                SharedPreferences sharedPreferences, String key) {
+            if (BrowserBookmarksPage.PREF_ACCOUNT_NAME.equals(key)
+                    || BrowserBookmarksPage.PREF_ACCOUNT_TYPE.equals(key)) {
+                refreshUi();
+            }
+        }
+
+    };
 
     private class GetAccountsTask extends AsyncTask<Void, Void, String> {
         private Context mContext;
@@ -88,6 +111,7 @@ public class PersonalPreferencesFragment extends PreferenceFragment
             mContext = ctx;
         }
 
+        @Override
         protected String doInBackground(Void... unused) {
             AccountManager am = (AccountManager) mContext.getSystemService(Context.ACCOUNT_SERVICE);
             Account[] accounts = am.getAccountsByType("com.google");
@@ -120,6 +144,7 @@ public class PersonalPreferencesFragment extends PreferenceFragment
             return null;
         }
 
+        @Override
         protected void onPostExecute(String summary) {
             if (summary != null) {
                 mChromeSync.setSummary(summary);
@@ -127,8 +152,8 @@ public class PersonalPreferencesFragment extends PreferenceFragment
         }
     }
 
-    void refreshUi(Context context) {
-        new GetAccountsTask(context).execute();
+    void refreshUi() {
+        new GetAccountsTask(getActivity()).execute();
 
         PreferenceScreen autoFillSettings =
                 (PreferenceScreen)findPreference(BrowserSettings.PREF_AUTOFILL_PROFILE);
@@ -150,7 +175,7 @@ public class PersonalPreferencesFragment extends PreferenceFragment
         return true;
     }
 
-    final class AccountChooserDialog extends DialogFragment
+    public static class AccountChooserDialog extends DialogFragment
             implements DialogInterface.OnClickListener {
 
         AlertDialog mDialog;
@@ -184,12 +209,11 @@ public class PersonalPreferencesFragment extends PreferenceFragment
             String accountName = mDialog.getListView().getAdapter().getItem(which).toString();
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
             prefs.edit().putString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, accountName).apply();
-            refreshUi(getActivity());
             dismiss();
         }
     }
 
-    final class ImportWizardDialog extends DialogFragment implements OnClickListener {
+    public static class ImportWizardDialog extends DialogFragment implements OnClickListener {
         View mRemoveButton;
         View mCancelButton;
         String mDefaultAccount;
@@ -257,7 +281,6 @@ public class PersonalPreferencesFragment extends PreferenceFragment
                 ContentResolver.setIsSyncable(account, BrowserContract.AUTHORITY, 1);
             }
 
-            refreshUi(getActivity());
             dismiss();
         }
 
@@ -348,7 +371,7 @@ public class PersonalPreferencesFragment extends PreferenceFragment
                             .withSelection(Bookmarks.ACCOUNT_NAME + " IS NULL AND " +
                                     Bookmarks._ID + "<>1", null)
                             .build());
-                    
+
                     try {
                         resolver.applyBatch(BrowserContract.AUTHORITY, ops);
                     } catch (RemoteException e) {
