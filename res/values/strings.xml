@@ -890,4 +890,8 @@
          reached. [CHAR LIMIT=50] -->
     <string name="max_tabs_warning">No more tabs available</string>
 
+    <!-- Title of the picker dialog to choose an account. [CHAR-LIMIT=none]-->
+    <string name="account_picker_title">Choose an account or cancel to login
+      manually</string>
+
 </resources>
