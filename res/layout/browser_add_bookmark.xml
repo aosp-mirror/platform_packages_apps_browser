@@ -148,7 +148,7 @@
         android:visibility="gone"
         >
 
-        <ListView
+        <view class="com.android.browser.AddBookmarkPage$CustomListView"
             android:id="@+id/list"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="16dip"
@@ -165,14 +165,6 @@
             android:text="@string/no_subfolders"
             android:textStyle="italic"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        <EditText
-            android:id="@+id/folder_namer"
-            android:layout_marginLeft="16dip"
-            android:layout_marginRight="16dip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            />
     </LinearLayout>
 
     <LinearLayout 
