@@ -97,7 +97,7 @@ public class PageDialogsHandler {
         mHttpAuthenticationDialog.setCancelListener(new HttpAuthenticationDialog.CancelListener() {
             public void onCancel() {
                 handler.cancel();
-                mController.resetTitleAndRevertLockIcon(tab);
+                mController.onUpdatedLockIcon(tab);
                 mHttpAuthenticationDialog = null;
             }
         });
@@ -138,20 +138,8 @@ public class PageDialogsHandler {
 
         final WebView view = tab.getWebView();
 
-        String url = null;
-        String title = null;
-
-        if (view == null) {
-            url = tab.getUrl();
-            title = tab.getTitle();
-        } else if (view == mController.getCurrentWebView()) {
-             // Use the cached title and url if this is the current WebView
-            url = tab.getCurrentUrl();
-            title = tab.getCurrentTitle();
-        } else {
-            url = view.getUrl();
-            title = view.getTitle();
-        }
+        String url = tab.getUrl();
+        String title = tab.getTitle();
 
         if (url == null) {
             url = "";

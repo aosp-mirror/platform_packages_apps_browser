@@ -170,7 +170,6 @@ public class ActiveTabsPage extends LinearLayout {
                             + (tab.getSavedState() == null ? "null" : "non-null")
                             + " saved state ");
                 }
-                tab.populatePickerData();
                 if (tab.getTitle() == null || tab.getTitle().length() == 0) {
                     Log.w(LOGTAG, "Tab " + position + " has no title. "
                             + "Check above in the Logs to see whether it has a "

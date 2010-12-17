@@ -103,8 +103,9 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
-    public void onProgressChanged(Tab tab, int progress) {
+    public void onProgressChanged(Tab tab) {
         if (tab.inForeground()) {
+            int progress = tab.getLoadProgress();
             mFakeTitleBar.setProgress(progress);
             if (progress == 100) {
                 if (!mOptionsMenuOpen || !mExtendedMenuOpen) {
@@ -134,8 +135,6 @@ public class PhoneUi extends BaseUi {
         } else {
             revertVoiceTitleBar(tab);
         }
-        resetTitleIconAndProgress(tab);
-        updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
     }
 

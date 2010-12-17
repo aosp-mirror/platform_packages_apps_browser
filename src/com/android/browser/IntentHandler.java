@@ -75,7 +75,6 @@ public class IntentHandler {
                 return;
             }
             mController.setActiveTab(current);
-            mController.resetTitleAndIcon(current);
         }
         final String action = intent.getAction();
         final int flags = intent.getFlags();
