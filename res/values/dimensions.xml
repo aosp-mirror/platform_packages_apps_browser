@@ -31,4 +31,6 @@
     <dimen name="qc_radius">130dip</dimen>
     <dimen name="qc_radius_inc">100dip</dimen>
     <dimen name="qc_slop">15dip</dimen>
+    <dimen name="bookmark_widget_thumb_size">32dip</dimen>
+    <dimen name="bookmark_widget_favicon_size">26dip</dimen>
 </resources>

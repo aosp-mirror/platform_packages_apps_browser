@@ -31,4 +31,5 @@
     <color name="bookmarkWidgetFolderBackground">#A0383847</color>
     <color name="qc_slice_normal">#C0A0A0A0</color>
     <color name="qc_slice_active">#C02090FF</color>
+    <color name="bookmarkWidgetFaviconBackground">#23ffffff</color>
 </resources>

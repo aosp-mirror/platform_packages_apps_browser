@@ -24,11 +24,11 @@
     <ImageView
         android:id="@+id/thumb"
         android:src="@drawable/browser_thumbnail"
-        android:layout_height="32dp"
-        android:layout_width="32dp"
+        android:layout_height="@dimen/bookmark_widget_thumb_size"
+        android:layout_width="@dimen/bookmark_widget_thumb_size"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="16dp"
-        android:scaleType="fitCenter"/>
+        android:scaleType="centerInside"/>
     <TextView
         android:id="@+id/label"
         android:layout_width="0dip"

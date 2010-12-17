@@ -294,7 +294,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             // try to wait for count down latch again
             timedout = !mLatch.await(5000, TimeUnit.MILLISECONDS);
             if (timedout) {
-                Log.e(TAG, "failed to stop the timedout site in 5s");
+                throw new RuntimeException("failed to stop timedout site, is browser pegged?");
             }
         }
     }

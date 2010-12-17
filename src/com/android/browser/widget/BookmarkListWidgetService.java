@@ -16,6 +16,7 @@
 
 package com.android.browser.widget;
 
+import com.android.browser.BookmarkUtils;
 import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.R;
 
@@ -362,16 +363,37 @@ public class BookmarkListWidgetService extends RemoteViewsService {
                         RenderResult res = new RenderResult(id, title, url);
                         res.mIsFolder = c.getInt(BOOKMARK_INDEX_IS_FOLDER) != 0;
                         if (!res.mIsFolder) {
+                            // RemoteViews require a valid bitmap config
+                            Options options = new Options();
+                            options.inPreferredConfig = Config.ARGB_8888;
+                            Bitmap favIcon = null;
+                            Bitmap touchIcon = null;
                             byte[] blob = c.getBlob(BOOKMARK_INDEX_TOUCH_ICON);
-                            if (blob == null || blob.length == 0) {
-                                blob = c.getBlob(BOOKMARK_INDEX_FAVICON);
-                            }
-                            if (blob != null) {
-                                // RemoteViews require a valid bitmap config
-                                Options options = new Options();
-                                options.inPreferredConfig = Config.ARGB_8888;
-                                res.mBitmap = BitmapFactory.decodeByteArray(
+                            if (blob != null && blob.length > 0) {
+                                touchIcon = BitmapFactory.decodeByteArray(
                                         blob, 0, blob.length, options);
+                            } else {
+                                blob = c.getBlob(BOOKMARK_INDEX_FAVICON);
+                                if (blob != null && blob.length > 0) {
+                                    favIcon = BitmapFactory.decodeByteArray(
+                                            blob, 0, blob.length, options);
+                                }
+                            }
+
+                            if (favIcon == null) {
+                                favIcon = BitmapFactory.decodeResource(
+                                        mContext.getResources(),
+                                        R.drawable.app_web_browser_sm);
+                            }
+                            if (touchIcon != null || favIcon != null) {
+                                res.mBitmap = BookmarkUtils.createListWidgetIcon(
+                                        mContext, touchIcon, favIcon);
+                            }
+                            if (touchIcon != null) {
+                                touchIcon.recycle();
+                            }
+                            if (favIcon != null) {
+                                favIcon.recycle();
                             }
                         }
                         bookmarks.add(res);

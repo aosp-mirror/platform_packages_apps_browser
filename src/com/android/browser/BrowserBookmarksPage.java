@@ -231,6 +231,16 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
     }
 
+    public void onLoaderReset(Loader<Cursor> loader) {
+        onLoadFinished(loader, null);
+        switch (loader.getId()) {
+            case LOADER_BOOKMARKS: {
+                onLoadFinished(loader, null);
+                break;
+            }
+        }
+    }
+
     long getFolderId() {
         LoaderManager manager = getLoaderManager();
         BookmarksLoader loader =

@@ -410,6 +410,14 @@ public class AddBookmarkPage extends Activity
         }
     }
 
+    public void onLoaderReset(Loader<Cursor> loader) {
+        switch (loader.getId()) {
+            case LOADER_ID_FOLDER_CONTENTS:
+                mAdapter.changeCursor(null);
+                break;
+        }
+    }
+
     /**
      * Move cursor to the position that has folderToFind as its "_id".
      * @param cursor Cursor containing folders in the bookmarks database
