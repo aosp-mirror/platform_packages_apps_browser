@@ -145,12 +145,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     // WebView callbacks
 
     @Override
-    public void onPageStarted(Tab tab, String url, Bitmap favicon) {
-        super.onPageStarted(tab, url, favicon);
-        mTabBar.onPageStarted(tab, url, favicon);
-    }
-
-    @Override
     public void bookmarkedStatusHasChanged(Tab tab) {
         if (tab.inForeground()) {
             boolean isBookmark = tab.isBookmarkedSite();
@@ -160,16 +154,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
-    public void onPageFinished(Tab tab, String url) {
-        mTabBar.onPageFinished(tab);
-        super.onPageFinished(tab, url);
-        if (mUseQuickControls) {
-            mFakeTitleBar.setShowProgressOnly(false);
-        }
-    }
-
-    @Override
-    public void onProgressChanged(Tab tab, int progress) {
+    public void onProgressChanged(Tab tab) {
+        int progress = tab.getLoadProgress();
         mTabBar.onProgress(tab, progress);
         if (tab.inForeground()) {
             mFakeTitleBar.setProgress(progress);
@@ -229,7 +215,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         } else {
             revertVoiceTitleBar(tab);
         }
-        resetTitleIconAndProgress(tab);
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
     }
@@ -331,16 +316,16 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
-    public void setUrlTitle(Tab tab, String url, String title) {
-        super.setUrlTitle(tab, url, title);
-        mTabBar.onUrlAndTitle(tab, url, title);
+    public void setUrlTitle(Tab tab) {
+        super.setUrlTitle(tab);
+        mTabBar.onUrlAndTitle(tab, tab.getUrl(), tab.getTitle());
     }
 
     // Set the favicon in the title bar.
     @Override
-    public void setFavicon(Tab tab, Bitmap icon) {
-        super.setFavicon(tab, icon);
-        mTabBar.onFavicon(tab, icon);
+    public void setFavicon(Tab tab) {
+        super.setFavicon(tab);
+        mTabBar.onFavicon(tab, tab.getFavicon());
     }
 
     @Override
@@ -358,7 +343,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     public void revertVoiceTitleBar(Tab tab) {
         mTitleBar.setInVoiceMode(false, null);
-        String url = tab.getCurrentUrl();
+        String url = tab.getUrl();
         mTitleBar.setDisplayTitle(url);
         mFakeTitleBar.setInVoiceMode(false, null);
         mFakeTitleBar.setDisplayTitle(url);

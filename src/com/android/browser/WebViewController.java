@@ -50,7 +50,7 @@ public interface WebViewController {
 
     void onPageFinished(Tab tab, String url);
 
-    void onProgressChanged(Tab tab, int newProgress);
+    void onProgressChanged(Tab tab);
 
     void onReceivedTitle(Tab tab, final String title);
 
@@ -83,13 +83,15 @@ public interface WebViewController {
     void showSslCertificateOnError(WebView view, SslErrorHandler handler,
             SslError error);
 
+    void onUserCanceledSsl(Tab tab);
+
     void activateVoiceSearchMode(String title);
 
     void revertVoiceSearchMode(Tab tab);
 
     boolean shouldShowErrorConsole();
 
-    void resetTitleAndRevertLockIcon(Tab tab);
+    void onUpdatedLockIcon(Tab tab);
 
     void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType);
 

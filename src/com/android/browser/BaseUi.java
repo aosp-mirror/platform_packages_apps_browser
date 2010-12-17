@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import com.android.browser.Tab.LockIcon;
+
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -178,30 +180,17 @@ public abstract class BaseUi implements UI, WebViewFactory {
         return false;
     }
 
-    // WebView callbacks
-
+    // Tab callbacks
     @Override
-    public void onPageStarted(Tab tab, String url, Bitmap favicon) {
-        if (tab.inForeground()) {
-            resetLockIcon(tab, url);
-            setUrlTitle(tab, url, null);
-            setFavicon(tab, favicon);
-        }
+    public void onTabDataChanged(Tab tab) {
+        setUrlTitle(tab);
+        setFavicon(tab);
+        updateLockIconToLatest(tab);
     }
 
     @Override
     public void bookmarkedStatusHasChanged(Tab tab) {
         // no op in base case
-    }
-
-    @Override
-    public void onPageFinished(Tab tab, String url) {
-        if (tab.inForeground()) {
-            // Reset the title and icon in case we stopped a provisional load.
-            resetTitleAndIcon(tab);
-            // Update the lock icon image only once we are done loading
-            updateLockIconToLatest(tab);
-        }
     }
 
     @Override
@@ -231,6 +220,8 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mActiveTab = tab;
         attachTabToContentView(tab);
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
+        onTabDataChanged(tab);
+        onProgressChanged(tab);
     }
 
     Tab getActiveTab() {
@@ -424,7 +415,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
     @Override
     public void revertVoiceTitleBar(Tab tab) {
         getEmbeddedTitleBar().setInVoiceMode(false);
-        String url = tab.getCurrentUrl();
+        String url = tab.getUrl();
         getEmbeddedTitleBar().setDisplayTitle(url);
         getFakeTitleBar().setInVoiceMode(false);
         getFakeTitleBar().setDisplayTitle(url);
@@ -524,81 +515,32 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     // -------------------------------------------------------------------------
 
-    @Override
-    public void resetTitleAndRevertLockIcon(Tab tab) {
-        tab.revertLockIcon();
-        updateLockIconToLatest(tab);
-        resetTitleIconAndProgress(tab);
-    }
-
-    /**
-     * Resets the lock icon. This method is called when we start a new load and
-     * know the url to be loaded.
-     */
-    private void resetLockIcon(Tab tab, String url) {
-        // Save the lock-icon state (we revert to it if the load gets cancelled)
-        tab.resetLockIcon(url);
-        updateLockIconImage(Tab.LOCK_ICON_UNSECURE);
-    }
-
     /**
      * Update the lock icon to correspond to our latest state.
      */
     protected void updateLockIconToLatest(Tab t) {
-        if (t != null) {
+        if (t != null && t.inForeground()) {
             updateLockIconImage(t.getLockIconType());
-        }
-    }
-
-    /**
-     * Reset the title, favicon, and progress.
-     */
-    protected void resetTitleIconAndProgress(Tab tab) {
-        WebView current = tab.getWebView();
-        if (current == null) {
-            return;
-        }
-        resetTitleAndIcon(tab, current);
-        int progress = current.getProgress();
-        current.getWebChromeClient().onProgressChanged(current, progress);
-    }
-
-    @Override
-    public void resetTitleAndIcon(Tab tab) {
-        WebView current = tab.getWebView();
-        if (current != null) {
-            resetTitleAndIcon(tab, current);
-        }
-    }
-
-    // Reset the title and the icon based on the given item.
-    private void resetTitleAndIcon(Tab tab, WebView view) {
-        WebHistoryItem item = view.copyBackForwardList().getCurrentItem();
-        if (item != null) {
-            setUrlTitle(tab, item.getUrl(), item.getTitle());
-            setFavicon(tab, item.getFavicon());
-        } else {
-            setUrlTitle(tab, null, mActivity.getString(R.string.new_tab));
-            setFavicon(tab, null);
         }
     }
 
     /**
      * Updates the lock-icon image in the title-bar.
      */
-    private void updateLockIconImage(int lockIconType) {
+    private void updateLockIconImage(LockIcon lockIconType) {
         Drawable d = null;
-        if (lockIconType == Tab.LOCK_ICON_SECURE) {
+        if (lockIconType == LockIcon.LOCK_ICON_SECURE) {
             d = mSecLockIcon;
-        } else if (lockIconType == Tab.LOCK_ICON_MIXED) {
+        } else if (lockIconType == LockIcon.LOCK_ICON_MIXED) {
             d = mMixLockIcon;
         }
         getEmbeddedTitleBar().setLock(d);
         getFakeTitleBar().setLock(d);
     }
 
-    @Override
-    public void setUrlTitle(Tab tab, String url, String title) {
+    protected void setUrlTitle(Tab tab) {
+        String url = tab.getUrl();
+        String title = tab.getTitle();
         if (TextUtils.isEmpty(title)) {
             title = url;
         }
@@ -610,10 +552,12 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     // Set the favicon in the title bar.
-    @Override
-    public void setFavicon(Tab tab, Bitmap icon) {
-        getEmbeddedTitleBar().setFavicon(icon);
-        getFakeTitleBar().setFavicon(icon);
+    protected void setFavicon(Tab tab) {
+        if (tab.inForeground()) {
+            Bitmap icon = tab.getFavicon();
+            getEmbeddedTitleBar().setFavicon(icon);
+            getFakeTitleBar().setFavicon(icon);
+        }
     }
 
     @Override

@@ -350,11 +350,9 @@ class TabControl {
                     Tab t = new Tab(mController, null, false, null, null);
                     if (state != null) {
                         t.setSavedState(state);
-                        t.populatePickerDataFromSavedState();
                         // Need to maintain the app id and original url so we
                         // can possibly reuse this tab.
                         t.setAppId(state.getString(Tab.APPID));
-                        t.setOriginalUrl(state.getString(Tab.ORIGINALURL));
                     }
                     mTabs.add(t);
                     // added the tab to the front as they are not current
@@ -537,28 +535,11 @@ class TabControl {
     }
 
     /**
-     * Recreate the main WebView of the given tab. Returns true if the WebView
-     * requires a load, whether it was due to the fact that it was deleted, or
-     * it is because it was a voice search.
+     * Recreate the main WebView of the given tab.
      */
-    boolean recreateWebView(Tab t, UrlData urlData) {
-        final String url = urlData.mUrl;
+    void recreateWebView(Tab t) {
         final WebView w = t.getWebView();
         if (w != null) {
-            if (url != null && url.equals(t.getOriginalUrl())
-                    // Treat a voice intent as though it is a different URL,
-                    // since it most likely is.
-                    && urlData.mVoiceIntent == null) {
-                // The original url matches the current url. Just go back to the
-                // first history item so we can load it faster than if we
-                // rebuilt the WebView.
-                final WebBackForwardList list = w.copyBackForwardList();
-                if (list != null) {
-                    w.goBackOrForward(-list.getCurrentIndex());
-                    w.clearHistory(); // maintains the current page.
-                    return false;
-                }
-            }
             t.destroy();
         }
         // Create a new WebView. If this tab is the current tab, we need to put
@@ -569,10 +550,6 @@ class TabControl {
         }
         // Clear the saved state and picker data
         t.setSavedState(null);
-        t.clearPickerData();
-        // Save the new url in order to avoid deleting the WebView.
-        t.setOriginalUrl(url);
-        return true;
     }
 
     /**

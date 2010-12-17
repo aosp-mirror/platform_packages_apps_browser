@@ -73,10 +73,8 @@ public class TabBar extends LinearLayout
 
     private boolean mUserRequestedUrlbar;
     private int mVisibleTitleHeight;
-    private boolean mHasReceivedTitle;
 
     private Drawable mGenericFavicon;
-    private String mLoadingText;
 
     private Drawable mActiveDrawable;
     private Drawable mInactiveDrawable;
@@ -111,7 +109,6 @@ public class TabBar extends LinearLayout
         mNewTab = (ImageButton) findViewById(R.id.newtab);
         mNewTab.setOnClickListener(this);
         mGenericFavicon = res.getDrawable(R.drawable.app_web_browser_sm);
-        mLoadingText = res.getString(R.string.title_bar_loading);
         setChildrenDrawingOrderEnabled(true);
 
         // TODO: Change enabled states based on whether you can go
@@ -346,18 +343,15 @@ public class TabBar extends LinearLayout
 
         private void updateFromData() {
             mTabData.mTabView = this;
-            if (mTabData.mUrl != null) {
-                setDisplayTitle(mTabData.mUrl);
+            Tab tab = mTabData.mTab;
+            String displayTitle = tab.getTitle();
+            if (displayTitle == null) {
+                displayTitle = tab.getUrl();
             }
-            if (mTabData.mTitle != null) {
-                setDisplayTitle(mTabData.mTitle);
-            }
+            setDisplayTitle(displayTitle);
             setProgress(mTabData.mProgress);
             if (mTabData.mIcon != null) {
                 setFavicon(mTabData.mIcon);
-            }
-            if (mTabData.mLock != null) {
-                setLock(mTabData.mLock);
             }
             if (mTabData.mTab != null) {
                 mIncognito.setVisibility(
@@ -463,21 +457,13 @@ public class TabBar extends LinearLayout
         TabView mTabView;
         int mProgress;
         Drawable mIcon;
-        Drawable mLock;
-        String mTitle;
-        String mUrl;
 
         TabViewData(Tab tab) {
             mTab = tab;
-            WebView web = tab.getWebView();
-            if (web != null) {
-                setUrlAndTitle(web.getUrl(), web.getTitle());
-            }
+            setUrlAndTitle(mTab.getUrl(), mTab.getTitle());
         }
 
         void setUrlAndTitle(String url, String title) {
-            mUrl = url;
-            mTitle = title;
             if (mTabView != null) {
                 if (title != null) {
                     mTabView.setDisplayTitle(title);
@@ -562,28 +548,9 @@ public class TabBar extends LinearLayout
     }
 
     public void onUrlAndTitle(Tab tab, String url, String title) {
-        mHasReceivedTitle = true;
         TabViewData tvd = mTabMap.get(tab);
         if (tvd != null) {
             tvd.setUrlAndTitle(url, title);
-        }
-    }
-
-    public void onPageFinished(Tab tab) {
-        if (!mHasReceivedTitle) {
-            TabViewData tvd = mTabMap.get(tab);
-            if (tvd != null) {
-                tvd.setUrlAndTitle(tvd.mUrl, null);
-            }
-        }
-    }
-
-    public void onPageStarted(Tab tab, String url, Bitmap favicon) {
-        mHasReceivedTitle = false;
-        TabViewData tvd = mTabMap.get(tab);
-        if (tvd != null) {
-            tvd.setFavicon(favicon);
-            tvd.setUrlAndTitle(url, mLoadingText);
         }
     }
 
