@@ -110,6 +110,8 @@ public class AddBookmarkPage extends Activity
     private CustomListView mListView;
     private boolean mSaveToHomeScreen;
     private long mRootFolder;
+    private TextView mTopLevelLabel;
+    private Drawable mHeaderIcon;
 
     private static class Folder {
         String Name;
@@ -157,6 +159,16 @@ public class AddBookmarkPage extends Activity
         if (mIsFolderNamerShowing) {
             completeOrCancelFolderNaming(true);
         }
+        setShowBookmarkIcon(level == 1);
+    }
+
+    /**
+     * Show or hide the icon for bookmarks next to "Bookmarks" in the crumb view.
+     * @param show True if the icon should visible, false otherwise.
+     */
+    private void setShowBookmarkIcon(boolean show) {
+        Drawable drawable = show ? mHeaderIcon: null;
+        mTopLevelLabel.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
     }
 
     @Override
@@ -579,7 +591,10 @@ public class AddBookmarkPage extends Activity
         mCrumbs.setUseBackButton(true);
         mCrumbs.setController(this);
         String name = getString(R.string.bookmarks);
-        mCrumbs.pushView(name, false, new Folder(name, mRootFolder));
+        mTopLevelLabel = (TextView) mCrumbs.pushView(name, false, new Folder(name, mRootFolder));
+        // To better match the other folders.
+        mTopLevelLabel.setCompoundDrawablePadding(6);
+        mHeaderIcon = getResources().getDrawable(R.drawable.ic_folder_bookmark_widget_holo_dark);
         mCrumbHolder = findViewById(R.id.crumb_holder);
         mCrumbs.setMaxVisible(MAX_CRUMBS_SHOWN);
 
@@ -594,6 +609,8 @@ public class AddBookmarkPage extends Activity
         if (mCurrentFolder != mRootFolder) {
             // Find all the folders
             manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
+        } else {
+            setShowBookmarkIcon(true);
         }
         // Find the contents of the current folder
         manager.initLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
