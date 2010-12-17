@@ -197,6 +197,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
                 fragment = mBookmarks;
                 mSeperateSelectAdd.setVisibility(View.VISIBLE);
                 mBookmarksHeader.setVisibility(View.VISIBLE);
+                mAddBookmark.setVisibility(View.VISIBLE);
                 mTabBookmarks.setActivated(true);
                 mTabHistory.setActivated(false);
                 break;
@@ -204,6 +205,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
                 fragment = mHistory;
                 mBookmarksHeader.setVisibility(View.INVISIBLE);
                 mSeperateSelectAdd.setVisibility(View.INVISIBLE);
+                mAddBookmark.setVisibility(View.INVISIBLE);
                 mTabBookmarks.setActivated(false);
                 mTabHistory.setActivated(true);
                 break;
