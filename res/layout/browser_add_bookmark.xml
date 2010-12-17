@@ -22,13 +22,16 @@
     <RelativeLayout android:id="@+id/crumb_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:gravity="center_vertical"
         android:visibility="gone"
         >
         <com.android.browser.BreadCrumbView android:id="@+id/crumbs"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/add_divider"
+            android:layout_centerVertical="true"
             />
         <TextView
             android:id="@+id/add_new_folder"
@@ -40,17 +43,20 @@
             android:gravity="center_vertical"
             android:text="@string/new_folder"
             android:visibility="gone"
+            android:layout_centerVertical="true"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <ImageView android:id="@+id/add_divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/add_new_folder"
             android:src="@drawable/crumb_divider"
+            android:layout_centerVertical="true"
             />
     </RelativeLayout>
     <TextView android:id="@+id/fake_title"
         android:layout_width="wrap_content"
-        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeight"
         android:drawableLeft="@drawable/ic_list_bookmark"
         android:text="@string/bookmark_this_page"
         android:layout_gravity="left"

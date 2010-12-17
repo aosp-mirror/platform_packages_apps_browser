@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeight"
-        android:src="@drawable/ic_go_normal_white" />
+        android:src="@drawable/ic_folder_bookmark_widget_holo_dark" />
     <EditText
         android:id="@+id/folder_namer"
         android:layout_width="match_parent"
