@@ -27,6 +27,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Proxy;
 import android.net.http.AndroidHttpClient;
+import android.os.Environment;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
 
@@ -116,7 +117,7 @@ class FetchUrlMimeType extends Thread {
            }
            String filename = URLUtil.guessFileName(mUri, contentDisposition,
                 mimeType);
-           mRequest.setDestinationInExternalFilesDir(mActivity, null, filename);
+           mRequest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
        }
 
        // Start the download

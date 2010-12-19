@@ -183,7 +183,9 @@ public class DownloadHandler {
         Uri uri = Uri.parse(addressString);
         final DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setMimeType(mimetype);
-        request.setDestinationInExternalFilesDir(activity, null, filename);
+        // set downloaded file destination to /sdcard/Download.
+        // or, should it be set to one of several Environment.DIRECTORY* dirs depending on mimetype?
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
         // let this downloaded file be scanned by MediaScanner - so that it can 
         // show up in Gallery app, for example.
         request.allowScanningByMediaScanner();
