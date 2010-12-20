@@ -410,7 +410,7 @@ public class AddBookmarkPage extends Activity
                     Folder thisFolder = folderStack.pop();
                     mCrumbs.pushView(thisFolder.Name, thisFolder);
                 }
-                getLoaderManager().stopLoader(LOADER_ID_ALL_FOLDERS);
+                getLoaderManager().destroyLoader(LOADER_ID_ALL_FOLDERS);
                 break;
             default:
                 break;

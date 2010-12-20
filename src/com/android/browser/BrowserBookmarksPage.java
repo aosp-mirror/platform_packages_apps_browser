@@ -482,7 +482,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
         mCrumbs.setController(null);
         mCrumbs = null;
-        getLoaderManager().stopLoader(LOADER_BOOKMARKS);
+        getLoaderManager().destroyLoader(LOADER_BOOKMARKS);
     }
 
     @Override
