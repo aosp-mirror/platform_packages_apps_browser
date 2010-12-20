@@ -64,23 +64,11 @@ public interface UI {
 
     public void removeSubWindow(View subContainer);
 
-    // TODO: consolidate
-    public void setUrlTitle(Tab tab, String url, String title);
-
-    // TODO: consolidate
-    public void setFavicon(Tab tab, Bitmap icon);
-
-    public void resetTitleAndRevertLockIcon(Tab tab);
-
-    public void resetTitleAndIcon(Tab tab);
-
-    public void onPageStarted(Tab tab, String url, Bitmap favicon);
-
-    public void onPageFinished(Tab tab, String url);
+    public void onTabDataChanged(Tab tab);
 
     public void onPageStopped(Tab tab);
 
-    public void onProgressChanged(Tab tab, int progress);
+    public void onProgressChanged(Tab tab);
 
     public void showActiveTabsPage();
 

@@ -522,7 +522,6 @@ public class Controller
 
     private void shareCurrentPage(Tab tab) {
         if (tab != null) {
-            tab.populatePickerData();
             sharePage(mActivity, tab.getTitle(),
                     tab.getUrl(), tab.getFavicon(),
                     createScreenshot(tab.getWebView(),
@@ -722,15 +721,8 @@ public class Controller
     public void stopLoading() {
         mLoadStopped = true;
         Tab tab = mTabControl.getCurrentTab();
-        resetTitleAndRevertLockIcon(tab);
         WebView w = getCurrentTopWebView();
         w.stopLoading();
-        // FIXME: before refactor, it is using mWebViewClient. So I keep the
-        // same logic here. But for subwindow case, should we call into the main
-        // WebView's onPageFinished as we never call its onPageStarted and if
-        // the page finishes itself, we don't call onPageFinished.
-        mTabControl.getCurrentWebView().getWebViewClient().onPageFinished(w,
-                w.getUrl());
         mUi.onPageStopped(tab);
     }
 
@@ -770,7 +762,7 @@ public class Controller
         }
         endActionMode();
 
-        mUi.onPageStarted(tab, url, favicon);
+        mUi.onTabDataChanged(tab);
 
         // update the bookmark database for favicon
         maybeUpdateFavicon(tab, null, url, favicon);
@@ -786,7 +778,7 @@ public class Controller
 
     @Override
     public void onPageFinished(Tab tab, String url) {
-        mUi.onPageFinished(tab, url);
+        mUi.onTabDataChanged(tab);
         if (!tab.isPrivateBrowsingEnabled()) {
             if (tab.inForeground() && !didUserStopLoading()
                     || !tab.inForeground()) {
@@ -814,7 +806,8 @@ public class Controller
     }
 
     @Override
-    public void onProgressChanged(Tab tab, int newProgress) {
+    public void onProgressChanged(Tab tab) {
+        int newProgress = tab.getLoadProgress();
 
         if (newProgress == 100) {
             CookieSyncManager.getInstance().sync();
@@ -838,13 +831,18 @@ public class Controller
                 updateInLoadMenuItems(mCachedMenu);
             }
         }
-        mUi.onProgressChanged(tab, newProgress);
+        mUi.onProgressChanged(tab);
+    }
+
+    @Override
+    public void onUpdatedLockIcon(Tab tab) {
+        mUi.onTabDataChanged(tab);
     }
 
     @Override
     public void onReceivedTitle(Tab tab, final String title) {
-        final String pageUrl = tab.getWebView().getUrl();
-        setUrlTitle(tab, pageUrl, title);
+        mUi.onTabDataChanged(tab);
+        final String pageUrl = tab.getUrl();
         if (pageUrl == null || pageUrl.length()
                 >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
             return;
@@ -857,7 +855,7 @@ public class Controller
 
     @Override
     public void onFavicon(Tab tab, WebView view, Bitmap icon) {
-        mUi.setFavicon(tab, icon);
+        mUi.onTabDataChanged(tab);
         maybeUpdateFavicon(tab, view.getOriginalUrl(), view.getUrl(), icon);
     }
 
@@ -2016,24 +2014,17 @@ public class Controller
         // content view first.
         mUi.detachTab(appTab);
         // Recreate the main WebView after destroying the old one.
-        // If the WebView has the same original url and is on that
-        // page, it can be reused.
-        boolean needsLoad =
-                mTabControl.recreateWebView(appTab, urlData);
+        mTabControl.recreateWebView(appTab);
         // TODO: analyze why the remove and add are necessary
         mUi.attachTab(appTab);
         if (mTabControl.getCurrentTab() != appTab) {
             switchToTab(mTabControl.getTabIndex(appTab));
-            if (needsLoad) {
-                loadUrlDataIn(appTab, urlData);
-            }
+            loadUrlDataIn(appTab, urlData);
         } else {
             // If the tab was the current tab, we have to attach
             // it to the view system again.
             setActiveTab(appTab);
-            if (needsLoad) {
-                loadUrlDataIn(appTab, urlData);
-            }
+            loadUrlDataIn(appTab, urlData);
         }
     }
 
@@ -2233,33 +2224,15 @@ public class Controller
         data.loadIn(t);
     }
 
-    /**
-     * Resets the browser title-view to whatever it must be
-     * (for example, if we had a loading error)
-     * When we have a new page, we call resetTitle, when we
-     * have to reset the titlebar to whatever it used to be
-     * (for example, if the user chose to stop loading), we
-     * call resetTitleAndRevertLockIcon.
-     */
-    public void resetTitleAndRevertLockIcon(Tab tab) {
-        mUi.resetTitleAndRevertLockIcon(tab);
-    }
-
-    void resetTitleAndIcon(Tab tab) {
-        mUi.resetTitleAndIcon(tab);
-    }
-
-    /**
-     * Sets a title composed of the URL and the title string.
-     * @param url The URL of the site being loaded.
-     * @param title The title of the site being loaded.
-     */
-    void setUrlTitle(Tab tab, String url, String title) {
-        tab.setCurrentUrl(url);
-        tab.setCurrentTitle(title);
-        // If we are in voice search mode, the title has already been set.
-        if (tab.isInVoiceSearchMode()) return;
-        mUi.setUrlTitle(tab, url, title);
+    @Override
+    public void onUserCanceledSsl(Tab tab) {
+        WebView web = tab.getWebView();
+        // TODO: Figure out the "right" behavior
+        if (web.canGoBack()) {
+            web.goBack();
+        } else {
+            web.loadUrl(mSettings.getHomePage());
+        }
     }
 
     void goBackOnePageOrQuit() {

@@ -41,6 +41,7 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -97,6 +98,8 @@ public class AddBookmarkPage extends Activity
     private View mDefaultView;
     private View mFolderSelector;
     private EditText mFolderNamer;
+    private boolean mIsFolderNamerShowing;
+    private View mFolderNamerHolder;
     private View mAddNewFolder;
     private View mAddSeparator;
     private long mCurrentFolder = 0;
@@ -104,9 +107,11 @@ public class AddBookmarkPage extends Activity
     private BreadCrumbView mCrumbs;
     private TextView mFakeTitle;
     private View mCrumbHolder;
-    private ListView mListView;
+    private CustomListView mListView;
     private boolean mSaveToHomeScreen;
     private long mRootFolder;
+    private TextView mTopLevelLabel;
+    private Drawable mHeaderIcon;
 
     private static class Folder {
         String Name;
@@ -151,9 +156,19 @@ public class AddBookmarkPage extends Activity
                 LOADER_ID_FOLDER_CONTENTS));
         loader.setUri(getUriForFolder(folder));
         loader.forceLoad();
-        if (mFolderNamer.getVisibility() == View.VISIBLE) {
+        if (mIsFolderNamerShowing) {
             completeOrCancelFolderNaming(true);
         }
+        setShowBookmarkIcon(level == 1);
+    }
+
+    /**
+     * Show or hide the icon for bookmarks next to "Bookmarks" in the crumb view.
+     * @param show True if the icon should visible, false otherwise.
+     */
+    private void setShowBookmarkIcon(boolean show) {
+        Drawable drawable = show ? mHeaderIcon: null;
+        mTopLevelLabel.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
     }
 
     @Override
@@ -197,7 +212,7 @@ public class AddBookmarkPage extends Activity
         if (v == mButton) {
             if (mFolderSelector.getVisibility() == View.VISIBLE) {
                 // We are showing the folder selector.
-                if (mFolderNamer.getVisibility() == View.VISIBLE) {
+                if (mIsFolderNamerShowing) {
                     completeOrCancelFolderNaming(false);
                 } else {
                     // User has selected a folder.  Go back to the opening page
@@ -208,7 +223,7 @@ public class AddBookmarkPage extends Activity
                 finish();
             }
         } else if (v == mCancelButton) {
-            if (mFolderNamer.getVisibility() == View.VISIBLE) {
+            if (mIsFolderNamerShowing) {
                 completeOrCancelFolderNaming(true);
             } else if (mFolderSelector.getVisibility() == View.VISIBLE) {
                 switchToDefaultView(false);
@@ -225,14 +240,16 @@ public class AddBookmarkPage extends Activity
             popup.setOnMenuItemClickListener(this);
             popup.show();
         } else if (v == mAddNewFolder) {
-            mFolderNamer.setVisibility(View.VISIBLE);
+            setShowFolderNamer(true);
             mFolderNamer.setText(R.string.new_folder);
             mFolderNamer.requestFocus();
-            updateList();
             mAddNewFolder.setVisibility(View.GONE);
             mAddSeparator.setVisibility(View.GONE);
-            getInputMethodManager().showSoftInput(mFolderNamer,
-                    InputMethodManager.SHOW_IMPLICIT);
+            InputMethodManager imm = getInputMethodManager();
+            // Set the InputMethodManager to focus on the ListView so that it
+            // can transfer the focus to mFolderNamer.
+            imm.focusIn(mListView);
+            imm.showSoftInput(mFolderNamer, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
@@ -258,27 +275,17 @@ public class AddBookmarkPage extends Activity
         return true;
     }
 
-    // Refresh the ListView to hide or show the empty view, as necessary.
-    // Should be called after mFolderNamer is shown or hidden.
-    private void updateList() {
-        if (mAdapter.getCount() == 0) {
-            // XXX: Is there a better way to refresh the ListView?
-            mListView.setAdapter(mAdapter);
-        }
-    }
-
     private void completeOrCancelFolderNaming(boolean cancel) {
         if (!cancel && !TextUtils.isEmpty(mFolderNamer.getText())) {
             String name = mFolderNamer.getText().toString();
             long id = addFolderToCurrent(mFolderNamer.getText().toString());
             descendInto(name, id);
         }
-        mFolderNamer.setVisibility(View.GONE);
+        setShowFolderNamer(false);
         mAddNewFolder.setVisibility(View.VISIBLE);
         mAddSeparator.setVisibility(View.VISIBLE);
         getInputMethodManager().hideSoftInputFromWindow(
-                mFolderNamer.getWindowToken(), 0);
-        updateList();
+                mListView.getWindowToken(), 0);
     }
 
     private long addFolderToCurrent(String name) {
@@ -461,6 +468,24 @@ public class AddBookmarkPage extends Activity
         descendInto(tv.getText().toString(), id);
     }
 
+    private void setShowFolderNamer(boolean show) {
+        if (show != mIsFolderNamerShowing) {
+            mIsFolderNamerShowing = show;
+            if (show) {
+                // Set the selection to the folder namer so it will be in
+                // view.
+                mListView.addFooterView(mFolderNamerHolder);
+            } else {
+                mListView.removeFooterView(mFolderNamerHolder);
+            }
+            // Refresh the list.
+            mListView.setAdapter(mAdapter);
+            if (show) {
+                mListView.setSelection(mListView.getCount() - 1);
+            }
+        }
+    }
+
     /**
      * Shows a list of names of folders.
      */
@@ -488,7 +513,7 @@ public class AddBookmarkPage extends Activity
         @Override
         public boolean isEmpty() {
             // Do not show the empty view if the user is creating a new folder.
-            return super.isEmpty() && mFolderNamer.getVisibility() == View.GONE;
+            return super.isEmpty() && !mIsFolderNamerShowing;
         }
     }
 
@@ -554,7 +579,8 @@ public class AddBookmarkPage extends Activity
         mDefaultView = findViewById(R.id.default_view);
         mFolderSelector = findViewById(R.id.folder_selector);
 
-        mFolderNamer = (EditText) findViewById(R.id.folder_namer);
+        mFolderNamerHolder = getLayoutInflater().inflate(R.layout.new_folder_layout, null);
+        mFolderNamer = (EditText) mFolderNamerHolder.findViewById(R.id.folder_namer);
         mFolderNamer.setOnEditorActionListener(this);
 
         mAddNewFolder = findViewById(R.id.add_new_folder);
@@ -565,20 +591,26 @@ public class AddBookmarkPage extends Activity
         mCrumbs.setUseBackButton(true);
         mCrumbs.setController(this);
         String name = getString(R.string.bookmarks);
-        mCrumbs.pushView(name, false, new Folder(name, mRootFolder));
+        mTopLevelLabel = (TextView) mCrumbs.pushView(name, false, new Folder(name, mRootFolder));
+        // To better match the other folders.
+        mTopLevelLabel.setCompoundDrawablePadding(6);
+        mHeaderIcon = getResources().getDrawable(R.drawable.ic_folder_bookmark_widget_holo_dark);
         mCrumbHolder = findViewById(R.id.crumb_holder);
         mCrumbs.setMaxVisible(MAX_CRUMBS_SHOWN);
 
         mAdapter = new FolderAdapter(this);
-        mListView = (ListView) findViewById(R.id.list);
+        mListView = (CustomListView) findViewById(R.id.list);
         View empty = findViewById(R.id.empty);
         mListView.setEmptyView(empty);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
+        mListView.addEditText(mFolderNamer);
         LoaderManager manager = getLoaderManager();
         if (mCurrentFolder != mRootFolder) {
             // Find all the folders
             manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
+        } else {
+            setShowBookmarkIcon(true);
         }
         // Find the contents of the current folder
         manager.initLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
@@ -847,5 +879,33 @@ public class AddBookmarkPage extends Activity
             LogTag.logBookmarkAdded(url, "bookmarkview");
         }
         return true;
+    }
+
+    /*
+     * Class used as a proxy for the InputMethodManager to get to mFolderNamer
+     */
+    public static class CustomListView extends ListView {
+        private EditText mEditText;
+
+        public void addEditText(EditText editText) {
+            mEditText = editText;
+        }
+
+        public CustomListView(Context context) {
+            super(context);
+        }
+
+        public CustomListView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public CustomListView(Context context, AttributeSet attrs, int defStyle) {
+            super(context, attrs, defStyle);
+        }
+
+        @Override
+        public boolean checkInputConnectionProxy(View view) {
+            return view == mEditText;
+        }
     }
 }

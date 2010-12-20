@@ -22,12 +22,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.AsyncTask;
@@ -55,7 +57,6 @@ import android.webkit.WebHistoryItem;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,9 +80,11 @@ class Tab {
     // of the browser.
     private static final String CONSOLE_LOGTAG = "browser";
 
-    final static int LOCK_ICON_UNSECURE = 0;
-    final static int LOCK_ICON_SECURE   = 1;
-    final static int LOCK_ICON_MIXED    = 2;
+    public enum LockIcon {
+        LOCK_ICON_UNSECURE,
+        LOCK_ICON_SECURE,
+        LOCK_ICON_MIXED,
+    }
 
     Activity mActivity;
     private WebViewController mWebViewController;
@@ -100,8 +103,6 @@ class Tab {
     // information needed to restore the WebView if the user goes back to the
     // tab.
     private Bundle mSavedState;
-    // Data used when displaying the tab in the picker.
-    private PickerData mPickerData;
     // Parent Tab. This is the Tab that created this Tab, or null if the Tab was
     // created by the UI
     private Tab mParentTab;
@@ -115,6 +116,8 @@ class Tab {
     // If true, the tab is in page loading state (after onPageStarted,
     // before onPageFinsihed)
     private boolean mInPageLoad;
+    // The last reported progress of the current page
+    private int mPageLoadProgress;
     // The time the load started, used to find load page time
     private long mLoadStartTime;
     // Application identifier used to find tabs that another application wants
@@ -122,16 +125,8 @@ class Tab {
     private String mAppId;
     // Keep the original url around to avoid killing the old WebView if the url
     // has not changed.
-    private String mOriginalUrl;
-    // Hold on to the currently loaded url
-    private String mCurrentUrl;
-    //The currently loaded title
-    private String mCurrentTitle;
     // Error console for the tab
     private ErrorConsoleView mErrorConsole;
-    // the lock icon type and previous lock icon type for the tab
-    private int mLockIconType;
-    private int mPrevLockIconType;
     // The listener that gets invoked when a download is started from the
     // mMainView
     private final DownloadListener mDownloadListener;
@@ -141,12 +136,52 @@ class Tab {
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
 
-    // Extra saved information for displaying the tab in the picker.
-    private static class PickerData {
-        String  mUrl;
-        String  mTitle;
-        Bitmap  mFavicon;
+    // All the state needed for a page
+    private static class PageState {
+        String mUrl;
+        String mTitle;
+        LockIcon mLockIcon;
+        Bitmap mFavicon;
+
+        PageState(Context c, boolean incognito) {
+            if (incognito) {
+                mUrl = "browser:incognito";
+                mTitle = c.getString(R.string.new_incognito_tab);
+                mFavicon = BitmapFactory.decodeResource(
+                        c.getResources(), R.drawable.fav_incognito);
+            } else {
+                mUrl = "";
+                mTitle = c.getString(R.string.new_tab);
+                mFavicon = BitmapFactory.decodeResource(
+                        c.getResources(), R.drawable.app_web_browser_sm);
+            }
+            mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
+        }
+
+        PageState(Context c, boolean incognito, String url, Bitmap favicon) {
+            mUrl = url;
+            mTitle = null;
+            if (URLUtil.isHttpsUrl(url)) {
+                mLockIcon = LockIcon.LOCK_ICON_SECURE;
+            } else {
+                mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
+            }
+            if (favicon != null) {
+                mFavicon = favicon;
+            } else {
+                if (incognito) {
+                    mFavicon = BitmapFactory.decodeResource(
+                            c.getResources(), R.drawable.fav_incognito);
+                } else {
+                    mFavicon = BitmapFactory.decodeResource(
+                            c.getResources(), R.drawable.app_web_browser_sm);
+                }
+            }
+        }
     }
+
+    // The current/loading page's state
+    private PageState mCurrentState;
 
     // Whether or not the currently shown page is a bookmarked site.  Will be
     // out of date when loading a new page until the mBookmarkAsyncTask returns.
@@ -157,6 +192,9 @@ class Tab {
     public boolean isBookmarkedSite() { return mIsBookmarkedSite; }
 
     // Used for saving and restoring each Tab
+    // TODO: Figure out who uses what and where
+    //       Some of these aren't use in this class, and some are only used in
+    //       restoring state but not saving it - FIX THIS
     static final String WEBVIEW = "webview";
     static final String NUMTABS = "numTabs";
     static final String CURRTAB = "currentTab";
@@ -472,6 +510,9 @@ class Tab {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInPageLoad = true;
+            mPageLoadProgress = 0;
+            mCurrentState = new PageState(mActivity,
+                    view.isPrivateBrowsingEnabled(), url, favicon);
             mLoadStartTime = SystemClock.uptimeMillis();
             if (mVoiceSearchData != null
                     && !url.equals(mVoiceSearchData.mLastVoiceSearchUrl)) {
@@ -513,7 +554,15 @@ class Tab {
                         url, SystemClock.uptimeMillis() - mLoadStartTime);
             }
             mInPageLoad = false;
-
+            // Sync state (in case of stop/timeout)
+            mCurrentState.mUrl = view.getUrl();
+            mCurrentState.mTitle = view.getTitle();
+            mCurrentState.mFavicon = view.getFavicon();
+            if (!URLUtil.isHttpsUrl(mCurrentState.mUrl)) {
+                // In case we stop when loading an HTTPS page from an HTTP page
+                // but before a provisional load occurred
+                mCurrentState.mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
+            }
             mWebViewController.onPageFinished(Tab.this, url);
         }
 
@@ -551,11 +600,11 @@ class Tab {
             if (url != null && url.length() > 0) {
                 // It is only if the page claims to be secure that we may have
                 // to update the lock:
-                if (mLockIconType == LOCK_ICON_SECURE) {
+                if (mCurrentState.mLockIcon == LockIcon.LOCK_ICON_SECURE) {
                     // If NOT a 'safe' url, change the lock to mixed content!
                     if (!(URLUtil.isHttpsUrl(url) || URLUtil.isDataUrl(url)
                             || URLUtil.isAboutUrl(url))) {
-                        mLockIconType = LOCK_ICON_MIXED;
+                        mCurrentState.mLockIcon = LockIcon.LOCK_ICON_MIXED;
                     }
                 }
             }
@@ -580,11 +629,6 @@ class Tab {
             if (!isPrivateBrowsingEnabled()) {
                 Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
                         + " " + description);
-            }
-
-            // We need to reset the title after an error if it is in foreground.
-            if (mInForeground) {
-                mWebViewController.resetTitleAndRevertLockIcon(Tab.this);
             }
         }
 
@@ -661,6 +705,7 @@ class Tab {
                 final SslErrorHandler handler, final SslError error) {
             if (!mInForeground) {
                 handler.cancel();
+                setLockIconType(LockIcon.LOCK_ICON_UNSECURE);
                 return;
             }
             if (BrowserSettings.getInstance().showSecurityWarnings()) {
@@ -723,14 +768,14 @@ class Tab {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                     int whichButton) {
-                                handler.cancel();
-                                mWebViewController.resetTitleAndRevertLockIcon(Tab.this);
+                                dialog.cancel();
                             }
                         }).setOnCancelListener(
                         new DialogInterface.OnCancelListener() {
                             public void onCancel(DialogInterface dialog) {
                                 handler.cancel();
-                                mWebViewController.resetTitleAndRevertLockIcon(Tab.this);
+                                setLockIconType(LockIcon.LOCK_ICON_UNSECURE);
+                                mWebViewController.onUserCanceledSsl(Tab.this);
                             }
                         }).show();
             } else {
@@ -881,16 +926,19 @@ class Tab {
 
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            mWebViewController.onProgressChanged(Tab.this, newProgress);
+            mPageLoadProgress = newProgress;
+            mWebViewController.onProgressChanged(Tab.this);
         }
 
         @Override
         public void onReceivedTitle(WebView view, final String title) {
+            mCurrentState.mTitle = title;
             mWebViewController.onReceivedTitle(Tab.this, title);
         }
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
+            mCurrentState.mFavicon = icon;
             mWebViewController.onFavicon(Tab.this, view, icon);
         }
 
@@ -1212,9 +1260,7 @@ class Tab {
         mActivity = mWebViewController.getActivity();
         mCloseOnExit = closeOnExit;
         mAppId = appId;
-        mOriginalUrl = url;
-        mLockIconType = LOCK_ICON_UNSECURE;
-        mPrevLockIconType = LOCK_ICON_UNSECURE;
+        mCurrentState = new PageState(mActivity, w.isPrivateBrowsingEnabled());
         mInPageLoad = false;
         mInForeground = false;
 
@@ -1528,77 +1574,25 @@ class Tab {
         mAppId = id;
     }
 
-    /**
-     * @return The original url associated with this Tab
-     */
-    String getOriginalUrl() {
-        return mOriginalUrl;
-    }
-
-    /**
-     * Set the original url associated with this tab
-     */
-    void setOriginalUrl(String url) {
-        mOriginalUrl = url;
-    }
-
-    /**
-     * set the title for the tab
-     */
-    void setCurrentTitle(String title) {
-        mCurrentTitle = title;
-    }
-
-    /**
-     * set url for this tab
-     * @param url
-     */
-    void setCurrentUrl(String url) {
-        mCurrentUrl = url;
-    }
-
-    String getCurrentTitle() {
-        return mCurrentTitle;
-    }
-
-    String getCurrentUrl() {
-        return mCurrentUrl;
-    }
-    /**
-     * Get the url of this tab. Valid after calling populatePickerData, but
-     * before calling wipePickerData, or if the webview has been destroyed.
-     * @return The WebView's url or null.
-     */
     String getUrl() {
-        if (mPickerData != null) {
-            return mPickerData.mUrl;
-        }
-        return null;
+        return mCurrentState.mUrl;
     }
 
     /**
-     * Get the title of this tab. Valid after calling populatePickerData, but
-     * before calling wipePickerData, or if the webview has been destroyed. If
-     * the url has no title, use the url instead.
-     * @return The WebView's title (or url) or null.
+     * Get the title of this tab.
      */
     String getTitle() {
-        if (mPickerData != null) {
-            return mPickerData.mTitle;
+        if (mCurrentState.mTitle == null && mInPageLoad) {
+            return mActivity.getString(R.string.title_bar_loading);
         }
-        return null;
+        return mCurrentState.mTitle;
     }
 
     /**
-     * Get the favicon of this tab. Valid after calling populatePickerData, but
-     * before calling wipePickerData, or if the webview has been destroyed.
-     * @return The WebView's favicon or null.
+     * Get the favicon of this tab.
      */
     Bitmap getFavicon() {
-        if (mPickerData != null) {
-            return mPickerData.mFavicon;
-        }
-        return null;
+        return mCurrentState.mFavicon;
     }
 
 
@@ -1636,31 +1630,23 @@ class Tab {
         return mCloseOnExit;
     }
 
-    /**
-     * Saves the current lock-icon state before resetting the lock icon. If we
-     * have an error, we may need to roll back to the previous state.
-     */
-    void resetLockIcon(String url) {
-        mPrevLockIconType = mLockIconType;
-        mLockIconType = LOCK_ICON_UNSECURE;
-        if (URLUtil.isHttpsUrl(url)) {
-            mLockIconType = LOCK_ICON_SECURE;
-        }
-    }
-
-    /**
-     * Reverts the lock-icon state to the last saved state, for example, if we
-     * had an error, and need to cancel the load.
-     */
-    void revertLockIcon() {
-        mLockIconType = mPrevLockIconType;
+    private void setLockIconType(LockIcon icon) {
+        mCurrentState.mLockIcon = icon;
+        mWebViewController.onUpdatedLockIcon(this);
     }
 
     /**
      * @return The tab's lock icon type.
      */
-    int getLockIconType() {
-        return mLockIconType;
+    LockIcon getLockIconType() {
+        return mCurrentState.mLockIcon;
+    }
+
+    int getLoadProgress() {
+        if (mInPageLoad) {
+            return mPageLoadProgress;
+        }
+        return 100;
     }
 
     /**
@@ -1677,55 +1663,9 @@ class Tab {
         mInPageLoad = false;
     }
 
-    void populatePickerData() {
-        if (mMainView == null) {
-            populatePickerDataFromSavedState();
-            return;
-        }
-
-        // FIXME: The only place we cared about subwindow was for
-        // bookmarking (i.e. not when saving state). Was this deliberate?
-        final WebBackForwardList list = mMainView.copyBackForwardList();
-        if (list == null) {
-            Log.w(LOGTAG, "populatePickerData called and WebBackForwardList is null");
-        }
-        final WebHistoryItem item = list != null ? list.getCurrentItem() : null;
-        populatePickerData(item);
-    }
-
-    // Populate the picker data using the given history item and the current top
-    // WebView.
-    private void populatePickerData(WebHistoryItem item) {
-        mPickerData = new PickerData();
-        if (item == null) {
-            Log.w(LOGTAG, "populatePickerData called with a null WebHistoryItem");
-        } else {
-            mPickerData.mUrl = item.getUrl();
-            mPickerData.mTitle = item.getTitle();
-            mPickerData.mFavicon = item.getFavicon();
-            if (mPickerData.mTitle == null) {
-                mPickerData.mTitle = mPickerData.mUrl;
-            }
-        }
-    }
-
-    // Create the PickerData and populate it using the saved state of the tab.
-    void populatePickerDataFromSavedState() {
-        if (mSavedState == null) {
-            return;
-        }
-        mPickerData = new PickerData();
-        mPickerData.mUrl = mSavedState.getString(CURRURL);
-        mPickerData.mTitle = mSavedState.getString(CURRTITLE);
-    }
-
-    void clearPickerData() {
-        mPickerData = null;
-    }
-
     /**
-     * Get the saved state bundle.
-     * @return
+     * Get the cached saved state bundle.
+     * @return cached state bundle
      */
     Bundle getSavedState() {
         return mSavedState;
@@ -1753,20 +1693,12 @@ class Tab {
 
         // Store some extra info for displaying the tab in the picker.
         final WebHistoryItem item = list != null ? list.getCurrentItem() : null;
-        populatePickerData(item);
 
-        if (mPickerData.mUrl != null) {
-            mSavedState.putString(CURRURL, mPickerData.mUrl);
-        }
-        if (mPickerData.mTitle != null) {
-            mSavedState.putString(CURRTITLE, mPickerData.mTitle);
-        }
+        mSavedState.putString(CURRURL, mCurrentState.mUrl);
+        mSavedState.putString(CURRTITLE, mCurrentState.mTitle);
         mSavedState.putBoolean(CLOSEONEXIT, mCloseOnExit);
         if (mAppId != null) {
             mSavedState.putString(APPID, mAppId);
-        }
-        if (mOriginalUrl != null) {
-            mSavedState.putString(ORIGINALURL, mOriginalUrl);
         }
         // Remember the parent tab so the relationship can be restored.
         if (mParentTab != null) {
@@ -1786,10 +1718,8 @@ class Tab {
         // Restore the internal state even if the WebView fails to restore.
         // This will maintain the app id, original url and close-on-exit values.
         mSavedState = null;
-        mPickerData = null;
         mCloseOnExit = b.getBoolean(CLOSEONEXIT);
         mAppId = b.getString(APPID);
-        mOriginalUrl = b.getString(ORIGINALURL);
 
         final WebBackForwardList list = mMainView.restoreState(b);
         if (list == null) {
@@ -1848,5 +1778,4 @@ class Tab {
         };
         mBookmarkAsyncTask.execute();
     }
-
 }
