@@ -565,8 +565,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     public String getType(Uri uri) {
         final int match = URI_MATCHER.match(uri);
         switch (match) {
+            case LEGACY:
             case BOOKMARKS:
                 return Bookmarks.CONTENT_TYPE;
+            case LEGACY_ID:
             case BOOKMARKS_ID:
                 return Bookmarks.CONTENT_ITEM_TYPE;
             case HISTORY:
@@ -577,8 +579,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 return Searches.CONTENT_TYPE;
             case SEARCHES_ID:
                 return Searches.CONTENT_ITEM_TYPE;
-//            case SUGGEST:
-//                return SearchManager.SUGGEST_MIME_TYPE;
         }
         return null;
     }
