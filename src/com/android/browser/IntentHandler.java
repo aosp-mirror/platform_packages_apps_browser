@@ -283,11 +283,12 @@ public class IntentHandler {
     private static boolean handleWebSearchRequest(Activity activity,
             Controller controller, String inUrl, Bundle appData,
             String extraData) {
-        if (TextUtils.isEmpty(inUrl)) return false;
+        if (inUrl == null) return false;
 
         // In general, we shouldn't modify URL from Intent.
         // But currently, we get the user-typed URL from search box as well.
         String url = UrlUtils.fixUrl(inUrl).trim();
+        if (TextUtils.isEmpty(url)) return false;
 
         // URLs are handled by the regular flow of control, so
         // return early.
