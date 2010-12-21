@@ -22,4 +22,7 @@
     <string name="new_incognito_tab">New incognito tab</string>
     <!-- Name of menu item which brings up a list of the currently active tabs -->
     <string name="active_tabs">Tabs</string>
+    <!-- Context Menu item to open the currently selected link in a new
+         window. [CHAR LIMIT=30] -->
+    <string name="contextmenu_openlink_newwindow">Open in new tab</string>
 </resources>
