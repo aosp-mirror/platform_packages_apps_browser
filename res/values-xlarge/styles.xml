@@ -54,8 +54,10 @@
     </style>
     <style name="SuggestionLineMedium"
             parent="@android:style/TextAppearance.Holo.Medium.Inverse">
+        <item name="android:textSize">16sp</item>
     </style>
     <style name="SuggestionLineSmall"
             parent="@android:style/TextAppearance.Holo.Small.Inverse">
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>
