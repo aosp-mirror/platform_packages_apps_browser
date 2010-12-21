@@ -523,13 +523,19 @@ public class BrowserActivity extends Activity
                     if ("about:debug.dom".equals(urlData.mUrl)) {
                         current.getWebView().dumpDomTree(false);
                     } else if ("about:debug.dom.file".equals(urlData.mUrl)) {
-                        current.getWebView().dumpDomTree(true);
+                        if (hasPermissionForTest()) {
+                            current.getWebView().dumpDomTree(true);
+                        }
                     } else if ("about:debug.render".equals(urlData.mUrl)) {
                         current.getWebView().dumpRenderTree(false);
                     } else if ("about:debug.render.file".equals(urlData.mUrl)) {
-                        current.getWebView().dumpRenderTree(true);
+                        if (hasPermissionForTest()) {
+                            current.getWebView().dumpRenderTree(true);
+                        }
                     } else if ("about:debug.display".equals(urlData.mUrl)) {
-                        current.getWebView().dumpDisplayTree();
+                        if (hasPermissionForTest()) {
+                            current.getWebView().dumpDisplayTree();
+                        }
                     } else if (urlData.mUrl.startsWith("about:debug.drag")) {
                         int index = urlData.mUrl.codePointAt(16) - '0';
                         if (index <= 0 || index > 9) {
@@ -3742,6 +3748,16 @@ public class BrowserActivity extends Activity
 
     boolean shouldShowErrorConsole() {
         return mShouldShowErrorConsole;
+    }
+
+    private boolean hasPermissionForTest() {
+        boolean permission = checkPermission("android.permission.WRITE_EXTERNAL_STORAGE",
+                android.os.Process.myPid(), android.os.Process.myUid()) ==
+                    PackageManager.PERMISSION_GRANTED;
+        if (!permission) {
+            Log.w(LOGTAG, "Missing WRITE_EXTERNAL_STORAGE permission needed for test");
+        }
+        return permission;
     }
 
     private void setStatusBarVisibility(boolean visible) {
