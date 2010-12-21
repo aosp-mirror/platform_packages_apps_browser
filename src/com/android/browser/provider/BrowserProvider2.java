@@ -96,6 +96,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             "url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ?"
             + " OR title LIKE ?";
 
+    private static final String IMAGE_PRUNE =
+            "url_key NOT IN (SELECT url FROM bookmarks " +
+            "WHERE url IS NOT NULL AND deleted == 0) AND url_key NOT IN " +
+            "(SELECT url FROM history WHERE url IS NOT NULL)";
+
     static final int BOOKMARKS = 1000;
     static final int BOOKMARKS_ID = 1001;
     static final int BOOKMARKS_FOLDER = 1002;
@@ -936,7 +941,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case BOOKMARKS: {
-                return deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
+                int deleted = deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
+                pruneImages();
+                return deleted;
             }
 
             case HISTORY_ID: {
@@ -947,7 +954,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
             case HISTORY: {
                 filterSearchClient(selectionArgs);
-                return db.delete(TABLE_HISTORY, selection, selectionArgs);
+                int deleted = db.delete(TABLE_HISTORY, selection, selectionArgs);
+                pruneImages();
+                return deleted;
             }
 
             case SEARCHES_ID: {
@@ -1257,8 +1266,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case BOOKMARKS: {
-                return updateBookmarksInTransaction(values, selection, selectionArgs,
+                int updated = updateBookmarksInTransaction(values, selection, selectionArgs,
                         callerIsSyncAdapter);
+                pruneImages();
+                return updated;
             }
 
             case HISTORY_ID: {
@@ -1268,7 +1279,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case HISTORY: {
-                return updateHistoryInTransaction(values, selection, selectionArgs);
+                int updated = updateHistoryInTransaction(values, selection, selectionArgs);
+                pruneImages();
+                return updated;
             }
 
             case SYNCSTATE: {
@@ -1460,6 +1473,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             imageValues.put(Images.URL,  url);
         }
         return imageValues;
+    }
+
+    void pruneImages() {
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        db.delete(TABLE_IMAGES, IMAGE_PRUNE, null);
     }
 
     static class SuggestionsCursor extends AbstractCursor {
