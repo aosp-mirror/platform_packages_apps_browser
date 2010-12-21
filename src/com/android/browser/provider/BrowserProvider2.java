@@ -155,6 +155,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "bookmarks/folder", BOOKMARKS_FOLDER);
         matcher.addURI(authority, "bookmarks/folder/#", BOOKMARKS_FOLDER_ID);
         matcher.addURI(authority,
+                SearchManager.SUGGEST_URI_PATH_QUERY,
+                BOOKMARKS_SUGGESTIONS);
+        matcher.addURI(authority,
                 "bookmarks/" + SearchManager.SUGGEST_URI_PATH_QUERY,
                 BOOKMARKS_SUGGESTIONS);
         matcher.addURI(authority, "history", HISTORY);
@@ -173,6 +176,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(LEGACY_AUTHORITY, "searches/#", SEARCHES_ID);
         matcher.addURI(LEGACY_AUTHORITY, "bookmarks", LEGACY);
         matcher.addURI(LEGACY_AUTHORITY, "bookmarks/#", LEGACY_ID);
+        matcher.addURI(LEGACY_AUTHORITY,
+                SearchManager.SUGGEST_URI_PATH_QUERY,
+                BOOKMARKS_SUGGESTIONS);
         matcher.addURI(LEGACY_AUTHORITY,
                 "bookmarks/" + SearchManager.SUGGEST_URI_PATH_QUERY,
                 BOOKMARKS_SUGGESTIONS);
@@ -1457,6 +1463,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     }
 
     static class SuggestionsCursor extends AbstractCursor {
+        private static final int ID_INDEX = 0;
         private static final int URL_INDEX = 1;
         private static final int TITLE_INDEX = 2;
         // shared suggestion array index, make sure to match COLUMNS
@@ -1491,7 +1498,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         @Override
         public String getString(int columnIndex) {
             switch (columnIndex) {
-            case 0:
+            case ID_INDEX:
                 return mSource.getString(columnIndex);
             case SUGGEST_COLUMN_INTENT_ACTION_ID:
                 return Intent.ACTION_VIEW;
@@ -1529,6 +1536,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         @Override
         public long getLong(int column) {
+            switch (column) {
+            case ID_INDEX:
+                return mSource.getLong(ID_INDEX);
+            }
             throw new UnsupportedOperationException();
         }
 
@@ -1539,7 +1550,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         @Override
         public boolean isNull(int column) {
-            return getString(column) == null;
+            return mSource.isNull(column);
         }
 
         @Override
