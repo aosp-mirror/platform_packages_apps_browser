@@ -29,6 +29,7 @@ import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Combined;
 import android.provider.BrowserContract.Images;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebIconDatabase;
 import android.widget.Toast;
@@ -218,24 +219,24 @@ import java.io.ByteArrayOutputStream;
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... unused) {
-                Cursor cursor = queryCombinedForUrl(cr, originalUrl, url);
-                try {
-                    if (cursor.moveToFirst()) {
-                        final ByteArrayOutputStream os = new ByteArrayOutputStream();
-                        favicon.compress(Bitmap.CompressFormat.PNG, 100, os);
+                final ByteArrayOutputStream os = new ByteArrayOutputStream();
+                favicon.compress(Bitmap.CompressFormat.PNG, 100, os);
 
-                        ContentValues values = new ContentValues();
-                        values.put(Images.FAVICON, os.toByteArray());
-                        values.put(Images.URL, cursor.getString(0));
-
-                        do {
-                            cr.update(Images.CONTENT_URI, values, null, null);
-                        } while (cursor.moveToNext());
-                    }
-                } finally {
-                    if (cursor != null) cursor.close();
-                }
+                // The Images update will insert if it doesn't exist
+                ContentValues values = new ContentValues();
+                values.put(Images.FAVICON, os.toByteArray());
+                updateImages(cr, originalUrl, values);
+                updateImages(cr, url, values);
                 return null;
+            }
+
+            private void updateImages(final ContentResolver cr,
+                    final String url, ContentValues values) {
+                String iurl = removeQuery(url);
+                if (!TextUtils.isEmpty(iurl)) {
+                    values.put(Images.URL, iurl);
+                    cr.update(BrowserContract.Images.CONTENT_URI, values, null, null);
+                }
             }
         }.execute();
     }
