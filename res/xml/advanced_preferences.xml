@@ -17,19 +17,89 @@
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <!-- Entries and values in this list are set dynamically. -->
-        <com.android.browser.search.SearchEnginePreference
-                android:key="search_engine"
-                android:title="@string/pref_content_search_engine"
-                android:defaultValue="google"
-                android:summary="@string/pref_content_search_engine_summary"
-                android:dialogTitle="@string/pref_content_search_engine" />
+    <!-- Entries and values in this list are set dynamically. -->
+    <com.android.browser.search.SearchEnginePreference
+            android:key="search_engine"
+            android:title="@string/pref_content_search_engine"
+            android:defaultValue="google"
+            android:summary="@string/pref_content_search_engine_summary"
+            android:dialogTitle="@string/pref_content_search_engine" />
 
-        <PreferenceScreen
-              android:key="website_settings"
-              android:title="@string/pref_extras_website_settings"
-              android:summary="@string/pref_extras_website_settings_summary" />
+    <CheckBoxPreference
+            android:key="open_in_background"
+            android:defaultValue="false"
+            android:title="@string/pref_content_open_in_background"
+            android:summary="@string/pref_content_open_in_background_summary" />
 
+    <CheckBoxPreference
+            android:key="enable_javascript"
+            android:defaultValue="true"
+            android:title="@string/pref_content_javascript" />
+
+    <ListPreference
+            android:key="plugin_state"
+            android:title="@string/pref_content_plugins"
+            android:defaultValue="ON"
+            android:entries="@array/pref_content_plugins_choices"
+            android:entryValues="@array/pref_content_plugins_values"
+            android:dialogTitle="@string/pref_content_plugins" />
+
+    <PreferenceScreen
+            android:key="website_settings"
+            android:title="@string/pref_extras_website_settings"
+            android:summary="@string/pref_extras_website_settings_summary" />
+
+    <PreferenceCategory android:title="@string/pref_content_title">
+        <ListPreference
+                android:key="text_size"
+                android:title="@string/pref_text_size"
+                android:defaultValue="NORMAL"
+                android:entries="@array/pref_text_size_choices"
+                android:entryValues="@array/pref_text_size_values"
+                android:dialogTitle="@string/pref_text_size_dialogtitle" />
+
+        <ListPreference
+                android:key="default_zoom"
+                android:title="@string/pref_default_zoom"
+                android:defaultValue="MEDIUM"
+                android:entries="@array/pref_default_zoom_choices"
+                android:entryValues="@array/pref_default_zoom_values"
+                android:dialogTitle="@string/pref_default_zoom_dialogtitle" />
+
+        <CheckBoxPreference
+                android:key="load_page"
+                android:defaultValue="true"
+                android:title="@string/pref_content_load_page"
+                android:summary="@string/pref_content_load_page_summary" />
+
+        <CheckBoxPreference
+                android:key="autofit_pages"
+                android:defaultValue="true"
+                android:title="@string/pref_content_autofit"
+                android:summary="@string/pref_content_autofit_summary" />
+
+        <CheckBoxPreference
+                android:key="block_popup_windows"
+                android:defaultValue="true"
+                android:title="@string/pref_content_block_popups" />
+
+        <CheckBoxPreference
+                android:key="load_images"
+                android:defaultValue="true"
+                android:title="@string/pref_content_load_images"
+                android:summary="@string/pref_content_load_images_summary" />
+
+        <ListPreference
+                android:key="default_text_encoding"
+                android:title="@string/pref_default_text_encoding"
+                android:defaultValue="@string/pref_default_text_encoding_default"
+                android:entries="@array/pref_default_text_encoding_choices"
+                android:entryValues="@array/pref_default_text_encoding_values"
+                android:dialogTitle="@string/pref_default_text_encoding_dialogtitle" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_extras_reset_default_title">
         <com.android.browser.BrowserYesNoPreference
                 android:key="reset_default_preferences"
                 android:title="@string/pref_extras_reset_default"
@@ -37,5 +107,6 @@
                 android:dialogMessage="@string/pref_extras_reset_default_dlg" 
                 android:dialogTitle="@string/pref_extras_reset_default_dlg_title" 
                 android:dialogIcon="@android:drawable/ic_dialog_alert" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

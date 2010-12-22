@@ -17,6 +17,8 @@
 package com.android.browser.preferences;
 
 import com.android.browser.BrowserBookmarksPage;
+import com.android.browser.BrowserHomepagePreference;
+import com.android.browser.BrowserPreferencesPage;
 import com.android.browser.BrowserSettings;
 import com.android.browser.R;
 
@@ -55,8 +57,8 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-public class PersonalPreferencesFragment extends PreferenceFragment
-        implements OnPreferenceClickListener {
+public class GeneralPreferencesFragment extends PreferenceFragment
+        implements OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
     static final String TAG = "PersonalPreferencesFragment";
 
     static final String PREF_CHROME_SYNC = "sync_with_chrome";
@@ -70,7 +72,31 @@ public class PersonalPreferencesFragment extends PreferenceFragment
         super.onCreate(savedInstanceState);
 
         // Load the XML preferences file
-        addPreferencesFromResource(R.xml.personal_preferences);
+        addPreferencesFromResource(R.xml.general_preferences);
+
+        Preference e = findPreference(BrowserSettings.PREF_HOMEPAGE);
+        e.setOnPreferenceChangeListener(this);
+        e.setSummary(getPreferenceScreen().getSharedPreferences()
+                .getString(BrowserSettings.PREF_HOMEPAGE, null));
+        ((BrowserHomepagePreference) e).setCurrentPage(
+                getActivity().getIntent().getStringExtra(BrowserPreferencesPage.CURRENT_PAGE));
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference pref, Object objValue) {
+        if (getActivity() == null) {
+            // We aren't attached, so don't accept preferences changes from the
+            // invisible UI.
+            Log.w("PageContentPreferencesFragment", "onPreferenceChange called from detached fragment!");
+            return false;
+        }
+
+        if (pref.getKey().equals(BrowserSettings.PREF_HOMEPAGE)) {
+            pref.setSummary((String) objValue);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -126,7 +152,7 @@ public class PersonalPreferencesFragment extends PreferenceFragment
                 Bundle args = mChromeSync.getExtras();
                 args.putParcelableArray("accounts", accounts);
                 mEnabled = BrowserContract.Settings.isSyncEnabled(mContext);
-                mChromeSync.setOnPreferenceClickListener(PersonalPreferencesFragment.this);
+                mChromeSync.setOnPreferenceClickListener(GeneralPreferencesFragment.this);
 
                 if (!mEnabled) {
                     // Setup a link to the enable wizard
