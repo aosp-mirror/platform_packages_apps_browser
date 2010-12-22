@@ -739,10 +739,8 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         reset();
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(ctx);
         p.edit().clear().apply();
-        PreferenceManager.setDefaultValues(ctx, R.xml.page_content_preferences, true);
-        PreferenceManager.setDefaultValues(ctx, R.xml.personal_preferences, true);
-        PreferenceManager.setDefaultValues(ctx, R.xml.privacy_preferences, true);
-        PreferenceManager.setDefaultValues(ctx, R.xml.security_preferences, true);
+        PreferenceManager.setDefaultValues(ctx, R.xml.general_preferences, true);
+        PreferenceManager.setDefaultValues(ctx, R.xml.privacy_security_preferences, true);
         PreferenceManager.setDefaultValues(ctx, R.xml.advanced_preferences, true);
         // reset homeUrl
         setHomePage(ctx, getFactoryResetHomeUrl(ctx));

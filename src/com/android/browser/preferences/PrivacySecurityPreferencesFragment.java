@@ -25,7 +25,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
-public class PrivacyPreferencesFragment extends PreferenceFragment
+public class PrivacySecurityPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     @Override
@@ -33,7 +33,7 @@ public class PrivacyPreferencesFragment extends PreferenceFragment
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.privacy_preferences);
+        addPreferencesFromResource(R.xml.privacy_security_preferences);
 
         Preference e = findPreference(BrowserSettings.PREF_CLEAR_HISTORY);
         e.setOnPreferenceChangeListener(this);
@@ -49,7 +49,7 @@ public class PrivacyPreferencesFragment extends PreferenceFragment
                     pref.getKey()));
             return true;
         }
-        
+
         return false;
     }
 }

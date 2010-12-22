@@ -343,9 +343,13 @@
     <!-- Settings summary -->
     <string name="pref_content_autofit_summary">Format web pages to fit the screen</string>
 
-    <!-- Settings screen & section title for "Personal settings". These include things like
+    <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
-    <string name="pref_personal_title">Personal settings</string>
+    <string name="pref_general_title">General</string>
+    <!-- Settings category for sync under general settings. This includes bookmark sync with Chrome [CHAR-LIMIT=50] -->
+    <string name="pref_general_sync_title">Sync</string>
+    <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+    <string name="pref_general_autofill_title">Autofill</string>
     <!-- Checkbox setting to enable or disable syncing bookmarks and other data with Google Chrome. [CHAR-LIMIT=48] -->
     <string name="pref_personal_sync_with_chrome">Sync with Google Chrome</string>
     <!-- Checkbox setting to enable or disable syncing bookmarks and other data with Google Chrome. [CHAR-LIMIT=none] -->
@@ -412,14 +416,16 @@
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
     <string name="autofill_setup_dialog_negative_toast">AutoFill can always be configured through Browser Settings -&gt; Personal Settings.</string>
 
-    <!-- Settings screen, section title -->
-    <string name="pref_privacy_title">Privacy settings</string>
+    <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+    <string name="pref_privacy_security_title">Privacy &amp; Security</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_cache">Clear cache</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_cache_summary">Clear locally cached content and databases</string>
     <!-- Confirmation dialog message -->
     <string name="pref_privacy_clear_cache_dlg">Locally cached content and databases will be deleted.</string>
+    <!-- Cookie settings category [CHAR-LIMIT=50] -->
+    <string name="pref_privacy_cookies_title">Cookies</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_cookies">Clear all cookie data</string>
     <!-- Settings summary -->
@@ -432,6 +438,8 @@
     <string name="pref_privacy_clear_history_summary">Clear the browser navigation history</string>
     <!-- Confirmation dialog message -->
     <string name="pref_privacy_clear_history_dlg">The browser navigation history will be deleted.</string>
+    <!-- Formdata settings category [CHAR-LIMIT=50] -->
+    <string name="pref_privacy_formdata_title">Form data</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_form_data">Clear form data</string>
     <!-- Settings summary -->
@@ -444,6 +452,8 @@
     <string name="pref_privacy_clear_passwords_summary">Clear all saved passwords</string>
     <!-- Confirmation dialog message -->
     <string name="pref_privacy_clear_passwords_dlg">All saved passwords will be deleted.</string>
+    <!-- Location settings category [CHAR-LIMIT=50] -->
+    <string name="pref_privacy_location_title">Location</string>
     <!-- Settings label -->
     <string name="pref_privacy_enable_geolocation">Enable location</string>
     <!-- Settings summary -->
@@ -454,8 +464,8 @@
     <string name="pref_privacy_clear_geolocation_access_summary">Clear location access for all websites</string>
     <!-- Confirmation dialog message -->
     <string name="pref_privacy_clear_geolocation_access_dlg">Clear location access for all websites</string>
-    <!-- Settings screen, section title -->
-    <string name="pref_security_title">Security settings</string>
+    <!-- Passwords settings category [CHAR-LIMIT=50] -->
+    <string name="pref_security_passwords_title">Passwords</string>
     <!-- Settings label -->
     <string name="pref_security_remember_passwords">Remember passwords</string>
     <!-- Settings summary -->
@@ -513,11 +523,13 @@
     <!-- Settings summary -->
     <string name="pref_content_load_page_summary">Show overview of newly opened pages</string>
     <!-- Settings screen, section title -->
-    <string name="pref_extras_title">Advanced settings</string>
+    <string name="pref_extras_title">Advanced</string>
     <!-- Settings label -->
     <string name="pref_extras_website_settings">Website settings</string>
     <!-- Settings summary -->
     <string name="pref_extras_website_settings_summary">Advanced settings for individual websites</string>
+    <!-- Settings category label [CHAR-LIMIT=50] -->
+    <string name="pref_extras_reset_default_title">Reset defaults</string>
     <!-- Settings label -->
     <string name="pref_extras_reset_default">Reset to default</string>
     <!-- Settings summary -->

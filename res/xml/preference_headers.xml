@@ -16,20 +16,12 @@
 
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <header android:fragment="com.android.browser.preferences.PageContentPreferencesFragment"
-        android:title="@string/pref_content_title"
+    <header android:fragment="com.android.browser.preferences.GeneralPreferencesFragment"
+        android:title="@string/pref_general_title"
     />
 
-    <header android:fragment="com.android.browser.preferences.PersonalPreferencesFragment"
-        android:title="@string/pref_personal_title"
-    />
-
-    <header android:fragment="com.android.browser.preferences.PrivacyPreferencesFragment"
-        android:title="@string/pref_privacy_title"
-    />
-    
-    <header android:fragment="com.android.browser.preferences.SecurityPreferencesFragment"
-        android:title="@string/pref_security_title"
+    <header android:fragment="com.android.browser.preferences.PrivacySecurityPreferencesFragment"
+        android:title="@string/pref_privacy_security_title"
     />
 
     <header android:fragment="com.android.browser.preferences.AdvancedPreferencesFragment"
