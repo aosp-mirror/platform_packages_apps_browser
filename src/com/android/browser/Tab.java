@@ -26,17 +26,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.net.http.SslError;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemClock;
-import android.provider.BrowserContract;
 import android.speech.RecognizerResultsIntent;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -132,6 +128,7 @@ class Tab {
     private final DownloadListener mDownloadListener;
     // Listener used to know when we move forward or back in the history list.
     private final WebBackForwardListClient mWebBackForwardListClient;
+    private DataController mDataController;
 
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
@@ -142,6 +139,7 @@ class Tab {
         String mTitle;
         LockIcon mLockIcon;
         Bitmap mFavicon;
+        Boolean mIsBookmarkedSite = false;
 
         PageState(Context c, boolean incognito) {
             if (incognito) {
@@ -182,14 +180,6 @@ class Tab {
 
     // The current/loading page's state
     private PageState mCurrentState;
-
-    // Whether or not the currently shown page is a bookmarked site.  Will be
-    // out of date when loading a new page until the mBookmarkAsyncTask returns.
-    private boolean mIsBookmarkedSite;
-    // Used to determine whether the current site is bookmarked.
-    private AsyncTask<Void, Void, Boolean> mBookmarkAsyncTask;
-
-    public boolean isBookmarkedSite() { return mIsBookmarkedSite; }
 
     // Used for saving and restoring each Tab
     // TODO: Figure out who uses what and where
@@ -544,7 +534,7 @@ class Tab {
             // finally update the UI in the activity if it is in the foreground
             mWebViewController.onPageStarted(Tab.this, view, url, favicon);
 
-            updateBookmarkedStatusForUrl(url);
+            updateBookmarkedStatus();
         }
 
         @Override
@@ -1260,10 +1250,10 @@ class Tab {
         mActivity = mWebViewController.getActivity();
         mCloseOnExit = closeOnExit;
         mAppId = appId;
+        mDataController = DataController.getInstance(mActivity);
         mCurrentState = new PageState(mActivity, w.isPrivateBrowsingEnabled());
         mInPageLoad = false;
         mInForeground = false;
-
 
         mDownloadListener = new DownloadListener() {
             public void onDownloadStart(String url, String userAgent,
@@ -1595,6 +1585,9 @@ class Tab {
         return mCurrentState.mFavicon;
     }
 
+    public boolean isBookmarkedSite() {
+        return mCurrentState.mIsBookmarkedSite;
+    }
 
     /**
      * Return the tab's error console. Creates the console if createIfNEcessary
@@ -1729,53 +1722,17 @@ class Tab {
     }
 
     public void updateBookmarkedStatus() {
-        if (mMainView == null) {
-            return;
-        }
-        String url = mMainView.getUrl();
-        if (url == null) {
-            return;
-        }
-        updateBookmarkedStatusForUrl(url);
+        mDataController.queryBookmarkStatus(getUrl(), mIsBookmarkCallback);
     }
 
-    /**
-     * Update mIsBookmarkedSite, using urlInQuestion to compare.
-     * @param urlInQuestion URL of the current page, to be checked in the
-     *          bookmarks database.
-     */
-    private void updateBookmarkedStatusForUrl(final String urlInQuestion) {
-        if (mBookmarkAsyncTask != null) {
-            mBookmarkAsyncTask.cancel(true);
+    private DataController.OnQueryUrlIsBookmark mIsBookmarkCallback
+            = new DataController.OnQueryUrlIsBookmark() {
+        @Override
+        public void onQueryUrlIsBookmark(String url, boolean isBookmark) {
+            if (mCurrentState.mUrl.equals(url)) {
+                mCurrentState.mIsBookmarkedSite = isBookmark;
+                mWebViewController.bookmarkedStatusHasChanged(Tab.this);
+            }
         }
-        mBookmarkAsyncTask = new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... unused) {
-                // Check to see if the site is bookmarked
-                Cursor cursor = null;
-                try {
-                    cursor = mActivity.getContentResolver().query(
-                            BrowserContract.Bookmarks.CONTENT_URI,
-                            new String[] { BrowserContract.Bookmarks.URL },
-                            BrowserContract.Bookmarks.URL + " == ?",
-                            new String[] { urlInQuestion },
-                            null);
-                    return cursor.moveToFirst();
-                } catch (SQLiteException e) {
-                    Log.e(LOGTAG, "Error checking for bookmark: " + e);
-                    return false;
-                } finally {
-                    if (cursor != null) cursor.close();
-                }
-            }
-            @Override
-            protected void onPostExecute(Boolean isBookmarked) {
-                if (this == mBookmarkAsyncTask) {
-                    mIsBookmarkedSite = isBookmarked;
-                    mWebViewController.bookmarkedStatusHasChanged(Tab.this);
-                }
-            }
-        };
-        mBookmarkAsyncTask.execute();
-    }
+    };
 }

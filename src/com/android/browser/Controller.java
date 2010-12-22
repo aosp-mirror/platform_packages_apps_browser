@@ -997,6 +997,7 @@ public class Controller
 
     @Override
     public void bookmarkedStatusHasChanged(Tab tab) {
+        // TODO: Switch to using onTabDataChanged after b/3262950 is fixed
         mUi.bookmarkedStatusHasChanged(tab);
     }
 
