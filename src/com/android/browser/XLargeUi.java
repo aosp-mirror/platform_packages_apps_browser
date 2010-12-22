@@ -24,6 +24,8 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
+import android.view.View;
+import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
@@ -349,5 +351,19 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         mFakeTitleBar.setDisplayTitle(url);
     }
 
+    @Override
+    public void showCustomView(View view, CustomViewCallback callback) {
+        super.showCustomView(view, callback);
+        mActivity.getActionBar().hide();
+    }
 
+    @Override
+    public void onHideCustomView() {
+        super.onHideCustomView();
+        if (mUseQuickControls) {
+            checkTabCount();
+        } else {
+            mActivity.getActionBar().show();
+        }
+    }
 }
