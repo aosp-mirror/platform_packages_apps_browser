@@ -1048,6 +1048,7 @@ public class Controller
             // view is showing.
             mOldMenuState = mMenuState;
             mMenuState = EMPTY_MENU;
+            mActivity.invalidateOptionsMenu();
         }
     }
 
@@ -1058,6 +1059,7 @@ public class Controller
             // Reset the old menu state.
             mMenuState = mOldMenuState;
             mOldMenuState = EMPTY_MENU;
+            mActivity.invalidateOptionsMenu();
         }
     }
 
@@ -1187,6 +1189,9 @@ public class Controller
     // TODO: maybe put into separate handler
 
     protected boolean onCreateOptionsMenu(Menu menu) {
+        if (mMenuState == EMPTY_MENU) {
+            return false;
+        }
         MenuInflater inflater = mActivity.getMenuInflater();
         inflater.inflate(R.menu.browser, menu);
         updateInLoadMenuItems(menu);
