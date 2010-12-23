@@ -95,7 +95,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-            android:title="@string/pref_privacy_title">
+            android:title="@string/pref_privacy_security_title">
             
         <com.android.browser.BrowserYesNoPreference
                 android:key="privacy_clear_cache"
@@ -165,7 +165,7 @@
     </PreferenceCategory>
     
         <PreferenceCategory
-            android:title="@string/pref_security_title">
+            android:title="@string/pref_privacy_security_title">
             
         <CheckBoxPreference
                 android:key="remember_passwords"
