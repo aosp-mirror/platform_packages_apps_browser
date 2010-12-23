@@ -154,7 +154,12 @@
     <string name="pref_use_default" msgid="192587563274735878">"默认页"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"自动调整页面"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"调整网页版面以适合屏幕大小"</string>
-    <string name="pref_personal_title" msgid="1447687455755683695">"个人设置"</string>
+    <!-- no translation found for pref_general_title (1946872771219249323) -->
+    <skip />
+    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
+    <skip />
+    <!-- no translation found for pref_general_autofill_title (64638897890112873) -->
+    <skip />
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"与谷歌浏览器同步"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"在 Android 浏览器和谷歌浏览器之间共享书签和其他数据"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Google 帐户"</string>
@@ -166,8 +171,7 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"只需点击一下，即可填完网络表单"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自动填充设置"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"设置和管理自动填充表单的数据"</string>
-    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
-    <skip />
+    <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"只需点击一下，自动填充功能即可使用您的个人资料帮助您完成网络表单。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"电子邮件地址："</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"公司名称："</string>
@@ -183,31 +187,39 @@
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"保存个人资料"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"个人资料已保存"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"个人资料已删除"</string>
-    <!-- outdated translation 7112035941146003753 -->     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"删除个人资料数据"</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"删除个人资料"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"浏览器可自动填充网络表单（例如该表单）。您希望设置个人资料吗？"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"您可以随时通过“浏览器设置”-&gt;“个人设置”对自动填充功能进行配置。"</string>
-    <string name="pref_privacy_title" msgid="1052470980370846151">"隐私权设置"</string>
+    <!-- no translation found for pref_privacy_security_title (1705642466867300373) -->
+    <skip />
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除缓存"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除存储在本地缓存中的内容和数据库"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"此操作将会刪除存储在本地缓存中的内容和数据库。"</string>
+    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
+    <skip />
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"清除所有 Cookie 数据"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"清除所有浏览器 Cookie"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"此操作将会删除所有 Cookie。"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"清除历史记录"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"清除浏览器导航历史记录"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"此操作将会删除浏览器导航历史记录。"</string>
+    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
+    <skip />
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"清除表单数据"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"清除所有已保存的表单数据"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"此操作将会删除所有已保存的表单数据。"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"清除密码"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"清除所有保存的密码"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"此操作将会刪除所有已保存的密码。"</string>
+    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
+    <skip />
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"启用位置信息功能"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"允许网站访问您的位置信息"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"取消位置信息访问权限"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"取消所有网站访问位置信息的权限"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"取消所有网站访问位置信息的权限"</string>
-    <string name="pref_security_title" msgid="5763978646932160021">"安全设置"</string>
+    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
+    <skip />
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"记住密码"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"保存网站的用户名和密码"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"记住表单数据"</string>
@@ -234,9 +246,11 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"默认缩放设置"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"以概览模式打开网页"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"显示新打开网页的概览"</string>
-    <string name="pref_extras_title" msgid="3091250467679722382">"高级设置"</string>
+    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"高级设置"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"网站设置"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"各网站的高级设置"</string>
+    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
+    <skip />
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"重置为默认设置"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"还原默认设置"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"设置将恢复为默认值。"</string>
@@ -254,6 +268,12 @@
     <item msgid="2193955365569270096">"韩语 (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"文字编码"</string>
+    <!-- no translation found for pref_lab_title (2965318885051241044) -->
+    <skip />
+    <!-- no translation found for pref_lab_quick_controls (2105979166017257647) -->
+    <skip />
+    <!-- no translation found for pref_lab_quick_controls_summary (8025196176636589803) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"数据连接性问题"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"文件有问题"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"确认"</string>
@@ -348,6 +368,7 @@
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"删除 Android 书签"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"将 Android 书签添加到 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的书签中"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"分享"</string>
-    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
+    <string name="max_tabs_warning" msgid="4122034303809457570">"没有更多标签可用"</string>
+    <!-- no translation found for account_picker_title (2199261460783026844) -->
     <skip />
 </resources>
