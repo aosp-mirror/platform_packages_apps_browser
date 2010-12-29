@@ -38,6 +38,7 @@
     <application   android:name="Browser"
                    android:label="@string/application_name"
                    android:icon="@drawable/ic_launcher_browser"
+                   android:theme="@style/BrowserDefaultTheme"
                    android:backupAgent=".BrowserBackupAgent"
                    android:taskAffinity="android.task.browser" >
 
