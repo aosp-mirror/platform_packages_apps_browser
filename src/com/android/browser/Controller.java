@@ -2353,7 +2353,15 @@ public class Controller
         // the key and do nothing.
         if (mMenuIsDown) return true;
 
+        WebView webView = getCurrentTopWebView();
+        if (webView == null) return false;
+
+        boolean ctrl = event.isCtrlPressed();
+
         switch(keyCode) {
+            case KeyEvent.KEYCODE_ESCAPE:
+                stopLoading();
+                return true;
             case KeyEvent.KEYCODE_SPACE:
                 // WebView/WebTextView handle the keys in the KeyDown. As
                 // the Activity's shortcut keys are only handled when WebView
@@ -2374,6 +2382,107 @@ public class Controller
                     return true;
                 }
                 break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                if (ctrl) {
+                    webView.goBack();
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                if (ctrl) {
+                    webView.goForward();
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_A:
+                if (ctrl) {
+                    webView.selectAll();
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_B:
+                if (ctrl) {
+                    bookmarksOrHistoryPicker(false);
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_C:
+                if (ctrl) {
+                    webView.copySelection();
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_D:
+                if (ctrl) {
+                    bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID);
+                    return true;
+                }
+                break;
+//          case KeyEvent.KEYCODE_E:    // in Chrome: puts '?' in URL bar
+            case KeyEvent.KEYCODE_F:
+                if (ctrl) {
+                    webView.showFindDialog(null);
+                    return true;
+                }
+                break;
+//          case KeyEvent.KEYCODE_G:    // in Chrome: finds next match
+            case KeyEvent.KEYCODE_H:
+                if (ctrl) {
+                    bookmarksOrHistoryPicker(true);
+                    return true;
+                }
+                break;
+//          case KeyEvent.KEYCODE_I:    // unused
+            case KeyEvent.KEYCODE_J:
+                if (ctrl) {
+                    viewDownloads();
+                    return true;
+                }
+                break;
+//          case KeyEvent.KEYCODE_K:    // in Chrome: puts '?' in URL bar
+            case KeyEvent.KEYCODE_L:
+                if (ctrl) {
+                    editUrl();
+                    return true;
+                }
+                break;
+//          case KeyEvent.KEYCODE_M:    // unused
+//          case KeyEvent.KEYCODE_N:    // in Chrome: new window
+//          case KeyEvent.KEYCODE_O:    // in Chrome: open file
+//          case KeyEvent.KEYCODE_P:    // in Chrome: print page
+//          case KeyEvent.KEYCODE_Q:    // unused
+            case KeyEvent.KEYCODE_R:
+                if (ctrl) {
+                    if (mInLoad) {
+                        stopLoading();
+                    } else {
+                        webView.reload();
+                    }
+                    return true;
+                }
+                break;
+//          case KeyEvent.KEYCODE_S:    // in Chrome: saves page
+            case KeyEvent.KEYCODE_T:
+                if (ctrl) {
+                    if (event.isShiftPressed()) {
+                        openIncognitoTab();
+                    } else {
+                        openTabToHomePage();
+                    }
+                    return true;
+                }
+                break;
+//          case KeyEvent.KEYCODE_U:    // in Chrome: opens source of page
+//          case KeyEvent.KEYCODE_V:    // text view intercepts to paste
+            case KeyEvent.KEYCODE_W:
+                if (ctrl) {
+                    closeCurrentTab();
+                    return true;
+                }
+                break;
+//          case KeyEvent.KEYCODE_X:    // text view intercepts to cut
+//          case KeyEvent.KEYCODE_Y:    // unused
+//          case KeyEvent.KEYCODE_Z:    // unused
         }
         return false;
     }
