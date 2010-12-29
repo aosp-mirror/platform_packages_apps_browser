@@ -18,6 +18,9 @@
  */
 -->
 <resources>
+    <style name="BrowserDefaultTheme" parent="@android:style/Theme" />
+    <style name="AddBookmarkDefaultTheme" parent="@android:style/Theme.Dialog" />
+
     <style name="BrowserTheme" parent="@android:Theme.Black">
         <item name="android:windowBackground">@color/white</item>
         <item name="android:colorBackground">#FFFFFFFF</item>
