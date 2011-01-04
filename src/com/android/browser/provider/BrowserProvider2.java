@@ -41,6 +41,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
+import android.provider.Browser;
 import android.provider.Browser.BookmarkColumns;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Accounts;
@@ -84,8 +85,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             "ON history.url = images.url_key";
 
     static final String DEFAULT_SORT_HISTORY = History.DATE_LAST_VISITED + " DESC";
-
-    static final String DEFAULT_SORT_SEARCHES = Searches.DATE + " DESC";
 
     private static final String[] SUGGEST_PROJECTION = new String[] {
             Bookmarks._ID,
@@ -641,6 +640,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? ");
                     selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
                             new String[] { accountType, accountName });
+                } else {
+                    selection = DatabaseUtils.concatenateWhere(selection,
+                            Bookmarks.ACCOUNT_TYPE + " IS NULL AND " +
+                            Bookmarks.ACCOUNT_NAME + " IS NULL ");
                 }
 
                 // Set a default sort order if one isn't specified
@@ -760,9 +763,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case SEARCHES: {
-                if (sortOrder == null) {
-                    sortOrder = DEFAULT_SORT_SEARCHES;
-                }
                 qb.setTables(TABLE_SEARCHES);
                 qb.setProjectionMap(SEARCHES_PROJECTION_MAP);
                 break;
@@ -796,7 +796,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
             case LEGACY:
             case COMBINED: {
-                qb = new SQLiteQueryBuilder();
+                if ((match == LEGACY || match == LEGACY_ID)
+                        && projection == null) {
+                    projection = Browser.HISTORY_PROJECTION;
+                }
                 String[] args = createCombinedQuery(uri, projection, qb);
                 if (selectionArgs == null) {
                     selectionArgs = args;
@@ -913,10 +916,23 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         return args;
     }
 
-    int deleteBookmarks(String selection, String[] selectionArgs,
+    int deleteBookmarks(Uri uri, String selection, String[] selectionArgs,
             boolean callerIsSyncAdapter) {
         //TODO cascade deletes down from folders
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        // Look for account info
+        String accountType = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE);
+        String accountName = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME);
+        if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
+            selection = DatabaseUtils.concatenateWhere(selection,
+                    Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? ");
+            selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                    new String[] { accountType, accountName });
+        } else {
+            selection = DatabaseUtils.concatenateWhere(selection,
+                    Bookmarks.ACCOUNT_TYPE + " IS NULL AND " +
+                    Bookmarks.ACCOUNT_NAME + " IS NULL ");
+        }
         if (callerIsSyncAdapter) {
             return db.delete(TABLE_BOOKMARKS, selection, selectionArgs);
         }
@@ -941,7 +957,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case BOOKMARKS: {
-                int deleted = deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
+                int deleted = deleteBookmarks(uri, selection, selectionArgs, callerIsSyncAdapter);
                 pruneImages();
                 return deleted;
             }
@@ -1006,7 +1022,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     boolean isBookmark = c.getInt(1) != 0;
                     String url = c.getString(2);
                     if (isBookmark) {
-                        deleted += deleteBookmarks(Bookmarks._ID + "=?",
+                        deleted += deleteBookmarks(uri, Bookmarks._ID + "=?",
                                 new String[] { Long.toString(id) },
                                 callerIsSyncAdapter);
                         db.delete(TABLE_HISTORY, History.URL + "=?",
@@ -1310,6 +1326,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     count = 1;
                 }
                 return count;
+            }
+
+            case SEARCHES: {
+                return db.update(TABLE_SEARCHES, values, selection, selectionArgs);
             }
         }
         throw new UnsupportedOperationException("Unknown update URI " + uri);
