@@ -19,8 +19,7 @@
     <string name="application_name" msgid="1935869255545976415">"Browser"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Alegeţi fişierul pentru a fi încărcat"</string>
     <string name="new_tab" msgid="4505722538297295141">"Fereastră nouă"</string>
-    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
-    <skip />
+    <string name="new_incognito_tab" msgid="5821404839654751753">"Fereastră incognito nouă"</string>
     <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcaje"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Cele mai vizitate"</string>
@@ -64,28 +63,21 @@
     <string name="forward" msgid="4288210890526641577">"Redirecţionaţi"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Anulaţi"</string>
-    <!-- outdated translation 969988560160364559 -->     <string name="location" msgid="3411848697912600125">"Locaţie"</string>
-    <!-- no translation found for containing_folder (6771180232953030479) -->
-    <skip />
-    <!-- no translation found for new_folder (7743540149088867917) -->
-    <skip />
+    <string name="location" msgid="3411848697912600125">"Adresă"</string>
+    <string name="containing_folder" msgid="6771180232953030479">"Adăugaţi la"</string>
+    <string name="new_folder" msgid="7743540149088867917">"Dosar nou"</string>
     <string name="edit_folder" msgid="621817453133656156">"Editaţi dosarul"</string>
     <string name="delete_folder" msgid="2046483129024501116">"Ştergeţi dosarul"</string>
-    <!-- no translation found for no_subfolders (5880411440592452802) -->
-    <skip />
-    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
-    <skip />
-    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
-    <skip />
-    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
-    <skip />
-    <!-- outdated translation 5990326151488445481 -->     <string name="name" msgid="5462672162695365387">"Nume"</string>
+    <string name="no_subfolders" msgid="5880411440592452802">"Nu există subdosare"</string>
+    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Marcaje"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Ecran de pornire"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"Alt dosar..."</string>
+    <string name="name" msgid="5462672162695365387">"Etichetă"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <!-- outdated translation 588165100024086565 -->     <string name="save_to_bookmarks" msgid="6101482434920313244">"Adăugaţi marcaj"</string>
-    <!-- no translation found for bookmark_this_page (7530739804320811054) -->
-    <skip />
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"Adăugaţi la marcaje"</string>
+    <string name="bookmark_this_page" msgid="7530739804320811054">"Marcaţi această pagină"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Modificaţi marcajul"</string>
-    <!-- outdated translation 9202323987633899835 -->     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Adăugaţi o comandă rapidă pe ecranul de pornire"</string>
+    <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Adăugaţi o comandă rapidă pe ecranul de pornire"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Deschideţi"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Ştergeţi marcajul"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Eliminaţi din marcaje"</string>
@@ -106,8 +98,7 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Marcajul „<xliff:g id="BOOKMARK">%s</xliff:g>” va fi şters."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Deschideţi într-o fereastră nouă"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Accesaţi"</string>
-    <!-- no translation found for incognito_tab (5419458065370134289) -->
-    <skip />
+    <string name="incognito_tab" msgid="5419458065370134289">"Deschideţi filă incognito nouă"</string>
     <string name="select_dot" msgid="6299170761900561967">"Selectaţi text"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Ferestre curente"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Închideţi"</string>
@@ -117,12 +108,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Descărcări"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiaţi adresa URL a paginii"</string>
     <string name="share_page" msgid="593756995297268343">"Distribuiţi pagina"</string>
-    <!-- no translation found for menu_save_webarchive (3934652434001459581) -->
-    <skip />
-    <!-- no translation found for webarchive_saved (7045250341467345007) -->
-    <skip />
-    <!-- no translation found for webarchive_failed (2880998204746620260) -->
-    <skip />
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"Salvaţi ca arhivă web"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"Arhiva web a fost salvată."</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"Salvarea arhivei web nu a reuşit."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> (de) marcaje"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Dosar gol"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Deschideţi"</string>
@@ -158,101 +146,80 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Deschideţi noi ferestre în spatele celei curente"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Setaţi pagina de pornire"</string>
-    <!-- no translation found for pref_content_search_engine (1620101310821644144) -->
-    <skip />
-    <!-- no translation found for pref_content_search_engine_summary (5162667665858487316) -->
-    <skip />
-    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
-    <skip />
-    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"Utilizaţi pagina curentă"</string>
-    <!-- no translation found for pref_use_blank (8503238592551111169) -->
-    <skip />
-    <!-- no translation found for pref_use_default (192587563274735878) -->
-    <skip />
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Setaţi motorul de căutare"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Selectaţi un motor de căutare"</string>
+    <string name="pref_set_homepage_to" msgid="7196350233061395098">"Setaţi la..."</string>
+    <string name="pref_use_current" msgid="1778622474040406672">"Pagina curentă"</string>
+    <string name="pref_use_blank" msgid="8503238592551111169">"Pagină goală"</string>
+    <string name="pref_use_default" msgid="192587563274735878">"Pagina prestabilită"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Potriviţi paginile automat"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formataţi paginile web pentru a se potrivi cu ecranul"</string>
-    <!-- no translation found for pref_personal_title (1447687455755683695) -->
+    <!-- no translation found for pref_general_title (1946872771219249323) -->
     <skip />
-    <!-- no translation found for pref_personal_sync_with_chrome (1695182180332194033) -->
+    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
     <skip />
-    <!-- no translation found for pref_personal_sync_with_chrome_summary (7414133931827321055) -->
+    <!-- no translation found for pref_general_autofill_title (64638897890112873) -->
     <skip />
-    <!-- no translation found for pref_personal_google_account (952360133341490071) -->
-    <skip />
-    <!-- no translation found for pref_personal_sync_bookmarks (59237515966184432) -->
-    <skip />
-    <!-- no translation found for pref_personal_sync_bookmarks_summary (4791767605662205482) -->
-    <skip />
-    <!-- no translation found for pref_personal_start_syncing (6046972042512655232) -->
-    <skip />
-    <!-- no translation found for pref_personal_account_dialog_title (1390867119887955530) -->
-    <skip />
-    <!-- no translation found for pref_autofill_enabled (1174197447388234595) -->
-    <skip />
-    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor (1350709161524642663) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
-    <skip />
+    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Sincronizaţi cu Google Chrome"</string>
+    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Distribuiţi marcaje şi alte date între browserul Android şi Google Chrome"</string>
+    <string name="pref_personal_google_account" msgid="952360133341490071">"Cont Google"</string>
+    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Sincronizaţi marcaje"</string>
+    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Sincronizaţi marcaje între browserul Android şi Google Chrome"</string>
+    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Începeţi sincroniz."</string>
+    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Sel. cont pt. dist."</string>
+    <string name="pref_autofill_enabled" msgid="1174197447388234595">"Completare automată formulare"</string>
+    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completaţi formulare web cu un singur clic"</string>
+    <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Setări Completare automată"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configuraţi şi gestionaţi date pentru formularele cu completare automată"</string>
+    <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Completarea automată va utiliza informaţiile din profilul dvs. pentru a vă ajuta să completaţi formularele de pe web cu un singur clic."</string>
+    <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Numele complet:"</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
+    <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Numele companiei:"</string>
+    <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Linie de adresă 1:"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Stradă, număr, căsuţă poştală"</string>
+    <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Linie de adresă 2:"</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"Bloc, scară, etaj, apartament etc."</string>
+    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"Oraş:"</string>
+    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"Stat/Provincie/Regiune:"</string>
+    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Codul poştal:"</string>
+    <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Ţară:"</string>
+    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
+    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Salvaţi profilul"</string>
+    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profilul a fost salvat"</string>
+    <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profilul a fost şters"</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Ştergeţi profilul"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Browserul poate completa în mod automat formulare web ca acesta. Doriţi să vă configuraţi profilul?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Completarea automată poate fi întotdeauna configurată din Setări browser -&gt; Setări personale."</string>
-    <string name="pref_privacy_title" msgid="1052470980370846151">"Setări privind confidenţialitatea"</string>
+    <!-- no translation found for pref_privacy_security_title (1705642466867300373) -->
+    <skip />
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Goliţi memoria cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ştergeţi conţinutul memoriei cache şi bazele de date"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Conţinutul local al memoriei cache şi bazele de date se vor şterge."</string>
+    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
+    <skip />
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Ştergeţi toate datele despre cookie-uri"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Ştergeţi toate cookie-urile din browser"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Toate cookie-urile vor fi şterse."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Ştergeţi istoricul"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Ştergeţi istoricul de navigare din browser"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Istoricul de navigare din browser va fi şters."</string>
+    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
+    <skip />
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Ştergeţi datele din formular"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Ştergeţi toate datele din formulare"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Toate datele salvate în formular vor fi şterse."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Ştergeţi parolele"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Ştergeţi toate parolele salvate"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Toate parolele salvate vor fi şterse."</string>
+    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
+    <skip />
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Activaţi locaţia"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Permiteţi site-urilor să solicite accesul la locaţia dvs."</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Opriţi accesul la locaţie"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Opriţi accesul tuturor site-urilor web la locaţia dvs."</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Opriţi accesul tuturor site-urilor web la locaţia dvs."</string>
-    <string name="pref_security_title" msgid="5763978646932160021">"Setări de securitate"</string>
+    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
+    <skip />
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Activaţi reţinerea parolelor"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Salvaţi numele de utilizatori şi parolele pentru site-urile web"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Reţineţi datele din formular"</string>
@@ -279,17 +246,34 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom prestabilit"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Deschideţi paginile ca prezentare generală"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Afişaţi prezentarea generală a paginilor deschise recent"</string>
-    <string name="pref_extras_title" msgid="3091250467679722382">"Setări avansate"</string>
+    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Setări avansate"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Setări site web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Setări avansate pentru site-uri web individuale"</string>
+    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
+    <skip />
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Resetaţi la valorile prestabilite"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Restabiliţi setările prestabilite"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Setările vor fi aduse la valorile prestabilite."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Resetaţi la valorile prestabilite"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Remediaţi erorile"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codificare text"</string>
-    <!-- no translation found for pref_default_text_encoding_choices:7 (2193955365569270096) -->
+  <string-array name="pref_default_text_encoding_choices">
+    <item msgid="7275223955790513818">"Latin-1 (ISO-8859-1)"</item>
+    <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
+    <item msgid="6122474363777211732">"Chineză (GBK)"</item>
+    <item msgid="373372275931607040">"Chineză (Big5)"</item>
+    <item msgid="891615911084608570">"Japoneză (ISO-2022-JP)"</item>
+    <item msgid="5589150448475151241">"Japoneză (SHIFT_JIS)"</item>
+    <item msgid="7356792686950371843">"Japoneză (EUC-JP)"</item>
+    <item msgid="2193955365569270096">"Coreeană (EUC-KR)"</item>
+  </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificare text"</string>
+    <!-- no translation found for pref_lab_title (2965318885051241044) -->
+    <skip />
+    <!-- no translation found for pref_lab_quick_controls (2105979166017257647) -->
+    <skip />
+    <!-- no translation found for pref_lab_quick_controls_summary (8025196176636589803) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Există o problemă de conexiune la date"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problemă cu fişierul"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmaţi"</string>
@@ -325,14 +309,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Spaţiu de stocare insuficient"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> nu poate fi descărcat."\n"Eliberaţi spaţiu în telefon şi încercaţi din nou."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Descărcare nereuşită"</string>
-    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Niciun card SD"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Stocare USB nedisponibilă"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Niciun card SD"</string>
-    <!-- no translation found for download_no_sdcard_dlg_msg (3144652102051031721) -->
-    <skip />
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Pentru a descărca <xliff:g id="FILENAME">%s</xliff:g> este necesară stocarea USB."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Este necesar un card SD pentru a se descărca fişierul <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Card SD nedisponibil"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Stocare USB nedisponibilă"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Card SD nedisponibil"</string>
-    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Cardul SD este ocupat. Pentru a permite descărcări, selectaţi în notificare opţiunea „Dezactivaţi stocarea pe USB”."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Dispozitivul de stocare USB este ocupat. Pentru a permite descărcări, selectaţi în notificare opţiunea „Dezactivaţi stocarea USB”."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Cardul SD este ocupat. Pentru a permite descărcări, selectaţi în notificare opţiunea „Dezactivaţi stocarea pe USB”."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Fişierul nu poate fi deschis"</string>
     <string name="retry" msgid="1835923075542266721">"Încercaţi din nou"</string>
@@ -377,21 +360,15 @@
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Ştergeţi toate datele"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Anulaţi"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Se setează imaginea de fundal..."</string>
-    <!-- no translation found for defaultBookmarksUpButton (2303951020715704735) -->
-    <skip />
-    <!-- no translation found for empty_bookmarks_folder (7843361614634930942) -->
-    <skip />
-    <!-- no translation found for rlz_access_point (7165847807377650632) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_title (3325557652271172128) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_description (2187665745413495303) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_remove (8105572409059113340) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
-    <skip />
+    <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Marcaje"</string>
+    <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Nu există marcaje"</string>
+    <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronizaţi cu un Cont Google"</string>
+    <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Marcajele dvs. Android nu sunt asociate unui Cont Google"</string>
+    <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Eliminaţi marcajele Android"</string>
+    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Adăugaţi marcajele Android la marcajele <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Distribuiţi"</string>
-    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
+    <string name="max_tabs_warning" msgid="4122034303809457570">"Nu mai există file disponibile"</string>
+    <!-- no translation found for account_picker_title (2199261460783026844) -->
     <skip />
 </resources>

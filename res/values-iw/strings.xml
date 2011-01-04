@@ -19,8 +19,7 @@
     <string name="application_name" msgid="1935869255545976415">"דפדפן"</string>
     <string name="choose_upload" msgid="3649366287575002063">"בחר קובץ להעלאה"</string>
     <string name="new_tab" msgid="4505722538297295141">"חלון חדש"</string>
-    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
-    <skip />
+    <string name="new_incognito_tab" msgid="5821404839654751753">"חלון חדש של גלישה בסתר"</string>
     <string name="active_tabs" msgid="3050623868203544623">"חלונות"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"סימניות"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"אתרים שבהם אתה מבקר בתדירות הגבוהה ביותר"</string>
@@ -64,28 +63,21 @@
     <string name="forward" msgid="4288210890526641577">"העבר"</string>
     <string name="save" msgid="5922311934992468496">"אישור"</string>
     <string name="do_not_save" msgid="6777633870113477714">"ביטול"</string>
-    <!-- outdated translation 969988560160364559 -->     <string name="location" msgid="3411848697912600125">"מיקום"</string>
-    <!-- no translation found for containing_folder (6771180232953030479) -->
-    <skip />
-    <!-- no translation found for new_folder (7743540149088867917) -->
-    <skip />
+    <string name="location" msgid="3411848697912600125">"כתובת"</string>
+    <string name="containing_folder" msgid="6771180232953030479">"הוסף אל"</string>
+    <string name="new_folder" msgid="7743540149088867917">"תיקיה חדשה"</string>
     <string name="edit_folder" msgid="621817453133656156">"ערוך תיקיה"</string>
     <string name="delete_folder" msgid="2046483129024501116">"מחק תיקיה"</string>
-    <!-- no translation found for no_subfolders (5880411440592452802) -->
-    <skip />
-    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
-    <skip />
-    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
-    <skip />
-    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
-    <skip />
-    <!-- outdated translation 5990326151488445481 -->     <string name="name" msgid="5462672162695365387">"שם"</string>
+    <string name="no_subfolders" msgid="5880411440592452802">"אין תיקיות משנה"</string>
+    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"סימניות"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"מסך דף הבית"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"תיקיה אחרת..."</string>
+    <string name="name" msgid="5462672162695365387">"תווית"</string>
     <string name="http" msgid="2163722670597250102">"‎http://‎"</string>
-    <!-- outdated translation 4680844117598293907 -->     <string name="save_to_bookmarks" msgid="6101482434920313244">"סימניה"</string>
-    <!-- no translation found for bookmark_this_page (7530739804320811054) -->
-    <skip />
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"הוסף לסימניות"</string>
+    <string name="bookmark_this_page" msgid="7530739804320811054">"הוסף דף זה לסימניות"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"ערוך סימניה"</string>
-    <!-- outdated translation 9202323987633899835 -->     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"הוסף קיצור דרך לדף הבית"</string>
+    <string name="create_shortcut_bookmark" msgid="1995095662095484289">"הוסף קיצור דרך לדף הבית"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"פתח"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"מחק סימניה"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"הסר מסימניות"</string>
@@ -106,8 +98,7 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"הסימניה \"<xliff:g id="BOOKMARK">%s</xliff:g>\" תימחק."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"פתח בחלון חדש"</string>
     <string name="goto_dot" msgid="3895839050522602723">"בצע"</string>
-    <!-- no translation found for incognito_tab (5419458065370134289) -->
-    <skip />
+    <string name="incognito_tab" msgid="5419458065370134289">"פתח כרטיסיה חדשה של גלישה בסתר"</string>
     <string name="select_dot" msgid="6299170761900561967">"בחר טקסט"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"חלונות נוכחיים"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"סגור"</string>
@@ -117,12 +108,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"הורדות"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"העתק כתובת אתר של דף"</string>
     <string name="share_page" msgid="593756995297268343">"שתף דף"</string>
-    <!-- no translation found for menu_save_webarchive (3934652434001459581) -->
-    <skip />
-    <!-- no translation found for webarchive_saved (7045250341467345007) -->
-    <skip />
-    <!-- no translation found for webarchive_failed (2880998204746620260) -->
-    <skip />
+    <string name="menu_save_webarchive" msgid="3934652434001459581">"שמור כארכיון אינטרנט"</string>
+    <string name="webarchive_saved" msgid="7045250341467345007">"ארכיון אינטרנט נשמר."</string>
+    <string name="webarchive_failed" msgid="2880998204746620260">"נכשלה שמירת ארכיון אינטרנט."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> סימניות"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"תיקיה ריקה"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"פתח"</string>
@@ -158,101 +146,80 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"פתח חלונות חדשים מאחורי החלון הנוכחי"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"הגדר דף בית"</string>
-    <!-- no translation found for pref_content_search_engine (1620101310821644144) -->
-    <skip />
-    <!-- no translation found for pref_content_search_engine_summary (5162667665858487316) -->
-    <skip />
-    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
-    <skip />
-    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"השתמש בדף הנוכחי"</string>
-    <!-- no translation found for pref_use_blank (8503238592551111169) -->
-    <skip />
-    <!-- no translation found for pref_use_default (192587563274735878) -->
-    <skip />
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"הגדר מנוע חיפוש"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"בחר מנוע חיפוש"</string>
+    <string name="pref_set_homepage_to" msgid="7196350233061395098">"הוגדר ל..."</string>
+    <string name="pref_use_current" msgid="1778622474040406672">"דף נוכחי"</string>
+    <string name="pref_use_blank" msgid="8503238592551111169">"דף ריק"</string>
+    <string name="pref_use_default" msgid="192587563274735878">"דף ברירת מחדל"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"התאם דפים באופן אוטומטי"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"עצב דפי אינטרנט כך שיתאימו למסך"</string>
-    <!-- no translation found for pref_personal_title (1447687455755683695) -->
+    <!-- no translation found for pref_general_title (1946872771219249323) -->
     <skip />
-    <!-- no translation found for pref_personal_sync_with_chrome (1695182180332194033) -->
+    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
     <skip />
-    <!-- no translation found for pref_personal_sync_with_chrome_summary (7414133931827321055) -->
+    <!-- no translation found for pref_general_autofill_title (64638897890112873) -->
     <skip />
-    <!-- no translation found for pref_personal_google_account (952360133341490071) -->
-    <skip />
-    <!-- no translation found for pref_personal_sync_bookmarks (59237515966184432) -->
-    <skip />
-    <!-- no translation found for pref_personal_sync_bookmarks_summary (4791767605662205482) -->
-    <skip />
-    <!-- no translation found for pref_personal_start_syncing (6046972042512655232) -->
-    <skip />
-    <!-- no translation found for pref_personal_account_dialog_title (1390867119887955530) -->
-    <skip />
-    <!-- no translation found for pref_autofill_enabled (1174197447388234595) -->
-    <skip />
-    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor (1350709161524642663) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor_summary (6748434431641768870) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
-    <skip />
+    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"סנכרן עם Google Chrome"</string>
+    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"שתף סימניות ונתונים אחרים בין דפדפן Android ו-Google Chrome"</string>
+    <string name="pref_personal_google_account" msgid="952360133341490071">"חשבון Google"</string>
+    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"סנכרן סימניות"</string>
+    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"סנכרן סימניות בין דפדפן Android ובין Google Chrome"</string>
+    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"התחל סנכרון"</string>
+    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"בחר חשבון Google לשיתוף"</string>
+    <string name="pref_autofill_enabled" msgid="1174197447388234595">"מילוי אוטומטי של טפסים"</string>
+    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"מלא טופסי אינטרנט בלחיצה אחת"</string>
+    <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"הגדרות מילוי אוטומטי"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"הגדר ונהל נתונים לטפסים במילוי אוטומטי"</string>
+    <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"\'מילוי אוטומטי\' ישתמש בפרופיל שלך כדי לעזור לך להשלים טופסי אינטרנט בלחיצה אחת."</string>
+    <string name="autofill_profile_editor_name" msgid="8566130291459685955">"שם מלא:"</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"דוא\"ל:"</string>
+    <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"שם חברה:"</string>
+    <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"שורה 1 של כתובת:"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"כתובת רחוב, תא דואר, אצל"</string>
+    <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"שורה 2 של כתובת:"</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"דירה, סוויטה, יחידה, בניין, קומה וכדומה"</string>
+    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"עיר / יישוב:"</string>
+    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"מדינה / מחוז / אזור:"</string>
+    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"מיקוד:"</string>
+    <string name="autofill_profile_editor_country" msgid="7234470301239156656">"ארץ:"</string>
+    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"טלפון:"</string>
+    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"שמור פרופיל"</string>
+    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"הפרופיל נשמר"</string>
+    <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"הפרופיל נמחק"</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"מחק את הפרופיל"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"הדפדפן יכול למלא טופסי אינטרנט כמו זה באופן אוטומטי. האם תרצה להגדיר את הפרופיל שלך?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"ניתן להגדיר \'מילוי אוטומטי\' באמצעות \'הגדרות דפדפן\' -&gt; \'הגדרות אישיות\'."</string>
-    <string name="pref_privacy_title" msgid="1052470980370846151">"הגדרות פרטיות"</string>
+    <!-- no translation found for pref_privacy_security_title (1705642466867300373) -->
+    <skip />
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"נקה קובץ שמור"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"נקה תוכן ומסדי נתונים בקובץ השמור המקומי"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"תוכן ומסדי נתונים בקובץ השמור המקומי יימחקו."</string>
+    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
+    <skip />
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"נקה את כל הנתונים של קובצי cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"נקה את כל קובצי ה-cookies של הדפדפן"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"כל קובצי ה-cookies יימחקו."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"נקה היסטוריה"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"נקה את היסטוריית הניווט של הדפדפן"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"היסטוריית הניווט של הדפדפן תימחק."</string>
+    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
+    <skip />
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"נקה נתוני טופס"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"נקה את כל נתוני הטפסים שנשמרו"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"כל נתוני הטפסים השמורים יימחקו."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"נקה סיסמאות"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"נקה את כל הסיסמאות השמורות"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"כל הסיסמאות השמורות יימחקו."</string>
+    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
+    <skip />
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"הפוך מיקום לפעיל"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"אפשר לאתרים לבקש גישה למיקומך"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"נקה גישה למיקום"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"נקה גישה למיקום לכל אתרי האינטרנט"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"נקה גישה למיקום לכל אתרי האינטרנט"</string>
-    <string name="pref_security_title" msgid="5763978646932160021">"הגדרות אבטחה"</string>
+    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
+    <skip />
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"זכור סיסמאות"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"שמור שמות משתמש וסיסמאות של אתרים"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"זכור את נתוני הטופס"</string>
@@ -279,17 +246,34 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"ברירת מחדל של מרחק מתצוגה"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"פתח דפים בסקירה"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"הצג סקירה של דפים שנפתחו לאחרונה"</string>
-    <string name="pref_extras_title" msgid="3091250467679722382">"הגדרות מתקדמות"</string>
+    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"הגדרות מתקדמות"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"הגדרות אתר"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"הגדרות מתקדמות לאתרים נפרדים"</string>
+    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
+    <skip />
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"אפס לברירת מחדל"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"שחזר הגדרות ברירת מחדל"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"ההגדרות יוחזרו לערכי ברירת המחדל."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"אפס לברירת מחדל"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"ניקוי באגים"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"קידוד טקסט"</string>
-    <!-- no translation found for pref_default_text_encoding_choices:7 (2193955365569270096) -->
+  <string-array name="pref_default_text_encoding_choices">
+    <item msgid="7275223955790513818">"לטינית-1 (ISO-8859-1)"</item>
+    <item msgid="2456597866837587140">"Unicode ‏(UTF-8)"</item>
+    <item msgid="6122474363777211732">"סינית (GBK)"</item>
+    <item msgid="373372275931607040">"סינית (Big5)"</item>
+    <item msgid="891615911084608570">"יפנית (ISO-2022-JP)"</item>
+    <item msgid="5589150448475151241">"יפנית (SHIFT_JIS)"</item>
+    <item msgid="7356792686950371843">"יפנית (EUC-JP)"</item>
+    <item msgid="2193955365569270096">"קוריאנית (EUC-KR)"</item>
+  </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"קידוד טקסט"</string>
+    <!-- no translation found for pref_lab_title (2965318885051241044) -->
+    <skip />
+    <!-- no translation found for pref_lab_quick_controls (2105979166017257647) -->
+    <skip />
+    <!-- no translation found for pref_lab_quick_controls_summary (8025196176636589803) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"בעיה בקישוריות נתונים"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"בעיה בקובץ"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"אשר"</string>
@@ -325,14 +309,13 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"אין מקום לאחסון"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"אין אפשרות להוריד את <xliff:g id="FILENAME">%s</xliff:g>."\n"פנה שטח בטלפון ונסה שוב."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"ההורדה נכשלה"</string>
-    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"אין כרטיס SD"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"אמצעי אחסון מסוג USB אינו זמין"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"אין כרטיס SD"</string>
-    <!-- no translation found for download_no_sdcard_dlg_msg (3144652102051031721) -->
-    <skip />
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"דרוש אמצעי אחסון מסוג USB להורדה של <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"דרוש כרטיס SD כדי להוריד את <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"כרטיס SD לא זמין"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"אמצעי אחסון מסוג USB אינו זמין"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"כרטיס SD לא זמין"</string>
-    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"כרטיס ה-SD אינו פנוי. כדי לאפשר הורדות, בחר \"כבה אחסון USB\" בהתראה."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"אמצעי אחסון מסוג USB אינו פנוי. כדי לאפשר הורדות, בחר \"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"כרטיס ה-SD אינו פנוי. כדי לאפשר הורדות, בחר \"כבה אחסון USB\" בהתראה."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"אין אפשרות לפתוח את הקובץ"</string>
     <string name="retry" msgid="1835923075542266721">"נסה שוב"</string>
@@ -377,21 +360,15 @@
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"מחק את כל הנתונים"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"ביטול"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"מגדיר טפט..."</string>
-    <!-- no translation found for defaultBookmarksUpButton (2303951020715704735) -->
-    <skip />
-    <!-- no translation found for empty_bookmarks_folder (7843361614634930942) -->
-    <skip />
-    <!-- no translation found for rlz_access_point (7165847807377650632) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_title (3325557652271172128) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_description (2187665745413495303) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_remove (8105572409059113340) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
-    <skip />
+    <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"סימניות"</string>
+    <string name="empty_bookmarks_folder" msgid="7843361614634930942">"אין סימניות"</string>
+    <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"סנכרן עם חשבון Google"</string>
+    <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"סימניות Android שלך אינן משויכות לחשבון Google"</string>
+    <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"הסר את הסימניות של Android"</string>
+    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"הוסף את סימניות Android לסימניות של <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"שתף"</string>
-    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
+    <string name="max_tabs_warning" msgid="4122034303809457570">"אין עוד כרטיסיות זמינות"</string>
+    <!-- no translation found for account_picker_title (2199261460783026844) -->
     <skip />
 </resources>

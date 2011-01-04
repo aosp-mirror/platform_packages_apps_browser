@@ -19,4 +19,6 @@
     <string name="new_tab" msgid="7275656655054293038">"Nuova scheda"</string>
     <string name="new_incognito_tab" msgid="5149742197322201152">"Nuova scheda in incognito"</string>
     <string name="active_tabs" msgid="5324492165541331128">"Schede"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow (1061831678814826192) -->
+    <skip />
 </resources>

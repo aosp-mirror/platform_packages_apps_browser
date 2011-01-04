@@ -154,7 +154,12 @@
     <string name="pref_use_default" msgid="192587563274735878">"デフォルトページ"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"ページの自動調整"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"画面に合わせてウェブページをフォーマットする"</string>
-    <string name="pref_personal_title" msgid="1447687455755683695">"個人設定"</string>
+    <!-- no translation found for pref_general_title (1946872771219249323) -->
+    <skip />
+    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
+    <skip />
+    <!-- no translation found for pref_general_autofill_title (64638897890112873) -->
+    <skip />
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Google Chromeと同期する"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"AndroidブラウザとGoogle Chromeの間でブックマークなどのデータを共有する"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Googleアカウント"</string>
@@ -166,8 +171,7 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"1回タップするだけでウェブフォームに入力できます"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自動入力設定"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"自動入力フォーム用のデータの設定と管理"</string>
-    <!-- no translation found for autofill_profile_editor_heading (5009490178189728877) -->
-    <skip />
+    <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"プロフィールは自動入力機能で使用され、1回タップするだけでウェブフォームに入力することができます。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"氏名:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"メール:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"会社名:"</string>
@@ -183,31 +187,39 @@
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"プロフィールを保存"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"プロフィールが保存されました"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"プロフィールを削除しました"</string>
-    <!-- outdated translation 7112035941146003753 -->     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"プロフィールを削除"</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"プロフィールを削除"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"このようなウェブフォームにブラウザで自動入力できます。プロフィールを設定しますか？"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"自動入力はいつでも[ブラウザ設定] -&gt; [個人設定]から設定できます。"</string>
-    <string name="pref_privacy_title" msgid="1052470980370846151">"プライバシー設定"</string>
+    <!-- no translation found for pref_privacy_security_title (1705642466867300373) -->
+    <skip />
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"キャッシュを消去"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"ローカルにキャッシュしたコンテンツとデータベースを消去する"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"ローカルにキャッシュしたコンテンツとデータベースを削除します。"</string>
+    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
+    <skip />
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Cookieをすべて消去"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"すべてのブラウザCookieを消去する"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"すべてのCookieを削除します。"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"履歴消去"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"ブラウザの閲覧履歴を消去する"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"ブラウザの閲覧履歴を削除します。"</string>
+    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
+    <skip />
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"フォームデータを消去"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"保存されているフォームデータをすべて消去する"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"保存されているすべてのフォームデータが削除されます。"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"パスワードを消去"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"保存されているすべてのパスワードを消去する"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"保存されているすべてのパスワードを削除します。"</string>
+    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
+    <skip />
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"位置情報を有効にする"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"サイトに現在地情報へのアクセスを許可する"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"位置情報アクセスをクリア"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"すべてのウェブサイトの位置情報アクセスをクリアする"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"すべてのウェブサイトの位置情報アクセスをクリア"</string>
-    <string name="pref_security_title" msgid="5763978646932160021">"セキュリティ設定"</string>
+    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
+    <skip />
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"パスワードを保存"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"ウェブサイトのユーザー名とパスワードを保存する"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"フォームデータを保存"</string>
@@ -234,9 +246,11 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"デフォルトの倍率"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"ページを全体表示で開く"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"新しく開いたページを全体表示する"</string>
-    <string name="pref_extras_title" msgid="3091250467679722382">"詳細設定"</string>
+    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"詳細設定"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"ウェブサイト設定"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"個々のウェブサイトの詳細設定"</string>
+    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
+    <skip />
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"初期設定にリセット"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"初期設定に戻す"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"設定を初期値に戻します。"</string>
@@ -254,6 +268,12 @@
     <item msgid="2193955365569270096">"韓国語（EUC-KR）"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"テキストエンコード"</string>
+    <!-- no translation found for pref_lab_title (2965318885051241044) -->
+    <skip />
+    <!-- no translation found for pref_lab_quick_controls (2105979166017257647) -->
+    <skip />
+    <!-- no translation found for pref_lab_quick_controls_summary (8025196176636589803) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"データアクセスエラー"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"ファイルに問題があります"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"確認"</string>
@@ -348,6 +368,7 @@
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Androidのブックマークを削除"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Androidのブックマークを<xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>のブックマークに追加"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"共有"</string>
-    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
+    <string name="max_tabs_warning" msgid="4122034303809457570">"タブ数が上限に達しました"</string>
+    <!-- no translation found for account_picker_title (2199261460783026844) -->
     <skip />
 </resources>
