@@ -301,7 +301,7 @@ public class TitleBarXLarge extends TitleBarBase
      */
     @Override
     public void onEdit(String text) {
-        setDisplayTitle(text, true);
+        mUrlInput.setText(text, true);
         if (text != null) {
             mUrlInput.setSelection(text.length());
         }
@@ -380,11 +380,9 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     /* package */ void setDisplayTitle(String title) {
-        mUrlInput.setText(title, false);
-    }
-
-    void setDisplayTitle(String title, boolean filter) {
-        mUrlInput.setText(title, filter);
+        if (!isEditingUrl()) {
+            mUrlInput.setText(title, false);
+        }
     }
 
     // UrlInput text watcher
