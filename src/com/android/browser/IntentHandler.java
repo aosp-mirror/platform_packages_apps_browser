@@ -197,7 +197,8 @@ public class IntentHandler {
     protected UrlData getUrlDataFromIntent(Intent intent) {
         String url = "";
         Map<String, String> headers = null;
-        if (intent != null) {
+        if (intent != null
+                && (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             final String action = intent.getAction();
             if (Intent.ACTION_VIEW.equals(action)) {
                 url = UrlUtils.smartUrlFilter(intent.getData());
