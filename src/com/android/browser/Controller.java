@@ -1546,7 +1546,7 @@ public class Controller
                 break;
 
             case R.id.find_menu_id:
-                getCurrentTopWebView().showFindDialog(null);
+                getCurrentTopWebView().showFindDialog(null, true);
                 break;
 
             case R.id.page_info_menu_id:
@@ -2431,7 +2431,7 @@ public class Controller
 //          case KeyEvent.KEYCODE_E:    // in Chrome: puts '?' in URL bar
             case KeyEvent.KEYCODE_F:
                 if (ctrl) {
-                    webView.showFindDialog(null);
+                    webView.showFindDialog(null, true);
                     return true;
                 }
                 break;
