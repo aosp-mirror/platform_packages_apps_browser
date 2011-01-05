@@ -16,9 +16,7 @@
 
 package com.android.browser;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.util.AttributeSet;
@@ -50,6 +48,7 @@ public class BrowserHomepagePreference extends EditTextPreference {
     protected void onAddEditTextToDialogView(View dialogView,
             EditText editText) {
         super.onAddEditTextToDialogView(dialogView, editText);
+        editText.setSelectAllOnFocus(true);
         // Now the EditText has a parent.  Add a button to set to the current
         // page.
         createButtons((ViewGroup) editText.getParent());
