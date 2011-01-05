@@ -1898,7 +1898,7 @@ public class Controller
 
         // Only update thumbnails for web urls (http(s)://), not for
         // about:, javascript:, data:, etc...
-        if (Patterns.WEB_URL.matcher(url).matches()) {
+        if (url != null && Patterns.WEB_URL.matcher(url).matches()) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... unused) {
