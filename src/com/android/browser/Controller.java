@@ -1848,10 +1848,16 @@ public class Controller
     }
 
     private static Bitmap createScreenshot(WebView view, int width, int height) {
+        // We render to a bitmap 2x the desired size so that we can then
+        // re-scale it with filtering since canvas.scale doesn't filter
+        // This helps reduce aliasing at the cost of being slightly blurry
+        final int filter_scale = 2;
         Picture thumbnail = view.capturePicture();
         if (thumbnail == null) {
             return null;
         }
+        width *= filter_scale;
+        height *= filter_scale;
         Bitmap bm = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bm);
         // May need to tweak these values to determine what is the
@@ -1877,7 +1883,10 @@ public class Controller
         canvas.scale(scaleFactor, scaleFactor);
 
         thumbnail.draw(canvas);
-        return bm;
+        Bitmap ret = Bitmap.createScaledBitmap(bm, width / filter_scale,
+                height / filter_scale, true);
+        bm.recycle();
+        return ret;
     }
 
     private void updateScreenshot(WebView view) {
