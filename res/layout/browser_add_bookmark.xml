@@ -72,7 +72,7 @@
 
     <TableLayout android:id="@+id/default_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/folder_selector_height"
         android:layout_weight="1"
         android:stretchColumns="1"
         android:shrinkColumns="1"
