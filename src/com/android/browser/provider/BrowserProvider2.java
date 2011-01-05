@@ -635,15 +635,20 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // Look for account info
                 String accountType = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE);
                 String accountName = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME);
-                if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
-                    selection = DatabaseUtils.concatenateWhere(selection,
-                            Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? ");
-                    selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
-                            new String[] { accountType, accountName });
-                } else {
-                    selection = DatabaseUtils.concatenateWhere(selection,
-                            Bookmarks.ACCOUNT_TYPE + " IS NULL AND " +
-                            Bookmarks.ACCOUNT_NAME + " IS NULL ");
+                // Only add it if it isn't already in the selection
+                if (selection == null ||
+                        (!selection.contains(Bookmarks.ACCOUNT_NAME)
+                        && !selection.contains(Bookmarks.ACCOUNT_TYPE))) {
+                    if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
+                        selection = DatabaseUtils.concatenateWhere(selection,
+                                Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? ");
+                        selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                                new String[] { accountType, accountName });
+                    } else {
+                        selection = DatabaseUtils.concatenateWhere(selection,
+                                Bookmarks.ACCOUNT_TYPE + " IS NULL AND " +
+                                Bookmarks.ACCOUNT_NAME + " IS NULL ");
+                    }
                 }
 
                 // Set a default sort order if one isn't specified
