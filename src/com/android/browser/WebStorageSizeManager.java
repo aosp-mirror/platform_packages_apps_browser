@@ -141,11 +141,11 @@ public class WebStorageSizeManager {
         }
 
         public long getFreeSpaceSizeBytes() {
-            return mFs.getAvailableBlocks() * mFs.getBlockSize();
+            return (long)(mFs.getAvailableBlocks()) * mFs.getBlockSize();
         }
 
         public long getTotalSizeBytes() {
-            return mFs.getBlockCount() * mFs.getBlockSize();
+            return (long)(mFs.getBlockCount()) * mFs.getBlockSize();
         }
     };
 
