@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_name" msgid="1935869255545976415">"Navegador"</string>
+    <string name="choose_upload" msgid="3649366287575002063">"Trieu un fitxer per penjar-lo"</string>
+    <string name="new_tab" msgid="4505722538297295141">"Finestra nova"</string>
+    <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
+    <string name="tab_bookmarks" msgid="2305793036003473653">"Adreces d\'interès"</string>
+    <string name="tab_most_visited" msgid="1077402532455000703">"Més visitats"</string>
+    <string name="tab_history" msgid="1979267558744613746">"Historial"</string>
+    <string name="added_to_bookmarks" msgid="1020224130695956728">"S\'ha afegit a les adreces d\'interès"</string>
+    <string name="removed_from_bookmarks" msgid="6063705902028438800">"Eliminat de les adreces d\'interès"</string>
+    <string name="sign_in_to" msgid="5939425800148759165">"Inici de sessió a <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="username" msgid="5057566336518215922">"Nom"</string>
+    <string name="password" msgid="1177138552305184404">"Contrasenya"</string>
+    <string name="action" msgid="183105774472071343">"Inicia la sessió"</string>
+    <string name="bookmarks_search" msgid="5229596268214362873">"Navegador"</string>
+    <string name="cancel" msgid="3017274947407233702">"Cancel·la"</string>
+    <string name="ok" msgid="1509280796718850364">"D\'acord"</string>
+  <plurals name="matches_found">
+    <item quantity="zero" msgid="6242659159545399963">"Cap coincidència"</item>
+    <item quantity="one" msgid="4352019729062956802">"1 coincidència"</item>
+    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> coincidències"</item>
+    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> coincidències"</item>
+  </plurals>
+    <string name="title_bar_loading" msgid="7438217780834640678">"S\'està carregant…"</string>
+    <string name="page_info" msgid="4048529256302257195">"Informació de la pàgina"</string>
+    <string name="page_info_view" msgid="5303490449842635158">"Visualitza la informació de la pàgina"</string>
+    <string name="page_info_address" msgid="2222306609532903254">"Adreça:"</string>
+    <string name="ssl_warnings_header" msgid="79744901983636370">"Hi ha problemes amb el certificat de seguretat per a aquest lloc."</string>
+    <string name="ssl_continue" msgid="8031515015829358457">"Continua"</string>
+    <string name="security_warning" msgid="6607795404322797541">"Advertiment de seguretat"</string>
+    <string name="view_certificate" msgid="1472768887529093862">"Visualitza el certificat"</string>
+    <string name="ssl_untrusted" msgid="5369967226521102194">"Aquest certificat no és d\'una autoritat de confiança."</string>
+    <string name="ssl_mismatch" msgid="558688832420069896">"El nom del lloc no coincideix amb el nom que consta al certificat."</string>
+    <string name="ssl_expired" msgid="5739349389499575559">"Aquest certificat ha caducat."</string>
+    <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Aquest certificat encara no és vàlid."</string>
+    <string name="ssl_certificate" msgid="5226747157992111668">"Certificat de seguretat"</string>
+    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Aquest certificat és vàlid."</string>
+    <string name="issued_to" msgid="9032338008819841339">"Emès per a:"</string>
+    <string name="common_name" msgid="5745530093500062357">"Nom comú:"</string>
+    <string name="org_name" msgid="8868889052889991293">"Organització:"</string>
+    <string name="org_unit" msgid="4489056376307768196">"Unitat organitzativa:"</string>
+    <string name="issued_by" msgid="6959484326943152487">"Publicat per:"</string>
+    <string name="validity_period" msgid="57988851973181309">"Validesa:"</string>
+    <string name="issued_on" msgid="2082890654801808368">"Publicat el:"</string>
+    <string name="expires_on" msgid="8061200430557020704">"Caduca el:"</string>
+    <string name="stopping" msgid="4839698519340302982">"S\'està aturant..."</string>
+    <string name="stop" msgid="5687251076030630074">"Atura"</string>
+    <string name="reload" msgid="8585220783228408062">"Actualitza"</string>
+    <string name="back" msgid="8414603107175713668">"Enrere"</string>
+    <string name="forward" msgid="4288210890526641577">"Següent"</string>
+    <string name="save" msgid="5922311934992468496">"D\'acord"</string>
+    <string name="do_not_save" msgid="6777633870113477714">"Cancel·la"</string>
+    <string name="location" msgid="969988560160364559">"Ubicació"</string>
+    <string name="name" msgid="5990326151488445481">"Nom"</string>
+    <string name="http" msgid="2163722670597250102">"http://"</string>
+    <string name="save_to_bookmarks" msgid="588165100024086565">"Afegeix una adreça d\'interès"</string>
+    <string name="edit_bookmark" msgid="5024089053490231905">"Edita l\'adreça d\'interès"</string>
+    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Afegeix una drecera a la pàgina d\'inici"</string>
+    <string name="open_bookmark" msgid="8473581305759935790">"Obre"</string>
+    <string name="remove_bookmark" msgid="8407495852801410891">"Suprimeix l\'adreça d\'interès"</string>
+    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Elimina de les adreces d\'interès"</string>
+    <string name="remove_history_item" msgid="5021424935726728618">"Elimina de l\'historial"</string>
+    <string name="set_as_homepage" msgid="4752937379414905560">"Defineix com a pàgina d\'inici"</string>
+    <string name="bookmark_saved" msgid="2766434679871317557">"S\'ha desat a les adreces d\'interès."</string>
+    <string name="bookmark_not_saved" msgid="700600955089376724">"No es pot desar l\'adreça d\'interès."</string>
+    <string name="homepage_set" msgid="8768087280310966395">"S\'ha definit la pàgina d\'inici."</string>
+    <string name="bookmark_needs_title" msgid="6245900436119218187">"L\'adreça d\'interès ha de tenir un nom."</string>
+    <string name="bookmark_needs_url" msgid="7809876865972755158">"L\'adreça d\'interès ha de tenir una ubicació."</string>
+    <string name="bookmark_url_not_valid" msgid="6719785633980202419">"L\'URL no és vàlid."</string>
+    <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Aquest URL no es pot afegir a les adreces d\'interès."</string>
+    <string name="delete_bookmark" msgid="2422989994934201992">"Supressió"</string>
+    <string name="bookmark_page" msgid="6845189305130307274">"Afegeix l\'última pàgina visualitzada a les adreces d\'interès"</string>
+    <string name="switch_to_thumbnails" msgid="5493351529609043151">"Visualització en miniatura"</string>
+    <string name="switch_to_list" msgid="8900531247982121055">"Visualització de llista"</string>
+    <string name="current_page" msgid="7510129573681663135">"de "</string>
+    <string name="delete_bookmark_warning" msgid="758043186202032205">"Se suprimirà l\'adreça d\'interès \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
+    <string name="open_in_new_window" msgid="6596775546468054510">"Obre en una finestra nova"</string>
+    <string name="goto_dot" msgid="3895839050522602723">"Vés"</string>
+    <string name="find_dot" msgid="6259312434696611957">"Troba-ho a la pàgina"</string>
+    <string name="select_dot" msgid="6299170761900561967">"Selecciona text"</string>
+    <string name="tab_picker_title" msgid="864478399057782913">"Finestres actuals"</string>
+    <string name="tab_picker_remove_tab" msgid="630087809802479397">"Tanca"</string>
+    <string name="bookmarks" msgid="1961279134885867815">"Adreces d\'interès"</string>
+    <string name="shortcut_bookmark" msgid="3974876480401135895">"Adreça d\'interès"</string>
+    <string name="history" msgid="2451240511251410032">"Historial"</string>
+    <string name="menu_view_download" msgid="2124570321712995120">"Baixades"</string>
+    <string name="copy_page_url" msgid="7635062169011319208">"Copia l\'URL de la pàgina"</string>
+    <string name="share_page" msgid="593756995297268343">"Comparteix la pàgina"</string>
+    <string name="contextmenu_openlink" msgid="7237961252214188935">"Obre"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Obre en una finestra nova"</string>
+    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Afegeix l\'enllaç a les adreces d\'interès"</string>
+    <string name="contextmenu_savelink" msgid="5508554930832538184">"Desa l\'enllaç"</string>
+    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Comparteix l\'enllaç"</string>
+    <string name="contextmenu_copy" msgid="398860586635404030">"Copia"</string>
+    <string name="contextmenu_copylink" msgid="5153657160294534270">"Copia l\'URL de l\'enllaç"</string>
+    <string name="contextmenu_download_image" msgid="4243829645180686912">"Desa la imatge"</string>
+    <string name="contextmenu_view_image" msgid="3870625602053600905">"Visualitza la imatge"</string>
+    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Defineix com a empaperat"</string>
+    <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Marca..."</string>
+    <string name="contextmenu_add_contact" msgid="3183511922223645716">"Afegeix un contacte"</string>
+    <string name="contextmenu_send_mail" msgid="1014513374828775660">"Envia un correu electrònic"</string>
+    <string name="contextmenu_map" msgid="7471390435434034912">"Mostra al mapa"</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Ús compartit mitjançant"</string>
+    <string name="clear" msgid="7070043081700011461">"Esborra"</string>
+    <string name="replace" msgid="4843033491070384047">"Substitueix"</string>
+    <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Adreces d\'interès"</string>
+    <string name="menu_preferences" msgid="6709237687234102240">"Configuració"</string>
+    <string name="pref_content_title" msgid="722227111894838633">"Configuració del contingut de la pàgina"</string>
+    <string name="pref_content_load_images" msgid="2125616852957377561">"Carrega les imatges"</string>
+    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Mostra les imatges a les pàgines web"</string>
+    <string name="pref_content_block_popups" msgid="7808433807197256726">"Bloqueja les finestres emergents"</string>
+    <string name="pref_content_javascript" msgid="4570972030299516843">"Activa JavaScript"</string>
+    <string name="pref_content_open_in_background" msgid="824123779725118663">"Obre en segon terme"</string>
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Activa els complements"</string>
+  <string-array name="pref_content_plugins_choices">
+    <item msgid="6745108155096660725">"Sempre activat"</item>
+    <item msgid="2484126708670016519">"Segons demanda"</item>
+    <item msgid="8547442717307793863">"Desactivat"</item>
+  </string-array>
+    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Obre finestres noves darrera la finestra actual"</string>
+    <string name="pref_content_homepage" msgid="6082437160778559806">"Defineix la pàgina d\'inici"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Defineix el motor de cerca"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Selecciona un motor de cerca"</string>
+    <string name="pref_use_current" msgid="1493179933653044553">"Utilitza la pàgina actual"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Ajusta les pàgines automàticament"</string>
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formata les pàgines web perquè s\'ajustin a la pantalla"</string>
+    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Visualització només horitzontal"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Visualitza les pàgines només en l\'orientació de pantalla horitzontal, que és més ampla"</string>
+    <string name="pref_privacy_title" msgid="1052470980370846151">"Configuració de privadesa"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Esborra la memòria cau"</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Esborra el contingut i les bases de dades de la memòria cau local"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Se suprimiran el contingut i les bases de dades de la memòria cau local."</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Esborra totes les dades de les galetes"</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Esborra totes les galetes del navegador"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Se suprimiran totes les galetes."</string>
+    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Esborra l\'historial"</string>
+    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Esborra l\'historial de navegació del navegador"</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Se suprimirà l\'historial de navegació del navegador."</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Esborra les dades dels formularis"</string>
+    <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Esborra totes les dades de formulari desades"</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Se suprimiran totes les dades de formularis desades."</string>
+    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Esborra les contrasenyes"</string>
+    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Esborra totes les contrasenyes desades"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Totes les contrasenyes desades se suprimiran."</string>
+    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Activa la ubicació"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Permet als llocs sol·licitar accés a la vostra ubicació"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Esborra l\'accés a la ubicació"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Esborra l\'accés a la ubicació per a tots els llocs web"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Esborra l\'accés a la ubicació per a tots els llocs web"</string>
+    <string name="pref_security_title" msgid="5763978646932160021">"Configuració de seguretat"</string>
+    <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Recorda les contrasenyes"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Desa els noms d\'usuari i les contrasenyes dels llocs"</string>
+    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Recorda les dades del formulari"</string>
+    <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Recorda les dades que escric als formularis per utilitzar-les més endavant"</string>
+    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Mostra els advertiments de seguretat"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Mostra un advertiment si hi ha un problema amb la seguretat d\'un lloc"</string>
+    <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Accepta les galetes"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Permet als llocs desar i llegir dades de les \"galetes\""</string>
+    <string name="pref_text_size" msgid="3827031324346612208">"Mida del text"</string>
+  <string-array name="pref_text_size_choices">
+    <item msgid="4952686548944739548">"Molt petita"</item>
+    <item msgid="1950030433642671460">"Petita"</item>
+    <item msgid="4338347520133294584">"Normal"</item>
+    <item msgid="5043128215356351184">"Gran"</item>
+    <item msgid="7201512237890458902">"Enorme"</item>
+  </string-array>
+    <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Mida del text"</string>
+    <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predeterminat"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item msgid="549583171195154919">"Lluny"</item>
+    <item msgid="5619034257768161024">"Mitjà"</item>
+    <item msgid="3840999588443167001">"Tanca"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predeterminat"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Obre un resum de les pàgines"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Mostra un resum de les pàgines que s\'han obert darrerament"</string>
+    <string name="pref_extras_title" msgid="3091250467679722382">"Configuració avançada"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Configuració del lloc web"</string>
+    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Configuració avançada de llocs web individuals"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Restableix al valor predeterminat"</string>
+    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Restaura la configuració predeterminada"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"La configuració tornarà als valors predeterminats."</string>
+    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Restableix al valor predeterminat"</string>
+    <string name="pref_development_title" msgid="3263854204533056480">"Depuració"</string>
+    <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codificació del text"</string>
+  <string-array name="pref_default_text_encoding_choices">
+    <item msgid="7275223955790513818">"Latin-1 (ISO-8859-1)"</item>
+    <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
+    <item msgid="6122474363777211732">"Xinès (GBK)"</item>
+    <item msgid="373372275931607040">"Xinès (Big5)"</item>
+    <item msgid="891615911084608570">"Japonès (ISO-2022-JP)"</item>
+    <item msgid="5589150448475151241">"Japonès (MAJ_JIS)"</item>
+    <item msgid="7356792686950371843">"Japonès (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificació del text"</string>
+    <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de connectivitat de dades"</string>
+    <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema amb el fitxer"</string>
+    <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirma"</string>
+    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"La pàgina que proveu de visualitzar conté dades que ja s\'han enviat (\"POSTDATA\"). Si reenvieu les dades, qualsevol acció que hagi executat el formulari de la pàgina (com ara una cerca o bé una compra en línia) es repetirà."</string>
+    <string name="loadSuspendedTitle" msgid="675991625288706944">"No hi ha cap connexió de xarxa"</string>
+    <string name="loadSuspended" msgid="3133656588880851273">"El navegador no pot carregar aquesta pàgina perquè no hi ha connexió a Internet."</string>
+    <string name="clear_history" msgid="5998307092715979619">"Esborra l\'historial"</string>
+    <string name="browser_history" msgid="1038987118290272525">"Pàgines visitades recentment"</string>
+    <string name="empty_history" msgid="8738772352308207274">"L\'historial del navegador és buit."</string>
+    <string name="add_new_bookmark" msgid="8086367791400349049">"Afegeix una adreça d\'interès..."</string>
+    <string name="add_bookmark_short" msgid="3783984330998103735">"Afegeix"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Cerqueu o escriviu l\'URL"</string>
+    <string name="search_button_text" msgid="5235226933877634410">"Vés"</string>
+    <string name="search_settings_description" msgid="1422401062529014107">"Adreces d\'interès i historial web"</string>
+    <string name="attention" msgid="3473639060042811244">"Atenció"</string>
+    <string name="popup_window_attempt" msgid="2673111696288657989">"Aquest lloc prova d\'obrir una finestra emergent."</string>
+    <string name="allow" msgid="1157313689171991335">"Permet"</string>
+    <string name="block" msgid="9172175889884707800">"Bloqueja"</string>
+    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"S\'ha arribat al límit de finestres"</string>
+    <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"No s\'ha pogut obrir una finestra nova perquè ja n\'heu obert el nombre màxim."</string>
+    <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"La finestra emergent ja és oberta"</string>
+    <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"No s\'ha pogut obrir una finestra emergent nova perquè només n\'hi pot haver una d\'oberta al mateix temps."</string>
+    <string name="download_title" msgid="2122874021047565594">"Historial de baixades"</string>
+    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Desconegut&gt;"</string>
+    <string name="download_menu_open" msgid="4888327480367757513">"Obre"</string>
+    <string name="download_menu_clear" msgid="6264454531553418124">"Esborra de la llista"</string>
+    <string name="download_menu_delete" msgid="8815502136393894148">"Suprimeix"</string>
+    <string name="download_menu_cancel" msgid="2545333007601851574">"Cancel·la la baixada"</string>
+    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancel·la totes les baixades"</string>
+    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancel·lació de baixades"</string>
+    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Es cancel·laran les <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> baixades i s\'esborraran de l\'historial de baixades."</string>
+    <string name="download_delete_file" msgid="5330036497843073249">"El fitxer se suprimirà"</string>
+    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Espai esgotat"</string>
+    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"No s\'ha pogut baixar <xliff:g id="FILENAME">%s</xliff:g>."\n" Allibereu una mica d\'espai al telèfon i torneu-ho a provar."</string>
+    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Baixada incorrecta"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Emmag. USB no dispon."</string>
+    <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"No hi ha cap targeta SD"</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Cal l\'emmagatzematge USB per baixar <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Es necessita una targeta SD per baixar <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Emmag. USB no dispon."</string>
+    <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"La targeta SD no està disponible"</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"L\'emmagatzematge USB està ocupat. Per permetre les baixades, selecciona \"Desactiva l\'emmagatzematge USB\" a la notificació."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La targeta SD està ocupada. Per permetre les baixades, seleccioneu \"Desactiva l\'emmagatzematge d\'USB\" a la notificació."</string>
+    <string name="download_no_application_title" msgid="1286056729168874295">"No pot obrir el fitxer"</string>
+    <string name="retry" msgid="1835923075542266721">"Torna-ho a provar"</string>
+    <string name="no_downloads" msgid="3947445710685021498">"L\'historial de baixades és buit."</string>
+    <string name="download_error" msgid="413496839831257187">"Baixada incorrecta."</string>
+    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g>: baixada completa."</string>
+    <string name="download_running" msgid="2622942231322015059">"S\'està baixant..."</string>
+    <string name="download_pending" msgid="2599683668575349559">"S\'està iniciant la baixada…"</string>
+    <string name="download_pending_network" msgid="6548714525679461053">"S\'està esperant la connexió de dades..."</string>
+    <string name="download_running_paused" msgid="6418029352085656495">"S\'està esperant la connexió de dades..."</string>
+    <string name="download_canceled" msgid="6057083743144492515">"S\'ha cancel·lat la baixada."</string>
+    <string name="download_not_acceptable" msgid="313769696131563652">"No es pot baixar. El contingut no és compatible amb aquest telèfon."</string>
+    <string name="download_file_error" msgid="1206648050615176113">"No es pot completar la baixada. No hi ha prou espai."</string>
+    <string name="download_length_required" msgid="9038605488460437406">"No es pot baixar. La mida de l\'element no es pot determinar."</string>
+    <string name="download_precondition_failed" msgid="8327584102874295580">"S\'ha interromput la baixada. No es pot reprendre."</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Cerca al web"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"La memòria del navegador és plena"</string>
+    <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Feu clic per alliberar espai."</string>
+    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Esborra les dades emmagatzemades"</string>
+    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Esborra les dades emmagatzemades"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Se suprimiran totes les dades emmagatzemades per aquest lloc web"</string>
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Esborra-ho tot"</string>
+    <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Cancel·la"</string>
+    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB emmagatzemats al telèfon"</string>
+    <string name="loading_video" msgid="4887871585216091096">"S\'està carregant el vídeo"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> vol saber la vostra ubicació"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Comparteix la ubicació"</string>
+    <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rebutja"</string>
+    <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Recorda la preferència"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Aquest lloc pot accedir a la vostra ubicació. Canvieu aquest paràmetre a Configuració -&gt; Configuració del lloc web"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Aquest lloc no pot accedir a la vostra ubicació. Canvieu aquest paràmetre a Configuració -&gt; Configuració del lloc web"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Esborra l\'accés a la ubicació"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Actualment, aquest lloc pot accedir a la vostra ubicació"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Aquest lloc no pot accedir actualment a la vostra ubicació"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Esborra l\'accés a la ubicació"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"S\'esborrarà l\'accés a la ubicació d\'aquest lloc web"</string>
+    <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Esborra l\'accés"</string>
+    <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Cancel·la"</string>
+    <string name="website_settings_clear_all" msgid="8739804325997655980">"Esborra-ho tot"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Voleu esborrar tota la configuració del lloc web?"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Se suprimiran totes les dades i els permisos d\'ubicació del lloc web."</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Suprimeix totes les dades"</string>
+    <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancel·la"</string>
+    <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"S\'està definint l\'empaperat..."</string>
+</resources>
