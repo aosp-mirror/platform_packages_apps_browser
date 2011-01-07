@@ -546,6 +546,9 @@ class Tab {
             mInPageLoad = false;
             // Sync state (in case of stop/timeout)
             mCurrentState.mUrl = view.getUrl();
+            if (mCurrentState.mUrl == null) {
+                mCurrentState.mUrl = url != null ? url : "";
+            }
             mCurrentState.mTitle = view.getTitle();
             mCurrentState.mFavicon = view.getFavicon();
             if (!URLUtil.isHttpsUrl(mCurrentState.mUrl)) {
