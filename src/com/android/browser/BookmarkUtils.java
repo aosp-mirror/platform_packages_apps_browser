@@ -206,12 +206,10 @@ public class BookmarkUtils {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
         String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
-        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
-            ub.appendQueryParameter(
-                    BrowserContract.Bookmarks.PARAM_ACCOUNT_NAME,accountName);
-            ub.appendQueryParameter(
-                    BrowserContract.Bookmarks.PARAM_ACCOUNT_TYPE, accountType);
-        }
+        ub.appendQueryParameter(
+                BrowserContract.Bookmarks.PARAM_ACCOUNT_NAME,accountName);
+        ub.appendQueryParameter(
+                BrowserContract.Bookmarks.PARAM_ACCOUNT_TYPE, accountType);
         return ub;
     }
 }

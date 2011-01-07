@@ -66,10 +66,7 @@ public class BookmarksLoader extends CursorLoader {
     }
 
     static Uri addAccount(Uri uri, String accountType, String accountName) {
-        if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
-            return uri.buildUpon().appendQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE, accountType).
-                    appendQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME, accountName).build();
-        }
-        return uri;
+        return uri.buildUpon().appendQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE, accountType).
+                appendQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME, accountName).build();
     }
 }
