@@ -65,7 +65,8 @@ import java.util.HashMap;
 public class BrowserProvider2 extends SQLiteContentProvider {
 
     static final String LEGACY_AUTHORITY = "browser";
-    static final Uri LEGACY_AUTHORITY_URI = new Uri.Builder().authority(LEGACY_AUTHORITY).build();
+    static final Uri LEGACY_AUTHORITY_URI = new Uri.Builder()
+            .authority(LEGACY_AUTHORITY).scheme("content").build();
 
     static final String TABLE_BOOKMARKS = "bookmarks";
     static final String TABLE_HISTORY = "history";
@@ -593,6 +594,33 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         return null;
     }
 
+    boolean isNullAccount(String account) {
+        if (account == null) return true;
+        account = account.trim();
+        return account.length() == 0 || account.equals("null");
+    }
+
+    Object[] getSelectionWithAccounts(Uri uri, String selection, String[] selectionArgs) {
+        // Look for account info
+        String accountType = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE);
+        String accountName = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME);
+        boolean hasAccounts = false;
+        if (accountType != null && accountName != null) {
+            if (!isNullAccount(accountType) && !isNullAccount(accountName)) {
+                selection = DatabaseUtils.concatenateWhere(selection,
+                        Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? ");
+                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                        new String[] { accountType, accountName });
+                hasAccounts = true;
+            } else {
+                selection = DatabaseUtils.concatenateWhere(selection,
+                        Bookmarks.ACCOUNT_NAME + " IS NULL AND " +
+                        Bookmarks.ACCOUNT_TYPE + " IS NULL");
+            }
+        }
+        return new Object[] { selection, selectionArgs, hasAccounts };
+    }
+
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
             String sortOrder) {
@@ -632,29 +660,14 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             new String[] { Long.toString(ContentUris.parseId(uri)) });
                 }
 
-                // Look for account info
-                String accountType = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE);
-                String accountName = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME);
-                // Only add it if it isn't already in the selection
-                if (selection == null ||
-                        (!selection.contains(Bookmarks.ACCOUNT_NAME)
-                        && !selection.contains(Bookmarks.ACCOUNT_TYPE))) {
-                    if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
-                        selection = DatabaseUtils.concatenateWhere(selection,
-                                Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? ");
-                        selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
-                                new String[] { accountType, accountName });
-                    } else {
-                        selection = DatabaseUtils.concatenateWhere(selection,
-                                Bookmarks.ACCOUNT_TYPE + " IS NULL AND " +
-                                Bookmarks.ACCOUNT_NAME + " IS NULL ");
-                    }
-                }
+                Object[] withAccount = getSelectionWithAccounts(uri, selection, selectionArgs);
+                selection = (String) withAccount[0];
+                selectionArgs = (String[]) withAccount[1];
+                boolean hasAccounts = (Boolean) withAccount[2];
 
                 // Set a default sort order if one isn't specified
                 if (TextUtils.isEmpty(sortOrder)) {
-                    if (!TextUtils.isEmpty(accountType)
-                            && !TextUtils.isEmpty(accountName)) {
+                    if (hasAccounts) {
                         sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER_SYNC;
                     } else {
                         sortOrder = DEFAULT_BOOKMARKS_SORT_ORDER;
@@ -671,7 +684,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 boolean useAccount = false;
                 String accountType = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE);
                 String accountName = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME);
-                if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
+                if (!isNullAccount(accountType) && !isNullAccount(accountName)) {
                     useAccount = true;
                 }
 
@@ -805,6 +818,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                         && projection == null) {
                     projection = Browser.HISTORY_PROJECTION;
                 }
+                if (match == LEGACY) {
+                    uri = BookmarkUtils.addAccountInfo(getContext(),
+                            uri.buildUpon()).build();
+                }
                 String[] args = createCombinedQuery(uri, projection, qb);
                 if (selectionArgs == null) {
                     selectionArgs = args;
@@ -876,25 +893,22 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     private String[] createCombinedQuery(
             Uri uri, String[] projection, SQLiteQueryBuilder qb) {
         String[] args = null;
-        // Look for account info
-        String accountType = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE);
-        String accountName = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME);
         StringBuilder whereBuilder = new StringBuilder(128);
         whereBuilder.append(Bookmarks.IS_DELETED);
-        whereBuilder.append(" = 0 AND ");
-        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
-            whereBuilder.append(Bookmarks.ACCOUNT_NAME);
-            whereBuilder.append("=? AND ");
-            whereBuilder.append(Bookmarks.ACCOUNT_TYPE);
-            whereBuilder.append("=?");
-            // We use this where twice
-            args = new String[] { accountName, accountType,
-                    accountName, accountType};
-        } else {
-            whereBuilder.append(Bookmarks.ACCOUNT_NAME);
-            whereBuilder.append(" IS NULL AND ");
-            whereBuilder.append(Bookmarks.ACCOUNT_TYPE);
-            whereBuilder.append(" IS NULL");
+        whereBuilder.append(" = 0");
+        // Look for account info
+        Object[] withAccount = getSelectionWithAccounts(uri, null, null);
+        String selection = (String) withAccount[0];
+        String[] selectionArgs = (String[]) withAccount[1];
+        if (selection != null) {
+            whereBuilder.append(" AND " + selection);
+            if (selectionArgs != null) {
+                // We use the selection twice, hence we need to duplicate the args
+                args = new String[selectionArgs.length * 2];
+                System.arraycopy(selectionArgs, 0, args, 0, selectionArgs.length);
+                System.arraycopy(selectionArgs, 0, args, selectionArgs.length,
+                        selectionArgs.length);
+            }
         }
         String where = whereBuilder.toString();
         // Build the bookmark subquery for history union subquery
@@ -921,31 +935,18 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         return args;
     }
 
-    int deleteBookmarks(Uri uri, String selection, String[] selectionArgs,
+    int deleteBookmarks(String selection, String[] selectionArgs,
             boolean callerIsSyncAdapter) {
         //TODO cascade deletes down from folders
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        // Look for account info
-        String accountType = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE);
-        String accountName = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME);
-        if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
-            selection = DatabaseUtils.concatenateWhere(selection,
-                    Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? ");
-            selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
-                    new String[] { accountType, accountName });
-        } else {
-            selection = DatabaseUtils.concatenateWhere(selection,
-                    Bookmarks.ACCOUNT_TYPE + " IS NULL AND " +
-                    Bookmarks.ACCOUNT_NAME + " IS NULL ");
-        }
         if (callerIsSyncAdapter) {
             return db.delete(TABLE_BOOKMARKS, selection, selectionArgs);
         }
         ContentValues values = new ContentValues();
         values.put(Bookmarks.DATE_MODIFIED, System.currentTimeMillis());
         values.put(Bookmarks.IS_DELETED, 1);
-        return updateInTransaction(Bookmarks.CONTENT_URI, values,
-                selection, selectionArgs, callerIsSyncAdapter);
+        return updateBookmarksInTransaction(values, selection, selectionArgs,
+                callerIsSyncAdapter);
     }
 
     @Override
@@ -962,7 +963,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case BOOKMARKS: {
-                int deleted = deleteBookmarks(uri, selection, selectionArgs, callerIsSyncAdapter);
+                // Look for account info
+                Object[] withAccount = getSelectionWithAccounts(uri, selection, selectionArgs);
+                selection = (String) withAccount[0];
+                selectionArgs = (String[]) withAccount[1];
+                int deleted = deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
                 pruneImages();
                 return deleted;
             }
@@ -1027,7 +1032,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     boolean isBookmark = c.getInt(1) != 0;
                     String url = c.getString(2);
                     if (isBookmark) {
-                        deleted += deleteBookmarks(uri, Bookmarks._ID + "=?",
+                        deleted += deleteBookmarks(Bookmarks._ID + "=?",
                                 new String[] { Long.toString(id) },
                                 callerIsSyncAdapter);
                         db.delete(TABLE_HISTORY, History.URL + "=?",
@@ -1041,7 +1046,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 return deleted;
             }
         }
-        throw new UnsupportedOperationException("Unknown update URI " + uri);
+        throw new UnsupportedOperationException("Unknown delete URI " + uri);
     }
 
     long queryDefaultFolderId(String accountName, String accountType) {
@@ -1287,6 +1292,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 // fall through
             }
             case BOOKMARKS: {
+                Object[] withAccount = getSelectionWithAccounts(uri, selection, selectionArgs);
+                selection = (String) withAccount[0];
+                selectionArgs = (String[]) withAccount[1];
                 int updated = updateBookmarksInTransaction(values, selection, selectionArgs,
                         callerIsSyncAdapter);
                 pruneImages();
@@ -1347,9 +1355,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             String[] selectionArgs, boolean callerIsSyncAdapter) {
         int count = 0;
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        Cursor cursor = query(Bookmarks.CONTENT_URI,
+        Cursor cursor = db.query(TABLE_BOOKMARKS,
                 new String[] { Bookmarks._ID, Bookmarks.VERSION, Bookmarks.URL },
-                selection, selectionArgs, null);
+                selection, selectionArgs, null, null, null);
         try {
             String[] args = new String[1];
             // Mark the bookmark dirty if the caller isn't a sync adapter
