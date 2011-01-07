@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="application_name" msgid="1935869255545976415">"Selain"</string>
+    <string name="choose_upload" msgid="3649366287575002063">"Valitse lähetettävä tiedosto"</string>
+    <string name="new_tab" msgid="4505722538297295141">"Uusi ikkuna"</string>
+    <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
+    <string name="tab_bookmarks" msgid="2305793036003473653">"Kirjanmerkit"</string>
+    <string name="tab_most_visited" msgid="1077402532455000703">"Useimmin avatut"</string>
+    <string name="tab_history" msgid="1979267558744613746">"Historia"</string>
+    <string name="added_to_bookmarks" msgid="1020224130695956728">"Lisätty kirjanmerkkeihin"</string>
+    <string name="removed_from_bookmarks" msgid="6063705902028438800">"Poistettu kirjanmerkeistä"</string>
+    <string name="sign_in_to" msgid="5939425800148759165">"Kirjaudu sisään osoitteeseen <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="username" msgid="5057566336518215922">"Nimi"</string>
+    <string name="password" msgid="1177138552305184404">"Salasana"</string>
+    <string name="action" msgid="183105774472071343">"Kirjaudu sisään"</string>
+    <string name="bookmarks_search" msgid="5229596268214362873">"Selain"</string>
+    <string name="cancel" msgid="3017274947407233702">"Peruuta"</string>
+    <string name="ok" msgid="1509280796718850364">"OK"</string>
+  <plurals name="matches_found">
+    <item quantity="zero" msgid="6242659159545399963">"Ei tuloksia"</item>
+    <item quantity="one" msgid="4352019729062956802">"1 tulos"</item>
+    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> osumaa"</item>
+    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> osumaa"</item>
+  </plurals>
+    <string name="title_bar_loading" msgid="7438217780834640678">"Ladataan…"</string>
+    <string name="page_info" msgid="4048529256302257195">"Sivun tiedot"</string>
+    <string name="page_info_view" msgid="5303490449842635158">"Näytä sivun tiedot"</string>
+    <string name="page_info_address" msgid="2222306609532903254">"Osoite:"</string>
+    <string name="ssl_warnings_header" msgid="79744901983636370">"Sivuston suojausvarmenteessa on ongelmia."</string>
+    <string name="ssl_continue" msgid="8031515015829358457">"Jatka"</string>
+    <string name="security_warning" msgid="6607795404322797541">"Suojausvaroitus"</string>
+    <string name="view_certificate" msgid="1472768887529093862">"Näytä varmenne"</string>
+    <string name="ssl_untrusted" msgid="5369967226521102194">"Varmenteen myöntäjä ei ole luotettava taho."</string>
+    <string name="ssl_mismatch" msgid="558688832420069896">"Sivuston nimi ei vastaa varmenteessa olevaa nimeä."</string>
+    <string name="ssl_expired" msgid="5739349389499575559">"Varmenne ei ole enää voimassa."</string>
+    <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Varmenne ei ole vielä voimassa."</string>
+    <string name="ssl_certificate" msgid="5226747157992111668">"Suojausvarmenne"</string>
+    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Varmenne on voimassa."</string>
+    <string name="issued_to" msgid="9032338008819841339">"Varmenteen saaja:"</string>
+    <string name="common_name" msgid="5745530093500062357">"Yleinen nimi:"</string>
+    <string name="org_name" msgid="8868889052889991293">"Organisaatio:"</string>
+    <string name="org_unit" msgid="4489056376307768196">"Organisaatioyksikkö:"</string>
+    <string name="issued_by" msgid="6959484326943152487">"Myöntäjä:"</string>
+    <string name="validity_period" msgid="57988851973181309">"Voimassa:"</string>
+    <string name="issued_on" msgid="2082890654801808368">"Myönnetty:"</string>
+    <string name="expires_on" msgid="8061200430557020704">"Vanhenee:"</string>
+    <string name="stopping" msgid="4839698519340302982">"Lopetetaan…"</string>
+    <string name="stop" msgid="5687251076030630074">"Lopeta"</string>
+    <string name="reload" msgid="8585220783228408062">"Päivitä"</string>
+    <string name="back" msgid="8414603107175713668">"Takaisin"</string>
+    <string name="forward" msgid="4288210890526641577">"Seuraava"</string>
+    <string name="save" msgid="5922311934992468496">"OK"</string>
+    <string name="do_not_save" msgid="6777633870113477714">"Peruuta"</string>
+    <string name="location" msgid="969988560160364559">"Sijainti"</string>
+    <string name="name" msgid="5990326151488445481">"Nimi"</string>
+    <string name="http" msgid="2163722670597250102">"http://"</string>
+    <string name="save_to_bookmarks" msgid="588165100024086565">"Lisää kirjanmerkki"</string>
+    <string name="edit_bookmark" msgid="5024089053490231905">"Muokkaa kirjanmerkkiä"</string>
+    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Lisää pikakuvake etusivulle"</string>
+    <string name="open_bookmark" msgid="8473581305759935790">"Avaa"</string>
+    <string name="remove_bookmark" msgid="8407495852801410891">"Poista kirjanmerkki"</string>
+    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Poista kirjanmerkeistä"</string>
+    <string name="remove_history_item" msgid="5021424935726728618">"Poista historiasta"</string>
+    <string name="set_as_homepage" msgid="4752937379414905560">"Aseta aloitussivuksi"</string>
+    <string name="bookmark_saved" msgid="2766434679871317557">"Tallennettu kirjanmerkkeihin."</string>
+    <string name="bookmark_not_saved" msgid="700600955089376724">"Kirjanmerkin tallentaminen epäonnistui."</string>
+    <string name="homepage_set" msgid="8768087280310966395">"Aloitussivu asetettu."</string>
+    <string name="bookmark_needs_title" msgid="6245900436119218187">"Kirjanmerkillä on oltava nimi."</string>
+    <string name="bookmark_needs_url" msgid="7809876865972755158">"Kirjanmerkillä on oltava sijainti."</string>
+    <string name="bookmark_url_not_valid" msgid="6719785633980202419">"Virheellinen URL-osoite."</string>
+    <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Tätä URL-osoitetta ei voi lisätä kirjanmerkkeihin."</string>
+    <string name="delete_bookmark" msgid="2422989994934201992">"Poista"</string>
+    <string name="bookmark_page" msgid="6845189305130307274">"Lisää viimeksi avattu sivu kirjanmerkkeihin"</string>
+    <string name="switch_to_thumbnails" msgid="5493351529609043151">"Pikkukuvanäkymä"</string>
+    <string name="switch_to_list" msgid="8900531247982121055">"Luettelonäkymä"</string>
+    <string name="current_page" msgid="7510129573681663135">"kohteesta "</string>
+    <string name="delete_bookmark_warning" msgid="758043186202032205">"Kirjanmerkki \"<xliff:g id="BOOKMARK">%s</xliff:g>\" poistetaan."</string>
+    <string name="open_in_new_window" msgid="6596775546468054510">"Avaa uudessa ikkunassa"</string>
+    <string name="goto_dot" msgid="3895839050522602723">"Siirry"</string>
+    <string name="find_dot" msgid="6259312434696611957">"Etsi sivulta"</string>
+    <string name="select_dot" msgid="6299170761900561967">"Tekstin valinta"</string>
+    <string name="tab_picker_title" msgid="864478399057782913">"Nykyiset ikkunat"</string>
+    <string name="tab_picker_remove_tab" msgid="630087809802479397">"Sulje"</string>
+    <string name="bookmarks" msgid="1961279134885867815">"Kirjanmerkit"</string>
+    <string name="shortcut_bookmark" msgid="3974876480401135895">"Kirjanmerkki"</string>
+    <string name="history" msgid="2451240511251410032">"Historia"</string>
+    <string name="menu_view_download" msgid="2124570321712995120">"Lataukset"</string>
+    <string name="copy_page_url" msgid="7635062169011319208">"Kopioi sivun URL-osoite"</string>
+    <string name="share_page" msgid="593756995297268343">"Jaa sivu"</string>
+    <string name="contextmenu_openlink" msgid="7237961252214188935">"Avaa"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Avaa uudessa ikkunassa"</string>
+    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Lisää linkki kirjanmerkkeihin"</string>
+    <string name="contextmenu_savelink" msgid="5508554930832538184">"Tallenna linkki"</string>
+    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Jaa linkki"</string>
+    <string name="contextmenu_copy" msgid="398860586635404030">"Kopioi"</string>
+    <string name="contextmenu_copylink" msgid="5153657160294534270">"Kopioi linkin URL-osoite"</string>
+    <string name="contextmenu_download_image" msgid="4243829645180686912">"Tallenna kuva"</string>
+    <string name="contextmenu_view_image" msgid="3870625602053600905">"Näytä kuva"</string>
+    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Aseta taustakuvaksi"</string>
+    <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Soita"</string>
+    <string name="contextmenu_add_contact" msgid="3183511922223645716">"Lisää yhteystieto"</string>
+    <string name="contextmenu_send_mail" msgid="1014513374828775660">"Lähetä sähköpostia"</string>
+    <string name="contextmenu_map" msgid="7471390435434034912">"Kartta"</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Jaa sovelluksessa"</string>
+    <string name="clear" msgid="7070043081700011461">"Poista"</string>
+    <string name="replace" msgid="4843033491070384047">"Korvaa"</string>
+    <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Kirjanmerkit"</string>
+    <string name="menu_preferences" msgid="6709237687234102240">"Asetukset"</string>
+    <string name="pref_content_title" msgid="722227111894838633">"Sivun sisältöasetukset"</string>
+    <string name="pref_content_load_images" msgid="2125616852957377561">"Lataa kuvat"</string>
+    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Näytä verkkosivujen kuvat"</string>
+    <string name="pref_content_block_popups" msgid="7808433807197256726">"Ponnahdusikkunoiden esto"</string>
+    <string name="pref_content_javascript" msgid="4570972030299516843">"Ota JavaScript käyttöön"</string>
+    <string name="pref_content_open_in_background" msgid="824123779725118663">"Avaa taustalla"</string>
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Ota laajennukset käyttöön"</string>
+  <string-array name="pref_content_plugins_choices">
+    <item msgid="6745108155096660725">"Aina käytössä"</item>
+    <item msgid="2484126708670016519">"Tarvittaessa"</item>
+    <item msgid="8547442717307793863">"Pois käytöstä"</item>
+  </string-array>
+    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Avaa uudet ikkunat nykyisen taakse"</string>
+    <string name="pref_content_homepage" msgid="6082437160778559806">"Aseta aloitussivu"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Aseta hakukone"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Valitse hakukone"</string>
+    <string name="pref_use_current" msgid="1493179933653044553">"Käytä nykyistä sivua"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Automaattinen sovitus"</string>
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Sovita verkkosivut näytölle"</string>
+    <string name="pref_content_landscape_only" msgid="2022546812766219672">"Vain vaakasuuntainen näyttö"</string>
+    <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Näytä sivut vain leveässä, vaakasuuntaisessa näkymässä"</string>
+    <string name="pref_privacy_title" msgid="1052470980370846151">"Tietosuoja-asetukset"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Tyhjennä välimuisti"</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Poista paikallisen välimuistin sisältö ja tietokannat"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Paikallisen välimuistin sisältö ja tietokannat poistetaan."</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Poista kaikki evästetiedot"</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Poista selaimen kaikki evästeet"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Kaikki evästeet poistetaan."</string>
+    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Tyhjennä historia"</string>
+    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Tyhjennä selaimen selaushistoria"</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Selaimen selaushistoria poistetaan."</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Poista lomaketiedot"</string>
+    <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Poista kaikki tallennetut lomaketiedot"</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Kaikki tallennetut lomaketiedot poistetaan."</string>
+    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Poista salasanat"</string>
+    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Poista kaikki tallennetut salasanat"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Kaikki tallennetut salasanat poistetaan."</string>
+    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Ota sijaintitiedot käyttöön"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Salli sivustojen pyytää sijaintitietojesi käyttöoikeutta"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Poista sijaintitietojen käyttöoikeus"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Poista sijaintitietojen käyttöoikeus kaikilta sivustoilta"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Poista sijaintitietojen käyttöoikeus kaikilta sivustoilta"</string>
+    <string name="pref_security_title" msgid="5763978646932160021">"Suojausasetukset"</string>
+    <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Tallenna salasanat"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Tallenna sivustojen käyttäjänimet ja salasanat"</string>
+    <string name="pref_security_save_form_data" msgid="1213669802810198893">"Tallenna lomaketiedot"</string>
+    <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Tallenna lomakkeisiin syötetyt tiedot"</string>
+    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Näytä suojausvaroitukset"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Näytä varoitus, jos sivun suojauksessa on ongelma"</string>
+    <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Salli evästeet"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Salli sivustojen tallentaa ja lukea evästetietoja"</string>
+    <string name="pref_text_size" msgid="3827031324346612208">"Tekstin koko"</string>
+  <string-array name="pref_text_size_choices">
+    <item msgid="4952686548944739548">"Hyvin pieni"</item>
+    <item msgid="1950030433642671460">"Pieni"</item>
+    <item msgid="4338347520133294584">"Normaali"</item>
+    <item msgid="5043128215356351184">"Suuri"</item>
+    <item msgid="7201512237890458902">"Hyvin suuri"</item>
+  </string-array>
+    <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Tekstin koko"</string>
+    <string name="pref_default_zoom" msgid="8076142259097187395">"Oletuszoomaus"</string>
+  <string-array name="pref_default_zoom_choices">
+    <item msgid="549583171195154919">"Kauas"</item>
+    <item msgid="5619034257768161024">"Keskikokoinen"</item>
+    <item msgid="3840999588443167001">"Sulje"</item>
+  </string-array>
+    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Oletuszoomaus"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Avaa sivut yleiskatsauksessa"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Näytä äskettäin avattujen sivujen yleiskatsaus"</string>
+    <string name="pref_extras_title" msgid="3091250467679722382">"Lisäasetukset"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Sivustoasetukset"</string>
+    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Yksittäisten sivustojen lisäasetukset"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Palauta oletukseksi"</string>
+    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Palauta oletusasetukset"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Asetukset palautetaan oletusarvoihinsa."</string>
+    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Palauta oletukseksi"</string>
+    <string name="pref_development_title" msgid="3263854204533056480">"Virheenjäljitys"</string>
+    <string name="pref_default_text_encoding" msgid="5742965543955558478">"Tekstin koodaus"</string>
+  <string-array name="pref_default_text_encoding_choices">
+    <item msgid="7275223955790513818">"Latin-1 (ISO-8859-1)"</item>
+    <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
+    <item msgid="6122474363777211732">"kiina (GBK)"</item>
+    <item msgid="373372275931607040">"kiina (Big5)"</item>
+    <item msgid="891615911084608570">"japani (ISO-2022-JP)"</item>
+    <item msgid="5589150448475151241">"japani (SHIFT_JIS)"</item>
+    <item msgid="7356792686950371843">"japani (EUC-JP)"</item>
+  </string-array>
+    <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Tekstin koodaus"</string>
+    <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Datayhteysongelma"</string>
+    <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Tiedosto-ongelma"</string>
+    <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Vahvista"</string>
+    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Sivu, jota yrität avata, sisältää jo lähetettyjä tietoja (POSTDATA). Jos lähetät tiedot uudelleen, sivulla olevan lomakkeen suorittama toimenpide (kuten haku tai verkko-ostos) toistetaan."</string>
+    <string name="loadSuspendedTitle" msgid="675991625288706944">"Ei verkkoyhteyttä"</string>
+    <string name="loadSuspended" msgid="3133656588880851273">"Selain ei voi ladata tätä sivua, sillä internetyhteyttä ei ole."</string>
+    <string name="clear_history" msgid="5998307092715979619">"Tyhjennä historia"</string>
+    <string name="browser_history" msgid="1038987118290272525">"Äskettäin avatut sivut"</string>
+    <string name="empty_history" msgid="8738772352308207274">"Selainhistoria on tyhjä."</string>
+    <string name="add_new_bookmark" msgid="8086367791400349049">"Lisää kirjanmerkki…"</string>
+    <string name="add_bookmark_short" msgid="3783984330998103735">"Lisää"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Kirjoita hakusanoja tai URL-osoite"</string>
+    <string name="search_button_text" msgid="5235226933877634410">"Siirry"</string>
+    <string name="search_settings_description" msgid="1422401062529014107">"Kirjanmerkit ja verkkohistoria"</string>
+    <string name="attention" msgid="3473639060042811244">"Huomio"</string>
+    <string name="popup_window_attempt" msgid="2673111696288657989">"Sivusto yrittää avata ponnahdusikkunan."</string>
+    <string name="allow" msgid="1157313689171991335">"Salli"</string>
+    <string name="block" msgid="9172175889884707800">"Estä"</string>
+    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Ikkunoita avattu enimmäismäärä"</string>
+    <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Uutta ikkunaa ei voi avata, koska suurin sallittu määrä ikkunoita on jo avattuna."</string>
+    <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ponnahdusikkuna on jo auki"</string>
+    <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Uuden ponnahdusikkunan avaaminen ei onnistu, koska kerralla voi olla auki vain yksi ponnahdusikkuna."</string>
+    <string name="download_title" msgid="2122874021047565594">"Lataushistoria"</string>
+    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Tuntematon&gt;"</string>
+    <string name="download_menu_open" msgid="4888327480367757513">"Avaa"</string>
+    <string name="download_menu_clear" msgid="6264454531553418124">"Poista luettelosta"</string>
+    <string name="download_menu_delete" msgid="8815502136393894148">"Poista"</string>
+    <string name="download_menu_cancel" msgid="2545333007601851574">"Peruuta lataus"</string>
+    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Peruuta kaikki lataukset"</string>
+    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Peruuta lataukset"</string>
+    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Kaikki <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> latausta peruutetaan ja poistetaan lataushistoriasta."</string>
+    <string name="download_delete_file" msgid="5330036497843073249">"Tiedosto poistetaan"</string>
+    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Tila loppu"</string>
+    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Tiedostoa <xliff:g id="FILENAME">%s</xliff:g> ei voi ladata."\n"Vapauta puhelimessasi tilaa ja yritä uudelleen."</string>
+    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Lataus epäonnistui"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-tila ei käytettävissä"</string>
+    <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Ei SD-korttia"</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Tarvitset USB-tallennustilan ladataksesi tiedoston <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Tiedoston <xliff:g id="FILENAME">%s</xliff:g> lataamiseen tarvitaan SD-kortti."</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB-tila ei käytettävissä"</string>
+    <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kortti ei käytettävissä"</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB-tallennustila on varattu. Voit sallia lataukset valitsemalla ilmoituksessa Poista USB-tallennustila käytöstä."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-kortti on varattu. Voit sallia lataukset valitsemalla ilmoituksessa \"Poista USB-tallennustila käytöstä\"."</string>
+    <string name="download_no_application_title" msgid="1286056729168874295">"Tiedostoa ei voi avata"</string>
+    <string name="retry" msgid="1835923075542266721">"Yritä uudelleen"</string>
+    <string name="no_downloads" msgid="3947445710685021498">"Lataushistoria on tyhjä."</string>
+    <string name="download_error" msgid="413496839831257187">"Lataus epäonnistui."</string>
+    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Lataus valmis."</string>
+    <string name="download_running" msgid="2622942231322015059">"Ladataan…"</string>
+    <string name="download_pending" msgid="2599683668575349559">"Aloitetaan latausta…"</string>
+    <string name="download_pending_network" msgid="6548714525679461053">"Odotetaan datayhteyttä…"</string>
+    <string name="download_running_paused" msgid="6418029352085656495">"Odotetaan datayhteyttä…"</string>
+    <string name="download_canceled" msgid="6057083743144492515">"Lataus peruutettu."</string>
+    <string name="download_not_acceptable" msgid="313769696131563652">"Ei voi ladata. Puhelin ei tue kyseistä sisältöä."</string>
+    <string name="download_file_error" msgid="1206648050615176113">"Ei voi ladata kokonaan. Tila ei riitä."</string>
+    <string name="download_length_required" msgid="9038605488460437406">"Ei voi ladata. Kohteen kokoa ei voi määrittää."</string>
+    <string name="download_precondition_failed" msgid="8327584102874295580">"Lataus keskeytetty. Latausta ei voi jatkaa."</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Verkkohaku"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Selaimen tallennustila täynnä"</string>
+    <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Vapauta tilaa napsauttamalla."</string>
+    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Poista tallennetut tiedot"</string>
+    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Poista tallennetut tiedot"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Kaikki tämän sivuston tallentamat tiedot poistetaan"</string>
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Poista kaikki"</string>
+    <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Peruuta"</string>
+    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Mt tallennettu puhelimeen"</string>
+    <string name="loading_video" msgid="4887871585216091096">"Ladataan videota"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> haluaa käyttää sijaintitietojasi"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Jaa sijaintitiedot"</string>
+    <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Hylkää"</string>
+    <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Muista valinta"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Tämä sivusto voi käyttää sijaintitietojasi. Valitse Asetukset -&gt; Sivustoasetukset ja tee muutokset"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Tämä sivusto ei voi käyttää sijaintitietojasi. Valitse Asetukset -&gt; Sivustoasetukset ja tee muutokset"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Poista sijaintitietojen käyttöoikeus"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Tämä sivusto voi käyttää sijaintitietojasi tällä hetkellä"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Tämä sivusto ei voi käyttää sijaintitietojasi tällä hetkellä"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Poista sijaintitietojen käyttöoikeus"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Tämän sivuston oikeus käyttää sijaintitietojasi poistetaan"</string>
+    <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Poista käyttöoikeus"</string>
+    <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Peruuta"</string>
+    <string name="website_settings_clear_all" msgid="8739804325997655980">"Poista kaikki"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Poistetaanko kaikki sivustoasetukset?"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Kaikki sivustotiedot ja sijaintitietojen käyttöoikeudet poistetaan."</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Poista kaikki tiedot"</string>
+    <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Peruuta"</string>
+    <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Asetetaan taustakuvaa…"</string>
+</resources>

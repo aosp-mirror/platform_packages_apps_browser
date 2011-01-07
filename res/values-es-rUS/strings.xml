@@ -101,7 +101,7 @@
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Marcador"</string>
     <string name="history" msgid="2451240511251410032">"Historial"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Descargas"</string>
-    <string name="copy_page_url" msgid="7635062169011319208">"Copiar la url de la página"</string>
+    <string name="copy_page_url" msgid="7635062169011319208">"Copiar URL de la página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Abrir en una ventana nueva"</string>
@@ -186,7 +186,7 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Lejos"</item>
     <item msgid="5619034257768161024">"Medio"</item>
-    <item msgid="3840999588443167001">"Cerrar"</item>
+    <item msgid="3840999588443167001">"Cerca"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Predeterminar zoom"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Abrir las páginas en descripción general"</string>

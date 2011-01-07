@@ -147,7 +147,7 @@
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Cancella cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Cancella i contenuti e i database memorizzati localmente nella cache"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"I contenuti e i database memorizzati localmente nella cache verranno eliminati."</string>
-    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Canc. tutti i dati dei cookie"</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Cancella cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Cancella tutti i cookie del browser"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Verranno eliminati tutti i cookie."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Cancella cronologia"</string>
