@@ -124,7 +124,6 @@ public class TabScrollView extends HorizontalScrollView {
 
     void addTab(View tab) {
         mContentView.addView(tab);
-        animateIn(tab);
         tab.setActivated(false);
     }
 
@@ -135,7 +134,7 @@ public class TabScrollView extends HorizontalScrollView {
         } else if (ix < mSelected) {
             mSelected--;
         }
-        animateOut(tab);
+        mContentView.removeView(tab);
     }
 
     private void ensureChildVisible(View child) {
@@ -172,25 +171,27 @@ public class TabScrollView extends HorizontalScrollView {
         }
     }
 
-    private void animateIn(View tab) {
-        ObjectAnimator animator = ObjectAnimator.ofInt(tab, "TranslationX", 500, 0);
-        animator.setDuration(mAnimationDuration);
-        animator.start();
-    }
-
-    private void animateOut(final View tab) {
-        ObjectAnimator animator = ObjectAnimator.ofInt(
-                tab, "TranslationX", 0, getScrollX() - tab.getRight());
-        animator.setDuration(mAnimationDuration);
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mContentView.removeView(tab);
-            }
-        });
-        animator.setInterpolator(new AccelerateInterpolator());
-        animator.start();
-    }
+// TODO: These animations are broken and don't work correctly, removing for now
+//       as animateOut is actually causing issues
+//    private void animateIn(View tab) {
+//        ObjectAnimator animator = ObjectAnimator.ofInt(tab, "TranslationX", 500, 0);
+//        animator.setDuration(mAnimationDuration);
+//        animator.start();
+//    }
+//
+//    private void animateOut(final View tab) {
+//        ObjectAnimator animator = ObjectAnimator.ofInt(
+//                tab, "TranslationX", 0, getScrollX() - tab.getRight());
+//        animator.setDuration(mAnimationDuration);
+//        animator.addListener(new AnimatorListenerAdapter() {
+//            @Override
+//            public void onAnimationEnd(Animator animation) {
+//                mContentView.removeView(tab);
+//            }
+//        });
+//        animator.setInterpolator(new AccelerateInterpolator());
+//        animator.start();
+//    }
 
     private void animateScroll(int newscroll) {
         ObjectAnimator animator = ObjectAnimator.ofInt(this, "scroll", getScrollX(), newscroll);
