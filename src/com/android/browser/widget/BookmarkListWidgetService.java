@@ -85,7 +85,7 @@ public class BookmarkListWidgetService extends RemoteViewsService {
         mUiHandler = new Handler();
         mBookmarksObserver = new BookmarksObserver(mUiHandler);
         getContentResolver().registerContentObserver(
-                BrowserContract.AUTHORITY_URI, true, mBookmarksObserver);
+                BrowserContract.Bookmarks.CONTENT_URI, true, mBookmarksObserver);
     }
 
     @Override
@@ -337,12 +337,10 @@ public class BookmarkListWidgetService extends RemoteViewsService {
                 uri = BrowserContract.Bookmarks.CONTENT_URI;
                 where = Bookmarks.IS_FOLDER + " == 0";
             }
-            if (!TextUtils.isEmpty(mAccountType) && !TextUtils.isEmpty(mAccountName)) {
-                uri = uri.buildUpon()
-                        .appendQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE, mAccountType)
-                        .appendQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME, mAccountName)
-                        .build();
-            }
+            uri = uri.buildUpon()
+                    .appendQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE, mAccountType)
+                    .appendQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME, mAccountName)
+                    .build();
             Cursor c = null;
             try {
                 c = mContext.getContentResolver().query(uri, PROJECTION,

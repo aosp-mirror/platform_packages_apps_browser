@@ -100,8 +100,8 @@ import java.io.ByteArrayOutputStream;
      *  will remain in the database, but only as a history item, and not as a
      *  bookmarked site.
      *  @param context Context of the calling Activity.  This is used to make
-     *          Toast confirming that the bookmark has been removed.  If the
-     *          caller provides null, the Toast will not be shown.
+     *          Toast confirming that the bookmark has been removed and to
+     *          lookup the correct content uri.  It must not be null.
      *  @param cr The ContentResolver being used to remove the bookmark.
      *  @param url URL of the website to be removed.
      */
@@ -127,7 +127,8 @@ import java.io.ByteArrayOutputStream;
                     cursor.getLong(0));
             cr.delete(uri, null, null);
             if (context != null) {
-                Toast.makeText(context, R.string.removed_from_bookmarks, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.removed_from_bookmarks,
+                        Toast.LENGTH_LONG).show();
             }
         } catch (IllegalStateException e) {
             Log.e(LOGTAG, "removeFromBookmarks", e);
