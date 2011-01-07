@@ -100,7 +100,12 @@ public class DataController {
     }
 
     public void queryBookmarkStatus(String url, OnQueryUrlIsBookmark replyTo) {
-        mDataHandler.sendMessage(QUERY_URL_IS_BOOKMARK, url, replyTo);
+        if (url == null || url.trim().length() == 0) {
+            // null or empty url is never a bookmark
+            replyTo.onQueryUrlIsBookmark(url, false);
+            return;
+        }
+        mDataHandler.sendMessage(QUERY_URL_IS_BOOKMARK, url.trim(), replyTo);
     }
 
     // The standard Handler and Message classes don't allow the queue manipulation
