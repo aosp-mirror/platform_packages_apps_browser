@@ -522,7 +522,7 @@
     <string name="pref_content_load_page">Open pages in overview</string>
     <!-- Settings summary -->
     <string name="pref_content_load_page_summary">Show overview of newly opened pages</string>
-    <!-- Settings screen, section title -->
+    <!-- Settings screen, section title [CHAR LIMIT=50] -->
     <string name="pref_extras_title">Advanced</string>
     <!-- Settings label -->
     <string name="pref_extras_website_settings">Website settings</string>
