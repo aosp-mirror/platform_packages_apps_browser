@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.provider.BrowserProvider2;
+import com.android.browser.addbookmark.FolderSpinnerAdapter;
 
 import android.app.Activity;
 import android.app.LoaderManager;
@@ -44,7 +45,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -55,7 +55,7 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +66,7 @@ import java.util.Stack;
 public class AddBookmarkPage extends Activity
         implements View.OnClickListener, TextView.OnEditorActionListener,
         AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>,
-        BreadCrumbView.Controller, PopupMenu.OnMenuItemClickListener {
+        BreadCrumbView.Controller, AdapterView.OnItemSelectedListener {
 
     public static final long DEFAULT_FOLDER_ID = -1;
     public static final String TOUCH_ICON_URL = "touch_icon_url";
@@ -94,7 +94,7 @@ public class AddBookmarkPage extends Activity
     private Bundle      mMap;
     private String      mTouchIconUrl;
     private String      mOriginalUrl;
-    private TextView mFolder;
+    private Spinner mFolder;
     private View mDefaultView;
     private View mFolderSelector;
     private EditText mFolderNamer;
@@ -112,7 +112,9 @@ public class AddBookmarkPage extends Activity
     private long mRootFolder;
     private TextView mTopLevelLabel;
     private Drawable mHeaderIcon;
-
+    // We manually change the spinner's selection if the edited bookmark is not
+    // in the root folder.  This makes sure our listener ignores this change.
+    private boolean mIgnoreSelectionChange;
     private static class Folder {
         String Name;
         long Id;
@@ -198,11 +200,22 @@ public class AddBookmarkPage extends Activity
             if (data != null) {
                 Folder folder = (Folder) data;
                 mCurrentFolder = folder.Id;
-                int resource = mCurrentFolder == mRootFolder ?
-                        R.drawable.ic_menu_bookmarks :
-                        com.android.internal.R.drawable.ic_menu_archive;
-                Drawable drawable = getResources().getDrawable(resource);
-                updateFolderLabel(folder.Name, drawable);
+                if (mCurrentFolder == mRootFolder) {
+                    // The Spinner changed to show "Other folder ..."  Change
+                    // it back to "Bookmarks", which is position 0 if we are
+                    // editing a folder, 1 otherwise.
+                    mFolder.setSelection(mEditingFolder ? 0 : 1);
+                } else {
+                    ((TextView) mFolder.getSelectedView()).setText(folder.Name);
+                }
+            }
+        } else {
+            // The user canceled selecting a folder.  Revert back to the earlier
+            // selection.
+            if (mSaveToHomeScreen) {
+                mFolder.setSelection(0);
+            } else {
+                mFolder.setSelection(mEditingFolder ? 0 : 1);
             }
         }
     }
@@ -230,15 +243,6 @@ public class AddBookmarkPage extends Activity
             } else {
                 finish();
             }
-        } else if (v == mFolder) {
-            PopupMenu popup = new PopupMenu(this, mFolder);
-            popup.getMenuInflater().inflate(R.menu.folder_choice,
-                    popup.getMenu());
-            if (mEditingFolder) {
-                popup.getMenu().removeItem(R.id.home_screen);
-            }
-            popup.setOnMenuItemClickListener(this);
-            popup.show();
         } else if (v == mAddNewFolder) {
             setShowFolderNamer(true);
             mFolderNamer.setText(R.string.new_folder);
@@ -254,25 +258,32 @@ public class AddBookmarkPage extends Activity
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.bookmarks:
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (mIgnoreSelectionChange) {
+            mIgnoreSelectionChange = false;
+            return;
+        }
+        // In response to the spinner changing.
+        int intId = (int) id;
+        switch (intId) {
+            case FolderSpinnerAdapter.ROOT_FOLDER:
                 mCurrentFolder = mRootFolder;
-                updateFolderLabel(item.getTitle(), item.getIcon());
                 mSaveToHomeScreen = false;
                 break;
-            case R.id.home_screen:
+            case FolderSpinnerAdapter.HOME_SCREEN:
                 // Create a short cut to the home screen
                 mSaveToHomeScreen = true;
-                updateFolderLabel(item.getTitle(), item.getIcon());
                 break;
-            case R.id.other:
+            case FolderSpinnerAdapter.OTHER_FOLDER:
                 switchToFolderSelector();
                 break;
             default:
-                return false;
+                break;
         }
-        return true;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
     }
 
     private void completeOrCancelFolderNaming(boolean cancel) {
@@ -317,6 +328,8 @@ public class AddBookmarkPage extends Activity
     }
 
     private void switchToFolderSelector() {
+        // Set the list to the top in case it is scrolled.
+        mListView.setSelection(0);
         mDefaultView.setVisibility(View.GONE);
         mFolderSelector.setVisibility(View.VISIBLE);
         mCrumbHolder.setVisibility(View.VISIBLE);
@@ -399,9 +412,7 @@ public class AddBookmarkPage extends Activity
                     moveCursorToFolder(cursor, parent, idIndex);
                     String name = cursor.getString(titleIndex);
                     if (parent == mCurrentFolder) {
-                        Drawable draw = getResources().getDrawable(
-                                com.android.internal.R.drawable.ic_menu_archive);
-                        updateFolderLabel(name, draw);
+                        ((TextView) mFolder.getSelectedView()).setText(name);
                     }
                     folderStack.push(new Folder(name, parent));
                     parent = cursor.getLong(parentIndex);
@@ -446,18 +457,6 @@ public class AddBookmarkPage extends Activity
             throw new AssertionError("Folder(id=" + folderToFind
                     + ") holding this bookmark does not exist!");
         }
-    }
-
-    /**
-     * Update the name and image to show where the bookmark will be added
-     * @param name Name of the location to save (folder name, bookmarks, or home
-     *             screen.
-     * @param drawable Image to show corresponding to the save location.
-     */
-    void updateFolderLabel(CharSequence name, Drawable drawable) {
-        mFolder.setText(name);
-        mFolder.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null,
-                null);
     }
 
     @Override
@@ -573,8 +572,15 @@ public class AddBookmarkPage extends Activity
         mCancelButton = findViewById(R.id.cancel);
         mCancelButton.setOnClickListener(this);
 
-        mFolder = (TextView) findViewById(R.id.folder);
-        mFolder.setOnClickListener(this);
+        mFolder = (Spinner) findViewById(R.id.folder);
+        mFolder.setAdapter(new FolderSpinnerAdapter(!mEditingFolder));
+        if (!mEditingFolder) {
+            // Initially the "Bookmarks" folder should be showing, rather than
+            // the home screen.  In the editing folder case, home screen is not
+            // an option, so "Bookmarks" folder is already at the top.
+            mFolder.setSelection(FolderSpinnerAdapter.ROOT_FOLDER);
+        }
+        mFolder.setOnItemSelectedListener(this);
 
         mDefaultView = findViewById(R.id.default_view);
         mFolderSelector = findViewById(R.id.folder_selector);
@@ -609,6 +615,11 @@ public class AddBookmarkPage extends Activity
         if (mCurrentFolder != mRootFolder) {
             // Find all the folders
             manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
+            // Since we're not in the root folder, change the selection to other
+            // folder now.  The text will get changed once we select the correct
+            // folder.
+            mIgnoreSelectionChange = true;
+            mFolder.setSelection(mEditingFolder ? 1 : 2);
         } else {
             setShowBookmarkIcon(true);
         }
