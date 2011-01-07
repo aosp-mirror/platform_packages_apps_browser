@@ -133,51 +133,8 @@ public class UrlHandler {
             }
         }
 
-        Intent intent;
-        // perform generic parsing of the URI to turn it into an Intent.
-        try {
-            intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
-        } catch (URISyntaxException ex) {
-            Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
-            return false;
-        }
-
-        // check whether the intent can be resolved. If not, we will see
-        // whether we can download it from the Market.
-        if (mActivity.getPackageManager().resolveActivity(intent, 0) == null) {
-            String packagename = intent.getPackage();
-            if (packagename != null) {
-                intent = new Intent(Intent.ACTION_VIEW, Uri
-                        .parse("market://search?q=pname:" + packagename));
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                mActivity.startActivity(intent);
-                // before leaving BrowserActivity, close the empty child tab.
-                // If a new tab is created through JavaScript open to load this
-                // url, we would like to close it as we will load this url in a
-                // different Activity.
-                mController.closeEmptyChildTab();
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        // sanitize the Intent, ensuring web pages can not bypass browser
-        // security (only access to BROWSABLE activities).
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        intent.setComponent(null);
-        try {
-            if (mActivity.startActivityIfNeeded(intent, -1)) {
-                // before leaving BrowserActivity, close the empty child tab.
-                // If a new tab is created through JavaScript open to load this
-                // url, we would like to close it as we will load this url in a
-                // different Activity.
-                mController.closeEmptyChildTab();
-                return true;
-            }
-        } catch (ActivityNotFoundException ex) {
-            // ignore the error. If no application can handle the URL,
-            // eg about:blank, assume the browser can handle it.
+        if (startActivityForUrl(url)) {
+            return true;
         }
 
         if (mController.isMenuDown()) {
@@ -185,7 +142,60 @@ public class UrlHandler {
             mActivity.closeOptionsMenu();
             return true;
         }
+
         return false;
+    }
+
+    boolean startActivityForUrl(String url)
+    {
+      Intent intent;
+      // perform generic parsing of the URI to turn it into an Intent.
+      try {
+          intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+      } catch (URISyntaxException ex) {
+          Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
+          return false;
+      }
+
+      // check whether the intent can be resolved. If not, we will see
+      // whether we can download it from the Market.
+      if (mActivity.getPackageManager().resolveActivity(intent, 0) == null) {
+          String packagename = intent.getPackage();
+          if (packagename != null) {
+              intent = new Intent(Intent.ACTION_VIEW, Uri
+                      .parse("market://search?q=pname:" + packagename));
+              intent.addCategory(Intent.CATEGORY_BROWSABLE);
+              mActivity.startActivity(intent);
+              // before leaving BrowserActivity, close the empty child tab.
+              // If a new tab is created through JavaScript open to load this
+              // url, we would like to close it as we will load this url in a
+              // different Activity.
+              mController.closeEmptyChildTab();
+              return true;
+          } else {
+              return false;
+          }
+      }
+
+      // sanitize the Intent, ensuring web pages can not bypass browser
+      // security (only access to BROWSABLE activities).
+      intent.addCategory(Intent.CATEGORY_BROWSABLE);
+      intent.setComponent(null);
+      try {
+          if (mActivity.startActivityIfNeeded(intent, -1)) {
+              // before leaving BrowserActivity, close the empty child tab.
+              // If a new tab is created through JavaScript open to load this
+              // url, we would like to close it as we will load this url in a
+              // different Activity.
+              mController.closeEmptyChildTab();
+              return true;
+          }
+      } catch (ActivityNotFoundException ex) {
+          // ignore the error. If no application can handle the URL,
+          // eg about:blank, assume the browser can handle it.
+      }
+
+      return false;
     }
 
     // Url for issuing the uber token.
@@ -373,7 +383,7 @@ public class UrlHandler {
         }
 
         protected void onPostExecute(String result) {
-            mController.loadUrl(mWebView, result);
+            startActivityForUrl(result);
         }
     }
 
