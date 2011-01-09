@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import android.graphics.Matrix;
 import com.android.browser.ScrollWebView.ScrollListener;
 
 import android.app.Activity;
@@ -76,13 +77,20 @@ public class TabBar extends LinearLayout
 
     private Drawable mGenericFavicon;
 
+    private int mCurrentTextureWidth = 0;
+    private int mCurrentTextureHeight = 0;
+
     private Drawable mActiveDrawable;
     private Drawable mInactiveDrawable;
 
-    private Bitmap mShaderBuffer;
-    private Canvas mShaderCanvas;
-    private Paint mShaderPaint;
-    private int mTabHeight;
+    private final Paint mActiveShaderPaint = new Paint();
+    private final Paint mInactiveShaderPaint = new Paint();
+    private final Matrix mActiveMatrix = new Matrix();
+    private final Matrix mInactiveMatrix = new Matrix();
+
+    private BitmapShader mActiveShader;
+    private BitmapShader mInactiveShader;
+
     private int mTabOverlap;
     private int mTabSliceWidth;
     private int mTabPadding;
@@ -101,7 +109,6 @@ public class TabBar extends LinearLayout
         mInactiveDrawable = res.getDrawable(R.drawable.browsertab_inactive);
 
         mTabMap = new HashMap<Tab, TabViewData>();
-        Resources resources = activity.getResources();
         LayoutInflater factory = LayoutInflater.from(activity);
         factory.inflate(R.layout.tab_bar, this);
         setPadding(12, 12, 0, 0);
@@ -120,21 +127,16 @@ public class TabBar extends LinearLayout
         mVisibleTitleHeight = 1;
         mButtonWidth = -1;
         // tab dimensions
-        mTabHeight = (int) res.getDimension(R.dimen.tab_height);
         mTabOverlap = (int) res.getDimension(R.dimen.tab_overlap);
         mTabSliceWidth = (int) res.getDimension(R.dimen.tab_slice);
         mTabPadding = (int) res.getDimension(R.dimen.tab_padding);
-        int maxTabWidth = (int) res.getDimension(R.dimen.max_tab_width);
-        // shader initialization
-        mShaderBuffer = Bitmap.createBitmap(maxTabWidth, mTabHeight,
-                Bitmap.Config.ARGB_8888);
-        mShaderCanvas = new Canvas(mShaderBuffer);
-        mShaderPaint = new Paint();
-        BitmapShader shader = new BitmapShader(mShaderBuffer,
-                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        mShaderPaint.setShader(shader);
-        mShaderPaint.setStyle(Paint.Style.FILL);
-        mShaderPaint.setAntiAlias(true);
+
+        mActiveShaderPaint.setStyle(Paint.Style.FILL);
+        mActiveShaderPaint.setAntiAlias(true);
+
+        mInactiveShaderPaint.setStyle(Paint.Style.FILL);
+        mInactiveShaderPaint.setAntiAlias(true);
+        
     }
 
     void setUseQuickControls(boolean useQuickControls) {
@@ -277,6 +279,14 @@ public class TabBar extends LinearLayout
         return count - 1 - i;
     }
 
+    private static Bitmap getDrawableAsBitmap(Drawable drawable, int width, int height) {
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        drawable.setBounds(0, 0, width, height);
+        drawable.draw(c);
+        return b;
+    }    
+    
     /**
      * View used in the tab bar
      */
@@ -411,26 +421,44 @@ public class TabBar extends LinearLayout
             super.onLayout(changed, l, t, r, b);
             setTabPath(mPath, 0, 0, r - l, b - t);
         }
-
+        
         @Override
         protected void dispatchDraw(Canvas canvas) {
+            if (mCurrentTextureWidth != mUi.getContentWidth() ||
+                    mCurrentTextureHeight != getHeight()) {
+                mCurrentTextureWidth = mUi.getContentWidth();
+                mCurrentTextureHeight = getHeight();
+
+                if (mCurrentTextureWidth > 0 && mCurrentTextureHeight > 0) {
+                    Bitmap activeTexture = getDrawableAsBitmap(mActiveDrawable,
+                            mCurrentTextureWidth, mCurrentTextureHeight);
+                    Bitmap inactiveTexture = getDrawableAsBitmap(mInactiveDrawable,
+                            mCurrentTextureWidth, mCurrentTextureHeight);
+
+                    mActiveShader = new BitmapShader(activeTexture,
+                            Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                    mActiveShaderPaint.setShader(mActiveShader);
+    
+                    mInactiveShader = new BitmapShader(inactiveTexture,
+                            Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                    mInactiveShaderPaint.setShader(mInactiveShader);
+                }
+            }
+            
             int state = canvas.save();
-            int[] pos = new int[2];
             getLocationInWindow(mWindowPos);
-            Drawable drawable = mSelected ? mActiveDrawable : mInactiveDrawable;
-            drawable.setBounds(0, 0, mUi.getContentWidth(), getHeight());
-            drawClipped(canvas, drawable, mPath, mWindowPos[0]);
+            Paint paint = mSelected ? mActiveShaderPaint : mInactiveShaderPaint;
+            drawClipped(canvas, paint, mPath, mWindowPos[0]);
             canvas.restoreToCount(state);
             super.dispatchDraw(canvas);
         }
 
-        private void drawClipped(Canvas canvas, Drawable drawable,
-                Path clipPath, int left) {
-            mShaderCanvas.drawColor(Color.TRANSPARENT);
-            mShaderCanvas.translate(-left, 0);
-            drawable.draw(mShaderCanvas);
-            canvas.drawPath(clipPath, mShaderPaint);
-            mShaderCanvas.translate(left, 0);
+        private void drawClipped(Canvas canvas, Paint paint, Path clipPath, int left) {
+            // TODO: We should change the matrix/shader only when needed
+            final Matrix matrix = mSelected ? mActiveMatrix : mInactiveMatrix;
+            matrix.setTranslate(-left, 0.0f);
+            (mSelected ? mActiveShader : mInactiveShader).setLocalMatrix(matrix);
+            canvas.drawPath(clipPath, paint);
         }
 
         private void setTabPath(Path path, int l, int t, int r, int b) {
