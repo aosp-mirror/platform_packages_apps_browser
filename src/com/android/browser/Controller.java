@@ -2352,9 +2352,11 @@ public class Controller
      * @return true if handled, false to pass to super
      */
     boolean onKeyDown(int keyCode, KeyEvent event) {
+        boolean noModifiers = event.hasNoModifiers();
+
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
-        if (KeyEvent.KEYCODE_MENU == keyCode) {
+        if (!noModifiers && KeyEvent.KEYCODE_MENU == keyCode) {
             mMenuIsDown = true;
             return false;
         }
@@ -2366,23 +2368,26 @@ public class Controller
         WebView webView = getCurrentTopWebView();
         if (webView == null) return false;
 
-        boolean ctrl = event.isCtrlPressed();
+        boolean ctrl = event.hasModifiers(KeyEvent.META_CTRL_ON);
+        boolean shift = event.hasModifiers(KeyEvent.META_SHIFT_ON);
 
         switch(keyCode) {
             case KeyEvent.KEYCODE_ESCAPE:
+                if (!noModifiers) break;
                 stopLoading();
                 return true;
             case KeyEvent.KEYCODE_SPACE:
                 // WebView/WebTextView handle the keys in the KeyDown. As
                 // the Activity's shortcut keys are only handled when WebView
                 // doesn't, have to do it in onKeyDown instead of onKeyUp.
-                if (event.isShiftPressed()) {
+                if (shift) {
                     pageUp();
-                } else {
+                } else if (noModifiers) {
                     pageDown();
                 }
                 return true;
             case KeyEvent.KEYCODE_BACK:
+                if (!noModifiers) break;
                 if (event.getRepeatCount() == 0) {
                     event.startTracking();
                     return true;
@@ -2498,6 +2503,7 @@ public class Controller
     }
 
     boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (!event.hasNoModifiers()) return false;
         switch(keyCode) {
             case KeyEvent.KEYCODE_MENU:
                 mMenuIsDown = false;
