@@ -30,6 +30,7 @@ public class ScrollWebView extends WebView implements Runnable {
 
     private ScrollListener mScrollListener;
     private boolean mIsCancelled;
+    private boolean mBackgroundRemoved = false;
 
     /**
      * @param context
@@ -113,4 +114,16 @@ public class ScrollWebView extends WebView implements Runnable {
         public void onScroll(int visibleTitleHeight);
     }
 
+    @Override
+    protected void onDraw(android.graphics.Canvas c) {
+        super.onDraw(c);
+        if (!mBackgroundRemoved && getRootView().getBackground() != null) {
+            mBackgroundRemoved = true;
+            post(new Runnable() {
+                public void run() {
+                    getRootView().setBackgroundDrawable(null);
+                }
+            });
+        }
+    }
 }
