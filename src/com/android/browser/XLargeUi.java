@@ -242,6 +242,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     void editUrl(boolean clearInput) {
+        if (mUiController.isInCustomActionMode()) {
+            mUiController.endActionMode();
+        }
         showFakeTitleBar();
         mFakeTitleBar.onEditUrl(clearInput);
     }
