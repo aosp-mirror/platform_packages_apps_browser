@@ -70,9 +70,8 @@ public class TabBar extends LinearLayout
     private ImageButton mNewTab;
     private int mButtonWidth;
 
-    private Map<Tab, TabViewData> mTabMap;
+    private Map<Tab, TabView> mTabMap;
 
-    private boolean mUserRequestedUrlbar;
     private int mVisibleTitleHeight;
 
     private Drawable mGenericFavicon;
@@ -108,7 +107,8 @@ public class TabBar extends LinearLayout
         mActiveDrawable = res.getDrawable(R.drawable.bg_urlbar);
         mInactiveDrawable = res.getDrawable(R.drawable.browsertab_inactive);
 
-        mTabMap = new HashMap<Tab, TabViewData>();
+        mTabMap = new HashMap<Tab, TabView>();
+        Resources resources = activity.getResources();
         LayoutInflater factory = LayoutInflater.from(activity);
         factory.inflate(R.layout.tab_bar, this);
         setPadding(12, 12, 0, 0);
@@ -123,7 +123,6 @@ public class TabBar extends LinearLayout
 
         updateTabs(mUiController.getTabs());
 
-        mUserRequestedUrlbar = false;
         mVisibleTitleHeight = 1;
         mButtonWidth = -1;
         // tab dimensions
@@ -151,8 +150,7 @@ public class TabBar extends LinearLayout
         mTabs.clearTabs();
         mTabMap.clear();
         for (Tab tab : tabs) {
-            TabViewData data = buildTab(tab);
-            TabView tv = buildView(data);
+            TabView tv = buildTabView(tab);
         }
         mTabs.setSelectedTab(mTabControl.getCurrentIndex());
     }
@@ -208,15 +206,14 @@ public class TabBar extends LinearLayout
     private void showUrlBar() {
         mUi.stopWebViewScrolling();
         mUi.showFakeTitleBar();
-        mUserRequestedUrlbar = true;
     }
 
     void showTitleBarIndicator(boolean show) {
         Tab tab = mTabControl.getCurrentTab();
         if (tab != null) {
-            TabViewData tvd = mTabMap.get(tab);
-            if (tvd != null) {
-                tvd.mTabView.showIndicator(show);
+            TabView tv = mTabMap.get(tab);
+            if (tv != null) {
+                tv.showIndicator(show);
             }
         }
     }
@@ -231,7 +228,6 @@ public class TabBar extends LinearLayout
         showTitleBarIndicator(mVisibleTitleHeight == 0);
         Tab tab = mTabControl.getCurrentTab();
         tab.getWebView().requestFocus();
-        mUserRequestedUrlbar = false;
     }
 
     // webview scroll listener
@@ -259,18 +255,12 @@ public class TabBar extends LinearLayout
         mActivity.onCreateContextMenu(menu, this, null);
     }
 
-    private TabViewData buildTab(Tab tab) {
-        TabViewData data = new TabViewData(tab);
-        mTabMap.put(tab, data);
-        return data;
-    }
-
-    private TabView buildView(final TabViewData data) {
-        TabView tv = new TabView(mActivity, data);
-        tv.setTag(data);
-        tv.setOnClickListener(this);
-        mTabs.addTab(tv);
-        return tv;
+    private TabView buildTabView(Tab tab) {
+        TabView tabview = new TabView(mActivity, tab);
+        mTabMap.put(tab, tabview);
+        tabview.setOnClickListener(this);
+        mTabs.addTab(tabview);
+        return tabview;
     }
 
     @Override
@@ -292,7 +282,7 @@ public class TabBar extends LinearLayout
      */
     class TabView extends LinearLayout implements OnClickListener {
 
-        TabViewData mTabData;
+        Tab mTab;
         View mTabContent;
         TextView mTitle;
         View mIndicator;
@@ -308,12 +298,12 @@ public class TabBar extends LinearLayout
         /**
          * @param context
          */
-        public TabView(Context context, TabViewData tab) {
+        public TabView(Context context, Tab tab) {
             super(context);
             setWillNotDraw(false);
             mPath = new Path();
             mWindowPos = new int[2];
-            mTabData = tab;
+            mTab = tab;
             setGravity(Gravity.CENTER_VERTICAL);
             setOrientation(LinearLayout.HORIZONTAL);
             setPadding(mTabPadding, 0, 0, 0);
@@ -329,7 +319,7 @@ public class TabBar extends LinearLayout
             mSelected = false;
             mInLoad = false;
             // update the status
-            updateFromData();
+            updateFromTab();
         }
 
         void showIndicator(boolean show) {
@@ -347,21 +337,19 @@ public class TabBar extends LinearLayout
             }
         }
 
-        private void updateFromData() {
-            mTabData.mTabView = this;
-            Tab tab = mTabData.mTab;
-            String displayTitle = tab.getTitle();
+        private void updateFromTab() {
+            String displayTitle = mTab.getTitle();
             if (displayTitle == null) {
-                displayTitle = tab.getUrl();
+                displayTitle = mTab.getUrl();
             }
             setDisplayTitle(displayTitle);
-            setProgress(mTabData.mProgress);
-            if (mTabData.mIcon != null) {
-                setFavicon(mTabData.mIcon);
+            setProgress(mTab.getLoadProgress());
+            if (mTab.getFavicon() != null) {
+                setFavicon(renderFavicon(mTab.getFavicon()));
             }
-            if (mTabData.mTab != null) {
+            if (mTab != null) {
                 mIncognito.setVisibility(
-                        mTabData.mTab.isPrivateBrowsingEnabled() ?
+                        mTab.isPrivateBrowsingEnabled() ?
                         View.VISIBLE : View.GONE);
             }
         }
@@ -409,10 +397,10 @@ public class TabBar extends LinearLayout
         }
 
         private void closeTab() {
-            if (mTabData.mTab == mTabControl.getCurrentTab()) {
+            if (mTab == mTabControl.getCurrentTab()) {
                 mUiController.closeCurrentTab();
             } else {
-                mUiController.closeTab(mTabData.mTab);
+                mUiController.closeTab(mTab);
             }
         }
 
@@ -472,65 +460,28 @@ public class TabBar extends LinearLayout
 
     }
 
-    /**
-     * Store tab state within the title bar
-     */
-    class TabViewData {
-
-        Tab mTab;
-        TabView mTabView;
-        int mProgress;
-        Drawable mIcon;
-
-        TabViewData(Tab tab) {
-            mTab = tab;
-            setUrlAndTitle(mTab.getUrl(), mTab.getTitle());
+    private Drawable renderFavicon(Bitmap icon) {
+        Drawable[] array = new Drawable[3];
+        array[0] = new PaintDrawable(Color.BLACK);
+        array[1] = new PaintDrawable(Color.WHITE);
+        if (icon == null) {
+            array[2] = mGenericFavicon;
+        } else {
+            array[2] = new BitmapDrawable(icon);
         }
-
-        void setUrlAndTitle(String url, String title) {
-            if (mTabView != null) {
-                if (title != null) {
-                    mTabView.setDisplayTitle(title);
-                } else if (url != null) {
-                    mTabView.setDisplayTitle(UrlUtils.stripUrl(url));
-                }
-            }
-        }
-
-        void setProgress(int newProgress) {
-            mProgress = newProgress;
-            if (mTabView != null) {
-                mTabView.setProgress(mProgress);
-            }
-        }
-
-        void setFavicon(Bitmap icon) {
-            Drawable[] array = new Drawable[3];
-            array[0] = new PaintDrawable(Color.BLACK);
-            array[1] = new PaintDrawable(Color.WHITE);
-            if (icon == null) {
-                array[2] = mGenericFavicon;
-            } else {
-                array[2] = new BitmapDrawable(icon);
-            }
-            LayerDrawable d = new LayerDrawable(array);
-            d.setLayerInset(1, 1, 1, 1, 1);
-            d.setLayerInset(2, 2, 2, 2, 2);
-            mIcon = d;
-            if (mTabView != null) {
-                mTabView.setFavicon(mIcon);
-            }
-        }
-
+        LayerDrawable d = new LayerDrawable(array);
+        d.setLayerInset(1, 1, 1, 1, 1);
+        d.setLayerInset(2, 2, 2, 2, 2);
+        return d;
     }
 
     // TabChangeListener implementation
 
     public void onSetActiveTab(Tab tab) {
         mTabs.setSelectedTab(mTabControl.getTabIndex(tab));
-        TabViewData tvd = mTabMap.get(tab);
-        if (tvd != null) {
-            tvd.setProgress(tvd.mProgress);
+        TabView tv = mTabMap.get(tab);
+        if (tv != null) {
+            tv.setProgress(tv.mTab.getLoadProgress());
             // update the scroll state
             WebView webview = tab.getWebView();
             if (webview != null) {
@@ -542,46 +493,46 @@ public class TabBar extends LinearLayout
     }
 
     public void onFavicon(Tab tab, Bitmap favicon) {
-        TabViewData tvd = mTabMap.get(tab);
-        if (tvd != null) {
-            tvd.setFavicon(favicon);
+        TabView tv = mTabMap.get(tab);
+        if (tv != null) {
+            tv.setFavicon(renderFavicon(favicon));
         }
     }
 
     public void onNewTab(Tab tab) {
-        TabViewData tvd = buildTab(tab);
-        buildView(tvd);
+        TabView tv = buildTabView(tab);
     }
 
     public void onProgress(Tab tab, int progress) {
-        TabViewData tvd = mTabMap.get(tab);
-        if (tvd != null) {
-            tvd.setProgress(progress);
+        TabView tv = mTabMap.get(tab);
+        if (tv != null) {
+            tv.setProgress(progress);
         }
     }
 
     public void onRemoveTab(Tab tab) {
-        TabViewData tvd = mTabMap.get(tab);
-        if (tvd != null) {
-            TabView tv = tvd.mTabView;
-            if (tv != null) {
-                mTabs.removeTab(tv);
-            }
+        TabView tv = mTabMap.get(tab);
+        if (tv != null) {
+            mTabs.removeTab(tv);
         }
         mTabMap.remove(tab);
     }
 
     public void onUrlAndTitle(Tab tab, String url, String title) {
-        TabViewData tvd = mTabMap.get(tab);
-        if (tvd != null) {
-            tvd.setUrlAndTitle(url, title);
+        TabView tv = mTabMap.get(tab);
+        if (tv != null) {
+            if (title != null) {
+                tv.setDisplayTitle(title);
+            } else if (url != null) {
+                tv.setDisplayTitle(UrlUtils.stripUrl(url));
+            }
         }
     }
 
     private boolean isLoading() {
-        TabViewData tvd = mTabMap.get(mTabControl.getCurrentTab());
-        if ((tvd != null) && (tvd.mTabView != null)) {
-            return tvd.mTabView.mInLoad;
+        TabView tv = mTabMap.get(mTabControl.getCurrentTab());
+        if (tv != null) {
+            return tv.mInLoad;
         } else {
             return false;
         }
