@@ -29,7 +29,6 @@ import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -216,6 +215,10 @@ public class UrlInputView extends AutoCompleteTextView
         SuggestItem item = mAdapter.getItem(position);
         onSelect((TextUtils.isEmpty(item.url) ? item.title : item.url),
                 item.extra);
+    }
+
+    public void setReverseResults(boolean reverse) {
+        mAdapter.setReverseResults(reverse);
     }
 
 }

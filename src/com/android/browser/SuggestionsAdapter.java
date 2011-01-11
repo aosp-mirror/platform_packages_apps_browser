@@ -67,6 +67,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
     int mLinesLandscape;
     Object mResultsLock = new Object();
     List<String> mVoiceResults;
+    boolean mReverseResults;
 
     interface CompletionListener {
 
@@ -133,6 +134,9 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
     @Override
     public SuggestItem getItem(int position) {
+        if (mReverseResults) {
+            position = (getCount() - 1) - position;
+        }
         if (mVoiceResults != null) {
             return new SuggestItem(mVoiceResults.get(position), null,
                     TYPE_SEARCH);
@@ -143,9 +147,13 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         return mMixedResults.items.get(position);
     }
 
+    public void setReverseResults(boolean reverse) {
+        mReverseResults = reverse;
+    }
+
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
