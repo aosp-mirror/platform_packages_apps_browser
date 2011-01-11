@@ -566,8 +566,41 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
     private void openInNewWindow(int position) {
         if (mCallbacks != null) {
-            mCallbacks.onOpenInNewWindow(mAdapter.getItem(position));
+            Cursor c = mAdapter.getItem(position);
+            boolean isFolder = c.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) == 1;
+            if (isFolder) {
+                long id = c.getLong(BookmarksLoader.COLUMN_INDEX_ID);
+                new OpenAllInTabsTask(id).execute();
+            } else {
+                mCallbacks.onOpenInNewWindow(c);
+            }
         }
+    }
+
+    class OpenAllInTabsTask extends AsyncTask<Void, Void, Cursor> {
+        long mFolderId;
+        public OpenAllInTabsTask(long id) {
+            mFolderId = id;
+        }
+
+        @Override
+        protected Cursor doInBackground(Void... params) {
+            Context c = getActivity();
+            if (c == null) return null;
+            return c.getContentResolver().query(BookmarkUtils.getBookmarksUri(c),
+                    BookmarksLoader.PROJECTION, BrowserContract.Bookmarks.PARENT + "=?",
+                    new String[] { Long.toString(mFolderId) }, null);
+        }
+
+        @Override
+        protected void onPostExecute(Cursor result) {
+            if (mCallbacks != null) {
+                while (result.moveToNext()) {
+                    mCallbacks.onOpenInNewWindow(result);
+                }
+            }
+        }
+
     }
 
     private void editBookmark(int position) {
