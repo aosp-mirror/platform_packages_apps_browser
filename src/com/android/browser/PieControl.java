@@ -70,7 +70,7 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             mPie.addItem(mRefresh);
             mBack = makeMenuView(R.drawable.ic_pie_back);
             mPie.addItem(mBack);
-            mUrl = makeMenuView(R.drawable.ic_pie_search);
+            mUrl = makeMenuView(R.drawable.ic_pie_web);
             mPie.addItem(mUrl);
             mBookmarks = makeMenuView(R.drawable.ic_pie_bookmarks);
             mPie.addItem(mBookmarks);
@@ -133,6 +133,7 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mNewTab == v) {
             mUiController.openTabToHomePage();
+            mUi.showFakeTitleBarAndEdit();
         } else if (mClose == v) {
             mUiController.closeCurrentTab();
         } else {

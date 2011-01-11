@@ -16,7 +16,6 @@
 
 package com.android.browser;
 
-import android.graphics.Matrix;
 import com.android.browser.ScrollWebView.ScrollListener;
 
 import android.app.Activity;
@@ -26,6 +25,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
@@ -33,6 +33,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -140,6 +141,8 @@ public class TabBar extends LinearLayout
 
     void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
+        mNewTab.setVisibility(mUseQuickControls ? View.GONE
+                : View.VISIBLE);
     }
 
     int getTabCount() {
@@ -160,7 +163,9 @@ public class TabBar extends LinearLayout
         super.onMeasure(hspec, vspec);
         int w = getMeasuredWidth();
         // adjust for new tab overlap
-        w -= mTabOverlap;
+        if (!mUseQuickControls) {
+            w -= mTabOverlap;
+        }
         setMeasuredDimension(w, getMeasuredHeight());
     }
 
@@ -188,8 +193,14 @@ public class TabBar extends LinearLayout
         if (mNewTab == view) {
             mUiController.openTabToHomePage();
         } else if (mTabs.getSelectedTab() == view) {
-            if (mUseQuickControls) return;
-            if (mUi.isFakeTitleBarShowing() && !isLoading()) {
+            if (mUseQuickControls) {
+                if (mUi.isFakeTitleBarShowing() && !isLoading()) {
+                    mUi.hideFakeTitleBar();
+                } else {
+                    mUi.stopWebViewScrolling();
+                    mUi.showFakeTitleBarAndEdit();
+                }
+            } else if (mUi.isFakeTitleBarShowing() && !isLoading()) {
                 mUi.hideFakeTitleBar();
             } else {
                 showUrlBar();
