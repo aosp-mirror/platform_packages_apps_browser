@@ -14,4 +14,9 @@
     <dimen name="bookmarkThumbnailWidth">180dip</dimen>
     <dimen name="bookmarkThumbnailHeight">120dip</dimen>
     <dimen name="favicon_padded_size">24dip</dimen>
+    <!-- For the most visited page -->
+    <dimen name="mv_max_width">1010dp</dimen>
+    <dimen name="mv_item_width">231dp</dimen>
+    <dimen name="mv_item_width_portrait">213dp</dimen>
+    <dimen name="mv_border_width">3dp</dimen>
 </resources>

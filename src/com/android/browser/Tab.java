@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import com.android.browser.homepages.HomeProvider;
 import com.android.common.speech.LoggingEvents;
 
 import android.app.Activity;
@@ -1568,6 +1569,9 @@ class Tab {
     }
 
     String getUrl() {
+        if (HomeProvider.MOST_VISITED.equals(mCurrentState.mUrl)) {
+            return "";
+        }
         return mCurrentState.mUrl;
     }
 
