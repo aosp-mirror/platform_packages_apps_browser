@@ -402,6 +402,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         @Override
         public void onOpen(SQLiteDatabase db) {
+            db.enableWriteAheadLogging();
             mSyncHelper.onDatabaseOpened(db);
         }
 
