@@ -87,11 +87,11 @@ public class TitleBarXLarge extends TitleBarBase
                 R.drawable.textfield_active_holo_dark);
         mUnfocusDrawable = resources.getDrawable(
                 R.drawable.textfield_default_holo_dark);
-        rebuildLayout(activity, true);
+        initLayout(activity);
         mInVoiceMode = false;
     }
 
-    private void rebuildLayout(Context context, boolean rebuildData) {
+    private void initLayout(Context context) {
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.url_bar, this);
 
@@ -143,6 +143,7 @@ public class TitleBarXLarge extends TitleBarBase
 
     void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
+        mUrlInput.setReverseResults(mUseQuickControls);
         if (mUseQuickControls) {
             mBackButton.setVisibility(View.GONE);
             mForwardButton.setVisibility(View.GONE);
