@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 The Android Open Source Project
+<!-- Copyright (C) 2011 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,18 +14,8 @@
      limitations under the License.
 -->
 
-<layer-list
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:drawable="@drawable/bg_bookmark_widget_holo">
-    </item>
-    <item>
-        <bitmap
-            android:src="@drawable/stripes_overlay_bg_bookmark_widget_holo"
-            android:gravity="top|left|clip_vertical|clip_horizontal"
-            android:left="3dip"
-            android:right="3dip"
-            android:top="3dip"
-            android:bottom="3dip" />
-    </item>
-</layer-list>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@drawable/bookmarks_widget_thumb_selector_pressed" />
+    <item android:drawable="@android:color/transparent" />
+</selector>
+

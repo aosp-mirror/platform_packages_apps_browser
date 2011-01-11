@@ -189,9 +189,9 @@
                   android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">
         </activity>
 
-        <!-- Bookmark list homescreen widget -->
+        <!-- Bookmark thumbnail homescreen widget -->
         <receiver
-            android:name=".widget.BookmarkListWidgetProvider"
+            android:name=".widget.BookmarkThumbnailWidgetProvider"
             android:label="@string/bookmarks">
             <intent-filter>
                 <action
@@ -201,10 +201,10 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/bookmarklistwidget_info" />
+                android:resource="@xml/bookmarkthumbnailwidget_info" />
         </receiver>
         <service
-            android:name=".widget.BookmarkListWidgetService"
+            android:name=".widget.BookmarkThumbnailWidgetService"
             android:exported="true" />
 
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
