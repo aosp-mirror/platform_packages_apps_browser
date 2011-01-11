@@ -478,6 +478,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         }
 
         private byte[] readRaw(Resources res, int id) throws IOException {
+            if (id == 0) {
+                return null;
+            }
             InputStream is = res.openRawResource(id);
             try {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
