@@ -733,7 +733,7 @@ public class Controller
     // WebViewController
 
     @Override
-    public void onPageStarted(Tab tab, WebView view, String url, Bitmap favicon) {
+    public void onPageStarted(Tab tab, WebView view, Bitmap favicon) {
 
         // We've started to load a new page. If there was a pending message
         // to save a screenshot then we will now take the new page and save
@@ -764,6 +764,7 @@ public class Controller
 
         mUi.onTabDataChanged(tab);
 
+        String url = tab.getUrl();
         // update the bookmark database for favicon
         maybeUpdateFavicon(tab, null, url, favicon);
 
@@ -777,9 +778,10 @@ public class Controller
     }
 
     @Override
-    public void onPageFinished(Tab tab, String url) {
+    public void onPageFinished(Tab tab) {
         mUi.onTabDataChanged(tab);
-        if (!tab.isPrivateBrowsingEnabled()) {
+        if (!tab.isPrivateBrowsingEnabled()
+                && !TextUtils.isEmpty(tab.getUrl())) {
             if (tab.inForeground() && !didUserStopLoading()
                     || !tab.inForeground()) {
                 // Only update the bookmark screenshot if the user did not
@@ -799,7 +801,7 @@ public class Controller
         }
         // Performance probe
         if (false) {
-            Performance.onPageFinished(url);
+            Performance.onPageFinished(tab.getUrl());
          }
 
         Performance.tracePageFinished();
@@ -843,7 +845,7 @@ public class Controller
     public void onReceivedTitle(Tab tab, final String title) {
         mUi.onTabDataChanged(tab);
         final String pageUrl = tab.getUrl();
-        if (pageUrl == null || pageUrl.length()
+        if (TextUtils.isEmpty(pageUrl) || pageUrl.length()
                 >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
             return;
         }
@@ -887,12 +889,13 @@ public class Controller
     }
 
     @Override
-    public void doUpdateVisitedHistory(Tab tab, String url,
-            boolean isReload) {
+    public void doUpdateVisitedHistory(Tab tab, boolean isReload) {
         // Don't save anything in private browsing mode
         if (tab.isPrivateBrowsingEnabled()) return;
+        String url = tab.getUrl();
 
-        if (url.regionMatches(true, 0, "about:", 0, 6)) {
+        if (TextUtils.isEmpty(url)
+                || url.regionMatches(true, 0, "about:", 0, 6)) {
             return;
         }
         mDataController.updateVisitedHistory(url);
