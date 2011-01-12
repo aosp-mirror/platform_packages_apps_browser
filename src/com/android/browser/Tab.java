@@ -16,7 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.homepages.HomeProvider;
 import com.android.common.speech.LoggingEvents;
 
 import android.app.Activity;
@@ -533,7 +532,7 @@ class Tab {
             }
 
             // finally update the UI in the activity if it is in the foreground
-            mWebViewController.onPageStarted(Tab.this, view, url, favicon);
+            mWebViewController.onPageStarted(Tab.this, view, favicon);
 
             updateBookmarkedStatus();
         }
@@ -557,7 +556,7 @@ class Tab {
                 // but before a provisional load occurred
                 mCurrentState.mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
             }
-            mWebViewController.onPageFinished(Tab.this, url);
+            mWebViewController.onPageFinished(Tab.this);
         }
 
         // return true if want to hijack the url to let another app to handle it
@@ -688,7 +687,7 @@ class Tab {
         @Override
         public void doUpdateVisitedHistory(WebView view, String url,
                 boolean isReload) {
-            mWebViewController.doUpdateVisitedHistory(Tab.this, url, isReload);
+            mWebViewController.doUpdateVisitedHistory(Tab.this, isReload);
         }
 
         /**
@@ -1569,10 +1568,7 @@ class Tab {
     }
 
     String getUrl() {
-        if (HomeProvider.MOST_VISITED.equals(mCurrentState.mUrl)) {
-            return "";
-        }
-        return mCurrentState.mUrl;
+        return UrlUtils.filteredUrl(mCurrentState.mUrl);
     }
 
     /**

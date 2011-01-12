@@ -46,9 +46,9 @@ public interface WebViewController {
 
     void createSubWindow(Tab tab);
 
-    void onPageStarted(Tab tab, WebView view, String url, Bitmap favicon);
+    void onPageStarted(Tab tab, WebView view, Bitmap favicon);
 
-    void onPageFinished(Tab tab, String url);
+    void onPageFinished(Tab tab);
 
     void onProgressChanged(Tab tab);
 
@@ -62,7 +62,7 @@ public interface WebViewController {
 
     void onUnhandledKeyEvent(KeyEvent event);
 
-    void doUpdateVisitedHistory(Tab tab, String url, boolean isReload);
+    void doUpdateVisitedHistory(Tab tab, boolean isReload);
 
     void getVisitedHistory(final ValueCallback<String[]> callback);
 
