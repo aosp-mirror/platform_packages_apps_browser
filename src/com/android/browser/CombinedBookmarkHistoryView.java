@@ -29,8 +29,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
@@ -46,7 +48,7 @@ interface BookmarksHistoryCallbacks {
 }
 
 public class CombinedBookmarkHistoryView extends LinearLayout
-        implements OnClickListener {
+        implements OnClickListener, OnTouchListener {
 
     final static String STARTING_FRAGMENT = "fragment";
 
@@ -115,6 +117,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         mActivity = activity;
         mExtras = extras;
         View v = LayoutInflater.from(activity).inflate(R.layout.bookmarks_history, this);
+        v.setOnTouchListener(this);
         Resources res = activity.getResources();
 
 //        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
@@ -257,5 +260,14 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             return mBookmarks.onBackPressed();
         }
         return false;
+    }
+
+    /**
+     * capture touch events to prevent them from going to the underlying
+     * WebView
+     */
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return true;
     }
 }
