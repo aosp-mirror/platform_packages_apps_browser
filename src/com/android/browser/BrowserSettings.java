@@ -281,6 +281,8 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
             // enable smooth transition for better performance during panning or
             // zooming
             s.setEnableSmoothTransition(true);
+            // disable content url access
+            s.setAllowContentAccess(false);
 
             // HTML5 API flags
             s.setAppCacheEnabled(b.appCacheEnabled);

@@ -202,13 +202,6 @@ public class IntentHandler {
             final String action = intent.getAction();
             if (Intent.ACTION_VIEW.equals(action)) {
                 url = UrlUtils.smartUrlFilter(intent.getData());
-                if (url != null && url.startsWith("content:")) {
-                    /* Append mimetype so webview knows how to display */
-                    String mimeType = intent.resolveType(mActivity.getContentResolver());
-                    if (mimeType != null) {
-                        url += "?" + mimeType;
-                    }
-                }
                 if (url != null && url.startsWith("http")) {
                     final Bundle pairs = intent
                             .getBundleExtra(Browser.EXTRA_HEADERS);
