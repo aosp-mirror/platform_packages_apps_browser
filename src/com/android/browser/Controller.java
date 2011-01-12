@@ -1026,6 +1026,7 @@ public class Controller
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
                 mActivity.getComponentName().flattenToString());
         intent.putExtra(SEND_APP_ID_EXTRA, false);
+        intent.putExtra(RecognizerIntent.EXTRA_WEB_SEARCH_ONLY, true);
         mActivity.startActivity(intent);
     }
 
