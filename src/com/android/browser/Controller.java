@@ -1111,6 +1111,10 @@ public class Controller
         if (mTabControl.getCurrentWebView() == null) {
             return;
         }
+        // clear action mode
+        if (isInCustomActionMode()) {
+            endActionMode();
+        }
         Bundle extras = new Bundle();
         // Disable opening in a new window if we have maxed out the windows
         extras.putBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW,
