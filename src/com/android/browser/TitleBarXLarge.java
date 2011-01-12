@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.UrlInputView.UrlInputListener;
+import com.android.browser.search.SearchEngine;
 
 import android.app.Activity;
 import android.app.SearchManager;
@@ -373,7 +374,11 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     private void setSearchMode(boolean voiceSearchEnabled) {
-        mVoiceSearch.setVisibility(voiceSearchEnabled ? View.VISIBLE :
+        SearchEngine searchEngine = BrowserSettings.getInstance()
+                .getSearchEngine();
+        boolean showvoicebutton = voiceSearchEnabled &&
+                (searchEngine != null && searchEngine.supportsVoiceSearch());
+        mVoiceSearch.setVisibility(showvoicebutton ? View.VISIBLE :
                 View.GONE);
         mGoButton.setVisibility(voiceSearchEnabled ? View.GONE :
                 View.VISIBLE);
