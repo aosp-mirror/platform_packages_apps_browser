@@ -609,6 +609,11 @@
     <!-- Summary for lab quick controls feature [CHAR LIMIT=80] -->
     <string name="pref_lab_quick_controls_summary">
         Swipe thumb from left or right edge to access quick controls</string>
+    <!-- Title for lab "Most Visited" homepage feature [CHAR LIMIT=40] -->
+    <string name="pref_lab_most_visited_homepage">Most Visited Homepage</string>
+    <!-- Summary for lab "Most Visited" homepage feature [CHAR LIMIT=80] -->
+    <string name="pref_lab_most_visited_homepage_summary">
+        Sets your homepage to show the most visited pages.</string>
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>

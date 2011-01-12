@@ -17,6 +17,7 @@
 
 package com.android.browser;
 
+import com.android.browser.homepages.HomeProvider;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngines;
 
@@ -119,6 +120,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
 
     // Lab settings
     private boolean quickControls = false;
+    private boolean useMostVisitedHomepage = false;
 
     // By default the error console is shown once the user navigates to about:debug.
     // The setting can be then toggled from the settings menu.
@@ -171,6 +173,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     public final static String PREF_USER_AGENT = "user_agent";
 
     public final static String PREF_QUICK_CONTROLS = "enable_quick_controls";
+    public final static String PREF_MOST_VISITED_HOMEPAGE = "use_most_visited_homepage";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, " +
@@ -498,6 +501,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         }
 
         quickControls = p.getBoolean(PREF_QUICK_CONTROLS, quickControls);
+        useMostVisitedHomepage = p.getBoolean(PREF_MOST_VISITED_HOMEPAGE, useMostVisitedHomepage);
 
         // Only set these on startup if it is a dev build
         if (DEV_BUILD) {
@@ -527,6 +531,9 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     }
 
     public String getHomePage() {
+        if (useMostVisitedHomepage) {
+            return HomeProvider.MOST_VISITED;
+        }
         return homeUrl;
     }
 
@@ -584,6 +591,10 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
 
     public boolean useQuickControls() {
         return quickControls;
+    }
+
+    public boolean useMostVisitedHomepage() {
+        return useMostVisitedHomepage;
     }
 
     public boolean showDebugSettings() {
@@ -849,6 +860,8 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
             update();
         } else if (PREF_QUICK_CONTROLS.equals(key)) {
             quickControls = p.getBoolean(PREF_QUICK_CONTROLS, quickControls);
+        } else if (PREF_MOST_VISITED_HOMEPAGE.equals(key)) {
+            useMostVisitedHomepage = p.getBoolean(PREF_MOST_VISITED_HOMEPAGE, useMostVisitedHomepage);
         }
     }
 }

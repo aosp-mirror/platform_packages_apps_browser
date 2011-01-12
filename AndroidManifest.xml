@@ -223,6 +223,13 @@
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>
             </intent-filter>
         </receiver>
+
+        <!-- For custom home pages (like most visited) -->
+        <provider
+            android:name=".homepages.HomeProvider"
+            android:authorities="com.android.browser.home"
+            android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
+            android:exported="false" />
     </application>
 
 </manifest>
