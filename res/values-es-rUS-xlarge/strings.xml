@@ -50,7 +50,7 @@
     <!-- XL -->
     <string name="pref_content_autofit" msgid="152292940099720429">"Ajuste automático de páginas"</string>
     <!-- XL -->
-    <string name="pref_autofill_profile_editor_summary" msgid="6606678927956330022">"Configurar &amp; administrar datos para los formularios de autollenado"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="6606678927956330022">"Configurar &amp; administrar datos para los formularios de autocompletado"</string>
     <!-- XL -->
     <string name="autofill_profile_editor_heading" msgid="376355900106687672">"La función Autocompletar utilizará tu perfil para ayudarte a completar los formularios web con solo un clic."</string>
     <!-- XL -->
@@ -82,7 +82,7 @@
     <!-- XL -->
     <string name="pref_content_load_page" msgid="7460666469137362825">"Abrir las páginas en visión general"</string>
     <!-- XL -->
-    <!-- outdated translation 3239395481036882698 -->     <string name="pref_extras_title" msgid="7223601187104530963">"Configuración avanzada"</string>
+    <string name="pref_extras_title" msgid="7223601187104530963">"Avanzado"</string>
     <!-- XL -->
     <string name="pref_extras_reset_default" msgid="113675796607112935">"Restablecer a la forma predeterminada"</string>
     <!-- XL -->
@@ -96,7 +96,23 @@
     <!-- XL -->
     <string name="max_tabs_warning" msgid="1283136201153746764">"No hay más etiquetas disponibles"</string>
     <!-- XL -->
-    <string name="pref_lab_title" msgid="209824994106188072">"Lab"</string>
+    <string name="pref_general_title" msgid="1229916674669616147">"General"</string>
+    <!-- XL -->
+    <string name="pref_general_sync_title" msgid="1799321350681060075">"Sincronización"</string>
+    <!-- XL -->
+    <string name="pref_general_autofill_title" msgid="3214478293686374847">"Autocompletar"</string>
+    <!-- XL -->
+    <string name="pref_privacy_security_title" msgid="1547485785692120937">"Privacidad &amp; Seguridad"</string>
+    <!-- XL -->
+    <string name="pref_privacy_cookies_title" msgid="2009543275661191347">"Cookies"</string>
+    <!-- XL -->
+    <string name="pref_privacy_formdata_title" msgid="808174611258405509">"Datos del formulario"</string>
+    <!-- XL -->
+    <string name="pref_privacy_location_title" msgid="4128439505504300548">"Ubicación"</string>
+    <!-- XL -->
+    <string name="pref_security_passwords_title" msgid="6502262261189522404">"Contraseñas"</string>
+    <!-- XL -->
+    <string name="pref_extras_reset_default_title" msgid="8689952816215143856">"Restablecer configuraciones predeterminadas"</string>
     <!-- XL -->
     <string name="pref_lab_quick_controls" msgid="1617774508416113544">"Controles rápidos"</string>
     <!-- XL -->
