@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import com.android.browser.homepages.HomeProvider;
+
 import android.net.Uri;
 import android.util.Patterns;
 import android.webkit.URLUtil;
@@ -141,6 +143,17 @@ public class UrlUtils {
             if (inUrl.startsWith("http:/") || inUrl.startsWith("https:/")) {
                 inUrl = inUrl.replaceFirst("/", "//");
             } else inUrl = inUrl.replaceFirst(":", "://");
+        }
+        return inUrl;
+    }
+
+    // Returns the filtered URL. Cannot return null, but can return an empty string
+    /* package */ static String filteredUrl(String inUrl) {
+        if (inUrl == null) {
+            return "";
+        }
+        if (inUrl.startsWith(HomeProvider.MOST_VISITED)) {
+            return "";
         }
         return inUrl;
     }
