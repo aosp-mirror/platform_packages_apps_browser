@@ -98,6 +98,7 @@ public class AddBookmarkPage extends Activity
     private View mDefaultView;
     private View mFolderSelector;
     private EditText mFolderNamer;
+    private View mFolderCancel;
     private boolean mIsFolderNamerShowing;
     private View mFolderNamerHolder;
     private View mAddNewFolder;
@@ -243,6 +244,8 @@ public class AddBookmarkPage extends Activity
             } else {
                 finish();
             }
+        } else if (v == mFolderCancel) {
+            completeOrCancelFolderNaming(true);
         } else if (v == mAddNewFolder) {
             setShowFolderNamer(true);
             mFolderNamer.setText(R.string.new_folder);
@@ -286,6 +289,11 @@ public class AddBookmarkPage extends Activity
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
+    /**
+     * Finish naming a folder, and close the IME
+     * @param cancel If true, the new folder is not created.  If false, the new
+     *      folder is created and the user is taken inside it.
+     */
     private void completeOrCancelFolderNaming(boolean cancel) {
         if (!cancel && !TextUtils.isEmpty(mFolderNamer.getText())) {
             String name = mFolderNamer.getText().toString();
@@ -588,6 +596,8 @@ public class AddBookmarkPage extends Activity
         mFolderNamerHolder = getLayoutInflater().inflate(R.layout.new_folder_layout, null);
         mFolderNamer = (EditText) mFolderNamerHolder.findViewById(R.id.folder_namer);
         mFolderNamer.setOnEditorActionListener(this);
+        mFolderCancel = mFolderNamerHolder.findViewById(R.id.close);
+        mFolderCancel.setOnClickListener(this);
 
         mAddNewFolder = findViewById(R.id.add_new_folder);
         mAddNewFolder.setOnClickListener(this);
