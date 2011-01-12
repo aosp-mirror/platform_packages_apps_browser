@@ -27,12 +27,29 @@
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeight"
         android:src="@drawable/ic_folder_bookmark_widget_holo_dark" />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@*android:drawable/edit_text_holo_dark"
+      android:gravity="center_vertical"
+      android:paddingBottom="5dip"
+      android:orientation="horizontal">
     <EditText
         android:id="@+id/folder_namer"
-        android:layout_width="match_parent"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:background="@null"
         android:gravity="center_vertical"
         android:paddingLeft="6dip"
-        android:minHeight="?android:attr/listPreferredItemHeight" />
+        />
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:src="@drawable/ic_tab_close"
+        />
+  </LinearLayout>
 </LinearLayout>
