@@ -16,6 +16,7 @@
 
 package com.android.browser.widget;
 
+import com.android.browser.BrowserActivity;
 import com.android.browser.R;
 
 import android.app.PendingIntent;
@@ -78,12 +79,16 @@ public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
 
     private void performUpdate(Context context,
             AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        Intent launchBrowser = new Intent(BrowserActivity.ACTION_SHOW_BROWSER,
+                null, context, BrowserActivity.class);
         for (int appWidgetId : appWidgetIds) {
             Intent updateIntent = new Intent(context, BookmarkThumbnailWidgetService.class);
             updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             updateIntent.setData(Uri.parse(updateIntent.toUri(Intent.URI_INTENT_SCHEME)));
             RemoteViews views = new RemoteViews(context.getPackageName(),
                     R.layout.bookmarkthumbnailwidget);
+            views.setOnClickPendingIntent(R.id.app_shortcut, PendingIntent
+                    .getActivity(context, 0, launchBrowser, PendingIntent.FLAG_CANCEL_CURRENT));
             views.setRemoteAdapter(R.id.bookmarks_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.bookmarks_list);
             Intent ic = new Intent(context, BookmarkThumbnailWidgetService.class);
