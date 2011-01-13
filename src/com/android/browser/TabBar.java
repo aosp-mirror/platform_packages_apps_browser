@@ -33,7 +33,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -136,7 +135,7 @@ public class TabBar extends LinearLayout
 
         mInactiveShaderPaint.setStyle(Paint.Style.FILL);
         mInactiveShaderPaint.setAntiAlias(true);
-        
+
     }
 
     void setUseQuickControls(boolean useQuickControls) {
@@ -174,18 +173,22 @@ public class TabBar extends LinearLayout
         // use paddingLeft and paddingTop
         int pl = getPaddingLeft();
         int pt = getPaddingTop();
-        if (mButtonWidth == -1) {
-            mButtonWidth = mNewTab.getMeasuredWidth() - mTabOverlap;
-        }
         int sw = mTabs.getMeasuredWidth();
         int w = right - left - pl;
-        if (w-sw < mButtonWidth) {
-            sw = w - mButtonWidth;
+        if (mUseQuickControls) {
+            mButtonWidth = 0;
+        } else {
+            mButtonWidth = mNewTab.getMeasuredWidth() - mTabOverlap;
+            if (w-sw < mButtonWidth) {
+                sw = w - mButtonWidth;
+            }
         }
         mTabs.layout(pl, pt, pl + sw, bottom - top);
         // adjust for overlap
-        mNewTab.layout(pl + sw - mTabOverlap, pt,
-                pl + sw + mButtonWidth - mTabOverlap, bottom - top);
+        if (!mUseQuickControls) {
+            mNewTab.layout(pl + sw - mTabOverlap, pt,
+                    pl + sw + mButtonWidth - mTabOverlap, bottom - top);
+        }
     }
 
     public void onClick(View view) {
@@ -286,8 +289,8 @@ public class TabBar extends LinearLayout
         drawable.setBounds(0, 0, width, height);
         drawable.draw(c);
         return b;
-    }    
-    
+    }
+
     /**
      * View used in the tab bar
      */
@@ -420,7 +423,7 @@ public class TabBar extends LinearLayout
             super.onLayout(changed, l, t, r, b);
             setTabPath(mPath, 0, 0, r - l, b - t);
         }
-        
+
         @Override
         protected void dispatchDraw(Canvas canvas) {
             if (mCurrentTextureWidth != mUi.getContentWidth() ||
@@ -437,13 +440,13 @@ public class TabBar extends LinearLayout
                     mActiveShader = new BitmapShader(activeTexture,
                             Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
                     mActiveShaderPaint.setShader(mActiveShader);
-    
+
                     mInactiveShader = new BitmapShader(inactiveTexture,
                             Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
                     mInactiveShaderPaint.setShader(mInactiveShader);
                 }
             }
-            
+
             int state = canvas.save();
             getLocationInWindow(mWindowPos);
             Paint paint = mSelected ? mActiveShaderPaint : mInactiveShaderPaint;

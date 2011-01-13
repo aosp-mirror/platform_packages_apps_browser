@@ -24,8 +24,9 @@
     >
     <com.android.browser.TabScrollView
         android:id="@+id/tabs"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="44dip"
+        android:layout_weight="1.0"
         android:orientation="horizontal" />
     <ImageButton
         android:id="@+id/newtab"
