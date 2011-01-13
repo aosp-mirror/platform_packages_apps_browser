@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.provider.BrowserProvider2;
+import com.android.browser.addbookmark.FolderSpinner;
 import com.android.browser.addbookmark.FolderSpinnerAdapter;
 
 import android.app.Activity;
@@ -55,7 +56,6 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +66,7 @@ import java.util.Stack;
 public class AddBookmarkPage extends Activity
         implements View.OnClickListener, TextView.OnEditorActionListener,
         AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>,
-        BreadCrumbView.Controller, AdapterView.OnItemSelectedListener {
+        BreadCrumbView.Controller, FolderSpinner.OnSetSelectionListener {
 
     public static final long DEFAULT_FOLDER_ID = -1;
     public static final String TOUCH_ICON_URL = "touch_icon_url";
@@ -84,6 +84,8 @@ public class AddBookmarkPage extends Activity
     // IDs for the CursorLoaders that are used.
     private final int LOADER_ID_FOLDER_CONTENTS = 0;
     private final int LOADER_ID_ALL_FOLDERS = 1;
+    private final int LOADER_ID_FIND_ROOT = 2;
+    private final int LOADER_ID_CHECK_FOR_DUPE = 3;
 
     private EditText    mTitle;
     private EditText    mAddress;
@@ -94,7 +96,7 @@ public class AddBookmarkPage extends Activity
     private Bundle      mMap;
     private String      mTouchIconUrl;
     private String      mOriginalUrl;
-    private Spinner mFolder;
+    private FolderSpinner mFolder;
     private View mDefaultView;
     private View mFolderSelector;
     private EditText mFolderNamer;
@@ -113,9 +115,6 @@ public class AddBookmarkPage extends Activity
     private long mRootFolder;
     private TextView mTopLevelLabel;
     private Drawable mHeaderIcon;
-    // We manually change the spinner's selection if the edited bookmark is not
-    // in the root folder.  This makes sure our listener ignores this change.
-    private boolean mIgnoreSelectionChange;
     private static class Folder {
         String Name;
         long Id;
@@ -205,7 +204,7 @@ public class AddBookmarkPage extends Activity
                     // The Spinner changed to show "Other folder ..."  Change
                     // it back to "Bookmarks", which is position 0 if we are
                     // editing a folder, 1 otherwise.
-                    mFolder.setSelection(mEditingFolder ? 0 : 1);
+                    mFolder.setSelectionIgnoringSelectionChange(mEditingFolder ? 0 : 1);
                 } else {
                     ((TextView) mFolder.getSelectedView()).setText(folder.Name);
                 }
@@ -214,9 +213,10 @@ public class AddBookmarkPage extends Activity
             // The user canceled selecting a folder.  Revert back to the earlier
             // selection.
             if (mSaveToHomeScreen) {
-                mFolder.setSelection(0);
+                mFolder.setSelectionIgnoringSelectionChange(0);
             } else {
-                mFolder.setSelection(mEditingFolder ? 0 : 1);
+                // FIXME: Need to find the actual folder.
+                mFolder.setSelectionIgnoringSelectionChange(mEditingFolder ? 0 : 1);
             }
         }
     }
@@ -260,13 +260,10 @@ public class AddBookmarkPage extends Activity
         }
     }
 
+    // FolderSpinner.OnSetSelectionListener
+
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (mIgnoreSelectionChange) {
-            mIgnoreSelectionChange = false;
-            return;
-        }
-        // In response to the spinner changing.
+    public void onSetSelection(long id) {
         int intId = (int) id;
         switch (intId) {
             case FolderSpinnerAdapter.ROOT_FOLDER:
@@ -283,10 +280,6 @@ public class AddBookmarkPage extends Activity
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
     }
 
     /**
@@ -357,6 +350,37 @@ public class AddBookmarkPage extends Activity
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection;
         switch (id) {
+            case LOADER_ID_CHECK_FOR_DUPE:
+                projection = new String[] {
+                        BrowserContract.Bookmarks._ID,
+                        BrowserContract.Bookmarks.PARENT,
+                        BrowserContract.Bookmarks.TITLE
+                };
+                return new CursorLoader(this,
+                        BookmarkUtils.getBookmarksUri(this),
+                        projection,
+                        BrowserContract.Bookmarks.URL + " = ?",
+                        new String[] { mOriginalUrl },
+                        null);
+            case LOADER_ID_FIND_ROOT:
+                String name = args.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME);
+                String type = args.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE);
+
+                projection = new String[] { BrowserContract.Bookmarks._ID };
+                String selection = BrowserContract.ChromeSyncColumns.SERVER_UNIQUE + "=? AND "
+                        + BrowserContract.Bookmarks.ACCOUNT_NAME + "=? AND "
+                        + BrowserContract.Bookmarks.ACCOUNT_TYPE + "=?";
+                String[] selArgs = new String[] {
+                        BrowserContract.ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR,
+                        name,
+                        type
+                };
+                return new CursorLoader(this,
+                        BrowserContract.Bookmarks.CONTENT_URI,
+                        projection,
+                        selection,
+                        selArgs,
+                        null);
             case LOADER_ID_ALL_FOLDERS:
                 projection = new String[] {
                         BrowserContract.Bookmarks._ID,
@@ -395,6 +419,36 @@ public class AddBookmarkPage extends Activity
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         switch (loader.getId()) {
+            case LOADER_ID_CHECK_FOR_DUPE:
+                if (cursor != null && cursor.moveToFirst()) {
+                    // Site is bookmarked.
+                    mEditingExisting = true;
+                    mFakeTitle.setText(R.string.edit_bookmark);
+                    int index = cursor.getColumnIndexOrThrow(
+                            BrowserContract.Bookmarks.PARENT);
+                    mCurrentFolder = cursor.getLong(index);
+                    index = cursor.getColumnIndexOrThrow(
+                            BrowserContract.Bookmarks.TITLE);
+                    String title = cursor.getString(index);
+                    mTitle.setText(title);
+                    index = cursor.getColumnIndexOrThrow(
+                            BrowserContract.Bookmarks._ID);
+                    long id = cursor.getLong(index);
+                    mMap.putLong(BrowserContract.Bookmarks._ID, id);
+                }
+                onCurrentFolderFound();
+                getLoaderManager().destroyLoader(LOADER_ID_CHECK_FOR_DUPE);
+                break;
+            case LOADER_ID_FIND_ROOT:
+                long root;
+                if (cursor != null && cursor.moveToFirst()) {
+                    root = cursor.getLong(0);
+                } else {
+                    root = BrowserProvider2.FIXED_ID_ROOT;
+                }
+                onRootFolderFound(root);
+                getLoaderManager().destroyLoader(LOADER_ID_FIND_ROOT);
+                break;
             case LOADER_ID_FOLDER_CONTENTS:
                 mAdapter.changeCursor(cursor);
                 break;
@@ -563,10 +617,6 @@ public class AddBookmarkPage extends Activity
             mTouchIconUrl = mMap.getString(TOUCH_ICON_URL);
             mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, DEFAULT_FOLDER_ID);
         }
-        mRootFolder = getBookmarksBarId(this);
-        if (mCurrentFolder == DEFAULT_FOLDER_ID) {
-            mCurrentFolder = mRootFolder;
-        }
 
         mTitle = (EditText) findViewById(R.id.title);
         mTitle.setText(title);
@@ -580,15 +630,9 @@ public class AddBookmarkPage extends Activity
         mCancelButton = findViewById(R.id.cancel);
         mCancelButton.setOnClickListener(this);
 
-        mFolder = (Spinner) findViewById(R.id.folder);
+        mFolder = (FolderSpinner) findViewById(R.id.folder);
         mFolder.setAdapter(new FolderSpinnerAdapter(!mEditingFolder));
-        if (!mEditingFolder) {
-            // Initially the "Bookmarks" folder should be showing, rather than
-            // the home screen.  In the editing folder case, home screen is not
-            // an option, so "Bookmarks" folder is already at the top.
-            mFolder.setSelection(FolderSpinnerAdapter.ROOT_FOLDER);
-        }
-        mFolder.setOnItemSelectedListener(this);
+        mFolder.setOnSetSelectionListener(this);
 
         mDefaultView = findViewById(R.id.default_view);
         mFolderSelector = findViewById(R.id.folder_selector);
@@ -606,10 +650,6 @@ public class AddBookmarkPage extends Activity
         mCrumbs = (BreadCrumbView) findViewById(R.id.crumbs);
         mCrumbs.setUseBackButton(true);
         mCrumbs.setController(this);
-        String name = getString(R.string.bookmarks);
-        mTopLevelLabel = (TextView) mCrumbs.pushView(name, false, new Folder(name, mRootFolder));
-        // To better match the other folders.
-        mTopLevelLabel.setCompoundDrawablePadding(6);
         mHeaderIcon = getResources().getDrawable(R.drawable.ic_folder_bookmark_widget_holo_dark);
         mCrumbHolder = findViewById(R.id.crumb_holder);
         mCrumbs.setMaxVisible(MAX_CRUMBS_SHOWN);
@@ -621,6 +661,45 @@ public class AddBookmarkPage extends Activity
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
         mListView.addEditText(mFolderNamer);
+
+        if (!window.getDecorView().isInTouchMode()) {
+            mButton.requestFocus();
+        }
+
+        String[] accountInfo = getAccountNameAndType(this);
+        if (accountInfo == null) {
+            onRootFolderFound(BrowserProvider2.FIXED_ID_ROOT);
+        } else {
+            Bundle args = new Bundle();
+            args.putString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, accountInfo[0]);
+            args.putString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, accountInfo[1]);
+            getLoaderManager().initLoader(LOADER_ID_FIND_ROOT, args, this);
+        }
+
+    }
+
+    // Called once we have determined which folder is the root folder
+    private void onRootFolderFound(long root) {
+        mRootFolder = root;
+        if (mCurrentFolder == DEFAULT_FOLDER_ID) {
+            mCurrentFolder = mRootFolder;
+        }
+        String name = getString(R.string.bookmarks);
+        mTopLevelLabel = (TextView) mCrumbs.pushView(name, false,
+                new Folder(name, mRootFolder));
+        // To better match the other folders.
+        mTopLevelLabel.setCompoundDrawablePadding(6);
+        if (mEditingExisting || TextUtils.isEmpty(mOriginalUrl)) {
+            onCurrentFolderFound();
+        } else {
+            // User is attempting to bookmark a site, rather than deliberately
+            // editing a bookmark.  Rather than let them create a duplicate
+            // bookmark, see if the bookmark already exists.
+            getLoaderManager().initLoader(LOADER_ID_CHECK_FOR_DUPE, null, this);
+        }
+    }
+
+    private void onCurrentFolderFound() {
         LoaderManager manager = getLoaderManager();
         if (mCurrentFolder != mRootFolder) {
             // Find all the folders
@@ -628,20 +707,19 @@ public class AddBookmarkPage extends Activity
             // Since we're not in the root folder, change the selection to other
             // folder now.  The text will get changed once we select the correct
             // folder.
-            mIgnoreSelectionChange = true;
-            mFolder.setSelection(mEditingFolder ? 1 : 2);
+            mFolder.setSelectionIgnoringSelectionChange(mEditingFolder ? 1 : 2);
         } else {
             setShowBookmarkIcon(true);
+            if (!mEditingFolder) {
+                // Initially the "Bookmarks" folder should be showing, rather than
+                // the home screen.  In the editing folder case, home screen is not
+                // an option, so "Bookmarks" folder is already at the top.
+                mFolder.setSelectionIgnoringSelectionChange(FolderSpinnerAdapter.ROOT_FOLDER);
+            }
         }
         // Find the contents of the current folder
         manager.initLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
-
-
-        if (!window.getDecorView().isInTouchMode()) {
-            mButton.requestFocus();
-        }
-    }
-
+}
     /**
      * Get the account name and type of the currently synced account.
      * @param context Context to access preferences.
@@ -656,35 +734,6 @@ public class AddBookmarkPage extends Activity
             return null;
         }
         return new String[] { accountName, accountType };
-    }
-
-    // FIXME: Use a CursorLoader
-    private long getBookmarksBarId(Context context) {
-        String[] accountInfo = getAccountNameAndType(context);
-        if (accountInfo == null) {
-            return BrowserProvider2.FIXED_ID_ROOT;
-        }
-        Cursor cursor = null;
-        try {
-            cursor = context.getContentResolver().query(
-                    BrowserContract.Bookmarks.CONTENT_URI,
-                    new String[] { BrowserContract.Bookmarks._ID },
-                    BrowserContract.ChromeSyncColumns.SERVER_UNIQUE + "=? AND "
-                            + BrowserContract.Bookmarks.ACCOUNT_NAME + "=? AND "
-                            + BrowserContract.Bookmarks.ACCOUNT_TYPE + "=?",
-                    new String[] {
-                            BrowserContract.ChromeSyncColumns
-                                    .FOLDER_NAME_BOOKMARKS_BAR,
-                            accountInfo[0],
-                            accountInfo[1] },
-                    null);
-            if (cursor != null && cursor.moveToFirst()) {
-                return cursor.getLong(0);
-            }
-        } finally {
-            if (cursor != null) cursor.close();
-        }
-        return BrowserProvider2.FIXED_ID_ROOT;
     }
 
     /**
