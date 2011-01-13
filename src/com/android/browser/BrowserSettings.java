@@ -103,6 +103,9 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     private String databasePath; // default value set in loadFromDb()
     private String geolocationDatabasePath; // default value set in loadFromDb()
     private WebStorageSizeManager webStorageSizeManager;
+    // Autologin settings
+    private boolean autoLoginEnabled;
+    private String autoLoginAccount;
 
     private String jsFlags = "";
 
@@ -174,6 +177,8 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
 
     public final static String PREF_QUICK_CONTROLS = "enable_quick_controls";
     public final static String PREF_MOST_VISITED_HOMEPAGE = "use_most_visited_homepage";
+    public final static String PREF_AUTOLOGIN = "enable_autologin";
+    public final static String PREF_AUTOLOGIN_ACCOUNT = "autologin_account";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, " +
@@ -527,6 +532,11 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         geolocationEnabled = p.getBoolean("enable_geolocation", geolocationEnabled);
         workersEnabled = p.getBoolean("enable_workers", workersEnabled);
 
+        // Autologin account settings.  The account preference may be null until
+        // the user explicitly changes the account in the settings.
+        autoLoginEnabled = p.getBoolean(PREF_AUTOLOGIN, autoLoginEnabled);
+        autoLoginAccount = p.getString(PREF_AUTOLOGIN_ACCOUNT, autoLoginAccount);
+
         update();
     }
 
@@ -605,6 +615,24 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         showDebugSettings = !showDebugSettings;
         navDump = showDebugSettings;
         update();
+    }
+
+    public boolean isAutoLoginEnabled() {
+        return autoLoginEnabled;
+    }
+
+    public String getAutoLoginAccount(Context context) {
+        // Each time we attempt to get the account, we need to verify that the
+        // account is still valid.
+        return GoogleAccountLogin.validateAccount(context, autoLoginAccount);
+    }
+
+    public void setAutoLoginAccount(Context context, String name) {
+        Editor ed = PreferenceManager.
+                getDefaultSharedPreferences(context).edit();
+        ed.putString(PREF_AUTOLOGIN_ACCOUNT, name);
+        ed.apply();
+        autoLoginAccount = name;
     }
 
     public void setAutoFillProfile(Context ctx, AutoFillProfile profile, Message msg) {
@@ -799,6 +827,9 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         domStorageEnabled = true;
         geolocationEnabled = true;
         workersEnabled = true;  // only affects V8. JSC does not have a similar setting
+        // Autologin default is true.  The account will be populated when
+        // reading from the DB as that is when a context is available.
+        autoLoginEnabled = true;
     }
 
     private abstract class AutoFillProfileDbTask<T> extends AsyncTask<T, Void, Void> {

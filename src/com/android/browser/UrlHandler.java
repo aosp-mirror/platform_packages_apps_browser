@@ -16,29 +16,12 @@
 
 package com.android.browser;
 
-import org.apache.http.Header;
-import org.apache.http.HeaderIterator;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.util.EntityUtils;
-
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -125,14 +108,6 @@ public class UrlHandler {
             }
         }
 
-        // Check for service login and prompt the user for an account to use.
-        if (url.startsWith("https://www.google.com/accounts/ServiceLogin?") ||
-                url.startsWith("https://www.google.com/accounts/Login?")) {
-            if (loginWithDeviceAccount(view, url)) {
-                return true;
-            }
-        }
-
         if (startActivityForUrl(url)) {
             return true;
         }
@@ -207,162 +182,6 @@ public class UrlHandler {
         }
 
         return false;
-    }
-
-    // Url for issuing the uber token.
-    private final static Uri ISSUE_AUTH_TOKEN_URL = Uri.parse(
-            "https://www.google.com/accounts/IssueAuthToken?service=gaia&Session=false");
-    // Url for signing into a particular service.
-    private final static Uri TOKEN_AUTH_URL = Uri.parse(
-            "https://www.google.com/accounts/TokenAuth");
-
-    private class GoogleServiceLogin extends Thread implements
-            AccountManagerCallback<Bundle>, OnClickListener, OnCancelListener {
-        // For choosing the account.
-        private final Account[] mAccounts;
-        private int mCurrentAccount;  // initially 0 for the first account
-
-        // For loading the auth token urls or the original url on error.
-        private final WebView mWebView;
-        private final String mUrl;
-
-        // SID and LSID retrieval process.
-        private String mSid;
-        private String mLsid;
-        private int mState;  // {NONE(0), SID(1), LSID(2)}
-
-        GoogleServiceLogin(Account[] accounts, WebView view, String url) {
-            mAccounts = accounts;
-            mWebView = view;
-            mUrl = url;
-        }
-
-        // Thread
-        public void run() {
-            String url = ISSUE_AUTH_TOKEN_URL.buildUpon()
-                    .appendQueryParameter("SID", mSid)
-                    .appendQueryParameter("LSID", mLsid)
-                    .build().toString();
-            // Intentionally not using Proxy.
-            AndroidHttpClient client = AndroidHttpClient.newInstance(
-                    mWebView.getSettings().getUserAgentString());
-            HttpPost request = new HttpPost(url);
-
-            String result = null;
-            try {
-                HttpResponse response = client.execute(request);
-                if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-                    onCancel(null);
-                    return;
-                }
-                HttpEntity entity = response.getEntity();
-                if (entity == null) {
-                    onCancel(null);
-                    return;
-                }
-                result = EntityUtils.toString(entity, "UTF-8");
-            } catch (Exception e) {
-                request.abort();
-                onCancel(null);
-            } finally {
-                client.close();
-            }
-            Uri parsedUri = Uri.parse(mUrl);
-            String service = parsedUri.getQueryParameter("service");
-            String redirect = parsedUri.getQueryParameter("continue");
-            final String newUrl = TOKEN_AUTH_URL.buildUpon()
-                    .appendQueryParameter("service", service)
-                    .appendQueryParameter("source", "android-browser")
-                    .appendQueryParameter("auth", result)
-                    .appendQueryParameter("continue", redirect)
-                    .build().toString();
-            mActivity.runOnUiThread(new Runnable() {
-                @Override public void run() {
-                    mController.loadUrl(mWebView, newUrl);
-                }
-            });
-        }
-
-        // AccountManager callbacks.
-        public void run(AccountManagerFuture<Bundle> value) {
-            try {
-                String id = value.getResult().getString(
-                        AccountManager.KEY_AUTHTOKEN);
-                switch (mState) {
-                    default:
-                    case 0:
-                        throw new IllegalStateException(
-                                "Impossible to get into this state");
-                    case 1:
-                        mSid = id;
-                        mState = 2;  // LSID
-                        AccountManager.get(mActivity).getAuthToken(
-                                mAccounts[mCurrentAccount], "LSID", null,
-                                mActivity, this, null);
-                        break;
-                    case 2:
-                        mLsid = id;
-                        this.start();
-                        break;
-                }
-            } catch (Exception e) {
-                // For all exceptions load the original signin page.
-                // TODO: toast login failed?
-                onCancel(null);
-            }
-        }
-
-        // Handle picking an account and "OK."
-        public void onClick(DialogInterface unused, int which) {
-            if (which == DialogInterface.BUTTON_POSITIVE) {
-                // TODO: toast loading...?
-                Account current = mAccounts[mCurrentAccount];
-                mState = 1;  // SID
-                AccountManager.get(mActivity).getAuthToken(
-                        mAccounts[mCurrentAccount], "SID", null,
-                        mActivity, this, null);
-            } else if (which == DialogInterface.BUTTON_NEGATIVE) {
-                onCancel(null);
-            } else {
-                mCurrentAccount = which;
-            }
-        }
-
-        // Handle "cancel."
-        public void onCancel(DialogInterface unusued) {
-            // load the original url to login manually.
-            mController.loadUrl(mWebView, mUrl);
-        }
-    }
-
-    private boolean loginWithDeviceAccount(WebView view, String url) {
-        Uri parsedUri = Uri.parse(url);
-        if ("true".equals(parsedUri.getQueryParameter("go"))) {
-            return false;
-        }
-        Account[] accounts =
-                AccountManager.get(mActivity).getAccountsByType("com.google");
-        if (accounts.length == 0) {
-            return false;
-        }
-
-        // Populate the account list.
-        CharSequence[] names = new CharSequence[accounts.length];
-        int i = 0;
-        for (Account a : accounts) {
-            names[i++] = a.name;
-        }
-
-        GoogleServiceLogin login = new GoogleServiceLogin(accounts, view, url);
-        new AlertDialog.Builder(mActivity)
-                .setTitle(R.string.account_picker_title)
-                .setSingleChoiceItems(names, 0 /* first choice */, login)
-                .setPositiveButton(R.string.ok, login)
-                .setNegativeButton(R.string.cancel, login)
-                .setCancelable(true)
-                .setOnCancelListener(login)
-                .show();
-        return true;
     }
 
     private class RLZTask extends AsyncTask<Void, Void, String> {
