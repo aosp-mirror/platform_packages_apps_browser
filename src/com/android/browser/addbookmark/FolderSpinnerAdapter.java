@@ -54,7 +54,7 @@ public class FolderSpinnerAdapter implements SpinnerAdapter {
         switch (position) {
             case HOME_SCREEN:
                 labelResource = R.string.add_to_homescreen_menu_option;
-                drawableResource = com.android.internal.R.drawable.ic_menu_home;
+                drawableResource = R.drawable.ic_home;
                 break;
             case ROOT_FOLDER:
                 labelResource = R.string.add_to_bookmarks_menu_option;
@@ -62,7 +62,7 @@ public class FolderSpinnerAdapter implements SpinnerAdapter {
                 break;
             case OTHER_FOLDER:
                 labelResource = R.string.add_to_other_folder_menu_option;
-                drawableResource = com.android.internal.R.drawable.ic_menu_archive;
+                drawableResource = R.drawable.ic_folder_bookmark_widget_holo_dark;
                 break;
             default:
                 labelResource = 0;
