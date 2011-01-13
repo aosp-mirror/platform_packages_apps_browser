@@ -97,6 +97,8 @@
     <string name="current_page" msgid="7510129573681663135">"จาก "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"บุ๊กมาร์ก \"<xliff:g id="BOOKMARK">%s</xliff:g>\" จะถูกลบ"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"เปิดในหน้าต่างใหม่"</string>
+    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
+    <skip />
     <string name="goto_dot" msgid="3895839050522602723">"ไป"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"เปิดแท็บใหม่ที่ไม่ระบุตัวตน"</string>
     <string name="select_dot" msgid="6299170761900561967">"เลือกข้อความ"</string>
@@ -154,12 +156,9 @@
     <string name="pref_use_default" msgid="192587563274735878">"หน้าเว็บเริ่มต้น"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"ปรับหน้าให้พอดีอัตโนมัติ"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"ปรับรูปแบบหน้าเว็บให้พอดีกับหน้าจอ"</string>
-    <!-- no translation found for pref_general_title (1946872771219249323) -->
-    <skip />
-    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
-    <skip />
-    <!-- no translation found for pref_general_autofill_title (64638897890112873) -->
-    <skip />
+    <string name="pref_general_title" msgid="1946872771219249323">"ทั่วไป"</string>
+    <string name="pref_general_sync_title" msgid="3138637035975860324">"ซิงค์"</string>
+    <string name="pref_general_autofill_title" msgid="64638897890112873">"ป้อนอัตโนมัติ"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"ซิงค์กับ Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"แบ่งปันบุ๊กมาร์กและข้อมูลอื่นๆ ระหว่างเบราว์เซอร์ Android กับ Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"บัญชี Google"</string>
@@ -190,36 +189,31 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"ลบโปรไฟล์"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"เบราว์เซอร์จะกรอกเว็บฟอร์มให้โดยอัตโนมัติเช่นฟอร์มนี้ คุณต้องการตั้งค่าโปรไฟล์ของคุณหรือไม่"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"ฟังก์ชันป้อนอัตโนมัติสามารถกำหนดค่าได้ผ่านการตั้งค่าเบราว์เซอร์ -&gt; การตั้งค่าส่วนบุคคล"</string>
-    <!-- no translation found for pref_privacy_security_title (1705642466867300373) -->
-    <skip />
+    <string name="pref_privacy_security_title" msgid="1705642466867300373">"ข้อมูลส่วนบุคคลและความปลอดภัย"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"ล้างแคช"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"ล้างเนื้อหาและฐานข้อมูลที่เก็บไว้ในเครื่อง"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"เนื้อหาและฐานข้อมูลที่เก็บไว้ในเครื่องจะถูกลบ"</string>
-    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
-    <skip />
+    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"คุกกี้"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"ล้างข้อมูลคุกกี้ทั้งหมด"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"ล้างคุกกี้ทั้งหมดของเบราว์เซอร์"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"คุกกี้ทั้งหมดจะถูกลบ"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"ล้างประวัติ"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"ล้างประวัติการนำทางเบราว์เซอร์"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"ประวัติการนำทางของเบราว์เซอร์จะถูกลบ"</string>
-    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
-    <skip />
+    <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"ข้อมูลฟอร์ม"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"ล้างข้อมูลในฟอร์ม"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"ล้างข้อมูลในฟอร์มที่บันทึกไว้ทั้งหมด"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"ข้อมูลในฟอร์มที่บันทึกไว้ทั้งหมดจะถูกลบ"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"ล้างรหัสผ่าน"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"ล้างรหัสผ่านที่บันทึกไว้ทั้งหมด"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"รหัสผ่านทั้งหมดที่บันทึกไว้จะถูกลบ"</string>
-    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
-    <skip />
+    <string name="pref_privacy_location_title" msgid="7458378016606081067">"ตำแหน่ง"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"เปิดการใช้งานตำแหน่ง"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"อนุญาตให้ไซต์ขอเข้าถึงตำแหน่งของคุณ"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"ล้างการเข้าถึงตำแหน่ง"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"ล้างการเข้าถึงตำแหน่งสำหรับทุกเว็บไซต์"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"ล้างการเข้าถึงตำแหน่งสำหรับทุกเว็บไซต์"</string>
-    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
-    <skip />
+    <string name="pref_security_passwords_title" msgid="5734190542383756711">"รหัสผ่าน"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"จำรหัสผ่าน"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"บันทึกชื่อผู้ใช้และรหัสผ่านสำหรับเว็บไซต์"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"จำข้อมูลในฟอร์ม"</string>
@@ -249,8 +243,7 @@
     <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"การตั้งค่าขั้นสูง"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"การตั้งค่าเว็บไซต์"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"การตั้งค่าขั้นสูงสำหรับเว็บไซต์แต่ละเว็บ"</string>
-    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
-    <skip />
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"รีเซ็ตค่าเริ่มต้น"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"รีเซ็ตเป็นค่าเริ่มต้น"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"คืนค่าเริ่มต้น"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"การตั้งค่าจะกลับไปเป็นค่าเริ่มต้น"</string>
@@ -268,11 +261,13 @@
     <item msgid="2193955365569270096">"เกาหลี (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"การเข้ารหัสข้อความ"</string>
-    <!-- no translation found for pref_lab_title (2965318885051241044) -->
+    <!-- no translation found for pref_lab_title (5571091610359629423) -->
     <skip />
-    <!-- no translation found for pref_lab_quick_controls (2105979166017257647) -->
+    <string name="pref_lab_quick_controls" msgid="2105979166017257647">"การควบคุมอย่างรวดเร็ว"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"กวาดนิ้วหัวแม่มือจากขอบซ้ายหรือขวาเพื่อเข้าถึงการควบคุมอย่างรวดเร็ว"</string>
+    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
     <skip />
-    <!-- no translation found for pref_lab_quick_controls_summary (8025196176636589803) -->
+    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
     <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"ปัญหาการเชื่อมต่อข้อมูล"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"ปัญหาเกี่ยวกับไฟล์"</string>
@@ -369,6 +364,5 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"เพิ่มบุ๊กมาร์ก Android ของคุณลงในบุ๊กมาร์กสำหรับ <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"แบ่งปัน"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"ไม่สามารถใช้แท็บเพิ่มได้"</string>
-    <!-- no translation found for account_picker_title (2199261460783026844) -->
-    <skip />
+    <string name="account_picker_title" msgid="2199261460783026844">"เลือกบัญชีหรือยกเลิกเพื่อลงชื่อเข้าใช้ด้วยตนเอง"</string>
 </resources>

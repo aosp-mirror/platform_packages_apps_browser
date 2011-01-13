@@ -97,6 +97,8 @@
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Le favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sera supprimé."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Nouvelle fenêtre"</string>
+    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
+    <skip />
     <string name="goto_dot" msgid="3895839050522602723">"OK"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Ouvrir un onglet de navigation privée"</string>
     <string name="select_dot" msgid="6299170761900561967">"Sélectionner le texte"</string>
@@ -154,12 +156,9 @@
     <string name="pref_use_default" msgid="192587563274735878">"Page par défaut"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Redimensionner"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
-    <!-- no translation found for pref_general_title (1946872771219249323) -->
-    <skip />
-    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
-    <skip />
-    <!-- no translation found for pref_general_autofill_title (64638897890112873) -->
-    <skip />
+    <string name="pref_general_title" msgid="1946872771219249323">"Général"</string>
+    <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronisation"</string>
+    <string name="pref_general_autofill_title" msgid="64638897890112873">"Saisie automatique"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synchroniser avec Google Voice"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Partager les favoris et d\'autres données entre le navigateur Android et Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Compte Google"</string>
@@ -190,36 +189,31 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Supprimer le profil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Le navigateur peut remplir automatiquement des formulaires Web tels que celui-ci. Voulez-vous configurer votre profil ?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Vous pouvez configurer la saisie automatique à tout moment dans Paramètres du navigateur -&gt; Paramètres personnels."</string>
-    <!-- no translation found for pref_privacy_security_title (1705642466867300373) -->
-    <skip />
+    <string name="pref_privacy_security_title" msgid="1705642466867300373">"Confidentialité et sécurité"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Effacer le cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Supprimer les bases de données et le contenu localement en cache"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Les bases de données et le contenu mis localement en cache vont être supprimés."</string>
-    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
-    <skip />
+    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Cookies"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Effacer tous les cookies"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Effacer tous les cookies du navigateur"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Tous les cookies vont être supprimés."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Effacer l\'historique"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Effacer l\'historique du navigateur"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"L\'historique du navigateur sera supprimé."</string>
-    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
-    <skip />
+    <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Données de formulaire"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Eff. données formulaires"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Effacer toutes les données de formulaire enregistrées"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Toutes les données de formulaire enregistrées seront supprimées."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Eff. les mots de passe"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Effacer tous les mots de passe enregistrés"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Tous les mots de passe enregistrés seront effacés."</string>
-    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
-    <skip />
+    <string name="pref_privacy_location_title" msgid="7458378016606081067">"Lieu"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Activer la localisation"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Autoriser les sites à demander l\'accès à vos données de localisation"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Supprimer l\'accès"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Supprimer l\'accès aux données de localisation pour tous les sites Web"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Supprimer l\'accès aux données de localisation pour tous les sites Web"</string>
-    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
-    <skip />
+    <string name="pref_security_passwords_title" msgid="5734190542383756711">"Mots de passe"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Mém. mots de passe"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Enregistrer les noms d\'utilisateur et les mots de passe pour les sites Web"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Données de formulaires"</string>
@@ -249,8 +243,7 @@
     <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Paramètres avancés"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Paramètres du site Web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Paramètres avancés de sites Web individuels"</string>
-    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
-    <skip />
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Réinitialiser les valeurs par défaut"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Valeurs par défaut"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Rétablir les paramètres par défaut"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Les paramètres par défaut seront rétablis."</string>
@@ -268,11 +261,13 @@
     <item msgid="2193955365569270096">"Coréen (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codage du texte"</string>
-    <!-- no translation found for pref_lab_title (2965318885051241044) -->
+    <!-- no translation found for pref_lab_title (5571091610359629423) -->
     <skip />
-    <!-- no translation found for pref_lab_quick_controls (2105979166017257647) -->
+    <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Commandes rapides"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Glisser votre pouce vers la droite ou la gauche pour accéder aux commandes rapides"</string>
+    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
     <skip />
-    <!-- no translation found for pref_lab_quick_controls_summary (8025196176636589803) -->
+    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
     <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problème de connectivité des données"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problème de fichier"</string>
@@ -369,6 +364,5 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Ajouter vos favoris Android à ceux de <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Partagez"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Plus aucun onglet n\'est disponible."</string>
-    <!-- no translation found for account_picker_title (2199261460783026844) -->
-    <skip />
+    <string name="account_picker_title" msgid="2199261460783026844">"Choisir un compte ou annuler l\'opération pour se connecter manuellement"</string>
 </resources>
