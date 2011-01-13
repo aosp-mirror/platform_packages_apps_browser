@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import com.android.browser.homepages.HomeProvider;
 import com.android.common.speech.LoggingEvents;
 
 import android.app.Activity;
@@ -50,6 +51,7 @@ import android.webkit.WebBackForwardList;
 import android.webkit.WebBackForwardListClient;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -788,6 +790,14 @@ class Tab {
                 final HttpAuthHandler handler, final String host,
                 final String realm) {
             mWebViewController.onReceivedHttpAuthRequest(Tab.this, view, handler, host, realm);
+        }
+
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view,
+                String url) {
+            WebResourceResponse res = HomeProvider.shouldInterceptRequest(
+                    mActivity, url);
+            return res;
         }
 
         @Override
