@@ -72,7 +72,10 @@ public class NetworkStateHandler {
                     sendNetworkType(typeName.toLowerCase(),
                             (subtypeName != null ? subtypeName.toLowerCase() : ""));
 
-                    onNetworkToggle(info.isAvailable());
+                    boolean noConnection = intent.getBooleanExtra(
+                            ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+
+                    onNetworkToggle(!noConnection);
                 }
             }
         };
