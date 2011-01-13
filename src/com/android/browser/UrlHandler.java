@@ -120,7 +120,7 @@ public class UrlHandler {
                 // AsyncTask. Although we are not overriding the URL load synchronously,
                 // we guarantee that we will handle this URL load after the task executes,
                 // so it's safe to just return true to WebCore now to stop its own loading.
-                new RLZTask(siteUri, view).execute();
+                new RLZTask(tab, siteUri, view).execute();
                 return true;
             }
         }
@@ -137,9 +137,7 @@ public class UrlHandler {
             return true;
         }
 
-        if (mController.isMenuDown()) {
-            mController.openTab(tab, url, false);
-            mActivity.closeOptionsMenu();
+        if (handleMenuClick(tab, url)) {
             return true;
         }
 
@@ -196,6 +194,19 @@ public class UrlHandler {
       }
 
       return false;
+    }
+
+    // In case a physical keyboard is attached, handle clicks with the menu key
+    // depressed by opening in a new tab
+    boolean handleMenuClick(Tab tab, String url)
+    {
+        if (mController.isMenuDown()) {
+            mController.openTab(tab, url, false);
+            mActivity.closeOptionsMenu();
+            return true;
+        }
+
+        return false;
     }
 
     // Url for issuing the uber token.
@@ -355,10 +366,12 @@ public class UrlHandler {
     }
 
     private class RLZTask extends AsyncTask<Void, Void, String> {
+        private Tab mTab;
         private Uri mSiteUri;
         private WebView mWebView;
 
-        public RLZTask(Uri uri, WebView webView) {
+        public RLZTask(Tab tab, Uri uri, WebView webView) {
+            mTab = tab;
             mSiteUri = uri;
             mWebView = webView;
         }
@@ -383,7 +396,12 @@ public class UrlHandler {
         }
 
         protected void onPostExecute(String result) {
-            startActivityForUrl(result);
+            // If the Activity Manager is not invoked, load the URL directly
+            if (!startActivityForUrl(result)) {
+                if (!handleMenuClick(mTab, result)) {
+                    mController.loadUrl(mWebView, result);
+                }
+            }
         }
     }
 
