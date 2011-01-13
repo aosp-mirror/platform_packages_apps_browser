@@ -630,25 +630,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         // Put up a dialog asking if the user really wants to
         // delete the bookmark
         Cursor cursor = mAdapter.getItem(position);
+        long id = cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID);
+        String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
         Context context = getActivity();
-        final ContentResolver resolver = context.getContentResolver();
-        final Uri uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI,
-                cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
-
-        new AlertDialog.Builder(context)
-                .setTitle(R.string.delete_bookmark)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage(context.getString(R.string.delete_bookmark_warning,
-                        cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE)))
-                .setPositiveButton(R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                resolver.delete(uri, null, null);
-                            }
-                        })
-                .setNegativeButton(R.string.cancel, null)
-                .show();
+        BookmarkUtils.displayRemoveBookmarkDialog(id, title, context, null);
     }
 
     private String getUrl(int position) {
