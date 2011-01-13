@@ -19,6 +19,7 @@ package com.android.browser;
 import com.google.common.annotations.VisibleForTesting;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -59,13 +60,15 @@ public class BrowserActivity extends Activity {
         }
         super.onCreate(icicle);
 
+        BrowserSettings settings = BrowserSettings.getInstance();
+
         // We load the first set of BrowserSettings from the db asynchronously
         // but if it has not completed at this point, we have no choice but
         // to block waiting for them to finish loading. :(
-        BrowserSettings.getInstance().waitForLoadFromDbToComplete();
+        settings.waitForLoadFromDbToComplete();
 
         // render the browser in OpenGL
-        if (BrowserSettings.getInstance().isHardwareAccelerated()) {
+        if (settings.isHardwareAccelerated()) {
             // Set the flag in the activity's window
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
@@ -110,7 +113,28 @@ public class BrowserActivity extends Activity {
         if (state != null && icicle == null) {
             icicle = state;
         }
-        mController.start(icicle, getIntent());
+
+        String account = settings.getAutoLoginAccount(this);
+        if (settings.isAutoLoginEnabled() && account != null) {
+            GoogleAccountLogin login =
+                    new GoogleAccountLogin(this, account);
+            final ProgressDialog dialog = ProgressDialog.show(this,
+                    getString(R.string.pref_autologin_title),
+                    getString(R.string.pref_autologin_progress, account),
+                    true /* indeterminate */,
+                    true /* cancelable */,
+                    login);
+            final Bundle b = icicle;
+            final Runnable start = new Runnable() {
+                @Override public void run() {
+                    dialog.dismiss();
+                    mController.start(b, getIntent());
+                }
+            };
+            login.startLogin(start);
+        } else {
+            mController.start(icicle, getIntent());
+        }
     }
 
     @VisibleForTesting
