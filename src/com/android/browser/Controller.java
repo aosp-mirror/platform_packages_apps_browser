@@ -1304,11 +1304,7 @@ public class Controller
 
             case WebView.HitTestResult.SRC_ANCHOR_TYPE:
             case WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE:
-                TextView titleView = (TextView) LayoutInflater.from(mActivity)
-                        .inflate(android.R.layout.browser_link_context_header,
-                        null);
-                titleView.setText(extra);
-                menu.setHeaderView(titleView);
+                menu.setHeaderTitle(extra);
                 // decide whether to show the open link in new tab option
                 boolean showNewTab = mTabControl.canCreateNewTab();
                 MenuItem newTabItem
