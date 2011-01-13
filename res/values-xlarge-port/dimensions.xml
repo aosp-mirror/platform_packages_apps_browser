@@ -11,7 +11,7 @@
     License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <dimen name="widgetThumbnailHeight">72dip</dimen>
-    <dimen name="widgetHorizontalSpacing">0dip</dimen>
-    <dimen name="widgetVerticalSpacing">4dip</dimen>
+    <dimen name="widgetThumbnailHeight">84dip</dimen>
+    <dimen name="widgetHorizontalSpacing">10dip</dimen>
+    <dimen name="widgetVerticalSpacing">10dip</dimen>
 </resources>
