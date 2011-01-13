@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import com.android.browser.SuggestionsAdapter.CompletionListener;
-import com.android.browser.SuggestionsAdapter.SuggestItem;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -27,8 +26,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -41,11 +38,12 @@ import java.util.List;
  */
 public class UrlInputView extends AutoCompleteTextView
         implements OnFocusChangeListener, OnEditorActionListener,
-        CompletionListener, OnItemClickListener {
+        CompletionListener {
 
 
     static final String TYPED = "browser-type";
     static final String SUGGESTED = "browser-suggest";
+    static final String VOICE = "voice-search";
 
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
@@ -79,7 +77,6 @@ public class UrlInputView extends AutoCompleteTextView
         setSelectAllOnFocus(true);
         onConfigurationChanged(ctx.getResources().getConfiguration());
         setThreshold(1);
-        setOnItemClickListener(this);
     }
 
     void setController(UiController controller) {
@@ -185,8 +182,9 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     @Override
-    public void onSelect(String url, String extra) {
-        finishInput(url, extra, SUGGESTED);
+    public void onSelect(String url, int type, String extra) {
+        finishInput(url, extra, (type == SuggestionsAdapter.TYPE_VOICE_SEARCH)
+                ? VOICE : SUGGESTED);
     }
 
     @Override
@@ -207,14 +205,6 @@ public class UrlInputView extends AutoCompleteTextView
 
         public void onEdit(String text);
 
-    }
-
-    @Override
-    public void onItemClick(
-            AdapterView<?> parent, View view, int position, long id) {
-        SuggestItem item = mAdapter.getItem(position);
-        onSelect((TextUtils.isEmpty(item.url) ? item.title : item.url),
-                item.extra);
     }
 
     public void setReverseResults(boolean reverse) {

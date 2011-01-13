@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.BrowserContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,13 +42,15 @@ import java.util.List;
 /**
  * adapter to wrap multiple cursors for url/search completions
  */
-public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnClickListener {
+public class SuggestionsAdapter extends BaseAdapter implements Filterable,
+        OnClickListener {
 
     static final int TYPE_BOOKMARK = 0;
     static final int TYPE_SUGGEST_URL = 1;
     static final int TYPE_HISTORY = 2;
     static final int TYPE_SEARCH = 3;
     static final int TYPE_SUGGEST = 4;
+    static final int TYPE_VOICE_SEARCH = 5;
 
     private static final String[] COMBINED_PROJECTION =
             {BrowserContract.Combined._ID, BrowserContract.Combined.TITLE,
@@ -73,7 +76,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
 
         public void onSearch(String txt);
 
-        public void onSelect(String txt, String extraData);
+        public void onSelect(String txt, int type, String extraData);
 
         public void onFilterComplete(int count);
 
@@ -114,8 +117,9 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             // replace input field text with suggestion text
             mListener.onSearch(item.title);
         } else {
-            mListener.onSelect((TextUtils.isEmpty(item.url)? item.title : item.url),
-                    item.extra);
+            mListener.onSelect(
+                    (TextUtils.isEmpty(item.url)? item.title : item.url),
+                    item.type, item.extra);
         }
     }
 
@@ -138,8 +142,10 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             position = (getCount() - 1) - position;
         }
         if (mVoiceResults != null) {
-            return new SuggestItem(mVoiceResults.get(position), null,
-                    TYPE_SEARCH);
+            SuggestItem item = new SuggestItem(mVoiceResults.get(position),
+                    null, TYPE_VOICE_SEARCH);
+            item.extra = Integer.toString(position);
+            return item;
         }
         if (mMixedResults == null) {
             return null;
@@ -186,6 +192,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         switch (item.type) {
             case TYPE_SUGGEST:
             case TYPE_SEARCH:
+            case TYPE_VOICE_SEARCH:
                 id = R.drawable.ic_search_category_suggest;
                 break;
             case TYPE_BOOKMARK:
@@ -203,7 +210,9 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
         if (id != -1) {
             ic1.setImageDrawable(mContext.getResources().getDrawable(id));
         }
-        ic2.setVisibility(((TYPE_SUGGEST == item.type) || (TYPE_SEARCH == item.type))
+        ic2.setVisibility(((TYPE_SUGGEST == item.type)
+                || (TYPE_SEARCH == item.type)
+                || (TYPE_VOICE_SEARCH == item.type))
                 ? View.VISIBLE : View.GONE);
         div.setVisibility(ic2.getVisibility());
         ic2.setOnClickListener(this);
@@ -298,6 +307,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
                 res.count = mixed.getLineCount();
                 res.values = mixed;
             } else {
+                Log.i("voice", "using voice results");
                 res.count = mVoiceResults.size();
                 res.values = mVoiceResults;
             }
@@ -396,6 +406,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable, OnCli
             url = u;
             type = t;
         }
+
     }
 
     abstract class CursorSource {
