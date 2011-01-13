@@ -27,6 +27,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.speech.RecognizerResultsIntent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -268,7 +269,14 @@ public class TitleBarXLarge extends TitleBarBase
         mUiController.getCurrentTopWebView().requestFocus();
         mUi.hideFakeTitleBar();
         Intent i = new Intent();
-        i.setAction(Intent.ACTION_SEARCH);
+        String action = null;
+        if (UrlInputView.VOICE.equals(source)) {
+            action = RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS;
+            source = null;
+        } else {
+            action = Intent.ACTION_SEARCH;
+        }
+        i.setAction(action);
         i.putExtra(SearchManager.QUERY, text);
         if (extra != null) {
             i.putExtra(SearchManager.EXTRA_DATA_KEY, extra);
