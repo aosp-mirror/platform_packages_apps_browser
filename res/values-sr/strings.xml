@@ -97,6 +97,8 @@
     <string name="current_page" msgid="7510129573681663135">"са "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Обележивач „<xliff:g id="BOOKMARK">%s</xliff:g>“ ће бити избрисан."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Отвори у новом прозору"</string>
+    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
+    <skip />
     <string name="goto_dot" msgid="3895839050522602723">"Иди"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Нова картица без архивирања"</string>
     <string name="select_dot" msgid="6299170761900561967">"Изабери текст"</string>
@@ -268,11 +270,15 @@
     <item msgid="2193955365569270096">"корејски (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Кодирање текста"</string>
-    <!-- no translation found for pref_lab_title (2965318885051241044) -->
+    <!-- no translation found for pref_lab_title (5571091610359629423) -->
     <skip />
     <!-- no translation found for pref_lab_quick_controls (2105979166017257647) -->
     <skip />
     <!-- no translation found for pref_lab_quick_controls_summary (8025196176636589803) -->
+    <skip />
+    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
+    <skip />
+    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
     <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблем при повезивању са подацима"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблем са датотеком"</string>

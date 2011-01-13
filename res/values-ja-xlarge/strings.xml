@@ -19,6 +19,7 @@
     <string name="new_tab" msgid="7275656655054293038">"新しいタブ"</string>
     <string name="new_incognito_tab" msgid="5149742197322201152">"新しいシークレットタブ"</string>
     <string name="active_tabs" msgid="5324492165541331128">"タブ"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow (1061831678814826192) -->
+    <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"新しいタブで開く"</string>
+    <!-- no translation found for open_all_in_new_window (8498279523071618315) -->
     <skip />
 </resources>
