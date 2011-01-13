@@ -19,13 +19,5 @@
     <item
         android:drawable="@drawable/bg_bookmark_widget_holo">
     </item>
-    <item>
-        <bitmap
-            android:src="@drawable/stripes_overlay_bg_bookmark_widget_holo"
-            android:gravity="top|left|clip_vertical|clip_horizontal"
-            android:left="3dip"
-            android:right="3dip"
-            android:top="3dip"
-            android:bottom="3dip" />
-    </item>
+
 </layer-list>
