@@ -13,8 +13,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <dimen name="bookmarkThumbnailWidth">180dip</dimen>
     <dimen name="bookmarkThumbnailHeight">120dip</dimen>
-    <dimen name="widgetThumbnailHeight">100dip</dimen>
-    <dimen name="widgetHorizontalSpacing">12dip</dimen>
+    <dimen name="widgetThumbnailHeight">104dip</dimen>
+    <dimen name="widgetHorizontalSpacing">14dip</dimen>
     <dimen name="widgetVerticalSpacing">12dip</dimen>
     <dimen name="favicon_padded_size">24dip</dimen>
     <!-- For the most visited page -->
