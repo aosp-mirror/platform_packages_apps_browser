@@ -25,7 +25,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.BrowserContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -307,7 +306,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
                 res.count = mixed.getLineCount();
                 res.values = mixed;
             } else {
-                Log.i("voice", "using voice results");
                 res.count = mVoiceResults.size();
                 res.values = mVoiceResults;
             }
