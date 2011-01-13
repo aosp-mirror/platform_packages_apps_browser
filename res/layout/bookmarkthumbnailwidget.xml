@@ -25,14 +25,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="0dip"
-        android:background="@drawable/widget_background">
+        android:padding="0dip">
         <ImageView android:background="@drawable/list_div_top_btm_bookmark_widget_holo"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="2dip"
             android:layout_marginLeft="1dip"
-            android:layout_marginRight="1dip" />
+            android:layout_marginRight="1dip"
+            android:visibility="invisible" />
         <GridView
             android:id="@+id/bookmarks_list"
             android:layout_width="match_parent"
@@ -41,17 +41,22 @@
             android:layout_marginLeft="5dip"
             android:layout_marginRight="5dip"
             android:numColumns="2"
-            android:padding="1dip"
+            android:paddingTop="1dip"
+            android:paddingBottom="1dip"
+            android:paddingRight="0dip"
+            android:paddingLeft="0dip"
             android:stretchMode="columnWidth"
             android:horizontalSpacing="@dimen/widgetHorizontalSpacing"
             android:verticalSpacing="@dimen/widgetVerticalSpacing"
             android:drawSelectorOnTop="true"
-            android:listSelector="@drawable/bookmark_widget_thumb_selector" />
+            android:listSelector="@drawable/bookmark_widget_thumb_selector"
+            android:fadingEdgeLength="24dp" />
         <ImageView android:background="@drawable/list_div_top_btm_bookmark_widget_holo"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginBottom="3dip"
             android:layout_marginLeft="1dip"
-            android:layout_marginRight="1dip" />
+            android:layout_marginRight="1dip"
+            android:visibility="invisible" />
     </LinearLayout>
 </FrameLayout>
