@@ -19,6 +19,7 @@
     <string name="new_tab" msgid="7275656655054293038">"علامة تبويب جديدة"</string>
     <string name="new_incognito_tab" msgid="5149742197322201152">"علامة تبويب جديدة للتصفح المتخفي"</string>
     <string name="active_tabs" msgid="5324492165541331128">"علامات التبويب"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow (1061831678814826192) -->
+    <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"فتح في علامة تبويب جديدة"</string>
+    <!-- no translation found for open_all_in_new_window (8498279523071618315) -->
     <skip />
 </resources>

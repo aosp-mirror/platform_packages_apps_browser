@@ -97,6 +97,8 @@
     <string name="current_page" msgid="7510129573681663135">"od "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Záložka <xliff:g id="BOOKMARK">%s</xliff:g> bude smazána."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Otevřít v novém okně"</string>
+    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
+    <skip />
     <string name="goto_dot" msgid="3895839050522602723">"Přejít"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Otevřít novou anonymní kartu"</string>
     <string name="select_dot" msgid="6299170761900561967">"Vybrat text"</string>
@@ -154,12 +156,9 @@
     <string name="pref_use_default" msgid="192587563274735878">"Výchozí stránka"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Automaticky přizpůsobit"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Přizpůsobit velikost webových stránek obrazovce"</string>
-    <!-- no translation found for pref_general_title (1946872771219249323) -->
-    <skip />
-    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
-    <skip />
-    <!-- no translation found for pref_general_autofill_title (64638897890112873) -->
-    <skip />
+    <string name="pref_general_title" msgid="1946872771219249323">"Obecné"</string>
+    <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronizace"</string>
+    <string name="pref_general_autofill_title" msgid="64638897890112873">"Automatické vyplňování"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synchronizovat s prohlížečem Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Sdílet záložky a jiná data mezi Prohlížečem systému Android a aplikací Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Účet Google"</string>
@@ -190,36 +189,31 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Smazat profil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Podobné webové formuláře může prohlížeč vyplňovat automaticky. Chcete nastavit profil?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Automatické vyplňování je možné nastavit v nabídce Nastavení prohlížeče -&gt; Osobní nastavení."</string>
-    <!-- no translation found for pref_privacy_security_title (1705642466867300373) -->
-    <skip />
+    <string name="pref_privacy_security_title" msgid="1705642466867300373">"Ochrana osobních údajů a zabezpečení"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Vymazat mezipaměť"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Vymazat všechen obsah a databáze uložené do místní mezipaměti"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Obsah a databáze uložené v místní mezipaměti budou vymazány."</string>
-    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
-    <skip />
+    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Soubory cookie"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Vymazat soubory cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Vymazat všechny soubory cookie prohlížeče"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Všechny soubory cookie budou vymazány."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Vymazat historii"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Vymazat historii navigace v prohlížeči"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Historie navigace v prohlížeči bude vymazána."</string>
-    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
-    <skip />
+    <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Data formulářů"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Vymazat data formulářů"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Vymazat všechna uložená data formulářů"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Všechna uložená data formulářů budou vymazána."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Vymazat hesla"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Vymazat všechna uložená hesla"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Všechna uložená hesla budou vymazána."</string>
-    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
-    <skip />
+    <string name="pref_privacy_location_title" msgid="7458378016606081067">"Místo"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Povolit polohu"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Povolit webovým stránkám žádat o přístup k informacím o vaší poloze"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Zrušit přístup k poloze"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Zrušit všem webovým stránkám přístup k poloze"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Zrušit všem webovým stránkám přístup k poloze"</string>
-    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
-    <skip />
+    <string name="pref_security_passwords_title" msgid="5734190542383756711">"Hesla"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Zapamatovat hesla"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Ukládat uživatelská jména a hesla pro webové stránky"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Zapamatovat data formulářů"</string>
@@ -249,8 +243,7 @@
     <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Upřesnit nastavení"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Zrušit přístup k poloze"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Pokročilá nastavení pro jednotlivé webové stránky"</string>
-    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
-    <skip />
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Obnovit výchozí"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Obnovit výchozí"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Obnovit výchozí nastavení"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Budou obnoveny výchozí hodnoty nastavení."</string>
@@ -268,11 +261,13 @@
     <item msgid="2193955365569270096">"Korejština (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Kódování textu"</string>
-    <!-- no translation found for pref_lab_title (2965318885051241044) -->
+    <!-- no translation found for pref_lab_title (5571091610359629423) -->
     <skip />
-    <!-- no translation found for pref_lab_quick_controls (2105979166017257647) -->
+    <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Rychlé ovládací prvky"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Posunutím palce z levého nebo pravého okraje otevřete rychlé ovládací prvky."</string>
+    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
     <skip />
-    <!-- no translation found for pref_lab_quick_controls_summary (8025196176636589803) -->
+    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
     <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problémy s datovým připojením"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problém se souborem"</string>
@@ -369,6 +364,5 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Přidat všechny záložky systému Android do záložek účtu <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Sdílet"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Žádné další karty nejsou k dispozici"</string>
-    <!-- no translation found for account_picker_title (2199261460783026844) -->
-    <skip />
+    <string name="account_picker_title" msgid="2199261460783026844">"Zvolte účet nebo zrušte výběr a přihlaste se ručně"</string>
 </resources>
