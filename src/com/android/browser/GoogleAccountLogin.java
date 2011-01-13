@@ -35,10 +35,11 @@ import android.content.DialogInterface.OnCancelListener;
 import android.net.http.AndroidHttpClient;
 import android.net.Uri;
 import android.os.Bundle;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class GoogleAccountLogin extends Thread implements
         AccountManagerCallback<Bundle>, OnCancelListener {
@@ -180,6 +181,22 @@ public class GoogleAccountLogin extends Thread implements
 
     public static Account[] getAccounts(Context ctx) {
         return AccountManager.get(ctx).getAccountsByType(GOOGLE);
+    }
+
+    // Checks for the presence of the SID cookie on google.com.
+    public static boolean isLoggedIn() {
+        String cookies = CookieManager.getInstance().getCookie(
+                "http://www.google.com");
+        if (cookies != null) {
+            StringTokenizer tokenizer = new StringTokenizer(cookies, ";");
+            while (tokenizer.hasMoreTokens()) {
+                String cookie = tokenizer.nextToken().trim();
+                if (cookie.startsWith("SID=")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     // Used to indicate that the Browser should continue loading the main page.
