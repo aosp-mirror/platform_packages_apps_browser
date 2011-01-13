@@ -21,5 +21,5 @@
     android:minHeight="219dip"
     android:updatePeriodMillis="0"
     android:previewImage="@drawable/browser_widget_preview"
-    android:initialLayout="@layout/bookmarklistwidget">
+    android:initialLayout="@layout/bookmarkthumbnailwidget">
 </appwidget-provider>

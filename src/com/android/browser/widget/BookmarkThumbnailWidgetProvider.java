@@ -16,7 +16,6 @@
 
 package com.android.browser.widget;
 
-import com.android.browser.BrowserActivity;
 import com.android.browser.R;
 
 import android.app.PendingIntent;
@@ -31,7 +30,7 @@ import android.widget.RemoteViews;
 /**
  * Widget that shows a preview of the user's bookmarks.
  */
-public class BookmarkListWidgetProvider extends AppWidgetProvider {
+public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
     static final String ACTION_BOOKMARK_APPWIDGET_UPDATE =
         "com.android.browser.BOOKMARK_APPWIDGET_UPDATE";
 
@@ -60,46 +59,37 @@ public class BookmarkListWidgetProvider extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         // Start the backing service
-        context.startService(new Intent(context, BookmarkListWidgetService.class));
+        context.startService(new Intent(context, BookmarkThumbnailWidgetService.class));
     }
 
     @Override
     public void onDisabled(Context context) {
         // Stop the backing service
-        context.stopService(new Intent(context, BookmarkListWidgetService.class));
+        context.stopService(new Intent(context, BookmarkThumbnailWidgetService.class));
     }
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
-        context.startService(new Intent(BookmarkListWidgetService.ACTION_REMOVE_FACTORIES,
-                null, context, BookmarkListWidgetService.class)
+        context.startService(new Intent(BookmarkThumbnailWidgetService.ACTION_REMOVE_FACTORIES,
+                null, context, BookmarkThumbnailWidgetService.class)
                 .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds));
     }
 
     private void performUpdate(Context context,
             AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        Intent launchBrowser = new Intent(BrowserActivity.ACTION_SHOW_BROWSER,
-                null, context, BrowserActivity.class);
-        Intent launchBookmarks = new Intent(BrowserActivity.ACTION_SHOW_BOOKMARKS,
-                null, context, BrowserActivity.class);
-        // Update the widgets
         for (int appWidgetId : appWidgetIds) {
-            Intent updateIntent = new Intent(context, BookmarkListWidgetService.class);
+            Intent updateIntent = new Intent(context, BookmarkThumbnailWidgetService.class);
             updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             updateIntent.setData(Uri.parse(updateIntent.toUri(Intent.URI_INTENT_SCHEME)));
             RemoteViews views = new RemoteViews(context.getPackageName(),
-                    R.layout.bookmarklistwidget);
+                    R.layout.bookmarkthumbnailwidget);
             views.setRemoteAdapter(R.id.bookmarks_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.bookmarks_list);
-            Intent ic = new Intent(context, BookmarkListWidgetService.class);
+            Intent ic = new Intent(context, BookmarkThumbnailWidgetService.class);
             views.setPendingIntentTemplate(R.id.bookmarks_list,
                     PendingIntent.getService(context, 0, ic,
                     PendingIntent.FLAG_UPDATE_CURRENT));
-            views.setOnClickPendingIntent(R.id.header_browser, PendingIntent
-                    .getActivity(context, 0, launchBrowser, PendingIntent.FLAG_CANCEL_CURRENT));
-            views.setOnClickPendingIntent(R.id.header_bookmarks, PendingIntent
-                    .getActivity(context, 0, launchBookmarks, PendingIntent.FLAG_CANCEL_CURRENT));
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
@@ -109,6 +99,6 @@ public class BookmarkListWidgetProvider extends AppWidgetProvider {
      * {@link AppWidgetProvider}
      */
     static ComponentName getComponentName(Context context) {
-        return new ComponentName(context, BookmarkListWidgetProvider.class);
+        return new ComponentName(context, BookmarkThumbnailWidgetProvider.class);
     }
 }

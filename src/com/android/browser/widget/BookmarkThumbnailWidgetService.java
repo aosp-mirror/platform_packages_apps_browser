@@ -16,7 +16,6 @@
 
 package com.android.browser.widget;
 
-import com.android.browser.BookmarkUtils;
 import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.R;
 
@@ -49,9 +48,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-public class BookmarkListWidgetService extends RemoteViewsService {
+public class BookmarkThumbnailWidgetService extends RemoteViewsService {
 
-    static final String TAG = "BookmarkListWidgetService";
+    static final String TAG = "BookmarkThumbnailWidgetService";
     static final boolean USE_FOLDERS = true;
 
     static final String ACTION_REMOVE_FACTORIES
@@ -66,13 +65,15 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             BrowserContract.Bookmarks.FAVICON,
             BrowserContract.Bookmarks.IS_FOLDER,
             BrowserContract.Bookmarks.TOUCH_ICON,
-            BrowserContract.Bookmarks.POSITION /* needed for order by */};
+            BrowserContract.Bookmarks.POSITION, /* needed for order by */
+            BrowserContract.Bookmarks.THUMBNAIL};
     private static final int BOOKMARK_INDEX_ID = 0;
     private static final int BOOKMARK_INDEX_TITLE = 1;
     private static final int BOOKMARK_INDEX_URL = 2;
     private static final int BOOKMARK_INDEX_FAVICON = 3;
     private static final int BOOKMARK_INDEX_IS_FOLDER = 4;
     private static final int BOOKMARK_INDEX_TOUCH_ICON = 5;
+    private static final int BOOKMARK_INDEX_THUMBNAIL = 7;
 
     private Map<Integer, BookmarkFactory> mFactories;
     private Handler mUiHandler;
@@ -223,12 +224,12 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             Breadcrumb folder = mBreadcrumbs.empty() ? null : mBreadcrumbs.peek();
 
             RemoteViews views = new RemoteViews(
-                    mContext.getPackageName(), R.layout.bookmarklistwidget_item);
+                    mContext.getPackageName(), R.layout.bookmarkthumbnailwidget_item);
             Intent fillin;
             if (res.mIsFolder) {
                 long nfi = res.mId;
                 fillin = new Intent(ACTION_CHANGE_FOLDER, null,
-                        mContext, BookmarkListWidgetService.class)
+                        mContext, BookmarkThumbnailWidgetService.class)
                         .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetId)
                         .putExtra(Bookmarks._ID, nfi);
             } else {
@@ -244,20 +245,25 @@ public class BookmarkListWidgetService extends RemoteViewsService {
                 displayTitle = res.mUrl;
             }
             views.setTextViewText(R.id.label, displayTitle);
-            views.setDrawableParameters(R.id.list_item, true, 0, -1, null, -1);
             if (res.mIsFolder) {
                 if (folder != null && res.mId == folder.mId) {
-                    views.setImageViewResource(R.id.thumb, R.drawable.btn_ic_back_bookmark_widget_holo_dark);
-                    views.setDrawableParameters(R.id.list_item, true, 255, -1, null, -1);
+                    views.setImageViewResource(R.id.thumb, R.drawable.thumb_bookmark_widget_folder_back_holo);
                 } else {
-                    views.setImageViewResource(R.id.thumb, R.drawable.ic_folder_bookmark_widget_holo_dark);
+                    views.setImageViewResource(R.id.thumb, R.drawable.thumb_bookmark_widget_folder_holo);
                 }
+                views.setImageViewResource(R.id.favicon, R.drawable.ic_bookmark_widget_bookmark_holo_dark);
             } else {
-                if (res.mBitmap != null) {
-                    views.setImageViewBitmap(R.id.thumb, res.mBitmap);
+                if (res.mThumbnail != null) {
+                    views.setImageViewBitmap(R.id.thumb, res.mThumbnail);
                 } else {
                     views.setImageViewResource(R.id.thumb,
                             R.drawable.browser_thumbnail);
+                }
+                if (res.mIcon != null) {
+                    views.setImageViewBitmap(R.id.favicon, res.mIcon);
+                } else {
+                    views.setImageViewResource(R.id.favicon,
+                            R.drawable.app_web_browser_sm);
                 }
             }
             return views;
@@ -364,35 +370,19 @@ public class BookmarkListWidgetService extends RemoteViewsService {
                             // RemoteViews require a valid bitmap config
                             Options options = new Options();
                             options.inPreferredConfig = Config.ARGB_8888;
-                            Bitmap favIcon = null;
-                            Bitmap touchIcon = null;
-                            byte[] blob = c.getBlob(BOOKMARK_INDEX_TOUCH_ICON);
+                            Bitmap thumbnail = null, favicon = null;
+                            byte[] blob = c.getBlob(BOOKMARK_INDEX_THUMBNAIL);
                             if (blob != null && blob.length > 0) {
-                                touchIcon = BitmapFactory.decodeByteArray(
+                                thumbnail = BitmapFactory.decodeByteArray(
                                         blob, 0, blob.length, options);
-                            } else {
-                                blob = c.getBlob(BOOKMARK_INDEX_FAVICON);
-                                if (blob != null && blob.length > 0) {
-                                    favIcon = BitmapFactory.decodeByteArray(
-                                            blob, 0, blob.length, options);
-                                }
                             }
-
-                            if (favIcon == null) {
-                                favIcon = BitmapFactory.decodeResource(
-                                        mContext.getResources(),
-                                        R.drawable.app_web_browser_sm);
+                            blob = c.getBlob(BOOKMARK_INDEX_FAVICON);
+                            if (blob != null && blob.length > 0) {
+                                favicon = BitmapFactory.decodeByteArray(
+                                        blob, 0, blob.length, options);
                             }
-                            if (touchIcon != null || favIcon != null) {
-                                res.mBitmap = BookmarkUtils.createListWidgetIcon(
-                                        mContext, touchIcon, favIcon);
-                            }
-                            if (touchIcon != null) {
-                                touchIcon.recycle();
-                            }
-                            if (favIcon != null) {
-                                favIcon.recycle();
-                            }
+                            res.mThumbnail = thumbnail;
+                            res.mIcon = favicon;
                         }
                         bookmarks.add(res);
                     }
@@ -412,9 +402,9 @@ public class BookmarkListWidgetService extends RemoteViewsService {
             // Do a bit of house cleaning for the system
             if (mBookmarks != null) {
                 for (RenderResult res : mBookmarks) {
-                    if (res.mBitmap != null) {
-                        res.mBitmap.recycle();
-                        res.mBitmap = null;
+                    if (res.mThumbnail != null) {
+                        res.mThumbnail.recycle();
+                        res.mThumbnail = null;
                     }
                 }
             }
@@ -440,7 +430,8 @@ public class BookmarkListWidgetService extends RemoteViewsService {
     private static class RenderResult {
         final String mTitle;
         final String mUrl;
-        Bitmap mBitmap;
+        Bitmap mThumbnail;
+        Bitmap mIcon;
         boolean mIsFolder;
         long mId;
 
