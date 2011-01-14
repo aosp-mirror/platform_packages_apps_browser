@@ -101,6 +101,4 @@
     <string name="defaultBookmarksUpButton" msgid="5051877462652364478">"Favoritos"</string>
     <!-- XL -->
     <string name="max_tabs_warning" msgid="1283136201153746764">"No hay más etiquetas disponibles"</string>
-    <!-- XL -->
-    <string name="account_picker_title" msgid="19248413027956627">"Seleccionar una cuenta o cancelar el acceso manual"</string>
 </resources>
