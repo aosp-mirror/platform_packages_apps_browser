@@ -425,7 +425,7 @@
     <string name="autofill_setup_dialog_message">Browser can automatically complete web forms like this one. Would you like to set up your profile?</string>
     <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
-    <string name="autofill_setup_dialog_negative_toast">AutoFill can always be configured through Browser Settings -&gt; Personal Settings.</string>
+    <string name="autofill_setup_dialog_negative_toast">AutoFill can always be configured through Browser Settings.</string>
 
     <!-- Settings screen, section title [CHAR-LIMIT=50] -->
     <string name="pref_privacy_security_title">Privacy &amp; Security</string>
