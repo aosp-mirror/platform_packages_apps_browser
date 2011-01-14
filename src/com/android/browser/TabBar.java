@@ -111,15 +111,11 @@ public class TabBar extends LinearLayout
         Resources resources = activity.getResources();
         LayoutInflater factory = LayoutInflater.from(activity);
         factory.inflate(R.layout.tab_bar, this);
-        setPadding(12, 12, 0, 0);
+        setPadding(0, (int) res.getDimension(R.dimen.tab_padding_top), 0, 0);
         mTabs = (TabScrollView) findViewById(R.id.tabs);
         mNewTab = (ImageButton) findViewById(R.id.newtab);
         mNewTab.setOnClickListener(this);
         mGenericFavicon = res.getDrawable(R.drawable.app_web_browser_sm);
-        setChildrenDrawingOrderEnabled(true);
-
-        // TODO: Change enabled states based on whether you can go
-        // back/forward.  Probably should be done inside onPageStarted.
 
         updateTabs(mUiController.getTabs());
 
@@ -275,12 +271,6 @@ public class TabBar extends LinearLayout
         tabview.setOnClickListener(this);
         mTabs.addTab(tabview);
         return tabview;
-    }
-
-    @Override
-    protected int getChildDrawingOrder(int count, int i) {
-        // reverse
-        return count - 1 - i;
     }
 
     private static Bitmap getDrawableAsBitmap(Drawable drawable, int width, int height) {
