@@ -152,6 +152,8 @@
     <string name="save_to_bookmarks">Add to Bookmarks</string>
     <!-- Title of the dialog to bookmark a page -->
     <string name="bookmark_this_page">Bookmark this page</string>
+    <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+    <string name="remove">Remove</string>
     <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
     <string name="edit_bookmark">Edit bookmark</string>
     <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
