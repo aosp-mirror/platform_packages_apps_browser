@@ -461,18 +461,6 @@ public class Controller
                                     parent.addChildTab(newTab);
                                 }
                                 break;
-                            case R.id.bookmark_context_menu_id:
-                                Intent intent = new Intent(mActivity,
-                                        AddBookmarkPage.class);
-                                intent.putExtra(BrowserContract.Bookmarks.URL, url);
-                                intent.putExtra(BrowserContract.Bookmarks.TITLE,
-                                        title);
-                                mActivity.startActivity(intent);
-                                break;
-                            case R.id.share_link_context_menu_id:
-                                sharePage(mActivity, title, url, null,
-                                        null);
-                                break;
                             case R.id.copy_link_context_menu_id:
                                 copy(url);
                                 break;
@@ -1309,6 +1297,10 @@ public class Controller
                 boolean showNewTab = mTabControl.canCreateNewTab();
                 MenuItem newTabItem
                         = menu.findItem(R.id.open_newtab_context_menu_id);
+                newTabItem.setTitle(
+                        BrowserSettings.getInstance().openInBackground()
+                        ? R.string.contextmenu_openlink_newwindow_background
+                        : R.string.contextmenu_openlink_newwindow);
                 newTabItem.setVisible(showNewTab);
                 if (showNewTab) {
                     if (WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE == type) {
@@ -1343,15 +1335,6 @@ public class Controller
                                 });
                     }
                 }
-                menu.findItem(R.id.bookmark_context_menu_id).setVisible(
-                        Bookmarks.urlHasAcceptableScheme(extra));
-                PackageManager pm = mActivity.getPackageManager();
-                Intent send = new Intent(Intent.ACTION_SEND);
-                send.setType("text/plain");
-                ResolveInfo ri = pm.resolveActivity(send,
-                        PackageManager.MATCH_DEFAULT_ONLY);
-                menu.findItem(R.id.share_link_context_menu_id)
-                        .setVisible(ri != null);
                 if (type == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
                     break;
                 }
@@ -1650,9 +1633,7 @@ public class Controller
                 break;
             // -- Browser context menu
             case R.id.open_context_menu_id:
-            case R.id.bookmark_context_menu_id:
             case R.id.save_link_context_menu_id:
-            case R.id.share_link_context_menu_id:
             case R.id.copy_link_context_menu_id:
                 final WebView webView = getCurrentTopWebView();
                 if (null == webView) {
