@@ -40,12 +40,8 @@
             android:title="@string/contextmenu_openlink"/>
         <item android:id="@+id/open_newtab_context_menu_id"
             android:title="@string/contextmenu_openlink_newwindow"/>
-        <item android:id="@+id/bookmark_context_menu_id"
-            android:title="@string/contextmenu_bookmark_thislink"/>
         <item android:id="@+id/save_link_context_menu_id"
             android:title="@string/contextmenu_savelink"/>
-        <item android:id="@+id/share_link_context_menu_id"
-            android:title="@string/contextmenu_sharelink"/>
         <item android:id="@+id/copy_link_context_menu_id"
             android:title="@string/contextmenu_copylink"/>
     </group>
