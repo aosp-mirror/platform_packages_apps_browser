@@ -115,6 +115,8 @@ public class AddBookmarkPage extends Activity
     private long mRootFolder;
     private TextView mTopLevelLabel;
     private Drawable mHeaderIcon;
+    private View mRemoveLink;
+    private View mFakeTitleHolder;
     private static class Folder {
         String Name;
         long Id;
@@ -127,6 +129,7 @@ public class AddBookmarkPage extends Activity
     // Message IDs
     private static final int SAVE_BOOKMARK = 100;
     private static final int TOUCH_ICON_DOWNLOADED = 101;
+    private static final int BOOKMARK_DELETED = 102;
 
     private Handler mHandler;
 
@@ -194,7 +197,7 @@ public class AddBookmarkPage extends Activity
         mFolderSelector.setVisibility(View.GONE);
         mDefaultView.setVisibility(View.VISIBLE);
         mCrumbHolder.setVisibility(View.GONE);
-        mFakeTitle.setVisibility(View.VISIBLE);
+        mFakeTitleHolder.setVisibility(View.VISIBLE);
         if (changedFolder) {
             Object data = mCrumbs.getTopData();
             if (data != null) {
@@ -257,6 +260,16 @@ public class AddBookmarkPage extends Activity
             // can transfer the focus to mFolderNamer.
             imm.focusIn(mListView);
             imm.showSoftInput(mFolderNamer, InputMethodManager.SHOW_IMPLICIT);
+        } else if (v == mRemoveLink) {
+            if (!mEditingExisting) {
+                throw new AssertionError("Remove button should not be shown for"
+                        + " new bookmarks");
+            }
+            long id = mMap.getLong(BrowserContract.Bookmarks._ID);
+            createHandler();
+            Message msg = Message.obtain(mHandler, BOOKMARK_DELETED);
+            BookmarkUtils.displayRemoveBookmarkDialog(id,
+                    mTitle.getText().toString(), this, msg);
         }
     }
 
@@ -334,7 +347,7 @@ public class AddBookmarkPage extends Activity
         mDefaultView.setVisibility(View.GONE);
         mFolderSelector.setVisibility(View.VISIBLE);
         mCrumbHolder.setVisibility(View.VISIBLE);
-        mFakeTitle.setVisibility(View.GONE);
+        mFakeTitleHolder.setVisibility(View.GONE);
         mAddNewFolder.setVisibility(View.VISIBLE);
         mAddSeparator.setVisibility(View.VISIBLE);
     }
@@ -423,6 +436,7 @@ public class AddBookmarkPage extends Activity
                 if (cursor != null && cursor.moveToFirst()) {
                     // Site is bookmarked.
                     mEditingExisting = true;
+                    showRemoveButton();
                     mFakeTitle.setText(R.string.edit_bookmark);
                     int index = cursor.getColumnIndexOrThrow(
                             BrowserContract.Bookmarks.PARENT);
@@ -603,6 +617,8 @@ public class AddBookmarkPage extends Activity
                 mFakeTitle.setText(R.string.edit_bookmark);
                 if (mEditingFolder) {
                     findViewById(R.id.row_address).setVisibility(View.GONE);
+                } else {
+                    showRemoveButton();
                 }
             } else {
                 int gravity = mMap.getInt("gravity", -1);
@@ -662,6 +678,8 @@ public class AddBookmarkPage extends Activity
         mListView.setOnItemClickListener(this);
         mListView.addEditText(mFolderNamer);
 
+        mFakeTitleHolder = findViewById(R.id.title_holder);
+
         if (!window.getDecorView().isInTouchMode()) {
             mButton.requestFocus();
         }
@@ -676,6 +694,13 @@ public class AddBookmarkPage extends Activity
             getLoaderManager().initLoader(LOADER_ID_FIND_ROOT, args, this);
         }
 
+    }
+
+    private void showRemoveButton() {
+        findViewById(R.id.remove_divider).setVisibility(View.VISIBLE);
+        mRemoveLink = findViewById(R.id.remove);
+        mRemoveLink.setVisibility(View.VISIBLE);
+        mRemoveLink.setOnClickListener(this);
     }
 
     // Called once we have determined which folder is the root folder
@@ -818,6 +843,9 @@ public class AddBookmarkPage extends Activity
                                     b.getString(BrowserContract.Bookmarks.TITLE),
                                     (Bitmap) b.getParcelable(BrowserContract.Bookmarks.TOUCH_ICON),
                                     (Bitmap) b.getParcelable(BrowserContract.Bookmarks.FAVICON)));
+                            break;
+                        case BOOKMARK_DELETED:
+                            finish();
                             break;
                     }
                 }
