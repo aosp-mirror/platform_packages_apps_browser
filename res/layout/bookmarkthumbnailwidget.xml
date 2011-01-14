@@ -34,7 +34,8 @@
         android:verticalSpacing="@dimen/widgetVerticalSpacing"
         android:drawSelectorOnTop="true"
         android:listSelector="@drawable/bookmark_widget_thumb_selector"
-        android:fadingEdgeLength="24dp" />
+        android:fadingEdgeLength="24dp"
+        android:scrollbarStyle="outsideOverlay" />
 
     <ImageButton
         android:id="@+id/app_shortcut"

@@ -13,100 +13,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="8dip"
-    android:orientation="vertical"
-    android:background="@color/black">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dip">
-
-        <LinearLayout
-            android:id="@+id/tabs"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            style="@style/ActionBarStyle">
-            <TextView
-                android:id="@+id/bmtab"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="32dip"
-                android:paddingRight="32dip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:gravity="center_vertical"
-                android:text="@string/bookmarks"
-                android:drawableLeft="@drawable/ic_tab_bookmarks_selected"
-                android:drawablePadding="16dip"
-                android:background="@drawable/tab_background" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:src="@drawable/divider_vert" />
-            <TextView
-                android:id="@+id/historytab"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="32dip"
-                android:paddingRight="32dip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:gravity="center_vertical"
-                android:text="@string/tab_history"
-                android:drawableLeft="@drawable/ic_tab_history_selected"
-                android:drawablePadding="16dip"
-                android:background="@drawable/tab_background" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/header_container"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="match_parent" />
-
-        <ImageView
-            android:id="@+id/seperate_select_add"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="16dip"
-            android:paddingLeft="16dip"
-            android:src="@drawable/divider_vert" />
-
-        <TextView
-            android:id="@+id/addbm"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/add_new_bookmark"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center_vertical"
-            android:background="@null"
-            android:drawableLeft="@drawable/ic_favorite_off_normal"
-            android:drawablePadding="16dip" />
-
-        <ImageView
-            android:id="@+id/seperate_select_add"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="16dip"
-            android:src="@drawable/divider_vert" />
-
-        <ImageView
-            android:id="@+id/home"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_home"
-            android:paddingRight="16dip"
-            android:paddingLeft="16dip"
-            android:scaleType="center" />
-
-    </LinearLayout>
-    <FrameLayout
-        android:id="@+id/fragment"
-        android:paddingTop="8dip"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1.0" />
-</LinearLayout>
+    android:paddingTop="@dimen/combo_paddingTop"
+    android:paddingLeft="@dimen/combo_paddingLeftRight"
+    android:paddingRight="@dimen/combo_paddingLeftRight"
+    android:background="@drawable/bg_browser" />

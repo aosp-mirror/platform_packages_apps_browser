@@ -88,9 +88,6 @@ public interface UI {
 
     public void revertVoiceTitleBar(Tab tab);
 
-    // allow the ui to update state
-    public void onPrepareOptionsMenu(Menu menu);
-
     public void onOptionsMenuOpened();
 
     public void onExtendedMenuOpened();

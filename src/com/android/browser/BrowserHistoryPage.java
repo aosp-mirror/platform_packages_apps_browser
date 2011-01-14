@@ -41,7 +41,6 @@ import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Combined;
-import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;

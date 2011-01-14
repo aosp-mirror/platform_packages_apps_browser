@@ -20,7 +20,6 @@ import com.android.browser.ScrollWebView.ScrollListener;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -61,9 +60,21 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         mFakeTitleBar.setEditable(true);
         mTabBar = new TabBar(mActivity, mUiController, this);
         mActionBar = mActivity.getActionBar();
+        setupActionBar();
+        setUseQuickControls(BrowserSettings.getInstance().useQuickControls());
+    }
+
+    private void setupActionBar() {
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         mActionBar.setCustomView(mTabBar);
-        setUseQuickControls(BrowserSettings.getInstance().useQuickControls());
+    }
+
+    @Override
+    public void hideComboView() {
+        super.hideComboView();
+        // ComboView changes the action bar, set it back up to what we want
+        setupActionBar();
     }
 
     private void setUseQuickControls(boolean useQuickControls) {

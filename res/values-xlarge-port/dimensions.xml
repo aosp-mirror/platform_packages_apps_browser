@@ -14,4 +14,6 @@
     <dimen name="widgetThumbnailHeight">84dip</dimen>
     <dimen name="widgetHorizontalSpacing">10dip</dimen>
     <dimen name="widgetVerticalSpacing">10dip</dimen>
+    <dimen name="combo_paddingLeftRight">16dip</dimen>
+    <dimen name="combo_horizontalSpacing">8dip</dimen>
 </resources>
