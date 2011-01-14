@@ -16,10 +16,6 @@
     android:layout_width="match_parent"
     android:layout_height="56dip"
     android:orientation="horizontal"
-    android:paddingLeft="12dip"
-    android:paddingTop="12dip"
-    android:paddingRight="0dip"
-    android:paddingBottom="0dip"
     style="@style/ActionBarStyle"
     >
     <com.android.browser.TabScrollView

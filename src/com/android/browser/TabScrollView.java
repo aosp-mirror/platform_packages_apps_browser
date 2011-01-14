@@ -16,15 +16,10 @@
 
 package com.android.browser;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
@@ -36,8 +31,6 @@ public class TabScrollView extends HorizontalScrollView {
     private Context mContext;
     private LinearLayout mContentView;
     private int mSelected;
-    private Drawable mArrowLeft;
-    private Drawable mArrowRight;
     private int mAnimationDuration;
     private int mTabOverlap;
 
@@ -79,10 +72,11 @@ public class TabScrollView extends HorizontalScrollView {
         mContentView.setOrientation(LinearLayout.HORIZONTAL);
         mContentView.setLayoutParams(
                 new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
+        mContentView.setPadding(
+                (int) ctx.getResources().getDimension(R.dimen.tab_first_padding_left),
+                0, 0, 0);
         addView(mContentView);
         mSelected = -1;
-        mArrowLeft = ctx.getResources().getDrawable(R.drawable.ic_arrow_left);
-        mArrowRight = ctx.getResources().getDrawable(R.drawable.ic_arrow_right);
         // prevent ProGuard from removing the property methods
         setScroll(getScroll());
     }
@@ -150,24 +144,6 @@ public class TabScrollView extends HorizontalScrollView {
                 // need scrolling to right
                 animateScroll(childr - viewr + viewl);
             }
-        }
-    }
-
-    @Override
-    protected void dispatchDraw(Canvas canvas) {
-        super.dispatchDraw(canvas);
-        int l = getScrollX();
-        int r = l + getWidth();
-        int dis = 8;
-        if (l > 0) {
-            int aw = mArrowLeft.getIntrinsicWidth();
-            mArrowLeft.setBounds(l + dis, 0, l + dis + aw, getHeight());
-            mArrowLeft.draw(canvas);
-        }
-        if (r < mContentView.getWidth()) {
-            int aw = mArrowRight.getIntrinsicWidth();
-            mArrowRight.setBounds(r - dis - aw, 0, r - dis, getHeight());
-            mArrowRight.draw(canvas);
         }
     }
 
