@@ -87,7 +87,7 @@ class BrowserBookmarksAdapter extends CursorAdapter {
         tv.setText(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
         if (cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0) {
             // folder
-            favicon.setImageResource(R.drawable.ic_folder_bookmark_widget_holo_dark);
+            favicon.setImageResource(R.drawable.ic_folder_holo_dark);
             favicon.setBackgroundDrawable(null);
         } else {
             byte[] faviconData = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_FAVICON);

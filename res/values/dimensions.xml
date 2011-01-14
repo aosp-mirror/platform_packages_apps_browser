@@ -18,7 +18,8 @@
     <dimen name="tab_width_unselected">240dp</dimen>
     <dimen name="tab_height">44dp</dimen>
     <dimen name="tab_overlap">8dp</dimen>
-    <dimen name="tab_slice">18dp</dimen>
+    <dimen name="tab_addoverlap">14dp</dimen>
+    <dimen name="tab_slice">15.5dp</dimen>
     <dimen name="tab_padding">16dp</dimen>
     <dimen name="max_tab_width">300dp</dimen>
     <dimen name="bookmarkThumbnailWidth">90dip</dimen>

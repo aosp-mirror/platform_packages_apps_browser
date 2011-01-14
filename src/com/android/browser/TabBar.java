@@ -91,6 +91,7 @@ public class TabBar extends LinearLayout
     private BitmapShader mInactiveShader;
 
     private int mTabOverlap;
+    private int mAddTabOverlap;
     private int mTabSliceWidth;
     private int mTabPadding;
     private boolean mUseQuickControls;
@@ -123,6 +124,7 @@ public class TabBar extends LinearLayout
         mButtonWidth = -1;
         // tab dimensions
         mTabOverlap = (int) res.getDimension(R.dimen.tab_overlap);
+        mAddTabOverlap = (int) res.getDimension(R.dimen.tab_addoverlap);
         mTabSliceWidth = (int) res.getDimension(R.dimen.tab_slice);
         mTabPadding = (int) res.getDimension(R.dimen.tab_padding);
 
@@ -159,7 +161,7 @@ public class TabBar extends LinearLayout
         int w = getMeasuredWidth();
         // adjust for new tab overlap
         if (!mUseQuickControls) {
-            w -= mTabOverlap;
+            w -= mAddTabOverlap;
         }
         setMeasuredDimension(w, getMeasuredHeight());
     }
@@ -174,7 +176,7 @@ public class TabBar extends LinearLayout
         if (mUseQuickControls) {
             mButtonWidth = 0;
         } else {
-            mButtonWidth = mNewTab.getMeasuredWidth() - mTabOverlap;
+            mButtonWidth = mNewTab.getMeasuredWidth() - mAddTabOverlap;
             if (w-sw < mButtonWidth) {
                 sw = w - mButtonWidth;
             }
@@ -182,8 +184,8 @@ public class TabBar extends LinearLayout
         mTabs.layout(pl, pt, pl + sw, bottom - top);
         // adjust for overlap
         if (!mUseQuickControls) {
-            mNewTab.layout(pl + sw - mTabOverlap, pt,
-                    pl + sw + mButtonWidth - mTabOverlap, bottom - top);
+            mNewTab.layout(pl + sw - mAddTabOverlap, pt,
+                    pl + sw + mButtonWidth - mAddTabOverlap, bottom - top);
         }
     }
 

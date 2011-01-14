@@ -20,6 +20,6 @@
         android:icon="@android:drawable/ic_menu_close_clear_cancel" />
     <item android:id="@+id/preferences_menu_id"
         android:title="@string/menu_preferences"
-        android:icon="@drawable/ic_menu_settings"
+        android:icon="@drawable/ic_settings_holo_dark"
         android:alphabeticShortcut="p" />
 </menu>

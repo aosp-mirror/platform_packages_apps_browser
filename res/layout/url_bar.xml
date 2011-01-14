@@ -24,13 +24,13 @@
         android:background="@drawable/bg_urlbar">
         <ImageButton
             android:id="@+id/back"
-            android:src="@drawable/ic_back_normal"
+            android:src="@drawable/ic_back_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="@style/HoloButton" />
         <ImageButton
             android:id="@+id/forward"
-            android:src="@drawable/ic_forward_normal"
+            android:src="@drawable/ic_forward_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="@style/HoloButton" />
@@ -40,7 +40,7 @@
             android:layout_height="match_parent"
             style="@style/HoloButton"
             android:gravity="center_vertical"
-            android:src="@drawable/ic_stop_normal" />
+            android:src="@drawable/ic_stop_holo_dark" />
         <LinearLayout
             android:id="@+id/urlbar_focused"
             android:layout_width="0dip"
@@ -53,7 +53,7 @@
                 android:id="@+id/voice_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_search_light"
+                android:src="@drawable/ic_search_holo_dark"
                 style="@style/HoloIcon"
                 android:visibility="gone" />
             <ImageView
@@ -89,14 +89,14 @@
                 style="@style/HoloButton" />
             <ImageView
                 android:id="@+id/clear"
-                android:src="@drawable/ic_clear_search_light"
+                android:src="@drawable/ic_stop_holo_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 style="@style/HoloButton" />
         </LinearLayout>
         <ImageButton
             android:id="@+id/go"
-            android:src="@drawable/ic_go_normal_white"
+            android:src="@drawable/ic_go_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:visibility="gone"
@@ -104,13 +104,13 @@
             style="@style/HoloButton" />
         <ImageView
             android:id="@+id/voicesearch"
-            android:src="@drawable/ic_voice_search"
+            android:src="@drawable/ic_voice_search_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="@style/HoloButton" />
         <ImageButton
             android:id="@+id/search"
-            android:src="@drawable/ic_search_normal"
+            android:src="@drawable/ic_search_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -122,7 +122,7 @@
             android:layout_marginRight="4dip"
             android:scaleType="center"
             style="@style/HoloButton"
-            android:src="@drawable/ic_bookmarks_history_normal" />
+            android:src="@drawable/ic_bookmarks_history_holo_dark" />
     </LinearLayout>
     <com.android.browser.PageProgressView
         android:id="@+id/progress"

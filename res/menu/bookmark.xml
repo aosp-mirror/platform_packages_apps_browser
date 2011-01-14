@@ -17,12 +17,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/add_bookmark"
-        android:icon="@drawable/ic_favorite_off_normal"
+        android:icon="@drawable/ic_bookmark_off_holo_dark"
         android:title="@string/add_new_bookmark"
         android:showAsAction="always|withText" />
     <item
         android:id="@+id/go_home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_home_holo_dark"
         android:showAsAction="always" />
     <item
         android:id="@+id/thumbnail_view"

@@ -684,7 +684,7 @@ public class AddBookmarkPage extends Activity
         mCrumbs = (BreadCrumbView) findViewById(R.id.crumbs);
         mCrumbs.setUseBackButton(true);
         mCrumbs.setController(this);
-        mHeaderIcon = getResources().getDrawable(R.drawable.ic_folder_bookmark_widget_holo_dark);
+        mHeaderIcon = getResources().getDrawable(R.drawable.ic_folder_holo_dark);
         mCrumbHolder = findViewById(R.id.crumb_holder);
         mCrumbs.setMaxVisible(MAX_CRUMBS_SHOWN);
 

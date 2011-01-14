@@ -1564,7 +1564,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case SUGGEST_COLUMN_TEXT_1_ID:
                 return mSource.getString(TITLE_INDEX);
             case SUGGEST_COLUMN_ICON_1_ID:
-                return Integer.toString(R.drawable.ic_favorite_off_normal);
+                return Integer.toString(R.drawable.ic_bookmark_off_holo_dark);
             }
             return null;
         }

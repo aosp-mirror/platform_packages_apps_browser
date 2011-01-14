@@ -23,11 +23,11 @@
         <item android:id="@+id/bookmarks_menu_id"
             android:title="@string/bookmarks"
             android:alphabeticShortcut="b"
-            android:icon="@drawable/ic_menu_bookmarks"
+            android:icon="@drawable/ic_bookmarks_holo_dark"
             />
         <item android:id="@+id/active_tabs_menu_id"
             android:title="@string/active_tabs"
-            android:icon="@drawable/ic_menu_windows"
+            android:icon="@drawable/ic_windows_holo_dark"
             android:alphabeticShortcut="t" />
         <item android:id="@+id/stop_reload_menu_id"
             android:alphabeticShortcut="r" />
@@ -37,7 +37,7 @@
             android:icon="@*android:drawable/ic_menu_forward" />
         <item android:id="@+id/add_bookmark_menu_id"
             android:title="@string/save_to_bookmarks"
-            android:icon="@drawable/ic_menu_add_bookmark"
+            android:icon="@drawable/ic_bookmark_on_holo_dark"
             android:alphabeticShortcut="a" />
         <item android:id="@+id/find_menu_id"
             android:title="@*android:string/find_on_page"
@@ -45,19 +45,19 @@
             android:alphabeticShortcut="f" />
         <item android:id="@+id/share_page_menu_id"
             android:title="@string/share_page"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_share_holo_dark"
             android:alphabeticShortcut="s" />
         <item android:id="@+id/page_info_menu_id"
             android:title="@string/page_info"
-            android:icon="@drawable/ic_menu_pageinfo"
+            android:icon="@drawable/ic_pageinfo_holo_dark"
             android:alphabeticShortcut="g" />
         <item android:id="@+id/view_downloads_menu_id"
             android:title="@string/menu_view_download"
-            android:icon="@drawable/ic_menu_downloads"
+            android:icon="@drawable/ic_downloads_holo_dark"
             android:alphabeticShortcut="d" />
         <item android:id="@+id/preferences_menu_id"
             android:title="@string/menu_preferences"
-            android:icon="@drawable/ic_menu_settings"
+            android:icon="@drawable/ic_settings_holo_dark"
             android:alphabeticShortcut="p" />
         <!-- followings are debug only -->
         <item android:id="@+id/dump_nav_menu_id"

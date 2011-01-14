@@ -21,6 +21,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -161,8 +162,12 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
 
     private void addBackButton() {
         mBackButton = new ImageButton(mContext);
-        mBackButton.setImageResource(R.drawable.ic_back_normal);
-        mBackButton.setBackgroundResource(R.drawable.browserbarbutton);
+        mBackButton.setImageResource(R.drawable.ic_back_hierarchy_holo_dark);
+        TypedValue outValue = new TypedValue();
+        getContext().getTheme().resolveAttribute(
+                android.R.attr.selectableItemBackground, outValue, true);
+        int resid = outValue.resourceId;
+        mBackButton.setBackgroundResource(resid);
         mBackButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.MATCH_PARENT));
         mBackButton.setOnClickListener(this);
