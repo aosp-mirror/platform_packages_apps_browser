@@ -16,7 +16,10 @@
 
 package com.android.browser;
 
+import android.app.AlertDialog;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -30,6 +33,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.BrowserContract;
@@ -211,5 +215,43 @@ public class BookmarkUtils {
         ub.appendQueryParameter(
                 BrowserContract.Bookmarks.PARAM_ACCOUNT_TYPE, accountType);
         return ub;
+    }
+
+    /**
+     * Show a confirmation dialog to remove a bookmark.
+     * @param id Id of the bookmark to remove
+     * @param title Title of the bookmark, to be displayed in the confirmation method.
+     * @param context Package Context for strings, dialog, ContentResolver
+     * @param msg Message to send if the bookmark is deleted.
+     */
+    static void displayRemoveBookmarkDialog( final long id, final String title,
+            final Context context, final Message msg) {
+
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.delete_bookmark)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setMessage(context.getString(R.string.delete_bookmark_warning,
+                        title))
+                .setPositiveButton(R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                if (msg != null) {
+                                    msg.sendToTarget();
+                                }
+                                Runnable runnable = new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        Uri uri = ContentUris.withAppendedId(
+                                                BrowserContract.Bookmarks.CONTENT_URI,
+                                                id);
+                                        context.getContentResolver().delete(uri, null, null);
+                                    }
+                                };
+                                new Thread(runnable).start();
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
     }
 }
