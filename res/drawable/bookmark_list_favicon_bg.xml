@@ -18,9 +18,9 @@
     android:shape="rectangle">
     <solid android:color="@color/bookmarkListFaviconBackground" />
     <padding
-        android:left="5dip"
-        android:right="5dip"
-        android:top="5dip"
-        android:bottom="5dip" />
-    <corners android:radius="3dip" />
+        android:left="@dimen/list_favicon_padding"
+        android:right="@dimen/list_favicon_padding"
+        android:top="@dimen/list_favicon_padding"
+        android:bottom="@dimen/list_favicon_padding" />
+    <corners android:radius="@dimen/list_favicon_corner_radius" />
 </shape>

@@ -40,4 +40,6 @@
     <dimen name="mv_border_width">3dp</dimen>
     <dimen name="tab_padding_top">12dp</dimen>
     <dimen name="tab_first_padding_left">12dp</dimen>
+    <dimen name="list_favicon_padding">5dip</dimen>
+    <dimen name="list_favicon_corner_radius">3dip</dimen>
 </resources>

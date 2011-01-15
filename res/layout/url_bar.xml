@@ -83,7 +83,7 @@
                 style="@style/Suggestions" />
             <ImageView
                 android:id="@+id/star"
-                android:src="@drawable/btn_star"
+                android:src="@drawable/btn_imageview_star"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 style="@style/HoloButton" />

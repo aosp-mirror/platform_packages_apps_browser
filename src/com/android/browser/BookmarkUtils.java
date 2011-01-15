@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -32,12 +33,13 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PaintDrawable;
 import android.net.Uri;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.BrowserContract;
-import android.text.TextUtils;
 
 public class BookmarkUtils {
     private final static String LOGTAG = "BookmarkUtils";
@@ -64,13 +66,16 @@ public class BookmarkUtils {
         return createIcon(context, touchIcon, favicon, type, iconDimension);
     }
 
-    public static Bitmap createListWidgetIcon(Context context, Bitmap touchIcon,
-            Bitmap favicon) {
-        int iconDimension = context.getResources().getDimensionPixelSize(
-                R.dimen.bookmark_widget_favicon_size);
-
-        return createIcon(context, touchIcon, favicon,
-                BookmarkIconType.ICON_WIDGET, iconDimension);
+    static Drawable createListFaviconBackground(Context context) {
+        PaintDrawable faviconBackground = new PaintDrawable();
+        Resources res = context.getResources();
+        int padding = res.getDimensionPixelSize(R.dimen.list_favicon_padding);
+        faviconBackground.setPadding(padding, padding, padding, padding);
+        faviconBackground.getPaint().setColor(context.getResources()
+                .getColor(R.color.bookmarkListFaviconBackground));
+        faviconBackground.setCornerRadius(
+                res.getDimension(R.dimen.list_favicon_corner_radius));
+        return faviconBackground;
     }
 
     private static Bitmap createIcon(Context context, Bitmap touchIcon,
