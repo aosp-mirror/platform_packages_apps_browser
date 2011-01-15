@@ -137,6 +137,7 @@ public class Controller
     private TabControl mTabControl;
     private BrowserSettings mSettings;
     private WebViewFactory mFactory;
+    private OptionsMenuHandler mOptionsMenuHandler = null;
 
     private WakeLock mWakeLock;
 
@@ -1186,6 +1187,10 @@ public class Controller
     // TODO: maybe put into separate handler
 
     protected boolean onCreateOptionsMenu(Menu menu) {
+        if (mOptionsMenuHandler != null) {
+            return mOptionsMenuHandler.onCreateOptionsMenu(menu);
+        }
+
         if (mMenuState == EMPTY_MENU) {
             return false;
         }
@@ -1379,7 +1384,10 @@ public class Controller
         }
     }
 
-    boolean prepareOptionsMenu(Menu menu) {
+    boolean onPrepareOptionsMenu(Menu menu) {
+        if (mOptionsMenuHandler != null) {
+            return mOptionsMenuHandler.onPrepareOptionsMenu(menu);
+        }
         // This happens when the user begins to hold down the menu key, so
         // allow them to chord to get a shortcut.
         mCanChord = true;
@@ -1436,8 +1444,8 @@ public class Controller
                 counter.setVisible(showDebugSettings);
                 counter.setEnabled(showDebugSettings);
 
-                // allow the ui to adjust state based settings
-                mUi.onPrepareOptionsMenu(menu);
+                final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
+                newtab.setEnabled(getTabControl().canCreateNewTab());
 
                 break;
         }
@@ -1446,6 +1454,11 @@ public class Controller
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mOptionsMenuHandler != null &&
+                mOptionsMenuHandler.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         if (item.getGroupId() != R.id.CONTEXT_MENU) {
             // menu remains active, so ensure comboview is dismissed
             // if main menu option is selected
@@ -2517,4 +2530,17 @@ public class Controller
         mAutoFillSetupMessage = message;
         mActivity.startActivityForResult(intent, AUTOFILL_SETUP);
     }
+
+    @Override
+    public void registerOptionsMenuHandler(OptionsMenuHandler handler) {
+        mOptionsMenuHandler = handler;
+    }
+
+    @Override
+    public void unregisterOptionsMenuHandler(OptionsMenuHandler handler) {
+        if (mOptionsMenuHandler == handler) {
+            mOptionsMenuHandler = null;
+        }
+    }
+
 }

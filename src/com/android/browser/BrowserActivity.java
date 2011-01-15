@@ -252,7 +252,7 @@ public class BrowserActivity extends Activity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        return mController.prepareOptionsMenu(menu);
+        return mController.onPrepareOptionsMenu(menu);
     }
 
     @Override

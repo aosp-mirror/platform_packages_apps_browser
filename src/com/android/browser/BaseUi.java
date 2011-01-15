@@ -30,7 +30,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -38,7 +37,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
-import android.webkit.WebHistoryItem;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -455,6 +453,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         if (mActiveTab != null) {
             mActiveTab.putInForeground();
         }
+        mActivity.invalidateOptionsMenu();
     }
 
     @Override
@@ -636,12 +635,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
         int flag = visible ? 0 : WindowManager.LayoutParams.FLAG_FULLSCREEN;
         mActivity.getWindow().setFlags(flag,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
-        newtab.setEnabled(mUiController.getTabControl().canCreateNewTab());
     }
 
     // -------------------------------------------------------------------------

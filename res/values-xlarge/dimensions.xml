@@ -22,4 +22,8 @@
     <dimen name="mv_item_width">231dp</dimen>
     <dimen name="mv_item_width_portrait">213dp</dimen>
     <dimen name="mv_border_width">3dp</dimen>
+    <!-- For the combined Bookmarks History view -->
+    <dimen name="combo_paddingTop">50dip</dimen>
+    <dimen name="combo_paddingLeftRight">134dip</dimen>
+    <dimen name="combo_horizontalSpacing">20dip</dimen>
 </resources>

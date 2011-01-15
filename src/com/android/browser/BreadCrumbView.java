@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -37,6 +38,7 @@ import java.util.List;
  * Use pushView, popView, clear, and getTopData to change/access the view stack
  */
 public class BreadCrumbView extends LinearLayout implements OnClickListener {
+    private static final int DIVIDER_PADDING = 12; // dips
 
     interface Controller {
         public void onTop(int level, Object data);
@@ -47,6 +49,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     private List<Crumb> mCrumbs;
     private boolean mUseBackButton;
     private Drawable mSeparatorDrawable;
+    private float mDividerPadding;
     private int mMaxVisible = -1;
 
     /**
@@ -79,8 +82,10 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     private void init(Context ctx) {
         mUseBackButton = false;
         mCrumbs = new ArrayList<Crumb>();
-        mSeparatorDrawable = ctx.getResources().getDrawable(
-                R.drawable.crumb_divider);
+        TypedArray a = ctx.obtainStyledAttributes(com.android.internal.R.styleable.Theme);
+        mSeparatorDrawable = a.getDrawable(com.android.internal.R.styleable.Theme_dividerVertical);
+        a.recycle();
+        mDividerPadding = DIVIDER_PADDING * ctx.getResources().getDisplayMetrics().density;
         addBackButton();
     }
 
@@ -176,11 +181,24 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     }
 
     private void addSeparator() {
-        ImageView sep = new ImageView(mContext);
-        sep.setImageDrawable(mSeparatorDrawable);
-        sep.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.MATCH_PARENT));
+        View sep = makeDividerView();
+        sep.setLayoutParams(makeDividerLayoutParams());
         addView(sep);
+    }
+
+    private ImageView makeDividerView() {
+        ImageView result = new ImageView(mContext);
+        result.setImageDrawable(mSeparatorDrawable);
+        result.setScaleType(ImageView.ScaleType.FIT_XY);
+        return result;
+    }
+
+    private LayoutParams makeDividerLayoutParams() {
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.MATCH_PARENT);
+        params.topMargin = (int) mDividerPadding;
+        params.bottomMargin = (int) mDividerPadding;
+        return params;
     }
 
     private void pop(boolean notify) {

@@ -21,20 +21,21 @@
     android:layout_height="match_parent"
     android:minHeight="@dimen/widgetItemMinHeight"
     android:orientation="horizontal"
-    android:padding="8dip">
+    android:paddingLeft="16dip">
     <ImageView
         android:id="@+id/favicon"
-        android:layout_height="24dp"
-        android:layout_width="24dp"
+        android:layout_height="32dip"
+        android:layout_width="32dip"
         android:layout_gravity="center_vertical"
-        android:scaleType="fitXY"/>
+        android:background="@drawable/bookmark_list_favicon_bg"
+        android:scaleType="fitXY" />
     <TextView
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:padding="8dip"
+        android:paddingLeft="16dip"
         android:maxLines="1"
         android:scrollHorizontally="true"
         android:ellipsize="marquee"/>

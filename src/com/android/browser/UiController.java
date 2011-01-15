@@ -79,4 +79,7 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     void shareCurrentPage();
 
+    void registerOptionsMenuHandler(OptionsMenuHandler handler);
+
+    void unregisterOptionsMenuHandler(OptionsMenuHandler handler);
 }
