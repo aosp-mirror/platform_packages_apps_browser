@@ -14,9 +14,8 @@
      limitations under the License.
 -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/thumbnail_view"
-        android:title="@string/bookmark_thumbnail_view"/>
-    <item android:id="@+id/list_view"
-        android:title="@string/bookmark_list_view"/>
-</menu>
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bookmarks_widget_thumb_selector_pressed"  />
+    <item android:drawable="@drawable/bookmarks_widget_thumb_selector_longpressed"  />
+</transition>
+

@@ -17,10 +17,13 @@
 package com.android.browser;
 
 
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -28,16 +31,18 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Vector;
@@ -48,7 +53,7 @@ interface BookmarksHistoryCallbacks {
 }
 
 public class CombinedBookmarkHistoryView extends LinearLayout
-        implements OnClickListener, OnTouchListener {
+        implements OnTouchListener, TabListener, OptionsMenuHandler {
 
     final static String STARTING_FRAGMENT = "fragment";
 
@@ -57,18 +62,15 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
     private UiController mUiController;
     private Activity mActivity;
+    private ActionBar mActionBar;
 
     private Bundle mExtras;
 
-    long mCurrentFragment;
+    int mCurrentFragment;
 
-    View mTabs;
-    TextView mTabBookmarks;
-    TextView mTabHistory;
-    TextView mAddBookmark;
-    View mSeperateSelectAdd;
+    ActionBar.Tab mTabBookmarks;
+    ActionBar.Tab mTabHistory;
     ViewGroup mBookmarksHeader;
-    View mHome;
 
     BrowserBookmarksPage mBookmarks;
     BrowserHistoryPage mHistory;
@@ -116,27 +118,22 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         mUiController = controller;
         mActivity = activity;
         mExtras = extras;
+        mActionBar = mActivity.getActionBar();
+
         View v = LayoutInflater.from(activity).inflate(R.layout.bookmarks_history, this);
         v.setOnTouchListener(this);
         Resources res = activity.getResources();
 
 //        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        mTabs = findViewById(R.id.tabs);
-        mBookmarksHeader = (ViewGroup) findViewById(R.id.header_container);
+        mBookmarksHeader = new FrameLayout(mActivity);
+        mBookmarksHeader.setLayoutParams(new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER_VERTICAL));
 
-        mTabBookmarks = (TextView) findViewById(R.id.bmtab);
-        mTabHistory = (TextView) findViewById(R.id.historytab);
-        mAddBookmark = (TextView) findViewById(R.id.addbm);
-        mSeperateSelectAdd = findViewById(R.id.seperate_select_add);
-        mHome = findViewById(R.id.home);
-        mAddBookmark.setOnClickListener(this);
-        mTabHistory.setOnClickListener(this);
-        mTabBookmarks.setOnClickListener(this);
-        mHome.setOnClickListener(this);
         // Start up the default fragment
         initFragments(mExtras);
-        loadFragment(startingFragment, mExtras, false);
 
         // XXX: Must do this before launching the AsyncTask to avoid a
         // potential crash if the icon database has not been created.
@@ -153,6 +150,36 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             }
         }).execute();
 
+        setupActionBar(startingFragment);
+        mUiController.registerOptionsMenuHandler(this);
+    }
+
+    void setupActionBar(int startingFragment) {
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
+                | ActionBar.DISPLAY_USE_LOGO);
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        mActionBar.removeAllTabs();
+        mTabBookmarks = mActionBar.newTab();
+        mTabBookmarks.setText(R.string.tab_bookmarks);
+        mTabBookmarks.setTabListener(this);
+        mActionBar.addTab(mTabBookmarks, FRAGMENT_ID_BOOKMARKS == startingFragment);
+        mTabHistory = mActionBar.newTab();
+        mTabHistory.setText(R.string.tab_history);
+        mTabHistory.setTabListener(this);
+        mActionBar.addTab(mTabHistory, FRAGMENT_ID_HISTORY == startingFragment);
+        mActionBar.setCustomView(mBookmarksHeader);
+
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        Resources res = mContext.getResources();
+        int paddingLeftRight = (int) res.getDimension(R.dimen.combo_paddingLeftRight);
+        int paddingTop = (int) res.getDimension(R.dimen.combo_paddingTop);
+        findViewById(R.id.fragment).setPadding(paddingLeftRight, paddingTop,
+                paddingLeftRight, 0);
     }
 
     private BookmarksPageCallbacks mBookmarkCallbackWrapper = new BookmarksPageCallbacks() {
@@ -173,13 +200,15 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
         @Override
         public void onFolderChanged(int level, Uri uri) {
+            final int toggleFlags = ActionBar.DISPLAY_SHOW_CUSTOM
+                    | ActionBar.DISPLAY_HOME_AS_UP;
             // 1 is "bookmarks" root folder
             if (level <= 1) {
-                mTabs.setVisibility(View.VISIBLE);
-                mBookmarks.setBreadCrumbVisibility(View.INVISIBLE);
+                mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+                mActionBar.setDisplayOptions(0, toggleFlags);
             } else {
-                mTabs.setVisibility(View.GONE);
-                mBookmarks.setBreadCrumbVisibility(View.VISIBLE);
+                mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                mActionBar.setDisplayOptions(toggleFlags, toggleFlags);
             }
         }
     };
@@ -188,39 +217,24 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         mBookmarks = BrowserBookmarksPage.newInstance(mBookmarkCallbackWrapper,
                 extras, mBookmarksHeader);
         mBookmarks.setBreadCrumbMaxVisible(2);
-        mBookmarks.setBreadCrumbUseBackButton(true);
+        mBookmarks.setBreadCrumbUseBackButton(false);
         mHistory = BrowserHistoryPage.newInstance(mUiController, extras);
     }
 
-    private void loadFragment(int id, Bundle extras, boolean notify) {
-        String fragmentClassName;
-        Fragment fragment = null;
+    private void loadFragment(int id, FragmentTransaction ft) {
+        if (mCurrentFragment == id) return;
+
         switch (id) {
             case FRAGMENT_ID_BOOKMARKS:
-                fragment = mBookmarks;
-                mSeperateSelectAdd.setVisibility(View.VISIBLE);
-                mBookmarksHeader.setVisibility(View.VISIBLE);
-                mAddBookmark.setVisibility(View.VISIBLE);
-                mTabBookmarks.setActivated(true);
-                mTabHistory.setActivated(false);
+                ft.replace(R.id.fragment, mBookmarks);
                 break;
             case FRAGMENT_ID_HISTORY:
-                fragment = mHistory;
-                mBookmarksHeader.setVisibility(View.INVISIBLE);
-                mSeperateSelectAdd.setVisibility(View.INVISIBLE);
-                mAddBookmark.setVisibility(View.INVISIBLE);
-                mTabBookmarks.setActivated(false);
-                mTabHistory.setActivated(true);
+                ft.replace(R.id.fragment, mHistory);
                 break;
             default:
                 throw new IllegalArgumentException();
         }
         mCurrentFragment = id;
-
-        FragmentManager fm = mActivity.getFragmentManager();
-        FragmentTransaction transaction = fm.openTransaction();
-        transaction.replace(R.id.fragment, fragment);
-        transaction.commit();
     }
 
     @Override
@@ -234,22 +248,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             transaction.remove(mHistory);
         }
         transaction.commit();
-    }
-
-    @Override
-    public void onClick(View view) {
-        if ((mTabHistory == view) && (mCurrentFragment != FRAGMENT_ID_HISTORY)) {
-            loadFragment(FRAGMENT_ID_HISTORY, mExtras, false);
-        } else if (mTabBookmarks == view) {
-            if (mCurrentFragment != FRAGMENT_ID_BOOKMARKS) {
-                loadFragment(FRAGMENT_ID_BOOKMARKS, mExtras, true);
-            }
-        } else if (mAddBookmark == view) {
-            mUiController.bookmarkCurrentPage(mBookmarks.getFolderId());
-        } else if (mHome == view) {
-            BrowserSettings settings = BrowserSettings.getInstance();
-            mUiController.onUrlSelected(settings.getHomePage(), false);
-        }
+        mUiController.unregisterOptionsMenuHandler(this);
     }
 
     /**
@@ -269,5 +268,59 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         return true;
+    }
+
+    @Override
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+        // Ignore
+    }
+
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        if (tab == mTabBookmarks) {
+            loadFragment(FRAGMENT_ID_BOOKMARKS, ft);
+        } else if (tab == mTabHistory) {
+            loadFragment(FRAGMENT_ID_HISTORY, ft);
+        }
+    }
+
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+        // Ignore
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Handled by fragment
+        return false;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Handled by fragment
+        return false;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            mUiController.getUi().onBackKey();
+            return true;
+        case R.id.go_home:
+            BrowserSettings settings = BrowserSettings.getInstance();
+            mUiController.onUrlSelected(settings.getHomePage(), false);
+            return true;
+        case R.id.add_bookmark:
+            mUiController.bookmarkCurrentPage(mBookmarks.getFolderId());
+            return true;
+        }
+
+        switch (mCurrentFragment) {
+        case FRAGMENT_ID_BOOKMARKS:
+            return mBookmarks.onOptionsItemSelected(item);
+        case FRAGMENT_ID_HISTORY:
+            return mHistory.onOptionsItemSelected(item);
+        }
+        return false;
     }
 }

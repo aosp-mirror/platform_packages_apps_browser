@@ -33,6 +33,8 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -47,10 +49,10 @@ import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.Adapter;
@@ -60,7 +62,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 interface BookmarksPageCallbacks {
@@ -76,7 +77,7 @@ interface BookmarksPageCallbacks {
  */
 public class BrowserBookmarksPage extends Fragment implements View.OnCreateContextMenuListener,
         LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener, IconListener,
-        OnItemSelectedListener, BreadCrumbView.Controller, OnClickListener, OnMenuItemClickListener {
+        OnItemSelectedListener, BreadCrumbView.Controller, OnMenuItemClickListener {
 
     static final String LOGTAG = "browser";
 
@@ -108,7 +109,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     View mHeader;
     ViewGroup mHeaderContainer;
     BreadCrumbView mCrumbs;
-    TextView mSelectBookmarkView;
     int mCrumbVisibility = View.VISIBLE;
     int mCrumbMaxVisible = -1;
     boolean mCrumbBackButton = false;
@@ -339,6 +339,11 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     };
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.bookmark, menu);
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         Cursor cursor = mAdapter.getItem(info.position);
@@ -401,6 +406,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
+        setHasOptionsMenu(true);
+
         Bundle args = getArguments();
         mDisableNewWindow = args == null ? false : args.getBoolean(EXTRA_DISABLE_WINDOW, false);
     }
@@ -438,19 +445,12 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         if (mCallbacks != null) {
             mCallbacks.onFolderChanged(1, BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER);
         }
-        mSelectBookmarkView = (TextView) mHeader.findViewById(R.id.select_bookmark_view);
-        mSelectBookmarkView.setOnClickListener(this);
 
         // Start the loaders
         LoaderManager lm = getLoaderManager();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         mCurrentView =
             prefs.getInt(PREF_SELECTED_VIEW, BrowserBookmarksPage.VIEW_THUMBNAILS);
-        if (mCurrentView == BrowserBookmarksPage.VIEW_THUMBNAILS) {
-            mSelectBookmarkView.setText(R.string.bookmark_list_view);
-        } else {
-            mSelectBookmarkView.setText(R.string.bookmark_thumbnail_view);
-        }
         mAdapter = new BrowserBookmarksAdapter(getActivity(), mCurrentView);
         String accountType = prefs.getString(PREF_ACCOUNT_TYPE, DEFAULT_ACCOUNT);
         String accountName = prefs.getString(PREF_ACCOUNT_NAME, DEFAULT_ACCOUNT);
@@ -650,16 +650,39 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         cm.setPrimaryClip(ClipData.newRawUri(null, null, Uri.parse(text.toString())));
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.thumbnail_view:
+            selectView(VIEW_THUMBNAILS);
+            return true;
+        case R.id.list_view:
+            selectView(VIEW_LIST);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Resources res = getActivity().getResources();
+        int horizontalSpacing = (int) res.getDimension(R.dimen.combo_horizontalSpacing);
+        mGrid.setHorizontalSpacing(horizontalSpacing);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.list_view).setVisible(mCurrentView != VIEW_LIST);
+        menu.findItem(R.id.thumbnail_view).setVisible(mCurrentView != VIEW_THUMBNAILS);
+    }
+
     void selectView(int view) {
         if (view == mCurrentView) {
             return;
         }
         mCurrentView = view;
-        if (mCurrentView == BrowserBookmarksPage.VIEW_THUMBNAILS) {
-            mSelectBookmarkView.setText(R.string.bookmark_list_view);
-        } else {
-            mSelectBookmarkView.setText(R.string.bookmark_thumbnail_view);
-        }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Editor edit = prefs.edit();
         edit.putInt(PREF_SELECTED_VIEW, mCurrentView);
@@ -712,15 +735,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         loader.forceLoad();
         if (mCallbacks != null) {
             mCallbacks.onFolderChanged(mCrumbs.getTopLevel(), uri);
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (mSelectBookmarkView == view) {
-            selectView(mCurrentView == BrowserBookmarksPage.VIEW_LIST
-                    ? BrowserBookmarksPage.VIEW_THUMBNAILS
-                    : BrowserBookmarksPage.VIEW_LIST);
         }
     }
 

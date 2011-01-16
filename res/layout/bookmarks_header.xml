@@ -13,25 +13,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout
+
+<com.android.browser.BreadCrumbView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/crumbs"
     android:layout_width="match_parent"
-    android:layout_height="48dip"
-    android:orientation="horizontal">
-
-    <com.android.browser.BreadCrumbView
-        android:id="@+id/crumbs"
-        android:layout_width="0dip"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:paddingLeft="16dip" />
-
-    <TextView
-        android:id="@+id/select_bookmark_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/bookmark_thumbnail_view"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center_vertical" />
-
-</LinearLayout>
+    android:layout_height="match_parent" />

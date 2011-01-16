@@ -20,6 +20,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.PaintDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 class BrowserBookmarksAdapter extends CursorAdapter {
     LayoutInflater mInflater;
     int mCurrentView;
+    PaintDrawable mFaviconBackground;
 
     /**
      *  Create a new BrowserBookmarksAdapter.
@@ -37,9 +39,16 @@ class BrowserBookmarksAdapter extends CursorAdapter {
     public BrowserBookmarksAdapter(Context context, int defaultView) {
         // Make sure to tell the CursorAdapter to avoid the observer and auto-requery
         // since the Loader will do that for us.
-        super(context, null);
+        super(context, null, 0);
         mInflater = LayoutInflater.from(context);
         selectView(defaultView);
+        float density = context.getResources().getDisplayMetrics().density;
+        mFaviconBackground = new PaintDrawable();
+        int padding = (int) (5 * density);
+        mFaviconBackground.setPadding(padding, padding, padding, padding);
+        mFaviconBackground.getPaint().setColor(context.getResources()
+                .getColor(R.color.bookmarkListFaviconBackground));
+        mFaviconBackground.setCornerRadius(3 * density);
     }
 
     @Override
@@ -58,7 +67,8 @@ class BrowserBookmarksAdapter extends CursorAdapter {
         tv.setText(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
         if (cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0) {
             // folder
-            thumb.setImageResource(R.drawable.ic_folder);
+            thumb.setImageResource(R.drawable.thumb_bookmark_widget_folder_holo);
+            thumb.setBackgroundDrawable(null);
         } else {
             byte[] thumbData = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_THUMBNAIL);
             Bitmap thumbBitmap = null;
@@ -71,6 +81,7 @@ class BrowserBookmarksAdapter extends CursorAdapter {
             } else {
                 thumb.setImageBitmap(thumbBitmap);
             }
+            thumb.setBackgroundResource(R.drawable.border_thumb_bookmarks_widget_holo);
         }
     }
 
@@ -82,6 +93,7 @@ class BrowserBookmarksAdapter extends CursorAdapter {
         if (cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0) {
             // folder
             favicon.setImageResource(R.drawable.ic_folder_bookmark_widget_holo_dark);
+            favicon.setBackgroundDrawable(null);
         } else {
             byte[] faviconData = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_FAVICON);
             Bitmap faviconBitmap = null;
@@ -94,6 +106,9 @@ class BrowserBookmarksAdapter extends CursorAdapter {
             } else {
                 favicon.setImageBitmap(faviconBitmap);
             }
+            //favicon.setBackgroundResource(R.drawable.bookmark_list_favicon_bg);
+            // TODO: Switch to above instead of below once b/3353813 is fixed
+            favicon.setBackgroundDrawable(mFaviconBackground);
         }
     }
 
