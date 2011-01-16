@@ -20,6 +20,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.ActionMode;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
@@ -116,5 +117,7 @@ public interface UI {
     void bookmarkedStatusHasChanged(Tab tab);
 
     void showMaxTabsWarning();
+
+    boolean dispatchKey(int code, KeyEvent event);
 
 }

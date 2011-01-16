@@ -32,6 +32,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -113,7 +114,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mCustomViewContainer = (FrameLayout) mBrowserFrameLayout
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
-
     }
 
     /**
@@ -286,6 +286,8 @@ public abstract class BaseUi implements UI, WebViewFactory {
             Log.w(LOGTAG, "mContainer is already attached to content in"
                     + " attachTabToContentView!");
         }
+        mainView.setNextFocusUpId(R.id.url_focused);
+        mainView.setNextFocusDownId(R.id.url_focused);
         mUiController.attachSubWindow(tab);
     }
 
