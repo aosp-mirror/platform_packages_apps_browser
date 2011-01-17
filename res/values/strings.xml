@@ -425,6 +425,9 @@
     <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
     <string name="autofill_setup_dialog_negative_toast">AutoFill can always be configured through Browser Settings.</string>
+    <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
+         The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+    <string name="disable_autofill">Disable AutoFill</string>
 
     <!-- Settings screen, section title [CHAR-LIMIT=50] -->
     <string name="pref_privacy_security_title">Privacy &amp; Security</string>
