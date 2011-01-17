@@ -45,8 +45,8 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         OnClickListener {
 
     static final int TYPE_BOOKMARK = 0;
-    static final int TYPE_SUGGEST_URL = 1;
-    static final int TYPE_HISTORY = 2;
+    static final int TYPE_HISTORY = 1;
+    static final int TYPE_SUGGEST_URL = 2;
     static final int TYPE_SEARCH = 3;
     static final int TYPE_SUGGEST = 4;
     static final int TYPE_VOICE_SEARCH = 5;
