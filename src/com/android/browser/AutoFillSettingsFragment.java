@@ -17,14 +17,18 @@
 package com.android.browser;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings.AutoFillProfile;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +49,8 @@ public class AutoFillSettingsFragment extends Fragment {
     private EditText mCountryEdit;
     private EditText mPhoneEdit;
 
+    private Button mSaveButton;
+
     // Used to display toast after DB interactions complete.
     private Handler mHandler;
 
@@ -55,6 +61,45 @@ public class AutoFillSettingsFragment extends Fragment {
     // id to 1 here. In the future this unique identifier will be set
     // dynamically.
     private int mUniqueId = 1;
+
+    private class PhoneNumberValidator implements TextWatcher {
+        // Keep in sync with kPhoneNumberLength in chrome/browser/autofill/phone_number.cc
+        private static final int PHONE_NUMBER_LENGTH = 7;
+
+        public void afterTextChanged(Editable s) {
+            int phoneNumberLength = s.toString().length();
+
+            if (phoneNumberLength > 0 && phoneNumberLength < PHONE_NUMBER_LENGTH) {
+                mPhoneEdit.setError(getResources().getText(
+                        R.string.autofill_profile_editor_phone_number_invalid));
+            } else {
+                mPhoneEdit.setError(null);
+            }
+
+            updateButtonState();
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+    }
+
+    private class FieldChangedListener implements TextWatcher {
+        public void afterTextChanged(Editable s) {
+            updateButtonState();
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+    }
+
+    private TextWatcher mFieldChangedListener = new FieldChangedListener();
 
     public AutoFillSettingsFragment() {
         mHandler = new Handler() {
@@ -98,8 +143,19 @@ public class AutoFillSettingsFragment extends Fragment {
         mCountryEdit = (EditText)v.findViewById(R.id.autofill_profile_editor_country_edit);
         mPhoneEdit = (EditText)v.findViewById(R.id.autofill_profile_editor_phone_number_edit);
 
-        Button saveButton = (Button)v.findViewById(R.id.autofill_profile_editor_save_button);
-        saveButton.setOnClickListener(new OnClickListener() {
+        mFullNameEdit.addTextChangedListener(mFieldChangedListener);
+        mEmailEdit.addTextChangedListener(mFieldChangedListener);
+        mCompanyEdit.addTextChangedListener(mFieldChangedListener);
+        mAddressLine1Edit.addTextChangedListener(mFieldChangedListener);
+        mAddressLine2Edit.addTextChangedListener(mFieldChangedListener);
+        mCityEdit.addTextChangedListener(mFieldChangedListener);
+        mStateEdit.addTextChangedListener(mFieldChangedListener);
+        mZipEdit.addTextChangedListener(mFieldChangedListener);
+        mCountryEdit.addTextChangedListener(mFieldChangedListener);
+        mPhoneEdit.addTextChangedListener(new PhoneNumberValidator());
+
+        mSaveButton = (Button)v.findViewById(R.id.autofill_profile_editor_save_button);
+        mSaveButton.setOnClickListener(new OnClickListener() {
             public void onClick(View button) {
                 AutoFillProfile newProfile = new AutoFillProfile(
                         mUniqueId,
@@ -116,6 +172,7 @@ public class AutoFillSettingsFragment extends Fragment {
 
                 BrowserSettings.getInstance().setAutoFillProfile(getActivity(), newProfile,
                         mHandler.obtainMessage(PROFILE_SAVED_MSG));
+                closeEditor();
             }
         });
 
@@ -138,13 +195,15 @@ public class AutoFillSettingsFragment extends Fragment {
                 // trigger the current profile to get deleted from the DB.
                 BrowserSettings.getInstance().setAutoFillProfile(getActivity(), null,
                         mHandler.obtainMessage(PROFILE_DELETED_MSG));
+
+                updateButtonState();
             }
         });
 
-       Button cancelButton = (Button)v.findViewById(R.id.autofill_profile_editor_cancel_button);
-       cancelButton.setOnClickListener(new OnClickListener() {
+        Button cancelButton = (Button)v.findViewById(R.id.autofill_profile_editor_cancel_button);
+        cancelButton.setOnClickListener(new OnClickListener() {
            public void onClick(View button) {
-               getFragmentManager().popBackStack();
+               closeEditor();
            }
         });
 
@@ -163,6 +222,38 @@ public class AutoFillSettingsFragment extends Fragment {
             mPhoneEdit.setText(activeProfile.getPhoneNumber());
         }
 
+        updateButtonState();
+
         return v;
+    }
+
+    public void updateButtonState() {
+
+        boolean valid = (mFullNameEdit.getText().toString().length() > 0 ||
+            mEmailEdit.getText().toString().length() > 0 ||
+            mCompanyEdit.getText().toString().length() > 0 ||
+            mAddressLine1Edit.getText().toString().length() > 0 ||
+            mAddressLine2Edit.getText().toString().length() > 0 ||
+            mCityEdit.getText().toString().length() > 0 ||
+            mStateEdit.getText().toString().length() > 0 ||
+            mZipEdit.getText().toString().length() > 0 ||
+            mCountryEdit.getText().toString().length() > 0) &&
+            mPhoneEdit.getError() == null;
+
+        // Only enable the save buttons if we have at least one field completed
+        // and the phone number (if present is valid).
+        mSaveButton.setEnabled(valid);
+    }
+
+    private void closeEditor() {
+        // Hide the IME if the user wants to close while an EditText has focus
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            getActivity().finish();
+        }
     }
 }
