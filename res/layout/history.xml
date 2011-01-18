@@ -19,17 +19,16 @@
     android:layout_height="match_parent"
 >
 
-    <ExpandableListView android:id="@android:id/list"
-        android:layout_width="match_parent" 
+    <ViewStub
+        android:id="@+id/pref_stub"
         android:layout_height="match_parent"
-        android:drawSelectorOnTop="false"
-    />
+        android:layout_width="match_parent"
+        android:inflatedId="@+id/history" />
 
     <TextView android:id="@android:id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/empty_history"
         android:visibility="gone"

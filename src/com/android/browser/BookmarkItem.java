@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -92,6 +93,10 @@ class BookmarkItem extends LinearLayout {
         } else {
             mImageView.setImageResource(R.drawable.app_web_browser_sm);
         }
+    }
+
+    void setFaviconBackground(Drawable d) {
+        mImageView.setBackgroundDrawable(d);
     }
 
     /**
