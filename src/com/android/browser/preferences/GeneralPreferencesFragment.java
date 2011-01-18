@@ -195,7 +195,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
             frag = new ImportWizardDialog();
         }
         frag.setArguments(preference.getExtras());
-        getFragmentManager().openTransaction()
+        getFragmentManager().beginTransaction()
                 .add(frag, null)
                 .commit();
         return true;

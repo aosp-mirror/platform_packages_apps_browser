@@ -241,7 +241,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         FragmentManager fm = mActivity.getFragmentManager();
-        FragmentTransaction transaction = fm.openTransaction();
+        FragmentTransaction transaction = fm.beginTransaction();
         if (mCurrentFragment == FRAGMENT_ID_BOOKMARKS) {
             transaction.remove(mBookmarks);
         } else if (mCurrentFragment == FRAGMENT_ID_HISTORY) {

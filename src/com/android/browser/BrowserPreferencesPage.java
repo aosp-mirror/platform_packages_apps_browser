@@ -70,7 +70,7 @@ public class BrowserPreferencesPage extends PreferenceActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (getFragmentManager().countBackStackEntries() > 0) {
+                if (getFragmentManager().getBackStackEntryCount() > 0) {
                     getFragmentManager().popBackStack();
                 } else {
                     finish();
