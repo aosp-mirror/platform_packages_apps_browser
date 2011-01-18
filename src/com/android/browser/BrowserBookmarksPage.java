@@ -19,16 +19,13 @@ package com.android.browser;
 import com.android.browser.BreadCrumbView.Crumb;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
@@ -97,6 +94,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     static final String PREF_SELECTED_VIEW = "bookmarks_view";
 
     BookmarksPageCallbacks mCallbacks;
+    View mRoot;
     GridView mGrid;
     ListView mList;
     BrowserBookmarksAdapter mAdapter;
@@ -417,20 +415,20 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             Bundle savedInstanceState) {
         Context context = getActivity();
 
-        View root = inflater.inflate(R.layout.bookmarks, container, false);
-        mEmptyView = root.findViewById(android.R.id.empty);
+        mRoot = inflater.inflate(R.layout.bookmarks, container, false);
+        mEmptyView = mRoot.findViewById(android.R.id.empty);
 
-        mGrid = (GridView) root.findViewById(R.id.grid);
+        mGrid = (GridView) mRoot.findViewById(R.id.grid);
         mGrid.setOnItemClickListener(this);
         mGrid.setColumnWidth(Controller.getDesiredThumbnailWidth(getActivity()));
-        mList = (ListView) root.findViewById(R.id.list);
+        mList = (ListView) mRoot.findViewById(R.id.list);
         mList.setOnItemClickListener(this);
         setEnableContextMenu(mEnableContextMenu);
 
         // Prep the header
         ViewGroup hc = mHeaderContainer;
         if (hc == null) {
-            hc = (ViewGroup) root.findViewById(R.id.header_container);
+            hc = (ViewGroup) mRoot.findViewById(R.id.header_container);
             hc.setVisibility(View.VISIBLE);
         }
         mHeader = inflater.inflate(R.layout.bookmarks_header, hc, false);
@@ -471,7 +469,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         // Add our own listener in case there are favicons that have yet to be loaded.
         CombinedBookmarkHistoryView.getIconListenerSet().addListener(this);
 
-        return root;
+        return mRoot;
     }
 
     @Override
@@ -669,6 +667,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         Resources res = getActivity().getResources();
         int horizontalSpacing = (int) res.getDimension(R.dimen.combo_horizontalSpacing);
         mGrid.setHorizontalSpacing(horizontalSpacing);
+        int paddingLeftRight = (int) res.getDimension(R.dimen.combo_paddingLeftRight);
+        int paddingTop = (int) res.getDimension(R.dimen.combo_paddingTop);
+        mRoot.setPadding(paddingLeftRight, paddingTop,
+                paddingLeftRight, 0);
     }
 
     @Override

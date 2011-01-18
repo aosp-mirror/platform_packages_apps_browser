@@ -174,12 +174,13 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-        Resources res = mContext.getResources();
-        int paddingLeftRight = (int) res.getDimension(R.dimen.combo_paddingLeftRight);
-        int paddingTop = (int) res.getDimension(R.dimen.combo_paddingTop);
-        findViewById(R.id.fragment).setPadding(paddingLeftRight, paddingTop,
-                paddingLeftRight, 0);
+        if (mCurrentFragment == FRAGMENT_ID_HISTORY) {
+            // Warning, ugly hack below
+            // This is done because history uses orientation-specific padding
+            FragmentManager fm = mActivity.getFragmentManager();
+            mHistory = BrowserHistoryPage.newInstance(mUiController, mHistory.getArguments());
+            fm.openTransaction().replace(R.id.fragment, mHistory).commit();
+        }
     }
 
     private BookmarksPageCallbacks mBookmarkCallbackWrapper = new BookmarksPageCallbacks() {

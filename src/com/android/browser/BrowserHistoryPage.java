@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.app.FragmentBreadCrumbs;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
@@ -32,8 +33,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -49,10 +52,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.webkit.WebIconDatabase.IconListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,12 +75,14 @@ public class BrowserHistoryPage extends Fragment
     static final int LOADER_MOST_VISITED = 2;
 
     BookmarksHistoryCallbacks mCallbacks;
-    ExpandableListView mList;
-    View mEmptyView;
     HistoryAdapter mAdapter;
+    HistoryChildWrapper mChildWrapper;
     boolean mDisableNewWindow;
     HistoryItem mContextHeader;
     String mMostVisitsLimit;
+    ListView mGroupList, mChildList;
+    private ViewGroup mPrefsContainer;
+    private FragmentBreadCrumbs mFragmentBreadCrumbs;
 
     // Implementation of WebIconDatabase.IconListener
     class IconReceiver implements IconListener {
@@ -84,6 +94,7 @@ public class BrowserHistoryPage extends Fragment
 
     // Instance of IconReceiver
     final IconReceiver mIconReceiver = new IconReceiver();
+    private View mRoot;
 
     static interface HistoryQuery {
         static final String[] PROJECTION = new String[] {
@@ -153,24 +164,48 @@ public class BrowserHistoryPage extends Fragment
         }
     }
 
+    void selectGroup(int position) {
+        mGroupItemClickListener.onItemClick(null,
+                mAdapter.getGroupView(position, false, null, null),
+                position, position);
+    }
+
+    void checkIfEmpty() {
+        if (mAdapter.mMostVisited != null && mAdapter.mHistoryCursor != null) {
+            // Both cursors have loaded - check to see if we have data
+            if (mAdapter.isEmpty()) {
+                mRoot.findViewById(R.id.history).setVisibility(View.GONE);
+                mRoot.findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+            } else {
+                mRoot.findViewById(R.id.history).setVisibility(View.VISIBLE);
+                mRoot.findViewById(android.R.id.empty).setVisibility(View.GONE);
+            }
+        }
+    }
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         switch (loader.getId()) {
             case LOADER_HISTORY: {
                 mAdapter.changeCursor(data);
+                if (mAdapter.getGroupCount() > 0) {
+                    selectGroup(0);
+                }
 
-                // Add an empty view late, so it does not claim an empty
-                // history before the adapter is present
-                mList.setEmptyView(mEmptyView);
+                checkIfEmpty();
                 break;
             }
 
             case LOADER_MOST_VISITED: {
+                int preCount = mAdapter.getGroupCount();
                 mAdapter.changeMostVisitedCursor(data);
+                if (mAdapter.mHistoryCursor != null
+                        && preCount == 0
+                        && mAdapter.getGroupCount() > 0) {
+                    selectGroup(0);
+                }
 
-                // Add an empty view late, so it does not claim an empty
-                // history before the adapter is present
-                mList.setEmptyView(mEmptyView);
+                checkIfEmpty();
                 break;
             }
 
@@ -180,6 +215,7 @@ public class BrowserHistoryPage extends Fragment
         }
     }
 
+    @Override
     public void onLoaderReset(Loader<Cursor> loader) {
     }
 
@@ -198,24 +234,43 @@ public class BrowserHistoryPage extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.history, container, false);
-        mList = (ExpandableListView) root.findViewById(android.R.id.list);
-        mList.setCacheColorHint(0);
-        mList.setOnCreateContextMenuListener(this);
-        mList.setOnChildClickListener(this);
+        mRoot = inflater.inflate(R.layout.history, container, false);
+        ViewStub stub = (ViewStub) mRoot.findViewById(R.id.pref_stub);
+        stub.setLayoutResource(com.android.internal.R.layout.preference_list_content);
+        stub.inflate();
+        mGroupList = (ListView) mRoot.findViewById(android.R.id.list);
+        mPrefsContainer = (ViewGroup) mRoot.findViewById(com.android.internal.R.id.prefs_frame);
+        mFragmentBreadCrumbs = (FragmentBreadCrumbs) mRoot.findViewById(android.R.id.title);
+        mFragmentBreadCrumbs.setMaxVisible(1);
+        mFragmentBreadCrumbs.setActivity(getActivity());
+        mPrefsContainer.setVisibility(View.VISIBLE);
         mAdapter = new HistoryAdapter(getActivity());
-        mList.setAdapter(mAdapter);
+        mGroupList.setAdapter(new HistoryGroupWrapper(mAdapter));
+        mGroupList.setOnItemClickListener(mGroupItemClickListener);
+        mChildWrapper = new HistoryChildWrapper(mAdapter);
+        mChildList = new ListView(getActivity());
+        mChildList.setAdapter(mChildWrapper);
+        ViewGroup prefs = (ViewGroup) mRoot.findViewById(com.android.internal.R.id.prefs);
+        prefs.addView(mChildList);
 
-        mEmptyView = root.findViewById(android.R.id.empty);
-
-        // Start the loader
+        // Start the loaders
         getLoaderManager().restartLoader(LOADER_HISTORY, null, this);
         getLoaderManager().restartLoader(LOADER_MOST_VISITED, null, this);
 
         // Register to receive icons in case they haven't all been loaded.
         CombinedBookmarkHistoryView.getIconListenerSet().addListener(mIconReceiver);
-        return root;
+        return mRoot;
     }
+
+    private OnItemClickListener mGroupItemClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(
+                AdapterView<?> parent, View view, int position, long id) {
+            CharSequence title = ((TextView) view).getText();
+            mFragmentBreadCrumbs.setTitle(title, title);
+            mChildWrapper.setSelectedGroup(position);
+        }
+    };
 
     @Override
     public void onDestroy() {
@@ -228,12 +283,6 @@ public class BrowserHistoryPage extends Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.history, menu);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.clear_history_menu_id).setVisible(
-                mAdapter != null && !mAdapter.isEmpty());
     }
 
     @Override
@@ -385,11 +434,101 @@ public class BrowserHistoryPage extends Fragment
         return false;
     }
 
+    private static abstract class HistoryWrapper extends BaseAdapter {
+
+        protected HistoryAdapter mAdapter;
+        private DataSetObserver mObserver = new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onInvalidated() {
+                super.onInvalidated();
+                notifyDataSetInvalidated();
+            }
+        };
+
+        public HistoryWrapper(HistoryAdapter adapter) {
+            mAdapter = adapter;
+            mAdapter.registerDataSetObserver(mObserver);
+        }
+
+    }
+    private static class HistoryGroupWrapper extends HistoryWrapper {
+
+        public HistoryGroupWrapper(HistoryAdapter adapter) {
+            super(adapter);
+        }
+
+        @Override
+        public int getCount() {
+            return mAdapter.getGroupCount();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return mAdapter.getGroupView(position, false, convertView, parent);
+        }
+
+    }
+
+    private static class HistoryChildWrapper extends HistoryWrapper {
+
+        private int mSelectedGroup;
+
+        public HistoryChildWrapper(HistoryAdapter adapter) {
+            super(adapter);
+        }
+
+        void setSelectedGroup(int groupPosition) {
+            mSelectedGroup = groupPosition;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getCount() {
+            return mAdapter.getChildrenCount(mSelectedGroup);
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return mAdapter.getChildView(mSelectedGroup, position,
+                    false, convertView, parent);
+        }
+
+    }
+
     private class HistoryAdapter extends DateSortedExpandableListAdapter {
+
         private Cursor mMostVisited, mHistoryCursor;
+        Drawable mFaviconBackground;
 
         HistoryAdapter(Context context) {
             super(context, HistoryQuery.INDEX_DATE_LAST_VISITED);
+            mFaviconBackground = BookmarkUtils.createListFaviconBackground(context);
         }
 
         @Override
@@ -430,6 +569,9 @@ public class BrowserHistoryPage extends Fragment
         @Override
         public int getChildrenCount(int groupPosition) {
             if (groupPosition >= super.getGroupCount()) {
+                if (mMostVisited == null) {
+                    return 0;
+                }
                 return mMostVisited.getCount();
             }
             return super.getChildrenCount(groupPosition);
@@ -497,6 +639,7 @@ public class BrowserHistoryPage extends Fragment
                         item.getPaddingTop(),
                         item.getPaddingRight(),
                         item.getPaddingBottom());
+                item.setFaviconBackground(mFaviconBackground);
             } else {
                 item = (HistoryItem) convertView;
             }
