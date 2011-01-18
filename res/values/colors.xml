@@ -33,4 +33,5 @@
     <color name="qc_slice_active">#E02090FF</color>
     <color name="bookmarkWidgetFaviconBackground">#23ffffff</color>
     <color name="bookmarkListFaviconBackground">#23ffffff</color>
+    <color name="urlTextColor">#0E774A</color>
 </resources>
