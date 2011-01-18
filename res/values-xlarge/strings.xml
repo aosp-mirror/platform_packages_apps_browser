@@ -30,4 +30,6 @@
     <string name="contextmenu_openlink_newwindow_background">Open in new background tab</string>
     <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
     <string name="open_all_in_new_window">Open all in new tabs</string>
+    <!-- Settings summary CHAR LIMIT=50]-->
+    <string name="pref_content_open_in_background_summary">Open new tabs behind the current one</string>
 </resources>
