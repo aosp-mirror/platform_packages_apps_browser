@@ -254,6 +254,9 @@
     <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
     <string name="contextmenu_savelink">Save link</string>
+    <!-- Context Menu item to send the url of the selected link to someone else,
+            via Gmail or another app [CHAR LIMIT=50] -->
+    <string name="contextmenu_sharelink">Share link</string>
     <!-- Context Menu item -->
     <string name="contextmenu_copy">Copy</string>
     <!-- Context Menu item to copy the url of the selected link to the
