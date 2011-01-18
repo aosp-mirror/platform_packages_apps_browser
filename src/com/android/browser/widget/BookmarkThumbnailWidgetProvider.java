@@ -82,7 +82,7 @@ public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
         PendingIntent launchBrowser = PendingIntent.getActivity(context, 0,
                 new Intent(BrowserActivity.ACTION_SHOW_BROWSER, null, context,
                     BrowserActivity.class),
-                PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT);
         for (int appWidgetId : appWidgetIds) {
             Intent updateIntent = new Intent(context, BookmarkThumbnailWidgetService.class);
             updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
