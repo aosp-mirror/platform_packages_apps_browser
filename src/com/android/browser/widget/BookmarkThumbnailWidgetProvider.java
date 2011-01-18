@@ -90,7 +90,7 @@ public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(),
                     R.layout.bookmarkthumbnailwidget);
             views.setOnClickPendingIntent(R.id.app_shortcut, launchBrowser);
-            views.setRemoteAdapter(R.id.bookmarks_list, updateIntent);
+            views.setRemoteAdapter(appWidgetId, R.id.bookmarks_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.bookmarks_list);
             Intent ic = new Intent(context, BookmarkThumbnailWidgetService.class);
             views.setPendingIntentTemplate(R.id.bookmarks_list,
