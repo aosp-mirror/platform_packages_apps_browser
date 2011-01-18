@@ -410,6 +410,8 @@
     <string name="autofill_profile_editor_country">Country:</string>
     <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
     <string name="autofill_profile_editor_phone_number">Phone:</string>
+    <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+    <string name="autofill_profile_editor_phone_number_invalid">Invalid phone number</string>
 
     <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
     <string name="autofill_profile_editor_save_profile">Save profile</string>
