@@ -20,6 +20,7 @@ import com.android.browser.ScrollWebView.ScrollListener;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -68,6 +69,14 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         mActionBar.setCustomView(mTabBar);
+    }
+
+    @Override
+    public void showComboView(boolean startWithHistory, Bundle extras) {
+        super.showComboView(startWithHistory, extras);
+        if (mUseQuickControls) {
+            mActionBar.show();
+        }
     }
 
     @Override
