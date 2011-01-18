@@ -86,9 +86,17 @@ public class GoogleAccountLogin extends Thread implements
                 .appendQueryParameter("SID", mSid)
                 .appendQueryParameter("LSID", mLsid)
                 .build().toString();
+        // Check mRunnable to see if the request has been canceled.  Otherwise
+        // we might access a destroyed WebView.
+        String ua = null;
+        synchronized (this) {
+            if (mRunnable == null) {
+                return;
+            }
+            ua = mWebView.getSettings().getUserAgentString();
+        }
         // Intentionally not using Proxy.
-        AndroidHttpClient client = AndroidHttpClient.newInstance(
-                mWebView.getSettings().getUserAgentString());
+        AndroidHttpClient client = AndroidHttpClient.newInstance(ua);
         HttpPost request = new HttpPost(url);
 
         String result = null;
@@ -119,7 +127,15 @@ public class GoogleAccountLogin extends Thread implements
                 .build().toString();
         mActivity.runOnUiThread(new Runnable() {
             @Override public void run() {
-                mWebView.loadUrl(newUrl);
+                // Check mRunnable in case the request has been canceled.  This
+                // is most likely not necessary as run() is the only non-UI
+                // thread that calls done() but I am paranoid.
+                synchronized (GoogleAccountLogin.this) {
+                    if (mRunnable == null) {
+                        return;
+                    }
+                    mWebView.loadUrl(newUrl);
+                }
             }
         });
     }
