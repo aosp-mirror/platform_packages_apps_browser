@@ -647,7 +647,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     private void copy(CharSequence text) {
         ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(
                 Context.CLIPBOARD_SERVICE);
-        cm.setPrimaryClip(ClipData.newRawUri(null, null, Uri.parse(text.toString())));
+        cm.setPrimaryClip(ClipData.newRawUri(null, Uri.parse(text.toString())));
     }
 
     @Override
