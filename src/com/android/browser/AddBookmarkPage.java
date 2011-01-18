@@ -105,7 +105,7 @@ public class AddBookmarkPage extends Activity
     private View mFolderNamerHolder;
     private View mAddNewFolder;
     private View mAddSeparator;
-    private long mCurrentFolder = 0;
+    private long mCurrentFolder;
     private FolderAdapter mAdapter;
     private BreadCrumbView mCrumbs;
     private TextView mFakeTitle;
@@ -218,8 +218,26 @@ public class AddBookmarkPage extends Activity
             if (mSaveToHomeScreen) {
                 mFolder.setSelectionIgnoringSelectionChange(0);
             } else {
-                // FIXME: Need to find the actual folder.
-                mFolder.setSelectionIgnoringSelectionChange(mEditingFolder ? 0 : 1);
+                if (mCurrentFolder == mRootFolder) {
+                    mFolder.setSelectionIgnoringSelectionChange(mEditingFolder ? 0 : 1);
+                } else {
+                    Object data = mCrumbs.getTopData();
+                    if (data != null && ((Folder) data).Id == mCurrentFolder) {
+                        // We are showing the correct folder heirarchy. The
+                        // folder selector will say "Other folder..."  Change it
+                        // to say the name of the folder once again.
+                        ((TextView) mFolder.getSelectedView()).setText(((Folder) data).Name);
+                    } else {
+                        // We are not be showing the correct folder heirarchy.
+                        // Clear the Crumbs and find the proper folder
+                        mCrumbs.clear();
+                        setupTopCrumb();
+                        LoaderManager manager = getLoaderManager();
+                        manager.restartLoader(LOADER_ID_ALL_FOLDERS, null, this);
+                        manager.restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
+
+                    }
+                }
             }
         }
     }
@@ -709,11 +727,7 @@ public class AddBookmarkPage extends Activity
         if (mCurrentFolder == DEFAULT_FOLDER_ID) {
             mCurrentFolder = mRootFolder;
         }
-        String name = getString(R.string.bookmarks);
-        mTopLevelLabel = (TextView) mCrumbs.pushView(name, false,
-                new Folder(name, mRootFolder));
-        // To better match the other folders.
-        mTopLevelLabel.setCompoundDrawablePadding(6);
+        setupTopCrumb();
         if (mEditingExisting || TextUtils.isEmpty(mOriginalUrl)) {
             onCurrentFolderFound();
         } else {
@@ -722,6 +736,14 @@ public class AddBookmarkPage extends Activity
             // bookmark, see if the bookmark already exists.
             getLoaderManager().initLoader(LOADER_ID_CHECK_FOR_DUPE, null, this);
         }
+    }
+
+    private void setupTopCrumb() {
+        String name = getString(R.string.bookmarks);
+        mTopLevelLabel = (TextView) mCrumbs.pushView(name, false,
+                new Folder(name, mRootFolder));
+        // To better match the other folders.
+        mTopLevelLabel.setCompoundDrawablePadding(6);
     }
 
     private void onCurrentFolderFound() {
