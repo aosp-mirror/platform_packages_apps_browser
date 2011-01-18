@@ -76,6 +76,8 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Pievienot grāmatzīmēm"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Saglabāt šo lapu kā grāmatzīmi"</string>
+    <!-- no translation found for remove (7820112494467011374) -->
+    <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"Rediģēt grāmatzīmi"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Pievienot saīsni uz sākumu"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Atvērt"</string>
@@ -117,7 +119,8 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Tukša mape"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Atvērt"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Atvērt jaunā logā"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Atzīmēt saiti ar grāmatzīmi"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
+    <skip />
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Saglabāt saiti"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Kopīgot saiti"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopēt"</string>
@@ -170,6 +173,14 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Tīmekļa veidlapas aizpildīšana ar vienu klikšķi"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Autom. aizpildes iestatījumi"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Iestatīt un pārvaldīt automātiski aizpildīto veidlapu datus"</string>
+    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
+    <skip />
+    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
+    <skip />
+    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
+    <skip />
+    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Automātiskās aizpildes funkcija izmantos profilā sniegto informāciju, lai ātri aizpildītu tīmekļa veidlapas."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Vārds, uzvārds:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-pasta adrese:"</string>
@@ -183,12 +194,17 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Pasta indekss:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Valsts:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Tālrunis:"</string>
+    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
+    <skip />
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Saglabāt profilu"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profils ir saglabāts"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profils ir dzēsts"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Dzēst profilu"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Pārlūkprogramma var automātiski aizpildīt šāda veida tīmekļa veidlapas. Vai vēlaties iestatīt savu profilu?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Automātisko aizpildi vienmēr var konfigurēt sadaļā Pārlūkprogrammas iestatījumi -&gt; Personiskie iestatījumi."</string>
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Automātisko aizpildi vienmēr var konfigurēt sadaļā Pārlūkprogrammas iestatījumi -&amp;gt; Personiskie iestatījumi."</string>
+    <!-- no translation found for disable_autofill (3706426217720202898) -->
+    <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Konfidencialitāte un drošība"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Notīrīt kešatmiņu"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Notīrīt lokālajā kešatmiņā saglabāto saturu un datu bāzes"</string>
@@ -261,8 +277,7 @@
     <item msgid="2193955365569270096">"Korejiešu (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Teksta kodējums"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorija"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Ātrās vadīklas"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Lai piekļūtu ātrajām vadīklām, velciet īkšķi no kreisās malas uz labo."</string>
     <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
@@ -364,5 +379,4 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Pievienot Android grāmatzīmes konta <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> grāmatzīmēm"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Kopīgot"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Vairs nav pieejamu ciļņu"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Izvēlieties kontu vai atceliet darbību, lai pieteiktos manuāli."</string>
 </resources>

@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"เพิ่มลงในบุ๊กมาร์ก"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"บุ๊กมาร์กหน้าเว็บนี้"</string>
+    <string name="remove" msgid="7820112494467011374">"ลบออก"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"แก้ไขบุ๊กมาร์ก"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"เพิ่มทางลัดไปหน้าแรก"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"เปิด"</string>
@@ -117,7 +118,8 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"โฟลเดอร์ว่าง"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"เปิด"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"เปิดในหน้าต่างใหม่"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"ลิงก์บุ๊กมาร์ก"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
+    <skip />
     <string name="contextmenu_savelink" msgid="5508554930832538184">"บันทึกลิงก์"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"แบ่งปันลิงก์"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"คัดลอก"</string>
@@ -170,6 +172,14 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"กรอกข้อมูลเว็บฟอร์มได้ในคลิกเดียว"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"การตั้งค่าป้อนอัตโนมัติ"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"ตั้งค่าและจัดการข้อมูลสำหรับฟอร์มที่ป้อนข้อมูลอัตโนมัติ"</string>
+    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
+    <skip />
+    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
+    <skip />
+    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
+    <skip />
+    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"การป้อนอัตโนมัติจะใช้โปรไฟล์ของคุณเพื่อช่วยให้คุณกรอกเว็บฟอร์มได้ในคลิกเดียว"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"ชื่อเต็ม:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"อีเมล:"</string>
@@ -183,12 +193,17 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"รหัสไปรษณีย์:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"ประเทศ:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"โทรศัพท์:"</string>
+    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
+    <skip />
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"บันทึกโปรไฟล์"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"บันทึกโปรไฟล์แล้ว"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"ลบโปรไฟล์แล้ว"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"ลบโปรไฟล์"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"เบราว์เซอร์จะกรอกเว็บฟอร์มให้โดยอัตโนมัติเช่นฟอร์มนี้ คุณต้องการตั้งค่าโปรไฟล์ของคุณหรือไม่"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"ฟังก์ชันป้อนอัตโนมัติสามารถกำหนดค่าได้ผ่านการตั้งค่าเบราว์เซอร์ -&gt; การตั้งค่าส่วนบุคคล"</string>
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"ฟังก์ชันป้อนอัตโนมัติสามารถกำหนดค่าได้ผ่านการตั้งค่าเบราว์เซอร์ -&amp;gt; การตั้งค่าส่วนบุคคล"</string>
+    <!-- no translation found for disable_autofill (3706426217720202898) -->
+    <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"ข้อมูลส่วนบุคคลและความปลอดภัย"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"ล้างแคช"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"ล้างเนื้อหาและฐานข้อมูลที่เก็บไว้ในเครื่อง"</string>
@@ -261,8 +276,7 @@
     <item msgid="2193955365569270096">"เกาหลี (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"การเข้ารหัสข้อความ"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"ห้องปฏิบัติการ"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"การควบคุมอย่างรวดเร็ว"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"กวาดนิ้วหัวแม่มือจากขอบซ้ายหรือขวาเพื่อเข้าถึงการควบคุมอย่างรวดเร็ว"</string>
     <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
@@ -364,5 +378,4 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"เพิ่มบุ๊กมาร์ก Android ของคุณลงในบุ๊กมาร์กสำหรับ <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"แบ่งปัน"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"ไม่สามารถใช้แท็บเพิ่มได้"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"เลือกบัญชีหรือยกเลิกเพื่อลงชื่อเข้าใช้ด้วยตนเอง"</string>
 </resources>

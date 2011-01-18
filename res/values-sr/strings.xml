@@ -76,6 +76,8 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Додај у обележиваче"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Обележавање ове странице"</string>
+    <!-- no translation found for remove (7820112494467011374) -->
+    <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"Измени обележивач"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Додај пречицу на почетну"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Отвори"</string>
@@ -117,7 +119,8 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Празан директоријум"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Отвори"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Отвори у новом прозору"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Обележи везу"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
+    <skip />
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Сачувај везу"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Дели везу"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Копирај"</string>
@@ -156,12 +159,9 @@
     <string name="pref_use_default" msgid="192587563274735878">"Подразумевана страница"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Аутоматски уклопи странице"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Подешавање формата веб страница тако да се уклопе на екран"</string>
-    <!-- no translation found for pref_general_title (1946872771219249323) -->
-    <skip />
-    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
-    <skip />
-    <!-- no translation found for pref_general_autofill_title (64638897890112873) -->
-    <skip />
+    <string name="pref_general_title" msgid="1946872771219249323">"Општa"</string>
+    <string name="pref_general_sync_title" msgid="3138637035975860324">"Синхронизација"</string>
+    <string name="pref_general_autofill_title" msgid="64638897890112873">"Аутоматско попуњавање"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Синхронизуј са програмом Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Делите обележиваче и друге податке између Android прегледача и програма Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Google налог"</string>
@@ -173,6 +173,14 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Попуните Веб обрасце само једним кликом"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Подешавања аутоматског попуњавања"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Подешавајте и управљајте подацима за аутоматски попуњене обрасце"</string>
+    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
+    <skip />
+    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
+    <skip />
+    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
+    <skip />
+    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Аутоматско попуњавање ће користити ваш профил како би вам помогло у попуњавању веб образаца једним кликом."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Пуно име:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Е-пошта:"</string>
@@ -186,42 +194,42 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Поштански број:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Земља:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Телефон:"</string>
+    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
+    <skip />
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Сачувај профил"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Профил је сачуван"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Профил је избрисан"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Избриши профил"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Прегледач може аутоматски да попуњава веб обрасце попут овог. Желите ли да подесите профил?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Аутоматско попуњавање увек можете да конфигуришете преко Подешавања прегледача – &gt; Лична подешавања."</string>
-    <!-- no translation found for pref_privacy_security_title (1705642466867300373) -->
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Аутоматско попуњавање увек можете да конфигуришете преко Подешавања прегледача – &amp;gt; Лична подешавања."</string>
+    <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
+    <string name="pref_privacy_security_title" msgid="1705642466867300373">"Приватност и безбедност"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Обриши кеш"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Брисање садржаја и база података из локалног кеша"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Садржај и базе података биће избрисани из локалног кеша."</string>
-    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
-    <skip />
+    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Колачићи"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Избриши све податке колачића"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Брисање свих колачића из прегледача"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Сви колачићи биће избрисани."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Обриши историју"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Брисање историје навигације у прегледачу"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Историја навигације у прегледачу биће избрисана."</string>
-    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
-    <skip />
+    <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Подаци обрасца"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Обриши податке из обрасца"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Брисање свих сачуваних података образаца"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Сви сачувани подаци за обрасце биће избрисани."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Обриши лозинке"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Брисање свих сачуваних лозинки"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Све сачуване лозинке биће избрисане."</string>
-    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
-    <skip />
+    <string name="pref_privacy_location_title" msgid="7458378016606081067">"Локација"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Омогући локацију"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Омогућавање да сајтови захтевају приступ вашој локацији"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Обриши приступ локацији"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Брисање приступа локацији за све веб сајтове"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Брисање приступа локацији за све веб сајтове"</string>
-    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
-    <skip />
+    <string name="pref_security_passwords_title" msgid="5734190542383756711">"Лозинке"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Запамти лозинке"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Чување корисничких имена и лозинки за веб сајтове"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Запамти податке из обрасца"</string>
@@ -251,8 +259,7 @@
     <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Напредна подешавања"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Подешавања веб сајта"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Напредна подешавања за појединачне веб сајтове"</string>
-    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
-    <skip />
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Враћање подразумеваних вредности"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Поново постави подразумевано"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Враћање подразумеваних подешавања"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Поново ће бити постављене подразумеване вредности подешавања."</string>
@@ -270,12 +277,9 @@
     <item msgid="2193955365569270096">"корејски (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Кодирање текста"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
-    <!-- no translation found for pref_lab_quick_controls (2105979166017257647) -->
-    <skip />
-    <!-- no translation found for pref_lab_quick_controls_summary (8025196176636589803) -->
-    <skip />
+    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"Експериментална функција"</string>
+    <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Брзе контроле"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Листајте палцем са леве или десне ивице да бисте приступили брзим контролама"</string>
     <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
     <skip />
     <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
@@ -375,6 +379,4 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Додајте Android обележиваче у обележиваче за <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Дели"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Нема више доступних картица"</string>
-    <!-- no translation found for account_picker_title (2199261460783026844) -->
-    <skip />
 </resources>
