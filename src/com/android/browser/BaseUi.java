@@ -430,7 +430,9 @@ public abstract class BaseUi implements UI, WebViewFactory {
                         CombinedBookmarkHistoryView.FRAGMENT_ID_HISTORY
                         : CombinedBookmarkHistoryView.FRAGMENT_ID_BOOKMARKS,
                 extras);
-        getEmbeddedTitleBar().setVisibility(View.GONE);
+        FrameLayout wrapper =
+            (FrameLayout) mContentView.findViewById(R.id.webview_wrapper);
+        wrapper.setVisibility(View.GONE);
         hideFakeTitleBar();
         dismissIME();
         if (mActiveTab != null) {
@@ -447,7 +449,9 @@ public abstract class BaseUi implements UI, WebViewFactory {
     public void hideComboView() {
         if (mComboView != null) {
             mContentView.removeView(mComboView);
-            getEmbeddedTitleBar().setVisibility(View.VISIBLE);
+            FrameLayout wrapper =
+                (FrameLayout) mContentView.findViewById(R.id.webview_wrapper);
+            wrapper.setVisibility(View.VISIBLE);
             mComboView = null;
         }
         if (mActiveTab != null) {
