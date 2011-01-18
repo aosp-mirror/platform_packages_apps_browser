@@ -22,39 +22,28 @@ import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngines;
 
 import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.ContentObserver;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.provider.Browser;
-import android.provider.Settings;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
-import android.webkit.ValueCallback;
-import android.webkit.WebView;
-import android.webkit.WebViewDatabase;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.AutoFillProfile;
 import android.webkit.WebStorage;
-import android.widget.Toast;
+import android.webkit.WebView;
+import android.webkit.WebViewDatabase;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.Observable;
 
 /*
@@ -633,6 +622,14 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         ed.putString(PREF_AUTOLOGIN_ACCOUNT, name);
         ed.apply();
         autoLoginAccount = name;
+    }
+
+    public void setAutoLoginEnabled(Context context, boolean enable) {
+        Editor ed = PreferenceManager.
+                getDefaultSharedPreferences(context).edit();
+        ed.putBoolean(PREF_AUTOLOGIN, enable);
+        ed.apply();
+        autoLoginEnabled = enable;
     }
 
     public void setAutoFillProfile(Context ctx, AutoFillProfile profile, Message msg) {

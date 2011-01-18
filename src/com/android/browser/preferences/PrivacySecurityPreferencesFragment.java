@@ -22,12 +22,9 @@ import com.android.browser.R;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
@@ -47,19 +44,40 @@ public class PrivacySecurityPreferencesFragment extends PreferenceFragment
 
         Preference e = findPreference(BrowserSettings.PREF_CLEAR_HISTORY);
         e.setOnPreferenceChangeListener(this);
-        e = findPreference(BrowserSettings.PREF_AUTOLOGIN);
-        e.setOnPreferenceChangeListener(this);
-        updateAutoLoginSummary((CheckBoxPreference) e);
+        setupAutoLoginPreference();
     }
 
-    private void updateAutoLoginSummary(CheckBoxPreference pref) {
-        String account = mSettings.getAutoLoginAccount(getActivity());
-        if (account == null) {
-            pref.setChecked(false);
-            pref.setEnabled(false);
-            pref.setSummary(R.string.pref_autologin_no_account);
+    void setupAutoLoginPreference() {
+        ListPreference autologinPref = (ListPreference) findPreference(
+                BrowserSettings.PREF_AUTOLOGIN_ACCOUNT);
+        autologinPref.setOnPreferenceChangeListener(this);
+        updateAutoLoginSummary(autologinPref);
+        Account[] accounts = GoogleAccountLogin.getAccounts(getActivity());
+        // +1 for disable
+        CharSequence[] names = new CharSequence[accounts.length + 1];
+        CharSequence[] values = new CharSequence[names.length];
+        int i = 0;
+        int defaultAccount = 0;
+        for (Account a : accounts) {
+            values[i] = names[i] = a.name;
+            i++;
+        }
+        names[i] = getResources().getString(R.string.pref_autologin_disable);
+        values[i] = "";
+        autologinPref.setEntries(names);
+        autologinPref.setEntryValues(values);
+    }
+
+    private void updateAutoLoginSummary(Preference pref) {
+        if (!mSettings.isAutoLoginEnabled()) {
+            pref.setSummary(R.string.pref_autologin_disable);
         } else {
-            pref.setSummary(getString(R.string.pref_autologin_summary, account));
+            String account = mSettings.getAutoLoginAccount(getActivity());
+            if (account == null) {
+                pref.setSummary(R.string.pref_autologin_no_account);
+            } else {
+                pref.setSummary(getString(R.string.pref_autologin_summary, account));
+            }
         }
     }
 
@@ -72,68 +90,20 @@ public class PrivacySecurityPreferencesFragment extends PreferenceFragment
             getActivity().setResult(Activity.RESULT_OK, (new Intent()).putExtra(Intent.EXTRA_TEXT,
                     pref.getKey()));
             return true;
-        } else if (pref.getKey().equals(BrowserSettings.PREF_AUTOLOGIN)) {
-            boolean val = ((Boolean) objValue).booleanValue();
-            if (val) {
-                selectAccount((CheckBoxPreference) pref);
-                return false;
+        } else if (pref.getKey().equals(BrowserSettings.PREF_AUTOLOGIN_ACCOUNT)) {
+            String account = (String) objValue;
+            if (account.length() == 0) {
+                // Disable
+                mSettings.setAutoLoginEnabled(getActivity(), false);
+            } else {
+                mSettings.setAutoLoginEnabled(getActivity(), true);
             }
+            mSettings.setAutoLoginAccount(getActivity(), account);
+            updateAutoLoginSummary(pref);
             return true;
         }
 
         return false;
     }
 
-    class AccountCallback implements OnClickListener {
-        private final Account[] mAccounts;
-        private final CheckBoxPreference mPref;
-
-        public AccountCallback(Account[] accounts, CheckBoxPreference pref) {
-            mAccounts = accounts;
-            mPref = pref;
-        }
-
-        public void onClick(DialogInterface d, int which) {
-            saveAutoLoginAccount(mPref, mAccounts[which].name);
-            d.dismiss();
-        }
-    }
-
-    private void saveAutoLoginAccount(CheckBoxPreference pref, String name) {
-        mSettings.setAutoLoginAccount(getActivity(), name);
-        pref.setChecked(true);
-        updateAutoLoginSummary(pref);
-    }
-
-    private void selectAccount(CheckBoxPreference pref) {
-        Account[] accounts = GoogleAccountLogin.getAccounts(getActivity());
-        if (accounts.length == 0) {
-            mSettings.setAutoLoginAccount(getActivity(), null);
-            updateAutoLoginSummary(pref);
-            return;
-        } else if (accounts.length == 1) {
-            // No need for a dialog with one account.
-            saveAutoLoginAccount(pref, accounts[0].name);
-            return;
-        }
-
-        String account = mSettings.getAutoLoginAccount(getActivity());
-        CharSequence[] names = new CharSequence[accounts.length];
-        int i = 0;
-        int defaultAccount = 0;
-        for (Account a : accounts) {
-            if (a.name.equals(account)) {
-                defaultAccount = i;
-            }
-            names[i++] = a.name;
-        }
-
-        AccountCallback callback =
-                new AccountCallback(accounts, pref);
-        new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.pref_autologin_title)
-                .setSingleChoiceItems(names, defaultAccount, callback)
-                .setCancelable(true)
-                .show();
-    }
 }

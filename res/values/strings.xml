@@ -386,6 +386,8 @@
     <string name="pref_autologin_summary">Sign into Google sites automatically using <xliff:g>%s</xliff:g></string>
     <!-- Message shown during auto login [CHAR-LIMIT=none] -->
     <string name="pref_autologin_progress">Signing into Google sites using <xliff:g>%s</xliff:g></string>
+    <!-- Option in account list to disable autologin [CHAR-LIMIT=50] -->
+    <string name="pref_autologin_disable">Don\'t sign in automatically</string>
 
     <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
     <string name="autofill_profile_editor_heading">AutoFill will use your profile to help you complete web forms in a single click.</string>
