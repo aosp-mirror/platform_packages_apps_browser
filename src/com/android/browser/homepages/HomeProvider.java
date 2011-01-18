@@ -16,15 +16,20 @@
  */
 package com.android.browser.homepages;
 
+import com.android.browser.BrowserSettings;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
+import android.webkit.WebResourceResponse;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class HomeProvider extends ContentProvider {
 
@@ -76,6 +81,22 @@ public class HomeProvider extends ContentProvider {
             Log.e(TAG, "Failed to handle request: " + uri, e);
             return null;
         }
+    }
+
+    public static WebResourceResponse shouldInterceptRequest(Context context,
+            String url) {
+        try {
+            boolean useMostVisited = BrowserSettings.getInstance().useMostVisitedHomepage();
+            if (useMostVisited && url.startsWith("content://")) {
+                Uri uri = Uri.parse(url);
+                if (AUTHORITY.equals(uri.getAuthority())) {
+                    InputStream ins = context.getContentResolver()
+                            .openInputStream(uri);
+                    return new WebResourceResponse("text/html", "utf-8", ins);
+                }
+            }
+        } catch (Exception e) {}
+        return null;
     }
 
 }
