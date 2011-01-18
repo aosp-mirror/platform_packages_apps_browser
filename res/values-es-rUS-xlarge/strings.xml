@@ -1,104 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2010 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- XL xlarge -->
-    <string name="new_tab" msgid="7211896313409251144">"Pestaña nueva"</string>
-    <!-- XL xlarge -->
-    <string name="new_incognito_tab" msgid="8067945824740306172">"Nueva pestaña de incógnito"</string>
-    <!-- XL xlarge -->
-    <string name="active_tabs" msgid="5948496827915445500">"Pestañas"</string>
-    <!-- XL -->
-    <string name="tab_bookmarks" msgid="2107205776996598691">"Favoritos"</string>
-    <!-- XL -->
-    <string name="added_to_bookmarks" msgid="8889115451085864249">"Agregado a favoritos"</string>
-    <!-- XL -->
-    <string name="removed_from_bookmarks" msgid="7846438980097184281">"Suprimido de Favoritos"</string>
-    <!-- XL -->
-    <string name="sign_in_to" msgid="1214184176627571479">"Acceder a <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
-    <!-- XL -->
-    <string name="action" msgid="4943864730966939961">"Acceder"</string>
-    <!-- XL -->
-    <string name="add_to_bookmarks_menu_option" msgid="7552383875291126013">"Favoritos"</string>
-    <!-- XL -->
-    <string name="remove_from_bookmarks" msgid="7311939805508190918">"Eliminar de Favoritos"</string>
-    <!-- XL -->
-    <string name="bookmark_saved" msgid="1806548159693236924">"Guardado en los favoritos."</string>
-    <!-- XL -->
-    <string name="bookmark_cannot_save_url" msgid="8417203985466903497">"No se puede agregar esta URL a los favoritos."</string>
-    <!-- XL -->
-    <string name="bookmarks" msgid="8254231548777487838">"Favoritos"</string>
-    <!-- XL -->
-    <string name="copy_page_url" msgid="7121286358832939849">"Copiar la URL de la página"</string>
-    <!-- XL -->
-    <string name="contextheader_folder_bookmarkcount" msgid="7867101902984210591">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> favoritos"</string>
-    <!-- XL -->
-    <string name="contextheader_folder_empty" msgid="8989453566115363329">"Carpeta vacía"</string>
-    <!-- XL xlarge -->
-    <string name="contextmenu_openlink_newwindow" msgid="8177825954953587540">"Abrir en una ventana nueva"</string>
-    <!-- XL -->
-    <string name="contextmenu_map" msgid="3809951100283548665">"Mapa"</string>
-    <!-- XL -->
-    <string name="browser_bookmarks_page_bookmarks_text" msgid="4676739439702068160">"Favoritos"</string>
-    <!-- XL -->
-    <string name="menu_preferences" msgid="3003635465914395516">"Configuración"</string>
-    <!-- XL -->
-    <string name="pref_content_block_popups" msgid="6871160654981179930">"Bloquear ventanas emergentes"</string>
-    <!-- XL -->
-    <string name="pref_content_open_in_background" msgid="7928143573209470961">"Abrir en modo subordinado"</string>
-    <!-- XL -->
-    <string name="pref_content_homepage" msgid="6044903119907405007">"Definir página principal"</string>
-    <!-- XL -->
-    <string name="pref_content_autofit" msgid="152292940099720429">"Ajuste automático de páginas"</string>
-    <!-- XL -->
-    <string name="pref_autofill_profile_editor_summary" msgid="6606678927956330022">"Configurar &amp; administrar datos para los formularios de autocompletado"</string>
-    <!-- XL -->
-    <string name="autofill_profile_editor_heading" msgid="376355900106687672">"La función Autocompletar utilizará tu perfil para ayudarte a completar los formularios web con solo un clic."</string>
-    <!-- XL -->
-    <string name="autofill_setup_dialog_negative_toast" msgid="8606640740851832808">"Autocomp se configura en cualquier momento con Configuración del navegador -&gt; Configuración personal"</string>
-    <!-- XL -->
-    <string name="pref_privacy_security_title" msgid="1547485785692120937">"Privacidad &amp; Seguridad"</string>
-    <!-- XL -->
-    <string name="pref_privacy_clear_cookies" msgid="2430066169979191550">"Borrar todos los datos de las cookies"</string>
-    <!-- XL -->
-    <string name="pref_privacy_formdata_title" msgid="808174611258405509">"Datos del formulario"</string>
-    <!-- XL -->
-    <string name="pref_security_save_form_data" msgid="4687632734841414584">"Recordar datos del formulario"</string>
-    <!-- XL -->
-    <string name="pref_security_show_security_warning" msgid="237213216450431926">"Mostrar advertencias de seguridad"</string>
-    <!-- XL -->
-  <string-array name="pref_text_size_choices">
-    <item msgid="9175838437528854188">"Diminuto"</item>
-    <item msgid="8310610720691502080">"Pequeño"</item>
-    <item msgid="577786719596429685">"Normal"</item>
-    <item msgid="1882099825378500373">"Grande"</item>
-    <item msgid="2624955515232921031">"Enorme"</item>
-  </string-array>
-    <!-- XL -->
-    <string name="pref_default_zoom" msgid="7937970520334948703">"Zoom predeterminado"</string>
-    <!-- XL -->
-  <string-array name="pref_default_zoom_choices">
-    <item msgid="7308170040893292647">"Lejos"</item>
-    <item msgid="2127686869768024870">"Medio"</item>
-    <item msgid="6369171816013236032">"Cerrar"</item>
-  </string-array>
-    <!-- XL -->
-    <string name="pref_default_zoom_dialogtitle" msgid="8698964985032801767">"Zoom predeterminado"</string>
-    <!-- XL -->
-    <string name="pref_content_load_page" msgid="7460666469137362825">"Abrir las páginas en visión general"</string>
-    <!-- XL -->
-    <string name="pref_extras_title" msgid="7223601187104530963">"Avanzado"</string>
-    <!-- XL -->
-    <string name="pref_extras_reset_default_title" msgid="8689952816215143856">"Restablecer configuraciones predeterminadas"</string>
-    <!-- XL -->
-    <string name="pref_extras_reset_default" msgid="113675796607112935">"Restablecer a la forma predeterminada"</string>
-    <!-- XL -->
-    <string name="pref_extras_reset_default_dlg_title" msgid="5686450294662109619">"Restablecer a la forma predeterminada"</string>
-    <!-- XL -->
-    <string name="search_settings_description" msgid="8504084593679367617">"Favoritos e historial web"</string>
-    <!-- XL -->
-    <string name="search_the_web" msgid="3493318001113588865">"Buscar en la Web"</string>
-    <!-- XL -->
-    <string name="defaultBookmarksUpButton" msgid="5051877462652364478">"Favoritos"</string>
-    <!-- XL -->
-    <string name="max_tabs_warning" msgid="1283136201153746764">"No hay más etiquetas disponibles"</string>
+    <string name="new_tab" msgid="7275656655054293038">"Pestaña nueva"</string>
+    <string name="new_incognito_tab" msgid="5149742197322201152">"Nueva pestaña de incógnito"</string>
+    <string name="active_tabs" msgid="5324492165541331128">"Pestañas"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"Abrir en una ventana nueva"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow_background (5625314148071601758) -->
+    <skip />
+    <!-- no translation found for open_all_in_new_window (8498279523071618315) -->
+    <skip />
 </resources>

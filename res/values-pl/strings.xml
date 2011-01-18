@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Dodaj do Zakładek"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Dodaj tę stronę do zakładek"</string>
+    <string name="remove" msgid="7820112494467011374">"Usuń"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edytuj zakładkę"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Dodaj skrót do ekranu głównego"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Otwórz"</string>
@@ -117,7 +118,8 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Pusty folder"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Otwórz"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Otwórz w nowym oknie"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Dodaj link do zakładek"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
+    <skip />
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Zapisz link"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Udostępnij link"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopiuj"</string>
@@ -170,6 +172,14 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Wypełniaj formularze internetowe za pomocą jednego kliknięcia"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Ustawienia autouzupełniania"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Skonfiguruj dane dla automatycznie uzupełnianych formularzy i zarządzaj nimi"</string>
+    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
+    <skip />
+    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
+    <skip />
+    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
+    <skip />
+    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Twój profil będzie używany w funkcji autouzupełniania do wypełniania formularzy internetowych za pomocą jednego kliknięcia."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Imię i nazwisko:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
@@ -183,12 +193,17 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Kod pocztowy:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Kraj:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
+    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
+    <skip />
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Zapisz profil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profil został zapisany"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profil usunięto"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Usuń profil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Takie formularze internetowe mogą być automatycznie wypełniane w przeglądarce. Czy chcesz skonfigurować swój profil?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Autouzupełnianie można zawsze skonfigurować, wybierając kolejno opcje Ustawienia przeglądarki -&gt; Ustawienia osobiste."</string>
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Autouzupełnianie można zawsze skonfigurować, wybierając kolejno opcje Ustawienia przeglądarki -&amp;gt; Ustawienia osobiste."</string>
+    <!-- no translation found for disable_autofill (3706426217720202898) -->
+    <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Prywatność i bezpieczeństwo"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Wyczyść pamięć podręczną"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Wyczyść zawartość lokalnej pamięci podręcznej i baz danych"</string>
@@ -243,7 +258,7 @@
     <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Ustawienia zaawansowane"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Ustawienia witryn"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Ustawienia zaawansowane dla poszczególnych witryn"</string>
-    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Resetuj ustawienia domyślne"</string>
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Ustawienia domyślne"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Przywróć wartości domyślne"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Przywróć ustawienia domyślne"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Zostaną przywrócone wartości domyślne ustawień."</string>
@@ -261,10 +276,9 @@
     <item msgid="2193955365569270096">"koreański (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Kodowanie tekstu"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorium"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Szybkie sterowanie"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Przesuń kciukiem od lewej/prawej krawędzi, aby przejść do szybkiego sterowania"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Przesuń kciukiem od lewej lub prawej krawędzi, aby przejść do szybkiego sterowania"</string>
     <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
     <skip />
     <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
@@ -364,5 +378,4 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Dodaj zakładki z systemu Android do zakładek na koncie <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Udostępnij"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Brak dostępnych kart"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Wybierz konto lub anuluj, aby zalogować się ręcznie"</string>
 </resources>
