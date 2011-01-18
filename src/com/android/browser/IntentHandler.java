@@ -178,6 +178,8 @@ public class IntentHandler {
                         current.getWebView().dumpRenderTree(true);
                     } else if ("about:debug.display".equals(urlData.mUrl)) {
                         current.getWebView().dumpDisplayTree();
+                    } else if ("about:debug.nav".equals(urlData.mUrl)) {
+                        current.getWebView().debugDump();
                     } else {
                         mSettings.toggleDebugSettings();
                     }
