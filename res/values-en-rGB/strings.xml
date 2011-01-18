@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Add to Bookmarks"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Bookmark this page"</string>
+    <string name="remove" msgid="7820112494467011374">"Remove"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edit bookmark"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Add shortcut to home"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Open"</string>
@@ -117,7 +118,8 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Empty folder"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Open"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Open in new window"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Bookmark link"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
+    <skip />
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Save link"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Share link"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copy"</string>
@@ -170,6 +172,14 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Fill in web forms with a single click"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"AutoFill Settings"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Set up &amp; manage data for AutoFilled forms"</string>
+    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
+    <skip />
+    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
+    <skip />
+    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
+    <skip />
+    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"AutoFill will use your profile to help you complete web forms with a single click."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Full name:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
@@ -183,12 +193,17 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Postcode:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Country:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Phone:"</string>
+    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
+    <skip />
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Save profile"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profile saved"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profile deleted"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Delete profile"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Browser can complete web forms like this one automatically. Would you like to set up your profile?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Auto-Fill can always be configured through Browser Settings -&gt; Personal Settings."</string>
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Auto-Fill can always be configured through Browser Settings -&amp;gt; Personal Settings."</string>
+    <!-- no translation found for disable_autofill (3706426217720202898) -->
+    <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Privacy &amp; Security"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Clear cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Clear locally cached content and databases"</string>
@@ -261,8 +276,7 @@
     <item msgid="2193955365569270096">"Korean (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Text encoding"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"Lab"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Quick Controls"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Swipe thumb from left or right edge to access quick controls"</string>
     <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
@@ -364,5 +378,4 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Add your Android bookmarks to bookmarks for <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Share"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"No more tabs available"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Choose an account or cancel to log in manually"</string>
 </resources>

@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"添加到书签"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"将此页加为书签"</string>
+    <string name="remove" msgid="7820112494467011374">"删除"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"编辑书签"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"向主屏幕添加快捷方式"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"打开"</string>
@@ -117,7 +118,8 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空文件夹"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"打开"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"在新窗口中打开"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"将链接加入书签"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
+    <skip />
     <string name="contextmenu_savelink" msgid="5508554930832538184">"保存链接"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"分享链接"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"复制"</string>
@@ -170,6 +172,14 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"只需点击一下，即可填完网络表单"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自动填充设置"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"设置和管理自动填充表单的数据"</string>
+    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
+    <skip />
+    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
+    <skip />
+    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
+    <skip />
+    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"只需点击一下，自动填充功能即可使用您的个人资料帮助您完成网络表单。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"电子邮件地址："</string>
@@ -183,12 +193,17 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"邮政编码："</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"国家/地区："</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"电话："</string>
+    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
+    <skip />
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"保存个人资料"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"个人资料已保存"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"个人资料已删除"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"删除个人资料"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"浏览器可自动填充网络表单（例如该表单）。您希望设置个人资料吗？"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"您可以随时通过“浏览器设置”-&gt;“个人设置”对自动填充功能进行配置。"</string>
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"您可以随时通过“浏览器设置”-&amp;gt;“个人设置”对自动填充功能进行配置。"</string>
+    <!-- no translation found for disable_autofill (3706426217720202898) -->
+    <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"隐私与安全"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除缓存"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除存储在本地缓存中的内容和数据库"</string>
@@ -261,8 +276,7 @@
     <item msgid="2193955365569270096">"韩语 (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"文字编码"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"实验室"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"快速控制"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"从左侧或右侧边缘滑动拇指以使用快速控制"</string>
     <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
@@ -364,5 +378,4 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"将 Android 书签添加到 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的书签中"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"分享"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"没有更多标签可用"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"手动选择帐户或取消登录"</string>
 </resources>

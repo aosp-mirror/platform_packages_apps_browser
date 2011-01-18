@@ -76,6 +76,8 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Thêm vào dấu trang"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Đánh dấu trang này"</string>
+    <!-- no translation found for remove (7820112494467011374) -->
+    <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"Chỉnh sửa dấu trang"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Thêm lối tắt tới màn hình trang chủ"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Mở"</string>
@@ -117,7 +119,8 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Thư mục trống"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Mở"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Mở trong cửa sổ mới"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Đánh dấu liên kết"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
+    <skip />
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Lưu liên kết"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Chia sẻ liên kết"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Sao chép"</string>
@@ -170,6 +173,14 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Điền biểu mẫu web chỉ với một cú nhấp"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Cài đặt tự động điền"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Thiết lập &amp; quản lý dữ liệu cho biểu mẫu Tự động điền"</string>
+    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
+    <skip />
+    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
+    <skip />
+    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
+    <skip />
+    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Tự động điền sẽ sử dụng tiểu sử của bạn để giúp bạn hoàn thành biểu mẫu web chỉ bằng một cú nhấp chuột."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Tên đầy đủ:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
@@ -183,12 +194,17 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Mã zip:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Quốc gia:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Điện thoại:"</string>
+    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
+    <skip />
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Lưu tiểu sử"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Đã lưu tiểu sử"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Đã xóa tiểu sử"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Xóa tiểu sử"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Trình duyệt có thể tự động hoàn thành biểu mẫu web như biểu mẫu này. Bạn có muốn thiết lập cấu hình của mình không?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Luôn có thể định cấu hình tính năng Tự động điền thông qua Cài đặt trình duyệt -&gt; Cài đặt cá nhân."</string>
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Luôn có thể định cấu hình tính năng Tự động điền thông qua Cài đặt trình duyệt -&amp;gt; Cài đặt cá nhân."</string>
+    <!-- no translation found for disable_autofill (3706426217720202898) -->
+    <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Quyền riêng tư &amp; Bảo mật"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Xoá bộ nhớ cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Xoá nội dung và cơ sở dữ liệu được lưu trong bộ nhớ cache cục bộ"</string>
@@ -243,7 +259,7 @@
     <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Cài đặt nâng cao"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Cài đặt trang web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Cài đặt nâng cao cho các trang web riêng lẻ"</string>
-    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Đặt lại mặc định"</string>
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Đặt lại về mặc định"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Đặt lại về mặc định"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Khôi phục cài đặt mặc định"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Cài đặt sẽ hoàn nguyên về giá trị mặc định."</string>
@@ -261,8 +277,7 @@
     <item msgid="2193955365569270096">"Tiếng Hàn (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Mã hoá văn bản"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"Lab"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Điều khiển nhanh"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Ấn ngón tay từ cạnh trái hoặc phải để truy cập điều khiển nhanh"</string>
     <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
@@ -364,5 +379,4 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Thêm dấu trang Android của bạn vào dấu trang cho <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Chia sẻ"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Không có thêm tab nào"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Chọn tài khoản hoặc hủy đăng nhập thủ công"</string>
 </resources>

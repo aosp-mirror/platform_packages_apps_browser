@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"加入書籤"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"將這個網頁加入書籤"</string>
+    <string name="remove" msgid="7820112494467011374">"移除"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"編輯書籤"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"新增捷徑至主螢幕"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"開啟"</string>
@@ -117,7 +118,8 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空資料夾"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"開啟"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"在新視窗開啟"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"將連結加入書籤"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
+    <skip />
     <string name="contextmenu_savelink" msgid="5508554930832538184">"儲存連結"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"分享連結"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"複製"</string>
@@ -170,6 +172,14 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"輕按一下即可填妥網頁表單"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自動填入設定"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"設定和管理自動填入的表單資料"</string>
+    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
+    <skip />
+    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
+    <skip />
+    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
+    <skip />
+    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"自動填入功能會運用您的設定檔，讓您輕按一下即可填妥網頁表單。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"電子郵件："</string>
@@ -183,12 +193,17 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"郵遞區號："</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"國家/地區："</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"電話："</string>
+    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
+    <skip />
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"儲存設定檔"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"設定檔已儲存"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"個人資料已刪除"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"刪除設定檔"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"瀏覽器可以自動填寫這類網路表單，您要建立個人資料嗎？"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"自動填入功能可隨時透過 [瀏覽器設定] -&gt; [個人設定] 加以調整。"</string>
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"自動填入功能可隨時透過 [瀏覽器設定] -&amp;gt; [個人設定] 加以調整。"</string>
+    <!-- no translation found for disable_autofill (3706426217720202898) -->
+    <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"隱私權與安全性"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除快取"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除本機快取內容與資料庫"</string>
@@ -261,10 +276,9 @@
     <item msgid="2193955365569270096">"韓文 (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"文字編碼"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"研究室"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"快速控制項"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"將拇指從左側或右側滑動即可存取快速控制項"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"從左側或右側邊緣滑動拇指即可存取快速控制項"</string>
     <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
     <skip />
     <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
@@ -364,5 +378,4 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"將您的 Android 書籤新增至 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的書籤"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"分享"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"已無分頁可供使用"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"選擇一個帳戶，或選擇取消改以手動登入"</string>
 </resources>
