@@ -39,16 +39,15 @@ locales = ["cs-CZ", "da-DK", "de-AT", "de-CH", "de-DE", "el-GR", "en-AU",
 
 google_data = ["google", "Google", "google.com",
   "http://www.google.com/favicon.ico",
-  "http://www.google.com/m?hl={language}&amp;ie={inputEncoding}&amp;source=android-browser&amp;q={searchTerms}",
+  "http://www.google.com/search?hl={language}&amp;ie={inputEncoding}&amp;source=android-browser&amp;q={searchTerms}",
   "UTF-8",
-  "http://www.google.com/complete/search?hl={language}&amp;json=true&amp;q={searchTerms}"]
+  "http://www.google.com/complete/search?hl={language}&amp;client=android&amp;q={searchTerms}"]
 
 class SearchEngineManager(object):
   """Manages list of search engines and creates locale specific lists.
 
   The main method useful for the caller is generateListForLocale(), which
-  creates a locale specific search_engines.xml file suitable for use by the
-  Android WebSearchProvider implementation.
+  creates a locale specific donottranslate-search_engines.xml file.
   """
 
   def __init__(self):
@@ -195,7 +194,7 @@ class SearchEngineManager(object):
     self.writeEngineList(os.path.join(self.resdir, 'values'), "default")
 
   def generateListForLocale(self, locale):
-    """Creates a new locale specific search_engines.xml file.
+    """Creates a new locale specific donottranslate-search_engines.xml file.
 
     The new file contains search engines specific to that country. If required
     this function updates all_search_engines.xml file with any new search
@@ -237,7 +236,7 @@ class SearchEngineManager(object):
     text.append('  </string-array>\n');
 
     self.generateXmlFromTemplate(os.path.join(sys.path[0], 'search_engines.template.xml'),
-        os.path.join(dir_path, 'search_engines.xml'),
+        os.path.join(dir_path, 'donottranslate-search_engines.xml'),
         text)
 
   def generateXmlFromTemplate(self, template_path, out_path, text):
@@ -265,4 +264,3 @@ if __name__ == "__main__":
   for locale in locales:
     manager.generateListForLocale(locale)
   manager.writeAllEngines()
-
