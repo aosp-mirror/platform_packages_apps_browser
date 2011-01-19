@@ -16,9 +16,13 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bookmarks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/combo_paddingTop"
+    android:paddingLeft="@dimen/combo_paddingLeftRight"
+    android:paddingRight="@dimen/combo_paddingLeftRight">
 
     <FrameLayout
         android:id="@+id/header_container"

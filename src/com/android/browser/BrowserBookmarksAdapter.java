@@ -20,7 +20,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.PaintDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +31,7 @@ import android.widget.TextView;
 class BrowserBookmarksAdapter extends CursorAdapter {
     LayoutInflater mInflater;
     int mCurrentView;
-    PaintDrawable mFaviconBackground;
+    Drawable mFaviconBackground;
 
     /**
      *  Create a new BrowserBookmarksAdapter.
@@ -43,12 +43,7 @@ class BrowserBookmarksAdapter extends CursorAdapter {
         mInflater = LayoutInflater.from(context);
         selectView(defaultView);
         float density = context.getResources().getDisplayMetrics().density;
-        mFaviconBackground = new PaintDrawable();
-        int padding = (int) (5 * density);
-        mFaviconBackground.setPadding(padding, padding, padding, padding);
-        mFaviconBackground.getPaint().setColor(context.getResources()
-                .getColor(R.color.bookmarkListFaviconBackground));
-        mFaviconBackground.setCornerRadius(3 * density);
+        mFaviconBackground = BookmarkUtils.createListFaviconBackground(context);
     }
 
     @Override
