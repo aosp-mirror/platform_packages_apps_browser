@@ -385,7 +385,7 @@
     <!-- Summary when there is an account available [CHAR-LIMIT=none] -->
     <string name="pref_autologin_summary">Sign into Google sites automatically using <xliff:g>%s</xliff:g></string>
     <!-- Message shown during auto login [CHAR-LIMIT=none] -->
-    <string name="pref_autologin_progress">Signing into Google sites using <xliff:g>%s</xliff:g></string>
+    <string name="pref_autologin_progress">Signing into Google sites using <xliff:g>%s</xliff:g>\nYour Privacy &amp; Security settings control automatic Google sign-in</string>
     <!-- Option in account list to disable autologin [CHAR-LIMIT=50] -->
     <string name="pref_autologin_disable">Don\'t sign in automatically</string>
 
