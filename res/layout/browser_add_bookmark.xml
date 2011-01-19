@@ -86,7 +86,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:text="@string/remove"
-            android:drawableLeft="@*android:drawable/ic_menu_delete"
+            android:drawableLeft="@drawable/trashcan"
             android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
