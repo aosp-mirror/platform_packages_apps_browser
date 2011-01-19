@@ -65,11 +65,18 @@ public class AutoFillSettingsFragment extends Fragment {
     private class PhoneNumberValidator implements TextWatcher {
         // Keep in sync with kPhoneNumberLength in chrome/browser/autofill/phone_number.cc
         private static final int PHONE_NUMBER_LENGTH = 7;
+        private static final String PHONE_NUMBER_SEPARATORS_REGEX = "[\\s\\.\\(\\)-]";
 
         public void afterTextChanged(Editable s) {
-            int phoneNumberLength = s.toString().length();
+            String phoneNumber = s.toString();
+            int phoneNumberLength = phoneNumber.length();
 
-            if (phoneNumberLength > 0 && phoneNumberLength < PHONE_NUMBER_LENGTH) {
+            // Strip out any phone number separators.
+            phoneNumber = phoneNumber.replaceAll(PHONE_NUMBER_SEPARATORS_REGEX, "");
+
+            int strippedPhoneNumberLength = phoneNumber.length();
+
+            if (phoneNumberLength > 0 && strippedPhoneNumberLength < PHONE_NUMBER_LENGTH) {
                 mPhoneEdit.setError(getResources().getText(
                         R.string.autofill_profile_editor_phone_number_invalid));
             } else {
