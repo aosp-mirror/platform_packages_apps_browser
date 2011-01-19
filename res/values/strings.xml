@@ -326,7 +326,7 @@
         <item>ON_DEMAND</item>
         <item>OFF</item>
     </string-array>
-    <!-- Settings summary -->
+    <!-- Settings summary [CHAR LIMIT=50]-->
     <string name="pref_content_open_in_background_summary">Open new windows behind the current one</string>
     <!-- Settings label -->
     <string name="pref_content_homepage">Set home page</string>
