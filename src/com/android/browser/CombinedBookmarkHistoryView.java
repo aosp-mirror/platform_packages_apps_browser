@@ -57,6 +57,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
     final static String STARTING_FRAGMENT = "fragment";
 
+    final static int INVALID_ID = 0;
     final static int FRAGMENT_ID_BOOKMARKS = 1;
     final static int FRAGMENT_ID_HISTORY = 2;
 
@@ -66,7 +67,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
     private Bundle mExtras;
 
-    int mCurrentFragment;
+    int mCurrentFragment = INVALID_ID;
 
     ActionBar.Tab mTabBookmarks;
     ActionBar.Tab mTabHistory;
@@ -179,7 +180,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             // This is done because history uses orientation-specific padding
             FragmentManager fm = mActivity.getFragmentManager();
             mHistory = BrowserHistoryPage.newInstance(mUiController, mHistory.getArguments());
-            fm.openTransaction().replace(R.id.fragment, mHistory).commit();
+            fm.beginTransaction().replace(R.id.fragment, mHistory).commit();
         }
     }
 
@@ -241,14 +242,17 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        FragmentManager fm = mActivity.getFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        if (mCurrentFragment == FRAGMENT_ID_BOOKMARKS) {
-            transaction.remove(mBookmarks);
-        } else if (mCurrentFragment == FRAGMENT_ID_HISTORY) {
-            transaction.remove(mHistory);
+        if (mCurrentFragment != INVALID_ID) {
+            FragmentManager fm = mActivity.getFragmentManager();
+            FragmentTransaction transaction = fm.beginTransaction();
+            if (mCurrentFragment == FRAGMENT_ID_BOOKMARKS) {
+                transaction.remove(mBookmarks);
+            } else if (mCurrentFragment == FRAGMENT_ID_HISTORY) {
+                transaction.remove(mHistory);
+            }
+            transaction.commit();
+            mCurrentFragment = INVALID_ID;
         }
-        transaction.commit();
         mUiController.unregisterOptionsMenuHandler(this);
     }
 
