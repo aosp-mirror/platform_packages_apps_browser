@@ -23,6 +23,7 @@ import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -317,6 +318,12 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             return true;
         case R.id.add_bookmark:
             mUiController.bookmarkCurrentPage(mBookmarks.getFolderId());
+            return true;
+        case R.id.preferences_menu_id:
+            Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
+            intent.putExtra(BrowserPreferencesPage.CURRENT_PAGE,
+                    mUiController.getCurrentTopWebView().getUrl());
+            mActivity.startActivityForResult(intent, Controller.PREFERENCES_PAGE);
             return true;
         }
 
