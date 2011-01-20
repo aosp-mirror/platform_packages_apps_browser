@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:drawableLeft="@drawable/ic_list_bookmark"
+            android:drawableLeft="@drawable/ic_bookmark_on_holo_dark"
             android:text="@string/bookmark_this_page"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <ImageView android:id="@+id/remove_divider"

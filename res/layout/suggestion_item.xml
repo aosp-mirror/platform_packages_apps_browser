@@ -63,10 +63,10 @@
     </LinearLayout>
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/divider"
         android:scaleType="center"
-        android:src="@drawable/divider_vert"
+        android:background="@*android:drawable/list_divider_holo_light"
         />
     <ImageView
         android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
         android:id="@+id/icon2"
         android:scaleType="center"
         android:src="@drawable/ic_add_string"
-        android:background="@drawable/browserbarbutton"
+        android:background="?android:attr/activatedBackgroundIndicator"
         style="@style/HoloButton"
         android:layout_marginRight="16dip"
          />

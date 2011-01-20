@@ -44,7 +44,7 @@
         <item name="android:layout_marginLeft">16dip</item>
     </style>
     <style name="HoloButton" parent="@style/HoloIcon">
-        <item name="android:background">@drawable/browserbarbutton</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
     <style name="TabTitleSelected" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
