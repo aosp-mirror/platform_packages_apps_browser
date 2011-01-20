@@ -304,7 +304,11 @@ public class GeneralPreferencesFragment extends PreferenceFragment
             // Enable bookmark sync on all accounts
             Account[] accounts = (Account[]) getArguments().getParcelableArray("accounts");
             for (Account account : accounts) {
-                ContentResolver.setIsSyncable(account, BrowserContract.AUTHORITY, 1);
+                if (ContentResolver.getIsSyncable(account, BrowserContract.AUTHORITY) == 0) {
+                    // Account wasn't syncable, enable it
+                    ContentResolver.setIsSyncable(account, BrowserContract.AUTHORITY, 1);
+                    ContentResolver.setSyncAutomatically(account, BrowserContract.AUTHORITY, true);
+                }
             }
 
             dismiss();
