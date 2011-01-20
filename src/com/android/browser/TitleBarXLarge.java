@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.util.List;
@@ -56,8 +57,8 @@ public class TitleBarXLarge extends TitleBarBase
     private Drawable mReloadDrawable;
 
     private View mContainer;
-    private View mBackButton;
-    private View mForwardButton;
+    private ImageButton mBackButton;
+    private ImageButton mForwardButton;
     private ImageView mStar;
     private View mSearchButton;
     private View mUrlContainer;
@@ -83,8 +84,8 @@ public class TitleBarXLarge extends TitleBarBase
         mUiController = controller;
         mUi = ui;
         Resources resources = activity.getResources();
-        mStopDrawable = resources.getDrawable(R.drawable.ic_stop_normal);
-        mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_normal);
+        mStopDrawable = resources.getDrawable(R.drawable.ic_stop_holo_dark);
+        mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_holo_dark);
         mFocusDrawable = resources.getDrawable(
                 R.drawable.textfield_active_holo_dark);
         mUnfocusDrawable = resources.getDrawable(
@@ -102,8 +103,8 @@ public class TitleBarXLarge extends TitleBarBase
         mAllButton = findViewById(R.id.all_btn);
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
-        mBackButton = findViewById(R.id.back);
-        mForwardButton = findViewById(R.id.forward);
+        mBackButton = (ImageButton) findViewById(R.id.back);
+        mForwardButton = (ImageButton) findViewById(R.id.forward);
         mStar = (ImageView) findViewById(R.id.star);
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = findViewById(R.id.search);
@@ -131,6 +132,18 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlInput.setSelectAllOnFocus(true);
         mUrlInput.addTextChangedListener(this);
         setUrlMode(false);
+    }
+
+    void updateNavigationState(Tab tab) {
+        WebView web = tab.getWebView();
+        if (web != null) {
+            mBackButton.setImageResource(web.canGoBack()
+                    ? R.drawable.ic_back_holo_dark
+                    : R.drawable.ic_back_disabled_holo_dark);
+            mForwardButton.setImageResource(web.canGoForward()
+                    ? R.drawable.ic_forward_holo_dark
+                    : R.drawable.ic_forward_disabled_holo_dark);
+        }
     }
 
     public void setEditable(boolean editable) {

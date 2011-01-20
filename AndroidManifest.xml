@@ -175,10 +175,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="SaveToHomescreenDialog" android:label="Save to homescreen" android:theme="@android:style/Theme.Dialog"
-                  android:configChanges="orientation|keyboardHidden" android:windowSoftInputMode="stateHidden">
-        </activity>
-
         <!-- Bookmark thumbnail homescreen widget -->
         <receiver
             android:name=".widget.BookmarkThumbnailWidgetProvider"

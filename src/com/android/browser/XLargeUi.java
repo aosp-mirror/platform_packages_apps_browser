@@ -342,6 +342,12 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
+    protected void updateNavigationState(Tab tab) {
+        mTitleBar.updateNavigationState(tab);
+        mFakeTitleBar.updateNavigationState(tab);
+    }
+
+    @Override
     public void setUrlTitle(Tab tab) {
         super.setUrlTitle(tab);
         mTabBar.onUrlAndTitle(tab, tab.getUrl(), tab.getTitle());

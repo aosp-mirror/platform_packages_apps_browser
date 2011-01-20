@@ -99,7 +99,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         Resources res = mActivity.getResources();
         mInputManager = (InputMethodManager)
                 browser.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        mSecLockIcon = res.getDrawable(R.drawable.ic_secure);
+        mSecLockIcon = res.getDrawable(R.drawable.ic_secure_holo_dark);
         mMixLockIcon = res.getDrawable(R.drawable.ic_partial_secure);
 
         FrameLayout frameLayout = (FrameLayout) mActivity.getWindow()
@@ -184,6 +184,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         setUrlTitle(tab);
         setFavicon(tab);
         updateLockIconToLatest(tab);
+        updateNavigationState(tab);
     }
 
     @Override
@@ -517,6 +518,9 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     // -------------------------------------------------------------------------
+
+    protected void updateNavigationState(Tab tab) {
+    }
 
     /**
      * Update the lock icon to correspond to our latest state.
