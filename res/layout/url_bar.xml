@@ -27,6 +27,7 @@
             android:src="@drawable/ic_back_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:paddingLeft="16dip"
             style="@style/HoloButton" />
         <ImageButton
             android:id="@+id/forward"
@@ -46,7 +47,8 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:layout_marginLeft="16dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
             android:orientation="horizontal"
             android:background="@drawable/textfield_default_holo_dark">
             <ImageView
@@ -119,8 +121,8 @@
             android:id="@+id/all_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="4dip"
             android:scaleType="center"
+            android:paddingRight="16dip"
             style="@style/HoloButton"
             android:src="@drawable/ic_bookmarks_history_holo_dark" />
     </LinearLayout>
