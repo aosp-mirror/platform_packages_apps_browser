@@ -55,11 +55,9 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,7 +67,7 @@ import android.widget.Toast;
  * days of viewing.
  */
 public class BrowserHistoryPage extends Fragment
-        implements LoaderCallbacks<Cursor>, OnChildClickListener {
+        implements LoaderCallbacks<Cursor> {
 
     static final int LOADER_HISTORY = 1;
     static final int LOADER_MOST_VISITED = 2;
@@ -250,6 +248,8 @@ public class BrowserHistoryPage extends Fragment
         mChildWrapper = new HistoryChildWrapper(mAdapter);
         mChildList = new ListView(getActivity());
         mChildList.setAdapter(mChildWrapper);
+        mChildList.setOnItemClickListener(mChildItemClickListener);
+        registerForContextMenu(mChildList);
         ViewGroup prefs = (ViewGroup) mRoot.findViewById(com.android.internal.R.id.prefs);
         prefs.addView(mChildList);
 
@@ -269,6 +269,14 @@ public class BrowserHistoryPage extends Fragment
             CharSequence title = ((TextView) view).getText();
             mFragmentBreadCrumbs.setTitle(title, title);
             mChildWrapper.setSelectedGroup(position);
+        }
+    };
+
+    private OnItemClickListener mChildItemClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(
+                AdapterView<?> parent, View view, int position, long id) {
+            mCallbacks.onUrlSelected(((HistoryItem) view).getUrl(), false);
         }
     };
 
@@ -337,11 +345,7 @@ public class BrowserHistoryPage extends Fragment
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        ExpandableListContextMenuInfo i = (ExpandableListContextMenuInfo) menuInfo;
-        // Do not allow a context menu to come up from the group views.
-        if (!(i.targetView instanceof HistoryItem)) {
-            return;
-        }
+        AdapterContextMenuInfo i = (AdapterContextMenuInfo) menuInfo;
 
         // Inflate the menu
         Activity parent = getActivity();
@@ -380,8 +384,8 @@ public class BrowserHistoryPage extends Fragment
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        ExpandableListContextMenuInfo i =
-            (ExpandableListContextMenuInfo) item.getMenuInfo();
+        AdapterContextMenuInfo i =
+            (AdapterContextMenuInfo) item.getMenuInfo();
         if (i == null) {
             return false;
         }
@@ -422,16 +426,6 @@ public class BrowserHistoryPage extends Fragment
                 break;
         }
         return super.onContextItemSelected(item);
-    }
-
-    @Override
-    public boolean onChildClick(ExpandableListView parent, View v,
-            int groupPosition, int childPosition, long id) {
-        if (v instanceof HistoryItem) {
-            mCallbacks.onUrlSelected(((HistoryItem) v).getUrl(), false);
-            return true;
-        }
-        return false;
     }
 
     private static abstract class HistoryWrapper extends BaseAdapter {
