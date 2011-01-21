@@ -230,6 +230,17 @@ public class TabBar extends LinearLayout
         }
     }
 
+    boolean showsTitleBarIndicator() {
+        Tab tab = mTabControl.getCurrentTab();
+        if (tab != null) {
+            TabView tv = mTabMap.get(tab);
+            if (tv != null) {
+                return tv.showsIndicator();
+            }
+        }
+        return false;
+    }
+
     // callback after fake titlebar is shown
     void onShowTitleBar() {
         showTitleBarIndicator(false);
@@ -251,10 +262,14 @@ public class TabBar extends LinearLayout
         if (mTabControl.getCurrentTab() != null
                 && !isLoading()) {
             if (visibleTitleHeight == 0) {
-                mUi.hideFakeTitleBar();
-                showTitleBarIndicator(true);
+                if (!showsTitleBarIndicator()) {
+                    mUi.hideFakeTitleBar();
+                    showTitleBarIndicator(true);
+                }
             } else {
-                showTitleBarIndicator(false);
+                if (showsTitleBarIndicator()) {
+                    showTitleBarIndicator(false);
+                }
             }
         }
         mVisibleTitleHeight = visibleTitleHeight;
@@ -334,6 +349,10 @@ public class TabBar extends LinearLayout
             } else {
                 mIndicator.setVisibility(View.GONE);
             }
+        }
+
+        boolean showsIndicator() {
+            return (mIndicator.getVisibility() == View.VISIBLE);
         }
 
         @Override
