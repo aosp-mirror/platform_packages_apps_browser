@@ -21,37 +21,33 @@ import android.content.Context;
 import android.provider.Browser;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /**
  *  Layout representing a history item in the classic history viewer.
  */
-/* package */ class HistoryItem extends BookmarkItem {
+/* package */ class HistoryItem extends BookmarkItem
+        implements OnCheckedChangeListener {
 
     private CompoundButton  mStar;      // Star for bookmarking
-    private CompoundButton.OnCheckedChangeListener  mListener;
     /**
      *  Create a new HistoryItem.
      *  @param context  Context for this HistoryItem.
      */
     /* package */ HistoryItem(Context context) {
+        this(context, true);
+    }
+
+    /* package */ HistoryItem(Context context, boolean showStar) {
         super(context);
 
         mStar = (CompoundButton) findViewById(R.id.star);
-        mStar.setVisibility(View.VISIBLE);
-        mListener = new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView,
-                    boolean isChecked) {
-                if (isChecked) {
-                    // Uncheck ourseves. When the bookmark is actually added,
-                    // we will be notified
-                    setIsBookmark(false);
-                    Browser.saveBookmark(getContext(), getName(), mUrl);
-                } else {
-                    Bookmarks.removeFromBookmarks(getContext(),
-                            getContext().getContentResolver(), mUrl, getName());
-                }
-            }
-        };
+        mStar.setOnCheckedChangeListener(this);
+        if (showStar) {
+            mStar.setVisibility(View.VISIBLE);
+        } else {
+            mStar.setVisibility(View.GONE);
+        }
     }
     
     /* package */ void copyTo(HistoryItem item) {
@@ -75,6 +71,20 @@ import android.widget.CompoundButton;
     /* package */ void setIsBookmark(boolean isBookmark) {
         mStar.setOnCheckedChangeListener(null);
         mStar.setChecked(isBookmark);
-        mStar.setOnCheckedChangeListener(mListener);
+        mStar.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView,
+            boolean isChecked) {
+        if (isChecked) {
+            // Uncheck ourseves. When the bookmark is actually added,
+            // we will be notified
+            setIsBookmark(false);
+            Browser.saveBookmark(getContext(), getName(), mUrl);
+        } else {
+            Bookmarks.removeFromBookmarks(getContext(),
+                    getContext().getContentResolver(), mUrl, getName());
+        }
     }
 }

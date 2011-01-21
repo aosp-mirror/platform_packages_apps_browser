@@ -356,7 +356,7 @@ public class BrowserHistoryPage extends Fragment
 
         // Setup the header
         if (mContextHeader == null) {
-            mContextHeader = new HistoryItem(parent);
+            mContextHeader = new HistoryItem(parent, false);
         } else if (mContextHeader.getParent() != null) {
             ((ViewGroup) mContextHeader.getParent()).removeView(mContextHeader);
         }
