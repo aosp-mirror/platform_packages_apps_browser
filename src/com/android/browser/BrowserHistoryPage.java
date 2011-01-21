@@ -54,6 +54,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.webkit.WebIconDatabase.IconListener;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -245,6 +246,7 @@ public class BrowserHistoryPage extends Fragment
         mAdapter = new HistoryAdapter(getActivity());
         mGroupList.setAdapter(new HistoryGroupWrapper(mAdapter));
         mGroupList.setOnItemClickListener(mGroupItemClickListener);
+        mGroupList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         mChildWrapper = new HistoryChildWrapper(mAdapter);
         mChildList = new ListView(getActivity());
         mChildList.setAdapter(mChildWrapper);
@@ -269,6 +271,7 @@ public class BrowserHistoryPage extends Fragment
             CharSequence title = ((TextView) view).getText();
             mFragmentBreadCrumbs.setTitle(title, title);
             mChildWrapper.setSelectedGroup(position);
+            mGroupList.setItemChecked(position, true);
         }
     };
 
