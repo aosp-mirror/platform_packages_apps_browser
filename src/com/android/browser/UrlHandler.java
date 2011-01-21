@@ -119,8 +119,7 @@ public class UrlHandler {
         return false;
     }
 
-    boolean startActivityForUrl(String url)
-    {
+    boolean startActivityForUrl(String url) {
       Intent intent;
       // perform generic parsing of the URI to turn it into an Intent.
       try {
@@ -173,8 +172,7 @@ public class UrlHandler {
 
     // In case a physical keyboard is attached, handle clicks with the menu key
     // depressed by opening in a new tab
-    boolean handleMenuClick(Tab tab, String url)
-    {
+    boolean handleMenuClick(Tab tab, String url) {
         if (mController.isMenuDown()) {
             mController.openTab(tab, url, false);
             mActivity.closeOptionsMenu();
@@ -184,6 +182,8 @@ public class UrlHandler {
         return false;
     }
 
+    // TODO: Move this class into Tab, where it can be properly stopped upon
+    // closure of the tab
     private class RLZTask extends AsyncTask<Void, Void, String> {
         private Tab mTab;
         private Uri mSiteUri;
@@ -215,10 +215,13 @@ public class UrlHandler {
         }
 
         protected void onPostExecute(String result) {
-            // If the Activity Manager is not invoked, load the URL directly
-            if (!startActivityForUrl(result)) {
-                if (!handleMenuClick(mTab, result)) {
-                    mController.loadUrl(mWebView, result);
+            // Make sure the Tab was not closed while handling the task
+            if (mController.getTabControl().getTabIndex(mTab) != -1) {
+                // If the Activity Manager is not invoked, load the URL directly
+                if (!startActivityForUrl(result)) {
+                    if (!handleMenuClick(mTab, result)) {
+                            mController.loadUrl(mWebView, result);
+                    }
                 }
             }
         }
