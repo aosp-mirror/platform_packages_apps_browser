@@ -557,13 +557,13 @@ public class BrowserHistoryPage extends Fragment
 
         @Override
         public int getGroupCount() {
-            return super.getGroupCount() + (mMostVisited != null ? 1 : 0);
+            return super.getGroupCount() + (!isMostVisitedEmpty() ? 1 : 0);
         }
 
         @Override
         public int getChildrenCount(int groupPosition) {
             if (groupPosition >= super.getGroupCount()) {
-                if (mMostVisited == null) {
+                if (isMostVisitedEmpty()) {
                     return 0;
                 }
                 return mMostVisited.getCount();
@@ -576,6 +576,10 @@ public class BrowserHistoryPage extends Fragment
             if (!super.isEmpty()) {
                 return false;
             }
+            return isMostVisitedEmpty();
+        }
+
+        private boolean isMostVisitedEmpty() {
             return mMostVisited == null
                     || mMostVisited.isClosed()
                     || mMostVisited.getCount() == 0;
