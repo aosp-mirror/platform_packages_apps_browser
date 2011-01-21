@@ -21,6 +21,7 @@ import com.android.browser.R;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
@@ -60,6 +61,14 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
 
         e = findPreference(BrowserSettings.PREF_DEFAULT_TEXT_ENCODING);
         e.setOnPreferenceChangeListener(this);
+
+        e = findPreference(BrowserSettings.PREF_PLUGIN_STATE);
+        e.setOnPreferenceChangeListener(this);
+        updatePluginSummary((ListPreference) e);
+    }
+
+    void updatePluginSummary(ListPreference e) {
+        e.setSummary(e.getEntry());
     }
 
     /*
@@ -115,6 +124,11 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
                 getActivity().finish();
                 return true;
             }
+        } else if (pref.getKey().equals(BrowserSettings.PREF_PLUGIN_STATE)) {
+            ListPreference lp = (ListPreference) pref;
+            lp.setValue((String) objValue);
+            updatePluginSummary(lp);
+            return false;
         }
         return false;
     }

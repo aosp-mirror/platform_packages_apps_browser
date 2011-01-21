@@ -168,6 +168,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     public final static String PREF_MOST_VISITED_HOMEPAGE = "use_most_visited_homepage";
     public final static String PREF_AUTOLOGIN = "enable_autologin";
     public final static String PREF_AUTOLOGIN_ACCOUNT = "autologin_account";
+    public final static String PREF_PLUGIN_STATE = "plugin_state";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, " +
@@ -437,7 +438,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         javaScriptEnabled = p.getBoolean("enable_javascript",
                 javaScriptEnabled);
         pluginState = WebSettings.PluginState.valueOf(
-                p.getString("plugin_state", pluginState.name()));
+                p.getString(PREF_PLUGIN_STATE, pluginState.name()));
         javaScriptCanOpenWindowsAutomatically = !p.getBoolean(
             "block_popup_windows",
             !javaScriptCanOpenWindowsAutomatically);
