@@ -58,7 +58,7 @@
                   android:label="@string/application_name"
                   android:launchMode="singleTask"
                   android:alwaysRetainTaskState="true"
-                  android:configChanges="orientation|keyboardHidden"
+                  android:configChanges="orientation|keyboardHidden|keyboard"
                   android:theme="@style/BrowserTheme"
                   android:hardwareAccelerated="false"
                   android:windowSoftInputMode="adjustResize" >
