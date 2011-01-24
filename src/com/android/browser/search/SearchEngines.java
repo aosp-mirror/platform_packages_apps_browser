@@ -61,7 +61,7 @@ public class SearchEngines {
         return new OpenSearchSearchEngine(context, searchEngineInfo);
     }
 
-    private static SearchEngineInfo getSearchEngineInfo(Context context, String name) {
+    public static SearchEngineInfo getSearchEngineInfo(Context context, String name) {
         try {
             return new SearchEngineInfo(context, name);
         } catch (IllegalArgumentException exception) {
