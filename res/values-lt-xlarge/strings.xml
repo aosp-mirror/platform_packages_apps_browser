@@ -22,6 +22,7 @@
     <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"Atidaryti naujame skirtuke"</string>
     <!-- no translation found for contextmenu_openlink_newwindow_background (5625314148071601758) -->
     <skip />
-    <!-- no translation found for open_all_in_new_window (8498279523071618315) -->
+    <string name="open_all_in_new_window" msgid="8498279523071618315">"Atidaryti visas naujuose skirtukų lapuose"</string>
+    <!-- no translation found for pref_content_open_in_background_summary (7653600574808720292) -->
     <skip />
 </resources>

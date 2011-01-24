@@ -178,7 +178,9 @@
     <skip />
     <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
     <skip />
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
+    <skip />
+    <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
     <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"只需点击一下，自动填充功能即可使用您的个人资料帮助您完成网络表单。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
