@@ -148,14 +148,12 @@ class Tab {
             if (incognito) {
                 mUrl = "browser:incognito";
                 mTitle = c.getString(R.string.new_incognito_tab);
-                mFavicon = BitmapFactory.decodeResource(
-                        c.getResources(), R.drawable.fav_incognito);
             } else {
                 mUrl = "";
                 mTitle = c.getString(R.string.new_tab);
-                mFavicon = BitmapFactory.decodeResource(
-                        c.getResources(), R.drawable.app_web_browser_sm);
             }
+            mFavicon = BitmapFactory.decodeResource(
+                    c.getResources(), R.drawable.app_web_browser_sm);
             mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
         }
 
@@ -170,13 +168,8 @@ class Tab {
             if (favicon != null) {
                 mFavicon = favicon;
             } else {
-                if (incognito) {
-                    mFavicon = BitmapFactory.decodeResource(
-                            c.getResources(), R.drawable.fav_incognito);
-                } else {
-                    mFavicon = BitmapFactory.decodeResource(
-                            c.getResources(), R.drawable.app_web_browser_sm);
-                }
+                mFavicon = BitmapFactory.decodeResource(
+                        c.getResources(), R.drawable.app_web_browser_sm);
             }
         }
     }
