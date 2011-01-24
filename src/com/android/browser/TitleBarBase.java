@@ -75,4 +75,5 @@ public class TitleBarBase extends LinearLayout {
 
     /* package */ void setInVoiceMode(boolean inVoiceMode) {}
 
+    /* package */ void setIncognitoMode(boolean incognito) {}
 }

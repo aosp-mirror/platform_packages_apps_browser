@@ -70,6 +70,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     Object mResultsLock = new Object();
     List<String> mVoiceResults;
     boolean mReverseResults;
+    boolean mIncognitoMode;
 
     interface CompletionListener {
 
@@ -279,7 +280,9 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         }
 
         void startSuggestionsAsync(final CharSequence constraint) {
-            new SlowFilterTask().execute(constraint);
+            if (!mIncognitoMode) {
+                new SlowFilterTask().execute(constraint);
+            }
         }
 
         @Override
@@ -564,4 +567,8 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         mSuggestResults = null;
     }
 
+    public void setIncognitoMode(boolean incognito) {
+        mIncognitoMode = incognito;
+        clearCache();
+    }
 }
