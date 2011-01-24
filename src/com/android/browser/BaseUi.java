@@ -221,6 +221,9 @@ public abstract class BaseUi implements UI, WebViewFactory {
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
         onTabDataChanged(tab);
         onProgressChanged(tab);
+        boolean incognito = mActiveTab.getWebView().isPrivateBrowsingEnabled();
+        getEmbeddedTitleBar().setIncognitoMode(incognito);
+        getFakeTitleBar().setIncognitoMode(incognito);
     }
 
     Tab getActiveTab() {
