@@ -187,7 +187,7 @@ public class BrowserHistoryPage extends Fragment
         switch (loader.getId()) {
             case LOADER_HISTORY: {
                 mAdapter.changeCursor(data);
-                if (mAdapter.getGroupCount() > 0) {
+                if (mGroupList.getCheckedItemPosition() == ListView.INVALID_POSITION) {
                     selectGroup(0);
                 }
 
@@ -196,13 +196,7 @@ public class BrowserHistoryPage extends Fragment
             }
 
             case LOADER_MOST_VISITED: {
-                int preCount = mAdapter.getGroupCount();
                 mAdapter.changeMostVisitedCursor(data);
-                if (mAdapter.mHistoryCursor != null
-                        && preCount == 0
-                        && mAdapter.getGroupCount() > 0) {
-                    selectGroup(0);
-                }
 
                 checkIfEmpty();
                 break;
