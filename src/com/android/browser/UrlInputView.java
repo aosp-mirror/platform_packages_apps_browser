@@ -18,11 +18,15 @@ package com.android.browser;
 
 import com.android.browser.SuggestionsAdapter.CompletionListener;
 import com.android.browser.SuggestionsAdapter.SuggestItem;
+import com.android.browser.search.SearchEngine;
+import com.android.browser.search.SearchEngineInfo;
+import com.android.browser.search.SearchEngines;
 
 import android.content.Context;
 import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -55,6 +59,7 @@ public class UrlInputView extends AutoCompleteTextView
     private View mContainer;
     private boolean mLandscape;
     private boolean mInVoiceMode;
+    private boolean mIncognitoMode;
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -174,8 +179,31 @@ public class UrlInputView extends AutoCompleteTextView
         if (TextUtils.isEmpty(url)) {
             mListener.onDismiss();
         } else {
+            if (mIncognitoMode && isSearch(url)) {
+                // To prevent logging, intercept this request
+                // TODO: This is a quick hack, refactor this
+                SearchEngine searchEngine = BrowserSettings.getInstance()
+                        .getSearchEngine();
+                if (searchEngine == null) return;
+                SearchEngineInfo engineInfo = SearchEngines
+                        .getSearchEngineInfo(mContext, searchEngine.getName());
+                if (engineInfo == null) return;
+                url = engineInfo.getSearchUriForQuery(url);
+                // mLister.onAction can take it from here without logging
+            }
             mListener.onAction(url, extra, source);
         }
+    }
+
+    boolean isSearch(String inUrl) {
+        String url = UrlUtils.fixUrl(inUrl).trim();
+        if (TextUtils.isEmpty(url)) return false;
+
+        if (Patterns.WEB_URL.matcher(url).matches()
+                || UrlUtils.ACCEPTED_URI_SCHEMA.matcher(url).matches()) {
+            return false;
+        }
+        return true;
     }
 
     // Completion Listener
@@ -224,7 +252,8 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     public void setIncognitoMode(boolean incognito) {
-        mAdapter.setIncognitoMode(incognito);
+        mIncognitoMode = incognito;
+        mAdapter.setIncognitoMode(mIncognitoMode);
     }
 
 }
