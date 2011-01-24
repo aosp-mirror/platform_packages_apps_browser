@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.SuggestionsAdapter.CompletionListener;
+import com.android.browser.SuggestionsAdapter.SuggestItem;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -26,6 +27,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -38,7 +41,7 @@ import java.util.List;
  */
 public class UrlInputView extends AutoCompleteTextView
         implements OnFocusChangeListener, OnEditorActionListener,
-        CompletionListener {
+        CompletionListener, OnItemClickListener {
 
 
     static final String TYPED = "browser-type";
@@ -77,6 +80,7 @@ public class UrlInputView extends AutoCompleteTextView
         setSelectAllOnFocus(true);
         onConfigurationChanged(ctx.getResources().getConfiguration());
         setThreshold(1);
+        setOnItemClickListener(this);
     }
 
     void setController(UiController controller) {
@@ -195,6 +199,14 @@ public class UrlInputView extends AutoCompleteTextView
             return true;
         }
         return super.onKeyPreIme(keyCode, evt);
+    }
+
+    @Override
+    public void onItemClick(
+            AdapterView<?> parent, View view, int position, long id) {
+        SuggestItem item = mAdapter.getItem(position);
+        onSelect((TextUtils.isEmpty(item.url) ? item.title : item.url),
+            item.type, item.extra);
     }
 
     interface UrlInputListener {
