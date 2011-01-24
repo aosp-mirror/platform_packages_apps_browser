@@ -99,8 +99,7 @@
     <string name="current_page" msgid="7510129573681663135">"từ "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Dấu trang \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sẽ bị xoá."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Mở trong cửa sổ mới"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Mở tất cả trong cửa sổ mới"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Đến"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Mở tab ẩn danh mới"</string>
     <string name="select_dot" msgid="6299170761900561967">"Chọn văn bản"</string>
@@ -179,7 +178,9 @@
     <skip />
     <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
     <skip />
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
+    <skip />
+    <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
     <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Tự động điền sẽ sử dụng tiểu sử của bạn để giúp bạn hoàn thành biểu mẫu web chỉ bằng một cú nhấp chuột."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Tên đầy đủ:"</string>
@@ -256,7 +257,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Thu phóng mặc định"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Mở các trang trong chế độ xem tổng quan"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Hiển thị tổng quan về các trang mới mở"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Cài đặt nâng cao"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Nâng cao"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Cài đặt trang web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Cài đặt nâng cao cho các trang web riêng lẻ"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Đặt lại về mặc định"</string>
@@ -277,13 +278,11 @@
     <item msgid="2193955365569270096">"Tiếng Hàn (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Mã hoá văn bản"</string>
-    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"Lab"</string>
+    <string name="pref_lab_title" msgid="5571091610359629423">"Lab"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Điều khiển nhanh"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Ấn ngón tay từ cạnh trái hoặc phải để truy cập điều khiển nhanh"</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Trang chủ được truy cập nhiều nhất"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Đặt trang chủ của bạn để hiển thị các trang được truy cập nhiều nhất."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Sự cố kết nối dữ liệu"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Sự cố với tệp"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Xác nhận"</string>

@@ -99,8 +99,7 @@
     <string name="current_page" msgid="7510129573681663135">"no "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Grāmatzīme “<xliff:g id="BOOKMARK">%s</xliff:g>” tiks dzēsta."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Atvērt jaunā logā"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Atvērt visas jaunos logos"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Sākt"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Atvērt jaunu inkognito cilni"</string>
     <string name="select_dot" msgid="6299170761900561967">"Atlasīt tekstu"</string>
@@ -179,7 +178,9 @@
     <skip />
     <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
     <skip />
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
+    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
+    <skip />
+    <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
     <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Automātiskās aizpildes funkcija izmantos profilā sniegto informāciju, lai ātri aizpildītu tīmekļa veidlapas."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Vārds, uzvārds:"</string>
@@ -256,7 +257,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Noklusējuma tālummaiņa"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Atvērt lapas kā pārskatus"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Rādīt tikko atvērtu lapu pārskatu"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Papildu iestatījumi"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Papildu"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Vietnes iestatījumi"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Atsevišķām vietnēm paredzēti papildu iestatījumi"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Noklusējuma vērtību atiestatīšana"</string>
@@ -277,13 +278,11 @@
     <item msgid="2193955365569270096">"Korejiešu (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Teksta kodējums"</string>
-    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorija"</string>
+    <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorijas"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Ātrās vadīklas"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Lai piekļūtu ātrajām vadīklām, velciet īkšķi no kreisās malas uz labo."</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Visvairāk apmeklētā mājaslapa"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Iestata mājaslapu, lai tiktu parādītas visvairāk apmeklētās lapas."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Datu savienojamības problēma"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Faila problēma"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Apstiprināt"</string>
