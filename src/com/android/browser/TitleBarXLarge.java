@@ -446,4 +446,8 @@ public class TitleBarXLarge extends TitleBarBase
                 ? View.VISIBLE : View.GONE);
     }
 
+    @Override
+    void setIncognitoMode(boolean incognito) {
+        mUrlInput.setIncognitoMode(incognito);
+    }
 }

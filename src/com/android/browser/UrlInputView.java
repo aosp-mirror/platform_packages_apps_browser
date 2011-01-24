@@ -223,4 +223,8 @@ public class UrlInputView extends AutoCompleteTextView
         mAdapter.setReverseResults(reverse);
     }
 
+    public void setIncognitoMode(boolean incognito) {
+        mAdapter.setIncognitoMode(incognito);
+    }
+
 }
