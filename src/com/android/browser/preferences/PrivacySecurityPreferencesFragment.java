@@ -44,6 +44,11 @@ public class PrivacySecurityPreferencesFragment extends PreferenceFragment
 
         Preference e = findPreference(BrowserSettings.PREF_CLEAR_HISTORY);
         e.setOnPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         setupAutoLoginPreference();
     }
 
@@ -66,6 +71,8 @@ public class PrivacySecurityPreferencesFragment extends PreferenceFragment
         values[i] = "";
         autologinPref.setEntries(names);
         autologinPref.setEntryValues(values);
+        autologinPref.setValue(BrowserSettings.getInstance()
+                .getAutoLoginAccount(getActivity()));
     }
 
     private void updateAutoLoginSummary(Preference pref) {
