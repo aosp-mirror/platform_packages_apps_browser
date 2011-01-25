@@ -253,7 +253,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     private void attachTabToContentView(Tab tab) {
-        if (tab.getWebView() == null) {
+        if ((tab == null) || (tab.getWebView() == null)) {
             return;
         }
         View container = tab.getViewContainer();
