@@ -498,8 +498,8 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         quickControls = p.getBoolean(PREF_QUICK_CONTROLS, quickControls);
         useMostVisitedHomepage = p.getBoolean(PREF_MOST_VISITED_HOMEPAGE, useMostVisitedHomepage);
 
-        // Only set these on startup if it is a dev build
-        if (DEV_BUILD) {
+        // Only set these if this is a dev build or debug is enabled
+        if (DEV_BUILD || showDebugSettings()) {
             userAgent = Integer.parseInt(p.getString(PREF_USER_AGENT, "0"));
             hardwareAccelerated = p.getBoolean(PREF_HARDWARE_ACCEL, hardwareAccelerated);
         }
@@ -601,9 +601,11 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         return showDebugSettings;
     }
 
-    public void toggleDebugSettings() {
+    public void toggleDebugSettings(Context context) {
         showDebugSettings = !showDebugSettings;
         navDump = showDebugSettings;
+        syncSharedPreferences(context,
+                PreferenceManager.getDefaultSharedPreferences(context));
         update();
     }
 
