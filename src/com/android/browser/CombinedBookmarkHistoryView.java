@@ -244,14 +244,21 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         if (mCurrentFragment != INVALID_ID) {
-            FragmentManager fm = mActivity.getFragmentManager();
-            FragmentTransaction transaction = fm.beginTransaction();
-            if (mCurrentFragment == FRAGMENT_ID_BOOKMARKS) {
-                transaction.remove(mBookmarks);
-            } else if (mCurrentFragment == FRAGMENT_ID_HISTORY) {
-                transaction.remove(mHistory);
+            try {
+                FragmentManager fm = mActivity.getFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                if (mCurrentFragment == FRAGMENT_ID_BOOKMARKS) {
+                    transaction.remove(mBookmarks);
+                } else if (mCurrentFragment == FRAGMENT_ID_HISTORY) {
+                    transaction.remove(mHistory);
+                }
+                transaction.commit();
+            } catch (IllegalStateException ex) {
+                // This exception is thrown if the fragment isn't added
+                // This will happen if the activity is finishing, and the
+                // fragment was already removed before this view was detached
+                // Aka, success!
             }
-            transaction.commit();
             mCurrentFragment = INVALID_ID;
         }
         mUiController.unregisterOptionsMenuHandler(this);
