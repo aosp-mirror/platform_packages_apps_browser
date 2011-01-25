@@ -63,7 +63,6 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -78,7 +77,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -2020,7 +2018,6 @@ public class Controller
     }
 
     protected void reuseTab(Tab appTab, String appId, UrlData urlData) {
-        Log.i(LOGTAG, "Reusing tab for " + appId);
         // Dismiss the subwindow if applicable.
         dismissSubWindow(appTab);
         // Since we might kill the WebView, remove it from the
@@ -2413,67 +2410,28 @@ public class Controller
                     return true;
                 }
                 break;
-            case KeyEvent.KEYCODE_B:
-                if (ctrl) {
-                    bookmarksOrHistoryPicker(false);
-                    return true;
-                }
-                break;
+//          case KeyEvent.KEYCODE_B:    // menu
             case KeyEvent.KEYCODE_C:
                 if (ctrl) {
                     webView.copySelection();
                     return true;
                 }
                 break;
-            case KeyEvent.KEYCODE_D:
-                if (ctrl) {
-                    bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID);
-                    return true;
-                }
-                break;
+//          case KeyEvent.KEYCODE_D:    // menu
 //          case KeyEvent.KEYCODE_E:    // in Chrome: puts '?' in URL bar
-            case KeyEvent.KEYCODE_F:
-                if (ctrl) {
-                    webView.showFindDialog(null, true);
-                    return true;
-                }
-                break;
+//          case KeyEvent.KEYCODE_F:    // menu
 //          case KeyEvent.KEYCODE_G:    // in Chrome: finds next match
-            case KeyEvent.KEYCODE_H:
-                if (ctrl) {
-                    bookmarksOrHistoryPicker(true);
-                    return true;
-                }
-                break;
+//          case KeyEvent.KEYCODE_H:    // menu
 //          case KeyEvent.KEYCODE_I:    // unused
-            case KeyEvent.KEYCODE_J:
-                if (ctrl) {
-                    viewDownloads();
-                    return true;
-                }
-                break;
+//          case KeyEvent.KEYCODE_J:    // menu
 //          case KeyEvent.KEYCODE_K:    // in Chrome: puts '?' in URL bar
-            case KeyEvent.KEYCODE_L:
-                if (ctrl) {
-                    editUrl();
-                    return true;
-                }
-                break;
+//          case KeyEvent.KEYCODE_L:    // menu
 //          case KeyEvent.KEYCODE_M:    // unused
 //          case KeyEvent.KEYCODE_N:    // in Chrome: new window
 //          case KeyEvent.KEYCODE_O:    // in Chrome: open file
 //          case KeyEvent.KEYCODE_P:    // in Chrome: print page
 //          case KeyEvent.KEYCODE_Q:    // unused
-            case KeyEvent.KEYCODE_R:
-                if (ctrl) {
-                    if (mInLoad) {
-                        stopLoading();
-                    } else {
-                        webView.reload();
-                    }
-                    return true;
-                }
-                break;
+//            case KeyEvent.KEYCODE_R:
 //          case KeyEvent.KEYCODE_S:    // in Chrome: saves page
             case KeyEvent.KEYCODE_T:
                 if (ctrl) {
@@ -2487,17 +2445,13 @@ public class Controller
                 break;
 //          case KeyEvent.KEYCODE_U:    // in Chrome: opens source of page
 //          case KeyEvent.KEYCODE_V:    // text view intercepts to paste
-            case KeyEvent.KEYCODE_W:
-                if (ctrl) {
-                    closeCurrentTab();
-                    return true;
-                }
-                break;
+//          case KeyEvent.KEYCODE_W:    // menu
 //          case KeyEvent.KEYCODE_X:    // text view intercepts to cut
 //          case KeyEvent.KEYCODE_Y:    // unused
 //          case KeyEvent.KEYCODE_Z:    // unused
         }
-        return false;
+        // if we get here, it is a regular key and webview is not null
+        return mUi.dispatchKey(keyCode, event);
     }
 
     boolean onKeyUp(int keyCode, KeyEvent event) {
