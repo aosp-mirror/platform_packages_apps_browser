@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="@style/HoloButton" />
-        <ImageView
+        <ImageButton
             android:id="@+id/stop"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -50,7 +50,7 @@
             android:layout_marginLeft="8dip"
             android:layout_marginRight="8dip"
             android:orientation="horizontal"
-            android:background="@drawable/textfield_default_holo_dark">
+            android:background="@drawable/url_background">
             <ImageView
                 android:id="@+id/voice_icon"
                 android:layout_width="wrap_content"
@@ -66,6 +66,7 @@
                 android:visibility="gone" />
             <com.android.browser.UrlInputView
                 android:id="@+id/url_focused"
+                android:focusable="true"
                 android:layout_width="0dip"
                 android:layout_weight="1.0"
                 android:layout_height="match_parent"
@@ -83,13 +84,13 @@
                 android:inputType="textUri"
                 android:imeOptions="actionGo"
                 style="@style/Suggestions" />
-            <ImageView
+            <ImageButton
                 android:id="@+id/star"
                 android:src="@drawable/btn_imageview_star"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 style="@style/HoloButton" />
-            <ImageView
+            <ImageButton
                 android:id="@+id/clear"
                 android:src="@drawable/ic_stop_holo_dark"
                 android:layout_width="wrap_content"
@@ -104,7 +105,7 @@
             android:visibility="gone"
             android:gravity="center_vertical"
             style="@style/HoloButton" />
-        <ImageView
+        <ImageButton
             android:id="@+id/voicesearch"
             android:src="@drawable/ic_voice_search_holo_dark"
             android:layout_width="wrap_content"

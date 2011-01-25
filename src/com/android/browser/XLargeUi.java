@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
@@ -396,4 +397,24 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             mActivity.getActionBar().show();
         }
     }
+
+    @Override
+    public boolean dispatchKey(int code, KeyEvent event) {
+        WebView web = getActiveTab().getWebView();
+        switch (code) {
+            case KeyEvent.KEYCODE_TAB:
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                if ((web != null) && web.hasFocus()) {
+                    editUrl(true);
+                    return true;
+                }
+        }
+        if (event.isPrintingKey() && !mFakeTitleBar.isEditingUrl()) {
+            editUrl(true);
+            return mContentView.dispatchKeyEvent(event);
+        }
+        return false;
+    }
+
 }

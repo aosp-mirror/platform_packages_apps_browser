@@ -22,6 +22,7 @@ import android.graphics.PixelFormat;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -267,6 +268,11 @@ public class PhoneUi extends BaseUi {
     @Override
     public void onActionModeStarted(ActionMode mode) {
         hideFakeTitleBar();
+    }
+
+    @Override
+    public boolean dispatchKey(int code, KeyEvent event) {
+        return false;
     }
 
 }

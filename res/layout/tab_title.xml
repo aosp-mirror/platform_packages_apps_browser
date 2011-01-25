@@ -53,8 +53,6 @@
         android:textColor="@color/white"
         android:gravity="center_vertical"
         android:scrollHorizontally="true"
-        android:fadingEdge="horizontal"
-        android:fadingEdgeLength="24dip"
         android:lines="1"
         android:singleLine="true" />
     <ImageButton

@@ -94,8 +94,6 @@ public class BrowserActivity extends Activity {
         if (((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
                 .isEnabled()) {
             setDefaultKeyMode(DEFAULT_KEYS_DISABLE);
-        } else {
-            setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
         }
 
         mController = new Controller(this);
