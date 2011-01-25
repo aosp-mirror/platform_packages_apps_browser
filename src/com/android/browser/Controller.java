@@ -2192,12 +2192,9 @@ public class Controller
         removeComboView();
         int currentIndex = mTabControl.getCurrentIndex();
         int removeIndex = mTabControl.getTabIndex(tab);
-        removeTab(tab);
-        if (currentIndex >= removeIndex && currentIndex != 0) {
-            currentIndex--;
-        }
         Tab newtab = mTabControl.getTab(currentIndex);
         setActiveTab(newtab);
+        removeTab(tab);
     }
 
     /**************** TODO: Url loading clean up *******************************/

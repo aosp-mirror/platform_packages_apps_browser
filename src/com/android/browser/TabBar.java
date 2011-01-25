@@ -18,6 +18,10 @@ package com.android.browser;
 
 import com.android.browser.ScrollWebView.ScrollListener;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -151,6 +155,7 @@ public class TabBar extends LinearLayout
         mTabMap.clear();
         for (Tab tab : tabs) {
             TabView tv = buildTabView(tab);
+            mTabs.addTab(tv);
         }
         mTabs.setSelectedTab(mTabControl.getCurrentIndex());
     }
@@ -286,7 +291,6 @@ public class TabBar extends LinearLayout
         TabView tabview = new TabView(mActivity, tab);
         mTabMap.put(tab, tabview);
         tabview.setOnClickListener(this);
-        mTabs.addTab(tabview);
         return tabview;
     }
 
@@ -500,6 +504,62 @@ public class TabBar extends LinearLayout
         return d;
     }
 
+    private void animateTabOut(final Tab tab, final TabView tv) {
+        ObjectAnimator scalex = ObjectAnimator.ofFloat(tv, "scaleX", 1.0f, 0.0f);
+        ObjectAnimator scaley = ObjectAnimator.ofFloat(tv, "scaleY", 1.0f, 0.0f);
+        AnimatorSet animator = new AnimatorSet();
+        animator.playTogether(scalex, scaley);
+        animator.setDuration(150);
+        animator.addListener(new AnimatorListener() {
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mTabs.removeTab(tv);
+                mTabMap.remove(tab);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+        });
+        animator.start();
+    }
+
+    private void animateTabIn(final Tab tab, final TabView tv) {
+        ObjectAnimator scalex = ObjectAnimator.ofFloat(tv, "scaleX", 0f, 1.0f);
+        scalex.setDuration(150);
+        scalex.addListener(new AnimatorListener() {
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mTabs.addTab(tv);
+            }
+
+        });
+        scalex.start();
+    }
+
     // TabChangeListener implementation
 
     public void onSetActiveTab(Tab tab) {
@@ -526,6 +586,7 @@ public class TabBar extends LinearLayout
 
     public void onNewTab(Tab tab) {
         TabView tv = buildTabView(tab);
+        animateTabIn(tab, tv);
     }
 
     public void onProgress(Tab tab, int progress) {
@@ -538,9 +599,10 @@ public class TabBar extends LinearLayout
     public void onRemoveTab(Tab tab) {
         TabView tv = mTabMap.get(tab);
         if (tv != null) {
-            mTabs.removeTab(tv);
+            animateTabOut(tab, tv);
+        } else {
+            mTabMap.remove(tab);
         }
-        mTabMap.remove(tab);
     }
 
     public void onUrlAndTitle(Tab tab, String url, String title) {
