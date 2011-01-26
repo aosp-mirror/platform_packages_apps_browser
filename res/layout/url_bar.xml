@@ -52,6 +52,12 @@
             android:orientation="horizontal"
             android:background="@drawable/url_background">
             <ImageView
+                android:id="@+id/web_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_web_holo_dark"
+                style="@style/HoloIcon" />
+            <ImageView
                 android:id="@+id/voice_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

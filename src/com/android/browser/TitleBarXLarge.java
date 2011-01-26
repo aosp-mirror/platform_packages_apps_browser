@@ -60,6 +60,7 @@ public class TitleBarXLarge extends TitleBarBase
     private ImageButton mBackButton;
     private ImageButton mForwardButton;
     private ImageView mStar;
+    private ImageView mWebIcon;
     private View mSearchButton;
     private View mUrlContainer;
     private View mGoButton;
@@ -105,6 +106,7 @@ public class TitleBarXLarge extends TitleBarBase
         // back/forward.  Probably should be done inside onPageStarted.
         mBackButton = (ImageButton) findViewById(R.id.back);
         mForwardButton = (ImageButton) findViewById(R.id.forward);
+        mWebIcon = (ImageView) findViewById(R.id.web_icon);
         mStar = (ImageView) findViewById(R.id.star);
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = findViewById(R.id.search);
@@ -340,6 +342,7 @@ public class TitleBarXLarge extends TitleBarBase
             if (mInVoiceMode) {
                 mVoiceSearchIndicator.setVisibility(View.VISIBLE);
             }
+            mWebIcon.setImageResource(R.drawable.ic_search_holo_dark);
             updateSearchMode();
         } else {
             mUrlInput.clearFocus();
@@ -353,6 +356,7 @@ public class TitleBarXLarge extends TitleBarBase
             } else {
                 mSearchButton.setVisibility(View.VISIBLE);
             }
+            mWebIcon.setImageResource(R.drawable.ic_web_holo_dark);
         }
     }
 
