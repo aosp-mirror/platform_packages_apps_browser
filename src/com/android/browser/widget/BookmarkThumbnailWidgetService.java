@@ -75,14 +75,16 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
     private static final int BOOKMARK_INDEX_TOUCH_ICON = 5;
     private static final int BOOKMARK_INDEX_THUMBNAIL = 7;
 
-    private Map<Integer, BookmarkFactory> mFactories;
+    // The service will likely be destroyed at any time, so we need to keep references to the
+    // factories across services connections.
+    private static final Map<Integer, BookmarkFactory> mFactories =
+            new HashMap<Integer, BookmarkFactory>();
     private Handler mUiHandler;
     private BookmarksObserver mBookmarksObserver;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mFactories = new HashMap<Integer, BookmarkFactory>();
         mUiHandler = new Handler();
         mBookmarksObserver = new BookmarksObserver(mUiHandler);
         getContentResolver().registerContentObserver(
@@ -109,6 +111,12 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
             BookmarkFactory fac = mFactories.get(widgetId);
             if (fac != null && folderId >= 0) {
                 fac.changeFolder(folderId);
+            } else {
+                // This a workaround to the issue when the Browser process crashes, after which
+                // mFactories is not populated (due to onBind() not being called).  Calling
+                // notifyDataSetChanged() will trigger a connection to be made.
+                AppWidgetManager.getInstance(getApplicationContext())
+                    .notifyAppWidgetViewDataChanged(widgetId, R.id.bookmarks_list);
             }
         }
         return START_STICKY;
