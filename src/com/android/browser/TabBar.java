@@ -536,6 +536,7 @@ public class TabBar extends LinearLayout
             public void onAnimationEnd(Animator animation) {
                 mTabs.removeTab(tv);
                 mTabMap.remove(tab);
+                mUi.onRemoveTabCompleted(tab);
             }
 
             @Override
@@ -561,6 +562,7 @@ public class TabBar extends LinearLayout
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                mUi.onAddTabCompleted(tab);
             }
 
             @Override

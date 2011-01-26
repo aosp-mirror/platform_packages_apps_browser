@@ -82,6 +82,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void hideComboView() {
+        checkTabCount();
         super.hideComboView();
         // ComboView changes the action bar, set it back up to what we want
         setupActionBar();
@@ -210,6 +211,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     public void addTab(Tab tab) {
         mTabBar.onNewTab(tab);
+    }
+
+    protected void onAddTabCompleted(Tab tab) {
         checkTabCount();
     }
 
@@ -252,6 +256,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     public void removeTab(Tab tab) {
         super.removeTab(tab);
         mTabBar.onRemoveTab(tab);
+    }
+
+    protected void onRemoveTabCompleted(Tab tab) {
         checkTabCount();
     }
 
