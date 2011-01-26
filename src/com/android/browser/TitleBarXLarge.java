@@ -308,15 +308,15 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void onDismiss() {
-        WebView top = mUiController.getCurrentTopWebView();
-        if (top != null) {
-            mUiController.getCurrentTopWebView().requestFocus();
+        Tab currentTab = mUi.getActiveTab();
+        if (currentTab != null && currentTab.getWebView() != null) {
+            currentTab.getWebView().requestFocus();
         }
         mUi.hideFakeTitleBar();
         setUrlMode(false);
         // if top != null current must be set
-        if ((top != null) && !mInVoiceMode) {
-            setDisplayTitle(mUiController.getCurrentWebView().getUrl());
+        if ((currentTab != null) && !mInVoiceMode) {
+            setDisplayTitle(currentTab.getUrl());
         }
     }
 
