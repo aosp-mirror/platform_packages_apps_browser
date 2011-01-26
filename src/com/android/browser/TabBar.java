@@ -28,7 +28,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -331,7 +330,7 @@ public class TabBar extends LinearLayout
             mTab = tab;
             setGravity(Gravity.CENTER_VERTICAL);
             setOrientation(LinearLayout.HORIZONTAL);
-            setPadding(mTabPadding, 0, 0, 0);
+            setPadding(mTabOverlap, 0, mTabSliceWidth, 0);
             LayoutInflater inflater = LayoutInflater.from(getContext());
             mTabContent = inflater.inflate(R.layout.tab_title, this, true);
             mTitle = (TextView) mTabContent.findViewById(R.id.title);
@@ -350,6 +349,14 @@ public class TabBar extends LinearLayout
         void showIndicator(boolean show) {
             if (mSelected) {
                 mIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
+                LayoutParams lp = (LinearLayout.LayoutParams) getLayoutParams();
+                if (show) {
+                    lp.width = mTabWidthSelected + mIndicator.getWidth();
+                } else {
+                    lp.width = mTabWidthSelected;
+                }
+                lp.height =  LayoutParams.MATCH_PARENT;
+                setLayoutParams(lp);
             } else {
                 mIndicator.setVisibility(View.GONE);
             }
@@ -489,26 +496,35 @@ public class TabBar extends LinearLayout
 
     }
 
+    static Drawable createFaviconBackground(Context context) {
+        PaintDrawable faviconBackground = new PaintDrawable();
+        Resources res = context.getResources();
+        faviconBackground.getPaint().setColor(context.getResources()
+                .getColor(R.color.tabFaviconBackground));
+        faviconBackground.setCornerRadius(
+                res.getDimension(R.dimen.tab_favicon_corner_radius));
+        return faviconBackground;
+    }
+
     private Drawable renderFavicon(Bitmap icon) {
-        Drawable[] array = new Drawable[3];
-        array[0] = new PaintDrawable(Color.BLACK);
-        array[1] = new PaintDrawable(Color.WHITE);
+        Drawable[] array = new Drawable[2];
+        array[0] = createFaviconBackground(getContext());
         if (icon == null) {
-            array[2] = mGenericFavicon;
+            array[1] = mGenericFavicon;
         } else {
-            array[2] = new BitmapDrawable(icon);
+            array[1] = new BitmapDrawable(icon);
         }
         LayerDrawable d = new LayerDrawable(array);
-        d.setLayerInset(1, 1, 1, 1, 1);
-        d.setLayerInset(2, 2, 2, 2, 2);
+        d.setLayerInset(1, 2, 2, 2, 2);
         return d;
     }
 
     private void animateTabOut(final Tab tab, final TabView tv) {
         ObjectAnimator scalex = ObjectAnimator.ofFloat(tv, "scaleX", 1.0f, 0.0f);
         ObjectAnimator scaley = ObjectAnimator.ofFloat(tv, "scaleY", 1.0f, 0.0f);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(tv, "alpha", 1.0f, 0.0f);
         AnimatorSet animator = new AnimatorSet();
-        animator.playTogether(scalex, scaley);
+        animator.playTogether(scalex, scaley, alpha);
         animator.setDuration(150);
         animator.addListener(new AnimatorListener() {
 
@@ -535,7 +551,7 @@ public class TabBar extends LinearLayout
     }
 
     private void animateTabIn(final Tab tab, final TabView tv) {
-        ObjectAnimator scalex = ObjectAnimator.ofFloat(tv, "scaleX", 0f, 1.0f);
+        ObjectAnimator scalex = ObjectAnimator.ofFloat(tv, "scaleX", 0.0f, 1.0f);
         scalex.setDuration(150);
         scalex.addListener(new AnimatorListener() {
 

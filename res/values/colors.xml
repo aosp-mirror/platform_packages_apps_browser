@@ -34,4 +34,5 @@
     <color name="bookmarkWidgetFaviconBackground">#23ffffff</color>
     <color name="bookmarkListFaviconBackground">#23ffffff</color>
     <color name="urlTextColor">#0E774A</color>
+    <color name="tabFaviconBackground">#FF555555</color>
 </resources>
