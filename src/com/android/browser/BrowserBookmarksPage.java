@@ -25,11 +25,11 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -40,9 +40,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
-import android.provider.BrowserContract.Accounts;
 import android.provider.BrowserContract.ChromeSyncColumns;
-import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -52,10 +50,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebIconDatabase.IconListener;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.PopupMenu.OnMenuItemClickListener;
@@ -74,12 +70,11 @@ interface BookmarksPageCallbacks {
  */
 public class BrowserBookmarksPage extends Fragment implements View.OnCreateContextMenuListener,
         LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener, IconListener,
-        OnItemSelectedListener, BreadCrumbView.Controller, OnMenuItemClickListener {
+        BreadCrumbView.Controller, OnMenuItemClickListener, OnSharedPreferenceChangeListener {
 
     static final String LOGTAG = "browser";
 
     static final int LOADER_BOOKMARKS = 1;
-    static final int LOADER_ACCOUNTS_THEN_BOOKMARKS = 2;
 
     static final String EXTRA_DISABLE_WINDOW = "disable_new_window";
 
@@ -88,7 +83,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public static final String PREF_ACCOUNT_TYPE = "acct_type";
     public static final String PREF_ACCOUNT_NAME = "acct_name";
 
-    static final String DEFAULT_ACCOUNT = "local";
     static final int VIEW_THUMBNAILS = 1;
     static final int VIEW_LIST = 2;
     static final String PREF_SELECTED_VIEW = "bookmarks_view";
@@ -124,13 +118,12 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case LOADER_BOOKMARKS: {
-                String accountType = null;
-                String accountName = null;
-                if (args != null) {
-                    accountType = args.getString(BookmarksLoader.ARG_ACCOUNT_TYPE);
-                    accountName = args.getString(BookmarksLoader.ARG_ACCOUNT_NAME);
-                }
-                BookmarksLoader bl = new BookmarksLoader(getActivity(), accountType, accountName);
+                SharedPreferences prefs = PreferenceManager
+                        .getDefaultSharedPreferences(getActivity());
+                String accountType = prefs.getString(PREF_ACCOUNT_TYPE, null);
+                String accountName = prefs.getString(PREF_ACCOUNT_NAME, null);
+                BookmarksLoader bl = new BookmarksLoader(getActivity(),
+                        accountType, accountName);
                 if (mCrumbs != null) {
                     Uri uri = (Uri) mCrumbs.getTopData();
                     if (uri != null) {
@@ -138,11 +131,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                     }
                 }
                 return bl;
-            }
-            case LOADER_ACCOUNTS_THEN_BOOKMARKS: {
-                return new CursorLoader(getActivity(), Accounts.CONTENT_URI,
-                        new String[] { Accounts.ACCOUNT_TYPE, Accounts.ACCOUNT_NAME }, null, null,
-                        null);
             }
         }
         throw new UnsupportedOperationException("Unknown loader id " + id);
@@ -166,77 +154,12 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 mAdapter.changeCursor(cursor);
                 break;
             }
-
-            case LOADER_ACCOUNTS_THEN_BOOKMARKS: {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                        getActivity());
-                String storedAccountType = prefs.getString(PREF_ACCOUNT_TYPE, null);
-                String storedAccountName = prefs.getString(PREF_ACCOUNT_NAME, null);
-                String accountType =
-                        TextUtils.isEmpty(storedAccountType) ? DEFAULT_ACCOUNT : storedAccountType;
-                String accountName =
-                        TextUtils.isEmpty(storedAccountName) ? DEFAULT_ACCOUNT : storedAccountName;
-
-                Bundle args = null;
-                if (cursor == null || !cursor.moveToFirst()) {
-                    // No accounts, set the prefs to the default
-                    accountType = DEFAULT_ACCOUNT;
-                    accountName = DEFAULT_ACCOUNT;
-                } else {
-                    int accountPosition = -1;
-
-                    if (!DEFAULT_ACCOUNT.equals(accountType) &&
-                            !DEFAULT_ACCOUNT.equals(accountName)) {
-                        // Check to see if the account in prefs still exists
-                        cursor.moveToFirst();
-                        do {
-                            if (accountType.equals(cursor.getString(0))
-                                    && accountName.equals(cursor.getString(1))) {
-                                accountPosition = cursor.getPosition();
-                                break;
-                            }
-                        } while (cursor.moveToNext());
-                    }
-
-                    if (accountPosition == -1) {
-                        if (!(DEFAULT_ACCOUNT.equals(accountType)
-                                && DEFAULT_ACCOUNT.equals(accountName))) {
-                            // No account is set in prefs and there is at least one,
-                            // so pick the first one as the default
-                            cursor.moveToFirst();
-                            accountType = cursor.getString(0);
-                            accountName = cursor.getString(1);
-                        }
-                    }
-
-                    args = new Bundle();
-                    args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
-                    args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
-                }
-
-                // The stored account name wasn't found, update the stored account with a valid one
-                if (!accountType.equals(storedAccountType)
-                        || !accountName.equals(storedAccountName)) {
-                    prefs.edit()
-                            .putString(PREF_ACCOUNT_TYPE, accountType)
-                            .putString(PREF_ACCOUNT_NAME, accountName)
-                            .apply();
-                }
-                getLoaderManager().initLoader(LOADER_BOOKMARKS, args, this);
-
-                break;
-            }
         }
     }
 
+    @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         onLoadFinished(loader, null);
-        switch (loader.getId()) {
-            case LOADER_BOOKMARKS: {
-                onLoadFinished(loader, null);
-                break;
-            }
-        }
     }
 
     long getFolderId() {
@@ -443,28 +366,15 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         if (mCallbacks != null) {
             mCallbacks.onFolderChanged(1, BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER);
         }
-
         // Start the loaders
         LoaderManager lm = getLoaderManager();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        prefs.registerOnSharedPreferenceChangeListener(this);
         mCurrentView =
             prefs.getInt(PREF_SELECTED_VIEW, BrowserBookmarksPage.VIEW_THUMBNAILS);
         mAdapter = new BrowserBookmarksAdapter(getActivity(), mCurrentView);
-        String accountType = prefs.getString(PREF_ACCOUNT_TYPE, DEFAULT_ACCOUNT);
-        String accountName = prefs.getString(PREF_ACCOUNT_NAME, DEFAULT_ACCOUNT);
-        if (!TextUtils.isEmpty(accountType) && !TextUtils.isEmpty(accountName)) {
-            // There is an account set, load up that one
-            Bundle args = null;
-            if (!DEFAULT_ACCOUNT.equals(accountType) && !DEFAULT_ACCOUNT.equals(accountName)) {
-                args = new Bundle();
-                args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
-                args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
-            }
-            lm.restartLoader(LOADER_BOOKMARKS, args, this);
-        } else {
-            // No account set, load the account list first
-            lm.restartLoader(LOADER_ACCOUNTS_THEN_BOOKMARKS, null, this);
-        }
+        lm.restartLoader(LOADER_BOOKMARKS, null, this);
 
         // Add our own listener in case there are favicons that have yet to be loaded.
         CombinedBookmarkHistoryView.getIconListenerSet().addListener(this);
@@ -475,6 +385,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        prefs.unregisterOnSharedPreferenceChangeListener(this);
         if (mHeaderContainer != null) {
             mHeaderContainer.removeView(mHeader);
         }
@@ -516,36 +429,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             }
             loadFolder(uri);
         }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Adapter adapter = parent.getAdapter();
-        String accountType = "com.google";
-        String accountName = adapter.getItem(position).toString();
-
-        Bundle args = null;
-        if (ACCOUNT_NAME_UNSYNCED.equals(accountName)) {
-            accountType = DEFAULT_ACCOUNT;
-            accountName = DEFAULT_ACCOUNT;
-        } else {
-            args = new Bundle();
-            args.putString(BookmarksLoader.ARG_ACCOUNT_TYPE, accountType);
-            args.putString(BookmarksLoader.ARG_ACCOUNT_NAME, accountName);
-        }
-
-        // Remember the selection for later
-        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
-                .putString(PREF_ACCOUNT_TYPE, accountType)
-                .putString(PREF_ACCOUNT_NAME, accountName)
-                .apply();
-
-        getLoaderManager().restartLoader(LOADER_BOOKMARKS, args, this);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Do nothing
     }
 
     /* package */ static Intent createShortcutIntent(Context context, Cursor cursor) {
@@ -840,6 +723,23 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         mCrumbMaxVisible = max;
         if (mCrumbs != null) {
             mCrumbs.setMaxVisible(mCrumbMaxVisible);
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(
+            SharedPreferences sharedPreferences, String key) {
+        if (PREF_ACCOUNT_NAME.equals(key) || PREF_ACCOUNT_TYPE.equals(key)) {
+            mCrumbs.setController(null);
+            mCrumbs.clear();
+            LoaderManager lm = getLoaderManager();
+            lm.restartLoader(LOADER_BOOKMARKS, null, this);
+            mCrumbs.setController(this);
+            String name = getString(R.string.bookmarks);
+            mCrumbs.pushView(name, false, BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER);
+            if (mCallbacks != null) {
+                mCallbacks.onFolderChanged(1, BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER);
+            }
         }
     }
 }
