@@ -645,9 +645,9 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     private void setStatusBarVisibility(boolean visible) {
-        int flag = visible ? 0 : WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        mActivity.getWindow().setFlags(flag,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        WindowManager.LayoutParams params = mActivity.getWindow().getAttributes();
+        params.systemUiVisibility = visible ? View.STATUS_BAR_VISIBLE : View.STATUS_BAR_HIDDEN;
+        mActivity.getWindow().setAttributes(params);
     }
 
     // -------------------------------------------------------------------------
