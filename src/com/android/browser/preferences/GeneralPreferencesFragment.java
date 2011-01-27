@@ -224,7 +224,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
 
             mDialog = new AlertDialog.Builder(getActivity())
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Choose account") // STOPSHIP localize
+                    .setTitle(R.string.account_chooser_dialog_title)
                     .setSingleChoiceItems(accountNames, curAccountOffset, this)
                     .create();
             return mDialog;
