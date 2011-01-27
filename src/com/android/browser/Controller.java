@@ -2124,7 +2124,8 @@ public class Controller
     public Tab openIncognitoTab() {
         if (mTabControl.canCreateNewTab()) {
             Tab currentTab = mTabControl.getCurrentTab();
-            Tab tab = mTabControl.createNewTab(false, null, null, true);
+            Tab tab = mTabControl.createNewTab(false, null,
+                    "browser:incognito", true);
             addTab(tab);
             setActiveTab(tab);
             return tab;
