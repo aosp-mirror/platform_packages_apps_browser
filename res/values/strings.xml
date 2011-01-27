@@ -906,6 +906,9 @@
     <!-- Access point for RLZ tracking. -->
     <string name="rlz_access_point">Y1</string>
 
+    <!-- Title for a dialog asking the user which account to sync their bookmarks to [CHAR LIMIT=32] -->
+    <string name="account_chooser_dialog_title" msgid="4833571985009544332">Choose account</string>
+
     <!-- Title for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=32] -->
     <string name="import_bookmarks_dialog_title">Sync with Google account</string>
 
