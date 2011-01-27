@@ -202,7 +202,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Ta bort profil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Webbläsaren kan fylla i den här typen av formulär automatiskt. Vill du skapa en profil?"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Du kan när som helst ändra inställningarna för Autofyll under webbläsarens inställningar -&amp;gt; Personliga inställningar."</string>
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Du kan när som helst ändra inställningarna för Autofyll under webbläsarens inställningar -&amp;gt; Personliga inställningar."</string>
     <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Sekretess och säkerhet"</string>

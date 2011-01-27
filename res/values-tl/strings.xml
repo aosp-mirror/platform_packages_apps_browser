@@ -203,7 +203,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Tanggalin ang profile"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Maaaring awtomatikong kumpletuhin ng browser ang mga form ng web katulad nito. Gusto mo bang i-set up ang iyong profile?"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Maaaring palaging i-configure ang AutoFill sa pamamagitan ng Mga Setting ng Browser -&amp;gt; Mga Personal na Setting."</string>
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Maaaring palaging i-configure ang AutoFill sa pamamagitan ng Mga Setting ng Browser -&amp;gt; Mga Personal na Setting."</string>
     <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Privacy at Seguridad"</string>
