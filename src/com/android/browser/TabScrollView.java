@@ -28,7 +28,6 @@ import android.widget.LinearLayout;
  */
 public class TabScrollView extends HorizontalScrollView {
 
-    private Context mContext;
     private LinearLayout mContentView;
     private int mSelected;
     private int mAnimationDuration;
@@ -62,13 +61,12 @@ public class TabScrollView extends HorizontalScrollView {
     }
 
     private void init(Context ctx) {
-        mContext = ctx;
         mAnimationDuration = ctx.getResources().getInteger(
                 R.integer.tab_animation_duration);
         mTabOverlap = (int) ctx.getResources().getDimension(R.dimen.tab_overlap);
         setHorizontalScrollBarEnabled(false);
         setOverScrollMode(OVER_SCROLL_NEVER);
-        mContentView = new TabLayout(mContext);
+        mContentView = new TabLayout(ctx);
         mContentView.setOrientation(LinearLayout.HORIZONTAL);
         mContentView.setLayoutParams(
                 new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
@@ -187,6 +185,21 @@ public class TabScrollView extends HorizontalScrollView {
      */
     public int getScroll() {
         return getScrollX();
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+
+        // TabViews base their drawing based on their absolute position within the
+        // window. When hardware accelerated, we need to recreate their display list
+        // when they scroll
+        if (isHardwareAccelerated()) {
+            int count = mContentView.getChildCount();
+            for (int i = 0; i < count; i++) {
+                mContentView.getChildAt(i).invalidate();
+            }
+        }
     }
 
     class TabLayout extends LinearLayout {
