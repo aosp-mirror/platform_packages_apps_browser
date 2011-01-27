@@ -202,7 +202,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Eliminar perfil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"O navegador pode preencher automaticamente os formulários Web deste tipo. Pretende configurar o seu perfil?"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"O preenchimento automático pode ser configurado através de Definições do navegador -&amp;gt; Definições pessoais."</string>
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"O preenchimento automático pode ser configurado através de Definições do navegador -&amp;gt; Definições pessoais."</string>
     <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Privacidade e segurança"</string>

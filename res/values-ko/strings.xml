@@ -202,7 +202,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"프로필 삭제"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"브라우저에서 이 양식과 같은 웹 양식을 자동으로 완성할 수 있습니다. 프로필을 설정하시겠습니까?"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"브라우저 설정 -&amp;gt; 개인 설정에서 언제든지 자동완성을 구성할 수 있습니다."</string>
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"브라우저 설정 -&amp;gt; 개인 설정에서 언제든지 자동완성을 구성할 수 있습니다."</string>
     <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"개인정보 보호 및 보안"</string>
@@ -259,11 +259,11 @@
     <string name="pref_extras_title" msgid="7075456173747370647">"고급"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"웹사이트 설정"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"개별 웹사이트의 고급 설정"</string>
-    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"기본값 재설정"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"기본값으로 재설정"</string>
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"초기화"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"초기화"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"기본 설정값 복원"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"설정이 기본값으로 되돌아갑니다."</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"기본값으로 재설정"</string>
+    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"초기화"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"디버그"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"텍스트 인코딩"</string>
   <string-array name="pref_default_text_encoding_choices">

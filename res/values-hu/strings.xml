@@ -202,7 +202,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Profil törlése"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"A böngésző automatikusan ki tudja tölteni az ilyen internetes űrlapokat. Beállítja a profilját?"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Az Automatikus kitöltést bármikor beállíthatja a Böngésző beállításai -&amp;gt; Személyes beállítások menüpontban."</string>
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Az Automatikus kitöltést bármikor beállíthatja a Böngésző beállításai -&amp;gt; Személyes beállítások menüpontban."</string>
     <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Adatvédelem és biztonság"</string>

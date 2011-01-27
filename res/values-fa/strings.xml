@@ -203,7 +203,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"حذف نمایه"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"مرورگر می تواند بصورت خودکار فرم های وب مانند این یکی را پر کند. دوست دارید نمایه خود را تنظیم کنید؟"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"تکمیل خودکار را همیشه می توان از طریق تنظیمات مرورگر -&amp;gt; تنظیمات شخصی پیکربندی کرد."</string>
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"تکمیل خودکار را همیشه می توان از طریق تنظیمات مرورگر -&amp;gt; تنظیمات شخصی پیکربندی کرد."</string>
     <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"حریم خصوصی و ایمنی"</string>

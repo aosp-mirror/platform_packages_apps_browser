@@ -20,8 +20,7 @@
     <string name="new_incognito_tab" msgid="5149742197322201152">"Nueva pestaña de incógnito"</string>
     <string name="active_tabs" msgid="5324492165541331128">"Pestañas"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"Abrir en una ventana nueva"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5625314148071601758) -->
-    <skip />
+    <!-- outdated translation 8630182574181104587 -->     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Abrir en una nueva pestaña en segundo plano"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Abrir todos en pestañas nuevas"</string>
     <!-- no translation found for pref_content_open_in_background_summary (7653600574808720292) -->
     <skip />
