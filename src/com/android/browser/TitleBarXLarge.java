@@ -160,7 +160,7 @@ public class TitleBarXLarge extends TitleBarBase
 
     void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
-        mUrlInput.setReverseResults(mUseQuickControls);
+        mUrlInput.setUseQuickControls(mUseQuickControls);
         if (mUseQuickControls) {
             mBackButton.setVisibility(View.GONE);
             mForwardButton.setVisibility(View.GONE);
