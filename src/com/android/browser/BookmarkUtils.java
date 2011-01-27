@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.Context;
@@ -33,6 +34,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PaintDrawable;
 import android.net.Uri;
@@ -40,6 +42,7 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.BrowserContract;
+import android.util.DisplayMetrics;
 
 public class BookmarkUtils {
     private final static String LOGTAG = "BookmarkUtils";
@@ -60,10 +63,11 @@ public class BookmarkUtils {
      */
     static Bitmap createIcon(Context context, Bitmap touchIcon, Bitmap favicon,
             BookmarkIconType type) {
-        int iconDimension = context.getResources().getDimensionPixelSize(
-                android.R.dimen.app_icon_size);
-
-        return createIcon(context, touchIcon, favicon, type, iconDimension);
+        final ActivityManager am = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        final int iconDimension = am.getLauncherLargeIconSize();
+        final int iconDensity = am.getLauncherLargeIconDensity();
+        return createIcon(context, touchIcon, favicon, type, iconDimension, iconDensity);
     }
 
     static Drawable createListFaviconBackground(Context context) {
@@ -79,7 +83,7 @@ public class BookmarkUtils {
     }
 
     private static Bitmap createIcon(Context context, Bitmap touchIcon,
-            Bitmap favicon, BookmarkIconType type, int iconDimension) {
+            Bitmap favicon, BookmarkIconType type, int iconDimension, int iconDensity) {
         Bitmap bm = Bitmap.createBitmap(iconDimension, iconDimension, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bm);
         Rect iconBounds = new Rect(0, 0, bm.getWidth(), bm.getHeight());
@@ -90,7 +94,7 @@ public class BookmarkUtils {
         } else {
             // No touch icon so create our own.
             // Set the background based on the type of shortcut (either webapp or home shortcut).
-            Bitmap icon = getIconBackground(context, type);
+            Bitmap icon = getIconBackground(context, type, iconDensity);
 
             if (icon != null) {
                 // Now draw the correct icon background into our new bitmap.
@@ -127,17 +131,25 @@ public class BookmarkUtils {
         return i;
     }
 
-    private static Bitmap getIconBackground(Context context, BookmarkIconType type) {
+    private static Bitmap getIconBackground(Context context, BookmarkIconType type, int density) {
         if (type == BookmarkIconType.ICON_HOME_SHORTCUT) {
             // Want to create a shortcut icon on the homescreen, so the icon
             // background is the red bookmark.
-            return BitmapFactory.decodeResource(context.getResources(),
-                    R.mipmap.ic_launcher_shortcut_browser_bookmark);
+            Drawable drawable = context.getResources().getDrawableForDensity(
+                    R.mipmap.ic_launcher_shortcut_browser_bookmark, density);
+            if (drawable instanceof BitmapDrawable) {
+                BitmapDrawable bd = (BitmapDrawable) drawable;
+                return bd.getBitmap();
+            }
         } else if (type == BookmarkIconType.ICON_INSTALLABLE_WEB_APP) {
             // Use the web browser icon as the background for the icon for an installable
             // web app.
-            return BitmapFactory.decodeResource(context.getResources(),
-                    R.mipmap.ic_launcher_browser);
+            Drawable drawable = context.getResources().getDrawableForDensity(
+                    R.mipmap.ic_launcher_browser, density);
+            if (drawable instanceof BitmapDrawable) {
+                BitmapDrawable bd = (BitmapDrawable) drawable;
+                return bd.getBitmap();
+            }
         }
         return null;
     }
