@@ -98,8 +98,7 @@
     <string name="current_page" msgid="7510129573681663135">"来源 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"将会删除书签“<xliff:g id="BOOKMARK">%s</xliff:g>”。"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"在新窗口中打开"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"在新窗口中打开全部书签"</string>
     <string name="goto_dot" msgid="3895839050522602723">"转至"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"打开新的隐身标签页"</string>
     <string name="select_dot" msgid="6299170761900561967">"选择文本"</string>
@@ -203,7 +202,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"删除个人资料"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"浏览器可自动填充网络表单（例如该表单）。您希望设置个人资料吗？"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"您可以随时通过“浏览器设置”-&amp;gt;“个人设置”对自动填充功能进行配置。"</string>
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"您可以随时通过“浏览器设置”-&amp;gt;“个人设置”对自动填充功能进行配置。"</string>
     <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"隐私与安全"</string>
@@ -257,7 +256,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"默认缩放设置"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"以概览模式打开网页"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"显示新打开网页的概览"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"高级设置"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"高级"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"网站设置"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"各网站的高级设置"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"重置默认设置"</string>
@@ -278,13 +277,11 @@
     <item msgid="2193955365569270096">"韩语 (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"文字编码"</string>
-    <!-- outdated translation 2965318885051241044 -->     <string name="pref_lab_title" msgid="5571091610359629423">"实验室"</string>
+    <string name="pref_lab_title" msgid="5571091610359629423">"实验室"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"快速控制"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"从左侧或右侧边缘滑动拇指以使用快速控制"</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"“访问最多”首页"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"设置您的主页，以显示“访问最多”首页。"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"数据连接性问题"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"文件有问题"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"确认"</string>

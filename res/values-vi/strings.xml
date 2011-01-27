@@ -203,7 +203,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Xóa tiểu sử"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Trình duyệt có thể tự động hoàn thành biểu mẫu web như biểu mẫu này. Bạn có muốn thiết lập cấu hình của mình không?"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Luôn có thể định cấu hình tính năng Tự động điền thông qua Cài đặt trình duyệt -&amp;gt; Cài đặt cá nhân."</string>
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Luôn có thể định cấu hình tính năng Tự động điền thông qua Cài đặt trình duyệt -&amp;gt; Cài đặt cá nhân."</string>
     <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Quyền riêng tư &amp; Bảo mật"</string>

@@ -202,7 +202,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Slett profil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Nettleseren kan automatisk fylle ut slike nettskjemaer. Vil du konfigurere profilen din?"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 4653039631354546610 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Autofyll kan alltid konfigureres gjennom Nettleserinnstillinger -&amp;gt; Personlige innstillinger."</string>
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Autofyll kan alltid konfigureres gjennom Nettleserinnstillinger -&amp;gt; Personlige innstillinger."</string>
     <!-- no translation found for disable_autofill (3706426217720202898) -->
     <skip />
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Personvern og sikkerhet"</string>
