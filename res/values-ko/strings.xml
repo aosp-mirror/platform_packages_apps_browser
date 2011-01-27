@@ -194,10 +194,10 @@
     <string name="pref_extras_title" msgid="3091250467679722382">"고급 설정"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"웹사이트 설정"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"개별 웹사이트의 고급 설정"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"기본값으로 재설정"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"초기화"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"기본 설정값 복원"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"설정이 기본값으로 되돌아갑니다."</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"기본값으로 재설정"</string>
+    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"초기화"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"디버그"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"텍스트 인코딩"</string>
   <string-array name="pref_default_text_encoding_choices">

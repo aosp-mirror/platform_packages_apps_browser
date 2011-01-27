@@ -72,7 +72,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="588165100024086565">"新增書籤"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"編輯書籤"</string>
-    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"新增捷徑至首頁"</string>
+    <string name="create_shortcut_bookmark" msgid="9202323987633899835">"新增捷徑至主螢幕"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"開啟"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"刪除書籤"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"從書籤中移除"</string>
