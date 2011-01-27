@@ -44,4 +44,5 @@
     <dimen name="list_favicon_padding">5dip</dimen>
     <dimen name="list_favicon_corner_radius">3dip</dimen>
     <dimen name="tab_favicon_corner_radius">2dip</dimen>
+    <dimen name="dropdown_offset">8dip</dimen>
 </resources>
