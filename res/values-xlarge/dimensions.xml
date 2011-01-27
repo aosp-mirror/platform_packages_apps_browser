@@ -16,7 +16,7 @@
     <dimen name="widgetThumbnailHeight">104dip</dimen>
     <dimen name="widgetHorizontalSpacing">14dip</dimen>
     <dimen name="widgetVerticalSpacing">12dip</dimen>
-    <dimen name="favicon_padded_size">24dip</dimen>
+    <dimen name="favicon_padded_size">28dip</dimen>
     <!-- For the most visited page -->
     <dimen name="mv_max_width">1010dp</dimen>
     <dimen name="mv_item_width">231dp</dimen>
