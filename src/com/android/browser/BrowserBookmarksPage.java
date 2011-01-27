@@ -394,6 +394,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         mCrumbs.setController(null);
         mCrumbs = null;
         getLoaderManager().destroyLoader(LOADER_BOOKMARKS);
+        mAdapter = null;
+        CombinedBookmarkHistoryView.getIconListenerSet().removeListener(this);
     }
 
     @Override
