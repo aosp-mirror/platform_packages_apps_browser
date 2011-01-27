@@ -302,7 +302,6 @@ public class TitleBarXLarge extends TitleBarBase
             i.putExtra(SearchManager.APP_DATA, appData);
         }
         mUiController.handleNewIntent(i);
-        setUrlMode(false);
         setDisplayTitle(text);
     }
 
@@ -313,7 +312,6 @@ public class TitleBarXLarge extends TitleBarBase
             currentTab.getWebView().requestFocus();
         }
         mUi.hideFakeTitleBar();
-        setUrlMode(false);
         // if top != null current must be set
         if ((currentTab != null) && !mInVoiceMode) {
             setDisplayTitle(currentTab.getUrl());
@@ -345,7 +343,9 @@ public class TitleBarXLarge extends TitleBarBase
             mWebIcon.setImageResource(R.drawable.ic_search_holo_dark);
             updateSearchMode();
         } else {
-            mUrlInput.clearFocus();
+            if (mUrlInput.hasFocus()) {
+                mUrlInput.clearFocus();
+            }
             mGoButton.setVisibility(View.GONE);
             mVoiceSearch.setVisibility(View.GONE);
             mStar.setVisibility(View.VISIBLE);
