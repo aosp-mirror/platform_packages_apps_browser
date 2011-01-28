@@ -152,7 +152,8 @@ public class UrlUtils {
         if (inUrl == null) {
             return "";
         }
-        if (inUrl.startsWith(HomeProvider.MOST_VISITED)) {
+        if (inUrl.startsWith("content:")
+                || inUrl.startsWith("browser:")) {
             return "";
         }
         return inUrl;
