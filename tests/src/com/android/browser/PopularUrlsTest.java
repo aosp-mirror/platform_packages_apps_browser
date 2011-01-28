@@ -23,6 +23,7 @@ import android.net.http.SslError;
 import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
+import android.webkit.DownloadListener;
 import android.webkit.HttpAuthHandler;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
@@ -180,6 +181,16 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
                 return true;
             }
+
+            /*
+             * Skip the unload confirmation
+             */
+            @Override
+            public boolean onJsBeforeUnload(
+                    WebView view, String url, String message, JsResult result) {
+                result.confirm();
+                return true;
+            }
         });
 
         webView.setWebViewClient(new TestWebViewClient(webView.getWebViewClient()) {
@@ -228,6 +239,23 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 }
             }
 
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (!(url.startsWith("http://") || url.startsWith("https://"))) {
+                    Log.v(TAG, String.format("suppressing non-http url scheme: %s", url));
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+        });
+
+        webView.setDownloadListener(new DownloadListener() {
+
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition,
+                    String mimetype, long contentLength) {
+                Log.v(TAG, String.format("Download request ignored: %s", url));
+            }
         });
     }
 
@@ -258,7 +286,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             // try to wait for count down latch again
             timedout = !mLatch.await(5000, TimeUnit.MILLISECONDS);
             if (timedout) {
-                Log.e(TAG, "failed to stop the timedout site in 5s");
+                throw new RuntimeException("failed to stop timedout site, is browser pegged?");
             }
         }
     }
