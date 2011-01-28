@@ -371,6 +371,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bokmärken"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Det finns inga bokmärken"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Välj konto"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Synkronisera med Google-konto"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Dina Android-bokmärken har inte kopplats till något Google-konto"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Ta bort dina Android-bokmärken"</string>

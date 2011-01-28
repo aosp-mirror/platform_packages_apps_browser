@@ -372,6 +372,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Marcadors"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"No hi ha marcadors"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Elecció d\'un compte"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronitza amb el Compte de Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Els teus marcadors d\'Android no estan associades amb un Compte de Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Elimina els teus marcadors d\'Android"</string>

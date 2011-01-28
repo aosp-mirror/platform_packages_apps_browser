@@ -282,7 +282,7 @@
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Елементи швидкого керування"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Проведіть пальцем від лівого/правого краю для доступу до елем. швидк. керування"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Дом. стор. функції \"Часто відвідувані\""</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Налаштовує домашню сторінку на відображення найчастіше відвідуваних сторінок."</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Налаштовує на домашній сторінці показ найчастіше відвідуваних сторінок."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема з доступом до даних"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема з файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Підтверд."</string>
@@ -372,6 +372,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Закладки"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Немає закладок"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Вибрати обліковий запис"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Синхроніз. з обл. записом Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Ваші закладки Android не пов\'язано з обліковим записом Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Видалити закладки Android"</string>

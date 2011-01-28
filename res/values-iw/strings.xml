@@ -277,7 +277,7 @@
     <item msgid="2193955365569270096">"קוריאנית (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"קידוד טקסט"</string>
-    <string name="pref_lab_title" msgid="5571091610359629423">"מעבדות"</string>
+    <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"פקדים מהירים"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"החלק את האגודל מהקצה הימני או השמאלי כדי לגשת לפקדים המהירים"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"דף הבית הפופולרי ביותר"</string>
@@ -371,6 +371,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"סימניות"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"אין סימניות"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"בחר חשבון"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"סנכרן עם חשבון Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"סימניות Android שלך אינן משויכות לחשבון Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"הסר את הסימניות של Android"</string>

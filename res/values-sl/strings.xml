@@ -372,6 +372,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Zaznamki"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Ni zaznamkov"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Izberite račun"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sinhroniziraj z Google Računom"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Vaši Androidovi zaznamki niso povezani z Googlovim računom"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Odstranite Androidove zaznamke"</string>

@@ -371,6 +371,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bladwijzers"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Er zijn geen bladwijzers"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"J1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Account kiezen"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Synchroniseren met Google-account"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Uw Android-bladwijzers zijn niet gekoppeld aan een Google-account"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Uw Android-bladwijzers verwijderen"</string>
