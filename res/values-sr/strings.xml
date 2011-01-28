@@ -372,6 +372,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Обележивачи"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Нема обележивача"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Избор налога"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Синхронизуј са Google налогом"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Android обележивачи нису повезани са Google налогом"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Уклоните Android обележиваче"</string>

@@ -371,6 +371,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Favoritos"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Não há nenhum favorito"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Escolha conta"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronizar com Conta do Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Seus favoritos do Android não estão associados a uma Conta do Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Remover os favoritos do Android"</string>
