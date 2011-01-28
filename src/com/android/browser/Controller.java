@@ -2125,9 +2125,10 @@ public class Controller
         if (mTabControl.canCreateNewTab()) {
             Tab currentTab = mTabControl.getCurrentTab();
             Tab tab = mTabControl.createNewTab(false, null,
-                    "browser:incognito", true);
+                    null, true);
             addTab(tab);
             setActiveTab(tab);
+            loadUrlDataIn(tab, new UrlData("browser:incognito"));
             return tab;
         } else {
             mUi.showMaxTabsWarning();
