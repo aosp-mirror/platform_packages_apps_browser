@@ -304,7 +304,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     protected void hideFakeTitleBar() {
         if (isFakeTitleBarShowing()) {
-            mFakeTitleBar.setUrlMode(false);
+            mFakeTitleBar.setEditMode(false);
             mContentView.removeView(mFakeTitleBar);
             mTabBar.onHideTitleBar();
         }
@@ -417,7 +417,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
                     return true;
                 }
         }
-        if (event.isPrintingKey() && !mFakeTitleBar.isEditingUrl()) {
+        boolean ctrl = event.hasModifiers(KeyEvent.META_CTRL_ON);
+        if (!ctrl && event.isPrintingKey() && !mFakeTitleBar.isEditingUrl()) {
             editUrl(true);
             return mContentView.dispatchKeyEvent(event);
         }
