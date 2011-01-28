@@ -166,12 +166,14 @@ public class UrlInputView extends AutoCompleteTextView
                 performFiltering(getText().toString(), 0);
                 showDropDown();
             }
-        } else {
-            finishInput(null, null, null);
         }
         if (mWrappedFocusListener != null) {
             mWrappedFocusListener.onFocusChange(v, hasFocus);
         }
+    }
+
+    void stopEditing() {
+        finishInput(null, null, null);
     }
 
     public void setUrlInputListener(UrlInputListener listener) {
