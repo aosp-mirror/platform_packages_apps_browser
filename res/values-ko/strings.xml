@@ -371,6 +371,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"북마크"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"북마크가 없습니다."</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"계정 선택"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Google 계정과 동기화"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"사용자의 Android 북마크는 Google 계정과 연결되지 않았습니다."</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Android 북마크 삭제"</string>
