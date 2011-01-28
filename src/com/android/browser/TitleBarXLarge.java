@@ -133,7 +133,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlInput.setOnFocusChangeListener(this);
         mUrlInput.setSelectAllOnFocus(true);
         mUrlInput.addTextChangedListener(this);
-        setUrlMode(false);
+        setEditMode(false);
     }
 
     void updateNavigationState(Tab tab) {
@@ -187,7 +187,11 @@ public class TitleBarXLarge extends TitleBarBase
         if (!mEditable && hasFocus) {
             mUi.editUrl(false);
         } else {
-            setUrlMode(hasFocus);
+            if (hasFocus) {
+                setEditMode(hasFocus);
+            } else {
+                mUrlInput.stopEditing();
+            }
         }
         mUrlContainer.setBackgroundDrawable(hasFocus
                 ? mFocusDrawable : mUnfocusDrawable);
@@ -266,7 +270,7 @@ public class TitleBarXLarge extends TitleBarBase
     private void clearOrClose() {
         if (TextUtils.isEmpty(mUrlInput.getText())) {
             // close
-            setUrlMode(false);
+            mUrlInput.stopEditing();
         } else {
             // clear
             mUrlInput.setText("");
@@ -307,15 +311,16 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void onDismiss() {
-        Tab currentTab = mUi.getActiveTab();
-        if (currentTab != null && currentTab.getWebView() != null) {
-            currentTab.getWebView().requestFocus();
-        }
+        final Tab currentTab = mUi.getActiveTab();
         mUi.hideFakeTitleBar();
-        // if top != null current must be set
-        if ((currentTab != null) && !mInVoiceMode) {
-            setDisplayTitle(currentTab.getUrl());
-        }
+        post(new Runnable() {
+            public void run() {
+                TitleBarXLarge.this.clearFocus();
+                if ((currentTab != null) && !mInVoiceMode) {
+                    setDisplayTitle(currentTab.getUrl());
+                }
+            }
+        });
     }
 
     /**
@@ -330,8 +335,8 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    void setUrlMode(boolean focused) {
-        if (focused) {
+    void setEditMode(boolean edit) {
+        if (edit) {
             mUrlInput.setDropDownWidth(mUrlContainer.getWidth());
             mUrlInput.setDropDownHorizontalOffset(-mUrlInput.getLeft());
             mSearchButton.setVisibility(View.GONE);
@@ -343,9 +348,6 @@ public class TitleBarXLarge extends TitleBarBase
             mWebIcon.setImageResource(R.drawable.ic_search_holo_dark);
             updateSearchMode();
         } else {
-            if (mUrlInput.hasFocus()) {
-                mUrlInput.clearFocus();
-            }
             mGoButton.setVisibility(View.GONE);
             mVoiceSearch.setVisibility(View.GONE);
             mStar.setVisibility(View.VISIBLE);
@@ -454,4 +456,5 @@ public class TitleBarXLarge extends TitleBarBase
     void setIncognitoMode(boolean incognito) {
         mUrlInput.setIncognitoMode(incognito);
     }
+
 }
