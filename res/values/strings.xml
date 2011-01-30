@@ -811,15 +811,15 @@
         <item>Google</item>
         <item>http://www.google.com/</item>
         <item>Picasa</item>
-        <item>http://picasaweb.google.com/m/viewer?source=androidclient</item>
+        <item>http://picasaweb.google.com/</item>
         <item>Yahoo!</item>
         <item>http://www.yahoo.com/</item>
         <item>MSN</item>
         <item>http://www.msn.com/</item>
-        <item>MySpace</item>
-        <item>http://www.myspace.com/</item>
+        <item>Twitter</item>
+        <item>http://twitter.com/</item>
         <item>Facebook</item>
-        <item>http://www.facebook.com/</item>
+        <item>http://www.facebook.com/?m2w</item>
         <item>Wikipedia</item>
         <item>http://www.wikipedia.org/</item>
         <item>eBay</item>
@@ -831,7 +831,7 @@
         <item>ESPN</item>
         <item>http://espn.com/</item>
         <item>Amazon</item>
-        <item>http://www.amazon.com/</item>
+        <item>http://www.amazon.com/?force-full-site=1</item>
         <item>Weather Channel</item>
         <item>http://www.weather.com/</item>
         <item>BBC</item>
