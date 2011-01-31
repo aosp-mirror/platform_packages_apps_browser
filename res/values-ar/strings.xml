@@ -98,7 +98,7 @@
     <string name="current_page" msgid="7510129573681663135">"من "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"سيتم حذف الإشارة \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"فتح في نافذة جديدة"</string>
-    <string name="open_all_in_new_window" msgid="6514602245828366045">"فتح الجميع في نوافذ جديدة"</string>
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"فتح الكل في نوافذ جديدة"</string>
     <string name="goto_dot" msgid="3895839050522602723">"تنفيذ"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"فتح علامة تبويب جديدة للتصفح المتخفي"</string>
     <string name="select_dot" msgid="6299170761900561967">"تحديد نص"</string>
@@ -117,8 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"المجلد فارغ"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"فتح"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"فتح في نافذة جديدة"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"فتح في نافذة جديدة في الخلفية"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"حفظ الرابط"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"مشاركة الرابط"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"نسخ"</string>
@@ -171,12 +170,9 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"ملء نماذج الويب بنقرة واحدة"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"إعدادات الملء التلقائي"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"إعداد وإدارة البيانات للنماذج التي يتم ملؤها تلقائيًا"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"تسجيل الدخول تلقائيًا إلى Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"لم يتم العثور على أي حسابات."</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"تسجيل الدخول إلى مواقع Google تلقائيًا باستخدام <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
     <skip />
     <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
@@ -194,17 +190,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"الرمز البريدي:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"البلد:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"الهاتف:"</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"رقم الهاتف غير صالح."</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"حفظ الملف الشخصي"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"تم حفظ الملف الشخصي"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"تم حذف الملف الشخصي"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"حذف الملف الشخصي"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"يستطيع المتصفح إكمال نماذج ويب مثل هذا النموذج. هل تريد إعداد ملفك الشخصي؟"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"يمكن تهيئة ميزة الملء التلقائي من خلال إعدادات المتصفح -&amp;gt; الإعدادات الشخصية."</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"يمكن تهيئة الملء التلقائي دائمًا عبر إعدادات المتصفح."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"تعطيل الملء التلقائي"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"الخصوصية والأمان"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"محو ذاكرة التخزين المؤقت"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"محو قواعد البيانات والمحتوى المخزن مؤقتًا محليًا"</string>

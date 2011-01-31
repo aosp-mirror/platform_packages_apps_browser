@@ -117,7 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Vaciar carpeta"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Abrir en una ventana nueva"</string>
-    <!-- outdated translation 7697600654413234206 -->     <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Abrir en una nueva ventana en segundo plano"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Abrir en una nueva ventana de fondo"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Guardar enlace"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Compartir vínculo"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copiar"</string>
@@ -170,14 +170,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completa formularios web con un clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Configuración de autollenado"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configurar y administrar datos para los formularios de autollenado"</string>
-    <!-- outdated translation 7521451742003302656 -->     <string name="pref_autologin_title" msgid="2362827272595366379">"Acceso automático a Google"</string>
-    <!-- outdated translation 1153514574092102114 -->     <string name="pref_autologin_no_account" msgid="4409223615542478868">"No se encontraron las cuentas"</string>
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
-    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
-    <skip />
-    <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Acceso automático a Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"No se encontraron las cuentas"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Acceder automáticamente a sitios de Google utilizando <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Accediendo a Google Sites utilizando<xliff:g id="ID_1">%s</xliff:g>"\n"Tu control de configuración de seguridad &amp; privacidad automático para acceso a Google"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"No accedas de manera automática"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"La función Autocompletar utilizará tu perfil para ayudarte a rellenar formularios web con un solo clic."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nombre completo:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Correo electrónico:"</string>
@@ -191,14 +188,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Código postal:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"País:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Teléfono:"</string>
-    <!-- outdated translation 3319040244965497585 -->     <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Número de teléfono no válido"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Número de teléfono no válido"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Guardar perfil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Perfil guardado"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Perfil eliminado"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Eliminar perfil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"El navegador puede completar formularios web como este de forma automática. ¿Deseas configurar tu perfil?"</string>
-    <!-- outdated translation 8290973940003625025 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Autocomp. se configura en cualquier momento con Configuración del navegador."</string>
-    <!-- outdated translation 7984096318749960909 -->     <string name="disable_autofill" msgid="3706426217720202898">"Inhabilitar Autocompl."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Autocompletar siempre se puede configurar mediante los Parámetros de configuración del navegador."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Desactivar Autocompletar"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Privacidad y seguridad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Borrar memoria caché"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Borrar el contenido y las bases de datos de la memoria caché local"</string>

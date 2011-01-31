@@ -118,8 +118,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Празан директоријум"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Отвори"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Отвори у новом прозору"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Отвори у новом позадинском прозору"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Сачувај везу"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Дели везу"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Копирај"</string>
@@ -172,12 +171,9 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Попуните Веб обрасце само једним кликом"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Подешавања аутоматског попуњавања"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Подешавајте и управљајте подацима за аутоматски попуњене обрасце"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Аутоматска пријава на Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Није пронађен ниједан налог"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Пријавите се на Google сајтове аутоматски помоћу налога <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
     <skip />
     <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
@@ -195,17 +191,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Поштански број:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Земља:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Телефон:"</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Неважећи број телефона"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Сачувај профил"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Профил је сачуван"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Профил је избрисан"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Избриши профил"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Прегледач може аутоматски да попуњава веб обрасце попут овог. Желите ли да подесите профил?"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Аутоматско попуњавање увек можете да конфигуришете преко Подешавања прегледача – &amp;gt; Лична подешавања."</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Аутоматско попуњавање увек можете да конфигуришете у Подешавањима прегледача."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Онемогући аутоматско попуњавање"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Приватност и безбедност"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Обриши кеш"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Брисање садржаја и база података из локалног кеша"</string>
@@ -281,7 +274,7 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Брзе контроле"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Листајте палцем са леве или десне ивице да бисте приступили брзим контролама"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Почетна страница Најпосећенији"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Најпосећеније на почетној страници"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Подешава почетну страницу тако да се на њој приказују најпосећеније странице."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблем при повезивању са подацима"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблем са датотеком"</string>

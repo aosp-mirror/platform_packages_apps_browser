@@ -117,8 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Cartella vuota"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Apri"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Apri in nuova finestra"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Apri in nuova finestra in secondo piano"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Salva link"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Condividi link"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copia"</string>
@@ -171,12 +170,9 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Compila i moduli web con un clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Impost. Compilazione automatica"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Imposta e gestisci i dati per i moduli compilati automaticamente"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Accesso Google automatico"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Nessun account trovato"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Accedi automaticamente ai siti Google utilizzando <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
     <skip />
     <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
@@ -194,17 +190,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Codice postale:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Paese:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefono:"</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Numero di telefono non corretto"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Salva profilo"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profilo salvato"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profilo eliminato"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Elimina profilo"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Il browser può compilare automaticamente i moduli web come questo. Vuoi impostare il tuo profilo?"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"La funzione Compilazione automatica può essere sempre configurata da Impostazioni browser -&amp;gt; Impostazioni personali."</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"È sempre possibile configurare la compilazione automatica tramite le impostazioni del browser."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Disabilita compilazione automatica"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Privacy e sicurezza"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Cancella cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Cancella i contenuti e i database memorizzati localmente nella cache"</string>

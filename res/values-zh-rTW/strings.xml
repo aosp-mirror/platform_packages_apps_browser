@@ -117,8 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空資料夾"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"開啟"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"在新視窗開啟"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"在新背景視窗中開啟連結"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"儲存連結"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"分享連結"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"複製"</string>
@@ -171,12 +170,9 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"輕按一下即可填妥網頁表單"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自動填入設定"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"設定和管理自動填入的表單資料"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"自動登入 Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"找不到帳戶"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"自動使用 <xliff:g id="ID_1">%s</xliff:g> 登入 Google 網站"</string>
     <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
     <skip />
     <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
@@ -194,17 +190,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"郵遞區號："</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"國家/地區："</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"電話："</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"無效的電話號碼"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"儲存設定檔"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"設定檔已儲存"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"個人資料已刪除"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"刪除設定檔"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"瀏覽器可以自動填寫這類網路表單，您要建立個人資料嗎？"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"自動填入功能可隨時透過 [瀏覽器設定] -&amp;gt; [個人設定] 加以調整。"</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"自動填入功能可隨時透過 [瀏覽器設定] 加以設定。"</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"停用自動填入功能"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"隱私權與安全性"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除快取"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除本機快取內容與資料庫"</string>
@@ -280,8 +273,8 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"研究室"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"快速控制項"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"從左側或右側邊緣滑動拇指即可存取快速控制項"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"造訪次數最多的首頁"</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"將您的首頁設為顯示造訪次數最多的網頁。"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"以造訪最多的網頁為首頁"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"將造訪次數最多的網頁設為您要顯示的首頁。"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"資料連線問題"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"檔案有問題"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"確認"</string>

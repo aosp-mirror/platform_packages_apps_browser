@@ -20,9 +20,7 @@
     <string name="new_incognito_tab" msgid="5149742197322201152">"Tab ẩn danh mới"</string>
     <string name="active_tabs" msgid="5324492165541331128">"Tab"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"Mở trong tab mới"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5625314148071601758) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Mở trong tab nền mới"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Mở tất cả trong tab mới"</string>
-    <!-- no translation found for pref_content_open_in_background_summary (7653600574808720292) -->
-    <skip />
+    <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Mở tab mới phía sau tab hiện tại"</string>
 </resources>

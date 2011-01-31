@@ -118,8 +118,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Dosar gol"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Deschideţi"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Deschideţi într-o fereastră nouă"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Deschideţi într-o fereastră nouă în fundal"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Salvaţi linkul"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Distribuiţi linkul"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copiaţi"</string>
@@ -172,12 +171,9 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completaţi formulare web cu un singur clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Setări Completare automată"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configuraţi şi gestionaţi date pentru formularele cu completare automată"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Conectare automată la Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Nu au fost găsite conturi"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Conectaţi-vă automat la site-urile Google utilizând <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
     <skip />
     <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
@@ -195,17 +191,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Codul poştal:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Ţară:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Număr de telefon nevalid"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Salvaţi profilul"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profilul a fost salvat"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profilul a fost şters"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Ştergeţi profilul"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Browserul poate completa în mod automat formulare web ca acesta. Doriţi să vă configuraţi profilul?"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Completarea automată poate fi întotdeauna configurată din Setări browser -&amp;gt; Setări personale."</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Completarea automată poate fi configurată oricând din Setările browserului."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Dezactivaţi Completarea automată"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Confidenţialitate şi securitate"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Goliţi memoria cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ştergeţi conţinutul memoriei cache şi bazele de date"</string>
