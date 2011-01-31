@@ -35,6 +35,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.net.http.AndroidHttpClient;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -44,14 +45,16 @@ import java.util.StringTokenizer;
 public class GoogleAccountLogin extends Thread implements
         AccountManagerCallback<Bundle>, OnCancelListener {
 
+    private static final String LOGTAG = "BrowserLogin";
+
     // Url for issuing the uber token.
     private Uri ISSUE_AUTH_TOKEN_URL = Uri.parse(
             "https://www.google.com/accounts/IssueAuthToken?service=gaia&Session=false");
     // Url for signing into a particular service.
-    private final static Uri TOKEN_AUTH_URL = Uri.parse(
+    private static final Uri TOKEN_AUTH_URL = Uri.parse(
             "https://www.google.com/accounts/TokenAuth");
     // Google account type
-    private final static String GOOGLE = "com.google";
+    private static final String GOOGLE = "com.google";
 
     private final Activity mActivity;
     private final Account mAccount;
@@ -103,16 +106,21 @@ public class GoogleAccountLogin extends Thread implements
         try {
             HttpResponse response = client.execute(request);
             if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                Log.d(LOGTAG, "LOGIN_FAIL: Bad status from auth url "
+                      + response.getStatusLine().getStatusCode() + ": "
+                      + response.getStatusLine().getReasonPhrase());
                 done();
                 return;
             }
             HttpEntity entity = response.getEntity();
             if (entity == null) {
+                Log.d(LOGTAG, "LOGIN_FAIL: Null entity in response");
                 done();
                 return;
             }
             result = EntityUtils.toString(entity, "UTF-8");
         } catch (Exception e) {
+            Log.d(LOGTAG, "LOGIN_FAIL: Exception acquiring uber token " + e);
             request.abort();
             done();
             return;
@@ -163,6 +171,7 @@ public class GoogleAccountLogin extends Thread implements
                     break;
             }
         } catch (Exception e) {
+            Log.d(LOGTAG, "LOGIN_FAIL: Exception in state " + mState + " " + e);
             // For all exceptions load the original signin page.
             // TODO: toast login failed?
             done();
@@ -219,6 +228,7 @@ public class GoogleAccountLogin extends Thread implements
     // This can happen on success, error, or timeout.
     private synchronized void done() {
         if (mRunnable != null) {
+            Log.d(LOGTAG, "Finished login attempt for " + mAccount.name);
             mActivity.runOnUiThread(mRunnable);
             mRunnable = null;
             mWebView.destroy();
