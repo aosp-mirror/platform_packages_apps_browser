@@ -19,14 +19,12 @@ package com.android.browser;
 import com.google.common.annotations.VisibleForTesting;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -113,36 +111,12 @@ public class BrowserActivity extends Activity {
             icicle = state;
         }
 
-        String account = settings.getAutoLoginAccount(this);
-        if (settings.isAutoLoginEnabled() && account != null &&
-                !GoogleAccountLogin.isLoggedIn()) {
-            GoogleAccountLogin login =
-                    new GoogleAccountLogin(this, account);
-            final ProgressDialog dialog = ProgressDialog.show(this,
-                    getString(R.string.pref_autologin_title),
-                    getString(R.string.pref_autologin_progress, account),
-                    true /* indeterminate */,
-                    true /* cancelable */,
-                    login);
-            final Bundle b = icicle;
-            final Handler handler = new Handler();
-            final Runnable dismiss = new Runnable() {
-                @Override public void run() {
-                    dialog.dismiss();
-                }
-            };
-            final Runnable start = new Runnable() {
-                @Override public void run() {
-                    // Post a delayed dismiss message to avoid a flash of the
-                    // progress dialog.
-                    handler.postDelayed(dismiss, 1000);
-                    mController.start(b, getIntent());
-                }
-            };
-            login.startLogin(start);
-        } else {
-            mController.start(icicle, getIntent());
-        }
+        final Bundle b = icicle;
+        GoogleAccountLogin.startLoginIfNeeded(this, settings, new Runnable() {
+            @Override public void run() {
+                mController.start(b, getIntent());
+            }
+        });
     }
 
     @VisibleForTesting

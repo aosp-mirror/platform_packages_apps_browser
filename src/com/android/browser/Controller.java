@@ -2093,8 +2093,8 @@ public class Controller
     // This method does a ton of stuff. It will attempt to create a new tab
     // if we haven't reached MAX_TABS. Otherwise it uses the current tab. If
     // url isn't null, it will load the given url.
-    public Tab openTabAndShow(Tab parent, UrlData urlData, boolean closeOnExit,
-            String appId) {
+    public Tab openTabAndShow(Tab parent, final UrlData urlData,
+            boolean closeOnExit, String appId) {
         final Tab currentTab = mTabControl.getCurrentTab();
         if (mTabControl.canCreateNewTab()) {
             final Tab tab = mTabControl.createNewTab(closeOnExit, appId,
@@ -2105,9 +2105,17 @@ public class Controller
             // animation behavior.
             addTab(tab);
             setActiveTab(tab);
-            if (!urlData.isEmpty()) {
-                loadUrlDataIn(tab, urlData);
-            }
+
+            // Callback to load the url data.
+            final Runnable load = new Runnable() {
+                @Override public void run() {
+                    if (!urlData.isEmpty()) {
+                        loadUrlDataIn(tab, urlData);
+                    }
+                }
+            };
+
+            GoogleAccountLogin.startLoginIfNeeded(mActivity, mSettings, load);
             return tab;
         } else {
             // Get rid of the subwindow if it exists
