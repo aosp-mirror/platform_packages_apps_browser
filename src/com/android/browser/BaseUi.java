@@ -292,6 +292,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     private void removeTabFromContentView(Tab tab) {
+        hideFakeTitleBar();
         // Remove the container that contains the main WebView.
         WebView mainView = tab.getWebView();
         View container = tab.getViewContainer();
@@ -301,6 +302,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         // Remove the container from the content and then remove the
         // WebView from the container. This will trigger a focus change
         // needed by WebView.
+        mainView.setEmbeddedTitleBar(null);
         FrameLayout wrapper =
                 (FrameLayout) container.findViewById(R.id.webview_wrapper);
         wrapper.removeView(mainView);
@@ -311,7 +313,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
         if (errorConsole != null) {
             mErrorConsoleContainer.removeView(errorConsole);
         }
-        mainView.setEmbeddedTitleBar(null);
     }
 
     @Override

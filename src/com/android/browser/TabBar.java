@@ -194,7 +194,6 @@ public class TabBar extends LinearLayout
     }
 
     public void onClick(View view) {
-        mUi.hideComboView();
         if (mNewTab == view) {
             mUiController.openTabToHomePage();
         } else if (mTabs.getSelectedTab() == view) {
