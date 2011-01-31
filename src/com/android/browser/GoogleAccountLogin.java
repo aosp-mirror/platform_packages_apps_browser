@@ -29,12 +29,16 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.SharedPreferences.Editor;
 import android.net.http.AndroidHttpClient;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
@@ -55,21 +59,32 @@ public class GoogleAccountLogin extends Thread implements
             "https://www.google.com/accounts/TokenAuth");
     // Google account type
     private static final String GOOGLE = "com.google";
+    // Last auto login time
+    private static final String PREF_AUTOLOGIN_TIME = "last_autologin_time";
+    // A week in milliseconds (7*24*60*60*1000)
+    private static final long WEEK_IN_MILLIS = 604800000L;
 
     private final Activity mActivity;
     private final Account mAccount;
     private final WebView mWebView;
+    // Does not matter if this is initialized in a non-ui thread.
+    // Dialog.dismiss() will post to the right handler.
+    private final Handler mHandler = new Handler();
     private Runnable mRunnable;
+    private ProgressDialog mProgressDialog;
 
     // SID and LSID retrieval process.
     private String mSid;
     private String mLsid;
     private int mState;  // {NONE(0), SID(1), LSID(2)}
 
-    GoogleAccountLogin(Activity activity, String name) {
+    private GoogleAccountLogin(Activity activity, String name,
+            Runnable runnable) {
         mActivity = activity;
         mAccount = new Account(name, GOOGLE);
         mWebView = new WebView(mActivity);
+        mRunnable = runnable;
+
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -77,9 +92,17 @@ public class GoogleAccountLogin extends Thread implements
             }
             @Override
             public void onPageFinished(WebView view, String url) {
+                saveLoginTime();
                 done();
             }
         });
+    }
+
+    private void saveLoginTime() {
+        Editor ed = PreferenceManager.
+                getDefaultSharedPreferences(mActivity).edit();
+        ed.putLong(PREF_AUTOLOGIN_TIME, System.currentTimeMillis());
+        ed.apply();
     }
 
     // Thread
@@ -178,8 +201,42 @@ public class GoogleAccountLogin extends Thread implements
         }
     }
 
-    public void startLogin(Runnable runnable) {
-        mRunnable = runnable;
+    // Start the login process if auto-login is enabled and the user is not
+    // already logged in.
+    public static void startLoginIfNeeded(Activity activity,
+            BrowserSettings settings, Runnable runnable) {
+        // Auto login not enabled?
+        if (!settings.isAutoLoginEnabled()) {
+            runnable.run();
+            return;
+        }
+
+        // No account found?
+        String account = settings.getAutoLoginAccount(activity);
+        if (account == null) {
+            runnable.run();
+            return;
+        }
+
+        // Already logged in?
+        if (isLoggedIn(activity)) {
+            runnable.run();
+            return;
+        }
+
+        GoogleAccountLogin login =
+                new GoogleAccountLogin(activity, account, runnable);
+        login.startLogin();
+    }
+
+    private void startLogin() {
+        mProgressDialog = ProgressDialog.show(mActivity,
+                mActivity.getString(R.string.pref_autologin_title),
+                mActivity.getString(R.string.pref_autologin_progress,
+                                    mAccount.name),
+                true /* indeterminate */,
+                true /* cancelable */,
+                this);
         mState = 1;  // SID
         AccountManager.get(mActivity).getAuthToken(
                 mAccount, "SID", null, mActivity, this, null);
@@ -209,7 +266,20 @@ public class GoogleAccountLogin extends Thread implements
     }
 
     // Checks for the presence of the SID cookie on google.com.
-    public static boolean isLoggedIn() {
+    public static boolean isLoggedIn(Context ctx) {
+        // See if we last logged in less than a week ago.
+        long lastLogin = PreferenceManager.
+                getDefaultSharedPreferences(ctx).
+                getLong(PREF_AUTOLOGIN_TIME, -1);
+        if (lastLogin == -1) {
+            return false;
+        }
+        long diff = System.currentTimeMillis() - lastLogin;
+        if (diff > WEEK_IN_MILLIS) {
+            Log.d(LOGTAG, "Forcing login after " + diff + "ms");
+            return false;
+        }
+
         String cookies = CookieManager.getInstance().getCookie(
                 "http://www.google.com");
         if (cookies != null) {
@@ -230,6 +300,15 @@ public class GoogleAccountLogin extends Thread implements
         if (mRunnable != null) {
             Log.d(LOGTAG, "Finished login attempt for " + mAccount.name);
             mActivity.runOnUiThread(mRunnable);
+
+            // Post a delayed message to dismiss the dialog in order to avoid a
+            // flash of the progress dialog.
+            mHandler.postDelayed(new Runnable() {
+                @Override public void run() {
+                    mProgressDialog.dismiss();
+                }
+            }, 1000);
+
             mRunnable = null;
             mWebView.destroy();
         }
