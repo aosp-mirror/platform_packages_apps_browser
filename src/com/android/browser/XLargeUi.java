@@ -143,6 +143,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         initWebViewSettings(w);
         w.setScrollListener(this);
         w.getSettings().setDisplayZoomControls(false);
+        w.setExpandedTileBounds(true);  // smoother scrolling
         return w;
     }
 
