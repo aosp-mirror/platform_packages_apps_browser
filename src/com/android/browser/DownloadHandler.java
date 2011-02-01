@@ -181,7 +181,13 @@ public class DownloadHandler {
 
         String addressString = webAddress.toString();
         Uri uri = Uri.parse(addressString);
-        final DownloadManager.Request request = new DownloadManager.Request(uri);
+        final DownloadManager.Request request;
+        try {
+            request = new DownloadManager.Request(uri);
+        } catch (IllegalArgumentException e) {
+            Toast.makeText(activity, R.string.cannot_download, Toast.LENGTH_SHORT).show();
+            return;
+        }
         request.setMimeType(mimetype);
         // set downloaded file destination to /sdcard/Download.
         // or, should it be set to one of several Environment.DIRECTORY* dirs depending on mimetype?

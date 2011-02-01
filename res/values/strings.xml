@@ -749,6 +749,8 @@
             the user how to enable SD card storage -->
     <string name="download_sdcard_busy_dlg_msg" product="default">The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
 
+    <!-- Toast for a download which cannot begin because the URL is not http or https -->
+    <string name="cannot_download">Can only download \"http\" or \"https\" URLs.</string>
     <!-- Title for a dialog informing the user that there is no application on
             the phone that can open the file that was downloaded -->
     <string name="download_no_application_title">Cannot open file</string>
