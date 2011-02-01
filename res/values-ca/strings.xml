@@ -99,7 +99,7 @@
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Se suprimirà l\'adreça d\'interès \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Obre en una finestra nova"</string>
-    <string name="open_all_in_new_window" msgid="6514602245828366045">"Obre-les totes en finestres noves"</string>
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Obre-ho tot en finestres noves"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Vés"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Obre una nova pest. d\'incògnit"</string>
     <string name="select_dot" msgid="6299170761900561967">"Selecciona text"</string>
@@ -118,8 +118,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Carpeta buida"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Obre"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Obre en una finestra nova"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Obre en una finestra de fons nova"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Desa l\'enllaç"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Comparteix l\'enllaç"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copia"</string>
@@ -172,14 +171,10 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Emplena formularis web amb un simple clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Configuració d\'emplenament automàtic"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configura i gestiona les dades per a formularis emplenats automàticament"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
-    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Inici sessió automàtic a Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"No s\'ha trobat cap compte"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Inicia la sessió a Llocs web de Google automàticament mitjançant <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"<xliff:g id="ID_1">%s</xliff:g>"\n</string>
     <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
     <skip />
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Emplenament automàtic utilitzarà el teu perfil per ajudar-te a emplenar formularis web amb un sol clic."</string>
@@ -195,17 +190,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Codi postal:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"País:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telèfon:"</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"El número de telèfon no és vàlid"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Desa el perfil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"S\'ha desat el perfil"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"S\'ha suprimit el perfil"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Suprimeix el perfil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"El navegador pot emplenar formularis web com aquest automàticament. Vols configurar el teu perfil?"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"L\'emplenament automàtic es pot configurar en qualsevol moment mitjançant la configuració del navegador -&amp;gt; configuració personal."</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"L\'emplenament automàtic sempre es pot establir mitjançant la configuració del navegador."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Desactiva l\'emplenament automàtic"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Privadesa i seguretat"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Esborra la memòria cau"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Esborra el contingut i les bases de dades de la memòria cau local"</string>
@@ -281,7 +273,7 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Controls ràpids"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Fes lliscar el polze cap a la dreta o cap a l\'esquerra per accedir als controls ràpids"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Pàgina d\'inici de \"Més visitats\""</string>
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Pàgina principal més visitada"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Estableix la pàgina d\'inici perquè mostri les pàgines més visitades."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de connectivitat de dades"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema amb el fitxer"</string>

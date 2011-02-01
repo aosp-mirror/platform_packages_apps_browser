@@ -117,8 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Tom mapp"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Öppna"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Öppna i nytt fönster"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Öppna i nytt fönster i bakgrunden"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Spara länk"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Dela länk"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopiera"</string>
@@ -171,12 +170,9 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Fyll i webbformulär med ett enda klick"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Inställningar för Autofyll"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Konfigurera och hantera data för automatisk ifyllning av formulär"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Automatiskt inloggning på Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Inga konton hittades"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Logga in automatiskt på Googles webbplatser med <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
     <skip />
     <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
@@ -194,17 +190,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Postnummer:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Land:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Ogiltigt telefonnummer"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Spara profil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profilen har sparats"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profilen har tagits bort"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Ta bort profil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Webbläsaren kan fylla i den här typen av formulär automatiskt. Vill du skapa en profil?"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Du kan när som helst ändra inställningarna för Autofyll under webbläsarens inställningar -&amp;gt; Personliga inställningar."</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Du kan när som helst ändra inställningarna för Autofyll under webbläsarens inställningar."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Inaktivera Autofyll"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Sekretess och säkerhet"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Rensa cacheminne"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ta bort innehåll och databaser som cachelagrats lokalt"</string>
