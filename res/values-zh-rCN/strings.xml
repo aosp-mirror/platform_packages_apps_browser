@@ -117,8 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空文件夹"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"打开"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"在新窗口中打开"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"在新的后台窗口中打开"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"保存链接"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"分享链接"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"复制"</string>
@@ -171,12 +170,9 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"只需点击一下，即可填完网络表单"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自动填充设置"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"设置和管理自动填充表单的数据"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"自动登录 Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"未找到帐户"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"使用 <xliff:g id="ID_1">%s</xliff:g> 自动登录 Google 网站"</string>
     <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
     <skip />
     <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
@@ -194,17 +190,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"邮政编码："</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"国家/地区："</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"电话："</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"电话号码无效"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"保存个人资料"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"个人资料已保存"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"个人资料已删除"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"删除个人资料"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"浏览器可自动填充网络表单（例如该表单）。您希望设置个人资料吗？"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"您可以随时通过“浏览器设置”-&amp;gt;“个人设置”对自动填充功能进行配置。"</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"您可以随时通过“浏览器设置”对自动填充功能进行配置。"</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"停用自动填充"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"隐私与安全"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除缓存"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除存储在本地缓存中的内容和数据库"</string>
@@ -281,7 +274,7 @@
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"快速控制"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"从左侧或右侧边缘滑动拇指以使用快速控制"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"“访问最多”首页"</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"设置您的主页，以显示“访问最多”首页。"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"设置您的主页，以显示访问最多的页面。"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"数据连接性问题"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"文件有问题"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"确认"</string>

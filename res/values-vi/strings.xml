@@ -118,8 +118,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Thư mục trống"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Mở"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Mở trong cửa sổ mới"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Mở trong cửa sổ nền mới"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Lưu liên kết"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Chia sẻ liên kết"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Sao chép"</string>
@@ -172,16 +171,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Điền biểu mẫu web chỉ với một cú nhấp"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Cài đặt tự động điền"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Thiết lập &amp; quản lý dữ liệu cho biểu mẫu Tự động điền"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
-    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
-    <skip />
-    <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Tự động đăng nhập Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Không tìm thấy tài khoản nào"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Tự động đăng nhập vào các trang của Google bằng <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Đang đăng nhập vào các trang web của Google bằng <xliff:g id="ID_1">%s</xliff:g>"\n"Cài đặt Riêng tư &amp; Bảo mật kiểm soát đăng nhập Google tự động"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"Không đăng nhập tự động"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Tự động điền sẽ sử dụng tiểu sử của bạn để giúp bạn hoàn thành biểu mẫu web chỉ bằng một cú nhấp chuột."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Tên đầy đủ:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
@@ -195,17 +189,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Mã zip:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Quốc gia:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Điện thoại:"</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Số điện thoại không hợp lệ"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Lưu tiểu sử"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Đã lưu tiểu sử"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Đã xóa tiểu sử"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Xóa tiểu sử"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Trình duyệt có thể tự động hoàn thành biểu mẫu web như biểu mẫu này. Bạn có muốn thiết lập cấu hình của mình không?"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Luôn có thể định cấu hình tính năng Tự động điền thông qua Cài đặt trình duyệt -&amp;gt; Cài đặt cá nhân."</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Luôn có thể định cấu hình tính năng Tự động điền thông qua Cài đặt trình duyệt."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Tắt Tự động điền"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Quyền riêng tư &amp; Bảo mật"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Xoá bộ nhớ cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Xoá nội dung và cơ sở dữ liệu được lưu trong bộ nhớ cache cục bộ"</string>

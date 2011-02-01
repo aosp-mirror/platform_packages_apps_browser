@@ -117,8 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"빈 폴더"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"열기"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"새 창에서 열기"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"새 배경 창에서 열기"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"링크 저장"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"링크 공유"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"복사"</string>
@@ -171,12 +170,9 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"클릭 한 번으로 웹 양식 작성"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"자동완성 설정"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"자동완성된 양식의 데이터 설정 및 관리"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_no_account (4409223615542478868) -->
-    <skip />
-    <!-- no translation found for pref_autologin_summary (8168866316823968574) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"자동 Google 로그인"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"계정이 없습니다."</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"<xliff:g id="ID_1">%s</xliff:g>을(를) 사용하여 Google 사이트에 자동으로 로그인"</string>
     <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
     <skip />
     <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
@@ -194,17 +190,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"우편번호:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"국가:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"전화:"</string>
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"잘못된 전화번호"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"프로필 저장"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"프로필 저장됨"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"프로필이 삭제되었습니다."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"프로필 삭제"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"브라우저에서 이 양식과 같은 웹 양식을 자동으로 완성할 수 있습니다. 프로필을 설정하시겠습니까?"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"브라우저 설정 -&amp;gt; 개인 설정에서 언제든지 자동완성을 구성할 수 있습니다."</string>
-    <!-- no translation found for disable_autofill (3706426217720202898) -->
-    <skip />
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"브라우저 설정에서 언제든지 자동완성을 구성할 수 있습니다."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"자동완성 사용 안함"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"개인정보 보호 및 보안"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"캐시 지우기"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"로컬로 캐시된 콘텐츠 및 데이터베이스 삭제"</string>
