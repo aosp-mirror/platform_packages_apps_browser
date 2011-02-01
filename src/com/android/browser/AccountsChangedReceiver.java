@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.BroadcastReceiver;
@@ -55,6 +57,7 @@ public class AccountsChangedReceiver extends BroadcastReceiver {
             ContentResolver.setSyncAutomatically(a, BrowserContract.AUTHORITY, false);
             ContentResolver.setIsSyncable(a, BrowserContract.AUTHORITY, 0);
         }
+        BookmarkThumbnailWidgetProvider.refreshWidgets(context, true);
     }
 
 }

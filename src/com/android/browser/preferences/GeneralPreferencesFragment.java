@@ -21,6 +21,7 @@ import com.android.browser.BrowserHomepagePreference;
 import com.android.browser.BrowserPreferencesPage;
 import com.android.browser.BrowserSettings;
 import com.android.browser.R;
+import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -125,6 +126,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
             if (BrowserBookmarksPage.PREF_ACCOUNT_NAME.equals(key)
                     || BrowserBookmarksPage.PREF_ACCOUNT_TYPE.equals(key)) {
                 refreshUi();
+                BookmarkThumbnailWidgetProvider.refreshWidgets(getActivity(), true);
             }
         }
 

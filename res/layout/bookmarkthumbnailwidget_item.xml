@@ -21,7 +21,7 @@
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/thumb"
-        android:src="@drawable/browser_thumbnail"
+        android:src="@drawable/thumbnail_bookmarks_widget_no_bookmark_holo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/widgetThumbnailHeight"
         android:scaleType="centerCrop"

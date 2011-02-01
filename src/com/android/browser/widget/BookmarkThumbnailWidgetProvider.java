@@ -32,12 +32,9 @@ import android.widget.RemoteViews;
  * Widget that shows a preview of the user's bookmarks.
  */
 public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
-    static final String ACTION_BOOKMARK_APPWIDGET_UPDATE =
+    public static final String ACTION_BOOKMARK_APPWIDGET_UPDATE =
         "com.android.browser.BOOKMARK_APPWIDGET_UPDATE";
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onReceive(Context context, Intent intent) {
         // Handle bookmark-specific updates ourselves because they might be
@@ -58,23 +55,27 @@ public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onEnabled(Context context) {
-        // Start the backing service
-        context.startService(new Intent(context, BookmarkThumbnailWidgetService.class));
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+        for (int widgetId : appWidgetIds) {
+            BookmarkThumbnailWidgetService.deleteWidgetState(context, widgetId);
+        }
+        removeOrphanedFiles(context);
     }
 
     @Override
     public void onDisabled(Context context) {
-        // Stop the backing service
-        context.stopService(new Intent(context, BookmarkThumbnailWidgetService.class));
+        super.onDisabled(context);
+        removeOrphanedFiles(context);
     }
 
-    @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
-        super.onDeleted(context, appWidgetIds);
-        context.startService(new Intent(BookmarkThumbnailWidgetService.ACTION_REMOVE_FACTORIES,
-                null, context, BookmarkThumbnailWidgetService.class)
-                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds));
+    /**
+     *  Checks for any state files that may have not received onDeleted
+     */
+    void removeOrphanedFiles(Context context) {
+        AppWidgetManager wm = AppWidgetManager.getInstance(context);
+        int[] ids = wm.getAppWidgetIds(getComponentName(context));
+        BookmarkThumbnailWidgetService.removeOrphanedStates(context, ids);
     }
 
     private void performUpdate(Context context,
@@ -92,9 +93,9 @@ public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.app_shortcut, launchBrowser);
             views.setRemoteAdapter(appWidgetId, R.id.bookmarks_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.bookmarks_list);
-            Intent ic = new Intent(context, BookmarkThumbnailWidgetService.class);
+            Intent ic = new Intent(context, BookmarkWidgetProxy.class);
             views.setPendingIntentTemplate(R.id.bookmarks_list,
-                    PendingIntent.getService(context, 0, ic,
+                    PendingIntent.getBroadcast(context, 0, ic,
                     PendingIntent.FLAG_UPDATE_CURRENT));
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
@@ -106,5 +107,30 @@ public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
      */
     static ComponentName getComponentName(Context context) {
         return new ComponentName(context, BookmarkThumbnailWidgetProvider.class);
+    }
+
+    public static void refreshWidgets(Context context) {
+        refreshWidgets(context, false);
+    }
+
+    public static void refreshWidgets(Context context, boolean zeroState) {
+        if (zeroState) {
+            final Context appContext = context.getApplicationContext();
+            new Thread() {
+                @Override
+                public void run() {
+                    AppWidgetManager wm = AppWidgetManager.getInstance(appContext);
+                    int[] ids = wm.getAppWidgetIds(getComponentName(appContext));
+                    for (int id : ids) {
+                        BookmarkThumbnailWidgetService.clearWidgetState(appContext, id);
+                    }
+                    refreshWidgets(appContext, false);
+                }
+            }.start();
+        } else {
+            context.sendBroadcast(new Intent(
+                    BookmarkThumbnailWidgetProvider.ACTION_BOOKMARK_APPWIDGET_UPDATE,
+                    null, context, BookmarkThumbnailWidgetProvider.class));
+        }
     }
 }
