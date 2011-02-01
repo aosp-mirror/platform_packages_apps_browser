@@ -16,6 +16,7 @@
 
 package com.android.browser.widget;
 
+import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.R;
 
@@ -95,9 +96,15 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String action = intent.getAction();
         if (Intent.ACTION_VIEW.equals(action)) {
-            Intent view = new Intent(intent);
-            view.setComponent(null);
-            startActivity(view);
+            if (intent.getData() == null) {
+                startActivity(new Intent(BrowserActivity.ACTION_SHOW_BROWSER, null,
+                        this, BrowserActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            } else {
+                Intent view = new Intent(intent);
+                view.setComponent(null);
+                startActivity(view);
+            }
         } else if (ACTION_REMOVE_FACTORIES.equals(action)) {
             int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
             if (ids != null) {
@@ -242,8 +249,10 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
                         .putExtra(Bookmarks._ID, nfi);
             } else {
                 fillin = new Intent(Intent.ACTION_VIEW)
-                        .setData(Uri.parse(res.mUrl))
                         .addCategory(Intent.CATEGORY_BROWSABLE);
+                if (!TextUtils.isEmpty(res.mUrl)) {
+                    fillin.setData(Uri.parse(res.mUrl));
+                }
             }
             views.setOnClickFillInIntent(R.id.list_item, fillin);
             // Set the title of the bookmark. Use the url as a backup.
@@ -395,6 +404,18 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
                             res.mIcon = favicon;
                         }
                         bookmarks.add(res);
+                    }
+                    if (bookmarks.size() == 0) {
+                        RenderResult res = new RenderResult(0, "", "");
+                        Bitmap thumbnail = BitmapFactory.decodeResource(
+                                mContext.getResources(),
+                                R.drawable.thumbnail_bookmarks_widget_no_bookmark_holo);
+                        Bitmap favicon = Bitmap.createBitmap(1, 1, Config.ALPHA_8);
+                        res.mThumbnail = thumbnail;
+                        res.mIcon = favicon;
+                        for (int i = 0; i < 6; i++) {
+                            bookmarks.add(res);
+                        }
                     }
                     return bookmarks;
                 }
