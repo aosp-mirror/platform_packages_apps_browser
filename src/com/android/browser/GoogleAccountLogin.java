@@ -280,13 +280,15 @@ public class GoogleAccountLogin extends Thread implements
             return false;
         }
 
+        // Use /a/ to grab hosted cookies as well as the base set of google.com
+        // cookies.
         String cookies = CookieManager.getInstance().getCookie(
-                "http://www.google.com");
+                "http://www.google.com/a/");
         if (cookies != null) {
             StringTokenizer tokenizer = new StringTokenizer(cookies, ";");
             while (tokenizer.hasMoreTokens()) {
                 String cookie = tokenizer.nextToken().trim();
-                if (cookie.startsWith("SID=")) {
+                if (cookie.startsWith("SID=") || cookie.startsWith("ASIDAP=")) {
                     return true;
                 }
             }
