@@ -78,8 +78,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
 
         public void onSelect(String txt, int type, String extraData);
 
-        public void onFilterComplete(int count);
-
     }
 
     public SuggestionsAdapter(Context ctx, CompletionListener listener) {
@@ -240,7 +238,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             mSuggestResults = items;
             mMixedResults = buildSuggestionResults();
             notifyDataSetChanged();
-            mListener.onFilterComplete(mMixedResults.getLineCount());
         }
     }
 
@@ -334,9 +331,8 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         protected void publishResults(CharSequence constraint, FilterResults fresults) {
             if (fresults.values instanceof SuggestionResults) {
                 mMixedResults = (SuggestionResults) fresults.values;
-                mListener.onFilterComplete(fresults.count);
+                notifyDataSetChanged();
             }
-            notifyDataSetChanged();
         }
 
     }
