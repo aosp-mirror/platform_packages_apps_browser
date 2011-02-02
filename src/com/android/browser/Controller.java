@@ -568,6 +568,9 @@ public class Controller
     }
 
     protected void onPause() {
+        if (mUi.isCustomViewShowing()) {
+            hideCustomView();
+        }
         if (mActivityPaused) {
             Log.e(LOGTAG, "BrowserActivity is already paused.");
             return;
