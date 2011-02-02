@@ -16,6 +16,8 @@
 
 package com.android.browser.provider;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import com.android.browser.BookmarkUtils;
 import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.R;
@@ -34,6 +36,7 @@ import android.content.UriMatcher;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.AbstractCursor;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.MatrixCursor;
@@ -66,7 +69,7 @@ import java.util.HashMap;
 
 public class BrowserProvider2 extends SQLiteContentProvider {
 
-    static final String LEGACY_AUTHORITY = "browser";
+    public static final String LEGACY_AUTHORITY = "browser";
     static final Uri LEGACY_AUTHORITY_URI = new Uri.Builder()
             .authority(LEGACY_AUTHORITY).scheme("content").build();
 
@@ -319,6 +322,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     DatabaseHelper mOpenHelper;
     SyncStateContentProviderHelper mSyncHelper = new SyncStateContentProviderHelper();
+    // This is so provider tests can intercept widget updating
+    ContentObserver mWidgetObserver = null;
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
@@ -578,6 +583,19 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         ContentResolver resolver = getContext().getContentResolver();
         resolver.notifyChange(BrowserContract.AUTHORITY_URI, null, !callerIsSyncAdapter);
         resolver.notifyChange(LEGACY_AUTHORITY_URI, null, !callerIsSyncAdapter);
+    }
+
+    @VisibleForTesting
+    public void setWidgetObserver(ContentObserver obs) {
+        mWidgetObserver = obs;
+    }
+
+    void refreshWidgets() {
+        if (mWidgetObserver == null) {
+            BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
+        } else {
+            mWidgetObserver.dispatchChange(false);
+        }
     }
 
     @Override
@@ -987,7 +1005,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 int deleted = deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
                 pruneImages();
                 if (deleted > 0) {
-                    BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
+                    refreshWidgets();
                 }
                 return deleted;
             }
@@ -1150,7 +1168,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 }
 
                 id = db.insertOrThrow(TABLE_BOOKMARKS, Bookmarks.DIRTY, values);
-                BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
+                refreshWidgets();
                 break;
             }
 
@@ -1320,7 +1338,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                         callerIsSyncAdapter);
                 pruneImages();
                 if (updated > 0) {
-                    BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
+                    refreshWidgets();
                 }
                 return updated;
             }
@@ -1363,7 +1381,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     count = 1;
                 }
                 if (count > 0) {
-                    BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
+                    refreshWidgets();
                 }
                 return count;
             }
