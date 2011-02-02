@@ -109,7 +109,10 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
             int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
             if (ids != null) {
                 for (int id : ids) {
-                    mFactories.remove(id);
+                    BookmarkFactory bf = mFactories.remove(id);
+                    // Workaround a known framework bug
+                    // onDestroy is currently never called
+                    bf.onDestroy();
                 }
             }
         } else if (ACTION_CHANGE_FOLDER.equals(action)) {
@@ -309,9 +312,18 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
 
         @Override
         public void onDestroy() {
-            recycleBitmaps();
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
             prefs.unregisterOnSharedPreferenceChangeListener(this);
+
+            // Workaround known framework bug
+            // This class currently leaks, so free as much memory as we can
+            recycleBitmaps();
+            mBookmarks.clear();
+            mBreadcrumbs.clear();
+            if (mLoadTask != null) {
+                mLoadTask.cancel(false);
+                mLoadTask = null;
+            }
         }
 
         @Override
