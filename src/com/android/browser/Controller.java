@@ -43,6 +43,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
@@ -77,6 +78,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -1565,6 +1567,52 @@ public class Controller
 
             case R.id.find_menu_id:
                 getCurrentTopWebView().showFindDialog(null, true);
+                break;
+
+            case R.id.save_webarchive_menu_id:
+                String state = Environment.getExternalStorageState();
+                if (!Environment.MEDIA_MOUNTED.equals(state)) {
+                    Log.e(LOGTAG, "External storage not mounted");
+                    Toast.makeText(mActivity, R.string.webarchive_failed,
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                final String directory = Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOWNLOADS) + File.separator;
+                File dir = new File(directory);
+                if (!dir.exists() && !dir.mkdirs()) {
+                    Log.e(LOGTAG, "Save as Web Archive: mkdirs for " + directory + " failed!");
+                    Toast.makeText(mActivity, R.string.webarchive_failed,
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                WebView topWebView = getCurrentTopWebView();
+                final String title = topWebView.getTitle();
+                topWebView.saveWebArchive(directory, true,
+                        new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(final String value) {
+                        if (value != null) {
+                            File file = new File(value);
+                            final long length = file.length();
+                            if (file.exists() && length > 0) {
+                                final DownloadManager manager = (DownloadManager) mActivity
+                                        .getSystemService(Context.DOWNLOAD_SERVICE);
+                                new Thread("Add WebArchive to download manager") {
+                                    @Override
+                                    public void run() {
+                                        manager.completedDownload(null == title ? value : title,
+                                                value, true, "application/x-webarchive-xml",
+                                                value, length, true);
+                                    }
+                                }.start();
+                                return;
+                            }
+                        }
+                        Toast.makeText(mActivity,
+                                R.string.webarchive_failed, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
 
             case R.id.page_info_menu_id:
