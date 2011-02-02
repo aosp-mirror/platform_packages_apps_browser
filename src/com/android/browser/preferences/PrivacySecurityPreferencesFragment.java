@@ -71,8 +71,12 @@ public class PrivacySecurityPreferencesFragment extends PreferenceFragment
         values[i] = "";
         autologinPref.setEntries(names);
         autologinPref.setEntryValues(values);
-        autologinPref.setValue(BrowserSettings.getInstance()
-                .getAutoLoginAccount(getActivity()));
+        BrowserSettings bs = BrowserSettings.getInstance();
+        if (bs.isAutoLoginEnabled()) {
+            autologinPref.setValue(bs.getAutoLoginAccount(getActivity()));
+        } else {
+            autologinPref.setValue("");
+        }
     }
 
     private void updateAutoLoginSummary(Preference pref) {
