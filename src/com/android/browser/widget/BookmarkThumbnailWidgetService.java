@@ -110,9 +110,11 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
             if (ids != null) {
                 for (int id : ids) {
                     BookmarkFactory bf = mFactories.remove(id);
-                    // Workaround a known framework bug
-                    // onDestroy is currently never called
-                    bf.onDestroy();
+                    if (bf != null) {
+                        // Workaround a known framework bug
+                        // onDestroy is currently never called
+                        bf.onDestroy();
+                    }
                 }
             }
         } else if (ACTION_CHANGE_FOLDER.equals(action)) {
