@@ -46,7 +46,7 @@ import android.webkit.WebViewClient;
 
 import java.util.StringTokenizer;
 
-public class GoogleAccountLogin extends Thread implements
+public class GoogleAccountLogin implements Runnable,
         AccountManagerCallback<Bundle>, OnCancelListener {
 
     private static final String LOGTAG = "BrowserLogin";
@@ -77,6 +77,7 @@ public class GoogleAccountLogin extends Thread implements
     private String mSid;
     private String mLsid;
     private int mState;  // {NONE(0), SID(1), LSID(2)}
+    private boolean mTokensInvalidated;
 
     private GoogleAccountLogin(Activity activity, String name,
             Runnable runnable) {
@@ -105,7 +106,7 @@ public class GoogleAccountLogin extends Thread implements
         ed.apply();
     }
 
-    // Thread
+    // Runnable
     @Override
     public void run() {
         String url = ISSUE_AUTH_TOKEN_URL.buildUpon()
@@ -128,10 +129,22 @@ public class GoogleAccountLogin extends Thread implements
         String result = null;
         try {
             HttpResponse response = client.execute(request);
-            if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+            int status = response.getStatusLine().getStatusCode();
+            if (status != HttpStatus.SC_OK) {
                 Log.d(LOGTAG, "LOGIN_FAIL: Bad status from auth url "
-                      + response.getStatusLine().getStatusCode() + ": "
+                      + status + ": "
                       + response.getStatusLine().getReasonPhrase());
+                // Invalidate the tokens once just in case the 403 was for other
+                // reasons.
+                if (status == HttpStatus.SC_FORBIDDEN && !mTokensInvalidated) {
+                    Log.d(LOGTAG, "LOGIN_FAIL: Invalidating tokens...");
+                    // Need to regenerate the auth tokens and try again.
+                    invalidateTokens();
+                    // XXX: Do not touch any more member variables from this
+                    // thread as a second thread will handle the next login
+                    // attempt.
+                    return;
+                }
                 done();
                 return;
             }
@@ -171,6 +184,15 @@ public class GoogleAccountLogin extends Thread implements
         });
     }
 
+    private void invalidateTokens() {
+        AccountManager am = AccountManager.get(mActivity);
+        am.invalidateAuthToken(GOOGLE, mSid);
+        am.invalidateAuthToken(GOOGLE, mLsid);
+        mTokensInvalidated = true;
+        mState = 1;  // SID
+        am.getAuthToken(mAccount, "SID", null, mActivity, this, null);
+    }
+
     // AccountManager callbacks.
     @Override
     public void run(AccountManagerFuture<Bundle> value) {
@@ -190,7 +212,7 @@ public class GoogleAccountLogin extends Thread implements
                     break;
                 case 2:
                     mLsid = id;
-                    this.start();
+                    new Thread(this).start();
                     break;
             }
         } catch (Exception e) {
@@ -279,6 +301,11 @@ public class GoogleAccountLogin extends Thread implements
             Log.d(LOGTAG, "Forcing login after " + diff + "ms");
             return false;
         }
+
+        // This will potentially block the UI thread but we have to have the
+        // most updated cookies.
+        // FIXME: Figure out how to avoid waiting to clear session cookies.
+        CookieManager.getInstance().waitForCookieOperationsToComplete();
 
         // Use /a/ to grab hosted cookies as well as the base set of google.com
         // cookies.
