@@ -23,7 +23,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AbsoluteLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -76,4 +78,24 @@ public class TitleBarBase extends LinearLayout {
     /* package */ void setInVoiceMode(boolean inVoiceMode) {}
 
     /* package */ void setIncognitoMode(boolean incognito) {}
+
+    void setTitleGravity(int gravity) {
+        int newTop = 0;
+        if (gravity != Gravity.NO_GRAVITY) {
+            View parent = (View) getParent();
+            if (parent != null) {
+                if (gravity == Gravity.TOP) {
+                    newTop = parent.getScrollY();
+                } else if (gravity == Gravity.BOTTOM) {
+                    newTop = parent.getScrollY() + parent.getHeight() - getHeight();
+                }
+            }
+        }
+        AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams) getLayoutParams();
+        if (lp != null) {
+            lp.y = newTop;
+            setLayoutParams(lp);
+        }
+    }
+
 }
