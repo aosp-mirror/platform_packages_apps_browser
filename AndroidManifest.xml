@@ -193,6 +193,9 @@
             android:name=".widget.BookmarkThumbnailWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
+        <receiver
+            android:name=".widget.BookmarkWidgetProxy"
+            android:exported="false" />
 
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />

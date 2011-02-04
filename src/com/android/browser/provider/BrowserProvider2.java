@@ -19,6 +19,7 @@ package com.android.browser.provider;
 import com.android.browser.BookmarkUtils;
 import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.R;
+import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
 import com.android.common.content.SyncStateContentProviderHelper;
 
 import android.accounts.Account;
@@ -35,6 +36,7 @@ import android.content.res.TypedArray;
 import android.database.AbstractCursor;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -106,6 +108,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final int BOOKMARKS_FOLDER = 1002;
     static final int BOOKMARKS_FOLDER_ID = 1003;
     static final int BOOKMARKS_SUGGESTIONS = 1004;
+    static final int BOOKMARKS_DEFAULT_FOLDER_ID = 1005;
 
     static final int HISTORY = 2000;
     static final int HISTORY_ID = 2001;
@@ -159,6 +162,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "bookmarks/#", BOOKMARKS_ID);
         matcher.addURI(authority, "bookmarks/folder", BOOKMARKS_FOLDER);
         matcher.addURI(authority, "bookmarks/folder/#", BOOKMARKS_FOLDER_ID);
+        matcher.addURI(authority, "bookmarks/folder/id", BOOKMARKS_DEFAULT_FOLDER_ID);
         matcher.addURI(authority,
                 SearchManager.SUGGEST_URI_PATH_QUERY,
                 BOOKMARKS_SUGGESTIONS);
@@ -758,6 +762,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 return cursor;
             }
 
+            case BOOKMARKS_DEFAULT_FOLDER_ID: {
+                String accountName = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_NAME);
+                String accountType = uri.getQueryParameter(Bookmarks.PARAM_ACCOUNT_TYPE);
+                long id = queryDefaultFolderId(accountName, accountType);
+                MatrixCursor c = new MatrixCursor(new String[] {Bookmarks._ID});
+                c.newRow().add(id);
+                return c;
+            }
+
             case BOOKMARKS_SUGGESTIONS: {
                 return doSuggestQuery(selection, selectionArgs, limit);
             }
@@ -973,6 +986,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 selectionArgs = (String[]) withAccount[1];
                 int deleted = deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
                 pruneImages();
+                if (deleted > 0) {
+                    BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
+                }
                 return deleted;
             }
 
@@ -1054,7 +1070,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     }
 
     long queryDefaultFolderId(String accountName, String accountType) {
-        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
+        if (!isNullAccount(accountName) && !isNullAccount(accountType)) {
             final SQLiteDatabase db = mOpenHelper.getReadableDatabase();
             Cursor c = db.query(TABLE_BOOKMARKS, new String[] { Bookmarks._ID },
                     ChromeSyncColumns.SERVER_UNIQUE + " = ?" +
@@ -1134,6 +1150,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 }
 
                 id = db.insertOrThrow(TABLE_BOOKMARKS, Bookmarks.DIRTY, values);
+                BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
                 break;
             }
 
@@ -1302,6 +1319,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 int updated = updateBookmarksInTransaction(values, selection, selectionArgs,
                         callerIsSyncAdapter);
                 pruneImages();
+                if (updated > 0) {
+                    BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
+                }
                 return updated;
             }
 
@@ -1341,6 +1361,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 if (count == 0) {
                     db.insertOrThrow(TABLE_IMAGES, Images.FAVICON, values);
                     count = 1;
+                }
+                if (count > 0) {
+                    BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
                 }
                 return count;
             }
