@@ -306,8 +306,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     protected void hideFakeTitleBar() {
         if (isFakeTitleBarShowing()) {
             mFakeTitleBar.setEditMode(false);
-            mContentView.removeView(mFakeTitleBar);
             mTabBar.onHideTitleBar();
+            mContentView.removeView(mFakeTitleBar);
         }
     }
 
