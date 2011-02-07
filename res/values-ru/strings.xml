@@ -130,9 +130,9 @@
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Открывать в фоновом режиме"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Разрешить плагины"</string>
   <string-array name="pref_content_plugins_choices">
-    <item msgid="6745108155096660725">"Всегда вкл."</item>
+    <item msgid="6745108155096660725">"Да"</item>
     <item msgid="2484126708670016519">"По требованию"</item>
-    <item msgid="8547442717307793863">"Выкл."</item>
+    <item msgid="8547442717307793863">"Нет"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Открывать новые окна позади текущего окна"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Домашняя страница"</string>
@@ -159,11 +159,11 @@
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Очистить пароли"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Удалить все сохраненные пароли"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Все сохраненные пароли будут удалены."</string>
-    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Включить местоположение"</string>
-    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Разрешить сайтам запрашивать доступ к данным о местоположении"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Удалить данные доступа к местоположению"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Удалить данные доступа к местоположению для всех сайтов"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Удалить данные доступа к местоположению для всех сайтов"</string>
+    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Доступ к геоданным"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Разрешить сайтам запрашивать доступ к данным о вашем местоположении"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Закрыть геоданные"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Очистить список сайтов, имеющих доступ к данным о вашем местоположении"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Очистить список сайтов, имеющих доступ к данным о вашем местоположении"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Настройки безопасности"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Сохранять пароли"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Сохранять имена пользователей и пароли веб-сайтов"</string>
@@ -283,7 +283,7 @@
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Запомнить настройки"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"У этого сайта есть доступ к данным о вашем местоположении. Для изменения параметров доступа выберите Настройки -&gt; Настройки веб-сайта"</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"У этого сайта нет доступа к данным о вашем местоположении. Для изменения параметров доступа выберите Настройки -&gt; Настройки веб-сайта"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Удалить данные доступа к местоположению"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Этот сайт сейчас имеет доступ к вашему местоположению"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Этот сайт в настоящее время не имеет доступа к вашему местоположению"</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Удалить данные доступа к местоположению"</string>
