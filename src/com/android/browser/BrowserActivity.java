@@ -111,12 +111,7 @@ public class BrowserActivity extends Activity {
             icicle = state;
         }
 
-        final Bundle b = icicle;
-        GoogleAccountLogin.startLoginIfNeeded(this, settings, new Runnable() {
-            @Override public void run() {
-                mController.start(b, getIntent());
-            }
-        });
+        mController.start(icicle, getIntent());
     }
 
     @VisibleForTesting

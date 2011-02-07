@@ -251,7 +251,7 @@ public class Controller
         retainIconsOnStartup();
     }
 
-    void start(Bundle icicle, Intent intent) {
+    void start(final Bundle icicle, final Intent intent) {
         // Unless the last browser usage was within 24 hours, destroy any
         // remaining incognito tabs.
 
@@ -261,17 +261,32 @@ public class Controller
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
 
-        boolean restoreIncognitoTabs = !(lastActiveDate == null
+        final boolean restoreIncognitoTabs = !(lastActiveDate == null
             || lastActiveDate.before(yesterday)
             || lastActiveDate.after(today));
 
-        if (!mTabControl.restoreState(icicle, restoreIncognitoTabs,
-                mUi.needsRestoreAllTabs())) {
-            // there is no quit on Android. But if we can't restore the state,
-            // we can treat it as a new Browser, remove the old session cookies.
-            // This is done async in the CookieManager.
-            CookieManager.getInstance().removeSessionCookie();
+        // Find out if we will restore any state and remember the tab.
+        final int currentTab =
+                mTabControl.canRestoreState(icicle, restoreIncognitoTabs);
 
+        if (currentTab == -1) {
+            // Not able to restore so we go ahead and clear session cookies.  We
+            // must do this before trying to login the user as we don't want to
+            // clear any session cookies set during login.
+            CookieManager.getInstance().removeSessionCookie();
+        }
+
+        GoogleAccountLogin.startLoginIfNeeded(mActivity, mSettings,
+                new Runnable() {
+                    @Override public void run() {
+                        start(icicle, intent, currentTab, restoreIncognitoTabs);
+                    }
+                });
+    }
+
+    private void start(Bundle icicle, Intent intent, int currentTab,
+            boolean restoreIncognitoTabs) {
+        if (currentTab == -1) {
             final Bundle extra = intent.getExtras();
             // Create an initial tab.
             // If the intent is ACTION_VIEW and data is not null, the Browser is
@@ -303,6 +318,8 @@ public class Controller
                 loadUrlDataIn(t, urlData);
             }
         } else {
+            mTabControl.restoreState(icicle, currentTab, restoreIncognitoTabs,
+                    mUi.needsRestoreAllTabs());
             mUi.updateTabs(mTabControl.getTabs());
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails.
