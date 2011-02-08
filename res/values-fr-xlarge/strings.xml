@@ -22,6 +22,5 @@
     <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"Ouvrir dans un nouvel onglet"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Ouvrir dans un nouvel onglet d\'arrière-plan"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Toujours ouvrir dans un nouvel onglet"</string>
-    <!-- no translation found for pref_content_open_in_background_summary (7653600574808720292) -->
-    <skip />
+    <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Ouvrir nouveaux onglets derrière onglet actuel"</string>
 </resources>

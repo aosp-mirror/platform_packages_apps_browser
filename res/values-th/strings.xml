@@ -173,10 +173,8 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"ลงชื่อเข้าใช้ Google อัตโนมัติ"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"ไม่พบบัญชี"</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"ลงชื่อเข้าใช้ Google Sites อัตโนมัติโดยใช้ <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
-    <skip />
-    <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
-    <skip />
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"กำลังลงชื่อเข้าใช้ Google Sites ด้วย <xliff:g id="ID_1">%s</xliff:g>"\n"การตั้งค่าข้อมูลส่วนบุคคลและความปลอดภัยจะควบคุมการลงชื่อเข้าใช้อัตโนมัติของ Google"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"อย่าลงชื่อเข้าใช้โดยอัตโนมัติ"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"การป้อนอัตโนมัติจะใช้โปรไฟล์ของคุณเพื่อช่วยให้คุณกรอกเว็บฟอร์มได้ในคลิกเดียว"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"ชื่อเต็ม:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"อีเมล:"</string>

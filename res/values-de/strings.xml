@@ -173,10 +173,8 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatische Google-Anmeldung"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"Keine Konten gefunden"</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"Bei Google-Websites automatisch mit <xliff:g id="ID_1">%s</xliff:g> anmelden"</string>
-    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
-    <skip />
-    <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
-    <skip />
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Die Anmeldung auf Google-Websites anhand <xliff:g id="ID_1">%s</xliff:g>"\n"Ihrer Einstellungen für Datenschutz und Sicherheit steuert die automatische Google-Anmeldung."</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"Nicht automatisch anmelden"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"AutoFill verwendet Ihr Profil, damit Sie Onlineformulare mit einem einzigen Klick ausfüllen können."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Vollständiger Name:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-Mail:"</string>
