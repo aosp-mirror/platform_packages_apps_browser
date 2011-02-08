@@ -174,10 +174,8 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Awtomatiko pag-sign in sa Google"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"Walang nakitang mga account"</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"Awtomatikong mag-sign in sa mga site ng Google gamit ang <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
-    <skip />
-    <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
-    <skip />
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Nagsa-sign in sa mga site ng Google gamit ang <xliff:g id="ID_1">%s</xliff:g>"\n"Kinokontrol ng iyong mga setting ng Privacy at Seguridad ang awtomatikong pag-sign-in ng Google"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"Huwag awtomatikong mag-sign in"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Gagamitin ng AutoFill ang iyong profile upang matulungan kang makumpleto ang mga form ng web sa isahang pag-click."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Buong pangalan:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>

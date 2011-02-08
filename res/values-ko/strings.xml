@@ -173,10 +173,8 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"자동 Google 로그인"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"계정이 없습니다."</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"<xliff:g id="ID_1">%s</xliff:g>을(를) 사용하여 Google 사이트에 자동으로 로그인"</string>
-    <!-- no translation found for pref_autologin_progress (8643826219376543293) -->
-    <skip />
-    <!-- no translation found for pref_autologin_disable (3342145058494577628) -->
-    <skip />
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"개인정보 및 보안 설정 컨트롤<xliff:g id="ID_1">%s</xliff:g>"\n"자동 Google 로그인을 사용하여 Google 사이트에 로그인"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"자동 로그인 안함"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"자동완성 기능은 사용자의 프로필을 사용하여 단 한번의 클릭으로 웹 양식을 작성할 수 있도록 도와줍니다."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"이름:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"이메일:"</string>
