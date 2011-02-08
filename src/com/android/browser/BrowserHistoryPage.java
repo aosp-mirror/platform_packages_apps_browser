@@ -187,7 +187,8 @@ public class BrowserHistoryPage extends Fragment
         switch (loader.getId()) {
             case LOADER_HISTORY: {
                 mAdapter.changeCursor(data);
-                if (mGroupList.getCheckedItemPosition() == ListView.INVALID_POSITION) {
+                if (!mAdapter.isEmpty()
+                        && mGroupList.getCheckedItemPosition() == ListView.INVALID_POSITION) {
                     selectGroup(0);
                 }
 
