@@ -19,15 +19,18 @@ package com.android.browser;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  *
@@ -153,6 +156,9 @@ public class UrlHandler {
       // security (only access to BROWSABLE activities).
       intent.addCategory(Intent.CATEGORY_BROWSABLE);
       intent.setComponent(null);
+      if (!isSpecializedHandlerAvailable(intent)) {
+          return false;
+      }
       try {
           if (mActivity.startActivityIfNeeded(intent, -1)) {
               // before leaving BrowserActivity, close the empty child tab.
@@ -168,6 +174,33 @@ public class UrlHandler {
       }
 
       return false;
+    }
+
+    /**
+     * Search for intent handlers that are specific to this URL
+     * aka, specialized apps like google maps or youtube
+     */
+    private boolean isSpecializedHandlerAvailable(Intent intent) {
+        PackageManager pm = mActivity.getPackageManager();
+          List<ResolveInfo> handlers = pm.queryIntentActivities(intent,
+                  PackageManager.GET_RESOLVED_FILTER);
+          if (handlers == null || handlers.size() == 0) {
+              return false;
+          }
+          for (ResolveInfo resolveInfo : handlers) {
+              IntentFilter filter = resolveInfo.filter;
+              if (filter == null) {
+                  // No intent filter matches this intent?
+                  // Error on the side of staying in the browser, ignore
+                  continue;
+              }
+              if (filter.countDataAuthorities() == 0 || filter.countDataPaths() == 0) {
+                  // Generic handler, skip
+                  continue;
+              }
+              return true;
+          }
+          return false;
     }
 
     // In case a physical keyboard is attached, handle clicks with the menu key
