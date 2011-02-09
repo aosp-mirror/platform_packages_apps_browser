@@ -24,9 +24,11 @@ import android.graphics.Bitmap.Config;
 import android.net.Uri;
 import android.provider.BrowserContract.Bookmarks;
 import android.provider.BrowserContract.History;
+import android.test.suitebuilder.annotation.SmallTest;
 
 import java.io.ByteArrayOutputStream;
 
+@SmallTest
 public class BP2UriObserverTests extends BP2TestCaseHelper {
 
     public void testInsertBookmark() {
