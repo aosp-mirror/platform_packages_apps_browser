@@ -508,9 +508,9 @@ public class Controller
                         break;
 
                     case UPDATE_BOOKMARK_THUMBNAIL:
-                        WebView view = (WebView) msg.obj;
-                        if (view != null) {
-                            updateScreenshot(view);
+                        Tab tab = (Tab) msg.obj;
+                        if (tab != null) {
+                            updateScreenshot(tab);
                         }
                         break;
                 }
@@ -747,7 +747,7 @@ public class Controller
         // an incorrect screenshot. Therefore, remove any pending thumbnail
         // messages from the queue.
         mHandler.removeMessages(Controller.UPDATE_BOOKMARK_THUMBNAIL,
-                view);
+                tab);
 
         // reset sync timer to avoid sync starts during loading a page
         CookieSyncManager.getInstance().resetSync();
@@ -794,7 +794,7 @@ public class Controller
                 // Only update the bookmark screenshot if the user did not
                 // cancel the load early.
                 mHandler.sendMessageDelayed(mHandler.obtainMessage(
-                        UPDATE_BOOKMARK_THUMBNAIL, 0, 0, tab.getWebView()),
+                        UPDATE_BOOKMARK_THUMBNAIL, 0, 0, tab),
                         500);
             }
         }
@@ -1905,12 +1905,26 @@ public class Controller
         return ret;
     }
 
-    private void updateScreenshot(WebView view) {
+    private void updateScreenshot(Tab tab) {
         // If this is a bookmarked site, add a screenshot to the database.
-        // FIXME: When should we update?  Every time?
         // FIXME: Would like to make sure there is actually something to
         // draw, but the API for that (WebViewCore.pictureReady()) is not
         // currently accessible here.
+
+        WebView view = tab.getWebView();
+        final String url = tab.getUrl();
+        final String originalUrl = view.getOriginalUrl();
+
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        // Only update thumbnails for web urls (http(s)://), not for
+        // about:, javascript:, data:, etc...
+        // Unless it is a bookmarked site, then always update
+        if (!Patterns.WEB_URL.matcher(url).matches() && !tab.isBookmarkedSite()) {
+            return;
+        }
 
         final Bitmap bm = createScreenshot(view, getDesiredThumbnailWidth(mActivity),
                 getDesiredThumbnailHeight(mActivity));
@@ -1919,41 +1933,34 @@ public class Controller
         }
 
         final ContentResolver cr = mActivity.getContentResolver();
-        final String url = view.getUrl();
-        final String originalUrl = view.getOriginalUrl();
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... unused) {
+                Cursor cursor = null;
+                try {
+                    // TODO: Clean this up
+                    cursor = Bookmarks.queryCombinedForUrl(cr, originalUrl, url);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        final ByteArrayOutputStream os =
+                                new ByteArrayOutputStream();
+                        bm.compress(Bitmap.CompressFormat.PNG, 100, os);
 
-        // Only update thumbnails for web urls (http(s)://), not for
-        // about:, javascript:, data:, etc...
-        if (url != null && Patterns.WEB_URL.matcher(url).matches()) {
-            new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... unused) {
-                    Cursor cursor = null;
-                    try {
-                        // TODO: Clean this up
-                        cursor = Bookmarks.queryCombinedForUrl(cr, originalUrl, url);
-                        if (cursor != null && cursor.moveToFirst()) {
-                            final ByteArrayOutputStream os =
-                                    new ByteArrayOutputStream();
-                            bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+                        ContentValues values = new ContentValues();
+                        values.put(Images.THUMBNAIL, os.toByteArray());
+                        values.put(Images.URL, cursor.getString(0));
 
-                            ContentValues values = new ContentValues();
-                            values.put(Images.THUMBNAIL, os.toByteArray());
-                            values.put(Images.URL, cursor.getString(0));
-
-                            do {
-                                cr.update(Images.CONTENT_URI, values, null, null);
-                            } while (cursor.moveToNext());
-                        }
-                    } catch (IllegalStateException e) {
-                        // Ignore
-                    } finally {
-                        if (cursor != null) cursor.close();
+                        do {
+                            cr.update(Images.CONTENT_URI, values, null, null);
+                        } while (cursor.moveToNext());
                     }
-                    return null;
+                } catch (IllegalStateException e) {
+                    // Ignore
+                } finally {
+                    if (cursor != null) cursor.close();
                 }
-            }.execute();
-        }
+                return null;
+            }
+        }.execute();
     }
 
     private class Copy implements OnMenuItemClickListener {
