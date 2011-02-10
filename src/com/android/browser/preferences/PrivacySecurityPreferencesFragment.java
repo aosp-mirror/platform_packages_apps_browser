@@ -44,6 +44,7 @@ public class PrivacySecurityPreferencesFragment extends PreferenceFragment
 
         Preference e = findPreference(BrowserSettings.PREF_CLEAR_HISTORY);
         e.setOnPreferenceChangeListener(this);
+        setupAutoLoginPreference();
     }
 
     @Override
