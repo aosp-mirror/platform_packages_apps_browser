@@ -25,6 +25,8 @@ import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -132,6 +134,40 @@ public class GeneralPreferencesFragment extends PreferenceFragment
 
     };
 
+    private AccountManagerCallback<Bundle> mCallback =
+            new AccountManagerCallback<Bundle>() {
+
+        @Override
+        public void run(AccountManagerFuture<Bundle> future) {
+            try {
+                Bundle bundle = future.getResult();
+                String name = bundle.getString(AccountManager.KEY_ACCOUNT_NAME);
+                String type = bundle.getString(AccountManager.KEY_ACCOUNT_TYPE);
+                Account account = new Account(name, type);
+                Fragment frag = new ImportWizardDialog();
+                Bundle extras = mChromeSync.getExtras();
+                extras.putParcelableArray("accounts", new Account[] { account });
+                frag.setArguments(extras);
+                getFragmentManager().beginTransaction()
+                        .add(frag, null)
+                        .commit();
+            } catch (Exception ex) {
+                // Canceled or failed to login, doesn't matter to us
+            }
+        }
+    };
+
+    OnPreferenceClickListener mAddAccount = new OnPreferenceClickListener() {
+
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+            AccountManager am = AccountManager.get(getActivity());
+            am.addAccount("com.google", null, null, null, getActivity(),
+                    mCallback, null);
+            return true;
+        }
+    };
+
     private class GetAccountsTask extends AsyncTask<Void, Void, String> {
         private Context mContext;
 
@@ -146,7 +182,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
             if (accounts == null || accounts.length == 0) {
                 // No Google accounts setup, don't offer Chrome sync
                 if (mChromeSync != null) {
-                    getPreferenceScreen().removePreference(mChromeSync);
+                    mChromeSync.setOnPreferenceClickListener(mAddAccount);
                 }
             } else {
                 // Google accounts are present.
