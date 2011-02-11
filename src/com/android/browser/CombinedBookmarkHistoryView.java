@@ -170,7 +170,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         mTabHistory.setTabListener(this);
         mActionBar.addTab(mTabHistory, FRAGMENT_ID_HISTORY == startingFragment);
         mActionBar.setCustomView(mBookmarksHeader);
-
+        mActionBar.show();
     }
 
     @Override

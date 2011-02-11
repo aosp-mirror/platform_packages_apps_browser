@@ -48,7 +48,13 @@ public class PhoneUi extends BaseUi {
         // mTitleBar will be always be shown in the fully loaded mode on
         // phone
         mTitleBar.setProgress(100);
+        mActivity.getActionBar().hide();
+    }
 
+    @Override
+    public void hideComboView() {
+        super.hideComboView();
+        mActivity.getActionBar().hide();
     }
 
     // webview factory
