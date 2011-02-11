@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -31,6 +30,7 @@ import android.webkit.WebView;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.regex.Matcher;
 
 /**
  *
@@ -156,7 +156,11 @@ public class UrlHandler {
       // security (only access to BROWSABLE activities).
       intent.addCategory(Intent.CATEGORY_BROWSABLE);
       intent.setComponent(null);
-      if (!isSpecializedHandlerAvailable(intent)) {
+      // Make sure webkit can handle it internally before checking for specialized
+      // handlers. If webkit can't handle it internally, we need to call
+      // startActivityIfNeeded
+      Matcher m = UrlUtils.ACCEPTED_URI_SCHEMA.matcher(url);
+      if (m.matches() && !isSpecializedHandlerAvailable(intent)) {
           return false;
       }
       try {
