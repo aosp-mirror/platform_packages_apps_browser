@@ -1522,7 +1522,7 @@ public class Controller
                 break;
 
             case R.id.add_bookmark_menu_id:
-                bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID);
+                bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID, false);
                 break;
 
             case R.id.stop_reload_menu_id:
@@ -1854,9 +1854,13 @@ public class Controller
     /**
      * add the current page as a bookmark to the given folder id
      * @param folderId use -1 for the default folder
+     * @param canBeAnEdit If true, check to see whether the site is already
+     *          bookmarked, and if it is, edit that bookmark.  If false, and
+     *          the site is already bookmarked, do not attempt to edit the
+     *          existing bookmark.
      */
     @Override
-    public void bookmarkCurrentPage(long folderId) {
+    public void bookmarkCurrentPage(long folderId, boolean canBeAnEdit) {
         Intent i = new Intent(mActivity,
                 AddBookmarkPage.class);
         WebView w = getCurrentTopWebView();
@@ -1877,6 +1881,9 @@ public class Controller
         i.putExtra(BrowserContract.Bookmarks.FAVICON, w.getFavicon());
         i.putExtra(BrowserContract.Bookmarks.PARENT,
                 folderId);
+        if (canBeAnEdit) {
+            i.putExtra(AddBookmarkPage.CHECK_FOR_DUPE, true);
+        }
         // Put the dialog at the upper right of the screen, covering the
         // star on the title bar.
         i.putExtra("gravity", Gravity.RIGHT | Gravity.TOP);
