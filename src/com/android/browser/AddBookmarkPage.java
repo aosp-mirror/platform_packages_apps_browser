@@ -87,6 +87,8 @@ public class AddBookmarkPage extends Activity
     private final int LOADER_ID_ALL_FOLDERS = 1;
     private final int LOADER_ID_FIND_ROOT = 2;
     private final int LOADER_ID_CHECK_FOR_DUPE = 3;
+    private final int LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK = 4;
+    private final int LOADER_ID_FIND_FOLDER_BY_ID = 5;
 
     private EditText    mTitle;
     private EditText    mAddress;
@@ -118,6 +120,7 @@ public class AddBookmarkPage extends Activity
     private Drawable mHeaderIcon;
     private View mRemoveLink;
     private View mFakeTitleHolder;
+    private FolderSpinnerAdapter mFolderAdapter;
     private static class Folder {
         String Name;
         long Id;
@@ -309,6 +312,15 @@ public class AddBookmarkPage extends Activity
             case FolderSpinnerAdapter.OTHER_FOLDER:
                 switchToFolderSelector();
                 break;
+            case FolderSpinnerAdapter.RECENT_FOLDER:
+                mCurrentFolder = mFolderAdapter.recentFolderId();
+                mSaveToHomeScreen = false;
+                // In case the user decides to select OTHER_FOLDER
+                // and choose a different one, so that we will start from
+                // the correct place.
+                LoaderManager manager = getLoaderManager();
+                manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
+                manager.restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
             default:
                 break;
         }
@@ -413,6 +425,18 @@ public class AddBookmarkPage extends Activity
                         selection,
                         selArgs,
                         null);
+            case LOADER_ID_FIND_FOLDER_BY_ID:
+                projection = new String[] {
+                        BrowserContract.Bookmarks._ID,
+                        BrowserContract.Bookmarks.TITLE
+                };
+                return new CursorLoader(this,
+                        BrowserContract.Bookmarks.CONTENT_URI,
+                        projection,
+                        BrowserContract.Bookmarks._ID + " = "
+                                + args.getLong(BrowserContract.Bookmarks._ID),
+                        null,
+                        null);
             case LOADER_ID_ALL_FOLDERS:
                 projection = new String[] {
                         BrowserContract.Bookmarks._ID,
@@ -443,6 +467,16 @@ public class AddBookmarkPage extends Activity
                         where,
                         null,
                         BrowserContract.Bookmarks._ID + " ASC");
+            case LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK:
+                projection = new String[] {
+                        BrowserContract.Bookmarks.PARENT
+                };
+                return new CursorLoader(this,
+                        BrowserContract.Bookmarks.CONTENT_URI,
+                        projection,
+                        BrowserContract.Bookmarks.IS_FOLDER + " = 0",
+                        null,
+                        BrowserContract.Bookmarks.DATE_CREATED + " DESC");
             default:
                 throw new AssertionError("Asking for nonexistant loader!");
         }
@@ -484,6 +518,32 @@ public class AddBookmarkPage extends Activity
                 break;
             case LOADER_ID_FOLDER_CONTENTS:
                 mAdapter.changeCursor(cursor);
+                break;
+            case LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK:
+                LoaderManager manager = getLoaderManager();
+                if (cursor != null && cursor.moveToFirst()) {
+                    // Find the parent
+                    long lastUsedFolder = cursor.getLong(0);
+                    if (lastUsedFolder != mRootFolder
+                            && lastUsedFolder != mCurrentFolder
+                            && lastUsedFolder != 0) {
+                        // Find out the parent's name
+                        Bundle b = new Bundle();
+                        b.putLong(BrowserContract.Bookmarks._ID, lastUsedFolder);
+                        manager.initLoader(LOADER_ID_FIND_FOLDER_BY_ID, b, this);
+                    }
+                }
+                manager.destroyLoader(LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK);
+                break;
+            case LOADER_ID_FIND_FOLDER_BY_ID:
+                if (cursor != null && cursor.moveToFirst()) {
+                    long id = cursor.getLong(cursor.getColumnIndexOrThrow(
+                            BrowserContract.Bookmarks._ID));
+                    String title = cursor.getString(cursor.getColumnIndexOrThrow(
+                            BrowserContract.Bookmarks.TITLE));
+                    mFolderAdapter.addRecentFolder(id, title);
+                }
+                getLoaderManager().destroyLoader(LOADER_ID_FIND_FOLDER_BY_ID);
                 break;
             case LOADER_ID_ALL_FOLDERS:
                 long parent = mCurrentFolder;
@@ -666,7 +726,8 @@ public class AddBookmarkPage extends Activity
         mCancelButton.setOnClickListener(this);
 
         mFolder = (FolderSpinner) findViewById(R.id.folder);
-        mFolder.setAdapter(new FolderSpinnerAdapter(!mEditingFolder));
+        mFolderAdapter = new FolderSpinnerAdapter(!mEditingFolder);
+        mFolder.setAdapter(mFolderAdapter);
         mFolder.setOnSetSelectionListener(this);
 
         mDefaultView = findViewById(R.id.default_view);
@@ -759,6 +820,11 @@ public class AddBookmarkPage extends Activity
             mFolder.setSelectionIgnoringSelectionChange(mEditingFolder ? 1 : 2);
         } else {
             setShowBookmarkIcon(true);
+            if (!mEditingExisting) {
+                // Find the most recently saved bookmark, so that we can include it in
+                // the list of options to save the current bookmark.
+                manager.initLoader(LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK, null, this);
+            }
             if (!mEditingFolder) {
                 // Initially the "Bookmarks" folder should be showing, rather than
                 // the home screen.  In the editing folder case, home screen is not
