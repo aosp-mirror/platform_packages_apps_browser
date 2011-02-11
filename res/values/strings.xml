@@ -234,6 +234,8 @@
     <string name="share_page">Share page</string>
     <!-- Menu item for saving a page as a web archive. -->
     <string name="menu_save_webarchive">Save as Web Archive</string>
+    <!-- Toast informing the user that the page has been saved. -->
+    <string name="webarchive_saved">Web archive saved.</string>
     <!-- Toast informing the user that saving the page has failed. -->
     <string name="webarchive_failed">Failed to save web archive.</string>
     <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->

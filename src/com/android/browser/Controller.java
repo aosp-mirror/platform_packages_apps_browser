@@ -1596,6 +1596,8 @@ public class Controller
                             File file = new File(value);
                             final long length = file.length();
                             if (file.exists() && length > 0) {
+                                Toast.makeText(mActivity, R.string.webarchive_saved,
+                                        Toast.LENGTH_SHORT).show();
                                 final DownloadManager manager = (DownloadManager) mActivity
                                         .getSystemService(Context.DOWNLOAD_SERVICE);
                                 new Thread("Add WebArchive to download manager") {
