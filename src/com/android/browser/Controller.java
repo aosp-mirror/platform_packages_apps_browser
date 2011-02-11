@@ -1467,6 +1467,11 @@ public class Controller
                 final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
                 newtab.setEnabled(getTabControl().canCreateNewTab());
 
+                MenuItem archive = menu.findItem(R.id.save_webarchive_menu_id);
+                String url = getCurrentTopWebView().getUrl();
+                archive.setVisible(!TextUtils.isEmpty(url)
+                        && !url.endsWith("webarchivexml"));
+
                 break;
         }
         mCurrentMenuState = mMenuState;
