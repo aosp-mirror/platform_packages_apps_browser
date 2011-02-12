@@ -19,6 +19,7 @@ package com.android.browser;
 import com.google.common.annotations.VisibleForTesting;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -95,9 +96,7 @@ public class BrowserActivity extends Activity {
         }
 
         mController = new Controller(this);
-        boolean xlarge = (getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        boolean xlarge = isXlarge(this);
         if (xlarge) {
             mUi = new XLargeUi(this, mController);
         } else {
@@ -112,6 +111,12 @@ public class BrowserActivity extends Activity {
         }
 
         mController.start(icicle, getIntent());
+    }
+
+    public static boolean isXlarge(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                == Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     @VisibleForTesting

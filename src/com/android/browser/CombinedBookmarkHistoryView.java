@@ -157,8 +157,12 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     }
 
     void setupActionBar(int startingFragment) {
-        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
-                | ActionBar.DISPLAY_USE_LOGO);
+        if (BrowserActivity.isXlarge(mContext)) {
+            mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
+                    | ActionBar.DISPLAY_USE_LOGO);
+        } else {
+            mActionBar.setDisplayOptions(0);
+        }
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mActionBar.removeAllTabs();
         mTabBookmarks = mActionBar.newTab();

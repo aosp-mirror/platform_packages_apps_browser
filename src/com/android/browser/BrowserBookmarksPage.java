@@ -262,6 +262,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.bookmark, menu);
+        if (!BrowserActivity.isXlarge(getActivity())) {
+            MenuItem item = menu.findItem(R.id.add_bookmark);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
     }
 
     @Override
@@ -372,7 +376,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 .getDefaultSharedPreferences(getActivity());
         prefs.registerOnSharedPreferenceChangeListener(this);
         mCurrentView =
-            prefs.getInt(PREF_SELECTED_VIEW, BrowserBookmarksPage.VIEW_THUMBNAILS);
+            prefs.getInt(PREF_SELECTED_VIEW, getDefaultView());
         mAdapter = new BrowserBookmarksAdapter(getActivity(), mCurrentView);
         lm.restartLoader(LOADER_BOOKMARKS, null, this);
 
@@ -380,6 +384,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         CombinedBookmarkHistoryView.getIconListenerSet().addListener(this);
 
         return mRoot;
+    }
+
+     private int getDefaultView() {
+        if (BrowserActivity.isXlarge(getActivity())) {
+            return VIEW_THUMBNAILS;
+        }
+        return VIEW_LIST;
     }
 
     @Override
