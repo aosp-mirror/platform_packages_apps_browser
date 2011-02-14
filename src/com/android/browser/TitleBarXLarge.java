@@ -35,7 +35,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.AbsoluteLayout;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -76,7 +79,6 @@ public class TitleBarXLarge extends TitleBarBase
     private boolean mInVoiceMode;
 
     private boolean mInLoad;
-    private boolean mEditable;
     private boolean mUseQuickControls;
 
     public TitleBarXLarge(Activity activity, UiController controller,
@@ -93,6 +95,18 @@ public class TitleBarXLarge extends TitleBarBase
                 R.drawable.textfield_default_holo_dark);
         initLayout(activity);
         mInVoiceMode = false;
+    }
+
+    @Override
+    void setTitleGravity(int gravity) {
+        if (mUseQuickControls) {
+            FrameLayout.LayoutParams lp =
+                    (FrameLayout.LayoutParams) getLayoutParams();
+            lp.gravity = gravity;
+            setLayoutParams(lp);
+        } else {
+            super.setTitleGravity(gravity);
+        }
     }
 
     private void initLayout(Context context) {
@@ -126,7 +140,6 @@ public class TitleBarXLarge extends TitleBarBase
         mGoButton.setOnClickListener(this);
         mClearButton.setOnClickListener(this);
         mVoiceSearch.setOnClickListener(this);
-        mUrlContainer.setOnClickListener(this);
         mUrlInput.setUrlInputListener(this);
         mUrlInput.setContainer(mUrlContainer);
         mUrlInput.setController(mUiController);
@@ -148,19 +161,21 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    public void setEditable(boolean editable) {
-        mEditable = editable;
-        mUrlInput.setFocusable(mEditable);
-        if (!mEditable) {
-            mUrlInput.setOnClickListener(this);
+    private ViewGroup.LayoutParams makeLayoutParams() {
+        if (mUseQuickControls) {
+            return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT);
         } else {
-            mUrlContainer.setOnClickListener(null);
+            return new AbsoluteLayout.LayoutParams(
+                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT,
+                    0, 0);
         }
     }
 
     void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
         mUrlInput.setUseQuickControls(mUseQuickControls);
+        setLayoutParams(makeLayoutParams());
         if (mUseQuickControls) {
             mBackButton.setVisibility(View.GONE);
             mForwardButton.setVisibility(View.GONE);
@@ -184,15 +199,7 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
-        if (!mEditable && hasFocus) {
-            mUi.editUrl(false);
-        } else {
-            if (hasFocus) {
-                setEditMode(hasFocus);
-            } else {
-                mUrlInput.stopEditing();
-            }
-        }
+        setEditMode(hasFocus);
         mUrlContainer.setBackgroundDrawable(hasFocus
                 ? mFocusDrawable : mUnfocusDrawable);
     }
@@ -203,8 +210,6 @@ public class TitleBarXLarge extends TitleBarBase
 
     /**
      * called from the Ui when the user wants to edit
-     * Note: only the fake titlebar will get this callback
-     * independent of which input field started the edit mode
      * @param clearInput clear the input field
      */
     void onEditUrl(boolean clearInput) {
@@ -227,15 +232,13 @@ public class TitleBarXLarge extends TitleBarBase
         return mUrlInput.hasFocus();
     }
 
+    void stopEditingUrl() {
+        mUrlInput.clearFocus();
+    }
+
     @Override
     public void onClick(View v) {
-        if (mUrlInput == v) {
-            mUi.editUrl(false);
-        } else if (mUrlContainer == v) {
-            if (!mUrlInput.hasFocus()) {
-                mUi.editUrl(false);
-            }
-        } else if (mBackButton == v) {
+        if (mBackButton == v) {
             mUiController.getCurrentTopWebView().goBack();
         } else if (mForwardButton == v) {
             mUiController.getCurrentTopWebView().goForward();
@@ -260,17 +263,13 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    int getHeightWithoutProgress() {
-        return mContainer.getHeight();
-    }
-
     @Override
     void setFavicon(Bitmap icon) { }
 
     private void clearOrClose() {
         if (TextUtils.isEmpty(mUrlInput.getText())) {
             // close
-            mUrlInput.stopEditing();
+            mUrlInput.clearFocus();
         } else {
             // clear
             mUrlInput.setText("");
@@ -286,7 +285,7 @@ public class TitleBarXLarge extends TitleBarBase
     @Override
     public void onAction(String text, String extra, String source) {
         mUiController.getCurrentTopWebView().requestFocus();
-        mUi.hideFakeTitleBar();
+        mUi.hideTitleBar();
         Intent i = new Intent();
         String action = null;
         if (UrlInputView.VOICE.equals(source)) {
@@ -312,7 +311,7 @@ public class TitleBarXLarge extends TitleBarBase
     @Override
     public void onDismiss() {
         final Tab currentTab = mUi.getActiveTab();
-        mUi.hideFakeTitleBar();
+        mUi.hideTitleBar();
         post(new Runnable() {
             public void run() {
                 TitleBarXLarge.this.clearFocus();
@@ -328,14 +327,14 @@ public class TitleBarXLarge extends TitleBarBase
      * copy text to input field and stay in edit mode
      */
     @Override
-    public void onEdit(String text) {
+    public void onCopySuggestion(String text) {
         mUrlInput.setText(text, true);
         if (text != null) {
             mUrlInput.setSelection(text.length());
         }
     }
 
-    void setEditMode(boolean edit) {
+    private void setEditMode(boolean edit) {
         if (edit) {
             mUrlInput.setDropDownWidth(mUrlContainer.getWidth());
             mUrlInput.setDropDownHorizontalOffset(-mUrlInput.getLeft());

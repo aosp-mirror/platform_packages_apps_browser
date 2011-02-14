@@ -32,7 +32,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -86,6 +85,8 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     private Toast mStopToast;
 
+    private boolean mTitleShowing;
+
     // the default <video> poster
     private Bitmap mDefaultVideoPoster;
     // the video progress view
@@ -114,6 +115,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mCustomViewContainer = (FrameLayout) mBrowserFrameLayout
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
+        mTitleShowing = false;
     }
 
     /**
@@ -222,8 +224,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         onTabDataChanged(tab);
         onProgressChanged(tab);
         boolean incognito = mActiveTab.getWebView().isPrivateBrowsingEnabled();
-        getEmbeddedTitleBar().setIncognitoMode(incognito);
-        getFakeTitleBar().setIncognitoMode(incognito);
+        getTitleBar().setIncognitoMode(incognito);
     }
 
     Tab getActiveTab() {
@@ -292,7 +293,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     private void removeTabFromContentView(Tab tab) {
-        hideFakeTitleBar();
+        hideTitleBar();
         // Remove the container that contains the main WebView.
         WebView mainView = tab.getWebView();
         View container = tab.getViewContainer();
@@ -381,49 +382,47 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mContentView.addView(container, COVER_SCREEN_PARAMS);
     }
 
-    void showFakeTitleBar() {
-        if (!isFakeTitleBarShowing() && !isActivityPaused()) {
-            WebView mainView = mUiController.getCurrentWebView();
-            // if there is no current WebView, don't show the faked title bar;
-            if (mainView == null) {
-                return;
-            }
-            // Do not need to check for null, since the current tab will have
-            // at least a main WebView, or we would have returned above.
-            if (mUiController.isInCustomActionMode()) {
-                // Do not show the fake title bar, while a custom ActionMode
-                // (i.e. find or select) is showing.
-                return;
-            }
-            attachFakeTitleBar(mainView);
+    boolean canShowTitleBar() {
+        return !isTitleBarShowing()
+                && !isActivityPaused()
+                && (getActiveTab() != null)
+                && (getActiveTab().getWebView() != null)
+                && !mUiController.isInCustomActionMode();
+    }
+
+    void showTitleBar() {
+        mTitleShowing = true;
+    }
+
+    protected void hideTitleBar() {
+        mTitleShowing = false;
+    }
+
+    protected boolean isTitleBarShowing() {
+        return mTitleShowing;
+    }
+
+    protected abstract TitleBarBase getTitleBar();
+
+    protected void setTitleGravity(int gravity) {
+        getTitleBar().setTitleGravity(gravity);
+        Tab tab = getActiveTab();
+        if ((tab != null) && (tab.getWebView() != null)) {
+            tab.getWebView().setTitleBarGravity(gravity);
         }
     }
 
-    protected abstract void attachFakeTitleBar(WebView mainView);
-
-    protected abstract void hideFakeTitleBar();
-
-    protected abstract boolean isFakeTitleBarShowing();
-
-    protected abstract TitleBarBase getFakeTitleBar();
-
-    protected abstract TitleBarBase getEmbeddedTitleBar();
-
     @Override
     public void showVoiceTitleBar(String title) {
-        getEmbeddedTitleBar().setInVoiceMode(true);
-        getEmbeddedTitleBar().setDisplayTitle(title);
-        getFakeTitleBar().setInVoiceMode(true);
-        getFakeTitleBar().setDisplayTitle(title);
+        getTitleBar().setInVoiceMode(true);
+        getTitleBar().setDisplayTitle(title);
     }
 
     @Override
     public void revertVoiceTitleBar(Tab tab) {
-        getEmbeddedTitleBar().setInVoiceMode(false);
+        getTitleBar().setInVoiceMode(false);
         String url = tab.getUrl();
-        getEmbeddedTitleBar().setDisplayTitle(url);
-        getFakeTitleBar().setInVoiceMode(false);
-        getFakeTitleBar().setDisplayTitle(url);
+        getTitleBar().setDisplayTitle(url);
     }
 
     @Override
@@ -440,7 +439,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         FrameLayout wrapper =
             (FrameLayout) mContentView.findViewById(R.id.webview_wrapper);
         wrapper.setVisibility(View.GONE);
-        hideFakeTitleBar();
+        hideTitleBar();
         dismissIME();
         if (mActiveTab != null) {
             WebView web = mActiveTab.getWebView();
@@ -547,8 +546,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         } else if (lockIconType == LockIcon.LOCK_ICON_MIXED) {
             d = mMixLockIcon;
         }
-        getEmbeddedTitleBar().setLock(d);
-        getFakeTitleBar().setLock(d);
+        getTitleBar().setLock(d);
     }
 
     protected void setUrlTitle(Tab tab) {
@@ -559,8 +557,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         }
         if (tab.isInVoiceSearchMode()) return;
         if (tab.inForeground()) {
-            getEmbeddedTitleBar().setDisplayTitle(url);
-            getFakeTitleBar().setDisplayTitle(url);
+            getTitleBar().setDisplayTitle(url);
         }
     }
 
@@ -568,8 +565,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
     protected void setFavicon(Tab tab) {
         if (tab.inForeground()) {
             Bitmap icon = tab.getFavicon();
-            getEmbeddedTitleBar().setFavicon(icon);
-            getFakeTitleBar().setFavicon(icon);
+            getTitleBar().setFavicon(icon);
         }
     }
 
@@ -578,7 +574,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         if (inLoad) {
             // the titlebar was removed when the CAB was shown
             // if the page is loading, show it again
-            showFakeTitleBar();
+            showTitleBar();
         }
     }
 

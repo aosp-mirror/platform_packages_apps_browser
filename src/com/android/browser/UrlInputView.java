@@ -166,14 +166,12 @@ public class UrlInputView extends AutoCompleteTextView
                 performFiltering(getText().toString(), 0);
                 showDropDown();
             }
+        } else {
+            finishInput(null, null, null);
         }
         if (mWrappedFocusListener != null) {
             mWrappedFocusListener.onFocusChange(v, hasFocus);
         }
-    }
-
-    void stopEditing() {
-        finishInput(null, null, null);
     }
 
     public void setUrlInputListener(UrlInputListener listener) {
@@ -221,7 +219,7 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     public void onSearch(String search) {
-        mListener.onEdit(search);
+        mListener.onCopySuggestion(search);
     }
 
     @Override
@@ -232,9 +230,10 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent evt) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if ((evt.getAction() == KeyEvent.ACTION_DOWN)
+                && (keyCode == KeyEvent.KEYCODE_BACK)) {
             // catch back key in order to do slightly more cleanup than usual
-            finishInput(null, null, null);
+            clearFocus();
             return true;
         }
         return super.onKeyPreIme(keyCode, evt);
@@ -254,7 +253,7 @@ public class UrlInputView extends AutoCompleteTextView
 
         public void onAction(String text, String extra, String source);
 
-        public void onEdit(String text);
+        public void onCopySuggestion(String text);
 
     }
 

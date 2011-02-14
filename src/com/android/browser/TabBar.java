@@ -75,8 +75,6 @@ public class TabBar extends LinearLayout
 
     private Map<Tab, TabView> mTabMap;
 
-    private int mVisibleTitleHeight;
-
     private Drawable mGenericFavicon;
 
     private int mCurrentTextureWidth = 0;
@@ -96,7 +94,6 @@ public class TabBar extends LinearLayout
     private int mTabOverlap;
     private int mAddTabOverlap;
     private int mTabSliceWidth;
-    private int mTabPadding;
     private boolean mUseQuickControls;
 
     public TabBar(Activity activity, UiController controller, XLargeUi ui) {
@@ -122,14 +119,11 @@ public class TabBar extends LinearLayout
         mGenericFavicon = res.getDrawable(R.drawable.app_web_browser_sm);
 
         updateTabs(mUiController.getTabs());
-
-        mVisibleTitleHeight = 1;
         mButtonWidth = -1;
         // tab dimensions
         mTabOverlap = (int) res.getDimension(R.dimen.tab_overlap);
         mAddTabOverlap = (int) res.getDimension(R.dimen.tab_addoverlap);
         mTabSliceWidth = (int) res.getDimension(R.dimen.tab_slice);
-        mTabPadding = (int) res.getDimension(R.dimen.tab_padding);
 
         mActiveShaderPaint.setStyle(Paint.Style.FILL);
         mActiveShaderPaint.setAntiAlias(true);
@@ -198,14 +192,16 @@ public class TabBar extends LinearLayout
             mUiController.openTabToHomePage();
         } else if (mTabs.getSelectedTab() == view) {
             if (mUseQuickControls) {
-                if (mUi.isFakeTitleBarShowing() && !isLoading()) {
-                    mUi.hideFakeTitleBar();
+                if (mUi.isTitleBarShowing() && !isLoading()) {
+                    mUi.stopEditingUrl();
+                    mUi.hideTitleBar();
                 } else {
                     mUi.stopWebViewScrolling();
-                    mUi.showFakeTitleBarAndEdit();
+                    mUi.showTitleBarAndEdit();
                 }
-            } else if (mUi.isFakeTitleBarShowing() && !isLoading()) {
-                mUi.hideFakeTitleBar();
+            } else if (mUi.isTitleBarShowing() && !isLoading()) {
+                mUi.stopEditingUrl();
+                mUi.hideTitleBar();
             } else {
                 showUrlBar();
             }
@@ -220,7 +216,7 @@ public class TabBar extends LinearLayout
 
     private void showUrlBar() {
         mUi.stopWebViewScrolling();
-        mUi.showFakeTitleBar();
+        mUi.showTitleBar();
     }
 
     void showTitleBarIndicator(boolean show) {
@@ -251,9 +247,11 @@ public class TabBar extends LinearLayout
 
     // callback after fake titlebar is hidden
     void onHideTitleBar() {
-        showTitleBarIndicator(mVisibleTitleHeight == 0);
         Tab tab = mTabControl.getCurrentTab();
-        tab.getWebView().requestFocus();
+        WebView w = tab.getWebView();
+        if (w != null) {
+            showTitleBarIndicator(w.getVisibleTitleHeight() == 0);
+        }
     }
 
     // webview scroll listener
@@ -266,7 +264,7 @@ public class TabBar extends LinearLayout
                 && !isLoading()) {
             if (visibleTitleHeight == 0) {
                 if (!showsTitleBarIndicator()) {
-                    mUi.hideFakeTitleBar();
+                    mUi.hideTitleBar();
                     showTitleBarIndicator(true);
                 }
             } else {
@@ -275,7 +273,6 @@ public class TabBar extends LinearLayout
                 }
             }
         }
-        mVisibleTitleHeight = visibleTitleHeight;
     }
 
     @Override
@@ -588,7 +585,6 @@ public class TabBar extends LinearLayout
             WebView webview = tab.getWebView();
             if (webview != null) {
                 int h = webview.getVisibleTitleHeight();
-                mVisibleTitleHeight = h -1;
                 onScroll(h);
             }
         }

@@ -17,16 +17,12 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.PixelFormat;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.WebView;
 
 /**
@@ -37,7 +33,6 @@ public class PhoneUi extends BaseUi {
     private static final String LOGTAG = "PhoneUi";
 
     private TitleBar mTitleBar;
-    private TitleBar mFakeTitleBar;
     private ActiveTabsPage mActiveTabsPage;
 
     boolean mExtendedMenuOpen;
@@ -53,7 +48,6 @@ public class PhoneUi extends BaseUi {
         // mTitleBar will be always be shown in the fully loaded mode on
         // phone
         mTitleBar.setProgress(100);
-        mFakeTitleBar = new TitleBar(mActivity, mUiController);
 
     }
 
@@ -90,7 +84,7 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void onDestroy() {
-        hideFakeTitleBar();
+        hideTitleBar();
     }
 
     @Override
@@ -107,14 +101,14 @@ public class PhoneUi extends BaseUi {
     public void onProgressChanged(Tab tab) {
         if (tab.inForeground()) {
             int progress = tab.getLoadProgress();
-            mFakeTitleBar.setProgress(progress);
+            mTitleBar.setProgress(progress);
             if (progress == 100) {
                 if (!mOptionsMenuOpen || !mExtendedMenuOpen) {
-                    hideFakeTitleBar();
+                    hideTitleBar();
                 }
             } else {
                 if (!mOptionsMenuOpen || mExtendedMenuOpen) {
-                    showFakeTitleBar();
+                    showTitleBar();
                 }
             }
         }
@@ -130,7 +124,7 @@ public class PhoneUi extends BaseUi {
             Log.e(LOGTAG, "active tab with no webview detected");
             return;
         }
-        view.setEmbeddedTitleBar(getEmbeddedTitleBar());
+        view.setEmbeddedTitleBar(getTitleBar());
         if (tab.isInVoiceSearchMode()) {
             showVoiceTitleBar(tab.getVoiceDisplayTitle());
         } else {
@@ -140,57 +134,23 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
-    protected void attachFakeTitleBar(WebView mainView) {
-        WindowManager manager = (WindowManager)
-                mActivity.getSystemService(Context.WINDOW_SERVICE);
-
-        // Add the title bar to the window manager so it can receive
-        // touches while the menu is up
-        WindowManager.LayoutParams params =
-                new WindowManager.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        WindowManager.LayoutParams.TYPE_APPLICATION,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                        PixelFormat.TRANSLUCENT);
-        params.gravity = Gravity.TOP;
-        boolean atTop = mainView.getScrollY() == 0;
-        params.windowAnimations = atTop ? 0 : R.style.TitleBar;
-        manager.addView(mFakeTitleBar, params);
+    void showTitleBar() {
+        if (canShowTitleBar()) {
+            setTitleGravity(Gravity.TOP);
+            super.showTitleBar();
+        }
     }
 
     @Override
-    protected void hideFakeTitleBar() {
-        if (!isFakeTitleBarShowing()) return;
-        WindowManager.LayoutParams params =
-                (WindowManager.LayoutParams) mFakeTitleBar.getLayoutParams();
-        WebView mainView = mUiController.getCurrentWebView();
-        // Although we decided whether or not to animate based on the
-        // current
-        // scroll position, the scroll position may have changed since the
-        // fake title bar was displayed. Make sure it has the appropriate
-        // animation/lack thereof before removing.
-        params.windowAnimations =
-                mainView != null && mainView.getScrollY() == 0 ?
-                        0 : R.style.TitleBar;
-        WindowManager manager = (WindowManager) mActivity
-                .getSystemService(Context.WINDOW_SERVICE);
-        manager.updateViewLayout(mFakeTitleBar, params);
-        manager.removeView(mFakeTitleBar);
+    protected void hideTitleBar() {
+        if (isTitleBarShowing()) {
+            setTitleGravity(Gravity.NO_GRAVITY);
+            super.hideTitleBar();
+        }
     }
 
     @Override
-    protected boolean isFakeTitleBarShowing() {
-        return (mFakeTitleBar.getParent() != null);
-    }
-
-    @Override
-    protected TitleBarBase getFakeTitleBar() {
-        return mFakeTitleBar;
-    }
-
-    @Override
-    protected TitleBarBase getEmbeddedTitleBar() {
+    protected TitleBarBase getTitleBar() {
         return mTitleBar;
     }
 
@@ -200,7 +160,7 @@ public class PhoneUi extends BaseUi {
     public void showActiveTabsPage() {
         mActiveTabsPage = new ActiveTabsPage(mActivity, mUiController);
         mTitleBar.setVisibility(View.GONE);
-        hideFakeTitleBar();
+        hideTitleBar();
         mContentView.addView(mActiveTabsPage, COVER_SCREEN_PARAMS);
         mActiveTabsPage.requestFocus();
     }
@@ -226,7 +186,7 @@ public class PhoneUi extends BaseUi {
     public void onOptionsMenuOpened() {
         mOptionsMenuOpen = true;
         // options menu opened, show fake title bar
-        showFakeTitleBar();
+        showTitleBar();
     }
 
     @Override
@@ -234,32 +194,32 @@ public class PhoneUi extends BaseUi {
         // Switching the menu to expanded view, so hide the
         // title bar.
         mExtendedMenuOpen = true;
-        hideFakeTitleBar();
+        hideTitleBar();
     }
 
     @Override
     public void onOptionsMenuClosed(boolean inLoad) {
         mOptionsMenuOpen = false;
         if (!inLoad) {
-            hideFakeTitleBar();
+            hideTitleBar();
         }
     }
 
     @Override
     public void onExtendedMenuClosed(boolean inLoad) {
         mExtendedMenuOpen = false;
-        showFakeTitleBar();
+        showTitleBar();
     }
 
     @Override
     public void onContextMenuCreated(Menu menu) {
-        hideFakeTitleBar();
+        hideTitleBar();
     }
 
     @Override
     public void onContextMenuClosed(Menu menu, boolean inLoad) {
         if (inLoad) {
-            showFakeTitleBar();
+            showTitleBar();
         }
     }
 
@@ -267,7 +227,7 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void onActionModeStarted(ActionMode mode) {
-        hideFakeTitleBar();
+        hideTitleBar();
     }
 
     @Override
