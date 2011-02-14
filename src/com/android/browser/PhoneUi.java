@@ -99,6 +99,12 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
+    public void editUrl(boolean clearInput) {
+        String url = getActiveTab().getUrl();
+        mUiController.startSearch(url);
+    }
+
+    @Override
     public boolean onBackKey() {
         if (mActiveTabsPage != null) {
             // if tab page is showing, hide it

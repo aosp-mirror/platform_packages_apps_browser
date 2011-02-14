@@ -260,18 +260,19 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         return 0;
     }
 
-    void editUrl(boolean clearInput) {
+    @Override
+    public void editUrl(boolean clearInput) {
         if (mUiController.isInCustomActionMode()) {
             mUiController.endActionMode();
         }
         showTitleBar();
-        mTitleBar.onEditUrl(clearInput);
+        mTitleBar.startEditingUrl(clearInput);
     }
 
     void showTitleBarAndEdit() {
         mTitleBar.setShowProgressOnly(false);
         showTitleBar();
-        mTitleBar.onEditUrl(false);
+        mTitleBar.startEditingUrl(false);
     }
 
     void stopEditingUrl() {
@@ -387,21 +388,32 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     public boolean dispatchKey(int code, KeyEvent event) {
         WebView web = getActiveTab().getWebView();
-        switch (code) {
-            case KeyEvent.KEYCODE_TAB:
-            case KeyEvent.KEYCODE_DPAD_UP:
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                if ((web != null) && web.hasFocus()) {
-                    editUrl(true);
-                    return true;
-                }
-        }
-        boolean ctrl = event.hasModifiers(KeyEvent.META_CTRL_ON);
-        if (!ctrl && event.isPrintingKey() && !mTitleBar.isEditingUrl()) {
-            editUrl(true);
-            return mContentView.dispatchKeyEvent(event);
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            switch (code) {
+                case KeyEvent.KEYCODE_TAB:
+                case KeyEvent.KEYCODE_DPAD_UP:
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    if ((web != null) && web.hasFocus() && !mTitleBar.hasFocus()) {
+                        editUrl(false);
+                        return true;
+                    }
+            }
+            boolean ctrl = event.hasModifiers(KeyEvent.META_CTRL_ON);
+            if (!ctrl && isTypingKey(event) && !mTitleBar.isEditingUrl()) {
+                editUrl(true);
+                return mContentView.dispatchKeyEvent(event);
+            }
         }
         return false;
+    }
+
+    private boolean isTypingKey(KeyEvent evt) {
+        return evt.getUnicodeChar() > 0;
+    }
+
+    TabBar getTabBar() {
+        return mTabBar;
     }
 
 }

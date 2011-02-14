@@ -276,5 +276,4 @@ public class BrowserActivity extends Activity {
         mController.onActivityResult(requestCode, resultCode, intent);
     }
 
-
 }

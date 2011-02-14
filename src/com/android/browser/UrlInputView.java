@@ -29,7 +29,6 @@ import android.util.AttributeSet;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -44,7 +43,7 @@ import java.util.List;
  * handling suggestions
  */
 public class UrlInputView extends AutoCompleteTextView
-        implements OnFocusChangeListener, OnEditorActionListener,
+        implements OnEditorActionListener,
         CompletionListener, OnItemClickListener {
 
 
@@ -55,12 +54,11 @@ public class UrlInputView extends AutoCompleteTextView
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
     private SuggestionsAdapter mAdapter;
-    private OnFocusChangeListener mWrappedFocusListener;
     private View mContainer;
     private boolean mLandscape;
-    private boolean mInVoiceMode;
     private boolean mIncognitoMode;
     private int mVOffset;
+    private boolean mNeedsUpdate;
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -80,7 +78,6 @@ public class UrlInputView extends AutoCompleteTextView
     private void init(Context ctx) {
         mInputManager = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
         setOnEditorActionListener(this);
-        super.setOnFocusChangeListener(this);
         mAdapter = new SuggestionsAdapter(ctx, this);
         setAdapter(mAdapter);
         setSelectAllOnFocus(true);
@@ -88,6 +85,21 @@ public class UrlInputView extends AutoCompleteTextView
         setThreshold(1);
         setOnItemClickListener(this);
         mVOffset = 0;
+        mNeedsUpdate = false;
+    }
+
+    /**
+     * check if focus change requires a title bar update
+     */
+    boolean needsUpdate() {
+        return mNeedsUpdate;
+    }
+
+    /**
+     * clear the focus change needs title bar update flag
+     */
+    void clearNeedsUpdate() {
+        mNeedsUpdate = false;
     }
 
     void setController(UiController controller) {
@@ -107,9 +119,12 @@ public class UrlInputView extends AutoCompleteTextView
         mContainer = container;
     }
 
+    public void setUrlInputListener(UrlInputListener listener) {
+        mListener = listener;
+    }
+
     void setVoiceResults(List<String> voiceResults) {
         mAdapter.setVoiceResults(voiceResults);
-        mInVoiceMode = (voiceResults != null);
     }
 
     @Override
@@ -148,43 +163,28 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     @Override
-    public void setOnFocusChangeListener(OnFocusChangeListener focusListener) {
-        mWrappedFocusListener = focusListener;
-    }
-
-    @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         finishInput(getText().toString(), null, TYPED);
         return true;
     }
 
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (mWrappedFocusListener != null) {
-            mWrappedFocusListener.onFocusChange(v, hasFocus);
-        }
-        if (hasFocus) {
-            forceIme();
-            if (mInVoiceMode) {
-                performFiltering(getText().toString(), 0);
-                showDropDown();
-            }
-        } else {
-            finishInput(null, null, null);
-        }
+    void forceFilter() {
+        performFiltering(getText().toString(), 0);
+        showDropDown();
     }
 
-    public void setUrlInputListener(UrlInputListener listener) {
-        mListener = listener;
-    }
-
-    public void forceIme() {
+    void forceIme() {
         mInputManager.focusIn(this);
         mInputManager.showSoftInput(this, 0);
     }
 
+    void hideIME() {
+        mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
+    }
+
     private void finishInput(String url, String extra, String source) {
-        this.dismissDropDown();
+        mNeedsUpdate = true;
+        dismissDropDown();
         mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
         if (TextUtils.isEmpty(url)) {
             mListener.onDismiss();
@@ -230,17 +230,6 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     @Override
-    public boolean onKeyPreIme(int keyCode, KeyEvent evt) {
-        if ((evt.getAction() == KeyEvent.ACTION_DOWN)
-                && (keyCode == KeyEvent.KEYCODE_BACK)) {
-            // catch back key in order to do slightly more cleanup than usual
-            clearFocus();
-            return true;
-        }
-        return super.onKeyPreIme(keyCode, evt);
-    }
-
-    @Override
     public void onItemClick(
             AdapterView<?> parent, View view, int position, long id) {
         SuggestItem item = mAdapter.getItem(position);
@@ -261,6 +250,15 @@ public class UrlInputView extends AutoCompleteTextView
     public void setIncognitoMode(boolean incognito) {
         mIncognitoMode = incognito;
         mAdapter.setIncognitoMode(mIncognitoMode);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent evt) {
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE && !isInTouchMode()) {
+            finishInput(null, null, null);
+            return true;
+        }
+        return super.onKeyDown(keyCode, evt);
     }
 
 }

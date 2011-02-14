@@ -1026,9 +1026,7 @@ public class Controller
     // callback from phone title bar
     public void editUrl() {
         if (mOptionsMenuOpen) mActivity.closeOptionsMenu();
-        String url = (getCurrentTopWebView() == null) ? null : getCurrentTopWebView().getUrl();
-        startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
-                null, false);
+        mUi.editUrl(false);
     }
 
     public void startVoiceSearch() {
@@ -2412,6 +2410,12 @@ public class Controller
         startSearch(result, false, bundle, false);
     }
 
+    @Override
+    public void startSearch(String url) {
+        startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
+                null, false);
+    }
+
     private void startSearch(String initialQuery, boolean selectInitialQuery,
             Bundle appSearchData, boolean globalSearch) {
         if (appSearchData == null) {
@@ -2445,14 +2449,13 @@ public class Controller
 
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
-        if (!noModifiers && KeyEvent.KEYCODE_MENU == keyCode) {
+        if (!noModifiers
+                && ((KeyEvent.KEYCODE_MENU == keyCode)
+                        || (KeyEvent.KEYCODE_CTRL_LEFT == keyCode)
+                        || (KeyEvent.KEYCODE_CTRL_RIGHT == keyCode))) {
             mMenuIsDown = true;
             return false;
         }
-        // The default key mode is DEFAULT_KEYS_SEARCH_LOCAL. As the MENU is
-        // still down, we don't want to trigger the search. Pretend to consume
-        // the key and do nothing.
-        if (mMenuIsDown) return true;
 
         WebView webView = getCurrentTopWebView();
         if (webView == null) return false;
@@ -2525,10 +2528,12 @@ public class Controller
 //          case KeyEvent.KEYCODE_O:    // in Chrome: open file
 //          case KeyEvent.KEYCODE_P:    // in Chrome: print page
 //          case KeyEvent.KEYCODE_Q:    // unused
-//            case KeyEvent.KEYCODE_R:
+//          case KeyEvent.KEYCODE_R:
 //          case KeyEvent.KEYCODE_S:    // in Chrome: saves page
             case KeyEvent.KEYCODE_T:
-                if (ctrl) {
+                // we can't use the ctrl/shift flags, they check for
+                // exclusive use of a modifier
+                if (event.isCtrlPressed()) {
                     if (event.isShiftPressed()) {
                         openIncognitoTab();
                     } else {
@@ -2544,8 +2549,8 @@ public class Controller
 //          case KeyEvent.KEYCODE_Y:    // unused
 //          case KeyEvent.KEYCODE_Z:    // unused
         }
-        // if we get here, it is a regular key and webview is not null
-        return mUi.dispatchKey(keyCode, event);
+        // it is a regular key and webview is not null
+         return mUi.dispatchKey(keyCode, event);
     }
 
     boolean onKeyUp(int keyCode, KeyEvent event) {
