@@ -17,12 +17,16 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.PixelFormat;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebView;
 
 /**
@@ -139,10 +143,31 @@ public class PhoneUi extends BaseUi {
         tab.getTopWindow().requestFocus();
     }
 
+    private void attachTitleBar(WebView mainView) {
+        if (mainView != null) {
+            mainView.setEmbeddedTitleBar(null);
+        }
+        WindowManager manager = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
+        // Add the title bar to the window manager so it can receive
+        // touches while the menu is up
+        WindowManager.LayoutParams params =
+                new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        WindowManager.LayoutParams.TYPE_APPLICATION,
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                        PixelFormat.OPAQUE);
+        params.gravity = Gravity.TOP;
+        boolean atTop = mainView.getScrollY() == 0;
+        params.windowAnimations = atTop ? 0 : R.style.TitleBar;
+        manager.addView(mTitleBar, params);
+        super.showTitleBar();
+    }
+
     @Override
     void showTitleBar() {
         if (canShowTitleBar()) {
-            setTitleGravity(Gravity.TOP);
+            WebView mainView = mUiController.getCurrentWebView();
+            attachTitleBar(mainView);
             super.showTitleBar();
         }
     }
@@ -150,7 +175,23 @@ public class PhoneUi extends BaseUi {
     @Override
     protected void hideTitleBar() {
         if (isTitleBarShowing()) {
-            setTitleGravity(Gravity.NO_GRAVITY);
+            WindowManager.LayoutParams params =
+                    (WindowManager.LayoutParams) mTitleBar.getLayoutParams();
+            WebView mainView = mUiController.getCurrentWebView();
+            // Although we decided whether or not to animate based on the
+            // current
+            // scroll position, the scroll position may have changed since the
+            // fake title bar was displayed. Make sure it has the appropriate
+            // animation/lack thereof before removing.
+            params.windowAnimations =
+                    mainView != null && mainView.getScrollY() == 0 ? 0 : R.style.TitleBar;
+            WindowManager manager =
+                    (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
+            manager.updateViewLayout(mTitleBar, params);
+            manager.removeView(mTitleBar);
+            if (mainView != null) {
+                mainView.setEmbeddedTitleBar(mTitleBar);
+            }
             super.hideTitleBar();
         }
     }
