@@ -19,7 +19,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
     <include layout="@layout/browser_add_bookmark_content" />
 
 </LinearLayout>
