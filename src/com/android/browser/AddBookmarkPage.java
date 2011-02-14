@@ -73,6 +73,7 @@ public class AddBookmarkPage extends Activity
     // Place on an edited bookmark to remove the saved thumbnail
     public static final String REMOVE_THUMBNAIL = "remove_thumbnail";
     public static final String USER_AGENT = "user_agent";
+    public static final String CHECK_FOR_DUPE = "check_for_dupe";
 
     /* package */ static final String EXTRA_EDIT_BOOKMARK = "bookmark";
     /* package */ static final String EXTRA_IS_FOLDER = "is_folder";
@@ -728,7 +729,8 @@ public class AddBookmarkPage extends Activity
             mCurrentFolder = mRootFolder;
         }
         setupTopCrumb();
-        if (mEditingExisting || TextUtils.isEmpty(mOriginalUrl)) {
+        if (mEditingExisting || TextUtils.isEmpty(mOriginalUrl)
+                || !(mMap != null && mMap.getBoolean(CHECK_FOR_DUPE))) {
             onCurrentFolderFound();
         } else {
             // User is attempting to bookmark a site, rather than deliberately

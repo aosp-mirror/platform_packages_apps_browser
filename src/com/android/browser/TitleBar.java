@@ -215,7 +215,7 @@ public class TitleBar extends TitleBarBase {
                         mController.stopLoading();
                     } else {
                         mController.bookmarkCurrentPage(
-                                AddBookmarkPage.DEFAULT_FOLDER_ID);
+                                AddBookmarkPage.DEFAULT_FOLDER_ID, true);
                     }
                     button.setPressed(false);
                 } else if (mTitleBg.isPressed()) {

@@ -324,7 +324,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             mUiController.onUrlSelected(settings.getHomePage(), false);
             return true;
         case R.id.add_bookmark:
-            mUiController.bookmarkCurrentPage(mBookmarks.getFolderId());
+            mUiController.bookmarkCurrentPage(mBookmarks.getFolderId(), false);
             return true;
         case R.id.preferences_menu_id:
             Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
