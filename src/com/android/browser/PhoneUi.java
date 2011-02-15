@@ -24,6 +24,7 @@ import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -38,6 +39,7 @@ public class PhoneUi extends BaseUi {
 
     private TitleBar mTitleBar;
     private ActiveTabsPage mActiveTabsPage;
+    private TouchProxy mTitleOverlay;
 
     boolean mExtendedMenuOpen;
     boolean mOptionsMenuOpen;
@@ -164,7 +166,7 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
-    void showTitleBar() {
+    protected void showTitleBar() {
         if (canShowTitleBar()) {
             WebView mainView = mUiController.getCurrentWebView();
             attachTitleBar(mainView);
@@ -232,8 +234,14 @@ public class PhoneUi extends BaseUi {
     @Override
     public void onOptionsMenuOpened() {
         mOptionsMenuOpen = true;
-        // options menu opened, show fake title bar
+        // options menu opened, show title bar
         showTitleBar();
+        if (mTitleOverlay == null) {
+            // This assumes that getTitleBar always returns the same View
+            mTitleOverlay = new TouchProxy(mActivity, getTitleBar());
+        }
+        mActivity.getWindowManager().addView(mTitleOverlay,
+                mTitleOverlay.getWindowLayoutParams());
     }
 
     @Override
@@ -247,7 +255,8 @@ public class PhoneUi extends BaseUi {
     @Override
     public void onOptionsMenuClosed(boolean inLoad) {
         mOptionsMenuOpen = false;
-        if (!inLoad) {
+        mActivity.getWindowManager().removeView(mTitleOverlay);
+        if (!inLoad && !getTitleBar().hasFocus()) {
             hideTitleBar();
         }
     }
@@ -282,4 +291,29 @@ public class PhoneUi extends BaseUi {
         return false;
     }
 
+    static class TouchProxy extends View {
+
+        View mTarget;
+
+        TouchProxy(Context context, View target) {
+            super(context);
+            mTarget = target;
+        }
+
+        @Override
+        public boolean dispatchTouchEvent(MotionEvent event) {
+            return mTarget.dispatchTouchEvent(event);
+        }
+
+        WindowManager.LayoutParams getWindowLayoutParams() {
+            WindowManager.LayoutParams params =
+                new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        WindowManager.LayoutParams.TYPE_APPLICATION,
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                        PixelFormat.TRANSPARENT);
+            params.gravity = Gravity.TOP;
+            return params;
+        }
+    }
 }
