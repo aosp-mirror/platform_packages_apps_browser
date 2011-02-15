@@ -449,6 +449,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlInput.setVoiceResults(voiceResults);
         mVoiceSearchIndicator.setVisibility(mInVoiceMode
                 ? View.VISIBLE : View.GONE);
+        mWebIcon.setVisibility(mInVoiceMode ? View.GONE : View.VISIBLE);
     }
 
     @Override

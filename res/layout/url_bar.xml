@@ -61,7 +61,7 @@
                 android:id="@+id/voice_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_search_holo_dark"
+                android:src="@drawable/ic_voice_search_holo_dark"
                 style="@style/HoloIcon"
                 android:visibility="gone" />
             <ImageView
