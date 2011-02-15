@@ -23,7 +23,7 @@
     android:paddingRight="12dip"
     android:paddingTop="2dip"
     android:paddingBottom="1dip"
-    android:background="@drawable/search_plate_browser" >
+    android:background="@drawable/bg_urlbar" >
 
     <ProgressBar android:id="@+id/progress_horizontal"
         style="?android:attr/progressBarStyleHorizontal"
@@ -40,13 +40,13 @@
         >
 
         <LinearLayout android:id="@+id/title_bg"
-            android:background="@drawable/title_text"
             android:layout_width="0dip"
             android:layout_weight="1.0"
-            android:layout_height="wrap_content"
+            android:layout_height="48dip"
             android:layout_marginBottom="4dip"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="@drawable/url_background"
             >
                 <ImageView android:id="@+id/favicon"
                     android:layout_width="20dip"
@@ -59,16 +59,25 @@
                     android:layout_marginLeft="6dip"
                     android:visibility="gone"
                     />
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_height="wrap_content"
+                <com.android.browser.UrlInputView
+                    android:id="@+id/url_input"
+                    android:focusable="true"
                     android:layout_width="0dip"
                     android:layout_weight="1.0"
-                    android:layout_marginLeft="3dip"
-                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dip"
+                    android:paddingLeft="0dip"
+                    android:paddingRight="0dip"
+                    android:background="@null"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:hint="@string/search_hint"
                     android:singleLine="true"
                     android:ellipsize="end"
-                />
+                    android:lines="1"
+                    android:scrollHorizontally="true"
+                    android:inputType="textUri"
+                    android:imeOptions="actionGo"
+                    style="@style/Suggestions" />
         </LinearLayout>
         <ImageView android:id="@+id/stop"
             android:background="@drawable/stop_background"
@@ -78,7 +87,7 @@
             android:src="@drawable/ic_btn_stop_v2"
             android:visibility="gone"
         />
-        <ImageView
+        <ImageButton
             android:id="@+id/rt_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

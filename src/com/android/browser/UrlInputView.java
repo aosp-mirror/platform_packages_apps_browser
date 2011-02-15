@@ -137,7 +137,7 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     private void setupDropDown() {
-        int width = mContainer.getWidth();
+        int width = mContainer != null ? mContainer.getWidth() : getWidth();
         if (width != getDropDownWidth()) {
             setDropDownWidth(width);
         }
@@ -160,6 +160,9 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
+        if (mWrappedFocusListener != null) {
+            mWrappedFocusListener.onFocusChange(v, hasFocus);
+        }
         if (hasFocus) {
             forceIme();
             if (mInVoiceMode) {
@@ -169,9 +172,6 @@ public class UrlInputView extends AutoCompleteTextView
         } else {
             finishInput(null, null, null);
         }
-        if (mWrappedFocusListener != null) {
-            mWrappedFocusListener.onFocusChange(v, hasFocus);
-        }
     }
 
     public void setUrlInputListener(UrlInputListener listener) {
@@ -179,6 +179,7 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     public void forceIme() {
+        mInputManager.focusIn(this);
         mInputManager.showSoftInput(this, 0);
     }
 

@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.android.common.speech.LoggingEvents;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,8 +23,6 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.Message;
 import android.speech.RecognizerIntent;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -37,23 +33,20 @@ import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
+import android.view.View.OnFocusChangeListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 /**
  * This class represents a title bar for a particular "tab" or "window" in the
  * browser.
  */
-public class TitleBar extends TitleBarBase {
+public class TitleBar extends TitleBarBase implements OnFocusChangeListener {
 
     private Activity mActivity;
-    private UiController mController;
-    private TextView mTitle;
-    private ImageView mRtButton;
+    private ImageButton mRtButton;
     private Drawable mCircularProgress;
     private ProgressBar mHorizontalProgress;
     private ImageView mStopButton;
@@ -61,35 +54,33 @@ public class TitleBar extends TitleBarBase {
     private Drawable mVoiceDrawable;
     private boolean mInLoad;
     private View mTitleBg;
-    private MyHandler mHandler;
     private Intent mVoiceSearchIntent;
-    private boolean mInVoiceMode;
     private Drawable mVoiceModeBackground;
     private Drawable mNormalBackground;
-    private Drawable mLoadingBackground;
     private ImageSpan mArcsSpan;
     private int mLeftMargin;
     private int mRightMargin;
 
-    private static int LONG_PRESS = 1;
-
-    public TitleBar(Activity activity, UiController controller) {
-        super(activity);
-        mHandler = new MyHandler();
+    public TitleBar(Activity activity, UiController controller, PhoneUi ui) {
+        super(activity, controller, ui);
         LayoutInflater factory = LayoutInflater.from(activity);
         factory.inflate(R.layout.title_bar, this);
         mActivity = activity;
-        mController = controller;
 
-        mTitle = (TextView) findViewById(R.id.title);
-        mTitle.setCompoundDrawablePadding(5);
+        mUrlInput = (UrlInputView) findViewById(R.id.url_input);
+        mUrlInput.setCompoundDrawablePadding(5);
+        mUrlInput.setContainer(this);
+        mUrlInput.setSelectAllOnFocus(true);
+        mUrlInput.setController(mUiController);
+        mUrlInput.setUrlInputListener(this);
+        mUrlInput.setOnFocusChangeListener(this);
 
         mTitleBg = findViewById(R.id.title_bg);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mFavicon = (ImageView) findViewById(R.id.favicon);
         mStopButton = (ImageView) findViewById(R.id.stop);
 
-        mRtButton = (ImageView) findViewById(R.id.rt_btn);
+        mRtButton = (ImageButton) findViewById(R.id.rt_btn);
         Resources resources = activity.getResources();
         mCircularProgress = resources.getDrawable(
                 com.android.internal.R.drawable.search_spinner);
@@ -125,122 +116,15 @@ public class TitleBar extends TitleBarBase {
         mVoiceModeBackground = resources.getDrawable(
                 R.drawable.title_voice);
         mNormalBackground = mTitleBg.getBackground();
-        mLoadingBackground = resources.getDrawable(R.drawable.title_loading);
         mArcsSpan = new ImageSpan(activity, R.drawable.arcs,
                 ImageSpan.ALIGN_BASELINE);
     }
-
-    private class MyHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == LONG_PRESS) {
-                // Prevent the normal action from happening by setting the title
-                // bar's state to false.
-                mTitleBg.setPressed(false);
-                // Need to call a special method on BrowserActivity for when the
-                // fake title bar is up, because its ViewGroup does not show a
-                // context menu.
-                // TODO:
-                // this test is not valid for all UIs; fix later
-                if (getParent() != null) {
-                    mActivity.openContextMenu(TitleBar.this);
-                }
-            }
-        }
-    };
 
     @Override
     public void createContextMenu(ContextMenu menu) {
         MenuInflater inflater = mActivity.getMenuInflater();
         inflater.inflate(R.menu.title_context, menu);
         mActivity.onCreateContextMenu(menu, this, null);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        ImageView button = mInLoad ? mStopButton : mRtButton;
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                // Make all touches hit either the textfield or the button,
-                // depending on which side of the right edge of the textfield
-                // they hit.
-                if ((int) event.getX() > mTitleBg.getRight()) {
-                    button.setPressed(true);
-                } else {
-                    mTitleBg.setPressed(true);
-                    mHandler.sendMessageDelayed(mHandler.obtainMessage(
-                            LONG_PRESS),
-                            ViewConfiguration.getLongPressTimeout());
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                int slop = ViewConfiguration.get(mActivity)
-                        .getScaledTouchSlop();
-                if ((int) event.getY() > getHeight() + slop) {
-                    // We only trigger the actions in ACTION_UP if one or the
-                    // other is pressed.  Since the user moved off the title
-                    // bar, mark both as not pressed.
-                    mTitleBg.setPressed(false);
-                    button.setPressed(false);
-                    mHandler.removeMessages(LONG_PRESS);
-                    break;
-                }
-                int x = (int) event.getX();
-                int titleRight = mTitleBg.getRight();
-                if (mTitleBg.isPressed() && x > titleRight + slop) {
-                    mTitleBg.setPressed(false);
-                    mHandler.removeMessages(LONG_PRESS);
-                } else if (button.isPressed() && x < titleRight - slop) {
-                    button.setPressed(false);
-                }
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                button.setPressed(false);
-                mTitleBg.setPressed(false);
-                mHandler.removeMessages(LONG_PRESS);
-                break;
-            case MotionEvent.ACTION_UP:
-                if (button.isPressed()) {
-                    if (mInVoiceMode) {
-                        if (mController.getTabControl().getCurrentTab()
-                                .voiceSearchSourceIsGoogle()) {
-                            Intent i = new Intent(
-                                    LoggingEvents.ACTION_LOG_EVENT);
-                            i.putExtra(LoggingEvents.EXTRA_EVENT,
-                                    LoggingEvents.VoiceSearch.RETRY);
-                            mActivity.sendBroadcast(i);
-                        }
-                        mActivity.startActivity(mVoiceSearchIntent);
-                    } else if (mInLoad) {
-                        mController.stopLoading();
-                    } else {
-                        mController.bookmarkCurrentPage(
-                                AddBookmarkPage.DEFAULT_FOLDER_ID, true);
-                    }
-                    button.setPressed(false);
-                } else if (mTitleBg.isPressed()) {
-                    mHandler.removeMessages(LONG_PRESS);
-                    if (mInVoiceMode) {
-                        if (mController.getTabControl().getCurrentTab()
-                                .voiceSearchSourceIsGoogle()) {
-                            Intent i = new Intent(
-                                    LoggingEvents.ACTION_LOG_EVENT);
-                            i.putExtra(LoggingEvents.EXTRA_EVENT,
-                                    LoggingEvents.VoiceSearch.N_BEST_REVEAL);
-                            mActivity.sendBroadcast(i);
-                        }
-                        mController.showVoiceSearchResults(
-                                mTitle.getText().toString().trim());
-                    } else {
-                        mController.editUrl();
-                    }
-                    mTitleBg.setPressed(false);
-                }
-                break;
-            default:
-                break;
-        }
-        return true;
     }
 
     /**
@@ -255,7 +139,7 @@ public class TitleBar extends TitleBarBase {
         if (mInVoiceMode) {
             mRtButton.setImageDrawable(mVoiceDrawable);
             titleDrawable = mVoiceModeBackground;
-            mTitle.setEllipsize(null);
+            mUrlInput.setEllipsize(null);
             mRtButton.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
             mTitleBg.setBackgroundDrawable(titleDrawable);
@@ -263,20 +147,17 @@ public class TitleBar extends TitleBarBase {
                     mRightMargin, mTitleBg.getPaddingBottom());
         } else {
             if (mInLoad) {
-                titleDrawable = mLoadingBackground;
                 mRtButton.setVisibility(View.GONE);
                 mStopButton.setVisibility(View.VISIBLE);
             } else {
-                titleDrawable = mNormalBackground;
                 mRtButton.setVisibility(View.VISIBLE);
                 mStopButton.setVisibility(View.GONE);
                 mRtButton.setImageDrawable(mBookmarkDrawable);
             }
-            mTitle.setEllipsize(TextUtils.TruncateAt.END);
-            mTitleBg.setBackgroundDrawable(titleDrawable);
+            mUrlInput.setEllipsize(TextUtils.TruncateAt.END);
             mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
         }
-        mTitle.setSingleLine(!mInVoiceMode);
+        mUrlInput.setSingleLine(!mInVoiceMode);
     }
 
     /**
@@ -285,7 +166,7 @@ public class TitleBar extends TitleBarBase {
     @Override
     void setProgress(int newProgress) {
         if (newProgress >= mHorizontalProgress.getMax()) {
-            mTitle.setCompoundDrawables(null, null, null, null);
+            mUrlInput.setCompoundDrawables(null, null, null, null);
             ((Animatable) mCircularProgress).stop();
             mHorizontalProgress.setVisibility(View.INVISIBLE);
             if (!mInVoiceMode) {
@@ -303,12 +184,11 @@ public class TitleBar extends TitleBarBase {
                 // are attached to a window before starting the animation,
                 // preventing a potential race condition
                 // (fix for bug http://b/2115736)
-                mTitle.setCompoundDrawables(null, null, mCircularProgress,
+                mUrlInput.setCompoundDrawables(null, null, mCircularProgress,
                         null);
                 ((Animatable) mCircularProgress).start();
                 mHorizontalProgress.setVisibility(View.VISIBLE);
                 if (!mInVoiceMode) {
-                    mTitleBg.setBackgroundDrawable(mLoadingBackground);
                     mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
                     mRtButton.setVisibility(View.GONE);
                     mStopButton.setVisibility(View.VISIBLE);
@@ -326,7 +206,7 @@ public class TitleBar extends TitleBarBase {
     @Override
     void setDisplayTitle(String title) {
         if (title == null) {
-            mTitle.setText(R.string.new_tab);
+            mUrlInput.setText(R.string.new_tab);
         } else {
             if (mInVoiceMode) {
                 // Add two spaces.  The second one will be replaced with an
@@ -336,10 +216,17 @@ public class TitleBar extends TitleBarBase {
                 int end = spannable.length();
                 spannable.setSpan(mArcsSpan, end - 1, end,
                         Spanned.SPAN_MARK_POINT);
-                mTitle.setText(spannable);
+                mUrlInput.setText(spannable);
             } else {
-                mTitle.setText(title);
+                mUrlInput.setText(title);
             }
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (v == mUrlInput && hasFocus) {
+            mActivity.closeOptionsMenu();
         }
     }
 }
