@@ -137,7 +137,7 @@
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"現在のウィンドウの後ろに新しいウィンドウを開く"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"ホームページ設定"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"検索エンジンの設定"</string>
-    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"検索エンジンを選択します"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"検索エンジンを選択する"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"現在のページを使用"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"ページの自動調整"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"画面に合わせてウェブページをフォーマットする"</string>
