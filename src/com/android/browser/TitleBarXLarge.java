@@ -48,8 +48,6 @@ public class TitleBarXLarge extends TitleBarBase
         implements OnClickListener, OnFocusChangeListener,
     TextWatcher {
 
-    private static final int PROGRESS_MAX = 100;
-
     private XLargeUi mUi;
 
     private Drawable mStopDrawable;
@@ -210,6 +208,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlInput.clearNeedsUpdate();
     }
 
+    @Override
     public void setCurrentUrlIsBookmark(boolean isBookmark) {
         mStar.setActivated(isBookmark);
     }

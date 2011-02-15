@@ -161,14 +161,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     // WebView callbacks
 
     @Override
-    public void bookmarkedStatusHasChanged(Tab tab) {
-        if (tab.inForeground()) {
-            boolean isBookmark = tab.isBookmarkedSite();
-            mTitleBar.setCurrentUrlIsBookmark(isBookmark);
-        }
-    }
-
-    @Override
     public void onProgressChanged(Tab tab) {
         int progress = tab.getLoadProgress();
         mTabBar.onProgress(tab, progress);
