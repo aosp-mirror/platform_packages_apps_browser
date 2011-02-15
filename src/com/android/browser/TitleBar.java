@@ -34,6 +34,7 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -43,13 +44,14 @@ import android.widget.ProgressBar;
  * This class represents a title bar for a particular "tab" or "window" in the
  * browser.
  */
-public class TitleBar extends TitleBarBase implements OnFocusChangeListener {
+public class TitleBar extends TitleBarBase implements OnFocusChangeListener,
+        OnClickListener {
 
     private Activity mActivity;
-    private ImageButton mRtButton;
+    private ImageButton mBookmarkButton;
     private Drawable mCircularProgress;
     private ProgressBar mHorizontalProgress;
-    private ImageView mStopButton;
+    private ImageButton mStopButton;
     private Drawable mBookmarkDrawable;
     private Drawable mVoiceDrawable;
     private boolean mInLoad;
@@ -78,9 +80,11 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener {
         mTitleBg = findViewById(R.id.title_bg);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mFavicon = (ImageView) findViewById(R.id.favicon);
-        mStopButton = (ImageView) findViewById(R.id.stop);
+        mStopButton = (ImageButton) findViewById(R.id.stop);
+        mBookmarkButton = (ImageButton) findViewById(R.id.bookmark);
+        mStopButton.setOnClickListener(this);
+        mBookmarkButton.setOnClickListener(this);
 
-        mRtButton = (ImageButton) findViewById(R.id.rt_btn);
         Resources resources = activity.getResources();
         mCircularProgress = resources.getDrawable(
                 com.android.internal.R.drawable.search_spinner);
@@ -112,7 +116,7 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener {
             mVoiceDrawable = resources.getDrawable(
                     android.R.drawable.ic_btn_speak_now);
         }
-        mBookmarkDrawable = mRtButton.getDrawable();
+        mBookmarkDrawable = mBookmarkButton.getDrawable();
         mVoiceModeBackground = resources.getDrawable(
                 R.drawable.title_voice);
         mNormalBackground = mTitleBg.getBackground();
@@ -137,22 +141,22 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener {
         mInVoiceMode = inVoiceMode && mVoiceSearchIntent != null;
         Drawable titleDrawable;
         if (mInVoiceMode) {
-            mRtButton.setImageDrawable(mVoiceDrawable);
+            mBookmarkButton.setImageDrawable(mVoiceDrawable);
             titleDrawable = mVoiceModeBackground;
             mUrlInput.setEllipsize(null);
-            mRtButton.setVisibility(View.VISIBLE);
+            mBookmarkButton.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
             mTitleBg.setBackgroundDrawable(titleDrawable);
             mTitleBg.setPadding(mLeftMargin, mTitleBg.getPaddingTop(),
                     mRightMargin, mTitleBg.getPaddingBottom());
         } else {
             if (mInLoad) {
-                mRtButton.setVisibility(View.GONE);
+                mBookmarkButton.setVisibility(View.GONE);
                 mStopButton.setVisibility(View.VISIBLE);
             } else {
-                mRtButton.setVisibility(View.VISIBLE);
+                mBookmarkButton.setVisibility(View.VISIBLE);
                 mStopButton.setVisibility(View.GONE);
-                mRtButton.setImageDrawable(mBookmarkDrawable);
+                mBookmarkButton.setImageDrawable(mBookmarkDrawable);
             }
             mUrlInput.setEllipsize(TextUtils.TruncateAt.END);
             mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
@@ -170,8 +174,8 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener {
             ((Animatable) mCircularProgress).stop();
             mHorizontalProgress.setVisibility(View.INVISIBLE);
             if (!mInVoiceMode) {
-                mRtButton.setImageDrawable(mBookmarkDrawable);
-                mRtButton.setVisibility(View.VISIBLE);
+                mBookmarkButton.setImageDrawable(mBookmarkDrawable);
+                mBookmarkButton.setVisibility(View.VISIBLE);
                 mStopButton.setVisibility(View.GONE);
                 mTitleBg.setBackgroundDrawable(mNormalBackground);
                 mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
@@ -190,7 +194,7 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener {
                 mHorizontalProgress.setVisibility(View.VISIBLE);
                 if (!mInVoiceMode) {
                     mTitleBg.setPadding(mLeftMargin, 0, mRightMargin, 0);
-                    mRtButton.setVisibility(View.GONE);
+                    mBookmarkButton.setVisibility(View.GONE);
                     mStopButton.setVisibility(View.VISIBLE);
                 }
                 mInLoad = true;
@@ -227,6 +231,16 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener {
     public void onFocusChange(View v, boolean hasFocus) {
         if (v == mUrlInput && hasFocus) {
             mActivity.closeOptionsMenu();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mStopButton) {
+            mUiController.stopLoading();
+        } else if (v == mBookmarkButton) {
+            mUiController.bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID,
+                    true);
         }
     }
 }

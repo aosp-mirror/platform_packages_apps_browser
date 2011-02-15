@@ -65,7 +65,7 @@
                     android:layout_width="0dip"
                     android:layout_weight="1.0"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="16dip"
+                    android:layout_marginLeft="3dip"
                     android:paddingLeft="0dip"
                     android:paddingRight="0dip"
                     android:background="@null"
@@ -79,7 +79,8 @@
                     android:imeOptions="actionGo"
                     style="@style/Suggestions" />
         </LinearLayout>
-        <ImageView android:id="@+id/stop"
+        <ImageButton
+            android:id="@+id/stop"
             android:background="@drawable/stop_background"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -88,7 +89,7 @@
             android:visibility="gone"
         />
         <ImageButton
-            android:id="@+id/rt_btn"
+            android:id="@+id/bookmark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="-2dip"
