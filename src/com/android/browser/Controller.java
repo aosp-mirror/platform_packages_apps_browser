@@ -2380,7 +2380,7 @@ public class Controller
                                 + "while handing goBackOnePageOrQuit.");
                     }
                     pauseWebViewTimers(current);
-                    removeTab(current);
+                    closeCurrentTab();
                 }
                 /*
                  * Instead of finishing the activity, simply push this to the back
