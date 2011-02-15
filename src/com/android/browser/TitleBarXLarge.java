@@ -16,18 +16,13 @@
 
 package com.android.browser;
 
-import com.android.browser.UrlInputView.UrlInputListener;
 import com.android.browser.search.SearchEngine;
 
 import android.app.Activity;
-import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.speech.RecognizerResultsIntent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -48,12 +43,11 @@ import java.util.List;
  * tabbed title bar for xlarge screen browser
  */
 public class TitleBarXLarge extends TitleBarBase
-    implements UrlInputListener, OnClickListener, OnFocusChangeListener,
+        implements OnClickListener, OnFocusChangeListener,
     TextWatcher {
 
     private static final int PROGRESS_MAX = 100;
 
-    private UiController mUiController;
     private XLargeUi mUi;
 
     private Drawable mStopDrawable;
@@ -73,18 +67,15 @@ public class TitleBarXLarge extends TitleBarBase
     private View mVoiceSearch;
     private View mVoiceSearchIndicator;
     private PageProgressView mProgressView;
-    private UrlInputView mUrlInput;
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
-    private boolean mInVoiceMode;
 
     private boolean mInLoad;
     private boolean mUseQuickControls;
 
     public TitleBarXLarge(Activity activity, UiController controller,
             XLargeUi ui) {
-        super(activity);
-        mUiController = controller;
+        super(activity, controller, ui);
         mUi = ui;
         Resources resources = activity.getResources();
         mStopDrawable = resources.getDrawable(R.drawable.ic_stop_holo_dark);
@@ -273,64 +264,6 @@ public class TitleBarXLarge extends TitleBarBase
         } else {
             // clear
             mUrlInput.setText("");
-        }
-    }
-
-    // UrlInputListener implementation
-
-    /**
-     * callback from suggestion dropdown
-     * user selected a suggestion
-     */
-    @Override
-    public void onAction(String text, String extra, String source) {
-        mUiController.getCurrentTopWebView().requestFocus();
-        mUi.hideTitleBar();
-        Intent i = new Intent();
-        String action = null;
-        if (UrlInputView.VOICE.equals(source)) {
-            action = RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS;
-            source = null;
-        } else {
-            action = Intent.ACTION_SEARCH;
-        }
-        i.setAction(action);
-        i.putExtra(SearchManager.QUERY, text);
-        if (extra != null) {
-            i.putExtra(SearchManager.EXTRA_DATA_KEY, extra);
-        }
-        if (source != null) {
-            Bundle appData = new Bundle();
-            appData.putString(com.android.common.Search.SOURCE, source);
-            i.putExtra(SearchManager.APP_DATA, appData);
-        }
-        mUiController.handleNewIntent(i);
-        setDisplayTitle(text);
-    }
-
-    @Override
-    public void onDismiss() {
-        final Tab currentTab = mUi.getActiveTab();
-        mUi.hideTitleBar();
-        post(new Runnable() {
-            public void run() {
-                TitleBarXLarge.this.clearFocus();
-                if ((currentTab != null) && !mInVoiceMode) {
-                    setDisplayTitle(currentTab.getUrl());
-                }
-            }
-        });
-    }
-
-    /**
-     * callback from the suggestion dropdown
-     * copy text to input field and stay in edit mode
-     */
-    @Override
-    public void onCopySuggestion(String text) {
-        mUrlInput.setText(text, true);
-        if (text != null) {
-            mUrlInput.setSelection(text.length());
         }
     }
 

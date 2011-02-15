@@ -49,7 +49,7 @@ public class PhoneUi extends BaseUi {
      */
     public PhoneUi(Activity browser, UiController controller) {
         super(browser, controller);
-        mTitleBar = new TitleBar(mActivity, mUiController);
+        mTitleBar = new TitleBar(mActivity, mUiController, this);
         // mTitleBar will be always be shown in the fully loaded mode on
         // phone
         mTitleBar.setProgress(100);
