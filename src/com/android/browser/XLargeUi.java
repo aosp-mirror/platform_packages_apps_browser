@@ -357,7 +357,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         if (getActiveTab() != null) {
             vsresults = getActiveTab().getVoiceSearchResults();
         }
-        mTitleBar.setInVoiceMode(true, null);
+        mTitleBar.setInVoiceMode(true, vsresults);
         mTitleBar.setDisplayTitle(title);
     }
 
