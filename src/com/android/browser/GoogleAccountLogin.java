@@ -336,7 +336,7 @@ public class GoogleAccountLogin implements Runnable,
                 @Override public void run() {
                     mProgressDialog.dismiss();
                 }
-            }, 1000);
+            }, 2000);
 
             mRunnable = null;
             mWebView.destroy();
