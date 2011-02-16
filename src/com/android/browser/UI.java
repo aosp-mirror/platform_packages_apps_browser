@@ -118,6 +118,8 @@ public interface UI {
 
     void showMaxTabsWarning();
 
+    void editUrl(boolean clearInput);
+
     boolean dispatchKey(int code, KeyEvent event);
 
 }

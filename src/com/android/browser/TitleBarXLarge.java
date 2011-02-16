@@ -26,6 +26,8 @@ import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -137,7 +139,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlInput.setOnFocusChangeListener(this);
         mUrlInput.setSelectAllOnFocus(true);
         mUrlInput.addTextChangedListener(this);
-        setEditMode(false);
+        setFocusState(false);
     }
 
     void updateNavigationState(Tab tab) {
@@ -190,9 +192,22 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
-        setEditMode(hasFocus);
-        mUrlContainer.setBackgroundDrawable(hasFocus
-                ? mFocusDrawable : mUnfocusDrawable);
+        // if losing focus and not in touch mode, leave as is
+        if (hasFocus || view.isInTouchMode() || mUrlInput.needsUpdate()) {
+            setFocusState(hasFocus);
+            mUrlContainer.setBackgroundDrawable(hasFocus
+                    ? mFocusDrawable : mUnfocusDrawable);
+        }
+        if (hasFocus) {
+            mUrlInput.forceIme();
+            if (mInVoiceMode) {
+                mUrlInput.forceFilter();
+            }
+        } else if (!mUrlInput.needsUpdate()) {
+            mUrlInput.dismissDropDown();
+            mUrlInput.hideIME();
+        }
+        mUrlInput.clearNeedsUpdate();
     }
 
     public void setCurrentUrlIsBookmark(boolean isBookmark) {
@@ -203,7 +218,7 @@ public class TitleBarXLarge extends TitleBarBase
      * called from the Ui when the user wants to edit
      * @param clearInput clear the input field
      */
-    void onEditUrl(boolean clearInput) {
+    void startEditingUrl(boolean clearInput) {
         // editing takes preference of progress
         mContainer.setVisibility(View.VISIBLE);
         if (mUseQuickControls) {
@@ -267,8 +282,8 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    private void setEditMode(boolean edit) {
-        if (edit) {
+    private void setFocusState(boolean focus) {
+        if (focus) {
             mUrlInput.setDropDownWidth(mUrlContainer.getWidth());
             mUrlInput.setDropDownHorizontalOffset(-mUrlInput.getLeft());
             mSearchButton.setVisibility(View.GONE);
@@ -388,6 +403,33 @@ public class TitleBarXLarge extends TitleBarBase
     @Override
     void setIncognitoMode(boolean incognito) {
         mUrlInput.setIncognitoMode(incognito);
+    }
+
+    @Override
+    public View focusSearch(View focused, int dir) {
+        if (FOCUS_DOWN == dir && hasFocus()) {
+            return getCurrentWebView();
+        }
+        return super.focusSearch(focused, dir);
+    }
+
+    @Override
+    public boolean dispatchKeyEventPreIme(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            // catch back key in order to do slightly more cleanup than usual
+            mUrlInput.clearFocus();
+            return true;
+        }
+        return super.dispatchKeyEventPreIme(evt);
+    }
+
+    private WebView getCurrentWebView() {
+        Tab t = mUi.getActiveTab();
+        if (t != null) {
+            return t.getWebView();
+        } else {
+            return null;
+        }
     }
 
 }

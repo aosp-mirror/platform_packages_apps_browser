@@ -85,6 +85,7 @@ public class TabBar extends LinearLayout
 
     private final Paint mActiveShaderPaint = new Paint();
     private final Paint mInactiveShaderPaint = new Paint();
+    private final Paint mFocusPaint = new Paint();
     private final Matrix mActiveMatrix = new Matrix();
     private final Matrix mInactiveMatrix = new Matrix();
 
@@ -131,6 +132,9 @@ public class TabBar extends LinearLayout
         mInactiveShaderPaint.setStyle(Paint.Style.FILL);
         mInactiveShaderPaint.setAntiAlias(true);
 
+        mFocusPaint.setStyle(Paint.Style.STROKE);
+        mFocusPaint.setAntiAlias(true);
+        mFocusPaint.setColor(res.getColor(R.color.tabFocusHighlight));
     }
 
     void setUseQuickControls(boolean useQuickControls) {
@@ -399,6 +403,8 @@ public class TabBar extends LinearLayout
             lp.width = selected ? mTabWidthSelected : mTabWidthUnselected;
             lp.height =  LayoutParams.MATCH_PARENT;
             setLayoutParams(lp);
+            setFocusable(!selected);
+            postInvalidate();
         }
 
         void setDisplayTitle(String title) {
@@ -479,6 +485,9 @@ public class TabBar extends LinearLayout
             matrix.setTranslate(-left, 0.0f);
             (mSelected ? mActiveShader : mInactiveShader).setLocalMatrix(matrix);
             canvas.drawPath(clipPath, paint);
+            if (isFocused()) {
+                canvas.drawPath(clipPath, mFocusPaint);
+            }
         }
 
         private void setTabPath(Path path, int l, int t, int r, int b) {

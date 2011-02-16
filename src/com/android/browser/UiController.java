@@ -53,6 +53,8 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     void bookmarksOrHistoryPicker(boolean openHistory);
 
+    void startSearch(String url);
+
     void startVoiceSearch();
 
     void showVoiceSearchResults(String title);

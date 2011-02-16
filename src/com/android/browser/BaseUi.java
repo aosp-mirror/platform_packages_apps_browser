@@ -163,6 +163,8 @@ public abstract class BaseUi implements UI, WebViewFactory {
     public void onConfigurationChanged(Configuration config) {
     }
 
+    public abstract void editUrl(boolean clearInput);
+
     // key handling
 
     @Override
