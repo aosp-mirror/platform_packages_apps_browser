@@ -2007,9 +2007,9 @@ public class Controller
 
                         ContentValues values = new ContentValues();
                         values.put(Images.THUMBNAIL, os.toByteArray());
-                        values.put(Images.URL, cursor.getString(0));
 
                         do {
+                            values.put(Images.URL, cursor.getString(0));
                             cr.update(Images.CONTENT_URI, values, null, null);
                         } while (cursor.moveToNext());
                     }
