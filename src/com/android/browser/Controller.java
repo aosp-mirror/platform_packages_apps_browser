@@ -1970,6 +1970,10 @@ public class Controller
         // currently accessible here.
 
         WebView view = tab.getWebView();
+        if (view == null) {
+            // Tab was destroyed
+            return;
+        }
         final String url = tab.getUrl();
         final String originalUrl = view.getOriginalUrl();
 
