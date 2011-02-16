@@ -174,7 +174,7 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Masuk ke Google secara otomatis"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"Tidak ada akun yang ditemukan"</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"Masuk ke situs Google secara otomatis menggunakan <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="pref_autologin_progress" msgid="8643826219376543293">"Masuk ke situs Google menggunakan <xliff:g id="ID_1">%s</xliff:g>"\n"setelan Privasi &amp; Keamanan Anda mengontrol (aktivitas) masuk ke Google secara otomatis"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Masuk ke situs Google menggunakan <xliff:g id="ID_1">%s</xliff:g>"\n"setelan Privasi &amp; Keamanan mengontrol aktivitas masuk otomatis ke Google"</string>
     <string name="pref_autologin_disable" msgid="3342145058494577628">"Jangan masuk secara otomatis"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"IsiOtomatis akan menggunakan profil Anda untuk membantu mengisi formulir web dengan sekali klik."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nama lengkap:"</string>
@@ -363,7 +363,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bookmark"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Tidak ada bookmark"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
-    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Pilih Akun"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Pilih akun"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sinkronkan dengan akun Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Bookmark Android Anda tidak terkait dengan akun Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Hapus bookmark Android Anda"</string>

@@ -362,7 +362,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bookmarks"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"There are no bookmarks"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
-    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Choose Account"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Choose account"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sync with Google account"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Your Android bookmarks are not associated with a Google account"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Remove your Android bookmarks"</string>
