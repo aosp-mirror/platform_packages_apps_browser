@@ -109,7 +109,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     private boolean lightTouch = false;
     private boolean navDump = false;
     private boolean hardwareAccelerated = true;
-
+    private boolean showVisualIndicator = false;
     // Lab settings
     private boolean quickControls = false;
     private boolean useMostVisitedHomepage = false;
@@ -162,6 +162,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     public final static String PREF_AUTOFILL_PROFILE = "autofill_profile";
     public final static String PREF_AUTOFILL_ACTIVE_PROFILE_ID = "autofill_active_profile_id";
     public final static String PREF_HARDWARE_ACCEL = "enable_hardware_accel";
+    public final static String PREF_VISUAL_INDICATOR = "enable_visual_indicator";
     public final static String PREF_USER_AGENT = "user_agent";
 
     public final static String PREF_QUICK_CONTROLS = "enable_quick_controls";
@@ -251,6 +252,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
             s.setUseWideViewPort(b.useWideViewPort);
             s.setLoadsImagesAutomatically(b.loadsImagesAutomatically);
             s.setJavaScriptEnabled(b.javaScriptEnabled);
+            s.setShowVisualIndicator(b.showVisualIndicator);
             s.setPluginState(b.pluginState);
             s.setJavaScriptCanOpenWindowsAutomatically(
                     b.javaScriptCanOpenWindowsAutomatically);
@@ -493,6 +495,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
             tracing = p.getBoolean("enable_tracing", tracing);
             lightTouch = p.getBoolean("enable_light_touch", lightTouch);
             navDump = p.getBoolean("enable_nav_dump", navDump);
+            showVisualIndicator = p.getBoolean(PREF_VISUAL_INDICATOR, showVisualIndicator);
         }
 
         quickControls = p.getBoolean(PREF_QUICK_CONTROLS, quickControls);
@@ -587,6 +590,10 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
 
     public boolean isHardwareAccelerated() {
         return hardwareAccelerated;
+    }
+
+    public boolean showVisualIndicator() {
+        return showVisualIndicator;
     }
 
     public boolean useQuickControls() {
@@ -886,6 +893,8 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
             SharedPreferences p, String key) {
         if (PREF_HARDWARE_ACCEL.equals(key)) {
             hardwareAccelerated = p.getBoolean(PREF_HARDWARE_ACCEL, hardwareAccelerated);
+        } else if (PREF_VISUAL_INDICATOR.equals(key)) {
+            showVisualIndicator = p.getBoolean(PREF_VISUAL_INDICATOR, showVisualIndicator);
         } else if (PREF_USER_AGENT.equals(key)) {
             userAgent = Integer.parseInt(p.getString(PREF_USER_AGENT, "0"));
             update();
