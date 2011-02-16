@@ -20,6 +20,11 @@
     <!-- The javascript console is enabled by default when the user has
          also enabled debug mode by navigating to about:debug. -->
     <CheckBoxPreference
+        android:key="enable_visual_indicator"
+        android:defaultValue="false"
+        android:title="@string/pref_development_visual_indicator" />
+
+    <CheckBoxPreference
         android:key="javascript_console"
         android:defaultValue="true"
         android:title="@string/pref_development_error_console" />
