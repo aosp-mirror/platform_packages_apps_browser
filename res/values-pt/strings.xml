@@ -173,7 +173,7 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Login automático do Google"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"Nenhuma conta encontrada"</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"Faça login automaticamente em sites do Google usando <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="pref_autologin_progress" msgid="8643826219376543293">"Acessando o Google sites usando o login automático do Google de controle de configurações de <xliff:g id="ID_1">%s</xliff:g>"\n"Privacidade e Segurança &amp;"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Fazendo login no Google Sites usando o login automático do Google de controle de configurações de <xliff:g id="ID_1">%s</xliff:g>"\n"Privacidade e Segurança &amp;"</string>
     <string name="pref_autologin_disable" msgid="3342145058494577628">"Não fazer login automaticamente"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"O preenchimento automático usará seu perfil para ajudá-lo a preencher formulários na web com um único clique."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nome completo:"</string>
@@ -362,7 +362,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Favoritos"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Não há nenhum favorito"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
-    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Escolha conta"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Escolher conta"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronizar com Conta do Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Seus favoritos do Android não estão associados a uma Conta do Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Remover os favoritos do Android"</string>

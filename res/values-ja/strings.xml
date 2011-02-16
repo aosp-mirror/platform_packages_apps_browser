@@ -149,7 +149,7 @@
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"現在のウィンドウの後ろに新しいウィンドウを開く"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"ホームページ設定"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"検索エンジンの設定"</string>
-    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"検索エンジンを選択します"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"検索エンジンを選択する"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"設定先..."</string>
     <string name="pref_use_current" msgid="1778622474040406672">"現在のページ"</string>
     <string name="pref_use_blank" msgid="8503238592551111169">"空白ページ"</string>
@@ -173,7 +173,7 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Googleへの自動ログイン"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"アカウントが見つかりません"</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"<xliff:g id="ID_1">%s</xliff:g>で自動的にGoogleにログインする"</string>
-    <string name="pref_autologin_progress" msgid="8643826219376543293">"<xliff:g id="ID_1">%s</xliff:g>を使用してGoogleサイトにログインしています"\n"Googleへの自動ログインは、[プライバシーとセキュリティの設定]で管理されます"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"<xliff:g id="ID_1">%s</xliff:g>を使用してGoogleサイトにログインしています"\n"Googleへの自動ログインは、プライバシーとセキュリティの設定で管理されます"</string>
     <string name="pref_autologin_disable" msgid="3342145058494577628">"自動的にログインしない"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"プロフィールは自動入力機能で使用され、1回タップするだけでウェブフォームに入力することができます。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"氏名:"</string>

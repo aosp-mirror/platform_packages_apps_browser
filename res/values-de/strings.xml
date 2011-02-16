@@ -362,7 +362,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Lesezeichen"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Es sind keine Lesezeichen vorhanden."</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
-    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Konto wählen"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Konto auswählen"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Mit Google-Konto synchronisieren"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Ihre Android-Lesezeichen sind mit keinem Google-Konto verknüpft."</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Android-Lesezeichen entfernen"</string>

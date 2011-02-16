@@ -362,7 +362,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Yer işaretleri"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Hiçbir yer işareti yok"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
-    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Hesap Seçin"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Hesap seçin"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Google hesabı ile senkronize et"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Android yer işaretleriniz bir Google hesabı ile ilişkilendirilmemiş"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Android yer işaretlerinizi kaldırın"</string>

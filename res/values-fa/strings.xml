@@ -174,7 +174,7 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"ورود به سیستم خودکار Google"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"حسابی یافت نشد"</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"با استفاده از <xliff:g id="ID_1">%s</xliff:g> به صورت خودکار به سایت های Google وارد شوید"</string>
-    <string name="pref_autologin_progress" msgid="8643826219376543293">"ورود به سایت های Google با استفاده از <xliff:g id="ID_1">%s</xliff:g>"\n"تنظیمات حریم خصوصی و امنیت خود ورود به سیستم خودکار Google را کنترل می کند"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"ورود به سایت های Google با استفاده از <xliff:g id="ID_1">%s</xliff:g>"\n"تنظیمات حریم خصوصی و امنیت خود، ورود به سیستم خودکار Google را کنترل می کند"</string>
     <string name="pref_autologin_disable" msgid="3342145058494577628">"به صورت خودکار به سیستم وارد نشوید"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"تکمیل خودکار از نمایه شما استفاده می کند تا به شما کمک کند فرم های وب را با یک کلیک پر کنید."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"نام کامل:"</string>

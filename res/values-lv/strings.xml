@@ -363,7 +363,7 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Grāmatzīmes"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Nav nevienas grāmatzīmes."</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
-    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Izvēlieties kontu."</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Konta izvēle"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sinhronizācija ar Google kontu"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Jūsu Android grāmatzīmes nav saistītas ar jūsu Google kontu."</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Noņemt Android grāmatzīmes"</string>
