@@ -133,6 +133,7 @@ public class TabBar extends LinearLayout
         mInactiveShaderPaint.setAntiAlias(true);
 
         mFocusPaint.setStyle(Paint.Style.STROKE);
+        mFocusPaint.setStrokeWidth(res.getDimension(R.dimen.tab_focus_stroke));
         mFocusPaint.setAntiAlias(true);
         mFocusPaint.setColor(res.getColor(R.color.tabFocusHighlight));
     }
@@ -317,6 +318,7 @@ public class TabBar extends LinearLayout
         boolean mSelected;
         boolean mInLoad;
         Path mPath;
+        Path mFocusPath;
         int[] mWindowPos;
 
         /**
@@ -326,6 +328,7 @@ public class TabBar extends LinearLayout
             super(context);
             setWillNotDraw(false);
             mPath = new Path();
+            mFocusPath = new Path();
             mWindowPos = new int[2];
             mTab = tab;
             setGravity(Gravity.CENTER_VERTICAL);
@@ -446,6 +449,7 @@ public class TabBar extends LinearLayout
         protected void onLayout(boolean changed, int l, int t, int r, int b) {
             super.onLayout(changed, l, t, r, b);
             setTabPath(mPath, 0, 0, r - l, b - t);
+            setFocusPath(mFocusPath, 0, 0, r - l, b - t);
         }
 
         @Override
@@ -486,7 +490,7 @@ public class TabBar extends LinearLayout
             (mSelected ? mActiveShader : mInactiveShader).setLocalMatrix(matrix);
             canvas.drawPath(clipPath, paint);
             if (isFocused()) {
-                canvas.drawPath(clipPath, mFocusPaint);
+                canvas.drawPath(mFocusPath, mFocusPaint);
             }
         }
 
@@ -497,6 +501,14 @@ public class TabBar extends LinearLayout
             path.lineTo(r - mTabSliceWidth, t);
             path.lineTo(r, b);
             path.close();
+        }
+
+        private void setFocusPath(Path path, int l, int t, int r, int b) {
+            path.reset();
+            path.moveTo(l, b);
+            path.lineTo(l, t);
+            path.lineTo(r - mTabSliceWidth, t);
+            path.lineTo(r, b);
         }
 
     }
