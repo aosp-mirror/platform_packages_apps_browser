@@ -1441,6 +1441,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         byte[] cthumb = null;
         byte[] ctouch = null;
         try {
+            if (cursor.getCount() <= 0) {
+                return nfavicon != null || nthumb != null || ntouch != null;
+            }
             while (cursor.moveToNext()) {
                 if (nfavicon != null) {
                     cfavicon = cursor.getBlob(0);
