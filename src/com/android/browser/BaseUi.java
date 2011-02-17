@@ -193,7 +193,10 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void bookmarkedStatusHasChanged(Tab tab) {
-        // no op in base case
+        if (tab.inForeground()) {
+            boolean isBookmark = tab.isBookmarkedSite();
+            getTitleBar().setCurrentUrlIsBookmark(isBookmark);
+        }
     }
 
     @Override

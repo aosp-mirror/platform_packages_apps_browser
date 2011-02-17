@@ -39,6 +39,9 @@ import android.widget.LinearLayout;
  * Base class for a title bar used by the browser.
  */
 public class TitleBarBase extends LinearLayout implements UrlInputListener {
+
+    protected static final int PROGRESS_MAX = 100;
+
     // These need to be set by the subclass.
     protected ImageView mFavicon;
     protected ImageView mLockIcon;
@@ -166,6 +169,9 @@ public class TitleBarBase extends LinearLayout implements UrlInputListener {
         if (text != null) {
             mUrlInput.setSelection(text.length());
         }
+    }
+
+    public void setCurrentUrlIsBookmark(boolean isBookmark) {
     }
 
 }
