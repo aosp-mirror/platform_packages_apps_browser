@@ -76,6 +76,8 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Idagdag sa Mga Bookmark"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"I-bookmark ang pahinang ito"</string>
+    <!-- no translation found for remove (7820112494467011374) -->
+    <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"I-edit ang bookmark"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Magdagdag ng shortcut sa Home"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Buksan"</string>
@@ -97,8 +99,7 @@
     <string name="current_page" msgid="7510129573681663135">"mula sa "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Tatanggalin ang bookmark na \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Buksan sa bagong window"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Buksan lahat sa bagong windows"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Pumunta"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Magbukas ng bago incognito tab"</string>
     <string name="select_dot" msgid="6299170761900561967">"Pumili ng teksto"</string>
@@ -117,7 +118,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Walang lamang folder"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Buksan"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Buksan sa bagong window"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"I-bookmark ang link"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Buksan sa bagong window ng background"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"I-save ang link"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Ibahagi ang link"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopyahin"</string>
@@ -170,6 +171,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Punan ang mga web form sa isang click"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Mga Setting ng AutoFill"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"I-set up &amp; pamahalaan ang data para sa mga Na-AutoFill na form"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Awtomatiko pag-sign in sa Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Walang nakitang mga account"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Awtomatikong mag-sign in sa mga site ng Google gamit ang <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Nagsa-sign in sa mga site ng Google gamit ang <xliff:g id="ID_1">%s</xliff:g>"\n"Kinokontrol ng iyong mga setting ng Privacy at Seguridad ang awtomatikong pag-sign-in ng Google"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"Huwag awtomatikong mag-sign in"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Gagamitin ng AutoFill ang iyong profile upang matulungan kang makumpleto ang mga form ng web sa isahang pag-click."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Buong pangalan:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
@@ -183,13 +189,15 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Zip code:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Bansa:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telepono:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Di-wastong numero ng telepono"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"I-save ang Profile"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Na-save na ang profile"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Natanggal na ang profile"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Tanggalin ang profile"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Maaaring awtomatikong kumpletuhin ng browser ang mga form ng web katulad nito. Gusto mo bang i-set up ang iyong profile?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Maaaring palaging i-configure ang AutoFill sa pamamagitan ng Mga Setting ng Browser -&gt; Mga Personal na Setting."</string>
-    <string name="pref_privacy_security_title" msgid="1705642466867300373">"Pagiging Pribado at Seguridad"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Palaging mako-configure ang AutoFill sa pamamagitan ng Mga Setting ng Browser."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Huwag paganahin ang AutoFill"</string>
+    <string name="pref_privacy_security_title" msgid="1705642466867300373">"Privacy at Seguridad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"I-clear ang cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"I-clear ang lokal na naka-cache na nilalaman at mga database"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Tatanggalin ang lokal na na-cache na nilalaman at mga database."</string>
@@ -240,7 +248,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Default zoom"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Buksan ang mga pahina sa pangkalahatang-ideya"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Ipakita ang pangkalahatang-ideya ng mga bagong bukas na pahina"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Mga advanced na setting"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Advanced"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Mga setting ng website"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Mga advanced na setting para sa mga indibidwal na website"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"I-reset ang mga default"</string>
@@ -261,14 +269,11 @@
     <item msgid="2193955365569270096">"Korean (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Pag-encode ng teksto"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Mga Lab"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Mga Mabilisang Control"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Ikiskis ang hinlalaki mula sa kaliwa hanggang sa kanang kanto upang ma-access ang mga mabilisang control"</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"I-swipe ang hinlalaki mula sa kaliwa hanggang sa kanang kanto upang ma-access ang mga mabilisang control"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Pinaka-binibisitang Homepage"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Itakda ang iyong homepage upang ipakita ang pinaka-binibisitang mga pahina."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema sa pagkakakonekta ng data"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema sa file"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Kumpirmahin"</string>
@@ -312,6 +317,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Hindi available ang SD card."</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Abala ang SD card. Upang payagan ang mga pag-download, piliin ang \"I-off ang imbakan na USB\" sa notification."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Abala ang SD card. Upang payagan ang mga pag-download, piliin ang \"I-off ang USB storage\" sa notification."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"Maaari lang mag-download ng mga URL ng \"http\" o \"https\"."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Hindi mabuksan ang file"</string>
     <string name="retry" msgid="1835923075542266721">"Subukang muli"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Walang laman ang kasaysayan ng pag-download."</string>
@@ -358,11 +364,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Mga Bookmark"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Walang mga bookmark"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Pumili ng account"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Mag-sync sa Google account"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Walang kaugnayan ang iyong mga Android bookmark sa isang Google account"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Alisin ang iyong mga Android bookmark"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Idagdag ang iyong mga Android bookmark sa mga bookmark para sa <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Ibahagi"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Wala nang available na mga tab"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Pumili ng account o kanselahin upang manu-manong mag-login"</string>
 </resources>

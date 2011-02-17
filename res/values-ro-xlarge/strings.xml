@@ -20,6 +20,7 @@
     <string name="new_incognito_tab" msgid="5149742197322201152">"Filă incognito nouă"</string>
     <string name="active_tabs" msgid="5324492165541331128">"File"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"Deschideţi în filă nouă"</string>
-    <!-- no translation found for open_all_in_new_window (8498279523071618315) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Deschideţi într-o filă nouă în fundal"</string>
+    <string name="open_all_in_new_window" msgid="8498279523071618315">"Deschideţi-le pe toate în file noi"</string>
+    <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Deschideţi file noi în spatele celei curente"</string>
 </resources>

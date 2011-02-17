@@ -76,6 +76,8 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Afegeix als marcadors"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Af. pàg. a marc."</string>
+    <!-- no translation found for remove (7820112494467011374) -->
+    <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"Edita l\'adreça d\'interès"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Afegeix una drecera a la pàgina d\'inici"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Obre"</string>
@@ -97,8 +99,7 @@
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Se suprimirà l\'adreça d\'interès \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Obre en una finestra nova"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Obre-ho tot en finestres noves"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Vés"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Obre una nova pest. d\'incògnit"</string>
     <string name="select_dot" msgid="6299170761900561967">"Selecciona text"</string>
@@ -117,7 +118,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Carpeta buida"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Obre"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Obre en una finestra nova"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Afegeix l\'enllaç a les adreces d\'interès"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Obre en una finestra de fons nova"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Desa l\'enllaç"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Comparteix l\'enllaç"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copia"</string>
@@ -170,6 +171,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Emplena formularis web amb un simple clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Configuració d\'emplenament automàtic"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configura i gestiona les dades per a formularis emplenats automàticament"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Inici sessió automàtic a Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"No s\'ha trobat cap compte"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Inicia la sessió a Llocs web de Google automàticament mitjançant <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"S\'està iniciant la sessió a Llocs web de Google amb <xliff:g id="ID_1">%s</xliff:g>"\n"La configuració de privadesa i de seguretat controla l\'inici de sessió automàtic de Google"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"No iniciïs la sessió automàticament"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Emplenament automàtic utilitzarà el teu perfil per ajudar-te a emplenar formularis web amb un sol clic."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nom complet:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Correu electrònic:"</string>
@@ -183,12 +189,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Codi postal:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"País:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telèfon:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"El número de telèfon no és vàlid"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Desa el perfil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"S\'ha desat el perfil"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"S\'ha suprimit el perfil"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Suprimeix el perfil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"El navegador pot emplenar formularis web com aquest automàticament. Vols configurar el teu perfil?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"L\'emplenament automàtic es pot configurar en qualsevol moment mitjançant la configuració del navegador -&gt; configuració personal."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"L\'emplenament automàtic sempre es pot establir mitjançant la configuració del navegador."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Desactiva l\'emplenament automàtic"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Privadesa i seguretat"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Esborra la memòria cau"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Esborra el contingut i les bases de dades de la memòria cau local"</string>
@@ -240,7 +248,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predeterminat"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Obre un resum de les pàgines"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Mostra un resum de les pàgines que s\'han obert darrerament"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Configuració avançada"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Avançada"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Configuració del lloc web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Configuració avançada de llocs web individuals"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Restabliment dels valors predeterminats"</string>
@@ -261,14 +269,11 @@
     <item msgid="2193955365569270096">"Coreà (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificació del text"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Controls ràpids"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Fes lliscar el polze cap a la dreta o cap a l\'esquerra per accedir als controls ràpids"</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Pàgina principal més visitada"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Estableix la pàgina d\'inici perquè mostri les pàgines més visitades."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de connectivitat de dades"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema amb el fitxer"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirma"</string>
@@ -312,6 +317,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"La targeta SD no està disponible"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"L\'emmagatzematge USB està ocupat. Per permetre les baixades, selecciona \"Desactiva l\'emmagatzematge USB\" a la notificació."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La targeta SD està ocupada. Per permetre les baixades, seleccioneu \"Desactiva l\'emmagatzematge d\'USB\" a la notificació."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"Només pot baixar URL \"http\" o \"https\"."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"No pot obrir el fitxer"</string>
     <string name="retry" msgid="1835923075542266721">"Torna-ho a provar"</string>
     <string name="no_downloads" msgid="3947445710685021498">"L\'historial de baixades és buit."</string>
@@ -358,11 +364,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Marcadors"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"No hi ha marcadors"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Tria d\'un compte"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronitza amb el Compte de Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Els teus marcadors d\'Android no estan associades amb un Compte de Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Elimina els teus marcadors d\'Android"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Afegeix els marcadors d\'Android als marcadors de <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Comparteix"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"No hi ha cap més pestanya disponible"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Tria un compte o cancel·la per iniciar la sessió manualment"</string>
 </resources>

@@ -20,6 +20,7 @@
     <string name="new_incognito_tab" msgid="5149742197322201152">"Νέα καρτέλα ανών. περιήγησης"</string>
     <string name="active_tabs" msgid="5324492165541331128">"Καρτέλες"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"Άνοιγμα σε νέα καρτέλα"</string>
-    <!-- no translation found for open_all_in_new_window (8498279523071618315) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Άνοιγμα σε νέα καρτέλα στο παρασκήνιο"</string>
+    <string name="open_all_in_new_window" msgid="8498279523071618315">"Άνοιγμα όλων σε νέες καρτέλες"</string>
+    <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Άνοιγμα νέων καρτελών πίσω από την τρέχουσα"</string>
 </resources>

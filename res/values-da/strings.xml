@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Føj til bogmærker"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Tilføj side som bogmærke"</string>
+    <string name="remove" msgid="7820112494467011374">"Fjern"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Rediger bogmærke"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Føj genvej til startskærm"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Åbn"</string>
@@ -97,8 +98,7 @@
     <string name="current_page" msgid="7510129573681663135">"fra "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Bogmærket \"<xliff:g id="BOOKMARK">%s</xliff:g>\" slettes."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Åbn i et nyt vindue"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Åbn alle i nye vinduer"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Gå"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Åbn ny inkognitofane"</string>
     <string name="select_dot" msgid="6299170761900561967">"Vælg tekst"</string>
@@ -117,7 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Mappen er tom"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Åbn"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Åbn i et nyt vindue"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Opret et bogmærke for linket"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Åbn i et nyt vindue i baggrunden"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Gem link"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Del link"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopier"</string>
@@ -170,6 +170,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Udfyld webformularer med et enkelt klik"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Indstillinger for AutoFyld"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Konfigurer og administrer data for AutoFyld-formularer"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Automatisk Google-login"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Der blev ikke fundet nogen konti"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Log automatisk ind på Googles websteder med <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Logger ind på Google-websteder ved hjælp af <xliff:g id="ID_1">%s</xliff:g>"\n"Dine indstillinger for sikkerhed og beskyttelse af personlige oplysninger kontrollerer automatisk login til Google"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"Log ikke ind automatisk"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"AutoFyld bruger din profil til at hjælpe dig med at udfylde webformularer med et enkelt klik."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Fulde navn:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
@@ -183,12 +188,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Postnummer:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Land:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Ugyldigt telefonnummer"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Gem profil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profilen er gemt"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profilen er slettet"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Slet profil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Browseren kan automatisk udfylde webformularer som denne. Vil du konfigurere din profil?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"AutoFyld kan altid konfigureres i Browserindstillinger -&gt; Personlige indstillinger."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"AutoFyld kan altid konfigureres via indstillingerne for Browser."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Deaktiver AutoFyld"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Sikkerhed og beskyttelse af personlige oplysninger"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Ryd cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ryd lokalt cachelagret indhold og databaser"</string>
@@ -240,7 +247,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Standardzoom"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Åbn sider i oversigt"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Vis oversigt over sider, som er åbnet for nylig"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Avancerede indstillinger"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Avanceret"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Indstillinger for websteder"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Avancerede indstillinger for individuelle websteder"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Gendannelse af standardindstillinger"</string>
@@ -261,14 +268,11 @@
     <item msgid="2193955365569270096">"Koreansk (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Tekstkodning"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Hurtig betjening"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Glid tommelfingeren fra venstre eller højre side for at få adgang til hurtig betjening"</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Lad tommelfingeren glide hurtigt fra venstre eller højre side for at få adgang til hurtig betjening"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Mest besøgte hjemmeside"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Indstiller din hjemmeside til at vise de mest besøgte sider."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Dataforbindelsesproblem"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Der er et problem med filen"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Bekræft"</string>
@@ -312,6 +316,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kortet er ikke tilgængeligt"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB-lager er optaget. Vælg \"Slå USB-lager fra\" i meddelelsen for at tillade downloads."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"Kan kun downloade webadresser, der starter med \"http\" eller https\"."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Kan ikke åbne filen"</string>
     <string name="retry" msgid="1835923075542266721">"Prøv igen"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Downloadoversigten er tom."</string>
@@ -358,11 +363,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bogmærker"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Der er ingen bogmærker"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Vælg konto"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Synkroniser med Google-konto"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Dine Android-bogmærker er ikke tilknyttet en Google-konto"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Fjern dine Android-bogmærker"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Føj dine Android-bogmærker til bogmærker for <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Del"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Der er ikke flere tilgængelige faner"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Vælg en konto eller annuller for at logge ind manuelt"</string>
 </resources>

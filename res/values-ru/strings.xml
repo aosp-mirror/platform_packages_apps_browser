@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Добавить в Закладки"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Закладка для этой страницы"</string>
+    <string name="remove" msgid="7820112494467011374">"Удалить"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Изменить закладку"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Добавить ярлык на главную"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Открыть"</string>
@@ -97,8 +98,7 @@
     <string name="current_page" msgid="7510129573681663135">"на "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Закладка \"<xliff:g id="BOOKMARK">%s</xliff:g>\" будет удалена."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Открыть в новом окне"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Открыть все в новых окнах"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Поиск"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Открыть новую вкладку в режиме инкогнито"</string>
     <string name="select_dot" msgid="6299170761900561967">"Выбрать текст"</string>
@@ -117,7 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Папка пуста"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Открыть"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Открыть в новом окне"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Добавить ссылку в закладки"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Открыть в фоновом окне"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Сохранить ссылку"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Отправить ссылку"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Копировать"</string>
@@ -142,9 +142,9 @@
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Открывать в фоновом режиме"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Разрешить плагины"</string>
   <string-array name="pref_content_plugins_choices">
-    <item msgid="6745108155096660725">"Всегда вкл."</item>
+    <item msgid="6745108155096660725">"Да"</item>
     <item msgid="2484126708670016519">"По требованию"</item>
-    <item msgid="8547442717307793863">"Выкл."</item>
+    <item msgid="8547442717307793863">"Нет"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Открывать новые окна позади текущего окна"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Домашняя страница"</string>
@@ -170,6 +170,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Заполнение веб-форм одним кликом"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Настройки автозаполнения"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Настройка и управление данными для автозаполняемых форм"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Автоматический вход в Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Аккаунты не найдены"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Автоматически входить на сайты Google с помощью аккаунта <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Вход на сайты Google с использованием <xliff:g id="ID_1">%s</xliff:g>"\n"настроек функции \"Конфиденциальность и безопасность\" для автоматического входа в Google"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"Запретить автоматический вход"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Автозаполнение будет использовать ваш профиль, чтобы вы могли заполнять веб-формы одним щелчком."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Полное имя:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Эл. почта:"</string>
@@ -183,12 +188,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Почтовый индекс:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Страна:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Номер телефона:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Недопустимый номер телефона"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Сохранить профиль"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Профиль сохранен"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Профиль удален"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Удалить профиль"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Браузер может заполнять такие формы автоматически. Настроить профиль автозаполнения?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Автозаполнение можно настроить в меню \"Настройки браузера\" -&gt; \"Личные настройки\"."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Автозаполнение настраивается в диалоговом окне \"Настройки браузера\""</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Отключить автозаполнение"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Конфиденциальность и безопасность"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Очистить кэш"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Удалить контент и данные, сохраненные браузером"</string>
@@ -208,11 +215,11 @@
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Удалить все сохраненные пароли"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Все сохраненные пароли будут удалены."</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Местоположение"</string>
-    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Включить местоположение"</string>
-    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Разрешить сайтам запрашивать доступ к данным о местоположении"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Удалить данные доступа к местоположению"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Удалить данные доступа к местоположению для всех сайтов"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Удалить данные доступа к местоположению для всех сайтов"</string>
+    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Доступ к геоданным"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Разрешить сайтам запрашивать доступ к данным о вашем местоположении"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Закрыть геоданные"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Очистить список сайтов, имеющих доступ к данным о вашем местоположении"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Очистить список сайтов, имеющих доступ к данным о вашем местоположении"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Пароли"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Сохранять пароли"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Сохранять имена пользователей и пароли веб-сайтов"</string>
@@ -240,7 +247,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Масштаб по умолчанию"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Обзор страниц"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Открывать страницы в мелком маштабе для ознакомления"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Расширенные настройки"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Расширенный"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайта"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Дополнительные настройки для отдельных сайтов"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Настройки по умолчанию"</string>
@@ -261,14 +268,11 @@
     <item msgid="2193955365569270096">"Корейская (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Кодировка текста"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Лаборатория Google"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Быстрое управление"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Листайте налево или направо, чтобы использовать быстрое управление"</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Главная страница \"Часто посещаемых\""</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Настройка отображения часто посещаемых страниц на главной странице."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема с подключением"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема с файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Подтвердить"</string>
@@ -312,6 +316,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-карта недоступна"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB-накопитель занят. Чтобы разрешить загрузки, выберите \"Выключить USB-накопитель\" в уведомлении."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-карта занята. Чтобы разрешить загрузки, выберите \"Отключить USB-накопитель\" в уведомлении."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"Загрузка возможна только с URL, начинающихся с \"http\" или \"https\"."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Невозможно открыть файл"</string>
     <string name="retry" msgid="1835923075542266721">"Повторить попытку"</string>
     <string name="no_downloads" msgid="3947445710685021498">"История загрузок пуста."</string>
@@ -342,7 +347,7 @@
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Запомнить настройки"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"У этого сайта есть доступ к данным о вашем местоположении. Для изменения параметров доступа выберите Настройки -&gt; Настройки веб-сайта"</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"У этого сайта нет доступа к данным о вашем местоположении. Для изменения параметров доступа выберите Настройки -&gt; Настройки веб-сайта"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Удалить данные доступа к местоположению"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Этот сайт сейчас имеет доступ к вашему местоположению"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Этот сайт в настоящее время не имеет доступа к вашему местоположению"</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Удалить данные доступа к местоположению"</string>
@@ -358,11 +363,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Закладки"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Нет закладок"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Выберите аккаунт"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Синхронизация с аккаунтом Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Закладки Android не связаны с аккаунтом Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Удалить закладки Android"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Добавить закладки Android в аккаунт <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Отправить"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Достигнут предел количества вкладок"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Выберите аккаунт или нажмите \"Отмена\", чтобы войти вручную"</string>
 </resources>

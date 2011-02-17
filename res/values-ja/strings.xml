@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"ブックマークに追加"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"このページをブックマークに追加"</string>
+    <string name="remove" msgid="7820112494467011374">"削除"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"編集"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"ホームにショートカットを追加"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"開く"</string>
@@ -97,8 +98,7 @@
     <string name="current_page" msgid="7510129573681663135">"URL "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"ブックマーク「<xliff:g id="BOOKMARK">%s</xliff:g>」を削除します。"</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"新しいウィンドウで開く"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"常に新しいウィンドウで開く"</string>
     <string name="goto_dot" msgid="3895839050522602723">"移動"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"新しいシークレットタブを開く"</string>
     <string name="select_dot" msgid="6299170761900561967">"テキストを選択してコピー"</string>
@@ -117,7 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空のフォルダ"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"開く"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"新しいウィンドウで開く"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"リンクをブックマーク"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"新しいバックグラウンドウィンドウで開く"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"リンクを保存"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"リンクを共有"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"コピー"</string>
@@ -149,7 +149,7 @@
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"現在のウィンドウの後ろに新しいウィンドウを開く"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"ホームページ設定"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"検索エンジンの設定"</string>
-    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"検索エンジンを選択します"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"検索エンジンを選択する"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"設定先..."</string>
     <string name="pref_use_current" msgid="1778622474040406672">"現在のページ"</string>
     <string name="pref_use_blank" msgid="8503238592551111169">"空白ページ"</string>
@@ -170,6 +170,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"1回タップするだけでウェブフォームに入力できます"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"自動入力設定"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"自動入力フォーム用のデータの設定と管理"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Googleへの自動ログイン"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"アカウントが見つかりません"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"<xliff:g id="ID_1">%s</xliff:g>で自動的にGoogleにログインする"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"<xliff:g id="ID_1">%s</xliff:g>を使用してGoogleサイトにログインしています"\n"Googleへの自動ログインは、プライバシーとセキュリティの設定で管理されます"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"自動的にログインしない"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"プロフィールは自動入力機能で使用され、1回タップするだけでウェブフォームに入力することができます。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"氏名:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"メール:"</string>
@@ -183,12 +188,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"郵便番号:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"国:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"電話:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"電話番号が正しくありません"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"プロフィールを保存"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"プロフィールが保存されました"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"プロフィールを削除しました"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"プロフィールを削除"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"このようなウェブフォームにブラウザで自動入力できます。プロフィールを設定しますか？"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"自動入力はいつでも[ブラウザ設定] -&gt; [個人設定]から設定できます。"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"自動入力はいつでもブラウザの[設定]から設定できます。"</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"自動入力を無効にする"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"プライバシーとセキュリティ"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"キャッシュを消去"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"ローカルにキャッシュしたコンテンツとデータベースを消去する"</string>
@@ -240,7 +247,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"デフォルトの倍率"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"ページを全体表示で開く"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"新しく開いたページを全体表示する"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"詳細設定"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"高度な設定"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"ウェブサイト設定"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"個々のウェブサイトの詳細設定"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"初期設定にリセット"</string>
@@ -261,14 +268,11 @@
     <item msgid="2193955365569270096">"韓国語（EUC-KR）"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"テキストエンコード"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"クイックコントロール"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"クイックコントロールにアクセスするには左端または右端から親指をスワイプします"</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"アクセス数が最も多いホームページ"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"アクセス数が最も多いページが表示されるようにホームページを設定します。"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"データアクセスエラー"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"ファイルに問題があります"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"確認"</string>
@@ -312,6 +316,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SDカードは利用できません"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USBストレージは使用中です。[USBストレージをOFFにする]を選択してからダウンロードしてください。"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SDカードは使用中です。[USBストレージをOFFにする]を選択してからダウンロードしてください。"</string>
+    <string name="cannot_download" msgid="8150552478556798780">"ダウンロードできるのは「http」または「https」のURLのみです。"</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"ファイルを開けません"</string>
     <string name="retry" msgid="1835923075542266721">"やり直す"</string>
     <string name="no_downloads" msgid="3947445710685021498">"ダウンロード履歴はありません。"</string>
@@ -358,11 +363,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"ブックマーク"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"ブックマークはありません"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"アカウントの選択"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Googleアカウントと同期"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"AndroidのブックマークはGoogleアカウントに関連付けられていません"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Androidのブックマークを削除"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Androidのブックマークを<xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>のブックマークに追加"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"共有"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"タブ数が上限に達しました"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"アカウントの選択/ログインの手動キャンセル"</string>
 </resources>

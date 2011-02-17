@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"북마크에 추가"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"페이지 북마크"</string>
+    <string name="remove" msgid="7820112494467011374">"삭제"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"북마크 수정"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"홈에 바로가기 추가"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"열기"</string>
@@ -97,8 +98,7 @@
     <string name="current_page" msgid="7510129573681663135">"북마크할 페이지 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"\'<xliff:g id="BOOKMARK">%s</xliff:g>\' 북마크가 삭제됩니다."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"새 창에서 열기"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"새 창에서 모두 열기"</string>
     <string name="goto_dot" msgid="3895839050522602723">"이동"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"새 시크릿 탭 열기"</string>
     <string name="select_dot" msgid="6299170761900561967">"텍스트 선택"</string>
@@ -117,7 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"빈 폴더"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"열기"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"새 창에서 열기"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"링크를 북마크에 추가"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"새 배경 창에서 열기"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"링크 저장"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"링크 공유"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"복사"</string>
@@ -170,6 +170,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"클릭 한 번으로 웹 양식 작성"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"자동완성 설정"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"자동완성된 양식의 데이터 설정 및 관리"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"자동 Google 로그인"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"계정이 없습니다."</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"<xliff:g id="ID_1">%s</xliff:g>을(를) 사용하여 Google 사이트에 자동으로 로그인"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"개인정보 및 보안 설정 컨트롤<xliff:g id="ID_1">%s</xliff:g>"\n"자동 Google 로그인을 사용하여 Google 사이트에 로그인"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"자동 로그인 안함"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"자동완성 기능은 사용자의 프로필을 사용하여 단 한번의 클릭으로 웹 양식을 작성할 수 있도록 도와줍니다."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"이름:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"이메일:"</string>
@@ -183,12 +188,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"우편번호:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"국가:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"전화:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"잘못된 전화번호"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"프로필 저장"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"프로필 저장됨"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"프로필이 삭제되었습니다."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"프로필 삭제"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"브라우저에서 이 양식과 같은 웹 양식을 자동으로 완성할 수 있습니다. 프로필을 설정하시겠습니까?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"브라우저 설정 -&gt; 개인 설정에서 언제든지 자동완성을 구성할 수 있습니다."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"브라우저 설정에서 언제든지 자동완성을 구성할 수 있습니다."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"자동완성 사용 안함"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"개인정보 보호 및 보안"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"캐시 지우기"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"로컬로 캐시된 콘텐츠 및 데이터베이스 삭제"</string>
@@ -240,14 +247,14 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"기본 확대/축소"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"페이지 전체보기"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"새 창을 열 때 페이지 전체 표시"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"고급 설정"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"고급"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"웹사이트 설정"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"개별 웹사이트의 고급 설정"</string>
-    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"기본값 재설정"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"기본값으로 재설정"</string>
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"초기화"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"초기화"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"기본 설정값 복원"</string>
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"설정이 기본값으로 되돌아갑니다."</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"기본값으로 재설정"</string>
+    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"초기화"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"디버그"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"텍스트 인코딩"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -261,14 +268,11 @@
     <item msgid="2193955365569270096">"한국어(EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"텍스트 인코딩"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"실험실"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"빠른 컨트롤"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"왼쪽이나 오른쪽 끝에서 엄지손가락으로 스와이프하여 빠른 컨트롤에 액세스합니다."</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"왼쪽이나 오른쪽 끝에서 엄지손가락으로 스와이프하여 빠른 컨트롤에 액세스"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"자주 방문한 홈페이지"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"자주 방문한 페이지를 표시하도록 홈페이지를 설정합니다."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"데이터 연결에 문제 발생"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"파일 문제 발생"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"확인"</string>
@@ -312,6 +316,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD 카드를 사용할 수 없음"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB 저장소가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 사용 안함\'을 선택하세요."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 카드가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 선택하세요."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"\'http\' 또는 \'https\' URL만 다운로드할 수 있습니다."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"파일을 열 수 없음"</string>
     <string name="retry" msgid="1835923075542266721">"다시 시도"</string>
     <string name="no_downloads" msgid="3947445710685021498">"다운로드 기록이 비어 있습니다."</string>
@@ -358,11 +363,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"북마크"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"북마크가 없습니다."</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"계정 선택"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Google 계정과 동기화"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"사용자의 Android 북마크는 Google 계정과 연결되지 않았습니다."</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Android 북마크 삭제"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"<xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>에 대한 북마크에 Android 북마크 추가"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"공유"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"탭이 더 이상 없습니다."</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"계정을 선택하거나 수동으로 로그인하려면 \'취소\' 선택"</string>
 </resources>
