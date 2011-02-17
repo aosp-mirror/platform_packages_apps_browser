@@ -20,6 +20,7 @@
     <dimen name="tab_overlap">8dp</dimen>
     <dimen name="tab_addoverlap">14dp</dimen>
     <dimen name="tab_slice">15.5dp</dimen>
+    <dimen name="tab_focus_stroke">2dip</dimen>
     <dimen name="max_tab_width">300dp</dimen>
     <dimen name="bookmarkThumbnailWidth">90dip</dimen>
     <dimen name="bookmarkThumbnailHeight">80dip</dimen>
