@@ -18,6 +18,8 @@ package com.android.browser;
 
 import com.android.browser.Tab.LockIcon;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -67,7 +69,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
     Activity mActivity;
     UiController mUiController;
     TabControl mTabControl;
-    private Tab mActiveTab;
+    protected Tab mActiveTab;
     private InputMethodManager mInputManager;
 
     private Drawable mSecLockIcon;
@@ -220,12 +222,18 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     @Override
-    public void setActiveTab(Tab tab) {
+    public void setActiveTab(final Tab tab) {
+        setActiveTab(tab, true);
+    }
+
+    void setActiveTab(Tab tab, boolean needsAttaching) {
         if ((tab != mActiveTab) && (mActiveTab != null)) {
             removeTabFromContentView(mActiveTab);
         }
         mActiveTab = tab;
-        attachTabToContentView(tab);
+        if (needsAttaching) {
+            attachTabToContentView(tab);
+        }
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
         onTabDataChanged(tab);
         onProgressChanged(tab);
@@ -259,7 +267,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         attachTabToContentView(tab);
     }
 
-    private void attachTabToContentView(Tab tab) {
+    protected void attachTabToContentView(Tab tab) {
         if ((tab == null) || (tab.getWebView() == null)) {
             return;
         }
