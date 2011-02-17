@@ -39,7 +39,7 @@ import java.io.ByteArrayOutputStream;
 /**
  *  This class is purely to have a common place for adding/deleting bookmarks.
  */
-/* package */ class Bookmarks {
+public class Bookmarks {
     // We only want the user to be able to bookmark content that
     // the browser can handle directly.
     private static final String acceptableBookmarkSchemes[] = {
@@ -162,11 +162,9 @@ import java.io.ByteArrayOutputStream;
 
     static final String QUERY_BOOKMARKS_WHERE =
             Combined.URL + " == ? OR " +
-            Combined.URL + " == ? OR " +
-            Combined.URL + " LIKE ? || '%' OR " +
-            Combined.URL + " LIKE ? || '%'";
+            Combined.URL + " == ?";
 
-    /* package */ static Cursor queryCombinedForUrl(ContentResolver cr,
+    public static Cursor queryCombinedForUrl(ContentResolver cr,
             String originalUrl, String url) {
         if (cr == null || url == null) {
             return null;
@@ -179,17 +177,8 @@ import java.io.ByteArrayOutputStream;
     
         // Look for both the original url and the actual url. This takes in to
         // account redirects.
-        String originalUrlNoQuery = removeQuery(originalUrl);
-        String urlNoQuery = removeQuery(url);
-        originalUrl = originalUrlNoQuery + '?';
-        url = urlNoQuery + '?';
     
-        // Use NoQuery to search for the base url (i.e. if the url is
-        // http://www.yahoo.com/?rs=1, search for http://www.yahoo.com)
-        // Use url to match the base url with other queries (i.e. if the url is
-        // http://www.google.com/m, search for
-        // http://www.google.com/m?some_query)
-        final String[] selArgs = new String[] { originalUrlNoQuery, urlNoQuery, originalUrl, url };
+        final String[] selArgs = new String[] { originalUrl, url };
         final String[] projection = new String[] { Combined.URL };
         return cr.query(Combined.CONTENT_URI, projection, QUERY_BOOKMARKS_WHERE, selArgs, null);
     }
