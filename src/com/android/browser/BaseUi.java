@@ -624,6 +624,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void setShouldShowErrorConsole(Tab tab, boolean flag) {
+        if (tab == null) return;
         ErrorConsoleView errorConsole = tab.getErrorConsole(true);
         if (flag) {
             // Setting the show state of the console will cause it's the layout
