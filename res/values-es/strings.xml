@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Añadir a marcadores"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Añadir esta página a marcadores"</string>
+    <string name="remove" msgid="7820112494467011374">"Eliminar"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Editar marcador"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Añadir acceso directo al escritorio"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Abrir"</string>
@@ -97,8 +98,7 @@
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Se eliminará el marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Abrir en ventana nueva"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Abrir todo en ventanas nuevas"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ir"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Abrir nueva pestaña de incógnito"</string>
     <string name="select_dot" msgid="6299170761900561967">"Seleccionar texto"</string>
@@ -117,7 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Carpeta vacía"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Abrir en ventana nueva"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Marcar enlace"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Abrir en una nueva ventana en segundo plano"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Guardar enlace"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Compartir enlace"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copiar"</string>
@@ -170,6 +170,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Rellenar formularios web con un solo clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Ajustes de autocompletado"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configurar y administrar los datos de los formularios rellenados automáticamente"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Acceso automático a Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"No se han encontrado cuentas."</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Accede a los sitios de Google de forma automática mediante la cuenta <xliff:g id="ID_1">%s</xliff:g>."</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Accediendo a Google Sites mediante el <xliff:g id="ID_1">%s</xliff:g>"\n"acceso automático de Google de control de los ajustes de seguridad y de privacidad"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"No acceder automáticamente"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"La función Autocompletar utilizará tu perfil para ayudarte a rellenar formularios web con un solo clic."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nombre completo:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
@@ -183,12 +188,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Código postal:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"País:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Teléfono:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Número de teléfono no válido"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Guardar perfil"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Perfil guardado"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Perfil eliminado"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Eliminar perfil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"El navegador puede completar de forma automática formularios web como este. ¿Te gustaría configurar tu perfil?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"La función Autocompletar se puede configurar en cualquier momento a través de Ajustes del navegador -&gt; Configuración personal."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"La función Autocompletar se puede configurar en cualquier momento a través de los ajustes del navegador."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Inhabilitar Autocompletar"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Privacidad y seguridad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Borrar caché"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Borrar bases de datos y contenido de la memoria caché local"</string>
@@ -240,7 +247,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predeterminado"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Abrir en visión general"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Mostrar información general de las páginas abiertas recientemente"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Ajustes avanzados"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Avanzados"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Ajustes del sitio web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Ajustes avanzados de sitios web individuales"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Restablecer valores predeterminados"</string>
@@ -261,14 +268,11 @@
     <item msgid="2193955365569270096">"Coreano (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificación de texto"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Controles rápidos"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Desliza el pulgar de izquierda a derecha para acceder a los controles rápidos."</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Página principal más visitada"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Configura tu página principal para que muestre las páginas más visitadas."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de conectividad de datos"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema con archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"OK"</string>
@@ -312,6 +316,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Tarjeta SD no disponible"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"El almacenamiento USB está ocupado. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La tarjeta SD está ocupada. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"Solo se pueden descargar URL del tipo \"http\" o \"https\"."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"No se puede abrir el archivo"</string>
     <string name="retry" msgid="1835923075542266721">"Reintentar"</string>
     <string name="no_downloads" msgid="3947445710685021498">"El historial de descargas está vacío."</string>
@@ -358,11 +363,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Marcadores"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"No hay ningún marcador."</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Seleccionar cuenta"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronizar con cuenta de Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Tus marcadores de Android no se han asociado a una cuenta de Google."</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Eliminar los marcadores de Android"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Añadir tus marcadores de Android a marcadores de <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Compartir"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"No hay más pestañas disponibles."</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Selecciona una cuenta o cancela para acceder manualmente."</string>
 </resources>

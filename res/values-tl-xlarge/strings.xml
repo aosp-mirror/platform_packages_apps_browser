@@ -20,6 +20,7 @@
     <string name="new_incognito_tab" msgid="5149742197322201152">"Bagong incognito tab"</string>
     <string name="active_tabs" msgid="5324492165541331128">"Mga Tab"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"Buksan sa bagong tab"</string>
-    <!-- no translation found for open_all_in_new_window (8498279523071618315) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Buksan sa bagong tab na background"</string>
+    <string name="open_all_in_new_window" msgid="8498279523071618315">"Buksan sa lahat ng mga bagong tab"</string>
+    <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Buksan ang mga bagong tab sa likod ng kasalukuyan"</string>
 </resources>

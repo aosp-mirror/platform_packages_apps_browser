@@ -19,8 +19,8 @@
     <string name="new_tab" msgid="7275656655054293038">"Нова картица"</string>
     <string name="new_incognito_tab" msgid="5149742197322201152">"Нова картица без архивирања"</string>
     <string name="active_tabs" msgid="5324492165541331128">"Картице"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow (1061831678814826192) -->
-    <skip />
-    <!-- no translation found for open_all_in_new_window (8498279523071618315) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"Отвори у новој картици"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Отвори у новој позадинској картици"</string>
+    <string name="open_all_in_new_window" msgid="8498279523071618315">"Отвори све у новим картицама"</string>
+    <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Отварање нових картица иза тренутне картице"</string>
 </resources>

@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Hozzáadás a könyvjelzőkhöz"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Oldal felvétele a könyvjelzők közé"</string>
+    <string name="remove" msgid="7820112494467011374">"Eltávolítás"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Könyvjelző szerkesztése"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Parancsikon a főoldalra"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Megnyitás"</string>
@@ -97,8 +98,7 @@
     <string name="current_page" msgid="7510129573681663135">"innen: "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"A(z) \"<xliff:g id="BOOKMARK">%s</xliff:g>\" könyvjelző törlésre kerül."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Megnyitás új ablakban"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Összes megnyitása új ablakban"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ugrás"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Új inkognitólap megnyitása"</string>
     <string name="select_dot" msgid="6299170761900561967">"Szöveg kijelölése"</string>
@@ -117,7 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Üres mappa"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Megnyitás"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Megnyitás új ablakban"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Link felvétele a könyvjelzők közé"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Megnyitás új ablakban a háttérben"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Link mentése"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Link megosztása"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Másolás"</string>
@@ -170,6 +170,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Internetes űrlapok kitöltése egyetlen kattintással"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Automatikus kitöltés beállításai"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Automatikusan kitöltött űrlapadatok megadása és kezelése"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Automatikus Google-bejelentkezés"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Nem található fiók"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Automatikus bejelentkezés a Google-webhelyekre <xliff:g id="ID_1">%s</xliff:g> fiókkal"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Bejelentkezés a Google webhelyeire a következő használatával: <xliff:g id="ID_1">%s</xliff:g>"\n"Az automatikus Google-bejelentkezést adatvédelmi és biztonsági beállításai szabályozzák"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"Ne lépjen be automatikusan"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Az Automatikus kitöltés az Ön profilja alapján egyetlen kattintással kitölti a webes űrlapokat."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Teljes név:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
@@ -183,12 +188,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Irányítószám:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Ország:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Érvénytelen telefonszám"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Profil mentése"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"A profil elmentve"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"A profil törölve."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Profil törlése"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"A böngésző automatikusan ki tudja tölteni az ilyen internetes űrlapokat. Beállítja a profilját?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Az Automatikus kitöltést bármikor beállíthatja a Böngésző beállításai -&gt; Személyes beállítások menüpontban."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Az Automatikus kitöltést bármikor konfigurálhatja a Böngésző beállításai között."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Automatikus kitöltés kikapcsolása"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Adatvédelem és biztonság"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"A gyorsítótár törlése"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"A helyileg gyorsítótárazott tartalmak és adatbázisok törlése"</string>
@@ -240,7 +247,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Alapértelmezett nagyítás"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Oldalak megnyitása áttekintő nézetben"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Áttekintést ad az újonnan megnyitott oldalakról"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Speciális beállítások"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Speciális"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Webhelyek beállításai"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Speciális beállítások az egyes webhelyekhez"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Alapértékek visszaállítása"</string>
@@ -261,14 +268,11 @@
     <item msgid="2193955365569270096">"Koreai (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Szöveg kódolása"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Gyorsvezérlők"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"A gyorsvezérlők eléréséhez csúsztassa hüvelykujját befelé a bal vagy jobb széltől"</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"A leglátogatottabb honlap"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Kezdőlap beállítása, hogy a leglátogatottabb oldalakat mutassa."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Adatkapcsolat-probléma"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Probléma van a fájllal"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Megerősítés"</string>
@@ -312,6 +316,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Az SD-kártya nem érhető el"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Az USB-tár dolgozik. A letöltések engedélyezéséhez válassza az \"USB-tár kikapcsolása\" lehetőséget."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Az SD-kártya dolgozik. A letöltések engedélyezéséhez válassza az \"USB-tár kikapcsolása\" lehetőséget."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"Csak \"http\" vagy \"https\" URL-ek letöltése lehetséges."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"A fájlt nem lehet megnyitni"</string>
     <string name="retry" msgid="1835923075542266721">"Újra"</string>
     <string name="no_downloads" msgid="3947445710685021498">"A letöltési előzmények listája üres."</string>
@@ -358,11 +363,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Könyvjelzők"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Nincsenek könyvjelzők"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Fiók kiválasztása"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Szinkronizálás Google Fiókkal"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Androidos könyvjelzői nincsenek Google Fiókhoz társítva"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Az Androidos könyvjelzők törlése"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Az Androidos könyvjelzők hozzáadása <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> fiók könyvjelzőihez"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Megosztás"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Nem nyitható meg több lap"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Válasszon ki egy fiókot, vagy szakítsa meg a kézi bejelentkezéshez"</string>
 </resources>

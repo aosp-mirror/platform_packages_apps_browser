@@ -20,6 +20,7 @@
     <string name="new_incognito_tab" msgid="5149742197322201152">"新無痕式分頁"</string>
     <string name="active_tabs" msgid="5324492165541331128">"分頁"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1061831678814826192">"於新分頁開啟連結"</string>
-    <!-- no translation found for open_all_in_new_window (8498279523071618315) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"在新背景分頁中開啟連結"</string>
+    <string name="open_all_in_new_window" msgid="8498279523071618315">"於新分頁開啟所有書籤"</string>
+    <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"在目前分頁的後面開啟新分頁"</string>
 </resources>

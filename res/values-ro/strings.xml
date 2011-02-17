@@ -76,6 +76,8 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Adăugaţi la marcaje"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Marcaţi această pagină"</string>
+    <!-- no translation found for remove (7820112494467011374) -->
+    <skip />
     <string name="edit_bookmark" msgid="5024089053490231905">"Modificaţi marcajul"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Adăugaţi o comandă rapidă pe ecranul de pornire"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Deschideţi"</string>
@@ -97,8 +99,7 @@
     <string name="current_page" msgid="7510129573681663135">"din "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Marcajul „<xliff:g id="BOOKMARK">%s</xliff:g>” va fi şters."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Deschideţi într-o fereastră nouă"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Deschideţi-le pe toate în ferestre noi"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Accesaţi"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Deschideţi filă incognito nouă"</string>
     <string name="select_dot" msgid="6299170761900561967">"Selectaţi text"</string>
@@ -117,7 +118,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Dosar gol"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Deschideţi"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Deschideţi într-o fereastră nouă"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Marcaţi linkul"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Deschideţi într-o fereastră nouă în fundal"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Salvaţi linkul"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Distribuiţi linkul"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copiaţi"</string>
@@ -170,6 +171,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completaţi formulare web cu un singur clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Setări Completare automată"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configuraţi şi gestionaţi date pentru formularele cu completare automată"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Conectare automată la Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Nu au fost găsite conturi"</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"Conectaţi-vă automat la site-urile Google utilizând <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Se face conectarea la site-urile Google utilizând <xliff:g id="ID_1">%s</xliff:g>"\n"Setările dvs. de confidenţialitate şi securitate controlează conectarea automată la Google"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"Nu doresc să mă conectez automat"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Completarea automată va utiliza informaţiile din profilul dvs. pentru a vă ajuta să completaţi formularele de pe web cu un singur clic."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Numele complet:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
@@ -183,12 +189,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Codul poştal:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Ţară:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Număr de telefon nevalid"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Salvaţi profilul"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profilul a fost salvat"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profilul a fost şters"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Ştergeţi profilul"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Browserul poate completa în mod automat formulare web ca acesta. Doriţi să vă configuraţi profilul?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"Completarea automată poate fi întotdeauna configurată din Setări browser -&gt; Setări personale."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Completarea automată poate fi configurată oricând din Setările browserului."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"Dezactivaţi Completarea automată"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Confidenţialitate şi securitate"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Goliţi memoria cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ştergeţi conţinutul memoriei cache şi bazele de date"</string>
@@ -240,7 +248,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom prestabilit"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Deschideţi paginile ca prezentare generală"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Afişaţi prezentarea generală a paginilor deschise recent"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Setări avansate"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Avansat"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Setări site web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Setări avansate pentru site-uri web individuale"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Resetaţi la setările prestabilite"</string>
@@ -261,14 +269,11 @@
     <item msgid="2193955365569270096">"Coreeană (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificare text"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Laborator"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Comenzi rapide"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Glisaţi degetul dinspre marg. din st. sau din dr. pt. a accesa comenzile rapide"</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Pagina de pornire Cele mai vizitate"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Vă setează pagina de pornire pentru a afişa cele mai vizitate pagini."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Există o problemă de conexiune la date"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problemă cu fişierul"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmaţi"</string>
@@ -312,6 +317,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Card SD nedisponibil"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Dispozitivul de stocare USB este ocupat. Pentru a permite descărcări, selectaţi în notificare opţiunea „Dezactivaţi stocarea USB”."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Cardul SD este ocupat. Pentru a permite descărcări, selectaţi în notificare opţiunea „Dezactivaţi stocarea pe USB”."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"Puteţi descărca numai de la adrese URL care încep cu „http” sau „https”."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Fişierul nu poate fi deschis"</string>
     <string name="retry" msgid="1835923075542266721">"Încercaţi din nou"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Istoricul de descărcări este gol."</string>
@@ -358,11 +364,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Marcaje"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Nu există marcaje"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Alegeţi un cont"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronizaţi cu un Cont Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Marcajele dvs. Android nu sunt asociate unui Cont Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Eliminaţi marcajele Android"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Adăugaţi marcajele Android la marcajele <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Distribuiţi"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Nu mai există file disponibile"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"Alegeţi un cont sau anulaţi pentru a vă conecta manual"</string>
 </resources>

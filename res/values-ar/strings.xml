@@ -76,6 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"إضافة إلى الإشارات"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"وضع إشارة على هذه الصفحة"</string>
+    <string name="remove" msgid="7820112494467011374">"إزالة"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"تعديل الإشارة"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"إضافة اختصار إلى الصفحة الرئيسية"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"فتح"</string>
@@ -97,8 +98,7 @@
     <string name="current_page" msgid="7510129573681663135">"من "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"سيتم حذف الإشارة \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"فتح في نافذة جديدة"</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"فتح الكل في نوافذ جديدة"</string>
     <string name="goto_dot" msgid="3895839050522602723">"تنفيذ"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"فتح علامة تبويب جديدة للتصفح المتخفي"</string>
     <string name="select_dot" msgid="6299170761900561967">"تحديد نص"</string>
@@ -117,7 +117,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"المجلد فارغ"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"فتح"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"فتح في نافذة جديدة"</string>
-    <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"وضع إشارة على الرابط"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"فتح في نافذة جديدة في الخلفية"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"حفظ الرابط"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"مشاركة الرابط"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"نسخ"</string>
@@ -170,6 +170,11 @@
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"ملء نماذج الويب بنقرة واحدة"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"إعدادات الملء التلقائي"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"إعداد وإدارة البيانات للنماذج التي يتم ملؤها تلقائيًا"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"تسجيل الدخول تلقائيًا إلى Google"</string>
+    <string name="pref_autologin_no_account" msgid="4409223615542478868">"لم يتم العثور على أي حسابات."</string>
+    <string name="pref_autologin_summary" msgid="8168866316823968574">"تسجيل الدخول إلى مواقع Google تلقائيًا باستخدام <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"تسجيل الدخول إلى مواقع Google باستخدام <xliff:g id="ID_1">%s</xliff:g>"\n"تتحكم إعدادات الخصوصية والأمان في تسجيل الدخول التلقائي إلى Google"</string>
+    <string name="pref_autologin_disable" msgid="3342145058494577628">"عدم تسجيل الدخول تلقائيًا"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"سيستخدم الملء التلقائي ملفك الشخصي لمساعدتك على إكمال نماذج الويب بنقرة واحدة."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"الاسم بالكامل:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"البريد الإلكتروني:"</string>
@@ -183,12 +188,14 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"الرمز البريدي:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"البلد:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"الهاتف:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"رقم الهاتف غير صالح."</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"حفظ الملف الشخصي"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"تم حفظ الملف الشخصي"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"تم حذف الملف الشخصي"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"حذف الملف الشخصي"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"يستطيع المتصفح إكمال نماذج ويب مثل هذا النموذج. هل تريد إعداد ملفك الشخصي؟"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4653039631354546610">"يمكن تهيئة ميزة الملء التلقائي من خلال إعدادات المتصفح -&gt; الإعدادات الشخصية."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"يمكن تهيئة الملء التلقائي دائمًا عبر إعدادات المتصفح."</string>
+    <string name="disable_autofill" msgid="3706426217720202898">"تعطيل الملء التلقائي"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"الخصوصية والأمان"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"محو ذاكرة التخزين المؤقت"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"محو قواعد البيانات والمحتوى المخزن مؤقتًا محليًا"</string>
@@ -240,7 +247,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"التكبير/التصغير الافتراضي"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"فتح الصفحات في النظرة العامة"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"عرض نظرة عامة حول الصفحات التي تم فتحها حديثًا"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"الإعدادات المتقدمة"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"خيارات متقدمة"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"إعدادات موقع الويب"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"الإعدادات المتقدمة لمواقع الويب الفردية"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"إعادة تعيين الإعدادات الافتراضية"</string>
@@ -261,14 +268,11 @@
     <item msgid="2193955365569270096">"الكورية (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"تشفير النص"</string>
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"الميزات الاختبارية"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"عناصر التحكم السريعة"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"مرر الإبهام من الحافة اليسرى أو اليمنى للدخول إلى عناصر التحكم السريعة."</string>
-    <!-- no translation found for pref_lab_most_visited_homepage (547134501893835512) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (6857702350834122532) -->
-    <skip />
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"الصفحة الرئيسية الأكثر زيارة"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"لتعيين صفحتك الرئيسية لعرض الصفحات الأكثر زيارة."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"مشكلة في اتصال البيانات"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"مشكلة في الملف"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"تأكيد"</string>
@@ -312,6 +316,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"بطاقة SD غير متوفرة"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"وحدة تخزين USB مشغولة. للسماح بالتنزيلات، حدد \"إيقاف تشغيل وحدة تخزين USB\" في التنبيه."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"بطاقة SD مشغولة. للسماح بالتنزيلات، حدد \"إيقاف تشغيل تخزين USB\" في التنبيه."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"يمكن تنزيل عناوين URL لـ \"http\" أو \"https\" فقط."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"لا يمكن فتح الملف"</string>
     <string name="retry" msgid="1835923075542266721">"إعادة المحاولة"</string>
     <string name="no_downloads" msgid="3947445710685021498">"سجل التنزيل فارغ."</string>
@@ -358,11 +363,11 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"الإشارات"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"ليس هناك أي إشارات"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"اختيار حساب"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"المزامنة مع حساب Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"لم يتم إقران إشارات Android مع حساب Google"</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"إزالة إشارات Android"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"إضافة إشارات Android إلى إشارات <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"مشاركة"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"لا يتوفر المزيد من علامات التبويب"</string>
-    <string name="account_picker_title" msgid="2199261460783026844">"اختيار حساب أو الإلغاء لتسجيل الدخول يدويًا"</string>
 </resources>
