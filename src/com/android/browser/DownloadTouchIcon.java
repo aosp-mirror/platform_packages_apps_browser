@@ -183,9 +183,9 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
 
             ContentValues values = new ContentValues();
             values.put(Images.TOUCH_ICON, os.toByteArray());
-            values.put(Images.URL, mCursor.getString(0));
 
             do {
+                values.put(Images.URL, mCursor.getString(0));
                 mContentResolver.update(Images.CONTENT_URI, values, null, null);
             } while (mCursor.moveToNext());
         }
