@@ -18,6 +18,9 @@
     <string name="application_name">Browser</string>
     <!-- Displayed with a file picker to choose a file to upload -->
     <string name="choose_upload">Choose file for upload</string>
+    <!-- Toast to show the user after they try to open the file picker but no apps on the
+         system can provide a file [CHAR-LIMIT=NONE]-->
+    <string name="uploads_disabled">File uploads are disabled.</string>
     <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
     <string name="new_tab">New window</string>
     <!-- Name of menu item of a new incognito tab.  Also used in the
