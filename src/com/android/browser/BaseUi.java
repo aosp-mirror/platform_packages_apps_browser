@@ -18,6 +18,7 @@ package com.android.browser;
 
 import com.android.browser.Tab.LockIcon;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -450,6 +451,11 @@ public abstract class BaseUi implements UI, WebViewFactory {
             WebView web = mActiveTab.getWebView();
             mActiveTab.putInBackground();
         }
+        mComboView.setAlpha(0f);
+        ObjectAnimator anim = ObjectAnimator.ofFloat(mComboView, "alpha", 0f, 1f);
+        Resources res = mActivity.getResources();
+        anim.setDuration(res.getInteger(R.integer.comboViewFadeInDuration));
+        anim.start();
         mContentView.addView(mComboView, COVER_SCREEN_PARAMS);
     }
 

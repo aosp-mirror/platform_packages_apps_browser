@@ -23,4 +23,6 @@
     <integer name="max_width_crumb">200</integer>
     <!-- The maximum number of most visited URLs in the history tab -->
     <integer name="most_visits_limit">10</integer>
+    <!-- Animation durations -->
+    <integer name="comboViewFadeInDuration">400</integer>
 </resources>
