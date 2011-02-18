@@ -39,10 +39,10 @@ import android.provider.BrowserContract.Images;
 import android.webkit.WebView;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
+
     private final ContentResolver mContentResolver;
     private Cursor mCursor;
     private final String mOriginalUrl;
@@ -110,18 +110,21 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
         String url = values[0];
 
         if (inDatabase || mMessage != null) {
-            AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
-            HttpHost httpHost = Proxy.getPreferredHttpHost(mContext, url);
-            if (httpHost != null) {
-                ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
-            }
-
-            HttpGet request = new HttpGet(url);
-
-            // Follow redirects
-            HttpClientParams.setRedirecting(client.getParams(), true);
+            AndroidHttpClient client = null;
+            HttpGet request = null;
 
             try {
+                client = AndroidHttpClient.newInstance(mUserAgent);
+                HttpHost httpHost = Proxy.getPreferredHttpHost(mContext, url);
+                if (httpHost != null) {
+                    ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
+                }
+
+                request = new HttpGet(url);
+
+                // Follow redirects
+                HttpClientParams.setRedirecting(client.getParams(), true);
+
                 HttpResponse response = client.execute(request);
                 if (response.getStatusLine().getStatusCode() == 200) {
                     HttpEntity entity = response.getEntity();
@@ -139,12 +142,14 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
                         }
                     }
                 }
-            } catch (IllegalArgumentException ex) {
-                request.abort();
-            } catch (IOException ex) {
-                request.abort();
+            } catch (Exception ex) {
+                if (request != null) {
+                    request.abort();
+                }
             } finally {
-                client.close();
+                if (client != null) {
+                    client.close();
+                }
             }
         }
 
