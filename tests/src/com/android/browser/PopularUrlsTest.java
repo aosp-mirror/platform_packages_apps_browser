@@ -305,12 +305,14 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         private int page;
         private String url;
         private boolean isRecovery;
+        private boolean allClear;
 
         private RunStatus(File file) throws IOException {
             mFile = file;
             FileReader input = null;
             BufferedReader reader = null;
             isRecovery = false;
+            allClear = false;
             iteration = 0;
             page = 0;
             try {
@@ -369,7 +371,9 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         }
 
         public void cleanUp() {
-            if (mFile.exists()) {
+            // only perform cleanup when allClear flag is set
+            // i.e. when the test was not interrupted by a Java crash
+            if (mFile.exists() && allClear) {
                 mFile.delete();
             }
         }
@@ -380,6 +384,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
         public void incrementPage() {
             ++page;
+            allClear = true;
         }
 
         public void incrementIteration() {
@@ -400,6 +405,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
         public void setUrl(String url) {
             this.url = url;
+            allClear = false;
         }
     }
 
