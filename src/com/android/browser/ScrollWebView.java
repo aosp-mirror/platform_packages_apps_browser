@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -31,6 +32,7 @@ public class ScrollWebView extends WebView implements Runnable {
     private ScrollListener mScrollListener;
     private boolean mIsCancelled;
     private boolean mBackgroundRemoved = false;
+    private boolean mUserInitiated = false;
 
     /**
      * @param context
@@ -71,7 +73,7 @@ public class ScrollWebView extends WebView implements Runnable {
     // scroll runnable implementation
     public void run() {
         if (!mIsCancelled && (mScrollListener != null)) {
-            mScrollListener.onScroll(getVisibleTitleHeight());
+            mScrollListener.onScroll(getVisibleTitleHeight(), mUserInitiated);
         }
     }
 
@@ -86,6 +88,17 @@ public class ScrollWebView extends WebView implements Runnable {
             // allow the scroll listener to initialize its state
             post(this);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent evt) {
+        if (MotionEvent.ACTION_DOWN == evt.getActionMasked()) {
+            mUserInitiated = true;
+        } else if (MotionEvent.ACTION_UP == evt.getActionMasked()
+                || (MotionEvent.ACTION_CANCEL == evt.getActionMasked())) {
+            mUserInitiated = false;
+        }
+        return super.onTouchEvent(evt);
     }
 
     @Override
@@ -111,7 +124,7 @@ public class ScrollWebView extends WebView implements Runnable {
     // callback for scroll events
 
     interface ScrollListener {
-        public void onScroll(int visibleTitleHeight);
+        public void onScroll(int visibleTitleHeight, boolean userInitiated);
     }
 
     @Override

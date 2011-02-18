@@ -147,8 +147,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
-    public void onScroll(int visibleTitleHeight) {
-        mTabBar.onScroll(visibleTitleHeight);
+    public void onScroll(int visibleTitleHeight, boolean userInitiated) {
+        mTabBar.onScroll(visibleTitleHeight, userInitiated);
     }
 
     void stopWebViewScrolling() {
@@ -295,6 +295,10 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             }
             super.hideTitleBar();
         }
+    }
+
+    public boolean isEditingUrl() {
+        return mTitleBar.isEditingUrl();
     }
 
     @Override

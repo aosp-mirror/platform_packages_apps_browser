@@ -262,13 +262,14 @@ public class TabBar extends LinearLayout
     // webview scroll listener
 
     @Override
-    public void onScroll(int visibleTitleHeight) {
+    public void onScroll(int visibleTitleHeight, boolean userInitiated) {
         if (mUseQuickControls) return;
         // isLoading is using the current tab, which initially might not be set yet
         if (mTabControl.getCurrentTab() != null
                 && !isLoading()) {
             if (visibleTitleHeight == 0) {
-                if (!showsTitleBarIndicator()) {
+                if (!showsTitleBarIndicator()
+                        && (!mUi.isEditingUrl() || userInitiated)) {
                     mUi.hideTitleBar();
                     showTitleBarIndicator(true);
                 }
@@ -606,7 +607,7 @@ public class TabBar extends LinearLayout
             WebView webview = tab.getWebView();
             if (webview != null) {
                 int h = webview.getVisibleTitleHeight();
-                onScroll(h);
+                onScroll(h, true);
             }
         }
     }
