@@ -21,12 +21,14 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -41,6 +43,9 @@ public class WallpaperHandler extends Thread
 
 
     private static final String LOGTAG = "WallpaperHandler";
+    // This should be large enough for BitmapFactory to decode the header so
+    // that we can mark and reset the input stream to avoid duplicate network i/o
+    private static final int BUFFER_SIZE = 128 * 1024;
 
     private Context mContext;
     private URL mUrl;
@@ -82,8 +87,9 @@ public class WallpaperHandler extends Thread
 
     @Override
     public void run() {
-        Drawable oldWallpaper =
-                WallpaperManager.getInstance(mContext).getDrawable();
+        WallpaperManager wm = WallpaperManager.getInstance(mContext);
+        Drawable oldWallpaper = wm.getDrawable();
+        InputStream inputstream = null;
         try {
             // TODO: This will cause the resource to be downloaded again, when
             // we should in most cases be able to grab it from the cache. To fix
@@ -91,15 +97,59 @@ public class WallpaperHandler extends Thread
             // version and instead open an input stream on that. This pattern
             // could also be used in the download manager where the same problem
             // exists.
-            InputStream inputstream = mUrl.openStream();
+            inputstream = mUrl.openStream();
             if (inputstream != null) {
-                WallpaperManager.getInstance(mContext).setStream(inputstream);
+                if (!inputstream.markSupported()) {
+                    inputstream = new BufferedInputStream(inputstream, BUFFER_SIZE);
+                }
+                inputstream.mark(BUFFER_SIZE);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                // We give decodeStream a wrapped input stream so it doesn't
+                // mess with our mark (currently it sets a mark of 1024)
+                BitmapFactory.decodeStream(
+                        new BufferedInputStream(inputstream), null, options);
+                int maxWidth = wm.getDesiredMinimumWidth();
+                int maxHeight = wm.getDesiredMinimumHeight();
+                // Give maxWidth and maxHeight some leeway
+                maxWidth *= 1.25;
+                maxHeight *= 1.25;
+                int bmWidth = options.outWidth;
+                int bmHeight = options.outHeight;
+
+                int scale = 1;
+                while (bmWidth > maxWidth || bmHeight > maxWidth) {
+                    scale <<= 1;
+                    bmWidth >>= 1;
+                    bmHeight >>= 1;
+                }
+                options.inJustDecodeBounds = false;
+                options.inSampleSize = scale;
+                try {
+                    inputstream.reset();
+                } catch (IOException e) {
+                    // BitmapFactory read more than we could buffer
+                    // Re-open the stream
+                    inputstream.close();
+                    inputstream = mUrl.openStream();
+                }
+                Bitmap scaledWallpaper = BitmapFactory.decodeStream(inputstream,
+                        null, options);
+                wm.setBitmap(scaledWallpaper);
             }
         } catch (IOException e) {
             Log.e(LOGTAG, "Unable to set new wallpaper");
             // Act as though the user canceled the operation so we try to
             // restore the old wallpaper.
             mCanceled = true;
+        } finally {
+            if (inputstream != null) {
+                try {
+                    inputstream.close();
+                } catch (IOException e) {
+                    // Ignore
+                }
+            }
         }
 
         if (mCanceled) {
@@ -113,7 +163,7 @@ public class WallpaperHandler extends Thread
             oldWallpaper.setBounds(0, 0, width, height);
             oldWallpaper.draw(canvas);
             try {
-                WallpaperManager.getInstance(mContext).setBitmap(bm);
+                wm.setBitmap(bm);
             } catch (IOException e) {
                 Log.e(LOGTAG, "Unable to restore old wallpaper.");
             }
