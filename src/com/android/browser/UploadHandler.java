@@ -39,6 +39,9 @@ public class UploadHandler {
     private ValueCallback<Uri> mUploadMessage;
     private String mCameraFilePath;
 
+    private boolean mHandled;
+    private boolean mCaughtActivityNotFoundException;
+
     private Controller mController;
 
     public UploadHandler(Controller controller) {
@@ -49,7 +52,19 @@ public class UploadHandler {
         return mCameraFilePath;
     }
 
+    boolean handled() {
+        return mHandled;
+    }
+
     void onResult(int resultCode, Intent intent) {
+
+        if (resultCode == Activity.RESULT_CANCELED && mCaughtActivityNotFoundException) {
+            // Couldn't resolve an activity, we are going to try again so skip
+            // this result.
+            mCaughtActivityNotFoundException = false;
+            return;
+        }
+
         Uri result = intent == null || resultCode != Activity.RESULT_OK ? null
                 : intent.getData();
 
@@ -71,6 +86,8 @@ public class UploadHandler {
         }
 
         mUploadMessage.onReceiveValue(result);
+        mHandled = true;
+        mCaughtActivityNotFoundException = false;
     }
 
     void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
@@ -183,6 +200,7 @@ public class UploadHandler {
             // No installed app was able to handle the intent that
             // we sent, so fallback to the default file upload control.
             try {
+                mCaughtActivityNotFoundException = true;
                 mController.getActivity().startActivityForResult(createDefaultOpenableIntent(),
                         Controller.FILE_SELECTED);
             } catch (ActivityNotFoundException e2) {

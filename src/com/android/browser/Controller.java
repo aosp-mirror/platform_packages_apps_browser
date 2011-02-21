@@ -678,7 +678,7 @@ public class Controller
     }
 
     void onDestroy() {
-        if (mUploadHandler != null) {
+        if (!mUploadHandler.handled()) {
             mUploadHandler.onResult(Activity.RESULT_CANCELED, null);
             mUploadHandler = null;
         }
@@ -1088,10 +1088,10 @@ public class Controller
                 }
                 break;
             case FILE_SELECTED:
-                // Choose a file from the file picker.
-                if (null == mUploadHandler) break;
+                // Chose a file from the file picker.
+                if (null == mUploadHandler)
+                    break;
                 mUploadHandler.onResult(resultCode, intent);
-                mUploadHandler = null;
                 break;
             case AUTOFILL_SETUP:
                 // Determine whether a profile was actually set up or not
