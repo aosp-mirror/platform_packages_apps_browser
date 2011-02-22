@@ -50,6 +50,8 @@
             android:title="@string/contextmenu_download_image"/>
         <item android:id="@+id/view_image_context_menu_id"
             android:title="@string/contextmenu_view_image"/>
+        <item android:id="@+id/set_wallpaper_context_menu_id"
+            android:title="@string/contextmenu_set_wallpaper"/>
     </group>
     <group android:id="@+id/SELECT_TEXT_MENU">
         <item android:id="@+id/select_text_menu_id"

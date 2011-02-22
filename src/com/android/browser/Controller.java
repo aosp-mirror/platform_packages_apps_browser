@@ -1370,6 +1370,9 @@ public class Controller
                         new Intent(Intent.ACTION_VIEW, Uri.parse(extra)));
                 menu.findItem(R.id.download_context_menu_id).
                         setOnMenuItemClickListener(new Download(mActivity, extra));
+                menu.findItem(R.id.set_wallpaper_context_menu_id).
+                        setOnMenuItemClickListener(new WallpaperHandler(mActivity,
+                                extra));
                 break;
 
             default:
