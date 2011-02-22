@@ -133,6 +133,10 @@ public class IntentHandler {
                 urlData = new UrlData(mSettings.getHomePage());
             }
 
+            if (intent.getBooleanExtra(Browser.EXTRA_CREATE_NEW_TAB, false)) {
+                mController.openTabAndShow(mTabControl.getCurrentTab(), urlData, false, null);
+                return;
+            }
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
             if ((Intent.ACTION_VIEW.equals(action)
