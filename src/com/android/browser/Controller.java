@@ -678,7 +678,7 @@ public class Controller
     }
 
     void onDestroy() {
-        if (!mUploadHandler.handled()) {
+        if (mUploadHandler != null && !mUploadHandler.handled()) {
             mUploadHandler.onResult(Activity.RESULT_CANCELED, null);
             mUploadHandler = null;
         }
