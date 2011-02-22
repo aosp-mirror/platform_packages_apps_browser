@@ -596,13 +596,17 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         switch (mCurrentView) {
         case VIEW_THUMBNAILS:
             mList.setAdapter(null);
-            mGrid.setAdapter(mAdapter);
+            if (mGrid.getAdapter() != mAdapter) {
+                mGrid.setAdapter(mAdapter);
+            }
             mGrid.setVisibility(View.VISIBLE);
             mList.setVisibility(View.GONE);
             break;
         case VIEW_LIST:
             mGrid.setAdapter(null);
-            mList.setAdapter(mAdapter);
+            if (mList.getAdapter() != mAdapter) {
+                mList.setAdapter(mAdapter);
+            }
             mGrid.setVisibility(View.GONE);
             mList.setVisibility(View.VISIBLE);
             break;
