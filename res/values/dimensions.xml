@@ -24,7 +24,9 @@
     <dimen name="max_tab_width">300dp</dimen>
     <dimen name="bookmarkThumbnailWidth">90dip</dimen>
     <dimen name="bookmarkThumbnailHeight">80dip</dimen>
-    <dimen name="folder_selector_height">230dip</dimen>
+    <!-- Height determined by measuring the TableLayout in
+        browser_add_bookmark_content and matching that. -->
+    <dimen name="folder_selector_height">181dip</dimen>
     <dimen name="widgetItemMinHeight">48dip</dimen>
     <dimen name="favicon_size">16dip</dimen>
     <dimen name="favicon_padded_size">20dip</dimen>

@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:stretchColumns="1"
         android:shrinkColumns="1"
-        android:paddingTop="20dip"
+        android:paddingTop="10dip"
         android:paddingLeft="20dip"
         android:paddingRight="20dip" >
       <TableRow>
@@ -110,7 +110,7 @@
             android:id="@+id/titleText"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="40dip"
+            android:layout_marginBottom="30dip"
             android:text="@string/name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -134,7 +134,7 @@
             android:layout_width="wrap_content"
             android:text="@string/location"
             android:gravity="left"
-            android:layout_marginBottom="40dip"
+            android:layout_marginBottom="20dip"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
