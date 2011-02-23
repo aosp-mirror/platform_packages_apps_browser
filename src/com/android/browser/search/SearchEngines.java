@@ -15,13 +15,11 @@
  */
 package com.android.browser.search;
 
+import com.android.browser.BrowserSettings;
+import com.android.browser.InstantSearchEngine;
 import com.android.browser.R;
 
-import android.app.SearchManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
@@ -34,6 +32,10 @@ public class SearchEngines {
     private static final String TAG = "SearchEngines";
 
     public static SearchEngine getDefaultSearchEngine(Context context) {
+        if (BrowserSettings.getInstance().useInstant()) {
+            return new InstantSearchEngine(context, DefaultSearchEngine.create(context));
+        }
+
         return DefaultSearchEngine.create(context);
     }
 

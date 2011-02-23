@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.ScrollWebView.ScrollListener;
+import com.android.browser.UI.DropdownChangeListener;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -418,4 +419,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         return mTabBar;
     }
 
+    @Override
+    public void registerDropdownChangeListener(DropdownChangeListener d) {
+        mTitleBar.registerDropdownChangeListener(d);
+    }
 }

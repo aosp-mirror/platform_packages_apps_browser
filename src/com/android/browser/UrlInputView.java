@@ -18,6 +18,7 @@ package com.android.browser;
 
 import com.android.browser.SuggestionsAdapter.CompletionListener;
 import com.android.browser.SuggestionsAdapter.SuggestItem;
+import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.autocomplete.SuggestiveAutoCompleteTextView;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngineInfo;
@@ -25,11 +26,14 @@ import com.android.browser.search.SearchEngines;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.database.DataSetObserver;
+import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -59,6 +63,7 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
     private boolean mIncognitoMode;
     private int mVOffset;
     private boolean mNeedsUpdate;
+    private DropdownChangeListener mDropdownListener;
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -86,6 +91,22 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
         setOnItemClickListener(this);
         mVOffset = 0;
         mNeedsUpdate = false;
+        mDropdownListener = null;
+
+        mAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                if (!isPopupShowing()) {
+                    return;
+                }
+                dispatchChange();
+            }
+
+            @Override
+            public void onInvalidated() {
+                dispatchChange();
+            }
+        });
     }
 
     /**
@@ -135,7 +156,7 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
         mAdapter.setLandscapeMode(mLandscape);
         if (isPopupShowing() && (getVisibility() == View.VISIBLE)) {
             setupDropDown();
-            performFiltering(getText(), 0);
+            performFiltering(getUserText(), 0);
         }
     }
 
@@ -164,12 +185,21 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        finishInput(getText().toString(), null, TYPED);
+        if (BrowserSettings.getInstance().useInstant() &&
+                (actionId == EditorInfo.IME_ACTION_NEXT)) {
+            // When instant is turned on AND the user chooses to complete
+            // using the tab key, then use the completion rather than the
+            // text that the user has typed.
+            finishInput(getText().toString(), null, TYPED);
+        } else {
+            finishInput(getUserText(), null, TYPED);
+        }
+
         return true;
     }
 
     void forceFilter() {
-        performFiltering(getText().toString(), 0);
+        performForcedFiltering();
         showDropDown();
     }
 
@@ -233,8 +263,7 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
     public void onItemClick(
             AdapterView<?> parent, View view, int position, long id) {
         SuggestItem item = mAdapter.getItem(position);
-        onSelect((TextUtils.isEmpty(item.url) ? item.title : item.url),
-            item.type, item.extra);
+        onSelect(SuggestionsAdapter.getSuggestionUrl(item), item.type, item.extra);
     }
 
     interface UrlInputListener {
@@ -263,5 +292,18 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
 
     public SuggestionsAdapter getAdapter() {
         return mAdapter;
+    }
+
+    private void dispatchChange() {
+        final Rect popupRect = new Rect();
+        getPopupDrawableRect(popupRect);
+
+        if (mDropdownListener != null) {
+            mDropdownListener.onNewDropdownDimensions(popupRect.height());
+        }
+    }
+
+    void registerDropdownChangeListener(DropdownChangeListener d) {
+        mDropdownListener = d;
     }
 }

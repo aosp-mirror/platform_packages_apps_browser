@@ -24,6 +24,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.BrowserContract;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,12 +45,12 @@ import java.util.List;
 public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         OnClickListener {
 
-    static final int TYPE_BOOKMARK = 0;
-    static final int TYPE_HISTORY = 1;
-    static final int TYPE_SUGGEST_URL = 2;
-    static final int TYPE_SEARCH = 3;
-    static final int TYPE_SUGGEST = 4;
-    static final int TYPE_VOICE_SEARCH = 5;
+    public static final int TYPE_BOOKMARK = 0;
+    public static final int TYPE_HISTORY = 1;
+    public static final int TYPE_SUGGEST_URL = 2;
+    public static final int TYPE_SEARCH = 3;
+    public static final int TYPE_SUGGEST = 4;
+    public static final int TYPE_VOICE_SEARCH = 5;
 
     private static final String[] COMBINED_PROJECTION =
             {BrowserContract.Combined._ID, BrowserContract.Combined.TITLE,
@@ -58,16 +59,16 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     private static final String COMBINED_SELECTION =
             "(url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ? OR title LIKE ?)";
 
-    Context mContext;
-    Filter mFilter;
+    final Context mContext;
+    final Filter mFilter;
     SuggestionResults mMixedResults;
     List<SuggestItem> mSuggestResults, mFilterResults;
     List<CursorSource> mSources;
     boolean mLandscapeMode;
-    CompletionListener mListener;
-    int mLinesPortrait;
-    int mLinesLandscape;
-    Object mResultsLock = new Object();
+    final CompletionListener mListener;
+    final int mLinesPortrait;
+    final int mLinesLandscape;
+    final Object mResultsLock = new Object();
     List<String> mVoiceResults;
     boolean mReverseResults;
     boolean mIncognitoMode;
@@ -87,6 +88,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
                 getInteger(R.integer.max_suggest_lines_portrait);
         mLinesLandscape = mContext.getResources().
                 getInteger(R.integer.max_suggest_lines_landscape);
+
         mFilter = new SuggestFilter();
         addSource(new CombinedCursor());
     }
@@ -111,13 +113,12 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     @Override
     public void onClick(View v) {
         SuggestItem item = (SuggestItem) ((View) v.getParent()).getTag();
+
         if (R.id.icon2 == v.getId()) {
             // replace input field text with suggestion text
-            mListener.onSearch(item.title);
+            mListener.onSearch(getSuggestionUrl(item));
         } else {
-            mListener.onSelect(
-                    (TextUtils.isEmpty(item.url)? item.title : item.url),
-                    item.type, item.extra);
+            mListener.onSelect(getSuggestionUrl(item), item.type, item.extra);
         }
     }
 
@@ -179,7 +180,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         ImageView ic1 = (ImageView) view.findViewById(R.id.icon1);
         View ic2 = view.findViewById(R.id.icon2);
         View div = view.findViewById(R.id.divider);
-        tv1.setText(item.title);
+        tv1.setText(Html.fromHtml(item.title));
         if (TextUtils.isEmpty(item.url)) {
             tv2.setVisibility(View.GONE);
         } else {
@@ -282,11 +283,16 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             }
         }
 
+        private boolean shouldProcessEmptyQuery() {
+            final SearchEngine searchEngine = BrowserSettings.getInstance().getSearchEngine();
+            return searchEngine.wantsEmptyQuery();
+        }
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults res = new FilterResults();
             if (mVoiceResults == null) {
-                if (TextUtils.isEmpty(constraint)) {
+                if (TextUtils.isEmpty(constraint) && !shouldProcessEmptyQuery()) {
                     res.count = 0;
                     res.values = null;
                     return res;
@@ -313,8 +319,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         }
 
         void mixResults(List<SuggestItem> results) {
-            int maxLines = mLandscapeMode ? mLinesLandscape : mLinesPortrait;
-            maxLines = (int) Math.ceil(maxLines / 2.0);
+            int maxLines = getMaxLines();
             for (int i = 0; i < mSources.size(); i++) {
                 CursorSource s = mSources.get(i);
                 int n = Math.min(s.getCount(), maxLines);
@@ -334,7 +339,12 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
                 notifyDataSetChanged();
             }
         }
+    }
 
+    private int getMaxLines() {
+        int maxLines = mLandscapeMode ? mLinesLandscape : mLinesPortrait;
+        maxLines = (int) Math.ceil(maxLines / 2.0);
+        return maxLines;
     }
 
     /**
@@ -366,11 +376,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         }
 
         int getLineCount() {
-            if (mLandscapeMode) {
-                return Math.min(mLinesLandscape, items.size());
-            } else {
-                return Math.min(mLinesPortrait, items.size());
-            }
+            return Math.min((mLandscapeMode ? mLinesLandscape : mLinesPortrait), items.size());
         }
 
         @Override
@@ -543,8 +549,8 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             if (mCursor != null) {
                 mCursor.close();
             }
+            SearchEngine searchEngine = BrowserSettings.getInstance().getSearchEngine();
             if (!TextUtils.isEmpty(constraint)) {
-                SearchEngine searchEngine = BrowserSettings.getInstance().getSearchEngine();
                 if (searchEngine != null && searchEngine.supportsSuggestions()) {
                     mCursor = searchEngine.getSuggestions(mContext, constraint.toString());
                     if (mCursor != null) {
@@ -552,19 +558,44 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
                     }
                 }
             } else {
+                if (searchEngine.wantsEmptyQuery()) {
+                    mCursor = searchEngine.getSuggestions(mContext, "");
+                }
                 mCursor = null;
             }
         }
 
     }
 
+    private boolean useInstant() {
+        return BrowserSettings.getInstance().useInstant();
+    }
+
     public void clearCache() {
         mFilterResults = null;
         mSuggestResults = null;
+        notifyDataSetInvalidated();
     }
 
     public void setIncognitoMode(boolean incognito) {
         mIncognitoMode = incognito;
         clearCache();
+    }
+
+    static String getSuggestionTitle(SuggestItem item) {
+        // There must be a better way to strip HTML from things.
+        // This method is used in multiple places. It is also more
+        // expensive than a standard html escaper.
+        return (item.title != null) ? Html.fromHtml(item.title).toString() : null;
+    }
+
+    static String getSuggestionUrl(SuggestItem item) {
+        final String title = SuggestionsAdapter.getSuggestionTitle(item);
+
+        if (TextUtils.isEmpty(item.url)) {
+            return title;
+        }
+
+        return item.url;
     }
 }

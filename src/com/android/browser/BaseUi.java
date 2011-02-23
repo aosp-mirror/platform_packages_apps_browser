@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.Tab.LockIcon;
+import com.android.browser.UI.DropdownChangeListener;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -690,4 +691,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         warning.show();
     }
 
+    @Override
+    public void registerDropdownChangeListener(DropdownChangeListener d) {
+    }
 }
