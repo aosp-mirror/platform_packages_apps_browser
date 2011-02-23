@@ -1089,8 +1089,7 @@ public class Controller
                 break;
             case FILE_SELECTED:
                 // Chose a file from the file picker.
-                if (null == mUploadHandler)
-                    break;
+                if (null == mUploadHandler) break;
                 mUploadHandler.onResult(resultCode, intent);
                 break;
             case AUTOFILL_SETUP:
