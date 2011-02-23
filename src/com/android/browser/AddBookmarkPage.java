@@ -321,6 +321,7 @@ public class AddBookmarkPage extends Activity
                 LoaderManager manager = getLoaderManager();
                 manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
                 manager.restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
+                break;
             default:
                 break;
         }
