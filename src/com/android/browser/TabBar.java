@@ -475,12 +475,14 @@ public class TabBar extends LinearLayout
                     mInactiveShaderPaint.setShader(mInactiveShader);
                 }
             }
-
-            int state = canvas.save();
-            getLocationInWindow(mWindowPos);
-            Paint paint = mSelected ? mActiveShaderPaint : mInactiveShaderPaint;
-            drawClipped(canvas, paint, mPath, mWindowPos[0]);
-            canvas.restoreToCount(state);
+            // add some monkey protection
+            if ((mActiveShader != null) && (mInactiveShader != null)) {
+                int state = canvas.save();
+                getLocationInWindow(mWindowPos);
+                Paint paint = mSelected ? mActiveShaderPaint : mInactiveShaderPaint;
+                drawClipped(canvas, paint, mPath, mWindowPos[0]);
+                canvas.restoreToCount(state);
+            }
             super.dispatchDraw(canvas);
         }
 
