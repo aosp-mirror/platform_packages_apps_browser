@@ -202,6 +202,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void setActiveTab(Tab tab) {
+        if (mTitleBar.isEditingUrl()) {
+            mTitleBar.stopEditingUrl();
+        }
         super.setActiveTab(tab);
         ScrollWebView view = (ScrollWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
