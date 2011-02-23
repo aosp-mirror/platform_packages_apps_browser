@@ -223,7 +223,6 @@ public class BookmarkUtils {
     }
 
     public static Uri.Builder addAccountInfo(Context context, Uri.Builder ub) {
-        Uri uri = BrowserContract.Bookmarks.CONTENT_URI;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
         String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
