@@ -431,7 +431,7 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.TITLE
                 };
                 return new CursorLoader(this,
-                        BrowserContract.Bookmarks.CONTENT_URI,
+                        BookmarkUtils.getBookmarksUri(this),
                         projection,
                         BrowserContract.Bookmarks._ID + " = "
                                 + args.getLong(BrowserContract.Bookmarks._ID),
@@ -445,7 +445,7 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.IS_FOLDER
                 };
                 return new CursorLoader(this,
-                        BrowserContract.Bookmarks.CONTENT_URI,
+                        BookmarkUtils.getBookmarksUri(this),
                         projection,
                         BrowserContract.Bookmarks.IS_FOLDER + " != 0",
                         null,
@@ -472,7 +472,7 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.PARENT
                 };
                 return new CursorLoader(this,
-                        BrowserContract.Bookmarks.CONTENT_URI,
+                        BookmarkUtils.getBookmarksUri(this),
                         projection,
                         BrowserContract.Bookmarks.IS_FOLDER + " = 0",
                         null,
