@@ -1142,12 +1142,20 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     values.put(Bookmarks.DATE_MODIFIED, now);
                     values.put(Bookmarks.DIRTY, 1);
 
+                    String accountType = values
+                            .getAsString(Bookmarks.ACCOUNT_TYPE);
+                    String accountName = values
+                            .getAsString(Bookmarks.ACCOUNT_NAME);
+                    boolean hasParent = values.containsKey(Bookmarks.PARENT);
+                    if (hasParent) {
+                        // Let's make sure it's valid
+                        long parentId = values.getAsLong(Bookmarks.PARENT);
+                        hasParent = isValidParent(
+                                accountType, accountName, parentId);
+                    }
+
                     // If no parent is set default to the "Bookmarks Bar" folder
-                    if (!values.containsKey(Bookmarks.PARENT)) {
-                        String accountType = values
-                                .getAsString(Bookmarks.ACCOUNT_TYPE);
-                        String accountName = values
-                                .getAsString(Bookmarks.ACCOUNT_NAME);
+                    if (!hasParent) {
                         values.put(Bookmarks.PARENT,
                                 queryDefaultFolderId(accountName, accountType));
                     }
@@ -1223,6 +1231,27 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             return ContentUris.withAppendedId(uri, id);
         } else {
             return null;
+        }
+    }
+
+    private boolean isValidParent(String accountType, String accountName,
+            long parentId) {
+        Uri uri = Bookmarks.buildFolderUri(parentId);
+        Cursor c = query(uri,
+                new String[] { Bookmarks.ACCOUNT_NAME, Bookmarks.ACCOUNT_TYPE },
+                null, null, null);
+        try {
+            if (c.moveToFirst()) {
+                String parentName = c.getString(0);
+                String parentType = c.getString(1);
+                if (TextUtils.equals(accountName, parentName)
+                        && TextUtils.equals(accountType, parentType)) {
+                    return true;
+                }
+            }
+            return false;
+        } finally {
+            c.close();
         }
     }
 
