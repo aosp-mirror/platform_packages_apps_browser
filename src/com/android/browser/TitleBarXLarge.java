@@ -297,7 +297,7 @@ public class TitleBarXLarge extends TitleBarBase
                 mVoiceSearchIndicator.setVisibility(View.VISIBLE);
             }
             mWebIcon.setImageResource(R.drawable.ic_search_holo_dark);
-            updateSearchMode();
+            updateSearchMode(false);
         } else {
             mGoButton.setVisibility(View.GONE);
             mVoiceSearch.setVisibility(View.GONE);
@@ -347,8 +347,8 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    private void updateSearchMode() {
-        setSearchMode(TextUtils.isEmpty(mUrlInput.getText()));
+    private void updateSearchMode(boolean userEdited) {
+        setSearchMode(!userEdited || TextUtils.isEmpty(mUrlInput.getText()));
     }
 
     private void setSearchMode(boolean voiceSearchEnabled) {
@@ -375,7 +375,7 @@ public class TitleBarXLarge extends TitleBarBase
     public void afterTextChanged(Editable s) {
         if (mUrlInput.hasFocus()) {
             // check if input field is empty and adjust voice search state
-            updateSearchMode();
+            updateSearchMode(true);
             // clear voice mode when user types
             setInVoiceMode(false, null);
         }
