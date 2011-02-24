@@ -163,6 +163,11 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
+    @Override
+    public int getEmbeddedHeight() {
+        return mContainer.getHeight();
+    }
+
     void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
         mUrlInput.setUseQuickControls(mUseQuickControls);

@@ -33,6 +33,7 @@ public class ScrollWebView extends WebView implements Runnable {
     private boolean mIsCancelled;
     private boolean mBackgroundRemoved = false;
     private boolean mUserInitiated = false;
+    private TitleBarBase mTitleBar;
 
     /**
      * @param context
@@ -70,6 +71,11 @@ public class ScrollWebView extends WebView implements Runnable {
         super(context);
     }
 
+    @Override
+    protected int getTitleHeight() {
+        return (mTitleBar != null) ? mTitleBar.getEmbeddedHeight() : 0;
+    }
+
     // scroll runnable implementation
     public void run() {
         if (!mIsCancelled && (mScrollListener != null)) {
@@ -84,6 +90,7 @@ public class ScrollWebView extends WebView implements Runnable {
     @Override
     public void setEmbeddedTitleBar(final View title) {
         super.setEmbeddedTitleBar(title);
+        mTitleBar = (TitleBarBase) title;
         if (title != null && mScrollListener != null) {
             // allow the scroll listener to initialize its state
             post(this);

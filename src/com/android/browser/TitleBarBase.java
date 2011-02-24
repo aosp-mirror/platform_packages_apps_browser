@@ -113,6 +113,10 @@ public class TitleBarBase extends LinearLayout implements UrlInputListener {
         }
     }
 
+    public int getEmbeddedHeight() {
+        return getHeight();
+    }
+
     // UrlInputListener implementation
 
     /**
