@@ -317,7 +317,10 @@ public class Controller
             if (urlData.isEmpty()) {
                 loadUrl(webView, mSettings.getHomePage());
             } else {
-                loadUrlDataIn(t, urlData);
+                // monkey protection against delayed start
+                if (t != null) {
+                    loadUrlDataIn(t, urlData);
+                }
             }
         } else {
             mTabControl.restoreState(icicle, currentTab, restoreIncognitoTabs,
@@ -2088,9 +2091,12 @@ public class Controller
     }
 
     protected void setActiveTab(Tab tab) {
-        mTabControl.setCurrentTab(tab);
-        // the tab is guaranteed to have a webview after setCurrentTab
-        mUi.setActiveTab(tab);
+        // monkey protection against delayed start
+        if (tab != null) {
+            mTabControl.setCurrentTab(tab);
+            // the tab is guaranteed to have a webview after setCurrentTab
+            mUi.setActiveTab(tab);
+        }
     }
 
     protected void closeEmptyChildTab() {
