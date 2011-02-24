@@ -41,6 +41,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -85,6 +86,12 @@ public class GoogleAccountLogin implements Runnable,
         mAccount = new Account(name, GOOGLE);
         mWebView = new WebView(mActivity);
         mRunnable = runnable;
+
+        // XXX: Doing pre-login causes onResume to skip calling
+        // resumeWebViewTimers. So to avoid problems with timers not running, we
+        // duplicate the work here using the off-screen WebView.
+        CookieSyncManager.getInstance().startSync();
+        mWebView.resumeTimers();
 
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
