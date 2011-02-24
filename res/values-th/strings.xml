@@ -18,6 +18,8 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"เบราว์เซอร์"</string>
     <string name="choose_upload" msgid="3649366287575002063">"เลือกไฟล์ที่จะอัปโหลด"</string>
+    <!-- no translation found for uploads_disabled (463761197575372994) -->
+    <skip />
     <string name="new_tab" msgid="4505722538297295141">"หน้าต่างใหม่"</string>
     <string name="new_incognito_tab" msgid="5821404839654751753">"หน้าต่างใหม่ที่ไม่ระบุตัวตน"</string>
     <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
