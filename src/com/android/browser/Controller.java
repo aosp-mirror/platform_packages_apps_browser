@@ -2489,15 +2489,8 @@ public class Controller
                 return true;
             case KeyEvent.KEYCODE_BACK:
                 if (!noModifiers) break;
-                if (event.getRepeatCount() == 0) {
-                    event.startTracking();
-                    return true;
-                } else if (mUi.showsWeb()
-                        && event.isLongPress()) {
-                    bookmarksOrHistoryPicker(true);
-                    return true;
-                }
-                break;
+                event.startTracking();
+                return true;
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if (ctrl) {
                     webView.goBack();
@@ -2560,6 +2553,18 @@ public class Controller
         }
         // it is a regular key and webview is not null
          return mUi.dispatchKey(keyCode, event);
+    }
+
+    boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        switch(keyCode) {
+        case KeyEvent.KEYCODE_BACK:
+            if (mUi.showsWeb()) {
+                bookmarksOrHistoryPicker(true);
+                return true;
+            }
+            break;
+        }
+        return false;
     }
 
     boolean onKeyUp(int keyCode, KeyEvent event) {
