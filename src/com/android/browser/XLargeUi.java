@@ -32,6 +32,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 
 import java.util.List;
 
@@ -333,7 +334,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     protected void showTitleBar() {
         if (canShowTitleBar()) {
             if (mUseQuickControls) {
-                setTitleGravity(Gravity.BOTTOM);
                 mContentView.addView(mTitleBar);
             } else {
                 setTitleGravity(Gravity.TOP);
@@ -347,9 +347,10 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     protected void hideTitleBar() {
         if (isTitleBarShowing()) {
             mTabBar.onHideTitleBar();
-            setTitleGravity(Gravity.NO_GRAVITY);
             if (mUseQuickControls) {
                 mContentView.removeView(mTitleBar);
+            } else {
+                setTitleGravity(Gravity.NO_GRAVITY);
             }
             super.hideTitleBar();
         }
@@ -362,6 +363,18 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     protected TitleBarBase getTitleBar() {
         return mTitleBar;
+    }
+
+    @Override
+    protected void setTitleGravity(int gravity) {
+        if (mUseQuickControls) {
+            FrameLayout.LayoutParams lp =
+                (FrameLayout.LayoutParams) mTitleBar.getLayoutParams();
+            lp.gravity = gravity;
+            mTitleBar.setLayoutParams(lp);
+        } else {
+            super.setTitleGravity(gravity);
+        }
     }
 
     // action mode callbacks

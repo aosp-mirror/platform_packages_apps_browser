@@ -57,7 +57,6 @@ public class UrlInputView extends AutoCompleteTextView
     private View mContainer;
     private boolean mLandscape;
     private boolean mIncognitoMode;
-    private int mVOffset;
     private boolean mNeedsUpdate;
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
@@ -84,7 +83,6 @@ public class UrlInputView extends AutoCompleteTextView
         onConfigurationChanged(ctx.getResources().getConfiguration());
         setThreshold(1);
         setOnItemClickListener(this);
-        mVOffset = 0;
         mNeedsUpdate = false;
     }
 
@@ -109,9 +107,6 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     void setUseQuickControls(boolean useQuickControls) {
-        mVOffset = (useQuickControls
-                ? (int) getResources().getDimension(R.dimen.dropdown_offset)
-                : 0);
         mAdapter.setReverseResults(useQuickControls);
     }
 
@@ -159,7 +154,6 @@ public class UrlInputView extends AutoCompleteTextView
         if (getLeft() != -getDropDownHorizontalOffset()) {
             setDropDownHorizontalOffset(-getLeft());
         }
-        setDropDownVerticalOffset(mVOffset);
     }
 
     @Override

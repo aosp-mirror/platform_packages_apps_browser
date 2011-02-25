@@ -20,15 +20,21 @@ import com.android.browser.R;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -63,6 +69,17 @@ public class PieMenu extends FrameLayout {
     private List<View> mStack;
 
     private boolean mDirty;
+
+    private Drawable mActiveDrawable;
+    private Drawable mInactiveDrawable;
+    private final Paint mActiveShaderPaint = new Paint();
+    private final Paint mInactiveShaderPaint = new Paint();
+    private final Matrix mActiveMatrix = new Matrix();
+    private final Matrix mInactiveMatrix = new Matrix();
+
+    private BitmapShader mActiveShader;
+    private BitmapShader mInactiveShader;
+
 
     /**
      * @param context
@@ -111,6 +128,37 @@ public class PieMenu extends FrameLayout {
         setDrawingCacheEnabled(false);
         mCenter = new Point(0,0);
         mDirty = true;
+        mActiveShaderPaint.setStyle(Paint.Style.FILL);
+        mActiveShaderPaint.setAntiAlias(true);
+
+        mInactiveShaderPaint.setStyle(Paint.Style.FILL);
+        mInactiveShaderPaint.setAntiAlias(true);
+        mActiveDrawable = res.getDrawable(R.drawable.qc_background_selected);
+        mInactiveDrawable = res.getDrawable(R.drawable.qc_background_normal);
+
+        Bitmap activeTexture = getDrawableAsBitmap(mActiveDrawable,
+                mActiveDrawable.getIntrinsicWidth(),
+                mActiveDrawable.getIntrinsicHeight());
+        Bitmap inactiveTexture = getDrawableAsBitmap(mInactiveDrawable,
+                mInactiveDrawable.getIntrinsicWidth(),
+                mInactiveDrawable.getIntrinsicHeight());
+
+        mActiveShader = new BitmapShader(activeTexture,
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        mActiveShaderPaint.setShader(mActiveShader);
+
+        mInactiveShader = new BitmapShader(inactiveTexture,
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        mInactiveShaderPaint.setShader(mInactiveShader);
+
+    }
+
+    private static Bitmap getDrawableAsBitmap(Drawable drawable, int width, int height) {
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        drawable.setBounds(0, 0, width, height);
+        drawable.draw(c);
+        return b;
     }
 
     public void setController(PieController ctl) {
@@ -268,10 +316,15 @@ public class PieMenu extends FrameLayout {
             tag.sweep = sweep;
             tag.inner = inner;
             tag.outer = outer;
-
-            Paint p = item.isPressed() ? mSelectedPaint : mPaint;
-            canvas.drawPath(slice, p);
             int state = canvas.save();
+            int[] topLeft = new int[2];
+            getLocationInWindow(topLeft);
+            topLeft[0] = mCenter.x - outer;
+            topLeft[1] = mCenter.y - outer;
+            Paint paint = item.isPressed() ? mActiveShaderPaint : mInactiveShaderPaint;
+            drawClipped(canvas, paint, slice, topLeft, item.isPressed());
+            canvas.restoreToCount(state);
+            state = canvas.save();
             if (onTheLeft()) {
                 canvas.scale(-1, 1);
             }
@@ -286,6 +339,16 @@ public class PieMenu extends FrameLayout {
         }
         return newanchor;
     }
+
+    private void drawClipped(Canvas canvas, Paint paint, Path clipPath, int[] pos,
+            boolean selected) {
+        // TODO: We should change the matrix/shader only when needed
+        final Matrix matrix = selected ? mActiveMatrix : mInactiveMatrix;
+        matrix.setTranslate(pos[0], pos[1]);
+        (selected ? mActiveShader : mInactiveShader).setLocalMatrix(matrix);
+        canvas.drawPath(clipPath, paint);
+    }
+
 
     /**
      * converts a
@@ -391,6 +454,7 @@ public class PieMenu extends FrameLayout {
         }
         if (view != null) {
             // clear up stack
+            playSoundEffect(SoundEffectConstants.CLICK);
             MenuTag tag = (MenuTag) view.getTag();
             int i = mStack.size() - 1;
             while (i > 0) {

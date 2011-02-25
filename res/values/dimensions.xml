@@ -45,7 +45,6 @@
     <dimen name="list_favicon_padding">5dip</dimen>
     <dimen name="list_favicon_corner_radius">3dip</dimen>
     <dimen name="tab_favicon_corner_radius">2dip</dimen>
-    <dimen name="dropdown_offset">8dip</dimen>
     <dimen name="widgetThumbnailHeight">104dip</dimen>
     <dimen name="widgetHorizontalSpacing">14dip</dimen>
     <dimen name="widgetVerticalSpacing">12dip</dimen>

@@ -170,17 +170,6 @@ public class TitleBarXLarge extends TitleBarBase
         mUseQuickControls = useQuickControls;
         mUrlInput.setUseQuickControls(mUseQuickControls);
         setLayoutParams(makeLayoutParams());
-        if (mUseQuickControls) {
-            mBackButton.setVisibility(View.GONE);
-            mForwardButton.setVisibility(View.GONE);
-            mStopButton.setVisibility(View.GONE);
-            mAllButton.setVisibility(View.GONE);
-        } else {
-            mBackButton.setVisibility(View.VISIBLE);
-            mForwardButton.setVisibility(View.VISIBLE);
-            mStopButton.setVisibility(View.VISIBLE);
-            mAllButton.setVisibility(View.VISIBLE);
-        }
     }
 
     void setShowProgressOnly(boolean progress) {
@@ -207,6 +196,9 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (!mUrlInput.needsUpdate()) {
             mUrlInput.dismissDropDown();
             mUrlInput.hideIME();
+            if (mUseQuickControls) {
+                mUi.hideTitleBar();
+            }
         }
         mUrlInput.clearNeedsUpdate();
     }

@@ -64,22 +64,22 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.MATCH_PARENT);
             mPie.setLayoutParams(lp);
-            mForward = makeMenuView(R.drawable.ic_pie_forward);
-            mPie.addItem(mForward);
-            mRefresh = makeMenuView(R.drawable.ic_pie_refresh);
-            mPie.addItem(mRefresh);
+            mNewTab = makeMenuView(R.drawable.ic_pie_new_tab);
+            mPie.addItem(mNewTab);
             mBack = makeMenuView(R.drawable.ic_pie_back);
             mPie.addItem(mBack);
             mUrl = makeMenuView(R.drawable.ic_pie_web);
             mPie.addItem(mUrl);
             mBookmarks = makeMenuView(R.drawable.ic_pie_bookmarks);
             mPie.addItem(mBookmarks);
-            mNewTab = makeMenuView(R.drawable.ic_pie_new_tab);
-            mPie.addItem(mNewTab);
             mOptions = makeMenuView(R.drawable.ic_pie_more);
             mPie.addItem(mOptions);
-            setClickListener(mBack, mForward, mRefresh, mUrl, mOptions,
-                    mBookmarks, mNewTab);
+            setClickListener(mBack,
+                    mUrl,
+                    mOptions,
+                    mBookmarks,
+                    mNewTab
+                    );
             mPie.setController(this);
         }
         container.addView(mPie);
