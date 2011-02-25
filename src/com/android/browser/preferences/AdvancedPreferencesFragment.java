@@ -16,9 +16,11 @@
 
 package com.android.browser.preferences;
 
+import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserSettings;
 import com.android.browser.R;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -60,6 +62,9 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
                 .getString(BrowserSettings.PREF_DEFAULT_ZOOM, null)) );
 
         e = findPreference(BrowserSettings.PREF_DEFAULT_TEXT_ENCODING);
+        e.setOnPreferenceChangeListener(this);
+
+        e = findPreference(BrowserSettings.PREF_EXTRAS_RESET_DEFAULTS);
         e.setOnPreferenceChangeListener(this);
 
         e = findPreference(BrowserSettings.PREF_PLUGIN_STATE);
@@ -121,7 +126,8 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         } else if (pref.getKey().equals(BrowserSettings.PREF_EXTRAS_RESET_DEFAULTS)) {
             Boolean value = (Boolean) objValue;
             if (value.booleanValue() == true) {
-                getActivity().finish();
+                startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
+                        getActivity(), BrowserActivity.class));
                 return true;
             }
         } else if (pref.getKey().equals(BrowserSettings.PREF_PLUGIN_STATE)) {
