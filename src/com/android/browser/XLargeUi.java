@@ -20,6 +20,7 @@ import com.android.browser.ScrollWebView.ScrollListener;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
@@ -133,7 +134,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
                 android.R.attr.webViewStyle, privateBrowsing);
         initWebViewSettings(w);
         w.setScrollListener(this);
-        w.getSettings().setDisplayZoomControls(false);
+        boolean supportsMultiTouch = mActivity.getPackageManager()
+                .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH);
+        w.getSettings().setDisplayZoomControls(!supportsMultiTouch);
         w.setExpandedTileBounds(true);  // smoother scrolling
         return w;
     }
