@@ -206,37 +206,41 @@ public class TitleBar extends LinearLayout {
                 break;
             case MotionEvent.ACTION_UP:
                 if (button.isPressed()) {
-                    if (mInVoiceMode) {
-                        if (mBrowserActivity.getTabControl().getCurrentTab()
-                                .voiceSearchSourceIsGoogle()) {
-                            Intent i = new Intent(
-                                    LoggingEvents.ACTION_LOG_EVENT);
-                            i.putExtra(LoggingEvents.EXTRA_EVENT,
-                                    LoggingEvents.VoiceSearch.RETRY);
-                            mBrowserActivity.sendBroadcast(i);
+                    if (mBrowserActivity.getTabControl().getCurrentTab() != null) {
+                        if (mInVoiceMode) {
+                            if (mBrowserActivity.getTabControl().getCurrentTab()
+                                    .voiceSearchSourceIsGoogle()) {
+                                Intent i = new Intent(
+                                        LoggingEvents.ACTION_LOG_EVENT);
+                                i.putExtra(LoggingEvents.EXTRA_EVENT,
+                                        LoggingEvents.VoiceSearch.RETRY);
+                                mBrowserActivity.sendBroadcast(i);
+                            }
+                            mBrowserActivity.startActivity(mVoiceSearchIntent);
+                        } else if (mInLoad) {
+                            mBrowserActivity.stopLoading();
+                        } else {
+                            mBrowserActivity.bookmarksOrHistoryPicker(false);
                         }
-                        mBrowserActivity.startActivity(mVoiceSearchIntent);
-                    } else if (mInLoad) {
-                        mBrowserActivity.stopLoading();
-                    } else {
-                        mBrowserActivity.bookmarksOrHistoryPicker(false);
                     }
                     button.setPressed(false);
                 } else if (mTitleBg.isPressed()) {
                     mHandler.removeMessages(LONG_PRESS);
-                    if (mInVoiceMode) {
-                        if (mBrowserActivity.getTabControl().getCurrentTab()
-                                .voiceSearchSourceIsGoogle()) {
-                            Intent i = new Intent(
-                                    LoggingEvents.ACTION_LOG_EVENT);
-                            i.putExtra(LoggingEvents.EXTRA_EVENT,
-                                    LoggingEvents.VoiceSearch.N_BEST_REVEAL);
-                            mBrowserActivity.sendBroadcast(i);
+                    if (mBrowserActivity.getTabControl().getCurrentTab() != null) {
+                        if (mInVoiceMode) {
+                            if (mBrowserActivity.getTabControl().getCurrentTab()
+                                    .voiceSearchSourceIsGoogle()) {
+                                Intent i = new Intent(
+                                        LoggingEvents.ACTION_LOG_EVENT);
+                                i.putExtra(LoggingEvents.EXTRA_EVENT,
+                                        LoggingEvents.VoiceSearch.N_BEST_REVEAL);
+                                mBrowserActivity.sendBroadcast(i);
+                            }
+                            mBrowserActivity.showVoiceSearchResults(
+                                    mTitle.getText().toString().trim());
+                        } else {
+                            mBrowserActivity.editUrl();
                         }
-                        mBrowserActivity.showVoiceSearchResults(
-                                mTitle.getText().toString().trim());
-                    } else {
-                        mBrowserActivity.editUrl();
                     }
                     mTitleBg.setPressed(false);
                 }
