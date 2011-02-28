@@ -45,6 +45,8 @@
             android:title="@string/share_page"
             android:icon="@drawable/ic_share_holo_dark"
             android:alphabeticShortcut="s" />
+        <item android:id="@+id/save_webarchive_menu_id"
+            android:title="@string/menu_save_webarchive" />
         <item android:id="@+id/page_info_menu_id"
             android:title="@string/page_info"
             android:icon="@drawable/ic_pageinfo_holo_dark"
@@ -57,8 +59,6 @@
             android:title="@string/menu_preferences"
             android:icon="@drawable/ic_settings_holo_dark"
             android:alphabeticShortcut="p" />
-        <item android:id="@+id/save_webarchive_menu_id"
-            android:title="@string/menu_save_webarchive" />
         <!-- followings are debug only -->
         <item android:id="@+id/dump_nav_menu_id"
             android:title="@string/dump_nav"
