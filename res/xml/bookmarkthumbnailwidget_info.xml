@@ -21,5 +21,6 @@
     android:minHeight="219dip"
     android:updatePeriodMillis="0"
     android:previewImage="@drawable/browser_widget_preview"
-    android:initialLayout="@layout/bookmarkthumbnailwidget">
+    android:initialLayout="@layout/bookmarkthumbnailwidget"
+    android:resizeMode="vertical">
 </appwidget-provider>
