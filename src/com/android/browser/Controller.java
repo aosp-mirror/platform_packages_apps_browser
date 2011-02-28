@@ -2372,19 +2372,9 @@ public class Controller
                 closeTab(current);
             } else {
                 if (current.closeOnExit()) {
-                    // force the tab's inLoad() to be false as we are going to
-                    // either finish the activity or remove the tab. This will
-                    // ensure pauseWebViewTimers() taking action.
-                    current.clearInPageLoad();
-                    if (mTabControl.getTabCount() == 1) {
-                        mActivity.finish();
-                        return;
-                    }
-                    if (mActivityPaused) {
-                        Log.e(LOGTAG, "BrowserActivity is already paused "
-                                + "while handing goBackOnePageOrQuit.");
-                    }
-                    pauseWebViewTimers(current);
+                    // This will finish the activity if there is only one tab
+                    // open or it will switch to the next available tab if
+                    // available.
                     closeCurrentTab();
                 }
                 /*
