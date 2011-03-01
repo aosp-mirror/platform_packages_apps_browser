@@ -1468,8 +1468,10 @@ public class Controller
                 newtab.setEnabled(getTabControl().canCreateNewTab());
 
                 MenuItem archive = menu.findItem(R.id.save_webarchive_menu_id);
-                String url = w != null ? w.getUrl() : null;
-                archive.setVisible(url != null && !url.endsWith(".webarchivexml"));
+                Tab tab = getTabControl().getCurrentTab();
+                String url = tab != null ? tab.getUrl() : null;
+                archive.setVisible(!TextUtils.isEmpty(url)
+                        && !url.endsWith(".webarchivexml"));
                 break;
         }
         mCurrentMenuState = mMenuState;
@@ -1591,6 +1593,7 @@ public class Controller
                 }
                 WebView topWebView = getCurrentTopWebView();
                 final String title = topWebView.getTitle();
+                final String url = topWebView.getUrl();
                 topWebView.saveWebArchive(directory, true,
                         new ValueCallback<String>() {
                     @Override
@@ -1614,8 +1617,8 @@ public class Controller
                                 return;
                             }
                         }
-                        Toast.makeText(mActivity,
-                                R.string.webarchive_failed, Toast.LENGTH_SHORT).show();
+                        DownloadHandler.onDownloadStartNoStream(mActivity,
+                                url, null, null, null);
                     }
                 });
                 break;

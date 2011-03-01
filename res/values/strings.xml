@@ -235,12 +235,12 @@
     <string name="copy_page_url">Copy page url</string>
     <!-- Menu item -->
     <string name="share_page">Share page</string>
-    <!-- Menu item for saving a page as a web archive. -->
-    <string name="menu_save_webarchive">Save as Web Archive</string>
-    <!-- Toast informing the user that the page has been saved. -->
-    <string name="webarchive_saved">Web archive saved.</string>
-    <!-- Toast informing the user that saving the page has failed. -->
-    <string name="webarchive_failed">Failed to save web archive.</string>
+    <!-- Menu item for saving a page. [CHAR LIMIT=30] -->
+    <string name="menu_save_webarchive">Save page</string>
+    <!-- Toast informing the user that the page has been saved. [CHAR LIMIT=50] -->
+    <string name="webarchive_saved">Page saved.</string>
+    <!-- Toast informing the user that saving the page has failed. [CHAR LIMIT=50] -->
+    <string name="webarchive_failed">Failed to save page.</string>
     <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
     <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> bookmarks</string>
     <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
