@@ -17,6 +17,9 @@ LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
 LOCAL_EMMA_COVERAGE_FILTER := *,-com.android.common.*
 
+# We need the sound recorder for the Media Capture API.
+LOCAL_REQUIRED_MODULES := SoundRecorder
+
 include $(BUILD_PACKAGE)
 
 # additionally, build tests in sub-folders in a separate .apk
