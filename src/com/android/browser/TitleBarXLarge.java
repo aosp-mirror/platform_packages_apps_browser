@@ -57,15 +57,14 @@ public class TitleBarXLarge extends TitleBarBase
     private ImageButton mBackButton;
     private ImageButton mForwardButton;
     private ImageView mStar;
-    private ImageView mWebIcon;
-    private View mSearchButton;
+    private ImageView mUrlIcon;
+    private ImageView mSearchButton;
     private View mUrlContainer;
     private View mGoButton;
     private ImageView mStopButton;
     private View mAllButton;
     private View mClearButton;
-    private View mVoiceSearch;
-    private View mVoiceSearchIndicator;
+    private ImageView mVoiceSearch;
     private PageProgressView mProgressView;
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
@@ -111,17 +110,16 @@ public class TitleBarXLarge extends TitleBarBase
         // back/forward.  Probably should be done inside onPageStarted.
         mBackButton = (ImageButton) findViewById(R.id.back);
         mForwardButton = (ImageButton) findViewById(R.id.forward);
-        mWebIcon = (ImageView) findViewById(R.id.web_icon);
+        mUrlIcon = (ImageView) findViewById(R.id.url_icon);
         mStar = (ImageView) findViewById(R.id.star);
         mStopButton = (ImageView) findViewById(R.id.stop);
-        mSearchButton = findViewById(R.id.search);
+        mSearchButton = (ImageView) findViewById(R.id.search);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mGoButton = findViewById(R.id.go);
         mClearButton = findViewById(R.id.clear);
-        mVoiceSearch = findViewById(R.id.voicesearch);
+        mVoiceSearch = (ImageView) findViewById(R.id.voicesearch);
         mProgressView = (PageProgressView) findViewById(R.id.progress);
         mUrlContainer = findViewById(R.id.urlbar_focused);
-        mVoiceSearchIndicator = findViewById(R.id.voice_icon);
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
         mStar.setOnClickListener(this);
@@ -293,23 +291,21 @@ public class TitleBarXLarge extends TitleBarBase
             mSearchButton.setVisibility(View.GONE);
             mStar.setVisibility(View.GONE);
             mClearButton.setVisibility(View.VISIBLE);
-            if (mInVoiceMode) {
-                mVoiceSearchIndicator.setVisibility(View.VISIBLE);
-            }
-            mWebIcon.setImageResource(R.drawable.ic_search_holo_dark);
+            mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
             updateSearchMode(false);
         } else {
             mGoButton.setVisibility(View.GONE);
             mVoiceSearch.setVisibility(View.GONE);
             mStar.setVisibility(View.VISIBLE);
             mClearButton.setVisibility(View.GONE);
-            mVoiceSearchIndicator.setVisibility(View.GONE);
             if (mUseQuickControls) {
                 mSearchButton.setVisibility(View.GONE);
             } else {
                 mSearchButton.setVisibility(View.VISIBLE);
             }
-            mWebIcon.setImageResource(R.drawable.ic_web_holo_dark);
+            mUrlIcon.setImageResource(mInVoiceMode ?
+                    R.drawable.ic_search_holo_dark
+                    : R.drawable.ic_web_holo_dark);
         }
     }
 
@@ -399,9 +395,7 @@ public class TitleBarXLarge extends TitleBarBase
     public void setInVoiceMode(boolean voicemode, List<String> voiceResults) {
         mInVoiceMode = voicemode;
         mUrlInput.setVoiceResults(voiceResults);
-        mVoiceSearchIndicator.setVisibility(mInVoiceMode
-                ? View.VISIBLE : View.GONE);
-        mWebIcon.setVisibility(mInVoiceMode ? View.GONE : View.VISIBLE);
+        mUrlIcon.setImageDrawable(mSearchButton.getDrawable());
     }
 
     @Override
