@@ -18,6 +18,9 @@ package com.android.browser;
 
 import com.android.browser.ScrollWebView.ScrollListener;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -204,11 +207,57 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
-    public void setActiveTab(Tab tab) {
-        if (mTitleBar.isEditingUrl()) {
-            mTitleBar.stopEditingUrl();
+    public void setActiveTab(final Tab tab) {
+        if ((tab != mActiveTab) && (mActiveTab != null)) {
+            // animate between the two
+            final ScrollWebView fromWV = (ScrollWebView) mActiveTab.getWebView();
+            fromWV.setDrawCached(true);
+            fromWV.setEmbeddedTitleBar(null);
+            final ScrollWebView toWV = (ScrollWebView) tab.getWebView();
+            if (!mUseQuickControls) {
+                if (mTitleBar.getParent() == null) {
+                    toWV.setEmbeddedTitleBar(mTitleBar);
+                }
+            }
+            toWV.setDrawCached(true);
+            attachTabToContentView(tab);
+            super.setActiveTab(tab, false);
+            ObjectAnimator transition = ObjectAnimator.ofFloat(
+                    toWV, "alpha", 0f, 1f);
+            transition.setDuration(mActivity.getResources()
+                    .getInteger(R.integer.tabFadeDuration));
+            transition.addListener(new AnimatorListener() {
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    fromWV.setDrawCached(false);
+                    toWV.setDrawCached(false);
+                    setActiveTab(tab, false);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    fromWV.setDrawCached(false);
+                    toWV.setDrawCached(false);
+                    setActiveTab(tab, false);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
+            });
+            transition.start();
+        } else {
+            super.setActiveTab(tab, true);
+            setActiveTab(tab, true);
         }
-        super.setActiveTab(tab);
+    }
+
+    @Override
+    void setActiveTab(Tab tab, boolean needsAttaching) {
         ScrollWebView view = (ScrollWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
         // so the tab is guaranteed to have a webview
@@ -222,7 +271,10 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             view.setScrollListener(null);
             mTabBar.showTitleBarIndicator(false);
         } else {
-            view.setEmbeddedTitleBar(mTitleBar);
+            // check if title bar is already attached by animation
+            if (mTitleBar.getParent() == null) {
+                view.setEmbeddedTitleBar(mTitleBar);
+            }
             view.setScrollListener(this);
         }
         mTabBar.onSetActiveTab(tab);

@@ -25,4 +25,6 @@
     <integer name="most_visits_limit">10</integer>
     <!-- Animation durations -->
     <integer name="comboViewFadeInDuration">400</integer>
+    <!--  fade between tabs duration -->
+    <integer name="tabFadeDuration">300</integer>
 </resources>
