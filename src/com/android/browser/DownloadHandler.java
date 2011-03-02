@@ -53,9 +53,11 @@ public class DownloadHandler {
      * @param userAgent User agent of the downloading application.
      * @param contentDisposition Content-disposition http header, if present.
      * @param mimetype The mimetype of the content reported by the server
+     * @param privateBrowsing If the request is coming from a private browsing tab.
      */
     public static void onDownloadStart(Activity activity, String url,
-            String userAgent, String contentDisposition, String mimetype) {
+            String userAgent, String contentDisposition, String mimetype,
+            boolean privateBrowsing) {
         // if we're dealing wih A/V content that's not explicitly marked
         //     for download, check if it's streamable.
         if (contentDisposition == null
@@ -93,7 +95,7 @@ public class DownloadHandler {
             }
         }
         onDownloadStartNoStream(activity, url, userAgent, contentDisposition,
-                mimetype);
+                mimetype, privateBrowsing);
     }
 
     // This is to work around the fact that java.net.URI throws Exceptions
@@ -134,10 +136,11 @@ public class DownloadHandler {
      * @param userAgent User agent of the downloading application.
      * @param contentDisposition Content-disposition http header, if present.
      * @param mimetype The mimetype of the content reported by the server
+     * @param privateBrowsing If the request is coming from a private browsing tab.
      */
     /*package */ static void onDownloadStartNoStream(Activity activity,
             String url, String userAgent, String contentDisposition,
-            String mimetype) {
+            String mimetype, boolean privateBrowsing) {
 
         String filename = URLUtil.guessFileName(url,
                 contentDisposition, mimetype);
@@ -198,7 +201,7 @@ public class DownloadHandler {
         request.setDescription(webAddress.getHost());
         // XXX: Have to use the old url since the cookies were stored using the
         // old percent-encoded url.
-        String cookies = CookieManager.getInstance().getCookie(url);
+        String cookies = CookieManager.getInstance().getCookie(url, privateBrowsing);
         request.addRequestHeader("cookie", cookies);
         request.setNotificationVisibility(
                 DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);

@@ -488,7 +488,8 @@ public class Controller
                             case R.id.save_link_context_menu_id:
                             case R.id.download_context_menu_id:
                                 DownloadHandler.onDownloadStartNoStream(
-                                        mActivity, url, null, null, null);
+                                        mActivity, url, null, null, null,
+                                        view.isPrivateBrowsingEnabled());
                                 break;
                         }
                         break;
@@ -962,9 +963,10 @@ public class Controller
     @Override
     public void onDownloadStart(Tab tab, String url, String userAgent,
             String contentDisposition, String mimetype, long contentLength) {
+        WebView w = tab.getWebView();
         DownloadHandler.onDownloadStart(mActivity, url, userAgent,
-                contentDisposition, mimetype);
-        if (tab.getWebView().copyBackForwardList().getSize() == 0) {
+                contentDisposition, mimetype, w.isPrivateBrowsingEnabled());
+        if (w.copyBackForwardList().getSize() == 0) {
             // This Tab was opened for the sole purpose of downloading a
             // file. Remove it.
             if (tab == mTabControl.getCurrentTab()) {
@@ -1371,7 +1373,8 @@ public class Controller
                 menu.findItem(R.id.view_image_context_menu_id).setIntent(
                         new Intent(Intent.ACTION_VIEW, Uri.parse(extra)));
                 menu.findItem(R.id.download_context_menu_id).
-                        setOnMenuItemClickListener(new Download(mActivity, extra));
+                        setOnMenuItemClickListener(
+                                new Download(mActivity, extra, webview.isPrivateBrowsingEnabled()));
                 menu.findItem(R.id.set_wallpaper_context_menu_id).
                         setOnMenuItemClickListener(new WallpaperHandler(mActivity,
                                 extra));
@@ -1591,7 +1594,7 @@ public class Controller
                             Toast.LENGTH_SHORT).show();
                     break;
                 }
-                WebView topWebView = getCurrentTopWebView();
+                final WebView topWebView = getCurrentTopWebView();
                 final String title = topWebView.getTitle();
                 final String url = topWebView.getUrl();
                 topWebView.saveWebArchive(directory, true,
@@ -1618,7 +1621,7 @@ public class Controller
                             }
                         }
                         DownloadHandler.onDownloadStartNoStream(mActivity,
-                                url, null, null, null);
+                                url, null, null, null, topWebView.isPrivateBrowsingEnabled());
                     }
                 });
                 break;
@@ -2046,16 +2049,18 @@ public class Controller
     private static class Download implements OnMenuItemClickListener {
         private Activity mActivity;
         private String mText;
+        private boolean mPrivateBrowsing;
 
         public boolean onMenuItemClick(MenuItem item) {
             DownloadHandler.onDownloadStartNoStream(mActivity, mText, null,
-                    null, null);
+                    null, null, mPrivateBrowsing);
             return true;
         }
 
-        public Download(Activity activity, String toDownload) {
+        public Download(Activity activity, String toDownload, boolean privateBrowsing) {
             mActivity = activity;
             mText = toDownload;
+            mPrivateBrowsing = privateBrowsing;
         }
     }
 
