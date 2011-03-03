@@ -51,6 +51,12 @@ public class PieMenu extends FrameLayout {
      */
     public interface PieView {
 
+        public interface OnLayoutListener {
+            public void onLayout(int ax, int ay, boolean left);
+        }
+
+        public void setLayoutListener(OnLayoutListener l);
+
         public void layout(int anchorX, int anchorY, boolean onleft);
 
         public void draw(Canvas c);

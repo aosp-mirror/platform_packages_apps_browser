@@ -21,6 +21,7 @@ import com.android.browser.ScrollWebView.ScrollListener;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -118,15 +119,11 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     private void checkTabCount() {
         if (mUseQuickControls) {
-            if (mTabControl.getTabCount() == 1) {
-                mHandler.post(new Runnable() {
-                    public void run() {
-                        mActionBar.hide();
-                    }
-                });
-            } else {
-                mActionBar.show();
-            }
+            mHandler.post(new Runnable() {
+                public void run() {
+                    mActionBar.hide();
+                }
+            });
         }
     }
 
@@ -223,6 +220,11 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void setActiveTab(final Tab tab) {
+        if (mUseQuickControls) {
+            if (mActiveTab != null) {
+                captureTab(mActiveTab);
+            }
+        }
         super.setActiveTab(tab, true);
         setActiveTab(tab, true);
     }
@@ -256,6 +258,15 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         }
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
+    }
+
+    public void captureTab(final Tab tab) {
+        Bitmap sshot = Controller.createScreenshot(tab,
+                (int) mActivity.getResources()
+                        .getDimension(R.dimen.qc_thumb_width),
+                (int) mActivity.getResources()
+                        .getDimension(R.dimen.qc_thumb_height));
+        tab.setScreenshot(sshot);
     }
 
     @Override

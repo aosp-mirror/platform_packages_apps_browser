@@ -136,6 +136,8 @@ class Tab {
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
 
+    private Bitmap mScreenshot;
+
     // All the state needed for a page
     private static class PageState {
         String mUrl;
@@ -191,6 +193,7 @@ class Tab {
     static final String APPID = "appid";
     static final String ORIGINALURL = "originalUrl";
     static final String INCOGNITO = "privateBrowsingEnabled";
+    static final String SCREENSHOT = "screenshot";
 
     // -------------------------------------------------------------------------
 
@@ -1720,6 +1723,9 @@ class Tab {
             mSavedState.putInt(PARENTTAB, mWebViewController.getTabControl().getTabIndex(
                     mParentTab));
         }
+        if (mScreenshot != null) {
+            mSavedState.putParcelable(SCREENSHOT, mScreenshot);
+        }
         return true;
     }
 
@@ -1735,6 +1741,7 @@ class Tab {
         mSavedState = null;
         mCloseOnExit = b.getBoolean(CLOSEONEXIT);
         mAppId = b.getString(APPID);
+        mScreenshot = b.getParcelable(SCREENSHOT);
 
         final WebBackForwardList list = mMainView.restoreState(b);
         if (list == null) {
@@ -1757,5 +1764,13 @@ class Tab {
             }
         }
     };
+
+    public void setScreenshot(Bitmap screenshot) {
+        mScreenshot = screenshot;
+    }
+
+    public Bitmap getScreenshot() {
+        return mScreenshot;
+    }
 
 }

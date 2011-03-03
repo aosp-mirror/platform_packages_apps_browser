@@ -19,9 +19,15 @@ package com.android.browser;
 import com.android.browser.view.PieItem;
 import com.android.browser.view.PieListView;
 import com.android.browser.view.PieMenu;
+import com.android.browser.view.PieMenu.PieView.OnLayoutListener;
+import com.android.browser.view.PieStackView;
+import com.android.browser.view.PieStackView.OnCurrentListener;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +39,7 @@ import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -56,6 +63,8 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
     private PieItem mNewTab;
     private PieItem mClose;
     private MenuAdapter mMenuAdapter;
+    private PieItem mShowTabs;
+    private TabAdapter mTabAdapter;
 
     public PieControl(Activity activity, UiController controller, XLargeUi ui) {
         mActivity = activity;
@@ -76,13 +85,32 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             mForward = makeItem(R.drawable.ic_forward_holo_dark, 2);
             mNewTab = makeItem(R.drawable.ic_new_window_holo_dark, 2);
             mClose = makeItem(R.drawable.ic_close_window_holo_dark, 2);
+            mShowTabs = makeItem(R.drawable.ic_windows_holo_dark, 2);
             mOptions = makeItem(
                     com.android.internal.R.drawable.ic_menu_moreoverflow_normal_holo_dark,
                     2);
             mMenuAdapter = new MenuAdapter(mActivity, mUiController);
-            PieMenuView menusym = new PieMenuView(mActivity);
-            mOptions.setPieView(menusym);
-            menusym.setAdapter(mMenuAdapter);
+            mTabAdapter = new TabAdapter(mActivity, mUiController);
+            PieStackView stack = new PieStackView(mActivity);
+            stack.setLayoutListener(new OnLayoutListener() {
+                @Override
+                public void onLayout(int ax, int ay, boolean left) {
+                    buildTabs();
+                }
+            });
+            stack.setOnCurrentListener(mTabAdapter);
+            stack.setAdapter(mTabAdapter);
+            mShowTabs.setPieView(stack);
+            PieListView menuview = new PieListView(mActivity);
+            menuview.setLayoutListener(new OnLayoutListener() {
+                @Override
+                public void onLayout(int ax, int ay, boolean left) {
+                    mActivity.openOptionsMenu();
+                }
+            });
+
+            mOptions.setPieView(menuview);
+            menuview.setAdapter(mMenuAdapter);
             setClickListener(mBack,
                     mRefresh,
                     mForward,
@@ -98,12 +126,22 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             // level 2
             mPie.addItem(mForward);
             mPie.addItem(mRefresh);
+            mPie.addItem(mShowTabs);
             mPie.addItem(mNewTab);
             mPie.addItem(mClose);
             mPie.addItem(mOptions);
             mPie.setController(this);
         }
         container.addView(mPie);
+    }
+
+    private void buildTabs() {
+        final List<Tab> tabs = mUiController.getTabs();
+        mUi.captureTab(mUi.getActiveTab());
+        mTabAdapter.setTabs(tabs);
+        PieStackView sym = (PieStackView) mShowTabs.getPieView();
+        sym.setCurrent(mUiController.getTabControl().getCurrentIndex());
+
     }
 
     protected void onMenuOpened(Menu menu) {
@@ -169,19 +207,72 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
         return false;
     }
 
-    private class PieMenuView extends PieListView {
+    private static class TabAdapter extends BaseAdapter implements OnCurrentListener {
 
-        /**
-         * @param ctx
-         */
-        public PieMenuView(Context ctx) {
-            super(ctx);
+        LayoutInflater mInflater;
+        UiController mUiController;
+        private List<Tab> mTabs;
+        private int mCurrent;
+
+        public TabAdapter(Context ctx, UiController ctl) {
+            mInflater = LayoutInflater.from(ctx);
+            mUiController = ctl;
+            mTabs = new ArrayList<Tab>();
+            mCurrent = -1;
+        }
+
+        public void setTabs(List<Tab> tabs) {
+            mTabs = tabs;
+            notifyDataSetChanged();
         }
 
         @Override
-        public void layout(int anchorX, int anchorY, boolean left) {
-            mActivity.openOptionsMenu();
-            super.layout(anchorX, anchorY, left);
+        public int getCount() {
+            return mTabs.size();
+        }
+
+        @Override
+        public Tab getItem(int position) {
+            return mTabs.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final Tab tab = mTabs.get(position);
+            View view = mInflater.inflate(R.layout.qc_tab,
+                    null);
+            ImageView thumb = (ImageView) view.findViewById(R.id.thumb);
+            TextView title1 = (TextView) view.findViewById(R.id.title1);
+            TextView title2 = (TextView) view.findViewById(R.id.title2);
+            Bitmap b = tab.getScreenshot();
+            if (b != null) {
+                thumb.setImageBitmap(b);
+            }
+            if (position > mCurrent) {
+                title1.setVisibility(View.GONE);
+                title2.setText(tab.getTitle());
+            } else {
+                title2.setVisibility(View.GONE);
+                title1.setText(tab.getTitle());
+            }
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mUiController.switchToTab(mUiController.getTabControl()
+                            .getTabIndex(tab));
+                }
+            });
+            return view;
+        }
+
+        @Override
+        public void onSetCurrent(int index) {
+            mCurrent = index;
         }
 
     }

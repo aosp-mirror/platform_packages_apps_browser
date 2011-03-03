@@ -1956,17 +1956,17 @@ public class Controller
         int thumbnailWidth = thumbnail.getWidth();
         int thumbnailHeight = thumbnail.getHeight();
         float scaleFactor = 1.0f;
-        if (thumbnailWidth > 0) {
+        if (thumbnailWidth > 0 && thumbnailHeight > 0) {
             scaleFactor = (float) width / (float)thumbnailWidth;
         } else {
             return null;
         }
 
-        if (view.getWidth() > view.getHeight() &&
-                thumbnailHeight < view.getHeight() && thumbnailHeight > 0) {
-            // If the device is in landscape and the page is shorter
-            // than the height of the view, center the thumnail and crop the sides
-            scaleFactor = (float) height / (float)thumbnailHeight;
+        float scaleFactorY = (float) height / (float)thumbnailHeight;
+        if (scaleFactorY > scaleFactor) {
+            // The picture is narrower than the requested AR
+            // Center the thumnail and crop the sides
+            scaleFactor = scaleFactorY;
             float wx = (thumbnailWidth * scaleFactor) - width;
             canvas.translate((int) -(wx / 2), 0);
         }

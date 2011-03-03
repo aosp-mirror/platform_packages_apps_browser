@@ -33,6 +33,8 @@ public abstract class BasePieView implements PieMenu.PieView {
     private DataSetObserver mObserver;
     protected ArrayList<View> mViews;
 
+    protected OnLayoutListener mListener;
+
     protected int mCurrent;
     protected int mChildWidth;
     protected int mChildHeight;
@@ -42,6 +44,10 @@ public abstract class BasePieView implements PieMenu.PieView {
     protected int mTop;
 
     public BasePieView() {
+    }
+
+    public void setLayoutListener(OnLayoutListener l) {
+        mListener = l;
     }
 
     public void setAdapter(Adapter adapter) {
@@ -103,7 +109,12 @@ public abstract class BasePieView implements PieMenu.PieView {
      * needs to set top, left, width, height
      */
     @Override
-    public abstract void layout(int anchorX, int anchorY, boolean left);
+    public void layout(int anchorX, int anchorY, boolean left) {
+        if (mListener != null) {
+            mListener.onLayout(anchorX, anchorY, left);
+        }
+    }
+
 
     @Override
     public abstract void draw(Canvas canvas);
