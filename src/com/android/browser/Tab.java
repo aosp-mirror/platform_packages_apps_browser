@@ -1583,6 +1583,13 @@ class Tab {
         return UrlUtils.filteredUrl(mCurrentState.mUrl);
     }
 
+    String getOriginalUrl() {
+        if (mMainView == null) {
+            return "";
+        }
+        return UrlUtils.filteredUrl(mMainView.getOriginalUrl());
+    }
+
     /**
      * Get the title of this tab.
      */

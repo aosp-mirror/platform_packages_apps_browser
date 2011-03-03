@@ -858,7 +858,7 @@ public class Controller
     @Override
     public void onReceivedTitle(Tab tab, final String title) {
         mUi.onTabDataChanged(tab);
-        final String pageUrl = tab.getUrl();
+        final String pageUrl = tab.getOriginalUrl();
         if (TextUtils.isEmpty(pageUrl) || pageUrl.length()
                 >= SQLiteDatabase.SQLITE_MAX_LIKE_PATTERN_LENGTH) {
             return;
@@ -906,7 +906,7 @@ public class Controller
     public void doUpdateVisitedHistory(Tab tab, boolean isReload) {
         // Don't save anything in private browsing mode
         if (tab.isPrivateBrowsingEnabled()) return;
-        String url = tab.getUrl();
+        String url = tab.getOriginalUrl();
 
         if (TextUtils.isEmpty(url)
                 || url.regionMatches(true, 0, "about:", 0, 6)) {
