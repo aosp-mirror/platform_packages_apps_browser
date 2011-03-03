@@ -18,6 +18,7 @@ package com.android.browser;
 
 import com.android.browser.SuggestionsAdapter.CompletionListener;
 import com.android.browser.SuggestionsAdapter.SuggestItem;
+import com.android.browser.autocomplete.SuggestiveAutoCompleteTextView;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngineInfo;
 import com.android.browser.search.SearchEngines;
@@ -32,7 +33,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -42,7 +42,7 @@ import java.util.List;
  * url/search input view
  * handling suggestions
  */
-public class UrlInputView extends AutoCompleteTextView
+public class UrlInputView extends SuggestiveAutoCompleteTextView
         implements OnEditorActionListener,
         CompletionListener, OnItemClickListener {
 
@@ -255,4 +255,7 @@ public class UrlInputView extends AutoCompleteTextView
         return super.onKeyDown(keyCode, evt);
     }
 
+    public SuggestionsAdapter getAdapter() {
+        return mAdapter;
+    }
 }

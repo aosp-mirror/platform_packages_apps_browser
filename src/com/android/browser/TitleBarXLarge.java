@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 import com.android.browser.search.SearchEngine;
 
 import android.app.Activity;
@@ -23,10 +24,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,8 +43,7 @@ import java.util.List;
  * tabbed title bar for xlarge screen browser
  */
 public class TitleBarXLarge extends TitleBarBase
-        implements OnClickListener, OnFocusChangeListener,
-    TextWatcher {
+        implements OnClickListener, OnFocusChangeListener, TextChangeWatcher {
 
     private XLargeUi mUi;
 
@@ -134,7 +131,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlInput.setController(mUiController);
         mUrlInput.setOnFocusChangeListener(this);
         mUrlInput.setSelectAllOnFocus(true);
-        mUrlInput.addTextChangedListener(this);
+        mUrlInput.addQueryTextWatcher(this);
         setFocusState(false);
     }
 
@@ -360,21 +357,13 @@ public class TitleBarXLarge extends TitleBarBase
     // UrlInput text watcher
 
     @Override
-    public void afterTextChanged(Editable s) {
+    public void onTextChanged(String newText) {
         if (mUrlInput.hasFocus()) {
             // check if input field is empty and adjust voice search state
             updateSearchMode(true);
             // clear voice mode when user types
             setInVoiceMode(false, null);
         }
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
 
     // voicesearch

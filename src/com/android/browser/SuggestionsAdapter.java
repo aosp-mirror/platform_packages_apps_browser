@@ -392,11 +392,11 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     /**
      * data object to hold suggestion values
      */
-    class SuggestItem {
-        String title;
-        String url;
-        int type;
-        String extra;
+    public class SuggestItem {
+        public String title;
+        public String url;
+        public int type;
+        public String extra;
 
         public SuggestItem(String text, String u, int t) {
             title = text;
