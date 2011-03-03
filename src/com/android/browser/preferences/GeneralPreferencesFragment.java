@@ -426,7 +426,8 @@ public class GeneralPreferencesFragment extends PreferenceFragment
                     // Re-parent the existing bookmarks to the newly create bookmarks bar folder
                     ops.add(ContentProviderOperation.newUpdate(Bookmarks.CONTENT_URI)
                             .withValueBackReference(Bookmarks.PARENT, 2)
-                            .withSelection(Bookmarks.PARENT + "=?",
+                            .withSelection(Bookmarks.ACCOUNT_NAME + " IS NULL AND " +
+                                    Bookmarks.PARENT + "=?",
                                         new String[] { Integer.toString(1) })
                             .build());
 
