@@ -113,9 +113,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"دانلودها"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"کپی url صفحه"</string>
     <string name="share_page" msgid="593756995297268343">"اشتراک گذاری صفحه"</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"ذخیره به عنوان بایگانی وب"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"بایگانی وب ذخیره شد."</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"ذخیره بایگانی وب ناموفق بود."</string>
+    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"ذخیره به عنوان بایگانی وب"</string>
+    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"بایگانی وب ذخیره شد."</string>
+    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"ذخیره بایگانی وب ناموفق بود."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> نشانک"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"پوشه خالی"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"باز کردن"</string>
@@ -276,6 +276,10 @@
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"برای دسترسی به کنترل های سریع، انگشت شست خود را در لبه های چپ یا راست جابجا کنید"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"صفحه اصلی بیشتر بازدید شده"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"صفحه اصلی شما را برای نمایش صفحات بیشتر بازدید شده تنظیم می کند."</string>
+    <!-- no translation found for pref_use_instant_search (7216222748559622611) -->
+    <skip />
+    <!-- no translation found for pref_use_instant_search_summary (768187623253522262) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"مشکل اتصال داده"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"مشکل در فایل"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"تأیید"</string>
@@ -373,4 +377,6 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"افزودن نشانک های Android خود به نشانک های <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"اشتراک گذاری"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"برگه بیشتری در دسترس نیست"</string>
+    <!-- no translation found for instant_search_label (8769284297650716935) -->
+    <skip />
 </resources>

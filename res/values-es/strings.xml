@@ -112,9 +112,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Descargas"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar URL de página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"Guardar como archivo web"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"Archivo web guardado"</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"Error al guardar archivo web"</string>
+    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Guardar como archivo web"</string>
+    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Archivo web guardado"</string>
+    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"Error al guardar archivo web"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> marcadores"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Carpeta vacía"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
@@ -219,9 +219,9 @@
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Ubicación"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Habilitar ubicación"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Permitir que los sitios soliciten acceso a tu ubicación"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Permitir acceso a la ubicación"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Permitir que todos los sitios web accedan a la ubicación"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Permitir que todos los sitios web accedan a la ubicación"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Deshabilitar ubicación"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Deshabilitar acceso a la ubicación para todos los sitios web"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Deshabilitar acceso a la ubicación para todos los sitios web"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Contraseñas"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Recordar contraseñas"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Guardar nombres de usuario y contraseñas de sitios web"</string>
@@ -275,6 +275,10 @@
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Desliza el pulgar de izquierda a derecha para acceder a los controles rápidos."</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Página principal más visitada"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Configura tu página principal para que muestre las páginas más visitadas."</string>
+    <!-- no translation found for pref_use_instant_search (7216222748559622611) -->
+    <skip />
+    <!-- no translation found for pref_use_instant_search_summary (768187623253522262) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de conectividad de datos"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema con archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"OK"</string>
@@ -349,10 +353,10 @@
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Recordar preferencia"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Este sitio puede acceder a tu ubicación. Para modificar esta opción, accede a \"Ajustes -&gt; Ajustes del sitio web\"."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Este sitio no puede acceder a tu ubicación. Para modificar esta opción, accede a \"Ajustes -&gt; Ajustes del sitio web\"."</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Permitir acceso a la ubicación"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Deshabilitar ubicación"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Este sitio puede acceder actualmente a tu ubicación."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Este sitio no puede acceder actualmente a tu ubicación."</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Permitir acceso ubicación"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Deshabilitar ubicación"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Se permitirá que este sitio web acceda a tu ubicación."</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Permitir acceso"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Cancelar"</string>
@@ -372,4 +376,6 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Añadir tus marcadores de Android a marcadores de <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Compartir"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"No hay más pestañas disponibles."</string>
+    <!-- no translation found for instant_search_label (8769284297650716935) -->
+    <skip />
 </resources>

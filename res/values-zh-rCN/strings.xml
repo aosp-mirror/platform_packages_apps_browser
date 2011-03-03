@@ -112,9 +112,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"下载内容"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"复制网页网址"</string>
     <string name="share_page" msgid="593756995297268343">"分享网页"</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"另存为网络存档"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"网络存档已保存。"</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"无法保存网络存档。"</string>
+    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"另存为网络存档"</string>
+    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"网络存档已保存。"</string>
+    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"保存网络存档失败。"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> 个书签"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空文件夹"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"打开"</string>
@@ -275,6 +275,10 @@
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"从左侧或右侧边缘滑动拇指以使用快速控制"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"“访问最多”首页"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"设置您的主页，以显示访问最多的页面。"</string>
+    <!-- no translation found for pref_use_instant_search (7216222748559622611) -->
+    <skip />
+    <!-- no translation found for pref_use_instant_search_summary (768187623253522262) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"数据连接性问题"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"文件有问题"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"确认"</string>
@@ -372,4 +376,6 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"将 Android 书签添加到 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的书签中"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"分享"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"没有更多标签可用"</string>
+    <!-- no translation found for instant_search_label (8769284297650716935) -->
+    <skip />
 </resources>

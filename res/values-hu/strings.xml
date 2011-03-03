@@ -112,9 +112,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Letöltések"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Az oldal URL-jének másolása"</string>
     <string name="share_page" msgid="593756995297268343">"Oldal megosztása"</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"Mentés internetes archívumként"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"Az internetes archívum elmentve."</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"Nem sikerült menteni az internetes archívumot."</string>
+    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Mentés internetes archívumként"</string>
+    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Az internetes archívum elmentve."</string>
+    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"Nem sikerült menteni az internetes archívumot."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> könyvjelző"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Üres mappa"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Megnyitás"</string>
@@ -275,6 +275,10 @@
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"A gyorsvezérlők eléréséhez csúsztassa hüvelykujját befelé a bal vagy jobb széltől"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"A leglátogatottabb honlap"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Kezdőlap beállítása, hogy a leglátogatottabb oldalakat mutassa."</string>
+    <!-- no translation found for pref_use_instant_search (7216222748559622611) -->
+    <skip />
+    <!-- no translation found for pref_use_instant_search_summary (768187623253522262) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Adatkapcsolat-probléma"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Probléma van a fájllal"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Megerősítés"</string>
@@ -372,4 +376,6 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Az Androidos könyvjelzők hozzáadása <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> fiók könyvjelzőihez"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Megosztás"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Nem nyitható meg több lap"</string>
+    <!-- no translation found for instant_search_label (8769284297650716935) -->
+    <skip />
 </resources>

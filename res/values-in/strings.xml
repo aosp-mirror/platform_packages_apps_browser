@@ -113,9 +113,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Unduhan"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Salin URL laman"</string>
     <string name="share_page" msgid="593756995297268343">"Bagikan lama"</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"Simpan sebagai Arsip Web"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"Arsip web disimpan."</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"Gagal menyimpan arsip web."</string>
+    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Simpan sebagai Arsip Web"</string>
+    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Arsip web disimpan."</string>
+    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"Gagal menyimpan arsip web."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> bookmark"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Map kosong"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Buka"</string>
@@ -276,6 +276,10 @@
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Gesek ibu jari dari tepi kiri atau kanan untuk mengakses kontrol cepat"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Beranda yang Paling Sering Dikunjungi"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Menyetel beranda Anda untuk menampilkan laman yang paling sering dikunjungi."</string>
+    <!-- no translation found for pref_use_instant_search (7216222748559622611) -->
+    <skip />
+    <!-- no translation found for pref_use_instant_search_summary (768187623253522262) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Masalah konektivitas data"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Masalah dengan berkas"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Konfirmasi"</string>
@@ -373,4 +377,6 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Tambahkan bookmark Android ke bookmark untuk <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Bagikan"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Tidak ada lagi tab yang tersedia"</string>
+    <!-- no translation found for instant_search_label (8769284297650716935) -->
+    <skip />
 </resources>

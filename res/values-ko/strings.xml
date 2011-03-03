@@ -112,9 +112,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"다운로드"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"페이지 URL 복사"</string>
     <string name="share_page" msgid="593756995297268343">"페이지 공유"</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"웹 아카이브로 저장"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"웹 아카이브를 저장했습니다."</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"웹 아카이브를 저장하지 못했습니다."</string>
+    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"웹 아카이브로 저장"</string>
+    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"웹 아카이브를 저장했습니다."</string>
+    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"웹 아카이브를 저장하지 못했습니다."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"북마크 <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>개"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"빈 폴더"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"열기"</string>
@@ -275,6 +275,10 @@
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"왼쪽이나 오른쪽 끝에서 엄지손가락으로 스와이프하여 빠른 컨트롤에 액세스"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"자주 방문한 홈페이지"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"자주 방문한 페이지를 표시하도록 홈페이지를 설정합니다."</string>
+    <!-- no translation found for pref_use_instant_search (7216222748559622611) -->
+    <skip />
+    <!-- no translation found for pref_use_instant_search_summary (768187623253522262) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"데이터 연결에 문제 발생"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"파일 문제 발생"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"확인"</string>
@@ -372,4 +376,6 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"<xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>에 대한 북마크에 Android 북마크 추가"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"공유"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"탭이 더 이상 없습니다."</string>
+    <!-- no translation found for instant_search_label (8769284297650716935) -->
+    <skip />
 </resources>

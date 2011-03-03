@@ -81,7 +81,7 @@
     <string name="remove" msgid="7820112494467011374">"Supprimer"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Modifier le favori"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Créer un raccourci sur la page d\'accueil"</string>
-    <string name="open_bookmark" msgid="8473581305759935790">"Ouverture"</string>
+    <string name="open_bookmark" msgid="8473581305759935790">"Ouvrir"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Supprimer le favori"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Supprimer des favoris"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Supprimer de l\'historique"</string>
@@ -112,9 +112,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Téléchargements"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copier l\'URL de la page"</string>
     <string name="share_page" msgid="593756995297268343">"Partager la page"</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"Enregistrer comme archive Web"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"Archive Web enregistrée"</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"Échec de l\'enregistrement de l\'archive Web"</string>
+    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Enregistrer comme archive Web"</string>
+    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Archive Web enregistrée"</string>
+    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"Échec de l\'enregistrement de l\'archive Web"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> favori(s)"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Dossier vide"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Ouvrir"</string>
@@ -151,7 +151,7 @@
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Ouvrir les nouvelles fenêtres derrière la fenêtre actuelle"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Page d\'accueil"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Définir le moteur de recherche"</string>
-    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Sélectionnez un moteur de recherche."</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Sélectionner un moteur de recherche"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Définir comme..."</string>
     <string name="pref_use_current" msgid="1778622474040406672">"Page en cours"</string>
     <string name="pref_use_blank" msgid="8503238592551111169">"Page vierge"</string>
@@ -161,7 +161,7 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Général"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronisation"</string>
     <string name="pref_general_autofill_title" msgid="64638897890112873">"Saisie automatique"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synchroniser avec Google Voice"</string>
+    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synchroniser avec Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Partager les favoris et d\'autres données entre le navigateur Android et Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Compte Google"</string>
     <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Synchroniser les favoris"</string>
@@ -169,9 +169,9 @@
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Démarrer la synchro"</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Sélection du compte Google"</string>
     <string name="pref_autofill_enabled" msgid="1174197447388234595">"Remplissage auto des formulaires"</string>
-    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Remplissez les formulaires Web en un clic."</string>
+    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Remplir les formulaires Web en un clic"</string>
     <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Paramètres de saisie automatique"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configurez et gérez les données de remplissage automatique des formulaires."</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Configurer et gérer les données de remplissage automatique des formulaires"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Connexion automatique à Google"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"Aucun compte trouvé"</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"Se connecter automatiquement à Google Sites à l\'aide de <xliff:g id="ID_1">%s</xliff:g>"</string>
@@ -275,6 +275,10 @@
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Glisser votre pouce vers la droite ou la gauche pour accéder aux commandes rapides"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Page d\'accueil Les plus visitées"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Votre page d\'accueil affiche les pages les plus visitées."</string>
+    <!-- no translation found for pref_use_instant_search (7216222748559622611) -->
+    <skip />
+    <!-- no translation found for pref_use_instant_search_summary (768187623253522262) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problème de connectivité des données"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problème de fichier"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmer"</string>
@@ -306,20 +310,20 @@
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Annuler tous les téléchargements"</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Annuler les téléchargements"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Les <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> téléchargements seront annulés et effacés de l\'historique des téléchargements."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Suppression du fichier"</string>
+    <string name="download_delete_file" msgid="5330036497843073249">"Ce fichier sera supprimé."</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Espace insuffisant"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossible d\'afficher <xliff:g id="FILENAME">%s</xliff:g>"\n". Libérez de l\'espace sur votre téléphone, puis réessayez."</string>
+    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossible de télécharger <xliff:g id="FILENAME">%s</xliff:g>"\n". Libérez de l\'espace sur votre téléphone, puis réessayez."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Échec de téléchargement"</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Mémoire USB indisponible"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Mémoire USB non disponible"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Aucune carte SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Une mémoire de stockage USB est requise pour télécharger <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Le téléchargement de <xliff:g id="FILENAME">%s</xliff:g> requiert une carte SD."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Mémoire USB indisponible"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Mémoire USB non disponible"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Carte SD non disponible"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"La mémoire de stockage USB est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver le stockage USB\" dans la notification."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La carte SD est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver le stockage USB\" dans la notification."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"La mémoire de stockage USB est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver la mémoire de stockage USB\" dans la notification."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La carte SD est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver la mémoire de stockage USB\" dans la notification."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Vous ne pouvez télécharger que des URL de type \"http\" et \"https\"."</string>
-    <string name="download_no_application_title" msgid="1286056729168874295">"Fichier impossible à ouvrir"</string>
+    <string name="download_no_application_title" msgid="1286056729168874295">"Impossible d\'ouvrir le fichier."</string>
     <string name="retry" msgid="1835923075542266721">"Réessayer"</string>
     <string name="no_downloads" msgid="3947445710685021498">"L\'historique de téléchargement est vide."</string>
     <string name="download_error" msgid="413496839831257187">"Échec du téléchargement"</string>
@@ -370,6 +374,8 @@
     <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Vos favoris Android ne sont associés à aucun compte Google."</string>
     <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Supprimer vos favoris Android"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Ajouter vos favoris Android à ceux de <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
-    <string name="menu_share_url" msgid="5851814357333739700">"Partagez"</string>
+    <string name="menu_share_url" msgid="5851814357333739700">"Partager"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Plus aucun onglet n\'est disponible."</string>
+    <!-- no translation found for instant_search_label (8769284297650716935) -->
+    <skip />
 </resources>

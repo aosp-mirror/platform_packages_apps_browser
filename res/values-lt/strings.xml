@@ -113,9 +113,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Atsisiuntimai"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopijuoti puslapio URL"</string>
     <string name="share_page" msgid="593756995297268343">"Bendrinti puslapį"</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"Išsaugoti kaip žiniatinklio archyvą"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"Žiniatinklio archyvas išsaugotas."</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"Nepavyko išsaugoti žiniatinklio archyvo."</string>
+    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Išsaugoti kaip žiniatinklio archyvą"</string>
+    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Žiniatinklio archyvas išsaugotas."</string>
+    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"Nepavyko išsaugoti žiniatinklio archyvo."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Žymių: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Tuščias aplankas"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Atidaryti"</string>
@@ -276,6 +276,10 @@
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Braukite nykščiu iš kairiojo ar dešiniojo krašto, kad pasiektumėte sparč. vald."</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Lankomiausias pagrindinis puslapis"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Nustatoma, kad pagrindiniame puslapyje būtų rodomi lankomiausi puslapiai."</string>
+    <!-- no translation found for pref_use_instant_search (7216222748559622611) -->
+    <skip />
+    <!-- no translation found for pref_use_instant_search_summary (768187623253522262) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Duomenų jungiamumo problema"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Failo problema"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Patvirtinti"</string>
@@ -373,4 +377,6 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Pridėkite „Android“ žymes prie <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> žymių"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Bendrinti"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Daugiau galimų skirtukų nėra"</string>
+    <!-- no translation found for instant_search_label (8769284297650716935) -->
+    <skip />
 </resources>
