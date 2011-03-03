@@ -16,11 +16,14 @@
 
 package com.android.browser;
 
+import com.android.browser.provider.BrowserProvider2;
+import com.android.browser.tests.utils.ProviderTestCase3;
+
 import android.app.SearchManager;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
-import android.test.AndroidTestCase;
+import android.provider.BrowserContract;
 import android.test.suitebuilder.annotation.MediumTest;
 
 import java.util.ArrayList;
@@ -30,9 +33,14 @@ import java.util.Arrays;
  * Unit tests for {@link BrowserProvider}.
  */
 @MediumTest
-public class BrowserProviderTests extends AndroidTestCase {
+public class BrowserProviderTests extends ProviderTestCase3<BrowserProvider2> {
 
     private ArrayList<Uri> mDeleteUris;
+
+    public BrowserProviderTests() {
+        super(BrowserProvider2.class,
+                BrowserContract.AUTHORITY, BrowserProvider2.LEGACY_AUTHORITY);
+    }
 
     @Override
     protected void setUp() throws Exception {
@@ -128,7 +136,7 @@ public class BrowserProviderTests extends AndroidTestCase {
     private Cursor getBookmarksSuggest(String query) {
         Uri suggestUri = Uri.parse("content://browser/bookmarks/search_suggest_query");
         String[] selectionArgs = { query };
-        Cursor c = getContext().getContentResolver().query(suggestUri, null, "url LIKE ?",
+        Cursor c = getMockContentResolver().query(suggestUri, null, "url LIKE ?",
                 selectionArgs, null);
         assertNotNull(c);
         return c;
@@ -149,12 +157,12 @@ public class BrowserProviderTests extends AndroidTestCase {
         values.put("date", 0);
         values.put("created", 0);
         values.put("bookmark", 1);
-        return getContext().getContentResolver().insert(android.provider.Browser.BOOKMARKS_URI,
+        return getMockContentResolver().insert(android.provider.Browser.BOOKMARKS_URI,
                 values);
     }
 
     private void deleteUri(Uri uri) {
-        int count = getContext().getContentResolver().delete(uri, null, null);
+        int count = getMockContentResolver().delete(uri, null, null);
         assertEquals("Failed to delete " + uri, 1, count);
     }
 
