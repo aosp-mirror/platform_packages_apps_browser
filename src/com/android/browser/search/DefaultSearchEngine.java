@@ -120,4 +120,9 @@ public class DefaultSearchEngine implements SearchEngine {
         return "ActivitySearchEngine{" + mSearchable + "}";
     }
 
+    @Override
+    public boolean wantsEmptyQuery() {
+        return false;
+    }
+
 }

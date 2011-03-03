@@ -15,6 +15,7 @@
  */
 package com.android.browser.autocomplete;
 
+import com.android.browser.BrowserSettings;
 import com.android.browser.SuggestionsAdapter;
 import com.android.browser.SuggestionsAdapter.SuggestItem;
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
@@ -26,9 +27,9 @@ import android.database.DataSetObserver;
 import android.graphics.Rect;
 import android.os.Parcelable;
 import android.text.Editable;
+import android.text.Html;
 import android.text.Selection;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.AbsSavedState;
@@ -77,7 +78,6 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
     private boolean mDropDownDismissedOnCompletion = true;
 
     private int mLastKeyCode = KeyEvent.KEYCODE_UNKNOWN;
-    private boolean mOpenBefore;
 
     // Set to true when text is set directly and no filtering shall be performed
     private boolean mBlockCompletion;
@@ -101,6 +101,8 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
     public SuggestiveAutoCompleteTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
+        // The completions are always shown in the same color as the hint
+        // text.
         mController = new SuggestedTextController(this, getHintTextColors().getDefaultColor());
         mPopup = new ListPopupWindow(context, attrs,
                  R.attr.autoCompleteTextViewStyle);
@@ -223,7 +225,7 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
         return mPopup.getHorizontalOffset();
     }
 
-    protected void setThreshold(int threshold) {
+    public void setThreshold(int threshold) {
         if (threshold <= 0) {
             threshold = 1;
         }
@@ -341,9 +343,9 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
      * triggered.
      */
     private boolean enoughToFilter() {
-        if (DEBUG) Log.v(TAG, "Enough to filter: len=" + getText().length()
+        if (DEBUG) Log.v(TAG, "Enough to filter: len=" + getUserText().length()
                 + " threshold=" + mThreshold);
-        return getText().length() >= mThreshold;
+        return getUserText().length() >= mThreshold;
     }
 
     /**
@@ -351,18 +353,7 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
      * to methods on the auto complete text view class so that we can access
      * private vars without going through thunks.
      */
-    private class MyWatcher implements TextWatcher, TextChangeWatcher {
-        @Override
-        public void afterTextChanged(Editable s) {
-            doAfterTextChanged();
-        }
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            doBeforeTextChanged();
-        }
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
+    private class MyWatcher implements TextChangeWatcher {
         @Override
         public void onTextChanged(String newText) {
             doAfterTextChanged();
@@ -376,34 +367,16 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
         mBlockCompletion = block;
     }
 
-    void doBeforeTextChanged() {
-        if (mBlockCompletion) return;
-
-        // when text is changed, inserted or deleted, we attempt to show
-        // the drop down
-        mOpenBefore = isPopupShowing();
-        if (DEBUG) Log.v(TAG, "before text changed: open=" + mOpenBefore);
-    }
-
     void doAfterTextChanged() {
         if (DEBUG) Log.d(TAG, "doAfterTextChanged(" + getText() + ")");
         if (mBlockCompletion) return;
-
-        // if the list was open before the keystroke, but closed afterwards,
-        // then something in the keystroke processing (an input filter perhaps)
-        // called performCompletion() and we shouldn't do any more processing.
-        if (DEBUG) Log.v(TAG, "after text changed: openBefore=" + mOpenBefore
-                + " open=" + isPopupShowing());
-        if (mOpenBefore && !isPopupShowing()) {
-            return;
-        }
 
         // the drop down is shown only when a minimum number of characters
         // was typed in the text view
         if (enoughToFilter()) {
             if (mFilter != null) {
                 mPopupCanBeUpdated = true;
-                performFiltering(mController.getUserText(), mLastKeyCode);
+                performFiltering(getUserText(), mLastKeyCode);
                 buildImeCompletions();
             }
         } else {
@@ -413,7 +386,7 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
                 dismissDropDown();
             }
             if (mFilter != null) {
-                mFilter.filter(null);
+                performFiltering(null, mLastKeyCode);
             }
         }
     }
@@ -423,7 +396,7 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
      *
      * @return true if the popup menu is showing, false otherwise
      */
-    protected boolean isPopupShowing() {
+    public boolean isPopupShowing() {
         return mPopup.isShowing();
     }
 
@@ -462,6 +435,20 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
         if (DEBUG) Log.d(TAG, "performFiltering(" + text + ")");
 
         mFilter.filter(text, this);
+    }
+
+    protected void performForcedFiltering() {
+        boolean wasSuspended = false;
+        if (mController.isCursorHandlingSuspended()) {
+            mController.resumeCursorMovementHandlingAndApplyChanges();
+            wasSuspended = true;
+        }
+
+        mFilter.filter(getUserText().toString(), this);
+
+        if (wasSuspended) {
+            mController.suspendCursorMovementHandling();
+        }
     }
 
     /**
@@ -553,7 +540,7 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
 
         final boolean dropDownAlwaysVisible = mPopup.isDropDownAlwaysVisible();
         if ((count > 0 || dropDownAlwaysVisible) && enoughToFilter() &&
-                mController.getUserText().length() > 0) {
+                getUserText().length() > 0) {
             if (hasFocus() && hasWindowFocus() && mPopupCanBeUpdated) {
                 showDropDown();
             }
@@ -760,20 +747,28 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
         }
     }
 
+    public String getUserText() {
+        return mController.getUserText();
+    }
+
     private void updateText(SuggestionsAdapter adapter) {
-        // FIXME: Turn this on only when instant is being used.
-        // if (!BrowserSettings.getInstance().useInstant()) {
-        //     return;
-        // }
+        if (!BrowserSettings.getInstance().useInstant()) {
+            return;
+        }
 
         if (!isPopupShowing()) {
             setSuggestedText(null);
             return;
         }
 
-        if (mAdapter.getCount() > 0 && !TextUtils.isEmpty(mController.getUserText())) {
-            SuggestItem item = adapter.getItem(0);
-            setSuggestedText(item.title);
+        if (mAdapter.getCount() > 0 && !TextUtils.isEmpty(getUserText())) {
+            for (int i = 0; i < mAdapter.getCount(); ++i) {
+                SuggestItem current = mAdapter.getItem(i);
+                if (current.type == SuggestionsAdapter.TYPE_SUGGEST) {
+                    setSuggestedText(current.title);
+                    break;
+                }
+            }
         }
     }
 
@@ -823,6 +818,17 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
     }
 
     public void setSuggestedText(String text) {
-        mController.setSuggestedText(text);
+        if (!TextUtils.isEmpty(text)) {
+            String htmlStripped = Html.fromHtml(text).toString();
+            mController.setSuggestedText(htmlStripped);
+        } else {
+            mController.setSuggestedText(null);
+        }
+    }
+
+    public void getPopupDrawableRect(Rect rect) {
+        if (mPopup.getListView() != null) {
+            mPopup.getListView().getDrawingRect(rect);
+        }
     }
 }

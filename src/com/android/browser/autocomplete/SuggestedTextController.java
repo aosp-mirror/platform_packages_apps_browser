@@ -57,6 +57,8 @@ public class SuggestedTextController {
     private final SuggestedSpan mSuggested;
     private String mSuggestedText;
     private TextChangeAttributes mCurrentTextChange;
+    private boolean mSuspended = false;
+
     /**
      * While this is non-null, any changes made to the cursor position or selection are ignored. Is
      * stored the selection state at the moment when selection change processing was disabled.
@@ -120,6 +122,10 @@ public class SuggestedTextController {
         }
     }
 
+    public boolean isCursorHandlingSuspended() {
+        return mSuspended;
+    }
+
     public Parcelable saveInstanceState(Parcelable superState) {
         assertNotIgnoringSelectionChanges();
         SavedState ss = new SavedState(superState);
@@ -160,6 +166,7 @@ public class SuggestedTextController {
         assertNotIgnoringSelectionChanges();
         Editable buffer = mTextOwner.getText();
         mTextSelectionBeforeIgnoringChanges = new BufferSelection(buffer);
+        mSuspended = true;
     }
 
     /**
@@ -181,6 +188,7 @@ public class SuggestedTextController {
                     oldSelection.mEnd, oldSelection.mEnd,
                     newSelection.mEnd, newSelection.mEnd);
         }
+        mSuspended = false;
     }
 
     /**

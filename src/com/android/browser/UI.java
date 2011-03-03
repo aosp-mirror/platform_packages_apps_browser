@@ -122,4 +122,9 @@ public interface UI {
 
     boolean dispatchKey(int code, KeyEvent event);
 
+
+    public static interface DropdownChangeListener {
+        void onNewDropdownDimensions(int height);
+    }
+    void registerDropdownChangeListener(DropdownChangeListener d);
 }

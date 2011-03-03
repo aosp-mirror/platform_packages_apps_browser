@@ -295,4 +295,9 @@ public class OpenSearchSearchEngine implements SearchEngine {
         return "OpenSearchSearchEngine{" + mSearchEngineInfo + "}";
     }
 
+    @Override
+    public boolean wantsEmptyQuery() {
+        return false;
+    }
+
 }

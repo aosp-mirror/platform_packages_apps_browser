@@ -17,12 +17,15 @@
 package com.android.browser;
 
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
+import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.search.SearchEngine;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -37,6 +40,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -264,7 +268,7 @@ public class TitleBarXLarge extends TitleBarBase
     void setFavicon(Bitmap icon) { }
 
     private void clearOrClose() {
-        if (TextUtils.isEmpty(mUrlInput.getText())) {
+        if (TextUtils.isEmpty(mUrlInput.getUserText())) {
             // close
             mUrlInput.clearFocus();
         } else {
@@ -333,7 +337,7 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     private void updateSearchMode(boolean userEdited) {
-        setSearchMode(!userEdited || TextUtils.isEmpty(mUrlInput.getText()));
+        setSearchMode(!userEdited || TextUtils.isEmpty(mUrlInput.getUserText()));
     }
 
     private void setSearchMode(boolean voiceSearchEnabled) {
@@ -411,4 +415,7 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
+    void registerDropdownChangeListener(DropdownChangeListener d) {
+        mUrlInput.registerDropdownChangeListener(d);
+    }
 }

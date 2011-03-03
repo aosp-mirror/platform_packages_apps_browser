@@ -639,6 +639,12 @@
     <!-- Summary for lab "Most Visited" homepage feature [CHAR LIMIT=80] -->
     <string name="pref_lab_most_visited_homepage_summary">
         Sets your homepage to show the most visited pages.</string>
+    <!-- Title for the "Instant search" lab feature [CHAR LIMIT=40] -->
+    <string name="pref_use_instant_search">Use Instant Search</string>
+    <!-- Summary for the "Instant search" lab feature [CHAR LIMIT=120] -->
+    <string name="pref_use_instant_search_summary">
+      Enable instant for faster searching and browsing. This might result
+      in higher data and bandwidth usage.</string>
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>
@@ -812,6 +818,9 @@
             domain will be appended. -->
     <string name="homepage_base" translatable="false">
         http://www.google.com/webhp?client=ms-{CID}&amp;source=android-home</string>
+    <!-- The default url for the instant_base_page. -->
+    <string name="instant_base" translatable="false">
+        http://www.google.com/webhp?client=ms-{CID}&amp;source=android-omnibox-instant&amp;ion=1</string>
 
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">
@@ -937,4 +946,8 @@
          reached. [CHAR LIMIT=50] -->
     <string name="max_tabs_warning">No more tabs available</string>
 
+    <!-- The label used by the instant search labs feature when shown in
+         the search engines list (Preferences->Advanced->Set search engine
+         [CHAR LIMIT=80] -->
+    <string name="instant_search_label">Google with Instant (Labs)</string>
 </resources>

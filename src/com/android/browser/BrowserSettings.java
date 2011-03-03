@@ -113,6 +113,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     // Lab settings
     private boolean quickControls = false;
     private boolean useMostVisitedHomepage = false;
+    private boolean useInstant = false;
 
     // By default the error console is shown once the user navigates to about:debug.
     // The setting can be then toggled from the settings menu.
@@ -170,6 +171,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     public final static String PREF_AUTOLOGIN = "enable_autologin";
     public final static String PREF_AUTOLOGIN_ACCOUNT = "autologin_account";
     public final static String PREF_PLUGIN_STATE = "plugin_state";
+    public final static String PREF_USE_INSTANT = "use_instant_search";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, " +
@@ -413,27 +415,37 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         }
     }
 
+    private void updateSearchEngine(Context ctx, String searchEngineName, boolean force) {
+        if (force || searchEngine == null ||
+                !searchEngine.getName().equals(searchEngineName)) {
+            if (searchEngine != null) {
+                if (searchEngine.supportsVoiceSearch()) {
+                     // One or more tabs could have been in voice search mode.
+                     // Clear it, since the new SearchEngine may not support
+                     // it, or may handle it differently.
+                     for (int i = 0; i < mController.getTabControl().getTabCount(); i++) {
+                         mController.getTabControl().getTab(i).revertVoiceSearchMode();
+                     }
+                 }
+                 searchEngine.close();
+             }
+             searchEngine = SearchEngines.get(ctx, searchEngineName);
+
+             if (mController != null && (searchEngine instanceof InstantSearchEngine)) {
+                 ((InstantSearchEngine) searchEngine).setController(mController);
+             }
+         }
+    }
+
     /* package */ void syncSharedPreferences(Context ctx, SharedPreferences p) {
 
         homeUrl =
             p.getString(PREF_HOMEPAGE, homeUrl);
+
+        useInstant = p.getBoolean(PREF_USE_INSTANT, useInstant);
         String searchEngineName = p.getString(PREF_SEARCH_ENGINE,
-                SearchEngine.GOOGLE);
-        if (searchEngine == null || !searchEngine.getName().equals(searchEngineName)) {
-            if (searchEngine != null) {
-                if (searchEngine.supportsVoiceSearch()) {
-                    // One or more tabs could have been in voice search mode.
-                    // Clear it, since the new SearchEngine may not support
-                    // it, or may handle it differently.
-                    for (int i = 0; i < mController.getTabControl().getTabCount(); i++) {
-                        mController.getTabControl().getTab(i).revertVoiceSearchMode();
-                    }
-                }
-                searchEngine.close();
-            }
-            searchEngine = SearchEngines.get(ctx, searchEngineName);
-        }
-        Log.i(TAG, "Selected search engine: " + searchEngine);
+               SearchEngine.GOOGLE);
+        updateSearchEngine(ctx, searchEngineName, false);
 
         loadsImagesAutomatically = p.getBoolean("load_images",
                 loadsImagesAutomatically);
@@ -604,6 +616,10 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         return useMostVisitedHomepage;
     }
 
+    public boolean useInstant() {
+        return useInstant;
+    }
+
     public boolean showDebugSettings() {
         return showDebugSettings;
     }
@@ -723,6 +739,10 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     /* package */void setController(Controller ctrl) {
         mController = ctrl;
         updateTabControlSettings();
+
+        if (mController != null && (searchEngine instanceof InstantSearchEngine)) {
+             ((InstantSearchEngine) searchEngine).setController(mController);
+        }
     }
 
     /*
@@ -902,6 +922,13 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
             quickControls = p.getBoolean(PREF_QUICK_CONTROLS, quickControls);
         } else if (PREF_MOST_VISITED_HOMEPAGE.equals(key)) {
             useMostVisitedHomepage = p.getBoolean(PREF_MOST_VISITED_HOMEPAGE, useMostVisitedHomepage);
+        } else if (PREF_USE_INSTANT.equals(key)) {
+            useInstant = p.getBoolean(PREF_USE_INSTANT, useInstant);
+            updateSearchEngine(mController.getActivity(), SearchEngine.GOOGLE, true);
+        } else if (PREF_SEARCH_ENGINE.equals(key)) {
+            final String searchEngineName = p.getString(PREF_SEARCH_ENGINE,
+                    SearchEngine.GOOGLE);
+            updateSearchEngine(mController.getActivity(), searchEngineName, false);
         }
     }
 }

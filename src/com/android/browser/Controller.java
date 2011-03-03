@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.IntentHandler.UrlData;
+import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 
@@ -2608,4 +2609,8 @@ public class Controller
         }
     }
 
+    @Override
+    public void registerDropdownChangeListener(DropdownChangeListener d) {
+        mUi.registerDropdownChangeListener(d);
+    }
 }

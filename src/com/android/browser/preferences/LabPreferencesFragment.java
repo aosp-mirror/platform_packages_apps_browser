@@ -18,33 +18,47 @@ package com.android.browser.preferences;
 
 import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserSettings;
-import com.android.browser.Controller;
 import com.android.browser.R;
+import com.android.browser.search.SearchEngine;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity.Header;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager.OnActivityResultListener;
-
-import java.io.IOException;
-import java.io.Serializable;
 
 public class LabPreferencesFragment extends PreferenceFragment
         implements OnPreferenceChangeListener {
+    private BrowserSettings mBrowserSettings;
+    private Preference useInstantPref;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mBrowserSettings = BrowserSettings.getInstance();
 
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.lab_preferences);
 
         Preference e = findPreference(BrowserSettings.PREF_QUICK_CONTROLS);
         e.setOnPreferenceChangeListener(this);
+        useInstantPref = findPreference(BrowserSettings.PREF_USE_INSTANT);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        useInstantPref.setEnabled(false);
+
+        // Enable the "use instant" preference only if the selected
+        // search engine is google.
+        if (mBrowserSettings.getSearchEngine() != null) {
+            final String currentName = mBrowserSettings.getSearchEngine().getName();
+            if (SearchEngine.GOOGLE.equals(currentName)) {
+                useInstantPref.setEnabled(true);
+            }
+        }
     }
 
     @Override
@@ -54,5 +68,4 @@ public class LabPreferencesFragment extends PreferenceFragment
                 getActivity(), BrowserActivity.class));
         return true;
     }
-
 }
