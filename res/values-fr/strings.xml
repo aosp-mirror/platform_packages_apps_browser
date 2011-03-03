@@ -159,7 +159,7 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Général"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronisation"</string>
     <string name="pref_general_autofill_title" msgid="64638897890112873">"Saisie automatique"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synchroniser avec Google Voice"</string>
+    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synchroniser avec Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Partager les favoris et d\'autres données entre le navigateur Android et Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Compte Google"</string>
     <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Synchroniser les favoris"</string>
