@@ -18,7 +18,7 @@ package com.android.browser.tests.utils;
 
 import android.content.ContentProvider;
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -53,6 +53,16 @@ public abstract class ProviderTestCase3<T extends ContentProvider> extends Andro
             // name the directory so the directory will be separated from
             // one created through the regular Context
             return getContext().getDir("mockcontext2_" + name, mode);
+        }
+
+        @Override
+        public String getPackageName() {
+            return getContext().getPackageName();
+        }
+
+        @Override
+        public SharedPreferences getSharedPreferences(String name, int mode) {
+            return getContext().getSharedPreferences("mockcontext2_" + name, mode);
         }
 
         @Override

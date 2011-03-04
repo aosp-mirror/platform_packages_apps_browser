@@ -120,9 +120,9 @@ public abstract class BP2TestCaseHelper extends ProviderTestCase3<BrowserProvide
         }
     }
 
-    Uri mockInsert(Uri url, ContentValues values) {
+    Uri mockInsert(Uri uri, ContentValues values) {
         assertObserversTriggered(false, mLegacyObserver, mRootObserver);
-        Uri ret = getMockContentResolver().insert(url, values);
+        Uri ret = getMockContentResolver().insert(uri, values);
         assertObserversTriggered(true, mLegacyObserver, mRootObserver);
         return ret;
     }
@@ -145,6 +145,10 @@ public abstract class BP2TestCaseHelper extends ProviderTestCase3<BrowserProvide
         values.put(BrowserContract.Bookmarks.TITLE, title);
         values.put(BrowserContract.Bookmarks.URL, url);
         values.put(BrowserContract.Bookmarks.IS_FOLDER, 0);
+        return insertBookmark(values);
+    }
+
+    public Uri insertBookmark(ContentValues values) {
         assertObserversTriggered(false, mBookmarksObserver, mWidgetObserver);
         Uri ret = mockInsert(Bookmarks.CONTENT_URI, values);
         assertObserversTriggered(true, mBookmarksObserver, mWidgetObserver);
