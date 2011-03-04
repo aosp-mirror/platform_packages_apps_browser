@@ -1236,6 +1236,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     private boolean isValidParent(String accountType, String accountName,
             long parentId) {
+        if (parentId <= 0) {
+            return false;
+        }
         Uri uri = ContentUris.withAppendedId(Bookmarks.CONTENT_URI, parentId);
         Cursor c = query(uri,
                 new String[] { Bookmarks.ACCOUNT_NAME, Bookmarks.ACCOUNT_TYPE },
