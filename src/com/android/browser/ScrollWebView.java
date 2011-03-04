@@ -151,14 +151,15 @@ public class ScrollWebView extends WebView implements Runnable {
     }
 
     void setDrawCached(boolean cached) {
+        if (cached == mDrawCached) return;
         if (cached) {
             buildDrawingCache();
             mBitmap = getDrawingCache(false);
             mDrawCached = (mBitmap != null);
         } else {
+            mDrawCached = false;
             mBitmap = null;
             destroyDrawingCache();
-            mDrawCached = false;
         }
     }
 
