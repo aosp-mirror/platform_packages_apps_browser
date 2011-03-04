@@ -81,7 +81,7 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
 
         // If for some reason we are in a bad state, ensure that the
         // user gets default search results at the very least.
-        if (mSearchBox == null & !isInstantPage()) {
+        if (mSearchBox == null || !isInstantPage()) {
             mWrapped.startSearch(context, query, appData, extraData);
             return;
         }
@@ -237,6 +237,10 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
         switchSearchboxIfNeeded();
 
         mController.registerDropdownChangeListener(this);
+
+        if (mSearchBox == null) {
+            return mWrapped.getSuggestions(context, query);
+        }
 
         mSearchBox.setDimensions(0, 0, 0, mHeight);
         mSearchBox.onresize();
