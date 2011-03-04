@@ -185,7 +185,9 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
                 mListener.clear();
             }
             mSearchBox = searchBox;
-            mSearchBox.addSearchBoxListener(mListener);
+            if (mSearchBox != null) {
+                mSearchBox.addSearchBoxListener(mListener);
+            }
         }
     }
 
