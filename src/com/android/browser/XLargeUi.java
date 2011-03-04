@@ -51,6 +51,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     private boolean mUseQuickControls;
     private PieControl mPieControl;
+    private boolean mInAnimation = false;
 
     /**
      * @param browser
@@ -210,7 +211,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void setActiveTab(final Tab tab) {
+        if (mInAnimation) return;
         if ((tab != mActiveTab) && (mActiveTab != null)) {
+            mInAnimation = true;
             // animate between the two
             final ScrollWebView fromWV = (ScrollWebView) mActiveTab.getWebView();
             fromWV.setDrawCached(true);
@@ -234,6 +237,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
                     fromWV.setDrawCached(false);
                     toWV.setDrawCached(false);
                     setActiveTab(tab, false);
+                    mInAnimation = false;
                 }
 
                 @Override
@@ -241,6 +245,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
                     fromWV.setDrawCached(false);
                     toWV.setDrawCached(false);
                     setActiveTab(tab, false);
+                    mInAnimation = false;
                 }
 
                 @Override
