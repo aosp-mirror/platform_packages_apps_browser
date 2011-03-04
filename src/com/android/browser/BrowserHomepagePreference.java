@@ -17,18 +17,24 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
-public class BrowserHomepagePreference extends EditTextPreference {
+public class BrowserHomepagePreference extends EditTextPreference
+        implements OnEditorActionListener {
     private String mCurrentPage;
 
     public BrowserHomepagePreference(Context context, AttributeSet attrs,
@@ -49,9 +55,22 @@ public class BrowserHomepagePreference extends EditTextPreference {
             EditText editText) {
         super.onAddEditTextToDialogView(dialogView, editText);
         editText.setSelectAllOnFocus(true);
+        editText.setSingleLine(true);
+        editText.setImeActionLabel(null, EditorInfo.IME_ACTION_DONE);
+        editText.setOnEditorActionListener(this);
         // Now the EditText has a parent.  Add a button to set to the current
         // page.
         createButtons((ViewGroup) editText.getParent());
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
+            getDialog().dismiss();
+            return true;
+        }
+        return false;
     }
 
     void createButtons(ViewGroup parent) {
