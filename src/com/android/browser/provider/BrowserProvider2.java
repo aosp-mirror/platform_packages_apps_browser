@@ -1263,11 +1263,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         }
     }
 
-    // Filters out the client=ms- param for search urls
+    // Filters out the client= param for search urls
     private String filterSearchClient(String url) {
         // remove "client" before updating it to the history so that it wont
         // show up in the auto-complete list.
-        int index = url.indexOf("client=ms-");
+        int index = url.indexOf("client=");
         if (index > 0 && url.contains(".google.")) {
             int end = url.indexOf('&', index);
             if (end > 0) {
