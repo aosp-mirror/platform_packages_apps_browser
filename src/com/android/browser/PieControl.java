@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import com.android.browser.view.PieItem;
 import com.android.browser.view.PieMenu;
 
 import android.app.Activity;
@@ -26,9 +27,6 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * controller for Quick Controls pie menu
  */
@@ -38,24 +36,19 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
     private UiController mUiController;
     private XLargeUi mUi;
     private PieMenu mPie;
-    private ImageView mBack;
-    private ImageView mForward;
-    private ImageView mRefresh;
-    private ImageView mUrl;
-    private ImageView mOptions;
-    private ImageView mBookmarks;
-    private ImageView mNewTab;
-    private ImageView mClose;
-
-    private Map<View,Tab> mTabItems;
-
-    boolean mNewTabMode = true;
+    private PieItem mBack;
+    private PieItem mForward;
+    private PieItem mRefresh;
+    private PieItem mUrl;
+    private PieItem mOptions;
+    private PieItem mBookmarks;
+    private PieItem mNewTab;
+    private PieItem mClose;
 
     public PieControl(Activity activity, UiController controller, XLargeUi ui) {
         mActivity = activity;
         mUiController = controller;
         mUi = ui;
-        mTabItems = new HashMap<View, Tab>();
     }
 
     protected void attachToContainer(FrameLayout container) {
@@ -64,22 +57,35 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.MATCH_PARENT);
             mPie.setLayoutParams(lp);
-            mNewTab = makeMenuView(R.drawable.ic_pie_new_tab);
-            mPie.addItem(mNewTab);
-            mBack = makeMenuView(R.drawable.ic_pie_back);
-            mPie.addItem(mBack);
-            mUrl = makeMenuView(R.drawable.ic_pie_web);
-            mPie.addItem(mUrl);
-            mBookmarks = makeMenuView(R.drawable.ic_pie_bookmarks);
-            mPie.addItem(mBookmarks);
-            mOptions = makeMenuView(R.drawable.ic_pie_more);
-            mPie.addItem(mOptions);
+            mBack = makeItem(R.drawable.ic_back_holo_dark, 1);
+            mUrl = makeItem(R.drawable.ic_web_holo_dark, 1);
+            mBookmarks = makeItem(R.drawable.ic_bookmarks_holo_dark, 1);
+            mRefresh = makeItem(R.drawable.ic_refresh_holo_dark, 2);
+            mForward = makeItem(R.drawable.ic_forward_holo_dark, 2);
+            mNewTab = makeItem(R.drawable.ic_new_window_holo_dark, 2);
+            mClose = makeItem(R.drawable.ic_close_window_holo_dark, 2);
+            mOptions = makeItem(
+                    com.android.internal.R.drawable.ic_menu_moreoverflow_normal_holo_dark,
+                    2);
             setClickListener(mBack,
+                    mRefresh,
+                    mForward,
                     mUrl,
                     mOptions,
                     mBookmarks,
-                    mNewTab
+                    mNewTab,
+                    mClose
                     );
+            // level 1
+            mPie.addItem(mBack);
+            mPie.addItem(mUrl);
+            mPie.addItem(mBookmarks);
+            // level 2
+            mPie.addItem(mForward);
+            mPie.addItem(mRefresh);
+            mPie.addItem(mNewTab);
+            mPie.addItem(mClose);
+            mPie.addItem(mOptions);
             mPie.setController(this);
         }
         container.addView(mPie);
@@ -89,17 +95,20 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
         container.removeView(mPie);
     }
 
-    private ImageView makeMenuView(int image) {
-        ImageView item = new ImageView(mActivity);
-        item.setImageResource(image);
+    private PieItem makeItem(int image, int l) {
+        ImageView view = new ImageView(mActivity);
+        view.setImageResource(image);
+        view.setMinimumWidth(48);
+        view.setMinimumHeight(48);
         LayoutParams lp = new LayoutParams(48, 48);
-        item.setLayoutParams(lp);
-        return item;
+        view.setLayoutParams(lp);
+        view.setBackgroundResource(R.drawable.qc_item_selector);
+        return new PieItem(view, l);
     }
 
-    private void setClickListener(View... views) {
-        for (View view : views) {
-            view.setOnClickListener(this);
+    private void setClickListener(PieItem... items) {
+        for (PieItem item : items) {
+            item.getView().setOnClickListener(this);
         }
     }
 
@@ -112,41 +121,35 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
 
     @Override
     public void onClick(View v) {
-        mPie.show(false);
         Tab tab = mUiController.getTabControl().getCurrentTab();
         WebView web = tab.getWebView();
-        if (mBack == v) {
+        if (mBack.getView() == v) {
             web.goBack();
-        } else if (mForward == v) {
+        } else if (mForward.getView() == v) {
             web.goForward();
-        } else if (mRefresh == v) {
+        } else if (mRefresh.getView() == v) {
             if (tab.inPageLoad()) {
                 web.stopLoading();
             } else {
                 web.reload();
             }
-        } else if (mUrl == v) {
+        } else if (mUrl.getView() == v) {
             mUi.showTitleBarAndEdit();
-        } else if (mOptions == v) {
+        } else if (mOptions.getView() == v) {
             mActivity.openOptionsMenu();
-        } else if (mBookmarks == v) {
+        } else if (mBookmarks.getView() == v) {
             mUiController.bookmarksOrHistoryPicker(false);
-        } else if (mNewTab == v) {
+        } else if (mNewTab.getView() == v) {
             mUiController.openTabToHomePage();
             mUi.showTitleBarAndEdit();
-        } else if (mClose == v) {
+        } else if (mClose.getView() == v) {
             mUiController.closeCurrentTab();
-        } else {
-            Tab ntab = mTabItems.get(v);
-            if (ntab != null) {
-                mUiController.switchToTab(mUiController.getTabControl().getTabIndex(ntab));
-            }
         }
     }
 
     @Override
     public boolean onOpen() {
-        return true;
+        return false;
     }
 
 }
