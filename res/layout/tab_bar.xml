@@ -30,5 +30,5 @@
         android:layout_width="wrap_content"
         android:layout_height="44dip"
         style="@style/HoloButton"
-        android:background="@drawable/browsertab_add" />
+        android:background="@drawable/add_tab_selector" />
 </merge>
