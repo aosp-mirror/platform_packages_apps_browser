@@ -1613,7 +1613,8 @@ public class Controller
                                 new Thread("Add WebArchive to download manager") {
                                     @Override
                                     public void run() {
-                                        manager.completedDownload(null == title ? value : title,
+                                        manager.addCompletedDownload(
+                                                null == title ? value : title,
                                                 value, true, "application/x-webarchive-xml",
                                                 value, length, true);
                                     }
