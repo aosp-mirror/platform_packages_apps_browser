@@ -501,4 +501,5 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     public void registerDropdownChangeListener(DropdownChangeListener d) {
         mTitleBar.registerDropdownChangeListener(d);
     }
+
 }

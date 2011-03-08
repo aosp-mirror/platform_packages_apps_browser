@@ -29,10 +29,9 @@
     <color name="bookmarkWidgetDivider">#383847</color>
     <color name="bookmarkWidgetItemBackground">#2b2b3c</color>
     <color name="bookmarkWidgetFolderBackground">#A0383847</color>
-    <color name="qc_slice_normal">#E0A0A0A0</color>
-    <color name="qc_slice_active">#E02090FF</color>
     <color name="bookmarkWidgetFaviconBackground">#23ffffff</color>
     <color name="bookmarkListFaviconBackground">#23ffffff</color>
     <color name="tabFaviconBackground">#FF555555</color>
     <color name="tabFocusHighlight">#FF99CC00</color>
+    <color name="qcMenuBackground">#C0000000</color>
 </resources>
