@@ -391,6 +391,12 @@
     <string name="pref_autologin_progress">Signing into Google sites using <xliff:g>%s</xliff:g>\nYour Privacy &amp; Security settings control automatic Google sign-in</string>
     <!-- Option in account list to disable autologin [CHAR-LIMIT=50] -->
     <string name="pref_autologin_disable">Don\'t sign in automatically</string>
+    <!-- Auto-login bar description [CHAR-LIMIT=40] -->
+    <string name="autologin_bar_text">Automatic sign-in is available.</string>
+    <!-- Login button [CHAR-LIMIT=10] -->
+    <string name="autologin_bar_login_text">Login</string>
+    <!-- Login failure text [CHAR-LIMIT=25] -->
+    <string name="autologin_bar_error">Login failed.</string>
 
     <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
     <string name="autofill_profile_editor_heading">AutoFill will use your profile to help you complete web forms in a single click.</string>
