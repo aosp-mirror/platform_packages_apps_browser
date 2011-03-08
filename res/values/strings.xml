@@ -310,8 +310,8 @@
     <string name="pref_content_load_images">Load images</string>
     <!-- Settings label -->
     <string name="pref_content_load_images_summary">Display images on web pages</string>
-    <!-- Settings label -->
-    <string name="pref_content_block_popups">Block pop-up windows</string>
+    <!-- Settings label [CHAR LIMIT=30] -->
+    <string name="pref_content_block_popups">Block pop-ups</string>
     <!-- Settings label -->
     <string name="pref_content_javascript">Enable JavaScript</string>
     <!-- Settings label -->
@@ -331,8 +331,8 @@
     </string-array>
     <!-- Settings summary [CHAR LIMIT=50]-->
     <string name="pref_content_open_in_background_summary">Open new windows behind the current one</string>
-    <!-- Settings label -->
-    <string name="pref_content_homepage">Set home page</string>
+    <!-- Settings label [CHAR LIMIT=50] -->
+    <string name="pref_content_homepage">Set homepage</string>
     <!-- Settings label -->
     <string name="pref_content_search_engine">Set search engine</string>
     <!-- Settings summary -->
@@ -373,13 +373,13 @@
     <string name="pref_personal_account_dialog_title">Select Google account to share with</string>
 
     <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
-    <string name="pref_autofill_enabled">Form AutoFill</string>
+    <string name="pref_autofill_enabled">Form auto-fill</string>
     <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
     <string name="pref_autofill_enabled_summary">Fill out web forms in a single click</string>
     <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
-    <string name="pref_autofill_profile_editor">AutoFill Settings</string>
+    <string name="pref_autofill_profile_editor">Auto-fill data</string>
     <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
-    <string name="pref_autofill_profile_editor_summary">Set up &amp; manage data for AutoFilled forms</string>
+    <string name="pref_autofill_profile_editor_summary">Enter and save data for auto-filling web form fields</string>
 
     <!-- Auto login preference title [CHAR-LIMIT=32] -->
     <string name="pref_autologin_title">Automatic Google sign-in</string>
@@ -388,7 +388,7 @@
     <!-- Summary when there is an account available [CHAR-LIMIT=none] -->
     <string name="pref_autologin_summary">Sign into Google sites automatically using <xliff:g>%s</xliff:g></string>
     <!-- Message shown during auto login [CHAR-LIMIT=none] -->
-    <string name="pref_autologin_progress">Signing into Google sites using <xliff:g>%s</xliff:g>\nYour Privacy &amp; Security settings control automatic Google sign-in</string>
+    <string name="pref_autologin_progress">Signing into Google sites using <xliff:g>%s</xliff:g>\nYour privacy &amp; security settings control automatic Google sign-in</string>
     <!-- Option in account list to disable autologin [CHAR-LIMIT=50] -->
     <string name="pref_autologin_disable">Don\'t sign in automatically</string>
 
@@ -440,7 +440,7 @@
     <string name="disable_autofill">Disable AutoFill</string>
 
     <!-- Settings screen, section title [CHAR-LIMIT=50] -->
-    <string name="pref_privacy_security_title">Privacy &amp; Security</string>
+    <string name="pref_privacy_security_title">Privacy &amp; security</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_cache">Clear cache</string>
     <!-- Settings summary -->
@@ -630,21 +630,21 @@
     <!-- Title for lab settings [CHAR LIMIT=25] -->
     <string name="pref_lab_title">Labs</string>
     <!-- Title for lab quick controls feature [CHAR LIMIT=40] -->
-    <string name="pref_lab_quick_controls">Quick Controls</string>
+    <string name="pref_lab_quick_controls">Quick controls</string>
     <!-- Summary for lab quick controls feature [CHAR LIMIT=80] -->
     <string name="pref_lab_quick_controls_summary">
-        Swipe thumb from left or right edge to access quick controls</string>
+        Swipe thumb from left or right edge to access quick controls and hide Application and URL bars</string>
     <!-- Title for lab "Most Visited" homepage feature [CHAR LIMIT=40] -->
-    <string name="pref_lab_most_visited_homepage">Most Visited Homepage</string>
+    <string name="pref_lab_most_visited_homepage">Most-visited homepage</string>
     <!-- Summary for lab "Most Visited" homepage feature [CHAR LIMIT=80] -->
     <string name="pref_lab_most_visited_homepage_summary">
-        Sets your homepage to show the most visited pages.</string>
+        Your homepage displays your most-visited webpages.</string>
     <!-- Title for the "Instant search" lab feature [CHAR LIMIT=40] -->
-    <string name="pref_use_instant_search">Use Instant Search</string>
+    <string name="pref_use_instant_search">Google Instant</string>
     <!-- Summary for the "Instant search" lab feature [CHAR LIMIT=120] -->
     <string name="pref_use_instant_search_summary">
-      Enable instant for faster searching and browsing. This might result
-      in higher data and bandwidth usage.</string>
+      Use Google Instant when you use Google Search, to show results as you
+      type (this can increase data use).</string>
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>
