@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import com.android.browser.ScrollWebView.ScrollListener;
-import com.android.browser.UI.DropdownChangeListener;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -26,6 +25,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -52,6 +52,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     private boolean mUseQuickControls;
     private PieControl mPieControl;
     private boolean mInAnimation = false;
+    private Handler mHandler;
 
     /**
      * @param browser
@@ -59,6 +60,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
      */
     public XLargeUi(Activity browser, UiController controller) {
         super(browser, controller);
+        mHandler = new Handler();
         mTitleBar = new TitleBarXLarge(mActivity, mUiController, this);
         mTitleBar.setProgress(100);
         mTabBar = new TabBar(mActivity, mUiController, this);
@@ -83,10 +85,12 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void hideComboView() {
-        checkTabCount();
-        super.hideComboView();
-        // ComboView changes the action bar, set it back up to what we want
-        setupActionBar();
+        if (isComboViewShowing()) {
+            super.hideComboView();
+            // ComboView changes the action bar, set it back up to what we want
+            setupActionBar();
+            checkTabCount();
+        }
     }
 
     private void setUseQuickControls(boolean useQuickControls) {
@@ -119,9 +123,13 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         if (mUseQuickControls) {
             int n = mTabBar.getTabCount();
             if (n >= 2) {
-                mActivity.getActionBar().show();
+                mActionBar.show();
             } else if (n == 1) {
-                mActivity.getActionBar().hide();
+                mHandler.post(new Runnable() {
+                    public void run() {
+                        mActionBar.hide();
+                    }
+                });
             }
         }
     }
