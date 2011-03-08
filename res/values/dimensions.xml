@@ -30,9 +30,10 @@
     <dimen name="widgetItemMinHeight">48dip</dimen>
     <dimen name="favicon_size">16dip</dimen>
     <dimen name="favicon_padded_size">20dip</dimen>
-    <dimen name="qc_radius">130dip</dimen>
-    <dimen name="qc_radius_inc">100dip</dimen>
+    <dimen name="qc_radius_start">30dip</dimen>
+    <dimen name="qc_radius_increment">70dip</dimen>
     <dimen name="qc_slop">15dip</dimen>
+    <dimen name="qc_tab_title_height">20dip</dimen>
     <dimen name="bookmark_widget_thumb_size">32dip</dimen>
     <dimen name="bookmark_widget_favicon_size">26dip</dimen>
     <!-- For the most visited page -->
