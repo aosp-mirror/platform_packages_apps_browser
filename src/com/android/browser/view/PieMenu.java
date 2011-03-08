@@ -46,6 +46,19 @@ public class PieMenu extends FrameLayout {
         public boolean onOpen();
     }
 
+    /**
+     * A view like object that lives off of the pie menu
+     */
+    public interface PieView {
+
+        public void layout(int anchorX, int anchorY, boolean onleft);
+
+        public void draw(Canvas c);
+
+        public boolean onTouchEvent(MotionEvent evt);
+
+    }
+
     private Point mCenter;
     private int mRadius;
     private int mRadiusInc;
@@ -57,6 +70,7 @@ public class PieMenu extends FrameLayout {
     private List<PieItem> mItems;
     private int mLevels;
     private int[] mCounts;
+    private PieView mPieView = null;
 
     private Drawable mBackground;
 
@@ -143,6 +157,7 @@ public class PieMenu extends FrameLayout {
         }
         if (!show) {
             mCurrentItem = null;
+            mPieView = null;
         }
         invalidate();
     }
@@ -159,6 +174,7 @@ public class PieMenu extends FrameLayout {
     private void layoutPie() {
         int inner = mRadius;
         int outer = mRadius + mRadiusInc;
+        int radius = mRadius;
         for (int i = 0; i < mLevels; i++) {
             int level = i + 1;
             float sweep = (float) Math.PI / (mCounts[level] + 1);
@@ -205,6 +221,9 @@ public class PieMenu extends FrameLayout {
             for (PieItem item : mItems) {
                 drawItem(canvas, item);
             }
+            if (mPieView != null) {
+                mPieView.draw(canvas);
+            }
         }
     }
 
@@ -236,10 +255,14 @@ public class PieMenu extends FrameLayout {
             }
         } else if (MotionEvent.ACTION_UP == action) {
             if (mOpen) {
+                boolean handled = false;
+                if (mPieView != null) {
+                    handled = mPieView.onTouchEvent(evt);
+                }
                 PieItem item = mCurrentItem;
                 deselect();
                 show(false);
-                if (item != null) {
+                if (!handled && (item != null)) {
                     item.getView().performClick();
                 }
                 return true;
@@ -254,6 +277,13 @@ public class PieMenu extends FrameLayout {
             boolean handled = false;
             PointF polar = getPolar(x, y);
             int maxr = mRadius + mLevels * mRadiusInc + 50;
+            if (mPieView != null) {
+                handled = mPieView.onTouchEvent(evt);
+            }
+            if (handled) {
+                invalidate();
+                return false;
+            }
             if (polar.y > maxr) {
                 deselect();
                 show(false);
@@ -266,11 +296,22 @@ public class PieMenu extends FrameLayout {
             PieItem item = findItem(polar);
             if (mCurrentItem != item) {
                 onEnter(item);
+                if ((item != null) && item.isPieView()) {
+                    int cx = item.getView().getLeft() + (onTheLeft()
+                            ? item.getView().getWidth() : 0);
+                    int cy = item.getView().getTop();
+                    mPieView = item.getPieView();
+                    layoutPieView(mPieView, cx, cy);
+                }
                 invalidate();
             }
         }
         // always re-dispatch event
         return false;
+    }
+
+    private void layoutPieView(PieView pv, int x, int y) {
+        pv.layout(x, y, onTheLeft());
     }
 
     /**
@@ -287,6 +328,7 @@ public class PieMenu extends FrameLayout {
             // clear up stack
             playSoundEffect(SoundEffectConstants.CLICK);
             item.setSelected(true);
+            mPieView = null;
         }
         mCurrentItem = item;
     }
@@ -296,6 +338,7 @@ public class PieMenu extends FrameLayout {
             mCurrentItem.setSelected(false);
         }
         mCurrentItem = null;
+        mPieView = null;
     }
 
     private PointF getPolar(float x, float y) {

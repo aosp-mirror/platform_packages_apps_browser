@@ -16,6 +16,8 @@
 
 package com.android.browser.view;
 
+import com.android.browser.view.PieMenu.PieView;
+
 import android.view.View;
 
 /**
@@ -24,6 +26,7 @@ import android.view.View;
 public class PieItem {
 
     private View mView;
+    private PieView mPieView;
     private int level;
     private float start;
     private float sweep;
@@ -34,6 +37,12 @@ public class PieItem {
     public PieItem(View view, int level) {
         mView = view;
         this.level = level;
+    }
+
+    public PieItem(View view, int level, PieView sym) {
+        mView = view;
+        this.level = level;
+        mPieView = sym;
     }
 
     public void setSelected(boolean s) {
@@ -74,8 +83,20 @@ public class PieItem {
         return outer;
     }
 
+    public boolean isPieView() {
+        return (mPieView != null);
+    }
+
     public View getView() {
         return mView;
+    }
+
+    public void setPieView(PieView sym) {
+        mPieView = sym;
+    }
+
+    public PieView getPieView() {
+        return mPieView;
     }
 
 }

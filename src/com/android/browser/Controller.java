@@ -1479,7 +1479,7 @@ public class Controller
                 break;
         }
         mCurrentMenuState = mMenuState;
-        return true;
+        return mUi.onPrepareOptionsMenu(menu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -1929,6 +1929,13 @@ public class Controller
     static int getDesiredThumbnailHeight(Context context) {
         return context.getResources().getDimensionPixelOffset(
                 R.dimen.bookmarkThumbnailHeight);
+    }
+
+    static Bitmap createScreenshot(Tab tab, int width, int height) {
+        if ((tab != null) && (tab.getWebView() != null)) {
+            return createScreenshot(tab.getWebView(), width, height);
+        }
+        return null;
     }
 
     private static Bitmap createScreenshot(WebView view, int width, int height) {

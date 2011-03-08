@@ -616,6 +616,11 @@ public abstract class BaseUi implements UI, WebViewFactory {
     // menu handling callbacks
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
     public void onOptionsMenuOpened() {
     }
 
