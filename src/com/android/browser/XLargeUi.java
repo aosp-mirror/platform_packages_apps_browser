@@ -468,22 +468,23 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public boolean dispatchKey(int code, KeyEvent event) {
-        WebView web = getActiveTab().getWebView();
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-
-            switch (code) {
-                case KeyEvent.KEYCODE_TAB:
-                case KeyEvent.KEYCODE_DPAD_UP:
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    if ((web != null) && web.hasFocus() && !mTitleBar.hasFocus()) {
-                        editUrl(false);
-                        return true;
-                    }
-            }
-            boolean ctrl = event.hasModifiers(KeyEvent.META_CTRL_ON);
-            if (!ctrl && isTypingKey(event) && !mTitleBar.isEditingUrl()) {
-                editUrl(true);
-                return mContentView.dispatchKeyEvent(event);
+        if (mActiveTab != null) {
+            WebView web = mActiveTab.getWebView();
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                switch (code) {
+                    case KeyEvent.KEYCODE_TAB:
+                    case KeyEvent.KEYCODE_DPAD_UP:
+                    case KeyEvent.KEYCODE_DPAD_LEFT:
+                        if ((web != null) && web.hasFocus() && !mTitleBar.hasFocus()) {
+                            editUrl(false);
+                            return true;
+                        }
+                }
+                boolean ctrl = event.hasModifiers(KeyEvent.META_CTRL_ON);
+                if (!ctrl && isTypingKey(event) && !mTitleBar.isEditingUrl()) {
+                    editUrl(true);
+                    return mContentView.dispatchKeyEvent(event);
+                }
             }
         }
         return false;
