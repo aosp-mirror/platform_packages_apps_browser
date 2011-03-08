@@ -207,8 +207,6 @@
     <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
     <string name="delete_bookmark_warning">Bookmark \"<xliff:g id="bookmark">%s</xliff:g>\" will be deleted.</string>
-    <!-- Context Menu item to open the selected link in a new window -->
-    <string name="open_in_new_window">Open in new window</string>
     <!-- Context menu item to open every bookmark in a folder in new windows [CHAR LIMIT=50] -->
     <string name="open_all_in_new_window">Open all in new windows</string>
     <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
