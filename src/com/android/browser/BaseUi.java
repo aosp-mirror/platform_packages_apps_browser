@@ -468,6 +468,10 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mContentView.addView(mComboView, COVER_SCREEN_PARAMS);
     }
 
+    public boolean isComboViewShowing() {
+        return (mComboView != null);
+    }
+
     /**
      * dismiss the ComboPage
      */
