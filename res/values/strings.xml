@@ -933,10 +933,37 @@
     <string name="import_bookmarks_dialog_title">Sync with Google account</string>
 
     <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
-    <string name="import_bookmarks_dialog_description">Your Android bookmarks are not associated with a Google account</string>
+    <string name="import_bookmarks_dialog_description">Bookmarks on this device are not yet associated with a Google account. Save these bookmarks by adding them to an account. Delete these bookmarks if you do not want to sync them.</string>
+
+    <!-- Description for selecting the account to add bookmarks to and begin syncing with [CHAR-LIMIT=none] -->
+    <string name="import_bookmarks_dialog_select_add_account">Add bookmarks currently on this device and begin syncing with Google Account</string>
+
+    <!-- Description for selecting the account to sync with and delete local bookmarks [CHAR-LIMIT=none] -->
+    <string name="import_bookmarks_dialog_delete_select_account">Delete bookmarks currently on this device and begin synchronizing with Google Account</string>
+
+    <!-- Description confirming user's choice to delete bookmarks [CHAR-LIMIT=none] -->
+    <string name="import_bookmarks_dialog_confirm_delete">Delete bookmarks currently on this device and begin synchronizing bookmarks with <xliff:g id="Google account" example="account@example.com">%s</xliff:g>.</string>
+
+    <!-- Description confirming user's choice to add bookmarks to an account [CHAR-LIMIT=none] -->
+    <string name="import_bookmarks_dialog_confirm_add">Add bookmarks currently on this device and begin synchronizing bookmarks with <xliff:g id="Google account" example="account@example.com">%s</xliff:g>.</string>
 
     <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
-    <string name="import_bookmarks_dialog_remove">Remove your Android bookmarks</string>
+    <string name="import_bookmarks_dialog_remove">Delete bookmarks</string>
+
+    <!-- Sync bookmarks wizard option to go to the next screen [CHAR-LIMIT=30] -->
+    <string name="import_bookmarks_wizard_next">Next</string>
+
+    <!-- Sync bookmarks wizard option to go to the previous screen [CHAR-LIMIT=30] -->
+    <string name="import_bookmarks_wizard_previous">Previous</string>
+
+    <!-- Sync bookmarks wizard option to cancel sync setup [CHAR-LIMIT=30] -->
+    <string name="import_bookmarks_wizard_cancel">Cancel</string>
+
+    <!-- Sync bookmarks wizard option to finish sync setup [CHAR-LIMIT=30] -->
+    <string name="import_bookmarks_wizard_done">Done</string>
+
+    <!-- Button allowing users to import all of their existing bookmarks into an account when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+    <string name="import_bookmarks_dialog_add">Add bookmarks to Google Account</string>
 
     <!-- Button allowing users to import all of their existing bookmarks into an account when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
     <string name="import_bookmarks_dialog_import">Add your Android bookmarks to bookmarks for <xliff:g id="Google account" example="account@example.com">%s</xliff:g></string>
