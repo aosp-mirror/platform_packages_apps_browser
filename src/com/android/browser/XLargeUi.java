@@ -24,12 +24,15 @@ import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
@@ -121,15 +124,14 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     private void checkTabCount() {
         if (mUseQuickControls) {
-            int n = mTabBar.getTabCount();
-            if (n >= 2) {
-                mActionBar.show();
-            } else if (n == 1) {
+            if (mTabControl.getTabCount() == 1) {
                 mHandler.post(new Runnable() {
                     public void run() {
                         mActionBar.hide();
                     }
                 });
+            } else {
+                mActionBar.show();
             }
         }
     }
@@ -501,6 +503,16 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     public void registerDropdownChangeListener(DropdownChangeListener d) {
         mTitleBar.registerDropdownChangeListener(d);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mUseQuickControls) {
+            mPieControl.onMenuOpened(menu);
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

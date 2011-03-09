@@ -19,6 +19,7 @@ package com.android.browser;
 import com.android.browser.UI.DropdownChangeListener;
 
 import android.content.Intent;
+import android.view.MenuItem;
 import android.webkit.WebView;
 
 import java.util.List;
@@ -88,4 +89,7 @@ public interface UiController extends BookmarksHistoryCallbacks {
     void unregisterOptionsMenuHandler(OptionsMenuHandler handler);
 
     void registerDropdownChangeListener(DropdownChangeListener d);
+
+    boolean onOptionsItemSelected(MenuItem item);
+
 }

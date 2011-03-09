@@ -17,15 +17,26 @@
 package com.android.browser;
 
 import com.android.browser.view.PieItem;
+import com.android.browser.view.PieListView;
 import com.android.browser.view.PieMenu;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
+import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * controller for Quick Controls pie menu
@@ -44,6 +55,7 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
     private PieItem mBookmarks;
     private PieItem mNewTab;
     private PieItem mClose;
+    private MenuAdapter mMenuAdapter;
 
     public PieControl(Activity activity, UiController controller, XLargeUi ui) {
         mActivity = activity;
@@ -67,11 +79,14 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             mOptions = makeItem(
                     com.android.internal.R.drawable.ic_menu_moreoverflow_normal_holo_dark,
                     2);
+            mMenuAdapter = new MenuAdapter(mActivity, mUiController);
+            PieMenuView menusym = new PieMenuView(mActivity);
+            mOptions.setPieView(menusym);
+            menusym.setAdapter(mMenuAdapter);
             setClickListener(mBack,
                     mRefresh,
                     mForward,
                     mUrl,
-                    mOptions,
                     mBookmarks,
                     mNewTab,
                     mClose
@@ -89,6 +104,10 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             mPie.setController(this);
         }
         container.addView(mPie);
+    }
+
+    protected void onMenuOpened(Menu menu) {
+        mMenuAdapter.setMenu(menu);
     }
 
     protected void removeFromContainer(FrameLayout container) {
@@ -135,8 +154,6 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             }
         } else if (mUrl.getView() == v) {
             mUi.showTitleBarAndEdit();
-        } else if (mOptions.getView() == v) {
-            mActivity.openOptionsMenu();
         } else if (mBookmarks.getView() == v) {
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mNewTab.getView() == v) {
@@ -150,6 +167,85 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
     @Override
     public boolean onOpen() {
         return false;
+    }
+
+    private class PieMenuView extends PieListView {
+
+        /**
+         * @param ctx
+         */
+        public PieMenuView(Context ctx) {
+            super(ctx);
+        }
+
+        @Override
+        public void layout(int anchorX, int anchorY, boolean left) {
+            mActivity.openOptionsMenu();
+            super.layout(anchorX, anchorY, left);
+        }
+
+    }
+
+    private static class MenuAdapter extends BaseAdapter
+            implements OnClickListener {
+
+        List<MenuItem> mItems;
+        UiController mUiController;
+        LayoutInflater mInflater;
+
+        public MenuAdapter(Context ctx, UiController ctl) {
+            mUiController = ctl;
+            mInflater = LayoutInflater.from(ctx);
+            mItems = new ArrayList<MenuItem>();
+        }
+
+        public void setMenu(Menu menu) {
+            mItems.clear();
+            for (int i = 0; i < menu.size(); i++) {
+                MenuItem item = menu.getItem(i);
+                if (item.isEnabled() && item.isVisible()) {
+                    mItems.add(item);
+                }
+            }
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getCount() {
+            return mItems.size();
+        }
+
+        @Override
+        public MenuItem getItem(int position) {
+            return mItems.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v.getTag() != null) {
+                mUiController.onOptionsItemSelected((MenuItem) v.getTag());
+            }
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final MenuItem item = mItems.get(position);
+            View view = mInflater.inflate(
+                    R.layout.qc_menu_item, null);
+            TextView label =
+                    (TextView) view.findViewById(R.id.title);
+            label.setText(item.getTitle());
+            label.setTag(item);
+            label.setOnClickListener(this);
+            label.setLayoutParams(new LayoutParams(240, 32));
+            return label;
+        }
+
     }
 
 }

@@ -89,6 +89,8 @@ public interface UI {
 
     public void revertVoiceTitleBar(Tab tab);
 
+    public boolean onPrepareOptionsMenu(Menu menu);
+
     public void onOptionsMenuOpened();
 
     public void onExtendedMenuOpened();
