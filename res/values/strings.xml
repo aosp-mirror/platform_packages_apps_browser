@@ -354,7 +354,7 @@
     <!-- Settings category for sync under general settings. This includes bookmark sync with Chrome [CHAR-LIMIT=50] -->
     <string name="pref_general_sync_title">Sync</string>
     <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
-    <string name="pref_general_autofill_title">Autofill</string>
+    <string name="pref_general_autofill_title">Auto-fill</string>
     <!-- Checkbox setting to enable or disable syncing bookmarks and other data with Google Chrome. [CHAR-LIMIT=48] -->
     <string name="pref_personal_sync_with_chrome">Sync with Google Chrome</string>
     <!-- Checkbox setting to enable or disable syncing bookmarks and other data with Google Chrome. [CHAR-LIMIT=none] -->
@@ -397,7 +397,7 @@
     <string name="autologin_bar_error">Login failed.</string>
 
     <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
-    <string name="autofill_profile_editor_heading">AutoFill will use your profile to help you complete web forms in a single click.</string>
+    <string name="autofill_profile_editor_heading">Enter the data you want to auto-fill in web fields when you touch them.</string>
     <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
     <string name="autofill_profile_editor_name">Full name:</string>
     <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
@@ -438,10 +438,10 @@
     <string name="autofill_setup_dialog_message">Browser can automatically complete web forms like this one. Would you like to set up your profile?</string>
     <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
-    <string name="autofill_setup_dialog_negative_toast">AutoFill can always be configured through Browser Settings.</string>
+    <string name="autofill_setup_dialog_negative_toast">Auto-fill can always be configured through Browser Settings.</string>
     <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
-    <string name="disable_autofill">Disable AutoFill</string>
+    <string name="disable_autofill">Disable auto-fill</string>
 
     <!-- Settings screen, section title [CHAR-LIMIT=50] -->
     <string name="pref_privacy_security_title">Privacy &amp; security</string>
