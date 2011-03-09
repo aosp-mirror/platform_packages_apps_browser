@@ -135,6 +135,14 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (!BrowserSettings.getInstance().useInstant()) {
+            mTitleBar.clearCompletions();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         hideTitleBar();
     }

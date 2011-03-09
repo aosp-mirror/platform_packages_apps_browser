@@ -396,6 +396,10 @@ public class TitleBarXLarge extends TitleBarBase
         return super.focusSearch(focused, dir);
     }
 
+    void clearCompletions() {
+        mUrlInput.setSuggestedText(null);
+    }
+
     @Override
     public boolean dispatchKeyEventPreIme(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.KEYCODE_BACK) {
