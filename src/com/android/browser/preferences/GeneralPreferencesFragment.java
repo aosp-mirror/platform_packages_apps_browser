@@ -30,35 +30,19 @@ import android.accounts.AccountManagerFuture;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.Fragment;
-import android.content.ContentProviderOperation;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.BrowserContract;
-import android.provider.BrowserContract.Bookmarks;
-import android.provider.BrowserContract.ChromeSyncColumns;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-
-import java.util.ArrayList;
 
 public class GeneralPreferencesFragment extends PreferenceFragment
         implements OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
@@ -69,6 +53,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
     Preference mChromeSync;
     boolean mEnabled;
     SharedPreferences mSharedPrefs;
+    Account[] mAccounts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -144,13 +129,9 @@ public class GeneralPreferencesFragment extends PreferenceFragment
                 String name = bundle.getString(AccountManager.KEY_ACCOUNT_NAME);
                 String type = bundle.getString(AccountManager.KEY_ACCOUNT_TYPE);
                 Account account = new Account(name, type);
-                Fragment frag = new ImportWizardDialog();
-                Bundle extras = mChromeSync.getExtras();
-                extras.putParcelableArray("accounts", new Account[] { account });
-                frag.setArguments(extras);
-                getFragmentManager().beginTransaction()
-                        .add(frag, null)
-                        .commit();
+                mAccounts = new Account[] { account };
+                ImportWizard wizard = ImportWizard.newInstance(mAccounts);
+                wizard.show(getFragmentManager(), null);
             } catch (Exception ex) {
                 // Canceled or failed to login, doesn't matter to us
             }
@@ -186,6 +167,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
                 }
             } else {
                 // Google accounts are present.
+                mAccounts = accounts;
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
                 Bundle args = mChromeSync.getExtras();
                 args.putParcelableArray("accounts", accounts);
@@ -226,16 +208,18 @@ public class GeneralPreferencesFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        Fragment frag;
+        if (mAccounts == null) {
+            Log.w(TAG, "NULL accounts!");
+            return true;
+        }
+        DialogFragment frag;
         if (mEnabled) {
             frag = new AccountChooserDialog();
+            frag.setArguments(preference.getExtras());
         } else {
-            frag = new ImportWizardDialog();
+            frag = ImportWizard.newInstance(mAccounts);
         }
-        frag.setArguments(preference.getExtras());
-        getFragmentManager().beginTransaction()
-                .add(frag, null)
-                .commit();
+        frag.show(getFragmentManager(), null);
         return true;
     }
 
@@ -274,198 +258,6 @@ public class GeneralPreferencesFragment extends PreferenceFragment
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
             prefs.edit().putString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, accountName).apply();
             dismiss();
-        }
-    }
-
-    public static class ImportWizardDialog extends DialogFragment implements OnClickListener {
-        View mRemoveButton;
-        View mCancelButton;
-        String mDefaultAccount;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Context context = getActivity();
-            Dialog dialog = new Dialog(context);
-            dialog.setTitle(R.string.import_bookmarks_dialog_title);
-            dialog.setContentView(R.layout.import_bookmarks_dialog);
-            mRemoveButton = dialog.findViewById(R.id.remove);
-            mRemoveButton.setOnClickListener(this);
-            mCancelButton = dialog.findViewById(R.id.cancel);
-            mCancelButton.setOnClickListener(this);
-
-            LayoutInflater inflater = dialog.getLayoutInflater();
-            LinearLayout accountList = (LinearLayout) dialog.findViewById(R.id.accountList);
-            Account[] accounts = (Account[]) getArguments().getParcelableArray("accounts");
-            mDefaultAccount = accounts[0].name;
-            int length = accounts.length;
-            for (int i = 0; i < length; i++) {
-                Button button = (Button) inflater.inflate(R.layout.import_bookmarks_dialog_button,
-                        null);
-                button.setText(context.getString(R.string.import_bookmarks_dialog_import,
-                        accounts[i].name));
-                button.setTag(accounts[i].name);
-                button.setOnClickListener(this);
-                accountList.addView(button);
-            }
-
-            return dialog;
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (view == mCancelButton) {
-                dismiss();
-                return;
-            }
-
-            ContentResolver resolver = getActivity().getContentResolver();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String accountName;
-            if (view == mRemoveButton) {
-                // The user chose to remove their old bookmarks, delete them now
-                resolver.delete(Bookmarks.CONTENT_URI,
-                        Bookmarks.PARENT + "=1 AND " + Bookmarks.ACCOUNT_NAME + " IS NULL", null);
-                accountName = mDefaultAccount;
-            } else {
-                // The user chose to migrate their old bookmarks to the account they're syncing
-                accountName = view.getTag().toString();
-                migrateBookmarks(resolver, accountName);
-            }
-
-            // Record the fact that we turned on sync
-            BrowserContract.Settings.setSyncEnabled(getActivity(), true);
-            prefs.edit()
-                    .putString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, "com.google")
-                    .putString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, accountName)
-                    .apply();
-
-            // Enable bookmark sync on all accounts
-            Account[] accounts = (Account[]) getArguments().getParcelableArray("accounts");
-            for (Account account : accounts) {
-                if (ContentResolver.getIsSyncable(account, BrowserContract.AUTHORITY) == 0) {
-                    // Account wasn't syncable, enable it
-                    ContentResolver.setIsSyncable(account, BrowserContract.AUTHORITY, 1);
-                    ContentResolver.setSyncAutomatically(account, BrowserContract.AUTHORITY, true);
-                }
-            }
-
-            dismiss();
-        }
-
-        /**
-         * Migrates bookmarks to the given account
-         */
-        void migrateBookmarks(ContentResolver resolver, String accountName) {
-            Cursor cursor = null;
-            try {
-                // Re-parent the bookmarks in the default root folder
-                cursor = resolver.query(Bookmarks.CONTENT_URI, new String[] { Bookmarks._ID },
-                        Bookmarks.ACCOUNT_NAME + " =? AND " +
-                            ChromeSyncColumns.SERVER_UNIQUE + " =?",
-                        new String[] { accountName,
-                            ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR },
-                        null);
-                ContentValues values = new ContentValues();
-                if (cursor == null || !cursor.moveToFirst()) {
-                    // The root folders don't exist for the account, create them now
-                    ArrayList<ContentProviderOperation> ops =
-                            new ArrayList<ContentProviderOperation>();
-
-                    // Chrome sync root folder
-                    values.clear();
-                    values.put(ChromeSyncColumns.SERVER_UNIQUE, ChromeSyncColumns.FOLDER_NAME_ROOT);
-                    values.put(Bookmarks.TITLE, "Google Chrome");
-                    values.put(Bookmarks.POSITION, 0);
-                    values.put(Bookmarks.IS_FOLDER, true);
-                    values.put(Bookmarks.DIRTY, true);
-                    ops.add(ContentProviderOperation.newInsert(
-                            Bookmarks.CONTENT_URI.buildUpon().appendQueryParameter(
-                                    BrowserContract.CALLER_IS_SYNCADAPTER, "true").build())
-                            .withValues(values)
-                            .build());
-
-                    // Bookmarks folder
-                    values.clear();
-                    values.put(ChromeSyncColumns.SERVER_UNIQUE,
-                            ChromeSyncColumns.FOLDER_NAME_BOOKMARKS);
-                    values.put(Bookmarks.TITLE, "Bookmarks");
-                    values.put(Bookmarks.POSITION, 0);
-                    values.put(Bookmarks.IS_FOLDER, true);
-                    values.put(Bookmarks.DIRTY, true);
-                    ops.add(ContentProviderOperation.newInsert(Bookmarks.CONTENT_URI)
-                            .withValues(values)
-                            .withValueBackReference(Bookmarks.PARENT, 0)
-                            .build());
-
-                    // Bookmarks Bar folder
-                    values.clear();
-                    values.put(ChromeSyncColumns.SERVER_UNIQUE,
-                            ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR);
-                    values.put(Bookmarks.TITLE, "Bookmarks Bar");
-                    values.put(Bookmarks.POSITION, 0);
-                    values.put(Bookmarks.IS_FOLDER, true);
-                    values.put(Bookmarks.DIRTY, true);
-                    ops.add(ContentProviderOperation.newInsert(Bookmarks.CONTENT_URI)
-                            .withValues(values)
-                            .withValueBackReference(Bookmarks.PARENT, 1)
-                            .build());
-
-                    // Other Bookmarks folder
-                    values.clear();
-                    values.put(ChromeSyncColumns.SERVER_UNIQUE,
-                            ChromeSyncColumns.FOLDER_NAME_OTHER_BOOKMARKS);
-                    values.put(Bookmarks.TITLE, "Other Bookmarks");
-                    values.put(Bookmarks.POSITION, 1000);
-                    values.put(Bookmarks.IS_FOLDER, true);
-                    values.put(Bookmarks.DIRTY, true);
-                    ops.add(ContentProviderOperation.newInsert(Bookmarks.CONTENT_URI)
-                            .withValues(values)
-                            .withValueBackReference(Bookmarks.PARENT, 1)
-                            .build());
-
-                    // Re-parent the existing bookmarks to the newly create bookmarks bar folder
-                    ops.add(ContentProviderOperation.newUpdate(Bookmarks.CONTENT_URI)
-                            .withValueBackReference(Bookmarks.PARENT, 2)
-                            .withSelection(Bookmarks.ACCOUNT_NAME + " IS NULL AND " +
-                                    Bookmarks.PARENT + "=?",
-                                        new String[] { Integer.toString(1) })
-                            .build());
-
-                    // Mark all non-root folder items as belonging to the new account
-                    values.clear();
-                    values.put(Bookmarks.ACCOUNT_TYPE, "com.google");
-                    values.put(Bookmarks.ACCOUNT_NAME, accountName);
-                    ops.add(ContentProviderOperation.newUpdate(Bookmarks.CONTENT_URI)
-                            .withValues(values)
-                            .withSelection(Bookmarks.ACCOUNT_NAME + " IS NULL AND " +
-                                    Bookmarks._ID + "<>1", null)
-                            .build());
-
-                    try {
-                        resolver.applyBatch(BrowserContract.AUTHORITY, ops);
-                    } catch (RemoteException e) {
-                        Log.e(TAG, "failed to create root folder for account " + accountName, e);
-                        return;
-                    } catch (OperationApplicationException e) {
-                        Log.e(TAG, "failed to create root folder for account " + accountName, e);
-                        return;
-                    }
-                } else {
-                    values.put(Bookmarks.PARENT, cursor.getLong(0));
-                    resolver.update(Bookmarks.CONTENT_URI, values, Bookmarks.PARENT + "=?",
-                            new String[] { Integer.toString(1) });
-
-                    // Mark all bookmarks at all levels as part of the new account
-                    values.clear();
-                    values.put(Bookmarks.ACCOUNT_TYPE, "com.google");
-                    values.put(Bookmarks.ACCOUNT_NAME, accountName);
-                    resolver.update(Bookmarks.CONTENT_URI, values,
-                            Bookmarks.ACCOUNT_NAME + " IS NULL AND " + Bookmarks._ID + "<>1",
-                            null);
-                }
-            } finally {
-                if (cursor != null) cursor.close();
-            }
         }
     }
 }
