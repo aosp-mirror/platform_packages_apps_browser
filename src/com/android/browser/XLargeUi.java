@@ -377,6 +377,11 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
+    protected void updateAutoLogin(Tab tab, boolean animate) {
+        mTitleBar.updateAutoLogin(tab, animate);
+    }
+
+    @Override
     public void setUrlTitle(Tab tab) {
         super.setUrlTitle(tab);
         mTabBar.onUrlAndTitle(tab, tab.getUrl(), tab.getTitle());

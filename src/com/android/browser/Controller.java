@@ -996,6 +996,19 @@ public class Controller
         mPageDialogsHandler.showSSLCertificateOnError(view, handler, error);
     }
 
+    @Override
+    public void showAutoLogin(Tab tab) {
+        assert tab.inForeground();
+        // Update the title bar to show the auto-login request.
+        mUi.showAutoLogin(tab);
+    }
+
+    @Override
+    public void hideAutoLogin(Tab tab) {
+        assert tab.inForeground();
+        mUi.hideAutoLogin(tab);
+    }
+
     // helper method
 
     /*
