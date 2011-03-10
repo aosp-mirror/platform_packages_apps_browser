@@ -363,9 +363,11 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         if (inLoad) {
             // the titlebar was removed when the CAB was shown
             // if the page is loading, show it again
-            mTitleBar.setShowProgressOnly(true);
-            if (!isTitleBarShowing()) {
-                setTitleGravity(Gravity.TOP);
+            if (mUseQuickControls) {
+                mTitleBar.setShowProgressOnly(true);
+                if (!isTitleBarShowing()) {
+                    setTitleGravity(Gravity.TOP);
+                }
             }
             showTitleBar();
         }
