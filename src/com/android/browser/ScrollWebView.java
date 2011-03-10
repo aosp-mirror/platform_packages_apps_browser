@@ -18,7 +18,6 @@ package com.android.browser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,9 +35,7 @@ public class ScrollWebView extends WebView implements Runnable {
     private boolean mBackgroundRemoved = false;
     private boolean mUserInitiated = false;
     private TitleBarBase mTitleBar;
-    private boolean mDrawCached = false;
     private Bitmap mBitmap;
-    private Paint mCachePaint = new Paint();
 
     /**
      * @param context
@@ -137,46 +134,22 @@ public class ScrollWebView extends WebView implements Runnable {
         mScrollListener = l;
     }
 
-    @Override
-    public void invalidate() {
-        if (!mDrawCached) {
-            super.invalidate();
-        }
-    }
-
     // callback for scroll events
 
     interface ScrollListener {
         public void onScroll(int visibleTitleHeight, boolean userInitiated);
     }
 
-    void setDrawCached(boolean cached) {
-        if (cached == mDrawCached) return;
-        if (cached) {
-            buildDrawingCache();
-            mBitmap = getDrawingCache(false);
-            mDrawCached = (mBitmap != null);
-        } else {
-            mDrawCached = false;
-            mBitmap = null;
-            destroyDrawingCache();
-        }
-    }
-
     @Override
     protected void onDraw(android.graphics.Canvas c) {
-        if (mDrawCached) {
-            c.drawBitmap(mBitmap, getScrollX(), getScrollY(), mCachePaint);
-        } else {
-            super.onDraw(c);
-            if (!mBackgroundRemoved && getRootView().getBackground() != null) {
-                mBackgroundRemoved = true;
-                post(new Runnable() {
-                    public void run() {
-                        getRootView().setBackgroundDrawable(null);
-                    }
-                });
-            }
+        super.onDraw(c);
+        if (!mBackgroundRemoved && getRootView().getBackground() != null) {
+            mBackgroundRemoved = true;
+            post(new Runnable() {
+                public void run() {
+                    getRootView().setBackgroundDrawable(null);
+                }
+            });
         }
     }
 
