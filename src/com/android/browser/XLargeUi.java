@@ -18,14 +18,9 @@ package com.android.browser;
 
 import com.android.browser.ScrollWebView.ScrollListener;
 
-import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
-import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -54,7 +49,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     private boolean mUseQuickControls;
     private PieControl mPieControl;
-    private boolean mInAnimation = false;
     private Handler mHandler;
 
     /**
@@ -221,56 +215,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void setActiveTab(final Tab tab) {
-        if (mInAnimation) return;
-        if ((tab != mActiveTab) && (mActiveTab != null)) {
-            mInAnimation = true;
-            // animate between the two
-            final ScrollWebView fromWV = (ScrollWebView) mActiveTab.getWebView();
-            fromWV.setDrawCached(true);
-            fromWV.setEmbeddedTitleBar(null);
-            final ScrollWebView toWV = (ScrollWebView) tab.getWebView();
-            if (!mUseQuickControls) {
-                if (mTitleBar.getParent() == null) {
-                    toWV.setEmbeddedTitleBar(mTitleBar);
-                }
-            }
-            toWV.setDrawCached(true);
-            attachTabToContentView(tab);
-            super.setActiveTab(tab, false);
-            ObjectAnimator transition = ObjectAnimator.ofFloat(
-                    toWV, "alpha", 0f, 1f);
-            transition.setDuration(mActivity.getResources()
-                    .getInteger(R.integer.tabFadeDuration));
-            transition.addListener(new AnimatorListener() {
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                    fromWV.setDrawCached(false);
-                    toWV.setDrawCached(false);
-                    setActiveTab(tab, false);
-                    mInAnimation = false;
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    fromWV.setDrawCached(false);
-                    toWV.setDrawCached(false);
-                    setActiveTab(tab, false);
-                    mInAnimation = false;
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationStart(Animator animation) {
-                }
-            });
-            transition.start();
-        } else {
-            super.setActiveTab(tab, true);
-            setActiveTab(tab, true);
-        }
+        super.setActiveTab(tab, true);
+        setActiveTab(tab, true);
     }
 
     @Override
