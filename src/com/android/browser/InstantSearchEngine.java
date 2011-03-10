@@ -15,13 +15,9 @@
  */
 package com.android.browser;
 
-import com.google.android.collect.Maps;
-import com.google.common.collect.Lists;
-
 import com.android.browser.Controller;
 import com.android.browser.R;
 import com.android.browser.UI.DropdownChangeListener;
-import com.android.browser.search.DefaultSearchEngine;
 import com.android.browser.search.SearchEngine;
 
 import android.app.SearchManager;
