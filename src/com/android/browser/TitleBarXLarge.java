@@ -16,16 +16,14 @@
 
 package com.android.browser;
 
-import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 import com.android.browser.UI.DropdownChangeListener;
+import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 import com.android.browser.search.SearchEngine;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.database.DataSetObserver;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -40,7 +38,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,8 +81,8 @@ public class TitleBarXLarge extends TitleBarBase
                 R.drawable.textfield_active_holo_dark);
         mUnfocusDrawable = resources.getDrawable(
                 R.drawable.textfield_default_holo_dark);
-        initLayout(activity);
         mInVoiceMode = false;
+        initLayout(activity);
     }
 
     @Override
@@ -380,7 +377,9 @@ public class TitleBarXLarge extends TitleBarBase
     public void setInVoiceMode(boolean voicemode, List<String> voiceResults) {
         mInVoiceMode = voicemode;
         mUrlInput.setVoiceResults(voiceResults);
-        mUrlIcon.setImageDrawable(mSearchButton.getDrawable());
+        if (voicemode) {
+            mUrlIcon.setImageDrawable(mSearchButton.getDrawable());
+        }
     }
 
     @Override
