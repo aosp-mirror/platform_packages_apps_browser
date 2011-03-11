@@ -18,6 +18,9 @@ package com.android.browser;
 
 import com.android.browser.ScrollWebView.ScrollListener;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -47,6 +50,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     private TabBar mTabBar;
 
     private TitleBarXLarge mTitleBar;
+    private Animator mTitleBarAnimator;
 
     private boolean mUseQuickControls;
     private PieControl mPieControl;
@@ -317,6 +321,18 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             if (mUseQuickControls) {
                 mContentView.addView(mTitleBar);
             } else {
+                if (mTitleBarAnimator != null) {
+                    mTitleBarAnimator.cancel();
+                }
+                int visibleHeight = getVisibleTitleHeight();
+                float startPos = (-mTitleBar.getEmbeddedHeight() + visibleHeight);
+                if (mTitleBar.getTranslationY() != 0) {
+                    startPos = Math.max(startPos, mTitleBar.getTranslationY());
+                }
+                mTitleBarAnimator = ObjectAnimator.ofFloat(mTitleBar,
+                        "translationY",
+                        startPos, 0);
+                mTitleBarAnimator.start();
                 setTitleGravity(Gravity.TOP);
             }
             super.showTitleBar();
@@ -331,11 +347,50 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             if (mUseQuickControls) {
                 mContentView.removeView(mTitleBar);
             } else {
-                setTitleGravity(Gravity.NO_GRAVITY);
+                if (mTitleBarAnimator != null) {
+                    mTitleBarAnimator.cancel();
+                }
+                int visibleHeight = getVisibleTitleHeight();
+                mTitleBarAnimator = ObjectAnimator.ofFloat(mTitleBar,
+                        "translationY", mTitleBar.getTranslationY(),
+                        (-mTitleBar.getEmbeddedHeight() + visibleHeight));
+                mTitleBarAnimator.addListener(mHideTileBarAnimatorListener);
+                mTitleBarAnimator.start();
             }
             super.hideTitleBar();
         }
     }
+
+    private int getVisibleTitleHeight() {
+        WebView webview = mActiveTab != null ? mActiveTab.getWebView() : null;
+        return webview != null ? webview.getVisibleTitleHeight() : 0;
+    }
+
+    private AnimatorListener mHideTileBarAnimatorListener = new AnimatorListener() {
+
+        boolean mWasCanceled;
+        @Override
+        public void onAnimationStart(Animator animation) {
+            mWasCanceled = false;
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            if (!mWasCanceled) {
+                mTitleBar.setTranslationY(0);
+                setTitleGravity(Gravity.NO_GRAVITY);
+            }
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            mWasCanceled = true;
+        }
+    };
 
     public boolean isEditingUrl() {
         return mTitleBar.isEditingUrl();
