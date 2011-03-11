@@ -65,11 +65,14 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
     private MenuAdapter mMenuAdapter;
     private PieItem mShowTabs;
     private TabAdapter mTabAdapter;
+    private TextView mTabsCount;
+    private int mItemSize;
 
     public PieControl(Activity activity, UiController controller, XLargeUi ui) {
         mActivity = activity;
         mUiController = controller;
         mUi = ui;
+        mItemSize = (int) activity.getResources().getDimension(R.dimen.qc_item_size);
     }
 
     protected void attachToContainer(FrameLayout container) {
@@ -85,7 +88,8 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             mForward = makeItem(R.drawable.ic_forward_holo_dark, 2);
             mNewTab = makeItem(R.drawable.ic_new_window_holo_dark, 2);
             mClose = makeItem(R.drawable.ic_close_window_holo_dark, 2);
-            mShowTabs = makeItem(R.drawable.ic_windows_holo_dark, 2);
+            View tabs = makeTabsView();
+            mShowTabs = new PieItem(tabs, 2);
             mOptions = makeItem(
                     com.android.internal.R.drawable.ic_menu_moreoverflow_normal_holo_dark,
                     2);
@@ -152,12 +156,26 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
         container.removeView(mPie);
     }
 
+    private View makeTabsView() {
+        View v = mActivity.getLayoutInflater().inflate(R.layout.qc_tabs_view, null);
+        mTabsCount = (TextView) v.findViewById(R.id.label);
+        mTabsCount.setText("1");
+        ImageView image = (ImageView) v.findViewById(R.id.icon);
+        image.setImageResource(R.drawable.ic_windows_holo_dark);
+        image.setScaleType(ScaleType.CENTER);
+        LayoutParams lp = new LayoutParams(mItemSize, mItemSize);
+        v.setLayoutParams(lp);
+        v.setBackgroundResource(R.drawable.qc_item_selector);
+        return v;
+    }
+
     private PieItem makeItem(int image, int l) {
         ImageView view = new ImageView(mActivity);
         view.setImageResource(image);
-        view.setMinimumWidth(48);
-        view.setMinimumHeight(48);
-        LayoutParams lp = new LayoutParams(48, 48);
+        view.setMinimumWidth(mItemSize);
+        view.setMinimumHeight(mItemSize);
+        view.setScaleType(ScaleType.CENTER);
+        LayoutParams lp = new LayoutParams(mItemSize,mItemSize);
         view.setLayoutParams(lp);
         view.setBackgroundResource(R.drawable.qc_item_selector);
         return new PieItem(view, l);
@@ -204,7 +222,9 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
 
     @Override
     public boolean onOpen() {
-        return false;
+        int n = mUiController.getTabControl().getTabCount();
+        mTabsCount.setText(Integer.toString(n));
+        return true;
     }
 
     private static class TabAdapter extends BaseAdapter implements OnCurrentListener {
