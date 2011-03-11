@@ -782,6 +782,7 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
             super.setText(text, type);
         } else {
             buffer.replace(0, buffer.length(), text);
+            invalidate();
         }
     }
 
