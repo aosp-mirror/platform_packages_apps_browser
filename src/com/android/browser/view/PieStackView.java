@@ -20,19 +20,39 @@ import com.android.browser.R;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.view.View;
 
 /**
- * shows views in a menu style list
+ * shows views in a stack
  */
-public class PieListView extends BasePieView {
+public class PieStackView extends BasePieView {
 
-    private Paint mBgPaint;
+    private static final int SLOP = 5;
 
-    public PieListView(Context ctx) {
-        mBgPaint = new Paint();
-        mBgPaint.setColor(ctx.getResources().getColor(R.color.qcMenuBackground));
+    private OnCurrentListener mCurrentListener;
+    private int mMinHeight;
+
+    public interface OnCurrentListener {
+        public void onSetCurrent(int index);
+    }
+
+    public PieStackView(Context ctx) {
+        mMinHeight = (int) ctx.getResources()
+                .getDimension(R.dimen.qc_tab_title_height);
+    }
+
+    public void setOnCurrentListener(OnCurrentListener l) {
+        mCurrentListener = l;
+    }
+
+    @Override
+    public void setCurrent(int ix) {
+        super.setCurrent(ix);
+        if (mCurrentListener != null) {
+            mCurrentListener.onSetCurrent(ix);
+            buildViews();
+            layoutChildrenLinear();
+        }
     }
 
     /**
@@ -43,30 +63,35 @@ public class PieListView extends BasePieView {
         super.layout(anchorX, anchorY, left);
         buildViews();
         mWidth = mChildWidth;
-        mHeight = mChildHeight * mAdapter.getCount();
-        mLeft = anchorX + (left ? 0 : - mChildWidth);
+        mHeight = mChildHeight + (mViews.size() - 1) * mMinHeight;
+        mLeft = anchorX + (left ? SLOP : -(SLOP + mChildWidth));
         mTop = anchorY - mHeight / 2;
         if (mViews != null) {
             layoutChildrenLinear();
         }
     }
 
-    protected void layoutChildrenLinear() {
+    private void layoutChildrenLinear() {
         final int n = mViews.size();
         int top = mTop;
+        int dy = (n == 1) ? 0 : (mHeight - mChildHeight) / (n - 1);
         for (View view : mViews) {
             view.layout(mLeft, top, mLeft + mChildWidth, top + mChildHeight);
-            top += mChildHeight;
+            top += dy;
         }
     }
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawRect(mLeft, mTop, mLeft + mWidth, mTop + mHeight, mBgPaint);
         if (mViews != null) {
-            for (View view : mViews) {
-                drawView(view, canvas);
+            final int n = mViews.size();
+            for (int i = 0; i < mCurrent; i++) {
+                drawView(mViews.get(i), canvas);
             }
+            for (int i = n - 1; i > mCurrent; i--) {
+                drawView(mViews.get(i), canvas);
+            }
+            drawView(mViews.get(mCurrent), canvas);
         }
     }
 
