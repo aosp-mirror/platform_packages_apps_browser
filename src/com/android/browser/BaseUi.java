@@ -238,6 +238,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         onProgressChanged(tab);
         boolean incognito = mActiveTab.getWebView().isPrivateBrowsingEnabled();
         getTitleBar().setIncognitoMode(incognito);
+        updateAutoLogin(tab, false);
     }
 
     Tab getActiveTab() {
@@ -539,10 +540,22 @@ public abstract class BaseUi implements UI, WebViewFactory {
             && mComboView == null;
     }
 
+    @Override
+    public void showAutoLogin(Tab tab) {
+        updateAutoLogin(tab, true);
+    }
+
+    @Override
+    public void hideAutoLogin(Tab tab) {
+        updateAutoLogin(tab, true);
+    }
+
     // -------------------------------------------------------------------------
 
     protected void updateNavigationState(Tab tab) {
     }
+
+    protected void updateAutoLogin(Tab tab, boolean animate) {}
 
     /**
      * Update the lock icon to correspond to our latest state.
