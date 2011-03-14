@@ -40,7 +40,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -80,10 +79,10 @@ public class GoogleAccountLogin implements Runnable,
     private int mState;  // {NONE(0), SID(1), LSID(2)}
     private boolean mTokensInvalidated;
 
-    private GoogleAccountLogin(Activity activity, String name,
+    private GoogleAccountLogin(Activity activity, Account account,
             Runnable runnable) {
         mActivity = activity;
-        mAccount = new Account(name, GOOGLE);
+        mAccount = account;
         mWebView = new WebView(mActivity);
         mRunnable = runnable;
 
@@ -233,28 +232,22 @@ public class GoogleAccountLogin implements Runnable,
     // Start the login process if auto-login is enabled and the user is not
     // already logged in.
     public static void startLoginIfNeeded(Activity activity,
-            BrowserSettings settings, Runnable runnable) {
-        // Auto login not enabled?
-        if (!settings.isAutoLoginEnabled()) {
-            runnable.run();
-            return;
-        }
-
-        // No account found?
-        String account = settings.getAutoLoginAccount(activity);
-        if (account == null) {
-            runnable.run();
-            return;
-        }
-
+            Runnable runnable) {
         // Already logged in?
         if (isLoggedIn(activity)) {
             runnable.run();
             return;
         }
 
+        // No account found?
+        Account[] accounts = getAccounts(activity);
+        if (accounts == null || accounts.length == 0) {
+            runnable.run();
+            return;
+        }
+
         GoogleAccountLogin login =
-                new GoogleAccountLogin(activity, account, runnable);
+                new GoogleAccountLogin(activity, accounts[0], runnable);
         login.startLogin();
     }
 
@@ -271,31 +264,12 @@ public class GoogleAccountLogin implements Runnable,
                 mAccount, "SID", null, mActivity, this, null);
     }
 
-    // Returns the account name passed in if the account exists, otherwise
-    // returns the default account.
-    public static String validateAccount(Context ctx, String name) {
-        Account[] accounts = getAccounts(ctx);
-        if (accounts.length == 0) {
-            return null;
-        }
-        if (name != null) {
-            // Make sure the account still exists.
-            for (Account a : accounts) {
-                if (a.name.equals(name)) {
-                    return name;
-                }
-            }
-        }
-        // Return the first entry.
-        return accounts[0].name;
-    }
-
-    public static Account[] getAccounts(Context ctx) {
+    private static Account[] getAccounts(Context ctx) {
         return AccountManager.get(ctx).getAccountsByType(GOOGLE);
     }
 
-    // Checks for the presence of the SID cookie on google.com.
-    public static boolean isLoggedIn(Context ctx) {
+    // Checks if we already did pre-login.
+    private static boolean isLoggedIn(Context ctx) {
         // See if we last logged in less than a week ago.
         long lastLogin = PreferenceManager.
                 getDefaultSharedPreferences(ctx).
@@ -303,31 +277,7 @@ public class GoogleAccountLogin implements Runnable,
         if (lastLogin == -1) {
             return false;
         }
-        long diff = System.currentTimeMillis() - lastLogin;
-        if (diff > WEEK_IN_MILLIS) {
-            Log.d(LOGTAG, "Forcing login after " + diff + "ms");
-            return false;
-        }
-
-        // This will potentially block the UI thread but we have to have the
-        // most updated cookies.
-        // FIXME: Figure out how to avoid waiting to clear session cookies.
-        CookieManager.getInstance().waitForCookieOperationsToComplete();
-
-        // Use /a/ to grab hosted cookies as well as the base set of google.com
-        // cookies.
-        String cookies = CookieManager.getInstance().getCookie(
-                "http://www.google.com/a/");
-        if (cookies != null) {
-            StringTokenizer tokenizer = new StringTokenizer(cookies, ";");
-            while (tokenizer.hasMoreTokens()) {
-                String cookie = tokenizer.nextToken().trim();
-                if (cookie.startsWith("SID=") || cookie.startsWith("ASIDAP=")) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return true;
     }
 
     // Used to indicate that the Browser should continue loading the main page.
