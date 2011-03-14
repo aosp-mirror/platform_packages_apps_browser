@@ -2459,6 +2459,23 @@ public class Controller
     }
 
     /**
+     * helper method for key handler
+     * returns the current tab if it can't advance
+     */
+    private int getNextTabIndex() {
+        return Math.min(mTabControl.getTabCount() - 1,
+                mTabControl.getCurrentIndex() + 1);
+    }
+
+    /**
+     * helper method for key handler
+     * returns the current tab if it can't advance
+     */
+    private int getPrevTabIndex() {
+        return  Math.max(0, mTabControl.getCurrentIndex() - 1);
+    }
+
+    /**
      * handle key events in browser
      *
      * @param keyCode
@@ -2485,6 +2502,18 @@ public class Controller
         boolean shift = event.hasModifiers(KeyEvent.META_SHIFT_ON);
 
         switch(keyCode) {
+            case KeyEvent.KEYCODE_TAB:
+                if (event.isCtrlPressed()) {
+                    if (event.isShiftPressed()) {
+                        // prev tab
+                        switchToTab(getPrevTabIndex());
+                    } else {
+                        // next tab
+                        switchToTab(getNextTabIndex());
+                    }
+                    return true;
+                }
+                break;
             case KeyEvent.KEYCODE_ESCAPE:
                 if (!noModifiers) break;
                 stopLoading();
