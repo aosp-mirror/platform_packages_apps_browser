@@ -145,14 +145,18 @@ public class IntentHandler {
                     || (activateVoiceSearch && appId != null))
                     && !mActivity.getPackageName().equals(appId)
                     && (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-                Tab appTab = mTabControl.getTabFromId(appId);
-                if (appTab != null) {
-                    mController.reuseTab(appTab, appId, urlData);
-                    return;
+                if (activateVoiceSearch) {
+                    Tab appTab = mTabControl.getTabFromId(appId);
+                    if (appTab != null) {
+                        mController.reuseTab(appTab, appId, urlData);
+                        return;
+                    } else {
+                        mController.openTabAndShow(null, urlData, false, appId);
+                    }
                 } else {
                     // No matching application tab, try to find a regular tab
                     // with a matching url.
-                    appTab = mTabControl.findUnusedTabWithUrl(urlData.mUrl);
+                    Tab appTab = mTabControl.findUnusedTabWithUrl(urlData.mUrl);
                     if (appTab != null) {
                         if (current != appTab) {
                             mController.switchToTab(mTabControl.getTabIndex(appTab));
@@ -164,7 +168,7 @@ public class IntentHandler {
                         // MAX_TABS. Then the url will be opened in the current
                         // tab. If a new tab is created, it will have "true" for
                         // exit on close.
-                        mController.openTabAndShow(null, urlData, true, appId);
+                        mController.openTabAndShow(null, urlData, false, appId);
                     }
                 }
             } else {
