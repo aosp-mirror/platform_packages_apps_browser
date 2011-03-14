@@ -279,7 +279,7 @@ public class Controller
             CookieManager.getInstance().removeSessionCookie();
         }
 
-        GoogleAccountLogin.startLoginIfNeeded(mActivity, mSettings,
+        GoogleAccountLogin.startLoginIfNeeded(mActivity,
                 new Runnable() {
                     @Override public void run() {
                         start(icicle, intent, currentTab, restoreIncognitoTabs);
@@ -2229,17 +2229,9 @@ public class Controller
             // animation behavior.
             addTab(tab);
             setActiveTab(tab);
-
-            // Callback to load the url data.
-            final Runnable load = new Runnable() {
-                @Override public void run() {
-                    if (!urlData.isEmpty()) {
-                        loadUrlDataIn(tab, urlData);
-                    }
-                }
-            };
-
-            GoogleAccountLogin.startLoginIfNeeded(mActivity, mSettings, load);
+            if (!urlData.isEmpty()) {
+                loadUrlDataIn(tab, urlData);
+            }
             return tab;
         } else {
             // Get rid of the subwindow if it exists

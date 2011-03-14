@@ -39,10 +39,6 @@
             android:title="@string/pref_security_show_security_warning"
             android:summary="@string/pref_security_show_security_warning_summary" />
 
-    <ListPreference
-            android:key="autologin_account"
-            android:title="@string/pref_autologin_title" />
-
     <PreferenceCategory android:title="@string/pref_privacy_cookies_title">
         <CheckBoxPreference
                 android:key="accept_cookies"
