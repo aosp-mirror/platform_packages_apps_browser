@@ -26,6 +26,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,9 +37,12 @@ import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AbsoluteLayout;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -44,7 +50,8 @@ import java.util.List;
  * tabbed title bar for xlarge screen browser
  */
 public class TitleBarXLarge extends TitleBarBase
-        implements OnClickListener, OnFocusChangeListener, TextChangeWatcher {
+        implements OnClickListener, OnFocusChangeListener, TextChangeWatcher,
+        DeviceAccountLogin.AutoLoginCallback {
 
     private XLargeUi mUi;
 
@@ -66,6 +73,14 @@ public class TitleBarXLarge extends TitleBarBase
     private PageProgressView mProgressView;
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
+    // Auto-login UI
+    private View mAutoLogin;
+    private Button mAutoLoginAccount;
+    private Button mAutoLoginLogin;
+    private ProgressBar mAutoLoginProgress;
+    private TextView mAutoLoginError;
+    private ImageButton mAutoLoginCancel;
+    private DeviceAccountLogin mAutoLoginHandler;
 
     private boolean mInLoad;
     private boolean mUseQuickControls;
@@ -133,6 +148,18 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlInput.setOnFocusChangeListener(this);
         mUrlInput.setSelectAllOnFocus(true);
         mUrlInput.addQueryTextWatcher(this);
+        mAutoLogin = findViewById(R.id.autologin);
+        mAutoLoginAccount = (Button) findViewById(R.id.autologin_account);
+        mAutoLoginAccount.setOnClickListener(this);
+        mAutoLoginLogin = (Button) findViewById(R.id.autologin_login);
+        mAutoLoginLogin.setOnClickListener(this);
+        mAutoLoginProgress =
+                (ProgressBar) findViewById(R.id.autologin_progress);
+        mAutoLoginError = (TextView) findViewById(R.id.autologin_error);
+        mAutoLoginCancel =
+                (ImageButton) mAutoLogin.findViewById(R.id.autologin_close);
+        mAutoLoginCancel.setOnClickListener(this);
+
         setFocusState(false);
     }
 
@@ -145,6 +172,45 @@ public class TitleBarXLarge extends TitleBarBase
             mForwardButton.setImageResource(web.canGoForward()
                     ? R.drawable.ic_forward_holo_dark
                     : R.drawable.ic_forward_disabled_holo_dark);
+        }
+    }
+
+    void updateAutoLogin(Tab tab, boolean animate) {
+        DeviceAccountLogin login = tab.getDeviceAccountLogin();
+        if (login != null) {
+            mAutoLoginHandler = login;
+            mAutoLogin.setVisibility(View.VISIBLE);
+            mAutoLoginAccount.setText(login.getCurrentAccount());
+            mAutoLoginAccount.setEnabled(true);
+            mAutoLoginLogin.setEnabled(true);
+            mAutoLoginProgress.setVisibility(View.GONE);
+            mAutoLoginError.setVisibility(View.GONE);
+            switch (login.getState()) {
+                case DeviceAccountLogin.PROCESSING:
+                    mAutoLoginAccount.setEnabled(false);
+                    mAutoLoginLogin.setEnabled(false);
+                    mAutoLoginProgress.setVisibility(View.VISIBLE);
+                    break;
+                case DeviceAccountLogin.FAILED:
+                    mAutoLoginProgress.setVisibility(View.GONE);
+                    mAutoLoginError.setVisibility(View.VISIBLE);
+                    break;
+                case DeviceAccountLogin.INITIAL:
+                    break;
+                default:
+                    throw new IllegalStateException();
+            }
+            if (animate) {
+                mAutoLogin.startAnimation(AnimationUtils.loadAnimation(
+                        getContext(), R.anim.autologin_enter));
+            }
+        } else {
+            mAutoLoginHandler = null;
+            if (animate) {
+                hideAutoLogin();
+            } else if (mAutoLogin.getAnimation() == null) {
+                mAutoLogin.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -161,7 +227,11 @@ public class TitleBarXLarge extends TitleBarBase
 
     @Override
     public int getEmbeddedHeight() {
-        return mContainer.getHeight();
+        int height = mContainer.getHeight();
+        if (mAutoLogin.getVisibility() == View.VISIBLE) {
+            height += mAutoLogin.getHeight();
+        }
+        return height;
     }
 
     void setUseQuickControls(boolean useQuickControls) {
@@ -234,6 +304,19 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlInput.clearFocus();
     }
 
+    private void hideAutoLogin() {
+        Animation anim = AnimationUtils.loadAnimation(
+                getContext(), R.anim.autologin_exit);
+        anim.setAnimationListener(new AnimationListener() {
+            @Override public void onAnimationEnd(Animation a) {
+                mAutoLogin.setVisibility(View.GONE);
+            }
+            @Override public void onAnimationStart(Animation a) {}
+            @Override public void onAnimationRepeat(Animation a) {}
+        });
+        mAutoLogin.startAnimation(anim);
+    }
+
     @Override
     public void onClick(View v) {
         if (mBackButton == v) {
@@ -258,7 +341,38 @@ public class TitleBarXLarge extends TitleBarBase
             clearOrClose();
         } else if (mVoiceSearch == v) {
             mUiController.startVoiceSearch();
+        } else if (mAutoLoginCancel == v) {
+            if (mAutoLoginHandler != null) {
+                mAutoLoginHandler.cancel();
+                mAutoLoginHandler = null;
+            }
+            hideAutoLogin();
+        } else if (mAutoLoginLogin == v) {
+            if (mAutoLoginHandler != null) {
+                mAutoLoginAccount.setEnabled(false);
+                mAutoLoginLogin.setEnabled(false);
+                mAutoLoginProgress.setVisibility(View.VISIBLE);
+                mAutoLoginError.setVisibility(View.GONE);
+                mAutoLoginHandler.login(this);
+            }
+        } else if (mAutoLoginAccount == v) {
+            if (mAutoLoginHandler != null) {
+                mAutoLoginHandler.chooseAccount(this);
+            }
         }
+    }
+
+    @Override
+    public void setAccount(String account) {
+        mAutoLoginAccount.setText(account);
+    }
+
+    @Override
+    public void loginFailed() {
+        mAutoLoginAccount.setEnabled(true);
+        mAutoLoginLogin.setEnabled(true);
+        mAutoLoginProgress.setVisibility(View.GONE);
+        mAutoLoginError.setVisibility(View.VISIBLE);
     }
 
     @Override
