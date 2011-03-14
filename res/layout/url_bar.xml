@@ -32,17 +32,15 @@
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
-        <Button
+        <Spinner
             android:id="@+id/autologin_account"
-            android:background="@android:drawable/btn_dropdown"
-            android:textColor="@android:color/primary_text_light"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:layout_width="wrap_content"
+            style="@android:style/Widget.Holo.Light.Spinner" />
         <Button
             android:id="@+id/autologin_login"
             android:text="@string/autologin_bar_login_text"
-            android:background="@android:drawable/btn_default"
-            android:textColor="@android:color/primary_text_light"
+            style="@android:style/Widget.Holo.Light.Button"
             android:layout_marginRight="15dip"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content" />

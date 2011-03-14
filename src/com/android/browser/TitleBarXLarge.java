@@ -20,28 +20,32 @@ import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 import com.android.browser.search.SearchEngine;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.AbsoluteLayout;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.List;
@@ -75,12 +79,13 @@ public class TitleBarXLarge extends TitleBarBase
     private Drawable mUnfocusDrawable;
     // Auto-login UI
     private View mAutoLogin;
-    private Button mAutoLoginAccount;
+    private Spinner mAutoLoginAccount;
     private Button mAutoLoginLogin;
     private ProgressBar mAutoLoginProgress;
     private TextView mAutoLoginError;
     private ImageButton mAutoLoginCancel;
     private DeviceAccountLogin mAutoLoginHandler;
+    private ArrayAdapter<String> mAccountsAdapter;
 
     private boolean mInLoad;
     private boolean mUseQuickControls;
@@ -149,8 +154,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUrlInput.setSelectAllOnFocus(true);
         mUrlInput.addQueryTextWatcher(this);
         mAutoLogin = findViewById(R.id.autologin);
-        mAutoLoginAccount = (Button) findViewById(R.id.autologin_account);
-        mAutoLoginAccount.setOnClickListener(this);
+        mAutoLoginAccount = (Spinner) findViewById(R.id.autologin_account);
         mAutoLoginLogin = (Button) findViewById(R.id.autologin_login);
         mAutoLoginLogin.setOnClickListener(this);
         mAutoLoginProgress =
@@ -180,7 +184,14 @@ public class TitleBarXLarge extends TitleBarBase
         if (login != null) {
             mAutoLoginHandler = login;
             mAutoLogin.setVisibility(View.VISIBLE);
-            mAutoLoginAccount.setText(login.getCurrentAccount());
+            ContextThemeWrapper wrapper = new ContextThemeWrapper(mContext,
+                    android.R.style.Theme_Holo_Light);
+            mAccountsAdapter = new ArrayAdapter<String>(wrapper,
+                    android.R.layout.simple_spinner_item, login.getAccountNames());
+            mAccountsAdapter.setDropDownViewResource(
+                    android.R.layout.simple_spinner_dropdown_item);
+            mAutoLoginAccount.setAdapter(mAccountsAdapter);
+            mAutoLoginAccount.setSelection(0);
             mAutoLoginAccount.setEnabled(true);
             mAutoLoginLogin.setEnabled(true);
             mAutoLoginProgress.setVisibility(View.GONE);
@@ -353,18 +364,10 @@ public class TitleBarXLarge extends TitleBarBase
                 mAutoLoginLogin.setEnabled(false);
                 mAutoLoginProgress.setVisibility(View.VISIBLE);
                 mAutoLoginError.setVisibility(View.GONE);
-                mAutoLoginHandler.login(this);
-            }
-        } else if (mAutoLoginAccount == v) {
-            if (mAutoLoginHandler != null) {
-                mAutoLoginHandler.chooseAccount(this);
+                mAutoLoginHandler.login(
+                        mAutoLoginAccount.getSelectedItemPosition(), this);
             }
         }
-    }
-
-    @Override
-    public void setAccount(String account) {
-        mAutoLoginAccount.setText(account);
     }
 
     @Override

@@ -21,22 +21,18 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 public class DeviceAccountLogin implements
-        AccountManagerCallback<Bundle>, DialogInterface.OnClickListener {
+        AccountManagerCallback<Bundle> {
 
     private final Activity mActivity;
     private final WebView mWebView;
     private final Tab mTab;
     private final WebViewController mWebViewController;
     private final AccountManager mAccountManager;
-    private Account[] mAccounts;
-    private int mCurrentAccount;
+    Account[] mAccounts;
     private AutoLoginCallback mCallback;
     private String mAuthToken;
 
@@ -48,7 +44,6 @@ public class DeviceAccountLogin implements
     public static final int PROCESSING = 2;
 
     public interface AutoLoginCallback {
-        public void setAccount(String account);
         public void loginFailed();
     }
 
@@ -129,37 +124,19 @@ public class DeviceAccountLogin implements
         mTab.setDeviceAccountLogin(null);
     }
 
-    public void login(AutoLoginCallback cb) {
+    public void login(int accountIndex, AutoLoginCallback cb) {
         mState = PROCESSING;
         mCallback = cb;
         mAccountManager.getAuthToken(
-                mAccounts[mCurrentAccount], mAuthToken, null,
+                mAccounts[accountIndex], mAuthToken, null,
                 mActivity, this, null);
     }
 
-    public void chooseAccount(AutoLoginCallback cb) {
-        mCallback = cb;
-        CharSequence[] names = new CharSequence[mAccounts.length];
-        int i = 0;
-        for (Account a : mAccounts) {
-            names[i++] = a.name;
+    public String[] getAccountNames() {
+        String[] names = new String[mAccounts.length];
+        for (int i = 0; i < mAccounts.length; i++) {
+            names[i] = mAccounts[i].name;
         }
-        new AlertDialog.Builder(mActivity)
-                .setTitle(R.string.pref_autologin_title)
-                .setSingleChoiceItems(names, mCurrentAccount, this)
-                .setCancelable(true)
-                .show();
-    }
-
-    public String getCurrentAccount() {
-        return mAccounts[mCurrentAccount].name;
-    }
-
-    @Override
-    public void onClick(DialogInterface d, int which) {
-        assert mCallback != null;
-        mCallback.setAccount(mAccounts[which].name);
-        mCurrentAccount = which;
-        d.dismiss();
+        return names;
     }
 }
