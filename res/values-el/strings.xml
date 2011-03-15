@@ -171,11 +171,8 @@
     <!-- outdated translation 6255415691259466907 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Ρυθμίσεις αυτόματης συμπλήρωσης"</string>
     <!-- outdated translation 6606678927956330022 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ρύθμιση και διαχείριση δεδομένων για φόρμες Αυτόματης συμπλήρωσης"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Αυτόματη σύνδεση στο Google"</string>
-    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Δεν βρέθηκαν λογαριασμοί"</string>
-    <string name="pref_autologin_summary" msgid="8168866316823968574">"Συνδεθείτε αυτόματα σε Ιστότοπους Google χρησιμοποιώντας το λογαριασμό <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (4975430912641403743) -->
     <skip />
-    <string name="pref_autologin_disable" msgid="3342145058494577628">"Να μην γίνεται αυτόματη σύνδεση"</string>
     <!-- no translation found for autologin_bar_text (8013977161879448141) -->
     <skip />
     <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->

@@ -172,11 +172,8 @@
     <!-- unknown quoting pattern: original -1, translation 1 -->
     <!-- outdated translation 6606678927956330022 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Configurar &amp;amp; administrar datos para los formularios de autocompletado"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Acceso automático a Google"</string>
-    <string name="pref_autologin_no_account" msgid="4409223615542478868">"No se encontraron las cuentas"</string>
-    <string name="pref_autologin_summary" msgid="8168866316823968574">"Acceder automáticamente a sitios de Google utilizando <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (4975430912641403743) -->
     <skip />
-    <string name="pref_autologin_disable" msgid="3342145058494577628">"No accedas de manera automática"</string>
     <!-- no translation found for autologin_bar_text (8013977161879448141) -->
     <skip />
     <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->

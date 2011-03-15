@@ -110,9 +110,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"הורדות"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"העתק כתובת אתר של דף"</string>
     <string name="share_page" msgid="593756995297268343">"שתף דף"</string>
-    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"שמור כארכיון אינטרנט"</string>
-    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"ארכיון אינטרנט נשמר."</string>
-    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"שמירת ארכיון אינטרנט נכשלה."</string>
+    <string name="menu_save_webarchive" msgid="2474117375302625691">"שמור דף"</string>
+    <string name="webarchive_saved" msgid="2212053339474523406">"הדף נשמר."</string>
+    <string name="webarchive_failed" msgid="19950914584285713">"שמירת הדף נכשלה."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> סימניות"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"תיקיה ריקה"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"פתח"</string>
@@ -171,11 +171,8 @@
     <!-- outdated translation 6255415691259466907 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"הגדרות מילוי אוטומטי"</string>
     <!-- outdated translation 6606678927956330022 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"הגדר ונהל נתונים לטפסים במילוי אוטומטי"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"כניסה אוטומטית ל-Google"</string>
-    <string name="pref_autologin_no_account" msgid="4409223615542478868">"לא נמצאו חשבונות"</string>
-    <string name="pref_autologin_summary" msgid="8168866316823968574">"היכנס ל-Google Sites באופן אוטומטי באמצעות <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (4975430912641403743) -->
     <skip />
-    <string name="pref_autologin_disable" msgid="3342145058494577628">"אל תיכנס באופן אוטומטי"</string>
     <!-- no translation found for autologin_bar_text (8013977161879448141) -->
     <skip />
     <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->
@@ -281,10 +278,8 @@
     <!-- outdated translation 1067572298315336767 -->     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"העבר את האגודל מהקצה השמאלי לימני כדי לגשת לפקדים מהירים"</string>
     <!-- outdated translation 547134501893835512 -->     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"דף הבית הפופולרי ביותר"</string>
     <!-- outdated translation 6857702350834122532 -->     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"מגדיר את דף הבית שלך להציג את הדפים הפופולריים ביותר."</string>
-    <!-- no translation found for pref_use_instant_search (1119176077760723740) -->
-    <skip />
-    <!-- no translation found for pref_use_instant_search_summary (839320474961917522) -->
-    <skip />
+    <!-- outdated translation 7216222748559622611 -->     <string name="pref_use_instant_search" msgid="1119176077760723740">"השתמש ב\'חיפוש מיידי\'"</string>
+    <!-- outdated translation 768187623253522262 -->     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"הפוך את Instant לפעיל עבור חיפוש וגלישה מהירים יותר. דבר זה עשוי להביא לניצול משופר של רוחב פס ונתונים."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"בעיה בקישוריות נתונים"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"בעיה בקובץ"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"אשר"</string>
@@ -400,6 +395,5 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"הוסף את סימניות Android לסימניות של <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"שתף"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"אין עוד כרטיסיות זמינות"</string>
-    <!-- no translation found for instant_search_label (8769284297650716935) -->
-    <skip />
+    <string name="instant_search_label" msgid="8769284297650716935">"Google עם Instant ‏(Google Labs)"</string>
 </resources>

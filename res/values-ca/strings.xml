@@ -77,8 +77,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"Afegeix als marcadors"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Af. pàg. a marc."</string>
-    <!-- no translation found for remove (7820112494467011374) -->
-    <skip />
+    <string name="remove" msgid="7820112494467011374">"Elimina"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edita l\'adreça d\'interès"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Afegeix una drecera a la pàgina d\'inici"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Obre"</string>
@@ -172,11 +171,8 @@
     <!-- outdated translation 6255415691259466907 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Configuració d\'emplenament automàtic"</string>
     <!-- outdated translation 6606678927956330022 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Configura i gestiona les dades per a formularis emplenats automàticament"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Inici sessió automàtic a Google"</string>
-    <string name="pref_autologin_no_account" msgid="4409223615542478868">"No s\'ha trobat cap compte"</string>
-    <string name="pref_autologin_summary" msgid="8168866316823968574">"Inicia la sessió a Llocs web de Google automàticament mitjançant <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (4975430912641403743) -->
     <skip />
-    <string name="pref_autologin_disable" msgid="3342145058494577628">"No iniciïs la sessió automàticament"</string>
     <!-- no translation found for autologin_bar_text (8013977161879448141) -->
     <skip />
     <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->

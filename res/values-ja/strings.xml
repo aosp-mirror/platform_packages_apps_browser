@@ -171,11 +171,8 @@
     <!-- outdated translation 6255415691259466907 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"自動入力設定"</string>
     <!-- outdated translation 6606678927956330022 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"自動入力フォーム用のデータの設定と管理"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Googleへの自動ログイン"</string>
-    <string name="pref_autologin_no_account" msgid="4409223615542478868">"アカウントが見つかりません"</string>
-    <string name="pref_autologin_summary" msgid="8168866316823968574">"<xliff:g id="ID_1">%s</xliff:g>で自動的にGoogleにログインする"</string>
     <!-- no translation found for pref_autologin_progress (4975430912641403743) -->
     <skip />
-    <string name="pref_autologin_disable" msgid="3342145058494577628">"自動的にログインしない"</string>
     <!-- no translation found for autologin_bar_text (8013977161879448141) -->
     <skip />
     <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->

@@ -110,9 +110,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Lataukset"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopioi sivun URL-osoite"</string>
     <string name="share_page" msgid="593756995297268343">"Jaa sivu"</string>
-    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Tallenna verkkoarkistona"</string>
-    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Verkkoarkisto tallennettu."</string>
-    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"Verkkoarkiston tallentaminen epäonnistui."</string>
+    <string name="menu_save_webarchive" msgid="2474117375302625691">"Tallenna sivu"</string>
+    <string name="webarchive_saved" msgid="2212053339474523406">"Sivu tallennettu."</string>
+    <string name="webarchive_failed" msgid="19950914584285713">"Sivun tallennus epäonnistui."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> kirjanmerkkiä"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Tyhjä kansio"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Avaa"</string>
@@ -171,11 +171,8 @@
     <!-- outdated translation 6255415691259466907 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Automaattisen täytön asetukset"</string>
     <!-- outdated translation 6606678927956330022 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Aseta automaattisesti täytettyjen lomakkeiden tiedot ja hallinnoi tietoja"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automaattinen Google-sisäänkirjaus"</string>
-    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Ei tilejä"</string>
-    <string name="pref_autologin_summary" msgid="8168866316823968574">"Kirjaudu sisään Googlen sivustoihin automaattisesti käyttäen tiliä <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for pref_autologin_progress (4975430912641403743) -->
     <skip />
-    <string name="pref_autologin_disable" msgid="3342145058494577628">"Älä kirjaudu sisään automaattisesti"</string>
     <!-- no translation found for autologin_bar_text (8013977161879448141) -->
     <skip />
     <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->
@@ -281,10 +278,8 @@
     <!-- outdated translation 1067572298315336767 -->     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Saat pikaohjaimet käyttöön pyyhkäisemällä peukalolla vasemmasta tai oikeasta reunasta"</string>
     <!-- outdated translation 547134501893835512 -->     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Useimmin napsautetut etusivulla"</string>
     <!-- outdated translation 6857702350834122532 -->     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Asettaa etusivusi näyttämään vierailluimmat sivut."</string>
-    <!-- no translation found for pref_use_instant_search (1119176077760723740) -->
-    <skip />
-    <!-- no translation found for pref_use_instant_search_summary (839320474961917522) -->
-    <skip />
+    <!-- outdated translation 7216222748559622611 -->     <string name="pref_use_instant_search" msgid="1119176077760723740">"Käytä Instant-hakua"</string>
+    <!-- outdated translation 768187623253522262 -->     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Ottamalla Instantin käyttöön selaat nopeammin. Tiedonsiirtomäärä saattaa kasvaa."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Datayhteysongelma"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Tiedosto-ongelma"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Vahvista"</string>
@@ -400,6 +395,5 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Lisää Android-kirjanmerkit tilin <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> kirjanmerkkeihin"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Jaa"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Välilehtiä ei ole enempää saatavilla"</string>
-    <!-- no translation found for instant_search_label (8769284297650716935) -->
-    <skip />
+    <string name="instant_search_label" msgid="8769284297650716935">"Google ja Instant (Labs)"</string>
 </resources>
