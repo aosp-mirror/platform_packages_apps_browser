@@ -211,18 +211,31 @@ public class TitleBarXLarge extends TitleBarBase
                 default:
                     throw new IllegalStateException();
             }
-            if (animate) {
-                mAutoLogin.startAnimation(AnimationUtils.loadAnimation(
-                        getContext(), R.anim.autologin_enter));
+            if (mUseQuickControls) {
+                mUi.showTitleBar();
+            } else {
+                if (animate) {
+                    mAutoLogin.startAnimation(AnimationUtils.loadAnimation(
+                            getContext(), R.anim.autologin_enter));
+                }
             }
         } else {
             mAutoLoginHandler = null;
-            if (animate) {
-                hideAutoLogin();
-            } else if (mAutoLogin.getAnimation() == null) {
+            if (mUseQuickControls) {
+                mUi.hideTitleBar();
                 mAutoLogin.setVisibility(View.GONE);
+            } else {
+                if (animate) {
+                    hideAutoLogin();
+                } else if (mAutoLogin.getAnimation() == null) {
+                    mAutoLogin.setVisibility(View.GONE);
+                }
             }
         }
+    }
+
+    boolean inAutoLogin() {
+        return mAutoLoginHandler != null;
     }
 
     private ViewGroup.LayoutParams makeLayoutParams() {
@@ -247,12 +260,11 @@ public class TitleBarXLarge extends TitleBarBase
 
     void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
-        mUrlInput.setUseQuickControls(mUseQuickControls);
         setLayoutParams(makeLayoutParams());
     }
 
     void setShowProgressOnly(boolean progress) {
-        if (progress) {
+        if (progress && !inAutoLogin()) {
             mContainer.setVisibility(View.GONE);
         } else {
             mContainer.setVisibility(View.VISIBLE);
