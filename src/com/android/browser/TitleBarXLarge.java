@@ -278,6 +278,13 @@ public class TitleBarXLarge extends TitleBarBase
             if (mUseQuickControls) {
                 mUi.hideTitleBar();
             }
+
+            if (mUrlInput.getText().length() == 0) {
+                Tab currentTab = mUiController.getTabControl().getCurrentTab();
+                if (currentTab != null) {
+                    mUrlInput.setText(currentTab.getUrl(), false);
+                }
+            }
         }
         mUrlInput.clearNeedsUpdate();
     }
