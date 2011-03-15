@@ -791,7 +791,21 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
             setText(text);
         } else {
             mBlockCompletion = true;
+            // If cursor movement handling was suspended (the view is
+            // not in focus), resume it and apply the pending change.
+            // Since we don't want to perform any filtering, this change
+            // is safe.
+            boolean wasSuspended = false;
+            if (mController.isCursorHandlingSuspended()) {
+                mController.resumeCursorMovementHandlingAndApplyChanges();
+                wasSuspended = true;
+            }
+
             setText(text);
+
+            if (wasSuspended) {
+                mController.suspendCursorMovementHandling();
+            }
             mBlockCompletion = false;
         }
     }
