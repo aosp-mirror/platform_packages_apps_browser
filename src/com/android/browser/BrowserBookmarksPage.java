@@ -453,7 +453,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     }
 
     private void loadUrl(int position) {
-        if (mCallbacks != null) {
+        if (mCallbacks != null && mAdapter != null) {
             mCallbacks.onBookmarkSelected(mAdapter.getItem(position), false);
         }
     }
