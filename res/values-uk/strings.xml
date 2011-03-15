@@ -18,8 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Переглядач"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Вибер. файл для завантаж."</string>
-    <!-- no translation found for uploads_disabled (463761197575372994) -->
-    <skip />
+    <string name="uploads_disabled" msgid="463761197575372994">"Завантаження файлів вимкнено."</string>
     <string name="new_tab" msgid="4505722538297295141">"Нове вікно"</string>
     <string name="new_incognito_tab" msgid="5821404839654751753">"Нове анонімне вікно"</string>
     <string name="active_tabs" msgid="3050623868203544623">"Вікна"</string>
@@ -100,7 +99,6 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Список"</string>
     <string name="current_page" msgid="7510129573681663135">"з "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Закладку \"<xliff:g id="BOOKMARK">%s</xliff:g>\" буде видалено."</string>
-    <string name="open_in_new_window" msgid="6596775546468054510">"Відкрити в нов. вікні"</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"Відкрити все в нових вікнах"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Викон."</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Відкрити нову анонімну вкладку"</string>
@@ -113,9 +111,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Завантаження"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Копіюв. URL стор."</string>
     <string name="share_page" msgid="593756995297268343">"Надісл. стор."</string>
-    <string name="menu_save_webarchive" msgid="3934652434001459581">"Зберегти як веб-архів"</string>
-    <string name="webarchive_saved" msgid="7045250341467345007">"Веб-архів збережено."</string>
-    <string name="webarchive_failed" msgid="2880998204746620260">"Помилка збереження веб-архіву."</string>
+    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Зберегти як веб-архів"</string>
+    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Веб-архів збережено."</string>
+    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"Помилка збереження веб-архіву."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Закладок: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Порожня папка"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Відкр."</string>
@@ -140,7 +138,7 @@
     <string name="pref_content_title" msgid="722227111894838633">"Налашт-ня вмісту стор."</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Завантаж. зобр."</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Відобр. зображ. на веб-стор."</string>
-    <string name="pref_content_block_popups" msgid="7808433807197256726">"Блок. спливаючі вікна"</string>
+    <!-- outdated translation 6871160654981179930 -->     <string name="pref_content_block_popups" msgid="4158524847764470895">"Блокувати спливаючі вікна"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Увімк. JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Відкр. у фон. режимі"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Увімкнути плагіни"</string>
@@ -150,7 +148,7 @@
     <item msgid="8547442717307793863">"Вимк."</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Відкривати нові вікна за поточним"</string>
-    <string name="pref_content_homepage" msgid="6082437160778559806">"Устан. дом. стор."</string>
+    <!-- outdated translation 6044903119907405007 -->     <string name="pref_content_homepage" msgid="3324574611613105696">"Установити домашньою сторінкою"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Налашт. пошук. сист."</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Виберіть пошукову систему"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Установити…"</string>
@@ -161,7 +159,7 @@
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Форматув. сторінки до розмірів екрана"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Загальні"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Синхронізація"</string>
-    <string name="pref_general_autofill_title" msgid="64638897890112873">"Автозаповнення"</string>
+    <!-- outdated translation 64638897890112873 -->     <string name="pref_general_autofill_title" msgid="547881256865816858">"Автозаповнення"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Синхронізувати з Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Здійснювати обмін закладками й іншими даними між веб-переглядачем Android і Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Облік. запис Google"</string>
@@ -169,16 +167,20 @@
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Синхронізуйте закладки у веб-переглядачі Android і Google Chrome"</string>
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Почати синхронізацію"</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Вибрати обл.зап. Google для надсил."</string>
-    <string name="pref_autofill_enabled" msgid="1174197447388234595">"Автозаповнення форм"</string>
+    <!-- outdated translation 6232595328320275079 -->     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Автозаповнення форм"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Заповнюйте веб-форми за допомогою лише одного кліка"</string>
-    <string name="pref_autofill_profile_editor" msgid="1350709161524642663">"Налаштування автозаповнення"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="6748434431641768870">"Налаштовуйте дані для автозаповнення форм і керуйте ними"</string>
+    <!-- outdated translation 6255415691259466907 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Налаштування автозаповнення"</string>
+    <!-- outdated translation 6606678927956330022 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Налаштовуйте дані для автозаповнення форм і керуйте ними"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Автоматичний вхід у Google"</string>
-    <string name="pref_autologin_no_account" msgid="4409223615542478868">"Облікових записів не знайдено"</string>
-    <string name="pref_autologin_summary" msgid="8168866316823968574">"Автоматично ввійти в Google Sites за допомогою <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="pref_autologin_progress" msgid="8643826219376543293">"Вхід у Google Sites за допомогою <xliff:g id="ID_1">%s</xliff:g>"\n"Ваші налаштування конфіденційності та безпеки контролюють автоматичний вхід у Google"</string>
-    <string name="pref_autologin_disable" msgid="3342145058494577628">"Не входити автоматично"</string>
-    <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Функція \"Автозаповнення\" буде використовувати ваш профіль, щоб заповнювати веб-форми за допомогою лише одного кліка."</string>
+    <!-- no translation found for pref_autologin_progress (4975430912641403743) -->
+    <skip />
+    <!-- no translation found for autologin_bar_text (8013977161879448141) -->
+    <skip />
+    <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->
+    <skip />
+    <!-- no translation found for autologin_bar_error (5132514366023044839) -->
+    <skip />
+    <!-- outdated translation 376355900106687672 -->     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Функція \"Автозаповнення\" буде використовувати ваш профіль, щоб заповнювати веб-форми за допомогою лише одного кліка."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Повне ім\'я:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Електронна адреса:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Назва компанії:"</string>
@@ -197,9 +199,10 @@
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Профіль видалено"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Видалити профіль"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Веб-переглядач може автоматично заповнювати подібні веб-форми. Налаштувати ваш профіль?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"Автозаповнення завжди можна налаштувати в налаштуваннях веб-переглядача."</string>
-    <string name="disable_autofill" msgid="3706426217720202898">"Вимкнути автозаповнення"</string>
-    <string name="pref_privacy_security_title" msgid="1705642466867300373">"Конфіденційність і безпека"</string>
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Автозаповнення можна завжди налаштувати за допомогою меню \"Налаштування веб-переглядача\" –&amp;gt; \"Персональні налаштування\"."</string>
+    <!-- outdated translation 3706426217720202898 -->     <string name="disable_autofill" msgid="8305901059849400354">"Вимкнути автозаповнення"</string>
+    <!-- outdated translation 1705642466867300373 -->     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Конфіденційність і безпека"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Очистити кеш"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Очистити локально кешов. вміст і бази даних"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Локально кешований вміст і бази даних буде видалено."</string>
@@ -272,10 +275,14 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Кодування тексту"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Лабораторії"</string>
-    <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Елементи швидкого керування"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Проведіть пальцем від лівого/правого краю для доступу до елем. швидк. керування"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Дом. стор. функції \"Часто відвідувані\""</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Налаштовує на домашній сторінці показ найчастіше відвідуваних сторінок."</string>
+    <!-- outdated translation 1617774508416113544 -->     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Швидкі елементи керування"</string>
+    <!-- outdated translation 1067572298315336767 -->     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Гортайте з лівого чи правого кінця, щоб відкрити швидкі елементи керування"</string>
+    <!-- outdated translation 547134501893835512 -->     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Дом. стор. функції \"Часто відвідувані\""</string>
+    <!-- outdated translation 6857702350834122532 -->     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Налаштовує на домашній сторінці показ найчастіше відвідуваних сторінок."</string>
+    <!-- no translation found for pref_use_instant_search (1119176077760723740) -->
+    <skip />
+    <!-- no translation found for pref_use_instant_search_summary (839320474961917522) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема з доступом до даних"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема з файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Підтверд."</string>
@@ -368,9 +375,29 @@
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Виберіть обліковий запис"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Синхроніз. з обл. записом Google"</string>
-    <string name="import_bookmarks_dialog_description" msgid="2187665745413495303">"Ваші закладки Android не пов\'язано з обліковим записом Google"</string>
-    <string name="import_bookmarks_dialog_remove" msgid="8105572409059113340">"Видалити закладки Android"</string>
+    <!-- outdated translation 5980294599524497571 -->     <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Ваші закладки Android не пов\'язано з обліковим записом Google"</string>
+    <!-- no translation found for import_bookmarks_dialog_select_add_account (3102882579089291099) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_dialog_delete_select_account (5192284761080626386) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_dialog_confirm_delete (8854001080444749211) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_dialog_confirm_add (5433677293195372675) -->
+    <skip />
+    <!-- outdated translation 3129431452739803471 -->     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Видалити закладки Android"</string>
+    <!-- no translation found for import_bookmarks_wizard_next (7578143961884352676) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_wizard_previous (8551440353688257031) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_wizard_cancel (4936061122806506634) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_wizard_done (1446247092194489191) -->
+    <skip />
+    <!-- no translation found for import_bookmarks_dialog_add (7552306756868669353) -->
+    <skip />
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Додати закладки Android до закладок для <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Надіслати"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Більше немає вкладок"</string>
+    <!-- no translation found for instant_search_label (8769284297650716935) -->
+    <skip />
 </resources>
