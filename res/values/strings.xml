@@ -382,7 +382,7 @@
     <!-- Auto login preference title [CHAR-LIMIT=32] -->
     <string name="pref_autologin_title">Automatic Google sign-in</string>
     <!-- Message shown during auto login [CHAR-LIMIT=none] -->
-    <string name="pref_autologin_progress">Signing into Google sites using <xliff:g>%s</xliff:g>\nYour privacy &amp; security settings control automatic Google sign-in</string>
+    <string name="pref_autologin_progress">Signing into Google sites using <xliff:g>%s</xliff:g></string>
     <!-- Auto-login bar description [CHAR-LIMIT=40] -->
     <string name="autologin_bar_text">Automatic sign-in is available.</string>
     <!-- Login button [CHAR-LIMIT=10] -->
