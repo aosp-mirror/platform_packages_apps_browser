@@ -107,17 +107,16 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             if ((tab != null) && (tab.getWebView() != null)) {
                 tab.getWebView().setEmbeddedTitleBar(null);
             }
-            setTitleGravity(Gravity.BOTTOM);
         } else {
             mActivity.getActionBar().show();
             if (mPieControl != null) {
                 mPieControl.removeFromContainer(mContentView);
             }
-            setTitleGravity(Gravity.TOP);
             WebView web = mTabControl.getCurrentWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(mTitleBar);
             }
+            setTitleGravity(Gravity.NO_GRAVITY);
         }
         mTabBar.setUseQuickControls(mUseQuickControls);
     }
@@ -190,11 +189,10 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         if (tab.inForeground()) {
             mTitleBar.setProgress(progress);
             if (progress == 100) {
-                if (!mTitleBar.isEditingUrl()) {
+                if (!mTitleBar.isEditingUrl() && !mTitleBar.inAutoLogin()) {
                     hideTitleBar();
                     if (mUseQuickControls) {
                         mTitleBar.setShowProgressOnly(false);
-                        setTitleGravity(Gravity.BOTTOM);
                     }
                 }
             } else {
@@ -450,9 +448,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             // if the page is loading, show it again
             if (mUseQuickControls) {
                 mTitleBar.setShowProgressOnly(true);
-                if (!isTitleBarShowing()) {
-                    setTitleGravity(Gravity.TOP);
-                }
             }
             showTitleBar();
         }
