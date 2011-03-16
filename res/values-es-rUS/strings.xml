@@ -110,9 +110,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Descargas"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar URL de la página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
-    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Guardar como Archivo web"</string>
-    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Archivo web guardado."</string>
-    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"Error al guardar el archivo web."</string>
+    <string name="menu_save_webarchive" msgid="2474117375302625691">"Guardar página"</string>
+    <string name="webarchive_saved" msgid="2212053339474523406">"Página guardada"</string>
+    <string name="webarchive_failed" msgid="19950914584285713">"Error al guardar la página"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> Marcadores"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Vaciar carpeta"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
@@ -137,7 +137,7 @@
     <string name="pref_content_title" msgid="722227111894838633">"Configuración del contenido de la página"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Cargar imágenes"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Visualizar imágenes en páginas web"</string>
-    <!-- outdated translation 6871160654981179930 -->     <string name="pref_content_block_popups" msgid="4158524847764470895">"Bloquear ventanas emergentes"</string>
+    <string name="pref_content_block_popups" msgid="4158524847764470895">"Bloquear ventanas emergentes"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Habilitar JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Abrir en modo subord."</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Activar complementos"</string>
@@ -147,7 +147,7 @@
     <item msgid="8547442717307793863">"Apagado"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Abrir ventanas nuevas detrás de la actual"</string>
-    <!-- outdated translation 6044903119907405007 -->     <string name="pref_content_homepage" msgid="3324574611613105696">"Definir página principal"</string>
+    <string name="pref_content_homepage" msgid="3324574611613105696">"Configurar página principal"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Establecer el motor de búsqueda"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Seleccionar un motor de búsqueda"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Configurado en"</string>
@@ -158,7 +158,7 @@
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatea las páginas web para que se ajusten a la pantalla"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"General"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sincronización"</string>
-    <!-- outdated translation 3214478293686374847 -->     <string name="pref_general_autofill_title" msgid="547881256865816858">"Autocompletar"</string>
+    <string name="pref_general_autofill_title" msgid="547881256865816858">"Autocompletar"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Sincronización con Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Compartir favoritos y otros datos entre el navegador de Android y Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Cuenta de Google"</string>
@@ -166,21 +166,16 @@
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Sincronizar favoritos entre el navegador Android y Google Chrome"</string>
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Iniciar la sincr."</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Selec cta Google p/comp"</string>
-    <!-- outdated translation 6232595328320275079 -->     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Formulario de autollenado"</string>
+    <string name="pref_autofill_enabled" msgid="1015751713312396713">"Llenado automático de formulario"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completa formularios web con un clic"</string>
-    <!-- outdated translation 6255415691259466907 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Configuración de autollenado"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 6606678927956330022 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Configurar &amp;amp; administrar datos para los formularios de autocompletado"</string>
+    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Datos de llenado automático"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ingresa y guarda datos para llenar campos de formularios web automáticamente."</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Acceso automático a Google"</string>
-    <!-- no translation found for pref_autologin_progress (4975430912641403743) -->
-    <skip />
-    <!-- no translation found for autologin_bar_text (8013977161879448141) -->
-    <skip />
-    <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->
-    <skip />
-    <!-- no translation found for autologin_bar_error (5132514366023044839) -->
-    <skip />
-    <!-- outdated translation 376355900106687672 -->     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"La función Autocompletar utilizará tu perfil para ayudarte a completar los formularios web con solo un clic."</string>
+    <string name="pref_autologin_progress" msgid="4975430912641403743">"Acceso a sitios de Google usando <xliff:g id="ID_1">%s</xliff:g>"\n"tu acceso automático en Google de control de configuraciones de privacidad &amp; seguridad"</string>
+    <string name="autologin_bar_text" msgid="8013977161879448141">"Acceso automático disponible"</string>
+    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Acceder"</string>
+    <string name="autologin_bar_error" msgid="5132514366023044839">"Falló el acceso."</string>
+    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Ingresa los datos que deseas que se completen automáticamente al tocar los campos web."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nombre completo:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Correo electrónico:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Nombre de la empresa:"</string>
@@ -199,9 +194,9 @@
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Perfil eliminado"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Eliminar perfil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"El navegador puede completar formularios web como este de forma automática. ¿Deseas configurar tu perfil?"</string>
-    <!-- outdated translation 8290973940003625025 -->     <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Autocomp. se configura en cualquier momento con Configuración del navegador."</string>
-    <!-- outdated translation 7984096318749960909 -->     <string name="disable_autofill" msgid="8305901059849400354">"Inhabilitar Autocompl."</string>
-    <!-- outdated translation 1547485785692120937 -->     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privacidad &amp; Seguridad"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Autocompletar siempre se puede configurar mediante los Parámetros de configuración del navegador."</string>
+    <string name="disable_autofill" msgid="8305901059849400354">"Inhabilitar Autocompletar"</string>
+    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privacidad &amp; seguridad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Borrar memoria caché"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Borrar el contenido y las bases de datos de la memoria caché local"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Se eliminará el contenido y las bases de datos de la memoria caché local."</string>
@@ -274,14 +269,12 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificación de texto"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
-    <!-- outdated translation 1617774508416113544 -->     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Controles rápidos"</string>
-    <!-- outdated translation 1067572298315336767 -->     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Desliza el pulgar del borde izquierdo/derecho y accede a los controles rápidos."</string>
-    <!-- outdated translation 5370897089855764337 -->     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Página principal más visitada"</string>
-    <!-- outdated translation 209045361369363184 -->     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Configura tu página principal para que muestre las páginas más visitadas"</string>
-    <!-- no translation found for pref_use_instant_search (1119176077760723740) -->
-    <skip />
-    <!-- no translation found for pref_use_instant_search_summary (839320474961917522) -->
-    <skip />
+    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Controles rápidos"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Desliza pulgar de borde izq. o der. para acceder a contr. ráp. y ocultar barras Aplicación y URL"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Página principal más visitada"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Tu página principal muestra tus páginas web más visitadas."</string>
+    <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Usa Google Instant con Búsq. de Google para que los resultados aparezcan mientras tipeas (esto puede aumentar el uso de datos)."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de conectividad de datos"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema con el archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmar"</string>
@@ -374,29 +367,19 @@
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Seleccionar la cuenta"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronización con cta de Google"</string>
-    <!-- outdated translation 5980294599524497571 -->     <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Tus favoritos de Android no están asociados con una cuenta de Google."</string>
-    <!-- no translation found for import_bookmarks_dialog_select_add_account (3102882579089291099) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_delete_select_account (5192284761080626386) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_confirm_delete (8854001080444749211) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_confirm_add (5433677293195372675) -->
-    <skip />
-    <!-- outdated translation 3129431452739803471 -->     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Eliminar tus favoritos de Android"</string>
-    <!-- no translation found for import_bookmarks_wizard_next (7578143961884352676) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_previous (8551440353688257031) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_cancel (4936061122806506634) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_done (1446247092194489191) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_add (7552306756868669353) -->
-    <skip />
+    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Los favoritos de este dispositivo aún no están asociados a una cuenta de Google. Guarda estos favoritos agregándolos a una cuenta. Si no deseas sincronizarlos, elimínalos."</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Agrega los favoritos que actualmente tienes en este dispositivo y comienza a sincronizarlos con una cuenta de Google."</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Elimina los favoritos que actualmente tienes en este dispositivo y comienza a sincronizarlos con una cuenta de Google."</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Elimina los favoritos que actualmente tienes en este dispositivo y comienza a sincronizar favoritos con <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Agrega  los favoritos que actualmente tienes en este dispositivo y comienza a sincronizar favoritos con <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Eliminar favoritos"</string>
+    <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Siguiente"</string>
+    <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Anterior"</string>
+    <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Cancelar"</string>
+    <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Finalizado"</string>
+    <string name="import_bookmarks_dialog_add" msgid="7552306756868669353">"Agregar favoritos a una Cuenta de Google"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Agrega tus favoritos de Android a tus favoritos para <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Compartir"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"No hay más pestañas disponibles."</string>
-    <!-- no translation found for instant_search_label (8769284297650716935) -->
-    <skip />
+    <string name="instant_search_label" msgid="8769284297650716935">"Google con Instant (Labs)"</string>
 </resources>

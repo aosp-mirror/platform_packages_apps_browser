@@ -110,9 +110,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Hämtningar"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopiera sidans webbadress"</string>
     <string name="share_page" msgid="593756995297268343">"Dela sida"</string>
-    <!-- outdated translation 8958653585486282458 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Spara som webbarkiv"</string>
-    <!-- outdated translation 5802751653711363507 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Webbarkivet har sparats"</string>
-    <!-- outdated translation 2203934475956524304 -->     <string name="webarchive_failed" msgid="19950914584285713">"Det gick inte att spara webbarkivet."</string>
+    <string name="menu_save_webarchive" msgid="2474117375302625691">"Spara sida"</string>
+    <string name="webarchive_saved" msgid="2212053339474523406">"Sidan har sparats."</string>
+    <string name="webarchive_failed" msgid="19950914584285713">"Sidan kunde inte sparas."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> bokmärken"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Tom mapp"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Öppna"</string>
@@ -137,7 +137,7 @@
     <string name="pref_content_title" msgid="722227111894838633">"Inställningar för sidinnehåll"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Överför bilder"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Visa bilder på webbsidor"</string>
-    <!-- outdated translation 6871160654981179930 -->     <string name="pref_content_block_popups" msgid="4158524847764470895">"Blockera popup-fönster"</string>
+    <string name="pref_content_block_popups" msgid="4158524847764470895">"Blockera popupfönster"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Aktivera JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Öppen i bakgrunden"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Aktivera plugin-program"</string>
@@ -147,7 +147,7 @@
     <item msgid="8547442717307793863">"Av"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Öppna nya fönster bakom det aktiva"</string>
-    <!-- outdated translation 6044903119907405007 -->     <string name="pref_content_homepage" msgid="3324574611613105696">"Ange startsida"</string>
+    <string name="pref_content_homepage" msgid="3324574611613105696">"Ange startsida"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Ange sökmotor"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Välj en sökmotor"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Ställ in på..."</string>
@@ -158,7 +158,7 @@
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Anpassa webbsidor efter skärmen"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Allmänt"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synka"</string>
-    <!-- outdated translation 64638897890112873 -->     <string name="pref_general_autofill_title" msgid="547881256865816858">"Autofyll"</string>
+    <string name="pref_general_autofill_title" msgid="547881256865816858">"Autofyll"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synkronisera med Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Dela bokmärken och andra data mellan Androids webbläsare och Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Google-konto"</string>
@@ -166,20 +166,16 @@
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Synkronisera bokmärken mellan Androids webbläsare och Google Chrome"</string>
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Synkronisera nu"</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Välj Google-konto"</string>
-    <!-- outdated translation 6232595328320275079 -->     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Automatisk ifyllning av formulär"</string>
+    <string name="pref_autofill_enabled" msgid="1015751713312396713">"Fyll i formulär automatiskt"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Fyll i webbformulär med ett enda klick"</string>
-    <!-- outdated translation 6255415691259466907 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Inställningar för Autofyll"</string>
-    <!-- outdated translation 6606678927956330022 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Konfigurera och hantera data för automatisk ifyllning av formulär"</string>
+    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Fyll i data automatiskt"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ange och spara data för automatisk ifyllning av webbformulärfält"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatiskt inloggning på Google"</string>
-    <!-- no translation found for pref_autologin_progress (4975430912641403743) -->
-    <skip />
-    <!-- no translation found for autologin_bar_text (8013977161879448141) -->
-    <skip />
-    <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->
-    <skip />
-    <!-- no translation found for autologin_bar_error (5132514366023044839) -->
-    <skip />
-    <!-- outdated translation 376355900106687672 -->     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Autofyll använder din profil och hjälper dig att fylla i webbformulär med ett enda klick."</string>
+    <string name="pref_autologin_progress" msgid="4975430912641403743">"Loggar in på Googles webbplatser med <xliff:g id="ID_1">%s</xliff:g>"\n"Automatisk inloggning på Google styrs med inställningarna i Sekretess och säkerhet"</string>
+    <string name="autologin_bar_text" msgid="8013977161879448141">"Automatisk inloggning är tillgänglig."</string>
+    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Logga in"</string>
+    <string name="autologin_bar_error" msgid="5132514366023044839">"Misslyckad inloggning."</string>
+    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Ange de data som du vill ska fyllas i automatiskt i webbformulär när du trycker på dem."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Fullständigt namn:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-post:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Företagsnamn:"</string>
@@ -198,10 +194,9 @@
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profilen har tagits bort"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Ta bort profil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Webbläsaren kan fylla i den här typen av formulär automatiskt. Vill du skapa en profil?"</string>
-    <!-- unknown quoting pattern: original -1, translation 1 -->
-    <!-- outdated translation 8606640740851832808 -->     <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Du kan när som helst ändra inställningarna för Autofyll under webbläsarens inställningar -&amp;gt; Personliga inställningar."</string>
-    <!-- outdated translation 3706426217720202898 -->     <string name="disable_autofill" msgid="8305901059849400354">"Inaktivera Autofyll"</string>
-    <!-- outdated translation 1705642466867300373 -->     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Sekretess och säkerhet"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Du kan när som helst ändra inställningarna för Autofyll bland inställningarna för webbläsaren."</string>
+    <string name="disable_autofill" msgid="8305901059849400354">"Inaktivera Autofyll"</string>
+    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Sekretess och säkerhet"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Rensa cacheminne"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ta bort innehåll och databaser som cachelagrats lokalt"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Innehåll och databaser som cachelagrats lokalt tas bort."</string>
@@ -274,14 +269,12 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Textkodning"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
-    <!-- outdated translation 1617774508416113544 -->     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Snabbkontroller"</string>
-    <!-- outdated translation 1067572298315336767 -->     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Svep tummen från vänster eller höger kant så kommer du åt snabbkontrollerna"</string>
-    <!-- outdated translation 547134501893835512 -->     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Startsida med de mest besökta sidorna"</string>
-    <!-- outdated translation 6857702350834122532 -->     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"De mest besökta sidorna visas på startsidan."</string>
-    <!-- no translation found for pref_use_instant_search (1119176077760723740) -->
-    <skip />
-    <!-- no translation found for pref_use_instant_search_summary (839320474961917522) -->
-    <skip />
+    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Snabbkontroller"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Svep från vänster eller höger så visas snabbkontrollerna och program- och adressfälten döljs"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Mest besökt startsida"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"På startsidan visas de webbplatser du besöker oftast."</string>
+    <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Använd Google Instant när du söker på Google så får du resultat medan du skriver (detta kan öka dataanvändningen)."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problem med dataanslutning"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem med filen"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Bekräfta"</string>
@@ -374,29 +367,19 @@
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Välj konto"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Synkronisera med Google-konto"</string>
-    <!-- outdated translation 5980294599524497571 -->     <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Dina Android-bokmärken har inte kopplats till något Google-konto"</string>
-    <!-- no translation found for import_bookmarks_dialog_select_add_account (3102882579089291099) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_delete_select_account (5192284761080626386) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_confirm_delete (8854001080444749211) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_confirm_add (5433677293195372675) -->
-    <skip />
-    <!-- outdated translation 3129431452739803471 -->     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Ta bort dina Android-bokmärken"</string>
-    <!-- no translation found for import_bookmarks_wizard_next (7578143961884352676) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_previous (8551440353688257031) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_cancel (4936061122806506634) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_done (1446247092194489191) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_add (7552306756868669353) -->
-    <skip />
+    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Det finns bokmärken på enheten som inte har kopplats till något Google-konto än. Du sparar dessa bokmärken genom att lägga till dem i ett konto. Ta bort dem om du inte vill att de ska synkroniseras."</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Lägg till de bokmärken som finns på enheten för närvarande och börja synkronisera med Google-kontot"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Ta bort de bokmärken som finns på enheten för närvarande och börja synkronisera med Google-kontot"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Ta bort de bokmärken som finns på enheten för närvarande och börja synkronisera bokmärken med <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Lägg till de bokmärken som finns på enheten för närvarande och börja synkronisera bokmärken med <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Ta bort bokmärken"</string>
+    <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Nästa"</string>
+    <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Föregående"</string>
+    <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Avbryt"</string>
+    <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Klar"</string>
+    <string name="import_bookmarks_dialog_add" msgid="7552306756868669353">"Lägg till bokmärken i Google-kontot"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Lägg till dina Android-bokmärken i bokmärkena för <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Dela"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Det finnns inga fler flikar"</string>
-    <!-- no translation found for instant_search_label (8769284297650716935) -->
-    <skip />
+    <string name="instant_search_label" msgid="8769284297650716935">"Google med Instant (Labs)"</string>
 </resources>
