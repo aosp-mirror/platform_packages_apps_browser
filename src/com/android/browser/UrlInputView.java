@@ -127,10 +127,6 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
         setCustomSelectionActionModeCallback(urlSelectionMode);
     }
 
-    void setUseQuickControls(boolean useQuickControls) {
-        mAdapter.setReverseResults(useQuickControls);
-    }
-
     void setContainer(View container) {
         mContainer = container;
     }

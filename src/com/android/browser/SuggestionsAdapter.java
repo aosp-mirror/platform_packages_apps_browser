@@ -70,7 +70,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     final int mLinesLandscape;
     final Object mResultsLock = new Object();
     List<String> mVoiceResults;
-    boolean mReverseResults;
     boolean mIncognitoMode;
 
     interface CompletionListener {
@@ -137,9 +136,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
 
     @Override
     public SuggestItem getItem(int position) {
-        if (mReverseResults) {
-            position = (getCount() - 1) - position;
-        }
         if (mVoiceResults != null) {
             SuggestItem item = new SuggestItem(mVoiceResults.get(position),
                     null, TYPE_VOICE_SEARCH);
@@ -150,10 +146,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             return null;
         }
         return mMixedResults.items.get(position);
-    }
-
-    public void setReverseResults(boolean reverse) {
-        mReverseResults = reverse;
     }
 
     @Override
