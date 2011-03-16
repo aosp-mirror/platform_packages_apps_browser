@@ -26,8 +26,6 @@ import com.android.browser.view.PieStackView.OnCurrentListener;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -165,7 +163,6 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
         image.setScaleType(ScaleType.CENTER);
         LayoutParams lp = new LayoutParams(mItemSize, mItemSize);
         v.setLayoutParams(lp);
-        v.setBackgroundResource(R.drawable.qc_item_selector);
         return v;
     }
 
@@ -175,9 +172,8 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
         view.setMinimumWidth(mItemSize);
         view.setMinimumHeight(mItemSize);
         view.setScaleType(ScaleType.CENTER);
-        LayoutParams lp = new LayoutParams(mItemSize,mItemSize);
+        LayoutParams lp = new LayoutParams(mItemSize, mItemSize);
         view.setLayoutParams(lp);
-        view.setBackgroundResource(R.drawable.qc_item_selector);
         return new PieItem(view, l);
     }
 
