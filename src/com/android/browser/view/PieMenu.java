@@ -21,8 +21,11 @@ import com.android.browser.R;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -57,7 +60,7 @@ public class PieMenu extends FrameLayout {
 
         public void setLayoutListener(OnLayoutListener l);
 
-        public void layout(int anchorX, int anchorY, boolean onleft);
+        public void layout(int anchorX, int anchorY, boolean onleft, float angle);
 
         public void draw(Canvas c);
 
@@ -69,6 +72,7 @@ public class PieMenu extends FrameLayout {
     private int mRadius;
     private int mRadiusInc;
     private int mSlop;
+    private int mTouchOffset;
 
     private boolean mOpen;
     private PieController mController;
@@ -79,6 +83,8 @@ public class PieMenu extends FrameLayout {
     private PieView mPieView = null;
 
     private Drawable mBackground;
+    private Paint mNormalPaint;
+    private Paint mSelectedPaint;
 
     // touch handling
     PieItem mCurrentItem;
@@ -118,11 +124,18 @@ public class PieMenu extends FrameLayout {
         mRadius = (int) res.getDimension(R.dimen.qc_radius_start);
         mRadiusInc = (int) res.getDimension(R.dimen.qc_radius_increment);
         mSlop = (int) res.getDimension(R.dimen.qc_slop);
+        mTouchOffset = (int) res.getDimension(R.dimen.qc_touch_offset);
         mOpen = false;
         setWillNotDraw(false);
         setDrawingCacheEnabled(false);
         mCenter = new Point(0,0);
         mBackground = res.getDrawable(R.drawable.qc_background_normal);
+        mNormalPaint = new Paint();
+        mNormalPaint.setColor(res.getColor(R.color.qc_normal));
+        mNormalPaint.setAntiAlias(true);
+        mSelectedPaint = new Paint();
+        mSelectedPaint.setColor(res.getColor(R.color.qc_selected));
+        mSelectedPaint.setAntiAlias(true);
     }
 
     public void setController(PieController ctl) {
@@ -178,13 +191,16 @@ public class PieMenu extends FrameLayout {
     }
 
     private void layoutPie() {
-        int inner = mRadius;
-        int outer = mRadius + mRadiusInc;
+        float emptyangle = (float) Math.PI / 16;
+        int rgap = 2;
+        int inner = mRadius + rgap;
+        int outer = mRadius + mRadiusInc - rgap;
         int radius = mRadius;
+        int gap = 1;
         for (int i = 0; i < mLevels; i++) {
             int level = i + 1;
-            float sweep = (float) Math.PI / (mCounts[level] + 1);
-            float angle = sweep;
+            float sweep = (float) (Math.PI - 2 * emptyangle) / mCounts[level];
+            float angle = emptyangle + sweep / 2;
             for (PieItem item : mItems) {
                 if (item.getLevel() == level) {
                     View view = item.getView();
@@ -192,22 +208,38 @@ public class PieMenu extends FrameLayout {
                             view.getLayoutParams().height);
                     int w = view.getMeasuredWidth();
                     int h = view.getMeasuredHeight();
-                    int x = (int) (outer * Math.sin(angle));
-                    int y = mCenter.y - (int) (outer * Math.cos(angle)) - h / 2;
+                    int r = inner + (outer - inner) * 2 / 3;
+                    int x = (int) (r * Math.sin(angle));
+                    int y = mCenter.y - (int) (r * Math.cos(angle)) - h / 2;
                     if (onTheLeft()) {
-                        x = mCenter.x + x - w;
+                        x = mCenter.x + x - w / 2;
                     } else {
-                        x = mCenter.x - x;
+                        x = mCenter.x - x - w / 2;
                     }
                     view.layout(x, y, x + w, y + h);
                     float itemstart = angle - sweep / 2;
-                    item.setGeometry(itemstart, sweep, inner, outer);
+                    Path slice = makeSlice(getDegrees(itemstart) - gap,
+                            getDegrees(itemstart + sweep) + gap,
+                            outer, inner, mCenter);
+                    item.setGeometry(itemstart, sweep, inner, outer, slice);
                     angle += sweep;
                 }
             }
             inner += mRadiusInc;
             outer += mRadiusInc;
         }
+    }
+
+
+    /**
+     * converts a
+     *
+     * @param angle from 0..PI to Android degrees (clockwise starting at 3
+     *        o'clock)
+     * @return skia angle
+     */
+    private float getDegrees(double angle) {
+        return (float) (270 - 180 * angle / Math.PI);
     }
 
     @Override
@@ -218,13 +250,21 @@ public class PieMenu extends FrameLayout {
             int left = mCenter.x - w;
             int top = mCenter.y - h / 2;
             mBackground.setBounds(left, top, left + w, top + h);
-            int state = canvas.save();
+            int state;
+            state = canvas.save();
             if (onTheLeft()) {
                 canvas.scale(-1, 1);
             }
             mBackground.draw(canvas);
             canvas.restoreToCount(state);
             for (PieItem item : mItems) {
+                Paint p = item.isSelected() ? mSelectedPaint : mNormalPaint;
+                state = canvas.save();
+                if (onTheLeft()) {
+                    canvas.scale(-1, 1);
+                }
+                drawPath(canvas, item.getPath(), p);
+                canvas.restoreToCount(state);
                 drawItem(canvas, item);
             }
             if (mPieView != null) {
@@ -243,6 +283,24 @@ public class PieMenu extends FrameLayout {
         canvas.translate(view.getX(), view.getY());
         view.draw(canvas);
         canvas.restoreToCount(state);
+    }
+
+    private void drawPath(Canvas canvas, Path path, Paint paint) {
+        canvas.drawPath(path, paint);
+    }
+
+    private Path makeSlice(float start, float end, int outer, int inner, Point center) {
+        RectF bb =
+                new RectF(center.x - outer, center.y - outer, center.x + outer,
+                        center.y + outer);
+        RectF bbi =
+                new RectF(center.x - inner, center.y - inner, center.x + inner,
+                        center.y + inner);
+        Path path = new Path();
+        path.arcTo(bb, start, end - start, true);
+        path.arcTo(bbi, end, start - end);
+        path.close();
+        return path;
     }
 
     // touch handling for pie
@@ -307,7 +365,8 @@ public class PieMenu extends FrameLayout {
                             ? item.getView().getWidth() : 0);
                     int cy = item.getView().getTop();
                     mPieView = item.getPieView();
-                    layoutPieView(mPieView, cx, cy);
+                    layoutPieView(mPieView, cx, cy,
+                            (item.getStartAngle() + item.getSweep()) / 2);
                 }
                 invalidate();
             }
@@ -316,8 +375,8 @@ public class PieMenu extends FrameLayout {
         return false;
     }
 
-    private void layoutPieView(PieView pv, int x, int y) {
-        pv.layout(x, y, onTheLeft());
+    private void layoutPieView(PieView pv, int x, int y, float angle) {
+        pv.layout(x, y, onTheLeft(), angle);
     }
 
     /**
@@ -373,8 +432,8 @@ public class PieMenu extends FrameLayout {
     private PieItem findItem(PointF polar) {
         // find the matching item:
         for (PieItem item : mItems) {
-            if ((item.getInnerRadius() < polar.y)
-                    && (item.getOuterRadius() > polar.y)
+            if ((item.getInnerRadius() - mTouchOffset < polar.y)
+                    && (item.getOuterRadius() - mTouchOffset > polar.y)
                     && (item.getStartAngle() < polar.x)
                     && (item.getStartAngle() + item.getSweep() > polar.x)) {
                 return item;

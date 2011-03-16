@@ -18,6 +18,7 @@ package com.android.browser.view;
 
 import com.android.browser.view.PieMenu.PieView;
 
+import android.graphics.Path;
 import android.view.View;
 
 /**
@@ -33,6 +34,7 @@ public class PieItem {
     private int inner;
     private int outer;
     private boolean mSelected;
+    private Path mPath;
 
     public PieItem(View view, int level) {
         mView = view;
@@ -60,11 +62,12 @@ public class PieItem {
         return level;
     }
 
-    public void setGeometry(float st, float sw, int inside, int outside) {
+    public void setGeometry(float st, float sw, int inside, int outside, Path p) {
         start = st;
         sweep = sw;
         inner = inside;
         outer = outside;
+        mPath = p;
     }
 
     public float getStartAngle() {
@@ -97,6 +100,10 @@ public class PieItem {
 
     public PieView getPieView() {
         return mPieView;
+    }
+
+    public Path getPath() {
+        return mPath;
     }
 
 }

@@ -39,8 +39,8 @@ public class PieListView extends BasePieView {
      * this will be called before the first draw call
      */
     @Override
-    public void layout(int anchorX, int anchorY, boolean left) {
-        super.layout(anchorX, anchorY, left);
+    public void layout(int anchorX, int anchorY, boolean left, float angle) {
+        super.layout(anchorX, anchorY, left, angle);
         buildViews();
         mWidth = mChildWidth;
         mHeight = mChildHeight * mAdapter.getCount();

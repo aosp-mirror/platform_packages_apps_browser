@@ -59,8 +59,8 @@ public class PieStackView extends BasePieView {
      * this will be called before the first draw call
      */
     @Override
-    public void layout(int anchorX, int anchorY, boolean left) {
-        super.layout(anchorX, anchorY, left);
+    public void layout(int anchorX, int anchorY, boolean left, float angle) {
+        super.layout(anchorX, anchorY, left, angle);
         buildViews();
         mWidth = mChildWidth;
         mHeight = mChildHeight + (mViews.size() - 1) * mMinHeight;
@@ -76,7 +76,8 @@ public class PieStackView extends BasePieView {
         int top = mTop;
         int dy = (n == 1) ? 0 : (mHeight - mChildHeight) / (n - 1);
         for (View view : mViews) {
-            view.layout(mLeft, top, mLeft + mChildWidth, top + mChildHeight);
+            int x = mLeft;
+            view.layout(x, top, x + mChildWidth, top + mChildHeight);
             top += dy;
         }
     }
