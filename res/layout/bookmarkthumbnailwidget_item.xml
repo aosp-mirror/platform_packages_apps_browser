@@ -53,9 +53,8 @@
             android:layout_gravity="center_vertical"
             android:singleLine="true"
             android:ellipsize="end"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:typeface="sans"
-            android:textStyle="bold"
             android:textColor="@android:color/white" />
     </LinearLayout>
 </RelativeLayout>
