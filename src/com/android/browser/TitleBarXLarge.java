@@ -224,11 +224,13 @@ public class TitleBarXLarge extends TitleBarBase
             if (mUseQuickControls) {
                 mUi.hideTitleBar();
                 mAutoLogin.setVisibility(View.GONE);
+                mUi.refreshWebView();
             } else {
                 if (animate) {
                     hideAutoLogin();
                 } else if (mAutoLogin.getAnimation() == null) {
                     mAutoLogin.setVisibility(View.GONE);
+                    mUi.refreshWebView();
                 }
             }
         }
@@ -340,6 +342,7 @@ public class TitleBarXLarge extends TitleBarBase
         anim.setAnimationListener(new AnimationListener() {
             @Override public void onAnimationEnd(Animation a) {
                 mAutoLogin.setVisibility(View.GONE);
+                mUi.refreshWebView();
             }
             @Override public void onAnimationStart(Animation a) {}
             @Override public void onAnimationRepeat(Animation a) {}
