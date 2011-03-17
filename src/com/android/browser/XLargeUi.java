@@ -463,6 +463,13 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         mTitleBar.updateAutoLogin(tab, animate);
     }
 
+    protected void refreshWebView() {
+        Tab tab = getActiveTab();
+        if ((tab != null) && (tab.getWebView() != null)) {
+            tab.getWebView().invalidate();
+        }
+    }
+
     @Override
     public void setUrlTitle(Tab tab) {
         super.setUrlTitle(tab);
