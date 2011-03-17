@@ -59,6 +59,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,7 +71,7 @@ import android.widget.Toast;
  * days of viewing.
  */
 public class BrowserHistoryPage extends Fragment
-        implements LoaderCallbacks<Cursor> {
+        implements LoaderCallbacks<Cursor>, OnChildClickListener {
 
     static final int LOADER_HISTORY = 1;
     static final int LOADER_MOST_VISITED = 2;
@@ -82,6 +85,7 @@ public class BrowserHistoryPage extends Fragment
     ListView mGroupList, mChildList;
     private ViewGroup mPrefsContainer;
     private FragmentBreadCrumbs mFragmentBreadCrumbs;
+    private ExpandableListView mHistoryList;
 
     // Implementation of WebIconDatabase.IconListener
     class IconReceiver implements IconListener {
@@ -187,7 +191,7 @@ public class BrowserHistoryPage extends Fragment
         switch (loader.getId()) {
             case LOADER_HISTORY: {
                 mAdapter.changeCursor(data);
-                if (!mAdapter.isEmpty()
+                if (!mAdapter.isEmpty() && mGroupList != null
                         && mGroupList.getCheckedItemPosition() == ListView.INVALID_POSITION) {
                     selectGroup(0);
                 }
@@ -229,7 +233,31 @@ public class BrowserHistoryPage extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mRoot = inflater.inflate(R.layout.history, container, false);
+        mAdapter = new HistoryAdapter(getActivity());
         ViewStub stub = (ViewStub) mRoot.findViewById(R.id.pref_stub);
+        if (stub != null) {
+            inflateTwoPane(stub);
+        } else {
+            inflateSinglePane();
+        }
+
+        // Start the loaders
+        getLoaderManager().restartLoader(LOADER_HISTORY, null, this);
+        getLoaderManager().restartLoader(LOADER_MOST_VISITED, null, this);
+
+        // Register to receive icons in case they haven't all been loaded.
+        CombinedBookmarkHistoryView.getIconListenerSet().addListener(mIconReceiver);
+        return mRoot;
+    }
+
+    private void inflateSinglePane() {
+        mHistoryList = (ExpandableListView) mRoot.findViewById(R.id.history);
+        mHistoryList.setAdapter(mAdapter);
+        mHistoryList.setOnChildClickListener(this);
+        registerForContextMenu(mHistoryList);
+    }
+
+    private void inflateTwoPane(ViewStub stub) {
         stub.setLayoutResource(com.android.internal.R.layout.preference_list_content);
         stub.inflate();
         mGroupList = (ListView) mRoot.findViewById(android.R.id.list);
@@ -238,7 +266,6 @@ public class BrowserHistoryPage extends Fragment
         mFragmentBreadCrumbs.setMaxVisible(1);
         mFragmentBreadCrumbs.setActivity(getActivity());
         mPrefsContainer.setVisibility(View.VISIBLE);
-        mAdapter = new HistoryAdapter(getActivity());
         mGroupList.setAdapter(new HistoryGroupWrapper(mAdapter));
         mGroupList.setOnItemClickListener(mGroupItemClickListener);
         mGroupList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
@@ -249,14 +276,6 @@ public class BrowserHistoryPage extends Fragment
         registerForContextMenu(mChildList);
         ViewGroup prefs = (ViewGroup) mRoot.findViewById(com.android.internal.R.id.prefs);
         prefs.addView(mChildList);
-
-        // Start the loaders
-        getLoaderManager().restartLoader(LOADER_HISTORY, null, this);
-        getLoaderManager().restartLoader(LOADER_MOST_VISITED, null, this);
-
-        // Register to receive icons in case they haven't all been loaded.
-        CombinedBookmarkHistoryView.getIconListenerSet().addListener(mIconReceiver);
-        return mRoot;
     }
 
     private OnItemClickListener mGroupItemClickListener = new OnItemClickListener() {
@@ -277,6 +296,13 @@ public class BrowserHistoryPage extends Fragment
             mCallbacks.onUrlSelected(((HistoryItem) view).getUrl(), false);
         }
     };
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View view,
+            int groupPosition, int childPosition, long id) {
+        mCallbacks.onUrlSelected(((HistoryItem) view).getUrl(), false);
+        return true;
+    }
 
     @Override
     public void onDestroy() {
@@ -341,16 +367,29 @@ public class BrowserHistoryPage extends Fragment
         }
     }
 
+    View getTargetView(ContextMenuInfo menuInfo) {
+        if (menuInfo instanceof AdapterContextMenuInfo) {
+            return ((AdapterContextMenuInfo) menuInfo).targetView;
+        }
+        if (menuInfo instanceof ExpandableListContextMenuInfo) {
+            return ((ExpandableListContextMenuInfo) menuInfo).targetView;
+        }
+        return null;
+    }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        AdapterContextMenuInfo i = (AdapterContextMenuInfo) menuInfo;
+
+        View targetView = getTargetView(menuInfo);
+        if (!(targetView instanceof HistoryItem)) {
+            return;
+        }
+        HistoryItem historyItem = (HistoryItem) targetView;
 
         // Inflate the menu
         Activity parent = getActivity();
         MenuInflater inflater = parent.getMenuInflater();
         inflater.inflate(R.menu.historycontext, menu);
-
-        HistoryItem historyItem = (HistoryItem) i.targetView;
 
         // Setup the header
         if (mContextHeader == null) {
@@ -382,12 +421,11 @@ public class BrowserHistoryPage extends Fragment
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterContextMenuInfo i =
-            (AdapterContextMenuInfo) item.getMenuInfo();
-        if (i == null) {
+        ContextMenuInfo menuInfo = item.getMenuInfo();
+        if (menuInfo == null) {
             return false;
         }
-        HistoryItem historyItem = (HistoryItem) i.targetView;
+        HistoryItem historyItem = (HistoryItem) getTargetView(menuInfo);
         String url = historyItem.getUrl();
         String title = historyItem.getName();
         Activity activity = getActivity();
