@@ -107,8 +107,9 @@ public class DeviceAccountLogin implements
         if (mTab.getDeviceAccountLogin() == null) {
             displayLoginUi();
         } else {
-            assert mCallback != null;
-            mCallback.loginFailed();
+            if (mCallback != null) {
+                mCallback.loginFailed();
+            }
         }
     }
 
