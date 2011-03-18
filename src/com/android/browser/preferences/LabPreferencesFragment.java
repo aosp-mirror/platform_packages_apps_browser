@@ -42,21 +42,25 @@ public class LabPreferencesFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.lab_preferences);
 
         Preference e = findPreference(BrowserSettings.PREF_QUICK_CONTROLS);
-        e.setOnPreferenceChangeListener(this);
+        if (e != null) {
+            e.setOnPreferenceChangeListener(this);
+        }
         useInstantPref = findPreference(BrowserSettings.PREF_USE_INSTANT);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        useInstantPref.setEnabled(false);
+        if (useInstantPref != null) {
+            useInstantPref.setEnabled(false);
 
-        // Enable the "use instant" preference only if the selected
-        // search engine is google.
-        if (mBrowserSettings.getSearchEngine() != null) {
-            final String currentName = mBrowserSettings.getSearchEngine().getName();
-            if (SearchEngine.GOOGLE.equals(currentName)) {
-                useInstantPref.setEnabled(true);
+            // Enable the "use instant" preference only if the selected
+            // search engine is google.
+            if (mBrowserSettings.getSearchEngine() != null) {
+                final String currentName = mBrowserSettings.getSearchEngine().getName();
+                if (SearchEngine.GOOGLE.equals(currentName)) {
+                    useInstantPref.setEnabled(true);
+                }
             }
         }
     }
