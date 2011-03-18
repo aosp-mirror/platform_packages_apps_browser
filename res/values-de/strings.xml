@@ -102,12 +102,12 @@
     <string name="history" msgid="2451240511251410032">"Verlauf"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Downloads"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Seiten-URL kopieren"</string>
-    <string name="share_page" msgid="593756995297268343">"Seitenlink weiterleiten"</string>
+    <string name="share_page" msgid="593756995297268343">"Seitenlink weitergeben"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Öffnen"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"In neuem Fenster öffnen"</string>
     <string name="contextmenu_bookmark_thislink" msgid="8095373680616870021">"Link zu Lesezeichen hinzufügen"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Link speichern"</string>
-    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Link weiterleiten"</string>
+    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Link weitergeben"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopieren"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"Link-URL kopieren"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Bild speichern"</string>
@@ -117,7 +117,7 @@
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Kontakt hinzufügen"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"E-Mail senden"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Karte"</string>
-    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Weiterleiten über"</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Weitergeben über"</string>
     <string name="clear" msgid="7070043081700011461">"Löschen"</string>
     <string name="replace" msgid="4843033491070384047">"Ersetzen"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Lesezeichen"</string>

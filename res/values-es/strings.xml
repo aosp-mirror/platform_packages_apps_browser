@@ -161,9 +161,9 @@
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Se eliminarán todas las contraseñas guardadas."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Habilitar ubicación"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Permitir que los sitios soliciten acceso a tu ubicación"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Permitir acceso a la ubicación"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Permitir que todos los sitios web accedan a la ubicación"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Permitir que todos los sitios web accedan a la ubicación"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Deshabilitar ubicación"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Deshabilitar acceso a la ubicación para todos los sitios web"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Deshabilitar acceso a la ubicación para todos los sitios web"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Ajustes de seguridad"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Recordar contraseñas"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Guardar nombres de usuario y contraseñas de sitios web"</string>
@@ -283,10 +283,10 @@
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Recordar preferencia"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Este sitio puede acceder a tu ubicación. Para modificar esta opción, accede a \"Ajustes -&gt; Ajustes del sitio web\"."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Este sitio no puede acceder a tu ubicación. Para modificar esta opción, accede a \"Ajustes -&gt; Ajustes del sitio web\"."</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Permitir acceso a la ubicación"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Deshabilitar ubicación"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Este sitio puede acceder actualmente a tu ubicación."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Este sitio no puede acceder actualmente a tu ubicación."</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Permitir acceso ubicación"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Deshabilitar ubicación"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Se permitirá que este sitio web acceda a tu ubicación."</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Permitir acceso"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Cancelar"</string>
