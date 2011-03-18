@@ -1791,7 +1791,6 @@ public class Controller
                     // title bar once again.
                     mExtendedMenuOpen = false;
                     mUi.onExtendedMenuClosed(mInLoad);
-                    mUi.onOptionsMenuOpened();
                 }
             }
         } else {
