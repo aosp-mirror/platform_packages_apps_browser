@@ -3,7 +3,7 @@
 <html>
 <head>
 <title><%@ string/new_tab %></title>
-<meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; user-scalable=0" />
 
 <style type="text/css">
 
@@ -14,20 +14,19 @@
 
 body {
     text-align: center;
-    margin: 16px auto;
+    margin: 0px auto;
     padding: 0 8px 0 8px;
     max-width: <%@ dimen/mv_max_width %>px;
 }
 
-#most_visited h3 {
+h3 {
     text-align: center;
-    padding: 0;
-    margin: 5px 0 5px 0px;
+    margin: 5px 0 5px 0;
 }
 
 .thumbwrap li {
     display: inline-block;
-    margin: 0 7px 15px 7px;
+    margin: 0 7px 12px 7px;
     padding: 0;
 }
 
