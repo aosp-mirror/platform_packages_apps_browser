@@ -16,7 +16,7 @@
 
 package com.android.browser;
 
-import com.android.browser.ScrollWebView.ScrollListener;
+import com.android.browser.BrowserWebView.ScrollListener;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -149,23 +149,14 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     public WebView createWebView(boolean privateBrowsing) {
         // Create a new WebView
-        ScrollWebView w = new ScrollWebView(mActivity, null,
-                android.R.attr.webViewStyle, privateBrowsing);
-        initWebViewSettings(w);
+        BrowserWebView w = (BrowserWebView) super.createWebView(privateBrowsing);
         w.setScrollListener(this);
-        boolean supportsMultiTouch = mActivity.getPackageManager()
-                .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH);
-        w.getSettings().setDisplayZoomControls(!supportsMultiTouch);
-        w.setExpandedTileBounds(true);  // smoother scrolling
         return w;
     }
 
     @Override
     public WebView createSubWebView(boolean privateBrowsing) {
-        ScrollWebView web = (ScrollWebView) createWebView(privateBrowsing);
-        // no scroll listener for subview
-        web.setScrollListener(null);
-        return web;
+        return super.createWebView(privateBrowsing);
     }
 
     @Override
@@ -174,7 +165,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     void stopWebViewScrolling() {
-        ScrollWebView web = (ScrollWebView) mUiController.getCurrentWebView();
+        BrowserWebView web = (BrowserWebView) mUiController.getCurrentWebView();
         if (web != null) {
             web.stopScroll();
         }
@@ -237,7 +228,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     void setActiveTab(Tab tab, boolean needsAttaching) {
-        ScrollWebView view = (ScrollWebView) tab.getWebView();
+        BrowserWebView view = (BrowserWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
         // so the tab is guaranteed to have a webview
         if (view == null) {

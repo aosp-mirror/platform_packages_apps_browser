@@ -16,7 +16,7 @@
 
 package com.android.browser;
 
-import com.android.browser.ScrollWebView.ScrollListener;
+import com.android.browser.BrowserWebView.ScrollListener;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;

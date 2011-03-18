@@ -52,6 +52,7 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener,
     private boolean mInLoad;
     private Intent mVoiceSearchIntent;
     private ImageSpan mArcsSpan;
+    private View mContainer;
 
     public TitleBar(Activity activity, UiController controller, PhoneUi ui) {
         super(activity, controller, ui);
@@ -59,6 +60,7 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener,
         factory.inflate(R.layout.title_bar, this);
         mActivity = activity;
 
+        mContainer = findViewById(R.id.taburlbar);
         mUrlInput = (UrlInputView) findViewById(R.id.url_input);
         mUrlInput.setCompoundDrawablePadding(5);
         mUrlInput.setContainer(this);
@@ -98,6 +100,12 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener,
         mBookmarkDrawable = mBookmarkButton.getDrawable();
         mArcsSpan = new ImageSpan(activity, R.drawable.arcs,
                 ImageSpan.ALIGN_BASELINE);
+    }
+
+    @Override
+    public int getEmbeddedHeight() {
+        int height = mContainer.getHeight();
+        return height;
     }
 
     @Override

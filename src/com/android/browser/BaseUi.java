@@ -23,6 +23,7 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -122,6 +123,20 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mTitleShowing = false;
     }
 
+    @Override
+    public WebView createWebView(boolean privateBrowsing) {
+        // Create a new WebView
+        BrowserWebView w = new BrowserWebView(mActivity, null,
+                android.R.attr.webViewStyle, privateBrowsing);
+        initWebViewSettings(w);
+        return w;
+    }
+
+    @Override
+    public WebView createSubWebView(boolean privateBrowsing) {
+        return createWebView(privateBrowsing);
+    }
+
     /**
      * common webview initialization
      * @param w the webview to initialize
@@ -132,6 +147,10 @@ public abstract class BaseUi implements UI, WebViewFactory {
         w.setMapTrackballToArrowKeys(false); // use trackball directly
         // Enable the built-in zoom
         w.getSettings().setBuiltInZoomControls(true);
+        boolean supportsMultiTouch = mActivity.getPackageManager()
+                .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH);
+        w.getSettings().setDisplayZoomControls(!supportsMultiTouch);
+        w.setExpandedTileBounds(true);  // smoother scrolling
 
         // Add this WebView to the settings observer list and update the
         // settings
