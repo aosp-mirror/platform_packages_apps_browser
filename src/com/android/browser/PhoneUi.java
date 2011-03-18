@@ -19,6 +19,7 @@ package com.android.browser;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -235,6 +236,17 @@ public class PhoneUi extends BaseUi {
     @Override
     public void onActionModeStarted(ActionMode mode) {
         hideTitleBar();
+    }
+
+    @Override
+    public void onActionModeFinished(boolean inLoad) {
+        // TODO: Remove once b/4136071 is fixed
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.getActionBar().hide();
+            }
+        });
     }
 
     @Override

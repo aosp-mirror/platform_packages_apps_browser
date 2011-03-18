@@ -627,11 +627,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
-        if (inLoad) {
-            // the titlebar was removed when the CAB was shown
-            // if the page is loading, show it again
-            showTitleBar();
-        }
     }
 
     // active tabs page
