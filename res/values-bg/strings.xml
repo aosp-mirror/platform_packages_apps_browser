@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Не можа да бъде отворен нов прозорец, защото вече сте отворили максималния брой."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Изскачащият прозорец вече е отворен"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Не можа да бъде отворен нов изскачащ прозорец – най-много един може да е отворен по всяко време."</string>
-    <string name="download_title" msgid="2122874021047565594">"История на изтеглянията"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Неизвестно&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Отваряне"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Изчистване от списък"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Изтриване"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Анулиране на изтеглянето"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Анулиране на всички изтегляния"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Анулиране на изтеглянията"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Всичките <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> изтегляния ще бъдат анулирани и изчистени от историята."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Файлът ще бъде изтрит"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Няма място"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> не можа да се изтегли."\n"Освободете място на телефона си и опитайте отново."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Изтеглянето не е успешно"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Не е налице USB хранилище"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Няма SD карта"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"За изтеглянето на <xliff:g id="FILENAME">%s</xliff:g> се изисква USB хранилище."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB хранилището е заето. За да разрешите изтегляния, изберете „Изключване на USB хранилището“ в известието."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD картата е заета. За да разрешите изтегляния, изберете „Изключване на USB устройството за съхранение“ в известието."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Файлът не може да се отвори"</string>
-    <string name="retry" msgid="1835923075542266721">"Повторен опит"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Историята на изтеглянията е празна."</string>
-    <string name="download_error" msgid="413496839831257187">"Изтеглянето не е успешно."</string>
-    <string name="download_success" msgid="2279041638155595203">"Изтеглянето на <xliff:g id="FILE">%s</xliff:g> завърши."</string>
-    <string name="download_running" msgid="2622942231322015059">"Изтегля се..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Изтеглянето се стартира…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Изчаква се връзка за данни..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Изчаква се връзка за данни..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Изтеглянето е анулирано."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Не може да се изтегли. Съдържанието не се поддържа от този телефон."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Изтеглянето не може да завърши. Няма достатъчно място."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Не може да се изтегли и да се определи размерът на елемента."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Изтеглянето е прекъснато и не може да бъде възобновено."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Търсене в мрежата"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Хранилището на браузъра е пълно"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Кликнете за освобождаване на място."</string>

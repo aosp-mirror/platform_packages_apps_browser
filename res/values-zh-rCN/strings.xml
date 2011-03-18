@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"无法打开新窗口，因为打开的窗口数已达到上限。"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"弹出式窗口已经打开"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"无法打开新的弹出式窗口，因为任何时候都是一次只能打开一个窗口。"</string>
-    <string name="download_title" msgid="2122874021047565594">"下载历史记录"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;未知&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"打开"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"从列表中清除"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"删除"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"取消下载"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"取消所有下载"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"取消下载"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"所有 <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> 项下载都会取消并从下载历史记录中清除。"</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"文件将被删除"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"没有存储空间"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"无法下载<xliff:g id="FILENAME">%s</xliff:g>。"\n"请释放部分手机空间，然后重试。"</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"下载失败"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"不存在 USB 存储设备"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"无 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"必须装载 USB 存储设备才能下载“<xliff:g id="FILENAME">%s</xliff:g>”。"</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB 存储设备正忙。要允许下载，请在通知中选择“关闭 USB 存储设备”。"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 卡正忙。要允许下载，请在通知中选择“关闭 USB 存储设备”。"</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"无法打开文件"</string>
-    <string name="retry" msgid="1835923075542266721">"重试"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"下载历史记录为空。"</string>
-    <string name="download_error" msgid="413496839831257187">"下载不成功。"</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g>下载完成。"</string>
-    <string name="download_running" msgid="2622942231322015059">"正在下载..."</string>
     <string name="download_pending" msgid="2599683668575349559">"正在开始下载..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"正在等待数据连接..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"正在等待数据连接..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"下载已取消。"</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"无法下载，此手机不支持此内容。"</string>
-    <string name="download_file_error" msgid="1206648050615176113">"无法完成下载，存储空间不足。"</string>
-    <string name="download_length_required" msgid="9038605488460437406">"无法下载，因为无法确定该下载项的大小。"</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"下载中断，无法重新开始。"</string>
     <string name="search_the_web" msgid="6046130189241962337">"搜索网页"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"浏览器存储空间已满"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"点击可释放空间。"</string>

@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"No s\'ha pogut obrir una finestra nova perquè ja n\'heu obert el nombre màxim."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"La finestra emergent ja és oberta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"No s\'ha pogut obrir una finestra emergent nova perquè només n\'hi pot haver una d\'oberta al mateix temps."</string>
-    <string name="download_title" msgid="2122874021047565594">"Historial de baixades"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Desconegut&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Obre"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Esborra de la llista"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Suprimeix"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Cancel·la la baixada"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancel·la totes les baixades"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancel·lació de baixades"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Es cancel·laran les <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> baixades i s\'esborraran de l\'historial de baixades."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"El fitxer se suprimirà"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Espai esgotat"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"No s\'ha pogut baixar <xliff:g id="FILENAME">%s</xliff:g>."\n" Allibereu una mica d\'espai al telèfon i torneu-ho a provar."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Baixada incorrecta"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Emmag. USB no dispon."</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"No hi ha cap targeta SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Cal l\'emmagatzematge USB per baixar <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"L\'emmagatzematge USB està ocupat. Per permetre les baixades, selecciona \"Desactiva l\'emmagatzematge USB\" a la notificació."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La targeta SD està ocupada. Per permetre les baixades, seleccioneu \"Desactiva l\'emmagatzematge d\'USB\" a la notificació."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"No pot obrir el fitxer"</string>
-    <string name="retry" msgid="1835923075542266721">"Torna-ho a provar"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"L\'historial de baixades és buit."</string>
-    <string name="download_error" msgid="413496839831257187">"Baixada incorrecta."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g>: baixada completa."</string>
-    <string name="download_running" msgid="2622942231322015059">"S\'està baixant..."</string>
     <string name="download_pending" msgid="2599683668575349559">"S\'està iniciant la baixada…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"S\'està esperant la connexió de dades..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"S\'està esperant la connexió de dades..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"S\'ha cancel·lat la baixada."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"No es pot baixar. El contingut no és compatible amb aquest telèfon."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"No es pot completar la baixada. No hi ha prou espai."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"No es pot baixar. La mida de l\'element no es pot determinar."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"S\'ha interromput la baixada. No es pot reprendre."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Cerca al web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"La memòria del navegador és plena"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Feu clic per alliberar espai."</string>

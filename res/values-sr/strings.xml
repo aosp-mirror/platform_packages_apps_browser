@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Није било могуће отворити нови прозор зато што сте већ отворили максималан број прозора."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Искачући прозор је већ отворен"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Није било могуће отворити нови искачући прозор зато што не може истовремено да буде отворено више њих."</string>
-    <string name="download_title" msgid="2122874021047565594">"Историја преузимања"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Непознато&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Отвори"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Обриши са листе"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Избриши"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Откажи преузимање"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Откажи сва преузимања"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Отказивање преузимања"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Сва преузимања (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) биће отказана и обрисана из историје преузимања."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Датотека ће бити избрисана"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Нема више места"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Није било могуће преузети датотеку <xliff:g id="FILENAME">%s</xliff:g>."\n"Ослободите додатни простор на телефону и покушајте поново."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Преузимање није успело"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB меморија је недоступна"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Нема SD картице"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Потребна је USB меморија за преузимање датотеке <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB меморија је заузета. Да бисте дозволили преузимања, изаберите „Искључи USB меморију“ у обавештењу."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD картица је заузета. Да бисте омогућили преузимања, у оквиру обавештења изаберите „Искључи USB складиште“."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Није могуће отворити датотеку"</string>
-    <string name="retry" msgid="1835923075542266721">"Покушај поново"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Историја преузимања је празна."</string>
-    <string name="download_error" msgid="413496839831257187">"Преузимање није успело."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Преузимање је довршено."</string>
-    <string name="download_running" msgid="2622942231322015059">"Преузимање…"</string>
     <string name="download_pending" msgid="2599683668575349559">"Покретање преузимања…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Чекање на повезивање података…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Чекање на повезивање података…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Преузимање је отказано."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Преузимање није могуће. Телефон не подржава овај садржај."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Није могуће довршити преузимање због недостатка простора."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Није могуће преузети ставку зато што се не може утврдити њена величина."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Дошло је до прекида при преузимању и није га могуће наставити."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Претражи Веб"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Складиште прегледача је пуно"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Кликните да бисте ослободили додатни простор."</string>

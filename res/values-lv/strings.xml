@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Nevarēja atvērt jaunu logu, jo jau atvērts maksimālais logu skaits."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Uznirstošais logs jau ir atvērts."</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Nevarēja atvērt jaunu uznirstošo logu, jo vienlaicīgi var būt atvērts tikai viens šāds logs."</string>
-    <string name="download_title" msgid="2122874021047565594">"Lejupielāžu vēsture"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Nezināms&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Atvērt"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Notīrīt no saraksta"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Dzēst"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Atcelt lejupielādi"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Atcelt visas lejupielādes"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Atcelt lejupielādes"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Visas lejupielādes (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) tiks atceltas un notīrītas no lejupielāžu vēstures."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Fails tiks dzēsts."</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Nav brīvas vietas"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Failu <xliff:g id="FILENAME">%s</xliff:g> nevarēja lejupielādēt."\n"Atbrīvojiet vietu tālrunī un mēģiniet vēlreiz."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Lejupielāde nebija veiksmīga."</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB atmiņa nav pieejama"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nav SD kartes"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"USB atmiņā nepieciešams lejupielādēt failu <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB atmiņa ir aizņemta. Lai atļautu lejupielādes, paziņojumā atlasiet Izslēgt USB atmiņu."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD karte ir aizņemta. Lai atļautu lejupielādes, paziņojumā atlasiet “Izslēgt USB krātuvi”."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Nevar atvērt failu"</string>
-    <string name="retry" msgid="1835923075542266721">"Mēģināt vēlreiz"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Lejupielāžu vēsture ir tukša."</string>
-    <string name="download_error" msgid="413496839831257187">"Lejupielāde nebija veiksmīga."</string>
-    <string name="download_success" msgid="2279041638155595203">"Faila <xliff:g id="FILE">%s</xliff:g> lejupielāde ir pabeigta."</string>
-    <string name="download_running" msgid="2622942231322015059">"Notiek lejupielāde..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Notiek lejupielādes sākšana..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Notiek datu savienojuma gaidīšana..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Notiek datu savienojuma gaidīšana..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Lejupielāde tika atcelta."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Nevar veikt lejupielādi. Saturs šajā tālrunī netiek atbalstīts."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Nevar pabeigt lejupielādi, jo nepietiek vietas."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Nevar veikt lejupielādi. Nav iespējams noteikt vienuma lielumu."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Lejupielāde tika pārtraukta. To nevar atsākt."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Meklēšana tīmeklī"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Pārlūkprogrammas krātuve ir pilna."</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Noklikšķiniet, lai atbrīvotu vietu."</string>

@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Der kan ikke åbnes et nyt vindue, fordi du allerede har åbnet det maksimale antal."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop op er allerede åben"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Der kunne ikke åbnes et nyt pop op-vindue, da der kun kan være ét åbent ad gangen."</string>
-    <string name="download_title" msgid="2122874021047565594">"Downloadoversigt"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Ukendt&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Åbn"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Fjern fra listen"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Slet"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Annuller download"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Annuller alle downloads"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Annuller downloads"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Alle <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> downloads annulleres og ryddes fra downloadoversigten."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Filen slettes"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Der er ikke mere plads"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> kunne ikke downloades."\n"Frigør noget plads på din telefon, og prøv igen."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download mislykkedes"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-lager utilgængeligt"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Der er intet SD-kort"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Der kræves et USB-lager for at downloade <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB-lager er optaget. Vælg \"Slå USB-lager fra\" i meddelelsen for at tillade downloads."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Kan ikke åbne filen"</string>
-    <string name="retry" msgid="1835923075542266721">"Prøv igen"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Downloadoversigten er tom."</string>
-    <string name="download_error" msgid="413496839831257187">"Download mislykkedes."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Download afsluttet."</string>
-    <string name="download_running" msgid="2622942231322015059">"Downloader ..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Starter download ..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Venter på dataforbindelse ..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Venter på dataforbindelse ..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Download er annulleret."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Der kan ikke downloades. Indholdet understøttes ikke på denne telefon."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Download kan ikke afsluttes. Der er ikke nok plads."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Der kan ikke downloades. Størrelsen på elementet kan ikke fastsættes."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Download blev afbrudt. Den kan ikke genoptages."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Søg på nettet"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Browserlageret er fuldt"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Klik her for at frigøre plads."</string>

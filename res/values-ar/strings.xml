@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"تعذر فتح نافذة جديدة نظرًا لأنك فتحت الحد الأقصى للنوافذ فعليًا."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"النافذة مفتوحة فعليًا"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"تعذر فتح نافذة منبثقة جديدة نظرًا لأنه يمكن فتح نافذة واحدة فقط في أي وقت."</string>
-    <string name="download_title" msgid="2122874021047565594">"سجل التنزيل"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;غير معروف&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"فتح"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"محو من القائمة"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"حذف"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"إلغاء التنزيل"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"إلغاء كل التنزيلات"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"إلغاء التنزيلات"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"سيتم إلغاء جميع التنزيلات البالغ عددها <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> ومحوها من سجل التنزيل."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"سيتم حذف الملف"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"نفدت المساحة"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"تعذر تنزيل <xliff:g id="FILENAME">%s</xliff:g>."\n"حرر بعض المساحة على هاتفك وحاول مرة أخرى."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"أخفق التنزيل"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"وحدة تخزين USB غير متوفرة"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"ليس هناك بطاقة SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"وحدة تخزين USB مطلوبة لتنزيل <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"وحدة تخزين USB مشغولة. للسماح بالتنزيلات، حدد \"إيقاف تشغيل وحدة تخزين USB\" في التنبيه."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"بطاقة SD مشغولة. للسماح بالتنزيلات، حدد \"إيقاف تشغيل تخزين USB\" في التنبيه."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"لا يمكن فتح الملف"</string>
-    <string name="retry" msgid="1835923075542266721">"إعادة المحاولة"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"سجل التنزيل فارغ."</string>
-    <string name="download_error" msgid="413496839831257187">"أخفق التنزيل."</string>
-    <string name="download_success" msgid="2279041638155595203">"اكتمل تنزيل <xliff:g id="FILE">%s</xliff:g>."</string>
-    <string name="download_running" msgid="2622942231322015059">"جارٍ التنزيل..."</string>
     <string name="download_pending" msgid="2599683668575349559">"جارٍ بدء التنزيل..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"في انتظار اتصال البيانات..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"في انتظار اتصال البيانات..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"تم إلغاء التنزيل."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"لا يمكن التنزيل. المحتوى غير معتمد على هذا الهاتف."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"لا يمكن إنهاء التنزيل. ليس هناك مساحة كافية."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"لا يمكن التنزيل. لا يمكن تحديد حجم العنصر."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"تمت مقاطعة التنزيل. ولا يمكن استئنافه."</string>
     <string name="search_the_web" msgid="6046130189241962337">"البحث في الويب"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"سعة تخزين المتصفح ممتلئة"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"انقر لتحرير مساحة."</string>

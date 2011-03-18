@@ -557,33 +557,6 @@
             subwindow because only one can be open at a time. -->
     <string name="too_many_subwindows_dialog_message">Could not open a new
       pop-up window because only one can be open at any time.</string>
-
-    <!-- Download History UI strings -->
-    <string name="download_title">Download history</string>
-    <!-- Download history screen string-->
-    <string name="download_unknown_filename">&lt;Unknown&gt;</string>
-    <!-- Context menu item on Download history screen -->
-    <string name="download_menu_open">Open</string>
-    <!-- Context menu item on Download history screen -->
-    <string name="download_menu_clear">Clear from list</string>
-    <!-- Context menu item in Download history screen -->
-    <string name="download_menu_delete">Delete</string>
-    <!-- Context menu item in Download history screen -->
-    <string name="download_menu_cancel">Cancel download</string>
-    <!-- Menu item -->
-    <string name="download_menu_cancel_all">Cancel all downloads</string>
-    <!-- Confirmation dialog title -->
-    <string name="download_cancel_dlg_title">Cancel downloads</string>
-    <!-- Confirmation dialog message -->
-    <string name="download_cancel_dlg_msg">All <xliff:g id="download_count">%d</xliff:g> downloads will be canceled and cleared from the download history.</string>
-    <!-- Confirmation dialog title -->
-    <string name="download_delete_file">File will be deleted</string>
-    <!-- Dialog title -->
-    <string name="download_file_error_dlg_title">Out of space</string>
-    <!-- Dialog message -->
-    <string name="download_file_error_dlg_msg"><xliff:g id="filename">%s</xliff:g> could not be downloaded.\nFree up some space on your phone and try again.</string>
-    <!-- Title for a dialog informing the user that the download has failed -->
-    <string name="download_failed_generic_dlg_title">Download unsuccessful</string>
     <!-- Dialog title [CHAR LIMIT=25] -->
     <string name="download_no_sdcard_dlg_title" product="nosdcard">USB storage unavailable</string>
     <!-- Dialog title -->
@@ -606,52 +579,13 @@
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
     <string name="download_sdcard_busy_dlg_msg" product="default">The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
-
     <!-- Title for a dialog informing the user that there is no application on
             the phone that can open the file that was downloaded -->
     <string name="download_no_application_title">Cannot open file</string>
-    <!-- Label for a button to re-attempt downloading a file -->
-    <string name="retry">Retry</string>
-    <!-- Appears in Download history screen if there is no history -->
-    <string name="no_downloads">Download history is empty.</string>
-    <!-- the following download_xxxx matches the download manager state, ie Downloads.Status -->
-    <string name="download_error">Download unsuccessful.</string>
-    <!-- Appears in Download history screen after an item has downloaded, included item size -->
-    <string name="download_success"><xliff:g id="file">%s</xliff:g> Download complete.</string>
-    <!-- Appears in Download history screen while an item is being downloaded -->
-    <string name="download_running">Downloading\u2026</string>
     <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
     <string name="download_pending">Starting download\u2026</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download is
-            waiting for a network connection to continue -->
-    <string name="download_pending_network">Waiting for data connection\u2026</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download has
-            paused to wait for a network connection -->
-    <string name="download_running_paused">Waiting for data connection\u2026</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download has
-            been canceled -->
-    <string name="download_canceled">Download canceled.</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download will
-            not happen because the content is not supported by the phone -->
-    <string name="download_not_acceptable">Cannot download. The content is not supported on this phone.</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download did not
-            finish because there is not enough storage for the file -->
-    <string name="download_file_error">Cannot finish download. There is not enough space.</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the item cannot be
-            downloaded because it cannot determine the length of the item -->
-    <string name="download_length_required">Cannot download. The size of the item cannot be determined.</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download was
-            interrupted and cannot be resumed -->
-    <string name="download_precondition_failed">Download interrupted. It cannot be resumed.</string>
 
     <!-- Do not translate.  Testing only -->
     <string name="dump_nav" translatable="false">Dump navigation cache</string>

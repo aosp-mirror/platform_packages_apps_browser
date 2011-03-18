@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"אין אפשרות לפתוח חלון חדש כיוון שכבר פתחת את מספר החלונות המקסימלי."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"חלון קופץ כבר פתוח"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"אין אפשרות לפתוח חלון קופץ כיוון שניתן לפתוח חלון אחד בלבד בכל פעם."</string>
-    <string name="download_title" msgid="2122874021047565594">"היסטוריית הורדות"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;לא ידוע&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"פתח"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"נקה מהרשימה"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"מחק"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"בטל הורדה"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"בטל את כל ההורדות"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"בטל הורדות"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"כל <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> ההורדות יבוטלו וינוקו מהיסטוריית ההורדות."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"הקובץ יימחק"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"אין מקום לאחסון"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"אין אפשרות להוריד את <xliff:g id="FILENAME">%s</xliff:g>."\n"פנה שטח בטלפון ונסה שוב."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"ההורדה נכשלה"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"אמצעי אחסון מסוג USB אינו זמין"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"אין כרטיס SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"דרוש אמצעי אחסון מסוג USB להורדה של <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"אמצעי אחסון מסוג USB אינו פנוי. כדי לאפשר הורדות, בחר \"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"כרטיס ה-SD אינו פנוי. כדי לאפשר הורדות, בחר \"כבה אחסון USB\" בהתראה."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"אין אפשרות לפתוח את הקובץ"</string>
-    <string name="retry" msgid="1835923075542266721">"נסה שוב"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"היסטוריית ההורדות ריקה."</string>
-    <string name="download_error" msgid="413496839831257187">"ההורדה נכשלה."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> ההורדה הושלמה."</string>
-    <string name="download_running" msgid="2622942231322015059">"מוריד..."</string>
-    <string name="download_pending" msgid="2599683668575349559">"מתחיל בהורדה..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"ממתין לחיבור נתונים..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"ממתין לחיבור נתונים..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"ההורדה בוטלה."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"אין אפשרות להוריד. התוכן אינו נתמך בטלפון זה."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"אין אפשרות לסיים את ההורדה. אין מספיק שטח."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"אין אפשרות להוריד. אין אפשרות לקבוע את גודל הפריט."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"אירעה הפרעה בהורדה. לא ניתן להמשיך אותה."</string>
     <string name="search_the_web" msgid="6046130189241962337">"חפש באינטרנט"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"אחסון הדפדפן מלא"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"לחץ כדי לפנות שטח."</string>

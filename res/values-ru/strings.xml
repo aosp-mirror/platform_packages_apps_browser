@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Открыто максимальное число окон, поэтому открыть новое окно невозможно."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Всплывающее окно уже открыто"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Невозможно открыть более одного всплывающего окна одновременно."</string>
-    <string name="download_title" msgid="2122874021047565594">"История загрузок"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;неизвестно&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Открыть"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Удалить из списка"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Удалить"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Отменить загрузку"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Отменить все загрузки"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Отменить загрузки"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Все загрузки (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) будут отменены и удалены из истории загрузок."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Файл будет удален"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Недостаточно места"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Невозможно загрузить <xliff:g id="FILENAME">%s</xliff:g>."\n"Освободите место в памяти телефона и повторите попытку."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Ошибка загрузки"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-накопитель недоступен"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD-карта отсутствует"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Для загрузки файла <xliff:g id="FILENAME">%s</xliff:g> требуется USB-накопитель."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB-накопитель занят. Чтобы разрешить загрузки, выберите \"Выключить USB-накопитель\" в уведомлении."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-карта занята. Чтобы разрешить загрузки, выберите \"Отключить USB-накопитель\" в уведомлении."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Невозможно открыть файл"</string>
-    <string name="retry" msgid="1835923075542266721">"Повторить попытку"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"История загрузок пуста."</string>
-    <string name="download_error" msgid="413496839831257187">"Ошибка загрузки."</string>
-    <string name="download_success" msgid="2279041638155595203">"Загрузка <xliff:g id="FILE">%s</xliff:g> завершена."</string>
-    <string name="download_running" msgid="2622942231322015059">"Загрузка..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Начинается загрузка…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Ожидание подключения для передачи данных…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Ожидание подключения для передачи данных…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Загрузка отменена."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Загрузка невозможна. Содержание не поддерживается телефоном."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Невозможно завершить загрузку. Недостаточно места."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Загрузка невозможна. Размер файла не определен."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Загрузка прервана и не может быть возобновлена."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Поиск в Интернете"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Память браузера переполнена"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Нажмите, чтобы освободить место."</string>

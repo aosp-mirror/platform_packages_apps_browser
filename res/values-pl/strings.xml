@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Nie można otworzyć nowego okna, ponieważ jest już otwarta maksymalna liczba okien."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Okienko wyskakujące jest już otwarte"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Nie można otworzyć nowego okienka wyskakującego, ponieważ otwarte może być tylko jedno w danej chwili."</string>
-    <string name="download_title" msgid="2122874021047565594">"Historia pobierania"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Nieznane&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Otwórz"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Usuń z listy"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Usuń"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Anuluj pobieranie"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Anuluj pobieranie wszystkich plików"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Anuluj wszystkie pobierania"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Wszystkie pobierane pliki (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) zostaną anulowane i usunięte z historii pobierania."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Plik zostanie usunięty"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Brak miejsca"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Nie można pobrać pliku <xliff:g id="FILENAME">%s</xliff:g>."\n" Zwolnij trochę miejsca w telefonie i spróbuj ponownie."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Pobieranie nie powiodło się"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Nośnik USB niedostępny"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Brak karty SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Do pobrania pliku <xliff:g id="FILENAME">%s</xliff:g> wymagany jest nośnik USB."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Nośnik USB jest zajęty. Aby umożliwić pobieranie, wybierz w powiadomieniu opcję „Wyłącz nośnik USB”."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Karta SD jest zajęta. Aby umożliwić pobieranie, wybierz w powiadomieniu opcję „Wyłącz nośnik USB”."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Nie można otworzyć pliku"</string>
-    <string name="retry" msgid="1835923075542266721">"Spróbuj ponownie"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Historia pobierania jest pusta."</string>
-    <string name="download_error" msgid="413496839831257187">"Pobieranie nie powiodło się."</string>
-    <string name="download_success" msgid="2279041638155595203">"Pobieranie pliku <xliff:g id="FILE">%s</xliff:g> zakończone."</string>
-    <string name="download_running" msgid="2622942231322015059">"Trwa pobieranie…"</string>
     <string name="download_pending" msgid="2599683668575349559">"Rozpoczynanie pobierania"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Oczekiwanie na połączenie danych…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Oczekiwanie na połączenie danych..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Pobieranie anulowane."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Pobranie jest niemożliwe. Zawartość nie jest obsługiwana w tym telefonie."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Nie można ukończyć pobierania. Za mało miejsca."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Pobieranie niemożliwe. Nie można ustalić rozmiaru elementu."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Pobieranie zostało przerwane. Nie można go wznowić."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Szukaj w internecie"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Pamięć przeglądarki jest pełna"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Kliknij, aby zwolnić miejsce."</string>

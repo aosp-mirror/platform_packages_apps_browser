@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Nem lehet új ablakot megnyitni, mert már meg van nyitva a maximális számú ablak."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Már van egy nyitott előugró ablak"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Nem lehet új előugró ablakot megnyitni, mert egyszerre csak egy lehet megnyitva."</string>
-    <string name="download_title" msgid="2122874021047565594">"Letöltési előzmények"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Ismeretlen&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Megnyitás"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Törlés a listáról"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Törlés"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Letöltés megszakítása"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Minden letöltés megszakítása"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Letöltések megszakítása"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Mind a(z) <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> letöltés megszakad és törlésre kerül a letöltési előzményekből."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Fájl törlése"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Nincs elég hely"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"A(z) <xliff:g id="FILENAME">%s</xliff:g> nem tölthető le."\n"Szabadítson fel valamennyi tárhelyet a telefonján, majd próbálja meg újra."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"A letöltés nem sikerült"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Az USB-tár nem érhető el"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Hiányzó SD-kártya"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"USB-tár kell <xliff:g id="FILENAME">%s</xliff:g> fájl letöltéséhez."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Az USB-tár dolgozik. A letöltések engedélyezéséhez válassza az \"USB-tár kikapcsolása\" lehetőséget."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Az SD-kártya dolgozik. A letöltések engedélyezéséhez válassza az \"USB-tár kikapcsolása\" lehetőséget."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"A fájlt nem lehet megnyitni"</string>
-    <string name="retry" msgid="1835923075542266721">"Újra"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"A letöltési előzmények listája üres."</string>
-    <string name="download_error" msgid="413496839831257187">"A letöltés nem sikerült."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> letöltése befejeződött."</string>
-    <string name="download_running" msgid="2622942231322015059">"Letöltés..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Letöltés megkezdése..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Várakozás adatkapcsolatra..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Várakozás adatkapcsolatra..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"A letöltés megszakítva."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Nem lehet letölteni, mert a telefon nem támogatja ezt a tartalmat."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"A letöltés nem fejezhető be, mert nincs elég hely."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Nem lehet letölteni. Az elem mérete nem állapítható meg."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"A letöltés megszakítva, nem lehet folytatni."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Keresés az interneten"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"A böngésző tárterülete megtelt"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Kattintson terület felszabadításához."</string>

@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"이미 최대 개수의 창을 열었기 때문에 새 창을 열 수 없습니다."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"팝업이 이미 열려 있음"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"한 번에 하나만 열 수 있으므로 새 팝업 창을 열 수 없습니다."</string>
-    <string name="download_title" msgid="2122874021047565594">"다운로드 기록"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;알 수 없음&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"열기"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"목록에서 지우기"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"삭제"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"다운로드 취소"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"모든 다운로드 취소"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"다운로드 취소"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>개의 다운로드가 모두 취소되고 다운로드 기록에서 지워집니다."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"파일이 삭제됩니다."</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"여유 공간이 없음"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드할 수 없습니다."\n"휴대전화에서 여유 공간을 늘린 후에 다시 시도하세요."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"다운로드 실패"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB 저장소를 사용할 수 없음"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD 카드 없음"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 USB 저장소가 필요합니다."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB 저장소가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 사용 안함\'을 선택하세요."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 카드가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 선택하세요."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"파일을 열 수 없음"</string>
-    <string name="retry" msgid="1835923075542266721">"다시 시도"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"다운로드 기록이 비어 있습니다."</string>
-    <string name="download_error" msgid="413496839831257187">"다운로드에 실패했습니다."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> 다운로드가 완료되었습니다."</string>
-    <string name="download_running" msgid="2622942231322015059">"다운로드 중..."</string>
     <string name="download_pending" msgid="2599683668575349559">"다운로드 시작 중..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"데이터 연결 대기 중..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"데이터 연결 대기 중..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"다운로드가 취소되었습니다."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"휴대전화에서 지원하지 않는 콘텐츠이므로 다운로드할 수 없습니다."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"저장 용량이 부족하여 다운로드를 완료할 수 없습니다."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"항목의 크기를 확인할 수 없으므로 다운로드할 수 없습니다."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"다운로드가 중단되었으며 다시 시작할 수 없습니다."</string>
     <string name="search_the_web" msgid="6046130189241962337">"웹 검색"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"브라우저 저장용량 가득 참"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"여유 공간을 확보하려면 클릭하세요."</string>

@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Não foi possível abrir uma nova janela porque o número máximo de janelas abertas foi atingido."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Janela de pop-up já aberta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Não foi possível abrir uma nova janela de pop-up, pois só é permitido abrir uma de cada vez."</string>
-    <string name="download_title" msgid="2122874021047565594">"Histórico de transferências"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Desconhecido&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Abrir"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Limpar da lista"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Eliminar"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Cancelar transferência"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancelar todas as transferências"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancelar transferências"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"As <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> transferências serão canceladas e limpas do histórico de transferências."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"O ficheiro será eliminado"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Sem espaço"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Não foi possível transferir <xliff:g id="FILENAME">%s</xliff:g>. "\n"Liberte algum espaço no telefone e tente novamente."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Falha na transferência"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Armaz. USB não disponível"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Sem cartão SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"É necessário o armazenamento USB para efectuar a transferência <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"O armazenamento USB está ocupado. Para permitir as transferências, seleccione \"Desactivar armazenamento USB\" na notificação."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"O cartão SD está ocupado. Para permitir as transferências, seleccione \"Desactivar armazenamento USB\" na notificação."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Não é possível abrir o ficheiro"</string>
-    <string name="retry" msgid="1835923075542266721">"Tentar novamente"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"O histórico de transferências está vazio."</string>
-    <string name="download_error" msgid="413496839831257187">"Falha na transferência."</string>
-    <string name="download_success" msgid="2279041638155595203">"Transferência de <xliff:g id="FILE">%s</xliff:g> concluída."</string>
-    <string name="download_running" msgid="2622942231322015059">"A transferir..."</string>
     <string name="download_pending" msgid="2599683668575349559">"A iniciar a transferência..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"A aguardar ligação de dados…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"A aguardar ligação de dados…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Transferência cancelada."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Não é possível transferir. O conteúdo não é suportado por este telefone."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Não é possível concluir a transferência. Não existe espaço suficiente."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Não é possível transferir porque o tamanho do item é indeterminado."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"A transferência foi interrompida e não pode ser retomada."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Pesquisar na Web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Espaço de armazenamento do browser cheio"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Clique para libertar espaço."</string>

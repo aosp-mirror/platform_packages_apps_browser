@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Zaten maksimum sayıda pencere açmış olduğunuz için yeni bir pencere açılamadı."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up pencere zaten açık"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Bir seferde yalnızca bir tane açılabileceğinden yeni pop-up pencere açılamadı."</string>
-    <string name="download_title" msgid="2122874021047565594">"İndirme geçmişi"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Bilinmiyor&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Aç"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Listeden temizle"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Sil"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"İndirme işlemini iptal et"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Tüm indirme işlemlerini iptal et"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"İndirme işlemlerini iptal et"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> indirme işleminin tümü iptal edilecek ve indirme geçmişinden temizlenecek."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Dosya silinecek"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Alan yetersiz"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> indirilemedi."\n"Telefonunuzda biraz yer açın ve tekrar deneyin."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"İndirme işlemi başarısız"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB dep br kullanılamıyor"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD kart yok"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g> adlı dosyanın indirilebilmesi için USB depolama birimi gerekiyor."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB depolama birimi meşgul. İndirme işlemlerine izin vermek için bildirim alanında \"USB depolama birimini kapat\"ı seçin."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD kart meşgul. İndirme işlemlerine izin vermek için bildirim alanında \"USB\'de depolamayı kapat\"ı seçin."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Dosya açılamıyor"</string>
-    <string name="retry" msgid="1835923075542266721">"Tekrar Dene"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"İndirme geçmişi boş."</string>
-    <string name="download_error" msgid="413496839831257187">"İndirme işlemi başarısız."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> İndirme işlemi tamamlandı."</string>
-    <string name="download_running" msgid="2622942231322015059">"İndiriliyor…"</string>
     <string name="download_pending" msgid="2599683668575349559">"İndirme işlemi başlatılıyor…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Veri bağlantısı için bekleniyor…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Veri bağlantısı için bekleniyor…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"İndirme işlemi iptal edildi."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"İndirilemiyor. Söz konusu içerik bu telefonda desteklenmiyor."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"İndirme işlemi tamamlanamıyor. Yeterli alan yok."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"İndirilemiyor. Öğenin boyutu belirlenemiyor."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"İndirme işlemi kesintiye uğradı. Sürdürülemez."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Web\'de ara"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Tarayıcı deposu dolu"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Alan açmak için tıklayın."</string>

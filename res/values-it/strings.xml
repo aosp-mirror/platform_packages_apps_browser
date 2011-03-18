@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Impossibile aprire una nuova finestra. Numero massimo di finestre aperte già raggiunto."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Finestra pop-up già aperta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Impossibile aprire una nuova finestra pop-up. È possibile aprirne soltanto una alla volta."</string>
-    <string name="download_title" msgid="2122874021047565594">"Cronologia download"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Sconosciuto&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Apri"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Cancella da elenco"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Elimina"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Cancella download"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Annulla tutti i download"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Annulla download"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Tutti i <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> download verranno cancellati dalla cronologia download."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Il file verrà eliminato"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Spazio esaurito"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossibile visualizzare <xliff:g id="FILENAME">%s</xliff:g>"\n". Libera spazio sul telefono e riprova."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download non riuscito"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Archivio USB non dispon."</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nessuna scheda SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Per scaricare <xliff:g id="FILENAME">%s</xliff:g> è necessario un archivio USB."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"L\'archivio USB è già in uso. Per consentire i download, seleziona \"Disattiva archivio USB\" nella notifica."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La scheda SD è piena. Per consentire i download, seleziona \"Disattiva archivio USB\" nella notifica."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Impossibile aprire il file"</string>
-    <string name="retry" msgid="1835923075542266721">"Riprova"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"La cronologia download è vuota."</string>
-    <string name="download_error" msgid="413496839831257187">"Download non riuscito."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Download completato."</string>
-    <string name="download_running" msgid="2622942231322015059">"Download..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Avvio download..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"In attesa di connessione dati..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"In attesa di connessione dati..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Download annullato."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Impossibile effettuare il download. I contenuti non sono supportati da questo telefono."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Impossibile terminare il download. Spazio insufficiente."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Impossibile effettuare il download. Impossibile determinare le dimensioni dell\'elemento."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Download interrotto. Impossibile ripristinarlo."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Cerca nel Web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Memoria del browser piena"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Fai clic per liberare spazio."</string>

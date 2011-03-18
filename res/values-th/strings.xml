@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"ไม่สามารถเปิดหน้าต่างใหม่ได้เนื่องจากคุณเปิดหน้าต่างถึงจำนวนสูงสุดแล้ว"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"ป๊อปอัปเปิดอยู่แล้ว"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"ไม่สามารถเปิดหน้าต่างป๊อปอัปใหม่ได้เนื่องจากเปิดได้ครั้งละหน้าต่างเท่านั้น"</string>
-    <string name="download_title" msgid="2122874021047565594">"ประวัติการดาวน์โหลด"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;ไม่รู้จัก&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"เปิด"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"ล้างจากรายการ"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"ลบ"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"ยกเลิกการดาวน์โหลด"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"ยกเลิกการดาวน์โหลดทั้งหมด"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"ยกเลิกการดาวน์โหลด"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"การดาวน์โหลดทั้ง <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> รายการจะถูกยกเลิกและล้างออกจากประวัติการดาวน์โหลด"</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"ไฟล์จะถูกลบ"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"ไม่มีพื้นที่"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"ไม่สามารถดาวน์โหลด <xliff:g id="FILENAME">%s</xliff:g> "\n"เพิ่มพื้นที่ว่างบนโทรศัพท์ของคุณ แล้วลองใหม่อีกครั้ง"</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"การดาวน์โหลดไม่สำเร็จ"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"ที่เก็บข้อมูล USB ใช้งานไม่ได้"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"ไม่มีการ์ด SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"จำเป็นต้องใช้ที่เก็บข้อมูล USB ในการดาวน์โหลด <xliff:g id="FILENAME">%s</xliff:g>"</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"ที่เก็บข้อมูล USB ไม่ว่าง หากต้องการอนุญาตให้ดาวน์โหลด ให้เลือก \"ปิดที่เก็บข้อมูล USB\" ในการแจ้งเตือน"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"การ์ด SD ไม่ว่าง หากต้องการอนุญาตให้ดาวน์โหลด เลือก \"ปิดพื้นที่จัดเก็บ USB\" ในการแจ้งเตือน"</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"ไม่สามารถเปิดไฟล์ได้"</string>
-    <string name="retry" msgid="1835923075542266721">"ลองอีกครั้ง"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"ประวัติการดาวน์โหลดว่างเปล่า"</string>
-    <string name="download_error" msgid="413496839831257187">"การดาวน์โหลดไม่สำเร็จ"</string>
-    <string name="download_success" msgid="2279041638155595203">"ดาวน์โหลด <xliff:g id="FILE">%s</xliff:g> เสร็จสมบูรณ์"</string>
-    <string name="download_running" msgid="2622942231322015059">"กำลังดาวน์โหลด..."</string>
     <string name="download_pending" msgid="2599683668575349559">"เริ่มต้นดาวน์โหลด…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"กำลังรอการเชื่อมต่อข้อมูล..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"กำลังรอการเชื่อมต่อข้อมูล..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"การดาวน์โหลดถูกยกเลิก"</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"ไม่สามารถดาวน์โหลดได้เนื่องจากเนื้อหาไม่ได้รับการสนับสนุนบนโทรศัพท์นี้"</string>
-    <string name="download_file_error" msgid="1206648050615176113">"ไม่สามารถดาวน์โหลดได้เสร็จสิ้นเนื่องจากมีพื้นที่ไม่พอ"</string>
-    <string name="download_length_required" msgid="9038605488460437406">"ไม่สามารถดาวน์โหลดได้เนื่องจากไม่ทราบขนาดรายการ"</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"การดาวน์โหลดขัดข้อง ไม่สามารถดำเนินการต่อได้"</string>
     <string name="search_the_web" msgid="6046130189241962337">"ค้นหาเว็บ"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"พื้นที่จัดเก็บของเบราว์เซอร์เต็ม"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"คลิกเพื่อเพิ่มพื้นที่ว่าง"</string>

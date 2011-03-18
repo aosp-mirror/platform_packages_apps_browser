@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Nové okno nelze otevřít, protože je již otevřen maximální počet oken."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Vyskakovací okno je již otevřené"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Nelze otevřít nové vyskakovací okno, protože může být otevřené pouze jedno."</string>
-    <string name="download_title" msgid="2122874021047565594">"Historie stahování"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Neznámé&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Otevřít"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Vymazat ze seznamu"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Smazat"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Zrušit stahování"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Zrušit stahování všech souborů"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Zrušit stahování"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Stahování všech souborů (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) bude zrušeno a soubory budou vymazány z historie stahování."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Soubor bude smazán"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Nedostatek místa"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Soubor <xliff:g id="FILENAME">%s</xliff:g> nelze stáhnout."\n"Uvolněte paměť telefonu a akci opakujte."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Stažení se nezdařilo."</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Úložiště USB nedostupné"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Žádná karta SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Ke stažení souboru <xliff:g id="FILENAME">%s</xliff:g> je potřeba úložiště USB."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Úložiště USB je zaneprázdněno. Chcete-li povolit stahování, vyberte v oznámení možnost Vypnout úložiště USB."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Karta SD je zaneprázdněna. Chcete-li povolit stahování, vyberte v oznámení možnost Vypnout úložiště USB."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Soubor nelze otevřít"</string>
-    <string name="retry" msgid="1835923075542266721">"Zkusit znovu"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Historie stahování je prázdná."</string>
-    <string name="download_error" msgid="413496839831257187">"Stahování bylo neúspěšné."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Stahování dokončeno."</string>
-    <string name="download_running" msgid="2622942231322015059">"Stahování..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Zahájení stahování..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Čekání na datové připojení..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Čekání na datové připojení..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Stahování bylo zrušeno."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Nelze stáhnout. Tento obsah není tímto telefonem podporován."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Stahování nelze dokončit. Není dostatek místa."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Nelze stáhnout. Velikost položky nelze určit."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Stahování bylo přerušeno a nelze v něm pokračovat."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Vyhledat na webu"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Zrušit přístup k poloze"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Kliknutím uvolníte místo."</string>

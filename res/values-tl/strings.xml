@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Hindi makapagbukas ng isang bagong window dahil binuksan mo na ang maximum na bilang."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Bukas na ang pop-up"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Hindi makakapagbukas ng bagong pop-up window dahil isa lang ang maaaring buksan anumang oras."</string>
-    <string name="download_title" msgid="2122874021047565594">"Kasaysayan ng pag-download"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Hindi Kilala&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Buksan"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"I-clear mula sa listahan"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Tanggalin"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Kanselahin ang pag-download"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Kanselahin ang lahat ng mga download"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Kanselahin ang mga pag-download"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Kakanselahin at iki-clear mula sa kasaysayan ng pag-download ang lahat ng <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> (na) pag-download."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Tatanggalin ang file"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Wala nang espasyo"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Hindi mada-download ang <xliff:g id="FILENAME">%s</xliff:g>."\n" Maglaan ng ilang espasyo sa iyong telepono at subukang muli."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Hindi matagumpay ang pag-download"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Di available USB storage"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Walang SD card"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Kinakailangan ang imbakan na USB upang i-download ang <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Abala ang SD card. Upang payagan ang mga pag-download, piliin ang \"I-off ang imbakan na USB\" sa notification."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Abala ang SD card. Upang payagan ang mga pag-download, piliin ang \"I-off ang USB storage\" sa notification."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Hindi mabuksan ang file"</string>
-    <string name="retry" msgid="1835923075542266721">"Subukang muli"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Walang laman ang kasaysayan ng pag-download."</string>
-    <string name="download_error" msgid="413496839831257187">"Hindi matagumpay ang pag-download."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Kumpleto na ang pag-download."</string>
-    <string name="download_running" msgid="2622942231322015059">"Nagda-download..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Sinisimulan ang pag-download..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Naghihintay para sa koneksyon ng data..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Naghihintay para sa koneksyon ng data..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Kinansela ang pag-download."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Hindi makapag-download. Hindi suportado ang nilalaman sa teleponong ito."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Hindi matatapos ang pag-download. Walang sapat na espasyo."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Hindi mada-download. Hindi matukoy ang laki ng item."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Pinigilan ang pag-download. Hindi ito maipapagpatuloy."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Maghanap sa web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Puno na ang imbakan ng browser"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Mag-click upang maglaan ng espasyo."</string>

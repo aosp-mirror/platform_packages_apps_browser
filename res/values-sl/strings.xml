@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Novega okna ni mogoče odpreti, ker ste jih že odprli največje dovoljeno število."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pojavno okno je že odprto"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Novega pojavnega okna ni mogoče odpreti, ker je lahko odprto samo eno."</string>
-    <string name="download_title" msgid="2122874021047565594">"Zgodovina prenosov"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Neznano&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Odpri"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Počisti s seznama"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Izbriši"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Prekliči prenos"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Prekliči vse prenose"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Prekliči prenose"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Vseh <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> prenosov bo preklicanih in počiščenih iz zgodovine prenosov."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Datoteka bo izbrisana"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Zmanjkalo je prostora"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> ni mogoče prenesti."\n"Sprostite nekaj prostora v telefonu in poskusite znova."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Prenos ni uspel"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Pomnilnik USB ni na voljo"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Ni kartice SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Za prenos <xliff:g id="FILENAME">%s</xliff:g> je zahtevan pomnilnik USB."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Pomnilnik USB je zaseden. Če želite omogočiti prenose, izberite »Izklopi pomnilnik USB« v območju za obvestila."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Kartica SD je zasedena. Če želite omogočiti prenose, izberite »Izklopi pomnilnik USB« v območju za obvestila."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Ne morem odpreti datoteke"</string>
-    <string name="retry" msgid="1835923075542266721">"Poskusi znova"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Zgodovina prenosov je prazna."</string>
-    <string name="download_error" msgid="413496839831257187">"Prenos ni uspel."</string>
-    <string name="download_success" msgid="2279041638155595203">"Prenos <xliff:g id="FILE">%s</xliff:g> je dokončan."</string>
-    <string name="download_running" msgid="2622942231322015059">"Prenos ..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Začetek prenosa ..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Čakanje na podatkovno povezavo ..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Čakanje na podatkovno povezavo ..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Prenos je preklican."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Prenos ni mogoč. Vsebina ni podprta v tem telefonu."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Prenosa ni mogoče dokončati. Ni dovolj prostora."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Prenos ni mogoč. Velikosti elementa ni mogoče določiti."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Prenos je prekinjen. Ni ga mogoče nadaljevati."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Iskanje v spletu"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Pomnilnik brskalnika je poln"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Kliknite, če želite sprostiti prostor."</string>

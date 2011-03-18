@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Nepavyko atidaryti naujo lango, nes jau atidarėte maksimalų langų skaičių."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Iššokantysis langas jau atidarytas"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Nepavyko atidaryti naujo iššokančiojo lango, nes vienu metu gali būti atidarytas tik vienas langas."</string>
-    <string name="download_title" msgid="2122874021047565594">"Atsisiuntimo istorija"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Nežinomas&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Atidaryti"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Išvalyti iš sąrašo"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Ištrinti"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Atšaukti atsisiuntimą"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Atšaukti visus atsisiuntimus"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Atšaukti atsisiuntimus"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Visi <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> atsisiuntimai (-ų) bus atšaukti (-a) ir išvalyti (-a) iš atsisiuntimo istorijos."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Failas bus ištrintas"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Nėra vietos"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Nepavyko atsisiųsti <xliff:g id="FILENAME">%s</xliff:g>."\n"Atlaisvinkite vietos telefone ir bandykite dar kartą."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Atsisiuntimas nesėkmingas"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB atmintinė nepasiekiama"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nėra SD kortelės"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Į USB atmintinę reikia atsisiųsti <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB atmintinė užimta. Jei norite leisti atsisiuntimus, pranešime pasirinkite „Išjungti USB atmintinę“."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD kortelė užimta. Jei norite leisti atsisiuntimus, pranešime pasirinkite „Išjungti USB saugyklą“."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Nepavyksta atidaryti failo"</string>
-    <string name="retry" msgid="1835923075542266721">"Bandyti dar kartą"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Atsisiuntimo istorija tuščia."</string>
-    <string name="download_error" msgid="413496839831257187">"Atsisiuntimas nesėkmingas."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> atsisiuntimas baigtas."</string>
-    <string name="download_running" msgid="2622942231322015059">"Atsisiunčiama..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Pradedamas atsisiuntimas..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Laukiama duomenų ryšio..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Laukiama duomenų ryšio..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Atsisiuntimas atšauktas."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Negalima atsisiųsti. Turinys šiame telefone nepalaikomas."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Nepavyko užbaigti atsisiuntimo. Nepakanka vietos."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Nepavyksta atsisiųsti. Negalima nustatyti elemento dydžio."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Atsisiuntimas pertrauktas. Jo atnaujinti negalima."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Ieškoti žiniatinklyje"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Naršyklės saugykla pilna"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Spustelėkite, jei norite atlaisvinti vietos."</string>

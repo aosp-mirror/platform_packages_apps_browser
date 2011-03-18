@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Det gick inte att öppna ett nytt fönster. Högsta antalet fönster är redan öppna."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ett popup-fönster är redan öppet"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Det gick inte att öppna ett nytt popup-fönster. Endast ett fönster i taget kan vara öppet."</string>
-    <string name="download_title" msgid="2122874021047565594">"Hämtningshistorik"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Okänd&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Öppna"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Ta bort från listan"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Ta bort"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Avbryt hämtning"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Avbryt alla hämtningar"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Avbryt hämtningar"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Alla <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> hämtningar avbryts och tas bort från hämtningshistoriken."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Filen kommer att tas bort"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Slut på ledigt diskutrymme"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> gick inte att hämta."\n"Frigör lite utrymme i telefonen och försök igen."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Det gick inte att hämta"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-enhet ej tillgänglig"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Inget SD-kort"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Du behöver en USB-lagringsenhet för att hämta <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB-lagringsenheten är upptagen. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i aviseringen."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-kortet är upptaget. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i meddelandet."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Det går inte att öppna filen"</string>
-    <string name="retry" msgid="1835923075542266721">"Försök igen"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Det finns ingen hämtningshistorik."</string>
-    <string name="download_error" msgid="413496839831257187">"Det gick inte att hämta."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> har hämtats."</string>
-    <string name="download_running" msgid="2622942231322015059">"Hämtar..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Startar hämtning…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Väntar på dataanslutning…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Väntar på dataanslutning…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Hämtningen avbröts."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Det gick inte att hämta. Innehållet stöds inte på telefonen."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Det går inte att hämta. Det finns inte tillräckligt med utrymme."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Det går inte att hämta eftersom objektets storlek inte kan avläsas."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Hämtningen avbröts. Den kan inte återupptas."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Sök på webben"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Webbläsarens lagringsutrymme är fullt"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Klicka om du vill frigöra utrymme."</string>

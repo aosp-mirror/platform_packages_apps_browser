@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"Δεν ήταν δυνατό το άνοιγμα νέου παραθύρου, επειδή έχετε ήδη ανοίξει τον μέγιστο αριθμό παραθύρων."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Το αναδυόμενο παράθυρο είναι ήδη ανοιχτό"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Δεν είναι δυνατό το άνοιγμα ενός νέου αναδυόμενου παράθυρου, επειδή επιτρέπεται το άνοιγμα μόνο ενός παράθυρου κάθε φορά."</string>
-    <string name="download_title" msgid="2122874021047565594">"Ιστορικό λήψης"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Άγνωστο&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Άνοιγμα"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Εκκαθάριση από τη λίστα"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Διαγραφή"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Ακύρωση λήψης"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Ακύρωση όλων των λήψεων"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Ακύρωση λήψεων"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Οι <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> λήψεις θα ακυρωθούν και θα γίνει εκκαθάρισή τους από το ιστορικό λήψεων."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Το αρχείο θα διαγραφεί"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Εξαντλήθηκε ο χώρος"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Δεν ήταν δυνατή η λήψη του <xliff:g id="FILENAME">%s</xliff:g>."\n"Απελευθερώστε λίγο χώρο στο τηλέφωνό σας και δοκιμάστε ξανά."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Ανεπιτυχής λήψη"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Μη διαθ. χώρος αποθ. USB"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Δεν υπάρχει κάρτα SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Απαιτείται χώρος αποθήκευσης USB για τη λήψη του <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Ο χώρος αποθήκευσης USB είναι απασχολημένος. Για να επιτρέψετε τις λήψεις, επιλέξτε \"Απενεργοποίηση χώρου αποθήκευσης USB\" στην ειδοποίηση."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Η κάρτα SD είναι απασχολημένη. Για να επιτρέψετε τις λήψεις, επιλέξτε \"Απενεργοποίηση χώρου αποθήκευσης USB\" στην ειδοποίηση."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"Δεν είναι δυνατό το άνοιγμα του αρχείου"</string>
-    <string name="retry" msgid="1835923075542266721">"Επανάληψη"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Το ιστορικό λήψεων του προγράμματος περιήγησης είναι κενό."</string>
-    <string name="download_error" msgid="413496839831257187">"Ανεπιτυχής λήψη."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Ολοκλήρωση λήψης."</string>
-    <string name="download_running" msgid="2622942231322015059">"Λήψη..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Έναρξη λήψης..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Αναμονή για σύνδεση δεδομένων…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Αναμονή για σύνδεση δεδομένων…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Η λήψη ακυρώθηκε."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Δεν είναι δυνατή η λήψη. Το περιεχόμενο δεν υποστηρίζεται από αυτό το τηλέφωνο."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Δεν είναι δυνατή η ολοκλήρωση της λήψης. Δεν υπάρχει αρκετός διαθέσιμος χώρος."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Δεν είναι δυνατή η λήψη. Δεν είναι δυνατός ο προσδιορισμός του μεγέθους του στοιχείου."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Η λήψη διακόπηκε. Δεν είναι δυνατή η συνέχισή της."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Αναζήτηση στον ιστό"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Χώρος αποθήκευσης προγράμματος περιήγησης πλήρης"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Κάντε κλικ για να αποδεσμεύσετε χώρο."</string>

@@ -232,19 +232,6 @@
     <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"已達最大視窗數量限制，無法開啟新視窗。"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"已開啟快顯視窗"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"無法開啟新的快顯視窗，同時只能有一個快顯視窗存在。"</string>
-    <string name="download_title" msgid="2122874021047565594">"下載記錄"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;不明&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"開啟"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"清除表單列表"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"刪除"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"取消下載"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"取消所有下載"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"取消下載"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"所有 (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) 下載會取消並從下載記錄中清除。"</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"即將刪除檔案"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"空間不足"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"無法下載 <xliff:g id="FILENAME">%s</xliff:g>。"\n" 請清除手機上的空間或再試一次。"</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"下載失敗"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"沒有可用的 USB 儲存裝置"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"沒有 SD 卡"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"必須掛接 USB 儲存裝置才能下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
@@ -254,19 +241,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB 儲存裝置忙碌中。如要允許下載，請選取通知中的 [關閉 USB 儲存裝置]。"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 記憶卡忙碌中。如要允許下載，請選取通知中的 [停用 USB 儲存裝置]。"</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"無法開啟檔案"</string>
-    <string name="retry" msgid="1835923075542266721">"重試"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"下載記錄是空的。"</string>
-    <string name="download_error" msgid="413496839831257187">"下載失敗"</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> 已下載完成。"</string>
-    <string name="download_running" msgid="2622942231322015059">"下載中…"</string>
     <string name="download_pending" msgid="2599683668575349559">"開始下載…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"等待資料連線中…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"等待資料連線中…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"下載已取消。"</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"無法下載，您的手機不支援這種內容。"</string>
-    <string name="download_file_error" msgid="1206648050615176113">"無法完成下載。儲存空間不足。"</string>
-    <string name="download_length_required" msgid="9038605488460437406">"無法下載。物件大小無法估計。"</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"下載中斷。無法續傳。"</string>
     <string name="search_the_web" msgid="6046130189241962337">"搜尋網頁"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"瀏覽器儲存空間已滿"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"按一下可釋出儲存空間。"</string>
