@@ -55,6 +55,6 @@
     <dimen name="widgetVerticalSpacing">12dip</dimen>
     <!-- For the combined Bookmarks History view -->
     <dimen name="combo_paddingTop">10dip</dimen>
-    <dimen name="combo_paddingLeftRight">16dip</dimen>
-    <dimen name="combo_horizontalSpacing">8dip</dimen>
+    <dimen name="combo_paddingLeftRight">8dip</dimen>
+    <dimen name="combo_horizontalSpacing">6dip</dimen>
 </resources>
