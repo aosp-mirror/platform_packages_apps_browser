@@ -331,10 +331,15 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        setHasOptionsMenu(true);
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        prefs.registerOnSharedPreferenceChangeListener(this);
+        mCurrentView = prefs.getInt(PREF_SELECTED_VIEW, getDefaultView());
 
         Bundle args = getArguments();
         mDisableNewWindow = args == null ? false : args.getBoolean(EXTRA_DISABLE_WINDOW, false);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -372,11 +377,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
         // Start the loaders
         LoaderManager lm = getLoaderManager();
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
-        prefs.registerOnSharedPreferenceChangeListener(this);
-        mCurrentView =
-            prefs.getInt(PREF_SELECTED_VIEW, getDefaultView());
         mAdapter = new BrowserBookmarksAdapter(getActivity(), mCurrentView);
         lm.restartLoader(LOADER_BOOKMARKS, null, this);
 
