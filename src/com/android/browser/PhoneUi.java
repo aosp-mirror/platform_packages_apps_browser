@@ -62,23 +62,6 @@ public class PhoneUi extends BaseUi {
         mActivity.getActionBar().hide();
     }
 
-    // webview factory
-
-    @Override
-    public WebView createWebView(boolean privateBrowsing) {
-        // Create a new WebView
-        WebView w = new WebView(mActivity, null,
-                android.R.attr.webViewStyle, privateBrowsing);
-        initWebViewSettings(w);
-        return w;
-    }
-
-    @Override
-    public WebView createSubWebView(boolean privateBrowsing) {
-        WebView web = createWebView(privateBrowsing);
-        return web;
-    }
-
     // lifecycle
 
     @Override

@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,14 +27,13 @@ import java.util.Map;
 /**
  * Manage WebView scroll events
  */
-public class ScrollWebView extends WebView implements Runnable {
+public class BrowserWebView extends WebView implements Runnable {
 
     private ScrollListener mScrollListener;
     private boolean mIsCancelled;
     private boolean mBackgroundRemoved = false;
     private boolean mUserInitiated = false;
     private TitleBarBase mTitleBar;
-    private Bitmap mBitmap;
 
     /**
      * @param context
@@ -43,7 +41,7 @@ public class ScrollWebView extends WebView implements Runnable {
      * @param defStyle
      * @param javascriptInterfaces
      */
-    public ScrollWebView(Context context, AttributeSet attrs, int defStyle,
+    public BrowserWebView(Context context, AttributeSet attrs, int defStyle,
             Map<String, Object> javascriptInterfaces, boolean privateBrowsing) {
         super(context, attrs, defStyle, javascriptInterfaces, privateBrowsing);
     }
@@ -53,7 +51,7 @@ public class ScrollWebView extends WebView implements Runnable {
      * @param attrs
      * @param defStyle
      */
-    public ScrollWebView(
+    public BrowserWebView(
             Context context, AttributeSet attrs, int defStyle, boolean privateBrowsing) {
         super(context, attrs, defStyle, privateBrowsing);
     }
@@ -62,14 +60,14 @@ public class ScrollWebView extends WebView implements Runnable {
      * @param context
      * @param attrs
      */
-    public ScrollWebView(Context context, AttributeSet attrs) {
+    public BrowserWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     /**
      * @param context
      */
-    public ScrollWebView(Context context) {
+    public BrowserWebView(Context context) {
         super(context);
     }
 
