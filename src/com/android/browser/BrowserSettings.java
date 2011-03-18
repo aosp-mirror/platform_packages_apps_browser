@@ -193,7 +193,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     public static final Uri RLZ_PROVIDER_URI = Uri.parse("content://" + RLZ_PROVIDER + "/");
 
     // Set to true to enable some of the about:debug options
-    public static final boolean DEV_BUILD = false;
+    public static final boolean DEV_BUILD = true;
 
     private Controller mController;
 
