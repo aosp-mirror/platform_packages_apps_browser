@@ -161,7 +161,7 @@
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Tât cả mật khẩu đã lưu sẽ bị xoá."</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Bật vị trí"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Cho phép trang web yêu cầu quyền truy cập vào vị trí của bạn"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Xoá truy cập vị trí"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Xóa truy cập vị trí"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Xoá truy cập vị trí cho tất cả trang web"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Xoá truy cập vị trí cho tất cả trang web"</string>
     <string name="pref_security_title" msgid="5763978646932160021">"Cài đặt bảo mật"</string>
@@ -283,10 +283,10 @@
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Nhớ tuỳ chọn"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Trang web này có thể truy cập vị trí của bạn. Thay đổi điều này trong Cài đặt -&gt; Cài đặt trang web"</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Trang web này không thể truy cập vị trí của bạn. Thay đổi điều này trong Cài đặt -&gt; Cài đặt trang web"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Xoá truy cập vị trí"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Xóa truy cập vị trí"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Trang web này hiện có thể truy cập vị trí của bạn"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Trang web này hiện không thể truy cập vị trí của bạn"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Xoá truy cập vị trí"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Xóa truy cập vị trí"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Truy cập vị trí cho trang web này sẽ bị xoá"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Xoá truy cập"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Huỷ"</string>

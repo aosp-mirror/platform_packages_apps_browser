@@ -73,7 +73,7 @@
     <string name="save_to_bookmarks" msgid="588165100024086565">"Ajouter un favori"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Modifier le favori"</string>
     <string name="create_shortcut_bookmark" msgid="9202323987633899835">"Raccourci (page d\'accueil)"</string>
-    <string name="open_bookmark" msgid="8473581305759935790">"Ouverture"</string>
+    <string name="open_bookmark" msgid="8473581305759935790">"Ouvrir"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Supprimer le favori"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Supprimer des favoris"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Supprimer de l\'historique"</string>
@@ -137,9 +137,9 @@
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Ouvrir les nouvelles fenêtres derrière la fenêtre actuelle"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Page d\'accueil"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Définir le moteur de recherche"</string>
-    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Sélectionnez un moteur de recherche."</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Sélectionner un moteur de recherche"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Utiliser la page actuelle"</string>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Redimensionner"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Ajustement auto des pages"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Mode Paysage"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Toujours afficher les pages dans le sens de la largeur (orientation paysage)"</string>
@@ -241,19 +241,19 @@
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Annuler tous les téléchargements"</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Annuler les téléchargements"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Les <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> téléchargements seront annulés et effacés de l\'historique des téléchargements."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Suppression du fichier"</string>
+    <string name="download_delete_file" msgid="5330036497843073249">"Ce fichier sera supprimé."</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Espace insuffisant"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossible d\'afficher <xliff:g id="FILENAME">%s</xliff:g>"\n". Libérez de l\'espace sur votre téléphone, puis réessayez."</string>
+    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Impossible de télécharger <xliff:g id="FILENAME">%s</xliff:g>"\n". Libérez de l\'espace sur votre téléphone, puis réessayez."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Échec de téléchargement"</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Mémoire USB indisponible"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Mémoire USB non disponible"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Aucune carte SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Une mémoire de stockage USB est requise pour télécharger <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Le téléchargement de <xliff:g id="FILENAME">%s</xliff:g> requiert une carte SD."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Mémoire USB indisponible"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Mémoire USB non disponible"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Carte SD non disponible"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"La mémoire de stockage USB est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver le stockage USB\" dans la notification."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La carte SD est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver le stockage USB\" dans la notification."</string>
-    <string name="download_no_application_title" msgid="1286056729168874295">"Fichier impossible à ouvrir"</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"La mémoire de stockage USB est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver la mémoire de stockage USB\" dans la notification."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"La carte SD est occupée. Pour autoriser les téléchargements, sélectionnez l\'option \"Désactiver la mémoire de stockage USB\" dans la notification."</string>
+    <string name="download_no_application_title" msgid="1286056729168874295">"Impossible d\'ouvrir le fichier."</string>
     <string name="retry" msgid="1835923075542266721">"Réessayer"</string>
     <string name="no_downloads" msgid="3947445710685021498">"L\'historique de téléchargement est vide."</string>
     <string name="download_error" msgid="413496839831257187">"Échec du téléchargement"</string>
@@ -283,7 +283,7 @@
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Mémoriser les préférences"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Ce site peut afficher votre position. Modifiez cette option dans Paramètres -&gt; Paramètres du site Web."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Ce site ne peut afficher votre position. Modifiez cette option dans Paramètres -&gt; Paramètres du site Web."</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Accès données localis."</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Supprimer l\'accès"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Ce site a actuellement accès à vos données de localisation."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Ce site n\'a actuellement pas accès à vos données de localisation."</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Supprimer l\'accès"</string>

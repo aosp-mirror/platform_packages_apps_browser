@@ -77,10 +77,10 @@
     <string name="remove_bookmark" msgid="8407495852801410891">"Elimina segnalibro"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Rimuovi dai segnalibri"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Rimuovi da cronologia"</string>
-    <string name="set_as_homepage" msgid="4752937379414905560">"Imposta come home page"</string>
+    <string name="set_as_homepage" msgid="4752937379414905560">"Imposta come pag. inziale"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Salvato nei segnalibri."</string>
     <string name="bookmark_not_saved" msgid="700600955089376724">"Impossibile salvare il preferito."</string>
-    <string name="homepage_set" msgid="8768087280310966395">"Home page impostata."</string>
+    <string name="homepage_set" msgid="8768087280310966395">"Pagina iniziale impostata."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Inserisci un nome per il segnalibro."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Inserisci un URL per il segnalibro."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"URL non valido."</string>
@@ -135,7 +135,7 @@
     <item msgid="8547442717307793863">"Non attivo"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Apri le nuove finestre dietro la finestra corrente"</string>
-    <string name="pref_content_homepage" msgid="6082437160778559806">"Imposta home page"</string>
+    <string name="pref_content_homepage" msgid="6082437160778559806">"Imposta pagina iniziale"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Imposta motore di ricerca"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Seleziona un motore di ricerca"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Utilizza pagina corrente"</string>
