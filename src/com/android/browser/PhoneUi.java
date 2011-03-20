@@ -39,7 +39,7 @@ public class PhoneUi extends BaseUi {
 
     private static final String LOGTAG = "PhoneUi";
 
-    private TitleBar mTitleBar;
+    private TitleBarPhone mTitleBar;
     private ActiveTabsPage mActiveTabsPage;
     private TouchProxy mTitleOverlay;
 
@@ -52,7 +52,7 @@ public class PhoneUi extends BaseUi {
      */
     public PhoneUi(Activity browser, UiController controller) {
         super(browser, controller);
-        mTitleBar = new TitleBar(mActivity, mUiController, this);
+        mTitleBar = new TitleBarPhone(mActivity, mUiController, this);
         // mTitleBar will be always be shown in the fully loaded mode on
         // phone
         mTitleBar.setProgress(100);
@@ -130,7 +130,8 @@ public class PhoneUi extends BaseUi {
         }
         view.setEmbeddedTitleBar(getTitleBar());
         if (tab.isInVoiceSearchMode()) {
-            showVoiceTitleBar(tab.getVoiceDisplayTitle());
+            showVoiceTitleBar(tab.getVoiceDisplayTitle(),
+                    tab.getVoiceSearchResults());
         } else {
             revertVoiceTitleBar(tab);
         }
@@ -298,4 +299,5 @@ public class PhoneUi extends BaseUi {
             return params;
         }
     }
+
 }

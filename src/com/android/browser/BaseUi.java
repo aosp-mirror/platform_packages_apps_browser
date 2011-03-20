@@ -42,6 +42,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings.ZoomDensity;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -322,8 +323,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
             Log.w(LOGTAG, "mContainer is already attached to content in"
                     + " attachTabToContentView!");
         }
-        mainView.setNextFocusUpId(R.id.url_focused);
-        mainView.setNextFocusDownId(R.id.url_focused);
         mUiController.attachSubWindow(tab);
     }
 
@@ -417,6 +416,13 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mContentView.addView(container, COVER_SCREEN_PARAMS);
     }
 
+    protected void refreshWebView() {
+        Tab tab = getActiveTab();
+        if ((tab != null) && (tab.getWebView() != null)) {
+            tab.getWebView().invalidate();
+        }
+    }
+
     boolean canShowTitleBar() {
         return !isTitleBarShowing()
                 && !isActivityPaused()
@@ -448,16 +454,21 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     @Override
-    public void showVoiceTitleBar(String title) {
-        getTitleBar().setInVoiceMode(true);
+    public void showVoiceTitleBar(String title, List<String> results) {
+        getTitleBar().setInVoiceMode(true, results);
         getTitleBar().setDisplayTitle(title);
     }
 
     @Override
     public void revertVoiceTitleBar(Tab tab) {
-        getTitleBar().setInVoiceMode(false);
+        getTitleBar().setInVoiceMode(false, null);
         String url = tab.getUrl();
         getTitleBar().setDisplayTitle(url);
+    }
+
+    @Override
+    public void registerDropdownChangeListener(DropdownChangeListener d) {
+        getTitleBar().registerDropdownChangeListener(d);
     }
 
     @Override
@@ -581,7 +592,9 @@ public abstract class BaseUi implements UI, WebViewFactory {
     protected void updateNavigationState(Tab tab) {
     }
 
-    protected void updateAutoLogin(Tab tab, boolean animate) {}
+    protected void updateAutoLogin(Tab tab, boolean animate) {
+        getTitleBar().updateAutoLogin(tab, animate);
+    }
 
     /**
      * Update the lock icon to correspond to our latest state.
@@ -735,7 +748,4 @@ public abstract class BaseUi implements UI, WebViewFactory {
         warning.show();
     }
 
-    @Override
-    public void registerDropdownChangeListener(DropdownChangeListener d) {
-    }
 }

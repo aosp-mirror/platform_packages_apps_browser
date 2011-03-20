@@ -118,7 +118,7 @@
                 style="@style/HoloIcon"
                 android:visibility="gone" />
             <com.android.browser.UrlInputView
-                android:id="@+id/url_focused"
+                android:id="@+id/url"
                 android:layout_width="0dip"
                 android:layout_weight="1.0"
                 android:layout_height="match_parent"
