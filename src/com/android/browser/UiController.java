@@ -60,6 +60,8 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     void startVoiceSearch();
 
+    boolean supportsVoiceSearch();
+
     void showVoiceSearchResults(String title);
 
     void editUrl();
