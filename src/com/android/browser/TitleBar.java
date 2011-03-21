@@ -17,12 +17,8 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.speech.RecognizerIntent;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -50,7 +46,6 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener,
     private Drawable mBookmarkDrawable;
     private Drawable mVoiceDrawable;
     private boolean mInLoad;
-    private Intent mVoiceSearchIntent;
     private ImageSpan mArcsSpan;
     private View mContainer;
 
@@ -78,25 +73,9 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener,
 
         mHorizontalProgress = (PageProgressView) findViewById(
                 R.id.progress_horizontal);
-        mVoiceSearchIntent = new Intent(RecognizerIntent.ACTION_WEB_SEARCH);
-        mVoiceSearchIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
-        // This extra tells voice search not to send the application id in its
-        // results intent - http://b/2546173
-        //
-        // TODO: Make a constant for this extra.
-        mVoiceSearchIntent.putExtra("android.speech.extras.SEND_APPLICATION_ID_EXTRA",
-                false);
-        PackageManager pm = activity.getPackageManager();
-        ResolveInfo ri = pm.resolveActivity(mVoiceSearchIntent,
-                PackageManager.MATCH_DEFAULT_ONLY);
         Resources resources = getResources();
-        if (ri == null) {
-            mVoiceSearchIntent = null;
-        } else {
-            mVoiceDrawable = resources.getDrawable(
-                    android.R.drawable.ic_btn_speak_now);
-        }
+        mVoiceDrawable = resources.getDrawable(
+                android.R.drawable.ic_btn_speak_now);
         mBookmarkDrawable = mBookmarkButton.getDrawable();
         mArcsSpan = new ImageSpan(activity, R.drawable.arcs,
                 ImageSpan.ALIGN_BASELINE);
@@ -122,7 +101,7 @@ public class TitleBar extends TitleBarBase implements OnFocusChangeListener,
     @Override
     void setInVoiceMode(boolean inVoiceMode) {
         if (mInVoiceMode == inVoiceMode) return;
-        mInVoiceMode = inVoiceMode && mVoiceSearchIntent != null;
+        mInVoiceMode = inVoiceMode && mUiController.supportsVoiceSearch();
         Drawable titleDrawable;
         if (mInVoiceMode) {
             mBookmarkButton.setImageDrawable(mVoiceDrawable);

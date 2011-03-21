@@ -1067,6 +1067,12 @@ public class Controller
         mUi.revertVoiceTitleBar(tab);
     }
 
+    public boolean supportsVoiceSearch() {
+        SearchEngine searchEngine = BrowserSettings.getInstance()
+                .getSearchEngine();
+        return (searchEngine != null && searchEngine.supportsVoiceSearch());
+    }
+
     public void showCustomView(Tab tab, View view,
             WebChromeClient.CustomViewCallback callback) {
         if (tab.inForeground()) {

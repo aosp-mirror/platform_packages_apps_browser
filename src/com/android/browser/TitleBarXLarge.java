@@ -18,9 +18,7 @@ package com.android.browser;
 
 import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
-import com.android.browser.search.SearchEngine;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -477,10 +475,8 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     private void setSearchMode(boolean voiceSearchEnabled) {
-        SearchEngine searchEngine = BrowserSettings.getInstance()
-                .getSearchEngine();
         boolean showvoicebutton = voiceSearchEnabled &&
-                (searchEngine != null && searchEngine.supportsVoiceSearch());
+                mUiController.supportsVoiceSearch();
         mVoiceSearch.setVisibility(showvoicebutton ? View.VISIBLE :
                 View.GONE);
         mGoButton.setVisibility(voiceSearchEnabled ? View.GONE :
