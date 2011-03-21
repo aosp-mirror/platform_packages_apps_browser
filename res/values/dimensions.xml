@@ -57,4 +57,5 @@
     <dimen name="combo_paddingTop">10dip</dimen>
     <dimen name="combo_paddingLeftRight">8dip</dimen>
     <dimen name="combo_horizontalSpacing">6dip</dimen>
+    <dimen name="tab_view_thumbnail_height">76dip</dimen>
 </resources>

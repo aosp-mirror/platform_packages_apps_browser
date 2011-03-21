@@ -21,37 +21,50 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingLeft="8dip"
+    android:paddingTop="4dip"
+    android:paddingBottom="4dip"
     >
-    <ImageView android:id="@+id/favicon"
-        android:layout_height="32dip"
-        android:layout_width="32dip"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/bookmark_list_favicon_bg"
-        android:scaleType="fitXY" />
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/list_item"
         android:layout_width="0dip"
-        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingLeft="8dip"
-        >
-        <TextView android:id="@+id/title"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bookmark_list_favicon_bg">
+        <ImageView
+            android:id="@+id/thumb"
+            android:src="@drawable/thumbnail_bookmarks_widget_no_bookmark_holo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_view_thumbnail_height"
+            android:scaleType="fitXY"
+            android:cropToPadding="true" />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"
-            />
-        <TextView android:id="@+id/url"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"
-            />
-    </LinearLayout>
+            android:layout_alignBottom="@id/thumb"
+            android:background="@color/tabViewTitleBackground">
+            <ImageView
+                android:id="@+id/favicon"
+                android:src="@drawable/app_web_browser_sm"
+                android:layout_width="@dimen/favicon_size"
+                android:layout_height="@dimen/favicon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="8dip"
+                android:layout_marginTop="4dip"
+                android:layout_marginBottom="4dip"
+                android:scaleType="fitXY" />
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:typeface="sans"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </RelativeLayout>
     <View android:id="@+id/divider"
         android:background="?android:attr/dividerVertical"
         android:layout_width="1dp"

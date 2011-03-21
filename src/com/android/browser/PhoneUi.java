@@ -18,10 +18,12 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.util.Log;
 import android.view.ActionMode;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -117,6 +119,7 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void setActiveTab(Tab tab) {
+        captureTab(mActiveTab);
         super.setActiveTab(tab);
         WebView view = tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
@@ -132,6 +135,18 @@ public class PhoneUi extends BaseUi {
             revertVoiceTitleBar(tab);
         }
         tab.getTopWindow().requestFocus();
+    }
+
+    public void captureTab(final Tab tab) {
+        if (tab == null) return;
+        if (tab.getWebView() == null) return;
+
+        Display display = mActivity.getWindowManager().getDefaultDisplay();
+        float height = mActivity.getResources()
+                .getDimension(R.dimen.tab_view_thumbnail_height);
+        Bitmap sshot = Controller.createScreenshot(tab,
+                display.getWidth(), (int) height);
+        tab.setScreenshot(sshot);
     }
 
     @Override
@@ -159,6 +174,7 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void showActiveTabsPage() {
+        captureTab(mActiveTab);
         mActiveTabsPage = new ActiveTabsPage(mActivity, mUiController);
         mTitleBar.setVisibility(View.GONE);
         hideTitleBar();

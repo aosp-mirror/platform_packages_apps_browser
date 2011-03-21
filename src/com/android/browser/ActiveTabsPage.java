@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,23 +142,30 @@ public class ActiveTabsPage extends LinearLayout implements OnClickListener,
                 view = mInflater.inflate(R.layout.tab_view, parent, false);
             }
             ImageView favicon = (ImageView) view.findViewById(R.id.favicon);
-            TextView title = (TextView) view.findViewById(R.id.title);
-            TextView url = (TextView) view.findViewById(R.id.url);
+            ImageView thumbnail = (ImageView) view.findViewById(R.id.thumb);
+            TextView title = (TextView) view.findViewById(R.id.label);
             Tab tab = getItem(position);
 
-            title.setText(tab.getTitle());
-            url.setText(tab.getUrl());
+            String label = tab.getTitle();
+            if (TextUtils.isEmpty(label)) {
+                label = tab.getUrl();
+            }
+            title.setText(label);
+            Bitmap thumbnailBitmap = tab.getScreenshot();
+            if (thumbnailBitmap == null) {
+                thumbnail.setImageResource(R.drawable.browser_thumbnail);
+            } else {
+                thumbnail.setImageBitmap(thumbnailBitmap);
+            }
             Bitmap faviconBitmap = tab.getFavicon();
             if (tab.isPrivateBrowsingEnabled()) {
                 favicon.setImageResource(R.drawable.ic_incognito_holo_dark);
-                favicon.setBackgroundDrawable(null);
             } else {
                 if (faviconBitmap == null) {
                     favicon.setImageResource(R.drawable.app_web_browser_sm);
                 } else {
                     favicon.setImageBitmap(faviconBitmap);
                 }
-                favicon.setBackgroundResource(R.drawable.bookmark_list_favicon_bg);
             }
             View close = view.findViewById(R.id.close);
             close.setTag(position);
