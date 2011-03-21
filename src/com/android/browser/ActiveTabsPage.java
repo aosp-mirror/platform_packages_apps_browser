@@ -18,62 +18,86 @@ package com.android.browser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-public class ActiveTabsPage extends LinearLayout {
+interface OnCloseTab {
+    void onCloseTab(int position);
+}
 
-    private static final String LOGTAG = "TabPicker";
+public class ActiveTabsPage extends LinearLayout implements OnClickListener,
+        OnItemClickListener, OnCloseTab {
 
-    private final LayoutInflater mFactory;
-    private final UiController mUiController;
-    private final TabControl mControl;
-    private final TabsListAdapter mAdapter;
-    private final ListView mListView;
+    private Context mContext;
+    private UiController mController;
+    private TabControl mTabControl;
+    private View mNewTab, mNewIncognitoTab;
+    private TabAdapter mAdapter;
+    private AbsListView mTabsList;
 
-    public ActiveTabsPage(Context context, UiController control) {
+    public ActiveTabsPage(Context context, UiController controller) {
         super(context);
-        mUiController = control;
-        mControl = control.getTabControl();
-        mFactory = LayoutInflater.from(context);
-        mFactory.inflate(R.layout.active_tabs, this);
-        mListView = (ListView) findViewById(R.id.list);
-        mAdapter = new TabsListAdapter();
-        mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View view,
-                        int position, long id) {
-                    if (mControl.canCreateNewTab()) {
-                        position -= 2;
-                    }
-                    boolean needToAttach = false;
-                    if (position == -2) {
-                        // Create a new tab
-                        mUiController.openTabToHomePage();
-                    } else if (position == -1) {
-                        // Create a new incognito tab
-                        mUiController.openIncognitoTab();
-                    } else {
-                        // Open the corresponding tab
-                        // If the tab is the current one, switchToTab will
-                        // do nothing and return, so we need to make sure
-                        // it gets attached back to its mContentView in
-                        // removeActiveTabPage
-                        needToAttach = !mUiController.switchToTab(position);
-                    }
-                    mUiController.removeActiveTabsPage(needToAttach);
-                }
-        });
+        mContext = context;
+        mController = controller;
+        mTabControl = mController.getTabControl();
+        setOrientation(VERTICAL);
+        setBackgroundResource(R.drawable.bg_browser);
+        LayoutInflater inflate = LayoutInflater.from(mContext);
+        inflate.inflate(R.layout.active_tabs, this, true);
+        mNewTab = findViewById(R.id.new_tab);
+        mNewIncognitoTab = findViewById(R.id.new_incognito_tab);
+        mNewTab.setOnClickListener(this);
+        mNewIncognitoTab.setOnClickListener(this);
+        int visibility = mTabControl.canCreateNewTab() ? View.VISIBLE : View.GONE;
+        mNewTab.setVisibility(visibility);
+        mNewIncognitoTab.setVisibility(visibility);
+        mTabsList = (AbsListView) findViewById(android.R.id.list);
+        mAdapter = new TabAdapter(mContext, mTabControl);
+        mAdapter.setOnCloseListener(this);
+        mTabsList.setAdapter(mAdapter);
+        mTabsList.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mNewTab) {
+            mController.openTabToHomePage();
+        } else if (v == mNewIncognitoTab) {
+            mController.openIncognitoTab();
+        }
+        mController.removeActiveTabsPage(false);
+    }
+
+    @Override
+    public void onItemClick(
+            AdapterView<?> parent, View view, int position, long id) {
+        boolean needToAttach = !mController.switchToTab(position);
+        mController.removeActiveTabsPage(needToAttach);
+    }
+
+    @Override
+    public void onCloseTab(int position) {
+        Tab tab = mTabControl.getTab(position);
+        if (tab != null) {
+            mController.closeTab(tab);
+            if (mTabControl.getTabCount() == 0) {
+                mController.openTabToHomePage();
+                mController.removeActiveTabsPage(false);
+            } else {
+                mAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     /**
@@ -81,7 +105,7 @@ public class ActiveTabsPage extends LinearLayout {
      * the parent to be pressed without being pressed itself.  This way the line
      * of a tab can be pressed, but the close button itself is not.
      */
-    private static class CloseHolder extends ImageView {
+    public static class CloseHolder extends ImageView {
         public CloseHolder(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
@@ -96,118 +120,72 @@ public class ActiveTabsPage extends LinearLayout {
         }
     }
 
-    private class TabsListAdapter extends BaseAdapter {
-        private boolean mNotified = true;
-        private int mReturnedCount;
-        private Handler mHandler = new Handler();
+    static class TabAdapter extends BaseAdapter implements OnClickListener {
 
+        LayoutInflater mInflater;
+        OnCloseTab mCloseListener;
+        TabControl mTabControl;
+
+        TabAdapter(Context context, TabControl tabs) {
+            mInflater = LayoutInflater.from(context);
+            mTabControl = tabs;
+        }
+
+        void setOnCloseListener(OnCloseTab listener) {
+            mCloseListener = listener;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            if (view == null) {
+                view = mInflater.inflate(R.layout.tab_view, parent, false);
+            }
+            ImageView favicon = (ImageView) view.findViewById(R.id.favicon);
+            TextView title = (TextView) view.findViewById(R.id.title);
+            TextView url = (TextView) view.findViewById(R.id.url);
+            Tab tab = getItem(position);
+
+            title.setText(tab.getTitle());
+            url.setText(tab.getUrl());
+            Bitmap faviconBitmap = tab.getFavicon();
+            if (tab.isPrivateBrowsingEnabled()) {
+                favicon.setImageResource(R.drawable.ic_incognito_holo_dark);
+                favicon.setBackgroundDrawable(null);
+            } else {
+                if (faviconBitmap == null) {
+                    favicon.setImageResource(R.drawable.app_web_browser_sm);
+                } else {
+                    favicon.setImageBitmap(faviconBitmap);
+                }
+                favicon.setBackgroundResource(R.drawable.bookmark_list_favicon_bg);
+            }
+            View close = view.findViewById(R.id.close);
+            close.setTag(position);
+            close.setOnClickListener(this);
+            return view;
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = (Integer) v.getTag();
+            if (mCloseListener != null) {
+                mCloseListener.onCloseTab(position);
+            }
+        }
+
+        @Override
         public int getCount() {
-            int count = mControl.getTabCount();
-            if (mControl.canCreateNewTab()) {
-                count += 2;
-            }
-            // XXX: This is a workaround to be more like a real adapter. Most
-            // adapters call notifyDataSetChanged() whenever the internal data
-            // has changed. Since TabControl is our internal data, we don't
-            // know when that changes.
-            //
-            // Keep track of the last count we returned and whether we called
-            // notifyDataSetChanged(). If we did not initiate a data set
-            // change, and the count is different, send the notify and return
-            // the old count.
-            if (!mNotified && count != mReturnedCount) {
-                notifyChange();
-                return mReturnedCount;
-            }
-            mReturnedCount = count;
-            mNotified = false;
-            return count;
+            return mTabControl.getTabCount();
         }
-        public Object getItem(int position) {
-            return null;
+
+        @Override
+        public Tab getItem(int position) {
+            return mTabControl.getTab(position);
         }
+
+        @Override
         public long getItemId(int position) {
             return position;
-        }
-        public int getViewTypeCount() {
-            return 2;
-        }
-        public int getItemViewType(int position) {
-            if (mControl.canCreateNewTab()) {
-                position -= 2;
-            }
-            // Do not recycle the "add new tab" item.
-            return position < 0 ? IGNORE_ITEM_VIEW_TYPE : 1;
-        }
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final int tabCount = mControl.getTabCount();
-            if (mControl.canCreateNewTab()) {
-                position -= 2;
-            }
-
-            if (convertView == null) {
-                if (position == -2) {
-                    convertView = mFactory.inflate(R.layout.tab_view_add_tab, null);
-                } else if (position == -1) {
-                    convertView = mFactory.inflate(R.layout.tab_view_add_incognito_tab, null);
-                } else {
-                    convertView = mFactory.inflate(R.layout.tab_view, null);
-                }
-            }
-
-            if (position >= 0) {
-                TextView title =
-                        (TextView) convertView.findViewById(R.id.title);
-                TextView url = (TextView) convertView.findViewById(R.id.url);
-                ImageView favicon =
-                        (ImageView) convertView.findViewById(R.id.favicon);
-                View close = convertView.findViewById(R.id.close);
-                Tab tab = mControl.getTab(position);
-                if (tab.getWebView() == null) {
-                    // This means that populatePickerData will have to use the
-                    // saved state.
-                    Log.w(LOGTAG, "Tab " + position + " has a null WebView and "
-                            + (tab.getSavedState() == null ? "null" : "non-null")
-                            + " saved state ");
-                }
-                if (tab.getTitle() == null || tab.getTitle().length() == 0) {
-                    Log.w(LOGTAG, "Tab " + position + " has no title. "
-                            + "Check above in the Logs to see whether it has a "
-                            + "null WebView or null WebHistoryItem");
-                }
-                title.setText(tab.getTitle());
-                url.setText(tab.getUrl());
-                Bitmap icon = tab.getFavicon();
-                if (icon != null) {
-                    favicon.setImageBitmap(icon);
-                } else {
-                    favicon.setImageResource(R.drawable.app_web_browser_sm);
-                }
-                final int closePosition = position;
-                close.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            mUiController.closeTab(
-                                    mControl.getTab(closePosition));
-                            if (tabCount == 1) {
-                                mUiController.openTabToHomePage();
-                                mUiController.removeActiveTabsPage(false);
-                            } else {
-                                mNotified = true;
-                                notifyDataSetChanged();
-                            }
-                        }
-                });
-            }
-            return convertView;
-        }
-
-        void notifyChange() {
-            mHandler.post(new Runnable() {
-                public void run() {
-                    mNotified = true;
-                    notifyDataSetChanged();
-                }
-            });
         }
     }
 }
