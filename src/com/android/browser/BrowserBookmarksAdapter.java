@@ -20,7 +20,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,6 @@ import android.widget.TextView;
 class BrowserBookmarksAdapter extends CursorAdapter {
     LayoutInflater mInflater;
     int mCurrentView;
-    Drawable mFaviconBackground;
 
     /**
      *  Create a new BrowserBookmarksAdapter.
@@ -42,8 +40,6 @@ class BrowserBookmarksAdapter extends CursorAdapter {
         super(context, null, 0);
         mInflater = LayoutInflater.from(context);
         selectView(defaultView);
-        float density = context.getResources().getDisplayMetrics().density;
-        mFaviconBackground = BookmarkUtils.createListFaviconBackground(context);
     }
 
     @Override
@@ -101,9 +97,7 @@ class BrowserBookmarksAdapter extends CursorAdapter {
             } else {
                 favicon.setImageBitmap(faviconBitmap);
             }
-            //favicon.setBackgroundResource(R.drawable.bookmark_list_favicon_bg);
-            // TODO: Switch to above instead of below once b/3353813 is fixed
-            favicon.setBackgroundDrawable(mFaviconBackground);
+            favicon.setBackgroundResource(R.drawable.bookmark_list_favicon_bg);
         }
     }
 
