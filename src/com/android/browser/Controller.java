@@ -161,9 +161,6 @@ public class Controller
     private int mOldMenuState = EMPTY_MENU;
     private Menu mCachedMenu;
 
-    // Used to prevent chording to result in firing two shortcuts immediately
-    // one after another.  Fixes bug 1211714.
-    boolean mCanChord;
     private boolean mMenuIsDown;
 
     // For select and find, we keep track of the ActionMode so that
@@ -1425,9 +1422,6 @@ public class Controller
         if (mOptionsMenuHandler != null) {
             return mOptionsMenuHandler.onPrepareOptionsMenu(menu);
         }
-        // This happens when the user begins to hold down the menu key, so
-        // allow them to chord to get a shortcut.
-        mCanChord = true;
         // Note: setVisible will decide whether an item is visible; while
         // setEnabled() will decide whether an item is enabled, which also means
         // whether the matching shortcut key will function.
@@ -1505,11 +1499,6 @@ public class Controller
             // menu remains active, so ensure comboview is dismissed
             // if main menu option is selected
             removeComboView();
-        }
-        if (!mCanChord) {
-            // The user has already fired a shortcut with this hold down of the
-            // menu key.
-            return false;
         }
         if (null == getCurrentTopWebView()) {
             return false;
@@ -1654,7 +1643,6 @@ public class Controller
             case R.id.share_page_menu_id:
                 Tab currentTab = mTabControl.getCurrentTab();
                 if (null == currentTab) {
-                    mCanChord = false;
                     return false;
                 }
                 shareCurrentPage(currentTab);
@@ -1706,7 +1694,6 @@ public class Controller
             default:
                 return false;
         }
-        mCanChord = false;
         return true;
     }
 
@@ -1716,9 +1703,6 @@ public class Controller
             return false;
         }
 
-        // chording is not an issue with context menus, but we use the same
-        // options selector, so set mCanChord to true so we can access them.
-        mCanChord = true;
         int id = item.getItemId();
         boolean result = true;
         switch (id) {
@@ -1757,7 +1741,6 @@ public class Controller
                 // For other context menus
                 result = onOptionsItemSelected(item);
         }
-        mCanChord = false;
         return result;
     }
 
@@ -2514,10 +2497,6 @@ public class Controller
                     return true;
                 }
                 break;
-            case KeyEvent.KEYCODE_ESCAPE:
-                if (!noModifiers) break;
-                stopLoading();
-                return true;
             case KeyEvent.KEYCODE_SPACE:
                 // WebView/WebTextView handle the keys in the KeyDown. As
                 // the Activity's shortcut keys are only handled when WebView
