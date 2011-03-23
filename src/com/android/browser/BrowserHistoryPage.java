@@ -258,10 +258,10 @@ public class BrowserHistoryPage extends Fragment
     }
 
     private void inflateTwoPane(ViewStub stub) {
-        stub.setLayoutResource(com.android.internal.R.layout.preference_list_content);
+        stub.setLayoutResource(R.layout.preference_list_content);
         stub.inflate();
         mGroupList = (ListView) mRoot.findViewById(android.R.id.list);
-        mPrefsContainer = (ViewGroup) mRoot.findViewById(com.android.internal.R.id.prefs_frame);
+        mPrefsContainer = (ViewGroup) mRoot.findViewById(R.id.prefs_frame);
         mFragmentBreadCrumbs = (FragmentBreadCrumbs) mRoot.findViewById(android.R.id.title);
         mFragmentBreadCrumbs.setMaxVisible(1);
         mFragmentBreadCrumbs.setActivity(getActivity());
@@ -274,7 +274,7 @@ public class BrowserHistoryPage extends Fragment
         mChildList.setAdapter(mChildWrapper);
         mChildList.setOnItemClickListener(mChildItemClickListener);
         registerForContextMenu(mChildList);
-        ViewGroup prefs = (ViewGroup) mRoot.findViewById(com.android.internal.R.id.prefs);
+        ViewGroup prefs = (ViewGroup) mRoot.findViewById(R.id.prefs);
         prefs.addView(mChildList);
     }
 

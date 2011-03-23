@@ -58,4 +58,10 @@
     <dimen name="combo_paddingLeftRight">8dip</dimen>
     <dimen name="combo_horizontalSpacing">6dip</dimen>
     <dimen name="tab_view_thumbnail_height">76dip</dimen>
+    <!-- Preference activity side margins -->
+    <dimen name="preference_screen_side_margin">0dp</dimen>
+    <!-- Preference activity side margins negative-->
+    <dimen name="preference_screen_side_margin_negative">0dp</dimen>
+    <!-- Preference widget area width (to the left of the text) -->
+    <dimen name="preference_widget_width">56dp</dimen>
 </resources>
