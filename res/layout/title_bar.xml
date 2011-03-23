@@ -53,9 +53,9 @@
                 android:layout_weight="1.0"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dip"
-                android:paddingLeft="0dip"
-                android:paddingRight="0dip"
-                android:background="@null"
+                android:paddingLeft="4dip"
+                android:paddingRight="4dip"
+                android:background="@drawable/url_selector"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:hint="@string/search_hint"
                 android:singleLine="true"
@@ -75,8 +75,8 @@
         <com.android.browser.view.StopProgressView
             style="?android:attr/progressBarStyleLarge"
             android:id="@+id/stop"
-            android:layout_width="36dip"
-            android:layout_height="36dip"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
             android:layout_gravity="center_vertical"
             android:visibility="gone" />
     </LinearLayout>

@@ -70,6 +70,13 @@ public class StopProgressView extends ProgressBar {
     }
 
     @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        mWidth = (right - left) * 2 / 3;
+        mHeight = (bottom - top) * 2 / 3;
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (mOverlayDrawable != null) {
@@ -86,10 +93,6 @@ public class StopProgressView extends ProgressBar {
 
     public void setImageDrawable(Drawable d) {
         mOverlayDrawable = d;
-        if (d != null) {
-            mWidth = d.getIntrinsicWidth();
-            mHeight = d.getIntrinsicHeight();
-        }
     }
 
 }
