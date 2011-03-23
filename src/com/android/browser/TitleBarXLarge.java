@@ -16,7 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 
 import android.app.Activity;
@@ -25,26 +24,15 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.view.ContextThemeWrapper;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.AbsoluteLayout;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -60,13 +48,13 @@ public class TitleBarXLarge extends TitleBarBase
     private Drawable mStopDrawable;
     private Drawable mReloadDrawable;
 
-    private View mContainer;
+    private View mUrlContainer;
     private ImageButton mBackButton;
     private ImageButton mForwardButton;
     private ImageView mStar;
     private ImageView mUrlIcon;
     private ImageView mSearchButton;
-    private View mUrlContainer;
+    private View mContainer;
     private View mGoButton;
     private ImageView mStopButton;
     private View mAllButton;
@@ -75,15 +63,6 @@ public class TitleBarXLarge extends TitleBarBase
     private PageProgressView mProgressView;
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
-    // Auto-login UI
-    private View mAutoLogin;
-    private Spinner mAutoLoginAccount;
-    private Button mAutoLoginLogin;
-    private ProgressBar mAutoLoginProgress;
-    private TextView mAutoLoginError;
-    private ImageButton mAutoLoginCancel;
-    private DeviceAccountLogin mAutoLoginHandler;
-    private ArrayAdapter<String> mAccountsAdapter;
 
     private boolean mInLoad;
     private boolean mUseQuickControls;
@@ -100,7 +79,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUnfocusDrawable = resources.getDrawable(
                 R.drawable.textfield_default_holo_dark);
         mInVoiceMode = false;
-        initLayout(activity);
+        initLayout(activity, R.layout.url_bar);
     }
 
     @Override
@@ -115,12 +94,11 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    private void initLayout(Context context) {
-        LayoutInflater factory = LayoutInflater.from(context);
-        factory.inflate(R.layout.url_bar, this);
+    @Override
+    protected void initLayout(Context context, int layoutId) {
+        super.initLayout(context, layoutId);
 
         mContainer = findViewById(R.id.taburlbar);
-        mUrlInput = (UrlInputView) findViewById(R.id.url_focused);
         mAllButton = findViewById(R.id.all_btn);
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
@@ -145,23 +123,7 @@ public class TitleBarXLarge extends TitleBarBase
         mGoButton.setOnClickListener(this);
         mClearButton.setOnClickListener(this);
         mVoiceSearch.setOnClickListener(this);
-        mUrlInput.setUrlInputListener(this);
         mUrlInput.setContainer(mUrlContainer);
-        mUrlInput.setController(mUiController);
-        mUrlInput.setOnFocusChangeListener(this);
-        mUrlInput.setSelectAllOnFocus(true);
-        mUrlInput.addQueryTextWatcher(this);
-        mAutoLogin = findViewById(R.id.autologin);
-        mAutoLoginAccount = (Spinner) findViewById(R.id.autologin_account);
-        mAutoLoginLogin = (Button) findViewById(R.id.autologin_login);
-        mAutoLoginLogin.setOnClickListener(this);
-        mAutoLoginProgress =
-                (ProgressBar) findViewById(R.id.autologin_progress);
-        mAutoLoginError = (TextView) findViewById(R.id.autologin_error);
-        mAutoLoginCancel =
-                (ImageButton) mAutoLogin.findViewById(R.id.autologin_close);
-        mAutoLoginCancel.setOnClickListener(this);
-
         setFocusState(false);
     }
 
@@ -175,67 +137,6 @@ public class TitleBarXLarge extends TitleBarBase
                     ? R.drawable.ic_forward_holo_dark
                     : R.drawable.ic_forward_disabled_holo_dark);
         }
-    }
-
-    void updateAutoLogin(Tab tab, boolean animate) {
-        DeviceAccountLogin login = tab.getDeviceAccountLogin();
-        if (login != null) {
-            mAutoLoginHandler = login;
-            mAutoLogin.setVisibility(View.VISIBLE);
-            ContextThemeWrapper wrapper = new ContextThemeWrapper(mContext,
-                    android.R.style.Theme_Holo_Light);
-            mAccountsAdapter = new ArrayAdapter<String>(wrapper,
-                    android.R.layout.simple_spinner_item, login.getAccountNames());
-            mAccountsAdapter.setDropDownViewResource(
-                    android.R.layout.simple_spinner_dropdown_item);
-            mAutoLoginAccount.setAdapter(mAccountsAdapter);
-            mAutoLoginAccount.setSelection(0);
-            mAutoLoginAccount.setEnabled(true);
-            mAutoLoginLogin.setEnabled(true);
-            mAutoLoginProgress.setVisibility(View.GONE);
-            mAutoLoginError.setVisibility(View.GONE);
-            switch (login.getState()) {
-                case DeviceAccountLogin.PROCESSING:
-                    mAutoLoginAccount.setEnabled(false);
-                    mAutoLoginLogin.setEnabled(false);
-                    mAutoLoginProgress.setVisibility(View.VISIBLE);
-                    break;
-                case DeviceAccountLogin.FAILED:
-                    mAutoLoginProgress.setVisibility(View.GONE);
-                    mAutoLoginError.setVisibility(View.VISIBLE);
-                    break;
-                case DeviceAccountLogin.INITIAL:
-                    break;
-                default:
-                    throw new IllegalStateException();
-            }
-            if (mUseQuickControls) {
-                mUi.showTitleBar();
-            } else {
-                if (animate) {
-                    mAutoLogin.startAnimation(AnimationUtils.loadAnimation(
-                            getContext(), R.anim.autologin_enter));
-                }
-            }
-        } else {
-            mAutoLoginHandler = null;
-            if (mUseQuickControls) {
-                mUi.hideTitleBar();
-                mAutoLogin.setVisibility(View.GONE);
-                mUi.refreshWebView();
-            } else {
-                if (animate) {
-                    hideAutoLogin();
-                } else if (mAutoLogin.getAnimation() == null) {
-                    mAutoLogin.setVisibility(View.GONE);
-                    mUi.refreshWebView();
-                }
-            }
-        }
-    }
-
-    boolean inAutoLogin() {
-        return mAutoLoginHandler != null;
     }
 
     private ViewGroup.LayoutParams makeLayoutParams() {
@@ -326,26 +227,24 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    boolean isEditingUrl() {
-        return mUrlInput.hasFocus();
+    @Override
+    protected void showAutoLogin(boolean animate) {
+        if (mUseQuickControls) {
+            mUi.showTitleBar();
+        }
+        super.showAutoLogin(animate);
     }
 
-    void stopEditingUrl() {
-        mUrlInput.clearFocus();
-    }
-
-    private void hideAutoLogin() {
-        Animation anim = AnimationUtils.loadAnimation(
-                getContext(), R.anim.autologin_exit);
-        anim.setAnimationListener(new AnimationListener() {
-            @Override public void onAnimationEnd(Animation a) {
-                mAutoLogin.setVisibility(View.GONE);
-                mUi.refreshWebView();
-            }
-            @Override public void onAnimationStart(Animation a) {}
-            @Override public void onAnimationRepeat(Animation a) {}
-        });
-        mAutoLogin.startAnimation(anim);
+    @Override
+    protected void hideAutoLogin(boolean animate) {
+        mAutoLoginHandler = null;
+        if (mUseQuickControls) {
+            mUi.hideTitleBar();
+            mAutoLogin.setVisibility(View.GONE);
+            mUi.refreshWebView();
+        } else {
+            super.hideAutoLogin(animate);
+        }
     }
 
     @Override
@@ -372,30 +271,9 @@ public class TitleBarXLarge extends TitleBarBase
             clearOrClose();
         } else if (mVoiceSearch == v) {
             mUiController.startVoiceSearch();
-        } else if (mAutoLoginCancel == v) {
-            if (mAutoLoginHandler != null) {
-                mAutoLoginHandler.cancel();
-                mAutoLoginHandler = null;
-            }
-            hideAutoLogin();
-        } else if (mAutoLoginLogin == v) {
-            if (mAutoLoginHandler != null) {
-                mAutoLoginAccount.setEnabled(false);
-                mAutoLoginLogin.setEnabled(false);
-                mAutoLoginProgress.setVisibility(View.VISIBLE);
-                mAutoLoginError.setVisibility(View.GONE);
-                mAutoLoginHandler.login(
-                        mAutoLoginAccount.getSelectedItemPosition(), this);
-            }
+        } else {
+            super.onClick(v);
         }
-    }
-
-    @Override
-    public void loginFailed() {
-        mAutoLoginAccount.setEnabled(true);
-        mAutoLoginLogin.setEnabled(true);
-        mAutoLoginProgress.setVisibility(View.GONE);
-        mAutoLoginError.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -411,10 +289,10 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    private void setFocusState(boolean focus) {
+    @Override
+    protected void setFocusState(boolean focus) {
+        super.setFocusState(focus);
         if (focus) {
-            mUrlInput.setDropDownWidth(mUrlContainer.getWidth());
-            mUrlInput.setDropDownHorizontalOffset(-mUrlInput.getLeft());
             mSearchButton.setVisibility(View.GONE);
             mStar.setVisibility(View.GONE);
             mClearButton.setVisibility(View.VISIBLE);
@@ -470,11 +348,13 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    private void updateSearchMode(boolean userEdited) {
+    @Override
+    protected void updateSearchMode(boolean userEdited) {
         setSearchMode(!userEdited || TextUtils.isEmpty(mUrlInput.getUserText()));
     }
 
-    private void setSearchMode(boolean voiceSearchEnabled) {
+    @Override
+    protected void setSearchMode(boolean voiceSearchEnabled) {
         boolean showvoicebutton = voiceSearchEnabled &&
                 mUiController.supportsVoiceSearch();
         mVoiceSearch.setVisibility(showvoicebutton ? View.VISIBLE :
@@ -484,42 +364,11 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     @Override
-    /* package */ void setDisplayTitle(String title) {
-        if (!isEditingUrl()) {
-            mUrlInput.setText(title, false);
-        }
-    }
-
-    // UrlInput text watcher
-
-    @Override
-    public void onTextChanged(String newText) {
-        if (mUrlInput.hasFocus()) {
-            // check if input field is empty and adjust voice search state
-            updateSearchMode(true);
-            // clear voice mode when user types
-            setInVoiceMode(false, null);
-        }
-    }
-
-    // voicesearch
-
-    @Override
-    public void setInVoiceMode(boolean voicemode) {
-        setInVoiceMode(voicemode, null);
-    }
-
     public void setInVoiceMode(boolean voicemode, List<String> voiceResults) {
-        mInVoiceMode = voicemode;
-        mUrlInput.setVoiceResults(voiceResults);
+        super.setInVoiceMode(voicemode, voiceResults);
         if (voicemode) {
             mUrlIcon.setImageDrawable(mSearchButton.getDrawable());
         }
-    }
-
-    @Override
-    void setIncognitoMode(boolean incognito) {
-        mUrlInput.setIncognitoMode(incognito);
     }
 
     @Override
@@ -530,30 +379,4 @@ public class TitleBarXLarge extends TitleBarBase
         return super.focusSearch(focused, dir);
     }
 
-    void clearCompletions() {
-        mUrlInput.setSuggestedText(null);
-    }
-
-    @Override
-    public boolean dispatchKeyEventPreIme(KeyEvent evt) {
-        if (evt.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            // catch back key in order to do slightly more cleanup than usual
-            mUrlInput.clearFocus();
-            return true;
-        }
-        return super.dispatchKeyEventPreIme(evt);
-    }
-
-    private WebView getCurrentWebView() {
-        Tab t = mUi.getActiveTab();
-        if (t != null) {
-            return t.getWebView();
-        } else {
-            return null;
-        }
-    }
-
-    void registerDropdownChangeListener(DropdownChangeListener d) {
-        mUrlInput.registerDropdownChangeListener(d);
-    }
 }

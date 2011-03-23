@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-   Copyright 2009, The Android Open Source Project
+   Copyright 2011, The Android Open Source Project
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -14,12 +14,11 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/titlebar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
-
+    android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/taburlbar"
         android:layout_width="match_parent"
@@ -29,71 +28,111 @@
         android:paddingLeft="4dip"
         android:paddingRight="4dip"
         android:paddingTop="2dip"
-        android:paddingBottom="1dip"
-        >
-
-        <LinearLayout android:id="@+id/title_bg"
+        android:paddingBottom="2dip">
+        <LinearLayout
+            android:id="@+id/title_bg"
             android:layout_width="0dip"
             android:layout_weight="1.0"
-            android:layout_height="48dip"
-            android:layout_marginBottom="4dip"
+            android:layout_height="40dip"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="@drawable/url_background"
-            >
-                <ImageView android:id="@+id/favicon"
-                    android:layout_width="20dip"
-                    android:layout_height="20dip"
-                    />
-                <ImageView android:id="@+id/lock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dip"
-                    android:visibility="gone"
-                    />
-                <com.android.browser.UrlInputView
-                    android:id="@+id/url_input"
-                    android:focusable="true"
-                    android:layout_width="0dip"
-                    android:layout_weight="1.0"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="3dip"
-                    android:paddingLeft="0dip"
-                    android:paddingRight="0dip"
-                    android:background="@null"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:hint="@string/search_hint"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:scrollHorizontally="true"
-                    android:inputType="textUri"
-                    android:imeOptions="actionGo"
-                    style="@style/Suggestions" />
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/favicon"
+                android:layout_width="20dip"
+                android:layout_height="20dip" />
+            <ImageView
+                android:id="@+id/lock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dip"
+                android:visibility="gone" />
+            <com.android.browser.UrlInputView
+                android:id="@+id/url"
+                android:focusable="true"
+                android:layout_width="0dip"
+                android:layout_weight="1.0"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dip"
+                android:paddingLeft="0dip"
+                android:paddingRight="0dip"
+                android:background="@null"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:hint="@string/search_hint"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="textUri"
+                android:imeOptions="actionGo"
+                style="@style/Suggestions" />
         </LinearLayout>
-        <ImageButton
+        <ImageView
+            android:id="@+id/voice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_voice_search_holo_dark"
+            android:visibility="gone" />
+        <com.android.browser.view.StopProgressView
+            style="?android:attr/progressBarStyleLarge"
             android:id="@+id/stop"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            style="@style/HoloButton"
-            android:src="@drawable/ic_stop_holo_dark"
-            android:visibility="gone"
-        />
-        <ImageButton
-            android:id="@+id/bookmark"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            style="@style/HoloButton"
-            android:src="@drawable/btn_imageview_star"
-        />
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone" />
     </LinearLayout>
-
-    <com.android.browser.PageProgressView
-        android:id="@+id/progress_horizontal"
+    <LinearLayout
+        android:id="@+id/autologin"
+        android:background="#FBF0A0"
+        android:gravity="center_vertical"
+        android:paddingTop="3dip"
+        android:visibility="gone"
+        android:layout_below="@+id/taburlbar"
         android:layout_width="match_parent"
-        android:layout_height="22dip"
-        android:background="@null"
-        android:src="@drawable/progress"
-        android:layout_marginTop="-11dip"
-        android:visibility="gone" />
-</LinearLayout>
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/autologin_bar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/primary_text_light"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Spinner
+            android:id="@+id/autologin_account"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@android:style/Widget.Holo.Light.Spinner" />
+        <Button
+            android:id="@+id/autologin_login"
+            android:text="@string/autologin_bar_login_text"
+            style="@android:style/Widget.Holo.Light.Button"
+            android:layout_marginRight="15dip"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+        <ProgressBar
+            android:id="@+id/autologin_progress"
+            android:indeterminateOnly="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/autologin_error"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="#dd6826"
+            android:text="@string/autologin_bar_error"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
+        <View
+            android:layout_width="2dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+        <ImageButton
+            android:id="@+id/autologin_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dip"
+            android:background="@null"
+            android:src="@*android:drawable/btn_close" />
+    </LinearLayout>
+</RelativeLayout>

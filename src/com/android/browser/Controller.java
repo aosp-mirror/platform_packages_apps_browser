@@ -1056,8 +1056,9 @@ public class Controller
         mActivity.startActivity(intent);
     }
 
-    public void activateVoiceSearchMode(String title) {
-        mUi.showVoiceTitleBar(title);
+    @Override
+    public void activateVoiceSearchMode(String title, List<String> results) {
+        mUi.showVoiceTitleBar(title, results);
     }
 
     public void revertVoiceSearchMode(Tab tab) {

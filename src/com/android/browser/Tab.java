@@ -313,7 +313,9 @@ class Tab {
         mVoiceSearchData.mLastVoiceSearchTitle
                 = mVoiceSearchData.mVoiceSearchResults.get(index);
         if (mInForeground) {
-            mWebViewController.activateVoiceSearchMode(mVoiceSearchData.mLastVoiceSearchTitle);
+            mWebViewController.activateVoiceSearchMode(
+                    mVoiceSearchData.mLastVoiceSearchTitle,
+                    mVoiceSearchData.mVoiceSearchResults);
         }
         if (mVoiceSearchData.mVoiceSearchHtmls != null) {
             // When index was found it was already ensured that it was valid

@@ -85,7 +85,7 @@ public interface UI {
 
     public boolean isCustomViewShowing();
 
-    public void showVoiceTitleBar(String title);
+    public void showVoiceTitleBar(String title, List<String> results);
 
     public void revertVoiceTitleBar(Tab tab);
 

@@ -23,7 +23,6 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -249,7 +248,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         }
         mTabBar.onSetActiveTab(tab);
         if (tab.isInVoiceSearchMode()) {
-            showVoiceTitleBar(tab.getVoiceDisplayTitle());
+            showVoiceTitleBar(tab.getVoiceDisplayTitle(), tab.getVoiceSearchResults());
         } else {
             revertVoiceTitleBar(tab);
         }
@@ -450,18 +449,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
-    protected void updateAutoLogin(Tab tab, boolean animate) {
-        mTitleBar.updateAutoLogin(tab, animate);
-    }
-
-    protected void refreshWebView() {
-        Tab tab = getActiveTab();
-        if ((tab != null) && (tab.getWebView() != null)) {
-            tab.getWebView().invalidate();
-        }
-    }
-
-    @Override
     public void setUrlTitle(Tab tab) {
         super.setUrlTitle(tab);
         mTabBar.onUrlAndTitle(tab, tab.getUrl(), tab.getTitle());
@@ -475,11 +462,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
-    public void showVoiceTitleBar(String title) {
-        List<String> vsresults = null;
-        if (getActiveTab() != null) {
-            vsresults = getActiveTab().getVoiceSearchResults();
-        }
+    public void showVoiceTitleBar(String title, List<String> vsresults) {
         mTitleBar.setInVoiceMode(true, vsresults);
         mTitleBar.setDisplayTitle(title);
     }
@@ -537,11 +520,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     TabBar getTabBar() {
         return mTabBar;
-    }
-
-    @Override
-    public void registerDropdownChangeListener(DropdownChangeListener d) {
-        mTitleBar.registerDropdownChangeListener(d);
     }
 
     @Override
