@@ -202,6 +202,8 @@ public class TitleBarBase extends RelativeLayout
                     throw new IllegalStateException();
             }
             showAutoLogin(animate);
+        } else {
+            hideAutoLogin(animate);
         }
     }
 
