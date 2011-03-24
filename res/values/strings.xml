@@ -815,10 +815,10 @@
             user signs up the device with a Google sites account, the site's
             domain will be appended. -->
     <string name="homepage_base" translatable="false">
-        http://www.google.com/webhp?client=ms-{CID}&amp;source=android-home</string>
+        http://www.google.com/webhp?client={CID}&amp;source=android-home</string>
     <!-- The default url for the instant_base_page. -->
     <string name="instant_base" translatable="false">
-        http://www.google.com/webhp?client=ms-{CID}&amp;source=android-omnibox-instant&amp;ion=1</string>
+        http://www.google.com/webhp?client={CID}&amp;source=android-omnibox-instant&amp;ion=1</string>
 
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">

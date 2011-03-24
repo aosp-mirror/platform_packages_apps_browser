@@ -181,18 +181,30 @@ public class BrowserProvider extends ContentProvider {
     // its content provider. http://b/issue?id=2425179
     static String getClientId(ContentResolver cr) {
         String ret = "android-google";
-        Cursor c = null;
+        Cursor legacyClientIdCursor = null;
+        Cursor searchClientIdCursor = null;
+
+        // search_client_id includes search prefix, legacy client_id does not include prefix
         try {
-            c = cr.query(Uri.parse("content://com.google.settings/partner"),
+            searchClientIdCursor = cr.query(Uri.parse("content://com.google.settings/partner"),
+               new String[] { "value" }, "name='search_client_id'", null, null);
+            if (searchClientIdCursor != null && searchClientIdCursor.moveToNext()) {
+                ret = searchClientIdCursor.getString(0);
+            } else {
+                legacyClientIdCursor = cr.query(Uri.parse("content://com.google.settings/partner"),
                     new String[] { "value" }, "name='client_id'", null, null);
-            if (c != null && c.moveToNext()) {
-                ret = c.getString(0);
+                if (legacyClientIdCursor != null && legacyClientIdCursor.moveToNext()) {
+                    ret = "ms-" + legacyClientIdCursor.getString(0);
+                }
             }
         } catch (RuntimeException ex) {
             // fall through to return the default
         } finally {
-            if (c != null) {
-                c.close();
+            if (legacyClientIdCursor != null) {
+                legacyClientIdCursor.close();
+            }
+            if (searchClientIdCursor != null) {
+                searchClientIdCursor.close();
             }
         }
         return ret;
