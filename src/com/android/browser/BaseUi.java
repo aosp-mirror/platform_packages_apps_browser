@@ -17,10 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.Tab.LockIcon;
-import com.android.browser.UI.DropdownChangeListener;
 
-import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -42,7 +39,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings.ZoomDensity;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -746,6 +742,25 @@ public abstract class BaseUi implements UI, WebViewFactory {
                 mActivity.getString(R.string.max_tabs_warning),
                 Toast.LENGTH_SHORT);
         warning.show();
+    }
+
+    protected void captureTab(final Tab tab) {
+        captureTab(tab,
+                (int) mActivity.getResources()
+                        .getDimension(R.dimen.qc_thumb_width),
+                (int) mActivity.getResources()
+                        .getDimension(R.dimen.qc_thumb_height));
+    }
+
+    protected void captureTab(final Tab tab, int width, int height) {
+        if ((tab == null) || (tab.getWebView() == null)) return;
+        Bitmap sshot = Controller.createScreenshot(tab, width, height);
+        tab.setScreenshot(sshot);
+    }
+
+    void showTitleBarAndEdit() {
+        showTitleBar();
+        getTitleBar().startEditingUrl(false);
     }
 
 }

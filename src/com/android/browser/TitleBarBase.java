@@ -84,7 +84,7 @@ public class TitleBarBase extends RelativeLayout
     protected ImageButton mAutoLoginCancel;
     protected DeviceAccountLogin mAutoLoginHandler;
     protected ArrayAdapter<String> mAccountsAdapter;
-
+    protected boolean mUseQuickControls;
 
     public TitleBarBase(Context context, UiController controller, BaseUi ui) {
         super(context, null);
@@ -116,6 +116,10 @@ public class TitleBarBase extends RelativeLayout
     }
 
     protected void setupUrlInput() {
+    }
+
+    protected void setUseQuickControls(boolean use) {
+        mUseQuickControls = use;
     }
 
     /* package */ void setProgress(int newProgress) {}
@@ -428,5 +432,11 @@ public class TitleBarBase extends RelativeLayout
     void registerDropdownChangeListener(DropdownChangeListener d) {
         mUrlInput.registerDropdownChangeListener(d);
     }
+
+    /**
+     * called from the Ui when the user wants to edit
+     * @param clearInput clear the input field
+     */
+    void startEditingUrl(boolean clearInput) {};
 
 }

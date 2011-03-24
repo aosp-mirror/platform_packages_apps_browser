@@ -23,7 +23,6 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -256,14 +255,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         tab.getTopWindow().requestFocus();
     }
 
-    public void captureTab(final Tab tab) {
-        Bitmap sshot = Controller.createScreenshot(tab,
-                (int) mActivity.getResources()
-                        .getDimension(R.dimen.qc_thumb_width),
-                (int) mActivity.getResources()
-                        .getDimension(R.dimen.qc_thumb_height));
-        tab.setScreenshot(sshot);
-    }
 
     @Override
     public void updateTabs(List<Tab> tabs) {

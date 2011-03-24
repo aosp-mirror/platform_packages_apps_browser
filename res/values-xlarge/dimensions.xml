@@ -27,4 +27,12 @@
     <dimen name="combo_paddingTop">50dip</dimen>
     <dimen name="combo_paddingLeftRight">134dip</dimen>
     <dimen name="combo_horizontalSpacing">20dip</dimen>
+    <dimen name="qc_radius_start">50dip</dimen>
+    <dimen name="qc_radius_increment">70dip</dimen>
+    <dimen name="qc_slop">15dip</dimen>
+    <dimen name="qc_touch_offset">15dip</dimen>
+    <dimen name="qc_tab_title_height">30dip</dimen>
+    <dimen name="qc_thumb_width">240dip</dimen>
+    <dimen name="qc_thumb_height">160dip</dimen>
+    <dimen name="qc_item_size">48dip</dimen>
 </resources>
