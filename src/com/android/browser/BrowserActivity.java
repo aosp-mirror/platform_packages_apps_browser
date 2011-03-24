@@ -622,13 +622,6 @@ public class BrowserActivity extends Activity
             final String action = intent.getAction();
             if (Intent.ACTION_VIEW.equals(action)) {
                 url = smartUrlFilter(intent.getData());
-                if (url != null && url.startsWith("content:")) {
-                    /* Append mimetype so webview knows how to display */
-                    String mimeType = intent.resolveType(getContentResolver());
-                    if (mimeType != null) {
-                        url += "?" + mimeType;
-                    }
-                }
                 if (url != null && url.startsWith("http")) {
                     final Bundle pairs = intent
                             .getBundleExtra(Browser.EXTRA_HEADERS);
@@ -3665,7 +3658,7 @@ public class BrowserActivity extends Activity
             "(?i)" + // switch on case insensitive matching
             "(" +    // begin group for schema
             "(?:http|https|file):\\/\\/" +
-            "|(?:inline|data|about|content|javascript):" +
+            "|(?:inline|data|about|javascript):" +
             ")" +
             "(.*)" );
 

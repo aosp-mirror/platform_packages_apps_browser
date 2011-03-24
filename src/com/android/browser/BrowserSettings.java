@@ -229,6 +229,8 @@ class BrowserSettings extends Observable {
             s.setNeedInitialFocus(false);
             // Browser supports multiple windows
             s.setSupportMultipleWindows(true);
+            // disable content url access
+            s.setAllowContentAccess(false);
 
             // HTML5 API flags
             s.setAppCacheEnabled(b.appCacheEnabled);
