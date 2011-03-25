@@ -225,6 +225,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     public void setActiveTab(final Tab tab) {
         cancelTitleBarAnimation(true);
         mSkipTitleBarAnimations = true;
+        stopEditingUrl();
         if (mUseQuickControls) {
             if (mActiveTab != null) {
                 captureTab(mActiveTab);
