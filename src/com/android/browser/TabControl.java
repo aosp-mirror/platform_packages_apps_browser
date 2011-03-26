@@ -45,8 +45,6 @@ class TabControl {
     // A private instance of BrowserActivity to interface with when adding and
     // switching between tabs.
     private final BrowserActivity mActivity;
-    // Directory to store thumbnails for each WebView.
-    private final File mThumbnailDir;
 
     /**
      * Construct a new TabControl object that interfaces with the given
@@ -56,11 +54,6 @@ class TabControl {
      */
     TabControl(BrowserActivity activity) {
         mActivity = activity;
-        mThumbnailDir = activity.getDir("thumbnails", 0);
-    }
-
-    File getThumbnailDir() {
-        return mThumbnailDir;
     }
 
     BrowserActivity getBrowserActivity() {

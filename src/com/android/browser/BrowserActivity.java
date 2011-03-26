@@ -146,13 +146,14 @@ public class BrowserActivity extends Activity
     private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
     private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
 
-    private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
+    private static class ClearThumbnails extends AsyncTask<Context, Void, Void> {
         @Override
-        public Void doInBackground(File... files) {
+        public Void doInBackground(Context... context) {
+            File[] files = context[0].getDir("thumbnails", 0).listFiles();
             if (files != null) {
                 for (File f : files) {
                     if (!f.delete()) {
-                      Log.e(LOGTAG, f.getPath() + " was not deleted");
+                        Log.e(LOGTAG, f.getPath() + " was not deleted");
                     }
                 }
             }
@@ -311,10 +312,6 @@ public class BrowserActivity extends Activity
         registerReceiver(mPackageInstallationReceiver, filter);
 
         if (!mTabControl.restoreState(icicle)) {
-            // clear up the thumbnail directory if we can't restore the state as
-            // none of the files in the directory are referenced any more.
-            new ClearThumbnails().execute(
-                    mTabControl.getThumbnailDir().listFiles());
             // there is no quit on Android. But if we can't restore the state,
             // we can treat it as a new Browser, remove the old session cookies.
             CookieManager.getInstance().removeSessionCookie();
@@ -354,14 +351,9 @@ public class BrowserActivity extends Activity
             attachTabToContentView(mTabControl.getCurrentTab());
         }
 
-        // Delete old thumbnails to save space
-        File dir = mTabControl.getThumbnailDir();
-        if (dir.exists()) {
-            for (String child : dir.list()) {
-                File f = new File(dir, child);
-                f.delete();
-            }
-        }
+        // Thumbnails are no longer used but can remain after an upgrade,
+        // delete old thumbnails to save space.
+        new ClearThumbnails().execute(getApplicationContext());
 
         // Read JavaScript flags if it exists.
         String jsFlags = mSettings.getJsFlags();
