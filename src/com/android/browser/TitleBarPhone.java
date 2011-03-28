@@ -26,7 +26,11 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup;
+import android.widget.AbsoluteLayout;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout.LayoutParams;
 
 import java.util.List;
 
@@ -148,6 +152,9 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             }
         }
         super.onFocusChange(v, hasFocus);
+        if (mUseQuickControls && !hasFocus) {
+            mBaseUi.hideTitleBar();
+        }
     }
 
     @Override
@@ -158,6 +165,49 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             mUiController.startVoiceSearch();
         } else {
             super.onClick(v);
+        }
+    }
+
+    @Override
+    void startEditingUrl(boolean clearInput) {
+        // editing takes preference of progress
+        mContainer.setVisibility(View.VISIBLE);
+        if (!mUrlInput.hasFocus()) {
+            mUrlInput.requestFocus();
+        }
+        if (clearInput) {
+            mUrlInput.setText("");
+        } else if (mInVoiceMode) {
+            mUrlInput.showDropDown();
+        }
+    }
+
+    @Override
+    void setTitleGravity(int gravity) {
+        if (mUseQuickControls) {
+            FrameLayout.LayoutParams lp =
+                    (FrameLayout.LayoutParams) getLayoutParams();
+            lp.gravity = gravity;
+            setLayoutParams(lp);
+        } else {
+            super.setTitleGravity(gravity);
+        }
+    }
+
+    @Override
+    protected void setUseQuickControls(boolean useQuickControls) {
+        mUseQuickControls = useQuickControls;
+        setLayoutParams(makeLayoutParams());
+    }
+
+    private ViewGroup.LayoutParams makeLayoutParams() {
+        if (mUseQuickControls) {
+            return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT);
+        } else {
+            return new AbsoluteLayout.LayoutParams(
+                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT,
+                    0, 0);
         }
     }
 

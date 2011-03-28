@@ -18,12 +18,10 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.util.Log;
 import android.view.ActionMode;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -31,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 
 /**
  * Ui for regular phone screen sizes
@@ -42,6 +41,8 @@ public class PhoneUi extends BaseUi {
     private TitleBarPhone mTitleBar;
     private ActiveTabsPage mActiveTabsPage;
     private TouchProxy mTitleOverlay;
+    private boolean mUseQuickControls;
+    private PieControl mPieControl;
 
     boolean mExtendedMenuOpen;
     boolean mOptionsMenuOpen;
@@ -57,6 +58,7 @@ public class PhoneUi extends BaseUi {
         // phone
         mTitleBar.setProgress(100);
         mActivity.getActionBar().hide();
+        setUseQuickControls(BrowserSettings.getInstance().useQuickControls());
     }
 
     @Override
@@ -102,6 +104,7 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void onProgressChanged(Tab tab) {
+        if (mUseQuickControls) return;
         if (tab.inForeground()) {
             int progress = tab.getLoadProgress();
             mTitleBar.setProgress(progress);
@@ -118,42 +121,48 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
-    public void setActiveTab(Tab tab) {
+    public void setActiveTab(final Tab tab) {
         captureTab(mActiveTab);
-        super.setActiveTab(tab);
-        WebView view = tab.getWebView();
+        super.setActiveTab(tab, true);
+        setActiveTab(tab, true);
+    }
+
+    @Override
+    void setActiveTab(Tab tab, boolean needsAttaching) {
+        BrowserWebView view = (BrowserWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
         // so the tab is guaranteed to have a webview
         if (view == null) {
             Log.e(LOGTAG, "active tab with no webview detected");
             return;
         }
-        view.setEmbeddedTitleBar(getTitleBar());
+        // Request focus on the top window.
+        if (mUseQuickControls) {
+            mPieControl.forceToTop(mContentView);
+            view.setScrollListener(null);
+        } else {
+            // check if title bar is already attached by animation
+            if (mTitleBar.getParent() == null) {
+                view.setEmbeddedTitleBar(mTitleBar);
+            }
+        }
         if (tab.isInVoiceSearchMode()) {
-            showVoiceTitleBar(tab.getVoiceDisplayTitle(),
-                    tab.getVoiceSearchResults());
+            showVoiceTitleBar(tab.getVoiceDisplayTitle(), tab.getVoiceSearchResults());
         } else {
             revertVoiceTitleBar(tab);
         }
+        updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
-    }
-
-    public void captureTab(final Tab tab) {
-        if (tab == null) return;
-        if (tab.getWebView() == null) return;
-
-        Display display = mActivity.getWindowManager().getDefaultDisplay();
-        float height = mActivity.getResources()
-                .getDimension(R.dimen.tab_view_thumbnail_height);
-        Bitmap sshot = Controller.createScreenshot(tab,
-                display.getWidth(), (int) height);
-        tab.setScreenshot(sshot);
     }
 
     @Override
     protected void showTitleBar() {
         if (canShowTitleBar()) {
-            setTitleGravity(Gravity.TOP);
+            if (mUseQuickControls) {
+                mContentView.addView(mTitleBar);
+            } else {
+                setTitleGravity(Gravity.TOP);
+            }
             super.showTitleBar();
         }
     }
@@ -161,7 +170,11 @@ public class PhoneUi extends BaseUi {
     @Override
     protected void hideTitleBar() {
         if (isTitleBarShowing()) {
-            setTitleGravity(Gravity.NO_GRAVITY);
+            if (mUseQuickControls) {
+                mContentView.removeView(mTitleBar);
+            } else {
+                setTitleGravity(Gravity.NO_GRAVITY);
+            }
             super.hideTitleBar();
         }
     }
@@ -233,7 +246,9 @@ public class PhoneUi extends BaseUi {
     @Override
     public void onExtendedMenuClosed(boolean inLoad) {
         mExtendedMenuOpen = false;
-        showTitleBar();
+        if (!mUseQuickControls) {
+            showTitleBar();
+        }
     }
 
     @Override
@@ -300,4 +315,62 @@ public class PhoneUi extends BaseUi {
         }
     }
 
+    @Override
+    protected void setTitleGravity(int gravity) {
+        if (mUseQuickControls) {
+            FrameLayout.LayoutParams lp =
+                    (FrameLayout.LayoutParams) getTitleBar().getLayoutParams();
+            lp.gravity = gravity;
+            getTitleBar().setLayoutParams(lp);
+        } else {
+            super.setTitleGravity(gravity);
+        }
+    }
+
+    private void setUseQuickControls(boolean useQuickControls) {
+        mUseQuickControls = useQuickControls;
+        getTitleBar().setUseQuickControls(mUseQuickControls);
+        if (useQuickControls) {
+//            checkTabCount();
+            mPieControl = new PieControl(mActivity, mUiController, this);
+            mPieControl.attachToContainer(mContentView);
+            Tab tab = getActiveTab();
+            if ((tab != null) && (tab.getWebView() != null)) {
+                tab.getWebView().setEmbeddedTitleBar(null);
+            }
+        } else {
+            mActivity.getActionBar().show();
+            if (mPieControl != null) {
+                mPieControl.removeFromContainer(mContentView);
+            }
+            WebView web = mTabControl.getCurrentWebView();
+            if (web != null) {
+                web.setEmbeddedTitleBar(mTitleBar);
+            }
+            setTitleGravity(Gravity.NO_GRAVITY);
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mUseQuickControls) {
+            menu.setGroupVisible(R.id.NAV_MENU, false);
+            mPieControl.onMenuOpened(menu);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    protected void captureTab(final Tab tab) {
+        if (mUseQuickControls) {
+            super.captureTab(tab);
+        } else {
+            captureTab(tab,
+                    mActivity.getWindowManager().getDefaultDisplay().getWidth(),
+                    (int) mActivity.getResources()
+                            .getDimension(R.dimen.tab_view_thumbnail_height));
+        }
+    }
 }

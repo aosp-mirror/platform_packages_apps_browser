@@ -50,7 +50,7 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
 
     private Activity mActivity;
     private UiController mUiController;
-    private XLargeUi mUi;
+    private BaseUi mUi;
     private PieMenu mPie;
     private PieItem mBack;
     private PieItem mForward;
@@ -66,7 +66,7 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
     private TextView mTabsCount;
     private int mItemSize;
 
-    public PieControl(Activity activity, UiController controller, XLargeUi ui) {
+    public PieControl(Activity activity, UiController controller, BaseUi ui) {
         mActivity = activity;
         mUiController = controller;
         mUi = ui;

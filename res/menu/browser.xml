@@ -15,55 +15,73 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/MAIN_MENU">
-        <item android:id="@+id/new_tab_menu_id"
-            android:title="@string/new_tab"
-            android:icon="@drawable/ic_menu_new_window"
-            android:alphabeticShortcut="n" />
-        <item android:id="@+id/bookmarks_menu_id"
-            android:title="@string/bookmarks"
-            android:alphabeticShortcut="b"
-            android:icon="@drawable/ic_bookmarks_holo_dark" />
-        <item android:id="@+id/active_tabs_menu_id"
-            android:title="@string/active_tabs"
-            android:icon="@drawable/ic_windows_holo_dark"
-            android:alphabeticShortcut="t" />
-        <item android:id="@+id/stop_reload_menu_id"
-            android:alphabeticShortcut="r" />
-        <item android:id="@+id/forward_menu_id"
-            android:title="@string/forward"
-            android:icon="@*android:drawable/ic_menu_forward" />
-        <item android:id="@+id/add_bookmark_menu_id"
+    <group
+        android:id="@+id/MAIN_MENU">
+        <group
+            android:id="@+id/NAV_MENU">
+            <item
+                android:id="@+id/new_tab_menu_id"
+                android:title="@string/new_tab"
+                android:icon="@drawable/ic_menu_new_window"
+                android:alphabeticShortcut="n" />
+            <item
+                android:id="@+id/bookmarks_menu_id"
+                android:title="@string/bookmarks"
+                android:alphabeticShortcut="b"
+                android:icon="@drawable/ic_bookmarks_holo_dark" />
+            <item
+                android:id="@+id/active_tabs_menu_id"
+                android:title="@string/active_tabs"
+                android:icon="@drawable/ic_windows_holo_dark"
+                android:alphabeticShortcut="t" />
+            <item
+                android:id="@+id/stop_reload_menu_id"
+                android:alphabeticShortcut="r" />
+            <item
+                android:id="@+id/forward_menu_id"
+                android:title="@string/forward"
+                android:icon="@*android:drawable/ic_menu_forward" />
+        </group>
+        <item
+            android:id="@+id/add_bookmark_menu_id"
             android:title="@string/save_to_bookmarks"
             android:icon="@drawable/ic_bookmark_on_holo_dark"
             android:alphabeticShortcut="d" />
-        <item android:id="@+id/find_menu_id"
+        <item
+            android:id="@+id/find_menu_id"
             android:title="@*android:string/find_on_page"
             android:icon="@*android:drawable/ic_menu_find"
             android:alphabeticShortcut="f" />
-        <item android:id="@+id/share_page_menu_id"
+        <item
+            android:id="@+id/share_page_menu_id"
             android:title="@string/share_page"
             android:icon="@drawable/ic_share_holo_dark"
             android:alphabeticShortcut="s" />
-        <item android:id="@+id/save_webarchive_menu_id"
+        <item
+            android:id="@+id/save_webarchive_menu_id"
             android:title="@string/menu_save_webarchive" />
-        <item android:id="@+id/page_info_menu_id"
+        <item
+            android:id="@+id/page_info_menu_id"
             android:title="@string/page_info"
             android:icon="@drawable/ic_pageinfo_holo_dark"
             android:alphabeticShortcut="g" />
-        <item android:id="@+id/view_downloads_menu_id"
+        <item
+            android:id="@+id/view_downloads_menu_id"
             android:title="@string/menu_view_download"
             android:icon="@drawable/ic_downloads_holo_dark"
             android:alphabeticShortcut="j" />
-        <item android:id="@+id/preferences_menu_id"
+        <item
+            android:id="@+id/preferences_menu_id"
             android:title="@string/menu_preferences"
             android:icon="@drawable/ic_settings_holo_dark"
             android:alphabeticShortcut="p" />
         <!-- followings are debug only -->
-        <item android:id="@+id/dump_nav_menu_id"
+        <item
+            android:id="@+id/dump_nav_menu_id"
             android:title="@string/dump_nav"
             android:visible="false" />
-        <item android:id="@+id/dump_counters_menu_id"
+        <item
+            android:id="@+id/dump_counters_menu_id"
             android:title="@string/dump_counters"
             android:visible="false" />
     </group>

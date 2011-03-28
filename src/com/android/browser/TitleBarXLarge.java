@@ -65,7 +65,6 @@ public class TitleBarXLarge extends TitleBarBase
     private Drawable mUnfocusDrawable;
 
     private boolean mInLoad;
-    private boolean mUseQuickControls;
 
     public TitleBarXLarge(Activity activity, UiController controller,
             XLargeUi ui) {
@@ -159,7 +158,8 @@ public class TitleBarXLarge extends TitleBarBase
         return height;
     }
 
-    void setUseQuickControls(boolean useQuickControls) {
+    @Override
+    protected void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
         setLayoutParams(makeLayoutParams());
     }
