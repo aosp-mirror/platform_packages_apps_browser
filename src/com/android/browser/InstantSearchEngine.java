@@ -174,7 +174,12 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
      * visible tab.
      */
     private void switchSearchboxIfNeeded() {
-        final SearchBox searchBox = getCurrentWebview().getSearchBox();
+        final WebView current = getCurrentWebview();
+        if (current == null) {
+            return;
+        }
+
+        final SearchBox searchBox = current.getSearchBox();
         if (searchBox != mSearchBox) {
             if (mSearchBox != null) {
                 mSearchBox.removeSearchBoxListener(mListener);
@@ -188,7 +193,12 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
     }
 
     private boolean isInstantPage() {
-        String currentUrl = getCurrentWebview().getUrl();
+        final WebView current = getCurrentWebview();
+        if (current == null) {
+            return false;
+        }
+
+        final String currentUrl = current.getUrl();
 
         if (currentUrl != null) {
             Uri uri = Uri.parse(currentUrl);
@@ -210,7 +220,10 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
         mController.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                getCurrentWebview().loadUrl(getInstantBaseUrl());
+                final WebView current = getCurrentWebview();
+                if (current != null) {
+                    current.loadUrl(getInstantBaseUrl());
+                }
             }
         });
     }
@@ -292,7 +305,12 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
     }
 
     private int rescaleHeight(int height) {
-        final float scale = getCurrentWebview().getScale();
+        final WebView current = getCurrentWebview();
+        if (current == null) {
+            return 0;
+        }
+
+        final float scale = current.getScale();
         if (scale != 0) {
             return (int) (height / scale);
         }
@@ -306,8 +324,10 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
 
         if (rescaledHeight != mHeight) {
             mHeight = rescaledHeight;
-            mSearchBox.setDimensions(0, 0, 0, rescaledHeight);
-            mSearchBox.onresize();
+            if (mSearchBox != null) {
+                mSearchBox.setDimensions(0, 0, 0, rescaledHeight);
+                mSearchBox.onresize();
+            }
         }
     }
 
