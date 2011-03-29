@@ -173,7 +173,7 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Автоматический вход в Google"</string>
     <string name="pref_autologin_no_account" msgid="4409223615542478868">"Аккаунты не найдены"</string>
     <string name="pref_autologin_summary" msgid="8168866316823968574">"Автоматически входить на сайты Google с помощью аккаунта <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="pref_autologin_progress" msgid="8643826219376543293">"Вход на сайты Google с использованием <xliff:g id="ID_1">%s</xliff:g>"\n"настроек функции \"Конфиденциальность и безопасность\" для автоматического входа в Google"</string>
+    <string name="pref_autologin_progress" msgid="8643826219376543293">"Выполняется вход в <xliff:g id="ID_1">%s</xliff:g>"\n"Автоматический вход настраивается в меню \"Конфиденциальность и безопасность\""</string>
     <string name="pref_autologin_disable" msgid="3342145058494577628">"Запретить автоматический вход"</string>
     <string name="autofill_profile_editor_heading" msgid="5009490178189728877">"Автозаполнение будет использовать ваш профиль, чтобы вы могли заполнять веб-формы одним щелчком."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Полное имя:"</string>
@@ -247,7 +247,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Масштаб по умолчанию"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Обзор страниц"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Открывать страницы в мелком маштабе для ознакомления"</string>
-    <string name="pref_extras_title" msgid="7075456173747370647">"Расширенный"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Дополнительные функции"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайта"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Дополнительные настройки для отдельных сайтов"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Сброс настроек"</string>
@@ -271,8 +271,8 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"Лаборатория Google"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Панель инструментов"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Чтобы открыть панель инструментов, проведите пальцем в правом или левом углу экрана"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Главная страница \"Часто посещаемых\""</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Настройка отображения часто посещаемых страниц на главной странице."</string>
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"\"Часто посещаемые\" на стартовой странице"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Отображение часто посещаемых веб-сайтов на стартовой странице."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема с подключением"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема с файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Подтвердить"</string>
@@ -349,7 +349,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Этот сайт сейчас имеет доступ к вашему местоположению"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Этот сайт в настоящее время не имеет доступа к вашему местоположению"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Удалить данные доступа к местоположению"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Данные доступа к местоположению для этого сайта будут удалены"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Удалить данные о доступе"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Отмена"</string>

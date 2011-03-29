@@ -155,12 +155,12 @@
     <string name="pref_use_blank" msgid="8503238592551111169">"Pusta strona"</string>
     <string name="pref_use_default" msgid="192587563274735878">"Domyślna strona"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autodopasowanie stron"</string>
-    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatuj strony internetowe w celu dopasowania do ekranu"</string>
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatuj strony internetowe, by dopasować je do ekranu"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Ogólne"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronizacja"</string>
     <string name="pref_general_autofill_title" msgid="64638897890112873">"Autouzupełnianie"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synchronizuj z przeglądarką Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Udostępniaj zakładki i inne dane między przeglądarką w systemie Android i przeglądarką Google Chrome"</string>
+    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Udostępniaj zakładki oraz dane między przeglądarką Androida i Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Konto Google"</string>
     <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Synchronizuj zakładki"</string>
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Synchronizuj zakładki między przeglądarką w systemie Android i przeglądarką Google Chrome"</string>
@@ -270,7 +270,7 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Kodowanie tekstu"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorium"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Szybkie sterowanie"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Przesuń kciukiem od lewej lub prawej krawędzi, aby przejść do szybkiego sterowania"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Przejedź palcem od bocznej krawędzi ekranu, aby wyświetlić opcje sterowania"</string>
     <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Strona główna Popularne"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Ustawia wyświetlanie popularnych stron na stronie głównej."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problem z łącznością danych"</string>

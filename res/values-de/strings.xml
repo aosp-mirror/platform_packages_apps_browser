@@ -109,7 +109,7 @@
     <string name="history" msgid="2451240511251410032">"Verlauf"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Downloads"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Seiten-URL kopieren"</string>
-    <string name="share_page" msgid="593756995297268343">"Seitenlink weiterleiten"</string>
+    <string name="share_page" msgid="593756995297268343">"Seitenlink weitergeben"</string>
     <string name="menu_save_webarchive" msgid="3934652434001459581">"Als Webarchiv speichern"</string>
     <string name="webarchive_saved" msgid="7045250341467345007">"Webarchiv gespeichert."</string>
     <string name="webarchive_failed" msgid="2880998204746620260">"Das Webarchiv wurde nicht gespeichert."</string>
@@ -119,7 +119,7 @@
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"In neuem Fenster öffnen"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"In neuem Hintergrundfenster öffnen"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Link speichern"</string>
-    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Link weiterleiten"</string>
+    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Link weitergeben"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopieren"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"Link-URL kopieren"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Bild speichern"</string>
@@ -129,7 +129,7 @@
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Kontakt hinzufügen"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"E-Mail senden"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Karte"</string>
-    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Weiterleiten über"</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Weitergeben über"</string>
     <string name="clear" msgid="7070043081700011461">"Löschen"</string>
     <string name="replace" msgid="4843033491070384047">"Ersetzen"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Lesezeichen"</string>
@@ -271,7 +271,7 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Schnellsteuerung"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Daumen zum Zugriff auf Schnellsteuerung von linker oder rechte Ecke ziehen"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Startseite - am häufigsten besucht"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"\"Am häufigsten besucht\" auf Startseite"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Legt fest, dass auf der Starts. die am häufigsten besuchten Seiten angez. werden"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Datenverbindungsproblem"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem mit Datei"</string>

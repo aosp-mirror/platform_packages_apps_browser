@@ -76,7 +76,7 @@
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"เพิ่มลงในบุ๊กมาร์ก"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"บุ๊กมาร์กหน้าเว็บนี้"</string>
-    <string name="remove" msgid="7820112494467011374">"ลบออก"</string>
+    <string name="remove" msgid="7820112494467011374">"นำออก"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"แก้ไขบุ๊กมาร์ก"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"เพิ่มทางลัดไปหน้าแรก"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"เปิด"</string>
