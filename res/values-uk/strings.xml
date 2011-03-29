@@ -171,11 +171,11 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Дані автозаповнення"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Введіть і збережіть дані для полів автоматичного заповнення веб-форм"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Автоматичний вхід у Google"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"Вхід у Google Sites за допомогою <xliff:g id="ID_1">%s</xliff:g>"\n"Ваші налаштування конфіденційності та безпеки контролюють автоматичний вхід у Google"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Вхід у Google Sites за допомогою <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Доступний автоматичний вхід."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Увійти"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Помилка входу."</string>
-    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Введіть дані, які автоматично заповнюватимуть веб-поля, коли ви торкнетеся їх."</string>
+    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Введіть дані, які автоматично підставлятимуться у веб-поля, коли ви торкатиметеся їх."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Повне ім\'я:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Електронна адреса:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Назва компанії:"</string>
@@ -274,7 +274,7 @@
     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Найчастіше відвідувана домашня сторінка"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"На вашій домашній сторінці відображаються найчастіше відвідувані веб-сторінки."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Миттєвий пошук Google"</string>
-    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Викор. Миттєвий пошук у пошуку Google для відображ. рез. під час введення запиту (це призвод. до більшого викор. даних)."</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Використовуйте Миттєвий пошук у пошуку Google для відображ. результ. під час введення (може збільшитись викорис. даних)."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема з доступом до даних"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема з файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Підтверд."</string>
@@ -367,7 +367,7 @@
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Виберіть обліковий запис"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Синхроніз. з обл. записом Google"</string>
-    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Закладки на цьому пристрої ще не пов’язано з обліковим записом Google. Збережіть ці закладки, додавши їх до облікового запису. Видаліть їх, якщо не хочете синхронізувати закладки."</string>
+    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Закладки на цьому пристрої ще не пов’язано з обліковим записом Google. Збережіть ці закладки, додавши їх до облікового запису. Якщо не хочете синхронізувати закладки, видаліть їх."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Додати поточні закладки на цьому пристрої та розпочати синхронізацію з обліковим записом Google"</string>
     <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Видалити поточні закладки на цьому пристрої та розпочати синхронізацію з обліковим записом Google"</string>
     <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Видалити поточні закладки на цьому пристрої та розпочати синхронізацію закладок із <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>

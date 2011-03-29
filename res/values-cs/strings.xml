@@ -171,7 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Automatické vyplnění údajů"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Zadat a uložit údaje pro automatické vyplnění polí webových formulářů"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatické přihlášení do Googlu"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"Přihlašování na stránky Google pomocí uživatelského jména <xliff:g id="ID_1">%s</xliff:g>"\n"Automatické přihlášení Google se řídí vaším nastavením ochrany osobních údajů a zabezpečení"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Přihlašování do webů Google pomocí uživatelského jména <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Automatické přihlašování je k dispozici."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Přihlášení"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Přihlášení selhalo."</string>
@@ -274,7 +274,7 @@
     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Nejnavštěvovanější domovská stránka"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Na vaší domovské stránce se zobrazují nejnavštěvovanější webové stránky."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Dynamické vyhledávání Google"</string>
-    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Dynamické vyhledávání ve Vyhledávání Google zobrazuje výsledky již při zadávání dotazu. (Může se zvýšit množství dat.)"</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Dynamické vyhledávání ve Vyhledávání Google zobrazuje výsledky již při zadávání dotazu. (Může se zvýšit množství přenesených dat.)"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problémy s datovým připojením"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problém se souborem"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Potvrdit"</string>
@@ -367,7 +367,7 @@
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Vyberte účet"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Synchronizovat s účtem Google"</string>
-    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Záložky v tomto zařízení zatím nejsou přidruženy k žádnému účtu Google. Pokud je chcete uložit, přidejte je do účtu. Pokud je s účtem synchronizovat nechcete, smažte je."</string>
+    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Záložky v tomto zařízení zatím nejsou přidruženy k žádnému účtu Google. Pokud je chcete uložit, přidejte je do nějakého účtu. Pokud je s účtem synchronizovat nechcete, smažte je."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Přidat záložky aktuálně uložené v tomto zařízení a zahájit synchronizaci s účtem Google"</string>
     <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Smazat záložky aktuálně uložené v tomto zařízení a zahájit synchronizaci s účtem Google"</string>
     <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Smazat záložky aktuálně uložené v tomto zařízení a zahájit synchronizaci záložek s účtem <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>

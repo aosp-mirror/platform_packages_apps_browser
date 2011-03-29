@@ -171,7 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Preencher dados automaticamente"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Introduzir e guardar dados de campos de formulários Web de preenchimento automático"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Início sessão automático Google"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"Iniciar sessão em sites Google utilizando <xliff:g id="ID_1">%s</xliff:g>"\n"o início de sessão automático do Google do controlo de definições de Privacidade e Segurança"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Iniciar sessão em Web sites do Google utilizando <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Início sessão automático disponível."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"In. sessão"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Falha ao iniciar sessão."</string>

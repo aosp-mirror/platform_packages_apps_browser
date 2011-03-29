@@ -171,7 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Dados de preenchim. autom."</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Inserir e salvar dados para preencher automaticamente os campos dos formulários da web"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Login automático do Google"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"Fazendo login nos sites do Google com <xliff:g id="ID_1">%s</xliff:g>"\n"Suas configurações de Privacidade e segurança controlam o login automático no Google"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Faça login nos sites do Google usando <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"O login automático está disponível."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Fazer login"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Falha de login."</string>
@@ -368,10 +368,10 @@
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Escolher conta"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronizar com Conta do Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Os favoritos localizados neste dispositivo ainda não estão associados a uma Conta do Google. Salve esses favoritos adicionando-os a uma conta. Exclua-os se não desejar sincronizá-los."</string>
-    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Adicione os favoritos localizados atualmente neste dispositivo e comece a sincronizá-los com a Conta do Google."</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Adicione os favoritos localizados atualmente neste dispositivo e comece a sincronizá-los com a Conta do Google"</string>
     <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Exclua os favoritos localizados atualmente neste dispositivo e comece a sincronizar com a Conta do Google"</string>
     <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Exclua os favoritos localizados atualmente neste dispositivo e comece a sincronizá-los com <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Adicione os favoritos localizados atualmente neste dispositivo e comece a sincronizá-los com <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Adicione os favoritos localizados atualmente neste dispositivo e comece a sincronizá-los com <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Excluir favoritos"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Avançar"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Anterior"</string>

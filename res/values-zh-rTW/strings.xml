@@ -171,8 +171,8 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"自動填入資料"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"輸入並儲存資料，以供自動填入表單欄位時使用"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"自動登入 Google"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"使用 <xliff:g id="ID_1">%s</xliff:g> 登入 Google 網站"\n"可讓您運用「隱私權與安全性」設定來控制 Google 自動登入程序"</string>
-    <string name="autologin_bar_text" msgid="8013977161879448141">"可讓您自動登入。"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"正使用 <xliff:g id="ID_1">%s</xliff:g> 登入 Google 網站"</string>
+    <string name="autologin_bar_text" msgid="8013977161879448141">"可自動登入。"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"登入"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"登入失敗。"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"輸入您輕觸網頁欄位時要自動填入的資料。"</string>
@@ -269,12 +269,12 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"文字編碼"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"研究室"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"快速控制項"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"於左右邊緣滑動拇指即可使用快速控制項，以及隱藏應用程式列和網址列"</string>
+    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"快速控制介面"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"於左右邊緣滑動拇指即可使用快速控制介面，以及隱藏應用程式列和網址列"</string>
     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"最常瀏覽首頁"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"首頁會顯示您最常瀏覽的網頁。"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 互動智慧搜尋"</string>
-    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"使用「Google 搜尋」時啟用「Google 互動智慧搜尋」功能，即可在您輸入查詢時即時顯示搜尋結果 (這會增加資料傳輸量)。"</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"使用「Google 搜尋」時啟用「Google 互動智慧搜尋」功能，您輸入查詢時可以即時獲得顯示搜尋結果 (這會增加資料傳輸量)。"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"資料連線問題"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"檔案有問題"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"確認"</string>
@@ -368,10 +368,10 @@
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"選擇帳戶"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"與 Google 帳戶保持同步"</string>
     <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"這個裝置上的書籤尚未與 Google 帳戶建立關聯。您可將這些書籤新增至帳戶中加以儲存；如果您不想同步處理這些書籤，只需將其刪除即可。"</string>
-    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"新增這個裝置上現有的書籤，並開始與 Google 帳戶保持同步"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"刪除這個裝置上現有的書籤，並開始與 Google 帳戶保持同步"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"刪除這個裝置上現有的書籤，並開始與 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的書籤保持同步。"</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"新增這個裝置上現有的書籤，並開始與 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的書籤保持同步。"</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"新增這個裝置上現有的書籤，並開始與 Google 帳戶同步化"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"刪除這個裝置上現有的書籤，並開始與 Google 帳戶同步化"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"刪除這個裝置上現有的書籤，並開始與 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的書籤同步化。"</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"新增這個裝置上現有的書籤，並開始與 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的書籤同步化。"</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"刪除書籤"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"繼續"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"返回"</string>

@@ -171,7 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"自动填充数据"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"输入并保存网络表单自动填充字段的数据"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"自动登录 Google"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"使用 <xliff:g id="ID_1">%s</xliff:g> 登录 Google 网站"\n"Google 自动登录功能是由“隐私和安全”设置控制的"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"正使用 <xliff:g id="ID_1">%s</xliff:g> 登录 Google 网站"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"自动登录已可使用。"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"登录"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"登录失败。"</string>
@@ -194,7 +194,7 @@
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"个人资料已删除"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"删除个人资料"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"浏览器可自动填充网络表单（例如该表单）。您希望设置个人资料吗？"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"您可以随时通过“浏览器设置”对自动填充功能进行配置。"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"您可以随时通过“浏览器设置”配置自动填充功能。"</string>
     <string name="disable_autofill" msgid="8305901059849400354">"停用自动填充"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"隐私和安全"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除缓存"</string>
@@ -368,10 +368,10 @@
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"选择帐户"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"与 Google 帐户同步"</string>
     <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"该设备上的书签尚未与 Google 帐户关联。可以通过将这些书签添加到帐户以进行保存。如果不希望同步书签，请将书签删除。"</string>
-    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"添加当前设备上的书签，并开始与 Google 帐户同步"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"删除当前设备上的书签，并开始与 Google 帐户同步"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"删除当前设备上的书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的书签同步。"</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"添加当前设备上的书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的书签同步。"</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"添加此设备上的当前书签，并开始与 Google 帐户同步"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"删除此设备上的当前书签，并开始与 Google 帐户同步"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"删除此设备上的当前书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 同步书签。"</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"添加此设备上的当前书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 同步书签。"</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"删除书签"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"下一页"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"上一页"</string>

@@ -171,7 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Otomatik doldurma verileri"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Web formu alanlarının otomatik olarak doldurulması için verileri girin ve kaydedin"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Otomatik Google oturumu açma"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"<xliff:g id="ID_1">%s</xliff:g> hesabı ile Google Sites hizmetinde oturum açılıyor"\n"Google\'da otomatik oturum açmanız gizlilik ve güvenlik ayarlarınız tarafından denetlenir."</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"<xliff:g id="ID_1">%s</xliff:g> kullanılarak Google sitelerinde oturum açılıyor"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Otomatik oturum açma kullanılabilir."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Giriş yap"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Giriş yapılamadı."</string>
@@ -373,7 +373,7 @@
     <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Bu cihazdaki mevcut yer işaretlerini silin ve <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> ile yer işaretlerini senkronize etmeye başlayın."</string>
     <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Bu cihazdaki mevcut yer işaretlerini ekleyin ve <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> ile yer işaretlerini senkronize etmeye başlayın."</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Yer işaretlerini sil"</string>
-    <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"İleri"</string>
+    <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Sonraki"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Önceki"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"İptal"</string>
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Bitti"</string>
