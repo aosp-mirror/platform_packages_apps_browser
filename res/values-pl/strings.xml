@@ -140,7 +140,7 @@
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Wybierz wyszukiwarkę"</string>
     <string name="pref_use_current" msgid="1493179933653044553">"Użyj bieżącej strony"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autodopasowanie stron"</string>
-    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatuj strony internetowe w celu dopasowania do ekranu"</string>
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatuj strony internetowe, by dopasować je do ekranu"</string>
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Zawsze w poziomie"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Wyświetlaj strony tylko w szerszej, poziomej orientacji ekranu"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Ustawienia prywatności"</string>
