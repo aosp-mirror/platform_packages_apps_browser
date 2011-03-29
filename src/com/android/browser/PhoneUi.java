@@ -104,16 +104,22 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void onProgressChanged(Tab tab) {
-        if (mUseQuickControls) return;
         if (tab.inForeground()) {
             int progress = tab.getLoadProgress();
             mTitleBar.setProgress(progress);
             if (progress == 100) {
                 if (!mOptionsMenuOpen || !mExtendedMenuOpen) {
                     hideTitleBar();
+                    if (mUseQuickControls) {
+                        mTitleBar.setShowProgressOnly(false);
+                    }
                 }
             } else {
                 if (!mOptionsMenuOpen || mExtendedMenuOpen) {
+                    if (mUseQuickControls && !mTitleBar.isEditingUrl()) {
+                        mTitleBar.setShowProgressOnly(true);
+                        setTitleGravity(Gravity.TOP);
+                    }
                     showTitleBar();
                 }
             }
@@ -272,13 +278,13 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
-        // TODO: Remove once b/4136071 is fixed
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                mActivity.getActionBar().hide();
+        if (inLoad) {
+            if (mUseQuickControls) {
+                mTitleBar.setShowProgressOnly(true);
             }
-        });
+            showTitleBar();
+        }
+        mActivity.getActionBar().hide();
     }
 
     @Override
@@ -331,7 +337,6 @@ public class PhoneUi extends BaseUi {
         mUseQuickControls = useQuickControls;
         getTitleBar().setUseQuickControls(mUseQuickControls);
         if (useQuickControls) {
-//            checkTabCount();
             mPieControl = new PieControl(mActivity, mUiController, this);
             mPieControl.attachToContainer(mContentView);
             Tab tab = getActiveTab();
@@ -373,4 +378,11 @@ public class PhoneUi extends BaseUi {
                             .getDimension(R.dimen.tab_view_thumbnail_height));
         }
     }
+
+    @Override
+    void showTitleBarAndEdit() {
+        mTitleBar.setShowProgressOnly(false);
+        super.showTitleBarAndEdit();
+    }
+
 }

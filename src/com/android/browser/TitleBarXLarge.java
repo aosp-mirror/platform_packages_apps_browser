@@ -211,6 +211,7 @@ public class TitleBarXLarge extends TitleBarBase
      * called from the Ui when the user wants to edit
      * @param clearInput clear the input field
      */
+    @Override
     void startEditingUrl(boolean clearInput) {
         // editing takes preference of progress
         mContainer.setVisibility(View.VISIBLE);

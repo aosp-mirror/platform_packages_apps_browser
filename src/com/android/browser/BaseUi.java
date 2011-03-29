@@ -481,8 +481,9 @@ public abstract class BaseUi implements UI, WebViewFactory {
         FrameLayout wrapper =
             (FrameLayout) mContentView.findViewById(R.id.webview_wrapper);
         wrapper.setVisibility(View.GONE);
-        hideTitleBar();
+        getTitleBar().stopEditingUrl();
         dismissIME();
+        hideTitleBar();
         if (mActiveTab != null) {
             WebView web = mActiveTab.getWebView();
             mActiveTab.putInBackground();

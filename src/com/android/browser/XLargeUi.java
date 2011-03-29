@@ -291,10 +291,10 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         mTitleBar.startEditingUrl(clearInput);
     }
 
+    @Override
     void showTitleBarAndEdit() {
         mTitleBar.setShowProgressOnly(false);
-        showTitleBar();
-        mTitleBar.startEditingUrl(false);
+        super.showTitleBarAndEdit();
     }
 
     void stopEditingUrl() {

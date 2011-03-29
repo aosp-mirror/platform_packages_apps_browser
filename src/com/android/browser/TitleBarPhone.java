@@ -42,7 +42,8 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         OnClickListener, TextChangeWatcher {
 
     private Activity mActivity;
-    private StopProgressView mStopButton;
+    private ImageView mStopButton;
+    private PageProgressView mProgress;
     private ImageView mVoiceButton;
     private boolean mInLoad;
     private View mContainer;
@@ -60,8 +61,9 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         mContainer = findViewById(R.id.taburlbar);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mFavicon = (ImageView) findViewById(R.id.favicon);
-        mStopButton = (StopProgressView) findViewById(R.id.stop);
+        mStopButton = (ImageView) findViewById(R.id.stop);
         mStopButton.setOnClickListener(this);
+        mProgress = (PageProgressView) findViewById(R.id.progress);
         mVoiceButton = (ImageView) findViewById(R.id.voice);
         mVoiceButton.setOnClickListener(this);
         setFocusState(false);
@@ -119,14 +121,24 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
      */
     @Override
     void setProgress(int newProgress) {
+        boolean blockvisuals = mUseQuickControls && isEditingUrl();
         if (newProgress >= PROGRESS_MAX) {
             mInLoad = false;
+            if (!blockvisuals) {
+                mProgress.setProgress(PageProgressView.MAX_PROGRESS);
+                mProgress.setVisibility(View.GONE);
+            }
             setFocusState(mUrlInput.hasFocus());
         } else {
             if (!mInLoad) {
                 mInLoad = true;
+                if (!blockvisuals) {
+                    mProgress.setVisibility(View.VISIBLE);
+                }
                 setFocusState(mUrlInput.hasFocus());
             }
+            mProgress.setProgress(newProgress * PageProgressView.MAX_PROGRESS
+                    / PROGRESS_MAX);
         }
     }
 
@@ -198,6 +210,14 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     protected void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
         setLayoutParams(makeLayoutParams());
+    }
+
+    void setShowProgressOnly(boolean progress) {
+        if (progress && !inAutoLogin()) {
+            mContainer.setVisibility(View.GONE);
+        } else {
+            mContainer.setVisibility(View.VISIBLE);
+        }
     }
 
     private ViewGroup.LayoutParams makeLayoutParams() {
