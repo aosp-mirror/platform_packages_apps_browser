@@ -155,12 +155,12 @@
     <string name="pref_use_blank" msgid="8503238592551111169">"Pusta strona"</string>
     <string name="pref_use_default" msgid="192587563274735878">"Domyślna strona"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autodopasowanie stron"</string>
-    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatuj strony internetowe w celu dopasowania do ekranu"</string>
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatuj strony internetowe, by dopasować je do ekranu"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Ogólne"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronizacja"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Autouzupełnianie"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synchronizuj z przeglądarką Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Udostępniaj zakładki i inne dane między przeglądarką w systemie Android i przeglądarką Google Chrome"</string>
+    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Udostępniaj zakładki oraz dane między przeglądarką Androida i Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Konto Google"</string>
     <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Synchronizuj zakładki"</string>
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Synchronizuj zakładki między przeglądarką w systemie Android i przeglądarką Google Chrome"</string>
@@ -169,13 +169,13 @@
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Autouzupełnianie formularzy"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Wypełniaj formularze internetowe za pomocą jednego kliknięcia"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Dane autouzupełniania"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Wprowadzaj i zapisuj dane na potrzeby autouzupełniania pól formularzy internetowych"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Wpisz i zachowaj dane, które chcesz automatycznie uzupełniać w formularzach internetowych"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatyczne logowanie do Google"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"Logowanie do witryn Google przy użyciu identyfikatora <xliff:g id="ID_1">%s</xliff:g>"\n"Ustawienia automatycznego logowania do Google znajdują się w sekcji Prywatność i bezpieczeństwo."</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Logowanie w witrynach Google za pomocą identyfikatora <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Automatyczne logowanie jest dostępne."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Zaloguj"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Niepowodzenie logowania."</string>
-    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Wprowadź dane, które chcesz automatycznie umieszczać w dotykanych polach formularzy internetowych."</string>
+    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Wprowadź dane, które chcesz automatycznie umieszczać w formularzach internetowych."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Imię i nazwisko:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Nazwa firmy:"</string>
@@ -367,7 +367,7 @@
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Wybierz konto"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Synchronizuj z kontem Google"</string>
-    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Zakładki na tym urządzeniu nie są jeszcze powiązane z kontem Google. Możesz je zapisać, dodając do konta. Jeśli nie chcesz ich synchronizować, usuń je."</string>
+    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Zakładki na tym urządzeniu nie są powiązane z kontem Google. Możesz je zapisać, dodając do konta, a jeśli nie chcesz ich synchronizować, po prostu je usuń."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Dodaj bieżące zakładki z tego urządzenia i rozpocznij synchronizację zakładek z kontem Google"</string>
     <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Usuń bieżące zakładki z tego urządzenia i rozpocznij synchronizację zakładek z kontem Google"</string>
     <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Usuń bieżące zakładki z tego urządzenia i rozpocznij synchronizację zakładek z kontem <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>

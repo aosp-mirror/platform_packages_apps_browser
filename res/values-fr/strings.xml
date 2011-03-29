@@ -154,7 +154,7 @@
     <string name="pref_use_current" msgid="1778622474040406672">"Page en cours"</string>
     <string name="pref_use_blank" msgid="8503238592551111169">"Page vierge"</string>
     <string name="pref_use_default" msgid="192587563274735878">"Page par défaut"</string>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Redimensionner"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Ajustement auto des pages"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Configurer les pages Web pour qu\'elles s\'ajustent à l\'écran"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Général"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronisation"</string>
@@ -171,7 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Données de la saisie automatique"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Saisir et enregistrer des données à des fins de saisie automatique dans les champs de formulaires Web"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Connexion automatique à Google"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"Connexion aux sites Google avec <xliff:g id="ID_1">%s</xliff:g>"\n"La connexion automatique à Google dépend de vos paramètres de confidentialité et de sécurité."</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Connexion à Google Sites avec le compte <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"La connexion automatique est disponible."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Connexion"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Échec de la connexion"</string>
@@ -349,7 +349,7 @@
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Mémoriser les préférences"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Ce site peut afficher votre position. Modifiez cette option dans Paramètres -&gt; Paramètres du site Web."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Ce site ne peut afficher votre position. Modifiez cette option dans Paramètres -&gt; Paramètres du site Web."</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Accès données localis."</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Supprimer l\'accès"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Ce site a actuellement accès à vos données de localisation."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Ce site n\'a actuellement pas accès à vos données de localisation."</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Supprimer l\'accès"</string>

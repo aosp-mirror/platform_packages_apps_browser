@@ -158,7 +158,7 @@
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Tilpass nettsteder til skjermen"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Generelt"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synkronisering"</string>
-    <string name="pref_general_autofill_title" msgid="547881256865816858">"Autofyll"</string>
+    <string name="pref_general_autofill_title" msgid="547881256865816858">"Automatisk utfylling"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synkroniser med Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Lagre bokmerker og andre data mellom Android-nettleseren og Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"Google-konto"</string>
@@ -171,7 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Fyll inn data automatisk"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Skriv inn og lagre data for automatisk utfylling av nettskjemafelter"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatisk Google-pålogging"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"Pålogging for Google-nettsteder med <xliff:g id="ID_1">%s</xliff:g>"\n"Innstillingene for personvern og sikkerhet styrer automatisk Google-pålogging"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Pålogging til Google-nettsteder ved hjelp av <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Automatisk pålogging er tilgjengelig."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Logg på"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Pålogging mislyktes."</string>
@@ -195,7 +195,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Slett profil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Nettleseren kan automatisk fylle ut slike nettskjemaer. Vil du konfigurere profilen din?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Autofyll kan alltid konfigureres via nettleserinnstillingene."</string>
-    <string name="disable_autofill" msgid="8305901059849400354">"Deaktiver autofyll"</string>
+    <string name="disable_autofill" msgid="8305901059849400354">"Deaktiver automatisk utfylling"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Personvern og sikkerhet"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Fjern hurtiglager"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Fjern lokalt bufret innhold og databaser"</string>

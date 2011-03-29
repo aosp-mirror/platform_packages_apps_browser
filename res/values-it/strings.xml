@@ -171,7 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Dati per compilazione automatica"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Inserisci e salva dati per la compilazione automatica dei campi dei moduli web"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Accesso Google automatico"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"Accesso ai siti di Google con <xliff:g id="ID_1">%s</xliff:g>"\n"L\'accesso automatico a Google è controllato dalle tue impostazioni di privacy e sicurezza"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Accesso ai siti Google utilizzando <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Accesso automatico disponibile."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Accedi"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Accesso non riuscito."</string>
@@ -270,11 +270,11 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codifica testo"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Controlli rapidi"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Fai scorrere il pollice dal lato sinistro o destro per accedere ai controlli rapidi e nascondere le barre dell\'applicazione e dell\'URL"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Home page più visitata"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Fai scorrere il pollice dal lato sinistro/destro per accedere ai controlli e nascondere le barre delle applicazioni e dell\'URL"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Più visitati in pagina iniziale"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"La tua pagina iniziale mostra le tue pagine web più visitate."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
-    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Usa Google Instant con Ricerca Google per visualizzare i risultati durante la digitazione (può aumentare l\'uso dei dati)."</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Usa Google Instant con Ricerca Google per visualizzare i risultati mentre digiti (può aumentare l\'uso dei dati)."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema di connettività dati"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problemi con il file"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Conferma"</string>
@@ -369,9 +369,9 @@
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronizza con l\'account Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"I segnalibri su questo dispositivo non sono ancora associati a un account Google. Salva questi segnalibri aggiungendoli a un account. Elimina questi segnalibri se non desideri sincronizzarli."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Aggiungi i segnalibri attualmente presenti su questo dispositivo e inizia a sincronizzarli con l\'account Google"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Elimina i segnalibri attualmente presenti su questo dispositivo e inizia a sincronizzarli con l\'account Google"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Elimina i segnalibri attualmente presenti su questo dispositivo e inizia la sincronizzazione con l\'account Google"</string>
     <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Elimina i segnalibri attualmente presenti su questo dispositivo e inizia a sincronizzare i segnalibri con <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Aggiungi i segnalibri attualmente presenti su questo dispositivo e inizia a sincronizzare i segnalibri con <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Aggiungi i segnalibri attualmente presenti su questo dispositivo e inizia a sincronizzarli con <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Elimina segnalibri"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Avanti"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Indietro"</string>

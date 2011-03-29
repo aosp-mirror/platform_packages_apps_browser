@@ -169,12 +169,12 @@
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Автозаполнение форм"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Заполнение веб-форм одним кликом"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Автозаполнение"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Указание и сохранение данных для автозаполнения полей"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ввод и сохранение данных для автозаполнения веб-форм"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Автоматический вход в Google"</string>
-    <string name="pref_autologin_progress" msgid="4975430912641403743">"Автоматический вход на сайты Google с использованием <xliff:g id="ID_1">%s</xliff:g>"\n"настроек \"Конфиденциальность и безопасность\" системы..."</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Вход в Сайты Google с помощью аккаунта <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Доступен автоматический вход."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Войти"</string>
-    <string name="autologin_bar_error" msgid="5132514366023044839">"Войти не удалось."</string>
+    <string name="autologin_bar_error" msgid="5132514366023044839">"Вход не выполнен."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Вводите данные в веб-формы одним нажатием с помощью автозаполнения."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Полное имя:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Эл. почта:"</string>
@@ -194,7 +194,7 @@
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Профиль удален"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Удалить профиль"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Браузер может заполнять такие формы автоматически. Настроить профиль автозаполнения?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Автозаполнение настраивается в диалоговом окне \"Настройки браузера\"."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Автозаполнение всегда можно настроить в меню \"Настройки браузера\"."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Отключить автозаполнение"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Конфиденциальность и безопасность"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Очистить кэш"</string>
@@ -247,7 +247,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Масштаб по умолчанию"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Обзор страниц"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Открывать страницы в мелком маштабе для ознакомления"</string>
-    <string name="pref_extras_title" msgid="7075456173747370647">"Расширенный"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Дополнительные функции"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайта"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Дополнительные настройки для отдельных сайтов"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Сброс настроек"</string>
@@ -271,10 +271,10 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"Лаборатория Google"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Панель инструментов"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Чтобы открыть панель инструментов, скрыв адресную строку и панель приложений, проведите пальцем в правом или левом углу экрана"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Стартовая страница: самые посещаемые"</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Отображение на домашней странице наиболее посещаемых веб-сайтов."</string>
+    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"\"Часто посещаемые\" на стартовой странице"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Отображение часто посещаемых веб-сайтов на стартовой странице."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Живой поиск"</string>
-    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Живой поиск Google отображает результаты поиска при наборе запроса (может привести к увеличению объема передачи данных)."</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"В Живом поиске результаты появляются прямо при вводе текста (возможно увеличение объема передаваемых данных)."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема с подключением"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема с файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Подтвердить"</string>
@@ -352,7 +352,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Этот сайт сейчас имеет доступ к вашему местоположению"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Этот сайт в настоящее время не имеет доступа к вашему местоположению"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Удалить данные доступа к местоположению"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Данные доступа к местоположению для этого сайта будут удалены"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Удалить данные о доступе"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Отмена"</string>
@@ -367,7 +367,7 @@
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Выберите аккаунт"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Синхронизация с аккаунтом Google"</string>
-    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Закладки на этом устройстве пока не связаны с аккаунтом Google. Сохраните эти закладки, добавив их в аккаунт. Удалите эти закладки, если вы не хотите синхронизировать их."</string>
+    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Закладки на этом устройстве пока не связаны с аккаунтом Google. Чтобы сохранить и синхронизировать эти закладки, добавьте их в аккаунт. В противном случае просто удалите их."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Добавить закладки, имеющиеся на этом устройстве, и начать синхронизацию с аккаунтом Google"</string>
     <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Удалить закладки, имеющиеся на этом устройстве, и начать синхронизацию с аккаунтом Google"</string>
     <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Удалить закладки, имеющиеся на этом устройстве, и начать синхронизацию закладок с аккаунтом <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
