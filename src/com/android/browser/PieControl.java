@@ -128,10 +128,10 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             // level 2
             mPie.addItem(mForward);
             mPie.addItem(mRefresh);
+            mPie.addItem(mOptions);
             mPie.addItem(mShowTabs);
             mPie.addItem(mNewTab);
             mPie.addItem(mClose);
-            mPie.addItem(mOptions);
             mPie.setController(this);
         }
         container.addView(mPie);
