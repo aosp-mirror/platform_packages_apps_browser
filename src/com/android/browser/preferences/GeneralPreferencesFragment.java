@@ -68,6 +68,8 @@ public class GeneralPreferencesFragment extends PreferenceFragment
                 .getString(BrowserSettings.PREF_HOMEPAGE, null));
         ((BrowserHomepagePreference) e).setCurrentPage(
                 getActivity().getIntent().getStringExtra(BrowserPreferencesPage.CURRENT_PAGE));
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mSharedPrefs.registerOnSharedPreferenceChangeListener(mListener);
     }
 
     @Override
@@ -94,13 +96,11 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         // Setup the proper state for the sync with chrome item
         mChromeSync = findPreference(PREF_CHROME_SYNC);
         refreshUi();
-        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mSharedPrefs.registerOnSharedPreferenceChangeListener(mListener);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
 
         mSharedPrefs.unregisterOnSharedPreferenceChangeListener(mListener);
     }
