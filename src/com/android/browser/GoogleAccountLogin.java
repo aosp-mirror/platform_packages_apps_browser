@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import org.apache.http.Header;
-import org.apache.http.HeaderIterator;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -34,8 +32,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.SharedPreferences.Editor;
-import android.net.http.AndroidHttpClient;
 import android.net.Uri;
+import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -43,8 +41,6 @@ import android.util.Log;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import java.util.StringTokenizer;
 
 public class GoogleAccountLogin implements Runnable,
         AccountManagerCallback<Bundle>, OnCancelListener {
@@ -289,12 +285,14 @@ public class GoogleAccountLogin implements Runnable,
 
             // Post a delayed message to dismiss the dialog in order to avoid a
             // flash of the progress dialog.
-            mHandler.postDelayed(new Runnable() {
-                @Override public void run() {
-                    mProgressDialog.dismiss();
-                }
-            }, 2000);
-
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mProgressDialog.isShowing()) {
+                            mProgressDialog.dismiss();
+                        }
+                    }
+                }, 2000);
             mRunnable = null;
             mWebView.destroy();
         }
@@ -304,4 +302,5 @@ public class GoogleAccountLogin implements Runnable,
     public void onCancel(DialogInterface unused) {
         done();
     }
+
 }
