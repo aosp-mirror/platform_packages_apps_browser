@@ -286,7 +286,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Этот сайт сейчас имеет доступ к вашему местоположению"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Этот сайт в настоящее время не имеет доступа к вашему местоположению"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Удалить данные доступа к местоположению"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Данные доступа к местоположению для этого сайта будут удалены"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Удалить данные о доступе"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Отмена"</string>
