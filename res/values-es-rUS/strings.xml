@@ -166,13 +166,12 @@
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Sincronizar favoritos entre el navegador Android y Google Chrome"</string>
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Iniciar la sincr."</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Selec cta Google p/comp"</string>
-    <string name="pref_autofill_enabled" msgid="1015751713312396713">"Llenado automático de formulario"</string>
+    <string name="pref_autofill_enabled" msgid="1015751713312396713">"Completado automático de formulario"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completa formularios web con un clic"</string>
-    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Datos de llenado automático"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ingresa y guarda datos para llenar campos de formularios web automáticamente."</string>
+    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Datos de completado automático"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ingresa y guarda datos para completar campos de formularios web automáticamente."</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Acceso automático a Google"</string>
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
-    <skip />
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Accediendo a Google Sites utilizando <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Acceso automático disponible"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Acceder"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Falló el acceso."</string>
@@ -195,7 +194,7 @@
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Perfil eliminado"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Eliminar perfil"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"El navegador puede completar formularios web como este de forma automática. ¿Deseas configurar tu perfil?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Autocompletar siempre se puede configurar mediante los Parámetros de configuración del navegador."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"La función de autocompletar siempre se puede configurar mediante los Parámetros de configuración del navegador."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Inhabilitar Autocompletar"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privacidad &amp; seguridad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Borrar memoria caché"</string>

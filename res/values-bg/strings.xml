@@ -171,8 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Данни за автоматичното попълване"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Въведете и запазете данни за автоматично попълване на полетата в уеб формуляри"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Автоматичен вход в Google"</string>
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
-    <skip />
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Влизате в сайтове на Google посредством <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Автоматичният вход е налице."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Вход"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Влизането не бе успешно."</string>

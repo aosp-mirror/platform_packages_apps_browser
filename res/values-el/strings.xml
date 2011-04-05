@@ -137,7 +137,7 @@
     <string name="pref_content_title" msgid="722227111894838633">"Ρυθμίσεις περιεχομένου σελίδας"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Φόρτωση εικόνων"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Προβολή εικόνων στις ιστοσελίδες"</string>
-    <string name="pref_content_block_popups" msgid="4158524847764470895">"Αποκλεισμός αναδυόμενων παραθύρων"</string>
+    <string name="pref_content_block_popups" msgid="4158524847764470895">"Αποκλεισμός αναδ. παραθύρων"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Ενεργοποίηση JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Άνοιγμα στο παρασκήνιο"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Ενεργοποίηση πρόσθετων"</string>
@@ -171,8 +171,7 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Αυτόματη συμπλήρωση δεδομένων"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Καταχώριση και αποθήκευση δεδομένων για πεδία φόρμας ιστού αυτόματης συμπλήρωσης"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Αυτόματη σύνδεση στο Google"</string>
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
-    <skip />
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Συνδεθείτε σε Ιστότοπους Google χρησιμοποιώντας το <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Διαθέσιμη αυτόματη σύνδεση."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Σύνδεση"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Η σύνδεση απέτυχε."</string>
@@ -271,11 +270,11 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Κωδικοποίηση κειμένου"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Εργαστήρια"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Στοιχεία γρήγορου ελέγχου"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Σύρετε τον αντίχειρα από αριστερά ή δεξιά για πρόσβαση στα στοιχεία γρήγορου ελέγχου και απόκρυψη των γραμμών εφαρμογής και διεύθυνσης URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Σύρετε τον αντίχειρα από αρ. ή δεξ. για τα στοιχ. γρήγ. ελέγχου και κρύψτε τις γραμμές Εφαρμογές και URL"</string>
     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Αρχική σελίδα με τις περισσότερες επισκέψεις"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Η αρχική σελίδα εμφανίζει τις ιστοσελίδες με τις περισσότερες επισκέψεις σας."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
-    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Χρησιμοποιήστε το Google Instant μαζί με την Αναζήτηση Google για να εμφανίζονται τα αποτελέσματα καθώς πληκτρολογείτε (μπορεί να αυξηθεί η χρήση δεδομένων)."</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Χρησιμοποιήστε το Instant μαζί με την Αναζήτηση για να εμφανίζονται αποτελ. καθώς πληκτρολ. (πιθανή αύξηση δεδομένων)."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Πρόβλημα σύνδεσης δεδομένων"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Υπάρχει πρόβλημα με το αρχείο"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Επιβεβαίωση"</string>
@@ -370,9 +369,9 @@
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Συγχρον. με Λογαριασμό Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Οι σελιδοδείκτες που υπάρχουν σε αυτή τη συσκευή δεν έχουν συσχετιστεί ακόμα με κάποιον λογαριασμό Google. Αποθηκεύστε αυτούς τους σελιδοδείκτες προσθέτοντάς τους σε κάποιον λογαριασμό. Διαγράψτε αυτούς τους σελιδοδείκτες αν δεν θέλετε να τους συγχρονίσετε."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Προσθέστε τους σελιδοδείκτες που υπάρχουν αυτή τη στιγμή στη συσκευή σας και αρχίστε να εκτελείτε συγχρονισμό με κάποιον Λογαριασμό Google"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Διαγράψτε τους σελιδοδείκτες που υπάρχουν αυτή τη στιγμή στη συσκευή σας και αρχίστε να εκτελείτε συγχρονισμό με κάποιον Λογαριασμό Google"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Διαγράψτε τους σελιδοδείκτες που υπάρχουν αυτή τη στιγμή στη συσκευή σας και αρχίστε να εκτελείτε συγχρονισμό των σελιδοδεικτών με τον λογαριασμό <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Προσθέστε τους σελιδοδείκτες που υπάρχουν αυτή τη στιγμή στη συσκευή σας και αρχίστε να εκτελείτε συγχρονισμό των σελιδοδεικτών με τον λογαριασμό <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Διαγράψτε τους σελιδοδείκτες που υπάρχουν αυτή τη στιγμή στη συσκευή σας και ξεκινήστε συγχρονισμό με κάποιον Λογαριασμό Google"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Διαγράψτε τους σελιδοδείκτες που υπάρχουν αυτή τη στιγμή στη συσκευή σας και ξεκινήστε συγχρονισμό των σελιδοδεικτών με τον λογαριασμό <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Προσθέστε τους σελιδοδείκτες που υπάρχουν αυτή τη στιγμή στη συσκευή σας και ξεκινήστε συγχρονισμό των σελιδοδεικτών με τον λογαριασμό <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Διαγραφή σελιδοδεικτών"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Επόμενο"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Προηγούμενο"</string>
