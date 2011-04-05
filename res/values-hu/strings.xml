@@ -171,10 +171,9 @@
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Adatok automatikus kitöltése"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Adatok beírása és mentése az internetes űrlapok mezőinek automatikus kitöltéséhez"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatikus Google-bejelentkezés"</string>
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
-    <skip />
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Bejelentkezés Google-webhelyekre a következők használatával: <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Az automatikus bejelentkezés elérhető."</string>
-    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Bejelentk."</string>
+    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Belépés"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Sikertelen bejelentkezés."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Adja meg azokat az adatokat, amelyekkel ki szeretné tölteni az internetes mezőket, amikor megérinti azokat."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Teljes név:"</string>
@@ -271,7 +270,7 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Szöveg kódolása"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Gyorsbeállítások"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Húzza hüvelyk. balról jobbra a gyorsvez. elér.-hez, és az Alk. és URL sáv elrejt.-hez."</string>
+    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Seperjen az ujjával: gyorsvezérlők elérése, az Alkalmazás és URL-sáv elrejtése."</string>
     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Leggyakrabban felkeresett kezdőlap"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Kezdőlapján a leggyakrabban felkeresett webhelyek jelennek meg."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>

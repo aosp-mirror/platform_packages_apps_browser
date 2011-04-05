@@ -168,11 +168,10 @@
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Sel. cont pt. dist."</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Completare automată formular"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completaţi formulare web cu un singur clic"</string>
-    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Date conectare automată"</string>
+    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Date completare automată"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Introduceţi şi salvaţi date pentru completarea automată a câmpurilor din formularele web"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Conectare automată la Google"</string>
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
-    <skip />
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Se conectează la site-urile Google utilizând <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="8013977161879448141">"Este disponibilă conectarea automată."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Conectare"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Conectare eşuată."</string>
@@ -275,7 +274,7 @@
     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Pagina de pornire cea mai accesată"</string>
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Pagina dvs. de pornire afişează paginile web cele mai accesate."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
-    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Utilizaţi Google Instant la căutare pe Google şi vedeţi rezultate pe măsură ce tastaţi (creşte vol. de date utilizate)."</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Utilizaţi Google Instant în Căutarea Google şi vedeţi rezultate în timp ce introd. text (creşte vol. de date utilizate)."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Există o problemă de conexiune la date"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problemă cu fişierul"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmaţi"</string>
