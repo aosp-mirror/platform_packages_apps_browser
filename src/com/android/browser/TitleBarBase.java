@@ -20,6 +20,9 @@ import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.UrlInputView.UrlInputListener;
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.ObjectAnimator;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +42,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -46,6 +50,7 @@ import android.webkit.WebView;
 import android.widget.AbsoluteLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -71,9 +76,12 @@ public class TitleBarBase extends RelativeLayout
     protected Drawable mGenericFavicon;
     protected UiController mUiController;
     protected BaseUi mBaseUi;
-
+    protected FrameLayout mParent;
+    protected PageProgressView mProgress;
     protected UrlInputView mUrlInput;
     protected boolean mInVoiceMode;
+    protected View mContainer;
+
 
     // Auto-login UI
     protected View mAutoLogin;
@@ -86,10 +94,18 @@ public class TitleBarBase extends RelativeLayout
     protected ArrayAdapter<String> mAccountsAdapter;
     protected boolean mUseQuickControls;
 
-    public TitleBarBase(Context context, UiController controller, BaseUi ui) {
+    //state
+    protected boolean mShowing;
+    protected boolean mInLoad;
+    protected boolean mSkipTitleBarAnimations;
+    private Animator mTitleBarAnimator;
+
+    public TitleBarBase(Context context, UiController controller, BaseUi ui,
+            FrameLayout parent) {
         super(context, null);
         mUiController = controller;
         mBaseUi = ui;
+        mParent = parent;
         mGenericFavicon = context.getResources().getDrawable(
                 R.drawable.app_web_browser_sm);
     }
@@ -97,7 +113,8 @@ public class TitleBarBase extends RelativeLayout
     protected void initLayout(Context context, int layoutId) {
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(layoutId, this);
-
+        mContainer = findViewById(R.id.taburlbar);
+        mProgress = (PageProgressView) findViewById(R.id.progress);
         mUrlInput = (UrlInputView) findViewById(R.id.url);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mUrlInput.setUrlInputListener(this);
@@ -120,9 +137,145 @@ public class TitleBarBase extends RelativeLayout
 
     protected void setUseQuickControls(boolean use) {
         mUseQuickControls = use;
+        setLayoutParams(makeLayoutParams());
     }
 
-    /* package */ void setProgress(int newProgress) {}
+    void setShowProgressOnly(boolean progress) {
+        if (progress && !inAutoLogin()) {
+            mContainer.setVisibility(View.GONE);
+        } else {
+            mContainer.setVisibility(View.VISIBLE);
+        }
+    }
+
+    void setSkipTitleBarAnimations(boolean skip) {
+        mSkipTitleBarAnimations = skip;
+    }
+
+    void show() {
+        if (mUseQuickControls) {
+            mParent.addView(this);
+        } else {
+            if (!mSkipTitleBarAnimations) {
+                cancelTitleBarAnimation(false);
+                int visibleHeight = getVisibleTitleHeight();
+                float startPos = (-getEmbeddedHeight() + visibleHeight);
+                if (getTranslationY() != 0) {
+                    startPos = Math.max(startPos, getTranslationY());
+                }
+                mTitleBarAnimator = ObjectAnimator.ofFloat(this,
+                        "translationY",
+                        startPos, 0);
+                mTitleBarAnimator.start();
+            }
+            mBaseUi.setTitleGravity(Gravity.TOP);
+        }
+        mShowing = true;
+    }
+
+    void hide() {
+        if (mUseQuickControls) {
+            mParent.removeView(this);
+        } else {
+            if (!mSkipTitleBarAnimations) {
+                cancelTitleBarAnimation(false);
+                int visibleHeight = getVisibleTitleHeight();
+                mTitleBarAnimator = ObjectAnimator.ofFloat(this,
+                        "translationY", getTranslationY(),
+                        (-getEmbeddedHeight() + visibleHeight));
+                mTitleBarAnimator.addListener(mHideTileBarAnimatorListener);
+                mTitleBarAnimator.start();
+            } else {
+                mBaseUi.setTitleGravity(Gravity.NO_GRAVITY);
+            }
+        }
+        mShowing = false;
+    }
+
+    boolean isShowing() {
+        return mShowing;
+    }
+
+    void cancelTitleBarAnimation(boolean reset) {
+        if (mTitleBarAnimator != null) {
+            mTitleBarAnimator.cancel();
+            mTitleBarAnimator = null;
+        }
+        if (reset) {
+            setTranslationY(0);
+        }
+    }
+
+    private AnimatorListener mHideTileBarAnimatorListener = new AnimatorListener() {
+
+        boolean mWasCanceled;
+        @Override
+        public void onAnimationStart(Animator animation) {
+            mWasCanceled = false;
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            if (!mWasCanceled) {
+                setTranslationY(0);
+            }
+            mBaseUi.setTitleGravity(Gravity.NO_GRAVITY);
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            mWasCanceled = true;
+        }
+    };
+
+    private int getVisibleTitleHeight() {
+        Tab tab = mBaseUi.getActiveTab();
+        WebView webview = tab != null ? tab.getWebView() : null;
+        return webview != null ? webview.getVisibleTitleHeight() : 0;
+    }
+
+    /**
+     * Update the progress, from 0 to 100.
+     */
+    void setProgress(int newProgress) {
+        if (newProgress >= PROGRESS_MAX) {
+            mProgress.setProgress(PageProgressView.MAX_PROGRESS);
+            mProgress.setVisibility(View.GONE);
+            mInLoad = false;
+            onProgressStopped();
+            // check if needs to be hidden
+            if (!isEditingUrl() && !inAutoLogin()) {
+                hide();
+                if (mUseQuickControls) {
+                    setShowProgressOnly(false);
+                }
+            }
+        } else {
+            if (!mInLoad) {
+                mProgress.setVisibility(View.VISIBLE);
+                mInLoad = true;
+                onProgressStarted();
+            }
+            mProgress.setProgress(newProgress * PageProgressView.MAX_PROGRESS
+                    / PROGRESS_MAX);
+            if (!mShowing) {
+                if (mUseQuickControls && !isEditingUrl()) {
+                    setShowProgressOnly(true);
+                }
+                show();
+            }
+        }
+    }
+
+    protected void onProgressStarted() {
+    }
+
+    protected void onProgressStopped() {
+    }
 
     /* package */ void setLock(Drawable d) {
         assert mLockIcon != null;
@@ -151,27 +304,12 @@ public class TitleBarBase extends RelativeLayout
         mFavicon.setImageDrawable(d);
     }
 
-    void setTitleGravity(int gravity) {
-        int newTop = 0;
-        if (gravity != Gravity.NO_GRAVITY) {
-            View parent = (View) getParent();
-            if (parent != null) {
-                if (gravity == Gravity.TOP) {
-                    newTop = parent.getScrollY();
-                } else if (gravity == Gravity.BOTTOM) {
-                    newTop = parent.getScrollY() + parent.getHeight() - getHeight();
-                }
-            }
-        }
-        AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams) getLayoutParams();
-        if (lp != null) {
-            lp.y = newTop;
-            setLayoutParams(lp);
-        }
-    }
-
     public int getEmbeddedHeight() {
-        return getHeight();
+        int height = mContainer.getHeight();
+        if (mAutoLogin.getVisibility() == View.VISIBLE) {
+            height += mAutoLogin.getHeight();
+        }
+        return height;
     }
 
     protected void updateAutoLogin(Tab tab, boolean animate) {
@@ -212,6 +350,9 @@ public class TitleBarBase extends RelativeLayout
     }
 
     protected void showAutoLogin(boolean animate) {
+        if (mUseQuickControls) {
+            mBaseUi.showTitleBar();
+        }
         mAutoLogin.setVisibility(View.VISIBLE);
         if (animate) {
             mAutoLogin.startAnimation(AnimationUtils.loadAnimation(
@@ -221,21 +362,34 @@ public class TitleBarBase extends RelativeLayout
 
     protected void hideAutoLogin(boolean animate) {
         mAutoLoginHandler = null;
-        if (animate) {
-            Animation anim = AnimationUtils.loadAnimation(
-                    getContext(), R.anim.autologin_exit);
-            anim.setAnimationListener(new AnimationListener() {
-                @Override public void onAnimationEnd(Animation a) {
-                    mAutoLogin.setVisibility(View.GONE);
-                    mBaseUi.refreshWebView();
-                }
-                @Override public void onAnimationStart(Animation a) {}
-                @Override public void onAnimationRepeat(Animation a) {}
-            });
-            mAutoLogin.startAnimation(anim);
-        } else if (mAutoLogin.getAnimation() == null) {
+        if (mUseQuickControls) {
+            mBaseUi.hideTitleBar();
             mAutoLogin.setVisibility(View.GONE);
             mBaseUi.refreshWebView();
+        } else {
+            if (animate) {
+                Animation anim = AnimationUtils.loadAnimation(getContext(),
+                        R.anim.autologin_exit);
+                anim.setAnimationListener(new AnimationListener() {
+                    @Override
+                    public void onAnimationEnd(Animation a) {
+                        mAutoLogin.setVisibility(View.GONE);
+                        mBaseUi.refreshWebView();
+                    }
+
+                    @Override
+                    public void onAnimationStart(Animation a) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation a) {
+                    }
+                });
+                mAutoLogin.startAnimation(anim);
+            } else if (mAutoLogin.getAnimation() == null) {
+                mAutoLogin.setVisibility(View.GONE);
+                mBaseUi.refreshWebView();
+            }
         }
     }
 
@@ -437,6 +591,31 @@ public class TitleBarBase extends RelativeLayout
      * called from the Ui when the user wants to edit
      * @param clearInput clear the input field
      */
-    void startEditingUrl(boolean clearInput) {};
+    void startEditingUrl(boolean clearInput) {
+        // editing takes preference of progress
+        mContainer.setVisibility(View.VISIBLE);
+        if (mUseQuickControls) {
+            mProgress.setVisibility(View.GONE);
+        }
+        if (!mUrlInput.hasFocus()) {
+            mUrlInput.requestFocus();
+        }
+        if (clearInput) {
+            mUrlInput.setText("");
+        } else if (mInVoiceMode) {
+            mUrlInput.showDropDown();
+        }
+    }
+
+    private ViewGroup.LayoutParams makeLayoutParams() {
+        if (mUseQuickControls) {
+            return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT);
+        } else {
+            return new AbsoluteLayout.LayoutParams(
+                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT,
+                    0, 0);
+        }
+    }
 
 }

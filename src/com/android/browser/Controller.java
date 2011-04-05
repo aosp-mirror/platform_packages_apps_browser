@@ -2420,12 +2420,6 @@ public class Controller
         startSearch(result, false, bundle, false);
     }
 
-    @Override
-    public void startSearch(String url) {
-        startSearch(mSettings.getHomePage().equals(url) ? null : url, true,
-                null, false);
-    }
-
     private void startSearch(String initialQuery, boolean selectInitialQuery,
             Bundle appSearchData, boolean globalSearch) {
         if (appSearchData == null) {

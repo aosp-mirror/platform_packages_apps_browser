@@ -18,9 +18,6 @@ package com.android.browser;
 
 import com.android.browser.BrowserWebView.ScrollListener;
 
-import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
-import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
@@ -33,7 +30,6 @@ import android.view.Menu;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 
 import java.util.List;
 
@@ -48,8 +44,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     private TabBar mTabBar;
 
     private TitleBarXLarge mTitleBar;
-    private Animator mTitleBarAnimator;
-    private boolean mSkipTitleBarAnimations;
 
     private boolean mUseQuickControls;
     private PieControl mPieControl;
@@ -62,7 +56,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     public XLargeUi(Activity browser, UiController controller) {
         super(browser, controller);
         mHandler = new Handler();
-        mTitleBar = new TitleBarXLarge(mActivity, mUiController, this);
+        mTitleBar = new TitleBarXLarge(mActivity, mUiController, this,
+                mContentView);
         mTitleBar.setProgress(100);
         mTabBar = new TabBar(mActivity, mUiController, this);
         mActionBar = mActivity.getActionBar();
@@ -101,16 +96,16 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             checkTabCount();
             mPieControl = new PieControl(mActivity, mUiController, this);
             mPieControl.attachToContainer(mContentView);
-            Tab tab = getActiveTab();
-            if ((tab != null) && (tab.getWebView() != null)) {
-                tab.getWebView().setEmbeddedTitleBar(null);
+            WebView web = getWebView();
+            if (web != null) {
+                web.setEmbeddedTitleBar(null);
             }
         } else {
             mActivity.getActionBar().show();
             if (mPieControl != null) {
                 mPieControl.removeFromContainer(mContentView);
             }
-            WebView web = mTabControl.getCurrentWebView();
+            WebView web = getWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(mTitleBar);
             }
@@ -177,22 +172,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         mTabBar.onProgress(tab, progress);
         if (tab.inForeground()) {
             mTitleBar.setProgress(progress);
-            if (progress == 100) {
-                if (!mTitleBar.isEditingUrl() && !mTitleBar.inAutoLogin()) {
-                    hideTitleBar();
-                    if (mUseQuickControls) {
-                        mTitleBar.setShowProgressOnly(false);
-                    }
-                }
-            } else {
-                if (!isTitleBarShowing()) {
-                    if (mUseQuickControls && !mTitleBar.isEditingUrl()) {
-                        mTitleBar.setShowProgressOnly(true);
-                        setTitleGravity(Gravity.TOP);
-                    }
-                    showTitleBar();
-                }
-            }
         }
     }
 
@@ -212,8 +191,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void setActiveTab(final Tab tab) {
-        cancelTitleBarAnimation(true);
-        mSkipTitleBarAnimations = true;
+        mTitleBar.cancelTitleBarAnimation(true);
+        mTitleBar.setSkipTitleBarAnimations(true);
         if (mUseQuickControls) {
             if (mActiveTab != null) {
                 captureTab(mActiveTab);
@@ -221,7 +200,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         }
         super.setActiveTab(tab, true);
         setActiveTab(tab, true);
-        mSkipTitleBarAnimations = false;
+        mTitleBar.setSkipTitleBarAnimations(false);
     }
 
     @Override
@@ -255,7 +234,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         tab.getTopWindow().requestFocus();
     }
 
-
     @Override
     public void updateTabs(List<Tab> tabs) {
         mTabBar.updateTabs(tabs);
@@ -264,11 +242,11 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void removeTab(Tab tab) {
-        cancelTitleBarAnimation(true);
-        mSkipTitleBarAnimations = true;
+        mTitleBar.cancelTitleBarAnimation(true);
+        mTitleBar.setSkipTitleBarAnimations(true);
         super.removeTab(tab);
         mTabBar.onRemoveTab(tab);
-        mSkipTitleBarAnimations = false;
+        mTitleBar.setSkipTitleBarAnimations(false);
     }
 
     protected void onRemoveTabCompleted(Tab tab) {
@@ -284,17 +262,10 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void editUrl(boolean clearInput) {
-        if (mUiController.isInCustomActionMode()) {
-            mUiController.endActionMode();
+        if (mUseQuickControls) {
+            getTitleBar().setShowProgressOnly(false);
         }
-        showTitleBar();
-        mTitleBar.startEditingUrl(clearInput);
-    }
-
-    @Override
-    void showTitleBarAndEdit() {
-        mTitleBar.setShowProgressOnly(false);
-        super.showTitleBarAndEdit();
+        super.editUrl(clearInput);
     }
 
     void stopEditingUrl() {
@@ -304,24 +275,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     protected void showTitleBar() {
         if (canShowTitleBar()) {
-            if (mUseQuickControls) {
-                mContentView.addView(mTitleBar);
-            } else {
-                if (!mSkipTitleBarAnimations) {
-                    cancelTitleBarAnimation(false);
-                    int visibleHeight = getVisibleTitleHeight();
-                    float startPos = (-mTitleBar.getEmbeddedHeight() + visibleHeight);
-                    if (mTitleBar.getTranslationY() != 0) {
-                        startPos = Math.max(startPos, mTitleBar.getTranslationY());
-                    }
-                    mTitleBarAnimator = ObjectAnimator.ofFloat(mTitleBar,
-                            "translationY",
-                            startPos, 0);
-                    mTitleBarAnimator.start();
-                }
-                setTitleGravity(Gravity.TOP);
-            }
-            super.showTitleBar();
+            mTitleBar.show();
             mTabBar.onShowTitleBar();
         }
     }
@@ -330,65 +284,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     protected void hideTitleBar() {
         if (isTitleBarShowing()) {
             mTabBar.onHideTitleBar();
-            if (mUseQuickControls) {
-                mContentView.removeView(mTitleBar);
-            } else {
-                if (!mSkipTitleBarAnimations) {
-                    cancelTitleBarAnimation(false);
-                    int visibleHeight = getVisibleTitleHeight();
-                    mTitleBarAnimator = ObjectAnimator.ofFloat(mTitleBar,
-                            "translationY", mTitleBar.getTranslationY(),
-                            (-mTitleBar.getEmbeddedHeight() + visibleHeight));
-                    mTitleBarAnimator.addListener(mHideTileBarAnimatorListener);
-                    mTitleBarAnimator.start();
-                } else {
-                    setTitleGravity(Gravity.NO_GRAVITY);
-                }
-            }
-            super.hideTitleBar();
+            mTitleBar.hide();
         }
     }
-
-    private void cancelTitleBarAnimation(boolean reset) {
-        if (mTitleBarAnimator != null) {
-            mTitleBarAnimator.cancel();
-            mTitleBarAnimator = null;
-        }
-        if (reset) {
-            mTitleBar.setTranslationY(0);
-        }
-    }
-
-    private int getVisibleTitleHeight() {
-        WebView webview = mActiveTab != null ? mActiveTab.getWebView() : null;
-        return webview != null ? webview.getVisibleTitleHeight() : 0;
-    }
-
-    private AnimatorListener mHideTileBarAnimatorListener = new AnimatorListener() {
-
-        boolean mWasCanceled;
-        @Override
-        public void onAnimationStart(Animator animation) {
-            mWasCanceled = false;
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animation) {
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            if (!mWasCanceled) {
-                mTitleBar.setTranslationY(0);
-            }
-            setTitleGravity(Gravity.NO_GRAVITY);
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-            mWasCanceled = true;
-        }
-    };
 
     public boolean isEditingUrl() {
         return mTitleBar.isEditingUrl();
@@ -401,12 +299,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     protected void setTitleGravity(int gravity) {
-        if (mUseQuickControls) {
-            FrameLayout.LayoutParams lp =
-                (FrameLayout.LayoutParams) mTitleBar.getLayoutParams();
-            lp.gravity = gravity;
-            mTitleBar.setLayoutParams(lp);
-        } else {
+        if (!mUseQuickControls) {
             super.setTitleGravity(gravity);
         }
     }

@@ -87,8 +87,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     private Toast mStopToast;
 
-    private boolean mTitleShowing;
-
     // the default <video> poster
     private Bitmap mDefaultVideoPoster;
     // the video progress view
@@ -117,7 +115,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mCustomViewContainer = (FrameLayout) mBrowserFrameLayout
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
-        mTitleShowing = false;
     }
 
     @Override
@@ -182,8 +179,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     public void onConfigurationChanged(Configuration config) {
     }
-
-    public abstract void editUrl(boolean clearInput);
 
     // key handling
 
@@ -413,39 +408,50 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     protected void refreshWebView() {
-        Tab tab = getActiveTab();
-        if ((tab != null) && (tab.getWebView() != null)) {
-            tab.getWebView().invalidate();
+        WebView web = getWebView();
+        if (web != null) {
+            web.invalidate();
         }
+    }
+
+    public void editUrl(boolean clearInput) {
+        if (mUiController.isInCustomActionMode()) {
+            mUiController.endActionMode();
+        }
+        showTitleBar();
+        getTitleBar().startEditingUrl(clearInput);
     }
 
     boolean canShowTitleBar() {
         return !isTitleBarShowing()
                 && !isActivityPaused()
                 && (getActiveTab() != null)
-                && (getActiveTab().getWebView() != null)
+                && (getWebView() != null)
                 && !mUiController.isInCustomActionMode();
     }
 
     void showTitleBar() {
-        mTitleShowing = true;
+        if (canShowTitleBar()) {
+            getTitleBar().show();
+        }
     }
 
     protected void hideTitleBar() {
-        mTitleShowing = false;
+        if (getTitleBar().isShowing()) {
+            getTitleBar().hide();
+        }
     }
 
     protected boolean isTitleBarShowing() {
-        return mTitleShowing;
+        return getTitleBar().isShowing();
     }
 
     protected abstract TitleBarBase getTitleBar();
 
     protected void setTitleGravity(int gravity) {
-        getTitleBar().setTitleGravity(gravity);
-        Tab tab = getActiveTab();
-        if ((tab != null) && (tab.getWebView() != null)) {
-            tab.getWebView().setTitleBarGravity(gravity);
+        WebView web = getWebView();
+        if (web != null) {
+            web.setTitleBarGravity(gravity);
         }
     }
 
@@ -759,9 +765,12 @@ public abstract class BaseUi implements UI, WebViewFactory {
         tab.setScreenshot(sshot);
     }
 
-    void showTitleBarAndEdit() {
-        showTitleBar();
-        getTitleBar().startEditingUrl(false);
+    protected WebView getWebView() {
+        if (mActiveTab != null) {
+            return mActiveTab.getWebView();
+        } else {
+            return null;
+        }
     }
 
 }

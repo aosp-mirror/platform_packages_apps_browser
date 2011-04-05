@@ -205,12 +205,12 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
                 web.reload();
             }
         } else if (mUrl.getView() == v) {
-            mUi.showTitleBarAndEdit();
+            mUi.editUrl(false);
         } else if (mBookmarks.getView() == v) {
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mNewTab.getView() == v) {
             mUiController.openTabToHomePage();
-            mUi.showTitleBarAndEdit();
+            mUi.editUrl(false);
         } else if (mClose.getView() == v) {
             mUiController.closeCurrentTab();
         }
