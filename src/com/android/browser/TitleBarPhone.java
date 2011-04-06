@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
-import com.android.browser.view.StopProgressView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,11 +25,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup;
-import android.widget.AbsoluteLayout;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout.LayoutParams;
 
 import java.util.List;
 
@@ -43,14 +39,12 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
 
     private Activity mActivity;
     private ImageView mStopButton;
-    private PageProgressView mProgress;
     private ImageView mVoiceButton;
-    private boolean mInLoad;
-    private View mContainer;
     private boolean mHasLockIcon;
 
-    public TitleBarPhone(Activity activity, UiController controller, PhoneUi ui) {
-        super(activity, controller, ui);
+    public TitleBarPhone(Activity activity, UiController controller, PhoneUi ui,
+            FrameLayout parent) {
+        super(activity, controller, ui, parent);
         mActivity = activity;
         initLayout(activity, R.layout.title_bar);
     }
@@ -58,21 +52,13 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     @Override
     protected void initLayout(Context context, int layoutId) {
         super.initLayout(context, layoutId);
-        mContainer = findViewById(R.id.taburlbar);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mFavicon = (ImageView) findViewById(R.id.favicon);
         mStopButton = (ImageView) findViewById(R.id.stop);
         mStopButton.setOnClickListener(this);
-        mProgress = (PageProgressView) findViewById(R.id.progress);
         mVoiceButton = (ImageView) findViewById(R.id.voice);
         mVoiceButton.setOnClickListener(this);
         setFocusState(false);
-    }
-
-    @Override
-    public int getEmbeddedHeight() {
-        int height = mContainer.getHeight();
-        return height;
     }
 
     @Override
@@ -116,30 +102,14 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         }
     }
 
-    /**
-     * Update the progress, from 0 to 100.
-     */
     @Override
-    void setProgress(int newProgress) {
-        boolean blockvisuals = mUseQuickControls && isEditingUrl();
-        if (newProgress >= PROGRESS_MAX) {
-            mInLoad = false;
-            if (!blockvisuals) {
-                mProgress.setProgress(PageProgressView.MAX_PROGRESS);
-                mProgress.setVisibility(View.GONE);
-            }
-            setFocusState(mUrlInput.hasFocus());
-        } else {
-            if (!mInLoad) {
-                mInLoad = true;
-                if (!blockvisuals) {
-                    mProgress.setVisibility(View.VISIBLE);
-                }
-                setFocusState(mUrlInput.hasFocus());
-            }
-            mProgress.setProgress(newProgress * PageProgressView.MAX_PROGRESS
-                    / PROGRESS_MAX);
-        }
+    protected void onProgressStarted() {
+        setFocusState(mUrlInput.hasFocus());
+    }
+
+    @Override
+    protected void onProgressStopped() {
+        setFocusState(mUrlInput.hasFocus());
     }
 
     /**
@@ -177,57 +147,6 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             mUiController.startVoiceSearch();
         } else {
             super.onClick(v);
-        }
-    }
-
-    @Override
-    void startEditingUrl(boolean clearInput) {
-        // editing takes preference of progress
-        mContainer.setVisibility(View.VISIBLE);
-        if (!mUrlInput.hasFocus()) {
-            mUrlInput.requestFocus();
-        }
-        if (clearInput) {
-            mUrlInput.setText("");
-        } else if (mInVoiceMode) {
-            mUrlInput.showDropDown();
-        }
-    }
-
-    @Override
-    void setTitleGravity(int gravity) {
-        if (mUseQuickControls) {
-            FrameLayout.LayoutParams lp =
-                    (FrameLayout.LayoutParams) getLayoutParams();
-            lp.gravity = gravity;
-            setLayoutParams(lp);
-        } else {
-            super.setTitleGravity(gravity);
-        }
-    }
-
-    @Override
-    protected void setUseQuickControls(boolean useQuickControls) {
-        mUseQuickControls = useQuickControls;
-        setLayoutParams(makeLayoutParams());
-    }
-
-    void setShowProgressOnly(boolean progress) {
-        if (progress && !inAutoLogin()) {
-            mContainer.setVisibility(View.GONE);
-        } else {
-            mContainer.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private ViewGroup.LayoutParams makeLayoutParams() {
-        if (mUseQuickControls) {
-            return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                    LayoutParams.WRAP_CONTENT);
-        } else {
-            return new AbsoluteLayout.LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT,
-                    0, 0);
         }
     }
 

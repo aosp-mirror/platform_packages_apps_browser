@@ -27,9 +27,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.AbsoluteLayout;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -54,21 +52,17 @@ public class TitleBarXLarge extends TitleBarBase
     private ImageView mStar;
     private ImageView mUrlIcon;
     private ImageView mSearchButton;
-    private View mContainer;
     private View mGoButton;
     private ImageView mStopButton;
     private View mAllButton;
     private View mClearButton;
     private ImageView mVoiceSearch;
-    private PageProgressView mProgressView;
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
 
-    private boolean mInLoad;
-
     public TitleBarXLarge(Activity activity, UiController controller,
-            XLargeUi ui) {
-        super(activity, controller, ui);
+            XLargeUi ui, FrameLayout parent) {
+        super(activity, controller, ui, parent);
         mUi = ui;
         Resources resources = activity.getResources();
         mStopDrawable = resources.getDrawable(R.drawable.ic_stop_holo_dark);
@@ -82,22 +76,8 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     @Override
-    void setTitleGravity(int gravity) {
-        if (mUseQuickControls) {
-            FrameLayout.LayoutParams lp =
-                    (FrameLayout.LayoutParams) getLayoutParams();
-            lp.gravity = gravity;
-            setLayoutParams(lp);
-        } else {
-            super.setTitleGravity(gravity);
-        }
-    }
-
-    @Override
     protected void initLayout(Context context, int layoutId) {
         super.initLayout(context, layoutId);
-
-        mContainer = findViewById(R.id.taburlbar);
         mAllButton = findViewById(R.id.all_btn);
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
@@ -111,7 +91,6 @@ public class TitleBarXLarge extends TitleBarBase
         mGoButton = findViewById(R.id.go);
         mClearButton = findViewById(R.id.clear);
         mVoiceSearch = (ImageView) findViewById(R.id.voicesearch);
-        mProgressView = (PageProgressView) findViewById(R.id.progress);
         mUrlContainer = findViewById(R.id.urlbar_focused);
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
@@ -135,40 +114,6 @@ public class TitleBarXLarge extends TitleBarBase
             mForwardButton.setImageResource(web.canGoForward()
                     ? R.drawable.ic_forward_holo_dark
                     : R.drawable.ic_forward_disabled_holo_dark);
-        }
-    }
-
-    private ViewGroup.LayoutParams makeLayoutParams() {
-        if (mUseQuickControls) {
-            return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                    LayoutParams.WRAP_CONTENT);
-        } else {
-            return new AbsoluteLayout.LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT,
-                    0, 0);
-        }
-    }
-
-    @Override
-    public int getEmbeddedHeight() {
-        int height = mContainer.getHeight();
-        if (mAutoLogin.getVisibility() == View.VISIBLE) {
-            height += mAutoLogin.getHeight();
-        }
-        return height;
-    }
-
-    @Override
-    protected void setUseQuickControls(boolean useQuickControls) {
-        mUseQuickControls = useQuickControls;
-        setLayoutParams(makeLayoutParams());
-    }
-
-    void setShowProgressOnly(boolean progress) {
-        if (progress && !inAutoLogin()) {
-            mContainer.setVisibility(View.GONE);
-        } else {
-            mContainer.setVisibility(View.VISIBLE);
         }
     }
 
@@ -207,46 +152,6 @@ public class TitleBarXLarge extends TitleBarBase
         mStar.setActivated(isBookmark);
     }
 
-    /**
-     * called from the Ui when the user wants to edit
-     * @param clearInput clear the input field
-     */
-    @Override
-    void startEditingUrl(boolean clearInput) {
-        // editing takes preference of progress
-        mContainer.setVisibility(View.VISIBLE);
-        if (mUseQuickControls) {
-            mProgressView.setVisibility(View.GONE);
-        }
-        if (!mUrlInput.hasFocus()) {
-            mUrlInput.requestFocus();
-        }
-        if (clearInput) {
-            mUrlInput.setText("");
-        } else if (mInVoiceMode) {
-            mUrlInput.showDropDown();
-        }
-    }
-
-    @Override
-    protected void showAutoLogin(boolean animate) {
-        if (mUseQuickControls) {
-            mUi.showTitleBar();
-        }
-        super.showAutoLogin(animate);
-    }
-
-    @Override
-    protected void hideAutoLogin(boolean animate) {
-        mAutoLoginHandler = null;
-        if (mUseQuickControls) {
-            mUi.hideTitleBar();
-            mAutoLogin.setVisibility(View.GONE);
-            mUi.refreshWebView();
-        } else {
-            super.hideAutoLogin(animate);
-        }
-    }
 
     @Override
     public void onClick(View v) {
@@ -323,30 +228,14 @@ public class TitleBarXLarge extends TitleBarBase
         }
     }
 
-    /**
-     * Update the progress, from 0 to 100.
-     */
     @Override
-    void setProgress(int newProgress) {
-        boolean blockvisuals = mUseQuickControls && isEditingUrl();
-        if (newProgress >= PROGRESS_MAX) {
-            if (!blockvisuals) {
-                mProgressView.setProgress(PageProgressView.MAX_PROGRESS);
-                mProgressView.setVisibility(View.GONE);
-                mStopButton.setImageDrawable(mReloadDrawable);
-            }
-            mInLoad = false;
-        } else {
-            if (!mInLoad) {
-                if (!blockvisuals) {
-                    mProgressView.setVisibility(View.VISIBLE);
-                    mStopButton.setImageDrawable(mStopDrawable);
-                }
-                mInLoad = true;
-            }
-            mProgressView.setProgress(newProgress * PageProgressView.MAX_PROGRESS
-                    / PROGRESS_MAX);
-        }
+    protected void onProgressStarted() {
+        mStopButton.setImageDrawable(mStopDrawable);
+    }
+
+    @Override
+    protected void onProgressStopped() {
+        mStopButton.setImageDrawable(mReloadDrawable);
     }
 
     @Override

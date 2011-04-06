@@ -56,8 +56,6 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     void bookmarksOrHistoryPicker(boolean openHistory);
 
-    void startSearch(String url);
-
     void startVoiceSearch();
 
     boolean supportsVoiceSearch();

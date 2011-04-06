@@ -19,7 +19,6 @@ package com.android.browser;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.PixelFormat;
-import android.os.Handler;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -53,7 +52,8 @@ public class PhoneUi extends BaseUi {
      */
     public PhoneUi(Activity browser, UiController controller) {
         super(browser, controller);
-        mTitleBar = new TitleBarPhone(mActivity, mUiController, this);
+        mTitleBar = new TitleBarPhone(mActivity, mUiController, this,
+                mContentView);
         // mTitleBar will be always be shown in the fully loaded mode on
         // phone
         mTitleBar.setProgress(100);
@@ -88,8 +88,10 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void editUrl(boolean clearInput) {
-        String url = getActiveTab().getUrl();
-        mUiController.startSearch(url);
+        if (mUseQuickControls) {
+            getTitleBar().setShowProgressOnly(false);
+        }
+        super.editUrl(clearInput);
     }
 
     @Override
@@ -159,30 +161,6 @@ public class PhoneUi extends BaseUi {
         }
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
-    }
-
-    @Override
-    protected void showTitleBar() {
-        if (canShowTitleBar()) {
-            if (mUseQuickControls) {
-                mContentView.addView(mTitleBar);
-            } else {
-                setTitleGravity(Gravity.TOP);
-            }
-            super.showTitleBar();
-        }
-    }
-
-    @Override
-    protected void hideTitleBar() {
-        if (isTitleBarShowing()) {
-            if (mUseQuickControls) {
-                mContentView.removeView(mTitleBar);
-            } else {
-                setTitleGravity(Gravity.NO_GRAVITY);
-            }
-            super.hideTitleBar();
-        }
     }
 
     @Override
@@ -339,16 +317,16 @@ public class PhoneUi extends BaseUi {
         if (useQuickControls) {
             mPieControl = new PieControl(mActivity, mUiController, this);
             mPieControl.attachToContainer(mContentView);
-            Tab tab = getActiveTab();
-            if ((tab != null) && (tab.getWebView() != null)) {
-                tab.getWebView().setEmbeddedTitleBar(null);
+            WebView web = getWebView();
+            if (web != null) {
+                web.setEmbeddedTitleBar(null);
             }
         } else {
             mActivity.getActionBar().show();
             if (mPieControl != null) {
                 mPieControl.removeFromContainer(mContentView);
             }
-            WebView web = mTabControl.getCurrentWebView();
+            WebView web = getWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(mTitleBar);
             }
@@ -377,12 +355,6 @@ public class PhoneUi extends BaseUi {
                     (int) mActivity.getResources()
                             .getDimension(R.dimen.tab_view_thumbnail_height));
         }
-    }
-
-    @Override
-    void showTitleBarAndEdit() {
-        mTitleBar.setShowProgressOnly(false);
-        super.showTitleBarAndEdit();
     }
 
 }

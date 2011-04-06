@@ -202,7 +202,7 @@ public class TabBar extends LinearLayout
                     mUi.hideTitleBar();
                 } else {
                     mUi.stopWebViewScrolling();
-                    mUi.showTitleBarAndEdit();
+                    mUi.editUrl(false);
                 }
             } else if (mUi.isTitleBarShowing() && !isLoading()) {
                 mUi.stopEditingUrl();
