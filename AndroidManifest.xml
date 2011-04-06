@@ -59,7 +59,7 @@
                   android:label="@string/application_name"
                   android:launchMode="singleTask"
                   android:alwaysRetainTaskState="true"
-                  android:configChanges="orientation|keyboardHidden|keyboard"
+                  android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
                   android:theme="@style/BrowserTheme"
                   android:hardwareAccelerated="false"
                   android:windowSoftInputMode="adjustResize" >
@@ -167,7 +167,7 @@
 
         <activity android:name="AddBookmarkPage" android:label="Save bookmark"
                   android:theme="@style/DialogWhenLarge"
-                  android:configChanges="orientation|keyboardHidden"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
                   android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
