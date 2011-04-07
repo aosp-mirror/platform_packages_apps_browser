@@ -152,6 +152,24 @@ public class TitleBarBase extends RelativeLayout
         mSkipTitleBarAnimations = skip;
     }
 
+    void setTitleGravity(int gravity) {
+        int newTop = 0;
+        if (gravity != Gravity.NO_GRAVITY) {
+            View parent = (View) getParent();
+            if (parent != null) {
+                if (gravity == Gravity.TOP) {
+                    newTop = parent.getScrollY();
+                }
+            }
+        }
+        AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams)
+                getLayoutParams();
+        if (lp != null) {
+            lp.y = newTop;
+            setLayoutParams(lp);
+        }
+    }
+
     void show() {
         if (mUseQuickControls) {
             mParent.addView(this);
