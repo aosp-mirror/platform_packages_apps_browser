@@ -154,8 +154,12 @@ public class TitleBarBase extends RelativeLayout
 
     void setTitleGravity(int gravity) {
         int newTop = 0;
+        int newLeft = 0;
+        View parent = (View) getParent();
+        if (parent != null) {
+            newLeft = parent.getScrollX();
+        }
         if (gravity != Gravity.NO_GRAVITY) {
-            View parent = (View) getParent();
             if (parent != null) {
                 if (gravity == Gravity.TOP) {
                     newTop = parent.getScrollY();
@@ -165,6 +169,7 @@ public class TitleBarBase extends RelativeLayout
         AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams)
                 getLayoutParams();
         if (lp != null) {
+            lp.x = newLeft;
             lp.y = newTop;
             setLayoutParams(lp);
         }
