@@ -449,13 +449,13 @@ public abstract class BaseUi implements UI, WebViewFactory {
     protected abstract TitleBarBase getTitleBar();
 
     protected void setTitleGravity(int gravity) {
+        // update the titlebar layout params
+        // required to avoid scroll to top when focused
+        getTitleBar().setTitleGravity(gravity);
         WebView web = getWebView();
         if (web != null) {
             web.setTitleBarGravity(gravity);
         }
-        // update the titlebar layout params
-        // required to avoid scroll to top when focused
-        getTitleBar().setTitleGravity(gravity);
     }
 
     @Override
