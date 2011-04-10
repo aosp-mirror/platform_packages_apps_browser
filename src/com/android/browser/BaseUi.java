@@ -76,7 +76,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     private FrameLayout mBrowserFrameLayout;
     protected FrameLayout mContentView;
-    private FrameLayout mCustomViewContainer;
+    protected FrameLayout mCustomViewContainer;
 
     private View mCustomView;
     private WebChromeClient.CustomViewCallback mCustomViewCallback;

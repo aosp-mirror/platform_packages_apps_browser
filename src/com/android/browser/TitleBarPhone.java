@@ -134,7 +134,7 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             }
         }
         super.onFocusChange(v, hasFocus);
-        if (mUseQuickControls && !hasFocus) {
+        if (!hasFocus) {
             mBaseUi.hideTitleBar();
         }
     }

@@ -16,17 +16,17 @@
 
 package com.android.browser;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.PixelFormat;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
@@ -36,12 +36,13 @@ import android.widget.FrameLayout;
 public class PhoneUi extends BaseUi {
 
     private static final String LOGTAG = "PhoneUi";
+    private static final float NAV_TAB_SCALE = 0.75f;
 
     private TitleBarPhone mTitleBar;
     private ActiveTabsPage mActiveTabsPage;
-    private TouchProxy mTitleOverlay;
     private boolean mUseQuickControls;
     private PieControl mPieControl;
+    private NavScreen mNavScreen;
 
     boolean mExtendedMenuOpen;
     boolean mOptionsMenuOpen;
@@ -100,8 +101,28 @@ public class PhoneUi extends BaseUi {
             // if tab page is showing, hide it
             mUiController.removeActiveTabsPage(true);
             return true;
+        } else if (mNavScreen != null) {
+            mNavScreen.close();
+            return true;
         }
         return super.onBackKey();
+    }
+
+    @Override
+    public boolean dispatchKey(int code, KeyEvent event) {
+        if (!isComboViewShowing()) {
+            switch (code) {
+                case KeyEvent.KEYCODE_MENU:
+                    if (mNavScreen == null) {
+                        showNavScreen();
+                        return true;
+                    } else {
+                        mNavScreen.close();
+                        return true;
+                    }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -198,46 +219,6 @@ public class PhoneUi extends BaseUi {
     // menu handling callbacks
 
     @Override
-    public void onOptionsMenuOpened() {
-        if (!mUseQuickControls) {
-            mOptionsMenuOpen = true;
-            // options menu opened, show title bar
-            showTitleBar();
-            if (mTitleOverlay == null) {
-                // This assumes that getTitleBar always returns the same View
-                mTitleOverlay = new TouchProxy(mActivity, getTitleBar());
-            }
-            mActivity.getWindowManager().addView(mTitleOverlay,
-                    mTitleOverlay.getWindowLayoutParams());
-        }
-    }
-
-    @Override
-    public void onExtendedMenuOpened() {
-        // Switching the menu to expanded view, so hide the
-        // title bar.
-        mExtendedMenuOpen = true;
-        hideTitleBar();
-    }
-
-    @Override
-    public void onOptionsMenuClosed(boolean inLoad) {
-        mOptionsMenuOpen = false;
-        mActivity.getWindowManager().removeView(mTitleOverlay);
-        if (!inLoad && !getTitleBar().hasFocus()) {
-            hideTitleBar();
-        }
-    }
-
-    @Override
-    public void onExtendedMenuClosed(boolean inLoad) {
-        mExtendedMenuOpen = false;
-        if (!mUseQuickControls) {
-            showTitleBar();
-        }
-    }
-
-    @Override
     public void onContextMenuCreated(Menu menu) {
         hideTitleBar();
     }
@@ -265,40 +246,6 @@ public class PhoneUi extends BaseUi {
             showTitleBar();
         }
         mActivity.getActionBar().hide();
-    }
-
-    @Override
-    public boolean dispatchKey(int code, KeyEvent event) {
-        return false;
-    }
-
-    static class TouchProxy extends View {
-
-        View mTarget;
-
-        TouchProxy(Context context, View target) {
-            super(context);
-            mTarget = target;
-        }
-
-        @Override
-        public boolean dispatchTouchEvent(MotionEvent event) {
-            return mTarget.dispatchTouchEvent(event);
-        }
-
-        WindowManager.LayoutParams getWindowLayoutParams() {
-            WindowManager.LayoutParams params =
-                new WindowManager.LayoutParams(
-                        mTarget.getWidth(),
-                        mTarget.getHeight(),
-                        WindowManager.LayoutParams.TYPE_APPLICATION,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                        PixelFormat.TRANSPARENT);
-            params.gravity = Gravity.TOP | Gravity.LEFT;
-            params.y = mTarget.getTop();
-            params.x = mTarget.getLeft();
-            return params;
-        }
     }
 
     @Override
@@ -337,12 +284,15 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.setGroupVisible(R.id.NAV_MENU, false);
         if (mUseQuickControls) {
-            menu.setGroupVisible(R.id.NAV_MENU, false);
             mPieControl.onMenuOpened(menu);
             return false;
         } else {
-            return true;
+            if (mNavScreen != null) {
+                mNavScreen.showMenu(menu);
+            }
+            return false;
         }
     }
 
@@ -353,9 +303,108 @@ public class PhoneUi extends BaseUi {
         } else {
             captureTab(tab,
                     mActivity.getWindowManager().getDefaultDisplay().getWidth(),
-                    (int) mActivity.getResources()
-                            .getDimension(R.dimen.tab_view_thumbnail_height));
+                    mActivity.getWindowManager().getDefaultDisplay().getHeight());
         }
+    }
+
+    void showNavScreen() {
+        captureTab(mActiveTab);
+        mNavScreen = new NavScreen(mActivity, mUiController, this);
+        WebView web = getWebView();
+        if (web != null) {
+            int w = web.getWidth();
+            int h = web.getHeight();
+            mNavScreen.setTabDimensions((int) (w * NAV_TAB_SCALE),
+                    (int) (h * NAV_TAB_SCALE));
+        }
+        // Add the custom view to its container.
+        mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_GRAVITY_CENTER);
+        ObjectAnimator animx = ObjectAnimator.ofFloat(mContentView,
+                "scaleX", 1.0f, 0.85f);
+        ObjectAnimator animy = ObjectAnimator.ofFloat(mContentView,
+                "scaleY", 1.0f, 0.85f);
+        AnimatorSet anims = new AnimatorSet();
+        anims.setDuration(200);
+        anims.addListener(new AnimatorListener() {
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                finishShowNavScreen();
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                finishShowNavScreen();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+        });
+        anims.playTogether(animx, animy);
+        anims.start();
+    }
+
+    private void finishShowNavScreen() {
+        // Hide the content view.
+        mContentView.setVisibility(View.GONE);
+        mContentView.setScaleX(1.0f);
+        mContentView.setScaleY(1.0f);
+        // Finally show the custom view container.
+        mCustomViewContainer.setVisibility(View.VISIBLE);
+        mCustomViewContainer.bringToFront();
+    }
+
+    void hideNavScreen(boolean animateToPage) {
+        if (mNavScreen == null) return;
+        if (animateToPage) {
+            ObjectAnimator animx = ObjectAnimator.ofFloat(mNavScreen, "scaleX",
+                    1.0f, 1.2f);
+            ObjectAnimator animy = ObjectAnimator.ofFloat(mNavScreen, "scaleY",
+                    1.0f, 1.2f);
+            AnimatorSet anims = new AnimatorSet();
+            anims.setDuration(200);
+            anims.addListener(new AnimatorListener() {
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    finishHideNavScreen();
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    finishHideNavScreen();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
+            });
+            anims.playTogether(animx, animy);
+            anims.start();
+        } else {
+            finishHideNavScreen();
+        }
+
+    }
+
+    private void finishHideNavScreen() {
+        // Hide the custom view.
+        mNavScreen.setVisibility(View.GONE);
+        // Remove the custom view from its container.
+        mCustomViewContainer.removeView(mNavScreen);
+        mNavScreen = null;
+        mCustomViewContainer.setVisibility(View.GONE);
+        // Show the content view.
+        mContentView.setVisibility(View.VISIBLE);
     }
 
 }

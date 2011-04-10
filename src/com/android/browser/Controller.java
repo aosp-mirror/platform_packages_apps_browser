@@ -2128,7 +2128,8 @@ public class Controller
         mTabControl.removeTab(tab);
     }
 
-    protected void setActiveTab(Tab tab) {
+    @Override
+    public void setActiveTab(Tab tab) {
         // monkey protection against delayed start
         if (tab != null) {
             mTabControl.setCurrentTab(tab);

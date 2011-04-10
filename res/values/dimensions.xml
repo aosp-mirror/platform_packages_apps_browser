@@ -64,4 +64,6 @@
     <dimen name="preference_screen_side_margin_negative">0dp</dimen>
     <!-- Preference widget area width (to the left of the text) -->
     <dimen name="preference_widget_width">56dp</dimen>
+    <dimen name="nav_tab_spacing">8dp</dimen>
+    <dimen name="menu_width">240dip</dimen>
 </resources>
