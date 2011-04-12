@@ -199,15 +199,17 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void onOptionsMenuOpened() {
-        mOptionsMenuOpen = true;
-        // options menu opened, show title bar
-        showTitleBar();
-        if (mTitleOverlay == null) {
-            // This assumes that getTitleBar always returns the same View
-            mTitleOverlay = new TouchProxy(mActivity, getTitleBar());
+        if (!mUseQuickControls) {
+            mOptionsMenuOpen = true;
+            // options menu opened, show title bar
+            showTitleBar();
+            if (mTitleOverlay == null) {
+                // This assumes that getTitleBar always returns the same View
+                mTitleOverlay = new TouchProxy(mActivity, getTitleBar());
+            }
+            mActivity.getWindowManager().addView(mTitleOverlay,
+                    mTitleOverlay.getWindowLayoutParams());
         }
-        mActivity.getWindowManager().addView(mTitleOverlay,
-                mTitleOverlay.getWindowLayoutParams());
     }
 
     @Override
