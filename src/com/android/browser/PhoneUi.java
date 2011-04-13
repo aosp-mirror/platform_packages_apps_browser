@@ -324,7 +324,6 @@ public class PhoneUi extends BaseUi {
                 web.setEmbeddedTitleBar(null);
             }
         } else {
-            mActivity.getActionBar().show();
             if (mPieControl != null) {
                 mPieControl.removeFromContainer(mContentView);
             }
