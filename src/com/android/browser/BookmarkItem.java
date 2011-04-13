@@ -63,6 +63,16 @@ class BookmarkItem extends LinearLayout {
         item.mImageView.setImageDrawable(mImageView.getDrawable());
     }
 
+    public void startMarquee() {
+        mTextView.setSelected(true);
+        mUrlText.setSelected(true);
+    }
+
+    public void stopMarquee() {
+        mTextView.setSelected(false);
+        mUrlText.setSelected(false);
+    }
+
     /**
      * Return the name assigned to this bookmark item.
      */

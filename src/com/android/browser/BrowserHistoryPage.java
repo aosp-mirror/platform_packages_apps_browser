@@ -674,6 +674,7 @@ public class BrowserHistoryPage extends Fragment
                         item.getPaddingRight(),
                         item.getPaddingBottom());
                 item.setFaviconBackground(mFaviconBackground);
+                item.startMarquee();
             } else {
                 item = (HistoryItem) convertView;
             }
