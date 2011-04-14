@@ -271,8 +271,8 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="2105979166017257647">"Schnellsteuerung"</string>
     <string name="pref_lab_quick_controls_summary" msgid="8025196176636589803">"Daumen zum Zugriff auf Schnellsteuerung von linker oder rechte Ecke ziehen"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"\"Am häufigsten besucht\" auf Startseite"</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Legt fest, dass auf der Starts. die am häufigsten besuchten Seiten angez. werden"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="547134501893835512">"Startseite - am häufigsten besucht"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="6857702350834122532">"Legt fest, dass auf der Startseite die häufigst besuchten Seiten angez. werden"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Datenverbindungsproblem"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem mit Datei"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Bestätigen"</string>

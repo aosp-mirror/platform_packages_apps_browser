@@ -197,7 +197,7 @@
     <string name="autofill_setup_dialog_negative_toast" msgid="4337372830506338827">"La saisie automatique peut être configurée dans les paramètres du navigateur."</string>
     <string name="disable_autofill" msgid="3706426217720202898">"Désactiver la saisie automatique"</string>
     <string name="pref_privacy_security_title" msgid="1705642466867300373">"Confidentialité et sécurité"</string>
-    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Effacer le cache"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Vider le cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Supprimer les bases de données et le contenu localement en cache"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Les bases de données et le contenu mis localement en cache vont être supprimés."</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Cookies"</string>
