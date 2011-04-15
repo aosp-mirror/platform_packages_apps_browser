@@ -47,6 +47,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcel;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceActivity;
@@ -83,6 +84,7 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -198,6 +200,7 @@ public class Controller
     // Tabs' notion of whether they represent bookmarked sites.
     private ContentObserver mBookmarksObserver;
     private DataController mDataController;
+    private CrashRecoveryHandler mCrashRecoveryHandler;
 
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
@@ -219,6 +222,7 @@ public class Controller
         mDataController = DataController.getInstance(mActivity);
         mTabControl = new TabControl(this);
         mSettings.setController(this);
+        mCrashRecoveryHandler = new CrashRecoveryHandler(this);
 
         mUrlHandler = new UrlHandler(this);
         mIntentHandler = new IntentHandler(mActivity, this);
@@ -252,6 +256,15 @@ public class Controller
     }
 
     void start(final Bundle icicle, final Intent intent) {
+        if (icicle != null) {
+            mCrashRecoveryHandler.clearState();
+            doStart(icicle, intent);
+        } else {
+            mCrashRecoveryHandler.startRecovery(intent);
+        }
+    }
+
+    void doStart(final Bundle icicle, final Intent intent) {
         // Unless the last browser usage was within 24 hours, destroy any
         // remaining incognito tabs.
 
@@ -279,12 +292,12 @@ public class Controller
         GoogleAccountLogin.startLoginIfNeeded(mActivity,
                 new Runnable() {
                     @Override public void run() {
-                        start(icicle, intent, currentTab, restoreIncognitoTabs);
+                        onPreloginFinished(icicle, intent, currentTab, restoreIncognitoTabs);
                     }
                 });
     }
 
-    private void start(Bundle icicle, Intent intent, int currentTab,
+    private void onPreloginFinished(Bundle icicle, Intent intent, int currentTab,
             boolean restoreIncognitoTabs) {
         if (currentTab == -1) {
             final Bundle extra = intent.getExtras();
@@ -610,6 +623,7 @@ public class Controller
         mNetworkHandler.onPause();
 
         WebView.disablePlatformNotifications();
+        mCrashRecoveryHandler.clearState();
     }
 
     void onSaveInstanceState(Bundle outState) {
@@ -911,6 +925,11 @@ public class Controller
         }
         mDataController.updateVisitedHistory(url);
         WebIconDatabase.getInstance().retainIconForPageUrl(url);
+        if (!mActivityPaused) {
+            // Since we clear the state in onPause, don't backup the current
+            // state if we are already paused
+            mCrashRecoveryHandler.backupState();
+        }
     }
 
     @Override

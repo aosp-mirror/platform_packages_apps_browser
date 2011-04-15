@@ -975,4 +975,12 @@
          the search engines list (Preferences->Advanced->Set search engine
          [CHAR LIMIT=80] -->
     <string name="instant_search_label">Google with Instant (Labs)</string>
+    <!-- Recover tabs after a crash dialog title [CHAR LIMIT=32] -->
+    <string name="recover_title">Restore windows?</string>
+    <!-- Recover tabs after a crash dialog prompt [CHAR LIMIT=none] -->
+    <string name="recover_prompt">Browser appears to have crashed. Would you like to restore your windows from last time?</string>
+    <!-- Yes, recover windows from last time [CHAR LIMIT=10] -->
+    <string name="recover_yes">Yes</string>
+    <!-- No, don't recover windows from last time [CHAR LIMIT=10] -->
+    <string name="recover_no">No</string>
 </resources>

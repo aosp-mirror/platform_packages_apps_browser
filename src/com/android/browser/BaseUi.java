@@ -226,7 +226,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     @Override
     public boolean needsRestoreAllTabs() {
-        return false;
+        return true;
     }
 
     @Override

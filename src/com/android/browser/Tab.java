@@ -1299,7 +1299,8 @@ class Tab {
         mCloseOnExit = closeOnExit;
         mAppId = appId;
         mDataController = DataController.getInstance(mActivity);
-        mCurrentState = new PageState(mActivity, w.isPrivateBrowsingEnabled());
+        mCurrentState = new PageState(mActivity, w != null
+                ? w.isPrivateBrowsingEnabled() : false);
         mInPageLoad = false;
         mInForeground = false;
 

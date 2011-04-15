@@ -176,11 +176,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
-    public boolean needsRestoreAllTabs() {
-        return true;
-    }
-
-    @Override
     public void addTab(Tab tab) {
         mTabBar.onNewTab(tab);
     }
