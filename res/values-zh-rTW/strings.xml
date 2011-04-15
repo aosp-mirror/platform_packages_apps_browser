@@ -188,7 +188,7 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"郵遞區號："</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"國家/地區："</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"電話："</string>
-    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"無效的電話號碼"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"電話號碼錯誤"</string>
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"儲存設定檔"</string>
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"設定檔已儲存"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"個人資料已刪除"</string>
