@@ -41,8 +41,8 @@
     <dimen name="bookmark_widget_thumb_size">32dip</dimen>
     <dimen name="bookmark_widget_favicon_size">26dip</dimen>
     <!-- For the most visited page (we use px as these are adjusted by the browser) -->
-    <dimen name="mv_max_width">830px</dimen>
-    <dimen name="mv_item_width">94px</dimen>
+    <dimen name="mv_max_width">450px</dimen>
+    <dimen name="mv_item_width">80px</dimen>
     <dimen name="mv_item_width_portrait">80px</dimen>
     <dimen name="mv_border_width">2px</dimen>
     <dimen name="tab_padding_top">12dp</dimen>
