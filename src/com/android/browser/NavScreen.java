@@ -86,7 +86,10 @@ public class NavScreen extends LinearLayout implements OnClickListener {
         requestLayout();
     }
 
-    protected void showMenu(Menu menu) {
+    protected void showMenu() {
+        Menu menu = mUi.getMenu();
+        menu.setGroupVisible(R.id.NAV_MENU, false);
+
         MenuAdapter menuAdapter = new MenuAdapter(mContext);
         menuAdapter.setMenu(menu);
         ListPopupWindow popup = new ListPopupWindow(mContext);
@@ -207,7 +210,7 @@ public class NavScreen extends LinearLayout implements OnClickListener {
             mUi.hideNavScreen(true);
             mUiController.openTabToHomePage();
         } else if (mMore == v) {
-            mActivity.openOptionsMenu();
+            showMenu();
         } else if (mNewIncognito == v) {
             mUi.hideNavScreen(true);
             mUiController.openIncognitoTab();

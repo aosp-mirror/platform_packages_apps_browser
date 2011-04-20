@@ -284,16 +284,12 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.setGroupVisible(R.id.NAV_MENU, false);
         if (mUseQuickControls) {
+            menu.setGroupVisible(R.id.NAV_MENU, false);
             mPieControl.onMenuOpened(menu);
             return false;
-        } else {
-            if (mNavScreen != null) {
-                mNavScreen.showMenu(menu);
-            }
-            return false;
         }
+        return true;
     }
 
     @Override

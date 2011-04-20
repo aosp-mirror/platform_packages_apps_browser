@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.Tab.LockIcon;
+import com.android.internal.view.menu.MenuBuilder;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -774,6 +775,12 @@ public abstract class BaseUi implements UI, WebViewFactory {
         } else {
             return null;
         }
+    }
+
+    protected Menu getMenu() {
+        MenuBuilder menu = new MenuBuilder(mActivity);
+        mActivity.getMenuInflater().inflate(R.menu.browser, menu);
+        return menu;
     }
 
 }
