@@ -50,13 +50,6 @@
             android:summary="@string/pref_extras_website_settings_summary" />
 
     <PreferenceCategory android:title="@string/pref_content_title">
-        <ListPreference
-                android:key="text_size"
-                android:title="@string/pref_text_size"
-                android:defaultValue="NORMAL"
-                android:entries="@array/pref_text_size_choices"
-                android:entryValues="@array/pref_text_size_values"
-                android:dialogTitle="@string/pref_text_size_dialogtitle" />
 
         <ListPreference
                 android:key="default_zoom"

@@ -523,6 +523,8 @@
         <item><xliff:g>LARGER</xliff:g></item>
         <item><xliff:g>LARGEST</xliff:g></item>
     </string-array>
+    <!-- Label for minimum font size [CHAR LIMIT=30] -->
+    <string name="pref_min_font_size">Minimum font size</string>
     <!-- Settings label -->
     <string name="pref_default_zoom">Default zoom</string>
     <!-- Settings default zoom options; appear in default zoom dialog box -->
@@ -625,6 +627,8 @@
         <item>EUC-KR</item>
     </string-array>
     <string name="pref_default_text_encoding_default" translatable="false">Latin-1</string>
+    <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+    <string name="pref_accessibility_title">Accessibility</string>
     <!-- Title for lab settings [CHAR LIMIT=25] -->
     <string name="pref_lab_title">Labs</string>
     <!-- Title for lab quick controls feature [CHAR LIMIT=40] -->
@@ -983,4 +987,6 @@
     <string name="recover_yes">Yes</string>
     <!-- No, don't recover windows from last time [CHAR LIMIT=10] -->
     <string name="recover_no">No</string>
+    <!-- Font size preview label [CHAR LIMIT=30] -->
+    <string name="preview">Preview:</string>
 </resources>

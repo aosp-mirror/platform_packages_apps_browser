@@ -24,6 +24,10 @@
         android:title="@string/pref_privacy_security_title"
     />
 
+    <header android:fragment="com.android.browser.preferences.AccessibilityPreferencesFragment"
+        android:title="@string/pref_accessibility_title"
+    />
+
     <header android:fragment="com.android.browser.preferences.AdvancedPreferencesFragment"
         android:title="@string/pref_extras_title"
     />

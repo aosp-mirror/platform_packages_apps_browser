@@ -49,13 +49,7 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
                 BrowserSettings.PREF_WEBSITE_SETTINGS);
         websiteSettings.setFragment(WebsiteSettingsFragment.class.getName());
 
-        Preference e = findPreference(BrowserSettings.PREF_TEXT_SIZE);
-        e.setOnPreferenceChangeListener(this);
-        e.setSummary(getVisualTextSizeName(
-                getPreferenceScreen().getSharedPreferences()
-                .getString(BrowserSettings.PREF_TEXT_SIZE, null)) );
-
-        e = findPreference(BrowserSettings.PREF_DEFAULT_ZOOM);
+        Preference e = findPreference(BrowserSettings.PREF_DEFAULT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getVisualDefaultZoomName(
                 getPreferenceScreen().getSharedPreferences()
@@ -114,10 +108,7 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
             return false;
         }
 
-        if (pref.getKey().equals(BrowserSettings.PREF_TEXT_SIZE)) {
-            pref.setSummary(getVisualTextSizeName((String) objValue));
-            return true;
-        } else if (pref.getKey().equals(BrowserSettings.PREF_DEFAULT_ZOOM)) {
+        if (pref.getKey().equals(BrowserSettings.PREF_DEFAULT_ZOOM)) {
             pref.setSummary(getVisualDefaultZoomName((String) objValue));
             return true;
         } else if (pref.getKey().equals(BrowserSettings.PREF_DEFAULT_TEXT_ENCODING)) {
@@ -137,26 +128,6 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
             return false;
         }
         return false;
-    }
-
-    private CharSequence getVisualTextSizeName(String enumName) {
-        Resources res = getActivity().getResources();
-        CharSequence[] visualNames = res.getTextArray(R.array.pref_text_size_choices);
-        CharSequence[] enumNames = res.getTextArray(R.array.pref_text_size_values);
-
-        // Sanity check
-        if (visualNames.length != enumNames.length) {
-            return "";
-        }
-
-        int length = enumNames.length;
-        for (int i = 0; i < length; i++) {
-            if (enumNames[i].equals(enumName)) {
-                return visualNames[i];
-            }
-        }
-
-        return "";
     }
 
     private CharSequence getVisualDefaultZoomName(String enumName) {

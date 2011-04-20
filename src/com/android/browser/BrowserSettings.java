@@ -59,6 +59,7 @@ import java.util.Observable;
  * To remove an observer:
  * s.deleteObserver(webView.getSettings());
  */
+// TODO: Really need to refactor this :/
 public class BrowserSettings extends Observable implements OnSharedPreferenceChangeListener {
     // Private variables for settings
     // NOTE: these defaults need to be kept in sync with the XML
@@ -92,6 +93,9 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     private String databasePath; // default value set in loadFromDb()
     private String geolocationDatabasePath; // default value set in loadFromDb()
     private WebStorageSizeManager webStorageSizeManager;
+    // Accessibility settings
+    private int minimumFontSize = 1;
+    private WebSettings.TextSize textSize = WebSettings.TextSize.NORMAL;
 
     private String jsFlags = "";
 
@@ -117,12 +121,9 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     private boolean showConsole = true;
 
     // Private preconfigured values
-    private static int minimumFontSize = 1;
     private static int minimumLogicalFontSize = 1;
     private static int defaultFontSize = 16;
     private static int defaultFixedFontSize = 13;
-    private static WebSettings.TextSize textSize =
-        WebSettings.TextSize.NORMAL;
     private static WebSettings.ZoomDensity zoomDensity =
         WebSettings.ZoomDensity.MEDIUM;
     private static int pageCacheCapacity;
@@ -167,6 +168,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
     public final static String PREF_MOST_VISITED_HOMEPAGE = "use_most_visited_homepage";
     public final static String PREF_PLUGIN_STATE = "plugin_state";
     public final static String PREF_USE_INSTANT = "use_instant_search";
+    public final static String PREF_MIN_FONT_SIZE = "min_font_size";
 
     private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (Macintosh; " +
             "U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, " +
@@ -221,7 +223,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
      * An observer wrapper for updating a WebSettings object with the new
      * settings after a call to BrowserSettings.update().
      */
-    static class Observer implements java.util.Observer {
+    public static class Observer implements java.util.Observer {
         // Private WebSettings object that will be updated.
         private WebSettings mSettings;
 
@@ -432,7 +434,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
          }
     }
 
-    /* package */ void syncSharedPreferences(Context ctx, SharedPreferences p) {
+    public void syncSharedPreferences(Context ctx, SharedPreferences p) {
 
         homeUrl =
             p.getString(PREF_HOMEPAGE, homeUrl);
@@ -464,6 +466,7 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
         openInBackground = p.getBoolean("open_in_background", openInBackground);
         textSize = WebSettings.TextSize.valueOf(
                 p.getString(PREF_TEXT_SIZE, textSize.name()));
+        minimumFontSize = p.getInt(PREF_MIN_FONT_SIZE, 1);
         zoomDensity = WebSettings.ZoomDensity.valueOf(
                 p.getString(PREF_DEFAULT_ZOOM, zoomDensity.name()));
         autoFitPage = p.getBoolean("autofit_pages", autoFitPage);
@@ -564,6 +567,10 @@ public class BrowserSettings extends Observable implements OnSharedPreferenceCha
 
     public WebSettings.TextSize getTextSize() {
         return textSize;
+    }
+
+    public int getMinimumFontSize() {
+        return minimumFontSize;
     }
 
     public WebSettings.ZoomDensity getDefaultZoom() {

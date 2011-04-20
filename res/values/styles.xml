@@ -69,7 +69,7 @@
         <item name="android:windowEnterAnimation">@anim/title_bar_enter</item>
         <item name="android:windowExitAnimation">@anim/title_bar_exit</item>
     </style>
-        <style name="HoloIcon">
+    <style name="HoloIcon">
         <item name="android:layout_marginLeft">16dip</item>
     </style>
     <style name="HoloButton">
