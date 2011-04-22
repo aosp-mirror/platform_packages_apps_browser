@@ -23,4 +23,8 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"فتح في علامة تبويب جديدة في الخلفية"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"فتح الكل في علامات تبويب جديدة"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"فتح علامات تبويب جديدة وراء علامة التبويب الحالية"</string>
+    <!-- no translation found for recover_title (7754049918641251703) -->
+    <skip />
+    <!-- no translation found for recover_prompt (3030249435588073132) -->
+    <skip />
 </resources>

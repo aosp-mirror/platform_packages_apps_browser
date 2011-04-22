@@ -23,4 +23,6 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Atidaryti naujame fono skirtuko lape"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Atidaryti visas naujuose skirtukų lapuose"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Atidaroma naujų skirtukų lapų už dabartinio"</string>
+    <string name="recover_title" msgid="7754049918641251703">"Atkurti skirtukus?"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"Atrodo, naršyklė užstrigo. Ar norėtumėte atkurti paskutinį kartą  naudotus skirtukus?"</string>
 </resources>

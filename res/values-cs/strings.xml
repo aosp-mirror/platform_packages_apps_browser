@@ -382,4 +382,8 @@
     <string name="menu_share_url" msgid="5851814357333739700">"Sdílet"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Žádné další karty nejsou k dispozici"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google s dynamickým vyhledáváním (experimentální funkce)"</string>
+    <string name="recover_title" msgid="8095611702406163360">"Obnovit okna?"</string>
+    <string name="recover_prompt" msgid="5526783279696786755">"Zřejmě došlo k selhání prohlížeče. Chcete obnovit naposledy otevřená okna?"</string>
+    <string name="recover_yes" msgid="5837971910598069183">"Ano"</string>
+    <string name="recover_no" msgid="3121030267940592611">"Ne"</string>
 </resources>
