@@ -23,4 +23,6 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Open in new background tab"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Open all in new tabs"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Open new tabs behind the current one"</string>
+    <string name="recover_title" msgid="7754049918641251703">"Restore tabs?"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"Browser appears to have crashed. Would you like to restore your tabs from last time?"</string>
 </resources>

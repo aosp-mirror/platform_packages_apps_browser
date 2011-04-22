@@ -23,4 +23,6 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Buksan sa bagong tab na background"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Buksan sa lahat ng mga bagong tab"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Buksan ang mga bagong tab sa likod ng kasalukuyan"</string>
+    <string name="recover_title" msgid="7754049918641251703">"Ibalik ang mga tab?"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"Mukhang nag-crash ang browser. Gusto mo bang ibalik ang iyong mga tab mula sa nakaraan?"</string>
 </resources>
