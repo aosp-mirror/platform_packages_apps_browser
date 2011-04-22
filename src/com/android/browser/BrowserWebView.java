@@ -17,6 +17,8 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +36,7 @@ public class BrowserWebView extends WebView implements Runnable {
     private boolean mBackgroundRemoved = false;
     private boolean mUserInitiated = false;
     private TitleBarBase mTitleBar;
+    private Bitmap mCapture;
 
     /**
      * @param context
@@ -69,6 +72,12 @@ public class BrowserWebView extends WebView implements Runnable {
      */
     public BrowserWebView(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int ow, int oh) {
+        super.onSizeChanged(w, h, ow, oh);
+        mCapture = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
     }
 
     @Override
@@ -136,6 +145,14 @@ public class BrowserWebView extends WebView implements Runnable {
 
     interface ScrollListener {
         public void onScroll(int visibleTitleHeight, boolean userInitiated);
+    }
+
+    protected Bitmap capture() {
+        if (mCapture == null) return null;
+        Canvas c = new Canvas(mCapture);
+        c.translate(-getScrollX(), -(getScrollY() + getVisibleTitleHeight()));
+        onDraw(c);
+        return mCapture;
     }
 
     @Override

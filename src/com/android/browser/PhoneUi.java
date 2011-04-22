@@ -46,6 +46,7 @@ public class PhoneUi extends BaseUi {
 
     boolean mExtendedMenuOpen;
     boolean mOptionsMenuOpen;
+    boolean mAnimating;
 
     /**
      * @param browser
@@ -304,8 +305,18 @@ public class PhoneUi extends BaseUi {
     }
 
     void showNavScreen() {
-        captureTab(mActiveTab);
+        if (mAnimating) return;
+        mAnimating = true;
         mNavScreen = new NavScreen(mActivity, mUiController, this);
+        mNavScreen.startTask(new Runnable() {
+            public void run() {
+                BrowserWebView web = (BrowserWebView) getWebView();
+                if (web != null) {
+                    mActiveTab.setScreenshot(web.capture());
+                }
+                mNavScreen.finishTask();
+            }
+        });
         WebView web = getWebView();
         if (web != null) {
             int w = web.getWidth();
@@ -315,6 +326,7 @@ public class PhoneUi extends BaseUi {
         }
         // Add the custom view to its container.
         mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_GRAVITY_CENTER);
+        mContentView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         ObjectAnimator animx = ObjectAnimator.ofFloat(mContentView,
                 "scaleX", 1.0f, 0.85f);
         ObjectAnimator animy = ObjectAnimator.ofFloat(mContentView,
@@ -325,7 +337,6 @@ public class PhoneUi extends BaseUi {
 
             @Override
             public void onAnimationCancel(Animator animation) {
-                finishShowNavScreen();
             }
 
             @Override
@@ -347,16 +358,21 @@ public class PhoneUi extends BaseUi {
 
     private void finishShowNavScreen() {
         // Hide the content view.
+        mContentView.setLayerType(View.LAYER_TYPE_NONE, null);
         mContentView.setVisibility(View.GONE);
         mContentView.setScaleX(1.0f);
         mContentView.setScaleY(1.0f);
+        mNavScreen.waitForTask();
         // Finally show the custom view container.
         mCustomViewContainer.setVisibility(View.VISIBLE);
         mCustomViewContainer.bringToFront();
+        mAnimating = false;
     }
 
     void hideNavScreen(boolean animateToPage) {
-        if (mNavScreen == null) return;
+        if (mAnimating || mNavScreen == null) return;
+        mAnimating = true;
+        mNavScreen.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         if (animateToPage) {
             ObjectAnimator animx = ObjectAnimator.ofFloat(mNavScreen, "scaleX",
                     1.0f, 1.2f);
@@ -368,7 +384,6 @@ public class PhoneUi extends BaseUi {
 
                 @Override
                 public void onAnimationCancel(Animator animation) {
-                    finishHideNavScreen();
                 }
 
                 @Override
@@ -395,12 +410,14 @@ public class PhoneUi extends BaseUi {
     private void finishHideNavScreen() {
         // Hide the custom view.
         mNavScreen.setVisibility(View.GONE);
+        mNavScreen.setLayerType(View.LAYER_TYPE_NONE, null);
         // Remove the custom view from its container.
         mCustomViewContainer.removeView(mNavScreen);
         mNavScreen = null;
         mCustomViewContainer.setVisibility(View.GONE);
         // Show the content view.
         mContentView.setVisibility(View.VISIBLE);
+        mAnimating = false;
     }
 
 }

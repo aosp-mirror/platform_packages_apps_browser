@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<com.android.browser.view.TabHolderView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tab_view"
     android:layout_width="wrap_content"
@@ -67,4 +67,4 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitXY" />
-</LinearLayout>
+</com.android.browser.view.TabHolderView>
