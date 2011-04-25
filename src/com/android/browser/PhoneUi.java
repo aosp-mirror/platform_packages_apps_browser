@@ -298,15 +298,6 @@ public class PhoneUi extends BaseUi {
         if (mAnimating) return;
         mAnimating = true;
         mNavScreen = new NavScreen(mActivity, mUiController, this);
-        mNavScreen.startTask(new Runnable() {
-            public void run() {
-                BrowserWebView web = (BrowserWebView) getWebView();
-                if (web != null) {
-                    mActiveTab.setScreenshot(web.capture());
-                }
-                mNavScreen.finishTask();
-            }
-        });
         WebView web = getWebView();
         if (web != null) {
             int w = web.getWidth();
@@ -352,7 +343,10 @@ public class PhoneUi extends BaseUi {
         mContentView.setVisibility(View.GONE);
         mContentView.setScaleX(1.0f);
         mContentView.setScaleY(1.0f);
-        mNavScreen.waitForTask();
+        BrowserWebView web = (BrowserWebView) getWebView();
+        if (web != null) {
+            mActiveTab.setScreenshot(web.capture());
+        }
         // Finally show the custom view container.
         mCustomViewContainer.setVisibility(View.VISIBLE);
         mCustomViewContainer.bringToFront();
