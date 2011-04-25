@@ -138,10 +138,10 @@
     <com.android.browser.PageProgressView
         android:id="@+id/progress"
         android:layout_width="match_parent"
-        android:layout_height="22dip"
+        android:layout_height="wrap_content"
         android:background="@null"
         android:layout_below="@+id/taburlbar"
         android:src="@drawable/progress"
-        android:layout_marginTop="-11dip"
+        android:layout_marginTop="-8dip"
         android:visibility="gone" />
 </RelativeLayout>

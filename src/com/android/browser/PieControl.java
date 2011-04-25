@@ -107,7 +107,7 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             menuview.setLayoutListener(new OnLayoutListener() {
                 @Override
                 public void onLayout(int ax, int ay, boolean left) {
-                    mActivity.openOptionsMenu();
+                    buildMenu();
                 }
             });
 
@@ -146,7 +146,9 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
 
     }
 
-    protected void onMenuOpened(Menu menu) {
+    private void buildMenu() {
+        Menu menu = mUi.getMenu();
+        menu.setGroupVisible(R.id.NAV_MENU, false);
         mMenuAdapter.setMenu(menu);
     }
 

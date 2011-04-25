@@ -284,16 +284,6 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mUseQuickControls) {
-            menu.setGroupVisible(R.id.NAV_MENU, false);
-            mPieControl.onMenuOpened(menu);
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     protected void captureTab(final Tab tab) {
         if (mUseQuickControls) {
             super.captureTab(tab);
