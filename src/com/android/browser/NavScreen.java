@@ -34,13 +34,13 @@ import android.widget.FrameLayout;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 public class NavScreen extends LinearLayout implements OnClickListener {
 
@@ -65,8 +65,7 @@ public class NavScreen extends LinearLayout implements OnClickListener {
     int mTabHeight;
     TabAdapter mAdapter;
     ListPopupWindow mPopup;
-
-    boolean mReady;
+    Semaphore mLock;
 
     public NavScreen(Activity activity, UiController ctl, PhoneUi ui) {
         super(activity);
@@ -84,6 +83,30 @@ public class NavScreen extends LinearLayout implements OnClickListener {
         mTabWidth = w;
         mTabHeight = h;
         requestLayout();
+    }
+
+    protected synchronized void startTask(Runnable r) {
+        Thread task = new Thread(r);
+        mLock = new Semaphore(1);
+        try {
+            mLock.acquire();
+        } catch (InterruptedException e) {
+        }
+        task.start();
+    }
+
+    protected synchronized void finishTask() {
+        mLock.release();
+    }
+
+    protected synchronized void waitForTask() {
+        if (mLock != null) {
+            try {
+                mLock.acquire();
+            } catch (InterruptedException e) {
+            }
+        }
+        mLock = null;
     }
 
     protected void showMenu() {
