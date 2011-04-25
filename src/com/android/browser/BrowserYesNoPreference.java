@@ -35,25 +35,25 @@ class BrowserYesNoPreference extends YesNoPreference {
         if (positiveResult) {
             setEnabled(false);
 
-            Context context = getContext();
-            if (BrowserSettings.PREF_CLEAR_CACHE.equals(getKey())) {
-                BrowserSettings.getInstance().clearCache(context);
-                BrowserSettings.getInstance().clearDatabases(context);
-            } else if (BrowserSettings.PREF_CLEAR_COOKIES.equals(getKey())) {
-                BrowserSettings.getInstance().clearCookies(context);
-            } else if (BrowserSettings.PREF_CLEAR_HISTORY.equals(getKey())) {
-                BrowserSettings.getInstance().clearHistory(context);
-            } else if (BrowserSettings.PREF_CLEAR_FORM_DATA.equals(getKey())) {
-                BrowserSettings.getInstance().clearFormData(context);
-            } else if (BrowserSettings.PREF_CLEAR_PASSWORDS.equals(getKey())) {
-                BrowserSettings.getInstance().clearPasswords(context);
-            } else if (BrowserSettings.PREF_EXTRAS_RESET_DEFAULTS.equals(
+            BrowserSettings settings = BrowserSettings.getInstance();
+            if (PreferenceKeys.PREF_PRIVACY_CLEAR_CACHE.equals(getKey())) {
+                settings.clearCache();
+                settings.clearDatabases();
+            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_COOKIES.equals(getKey())) {
+                settings.clearCookies();
+            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY.equals(getKey())) {
+                settings.clearHistory();
+            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_FORM_DATA.equals(getKey())) {
+                settings.clearFormData();
+            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_PASSWORDS.equals(getKey())) {
+                settings.clearPasswords();
+            } else if (PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES.equals(
                     getKey())) {
-                BrowserSettings.getInstance().resetDefaultPreferences(context);
+                settings.resetDefaultPreferences();
                 setEnabled(true);
-            } else if (BrowserSettings.PREF_CLEAR_GEOLOCATION_ACCESS.equals(
+            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_GEOLOCATION_ACCESS.equals(
                     getKey())) {
-                BrowserSettings.getInstance().clearLocationAccess(context);
+                settings.clearLocationAccess();
             }
         }
     }

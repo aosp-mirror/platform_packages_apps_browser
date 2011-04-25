@@ -16,14 +16,13 @@
 
 package com.android.browser.preferences;
 
-import com.android.browser.BrowserSettings;
+import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.util.Log;
 import android.view.View;
 
 public class AccessibilityPreferencesFragment extends PreferenceFragment
@@ -34,11 +33,11 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.accessibility_preferences);
 
-        Preference e = findPreference(BrowserSettings.PREF_TEXT_SIZE);
+        Preference e = findPreference(PreferenceKeys.PREF_TEXT_SIZE);
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getVisualTextSizeName(
                 getPreferenceScreen().getSharedPreferences()
-                .getString(BrowserSettings.PREF_TEXT_SIZE, null)) );
+                .getString(PreferenceKeys.PREF_TEXT_SIZE, null)) );
     }
 
     @Override
@@ -55,7 +54,7 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
             return false;
         }
 
-        if (pref.getKey().equals(BrowserSettings.PREF_TEXT_SIZE)) {
+        if (pref.getKey().equals(PreferenceKeys.PREF_TEXT_SIZE)) {
             pref.setSummary(getVisualTextSizeName((String) objValue));
             return true;
         }

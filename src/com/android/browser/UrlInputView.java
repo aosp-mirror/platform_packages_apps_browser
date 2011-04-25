@@ -175,7 +175,7 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (BrowserSettings.getInstance().useInstant() &&
+        if (BrowserSettings.getInstance().useInstantSearch() &&
                 (actionId == EditorInfo.IME_ACTION_NEXT)) {
             // When instant is turned on AND the user chooses to complete
             // using the tab key, then use the completion rather than the

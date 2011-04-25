@@ -30,6 +30,8 @@ import android.widget.TextView;
  */
 class BookmarkItem extends LinearLayout {
 
+    final static int MAX_TEXTVIEW_LEN = 80;
+
     protected TextView    mTextView;
     protected TextView    mUrlText;
     protected ImageView   mImageView;
@@ -121,8 +123,8 @@ class BookmarkItem extends LinearLayout {
 
         mTitle = name;
 
-        if (name.length() > BrowserSettings.MAX_TEXTVIEW_LEN) {
-            name = name.substring(0, BrowserSettings.MAX_TEXTVIEW_LEN);
+        if (name.length() > MAX_TEXTVIEW_LEN) {
+            name = name.substring(0, MAX_TEXTVIEW_LEN);
         }
 
         mTextView.setText(name);
@@ -139,8 +141,8 @@ class BookmarkItem extends LinearLayout {
 
         mUrl = url;
 
-        if (url.length() > BrowserSettings.MAX_TEXTVIEW_LEN) {
-            url = url.substring(0, BrowserSettings.MAX_TEXTVIEW_LEN);
+        if (url.length() > MAX_TEXTVIEW_LEN) {
+            url = url.substring(0, MAX_TEXTVIEW_LEN);
         }
 
         mUrlText.setText(url);

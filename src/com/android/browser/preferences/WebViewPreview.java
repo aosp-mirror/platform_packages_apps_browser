@@ -66,8 +66,6 @@ public class WebViewPreview extends Preference implements OnSharedPreferenceChan
     void updatePreview() {
         if (mWebView == null) return;
 
-        BrowserSettings.getInstance().syncSharedPreferences(getContext(),
-                PreferenceManager.getDefaultSharedPreferences(getContext()));
         WebSettings ws = mWebView.getSettings();
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setMinimumFontSize(bs.getMinimumFontSize());

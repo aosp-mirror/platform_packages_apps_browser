@@ -187,7 +187,7 @@ public class IntentHandler {
                     } else if ("about:debug.nav".equals(urlData.mUrl)) {
                         current.getWebView().debugDump();
                     } else {
-                        mSettings.toggleDebugSettings(mActivity);
+                        mSettings.toggleDebugSettings();
                     }
                     return;
                 }

@@ -16,11 +16,8 @@
 
 package com.android.browser;
 
-import com.android.browser.IntentHandler.UrlData;
-
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebBackForwardList;
 import android.webkit.WebView;
 
 import java.io.File;

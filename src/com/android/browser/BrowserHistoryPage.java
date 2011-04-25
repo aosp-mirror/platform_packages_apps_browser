@@ -455,7 +455,7 @@ public class BrowserHistoryPage extends Fragment
                 Browser.deleteFromHistory(activity.getContentResolver(), url);
                 return true;
             case R.id.homepage_context_menu_id:
-                BrowserSettings.getInstance().setHomePage(activity, url);
+                BrowserSettings.getInstance().setHomePage(url);
                 Toast.makeText(activity, R.string.homepage_set, Toast.LENGTH_LONG).show();
                 return true;
             default:

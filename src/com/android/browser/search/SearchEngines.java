@@ -32,7 +32,7 @@ public class SearchEngines {
     private static final String TAG = "SearchEngines";
 
     public static SearchEngine getDefaultSearchEngine(Context context) {
-        if (BrowserSettings.getInstance().useInstant()) {
+        if (BrowserSettings.getInstance().useInstantSearch()) {
             return new InstantSearchEngine(context, DefaultSearchEngine.create(context));
         }
 

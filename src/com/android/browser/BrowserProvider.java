@@ -40,7 +40,6 @@ import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Browser.BookmarkColumns;
-import android.provider.Settings;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;

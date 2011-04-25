@@ -150,7 +150,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         // Add this WebView to the settings observer list and update the
         // settings
         final BrowserSettings s = BrowserSettings.getInstance();
-        s.addObserver(w.getSettings()).update(s, null);
+        s.startManagingSettings(w.getSettings());
     }
 
     private void cancelStopToast() {

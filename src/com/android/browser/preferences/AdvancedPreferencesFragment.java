@@ -17,7 +17,7 @@
 package com.android.browser.preferences;
 
 import com.android.browser.BrowserActivity;
-import com.android.browser.BrowserSettings;
+import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
 import android.content.Intent;
@@ -46,22 +46,22 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.advanced_preferences);
 
         PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(
-                BrowserSettings.PREF_WEBSITE_SETTINGS);
+                PreferenceKeys.PREF_WEBSITE_SETTINGS);
         websiteSettings.setFragment(WebsiteSettingsFragment.class.getName());
 
-        Preference e = findPreference(BrowserSettings.PREF_DEFAULT_ZOOM);
+        Preference e = findPreference(PreferenceKeys.PREF_DEFAULT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getVisualDefaultZoomName(
                 getPreferenceScreen().getSharedPreferences()
-                .getString(BrowserSettings.PREF_DEFAULT_ZOOM, null)) );
+                .getString(PreferenceKeys.PREF_DEFAULT_ZOOM, null)) );
 
-        e = findPreference(BrowserSettings.PREF_DEFAULT_TEXT_ENCODING);
+        e = findPreference(PreferenceKeys.PREF_DEFAULT_TEXT_ENCODING);
         e.setOnPreferenceChangeListener(this);
 
-        e = findPreference(BrowserSettings.PREF_EXTRAS_RESET_DEFAULTS);
+        e = findPreference(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES);
         e.setOnPreferenceChangeListener(this);
 
-        e = findPreference(BrowserSettings.PREF_PLUGIN_STATE);
+        e = findPreference(PreferenceKeys.PREF_PLUGIN_STATE);
         e.setOnPreferenceChangeListener(this);
         updatePluginSummary((ListPreference) e);
     }
@@ -79,7 +79,7 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
     public void onResume() {
         super.onResume();
         final PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(
-                BrowserSettings.PREF_WEBSITE_SETTINGS);
+                PreferenceKeys.PREF_WEBSITE_SETTINGS);
         websiteSettings.setEnabled(false);
         WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
             @Override
@@ -108,20 +108,20 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
             return false;
         }
 
-        if (pref.getKey().equals(BrowserSettings.PREF_DEFAULT_ZOOM)) {
+        if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_ZOOM)) {
             pref.setSummary(getVisualDefaultZoomName((String) objValue));
             return true;
-        } else if (pref.getKey().equals(BrowserSettings.PREF_DEFAULT_TEXT_ENCODING)) {
+        } else if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_TEXT_ENCODING)) {
             pref.setSummary((String) objValue);
             return true;
-        } else if (pref.getKey().equals(BrowserSettings.PREF_EXTRAS_RESET_DEFAULTS)) {
+        } else if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
             Boolean value = (Boolean) objValue;
             if (value.booleanValue() == true) {
                 startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
                         getActivity(), BrowserActivity.class));
                 return true;
             }
-        } else if (pref.getKey().equals(BrowserSettings.PREF_PLUGIN_STATE)) {
+        } else if (pref.getKey().equals(PreferenceKeys.PREF_PLUGIN_STATE)) {
             ListPreference lp = (ListPreference) pref;
             lp.setValue((String) objValue);
             updatePluginSummary(lp);

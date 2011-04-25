@@ -16,7 +16,7 @@
 
 package com.android.browser.preferences;
 
-import com.android.browser.BrowserSettings;
+import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
 import android.app.Activity;
@@ -28,18 +28,14 @@ import android.preference.PreferenceFragment;
 public class PrivacySecurityPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
-    private BrowserSettings mSettings;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSettings = BrowserSettings.getInstance();
-
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.privacy_security_preferences);
 
-        Preference e = findPreference(BrowserSettings.PREF_CLEAR_HISTORY);
+        Preference e = findPreference(PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY);
         e.setOnPreferenceChangeListener(this);
     }
 
@@ -50,7 +46,7 @@ public class PrivacySecurityPreferencesFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object objValue) {
-        if (pref.getKey().equals(BrowserSettings.PREF_CLEAR_HISTORY)
+        if (pref.getKey().equals(PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY)
                 && ((Boolean) objValue).booleanValue() == true) {
             // Need to tell the browser to remove the parent/child relationship
             // between tabs

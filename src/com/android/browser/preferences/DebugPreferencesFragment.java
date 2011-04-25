@@ -18,21 +18,14 @@ package com.android.browser.preferences;
 
 import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserSettings;
-import com.android.browser.Controller;
+import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity.Header;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager.OnActivityResultListener;
-
-import java.io.IOException;
-import java.io.Serializable;
 
 public class DebugPreferencesFragment extends PreferenceFragment
         implements OnPreferenceChangeListener {
@@ -43,11 +36,11 @@ public class DebugPreferencesFragment extends PreferenceFragment
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.debug_preferences);
 
-        if (BrowserSettings.getInstance().showDebugSettings()) {
+        if (BrowserSettings.getInstance().isDebugEnabled()) {
             addPreferencesFromResource(R.xml.hidden_debug_preferences);
         }
 
-        Preference e = findPreference(BrowserSettings.PREF_HARDWARE_ACCEL);
+        Preference e = findPreference(PreferenceKeys.PREF_ENABLE_HARDWARE_ACCEL);
         e.setOnPreferenceChangeListener(this);
     }
 

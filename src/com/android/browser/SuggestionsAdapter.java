@@ -71,6 +71,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     final Object mResultsLock = new Object();
     List<String> mVoiceResults;
     boolean mIncognitoMode;
+    BrowserSettings mSettings;
 
     interface CompletionListener {
 
@@ -82,6 +83,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
 
     public SuggestionsAdapter(Context ctx, CompletionListener listener) {
         mContext = ctx;
+        mSettings = BrowserSettings.getInstance();
         mListener = listener;
         mLinesPortrait = mContext.getResources().
                 getInteger(R.integer.max_suggest_lines_portrait);
@@ -276,7 +278,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         }
 
         private boolean shouldProcessEmptyQuery() {
-            final SearchEngine searchEngine = BrowserSettings.getInstance().getSearchEngine();
+            final SearchEngine searchEngine = mSettings.getSearchEngine();
             return searchEngine.wantsEmptyQuery();
         }
 
@@ -541,7 +543,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             if (mCursor != null) {
                 mCursor.close();
             }
-            SearchEngine searchEngine = BrowserSettings.getInstance().getSearchEngine();
+            SearchEngine searchEngine = mSettings.getSearchEngine();
             if (!TextUtils.isEmpty(constraint)) {
                 if (searchEngine != null && searchEngine.supportsSuggestions()) {
                     mCursor = searchEngine.getSuggestions(mContext, constraint.toString());
@@ -560,7 +562,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     }
 
     private boolean useInstant() {
-        return BrowserSettings.getInstance().useInstant();
+        return mSettings.useInstantSearch();
     }
 
     public void clearCache() {

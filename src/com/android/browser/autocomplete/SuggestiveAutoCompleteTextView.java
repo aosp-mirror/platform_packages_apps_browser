@@ -752,7 +752,7 @@ public class SuggestiveAutoCompleteTextView extends EditText implements Filter.F
     }
 
     private void updateText(SuggestionsAdapter adapter) {
-        if (!BrowserSettings.getInstance().useInstant()) {
+        if (!BrowserSettings.getInstance().useInstantSearch()) {
             return;
         }
 

@@ -223,7 +223,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             copy(getUrl(i.position));
             break;
         case R.id.homepage_context_menu_id: {
-            BrowserSettings.getInstance().setHomePage(activity, getUrl(i.position));
+            BrowserSettings.getInstance().setHomePage(getUrl(i.position));
             Toast.makeText(activity, R.string.homepage_set, Toast.LENGTH_LONG).show();
             break;
         }

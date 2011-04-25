@@ -47,7 +47,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcel;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceActivity;
@@ -84,7 +83,6 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -347,7 +345,7 @@ public class Controller
         new ClearThumbnails().execute(mTabControl.getThumbnailDir()
                 .listFiles());
         // Read JavaScript flags if it exists.
-        String jsFlags = getSettings().getJsFlags();
+        String jsFlags = getSettings().getJsEngineFlags();
         if (jsFlags.trim().length() != 0) {
             getCurrentWebView().setJsFlags(jsFlags);
         }
@@ -1085,8 +1083,7 @@ public class Controller
     }
 
     public boolean supportsVoiceSearch() {
-        SearchEngine searchEngine = BrowserSettings.getInstance()
-                .getSearchEngine();
+        SearchEngine searchEngine = getSettings().getSearchEngine();
         return (searchEngine != null && searchEngine.supportsVoiceSearch());
     }
 
@@ -1124,7 +1121,7 @@ public class Controller
             case PREFERENCES_PAGE:
                 if (resultCode == Activity.RESULT_OK && intent != null) {
                     String action = intent.getStringExtra(Intent.EXTRA_TEXT);
-                    if (BrowserSettings.PREF_CLEAR_HISTORY.equals(action)) {
+                    if (PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY.equals(action)) {
                         mTabControl.removeParentChildRelationShips();
                     }
                 }
@@ -1361,8 +1358,7 @@ public class Controller
                 boolean showNewTab = mTabControl.canCreateNewTab();
                 MenuItem newTabItem
                         = menu.findItem(R.id.open_newtab_context_menu_id);
-                newTabItem.setTitle(
-                        BrowserSettings.getInstance().openInBackground()
+                newTabItem.setTitle(getSettings().openInBackground()
                         ? R.string.contextmenu_openlink_newwindow_background
                         : R.string.contextmenu_openlink_newwindow);
                 newTabItem.setVisible(showNewTab);
@@ -1491,12 +1487,12 @@ public class Controller
                         PackageManager.MATCH_DEFAULT_ONLY);
                 menu.findItem(R.id.share_page_menu_id).setVisible(ri != null);
 
-                boolean isNavDump = mSettings.isNavDump();
+                boolean isNavDump = mSettings.enableNavDump();
                 final MenuItem nav = menu.findItem(R.id.dump_nav_menu_id);
                 nav.setVisible(isNavDump);
                 nav.setEnabled(isNavDump);
 
-                boolean showDebugSettings = mSettings.showDebugSettings();
+                boolean showDebugSettings = mSettings.isDebugEnabled();
                 final MenuItem counter = menu.findItem(R.id.dump_counters_menu_id);
                 counter.setVisible(showDebugSettings);
                 counter.setEnabled(showDebugSettings);

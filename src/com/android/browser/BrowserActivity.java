@@ -62,11 +62,6 @@ public class BrowserActivity extends Activity {
 
         BrowserSettings settings = BrowserSettings.getInstance();
 
-        // We load the first set of BrowserSettings from the db asynchronously
-        // but if it has not completed at this point, we have no choice but
-        // to block waiting for them to finish loading. :(
-        settings.waitForLoadFromDbToComplete();
-
         // render the browser in OpenGL
         if (settings.isHardwareAccelerated()) {
             // Set the flag in the activity's window
@@ -75,12 +70,6 @@ public class BrowserActivity extends Activity {
         } else {
             // Clear the flag in the activity's window
             this.getWindow().setFlags(0, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        }
-
-        // enable this to test the browser in 32bit
-        if (false) {
-            getWindow().setFormat(PixelFormat.RGBX_8888);
-            BitmapFactory.setDefaultConfig(Bitmap.Config.ARGB_8888);
         }
 
         // If this was a web search request, pass it on to the default web

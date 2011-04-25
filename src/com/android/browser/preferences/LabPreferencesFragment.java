@@ -18,6 +18,7 @@ package com.android.browser.preferences;
 
 import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserSettings;
+import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 import com.android.browser.search.SearchEngine;
 
@@ -41,11 +42,11 @@ public class LabPreferencesFragment extends PreferenceFragment
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.lab_preferences);
 
-        Preference e = findPreference(BrowserSettings.PREF_QUICK_CONTROLS);
+        Preference e = findPreference(PreferenceKeys.PREF_ENABLE_QUICK_CONTROLS);
         if (e != null) {
             e.setOnPreferenceChangeListener(this);
         }
-        useInstantPref = findPreference(BrowserSettings.PREF_USE_INSTANT);
+        useInstantPref = findPreference(PreferenceKeys.PREF_USE_INSTANT_SEARCH);
     }
 
     @Override

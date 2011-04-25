@@ -48,22 +48,13 @@ public class BrowserPreferencesPage extends PreferenceActivity {
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.preference_headers, target);
 
-        if (BrowserSettings.DEV_BUILD || BrowserSettings.getInstance().showDebugSettings()) {
+        if (BrowserSettings.DEV_BUILD
+                || BrowserSettings.getInstance().isDebugEnabled()) {
             Header debug = new Header();
             debug.title = getText(R.string.pref_development_title);
             debug.fragment = DebugPreferencesFragment.class.getName();
             target.add(debug);
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        // sync the shared preferences back to BrowserSettings
-        BrowserSettings.getInstance().syncSharedPreferences(
-                getApplicationContext(),
-                PreferenceManager.getDefaultSharedPreferences(this));
     }
 
     @Override

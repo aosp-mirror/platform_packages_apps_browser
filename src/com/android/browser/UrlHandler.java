@@ -37,6 +37,9 @@ import java.util.regex.Matcher;
  */
 public class UrlHandler {
 
+    static final String RLZ_PROVIDER = "com.google.android.partnersetup.rlzappprovider";
+    static final Uri RLZ_PROVIDER_URI = Uri.parse("content://" + RLZ_PROVIDER + "/");
+
     // Use in overrideUrlLoading
     /* package */ final static String SCHEME_WTAI = "wtai://wp/";
     /* package */ final static String SCHEME_WTAI_MC = "wtai://wp/mc;";
@@ -268,8 +271,7 @@ public class UrlHandler {
     private boolean rlzProviderPresent() {
         if (mIsProviderPresent == null) {
             PackageManager pm = mActivity.getPackageManager();
-            mIsProviderPresent = pm.resolveContentProvider(
-                    BrowserSettings.RLZ_PROVIDER, 0) != null;
+            mIsProviderPresent = pm.resolveContentProvider(RLZ_PROVIDER, 0) != null;
         }
         return mIsProviderPresent;
     }
@@ -280,7 +282,7 @@ public class UrlHandler {
         if (mRlzUri == null) {
             String ap = mActivity.getResources()
                     .getString(R.string.rlz_access_point);
-            mRlzUri = Uri.withAppendedPath(BrowserSettings.RLZ_PROVIDER_URI, ap);
+            mRlzUri = Uri.withAppendedPath(RLZ_PROVIDER_URI, ap);
         }
         return mRlzUri;
     }

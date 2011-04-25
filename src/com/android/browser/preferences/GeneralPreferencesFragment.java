@@ -19,7 +19,7 @@ package com.android.browser.preferences;
 import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.BrowserHomepagePreference;
 import com.android.browser.BrowserPreferencesPage;
-import com.android.browser.BrowserSettings;
+import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
 
@@ -62,10 +62,10 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.general_preferences);
 
-        Preference e = findPreference(BrowserSettings.PREF_HOMEPAGE);
+        Preference e = findPreference(PreferenceKeys.PREF_HOMEPAGE);
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getPreferenceScreen().getSharedPreferences()
-                .getString(BrowserSettings.PREF_HOMEPAGE, null));
+                .getString(PreferenceKeys.PREF_HOMEPAGE, null));
         ((BrowserHomepagePreference) e).setCurrentPage(
                 getActivity().getIntent().getStringExtra(BrowserPreferencesPage.CURRENT_PAGE));
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -81,7 +81,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
             return false;
         }
 
-        if (pref.getKey().equals(BrowserSettings.PREF_HOMEPAGE)) {
+        if (pref.getKey().equals(PreferenceKeys.PREF_HOMEPAGE)) {
             pref.setSummary((String) objValue);
             return true;
         }
@@ -202,8 +202,8 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         new GetAccountsTask(getActivity()).execute();
 
         PreferenceScreen autoFillSettings =
-                (PreferenceScreen)findPreference(BrowserSettings.PREF_AUTOFILL_PROFILE);
-        autoFillSettings.setDependency(BrowserSettings.PREF_AUTOFILL_ENABLED);
+                (PreferenceScreen)findPreference(PreferenceKeys.PREF_AUTOFILL_PROFILE);
+        autoFillSettings.setDependency(PreferenceKeys.PREF_AUTOFILL_ENABLED);
     }
 
     @Override

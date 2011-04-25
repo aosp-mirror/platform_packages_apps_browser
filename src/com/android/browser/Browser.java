@@ -16,12 +16,9 @@
 
 package com.android.browser;
 
-import android.os.FileUtils;
-import android.util.Log;
-
 import android.app.Application;
 import android.content.Intent;
-import android.webkit.CookieManager;
+import android.util.Log;
 import android.webkit.CookieSyncManager;
 
 import dalvik.system.VMRuntime;
@@ -52,9 +49,6 @@ public class Browser extends Application {
     public void onCreate() {
         super.onCreate();
 
-        // Set the umask so that native code creates files with the correct
-        // permissions (0660)
-        FileUtils.setUMask(FileUtils.S_IRWXO);
         if (LOGV_ENABLED)
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
 
@@ -63,7 +57,7 @@ public class Browser extends Application {
                 TARGET_HEAP_UTILIZATION);
         // create CookieSyncManager with current Context
         CookieSyncManager.createInstance(this);
-        BrowserSettings.getInstance().asyncLoadFromDb(this);
+        BrowserSettings.initialize(getApplicationContext());
     }
 
     static Intent createBrowserViewIntent() {

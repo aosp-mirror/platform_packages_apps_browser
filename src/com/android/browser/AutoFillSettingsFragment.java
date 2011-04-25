@@ -53,6 +53,7 @@ public class AutoFillSettingsFragment extends Fragment {
 
     // Used to display toast after DB interactions complete.
     private Handler mHandler;
+    private BrowserSettings mSettings;
 
     private final static int PROFILE_SAVED_MSG = 100;
     private final static int PROFILE_DELETED_MSG = 101;
@@ -130,6 +131,7 @@ public class AutoFillSettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+        mSettings = BrowserSettings.getInstance();
     }
 
     @Override
@@ -177,7 +179,7 @@ public class AutoFillSettingsFragment extends Fragment {
                         mCountryEdit.getText().toString(),
                         mPhoneEdit.getText().toString());
 
-                BrowserSettings.getInstance().setAutoFillProfile(getActivity(), newProfile,
+                mSettings.setAutoFillProfile(newProfile,
                         mHandler.obtainMessage(PROFILE_SAVED_MSG));
                 closeEditor();
             }
@@ -200,7 +202,7 @@ public class AutoFillSettingsFragment extends Fragment {
 
                 // Update browser settings and native with a null profile. This will
                 // trigger the current profile to get deleted from the DB.
-                BrowserSettings.getInstance().setAutoFillProfile(getActivity(), null,
+                mSettings.setAutoFillProfile(null,
                         mHandler.obtainMessage(PROFILE_DELETED_MSG));
 
                 updateButtonState();
@@ -215,7 +217,7 @@ public class AutoFillSettingsFragment extends Fragment {
         });
 
         // Populate the text boxes with any pre existing AutoFill data.
-        AutoFillProfile activeProfile = BrowserSettings.getInstance().getAutoFillProfile();
+        AutoFillProfile activeProfile = mSettings.getAutoFillProfile();
         if (activeProfile != null) {
             mFullNameEdit.setText(activeProfile.getFullName());
             mEmailEdit.setText(activeProfile.getEmailAddress());

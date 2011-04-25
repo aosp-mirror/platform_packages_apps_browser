@@ -139,6 +139,7 @@ class Tab {
     DownloadTouchIcon mTouchIconLoader;
 
     private Bitmap mScreenshot;
+    private BrowserSettings mSettings;
 
     // All the state needed for a page
     private static class PageState {
@@ -711,7 +712,7 @@ class Tab {
                 setLockIconType(LockIcon.LOCK_ICON_UNSECURE);
                 return;
             }
-            if (BrowserSettings.getInstance().showSecurityWarnings()) {
+            if (mSettings.showSecurityWarnings()) {
                 final LayoutInflater factory =
                     LayoutInflater.from(mActivity);
                 final View warningsView =
@@ -1017,7 +1018,7 @@ class Tab {
         public void onExceededDatabaseQuota(String url,
             String databaseIdentifier, long currentQuota, long estimatedSize,
             long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
-            BrowserSettings.getInstance().getWebStorageSizeManager()
+            mSettings.getWebStorageSizeManager()
                     .onExceededDatabaseQuota(url, databaseIdentifier,
                             currentQuota, estimatedSize, totalUsedQuota,
                             quotaUpdater);
@@ -1036,7 +1037,7 @@ class Tab {
         @Override
         public void onReachedMaxAppCacheSize(long spaceNeeded,
                 long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
-            BrowserSettings.getInstance().getWebStorageSizeManager()
+            mSettings.getWebStorageSizeManager()
                     .onReachedMaxAppCacheSize(spaceNeeded, totalUsedQuota,
                             quotaUpdater);
         }
@@ -1174,10 +1175,7 @@ class Tab {
 
                         if (disableAutoFill.isChecked()) {
                             // Disable autofill and show a toast with how to turn it on again.
-                            BrowserSettings s = BrowserSettings.getInstance();
-                            s.addObserver(mMainView.getSettings());
-                            s.disableAutoFill(mActivity);
-                            s.update();
+                            mSettings.setAutofillEnabled(false);
                             Toast.makeText(mActivity,
                                     R.string.autofill_setup_dialog_negative_toast,
                                     Toast.LENGTH_LONG).show();
@@ -1296,6 +1294,7 @@ class Tab {
             String url) {
         mWebViewController = wvcontroller;
         mActivity = mWebViewController.getActivity();
+        mSettings = BrowserSettings.getInstance();
         mCloseOnExit = closeOnExit;
         mAppId = appId;
         mDataController = DataController.getInstance(mActivity);
@@ -1369,7 +1368,6 @@ class Tab {
     void destroy() {
         if (mMainView != null) {
             dismissSubWindow();
-            BrowserSettings.getInstance().deleteObserver(mMainView.getSettings());
             // save the WebView to call destroy() after detach it from the tab
             WebView webView = mMainView;
             setWebView(null);
@@ -1431,8 +1429,6 @@ class Tab {
     void dismissSubWindow() {
         if (mSubView != null) {
             mWebViewController.endActionMode();
-            BrowserSettings.getInstance().deleteObserver(
-                    mSubView.getSettings());
             mSubView.destroy();
             mSubView = null;
             mSubViewContainer = null;
