@@ -26,7 +26,6 @@ import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
@@ -399,16 +398,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     TabBar getTabBar() {
         return mTabBar;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mUseQuickControls) {
-            mPieControl.onMenuOpened(menu);
-            return false;
-        } else {
-            return true;
-        }
     }
 
 }
