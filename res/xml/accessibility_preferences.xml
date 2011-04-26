@@ -32,4 +32,9 @@
         android:title="@string/pref_min_font_size"
         android:defaultValue="1" />
 
+    <CheckBoxPreference android:key="force_userscalable"
+        android:title="@string/pref_force_userscalable"
+        android:summary="@string/pref_force_userscalable_summary"
+        android:defaultValue="false" />
+
 </PreferenceScreen>
