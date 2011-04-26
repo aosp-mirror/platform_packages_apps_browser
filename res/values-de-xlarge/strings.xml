@@ -23,8 +23,6 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"In neuem Hintergrundtab öffnen"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Alle in jeweils neuem Tab öffnen"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Neue Tabs hinter dem aktuellen Tab öffnen"</string>
-    <!-- no translation found for recover_title (7754049918641251703) -->
-    <skip />
-    <!-- no translation found for recover_prompt (3030249435588073132) -->
-    <skip />
+    <string name="recover_title" msgid="7754049918641251703">"Tabs wiederherstellen?"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"Offenbar ist der Browser abgestürzt. Sollen Ihre Tabs wiederhergestellt werden?"</string>
 </resources>

@@ -238,6 +238,8 @@
     <item msgid="7201512237890458902">"아주 크게"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"텍스트 크기"</string>
+    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"기본 확대/축소"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"축소"</item>
@@ -268,6 +270,8 @@
     <item msgid="2193955365569270096">"한국어(EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"텍스트 인코딩"</string>
+    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"실험실"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"빠른 컨트롤"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"좌/우 끝에서 엄지로 스와이프하여 빠른 컨트롤에 액세스하고 앱 및 URL 표시줄 숨김"</string>
@@ -382,12 +386,10 @@
     <string name="menu_share_url" msgid="5851814357333739700">"공유"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"탭이 더 이상 없습니다."</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google 순간 검색(실험실)"</string>
-    <!-- no translation found for recover_title (8095611702406163360) -->
-    <skip />
-    <!-- no translation found for recover_prompt (5526783279696786755) -->
-    <skip />
-    <!-- no translation found for recover_yes (5837971910598069183) -->
-    <skip />
-    <!-- no translation found for recover_no (3121030267940592611) -->
+    <string name="recover_title" msgid="8095611702406163360">"창을 복원하시겠습니까?"</string>
+    <string name="recover_prompt" msgid="5526783279696786755">"브라우저가 멈추었습니다. 마지막에 열려있던 창을 복원하시겠습니까?"</string>
+    <string name="recover_yes" msgid="5837971910598069183">"예"</string>
+    <string name="recover_no" msgid="3121030267940592611">"아니요"</string>
+    <!-- no translation found for preview (1470306351083271066) -->
     <skip />
 </resources>

@@ -23,8 +23,6 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"在新背景分頁中開啟連結"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"於新分頁開啟所有書籤"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"在目前分頁的後面開啟新分頁"</string>
-    <!-- no translation found for recover_title (7754049918641251703) -->
-    <skip />
-    <!-- no translation found for recover_prompt (3030249435588073132) -->
-    <skip />
+    <string name="recover_title" msgid="7754049918641251703">"還原標籤？"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"瀏覽器已當機。您想要還原最後一次的標籤？"</string>
 </resources>

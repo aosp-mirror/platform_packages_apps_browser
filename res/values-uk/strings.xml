@@ -238,6 +238,8 @@
     <item msgid="7201512237890458902">"Дуже вел."</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Розмір тексту"</string>
+    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Масштаб за умовч."</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Віддал."</item>
@@ -268,6 +270,8 @@
     <item msgid="2193955365569270096">"Корейська (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Кодування тексту"</string>
+    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Лабораторії"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Швидкі елементи керування"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Гортайте зліва чи справа, щоб відкрити швидкі елем. керування та сховати панелі програми й URL"</string>
@@ -382,12 +386,10 @@
     <string name="menu_share_url" msgid="5851814357333739700">"Надіслати"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Більше немає вкладок"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google із Миттєвим пошуком (Лабораторії)"</string>
-    <!-- no translation found for recover_title (8095611702406163360) -->
-    <skip />
-    <!-- no translation found for recover_prompt (5526783279696786755) -->
-    <skip />
-    <!-- no translation found for recover_yes (5837971910598069183) -->
-    <skip />
-    <!-- no translation found for recover_no (3121030267940592611) -->
+    <string name="recover_title" msgid="8095611702406163360">"Відновити вікна?"</string>
+    <string name="recover_prompt" msgid="5526783279696786755">"Відбулося аварійне завершення роботи веб-переглядача. Відновити останні відкриті вікна?"</string>
+    <string name="recover_yes" msgid="5837971910598069183">"Так"</string>
+    <string name="recover_no" msgid="3121030267940592611">"Ні"</string>
+    <!-- no translation found for preview (1470306351083271066) -->
     <skip />
 </resources>

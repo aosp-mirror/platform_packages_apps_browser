@@ -238,6 +238,8 @@
     <item msgid="7201512237890458902">"Didžiulis"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Teksto dydis"</string>
+    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Numatytasis mastelio keitimas"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Toli"</item>
@@ -268,6 +270,8 @@
     <item msgid="2193955365569270096">"Korėjiečių (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Teksto koduotė"</string>
+    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorijos"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Spartieji valdikliai"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Sl. nykščiu iš kair. ar deš. kr., kad pasiekt. sparč. vald. ir pasl. pr. ir URL juost."</string>
@@ -386,4 +390,6 @@
     <string name="recover_prompt" msgid="5526783279696786755">"Atrodo, naršyklė užstrigo. Ar norėtumėte atkurti paskutinį kartą naudotus langus?"</string>
     <string name="recover_yes" msgid="5837971910598069183">"Taip"</string>
     <string name="recover_no" msgid="3121030267940592611">"Ne"</string>
+    <!-- no translation found for preview (1470306351083271066) -->
+    <skip />
 </resources>
