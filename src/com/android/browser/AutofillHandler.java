@@ -26,6 +26,8 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.webkit.WebSettings.AutoFillProfile;
 
+import java.util.concurrent.CountDownLatch;
+
 public class AutofillHandler {
 
     private AutoFillProfile mAutoFillProfile;
@@ -36,7 +38,7 @@ public class AutofillHandler {
     private int mAutoFillActiveProfileId;
     private static final int NO_AUTOFILL_PROFILE_SET = 0;
 
-    private boolean mLoadFromDbComplete;
+    private CountDownLatch mLoaded = new CountDownLatch(1);
     private Context mContext;
 
     public AutofillHandler(Context context) {
@@ -50,31 +52,24 @@ public class AutofillHandler {
      * in the various preference XML files.
      */
     public void asyncLoadFromDb() {
-        synchronized (this) {
-            mLoadFromDbComplete = false;
-        }
         // Run the initial settings load in an AsyncTask as it hits the
         // disk multiple times through SharedPreferences and SQLite. We
         // need to be certain though that this has completed before we start
         // to load pages though, so in the worst case we will block waiting
         // for it to finish in BrowserActivity.onCreate().
-         new LoadFromDbTask().execute();
+         new LoadFromDb().start();
     }
 
     public void waitForLoad() {
-        synchronized (this) {
-            while (!mLoadFromDbComplete) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {}
-            }
-        }
+        try {
+            mLoaded.await();
+        } catch (InterruptedException e) {}
     }
 
-    private class LoadFromDbTask extends AsyncTask<Void, Void, Void> {
+    private class LoadFromDb extends Thread {
 
         @Override
-        protected Void doInBackground(Void... unused) {
+        public void run() {
             SharedPreferences p =
                     PreferenceManager.getDefaultSharedPreferences(mContext);
 
@@ -119,11 +114,7 @@ public class AutofillHandler {
             c.close();
             autoFillDb.close();
 
-            synchronized (this) {
-                mLoadFromDbComplete = true;
-                notifyAll();
-            }
-            return null;
+            mLoaded.countDown();
         }
     }
 
