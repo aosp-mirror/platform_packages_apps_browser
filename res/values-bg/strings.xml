@@ -238,6 +238,8 @@
     <item msgid="7201512237890458902">"Огромен"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Размер на текста"</string>
+    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Стандартна промяна на мащаба"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Далече"</item>
@@ -268,6 +270,8 @@
     <item msgid="2193955365569270096">"Корейски (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Текстово кодиране"</string>
+    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Лаборатория"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Бързи контроли"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Прокарайте палец от левия/десния край за достъп до бързите контроли и скр. на лентите за прил. и URL адр."</string>
@@ -382,12 +386,10 @@
     <string name="menu_share_url" msgid="5851814357333739700">"Споделяне"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Не се предлагат повече раздели"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google с Динамично търсене (Лаборатория)"</string>
-    <!-- no translation found for recover_title (8095611702406163360) -->
-    <skip />
-    <!-- no translation found for recover_prompt (5526783279696786755) -->
-    <skip />
-    <!-- no translation found for recover_yes (5837971910598069183) -->
-    <skip />
-    <!-- no translation found for recover_no (3121030267940592611) -->
+    <string name="recover_title" msgid="8095611702406163360">"Да се възстановят ли прозорците?"</string>
+    <string name="recover_prompt" msgid="5526783279696786755">"Изглежда се получи срив в браузъра. Искате ли да възстановите прозорците си от последния път?"</string>
+    <string name="recover_yes" msgid="5837971910598069183">"Да"</string>
+    <string name="recover_no" msgid="3121030267940592611">"Не"</string>
+    <!-- no translation found for preview (1470306351083271066) -->
     <skip />
 </resources>

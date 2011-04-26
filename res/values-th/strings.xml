@@ -238,6 +238,8 @@
     <item msgid="7201512237890458902">"ใหญ่มาก"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"ขนาดข้อความ"</string>
+    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"การซูมเริ่มต้น"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"ไกล"</item>
@@ -268,6 +270,8 @@
     <item msgid="2193955365569270096">"เกาหลี (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"การเข้ารหัสข้อความ"</string>
+    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"การควบคุมอย่างรวดเร็ว"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"กวาดหัวแม่มือจากซ้ายหรือขวาเพื่อการควบคุมที่รวดเร็วและซ่อนแอปพลิเคชันและแถบ URL"</string>
@@ -382,12 +386,10 @@
     <string name="menu_share_url" msgid="5851814357333739700">"แบ่งปัน"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"ไม่สามารถใช้แท็บเพิ่มได้"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google พร้อมการค้นหาทันใจ (Labs)"</string>
-    <!-- no translation found for recover_title (8095611702406163360) -->
-    <skip />
-    <!-- no translation found for recover_prompt (5526783279696786755) -->
-    <skip />
-    <!-- no translation found for recover_yes (5837971910598069183) -->
-    <skip />
-    <!-- no translation found for recover_no (3121030267940592611) -->
+    <string name="recover_title" msgid="8095611702406163360">"กู้หน้าต่างคืนหรือไม่"</string>
+    <string name="recover_prompt" msgid="5526783279696786755">"ดูเหมือนว่าจะเกิดข้อขัดข้องกับเบราว์เซอร์ คุณต้องการคืนค่าหน้าต่างจากครั้งที่แล้วหรือไม่"</string>
+    <string name="recover_yes" msgid="5837971910598069183">"ใช่"</string>
+    <string name="recover_no" msgid="3121030267940592611">"ไม่"</string>
+    <!-- no translation found for preview (1470306351083271066) -->
     <skip />
 </resources>

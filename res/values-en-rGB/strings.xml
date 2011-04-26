@@ -238,6 +238,8 @@
     <item msgid="7201512237890458902">"Huge"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Text size"</string>
+    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Default zoom"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Far"</item>
@@ -268,6 +270,8 @@
     <item msgid="2193955365569270096">"Korean (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Text encoding"</string>
+    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Quick controls"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Swipe thumb from left or right edge to access quick controls and hide Application and URL bars"</string>
@@ -386,4 +390,6 @@
     <string name="recover_prompt" msgid="5526783279696786755">"Browser appears to have crashed. Would you like to restore your windows from last time?"</string>
     <string name="recover_yes" msgid="5837971910598069183">"Yes"</string>
     <string name="recover_no" msgid="3121030267940592611">"No"</string>
+    <!-- no translation found for preview (1470306351083271066) -->
+    <skip />
 </resources>

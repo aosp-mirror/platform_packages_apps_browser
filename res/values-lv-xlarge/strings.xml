@@ -23,8 +23,6 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Atvērt jaunā fona cilnē"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Atvērt visas jaunās cilnēs"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Atvērt jaunas cilnes aiz pašreizējās"</string>
-    <!-- no translation found for recover_title (7754049918641251703) -->
-    <skip />
-    <!-- no translation found for recover_prompt (3030249435588073132) -->
-    <skip />
+    <string name="recover_title" msgid="7754049918641251703">"Vai atjaunot cilnes?"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"Notika pārlūkprogrammas avārija. Vai vēlaties atjaunot pēdējās atvērtās cilnes?"</string>
 </resources>

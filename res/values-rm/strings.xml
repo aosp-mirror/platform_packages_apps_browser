@@ -305,6 +305,8 @@
     <item msgid="7201512237890458902">"Fitg grond"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Grondezza dal text"</string>
+    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predefinì"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Lontan"</item>
@@ -336,6 +338,8 @@
     <item msgid="2193955365569270096">"Corean (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codaziun dal text"</string>
+    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
+    <skip />
     <!-- no translation found for pref_lab_title (5571091610359629423) -->
     <skip />
     <!-- no translation found for pref_lab_quick_controls (3267606522082281367) -->
@@ -485,5 +489,7 @@
     <!-- no translation found for recover_yes (5837971910598069183) -->
     <skip />
     <!-- no translation found for recover_no (3121030267940592611) -->
+    <skip />
+    <!-- no translation found for preview (1470306351083271066) -->
     <skip />
 </resources>

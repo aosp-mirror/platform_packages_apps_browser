@@ -23,8 +23,6 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Abrir en una nueva pestaña en segundo plano"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Abrir todo en pestañas nuevas"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Abrir nuevas pestañas detrás de la actual"</string>
-    <!-- no translation found for recover_title (7754049918641251703) -->
-    <skip />
-    <!-- no translation found for recover_prompt (3030249435588073132) -->
-    <skip />
+    <string name="recover_title" msgid="7754049918641251703">"¿Quieres restaurar las pestañas?"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"Parece que se ha producido un error en el navegador. ¿Quieres restaurar las pestañas de la última sesión?"</string>
 </resources>

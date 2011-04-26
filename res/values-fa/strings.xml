@@ -238,6 +238,8 @@
     <item msgid="7201512237890458902">"بسیار بزرگ"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"اندازه متن"</string>
+    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"بزرگنمایی پیش فرض"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"دور"</item>
@@ -268,6 +270,8 @@
     <item msgid="2193955365569270096">"کره ای (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"رمزگذاری متن"</string>
+    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"کنترل های سریع"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"انگشت شست را از لبه چپ یا راست حرکت دهید تا به کنترل های سریع دسترسی داشته و نوارهای URL و برنامه را پنهان کنید"</string>
@@ -382,12 +386,10 @@
     <string name="menu_share_url" msgid="5851814357333739700">"اشتراک گذاری"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"برگه بیشتری در دسترس نیست"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google با Instant (ویژگی های آزمایشی)"</string>
-    <!-- no translation found for recover_title (8095611702406163360) -->
-    <skip />
-    <!-- no translation found for recover_prompt (5526783279696786755) -->
-    <skip />
-    <!-- no translation found for recover_yes (5837971910598069183) -->
-    <skip />
-    <!-- no translation found for recover_no (3121030267940592611) -->
+    <string name="recover_title" msgid="8095611702406163360">"پنجره ها بازیابی شوند؟"</string>
+    <string name="recover_prompt" msgid="5526783279696786755">"به نظر می رسد مرورگر خراب شده است. آیا می خواهید پنجره های آخرین بازدید خود را بازیابی کنید؟"</string>
+    <string name="recover_yes" msgid="5837971910598069183">"بله"</string>
+    <string name="recover_no" msgid="3121030267940592611">"خیر"</string>
+    <!-- no translation found for preview (1470306351083271066) -->
     <skip />
 </resources>

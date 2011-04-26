@@ -23,8 +23,6 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"Abrir em novo separador em segundo plano"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Abrir tudo em separadores novos"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Abrir novos separadores atrás do actual"</string>
-    <!-- no translation found for recover_title (7754049918641251703) -->
-    <skip />
-    <!-- no translation found for recover_prompt (3030249435588073132) -->
-    <skip />
+    <string name="recover_title" msgid="7754049918641251703">"Restaurar separadores?"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"O navegador bloqueou. Pretende restaurar os separadores utilizados na última sessão?"</string>
 </resources>
