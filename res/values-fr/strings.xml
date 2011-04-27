@@ -144,7 +144,7 @@
     <string name="pref_content_landscape_only" msgid="2022546812766219672">"Mode Paysage"</string>
     <string name="pref_content_landscape_only_summary" msgid="1008238895535428855">"Toujours afficher les pages dans le sens de la largeur (orientation paysage)"</string>
     <string name="pref_privacy_title" msgid="1052470980370846151">"Paramètres de confidentialité"</string>
-    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Effacer le cache"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Vider le cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Supprimer les bases de données et le contenu localement en cache"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Les bases de données et le contenu mis localement en cache vont être supprimés."</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Effacer tous les cookies"</string>
