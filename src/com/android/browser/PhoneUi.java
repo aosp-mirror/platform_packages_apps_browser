@@ -298,10 +298,12 @@ public class PhoneUi extends BaseUi {
         if (mAnimating) return;
         mAnimating = true;
         mNavScreen = new NavScreen(mActivity, mUiController, this);
+        float yoffset = 0;
         WebView web = getWebView();
         if (web != null) {
             int w = web.getWidth();
             int h = web.getHeight();
+            yoffset = mNavScreen.getToolbarHeight() -  web.getVisibleTitleHeight();
             mNavScreen.setTabDimensions((int) (w * NAV_TAB_SCALE),
                     (int) (h * NAV_TAB_SCALE));
         }
@@ -309,9 +311,11 @@ public class PhoneUi extends BaseUi {
         mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_GRAVITY_CENTER);
         mContentView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         ObjectAnimator animx = ObjectAnimator.ofFloat(mContentView,
-                "scaleX", 1.0f, 0.85f);
+                "scaleX", 1.0f, NAV_TAB_SCALE);
         ObjectAnimator animy = ObjectAnimator.ofFloat(mContentView,
-                "scaleY", 1.0f, 0.85f);
+                "scaleY", 1.0f, NAV_TAB_SCALE);
+        ObjectAnimator translatey = ObjectAnimator.ofFloat(mContentView,
+                "translationY", 0, yoffset * NAV_TAB_SCALE);
         AnimatorSet anims = new AnimatorSet();
         anims.setDuration(200);
         anims.addListener(new AnimatorListener() {
@@ -333,7 +337,7 @@ public class PhoneUi extends BaseUi {
             public void onAnimationStart(Animator animation) {
             }
         });
-        anims.playTogether(animx, animy);
+        anims.playTogether(animx, animy, translatey);
         anims.start();
     }
 
@@ -343,6 +347,7 @@ public class PhoneUi extends BaseUi {
         mContentView.setVisibility(View.GONE);
         mContentView.setScaleX(1.0f);
         mContentView.setScaleY(1.0f);
+        mContentView.setTranslationY(0);
         BrowserWebView web = (BrowserWebView) getWebView();
         if (web != null) {
             mActiveTab.setScreenshot(web.capture());
@@ -358,10 +363,17 @@ public class PhoneUi extends BaseUi {
         mAnimating = true;
         mNavScreen.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         if (animateToPage) {
+            float yoffset = 0;
+            WebView web = mNavScreen.getSelectedTab().getWebView();
+            if (web != null) {
+                yoffset = mNavScreen.getToolbarHeight() -  web.getVisibleTitleHeight();
+            }
             ObjectAnimator animx = ObjectAnimator.ofFloat(mNavScreen, "scaleX",
-                    1.0f, 1.2f);
+                    1.0f, 1 / NAV_TAB_SCALE);
             ObjectAnimator animy = ObjectAnimator.ofFloat(mNavScreen, "scaleY",
-                    1.0f, 1.2f);
+                    1.0f, 1 / NAV_TAB_SCALE);
+            ObjectAnimator translatey = ObjectAnimator.ofFloat(mNavScreen,
+                    "translationY", 0, -yoffset);
             AnimatorSet anims = new AnimatorSet();
             anims.setDuration(200);
             anims.addListener(new AnimatorListener() {
@@ -383,7 +395,7 @@ public class PhoneUi extends BaseUi {
                 public void onAnimationStart(Animator animation) {
                 }
             });
-            anims.playTogether(animx, animy);
+            anims.playTogether(animx, animy, translatey);
             anims.start();
         } else {
             finishHideNavScreen();

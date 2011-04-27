@@ -100,6 +100,10 @@ public class NavScreen extends LinearLayout implements OnClickListener {
         mPopup = popup;
     }
 
+    protected float getToolbarHeight() {
+        return mActivity.getResources().getDimension(R.dimen.toolbar_height);
+    }
+
     protected void dismissMenu() {
         if (mPopup != null) {
             mPopup.dismiss();

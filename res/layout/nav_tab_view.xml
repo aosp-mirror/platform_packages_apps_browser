@@ -27,7 +27,7 @@
         android:id="@+id/titlebar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="44dip" >
+        android:layout_height="@dimen/toolbar_height" >
         <ImageView
             android:id="@+id/favicon"
             android:layout_width="22dip"

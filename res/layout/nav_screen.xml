@@ -62,7 +62,9 @@
         android:id="@+id/galleryholder"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp" />
     <LinearLayout
         android:id="@+id/navbar"
         android:orientation="horizontal"
