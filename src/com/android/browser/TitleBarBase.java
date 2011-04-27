@@ -89,7 +89,7 @@ public class TitleBarBase extends RelativeLayout
     protected Button mAutoLoginLogin;
     protected ProgressBar mAutoLoginProgress;
     protected TextView mAutoLoginError;
-    protected ImageButton mAutoLoginCancel;
+    protected View mAutoLoginCancel;
     protected DeviceAccountLogin mAutoLoginHandler;
     protected ArrayAdapter<String> mAccountsAdapter;
     protected boolean mUseQuickControls;
@@ -128,7 +128,7 @@ public class TitleBarBase extends RelativeLayout
         mAutoLoginLogin.setOnClickListener(this);
         mAutoLoginProgress = (ProgressBar) findViewById(R.id.autologin_progress);
         mAutoLoginError = (TextView) findViewById(R.id.autologin_error);
-        mAutoLoginCancel = (ImageButton) mAutoLogin.findViewById(R.id.autologin_close);
+        mAutoLoginCancel = mAutoLogin.findViewById(R.id.autologin_close);
         mAutoLoginCancel.setOnClickListener(this);
     }
 
@@ -349,7 +349,7 @@ public class TitleBarBase extends RelativeLayout
             mAutoLoginAccount.setSelection(0);
             mAutoLoginAccount.setEnabled(true);
             mAutoLoginLogin.setEnabled(true);
-            mAutoLoginProgress.setVisibility(View.GONE);
+            mAutoLoginProgress.setVisibility(View.INVISIBLE);
             mAutoLoginError.setVisibility(View.GONE);
             switch (login.getState()) {
                 case DeviceAccountLogin.PROCESSING:
@@ -358,7 +358,7 @@ public class TitleBarBase extends RelativeLayout
                     mAutoLoginProgress.setVisibility(View.VISIBLE);
                     break;
                 case DeviceAccountLogin.FAILED:
-                    mAutoLoginProgress.setVisibility(View.GONE);
+                    mAutoLoginProgress.setVisibility(View.INVISIBLE);
                     mAutoLoginError.setVisibility(View.VISIBLE);
                     break;
                 case DeviceAccountLogin.INITIAL:
@@ -420,7 +420,7 @@ public class TitleBarBase extends RelativeLayout
     public void loginFailed() {
         mAutoLoginAccount.setEnabled(true);
         mAutoLoginLogin.setEnabled(true);
-        mAutoLoginProgress.setVisibility(View.GONE);
+        mAutoLoginProgress.setVisibility(View.INVISIBLE);
         mAutoLoginError.setVisibility(View.VISIBLE);
     }
 

@@ -384,9 +384,11 @@
     <!-- Message shown during auto login [CHAR-LIMIT=none] -->
     <string name="pref_autologin_progress">Signing into Google sites using <xliff:g>%s</xliff:g></string>
     <!-- Auto-login bar description [CHAR-LIMIT=40] -->
-    <string name="autologin_bar_text">Automatic sign-in is available.</string>
+    <string name="autologin_bar_text">Sign in as</string>
     <!-- Login button [CHAR-LIMIT=10] -->
     <string name="autologin_bar_login_text">Login</string>
+    <!-- Hide button [CHAR-LIMIT=10] -->
+    <string name="autologin_bar_hide_text">Hide</string>
     <!-- Login failure text [CHAR-LIMIT=25] -->
     <string name="autologin_bar_error">Login failed.</string>
 
