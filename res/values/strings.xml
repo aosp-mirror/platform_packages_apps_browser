@@ -525,6 +525,10 @@
     </string-array>
     <!-- Label for minimum font size [CHAR LIMIT=30] -->
     <string name="pref_min_font_size">Minimum font size</string>
+    <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+    <string name="pref_force_userscalable">Force enable zoom</string>
+    <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+    <string name="pref_force_userscalable_summary">Whether or not to override a website\'s request to control zoom behavior</string>
     <!-- Settings label -->
     <string name="pref_default_zoom">Default zoom</string>
     <!-- Settings default zoom options; appear in default zoom dialog box -->

@@ -26,6 +26,7 @@ public interface PreferenceKeys {
     // ----------------------
     static final String PREF_MIN_FONT_SIZE = "min_font_size";
     static final String PREF_TEXT_SIZE = "text_size";
+    static final String PREF_FORCE_USERSCALABLE = "force_userscalable";
 
     // ----------------------
     // Keys for advanced_preferences.xml

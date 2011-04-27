@@ -139,6 +139,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setDefaultZoom(getDefaultZoom());
         settings.setMinimumFontSize(getMinimumFontSize());
         settings.setMinimumLogicalFontSize(getMinimumFontSize());
+        settings.setForceUserScalable(forceEnableUserScalable());
         settings.setPluginState(getPluginState());
         settings.setTextSize(getTextSize());
         settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
@@ -382,6 +383,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public int getMinimumFontSize() {
         return mPrefs.getInt(PREF_MIN_FONT_SIZE, 1);
+    }
+
+    public boolean forceEnableUserScalable() {
+        return mPrefs.getBoolean(PREF_FORCE_USERSCALABLE, false);
     }
 
     // -----------------------------
