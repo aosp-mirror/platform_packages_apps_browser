@@ -132,4 +132,6 @@ public interface UI {
     void showAutoLogin(Tab tab);
 
     void hideAutoLogin(Tab tab);
+
+    void setFullscreen(boolean enabled);
 }

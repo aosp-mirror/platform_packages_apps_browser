@@ -26,4 +26,9 @@
         android:defaultValue="false"
         android:title="@string/pref_lab_most_visited_homepage"
         android:summary="@string/pref_lab_most_visited_homepage_summary" />
+    <CheckBoxPreference
+        android:key="fullscreen"
+        android:defaultValue="false"
+        android:title="@string/pref_lab_fullscreen"
+        android:summary="@string/pref_lab_fullscreen_summary" />
 </PreferenceScreen>

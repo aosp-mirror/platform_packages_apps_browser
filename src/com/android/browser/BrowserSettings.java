@@ -218,6 +218,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         if (PREF_USE_INSTANT_SEARCH.equals(key)) {
             updateSearchEngine(true);
         }
+        if (PREF_FULLSCREEN.equals(key)) {
+            if (mController.getUi() != null) {
+                mController.getUi().setFullscreen(useFullscreen());
+            }
+        }
     }
 
     static String getFactoryResetHomeUrl(Context context) {
@@ -554,6 +559,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean useInstantSearch() {
         return mPrefs.getBoolean(PREF_USE_INSTANT_SEARCH, false);
+    }
+
+    public boolean useFullscreen() {
+        return mPrefs.getBoolean(PREF_FULLSCREEN, false);
     }
 
     // -----------------------------

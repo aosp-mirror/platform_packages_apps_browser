@@ -647,6 +647,11 @@
     <string name="pref_use_instant_search_summary">
       Use Google Instant when you use Google Search, to show results as you
       type (this can increase data use).</string>
+    <string name="pref_lab_fullscreen">Fullscreen</string>
+    <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+    <string name="pref_lab_fullscreen_summary">
+      Use fullscreen mode to hide the status bar.</string>
+
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>
