@@ -221,7 +221,7 @@
     <string name="empty_history" msgid="8738772352308207274">"ブラウザ履歴はありません。"</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"現在のページをブックマーク"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"追加"</string>
-    <string name="search_hint" msgid="4647356319916631820">"URLを検索または入力"</string>
+    <string name="search_hint" msgid="4647356319916631820">"検索またはURLを入力"</string>
     <string name="search_button_text" msgid="5235226933877634410">"移動"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"ブックマークとウェブ履歴"</string>
     <string name="attention" msgid="3473639060042811244">"注意"</string>

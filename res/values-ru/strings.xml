@@ -192,7 +192,7 @@
     <string name="pref_content_load_page" msgid="2219810141690955452">"Обзор страниц"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Открывать страницы в мелком маштабе для ознакомления"</string>
     <string name="pref_extras_title" msgid="3091250467679722382">"Расширенные настройки"</string>
-    <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайта"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайтов"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Дополнительные настройки для отдельных сайтов"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Сброс настроек"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Восстановить значения по умолчанию"</string>
@@ -278,11 +278,11 @@
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Объем занятой памяти телефона (МБ)"</string>
     <string name="loading_video" msgid="4887871585216091096">"Загрузка видео"</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> запрашивает данные о вашем местоположении"</string>
-    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Сообщить местоположение"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Разрешить"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Отклонить"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Запомнить настройки"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"У этого сайта есть доступ к данным о вашем местоположении. Для изменения параметров доступа выберите Настройки -&gt; Настройки веб-сайта"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"У этого сайта нет доступа к данным о вашем местоположении. Для изменения параметров доступа выберите Настройки -&gt; Настройки веб-сайта"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"У этого сайта есть доступ к данным о вашем местоположении. Для изменения параметров доступа выберите Настройки -&gt; Настройки веб-сайтов"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"У этого сайта нет доступа к данным о вашем местоположении. Для изменения параметров доступа выберите Настройки -&gt; Настройки веб-сайтов"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Этот сайт сейчас имеет доступ к вашему местоположению"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Этот сайт в настоящее время не имеет доступа к вашему местоположению"</string>

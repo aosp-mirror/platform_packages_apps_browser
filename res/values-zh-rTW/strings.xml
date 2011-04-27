@@ -117,7 +117,7 @@
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"新增聯絡人"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"傳送電子郵件"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"地圖"</string>
-    <string name="choosertitle_sharevia" msgid="4600490613341909086">"透過下列應用程式分享："</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"分享方式："</string>
     <string name="clear" msgid="7070043081700011461">"清除"</string>
     <string name="replace" msgid="4843033491070384047">"取代"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"書籤"</string>
