@@ -79,6 +79,7 @@ public class WebViewPreview extends Preference implements OnSharedPreferenceChan
             LayoutInflater inflater = LayoutInflater.from(getContext());
             mRoot = inflater.inflate(R.layout.webview_preview, parent, false);
             mWebView = (WebView) mRoot.findViewById(R.id.webview);
+            mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
         updatePreview();
         return mRoot;
