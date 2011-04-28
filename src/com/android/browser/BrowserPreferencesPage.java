@@ -21,7 +21,6 @@ import com.android.browser.preferences.DebugPreferencesFragment;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -48,8 +47,7 @@ public class BrowserPreferencesPage extends PreferenceActivity {
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.preference_headers, target);
 
-        if (BrowserSettings.DEV_BUILD
-                || BrowserSettings.getInstance().isDebugEnabled()) {
+        if (BrowserSettings.getInstance().isDebugEnabled()) {
             Header debug = new Header();
             debug.title = getText(R.string.pref_development_title);
             debug.fragment = DebugPreferencesFragment.class.getName();

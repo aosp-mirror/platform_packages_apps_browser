@@ -25,6 +25,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.os.Build;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
@@ -75,8 +76,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             FROYO_USERAGENT
     };
 
-    public static boolean DEV_BUILD = true;
-
     private static BrowserSettings sInstance;
 
     private Context mContext;
@@ -100,6 +99,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private BrowserSettings(Context context) {
         mContext = context;
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if (Build.VERSION.CODENAME.equals("REL")) {
+            // This is a release build, always startup with debug disabled
+            setDebugEnabled(false);
+        }
         mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
         mWebStorageSizeManager = new WebStorageSizeManager(mContext,
@@ -465,14 +468,14 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     // -----------------------------
 
     public boolean isHardwareAccelerated() {
-        if (!isDebugEnabled() && !DEV_BUILD) {
+        if (!isDebugEnabled()) {
             return true;
         }
         return mPrefs.getBoolean(PREF_ENABLE_HARDWARE_ACCEL, true);
     }
 
     public int getUserAgent() {
-        if (!isDebugEnabled() && !DEV_BUILD) {
+        if (!isDebugEnabled()) {
             return 0;
         }
         return Integer.parseInt(mPrefs.getString(PREF_USER_AGENT, "0"));

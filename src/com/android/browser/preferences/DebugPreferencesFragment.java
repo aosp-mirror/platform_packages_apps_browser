@@ -36,10 +36,6 @@ public class DebugPreferencesFragment extends PreferenceFragment
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.debug_preferences);
 
-        if (BrowserSettings.getInstance().isDebugEnabled()) {
-            addPreferencesFromResource(R.xml.hidden_debug_preferences);
-        }
-
         Preference e = findPreference(PreferenceKeys.PREF_ENABLE_HARDWARE_ACCEL);
         e.setOnPreferenceChangeListener(this);
     }
