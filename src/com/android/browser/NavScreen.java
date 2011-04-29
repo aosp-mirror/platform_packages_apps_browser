@@ -297,13 +297,12 @@ public class NavScreen extends LinearLayout implements OnClickListener {
             } else {
                 content = (ImageView) convertView.findViewById(R.id.content);
             }
+            View tbar = convertView.findViewById(R.id.titlebar);
             TextView title = (TextView) convertView.findViewById(R.id.title);
             ImageView icon = (ImageView) convertView.findViewById(R.id.favicon);
             ImageButton close = (ImageButton) convertView.findViewById(R.id.closetab);
             final Tab tab = getItem(position);
-            if (tab.getFavicon() != null) {
-                icon.setImageBitmap(tab.getFavicon());
-            }
+            icon.setImageDrawable(mUi.getFaviconDrawable(tab.getFavicon()));
             title.setText(tab.getUrl());
             Bitmap screen = tab.getScreenshot();
             content.setImageBitmap(screen);
@@ -313,7 +312,7 @@ public class NavScreen extends LinearLayout implements OnClickListener {
                     onCloseTab(tab);
                 }
             });
-            title.setOnClickListener(new OnClickListener() {
+            tbar.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     close(false);

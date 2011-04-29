@@ -66,5 +66,5 @@
     <dimen name="preference_widget_width">56dp</dimen>
     <dimen name="nav_tab_spacing">8dp</dimen>
     <dimen name="menu_width">240dip</dimen>
-    <dimen name="toolbar_height">40dip</dimen>
+    <dimen name="toolbar_height">52dip</dimen>
 </resources>

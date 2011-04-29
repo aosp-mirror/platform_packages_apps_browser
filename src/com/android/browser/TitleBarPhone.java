@@ -86,12 +86,10 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         super.setFocusState(focus);
         if (focus) {
             mHasLockIcon = (mLockIcon.getVisibility() == View.VISIBLE);
-            mFavicon.setVisibility(View.GONE);
             mLockIcon.setVisibility(View.GONE);
             mStopButton.setVisibility(View.GONE);
             mVoiceButton.setVisibility(View.VISIBLE);
         } else {
-            mFavicon.setVisibility(View.VISIBLE);
             mLockIcon.setVisibility(mHasLockIcon ? View.VISIBLE : View.GONE);
             if (mInLoad) {
                 mStopButton.setVisibility(View.VISIBLE);

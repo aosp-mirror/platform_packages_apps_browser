@@ -26,7 +26,11 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -74,6 +78,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     private Drawable mSecLockIcon;
     private Drawable mMixLockIcon;
+    protected Drawable mGenericFavicon;
 
     private FrameLayout mBrowserFrameLayout;
     protected FrameLayout mContentView;
@@ -87,6 +92,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
     private LinearLayout mErrorConsoleContainer = null;
 
     private Toast mStopToast;
+
 
     // the default <video> poster
     private Bitmap mDefaultVideoPoster;
@@ -117,6 +123,8 @@ public abstract class BaseUi implements UI, WebViewFactory {
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
         setFullscreen(BrowserSettings.getInstance().useFullscreen());
+        mGenericFavicon = res.getDrawable(
+                R.drawable.app_web_browser_sm);
     }
 
     @Override
@@ -793,6 +801,22 @@ public abstract class BaseUi implements UI, WebViewFactory {
             mActivity.getWindow().clearFlags(
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+    }
+
+    protected Drawable getFaviconDrawable(Bitmap icon) {
+        Drawable[] array = new Drawable[3];
+        array[0] = new PaintDrawable(Color.BLACK);
+        PaintDrawable p = new PaintDrawable(Color.WHITE);
+        array[1] = p;
+        if (icon == null) {
+            array[2] = mGenericFavicon;
+        } else {
+            array[2] = new BitmapDrawable(icon);
+        }
+        LayerDrawable d = new LayerDrawable(array);
+        d.setLayerInset(1, 1, 1, 1, 1);
+        d.setLayerInset(2, 2, 2, 2, 2);
+        return d;
     }
 
 }

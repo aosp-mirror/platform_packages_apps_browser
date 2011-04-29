@@ -22,7 +22,7 @@
     <LinearLayout
         android:id="@+id/taburlbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/toolbar_height"
         android:orientation="horizontal"
         android:background="@drawable/bg_urlbar"
         android:paddingLeft="4dip"
@@ -33,7 +33,7 @@
             android:id="@+id/title_bg"
             android:layout_width="0dip"
             android:layout_weight="1.0"
-            android:layout_height="40dip"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
@@ -55,7 +55,7 @@
                 android:layout_marginLeft="2dip"
                 android:paddingLeft="4dip"
                 android:paddingRight="4dip"
-                android:background="@drawable/url_selector"
+                android:background="@*android:drawable/edit_text_holo_dark"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:hint="@string/search_hint"
                 android:singleLine="true"

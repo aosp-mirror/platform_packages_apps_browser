@@ -73,7 +73,6 @@ public class TitleBarBase extends RelativeLayout
     protected ImageView mFavicon;
     protected ImageView mLockIcon;
 
-    protected Drawable mGenericFavicon;
     protected UiController mUiController;
     protected BaseUi mBaseUi;
     protected FrameLayout mParent;
@@ -106,8 +105,6 @@ public class TitleBarBase extends RelativeLayout
         mUiController = controller;
         mBaseUi = ui;
         mParent = parent;
-        mGenericFavicon = context.getResources().getDrawable(
-                R.drawable.app_web_browser_sm);
     }
 
     protected void initLayout(Context context, int layoutId) {
@@ -311,20 +308,7 @@ public class TitleBarBase extends RelativeLayout
     }
 
     /* package */ void setFavicon(Bitmap icon) {
-        assert mFavicon != null;
-        Drawable[] array = new Drawable[3];
-        array[0] = new PaintDrawable(Color.BLACK);
-        PaintDrawable p = new PaintDrawable(Color.WHITE);
-        array[1] = p;
-        if (icon == null) {
-            array[2] = mGenericFavicon;
-        } else {
-            array[2] = new BitmapDrawable(icon);
-        }
-        LayerDrawable d = new LayerDrawable(array);
-        d.setLayerInset(1, 1, 1, 1, 1);
-        d.setLayerInset(2, 2, 2, 2, 2);
-        mFavicon.setImageDrawable(d);
+        mFavicon.setImageDrawable(mBaseUi.getFaviconDrawable(icon));
     }
 
     public int getEmbeddedHeight() {
