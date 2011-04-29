@@ -116,6 +116,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mCustomViewContainer = (FrameLayout) mBrowserFrameLayout
                 .findViewById(R.id.fullscreen_custom_content);
         frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
+        setFullscreen(BrowserSettings.getInstance().useFullscreen());
     }
 
     @Override
@@ -781,6 +782,17 @@ public abstract class BaseUi implements UI, WebViewFactory {
         MenuBuilder menu = new MenuBuilder(mActivity);
         mActivity.getMenuInflater().inflate(R.menu.browser, menu);
         return menu;
+    }
+
+    public void setFullscreen(boolean enabled) {
+        if (enabled) {
+            mActivity.getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            mActivity.getWindow().clearFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
     }
 
 }
