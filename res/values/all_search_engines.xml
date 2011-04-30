@@ -157,7 +157,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="ask_es" translatable="false">
-    <item>Ask.com Espa&#x00f1a;</item>
+    <item>Ask.com Espa&#x00f1;a</item>
     <item>es.ask.com</item>
     <item>http://es.ask.com/favicon.ico</item>
     <item>http://es.ask.com/web?q={searchTerms}</item>
@@ -357,7 +357,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="yahoo_es" translatable="false">
-    <item>Yahoo! Espa&#x00f1a;</item>
+    <item>Yahoo! Espa&#x00f1;a</item>
     <item>es.yahoo.com</item>
     <item>http://es.search.yahoo.com/favicon.ico</item>
     <item>http://es.search.yahoo.com/search?ei={inputEncoding}&amp;fr=crmas&amp;p={searchTerms}</item>
