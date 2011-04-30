@@ -296,4 +296,13 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
     void registerDropdownChangeListener(DropdownChangeListener d) {
         mDropdownListener = d;
     }
+
+    /*
+     * no-op to prevent scrolling of webview when embedded titlebar
+     * gets edited
+     */
+    @Override
+    public boolean requestRectangleOnScreen(Rect rect, boolean immediate) {
+        return false;
+    }
 }

@@ -27,11 +27,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
@@ -51,7 +47,6 @@ import android.widget.AbsoluteLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -147,29 +142,6 @@ public class TitleBarBase extends RelativeLayout
 
     void setSkipTitleBarAnimations(boolean skip) {
         mSkipTitleBarAnimations = skip;
-    }
-
-    void setTitleGravity(int gravity) {
-        int newTop = 0;
-        int newLeft = 0;
-        View parent = (View) getParent();
-        if (parent != null) {
-            newLeft = parent.getScrollX();
-        }
-        if (gravity != Gravity.NO_GRAVITY) {
-            if (parent != null) {
-                if (gravity == Gravity.TOP) {
-                    newTop = parent.getScrollY();
-                }
-            }
-        }
-        AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams)
-                getLayoutParams();
-        if (lp != null) {
-            lp.x = newLeft;
-            lp.y = newTop;
-            setLayoutParams(lp);
-        }
     }
 
     void show() {
