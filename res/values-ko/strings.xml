@@ -172,8 +172,10 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"자동 입력 웹 양식 필드에 대한 데이터 입력 및 저장"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"자동 Google 로그인"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"<xliff:g id="ID_1">%s</xliff:g>(으)로 Google 사이트에 로그인 중"</string>
-    <string name="autologin_bar_text" msgid="8013977161879448141">"자동 로그인을 사용할 수 있습니다."</string>
+    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"자동 로그인을 사용할 수 있습니다."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"로그인"</string>
+    <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
+    <skip />
     <string name="autologin_bar_error" msgid="5132514366023044839">"로그인하지 못했습니다."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"터치할 때 웹 입력란에 자동 완성되도록 하려는 데이터를 입력하세요."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"이름:"</string>
@@ -238,7 +240,10 @@
     <item msgid="7201512237890458902">"아주 크게"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"텍스트 크기"</string>
-    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <string name="pref_min_font_size" msgid="8811125835817449131">"최소 글꼴 크기"</string>
+    <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
+    <skip />
+    <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
     <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"기본 확대/축소"</string>
   <string-array name="pref_default_zoom_choices">
@@ -270,8 +275,7 @@
     <item msgid="2193955365569270096">"한국어(EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"텍스트 인코딩"</string>
-    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
-    <skip />
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"접근성"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"실험실"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"빠른 컨트롤"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"좌/우 끝에서 엄지로 스와이프하여 빠른 컨트롤에 액세스하고 앱 및 URL 표시줄 숨김"</string>
@@ -279,6 +283,10 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"홈페이지에 자주 방문한 웹페이지가 표시됩니다."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 순간 검색"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Google 검색을 사용할 때 Google 순간 검색을 사용하면 입력하는 동안 결과가 표시됩니다(데이터 사용이 증가될 수 있음)."</string>
+    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
+    <skip />
+    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"데이터 연결에 문제 발생"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"파일 문제 발생"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"확인"</string>
@@ -390,6 +398,5 @@
     <string name="recover_prompt" msgid="5526783279696786755">"브라우저가 멈추었습니다. 마지막에 열려있던 창을 복원하시겠습니까?"</string>
     <string name="recover_yes" msgid="5837971910598069183">"예"</string>
     <string name="recover_no" msgid="3121030267940592611">"아니요"</string>
-    <!-- no translation found for preview (1470306351083271066) -->
-    <skip />
+    <string name="preview" msgid="1470306351083271066">"미리보기:"</string>
 </resources>

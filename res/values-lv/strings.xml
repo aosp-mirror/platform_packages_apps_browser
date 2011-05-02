@@ -172,8 +172,9 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ievadiet un saglabājiet datus tīmekļa veidlapu lauku automātiskai aizpildīšanai."</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Autom. pierakst. vietnē Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Pierakstīšanās pakalpojumā Google vietnes, izmantojot <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="8013977161879448141">"Ir pieejama automātiskā pierakstīšanās."</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"Pierakstīties kā"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Pieteikties"</string>
+    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Paslēpt"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Neizdevās pieteikties."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Ievadiet datus, kas automātiski jāaizpilda tīmekļa laukos, kad tiem pieskaraties."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Vārds, uzvārds:"</string>
@@ -238,8 +239,9 @@
     <item msgid="7201512237890458902">"Milzīgs"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Teksta lielums"</string>
-    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
-    <skip />
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Minimālais fonta lielums"</string>
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Pieprasīt tālummaiņas iespēj."</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Ignorēt vietnes piepr. par tālummaiņas kontrolēšanu vai ne."</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Noklusējuma tālummaiņa"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Tālu"</item>
@@ -270,8 +272,7 @@
     <item msgid="2193955365569270096">"Korejiešu (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Teksta kodējums"</string>
-    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
-    <skip />
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"Pieejamība"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorijas"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Ātrās piekļuves vadīklas"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Lai piekļ. ātr. piekļ. vadīklām un slēptu lietojumpr. un URL joslas, ekr. lab. vai kr. malā pavelciet ar īkšķi."</string>
@@ -279,6 +280,10 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Sākumlapā tiek rādītas biežāk apmeklētās tīmekļa lapas."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google dinamiskā meklēšana"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Izmantojiet Google dinamisko meklēšanu, kad lietojat Google meklēšanu, lai redzētu rezultātus rakstīšanas laikā (var tikt izmantots vairāk datu)."</string>
+    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
+    <skip />
+    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Datu savienojamības problēma"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Faila problēma"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Apstiprināt"</string>
@@ -390,6 +395,5 @@
     <string name="recover_prompt" msgid="5526783279696786755">"Notika pārlūkprogrammas avārija. Vai vēlaties atjaunot pēdējos atvērtos logus?"</string>
     <string name="recover_yes" msgid="5837971910598069183">"Jā"</string>
     <string name="recover_no" msgid="3121030267940592611">"Nē"</string>
-    <!-- no translation found for preview (1470306351083271066) -->
-    <skip />
+    <string name="preview" msgid="1470306351083271066">"Priekšskatījums:"</string>
 </resources>

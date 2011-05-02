@@ -24,5 +24,5 @@
     <string name="open_all_in_new_window" msgid="8498279523071618315">"Åpne alle i nye faner"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"Åpne nye faner bak den gjeldende"</string>
     <string name="recover_title" msgid="7754049918641251703">"Vil du gjenopprette fanene?"</string>
-    <string name="recover_prompt" msgid="3030249435588073132">"Nettleseren ser ut til å ha fått et programstopp. Ønsker du å gjenopprette fanene fra forrige økt?"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"Nettleseren ser ut til å ha fått et programstopp. Vil du gjenopprette fanene fra forrige økt?"</string>
 </resources>

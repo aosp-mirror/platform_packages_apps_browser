@@ -172,8 +172,10 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"輸入並儲存資料，以供自動填入表單欄位時使用"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"自動登入 Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"正使用 <xliff:g id="ID_1">%s</xliff:g> 登入 Google 網站"</string>
-    <string name="autologin_bar_text" msgid="8013977161879448141">"可自動登入。"</string>
+    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"可自動登入。"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"登入"</string>
+    <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
+    <skip />
     <string name="autologin_bar_error" msgid="5132514366023044839">"登入失敗。"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"輸入您輕觸網頁欄位時要自動填入的資料。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
@@ -238,7 +240,10 @@
     <item msgid="7201512237890458902">"最大"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"文字大小"</string>
-    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <string name="pref_min_font_size" msgid="8811125835817449131">"最小字型大小"</string>
+    <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
+    <skip />
+    <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
     <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"預設縮放"</string>
   <string-array name="pref_default_zoom_choices">
@@ -270,8 +275,7 @@
     <item msgid="2193955365569270096">"韓文 (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"文字編碼"</string>
-    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
-    <skip />
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"協助工具"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"研究室"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"快速控制介面"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"於左右邊緣滑動拇指即可使用快速控制介面，以及隱藏應用程式列和網址列"</string>
@@ -279,6 +283,10 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"首頁會顯示您最常瀏覽的網頁。"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 互動智慧搜尋"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"使用「Google 搜尋」時啟用「Google 互動智慧搜尋」功能，您輸入查詢時可以即時獲得顯示搜尋結果 (這會增加資料傳輸量)。"</string>
+    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
+    <skip />
+    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"資料連線問題"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"檔案有問題"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"確認"</string>
@@ -387,9 +395,8 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"已無分頁可供使用"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"使用 Google 互動智慧搜尋 (研究室)"</string>
     <string name="recover_title" msgid="8095611702406163360">"還原視窗？"</string>
-    <string name="recover_prompt" msgid="5526783279696786755">"瀏覽器已當機。您想要還原最後一次的視窗？"</string>
+    <string name="recover_prompt" msgid="5526783279696786755">"瀏覽器似乎當機了。您想要還原最後一次的視窗嗎？"</string>
     <string name="recover_yes" msgid="5837971910598069183">"好"</string>
     <string name="recover_no" msgid="3121030267940592611">"不用了"</string>
-    <!-- no translation found for preview (1470306351083271066) -->
-    <skip />
+    <string name="preview" msgid="1470306351083271066">"預覽："</string>
 </resources>

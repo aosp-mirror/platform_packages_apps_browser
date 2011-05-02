@@ -23,6 +23,6 @@
     <string name="contextmenu_openlink_newwindow_background" msgid="5625314148071601758">"新しいバックグラウンドタブで開く"</string>
     <string name="open_all_in_new_window" msgid="8498279523071618315">"常に新しいタブで開く"</string>
     <string name="pref_content_open_in_background_summary" msgid="7653600574808720292">"現在のタブの後ろに新しいタブを開く"</string>
-    <string name="recover_title" msgid="7754049918641251703">"タブを元に戻しますか？"</string>
-    <string name="recover_prompt" msgid="3030249435588073132">"ブラウザはクラッシュしたようです。前回のタブに戻しますか？"</string>
+    <string name="recover_title" msgid="7754049918641251703">"タブを復元しますか？"</string>
+    <string name="recover_prompt" msgid="3030249435588073132">"ブラウザはクラッシュしたようです。前回のタブを復元しますか？"</string>
 </resources>

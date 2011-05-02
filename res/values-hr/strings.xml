@@ -172,8 +172,10 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Unošenje i spremanje podataka za automatsko popunjavanje polja web-obrasca"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatska prijava na Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Prijava na Google web-lokacije putem <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="8013977161879448141">"Dostupna je automatska prijava."</string>
+    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"Dostupna je automatska prijava."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Prijava"</string>
+    <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
+    <skip />
     <string name="autologin_bar_error" msgid="5132514366023044839">"Prijava nije uspjela."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Unesite podatke koje želite automatski unijeti u web-polja kad ih dodirnete."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Puno ime:"</string>
@@ -238,7 +240,10 @@
     <item msgid="7201512237890458902">"Ogroman"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Veličina teksta"</string>
-    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Najmanja veličina fonta"</string>
+    <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
+    <skip />
+    <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
     <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zadano povećanje/smanjenje"</string>
   <string-array name="pref_default_zoom_choices">
@@ -270,8 +275,7 @@
     <item msgid="2193955365569270096">"korejski (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Kodiranje teksta"</string>
-    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
-    <skip />
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"Dostupnost"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Brze kontrole"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Za pristup brzim kontrolama i skrivanje Aplikacija i URL-ova prijeđite palcem"</string>
@@ -279,6 +283,10 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Vaša početna stranica prikazuje vaše najposjećenije web-stranice."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Kada u Google Pretraživanju upotrebljavate Google Instant, rezultati se prikazuju dok tipkate (promet podataka može porasti)."</string>
+    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
+    <skip />
+    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problem s podatkovnom povezivošću"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem s datotekom"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Potvrdi"</string>
@@ -390,6 +398,5 @@
     <string name="recover_prompt" msgid="5526783279696786755">"Izgleda da je preglednik pao. Želite li vratiti prozore od prethodnog puta?"</string>
     <string name="recover_yes" msgid="5837971910598069183">"Da"</string>
     <string name="recover_no" msgid="3121030267940592611">"Ne"</string>
-    <!-- no translation found for preview (1470306351083271066) -->
-    <skip />
+    <string name="preview" msgid="1470306351083271066">"Pregled:"</string>
 </resources>

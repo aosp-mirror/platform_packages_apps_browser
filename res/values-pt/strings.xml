@@ -172,8 +172,9 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Inserir e salvar dados para preencher automaticamente os campos dos formulários da web"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Login automático do Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Faça login nos sites do Google usando <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="8013977161879448141">"O login automático está disponível."</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"Fazer login como"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Fazer login"</string>
+    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ocultar"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Falha de login."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Insira os dados que deseja preencher automaticamente em campos da web ao tocá-los."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nome completo:"</string>
@@ -238,8 +239,9 @@
     <item msgid="7201512237890458902">"Enorme"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Tamanho do texto"</string>
-    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
-    <skip />
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Tamanho mínimo da fonte"</string>
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Forçar ativação de zoom"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Subst. ou não solic. do site para contr. zoom"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom padrão"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Longe"</item>
@@ -270,8 +272,7 @@
     <item msgid="2193955365569270096">"Coreano (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificação de texto"</string>
-    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
-    <skip />
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"Acessibilidade"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Google Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Controles rápidos"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Deslize o polegar da esqu. ou dir. para acessar controles rápidos e ocultar barras de apps e URL"</string>
@@ -279,6 +280,10 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Sua página inicial exibe as páginas da web mais visitadas."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Use o Google Instant ao usar a Pesquisa Google para exibir resultados enquanto digita (o uso de dados pode aumentar)."</string>
+    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
+    <skip />
+    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de conectividade de dados"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema com o arquivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmar"</string>
@@ -390,6 +395,5 @@
     <string name="recover_prompt" msgid="5526783279696786755">"O navegador parece ter travado. Gostaria de restaurar as janelas da última vez?"</string>
     <string name="recover_yes" msgid="5837971910598069183">"Sim"</string>
     <string name="recover_no" msgid="3121030267940592611">"Não"</string>
-    <!-- no translation found for preview (1470306351083271066) -->
-    <skip />
+    <string name="preview" msgid="1470306351083271066">"Visualizar:"</string>
 </resources>

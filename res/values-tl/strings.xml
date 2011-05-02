@@ -172,8 +172,9 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ilagay at i-save ang data para sa mga field ng form ng web sa pag-auto-fill"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Awtomatiko pag-sign in sa Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Pag-sign in sa mga site ng Google gamit ang <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="8013977161879448141">"Available ang awtomatikong pag-sign in."</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"Mag-sign in bilang"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Mag-login"</string>
+    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Itago"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Nabigo ang pag-login."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Ilagay ang data na gusto mong i-auto-fill sa mga field ng web kapag hinawakan mo ang mga ito."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Buong pangalan:"</string>
@@ -238,8 +239,9 @@
     <item msgid="7201512237890458902">"Malaki"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Laki ng teksto"</string>
-    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
-    <skip />
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Minimum na laki ng font"</string>
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Pwersahing paganahin pag-zoom"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Override o hindi hiling site na ikontrol ugali ng zoom"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Default zoom"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Malayo"</item>
@@ -270,8 +272,7 @@
     <item msgid="2193955365569270096">"Korean (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Pag-encode ng teksto"</string>
-    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
-    <skip />
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"Pagiging Naa-access"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Mga Lab"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Mga mabilis na pagkontrol"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"I-swipe thumb sa kaliwa o kanan gilid para access bilis kontrol at itago Application at URL bar"</string>
@@ -279,6 +280,10 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Ipinapakita ng iyong homepage ang iyong pinaka-nabibisitang mga webpage."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gamit Google Instant pag gumamit ka Google Search, para magpakita resulta habang type ka (mapataas nito paggamit data)."</string>
+    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
+    <skip />
+    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema sa pagkakakonekta ng data"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema sa file"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Kumpirmahin"</string>
@@ -390,6 +395,5 @@
     <string name="recover_prompt" msgid="5526783279696786755">"Mukhang nag-crash ang browser. Gusto mo bang ibalik ang iyong windows mula sa nakaraan?"</string>
     <string name="recover_yes" msgid="5837971910598069183">"Oo"</string>
     <string name="recover_no" msgid="3121030267940592611">"Hindi"</string>
-    <!-- no translation found for preview (1470306351083271066) -->
-    <skip />
+    <string name="preview" msgid="1470306351083271066">"Preview:"</string>
 </resources>

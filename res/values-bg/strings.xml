@@ -172,8 +172,10 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Въведете и запазете данни за автоматично попълване на полетата в уеб формуляри"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Автоматичен вход в Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Влизате в сайтове на Google посредством <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="8013977161879448141">"Автоматичният вход е налице."</string>
+    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"Автоматичният вход е налице."</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Вход"</string>
+    <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
+    <skip />
     <string name="autologin_bar_error" msgid="5132514366023044839">"Влизането не бе успешно."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Въведете данните, които при докосване искате да се попълнят автоматично в уеб полетата."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Пълно име:"</string>
@@ -238,7 +240,10 @@
     <item msgid="7201512237890458902">"Огромен"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Размер на текста"</string>
-    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Минимален размер на шрифта"</string>
+    <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
+    <skip />
+    <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
     <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Стандартна промяна на мащаба"</string>
   <string-array name="pref_default_zoom_choices">
@@ -270,8 +275,7 @@
     <item msgid="2193955365569270096">"Корейски (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Текстово кодиране"</string>
-    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
-    <skip />
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"Достъпност"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Лаборатория"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Бързи контроли"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Прокарайте палец от левия/десния край за достъп до бързите контроли и скр. на лентите за прил. и URL адр."</string>
@@ -279,6 +283,10 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Началната ви страница показва най-посещаваните от вас уеб страници."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Динамично търсене"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Използвайте Google Динамично търсене, за да се показват резултати, докато пишете (може да увеличи употребата на данни)."</string>
+    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
+    <skip />
+    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблем с обмен на данни"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблем с файла"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Потвърждаване"</string>
@@ -390,6 +398,5 @@
     <string name="recover_prompt" msgid="5526783279696786755">"Изглежда се получи срив в браузъра. Искате ли да възстановите прозорците си от последния път?"</string>
     <string name="recover_yes" msgid="5837971910598069183">"Да"</string>
     <string name="recover_no" msgid="3121030267940592611">"Не"</string>
-    <!-- no translation found for preview (1470306351083271066) -->
-    <skip />
+    <string name="preview" msgid="1470306351083271066">"Визуализация:"</string>
 </resources>
