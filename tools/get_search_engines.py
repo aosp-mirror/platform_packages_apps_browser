@@ -87,7 +87,7 @@ class SearchEngineManager(object):
     str = str.strip('"')
     str = str.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
     str = str.replace('"', '&quot;').replace('\'', '&apos;')
-    str = re.sub(r'\\x([a-fA-F0-9]+)', r'&#x\1;', str)
+    str = re.sub(r'\\x([a-fA-F0-9]{1,4})', r'&#x\1;', str)
 
     return str
 
