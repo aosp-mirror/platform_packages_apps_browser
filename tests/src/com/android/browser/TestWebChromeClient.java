@@ -84,7 +84,9 @@ abstract class TestWebChromeClient extends WebChromeClient {
     @Override
     public boolean onCreateWindow(WebView view, boolean dialog,
             boolean userGesture, Message resultMsg) {
-        return mWrappedClient.onCreateWindow(view, dialog, userGesture, resultMsg);
+        // do not open any new pop-ups
+        resultMsg.sendToTarget();
+        return true;
     }
 
     /** {@inheritDoc} */

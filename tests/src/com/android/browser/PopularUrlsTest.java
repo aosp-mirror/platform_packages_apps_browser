@@ -77,6 +77,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         super.setUp();
 
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("about:blank"));
+        i.putExtra(Controller.NO_CRASH_RECOVERY, true);
         setActivityIntent(i);
         mActivity = getActivity();
         mController = mActivity.getController();

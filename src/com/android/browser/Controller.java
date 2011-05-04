@@ -133,6 +133,9 @@ public class Controller
     // "source" parameter for Google search through simplily type
     final static String GOOGLE_SEARCH_SOURCE_TYPE = "browser-type";
 
+    // "no-crash-recovery" parameter in intetnt to suppress crash recovery
+    final static String NO_CRASH_RECOVERY = "no-crash-recovery";
+
     private Activity mActivity;
     private UI mUi;
     private TabControl mTabControl;
@@ -254,7 +257,8 @@ public class Controller
     }
 
     void start(final Bundle icicle, final Intent intent) {
-        if (icicle != null) {
+        boolean noCrashRecovery = intent.getBooleanExtra(NO_CRASH_RECOVERY, false);
+        if (icicle != null || noCrashRecovery) {
             mCrashRecoveryHandler.clearState();
             doStart(icicle, intent);
         } else {
