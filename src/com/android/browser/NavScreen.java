@@ -316,7 +316,9 @@ public class NavScreen extends LinearLayout implements OnClickListener {
                 @Override
                 public void onClick(View v) {
                     close(false);
+                    mUi.getTitleBar().setSkipTitleBarAnimations(true);
                     mUi.editUrl(false);
+                    mUi.getTitleBar().setSkipTitleBarAnimations(false);
                 }
             });
             return convertView;
