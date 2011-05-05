@@ -36,6 +36,7 @@ public class BrowserWebView extends WebView implements Runnable {
     private boolean mBackgroundRemoved = false;
     private boolean mUserInitiated = false;
     private TitleBarBase mTitleBar;
+    private int mCaptureSize;
     private Bitmap mCapture;
 
     /**
@@ -57,6 +58,7 @@ public class BrowserWebView extends WebView implements Runnable {
     public BrowserWebView(
             Context context, AttributeSet attrs, int defStyle, boolean privateBrowsing) {
         super(context, attrs, defStyle, privateBrowsing);
+        init();
     }
 
     /**
@@ -65,6 +67,7 @@ public class BrowserWebView extends WebView implements Runnable {
      */
     public BrowserWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     /**
@@ -72,12 +75,13 @@ public class BrowserWebView extends WebView implements Runnable {
      */
     public BrowserWebView(Context context) {
         super(context);
+        init();
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int ow, int oh) {
-        super.onSizeChanged(w, h, ow, oh);
-        mCapture = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+    private void init() {
+        mCaptureSize = mContext.getResources().getDimensionPixelSize(R.dimen.tab_capture_size);
+        mCapture = Bitmap.createBitmap(mCaptureSize, mCaptureSize,
+                Bitmap.Config.RGB_565);
     }
 
     @Override
@@ -150,7 +154,11 @@ public class BrowserWebView extends WebView implements Runnable {
     protected Bitmap capture() {
         if (mCapture == null) return null;
         Canvas c = new Canvas(mCapture);
-        c.translate(-getScrollX(), -(getScrollY() + getVisibleTitleHeight()));
+        final int left = getScrollX();
+        final int top = getScrollY() + getVisibleTitleHeight();
+        c.translate(-left, -top);
+        float scale = mCaptureSize / (float) Math.max(getWidth(), getHeight());
+        c.scale(scale, scale, left, top);
         onDraw(c);
         return mCapture;
     }

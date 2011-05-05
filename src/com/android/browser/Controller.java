@@ -97,6 +97,7 @@ public class Controller
     private static final String LOGTAG = "Controller";
     private static final String SEND_APP_ID_EXTRA =
         "android.speech.extras.SEND_APPLICATION_ID_EXTRA";
+    private static final String INCOGNITO_URI = "browser:incognito";
 
 
     // public message ids
@@ -2222,7 +2223,6 @@ public class Controller
         }
     }
 
-
     // This method does a ton of stuff. It will attempt to create a new tab
     // if we haven't reached MAX_TABS. Otherwise it uses the current tab. If
     // url isn't null, it will load the given url.
@@ -2261,7 +2261,21 @@ public class Controller
                     null, true);
             addTab(tab);
             setActiveTab(tab);
-            loadUrlDataIn(tab, new UrlData("browser:incognito"));
+            loadUrlDataIn(tab, new UrlData(INCOGNITO_URI));
+            return tab;
+        } else {
+            mUi.showMaxTabsWarning();
+            return null;
+        }
+    }
+
+    @Override
+    public Tab createNewTab(String url, boolean incognito) {
+        if (mTabControl.canCreateNewTab()) {
+            Tab tab = mTabControl.createNewTab(false, null, null, incognito);
+            WebView w = tab.getWebView();
+            addTab(tab);
+            loadUrl(w, (incognito ? INCOGNITO_URI : url));
             return tab;
         } else {
             mUi.showMaxTabsWarning();

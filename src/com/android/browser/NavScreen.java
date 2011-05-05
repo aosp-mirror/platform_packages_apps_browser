@@ -18,7 +18,9 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,9 +33,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
@@ -60,27 +64,34 @@ public class NavScreen extends LinearLayout implements OnClickListener {
     FrameLayout mHolder;
 
     Gallery mFlipper;
+    float mTabAspect = 0.66f;
     int mTabWidth;
     int mTabHeight;
     TabAdapter mAdapter;
     ListPopupWindow mPopup;
+    int mOrientation;
 
     public NavScreen(Activity activity, UiController ctl, PhoneUi ui) {
         super(activity);
         mActivity = activity;
         mUiController = ctl;
         mUi = ui;
+        mOrientation = activity.getResources().getConfiguration().orientation;
         init();
+    }
+
+    @Override
+    public void onMeasure(int wspec, int hspec) {
+        super.onMeasure(wspec, hspec);
+        mTabHeight = mFlipper.getMeasuredHeight();
+        mTabWidth = (int) (mTabHeight * mTabAspect);
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     protected Tab getSelectedTab() {
         return (Tab) mFlipper.getSelectedItem();
-    }
-
-    protected void setTabDimensions(int w, int h) {
-        mTabWidth = w;
-        mTabHeight = h;
-        requestLayout();
     }
 
     protected void showMenu() {
@@ -110,6 +121,18 @@ public class NavScreen extends LinearLayout implements OnClickListener {
         }
     }
 
+    // for configuration changes
+    @Override
+    protected void onConfigurationChanged(Configuration newconfig) {
+        if (newconfig.orientation != mOrientation) {
+            int selIx = mFlipper.getSelectedItemPosition();
+            removeAllViews();
+            init();
+            mFlipper.setSelection(selIx);
+            mOrientation = newconfig.orientation;
+        }
+    }
+
     private void init() {
         LayoutInflater.from(mContext).inflate(R.layout.nav_screen, this);
         LinearLayout content = (LinearLayout) findViewById(R.id.nav_screen);
@@ -136,6 +159,7 @@ public class NavScreen extends LinearLayout implements OnClickListener {
         mFlipper = new TabGallery(mContext);
         mFlipper.setSpacing((int)(mContext.getResources()
                 .getDimension(R.dimen.nav_tab_spacing)));
+        mFlipper.setUnselectedAlpha(0.8f);
         mFlipper.setLayoutParams(lp);
         mHolder.addView(mFlipper, 0);
         mAdapter = new TabAdapter(mContext, mUiController.getTabControl());
@@ -192,29 +216,67 @@ public class NavScreen extends LinearLayout implements OnClickListener {
         if (web != null) {
             if (mBack == v) {
                 mUi.hideNavScreen(true);
+                switchToSelected();
                 web.goBack();
             } else if (mForward == v) {
                 mUi.hideNavScreen(true);
+                switchToSelected();
                 web.goForward();
             } else if (mRefresh == v) {
                 mUi.hideNavScreen(true);
+                switchToSelected();
                 web.reload();
             }
         }
         if (mBookmarks == v) {
             mUi.hideNavScreen(false);
+            switchToSelected();
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mTabs == v) {
-            mUi.hideNavScreen(false);
-            mUi.showActiveTabsPage();
         } else if (mNewTab == v) {
-            mUi.hideNavScreen(true);
-            mUiController.openTabToHomePage();
+            openNewTab();
         } else if (mMore == v) {
             showMenu();
         } else if (mNewIncognito == v) {
             mUi.hideNavScreen(true);
             mUiController.openIncognitoTab();
+        }
+    }
+
+    private void openNewTab() {
+        Tab tab = mUiController.createNewTab(
+                BrowserSettings.getInstance().getHomePage(),
+                false);
+        mAdapter.notifyDataSetChanged();
+
+        if (tab != null) {
+            // set tab as the selected in flipper, then hide
+            final int tix = mUi.mTabControl.getTabIndex(tab);
+            post(new Runnable() {
+                public void run() {
+                    if (tix != -1) {
+                        for (int i = mFlipper.getSelectedItemPosition();
+                                i <= tix; i++) {
+                            mFlipper.setSelection(i, true);
+                            mFlipper.invalidate();
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    mUi.hideNavScreen(true);
+                    switchToSelected();
+                }
+            });
+        }
+    }
+
+    private void switchToSelected() {
+        Tab tab = (Tab) mFlipper.getSelectedItem();
+        if (tab != mUi.getActiveTab()) {
+            mUiController.setActiveTab(tab);
         }
     }
 
@@ -224,10 +286,7 @@ public class NavScreen extends LinearLayout implements OnClickListener {
 
     protected void close(boolean animate) {
         mUi.hideNavScreen(animate);
-        Tab tab = (Tab) mFlipper.getSelectedItem();
-        if (tab != mUi.getActiveTab()) {
-            mUiController.setActiveTab(tab);
-        }
+        switchToSelected();
     }
 
     class TabGallery extends Gallery {
@@ -296,6 +355,7 @@ public class NavScreen extends LinearLayout implements OnClickListener {
                 content.setLayoutParams(new LayoutParams(mTabWidth, mTabHeight));
             } else {
                 content = (ImageView) convertView.findViewById(R.id.content);
+                content.setLayoutParams(new LayoutParams(mTabWidth, mTabHeight));
             }
             View tbar = convertView.findViewById(R.id.titlebar);
             TextView title = (TextView) convertView.findViewById(R.id.title);
@@ -304,8 +364,20 @@ public class NavScreen extends LinearLayout implements OnClickListener {
             final Tab tab = getItem(position);
             icon.setImageDrawable(mUi.getFaviconDrawable(tab.getFavicon()));
             title.setText(tab.getUrl());
+            content.setScaleType(ScaleType.MATRIX);
+            Matrix matrix = new Matrix();
             Bitmap screen = tab.getScreenshot();
-            content.setImageBitmap(screen);
+            if (screen != null) {
+                float scale = 1.0f;
+                if (mTabWidth > mTabHeight) {
+                    scale = mTabWidth / (float) screen.getWidth();
+                } else {
+                    scale = mTabHeight / (float) screen.getHeight();
+                }
+                matrix.setScale(scale, scale);
+                content.setImageMatrix(matrix);
+                content.setImageBitmap(screen);
+            }
             close.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {

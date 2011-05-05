@@ -285,12 +285,14 @@ public class PhoneUi extends BaseUi {
 
     @Override
     protected void captureTab(final Tab tab) {
+        if (tab == null) return;
         if (mUseQuickControls) {
             super.captureTab(tab);
         } else {
-            captureTab(tab,
-                    mActivity.getWindowManager().getDefaultDisplay().getWidth(),
-                    mActivity.getWindowManager().getDefaultDisplay().getHeight());
+            BrowserWebView web = (BrowserWebView) tab.getWebView();
+            if (web != null) {
+                tab.setScreenshot(web.capture());
+            }
         }
     }
 
@@ -301,11 +303,8 @@ public class PhoneUi extends BaseUi {
         float yoffset = 0;
         WebView web = getWebView();
         if (web != null) {
-            int w = web.getWidth();
-            int h = web.getHeight();
-            yoffset = mNavScreen.getToolbarHeight() -  web.getVisibleTitleHeight();
-            mNavScreen.setTabDimensions((int) (w * NAV_TAB_SCALE),
-                    (int) (h * NAV_TAB_SCALE));
+            yoffset = mNavScreen.getToolbarHeight() -
+                    web.getVisibleTitleHeight();
         }
         // Add the custom view to its container.
         mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_GRAVITY_CENTER);
@@ -366,7 +365,8 @@ public class PhoneUi extends BaseUi {
             float yoffset = 0;
             WebView web = mNavScreen.getSelectedTab().getWebView();
             if (web != null) {
-                yoffset = mNavScreen.getToolbarHeight() -  web.getVisibleTitleHeight();
+                yoffset = mNavScreen.getToolbarHeight() -
+                        web.getVisibleTitleHeight();
             }
             ObjectAnimator animx = ObjectAnimator.ofFloat(mNavScreen, "scaleX",
                     1.0f, 1 / NAV_TAB_SCALE);
