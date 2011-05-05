@@ -197,6 +197,19 @@
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
 
+        <!-- Application code for RLZ tracking.  RLZ assigns non-unique, non-personally identifiable
+             tracking labels to client products; these labels sometimes appear in Google search
+             queries.  See http://code.google.com/p/rlz for more info.
+
+             This value signifies to the RLZ client that this application uses RLZ tracking. -->
+        <meta-data android:name="com.google.android.partnersetup.RLZ_ACCESS_POINT"
+                   android:value="@string/rlz_access_point" />
+        <receiver android:name=".RlzReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.RLZ_VALUES_UPDATED"/>
+            </intent-filter>
+        </receiver>
+
         <receiver android:name=".OpenDownloadReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>

@@ -753,4 +753,6 @@
     <string name="error_console_eval_text_hint" translatable="false">Evaluate JavaScript</string>
     <string name="error_console_eval_button_text" translatable="false">Evaluate</string>
 
+    <!-- Access point for RLZ tracking. -->
+    <string name="rlz_access_point" translatable="false">Y1</string>
 </resources>
