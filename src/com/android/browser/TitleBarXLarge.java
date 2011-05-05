@@ -20,7 +20,6 @@ import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 import com.android.browser.search.SearchEngine;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -103,18 +102,6 @@ public class TitleBarXLarge extends TitleBarBase
                 R.drawable.textfield_default_holo_dark);
         mInVoiceMode = false;
         initLayout(activity);
-    }
-
-    @Override
-    void setTitleGravity(int gravity) {
-        if (mUseQuickControls) {
-            FrameLayout.LayoutParams lp =
-                    (FrameLayout.LayoutParams) getLayoutParams();
-            lp.gravity = gravity;
-            setLayoutParams(lp);
-        } else {
-            super.setTitleGravity(gravity);
-        }
     }
 
     private void initLayout(Context context) {
