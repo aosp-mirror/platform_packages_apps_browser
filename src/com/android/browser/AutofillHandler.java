@@ -119,18 +119,22 @@ public class AutofillHandler {
     }
 
     public void setAutoFillProfile(AutoFillProfile profile, Message msg) {
+        int profileId = NO_AUTOFILL_PROFILE_SET;
         if (profile != null) {
-            setActiveAutoFillProfileId(profile.getUniqueId());
+            profileId = profile.getUniqueId();
             // Update the AutoFill DB with the new profile.
             new SaveProfileToDbTask(msg).execute(profile);
         } else {
             // Delete the current profile.
             if (mAutoFillProfile != null) {
                 new DeleteProfileFromDbTask(msg).execute(mAutoFillProfile.getUniqueId());
-                setActiveAutoFillProfileId(NO_AUTOFILL_PROFILE_SET);
             }
         }
+        // Make sure we set mAutoFillProfile before calling setActiveAutoFillProfileId
+        // Calling setActiveAutoFillProfileId will trigger an update of WebViews
+        // which will expect a new profile to be set
         mAutoFillProfile = profile;
+        setActiveAutoFillProfileId(profileId);
     }
 
     public AutoFillProfile getAutoFillProfile() {
