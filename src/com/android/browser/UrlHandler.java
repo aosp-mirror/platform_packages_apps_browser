@@ -214,7 +214,9 @@ public class UrlHandler {
     // depressed by opening in a new tab
     boolean handleMenuClick(Tab tab, String url) {
         if (mController.isMenuDown()) {
-            mController.openTab(tab, url, false);
+            mController.openTab(url,
+                    (tab != null) && tab.isPrivateBrowsingEnabled(),
+                    !BrowserSettings.getInstance().openInBackground(), true);
             mActivity.closeOptionsMenu();
             return true;
         }

@@ -134,7 +134,7 @@ public class IntentHandler {
             }
 
             if (intent.getBooleanExtra(Browser.EXTRA_CREATE_NEW_TAB, false)) {
-                mController.openTabAndShow(mTabControl.getCurrentTab(), urlData, false, null);
+                mController.openTab(urlData);
                 return;
             }
             final String appId = intent
@@ -151,7 +151,10 @@ public class IntentHandler {
                         mController.reuseTab(appTab, appId, urlData);
                         return;
                     } else {
-                        mController.openTabAndShow(null, urlData, false, appId);
+                        Tab tab = mController.openTab(urlData);
+                        if (tab != null) {
+                            tab.setAppId(appId);
+                        }
                     }
                 } else {
                     // No matching application tab, try to find a regular tab
@@ -168,7 +171,10 @@ public class IntentHandler {
                         // MAX_TABS. Then the url will be opened in the current
                         // tab. If a new tab is created, it will have "true" for
                         // exit on close.
-                        mController.openTabAndShow(null, urlData, false, appId);
+                        Tab tab = mController.openTab(urlData);
+                        if (tab != null) {
+                            tab.setAppId(appId);
+                        }
                     }
                 }
             } else {

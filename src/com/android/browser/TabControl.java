@@ -165,8 +165,7 @@ class TabControl {
      * @return The newly createTab or null if we have reached the maximum
      *         number of open tabs.
      */
-    Tab createNewTab(boolean closeOnExit, String appId, String url,
-            boolean privateBrowsing) {
+    Tab createNewTab(boolean privateBrowsing) {
         int size = mTabs.size();
         // Return false if we have maxed out on tabs
         if (mMaxTabs == size) {
@@ -175,7 +174,7 @@ class TabControl {
         final WebView w = createNewWebView(privateBrowsing);
 
         // Create a new tab and add it to the tab list
-        Tab t = new Tab(mController, w, closeOnExit, appId, url);
+        Tab t = new Tab(mController, w);
         mTabs.add(t);
         // Initially put the tab in the background.
         t.putInBackground();
@@ -187,7 +186,7 @@ class TabControl {
      * appId(null), url(null), and privateBrowsing(false).
      */
     Tab createNewTab() {
-        return createNewTab(false, null, null, false);
+        return createNewTab(false);
     }
 
     /**
@@ -361,7 +360,7 @@ class TabControl {
             } else {
                 // Create a new tab and don't restore the state yet, add it
                 // to the tab list
-                Tab t = new Tab(mController, null, false, null, null);
+                Tab t = new Tab(mController, null);
                 if (state != null) {
                     t.setSavedState(state);
                     // Need to maintain the app id and original url so we

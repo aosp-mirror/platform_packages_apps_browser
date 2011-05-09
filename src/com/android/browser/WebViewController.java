@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.IntentHandler.UrlData;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -103,8 +101,8 @@ public interface WebViewController {
 
     void dismissSubWindow(Tab tab);
 
-    Tab openTabAndShow(Tab parent, UrlData urlData, boolean closeOnExit,
-            String appId);
+    Tab openTab(String url, boolean incognito, boolean setActive,
+            boolean useCurrent);
 
     boolean switchToTab(int tabindex);
 

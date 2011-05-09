@@ -309,31 +309,20 @@ public class Controller
             // invoked to view the content by another application. In this case,
             // the tab will be close when exit.
             UrlData urlData = mIntentHandler.getUrlDataFromIntent(intent);
-
-            String action = intent.getAction();
-            final Tab t = mTabControl.createNewTab(
-                    (Intent.ACTION_VIEW.equals(action) &&
-                    intent.getData() != null)
-                    || RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS
-                    .equals(action),
-                    intent.getStringExtra(Browser.EXTRA_APPLICATION_ID),
-                    urlData.mUrl, false);
-            addTab(t);
-            setActiveTab(t);
+            Tab t = null;
+            if (urlData.isEmpty()) {
+                t = openTabToHomePage();
+            } else {
+                t = openTab(urlData);
+            }
+            if (t != null) {
+                t.setAppId(intent.getStringExtra(Browser.EXTRA_APPLICATION_ID));
+            }
             WebView webView = t.getWebView();
             if (extra != null) {
                 int scale = extra.getInt(Browser.INITIAL_ZOOM_LEVEL, 0);
                 if (scale > 0 && scale <= 1000) {
                     webView.setInitialScale(scale);
-                }
-            }
-
-            if (urlData.isEmpty()) {
-                loadUrl(webView, mSettings.getHomePage());
-            } else {
-                // monkey protection against delayed start
-                if (t != null) {
-                    loadUrlDataIn(t, urlData);
                 }
             }
         } else {
@@ -491,7 +480,12 @@ public class Controller
                                 break;
                             case R.id.open_newtab_context_menu_id:
                                 final Tab parent = mTabControl.getCurrentTab();
-                                final Tab newTab = openTab(parent, url, false);
+                                final Tab newTab =
+                                        openTab(url,
+                                                (parent != null)
+                                                && parent.isPrivateBrowsingEnabled(),
+                                                !mSettings.openInBackground(),
+                                                true);
                                 if (newTab != null && newTab != parent) {
                                     parent.addChildTab(newTab);
                                 }
@@ -1189,7 +1183,11 @@ public class Controller
         removeComboView();
         if (!TextUtils.isEmpty(url)) {
             if (newTab) {
-                openTab(mTabControl.getCurrentTab(), url, false);
+                final Tab parent = mTabControl.getCurrentTab();
+                openTab(url,
+                        (parent != null) && parent.isPrivateBrowsingEnabled(),
+                        !mSettings.openInBackground(),
+                        true);
             } else {
                 final Tab currentTab = mTabControl.getCurrentTab();
                 dismissSubWindow(currentTab);
@@ -1390,8 +1388,12 @@ public class Controller
                                     @Override
                                     public boolean onMenuItemClick(MenuItem item) {
                                         final Tab parent = mTabControl.getCurrentTab();
-                                        final Tab newTab = openTab(parent,
-                                                extra, false);
+                                        final Tab newTab =
+                                                openTab(extra,
+                                                        (parent != null)
+                                                        && parent.isPrivateBrowsingEnabled(),
+                                                        !mSettings.openInBackground(),
+                                                        true);
                                         if (newTab != parent) {
                                             parent.addChildTab(newTab);
                                         }
@@ -1544,7 +1546,7 @@ public class Controller
                 break;
 
             case R.id.incognito_menu_id:
-                openIncognitoTab();
+                openTab(null, true, true, false);
                 break;
 
             case R.id.goto_menu_id:
@@ -2196,91 +2198,55 @@ public class Controller
         }
     }
 
+    // open a non inconito tab with the given url data
+    // and set as active tab
+    public Tab openTab(UrlData urlData) {
+        Tab tab = createNewTab(false, true, true);
+        if ((tab != null) && !urlData.isEmpty()) {
+            loadUrlDataIn(tab, urlData);
+        }
+        return tab;
+    }
+
     @Override
     public Tab openTabToHomePage() {
-        // check for max tabs
-        if (mTabControl.canCreateNewTab()) {
-            return openTabAndShow(null, new UrlData(mSettings.getHomePage()),
-                    false, null);
-        } else {
-            mUi.showMaxTabsWarning();
-            return null;
-        }
-    }
-
-    protected Tab openTab(Tab parent, String url, boolean forceForeground) {
-        if (mSettings.openInBackground() && !forceForeground) {
-            Tab tab = mTabControl.createNewTab(false, null, null,
-                    (parent != null) && parent.isPrivateBrowsingEnabled());
-            if (tab != null) {
-                addTab(tab);
-                WebView view = tab.getWebView();
-                loadUrl(view, url);
-            }
-            return tab;
-        } else {
-            return openTabAndShow(parent, new UrlData(url), false, null);
-        }
-    }
-
-    // This method does a ton of stuff. It will attempt to create a new tab
-    // if we haven't reached MAX_TABS. Otherwise it uses the current tab. If
-    // url isn't null, it will load the given url.
-    public Tab openTabAndShow(Tab parent, final UrlData urlData,
-            boolean closeOnExit, String appId) {
-        final Tab currentTab = mTabControl.getCurrentTab();
-        if (mTabControl.canCreateNewTab()) {
-            final Tab tab = mTabControl.createNewTab(closeOnExit, appId,
-                    urlData.mUrl,
-                    (parent != null) && parent.isPrivateBrowsingEnabled());
-            WebView webview = tab.getWebView();
-            // We must set the new tab as the current tab to reflect the old
-            // animation behavior.
-            addTab(tab);
-            setActiveTab(tab);
-            if (!urlData.isEmpty()) {
-                loadUrlDataIn(tab, urlData);
-            }
-            return tab;
-        } else {
-            // Get rid of the subwindow if it exists
-            dismissSubWindow(currentTab);
-            if (!urlData.isEmpty()) {
-                // Load the given url.
-                loadUrlDataIn(currentTab, urlData);
-            }
-            return currentTab;
-        }
+        return openTab(mSettings.getHomePage(), false, true, false);
     }
 
     @Override
-    public Tab openIncognitoTab() {
-        if (mTabControl.canCreateNewTab()) {
-            Tab currentTab = mTabControl.getCurrentTab();
-            Tab tab = mTabControl.createNewTab(false, null,
-                    null, true);
-            addTab(tab);
-            setActiveTab(tab);
-            loadUrlDataIn(tab, new UrlData(INCOGNITO_URI));
-            return tab;
-        } else {
-            mUi.showMaxTabsWarning();
-            return null;
-        }
-    }
-
-    @Override
-    public Tab createNewTab(String url, boolean incognito) {
-        if (mTabControl.canCreateNewTab()) {
-            Tab tab = mTabControl.createNewTab(false, null, null, incognito);
+    public Tab openTab(String url, boolean incognito, boolean setActive,
+            boolean useCurrent) {
+        Tab tab = createNewTab(incognito, setActive, useCurrent);
+        if (tab != null) {
             WebView w = tab.getWebView();
-            addTab(tab);
-            loadUrl(w, (incognito ? INCOGNITO_URI : url));
-            return tab;
-        } else {
-            mUi.showMaxTabsWarning();
-            return null;
+            loadUrl(w, ((incognito && url == null) ? INCOGNITO_URI : url));
         }
+        return tab;
+    }
+
+    // this method will attempt to create a new tab
+    // incognito: private browsing tab
+    // setActive: ste tab as current tab
+    // useCurrent: if no new tab can be created, return current tab
+    private Tab createNewTab(boolean incognito, boolean setActive,
+            boolean useCurrent) {
+        Tab tab = null;
+        if (mTabControl.canCreateNewTab()) {
+            tab = mTabControl.createNewTab(incognito);
+            addTab(tab);
+            if (setActive) {
+                setActiveTab(tab);
+            }
+        } else {
+            if (useCurrent) {
+                tab = mTabControl.getCurrentTab();
+                // Get rid of the subwindow if it exists
+                dismissSubWindow(tab);
+            } else {
+                mUi.showMaxTabsWarning();
+            }
+        }
+        return tab;
     }
 
     /**
@@ -2416,12 +2382,6 @@ public class Controller
                 // Now we close the other tab
                 closeTab(current);
             } else {
-                if (current.closeOnExit()) {
-                    // This will finish the activity if there is only one tab
-                    // open or it will switch to the next available tab if
-                    // available.
-                    closeCurrentTab();
-                }
                 /*
                  * Instead of finishing the activity, simply push this to the back
                  * of the stack and let ActivityManager to choose the foreground
@@ -2591,7 +2551,7 @@ public class Controller
                 // exclusive use of a modifier
                 if (event.isCtrlPressed()) {
                     if (event.isShiftPressed()) {
-                        openIncognitoTab();
+                        openTab(null, true, true, false);
                     } else {
                         openTabToHomePage();
                     }
