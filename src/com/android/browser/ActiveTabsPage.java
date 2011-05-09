@@ -75,7 +75,7 @@ public class ActiveTabsPage extends LinearLayout implements OnClickListener,
         if (v == mNewTab) {
             mController.openTabToHomePage();
         } else if (v == mNewIncognitoTab) {
-            mController.openIncognitoTab();
+            mController.openTab(null, true, true, false);
         }
         mController.removeActiveTabsPage(false);
     }

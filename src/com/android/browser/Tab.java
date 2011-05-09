@@ -108,8 +108,6 @@ class Tab {
     // Tab that constructed by this Tab. This is used when this Tab is
     // destroyed, it clears all mParentTab values in the children.
     private Vector<Tab> mChildTabs;
-    // If true, the tab will be removed when back out of the first page.
-    private boolean mCloseOnExit;
     // If true, the tab is in the foreground of the current activity.
     private boolean mInForeground;
     // If true, the tab is in page loading state (after onPageStarted,
@@ -191,7 +189,6 @@ class Tab {
     static final String CURRTAB = "currentTab";
     static final String CURRURL = "currentUrl";
     static final String CURRTITLE = "currentTitle";
-    static final String CLOSEONEXIT = "closeonexit";
     static final String PARENTTAB = "parentTab";
     static final String APPID = "appid";
     static final String ORIGINALURL = "originalUrl";
@@ -859,9 +856,9 @@ class Tab {
                 mWebViewController.attachSubWindow(Tab.this);
                 transport.setWebView(mSubView);
             } else {
-                final Tab newTab = mWebViewController.openTabAndShow(
-                        Tab.this,
-                        IntentHandler.EMPTY_URL_DATA, false, null);
+                final Tab newTab = mWebViewController.openTab(null,
+                        Tab.this.isPrivateBrowsingEnabled(),
+                        true, true);
                 if (newTab != Tab.this) {
                     Tab.this.addChildTab(newTab);
                 }
@@ -1290,13 +1287,10 @@ class Tab {
     // remove later
 
     // Construct a new tab
-    Tab(WebViewController wvcontroller, WebView w, boolean closeOnExit, String appId,
-            String url) {
+    Tab(WebViewController wvcontroller, WebView w) {
         mWebViewController = wvcontroller;
         mActivity = mWebViewController.getActivity();
         mSettings = BrowserSettings.getInstance();
-        mCloseOnExit = closeOnExit;
-        mAppId = appId;
         mDataController = DataController.getInstance(mActivity);
         mCurrentState = new PageState(mActivity, w != null
                 ? w.isPrivateBrowsingEnabled() : false);
@@ -1666,15 +1660,6 @@ class Tab {
         return mParentTab;
     }
 
-    /**
-     * Return whether this tab should be closed when it is backing out of the
-     * first page.
-     * @return TRUE if this tab should be closed when exit.
-     */
-    boolean closeOnExit() {
-        return mCloseOnExit;
-    }
-
     private void setLockIconType(LockIcon icon) {
         mCurrentState.mLockIcon = icon;
         mWebViewController.onUpdatedLockIcon(this);
@@ -1741,7 +1726,6 @@ class Tab {
 
         mSavedState.putString(CURRURL, mCurrentState.mUrl);
         mSavedState.putString(CURRTITLE, mCurrentState.mTitle);
-        mSavedState.putBoolean(CLOSEONEXIT, mCloseOnExit);
         if (mAppId != null) {
             mSavedState.putString(APPID, mAppId);
         }
@@ -1766,7 +1750,6 @@ class Tab {
         // Restore the internal state even if the WebView fails to restore.
         // This will maintain the app id, original url and close-on-exit values.
         mSavedState = null;
-        mCloseOnExit = b.getBoolean(CLOSEONEXIT);
         mAppId = b.getString(APPID);
         mScreenshot = b.getParcelable(SCREENSHOT);
 
