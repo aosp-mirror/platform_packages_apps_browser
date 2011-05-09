@@ -29,9 +29,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import android.speech.RecognizerResultsIntent;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.AbsoluteLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -93,30 +91,6 @@ public class TitleBarBase extends LinearLayout implements UrlInputListener {
     /* package */ void setInVoiceMode(boolean inVoiceMode) {}
 
     /* package */ void setIncognitoMode(boolean incognito) {}
-
-    void setTitleGravity(int gravity) {
-        int newTop = 0;
-        int newLeft = 0;
-        View parent = (View) getParent();
-        if (parent != null) {
-            newLeft = parent.getScrollX();
-        }
-        if (gravity != Gravity.NO_GRAVITY) {
-            if (parent != null) {
-                if (gravity == Gravity.TOP) {
-                    newTop = parent.getScrollY();
-                } else if (gravity == Gravity.BOTTOM) {
-                    newTop = parent.getScrollY() + parent.getHeight() - getHeight();
-                }
-            }
-        }
-        AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams) getLayoutParams();
-        if (lp != null) {
-            lp.x = newLeft;
-            lp.y = newTop;
-            setLayoutParams(lp);
-        }
-    }
 
     public int getEmbeddedHeight() {
         return getHeight();

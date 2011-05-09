@@ -17,10 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.Tab.LockIcon;
-import com.android.browser.UI.DropdownChangeListener;
 
-import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -421,10 +418,10 @@ public abstract class BaseUi implements UI, WebViewFactory {
     protected abstract TitleBarBase getTitleBar();
 
     protected void setTitleGravity(int gravity) {
-        getTitleBar().setTitleGravity(gravity);
-        Tab tab = getActiveTab();
-        if ((tab != null) && (tab.getWebView() != null)) {
-            tab.getWebView().setTitleBarGravity(gravity);
+        WebView web = getWebView();
+        if (web != null) {
+            web.setTitleBarGravity(gravity);
+            web.invalidate();
         }
     }
 
@@ -724,4 +721,13 @@ public abstract class BaseUi implements UI, WebViewFactory {
     @Override
     public void registerDropdownChangeListener(DropdownChangeListener d) {
     }
+
+    protected WebView getWebView() {
+        Tab tab = getActiveTab();
+        if (tab != null) {
+            return tab.getWebView();
+        }
+        return null;
+    }
+
 }
