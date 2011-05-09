@@ -653,7 +653,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 qb.setTables(TABLE_BOOKMARKS);
                 qb.setProjectionMap(ACCOUNTS_PROJECTION_MAP);
                 qb.setDistinct(true);
-                qb.appendWhere(Bookmarks.ACCOUNT_NAME + " IS NOT NULL");
+                qb.appendWhere(Bookmarks.IS_DELETED + "=0");
                 break;
             }
 

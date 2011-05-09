@@ -156,7 +156,7 @@ public class AddBookmarkPage extends Activity
     }
 
     @Override
-    public void onTop(int level, Object data) {
+    public void onTop(BreadCrumbView view, int level, Object data) {
         if (null == data) return;
         Folder folderData = (Folder) data;
         long folder = folderData.Id;

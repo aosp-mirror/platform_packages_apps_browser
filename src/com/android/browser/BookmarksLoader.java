@@ -49,8 +49,8 @@ public class BookmarksLoader extends CursorLoader {
         ChromeSyncColumns.SERVER_UNIQUE, // 9
     };
 
-    private String mAccountType;
-    private String mAccountName;
+    String mAccountType;
+    String mAccountName;
 
     public BookmarksLoader(Context context, String accountType, String accountName) {
         super(context, addAccount(Bookmarks.CONTENT_URI_DEFAULT_FOLDER, accountType, accountName),

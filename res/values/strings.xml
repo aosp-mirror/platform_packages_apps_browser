@@ -1002,4 +1002,6 @@
     <string name="recover_no">No</string>
     <!-- Font size preview label [CHAR LIMIT=30] -->
     <string name="preview">Preview:</string>
+    <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
+    <string name="local_bookmarks">Local</string>
 </resources>

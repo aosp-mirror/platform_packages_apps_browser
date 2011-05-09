@@ -41,8 +41,8 @@ import java.util.List;
 public class BreadCrumbView extends LinearLayout implements OnClickListener {
     private static final int DIVIDER_PADDING = 12; // dips
 
-    interface Controller {
-        public void onTop(int level, Object data);
+    public interface Controller {
+        public void onTop(BreadCrumbView view, int level, Object data);
     }
 
     private ImageButton mBackButton;
@@ -52,6 +52,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     private Drawable mSeparatorDrawable;
     private float mDividerPadding;
     private int mMaxVisible = -1;
+    private Context mContext;
 
     /**
      * @param context
@@ -81,12 +82,14 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     }
 
     private void init(Context ctx) {
+        mContext = ctx;
+        setFocusable(true);
         mUseBackButton = false;
         mCrumbs = new ArrayList<Crumb>();
-        TypedArray a = ctx.obtainStyledAttributes(com.android.internal.R.styleable.Theme);
+        TypedArray a = mContext.obtainStyledAttributes(com.android.internal.R.styleable.Theme);
         mSeparatorDrawable = a.getDrawable(com.android.internal.R.styleable.Theme_dividerVertical);
         a.recycle();
-        mDividerPadding = DIVIDER_PADDING * ctx.getResources().getDisplayMetrics().density;
+        mDividerPadding = DIVIDER_PADDING * mContext.getResources().getDisplayMetrics().density;
         addBackButton();
     }
 
@@ -134,9 +137,9 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     public void notifyController() {
         if (mController != null) {
             if (mCrumbs.size() > 0) {
-                mController.onTop(mCrumbs.size(), getTopCrumb().data);
+                mController.onTop(this, mCrumbs.size(), getTopCrumb().data);
             } else {
-                mController.onTop(0, null);
+                mController.onTop(this, 0, null);
             }
         }
     }
