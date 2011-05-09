@@ -44,6 +44,8 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     Tab openIncognitoTab();
 
+    Tab createNewTab(String url, boolean incognito);
+
     void setActiveTab(Tab tab);
 
     boolean switchToTab(int tabIndex);
