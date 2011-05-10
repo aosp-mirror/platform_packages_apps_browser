@@ -204,27 +204,11 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             mUiController.onUrlSelected(BrowserBookmarksPage.getUrl(c), false);
             return true;
         }
-
-        @Override
-        public void onFolderChanged(int level, Uri uri) {
-            final int toggleFlags = ActionBar.DISPLAY_SHOW_CUSTOM
-                    | ActionBar.DISPLAY_HOME_AS_UP;
-            // 1 is "bookmarks" root folder
-            if (level <= 1) {
-                mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-                mActionBar.setDisplayOptions(0, toggleFlags);
-            } else {
-                mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-                mActionBar.setDisplayOptions(toggleFlags, toggleFlags);
-            }
-        }
     };
 
     private void initFragments(Bundle extras) {
         mBookmarks = BrowserBookmarksPage.newInstance(mBookmarkCallbackWrapper,
                 extras, mBookmarksHeader);
-        mBookmarks.setBreadCrumbMaxVisible(2);
-        mBookmarks.setBreadCrumbUseBackButton(false);
         mHistory = BrowserHistoryPage.newInstance(mUiController, extras);
     }
 

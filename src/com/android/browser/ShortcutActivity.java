@@ -38,8 +38,6 @@ public class ShortcutActivity extends Activity
         mBookmarks = (BrowserBookmarksPage) getFragmentManager()
                 .findFragmentById(R.id.bookmarks);
         mBookmarks.setEnableContextMenu(false);
-        mBookmarks.setBreadCrumbMaxVisible(2);
-        mBookmarks.setBreadCrumbUseBackButton(true);
         mBookmarks.setCallbackListener(this);
         View cancel = findViewById(R.id.cancel);
         if (cancel != null) {
@@ -70,10 +68,6 @@ public class ShortcutActivity extends Activity
         if (!mBookmarks.onBackPressed()) {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public void onFolderChanged(int level, Uri uri) {
     }
 
     @Override

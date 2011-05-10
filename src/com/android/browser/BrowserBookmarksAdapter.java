@@ -27,7 +27,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class BrowserBookmarksAdapter extends CursorAdapter {
+public class BrowserBookmarksAdapter extends CursorAdapter {
     LayoutInflater mInflater;
     int mCurrentView;
 
