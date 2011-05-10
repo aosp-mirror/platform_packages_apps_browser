@@ -247,7 +247,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predeterminado"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Abrir en visión general"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Mostrar información general de las páginas abiertas recientemente"</string>
-    <string name="pref_extras_title" msgid="7075456173747370647">"Avanzados"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Ajustes avanzados"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Ajustes del sitio web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Ajustes avanzados de sitios web individuales"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Restablecer valores predeterminados"</string>
