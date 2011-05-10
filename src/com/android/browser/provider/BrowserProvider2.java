@@ -86,6 +86,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final String TABLE_HISTORY_JOIN_IMAGES = "history LEFT OUTER JOIN images " +
             "ON history.url = images." + Images.URL;
 
+    static final String VIEW_ACCOUNTS = "v_accounts";
+
     static final String FORMAT_COMBINED_JOIN_SUBQUERY_JOIN_IMAGES =
             "history LEFT OUTER JOIN (%s) bookmarks " +
             "ON history.url = bookmarks.url LEFT OUTER JOIN images " +
@@ -203,6 +205,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         map = ACCOUNTS_PROJECTION_MAP;
         map.put(Accounts.ACCOUNT_TYPE, Accounts.ACCOUNT_TYPE);
         map.put(Accounts.ACCOUNT_NAME, Accounts.ACCOUNT_NAME);
+        map.put(Accounts.ROOT_ID, Accounts.ROOT_ID);
 
         // Bookmarks
         map = BOOKMARKS_PROJECTION_MAP;
@@ -328,7 +331,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
-        static final int DATABASE_VERSION = 26;
+        static final int DATABASE_VERSION = 27;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -390,15 +393,36 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     Settings.VALUE + " TEXT NOT NULL" +
                     ");");
 
+            createAccountsView(db);
+
             mSyncHelper.createDatabase(db);
 
             createDefaultBookmarks(db);
         }
 
+        void createAccountsView(SQLiteDatabase db) {
+            db.execSQL("CREATE VIEW IF NOT EXISTS v_accounts AS "
+                    + "SELECT NULL AS " + Accounts.ACCOUNT_NAME
+                    + ", NULL AS " + Accounts.ACCOUNT_TYPE
+                    + ", " + FIXED_ID_ROOT + " AS " + Accounts.ROOT_ID
+                    + " UNION ALL SELECT " + Accounts.ACCOUNT_NAME
+                    + ", " + Accounts.ACCOUNT_TYPE + ", "
+                    + Bookmarks._ID + " AS " + Accounts.ROOT_ID
+                    + " FROM " + TABLE_BOOKMARKS + " WHERE "
+                    + ChromeSyncColumns.SERVER_UNIQUE + " = \""
+                    + ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR + "\" AND "
+                    + Bookmarks.IS_DELETED + " = 0");
+        }
+
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             // TODO write upgrade logic
-            db.execSQL("DROP VIEW IF EXISTS combined");
+            if (oldVersion < 27) {
+                createAccountsView(db);
+            }
+            if (oldVersion < 26) {
+                db.execSQL("DROP VIEW IF EXISTS combined");
+            }
             if (oldVersion < 25) {
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKMARKS);
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
@@ -650,10 +674,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         String limit = uri.getQueryParameter(BrowserContract.PARAM_LIMIT);
         switch (match) {
             case ACCOUNTS: {
-                qb.setTables(TABLE_BOOKMARKS);
+                qb.setTables(VIEW_ACCOUNTS);
                 qb.setProjectionMap(ACCOUNTS_PROJECTION_MAP);
-                qb.setDistinct(true);
-                qb.appendWhere(Bookmarks.IS_DELETED + "=0");
                 break;
             }
 
