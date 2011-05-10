@@ -56,7 +56,6 @@ import android.provider.BrowserContract.Images;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
 import android.speech.RecognizerIntent;
-import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -1546,7 +1545,7 @@ public class Controller
                 break;
 
             case R.id.incognito_menu_id:
-                openTab(null, true, true, false);
+                openIncognitoTab();
                 break;
 
             case R.id.goto_menu_id:
@@ -2214,12 +2213,19 @@ public class Controller
     }
 
     @Override
+    public Tab openIncognitoTab() {
+        return openTab(INCOGNITO_URI, true, true, false);
+    }
+
+    @Override
     public Tab openTab(String url, boolean incognito, boolean setActive,
             boolean useCurrent) {
         Tab tab = createNewTab(incognito, setActive, useCurrent);
         if (tab != null) {
             WebView w = tab.getWebView();
-            loadUrl(w, ((incognito && url == null) ? INCOGNITO_URI : url));
+            if (url != null) {
+                loadUrl(w, url);
+            }
         }
         return tab;
     }
@@ -2551,7 +2557,7 @@ public class Controller
                 // exclusive use of a modifier
                 if (event.isCtrlPressed()) {
                     if (event.isShiftPressed()) {
-                        openTab(null, true, true, false);
+                        openIncognitoTab();
                     } else {
                         openTabToHomePage();
                     }

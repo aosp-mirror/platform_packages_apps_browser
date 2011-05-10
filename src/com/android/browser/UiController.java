@@ -42,6 +42,8 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     Tab openTabToHomePage();
 
+    Tab openIncognitoTab();
+
     Tab openTab(String url, boolean incognito, boolean setActive,
             boolean useCurrent);
 

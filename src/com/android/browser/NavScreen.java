@@ -239,7 +239,7 @@ public class NavScreen extends LinearLayout implements OnClickListener {
             showMenu();
         } else if (mNewIncognito == v) {
             mUi.hideNavScreen(true);
-            mUiController.openTab(null, true, true, false);
+            mUiController.openIncognitoTab();
         }
     }
 
