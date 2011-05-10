@@ -172,10 +172,9 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ввод и сохранение данных для автозаполнения веб-форм"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Автоматический вход в Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Вход в Сайты Google с помощью аккаунта <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"Доступен автоматический вход."</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"Войти как"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Войти"</string>
-    <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
-    <skip />
+    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Скрыть"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Вход не выполнен."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Вводите данные в веб-формы одним нажатием с помощью автозаполнения."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Полное имя:"</string>
@@ -241,10 +240,8 @@
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Размер текста"</string>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Минимальный размер шрифта"</string>
-    <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
-    <skip />
-    <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
-    <skip />
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Менять масштаб принудительно"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Учитывать ли запросы сайтов при управлении масштабом"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Масштаб по умолчанию"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Мелкий"</item>
@@ -283,10 +280,8 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Отображение часто посещаемых веб-сайтов на стартовой странице."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Живой поиск"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"В Живом поиске результаты появляются прямо при вводе текста (возможно увеличение объема передаваемых данных)."</string>
-    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
-    <skip />
-    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
+    <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Во весь экран"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Чтобы скрыть строку состояния, используйте полноэкранный режим."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема с подключением"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема с файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Подтвердить"</string>

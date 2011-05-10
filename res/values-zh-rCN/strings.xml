@@ -172,10 +172,9 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"输入并保存网络表单自动填充字段的数据"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"自动登录 Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"正使用 <xliff:g id="ID_1">%s</xliff:g> 登录 Google 网站"</string>
-    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"自动登录已可使用。"</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"使用以下身份登录："</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"登录"</string>
-    <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
-    <skip />
+    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"隐藏"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"登录失败。"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"请在网络字段中输入希望触摸时自动填充的数据。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
@@ -241,10 +240,8 @@
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"文字大小"</string>
     <string name="pref_min_font_size" msgid="8811125835817449131">"字体大小下限"</string>
-    <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
-    <skip />
-    <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
-    <skip />
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"强制启用缩放"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"是否通过替换网站的请求来控制缩放行为"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"默认缩放设置"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"远"</item>
@@ -283,10 +280,8 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"您的主页会显示最常访问的网页。"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 即搜即得"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"借助 Google 即搜即得，您可以在使用 Google 搜索时一边键入内容一边查看结果（此功能可能会增加数据使用量）。"</string>
-    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
-    <skip />
-    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
+    <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全屏"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"使用全屏模式可隐藏状态栏。"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"数据连接性问题"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"文件有问题"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"确认"</string>

@@ -172,10 +172,9 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Saisir et enregistrer des données à des fins de saisie automatique dans les champs de formulaires Web"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Connexion automatique à Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Connexion à Google Sites avec le compte <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"La connexion automatique est disponible."</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"Se connecter à l\'aide du compte"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Connexion"</string>
-    <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
-    <skip />
+    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Masquer"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Échec de la connexion"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Renseignez les données à saisir automatiquement dans les champs Web lorsque vous appuyez sur ces derniers."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nom et prénom :"</string>
@@ -241,10 +240,8 @@
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Taille de la police"</string>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Taille de police minimale"</string>
-    <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
-    <skip />
-    <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
-    <skip />
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Forcer l\'activation du zoom"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Ignorer ou non la demande de contrôle du zoom par un site Web"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom par défaut"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Éloigné"</item>
@@ -283,10 +280,8 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Votre page d\'accueil affiche les pages Web les plus visitées."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Recherche instantanée Google"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Affichez plus de résultats lors de la saisie avec la recherche instantanée Google. Peut utiliser plus de données."</string>
-    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
-    <skip />
-    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
+    <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Plein écran"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Utiliser le mode plein écran pour masquer la barre d\'état"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problème de connectivité des données"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problème de fichier"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmer"</string>
