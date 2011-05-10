@@ -280,10 +280,8 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"アクセス数が最も多いウェブページをホームページとして表示します。"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Googleインスタント検索"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Google検索時にGoogleインスタント検索を使用すると、入力中に結果が表示されます（データの使用量が増えることがあります）。"</string>
-    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
-    <skip />
-    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
+    <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全画面"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"全画面モードを使用してステータスバーを非表示にする。"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"データアクセスエラー"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"ファイルに問題があります"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"確認"</string>

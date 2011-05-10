@@ -172,10 +172,9 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Introducir y guardar datos de campos de cumplimentación automática de formularios web"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Acceso automático a Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Accediendo a Google Sites mediante <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"El acceso automático está disponible."</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"Acceder como"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Acceder"</string>
-    <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
-    <skip />
+    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ocultar"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Error al acceder"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Introduce los datos con los que quieres que los campos web se completen automáticamente al tocarlos."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nombre completo:"</string>
@@ -240,12 +239,9 @@
     <item msgid="7201512237890458902">"Enorme"</item>
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Tamaño de texto"</string>
-    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
-    <skip />
-    <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
-    <skip />
-    <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
-    <skip />
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Tamaño mínimo de fuente"</string>
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Forzar habilitación de zoom"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"¿Anular control del zoom?"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predeterminado"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Lejos"</item>
@@ -276,8 +272,7 @@
     <item msgid="2193955365569270096">"Coreano (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificación de texto"</string>
-    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
-    <skip />
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"Accesibilidad"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Controles rápidos"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Desliza el pulgar para acceder a los controles rápidos y ocultar las barras."</string>
@@ -285,10 +280,8 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"En la página principal se muestran las páginas web más visitadas."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Con Google Instant, aparecerán resultados de búsqueda de Google a medida que escribas (puede aumentar el uso de datos)."</string>
-    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
-    <skip />
-    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
+    <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Pantalla completa"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Utiliza el modo de pantalla completa para ocultar la barra de estado."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de conectividad de datos"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema con archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"OK"</string>
@@ -400,6 +393,5 @@
     <string name="recover_prompt" msgid="5526783279696786755">"Parece que se ha producido un error en el navegador. ¿Quieres restaurar las ventanas de la última sesión?"</string>
     <string name="recover_yes" msgid="5837971910598069183">"Sí"</string>
     <string name="recover_no" msgid="3121030267940592611">"No"</string>
-    <!-- no translation found for preview (1470306351083271066) -->
-    <skip />
+    <string name="preview" msgid="1470306351083271066">"Vista previa:"</string>
 </resources>

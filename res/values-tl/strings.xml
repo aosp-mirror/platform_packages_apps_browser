@@ -240,8 +240,8 @@
   </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Laki ng teksto"</string>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimum na laki ng font"</string>
-    <string name="pref_force_userscalable" msgid="5641500562399892621">"Pwersahing paganahin pag-zoom"</string>
-    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Override o hindi hiling site na ikontrol ugali ng zoom"</string>
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Pwersahing paganahin ang zoom"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Override o hindi hiling site na ikontrol galaw ng zoom"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Default zoom"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Malayo"</item>
@@ -280,10 +280,8 @@
     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Ipinapakita ng iyong homepage ang iyong pinaka-nabibisitang mga webpage."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gamit Google Instant pag gumamit ka Google Search, para magpakita resulta habang type ka (mapataas nito paggamit data)."</string>
-    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
-    <skip />
-    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
+    <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Fullscreen"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gamitin ang mdoe na fullscreen upang itago ang status bar."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema sa pagkakakonekta ng data"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema sa file"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Kumpirmahin"</string>
