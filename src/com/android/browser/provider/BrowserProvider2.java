@@ -21,6 +21,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.android.browser.BookmarkUtils;
 import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.R;
+import com.android.browser.UrlUtils;
 import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
 import com.android.common.content.SyncStateContentProviderHelper;
 
@@ -1746,7 +1747,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case SUGGEST_COLUMN_INTENT_DATA_ID:
             case SUGGEST_COLUMN_TEXT_2_TEXT_ID:
             case SUGGEST_COLUMN_TEXT_2_URL_ID:
-                return mSource.getString(URL_INDEX);
+                return UrlUtils.stripUrl(mSource.getString(URL_INDEX));
             case SUGGEST_COLUMN_TEXT_1_ID:
                 return mSource.getString(TITLE_INDEX);
             case SUGGEST_COLUMN_ICON_1_ID:

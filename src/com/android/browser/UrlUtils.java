@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.homepages.HomeProvider;
-
 import android.net.Uri;
 import android.util.Patterns;
 import android.webkit.URLUtil;
@@ -59,7 +57,7 @@ public class UrlUtils {
      * @return a stripped url like "www.google.com", or the original string if it could
      *         not be stripped
      */
-    /* package */ static String stripUrl(String url) {
+    public static String stripUrl(String url) {
         if (url == null) return null;
         Matcher m = STRIP_URL_PATTERN.matcher(url);
         if (m.matches() && m.groupCount() == 3) {
