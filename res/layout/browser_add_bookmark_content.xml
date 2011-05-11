@@ -15,51 +15,39 @@
 -->
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout android:id="@+id/crumb_holder"
+    <LinearLayout android:id="@+id/crumb_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:gravity="center_vertical"
+        android:layout_height="?android:attr/listPreferredItemHeight"
         android:visibility="gone"
         android:paddingLeft="5dip"
         android:paddingRight="5dip"
+        android:orientation="horizontal"
         >
         <com.android.browser.BreadCrumbView android:id="@+id/crumbs"
-            android:layout_width="wrap_content"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/add_divider"
-            android:layout_centerVertical="true"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <View android:id="@+id/add_divider"
+            android:layout_width="1dip"
+            android:layout_height="match_parent"
+            android:background="?android:attr/dividerVertical"
             />
         <TextView
             android:id="@+id/add_new_folder"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignBaseline="@+id/crumbs"
+            android:layout_height="match_parent"
             android:drawableLeft="@drawable/ic_add_string"
-            android:gravity="center_vertical"
             android:text="@string/new_folder"
             android:visibility="gone"
-            android:layout_centerVertical="true"
-            android:layout_alignTop="@+id/crumbs"
-            android:layout_alignBottom="@+id/crumbs"
             android:focusable="true"
             android:background="?android:attr/selectableItemBackground"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-        <ImageView android:id="@+id/add_divider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/add_new_folder"
-            android:src="@drawable/crumb_divider"
-            android:layout_centerVertical="true"
-            />
-    </RelativeLayout>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_vertical" />
+    </LinearLayout>
     <LinearLayout android:id="@+id/title_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?android:attr/listPreferredItemHeight"
         android:orientation="horizontal"
-        android:minHeight="?android:attr/listPreferredItemHeight"
         android:paddingLeft="5dip"
         android:paddingRight="5dip"
         >
@@ -72,12 +60,10 @@
             android:drawableLeft="@drawable/ic_bookmark_on_holo_dark"
             android:text="@string/bookmark_this_page"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        <ImageView android:id="@+id/remove_divider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/crumb_divider"
-            android:layout_centerVertical="true"
+        <View android:id="@+id/remove_divider"
+            android:layout_width="1dip"
+            android:layout_height="match_parent"
+            android:background="?android:attr/dividerVertical"
             android:visibility="gone"
             />
         <TextView android:id="@+id/remove"
@@ -90,11 +76,9 @@
             android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
-    <View android:id="@+id/titleDivider"
-        android:layout_width="match_parent"
+    <View android:layout_width="match_parent"
         android:layout_height="1dip"
-        android:gravity="fill_horizontal"
-        android:background="?android:attr/colorForeground"
+        android:background="?android:attr/dividerHorizontal"
         />
 
     <TableLayout android:id="@+id/default_view"
@@ -105,12 +89,12 @@
         android:paddingTop="10dip"
         android:paddingLeft="20dip"
         android:paddingRight="20dip" >
-      <TableRow>
+      <TableRow android:layout_marginBottom="10dip">
         <TextView
             android:id="@+id/titleText"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="30dip"
+            android:layout_gravity="center_vertical"
             android:text="@string/name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -118,42 +102,54 @@
             android:id="@+id/title"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginRight="20dip"
             android:layout_marginLeft="20dip"
-            android:gravity="fill_horizontal"
             android:inputType="textCapSentences"
             android:ellipsize="end"
             android:textAppearance="?android:attr/textAppearanceMedium" />
       </TableRow>
 
       <TableRow
+          android:layout_marginBottom="10dip"
           android:id="@+id/row_address">
         <TextView
             android:id="@+id/addressText"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="@string/location"
-            android:gravity="left"
-            android:layout_marginBottom="20dip"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
             android:id="@+id/address"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginRight="20dip"
             android:layout_marginLeft="20dip"
             android:hint="@string/http"
-            android:gravity="fill_horizontal"
             android:inputType="textUri"
             android:ellipsize="end"
             android:textAppearance="?android:attr/textAppearanceMedium" />
       </TableRow>
-      <TableRow>
+      <TableRow android:layout_marginBottom="10dip">
         <TextView
-            android:id="@+id/add_to"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/account"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/accounts"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:spinnerMode="dropdown"
+            />
+      </TableRow>
+      <TableRow android:layout_marginBottom="10dip">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="@string/containing_folder"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -161,10 +157,8 @@
             android:id="@+id/folder"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginRight="20dip"
             android:layout_marginLeft="20dip"
             android:spinnerMode="dropdown"
-            android:gravity="center_vertical"
             />
       </TableRow>
     </TableLayout>
