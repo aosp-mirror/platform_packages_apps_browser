@@ -155,7 +155,7 @@ public class TabBar extends LinearLayout
             TabView tv = buildTabView(tab);
             mTabs.addTab(tv);
         }
-        mTabs.setSelectedTab(mTabControl.getCurrentIndex());
+        mTabs.setSelectedTab(mTabControl.getCurrentPosition());
     }
 
     @Override
@@ -210,11 +210,12 @@ public class TabBar extends LinearLayout
             } else {
                 showUrlBar();
             }
-        } else {
+        } else if (view instanceof TabView) {
+            final Tab tab = ((TabView) view).mTab;
             int ix = mTabs.getChildIndex(view);
             if (ix >= 0) {
                 mTabs.setSelectedTab(ix);
-                mUiController.switchToTab(ix);
+                mUiController.switchToTab(tab);
             }
         }
     }
@@ -601,7 +602,7 @@ public class TabBar extends LinearLayout
     // TabChangeListener implementation
 
     public void onSetActiveTab(Tab tab) {
-        mTabs.setSelectedTab(mTabControl.getTabIndex(tab));
+        mTabs.setSelectedTab(mTabControl.getTabPosition(tab));
         TabView tv = mTabMap.get(tab);
         if (tv != null) {
             tv.setProgress(tv.mTab.getLoadProgress());

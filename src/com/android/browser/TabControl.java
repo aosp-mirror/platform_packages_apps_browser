@@ -29,6 +29,13 @@ import java.util.Vector;
 class TabControl {
     // Log Tag
     private static final String LOGTAG = "TabControl";
+
+    // next Tab ID
+    private static long sNextId = 0;
+
+    private static final String POSITIONS = "positions";
+    private static final String CURRENT = "current";
+
     // Maximum number of tabs.
     private int mMaxTabs;
     // Private array of WebViews that are used as tabs.
@@ -52,6 +59,10 @@ class TabControl {
         mMaxTabs = mController.getMaxTabs();
         mTabs = new ArrayList<Tab>(mMaxTabs);
         mTabQueue = new ArrayList<Tab>(mMaxTabs);
+    }
+
+    static long getNextId() {
+        return sNextId++;
     }
 
     File getThumbnailDir() {
@@ -104,13 +115,13 @@ class TabControl {
     }
 
     /**
-     * Return the tab at the specified index.
-     * @return The Tab for the specified index or null if the tab does not
+     * Return the tab at the specified position.
+     * @return The Tab for the specified position or null if the tab does not
      *         exist.
      */
-    Tab getTab(int index) {
-        if (index >= 0 && index < mTabs.size()) {
-            return mTabs.get(index);
+    Tab getTab(int position) {
+        if (position >= 0 && position < mTabs.size()) {
+            return mTabs.get(position);
         }
         return null;
     }
@@ -124,19 +135,19 @@ class TabControl {
     }
 
     /**
-     * Return the current tab index.
-     * @return The current tab index
+     * Return the current tab position.
+     * @return The current tab position
      */
-    int getCurrentIndex() {
+    int getCurrentPosition() {
         return mCurrentTab;
     }
 
     /**
-     * Given a Tab, find it's index
+     * Given a Tab, find it's position
      * @param Tab to find
-     * @return index of Tab or -1 if not found
+     * @return position of Tab or -1 if not found
      */
-    int getTabIndex(Tab tab) {
+    int getTabPosition(Tab tab) {
         if (tab == null) {
             return -1;
         }
@@ -153,7 +164,8 @@ class TabControl {
      */
     boolean hasAnyOpenIncognitoTabs() {
         for (Tab tab : mTabs) {
-            if (tab.getWebView() != null && tab.getWebView().isPrivateBrowsingEnabled()) {
+            if (tab.getWebView() != null
+                    && tab.getWebView().isPrivateBrowsingEnabled()) {
                 return true;
             }
         }
@@ -175,6 +187,7 @@ class TabControl {
 
         // Create a new tab and add it to the tab list
         Tab t = new Tab(mController, w);
+        t.setId(getNextId());
         mTabs.add(t);
         // Initially put the tab in the background.
         t.putInBackground();
@@ -221,24 +234,13 @@ class TabControl {
         } else {
             // If a tab that is earlier in the list gets removed, the current
             // index no longer points to the correct tab.
-            mCurrentTab = getTabIndex(current);
+            mCurrentTab = getTabPosition(current);
         }
 
         // destroy the tab
         t.destroy();
         // clear it's references to parent and children
         t.removeFromTree();
-
-        // The tab indices have shifted, update all the saved state so we point
-        // to the correct index.
-        for (Tab tab : mTabs) {
-            Vector<Tab> children = tab.getChildTabs();
-            if (children != null) {
-                for (Tab child : children) {
-                    child.setParentTab(tab);
-                }
-            }
-        }
 
         // Remove it from the queue of viewed tabs.
         mTabQueue.remove(t);
@@ -264,61 +266,59 @@ class TabControl {
         return mTabs.size();
     }
 
-
     /**
-     * Save the state of all the Tabs.
-     * @param outState The Bundle to save the state to.
+     * save the tab state:
+     * current position
+     * position sorted array of tab ids
+     * for each tab id, save the tab state
+     * @param outState
      */
     void saveState(Bundle outState) {
         final int numTabs = getTabCount();
-        outState.putInt(Tab.NUMTABS, numTabs);
-        final int index = getCurrentIndex();
-        outState.putInt(Tab.CURRTAB, (index >= 0 && index < numTabs) ? index : 0);
-        for (int i = 0; i < numTabs; i++) {
-            final Tab t = getTab(i);
-            if (t.saveState()) {
-                outState.putBundle(Tab.WEBVIEW + i, t.getSavedState());
+        long[] ids = new long[numTabs];
+        int i = 0;
+        for (Tab tab : mTabs) {
+            ids[i++] = tab.getId();
+            if (tab.saveState()) {
+                outState.putBundle(Long.toString(tab.getId()), tab.getSavedState());
             }
         }
+        outState.putLongArray(POSITIONS, ids);
+        final long cid = getCurrentTab().getId();
+        outState.putLong(CURRENT, cid);
     }
 
     /**
      * Check if the state can be restored.  If the state can be restored, the
-     * current tab index is returned.  This can be passed to restoreState below
+     * current tab id is returned.  This can be passed to restoreState below
      * in order to restore the correct tab.  Otherwise, -1 is returned and the
      * state cannot be restored.
      */
-    int canRestoreState(Bundle inState, boolean restoreIncognitoTabs) {
-        final int numTabs = (inState == null)
-                ? - 1 : inState.getInt(Tab.NUMTABS, -1);
-        if (numTabs == -1) {
+    long canRestoreState(Bundle inState, boolean restoreIncognitoTabs) {
+        final long[] ids = (inState == null) ? null : inState.getLongArray(POSITIONS);
+        if (ids == null) {
             return -1;
         }
-        final int oldCurrentTab = inState.getInt(Tab.CURRTAB, -1);
-
-        // Determine whether the saved current tab can be restored, and if not,
-        // which tab will take its place.
-        int currentTab = -1;
+        final long oldcurrent = inState.getLong(CURRENT);
+        long current = -1;
         if (restoreIncognitoTabs ||
-                !inState.getBundle(Tab.WEBVIEW + oldCurrentTab)
-                .getBoolean(Tab.INCOGNITO)) {
-            currentTab = oldCurrentTab;
+                !inState.getBundle(Long.toString(oldcurrent)).getBoolean(Tab.INCOGNITO)) {
+                current = oldcurrent;
         } else {
-            for (int i = 0; i < numTabs; i++) {
-                if (!inState.getBundle(Tab.WEBVIEW + i)
-                        .getBoolean(Tab.INCOGNITO)) {
-                    currentTab = i;
+            // pick first non incognito tab
+            for (long id : ids) {
+                if (!inState.getBundle(Long.toString(id)).getBoolean(Tab.INCOGNITO)) {
+                    current = id;
                     break;
                 }
             }
         }
-
-        return currentTab;
+        return current;
     }
 
     /**
      * Restore the state of all the tabs.
-     * @param currentTab The tab index to restore.
+     * @param currentId The tab id to restore.
      * @param inState The saved state of all the tabs.
      * @param restoreIncognitoTabs Restoring private browsing tabs
      * @param restoreAll All webviews get restored, not just the current tab
@@ -326,29 +326,29 @@ class TabControl {
      * @return True if there were previous tabs that were restored. False if
      *         there was no saved state or restoring the state failed.
      */
-    void restoreState(Bundle inState, int currentTab,
+    void restoreState(Bundle inState, long currentId,
             boolean restoreIncognitoTabs, boolean restoreAll) {
-        if (currentTab == -1) {
+        if (currentId == -1) {
             return;
         }
-
-        // If currentTab is valid, numTabs must be present.
-        final int numTabs = inState.getInt(Tab.NUMTABS, -1);
-
-        // Map saved tab indices to new indices, in case any incognito tabs
-        // need to not be restored.
-        HashMap<Integer, Integer> originalTabIndices = new HashMap<Integer, Integer>();
-        originalTabIndices.put(-1, -1);
-        for (int i = 0; i < numTabs; i++) {
-            Bundle state = inState.getBundle(Tab.WEBVIEW + i);
-
-            if (!restoreIncognitoTabs && state != null && state.getBoolean(Tab.INCOGNITO)) {
-                originalTabIndices.put(i, -1);
-            } else if (i == currentTab || restoreAll) {
+        long[] ids = inState.getLongArray(POSITIONS);
+        long maxId = -Long.MAX_VALUE;
+        HashMap<Long, Tab> tabMap = new HashMap<Long, Tab>();
+        for (long id : ids) {
+            if (id > maxId) {
+                maxId = id;
+            }
+            final String idkey = Long.toString(id);
+            Bundle state = inState.getBundle(idkey);
+            if (!restoreIncognitoTabs && state != null
+                    && state.getBoolean(Tab.INCOGNITO)) {
+                // ignore tab
+            } else if (id == currentId || restoreAll) {
                 Tab t = createNewTab();
+                tabMap.put(id, t);
                 // Me must set the current tab before restoring the state
                 // so that all the client classes are set.
-                if (i == currentTab) {
+                if (id == currentId) {
                     setCurrentTab(t);
                 }
                 if (!t.restoreState(state)) {
@@ -356,11 +356,12 @@ class TabControl {
                     t.getWebView().loadUrl(BrowserSettings.getInstance()
                             .getHomePage());
                 }
-                originalTabIndices.put(i, getTabCount() - 1);
             } else {
                 // Create a new tab and don't restore the state yet, add it
                 // to the tab list
                 Tab t = new Tab(mController, null);
+                t.setId(id);
+                tabMap.put(id, t);
                 if (state != null) {
                     t.setSavedState(state);
                     // Need to maintain the app id and original url so we
@@ -370,21 +371,22 @@ class TabControl {
                 mTabs.add(t);
                 // added the tab to the front as they are not current
                 mTabQueue.add(0, t);
-                originalTabIndices.put(i, getTabCount() - 1);
             }
-        }
+            // make sure that there is no id overlap between the restored
+            // and new tabs
+            sNextId = maxId + 1;
 
-        // Rebuild the tree of tabs. Do this after all tabs have been
-        // created/restored so that the parent tab exists.
-        for (int i = 0; i < numTabs; i++) {
-            final Bundle b = inState.getBundle(Tab.WEBVIEW + i);
-            final Tab t = getTab(i);
-            if (b != null && t != null) {
-                final Integer parentIndex = originalTabIndices.get(b.getInt(Tab.PARENTTAB, -1));
-                if (parentIndex != -1) {
-                    final Tab parent = getTab(parentIndex);
+        }
+        // restore parent/child relationships
+        for (long id : ids) {
+            final Tab tab = tabMap.get(id);
+            final Bundle b = inState.getBundle(Long.toString(id));
+            if ((b != null) && (tab != null)) {
+                final long parentId = b.getLong(Tab.PARENTTAB, -1);
+                if (parentId != -1) {
+                    final Tab parent = tabMap.get(parentId);
                     if (parent != null) {
-                        parent.addChildTab(t);
+                        parent.addChildTab(tab);
                     }
                 }
             }
@@ -439,7 +441,7 @@ class TabControl {
         for (Tab t : mTabQueue) {
             if (t != null && t.getWebView() != null) {
                 openTabCount++;
-                if (t != current && t != current.getParentTab()) {
+                if (t != current && t != current.getParent()) {
                     tabsToGo.add(t);
                 }
             }
@@ -458,9 +460,7 @@ class TabControl {
      * @param view The WebView used to find the tab.
      */
     Tab getTabFromView(WebView view) {
-        final int size = getTabCount();
-        for (int i = 0; i < size; i++) {
-            final Tab t = getTab(i);
+        for (Tab t : mTabs) {
             if (t.getSubWebView() == view || t.getWebView() == view) {
                 return t;
             }
@@ -472,13 +472,11 @@ class TabControl {
      * Return the tab with the matching application id.
      * @param id The application identifier.
      */
-    Tab getTabFromId(String id) {
+    Tab getTabFromAppId(String id) {
         if (id == null) {
             return null;
         }
-        final int size = getTabCount();
-        for (int i = 0; i < size; i++) {
-            final Tab t = getTab(i);
+        for (Tab t : mTabs) {
             if (id.equals(t.getAppId())) {
                 return t;
             }
@@ -490,9 +488,7 @@ class TabControl {
      * Stop loading in all opened WebView including subWindows.
      */
     void stopAllLoading() {
-        final int size = getTabCount();
-        for (int i = 0; i < size; i++) {
-            final Tab t = getTab(i);
+        for (Tab t : mTabs) {
             final WebView webview = t.getWebView();
             if (webview != null) {
                 webview.stopLoading();
@@ -535,10 +531,8 @@ class TabControl {
             return t;
         }
         // Now check all the rest.
-        final int size = getTabCount();
-        for (int i = 0; i < size; i++) {
-            t = getTab(i);
-            if (tabMatchesUrl(t, url)) {
+        for (Tab tab : mTabs) {
+            if (tabMatchesUrl(tab, url)) {
                 return t;
             }
         }

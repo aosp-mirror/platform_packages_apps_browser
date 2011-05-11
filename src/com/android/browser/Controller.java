@@ -281,10 +281,10 @@ public class Controller
             || lastActiveDate.after(today));
 
         // Find out if we will restore any state and remember the tab.
-        final int currentTab =
+        final long currentTabId =
                 mTabControl.canRestoreState(icicle, restoreIncognitoTabs);
 
-        if (currentTab == -1) {
+        if (currentTabId == -1) {
             // Not able to restore so we go ahead and clear session cookies.  We
             // must do this before trying to login the user as we don't want to
             // clear any session cookies set during login.
@@ -294,14 +294,14 @@ public class Controller
         GoogleAccountLogin.startLoginIfNeeded(mActivity,
                 new Runnable() {
                     @Override public void run() {
-                        onPreloginFinished(icicle, intent, currentTab, restoreIncognitoTabs);
+                        onPreloginFinished(icicle, intent, currentTabId, restoreIncognitoTabs);
                     }
                 });
     }
 
-    private void onPreloginFinished(Bundle icicle, Intent intent, int currentTab,
+    private void onPreloginFinished(Bundle icicle, Intent intent, long currentTabId,
             boolean restoreIncognitoTabs) {
-        if (currentTab == -1) {
+        if (currentTabId == -1) {
             final Bundle extra = intent.getExtras();
             // Create an initial tab.
             // If the intent is ACTION_VIEW and data is not null, the Browser is
@@ -325,7 +325,7 @@ public class Controller
                 }
             }
         } else {
-            mTabControl.restoreState(icicle, currentTab, restoreIncognitoTabs,
+            mTabControl.restoreState(icicle, currentTabId, restoreIncognitoTabs,
                     mUi.needsRestoreAllTabs());
             mUi.updateTabs(mTabControl.getTabs());
             // TabControl.restoreState() will create a new tab even if
@@ -1711,7 +1711,7 @@ public class Controller
                             Tab desiredTab = mTabControl.getTab(id);
                             if (desiredTab != null &&
                                     desiredTab != mTabControl.getCurrentTab()) {
-                                switchToTab(id);
+                                switchToTab(desiredTab);
                             }
                             break;
                         }
@@ -2144,9 +2144,9 @@ public class Controller
         Tab current = mTabControl.getCurrentTab();
         if (current != null
                 && current.getWebView().copyBackForwardList().getSize() == 0) {
-            Tab parent = current.getParentTab();
+            Tab parent = current.getParent();
             if (parent != null) {
-                switchToTab(mTabControl.getTabIndex(parent));
+                switchToTab(parent);
                 closeTab(current);
             }
         }
@@ -2163,7 +2163,7 @@ public class Controller
         // TODO: analyze why the remove and add are necessary
         mUi.attachTab(appTab);
         if (mTabControl.getCurrentTab() != appTab) {
-            switchToTab(mTabControl.getTabIndex(appTab));
+            switchToTab(appTab);
             loadUrlDataIn(appTab, urlData);
         } else {
             // If the tab was the current tab, we have to attach
@@ -2256,17 +2256,15 @@ public class Controller
     }
 
     /**
-     * @param index Index of the tab to change to, as defined by
-     *              mTabControl.getTabIndex(Tab t).
+     * @param tab the tab to switch to
      * @return boolean True if we successfully switched to a different tab.  If
      *                 the indexth tab is null, or if that tab is the same as
      *                 the current one, return false.
      */
     @Override
-    public boolean switchToTab(int index) {
+    public boolean switchToTab(Tab tab) {
         // hide combo view if open
         removeComboView();
-        Tab tab = mTabControl.getTab(index);
         Tab currentTab = mTabControl.getCurrentTab();
         if (tab == null || tab == currentTab) {
             return false;
@@ -2279,25 +2277,20 @@ public class Controller
     public void closeCurrentTab() {
         // hide combo view if open
         removeComboView();
-        final Tab current = mTabControl.getCurrentTab();
         if (mTabControl.getTabCount() == 1) {
             mActivity.finish();
             return;
         }
-        final Tab parent = current.getParentTab();
-        int indexToShow = -1;
-        if (parent != null) {
-            indexToShow = mTabControl.getTabIndex(parent);
-        } else {
-            final int currentIndex = mTabControl.getCurrentIndex();
-            // Try to move to the tab to the right
-            indexToShow = currentIndex + 1;
-            if (indexToShow > mTabControl.getTabCount() - 1) {
-                // Try to move to the tab to the left
-                indexToShow = currentIndex - 1;
+        final Tab current = mTabControl.getCurrentTab();
+        final int pos = mTabControl.getCurrentPosition();
+        Tab newTab = current.getParent();
+        if (newTab == null) {
+            newTab = mTabControl.getTab(pos + 1);
+            if (newTab == null) {
+                newTab = mTabControl.getTab(pos - 1);
             }
         }
-        if (switchToTab(indexToShow)) {
+        if (switchToTab(newTab)) {
             // Close window
             closeTab(current);
         }
@@ -2311,10 +2304,6 @@ public class Controller
     public void closeTab(Tab tab) {
         // hide combo view if open
         removeComboView();
-        int currentIndex = mTabControl.getCurrentIndex();
-        int removeIndex = mTabControl.getTabIndex(tab);
-        Tab newtab = mTabControl.getTab(currentIndex);
-        setActiveTab(newtab);
         removeTab(tab);
     }
 
@@ -2382,9 +2371,9 @@ public class Controller
         } else {
             // Check to see if we are closing a window that was created by
             // another window. If so, we switch back to that window.
-            Tab parent = current.getParentTab();
+            Tab parent = current.getParent();
             if (parent != null) {
-                switchToTab(mTabControl.getTabIndex(parent));
+                switchToTab(parent);
                 // Now we close the other tab
                 closeTab(current);
             } else {
@@ -2445,17 +2434,18 @@ public class Controller
      * helper method for key handler
      * returns the current tab if it can't advance
      */
-    private int getNextTabIndex() {
-        return Math.min(mTabControl.getTabCount() - 1,
-                mTabControl.getCurrentIndex() + 1);
+    private Tab getNextTab() {
+        return mTabControl.getTab(Math.min(mTabControl.getTabCount() - 1,
+                mTabControl.getCurrentPosition() + 1));
     }
 
     /**
      * helper method for key handler
      * returns the current tab if it can't advance
      */
-    private int getPrevTabIndex() {
-        return  Math.max(0, mTabControl.getCurrentIndex() - 1);
+    private Tab getPrevTab() {
+        return  mTabControl.getTab(Math.max(0,
+                mTabControl.getCurrentPosition() - 1));
     }
 
     /**
@@ -2489,10 +2479,10 @@ public class Controller
                 if (event.isCtrlPressed()) {
                     if (event.isShiftPressed()) {
                         // prev tab
-                        switchToTab(getPrevTabIndex());
+                        switchToTab(getPrevTab());
                     } else {
                         // next tab
-                        switchToTab(getNextTabIndex());
+                        switchToTab(getNextTab());
                     }
                     return true;
                 }

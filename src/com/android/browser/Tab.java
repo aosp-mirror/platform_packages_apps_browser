@@ -88,6 +88,9 @@ class Tab {
     Activity mActivity;
     private WebViewController mWebViewController;
 
+    // The tab ID
+    private long mId;
+
     // The Geolocation permissions prompt
     private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
     // Main WebView wrapper
@@ -104,10 +107,10 @@ class Tab {
     private Bundle mSavedState;
     // Parent Tab. This is the Tab that created this Tab, or null if the Tab was
     // created by the UI
-    private Tab mParentTab;
+    private Tab mParent;
     // Tab that constructed by this Tab. This is used when this Tab is
     // destroyed, it clears all mParentTab values in the children.
-    private Vector<Tab> mChildTabs;
+    private Vector<Tab> mChildren;
     // If true, the tab is in the foreground of the current activity.
     private boolean mInForeground;
     // If true, the tab is in page loading state (after onPageStarted,
@@ -181,17 +184,11 @@ class Tab {
     private PageState mCurrentState;
 
     // Used for saving and restoring each Tab
-    // TODO: Figure out who uses what and where
-    //       Some of these aren't use in this class, and some are only used in
-    //       restoring state but not saving it - FIX THIS
-    static final String WEBVIEW = "webview";
-    static final String NUMTABS = "numTabs";
-    static final String CURRTAB = "currentTab";
+    static final String ID = "ID";
     static final String CURRURL = "currentUrl";
     static final String CURRTITLE = "currentTitle";
     static final String PARENTTAB = "parentTab";
     static final String APPID = "appid";
-    static final String ORIGINALURL = "originalUrl";
     static final String INCOGNITO = "privateBrowsingEnabled";
     static final String SCREENSHOT = "screenshot";
 
@@ -935,18 +932,16 @@ class Tab {
         @Override
         public void onRequestFocus(WebView view) {
             if (!mInForeground) {
-                mWebViewController.switchToTab(mWebViewController.getTabControl().getTabIndex(
-                        Tab.this));
+                mWebViewController.switchToTab(Tab.this);
             }
         }
 
         @Override
         public void onCloseWindow(WebView window) {
-            if (mParentTab != null) {
+            if (mParent != null) {
                 // JavaScript can only close popup window.
                 if (mInForeground) {
-                    mWebViewController.switchToTab(mWebViewController.getTabControl()
-                            .getTabIndex(mParentTab));
+                    mWebViewController.switchToTab(mParent);
                 }
                 mWebViewController.closeTab(Tab.this);
             }
@@ -1324,6 +1319,14 @@ class Tab {
         setWebView(w);
     }
 
+    public void setId(long id) {
+        mId = id;
+    }
+
+    public long getId() {
+        return mId;
+    }
+
     /**
      * Sets the WebView for this tab, correctly removing the old WebView from
      * the container view.
@@ -1374,14 +1377,14 @@ class Tab {
      */
     void removeFromTree() {
         // detach the children
-        if (mChildTabs != null) {
-            for(Tab t : mChildTabs) {
-                t.setParentTab(null);
+        if (mChildren != null) {
+            for(Tab t : mChildren) {
+                t.setParent(null);
             }
         }
         // remove itself from the parent list
-        if (mParentTab != null) {
-            mParentTab.mChildTabs.remove(this);
+        if (mParent != null) {
+            mParent.mChildren.remove(this);
         }
     }
 
@@ -1433,20 +1436,28 @@ class Tab {
     /**
      * Set the parent tab of this tab.
      */
-    void setParentTab(Tab parent) {
-        mParentTab = parent;
+    void setParent(Tab parent) {
+        mParent = parent;
         // This tab may have been freed due to low memory. If that is the case,
-        // the parent tab index is already saved. If we are changing that index
+        // the parent tab id is already saved. If we are changing that id
         // (most likely due to removing the parent tab) we must update the
-        // parent tab index in the saved Bundle.
+        // parent tab id in the saved Bundle.
         if (mSavedState != null) {
             if (parent == null) {
                 mSavedState.remove(PARENTTAB);
             } else {
-                mSavedState.putInt(PARENTTAB, mWebViewController.getTabControl()
-                        .getTabIndex(parent));
+                mSavedState.putLong(PARENTTAB, parent.getId());
             }
         }
+    }
+
+    /**
+     * If this Tab was created through another Tab, then this method returns
+     * that Tab.
+     * @return the Tab parent or null
+     */
+    public Tab getParent() {
+        return mParent;
     }
 
     /**
@@ -1455,15 +1466,15 @@ class Tab {
      * @param child the Tab that was created from this Tab
      */
     void addChildTab(Tab child) {
-        if (mChildTabs == null) {
-            mChildTabs = new Vector<Tab>();
+        if (mChildren == null) {
+            mChildren = new Vector<Tab>();
         }
-        mChildTabs.add(child);
-        child.setParentTab(this);
+        mChildren.add(child);
+        child.setParent(this);
     }
 
-    Vector<Tab> getChildTabs() {
-        return mChildTabs;
+    Vector<Tab> getChildren() {
+        return mChildren;
     }
 
     void resume() {
@@ -1651,15 +1662,6 @@ class Tab {
         return mErrorConsole;
     }
 
-    /**
-     * If this Tab was created through another Tab, then this method returns
-     * that Tab.
-     * @return the Tab parent or null
-     */
-    public Tab getParentTab() {
-        return mParentTab;
-    }
-
     private void setLockIconType(LockIcon icon) {
         mCurrentState.mLockIcon = icon;
         mWebViewController.onUpdatedLockIcon(this);
@@ -1724,15 +1726,15 @@ class Tab {
         // Store some extra info for displaying the tab in the picker.
         final WebHistoryItem item = list != null ? list.getCurrentItem() : null;
 
+        mSavedState.putLong(ID, mId);
         mSavedState.putString(CURRURL, mCurrentState.mUrl);
         mSavedState.putString(CURRTITLE, mCurrentState.mTitle);
         if (mAppId != null) {
             mSavedState.putString(APPID, mAppId);
         }
         // Remember the parent tab so the relationship can be restored.
-        if (mParentTab != null) {
-            mSavedState.putInt(PARENTTAB, mWebViewController.getTabControl().getTabIndex(
-                    mParentTab));
+        if (mParent != null) {
+            mSavedState.putLong(PARENTTAB, mParent.mId);
         }
         if (mScreenshot != null) {
             mSavedState.putParcelable(SCREENSHOT, mScreenshot);
@@ -1750,6 +1752,7 @@ class Tab {
         // Restore the internal state even if the WebView fails to restore.
         // This will maintain the app id, original url and close-on-exit values.
         mSavedState = null;
+        mId = b.getLong(ID);
         mAppId = b.getString(APPID);
         mScreenshot = b.getParcelable(SCREENSHOT);
 
