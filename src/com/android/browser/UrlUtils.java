@@ -159,4 +159,34 @@ public class UrlUtils {
         return inUrl;
     }
 
+    // Determine if this URI appears to be a Google property
+    /* package */ static boolean isGoogleUri(Uri uri) {
+        String scheme = uri.getScheme();
+        if (!"http".equals(scheme) && !"https".equals(scheme)) {
+            return false;
+        }
+
+        String host = uri.getHost();
+        if (host == null) {
+            return false;
+        }
+        String[] hostComponents = host.split("\\.");
+        if (hostComponents.length < 2) {
+            return false;
+        }
+
+        int googleComponent = hostComponents.length - 2;
+        String component = hostComponents[googleComponent];
+        if (!"google".equals(component)) {
+            if (hostComponents.length < 3 ||
+                (!"co".equals(component) && !"com".equals(component))) {
+                return false;
+            }
+            googleComponent = hostComponents.length - 3;
+            if (!"google".equals(hostComponents[googleComponent])) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

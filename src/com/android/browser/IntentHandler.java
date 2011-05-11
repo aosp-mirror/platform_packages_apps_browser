@@ -221,6 +221,17 @@ public class IntentHandler {
                             headers.put(key, pairs.getString(key));
                         }
                     }
+
+                    // AppId will be set to the Browser for Search Bar initiated searches
+                    final String appId = intent.getStringExtra(Browser.EXTRA_APPLICATION_ID);
+                    if (mActivity.getPackageName().equals(appId)) {
+                        String rlz = mSettings.getRlzValue();
+                        Uri uri = Uri.parse(url);
+                        if (!rlz.isEmpty() && needsRlz(uri)) {
+                            Uri rlzUri = addRlzParameter(uri, rlz);
+                            url = rlzUri.toString();
+                        }
+                    }
                 }
             } else if (Intent.ACTION_SEARCH.equals(action)
                     || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
@@ -364,4 +375,19 @@ public class IntentHandler {
         }
     }
 
+    private static boolean needsRlz(Uri uri) {
+        if ((uri.getQueryParameter("rlz") == null) &&
+            (uri.getQueryParameter("q") != null) &&
+            UrlUtils.isGoogleUri(uri)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static Uri addRlzParameter(Uri uri, String rlz) {
+        if (rlz.isEmpty()) {
+            return uri;
+        }
+        return uri.buildUpon().appendQueryParameter("rlz", rlz).build();
+    }
 }
