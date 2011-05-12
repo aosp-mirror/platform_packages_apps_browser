@@ -258,7 +258,7 @@ public class UrlHandler {
 
         protected void onPostExecute(String result) {
             // Make sure the Tab was not closed while handling the task
-            if (mController.getTabControl().getTabIndex(mTab) != -1) {
+            if (mController.getTabControl().getTabPosition(mTab) != -1) {
                 // If the Activity Manager is not invoked, load the URL directly
                 if (!startActivityForUrl(result)) {
                     if (!handleMenuClick(mTab, result)) {

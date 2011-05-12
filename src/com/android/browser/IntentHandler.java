@@ -146,7 +146,7 @@ public class IntentHandler {
                     && !mActivity.getPackageName().equals(appId)
                     && (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
                 if (activateVoiceSearch) {
-                    Tab appTab = mTabControl.getTabFromId(appId);
+                    Tab appTab = mTabControl.getTabFromAppId(appId);
                     if (appTab != null) {
                         mController.reuseTab(appTab, appId, urlData);
                         return;
@@ -162,7 +162,7 @@ public class IntentHandler {
                     Tab appTab = mTabControl.findUnusedTabWithUrl(urlData.mUrl);
                     if (appTab != null) {
                         if (current != appTab) {
-                            mController.switchToTab(mTabControl.getTabIndex(appTab));
+                            mController.switchToTab(appTab);
                         }
                         // Otherwise, we are already viewing the correct tab.
                     } else {

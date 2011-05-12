@@ -206,7 +206,7 @@ public class NavScreen extends LinearLayout implements OnClickListener {
                     : R.drawable.ic_forward_disabled_holo_dark);
         }
         if (updateFlipper) {
-            mFlipper.setSelection(mUiController.getTabControl().getTabIndex(tab));
+            mFlipper.setSelection(mUiController.getTabControl().getTabPosition(tab));
         }
     }
 
@@ -249,7 +249,7 @@ public class NavScreen extends LinearLayout implements OnClickListener {
 
         if (tab != null) {
             // set tab as the selected in flipper, then hide
-            final int tix = mUi.mTabControl.getTabIndex(tab);
+            final int tix = mUi.mTabControl.getTabPosition(tab);
             post(new Runnable() {
                 public void run() {
                     if (tix != -1) {

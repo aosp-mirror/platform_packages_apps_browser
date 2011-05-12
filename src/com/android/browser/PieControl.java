@@ -142,7 +142,7 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
         mUi.captureTab(mUi.getActiveTab());
         mTabAdapter.setTabs(tabs);
         PieStackView sym = (PieStackView) mShowTabs.getPieView();
-        sym.setCurrent(mUiController.getTabControl().getCurrentIndex());
+        sym.setCurrent(mUiController.getTabControl().getCurrentPosition());
 
     }
 
@@ -281,8 +281,7 @@ public class PieControl implements OnClickListener, PieMenu.PieController {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mUiController.switchToTab(mUiController.getTabControl()
-                            .getTabIndex(tab));
+                    mUiController.switchToTab(tab);
                 }
             });
             return view;

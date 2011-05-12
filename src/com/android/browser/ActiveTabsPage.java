@@ -83,7 +83,8 @@ public class ActiveTabsPage extends LinearLayout implements OnClickListener,
     @Override
     public void onItemClick(
             AdapterView<?> parent, View view, int position, long id) {
-        boolean needToAttach = !mController.switchToTab(position);
+        final Tab tab = mTabControl.getTab(position);
+        boolean needToAttach = !mController.switchToTab(tab);
         mController.removeActiveTabsPage(needToAttach);
     }
 

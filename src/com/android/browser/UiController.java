@@ -49,7 +49,7 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     void setActiveTab(Tab tab);
 
-    boolean switchToTab(int tabIndex);
+    boolean switchToTab(Tab tab);
 
     void closeCurrentTab();
 

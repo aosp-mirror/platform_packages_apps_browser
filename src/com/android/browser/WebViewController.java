@@ -104,7 +104,7 @@ public interface WebViewController {
     Tab openTab(String url, boolean incognito, boolean setActive,
             boolean useCurrent);
 
-    boolean switchToTab(int tabindex);
+    boolean switchToTab(Tab tab);
 
     void closeTab(Tab tab);
 
