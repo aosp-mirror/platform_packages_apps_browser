@@ -455,15 +455,24 @@ public class AddBookmarkPage extends Activity
                         BrowserContract.Bookmarks.IS_FOLDER
                 };
                 String where = BrowserContract.Bookmarks.IS_FOLDER + " != 0";
+                String whereArgs[] = null;
                 if (mEditingFolder) {
-                    where += " AND " + BrowserContract.Bookmarks._ID + " != "
-                            + mMap.getLong(BrowserContract.Bookmarks._ID);
+                    where += " AND " + BrowserContract.Bookmarks._ID + " != ?";
+                    whereArgs = new String[] { Long.toString(mMap.getLong(
+                            BrowserContract.Bookmarks._ID)) };
+                }
+                long currentFolder;
+                Object data = mCrumbs.getTopData();
+                if (data != null) {
+                    currentFolder = ((Folder) data).Id;
+                } else {
+                    currentFolder = mRootFolder;
                 }
                 return new CursorLoader(this,
-                        getUriForFolder(mCurrentFolder),
+                        getUriForFolder(currentFolder),
                         projection,
                         where,
-                        null,
+                        whereArgs,
                         BrowserContract.Bookmarks._ID + " ASC");
             default:
                 throw new AssertionError("Asking for nonexistant loader!");
