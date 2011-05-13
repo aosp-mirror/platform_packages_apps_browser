@@ -405,7 +405,7 @@ public class AddBookmarkPage extends Activity
                 mCurrentFolder = info.parentId;
                 onCurrentFolderFound();
             }
-            if (info.lastUsedId != -1) {
+            if (info.lastUsedId != -1 && info.lastUsedId != info.id) {
                 if (setAccount && info.lastUsedId != mRootFolder
                         && TextUtils.equals(info.lastUsedAccountName, info.accountName)
                         && TextUtils.equals(info.lastUsedAccountType, info.accountType)) {
