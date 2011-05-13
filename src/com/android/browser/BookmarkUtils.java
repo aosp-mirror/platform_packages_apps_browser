@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -42,7 +41,6 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.BrowserContract;
-import android.util.DisplayMetrics;
 
 public class BookmarkUtils {
     private final static String LOGTAG = "BookmarkUtils";
@@ -218,10 +216,10 @@ public class BookmarkUtils {
     }
 
     /* package */ static Uri getBookmarksUri(Context context) {
-        return addAccountInfo(context,
-                BrowserContract.Bookmarks.CONTENT_URI.buildUpon()).build();
+        return BrowserContract.Bookmarks.CONTENT_URI;
     }
 
+    @Deprecated
     public static Uri.Builder addAccountInfo(Context context, Uri.Builder ub) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);

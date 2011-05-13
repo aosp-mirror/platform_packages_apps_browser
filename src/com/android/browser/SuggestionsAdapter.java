@@ -472,7 +472,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             Uri.Builder ub = BrowserContract.Combined.CONTENT_URI.buildUpon();
             ub.appendQueryParameter(BrowserContract.PARAM_LIMIT,
                     Integer.toString(Math.max(mLinesLandscape, mLinesPortrait)));
-            BookmarkUtils.addAccountInfo(mContext, ub);
             mCursor =
                     mContext.getContentResolver().query(ub.build(), COMBINED_PROJECTION,
                             selection,
