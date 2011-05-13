@@ -405,7 +405,12 @@ public class AddBookmarkPage extends Activity
                 mCurrentFolder = info.parentId;
                 onCurrentFolderFound();
             }
-            if (info.lastUsedId != -1 && info.lastUsedId != info.id) {
+            // TODO: Detect if lastUsedId is a subfolder of info.id in the
+            // editing folder case. For now, just don't show the last used
+            // folder at all to prevent any chance of the user adding a parent
+            // folder to a child folder
+            if (info.lastUsedId != -1 && info.lastUsedId != info.id
+                    && !mEditingFolder) {
                 if (setAccount && info.lastUsedId != mRootFolder
                         && TextUtils.equals(info.lastUsedAccountName, info.accountName)
                         && TextUtils.equals(info.lastUsedAccountType, info.accountType)) {
