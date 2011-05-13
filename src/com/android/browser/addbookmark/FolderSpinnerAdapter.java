@@ -19,33 +19,37 @@ package com.android.browser.addbookmark;
 import com.android.browser.R;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.database.DataSetObserver;
 import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.SpinnerAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 /**
  * SpinnerAdapter used in the AddBookmarkPage to select where to save a
  * bookmark/folder.
  */
-public class FolderSpinnerAdapter implements SpinnerAdapter {
-    private boolean mIncludeHomeScreen;
-    private boolean mIncludesRecentFolder;
-    private long mRecentFolderId;
-    private String mRecentFolderName;
+public class FolderSpinnerAdapter extends BaseAdapter {
 
     public static final int HOME_SCREEN = 0;
     public static final int ROOT_FOLDER = 1;
     public static final int OTHER_FOLDER = 2;
     public static final int RECENT_FOLDER = 3;
 
-    public FolderSpinnerAdapter(boolean includeHomeScreen) {
+    private boolean mIncludeHomeScreen;
+    private boolean mIncludesRecentFolder;
+    private long mRecentFolderId;
+    private String mRecentFolderName;
+    private LayoutInflater mInflater;
+    private Context mContext;
+    private String mOtherFolderDisplayText;
+
+    public FolderSpinnerAdapter(Context context, boolean includeHomeScreen) {
         mIncludeHomeScreen = includeHomeScreen;
+        mContext = context;
+        mInflater = LayoutInflater.from(mContext);
     }
 
     public void addRecentFolder(long folderId, String folderName) {
@@ -56,8 +60,7 @@ public class FolderSpinnerAdapter implements SpinnerAdapter {
 
     public long recentFolderId() { return mRecentFolderId; }
 
-    @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+    private void bindView(int position, View view, boolean isDropDown) {
         int labelResource;
         int drawableResource;
         if (!mIncludeHomeScreen) {
@@ -84,26 +87,39 @@ public class FolderSpinnerAdapter implements SpinnerAdapter {
                 // assert
                 break;
         }
-        Context context = parent.getContext();
-        LayoutInflater factory = LayoutInflater.from(context);
-        TextView textView = (TextView) factory.inflate(R.layout.add_to_option, null);
+        TextView textView = (TextView) view;
         if (position == RECENT_FOLDER) {
             textView.setText(mRecentFolderName);
+        } else if (position == OTHER_FOLDER && !isDropDown
+                && mOtherFolderDisplayText != null) {
+            textView.setText(mOtherFolderDisplayText);
         } else {
             textView.setText(labelResource);
         }
-        Drawable drawable = context.getResources().getDrawable(drawableResource);
+        textView.setGravity(Gravity.CENTER_VERTICAL);
+        Drawable drawable = mContext.getResources().getDrawable(drawableResource);
         textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null,
                 null, null);
-        return textView;
     }
 
     @Override
-    public void registerDataSetObserver(DataSetObserver observer) {
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = mInflater.inflate(
+                    android.R.layout.simple_spinner_dropdown_item, parent, false);
+        }
+        bindView(position, convertView, true);
+        return convertView;
     }
 
     @Override
-    public void unregisterDataSetObserver(DataSetObserver observer) {
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = mInflater.inflate(android.R.layout.simple_spinner_item,
+                    parent, false);
+        }
+        bindView(position, convertView, false);
+        return convertView;
     }
 
     @Override
@@ -133,24 +149,9 @@ public class FolderSpinnerAdapter implements SpinnerAdapter {
         return true;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        return getDropDownView(position, convertView, parent);
+    public void setOtherFolderDisplayText(String parentTitle) {
+        mOtherFolderDisplayText = parentTitle;
+        notifyDataSetChanged();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        // Never want to recycle views
-        return Adapter.IGNORE_ITEM_VIEW_TYPE;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 1;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
 }

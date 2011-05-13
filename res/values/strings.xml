@@ -129,6 +129,8 @@
     <string name="do_not_save">Cancel</string>
     <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
     <string name="location">Address</string>
+    <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+    <string name="account">Account</string>
     <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
     <string name="containing_folder">Add to</string>
     <!-- Default name for a new folder and label for a button that allows the user to create a new folder

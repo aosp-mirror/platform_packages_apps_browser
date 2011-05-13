@@ -16,19 +16,19 @@
 
 package com.android.browser;
 
-import com.android.browser.provider.BrowserProvider2;
 import com.android.browser.addbookmark.FolderSpinner;
 import com.android.browser.addbookmark.FolderSpinnerAdapter;
 
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.AsyncTaskLoader;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -40,8 +40,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
+import android.provider.BrowserContract.Accounts;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -53,20 +53,23 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Stack;
 
 public class AddBookmarkPage extends Activity
         implements View.OnClickListener, TextView.OnEditorActionListener,
         AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>,
-        BreadCrumbView.Controller, FolderSpinner.OnSetSelectionListener {
+        BreadCrumbView.Controller, FolderSpinner.OnSetSelectionListener,
+        OnItemSelectedListener {
 
     public static final long DEFAULT_FOLDER_ID = -1;
     public static final String TOUCH_ICON_URL = "touch_icon_url";
@@ -83,12 +86,9 @@ public class AddBookmarkPage extends Activity
     private final String LOGTAG = "Bookmarks";
 
     // IDs for the CursorLoaders that are used.
-    private final int LOADER_ID_FOLDER_CONTENTS = 0;
-    private final int LOADER_ID_ALL_FOLDERS = 1;
-    private final int LOADER_ID_FIND_ROOT = 2;
-    private final int LOADER_ID_CHECK_FOR_DUPE = 3;
-    private final int LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK = 4;
-    private final int LOADER_ID_FIND_FOLDER_BY_ID = 5;
+    private final int LOADER_ID_ACCOUNTS = 0;
+    private final int LOADER_ID_FOLDER_CONTENTS = 1;
+    private final int LOADER_ID_EDIT_INFO = 2;
 
     private EditText    mTitle;
     private EditText    mAddress;
@@ -121,6 +121,9 @@ public class AddBookmarkPage extends Activity
     private View mRemoveLink;
     private View mFakeTitleHolder;
     private FolderSpinnerAdapter mFolderAdapter;
+    private Spinner mAccountSpinner;
+    private ArrayAdapter<BookmarkAccount> mAccountAdapter;
+
     private static class Folder {
         String Name;
         long Id;
@@ -142,17 +145,7 @@ public class AddBookmarkPage extends Activity
     }
 
     private Uri getUriForFolder(long folder) {
-        Uri uri;
-        if (folder == mRootFolder) {
-            uri = BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER;
-        } else {
-            uri = BrowserContract.Bookmarks.buildFolderUri(folder);
-        }
-        String[] accountInfo = getAccountNameAndType(this);
-        if (accountInfo != null) {
-            uri = BookmarksLoader.addAccount(uri, accountInfo[1], accountInfo[0]);
-        }
-        return uri;
+        return BrowserContract.Bookmarks.buildFolderUri(folder);
     }
 
     @Override
@@ -161,7 +154,7 @@ public class AddBookmarkPage extends Activity
         Folder folderData = (Folder) data;
         long folder = folderData.Id;
         LoaderManager manager = getLoaderManager();
-        CursorLoader loader = (CursorLoader) ((Loader) manager.getLoader(
+        CursorLoader loader = (CursorLoader) ((Loader<?>) manager.getLoader(
                 LOADER_ID_FOLDER_CONTENTS));
         loader.setUri(getUriForFolder(folder));
         loader.forceLoad();
@@ -213,7 +206,7 @@ public class AddBookmarkPage extends Activity
                     // editing a folder, 1 otherwise.
                     mFolder.setSelectionIgnoringSelectionChange(mEditingFolder ? 0 : 1);
                 } else {
-                    ((TextView) mFolder.getSelectedView()).setText(folder.Name);
+                    mFolderAdapter.setOtherFolderDisplayText(folder.Name);
                 }
             }
         } else {
@@ -227,17 +220,15 @@ public class AddBookmarkPage extends Activity
                 } else {
                     Object data = mCrumbs.getTopData();
                     if (data != null && ((Folder) data).Id == mCurrentFolder) {
-                        // We are showing the correct folder heirarchy. The
+                        // We are showing the correct folder hierarchy. The
                         // folder selector will say "Other folder..."  Change it
                         // to say the name of the folder once again.
-                        ((TextView) mFolder.getSelectedView()).setText(((Folder) data).Name);
+                        mFolderAdapter.setOtherFolderDisplayText(((Folder) data).Name);
                     } else {
-                        // We are not be showing the correct folder heirarchy.
+                        // We are not showing the correct folder hierarchy.
                         // Clear the Crumbs and find the proper folder
-                        mCrumbs.clear();
                         setupTopCrumb();
                         LoaderManager manager = getLoaderManager();
-                        manager.restartLoader(LOADER_ID_ALL_FOLDERS, null, this);
                         manager.restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
 
                     }
@@ -319,7 +310,6 @@ public class AddBookmarkPage extends Activity
                 // and choose a different one, so that we will start from
                 // the correct place.
                 LoaderManager manager = getLoaderManager();
-                manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
                 manager.restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
                 break;
             default:
@@ -351,7 +341,7 @@ public class AddBookmarkPage extends Activity
         values.put(BrowserContract.Bookmarks.TITLE,
                 name);
         values.put(BrowserContract.Bookmarks.IS_FOLDER, 1);
-        String[] accountInfo = getAccountNameAndType(this);
+        String[] accountInfo = getAccountNameAndType();
         if (accountInfo != null) {
             values.put(BrowserContract.Bookmarks.ACCOUNT_TYPE, accountInfo[1]);
             values.put(BrowserContract.Bookmarks.ACCOUNT_NAME, accountInfo[0]);
@@ -391,66 +381,73 @@ public class AddBookmarkPage extends Activity
         }
     }
 
+    private LoaderCallbacks<EditBookmarkInfo> mEditInfoLoaderCallbacks =
+            new LoaderCallbacks<EditBookmarkInfo>() {
+
+        @Override
+        public void onLoaderReset(Loader<EditBookmarkInfo> loader) {
+            // Don't care
+        }
+
+        @Override
+        public void onLoadFinished(Loader<EditBookmarkInfo> loader,
+                EditBookmarkInfo info) {
+            boolean setAccount = false;
+            if (info.id != -1) {
+                mEditingExisting = true;
+                showRemoveButton();
+                mFakeTitle.setText(R.string.edit_bookmark);
+                mTitle.setText(info.title);
+                mFolderAdapter.setOtherFolderDisplayText(info.parentTitle);
+                mMap.putLong(BrowserContract.Bookmarks._ID, info.id);
+                setAccount = true;
+                setAccount(info.accountName, info.accountType);
+                mCurrentFolder = info.parentId;
+                onCurrentFolderFound();
+            }
+            if (info.lastUsedId != -1) {
+                if (setAccount && info.lastUsedId != mRootFolder
+                        && TextUtils.equals(info.lastUsedAccountName, info.accountName)
+                        && TextUtils.equals(info.lastUsedAccountType, info.accountType)) {
+                    mFolderAdapter.addRecentFolder(info.lastUsedId, info.lastUsedTitle);
+                } else if (!setAccount) {
+                    setAccount = true;
+                    setAccount(info.lastUsedAccountName, info.lastUsedAccountType);
+                    if (info.lastUsedId != mRootFolder) {
+                        mFolderAdapter.addRecentFolder(info.lastUsedId,
+                                info.lastUsedTitle);
+                    }
+                }
+            }
+            if (!setAccount) {
+                mAccountSpinner.setSelection(0);
+            }
+        }
+
+        @Override
+        public Loader<EditBookmarkInfo> onCreateLoader(int id, Bundle args) {
+            return new EditBookmarkInfoLoader(AddBookmarkPage.this, mMap);
+        }
+    };
+
+    void setAccount(String accountName, String accountType) {
+        for (int i = 0; i < mAccountAdapter.getCount(); i++) {
+            BookmarkAccount account = mAccountAdapter.getItem(i);
+            if (TextUtils.equals(account.accountName, accountName)
+                    && TextUtils.equals(account.accountType, accountType)) {
+                onRootFolderFound(account.rootFolderId);
+                mAccountSpinner.setSelection(i);
+                return;
+            }
+        }
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection;
         switch (id) {
-            case LOADER_ID_CHECK_FOR_DUPE:
-                projection = new String[] {
-                        BrowserContract.Bookmarks._ID,
-                        BrowserContract.Bookmarks.PARENT,
-                        BrowserContract.Bookmarks.TITLE
-                };
-                return new CursorLoader(this,
-                        BookmarkUtils.getBookmarksUri(this),
-                        projection,
-                        BrowserContract.Bookmarks.URL + " = ?",
-                        new String[] { mOriginalUrl },
-                        null);
-            case LOADER_ID_FIND_ROOT:
-                String name = args.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME);
-                String type = args.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE);
-
-                projection = new String[] { BrowserContract.Bookmarks._ID };
-                String selection = BrowserContract.ChromeSyncColumns.SERVER_UNIQUE + "=? AND "
-                        + BrowserContract.Bookmarks.ACCOUNT_NAME + "=? AND "
-                        + BrowserContract.Bookmarks.ACCOUNT_TYPE + "=?";
-                String[] selArgs = new String[] {
-                        BrowserContract.ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR,
-                        name,
-                        type
-                };
-                return new CursorLoader(this,
-                        BrowserContract.Bookmarks.CONTENT_URI,
-                        projection,
-                        selection,
-                        selArgs,
-                        null);
-            case LOADER_ID_FIND_FOLDER_BY_ID:
-                projection = new String[] {
-                        BrowserContract.Bookmarks._ID,
-                        BrowserContract.Bookmarks.TITLE
-                };
-                return new CursorLoader(this,
-                        BookmarkUtils.getBookmarksUri(this),
-                        projection,
-                        BrowserContract.Bookmarks._ID + " = "
-                                + args.getLong(BrowserContract.Bookmarks._ID),
-                        null,
-                        null);
-            case LOADER_ID_ALL_FOLDERS:
-                projection = new String[] {
-                        BrowserContract.Bookmarks._ID,
-                        BrowserContract.Bookmarks.PARENT,
-                        BrowserContract.Bookmarks.TITLE,
-                        BrowserContract.Bookmarks.IS_FOLDER
-                };
-                return new CursorLoader(this,
-                        BookmarkUtils.getBookmarksUri(this),
-                        projection,
-                        BrowserContract.Bookmarks.IS_FOLDER + " != 0",
-                        null,
-                        null);
+            case LOADER_ID_ACCOUNTS:
+                return new AccountsLoader(this);
             case LOADER_ID_FOLDER_CONTENTS:
                 projection = new String[] {
                         BrowserContract.Bookmarks._ID,
@@ -468,16 +465,6 @@ public class AddBookmarkPage extends Activity
                         where,
                         null,
                         BrowserContract.Bookmarks._ID + " ASC");
-            case LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK:
-                projection = new String[] {
-                        BrowserContract.Bookmarks.PARENT
-                };
-                return new CursorLoader(this,
-                        BookmarkUtils.getBookmarksUri(this),
-                        projection,
-                        BrowserContract.Bookmarks.IS_FOLDER + " = 0",
-                        null,
-                        BrowserContract.Bookmarks.DATE_CREATED + " DESC");
             default:
                 throw new AssertionError("Asking for nonexistant loader!");
         }
@@ -486,100 +473,17 @@ public class AddBookmarkPage extends Activity
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         switch (loader.getId()) {
-            case LOADER_ID_CHECK_FOR_DUPE:
-                if (cursor != null && cursor.moveToFirst()) {
-                    // Site is bookmarked.
-                    mEditingExisting = true;
-                    showRemoveButton();
-                    mFakeTitle.setText(R.string.edit_bookmark);
-                    int index = cursor.getColumnIndexOrThrow(
-                            BrowserContract.Bookmarks.PARENT);
-                    mCurrentFolder = cursor.getLong(index);
-                    index = cursor.getColumnIndexOrThrow(
-                            BrowserContract.Bookmarks.TITLE);
-                    String title = cursor.getString(index);
-                    mTitle.setText(title);
-                    index = cursor.getColumnIndexOrThrow(
-                            BrowserContract.Bookmarks._ID);
-                    long id = cursor.getLong(index);
-                    mMap.putLong(BrowserContract.Bookmarks._ID, id);
+            case LOADER_ID_ACCOUNTS:
+                mAccountAdapter.clear();
+                while (cursor.moveToNext()) {
+                    mAccountAdapter.add(new BookmarkAccount(this, cursor));
                 }
-                onCurrentFolderFound();
-                getLoaderManager().destroyLoader(LOADER_ID_CHECK_FOR_DUPE);
-                break;
-            case LOADER_ID_FIND_ROOT:
-                long root;
-                if (cursor != null && cursor.moveToFirst()) {
-                    root = cursor.getLong(0);
-                } else {
-                    root = BrowserProvider2.FIXED_ID_ROOT;
-                }
-                onRootFolderFound(root);
-                getLoaderManager().destroyLoader(LOADER_ID_FIND_ROOT);
+                getLoaderManager().destroyLoader(LOADER_ID_ACCOUNTS);
+                getLoaderManager().restartLoader(LOADER_ID_EDIT_INFO, null,
+                        mEditInfoLoaderCallbacks);
                 break;
             case LOADER_ID_FOLDER_CONTENTS:
                 mAdapter.changeCursor(cursor);
-                break;
-            case LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK:
-                LoaderManager manager = getLoaderManager();
-                if (cursor != null && cursor.moveToFirst()) {
-                    // Find the parent
-                    long lastUsedFolder = cursor.getLong(0);
-                    if (lastUsedFolder != mRootFolder
-                            && lastUsedFolder != mCurrentFolder
-                            && lastUsedFolder != 0) {
-                        // Find out the parent's name
-                        Bundle b = new Bundle();
-                        b.putLong(BrowserContract.Bookmarks._ID, lastUsedFolder);
-                        manager.initLoader(LOADER_ID_FIND_FOLDER_BY_ID, b, this);
-                    }
-                }
-                manager.destroyLoader(LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK);
-                break;
-            case LOADER_ID_FIND_FOLDER_BY_ID:
-                if (cursor != null && cursor.moveToFirst()) {
-                    long id = cursor.getLong(cursor.getColumnIndexOrThrow(
-                            BrowserContract.Bookmarks._ID));
-                    String title = cursor.getString(cursor.getColumnIndexOrThrow(
-                            BrowserContract.Bookmarks.TITLE));
-                    mFolderAdapter.addRecentFolder(id, title);
-                }
-                getLoaderManager().destroyLoader(LOADER_ID_FIND_FOLDER_BY_ID);
-                break;
-            case LOADER_ID_ALL_FOLDERS:
-                long parent = mCurrentFolder;
-                int idIndex = cursor.getColumnIndexOrThrow(
-                        BrowserContract.Bookmarks._ID);
-                int titleIndex = cursor.getColumnIndexOrThrow(
-                        BrowserContract.Bookmarks.TITLE);
-                int parentIndex = cursor.getColumnIndexOrThrow(
-                        BrowserContract.Bookmarks.PARENT);
-                // If the user is editing anything inside the "Other Bookmarks"
-                // folder, we need to stop searching up when we reach its parent.
-                // Find the root folder
-                moveCursorToFolder(cursor, mRootFolder, idIndex);
-                // omniparent is the folder which contains root, and therefore
-                // also the parent of the "Other Bookmarks" folder.
-                long omniparent = cursor.getLong(parentIndex);
-                Stack<Folder> folderStack = new Stack<Folder>();
-                while ((parent != mRootFolder) && (parent != 0) && (parent != omniparent)) {
-                    // First, find the folder corresponding to the current
-                    // folder
-                    moveCursorToFolder(cursor, parent, idIndex);
-                    String name = cursor.getString(titleIndex);
-                    if (parent == mCurrentFolder) {
-                        ((TextView) mFolder.getSelectedView()).setText(name);
-                    }
-                    folderStack.push(new Folder(name, parent));
-                    parent = cursor.getLong(parentIndex);
-                }
-                while (!folderStack.isEmpty()) {
-                    Folder thisFolder = folderStack.pop();
-                    mCrumbs.pushView(thisFolder.Name, thisFolder);
-                }
-                getLoaderManager().destroyLoader(LOADER_ID_ALL_FOLDERS);
-                break;
-            default:
                 break;
         }
     }
@@ -727,7 +631,7 @@ public class AddBookmarkPage extends Activity
         mCancelButton.setOnClickListener(this);
 
         mFolder = (FolderSpinner) findViewById(R.id.folder);
-        mFolderAdapter = new FolderSpinnerAdapter(!mEditingFolder);
+        mFolderAdapter = new FolderSpinnerAdapter(this, !mEditingFolder);
         mFolder.setAdapter(mFolderAdapter);
         mFolder.setOnSetSelectionListener(this);
 
@@ -759,22 +663,22 @@ public class AddBookmarkPage extends Activity
         mListView.setOnItemClickListener(this);
         mListView.addEditText(mFolderNamer);
 
+        mAccountAdapter = new ArrayAdapter<BookmarkAccount>(this,
+                android.R.layout.simple_spinner_item);
+        mAccountAdapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
+        mAccountSpinner = (Spinner) findViewById(R.id.accounts);
+        mAccountSpinner.setAdapter(mAccountAdapter);
+        mAccountSpinner.setOnItemSelectedListener(this);
+
+
         mFakeTitleHolder = findViewById(R.id.title_holder);
 
         if (!window.getDecorView().isInTouchMode()) {
             mButton.requestFocus();
         }
 
-        String[] accountInfo = getAccountNameAndType(this);
-        if (accountInfo == null) {
-            onRootFolderFound(BrowserProvider2.FIXED_ID_ROOT);
-        } else {
-            Bundle args = new Bundle();
-            args.putString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, accountInfo[0]);
-            args.putString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, accountInfo[1]);
-            getLoaderManager().initLoader(LOADER_ID_FIND_ROOT, args, this);
-        }
-
+        getLoaderManager().restartLoader(LOADER_ID_ACCOUNTS, null, this);
     }
 
     private void showRemoveButton() {
@@ -787,22 +691,13 @@ public class AddBookmarkPage extends Activity
     // Called once we have determined which folder is the root folder
     private void onRootFolderFound(long root) {
         mRootFolder = root;
-        if (mCurrentFolder == DEFAULT_FOLDER_ID) {
-            mCurrentFolder = mRootFolder;
-        }
+        mCurrentFolder = mRootFolder;
         setupTopCrumb();
-        if (mEditingExisting || TextUtils.isEmpty(mOriginalUrl)
-                || !(mMap != null && mMap.getBoolean(CHECK_FOR_DUPE))) {
-            onCurrentFolderFound();
-        } else {
-            // User is attempting to bookmark a site, rather than deliberately
-            // editing a bookmark.  Rather than let them create a duplicate
-            // bookmark, see if the bookmark already exists.
-            getLoaderManager().initLoader(LOADER_ID_CHECK_FOR_DUPE, null, this);
-        }
+        onCurrentFolderFound();
     }
 
     private void setupTopCrumb() {
+        mCrumbs.clear();
         String name = getString(R.string.bookmarks);
         mTopLevelLabel = (TextView) mCrumbs.pushView(name, false,
                 new Folder(name, mRootFolder));
@@ -813,19 +708,12 @@ public class AddBookmarkPage extends Activity
     private void onCurrentFolderFound() {
         LoaderManager manager = getLoaderManager();
         if (mCurrentFolder != mRootFolder) {
-            // Find all the folders
-            manager.initLoader(LOADER_ID_ALL_FOLDERS, null, this);
             // Since we're not in the root folder, change the selection to other
             // folder now.  The text will get changed once we select the correct
             // folder.
             mFolder.setSelectionIgnoringSelectionChange(mEditingFolder ? 1 : 2);
         } else {
             setShowBookmarkIcon(true);
-            if (!mEditingExisting) {
-                // Find the most recently saved bookmark, so that we can include it in
-                // the list of options to save the current bookmark.
-                manager.initLoader(LOADER_ID_MOST_RECENTLY_SAVED_BOOKMARK, null, this);
-            }
             if (!mEditingFolder) {
                 // Initially the "Bookmarks" folder should be showing, rather than
                 // the home screen.  In the editing folder case, home screen is not
@@ -834,22 +722,19 @@ public class AddBookmarkPage extends Activity
             }
         }
         // Find the contents of the current folder
-        manager.initLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
+        manager.restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
 }
     /**
      * Get the account name and type of the currently synced account.
-     * @param context Context to access preferences.
      * @return null if no account name or type.  Otherwise, the result will be
      *      an array of two Strings, the accountName and accountType, respectively.
      */
-    private String[] getAccountNameAndType(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
-        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
-        if (TextUtils.isEmpty(accountName) || TextUtils.isEmpty(accountType)) {
+    private String[] getAccountNameAndType() {
+        BookmarkAccount account = (BookmarkAccount) mAccountSpinner.getSelectedItem();
+        if (account == null) {
             return null;
         }
-        return new String[] { accountName, accountType };
+        return new String[] { account.accountName, account.accountType };
     }
 
     /**
@@ -1070,6 +955,22 @@ public class AddBookmarkPage extends Activity
         return true;
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+            long id) {
+        if (mAccountSpinner == parent) {
+            long root = mAccountAdapter.getItem(position).rootFolderId;
+            if (root != mRootFolder) {
+                onRootFolderFound(root);
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Don't care
+    }
+
     /*
      * Class used as a proxy for the InputMethodManager to get to mFolderNamer
      */
@@ -1097,4 +998,162 @@ public class AddBookmarkPage extends Activity
             return view == mEditText;
         }
     }
+
+    static class AccountsLoader extends CursorLoader {
+
+        static final String[] PROJECTION = new String[] {
+            Accounts.ACCOUNT_NAME,
+            Accounts.ACCOUNT_TYPE,
+            Accounts.ROOT_ID,
+        };
+
+        static final int COLUMN_INDEX_ACCOUNT_NAME = 0;
+        static final int COLUMN_INDEX_ACCOUNT_TYPE = 1;
+        static final int COLUMN_INDEX_ROOT_ID = 2;
+
+        public AccountsLoader(Context context) {
+            super(context, Accounts.CONTENT_URI, PROJECTION, null, null,
+                    Accounts.ACCOUNT_NAME + " ASC");
+        }
+
+    }
+
+    static class BookmarkAccount {
+
+        private String mLabel;
+        String accountName, accountType;
+        long rootFolderId;
+
+        public BookmarkAccount(Context context, Cursor cursor) {
+            accountName = cursor.getString(
+                    AccountsLoader.COLUMN_INDEX_ACCOUNT_NAME);
+            accountType = cursor.getString(
+                    AccountsLoader.COLUMN_INDEX_ACCOUNT_TYPE);
+            rootFolderId = cursor.getLong(
+                    AccountsLoader.COLUMN_INDEX_ROOT_ID);
+            mLabel = accountName;
+            if (TextUtils.isEmpty(mLabel)) {
+                mLabel = context.getString(R.string.local_bookmarks);
+            }
+        }
+
+        @Override
+        public String toString() {
+            return mLabel;
+        }
+    }
+
+    static class EditBookmarkInfo {
+        long id = -1;
+        long parentId = -1;
+        String parentTitle;
+        String title;
+        String accountName;
+        String accountType;
+
+        long lastUsedId = -1;
+        String lastUsedTitle;
+        String lastUsedAccountName;
+        String lastUsedAccountType;
+    }
+
+    static class EditBookmarkInfoLoader extends AsyncTaskLoader<EditBookmarkInfo> {
+
+        private Context mContext;
+        private Bundle mMap;
+
+        public EditBookmarkInfoLoader(Context context, Bundle bundle) {
+            super(context);
+            mContext = context;
+            mMap = bundle;
+        }
+
+        @Override
+        public EditBookmarkInfo loadInBackground() {
+            final ContentResolver cr = mContext.getContentResolver();
+            EditBookmarkInfo info = new EditBookmarkInfo();
+            Cursor c = null;
+
+            try {
+                // First, let's lookup the bookmark (check for dupes, get needed info)
+                String url = mMap.getString(BrowserContract.Bookmarks.URL);
+                info.id = mMap.getLong(BrowserContract.Bookmarks._ID, -1);
+                boolean checkForDupe = mMap.getBoolean(CHECK_FOR_DUPE);
+                if (checkForDupe && info.id == -1 && !TextUtils.isEmpty(url)) {
+                    c = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
+                            new String[] { BrowserContract.Bookmarks._ID},
+                            BrowserContract.Bookmarks.URL + "=?",
+                            new String[] { url }, null);
+                    if (c.getCount() == 1 && c.moveToFirst()) {
+                        info.id = c.getLong(0);
+                    }
+                    c.close();
+                }
+                if (info.id != -1) {
+                    c = cr.query(ContentUris.withAppendedId(
+                            BrowserContract.Bookmarks.CONTENT_URI, info.id),
+                            new String[] {
+                            BrowserContract.Bookmarks.PARENT,
+                            BrowserContract.Bookmarks.ACCOUNT_NAME,
+                            BrowserContract.Bookmarks.ACCOUNT_TYPE,
+                            BrowserContract.Bookmarks.TITLE},
+                            null, null, null);
+                    if (c.moveToFirst()) {
+                        info.parentId = c.getLong(0);
+                        info.accountName = c.getString(1);
+                        info.accountType = c.getString(2);
+                        info.title = c.getString(3);
+                    }
+                    c.close();
+                    c = cr.query(ContentUris.withAppendedId(
+                            BrowserContract.Bookmarks.CONTENT_URI, info.parentId),
+                            new String[] {
+                            BrowserContract.Bookmarks.TITLE,},
+                            null, null, null);
+                    if (c.moveToFirst()) {
+                        info.parentTitle = c.getString(0);
+                    }
+                    c.close();
+                }
+
+                // Figure out the last used folder/account
+                c = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
+                        new String[] {
+                        BrowserContract.Bookmarks.PARENT,
+                        }, null, null,
+                        BrowserContract.Bookmarks.DATE_MODIFIED + " DESC LIMIT 1");
+                if (c.moveToFirst()) {
+                    long parent = c.getLong(0);
+                    c.close();
+                    c = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
+                            new String[] {
+                            BrowserContract.Bookmarks.TITLE,
+                            BrowserContract.Bookmarks.ACCOUNT_NAME,
+                            BrowserContract.Bookmarks.ACCOUNT_TYPE},
+                            BrowserContract.Bookmarks._ID + "=?", new String[] {
+                            Long.toString(parent)}, null);
+                    if (c.moveToFirst()) {
+                        info.lastUsedId = parent;
+                        info.lastUsedTitle = c.getString(0);
+                        info.lastUsedAccountName = c.getString(1);
+                        info.lastUsedAccountType = c.getString(2);
+                    }
+                    c.close();
+                }
+            } finally {
+                if (c != null) {
+                    c.close();
+                }
+            }
+
+            return info;
+        }
+
+        @Override
+        protected void onStartLoading() {
+            forceLoad();
+        }
+
+    }
+
 }
