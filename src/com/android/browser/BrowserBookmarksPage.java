@@ -567,6 +567,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         int paddingTop = (int) res.getDimension(R.dimen.combo_paddingTop);
         mRoot.setPadding(paddingLeftRight, paddingTop,
                 paddingLeftRight, 0);
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override
