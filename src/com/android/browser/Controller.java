@@ -80,7 +80,6 @@ import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URLEncoder;
@@ -219,6 +218,7 @@ public class Controller
         mDataController = DataController.getInstance(mActivity);
         mTabControl = new TabControl(this);
         mSettings.setController(this);
+        mSettings.updateRlzValues(mActivity);
 
         mUrlHandler = new UrlHandler(this);
         mIntentHandler = new IntentHandler(mActivity, this);
@@ -2441,7 +2441,7 @@ public class Controller
         return bundle;
     }
 
-    /**
+   /**
      * helper method for key handler
      * returns the current tab if it can't advance
      */
