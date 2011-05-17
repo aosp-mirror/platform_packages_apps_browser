@@ -262,7 +262,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.bookmark, menu);
-        if (!BrowserActivity.isXlarge(getActivity())) {
+        if (!BrowserActivity.isTablet(getActivity())) {
             MenuItem item = menu.findItem(R.id.add_bookmark);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         }
@@ -387,7 +387,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     }
 
      private int getDefaultView() {
-        if (BrowserActivity.isXlarge(getActivity())) {
+        if (BrowserActivity.isTablet(getActivity())) {
             return VIEW_THUMBNAILS;
         }
         return VIEW_LIST;
