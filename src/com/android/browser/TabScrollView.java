@@ -16,6 +16,8 @@
 
 package com.android.browser;
 
+import com.android.browser.TabBar.TabView;
+
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -82,6 +84,16 @@ public class TabScrollView extends HorizontalScrollView {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
+        ensureChildVisible(getSelectedTab());
+    }
+
+    // in case of a configuration change, adjust tab width
+    protected void updateLayout() {
+        final int count = mContentView.getChildCount();
+        for (int i = 0; i < count; i++) {
+            final TabView tv = (TabView) mContentView.getChildAt(i);
+            tv.updateLayoutParams();
+        }
         ensureChildVisible(getSelectedTab());
     }
 
