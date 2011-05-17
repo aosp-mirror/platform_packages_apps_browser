@@ -157,7 +157,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     }
 
     void setupActionBar(int startingFragment) {
-        if (BrowserActivity.isXlarge(mContext)) {
+        if (BrowserActivity.isTablet(mContext)) {
             mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
                     | ActionBar.DISPLAY_USE_LOGO);
         } else {
