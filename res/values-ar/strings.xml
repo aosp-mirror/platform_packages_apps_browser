@@ -65,6 +65,8 @@
     <string name="save" msgid="5922311934992468496">"موافق"</string>
     <string name="do_not_save" msgid="6777633870113477714">"إلغاء"</string>
     <string name="location" msgid="3411848697912600125">"العنوان"</string>
+    <!-- no translation found for account (5179824606448077042) -->
+    <skip />
     <string name="containing_folder" msgid="6771180232953030479">"إضافة إلى"</string>
     <string name="new_folder" msgid="7743540149088867917">"مجلد جديد"</string>
     <string name="edit_folder" msgid="621817453133656156">"تعديل مجلد"</string>
@@ -394,4 +396,5 @@
     <string name="recover_yes" msgid="5837971910598069183">"نعم"</string>
     <string name="recover_no" msgid="3121030267940592611">"لا"</string>
     <string name="preview" msgid="1470306351083271066">"المعاينة:"</string>
+    <string name="local_bookmarks" msgid="533816851415228520">"محلية"</string>
 </resources>

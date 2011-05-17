@@ -65,6 +65,8 @@
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Kanselahin"</string>
     <string name="location" msgid="3411848697912600125">"Address"</string>
+    <!-- no translation found for account (5179824606448077042) -->
+    <skip />
     <string name="containing_folder" msgid="6771180232953030479">"Idagdag sa"</string>
     <string name="new_folder" msgid="7743540149088867917">"Bagong folder"</string>
     <string name="edit_folder" msgid="621817453133656156">"I-edit ang folder"</string>
@@ -281,7 +283,7 @@
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gamit Google Instant pag gumamit ka Google Search, para magpakita resulta habang type ka (mapataas nito paggamit data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Fullscreen"</string>
-    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gamitin ang mdoe na fullscreen upang itago ang status bar."</string>
+    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gamitin ang mode na fullscreen upang itago ang status bar."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema sa pagkakakonekta ng data"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema sa file"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Kumpirmahin"</string>
@@ -394,4 +396,6 @@
     <string name="recover_yes" msgid="5837971910598069183">"Oo"</string>
     <string name="recover_no" msgid="3121030267940592611">"Hindi"</string>
     <string name="preview" msgid="1470306351083271066">"Preview:"</string>
+    <!-- no translation found for local_bookmarks (533816851415228520) -->
+    <skip />
 </resources>

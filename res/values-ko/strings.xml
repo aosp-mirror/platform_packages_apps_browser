@@ -65,6 +65,8 @@
     <string name="save" msgid="5922311934992468496">"확인"</string>
     <string name="do_not_save" msgid="6777633870113477714">"취소"</string>
     <string name="location" msgid="3411848697912600125">"주소"</string>
+    <!-- no translation found for account (5179824606448077042) -->
+    <skip />
     <string name="containing_folder" msgid="6771180232953030479">"추가할 위치"</string>
     <string name="new_folder" msgid="7743540149088867917">"새 폴더"</string>
     <string name="edit_folder" msgid="621817453133656156">"폴더 수정"</string>
@@ -394,4 +396,6 @@
     <string name="recover_yes" msgid="5837971910598069183">"예"</string>
     <string name="recover_no" msgid="3121030267940592611">"아니요"</string>
     <string name="preview" msgid="1470306351083271066">"미리보기:"</string>
+    <!-- no translation found for local_bookmarks (533816851415228520) -->
+    <skip />
 </resources>

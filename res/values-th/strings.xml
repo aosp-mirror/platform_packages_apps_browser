@@ -65,6 +65,8 @@
     <string name="save" msgid="5922311934992468496">"ตกลง"</string>
     <string name="do_not_save" msgid="6777633870113477714">"ยกเลิก"</string>
     <string name="location" msgid="3411848697912600125">"ที่อยู่"</string>
+    <!-- no translation found for account (5179824606448077042) -->
+    <skip />
     <string name="containing_folder" msgid="6771180232953030479">"เพิ่มใน"</string>
     <string name="new_folder" msgid="7743540149088867917">"โฟลเดอร์ใหม่"</string>
     <string name="edit_folder" msgid="621817453133656156">"แก้ไขโฟลเดอร์"</string>
@@ -394,4 +396,6 @@
     <string name="recover_yes" msgid="5837971910598069183">"ใช่"</string>
     <string name="recover_no" msgid="3121030267940592611">"ไม่"</string>
     <string name="preview" msgid="1470306351083271066">"ดูตัวอย่าง:"</string>
+    <!-- no translation found for local_bookmarks (533816851415228520) -->
+    <skip />
 </resources>

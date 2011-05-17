@@ -67,6 +67,8 @@
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Interrumper"</string>
     <!-- outdated translation 969988560160364559 -->     <string name="location" msgid="3411848697912600125">"Adressa"</string>
+    <!-- no translation found for account (5179824606448077042) -->
+    <skip />
     <!-- no translation found for containing_folder (6771180232953030479) -->
     <skip />
     <!-- no translation found for new_folder (7743540149088867917) -->
@@ -501,5 +503,7 @@
     <!-- no translation found for recover_no (3121030267940592611) -->
     <skip />
     <!-- no translation found for preview (1470306351083271066) -->
+    <skip />
+    <!-- no translation found for local_bookmarks (533816851415228520) -->
     <skip />
 </resources>

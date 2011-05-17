@@ -65,6 +65,8 @@
     <string name="save" msgid="5922311934992468496">"Tamam"</string>
     <string name="do_not_save" msgid="6777633870113477714">"İptal"</string>
     <string name="location" msgid="3411848697912600125">"Adres"</string>
+    <!-- no translation found for account (5179824606448077042) -->
+    <skip />
     <string name="containing_folder" msgid="6771180232953030479">"Şu klasöre ekle"</string>
     <string name="new_folder" msgid="7743540149088867917">"Yeni klasör"</string>
     <string name="edit_folder" msgid="621817453133656156">"Klasörü düzenle"</string>
@@ -241,7 +243,7 @@
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Metin boyutu"</string>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimum yazı tipi boyutu"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Yakınlştrmyı etknlştrmye zorla"</string>
-    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Web sitesnn yakınlştrma davrnşnı dentlme isteğnn geçrsz kılnp kılnmycğı"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Sitenin yakınlaştırmayı kontrol isteğinin geçersiz kılınıp kılınmayacağı"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Varsayılan zum"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Uzak"</item>
@@ -394,4 +396,5 @@
     <string name="recover_yes" msgid="5837971910598069183">"Evet"</string>
     <string name="recover_no" msgid="3121030267940592611">"Hayır"</string>
     <string name="preview" msgid="1470306351083271066">"Önizleme:"</string>
+    <string name="local_bookmarks" msgid="533816851415228520">"Yerel"</string>
 </resources>
