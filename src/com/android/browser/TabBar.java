@@ -24,6 +24,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -65,8 +66,8 @@ public class TabBar extends LinearLayout
     private TabControl mTabControl;
     private XLargeUi mUi;
 
-    private final int mTabWidthSelected;
-    private final int mTabWidthUnselected;
+    private int mTabWidthSelected;
+    private int mTabWidthUnselected;
 
     private TabScrollView mTabs;
 
@@ -136,6 +137,16 @@ public class TabBar extends LinearLayout
         mFocusPaint.setStrokeWidth(res.getDimension(R.dimen.tab_focus_stroke));
         mFocusPaint.setAntiAlias(true);
         mFocusPaint.setColor(res.getColor(R.color.tabFocusHighlight));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+        Resources res = mActivity.getResources();
+        mTabWidthSelected = (int) res.getDimension(R.dimen.tab_width_selected);
+        mTabWidthUnselected = (int) res.getDimension(R.dimen.tab_width_unselected);
+        // force update of tab bar
+        mTabs.updateLayout();
     }
 
     void setUseQuickControls(boolean useQuickControls) {
@@ -403,12 +414,16 @@ public class TabBar extends LinearLayout
                     R.style.TabTitleSelected : R.style.TabTitleUnselected);
             setHorizontalFadingEdgeEnabled(!mSelected);
             super.setActivated(selected);
-            LayoutParams lp = (LinearLayout.LayoutParams) getLayoutParams();
-            lp.width = selected ? mTabWidthSelected : mTabWidthUnselected;
-            lp.height =  LayoutParams.MATCH_PARENT;
-            setLayoutParams(lp);
+            updateLayoutParams();
             setFocusable(!selected);
             postInvalidate();
+        }
+
+        public void updateLayoutParams() {
+            LayoutParams lp = (LinearLayout.LayoutParams) getLayoutParams();
+            lp.width = mSelected ? mTabWidthSelected : mTabWidthUnselected;
+            lp.height =  LayoutParams.MATCH_PARENT;
+            setLayoutParams(lp);
         }
 
         void setDisplayTitle(String title) {
