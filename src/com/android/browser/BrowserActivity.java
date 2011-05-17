@@ -96,7 +96,7 @@ public class BrowserActivity extends Activity {
         }
 
         mController = new Controller(this);
-        boolean xlarge = isXlarge(this);
+        boolean xlarge = isTablet(this);
         if (xlarge) {
             mUi = new XLargeUi(this, mController);
         } else {
@@ -113,10 +113,8 @@ public class BrowserActivity extends Activity {
         mController.start(icicle, getIntent());
     }
 
-    public static boolean isXlarge(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+    public static boolean isTablet(Context context) {
+        return context.getResources().getBoolean(R.bool.isTablet);
     }
 
     @VisibleForTesting
