@@ -341,11 +341,6 @@ public class AddBookmarkPage extends Activity
         values.put(BrowserContract.Bookmarks.TITLE,
                 name);
         values.put(BrowserContract.Bookmarks.IS_FOLDER, 1);
-        String[] accountInfo = getAccountNameAndType();
-        if (accountInfo != null) {
-            values.put(BrowserContract.Bookmarks.ACCOUNT_TYPE, accountInfo[1]);
-            values.put(BrowserContract.Bookmarks.ACCOUNT_NAME, accountInfo[0]);
-        }
         long currentFolder;
         Object data = mCrumbs.getTopData();
         if (data != null) {
@@ -737,18 +732,6 @@ public class AddBookmarkPage extends Activity
         }
         // Find the contents of the current folder
         manager.restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
-}
-    /**
-     * Get the account name and type of the currently synced account.
-     * @return null if no account name or type.  Otherwise, the result will be
-     *      an array of two Strings, the accountName and accountType, respectively.
-     */
-    private String[] getAccountNameAndType() {
-        BookmarkAccount account = (BookmarkAccount) mAccountSpinner.getSelectedItem();
-        if (account == null) {
-            return null;
-        }
-        return new String[] { account.accountName, account.accountType };
     }
 
     /**

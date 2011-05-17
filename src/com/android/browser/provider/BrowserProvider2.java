@@ -1546,9 +1546,35 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             String[] selectionArgs, boolean callerIsSyncAdapter) {
         int count = 0;
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_BOOKMARKS,
-                new String[] { Bookmarks._ID, Bookmarks.VERSION, Bookmarks.URL },
+        final String[] bookmarksProjection = new String[] {
+                Bookmarks._ID, // 0
+                Bookmarks.VERSION, // 1
+                Bookmarks.URL, // 2
+                Bookmarks.TITLE, // 3
+                Bookmarks.IS_FOLDER, // 4
+                Bookmarks.ACCOUNT_NAME, // 5
+                Bookmarks.ACCOUNT_TYPE, // 6
+        };
+        Cursor cursor = db.query(TABLE_BOOKMARKS, bookmarksProjection,
                 selection, selectionArgs, null, null, null);
+        boolean updatingParent = values.containsKey(Bookmarks.PARENT);
+        String parentAccountName = null;
+        String parentAccountType = null;
+        if (updatingParent) {
+            long parent = values.getAsLong(Bookmarks.PARENT);
+            Cursor c = db.query(TABLE_BOOKMARKS, new String[] {
+                    Bookmarks.ACCOUNT_NAME, Bookmarks.ACCOUNT_TYPE},
+                    "_id = ?", new String[] { Long.toString(parent) },
+                    null, null, null);
+            if (c.moveToFirst()) {
+                parentAccountName = c.getString(0);
+                parentAccountType = c.getString(1);
+                c.close();
+            }
+        } else if (values.containsKey(Bookmarks.ACCOUNT_NAME)
+                || values.containsKey(Bookmarks.ACCOUNT_TYPE)) {
+            // TODO: Implement if needed (no one needs this yet)
+        }
         try {
             String[] args = new String[1];
             // Mark the bookmark dirty if the caller isn't a sync adapter
@@ -1565,12 +1591,47 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             ContentValues imageValues = extractImageValues(values, url);
 
             while (cursor.moveToNext()) {
-                args[0] = cursor.getString(0);
-                if (!callerIsSyncAdapter) {
-                    // increase the local version for non-sync changes
-                    values.put(Bookmarks.VERSION, cursor.getLong(1) + 1);
+                long id = cursor.getLong(0);
+                args[0] = Long.toString(id);
+                String accountName = cursor.getString(5);
+                String accountType = cursor.getString(6);
+                // If we are updating the parent and either the account name or
+                // type do not match that of the new parent
+                if (updatingParent
+                        && (!TextUtils.equals(accountName, parentAccountName)
+                        || !TextUtils.equals(accountType, parentAccountType))) {
+                    // Parent is a different account
+                    // First, insert a new bookmark/folder with the new account
+                    // Then, if this is a folder, reparent all it's children
+                    // Finally, delete the old bookmark/folder
+                    ContentValues newValues = valuesFromCursor(cursor);
+                    newValues.putAll(values);
+                    newValues.remove(Bookmarks._ID);
+                    newValues.remove(Bookmarks.VERSION);
+                    newValues.put(Bookmarks.ACCOUNT_NAME, parentAccountName);
+                    newValues.put(Bookmarks.ACCOUNT_TYPE, parentAccountType);
+                    Uri insertUri = insertInTransaction(Bookmarks.CONTENT_URI,
+                            newValues, callerIsSyncAdapter);
+                    long newId = ContentUris.parseId(insertUri);
+                    if (cursor.getInt(4) != 0) {
+                        // This is a folder, reparent
+                        ContentValues updateChildren = new ContentValues(1);
+                        updateChildren.put(Bookmarks.PARENT, newId);
+                        count += updateBookmarksInTransaction(updateChildren,
+                                Bookmarks.PARENT + "=?", new String[] {
+                                Long.toString(id)}, callerIsSyncAdapter);
+                    }
+                    // Now, delete the old one
+                    Uri uri = ContentUris.withAppendedId(Bookmarks.CONTENT_URI, id);
+                    deleteInTransaction(uri, null, null, callerIsSyncAdapter);
+                    count += 1;
+                } else {
+                    if (!callerIsSyncAdapter) {
+                        // increase the local version for non-sync changes
+                        values.put(Bookmarks.VERSION, cursor.getLong(1) + 1);
+                    }
+                    count += db.update(TABLE_BOOKMARKS, values, "_id=?", args);
                 }
-                count += db.update(TABLE_BOOKMARKS, values, "_id=?", args);
 
                 // Update the images over in their table
                 if (imageValues != null) {
@@ -1591,6 +1652,29 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             if (cursor != null) cursor.close();
         }
         return count;
+    }
+
+    ContentValues valuesFromCursor(Cursor c) {
+        int count = c.getColumnCount();
+        ContentValues values = new ContentValues(count);
+        String[] colNames = c.getColumnNames();
+        for (int i = 0; i < count; i++) {
+            switch (c.getType(i)) {
+            case Cursor.FIELD_TYPE_BLOB:
+                values.put(colNames[i], c.getBlob(i));
+                break;
+            case Cursor.FIELD_TYPE_FLOAT:
+                values.put(colNames[i], c.getFloat(i));
+                break;
+            case Cursor.FIELD_TYPE_INTEGER:
+                values.put(colNames[i], c.getLong(i));
+                break;
+            case Cursor.FIELD_TYPE_STRING:
+                values.put(colNames[i], c.getString(i));
+                break;
+            }
+        }
+        return values;
     }
 
     /**
