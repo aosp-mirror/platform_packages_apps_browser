@@ -18,6 +18,7 @@ package com.android.browser;
 import com.android.browser.Controller;
 import com.android.browser.R;
 import com.android.browser.UI.DropdownChangeListener;
+import com.android.browser.provider.BrowserProvider;
 import com.android.browser.search.SearchEngine;
 
 import android.app.SearchManager;

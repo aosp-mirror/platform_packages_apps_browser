@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import com.android.browser.provider.BrowserProvider;
 import com.android.browser.provider.BrowserProvider2;
 import com.android.browser.tests.utils.ProviderTestCase3;
 

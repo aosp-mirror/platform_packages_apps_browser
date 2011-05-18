@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.browser.provider;
 
+import com.android.browser.BrowserSettings;
+import com.android.browser.R;
 import com.android.browser.search.SearchEngine;
 
 import android.app.SearchManager;
@@ -57,14 +59,14 @@ public class BrowserProvider extends ContentProvider {
 
     private SQLiteOpenHelper mOpenHelper;
     private BackupManager mBackupManager;
-    private static final String sDatabaseName = "browser.db";
+    static final String sDatabaseName = "browser.db";
     private static final String TAG = "BrowserProvider";
     private static final String ORDER_BY = "visits DESC, date DESC";
 
     private static final String PICASA_URL = "http://picasaweb.google.com/m/" +
             "viewer?source=androidclient";
 
-    private static final String[] TABLE_NAMES = new String[] {
+    static final String[] TABLE_NAMES = new String[] {
         "bookmarks", "searches"
     };
     private static final String[] SUGGEST_PROJECTION = new String[] {
@@ -112,7 +114,7 @@ public class BrowserProvider extends ContentProvider {
 
 
     // make sure that these match the index of TABLE_NAMES
-    private static final int URI_MATCH_BOOKMARKS = 0;
+    static final int URI_MATCH_BOOKMARKS = 0;
     private static final int URI_MATCH_SEARCHES = 1;
     // (id % 10) should match the table name index
     private static final int URI_MATCH_BOOKMARKS_ID = 10;
@@ -178,7 +180,7 @@ public class BrowserProvider extends ContentProvider {
 
     // XXX: This is a major hack to remove our dependency on gsf constants and
     // its content provider. http://b/issue?id=2425179
-    static String getClientId(ContentResolver cr) {
+    public static String getClientId(ContentResolver cr) {
         String ret = "android-google";
         Cursor legacyClientIdCursor = null;
         Cursor searchClientIdCursor = null;
@@ -244,7 +246,7 @@ public class BrowserProvider extends ContentProvider {
         return sb;
     }
 
-    private static class DatabaseHelper extends SQLiteOpenHelper {
+    static class DatabaseHelper extends SQLiteOpenHelper {
         private Context mContext;
 
         public DatabaseHelper(Context context) {
@@ -838,7 +840,7 @@ public class BrowserProvider extends ContentProvider {
      * by the SearchDialog when the BrowserActivity is in voice search mode.
      * @param results Strings to display in the dropdown from the SearchDialog
      */
-    /* package */ void setQueryResults(ArrayList<String> results) {
+    public /* package */ void setQueryResults(ArrayList<String> results) {
         synchronized (mResultsCursorLock) {
             if (results == null) {
                 mResultsCursor = null;

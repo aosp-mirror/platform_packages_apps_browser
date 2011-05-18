@@ -64,6 +64,7 @@ import android.provider.SyncStateContract;
 import android.text.TextUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -398,7 +399,80 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
             mSyncHelper.createDatabase(db);
 
-            createDefaultBookmarks(db);
+            if (!importFromBrowserProvider(db)) {
+                createDefaultBookmarks(db);
+            }
+        }
+
+        boolean importFromBrowserProvider(SQLiteDatabase db) {
+            Context context = getContext();
+            File oldDbFile = context.getDatabasePath(BrowserProvider.sDatabaseName);
+            if (oldDbFile.exists()) {
+                BrowserProvider.DatabaseHelper helper =
+                        new BrowserProvider.DatabaseHelper(context);
+                SQLiteDatabase oldDb = helper.getWritableDatabase();
+                Cursor c = null;
+                try {
+                    String table = BrowserProvider.TABLE_NAMES[BrowserProvider.URI_MATCH_BOOKMARKS];
+                    // Import bookmarks
+                    c = oldDb.query(table,
+                            new String[] {
+                            BookmarkColumns.URL, // 0
+                            BookmarkColumns.TITLE, // 1
+                            BookmarkColumns.FAVICON, // 2
+                            BookmarkColumns.TOUCH_ICON, // 3
+                            }, BookmarkColumns.BOOKMARK + "!=0", null,
+                            null, null, null);
+                    if (c != null) {
+                        while (c.moveToNext()) {
+                            ContentValues values = new ContentValues();
+                            values.put(Bookmarks.URL, c.getString(0));
+                            values.put(Bookmarks.TITLE, c.getString(1));
+                            values.put(Bookmarks.POSITION, 0);
+                            values.put(Bookmarks.PARENT, FIXED_ID_ROOT);
+                            ContentValues imageValues = new ContentValues();
+                            imageValues.put(Images.URL, c.getString(0));
+                            imageValues.put(Images.FAVICON, c.getBlob(2));
+                            imageValues.put(Images.TOUCH_ICON, c.getBlob(3));
+                            db.insertOrThrow(TABLE_IMAGES, Images.THUMBNAIL, imageValues);
+                            db.insertOrThrow(TABLE_BOOKMARKS, Bookmarks.DIRTY, values);
+                        }
+                        c.close();
+                    }
+                    // Import history
+                    c = oldDb.query(table,
+                            new String[] {
+                            BookmarkColumns.URL, // 0
+                            BookmarkColumns.TITLE, // 1
+                            BookmarkColumns.VISITS, // 2
+                            BookmarkColumns.DATE, // 3
+                            BookmarkColumns.CREATED, // 4
+                            }, null, null, null, null, null);
+                    if (c != null) {
+                        while (c.moveToNext()) {
+                            ContentValues values = new ContentValues();
+                            values.put(History.URL, c.getString(0));
+                            values.put(History.TITLE, c.getString(1));
+                            values.put(History.VISITS, c.getInt(2));
+                            values.put(History.DATE_LAST_VISITED, c.getLong(3));
+                            values.put(History.DATE_CREATED, c.getLong(4));
+                            db.insertOrThrow(TABLE_HISTORY, History.FAVICON, values);
+                        }
+                        c.close();
+                    }
+                    // Wipe the old DB, in case the delete fails.
+                    oldDb.delete(table, null, null);
+                } finally {
+                    if (c != null) c.close();
+                    oldDb.close();
+                    helper.close();
+                }
+                if (!oldDbFile.delete()) {
+                    oldDbFile.deleteOnExit();
+                }
+                return true;
+            }
+            return false;
         }
 
         void createAccountsView(SQLiteDatabase db) {
