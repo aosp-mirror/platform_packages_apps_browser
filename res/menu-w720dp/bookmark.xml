@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 The Android Open Source Project
+<!-- Copyright (C) 2011 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -19,22 +19,19 @@
         android:id="@+id/add_bookmark"
         android:icon="@drawable/ic_bookmark_off_holo_dark"
         android:title="@string/add_new_bookmark"
-        android:showAsAction="always" />
+        android:showAsAction="always|withText" />
     <item
         android:id="@+id/go_home"
         android:icon="@drawable/ic_home_holo_dark"
         android:showAsAction="always" />
     <item
         android:id="@+id/thumbnail_view"
-        android:title="@string/bookmark_thumbnail_view"
-        android:icon="@drawable/ic_thumbnail_view_holo_dark" />
+        android:title="@string/bookmark_thumbnail_view"/>
     <item
         android:id="@+id/list_view"
-        android:title="@string/bookmark_list_view"
-        android:icon="@drawable/ic_list_view_holo_dark" />
+        android:title="@string/bookmark_list_view"/>
     <item
         android:id="@+id/preferences_menu_id"
         android:title="@string/menu_preferences"
-        android:icon="@drawable/ic_settings_holo_dark"
         android:alphabeticShortcut="p" />
 </menu>
