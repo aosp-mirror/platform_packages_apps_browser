@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.provider.BrowserProvider;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngines;
 
