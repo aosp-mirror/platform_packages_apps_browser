@@ -240,16 +240,11 @@ public class BookmarkExpandableGridView extends ExpandableListView
         @Override
         public void onClick(View v) {
             int groupPosition = (Integer) v.getTag(R.id.group_position);
-            // This little trick gets the built in smooth scroll when
-            // expanding a group that a call to expandGroup will not
-            int flatPos = 0;
-            for (int i = 0; i < groupPosition; i++) {
-                if (isGroupExpanded(i)) {
-                    flatPos += mAdapter.getChildrenCount(i);
-                }
-                flatPos++;
+            if (isGroupExpanded(groupPosition)) {
+                collapseGroup(groupPosition);
+            } else {
+                expandGroup(groupPosition, true);
             }
-            performItemClick(v, flatPos, 0);
         }
     };
 
