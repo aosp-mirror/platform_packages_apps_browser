@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import com.android.browser.BookmarkDragHandler.BookmarkDragController;
 import com.android.browser.view.BookmarkExpandableGridView;
 import com.android.browser.view.BookmarkExpandableGridView.BookmarkContextMenuInfo;
 
@@ -101,6 +102,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     int mCurrentView;
     View mHeader;
     HashMap<Integer, BrowserBookmarksAdapter> mBookmarkAdapters = new HashMap<Integer, BrowserBookmarksAdapter>();
+    BookmarkDragHandler mDragHandler;
 
     static BrowserBookmarksPage newInstance(BookmarksPageCallbacks cb,
             Bundle args, ViewGroup headerContainer) {
@@ -351,6 +353,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         mList = (ListView) mRoot.findViewById(R.id.list);
         // TODO: mList.setOnItemClickListener(this);
         setEnableContextMenu(mEnableContextMenu);
+        mDragHandler = new BookmarkDragHandler(getActivity(), mDragController,
+                mGrid.getDragAdapter());
 
         // Start the loaders
         LoaderManager lm = getLoaderManager();
@@ -676,6 +680,14 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             }
         }
     }
+
+    private BookmarkDragController mDragController = new BookmarkDragController() {
+
+        @Override
+        public boolean startDrag(Cursor item) {
+            return canEdit(item);
+        }
+    };
 
     private static class LookupBookmarkCount extends AsyncTask<Long, Void, Integer> {
         Context mContext;

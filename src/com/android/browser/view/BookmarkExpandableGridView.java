@@ -16,12 +16,15 @@
 
 package com.android.browser.view;
 
+import com.android.browser.BookmarkDragHandler;
 import com.android.browser.BreadCrumbView;
 import com.android.browser.BrowserBookmarksAdapter;
 import com.android.browser.R;
+import com.android.browser.BookmarkDragHandler.BookmarkDragAdapter;
 import com.android.internal.view.menu.MenuBuilder;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.provider.BrowserContract;
 import android.util.AttributeSet;
@@ -51,6 +54,7 @@ public class BookmarkExpandableGridView extends ExpandableListView
     private OnCreateContextMenuListener mOnCreateContextMenuListener;
     private boolean mLongClickable;
     private BreadCrumbView.Controller mBreadcrumbController;
+    private BookmarkDragHandler mDragHandler;
 
     public BookmarkExpandableGridView(Context context) {
         super(context);
@@ -169,8 +173,8 @@ public class BookmarkExpandableGridView extends ExpandableListView
         int groupPosition = (Integer) originalView.getTag(R.id.group_position);
         int childPosition = (Integer) originalView.getTag(R.id.child_position);
 
-        mContextMenuInfo = new BookmarkContextMenuInfo(originalView,
-                childPosition, groupPosition);
+        mContextMenuInfo = new BookmarkContextMenuInfo(childPosition,
+                groupPosition);
         if (getParent() != null) {
             getParent().showContextMenuForChild(this);
         }
@@ -198,6 +202,25 @@ public class BookmarkExpandableGridView extends ExpandableListView
         return mAdapter.mChildren.get(groupPosition);
     }
 
+    public BookmarkDragAdapter getDragAdapter() {
+        return mDragAdapter;
+    }
+
+    private BookmarkDragAdapter mDragAdapter = new BookmarkDragAdapter() {
+
+        @Override
+        public void setBookmarkDragHandler(BookmarkDragHandler handler) {
+            mDragHandler = handler;
+        }
+
+        @Override
+        public Cursor getItemForView(View v) {
+            int groupPosition = (Integer) v.getTag(R.id.group_position);
+            int childPosition = (Integer) v.getTag(R.id.child_position);
+            return getChildAdapter(groupPosition).getItem(childPosition);
+        }
+    };
+
     private OnClickListener mChildClickListener = new OnClickListener() {
 
         @Override
@@ -222,6 +245,18 @@ public class BookmarkExpandableGridView extends ExpandableListView
             } else {
                 expandGroup(groupPosition);
             }
+        }
+    };
+
+    private OnLongClickListener mChildOnLongClickListener = new OnLongClickListener() {
+
+        @Override
+        public boolean onLongClick(View v) {
+            int groupPosition = (Integer) v.getTag(R.id.group_position);
+            int childPosition = (Integer) v.getTag(R.id.child_position);
+            long id = (Long) v.getTag(R.id.child_id);
+            Cursor c = getChildAdapter(groupPosition).getItem(childPosition);
+            return mDragHandler.startDrag(v, c, id);
         }
     };
 
@@ -302,6 +337,10 @@ public class BookmarkExpandableGridView extends ExpandableListView
                     v.setTag(R.id.child_id, childAdapter.getItemId(realChildPosition));
                     v.setOnClickListener(mChildClickListener);
                     v.setLongClickable(mLongClickable);
+                    if (mDragHandler != null) {
+                        v.setOnLongClickListener(mChildOnLongClickListener);
+                        mDragHandler.registerBookmarkDragHandler(v);
+                    }
                     if (cv == null) {
                         row.addView(v);
                     } else if (cv != v) {
@@ -409,14 +448,11 @@ public class BookmarkExpandableGridView extends ExpandableListView
 
     public static class BookmarkContextMenuInfo implements ContextMenuInfo {
 
-        private BookmarkContextMenuInfo(View targetView, int childPosition,
-                int groupPosition) {
-            this.targetView = targetView;
+        private BookmarkContextMenuInfo(int childPosition, int groupPosition) {
             this.childPosition = childPosition;
             this.groupPosition = groupPosition;
         }
 
-        public View targetView;
         public int childPosition;
         public int groupPosition;
     }
