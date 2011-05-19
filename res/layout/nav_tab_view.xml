@@ -14,20 +14,24 @@
      limitations under the License.
 -->
 
-<com.android.browser.view.TabHolderView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tab_view"
+    android:id="@+id/main"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
     android:orientation="vertical"
-    android:padding="4dip"
-    android:focusable="false"
-    android:background="@drawable/nav_tab_bg">
+    android:focusable="false">
     <LinearLayout
         android:id="@+id/titlebar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height" >
+        android:layout_height="@dimen/toolbar_height"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:paddingTop="2dip"
+        android:paddingBottom="2dip">
         <ImageView
             android:id="@+id/favicon"
             android:layout_width="20dip"
@@ -38,30 +42,42 @@
         <TextView
             android:id="@+id/title"
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:textSize="14dip"
-            android:textColor="@color/white"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:ellipsize="end"
             android:lines="1"
+            android:background="@*android:drawable/edit_text_holo_dark"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:scrollHorizontally="true"
-            android:hint="@string/search_hint"
-            android:layout_gravity="center_vertical" />
+            android:hint="@string/search_hint" />
+        <ImageButton
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_refresh_holo_dark"
+            style="@style/HoloButton" />
+        <ImageButton
+            android:id="@+id/forward"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_forward_holo_dark"
+            style="@style/HoloButton" />
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/tab_view"
+        android:layout_width="@dimen/nav_tab_width"
+        android:layout_height="@dimen/nav_tab_height"
+        android:padding="4dip"
+        android:focusable="false"
+        android:background="@drawable/nav_tab_bg">
         <ImageButton
             android:id="@+id/closetab"
             android:src="@drawable/ic_stop_holo_dark"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="4dip"
-            android:background="@drawable/bookmark_thumb_selector"
-            />
-    </LinearLayout>
-    <ImageView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY" />
-</com.android.browser.view.TabHolderView>
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:background="@drawable/navtab_close_background" />
+    </FrameLayout>
+</LinearLayout>

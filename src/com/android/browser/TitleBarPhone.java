@@ -20,12 +20,16 @@ import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatche
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.util.List;
@@ -41,6 +45,9 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     private ImageView mStopButton;
     private ImageView mVoiceButton;
     private boolean mHasLockIcon;
+    private ImageButton mForward;
+    private Drawable mStopDrawable;
+    private Drawable mRefreshDrawable;
 
     public TitleBarPhone(Activity activity, UiController controller, PhoneUi ui,
             FrameLayout parent) {
@@ -58,7 +65,12 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         mStopButton.setOnClickListener(this);
         mVoiceButton = (ImageView) findViewById(R.id.voice);
         mVoiceButton.setOnClickListener(this);
+        mForward = (ImageButton) findViewById(R.id.forward);
+        mForward.setOnClickListener(this);
         setFocusState(false);
+        Resources res = context.getResources();
+        mStopDrawable = res.getDrawable(R.drawable.ic_stop_holo_dark);
+        mRefreshDrawable = res.getDrawable(R.drawable.ic_refresh_holo_dark);
     }
 
     @Override
@@ -91,11 +103,7 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             mVoiceButton.setVisibility(View.VISIBLE);
         } else {
             mLockIcon.setVisibility(mHasLockIcon ? View.VISIBLE : View.GONE);
-            if (mInLoad) {
-                mStopButton.setVisibility(View.VISIBLE);
-            } else {
-                mStopButton.setVisibility(View.GONE);
-            }
+            mStopButton.setVisibility(View.VISIBLE);
             mVoiceButton.setVisibility(View.GONE);
         }
     }
@@ -110,6 +118,17 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         setFocusState(mUrlInput.hasFocus());
     }
 
+    @Override
+    void setProgress(int progress) {
+        super.setProgress(progress);
+        if (progress == 100) {
+            mStopButton.setImageDrawable(mRefreshDrawable);
+        } else if (mStopButton.getDrawable() != mStopDrawable) {
+            mStopButton.setImageDrawable(mStopDrawable);
+        }
+        updateNavigationState();
+    }
+
     /**
      * Update the text displayed in the title bar.
      * @param title String to display.  If null, the new tab string will be
@@ -122,6 +141,8 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         } else {
             mUrlInput.setText(title);
         }
+        mUrlInput.setSelection(0);
+        updateNavigationState();
     }
 
     @Override
@@ -140,11 +161,30 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     @Override
     public void onClick(View v) {
         if (v == mStopButton) {
-            mUiController.stopLoading();
+            if (mInLoad) {
+                mUiController.stopLoading();
+            } else {
+                WebView web = mBaseUi.getWebView();
+                if (web != null) {
+                    web.reload();
+                }
+            }
         } else if (v == mVoiceButton) {
             mUiController.startVoiceSearch();
+        } else if (v == mForward) {
+            WebView web = mBaseUi.getWebView();
+            if (web != null) {
+                web.goForward();
+            }
         } else {
             super.onClick(v);
+        }
+    }
+
+    private void updateNavigationState() {
+        WebView web = mBaseUi.getWebView();
+        if (web != null) {
+          mForward.setVisibility(web.canGoForward() ? View.VISIBLE : View.GONE);
         }
     }
 

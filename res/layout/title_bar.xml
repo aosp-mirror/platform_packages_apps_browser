@@ -77,8 +77,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_stop_holo_dark"
-            android:visibility="gone" />
+            android:src="@drawable/ic_stop_holo_dark" />
+        <ImageButton
+            android:id="@+id/forward"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_forward_holo_dark"
+            style="@style/HoloButton" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/autologin"

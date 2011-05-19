@@ -16,10 +16,6 @@
 
 package com.android.browser;
 
-import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.util.Log;
 import android.view.ActionMode;
@@ -110,18 +106,18 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
+    public boolean onMenuKey() {
+        if (mNavScreen == null) {
+            showNavScreen();
+        } else {
+            mNavScreen.close();
+        }
+        return true;
+    }
+
+    @Override
     public boolean dispatchKey(int code, KeyEvent event) {
         if (!isComboViewShowing()) {
-            switch (code) {
-                case KeyEvent.KEYCODE_MENU:
-                    if (mNavScreen == null) {
-                        showNavScreen();
-                        return true;
-                    } else {
-                        mNavScreen.close();
-                        return true;
-                    }
-            }
         }
         return false;
     }
@@ -166,6 +162,7 @@ public class PhoneUi extends BaseUi {
             Log.e(LOGTAG, "active tab with no webview detected");
             return;
         }
+        view.setNavMode(false);
         // Request focus on the top window.
         if (mUseQuickControls) {
             mPieControl.forceToTop(mContentView);
@@ -295,125 +292,24 @@ public class PhoneUi extends BaseUi {
             }
         }
     }
-
     void showNavScreen() {
-        if (mAnimating) return;
-        mAnimating = true;
+        detachTab(mActiveTab);
         mNavScreen = new NavScreen(mActivity, mUiController, this);
-        float yoffset = 0;
-        WebView web = getWebView();
-        if (web != null) {
-            yoffset = mNavScreen.getToolbarHeight() -
-                    web.getVisibleTitleHeight();
-        }
         // Add the custom view to its container.
-        mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_GRAVITY_CENTER);
-        mContentView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        ObjectAnimator animx = ObjectAnimator.ofFloat(mContentView,
-                "scaleX", 1.0f, NAV_TAB_SCALE);
-        ObjectAnimator animy = ObjectAnimator.ofFloat(mContentView,
-                "scaleY", 1.0f, NAV_TAB_SCALE);
-        ObjectAnimator translatey = ObjectAnimator.ofFloat(mContentView,
-                "translationY", 0, yoffset * NAV_TAB_SCALE);
-        AnimatorSet anims = new AnimatorSet();
-        anims.setDuration(200);
-        anims.addListener(new AnimatorListener() {
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                finishShowNavScreen();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-            }
-        });
-        anims.playTogether(animx, animy, translatey);
-        anims.start();
-    }
-
-    private void finishShowNavScreen() {
-        // Hide the content view.
-        mContentView.setLayerType(View.LAYER_TYPE_NONE, null);
+        mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_PARAMS);
         mContentView.setVisibility(View.GONE);
-        mContentView.setScaleX(1.0f);
-        mContentView.setScaleY(1.0f);
-        mContentView.setTranslationY(0);
-        BrowserWebView web = (BrowserWebView) getWebView();
-        if (web != null) {
-            mActiveTab.setScreenshot(web.capture());
-        }
-        // Finally show the custom view container.
         mCustomViewContainer.setVisibility(View.VISIBLE);
         mCustomViewContainer.bringToFront();
-        mAnimating = false;
     }
 
-    void hideNavScreen(boolean animateToPage) {
-        if (mAnimating || mNavScreen == null) return;
-        mAnimating = true;
-        mNavScreen.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        if (animateToPage) {
-            float yoffset = 0;
-            WebView web = mNavScreen.getSelectedTab().getWebView();
-            if (web != null) {
-                yoffset = mNavScreen.getToolbarHeight() -
-                        web.getVisibleTitleHeight();
-            }
-            ObjectAnimator animx = ObjectAnimator.ofFloat(mNavScreen, "scaleX",
-                    1.0f, 1 / NAV_TAB_SCALE);
-            ObjectAnimator animy = ObjectAnimator.ofFloat(mNavScreen, "scaleY",
-                    1.0f, 1 / NAV_TAB_SCALE);
-            ObjectAnimator translatey = ObjectAnimator.ofFloat(mNavScreen,
-                    "translationY", 0, -yoffset);
-            AnimatorSet anims = new AnimatorSet();
-            anims.setDuration(200);
-            anims.addListener(new AnimatorListener() {
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    finishHideNavScreen();
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationStart(Animator animation) {
-                }
-            });
-            anims.playTogether(animx, animy, translatey);
-            anims.start();
-        } else {
-            finishHideNavScreen();
-        }
-
-    }
-
-    private void finishHideNavScreen() {
-        // Hide the custom view.
-        mNavScreen.setVisibility(View.GONE);
-        mNavScreen.setLayerType(View.LAYER_TYPE_NONE, null);
-        // Remove the custom view from its container.
+    void hideNavScreen(boolean animate) {
+        Tab tab = mNavScreen.getSelectedTab();
         mCustomViewContainer.removeView(mNavScreen);
         mNavScreen = null;
         mCustomViewContainer.setVisibility(View.GONE);
+        mUiController.setActiveTab(tab);
         // Show the content view.
         mContentView.setVisibility(View.VISIBLE);
-        mAnimating = false;
     }
 
 }

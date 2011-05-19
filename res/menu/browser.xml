@@ -43,6 +43,10 @@
                 android:icon="@*android:drawable/ic_menu_forward" />
         </group>
         <item
+            android:id="@+id/incognito_menu_id"
+            android:title="@string/incognito_tab"
+            android:icon="@drawable/ic_new_incognito_holo_dark" />
+        <item
             android:id="@+id/add_bookmark_menu_id"
             android:title="@string/save_to_bookmarks"
             android:icon="@drawable/ic_bookmark_on_holo_dark"

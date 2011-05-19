@@ -37,4 +37,5 @@
     <color name="qc_normal">#C02447B2</color>
     <color name="qc_selected">#D0102052</color>
     <color name="tabViewTitleBackground">#D0000000</color>
+    <color name="navtab_bg">#80606060</color>
 </resources>

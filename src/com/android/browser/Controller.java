@@ -1242,6 +1242,10 @@ public class Controller
         }
     }
 
+    protected void onMenuKey() {
+        mUi.onMenuKey();
+    }
+
     // menu handling and state
     // TODO: maybe put into separate handler
 
@@ -2458,9 +2462,12 @@ public class Controller
      */
     boolean onKeyDown(int keyCode, KeyEvent event) {
         boolean noModifiers = event.hasNoModifiers();
-
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
+        if (KeyEvent.KEYCODE_MENU == keyCode) {
+            event.startTracking();
+            return true;
+        }
         if (!noModifiers
                 && ((KeyEvent.KEYCODE_MENU == keyCode)
                         || (KeyEvent.KEYCODE_CTRL_LEFT == keyCode)
@@ -2584,11 +2591,15 @@ public class Controller
     }
 
     boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (KeyEvent.KEYCODE_MENU == keyCode) {
+            mMenuIsDown = false;
+            if (event.isTracking() && !event.isCanceled()) {
+                onMenuKey();
+                return true;
+            }
+        }
         if (!event.hasNoModifiers()) return false;
         switch(keyCode) {
-            case KeyEvent.KEYCODE_MENU:
-                mMenuIsDown = false;
-                break;
             case KeyEvent.KEYCODE_BACK:
                 if (event.isTracking() && !event.isCanceled()) {
                     onBackKey();

@@ -207,6 +207,11 @@ public abstract class BaseUi implements UI, WebViewFactory {
         return false;
     }
 
+    @Override
+    public boolean onMenuKey() {
+        return false;
+    }
+
     // Tab callbacks
     @Override
     public void onTabDataChanged(Tab tab) {

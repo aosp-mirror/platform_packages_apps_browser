@@ -43,6 +43,8 @@ public interface UI {
 
     public boolean onBackKey();
 
+    public boolean onMenuKey();
+
     public boolean needsRestoreAllTabs();
 
     public void addTab(Tab tab);

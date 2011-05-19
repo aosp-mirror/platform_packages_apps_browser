@@ -14,17 +14,24 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nav_screen"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="match_parent" >
     <LinearLayout
-        android:id="@+id/navtop"
-        android:layout_height="match_parent"
-        android:layout_width="44dip"
+        android:id="@+id/titlebar"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@drawable/bg_urlbar" />
+    <LinearLayout
+        android:id="@+id/tabbar"
         android:orientation="vertical"
+        android:layout_width="44dip"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titlebar"
+        android:layout_alignParentRight="true"
         android:background="#80404040">
         <ImageButton
             android:id="@+id/newtab"
@@ -43,13 +50,12 @@
             android:gravity="center_vertical"
             android:src="@drawable/ic_new_incognito_holo_dark" />
         <ImageButton
-            android:id="@+id/tabs"
+            android:id="@+id/bookmarks"
             android:layout_height="0dip"
             android:layout_weight="0.25"
             android:layout_width="match_parent"
-            style="@style/HoloButton"
-            android:gravity="center_vertical"
-            android:src="@drawable/ic_windows_holo_dark" />
+            android:src="@drawable/ic_bookmarks_history_holo_dark"
+            style="@style/HoloButton" />
         <ImageButton
             android:id="@+id/more"
             android:layout_height="0dip"
@@ -59,46 +65,11 @@
             android:gravity="center_vertical"
             android:src="@*android:drawable/ic_menu_moreoverflow_normal_holo_dark" />
     </LinearLayout>
-    <FrameLayout
-        android:id="@+id/galleryholder"
+    <com.android.browser.NavTabScroller
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="0dip"
-        android:layout_weight="1"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp" />
-    <LinearLayout
-        android:id="@+id/navbar"
-        android:layout_height="match_parent"
-        android:layout_width="44dip"
-        android:orientation="vertical"
-        android:background="#80404040">
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="match_parent"
-            android:layout_weight="0.25"
-            android:layout_height="0dip"
-            android:src="@drawable/ic_back_holo_dark"
-            style="@style/HoloButton" />
-        <ImageButton
-            android:id="@+id/refresh"
-            android:layout_width="match_parent"
-            android:layout_weight="0.25"
-            android:layout_height="0dip"
-            android:src="@drawable/ic_refresh_holo_dark"
-            style="@style/HoloButton" />
-        <ImageButton
-            android:id="@+id/forward"
-            android:layout_width="match_parent"
-            android:layout_weight="0.25"
-            android:layout_height="0dip"
-            android:src="@drawable/ic_forward_holo_dark"
-            style="@style/HoloButton" />
-        <ImageButton
-            android:id="@+id/bookmarks"
-            android:layout_width="match_parent"
-            android:layout_weight="0.25"
-            android:layout_height="0dip"
-            android:src="@drawable/ic_bookmarks_history_holo_dark"
-            style="@style/HoloButton" />
-    </LinearLayout>
-</LinearLayout>
+        android:layout_toLeftOf="@id/tabbar"
+        android:paddingTop="0dp"
+        android:paddingBottom="10dp" />
+</RelativeLayout>
