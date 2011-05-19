@@ -12,6 +12,5 @@
 -->
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <bool name="isTablet">false</bool>
-    <bool name="hide_nav_buttons">true</bool>
+    <bool name="hide_nav_buttons">false</bool>
 </resources>

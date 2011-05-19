@@ -20,8 +20,13 @@ import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 import com.android.browser.search.SearchEngine;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -68,6 +73,7 @@ public class TitleBarXLarge extends TitleBarBase
     private ImageView mUrlIcon;
     private ImageView mSearchButton;
     private View mUrlContainer;
+    private View mNavButtons;
     private View mGoButton;
     private ImageView mStopButton;
     private View mAllButton;
@@ -88,6 +94,7 @@ public class TitleBarXLarge extends TitleBarBase
 
     private boolean mInLoad;
     private boolean mUseQuickControls;
+    private boolean mHideNavButtons;
 
     public TitleBarXLarge(Activity activity, UiController controller,
             XLargeUi ui) {
@@ -105,6 +112,8 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     private void initLayout(Context context) {
+        Resources res = mContext.getResources();
+        mHideNavButtons = res.getBoolean(R.bool.hide_nav_buttons);
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.url_bar, this);
 
@@ -124,6 +133,7 @@ public class TitleBarXLarge extends TitleBarBase
         mClearButton = findViewById(R.id.clear);
         mVoiceSearch = (ImageView) findViewById(R.id.voicesearch);
         mProgressView = (PageProgressView) findViewById(R.id.progress);
+        mNavButtons = findViewById(R.id.navbuttons);
         mUrlContainer = findViewById(R.id.urlbar_focused);
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
@@ -152,6 +162,25 @@ public class TitleBarXLarge extends TitleBarBase
         mAutoLoginCancel.setOnClickListener(this);
 
         setFocusState(false);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+        Resources res = mContext.getResources();
+        mHideNavButtons = res.getBoolean(R.bool.hide_nav_buttons);
+        if (mUrlInput.hasFocus()) {
+            if (mHideNavButtons && (mNavButtons.getVisibility() == View.VISIBLE)) {
+                int aw = mNavButtons.getMeasuredWidth();
+                mNavButtons.setVisibility(View.GONE);
+                mNavButtons.setAlpha(0f);
+                mNavButtons.setTranslationX(-aw);
+            } else if (!mHideNavButtons && (mNavButtons.getVisibility() == View.GONE)) {
+                mNavButtons.setVisibility(View.VISIBLE);
+                mNavButtons.setAlpha(1f);
+                mNavButtons.setTranslationX(0);
+            }
+        }
     }
 
     void updateNavigationState(Tab tab) {
@@ -402,6 +431,9 @@ public class TitleBarXLarge extends TitleBarBase
 
     private void setFocusState(boolean focus) {
         if (focus) {
+            if (mHideNavButtons) {
+                hideNavButtons();
+            }
             mUrlInput.setDropDownWidth(mUrlContainer.getWidth());
             mUrlInput.setDropDownHorizontalOffset(-mUrlInput.getLeft());
             mSearchButton.setVisibility(View.GONE);
@@ -410,6 +442,9 @@ public class TitleBarXLarge extends TitleBarBase
             mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
             updateSearchMode(false);
         } else {
+            if (mHideNavButtons) {
+                showNavButtons();
+            }
             mGoButton.setVisibility(View.GONE);
             mVoiceSearch.setVisibility(View.GONE);
             mStar.setVisibility(View.VISIBLE);
@@ -547,4 +582,48 @@ public class TitleBarXLarge extends TitleBarBase
     void registerDropdownChangeListener(DropdownChangeListener d) {
         mUrlInput.registerDropdownChangeListener(d);
     }
+
+    private void hideNavButtons() {
+        int awidth = mNavButtons.getMeasuredWidth();
+        Animator anim1 = ObjectAnimator.ofFloat(mNavButtons, "translationX", 0, - awidth);
+        Animator anim2 = ObjectAnimator.ofInt(mUrlContainer, "left", mUrlContainer.getLeft(),
+                mUrlContainer.getPaddingLeft());
+        Animator anim3 = ObjectAnimator.ofFloat(mNavButtons, "alpha", 1f, 0f);
+        AnimatorSet combo = new AnimatorSet();
+        combo.playTogether(anim1, anim2, anim3);
+        combo.addListener(new AnimatorListener() {
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mNavButtons.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+        });
+        combo.setDuration(150);
+        combo.start();
+    }
+
+    private void showNavButtons() {
+        int awidth = mNavButtons.getMeasuredWidth();
+        Animator anim1 = ObjectAnimator.ofFloat(mNavButtons, "translationX", -awidth, 0);
+        Animator anim2 = ObjectAnimator.ofInt(mUrlContainer, "left", 0, awidth);
+        Animator anim3 = ObjectAnimator.ofFloat(mNavButtons, "alpha", 0f, 1f);
+        AnimatorSet combo = new AnimatorSet();
+        combo.playTogether(anim1, anim2, anim3);
+        mNavButtons.setVisibility(View.VISIBLE);
+        combo.setDuration(150);
+        combo.start();
+    }
+
 }
