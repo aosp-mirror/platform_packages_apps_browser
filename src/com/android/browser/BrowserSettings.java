@@ -46,6 +46,7 @@ import android.webkit.WebViewDatabase;
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.WeakHashMap;
 
 /**
  * Class for managing settings
@@ -90,6 +91,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private Controller mController;
     private WebStorageSizeManager mWebStorageSizeManager;
     private AutofillHandler mAutofillHandler;
+    private WeakHashMap<WebSettings, String> mCustomUserAgents;
 
     // Cached settings
     private SearchEngine mSearchEngine;
@@ -111,6 +113,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
         mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
+        mCustomUserAgents = new WeakHashMap<WebSettings, String>();
         mWebStorageSizeManager = new WebStorageSizeManager(mContext,
                 new WebStorageSizeManager.StatFsDiskInfo(getAppCachePath()),
                 new WebStorageSizeManager.WebKitAppCacheInfo(getAppCachePath()));
@@ -151,7 +154,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setForceUserScalable(forceEnableUserScalable());
         settings.setPluginState(getPluginState());
         settings.setTextSize(getTextSize());
-        settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
         settings.setAutoFillEnabled(isAutofillEnabled());
         settings.setLayoutAlgorithm(getLayoutAlgorithm());
         settings.setJavaScriptCanOpenWindowsAutomatically(blockPopupWindows());
@@ -161,6 +163,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setSaveFormData(saveFormdata());
         settings.setUseWideViewPort(isWideViewport());
         settings.setAutoFillProfile(getAutoFillProfile());
+
+        String ua = mCustomUserAgents.get(settings);
+        if (enableUseragentSwitcher() && ua != null) {
+            settings.setUserAgentString(ua);
+        } else {
+            settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
+        }
     }
 
     /**
@@ -385,6 +394,21 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         setDebugEnabled(!isDebugEnabled());
     }
 
+    public boolean hasDesktopUseragent(WebView view) {
+        return view != null && mCustomUserAgents.get(view.getSettings()) != null;
+    }
+
+    public void toggleDesktopUseragent(WebView view) {
+        WebSettings settings = view.getSettings();
+        if (mCustomUserAgents.get(settings) != null) {
+            mCustomUserAgents.remove(settings);
+            settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
+        } else {
+            mCustomUserAgents.put(settings, DESKTOP_USERAGENT);
+            settings.setUserAgentString(DESKTOP_USERAGENT);
+        }
+    }
+
     // -----------------------------
     // getter/setters for accessibility_preferences.xml
     // -----------------------------
@@ -577,6 +601,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean useFullscreen() {
         return mPrefs.getBoolean(PREF_FULLSCREEN, false);
+    }
+
+    public boolean enableUseragentSwitcher() {
+        return mPrefs.getBoolean(PREF_ENABLE_USERAGENT_SWITCHER, false);
     }
 
     // -----------------------------

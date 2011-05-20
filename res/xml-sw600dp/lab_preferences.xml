@@ -34,4 +34,10 @@
         android:defaultValue="false"
         android:title="@string/pref_use_instant_search"
         android:summary="@string/pref_use_instant_search_summary" />
+
+    <CheckBoxPreference
+        android:key="enable_useragent_switcher"
+        android:defaultValue="false"
+        android:title="@string/pref_enable_useragent_switcher"
+        android:summary="@string/pref_enable_useragent_switcher_summary" />
 </PreferenceScreen>

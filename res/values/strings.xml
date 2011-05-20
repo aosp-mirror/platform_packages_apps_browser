@@ -657,10 +657,15 @@
     <string name="pref_use_instant_search_summary">
       Use Google Instant when you use Google Search, to show results as you
       type (this can increase data use).</string>
+    <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
     <string name="pref_lab_fullscreen">Fullscreen</string>
     <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
     <string name="pref_lab_fullscreen_summary">
       Use fullscreen mode to hide the status bar.</string>
+    <!-- Title for the useragent switcher lab feature [CHAR LIMIT=40] -->
+    <string name="pref_enable_useragent_switcher">Useragent Switcher</string>
+    <!-- Summary for the useragent switcher lab feature [CHAR LIMIT=120] -->
+    <string name="pref_enable_useragent_switcher_summary">Toggle between tablet and desktop versions of a site (per tab)</string>
 
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
