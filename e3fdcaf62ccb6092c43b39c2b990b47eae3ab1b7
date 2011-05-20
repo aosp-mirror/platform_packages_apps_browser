@@ -1,0 +1,8 @@
+Change-Id: Ie3fdcaf62ccb6092c43b39c2b990b47eae3ab1b7
+Code-Review+2: Jean-Baptiste Queru <jbq@google.com>
+Verified+1: Jean-Baptiste Queru <jbq@google.com>
+Submitted-by: Jean-Baptiste Queru <jbq@google.com>
+Submitted-at: Wed, 18 Mar 2009 13:55:32 -0700
+Reviewed-on: https://review.source.android.com/9180
+Project: platform/packages/apps/Browser
+Branch: refs/heads/master
