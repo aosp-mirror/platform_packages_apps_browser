@@ -188,6 +188,8 @@ public class BrowserActivity extends Activity
         // Keep a settings instance handy.
         mSettings = BrowserSettings.getInstance();
 
+        mSettings.updateRlzValues(this);
+
         // If this was a web search request, pass it on to the default web
         // search provider and finish this activity.
         if (handleWebSearchIntent(getIntent())) {
@@ -631,6 +633,17 @@ public class BrowserActivity extends Activity
                         while (iter.hasNext()) {
                             String key = iter.next();
                             headers.put(key, pairs.getString(key));
+                        }
+                    }
+
+                    // AppId will be set to the Browser for Search Bar initiated searches
+                    final String appId = intent.getStringExtra(Browser.EXTRA_APPLICATION_ID);
+                    if (getPackageName().equals(appId)) {
+                        String rlz = mSettings.getRlzValue();
+                        Uri uri = Uri.parse(url);
+                        if (!rlz.isEmpty() && needsRlz(uri)) {
+                            Uri rlzUri = addRlzParameter(uri, rlz);
+                            url = rlzUri.toString();
                         }
                     }
                 }
@@ -4012,4 +4025,20 @@ public class BrowserActivity extends Activity
     };
 
     /* package */ static final UrlData EMPTY_URL_DATA = new UrlData(null);
+
+    private static boolean needsRlz(Uri uri) {
+        if ((uri.getQueryParameter("rlz") == null) &&
+            (uri.getQueryParameter("q") != null) &&
+            UrlUtils.isGoogleUri(uri)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static Uri addRlzParameter(Uri uri, String rlz) {
+        if (rlz.isEmpty()) {
+            return uri;
+        }
+        return uri.buildUpon().appendQueryParameter("rlz", rlz).build();
+    }
 }

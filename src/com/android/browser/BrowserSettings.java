@@ -23,14 +23,21 @@ import com.android.browser.search.SearchEngines;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.ContentObserver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.provider.Browser.BookmarkColumns;
 import android.provider.Settings;
 import android.util.Log;
 import android.webkit.CookieManager;
@@ -165,6 +172,11 @@ class BrowserSettings extends Observable {
     // Value to truncate strings when adding them to a TextView within
     // a ListView
     public final static int MAX_TEXTVIEW_LEN = 80;
+
+    public static final String RLZ_PROVIDER = "com.google.android.partnersetup.rlzappprovider";
+    public static final Uri RLZ_PROVIDER_URI = Uri.parse("content://" + RLZ_PROVIDER + "/");
+
+    private String mRlzValue = "";
 
     private TabControl mTabControl;
 
@@ -652,5 +664,116 @@ class BrowserSettings extends Observable {
         domStorageEnabled = true;
         geolocationEnabled = true;
         workersEnabled = true;  // only affects V8. JSC does not have a similar setting
+    }
+
+    /*package*/ String getRlzValue() {
+        return mRlzValue;
+    }
+
+    /*package*/ void updateRlzValues(Context context) {
+        // Use AsyncTask because this queries both RlzProvider and Bookmarks URIs
+        new RlzUpdateTask(context).execute();
+    }
+
+    private class RlzUpdateTask extends AsyncTask<Void, Void, Void> {
+        private final Context context;
+
+        public RlzUpdateTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(Void...unused) {
+            String rlz = retrieveRlzValue(context);
+            if (!rlz.isEmpty()) {
+                mRlzValue = rlz;
+                updateHomePageRlzParameter(context);
+                updateBookmarksRlzParameter(context);
+            }
+            return null;
+        }
+    }
+
+    // Update RLZ value if present in Home page
+    private void updateHomePageRlzParameter(Context context) {
+        Uri uri = Uri.parse(homeUrl);
+        if ((uri.getQueryParameter("rlz") != null) && UrlUtils.isGoogleUri(uri)) {
+            String newHomeUrl = updateRlzParameter(homeUrl);
+            if (!homeUrl.equals(newHomeUrl)) {
+                setHomePage(context, newHomeUrl);
+            }
+        }
+    }
+
+    // Update RLZ value if present in bookmarks
+    private void updateBookmarksRlzParameter(Context context) {
+        Cursor cur = null;
+        try {
+            cur = context.getContentResolver().query(Browser.BOOKMARKS_URI,
+                new String[] { BookmarkColumns._ID, BookmarkColumns.URL },
+                "url LIKE '%rlz=%'", null, null);
+            if ((cur == null) || (cur.getCount() == 0)) {
+                return;
+            }
+            for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
+                long id = cur.getLong(0);
+                String url = cur.getString(1);
+                if ((url == null) || url.isEmpty()) {
+                    continue;
+                }
+
+                Uri uri = Uri.parse(url);
+                if ((uri.getQueryParameter("rlz") != null) && UrlUtils.isGoogleUri(uri)) {
+                    String newUrl = updateRlzParameter(url);
+                    if (!url.equals(newUrl)) {
+                        ContentValues values = new ContentValues();
+                        values.put(BookmarkColumns.URL, newUrl);
+                        Uri bookmarkUri = ContentUris.withAppendedId(Browser.BOOKMARKS_URI, id);
+                        context.getContentResolver().update(bookmarkUri, values, null, null);
+                    }
+                }
+            }
+        } finally {
+            if (cur != null) {
+                cur.close();
+            }
+        }
+    }
+
+    private String updateRlzParameter(String url) {
+        Uri uri = Uri.parse(url);
+        String oldRlz = uri.getQueryParameter("rlz");
+        if (oldRlz != null) {
+            return url.replace("rlz=" + oldRlz, "rlz=" + mRlzValue);
+        }
+        return url;
+    }
+
+    // Retrieve the RLZ value from the Rlz Provider
+    private static String retrieveRlzValue(Context context) {
+        String rlz = "";
+        PackageManager pm = context.getPackageManager();
+        if (pm.resolveContentProvider(RLZ_PROVIDER, 0) == null) {
+            return rlz;
+        }
+
+        String ap = context.getResources().getString(R.string.rlz_access_point);
+        if (ap.isEmpty()) {
+            return rlz;
+        }
+
+        Uri rlzUri = Uri.withAppendedPath(RLZ_PROVIDER_URI, ap);
+        Cursor cur = null;
+        try {
+            cur = context.getContentResolver().query(rlzUri, null, null, null, null);
+            if (cur != null && cur.moveToFirst() && !cur.isNull(0)) {
+                rlz = cur.getString(0);
+            }
+        } finally {
+            if (cur != null) {
+                cur.close();
+            }
+        }
+        return rlz;
     }
 }
