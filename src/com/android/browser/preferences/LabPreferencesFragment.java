@@ -22,11 +22,14 @@ import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 import com.android.browser.search.SearchEngine;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
+import android.view.LayoutInflater;
+import android.view.View;
 
 public class LabPreferencesFragment extends PreferenceFragment
         implements OnPreferenceChangeListener {
@@ -41,12 +44,16 @@ public class LabPreferencesFragment extends PreferenceFragment
 
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.lab_preferences);
+        registerChangeListener(PreferenceKeys.PREF_ENABLE_QUICK_CONTROLS);
+        registerChangeListener(PreferenceKeys.PREF_ENABLE_USERAGENT_SWITCHER);
+        useInstantPref = findPreference(PreferenceKeys.PREF_USE_INSTANT_SEARCH);
+    }
 
-        Preference e = findPreference(PreferenceKeys.PREF_ENABLE_QUICK_CONTROLS);
+    private void registerChangeListener(String key) {
+        Preference e = findPreference(key);
         if (e != null) {
             e.setOnPreferenceChangeListener(this);
         }
-        useInstantPref = findPreference(PreferenceKeys.PREF_USE_INSTANT_SEARCH);
     }
 
     @Override
@@ -68,9 +75,23 @@ public class LabPreferencesFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        // Attempt to restart
-        startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
-                getActivity(), BrowserActivity.class));
+        String key = preference.getKey();
+        if (PreferenceKeys.PREF_ENABLE_QUICK_CONTROLS.equals(key)) {
+            // Attempt to restart
+            startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
+                    getActivity(), BrowserActivity.class));
+        }
+        if (PreferenceKeys.PREF_ENABLE_USERAGENT_SWITCHER.equals(key)) {
+            if ((Boolean)newValue) {
+                // Show the help
+                LayoutInflater inflater = LayoutInflater.from(getActivity());
+                View content = inflater.inflate(R.layout.help_dialog_useragent_switcher, null);
+                new AlertDialog.Builder(getActivity())
+                        .setView(content)
+                        .setNeutralButton(android.R.string.ok, null)
+                        .show();
+            }
+        }
         return true;
     }
 }
