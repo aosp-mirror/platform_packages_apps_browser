@@ -191,6 +191,7 @@ class Tab {
     static final String APPID = "appid";
     static final String INCOGNITO = "privateBrowsingEnabled";
     static final String SCREENSHOT = "screenshot";
+    static final String USERAGENT = "useragent";
 
     // -------------------------------------------------------------------------
 
@@ -1449,6 +1450,12 @@ class Tab {
                 mSavedState.putLong(PARENTTAB, parent.getId());
             }
         }
+
+        // Sync the WebView useragent with the parent
+        if (parent != null && mSettings.hasDesktopUseragent(parent.getWebView())
+                != mSettings.hasDesktopUseragent(getWebView())) {
+            mSettings.toggleDesktopUseragent(getWebView());
+        }
     }
 
     /**
@@ -1739,6 +1746,8 @@ class Tab {
         if (mScreenshot != null) {
             mSavedState.putParcelable(SCREENSHOT, mScreenshot);
         }
+        mSavedState.putBoolean(USERAGENT,
+                mSettings.hasDesktopUseragent(getWebView()));
         return true;
     }
 
@@ -1755,6 +1764,10 @@ class Tab {
         mId = b.getLong(ID);
         mAppId = b.getString(APPID);
         mScreenshot = b.getParcelable(SCREENSHOT);
+        if (b.getBoolean(USERAGENT)
+                != mSettings.hasDesktopUseragent(getWebView())) {
+            mSettings.toggleDesktopUseragent(getWebView());
+        }
 
         final WebBackForwardList list = mMainView.restoreState(b);
         if (list == null) {

@@ -399,6 +399,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public void toggleDesktopUseragent(WebView view) {
+        if (view == null) {
+            return;
+        }
         WebSettings settings = view.getSettings();
         if (mCustomUserAgents.get(settings) != null) {
             mCustomUserAgents.remove(settings);
