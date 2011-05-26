@@ -65,8 +65,7 @@
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Mégse"</string>
     <string name="location" msgid="3411848697912600125">"Cím"</string>
-    <!-- no translation found for account (5179824606448077042) -->
-    <skip />
+    <string name="account" msgid="5179824606448077042">"Fiók"</string>
     <string name="containing_folder" msgid="6771180232953030479">"Mentés ide:"</string>
     <string name="new_folder" msgid="7743540149088867917">"Új mappa"</string>
     <string name="edit_folder" msgid="621817453133656156">"Mappa szerkesztése"</string>
@@ -284,6 +283,12 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"A Google-keresésnél használja a Google Instantot, és a találatok gépelés közben megjelennek (az adatforgalom nőhet)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Teljes képernyő"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Használja a teljes képernyős módot az állapotsor elrejtéséhez."</string>
+    <!-- no translation found for pref_enable_useragent_switcher (9063310468293037499) -->
+    <skip />
+    <!-- no translation found for pref_enable_useragent_switcher_summary (1782363693543953474) -->
+    <skip />
+    <!-- no translation found for help_useragent_switcher (123586256526014375) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Adatkapcsolat-probléma"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Probléma van a fájllal"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Megerősítés"</string>
@@ -396,6 +401,5 @@
     <string name="recover_yes" msgid="5837971910598069183">"Igen"</string>
     <string name="recover_no" msgid="3121030267940592611">"Nem"</string>
     <string name="preview" msgid="1470306351083271066">"Előnézet:"</string>
-    <!-- no translation found for local_bookmarks (533816851415228520) -->
-    <skip />
+    <string name="local_bookmarks" msgid="533816851415228520">"Helyi"</string>
 </resources>

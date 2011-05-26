@@ -65,8 +65,7 @@
     <string name="save" msgid="5922311934992468496">"Aceptar"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Cancelar"</string>
     <string name="location" msgid="3411848697912600125">"Dirección"</string>
-    <!-- no translation found for account (5179824606448077042) -->
-    <skip />
+    <string name="account" msgid="5179824606448077042">"Cuenta"</string>
     <string name="containing_folder" msgid="6771180232953030479">"Agregar a"</string>
     <string name="new_folder" msgid="7743540149088867917">"Carpeta nueva"</string>
     <string name="edit_folder" msgid="621817453133656156">"Editar carpeta"</string>
@@ -284,6 +283,12 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Usa Google Instant con Búsq. de Google para que los resultados aparezcan mientras tipeas (esto puede aumentar el uso de datos)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Pantalla completa"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Usa el modo de pantalla completa para ocultar la barra de estado."</string>
+    <!-- no translation found for pref_enable_useragent_switcher (9063310468293037499) -->
+    <skip />
+    <!-- no translation found for pref_enable_useragent_switcher_summary (1782363693543953474) -->
+    <skip />
+    <!-- no translation found for help_useragent_switcher (123586256526014375) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de conectividad de datos"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema con el archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmar"</string>
@@ -396,6 +401,5 @@
     <string name="recover_yes" msgid="5837971910598069183">"Sí"</string>
     <string name="recover_no" msgid="3121030267940592611">"No"</string>
     <string name="preview" msgid="1470306351083271066">"Vista previa:"</string>
-    <!-- no translation found for local_bookmarks (533816851415228520) -->
-    <skip />
+    <string name="local_bookmarks" msgid="533816851415228520">"Locales"</string>
 </resources>
