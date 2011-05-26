@@ -996,7 +996,7 @@ public class AddBookmarkPage extends Activity
         }
     }
 
-    static class AccountsLoader extends CursorLoader {
+    public static class AccountsLoader extends CursorLoader {
 
         static final String[] PROJECTION = new String[] {
             Accounts.ACCOUNT_NAME,
@@ -1015,11 +1015,11 @@ public class AddBookmarkPage extends Activity
 
     }
 
-    static class BookmarkAccount {
+    public static class BookmarkAccount {
 
         private String mLabel;
         String accountName, accountType;
-        long rootFolderId;
+        public long rootFolderId;
 
         public BookmarkAccount(Context context, Cursor cursor) {
             accountName = cursor.getString(

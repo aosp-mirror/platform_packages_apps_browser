@@ -16,9 +16,6 @@
 
 package com.android.browser.widget;
 
-import com.android.browser.BrowserActivity;
-import com.android.browser.R;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -27,6 +24,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
+
+import com.android.browser.BrowserActivity;
+import com.android.browser.R;
 
 /**
  * Widget that shows a preview of the user's bookmarks.
@@ -91,7 +91,7 @@ public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(),
                     R.layout.bookmarkthumbnailwidget);
             views.setOnClickPendingIntent(R.id.app_shortcut, launchBrowser);
-            views.setRemoteAdapter(appWidgetId, R.id.bookmarks_list, updateIntent);
+            views.setRemoteAdapter(R.id.bookmarks_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.bookmarks_list);
             Intent ic = new Intent(context, BookmarkWidgetProxy.class);
             views.setPendingIntentTemplate(R.id.bookmarks_list,
@@ -110,27 +110,9 @@ public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
     }
 
     public static void refreshWidgets(Context context) {
-        refreshWidgets(context, false);
+        context.sendBroadcast(new Intent(
+                BookmarkThumbnailWidgetProvider.ACTION_BOOKMARK_APPWIDGET_UPDATE,
+                null, context, BookmarkThumbnailWidgetProvider.class));
     }
 
-    public static void refreshWidgets(Context context, boolean zeroState) {
-        if (zeroState) {
-            final Context appContext = context.getApplicationContext();
-            new Thread() {
-                @Override
-                public void run() {
-                    AppWidgetManager wm = AppWidgetManager.getInstance(appContext);
-                    int[] ids = wm.getAppWidgetIds(getComponentName(appContext));
-                    for (int id : ids) {
-                        BookmarkThumbnailWidgetService.clearWidgetState(appContext, id);
-                    }
-                    refreshWidgets(appContext, false);
-                }
-            }.start();
-        } else {
-            context.sendBroadcast(new Intent(
-                    BookmarkThumbnailWidgetProvider.ACTION_BOOKMARK_APPWIDGET_UPDATE,
-                    null, context, BookmarkThumbnailWidgetProvider.class));
-        }
-    }
 }

@@ -16,10 +16,6 @@
 
 package com.android.browser.widget;
 
-import com.android.browser.BookmarkUtils;
-import com.android.browser.BrowserActivity;
-import com.android.browser.R;
-
 import android.appwidget.AppWidgetManager;
 import android.content.ContentUris;
 import android.content.Context;
@@ -40,9 +36,12 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.android.browser.BrowserActivity;
+import com.android.browser.R;
+import com.android.browser.provider.BrowserProvider2;
+
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -110,11 +109,11 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
         }
     }
 
-    static void clearWidgetState(Context context, int widgetId) {
+    static void setupWidgetState(Context context, int widgetId, long rootFolder) {
         SharedPreferences pref = getWidgetState(context, widgetId);
         pref.edit()
-            .remove(STATE_CURRENT_FOLDER)
-            .remove(STATE_ROOT_FOLDER)
+            .putLong(STATE_CURRENT_FOLDER, rootFolder)
+            .putLong(STATE_ROOT_FOLDER, rootFolder)
             .commit();
     }
 
@@ -311,8 +310,8 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
             long token = Binder.clearCallingIdentity();
             syncState();
             if (mRootFolder < 0 || mCurrentFolder < 0) {
-                // Our state has been zero'd, reset (account change most likely)
-                mRootFolder = getRootFolder();
+                // This shouldn't happen, but JIC default to the local account
+                mRootFolder = BrowserProvider2.FIXED_ID_ROOT;
                 mCurrentFolder = mRootFolder;
                 saveState();
             }
@@ -327,27 +326,12 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
             }
         }
 
-        long getRootFolder() {
-            Uri uri = Uri.withAppendedPath(
-                    BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER, "id");
-            uri = BookmarkUtils.addAccountInfo(mContext, uri.buildUpon()).build();
-            Cursor c = mContext.getContentResolver().query(
-                    uri, null, null, null, null);
-            try {
-                c.moveToFirst();
-                return c.getLong(0);
-            } finally {
-                c.close();
-            }
-        }
-
         void loadBookmarks() {
             resetBookmarks();
 
             Uri uri = ContentUris.withAppendedId(
                     BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER,
                     mCurrentFolder);
-            uri = BookmarkUtils.addAccountInfo(mContext, uri.buildUpon()).build();
             mBookmarks = mContext.getContentResolver().query(uri, PROJECTION,
                     null, null, null);
             if (mCurrentFolder != mRootFolder) {

@@ -57,7 +57,6 @@ public class AccountsChangedReceiver extends BroadcastReceiver {
             ContentResolver.setSyncAutomatically(a, BrowserContract.AUTHORITY, false);
             ContentResolver.setIsSyncable(a, BrowserContract.AUTHORITY, 0);
         }
-        BookmarkThumbnailWidgetProvider.refreshWidgets(context, true);
     }
 
 }

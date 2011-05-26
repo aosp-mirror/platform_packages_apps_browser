@@ -197,6 +197,12 @@
         <receiver
             android:name=".widget.BookmarkWidgetProxy"
             android:exported="false" />
+        <activity android:name=".widget.BookmarkWidgetConfigure"
+            android:theme="@android:style/Theme.Holo.DialogWhenLarge">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
 
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />

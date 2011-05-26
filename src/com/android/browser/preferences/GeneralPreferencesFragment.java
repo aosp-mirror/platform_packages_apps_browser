@@ -113,7 +113,6 @@ public class GeneralPreferencesFragment extends PreferenceFragment
             if (BrowserBookmarksPage.PREF_ACCOUNT_NAME.equals(key)
                     || BrowserBookmarksPage.PREF_ACCOUNT_TYPE.equals(key)) {
                 refreshUi();
-                BookmarkThumbnailWidgetProvider.refreshWidgets(getActivity(), true);
             }
         }
 
