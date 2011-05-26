@@ -72,10 +72,6 @@ public class Bookmarks {
         ContentValues values = new ContentValues();
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
-            String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
-            values.put(BrowserContract.Bookmarks.ACCOUNT_TYPE, accountType);
-            values.put(BrowserContract.Bookmarks.ACCOUNT_NAME, accountName);
             values.put(BrowserContract.Bookmarks.TITLE, name);
             values.put(BrowserContract.Bookmarks.URL, url);
             values.put(BrowserContract.Bookmarks.IS_FOLDER, 0);

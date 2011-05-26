@@ -219,18 +219,6 @@ public class BookmarkUtils {
         return BrowserContract.Bookmarks.CONTENT_URI;
     }
 
-    @Deprecated
-    public static Uri.Builder addAccountInfo(Context context, Uri.Builder ub) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
-        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
-        ub.appendQueryParameter(
-                BrowserContract.Bookmarks.PARAM_ACCOUNT_NAME,accountName);
-        ub.appendQueryParameter(
-                BrowserContract.Bookmarks.PARAM_ACCOUNT_TYPE, accountType);
-        return ub;
-    }
-
     /**
      * Show a confirmation dialog to remove a bookmark.
      * @param id Id of the bookmark to remove

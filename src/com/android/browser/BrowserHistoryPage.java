@@ -136,11 +136,7 @@ public class BrowserHistoryPage extends Fragment
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getActivity());
-        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
-        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
         Uri.Builder combinedBuilder = Combined.CONTENT_URI.buildUpon();
-        combinedBuilder.appendQueryParameter(BrowserContract.Bookmarks.PARAM_ACCOUNT_TYPE, accountType);
-        combinedBuilder.appendQueryParameter(BrowserContract.Bookmarks.PARAM_ACCOUNT_NAME, accountName);
 
         switch (id) {
             case LOADER_HISTORY: {
