@@ -16,10 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.BookmarkDragHandler.BookmarkDragController;
-import com.android.browser.view.BookmarkExpandableGridView;
-import com.android.browser.view.BookmarkExpandableGridView.BookmarkContextMenuInfo;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -44,6 +40,7 @@ import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Accounts;
 import android.provider.BrowserContract.ChromeSyncColumns;
+import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -55,9 +52,16 @@ import android.view.ViewGroup;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
+
+import com.android.browser.BookmarkDragHandler.BookmarkDragController;
+import com.android.browser.BookmarkDragHandler.BookmarkDragState;
+import com.android.browser.view.BookmarkExpandableGridView;
+import com.android.browser.view.BookmarkExpandableGridView.BookmarkContextMenuInfo;
 
 import java.util.HashMap;
 
@@ -74,6 +78,11 @@ interface BookmarksPageCallbacks {
 public class BrowserBookmarksPage extends Fragment implements View.OnCreateContextMenuListener,
         LoaderManager.LoaderCallbacks<Cursor>, IconListener,
         BreadCrumbView.Controller, OnMenuItemClickListener, OnChildClickListener {
+
+    public static class ExtraDragState {
+        public int childPosition;
+        public int groupPosition;
+    }
 
     static final String LOGTAG = "browser";
 
@@ -179,33 +188,42 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        final Activity activity = getActivity();
         BookmarkContextMenuInfo i = (BookmarkContextMenuInfo)item.getMenuInfo();
         // If we have no menu info, we can't tell which item was selected.
         if (i == null) {
             return false;
         }
-        BrowserBookmarksAdapter adapter = getChildAdapter(i.groupPosition);
 
-        switch (item.getItemId()) {
+        if (handleContextItem(item.getItemId(), i.groupPosition, i.childPosition)) {
+            return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    public boolean handleContextItem(int itemId, int groupPosition,
+            int childPosition) {
+        final Activity activity = getActivity();
+        BrowserBookmarksAdapter adapter = getChildAdapter(groupPosition);
+
+        switch (itemId) {
         case R.id.open_context_menu_id:
-            loadUrl(adapter, i.childPosition);
+            loadUrl(adapter, childPosition);
             break;
         case R.id.edit_context_menu_id:
-            editBookmark(adapter, i.childPosition);
+            editBookmark(adapter, childPosition);
             break;
         case R.id.shortcut_context_menu_id:
-            Cursor c = adapter.getItem(i.childPosition);
+            Cursor c = adapter.getItem(childPosition);
             activity.sendBroadcast(createShortcutIntent(getActivity(), c));
             break;
         case R.id.delete_context_menu_id:
-            displayRemoveBookmarkDialog(adapter, i.childPosition);
+            displayRemoveBookmarkDialog(adapter, childPosition);
             break;
         case R.id.new_window_context_menu_id:
-            openInNewWindow(adapter, i.childPosition);
+            openInNewWindow(adapter, childPosition);
             break;
         case R.id.share_link_context_menu_id: {
-            Cursor cursor = adapter.getItem(i.childPosition);
+            Cursor cursor = adapter.getItem(childPosition);
             Controller.sharePage(activity,
                     cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE),
                     cursor.getString(BookmarksLoader.COLUMN_INDEX_URL),
@@ -214,16 +232,16 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             break;
         }
         case R.id.copy_url_context_menu_id:
-            copy(getUrl(adapter, i.childPosition));
+            copy(getUrl(adapter, childPosition));
             break;
         case R.id.homepage_context_menu_id: {
-            BrowserSettings.getInstance().setHomePage(getUrl(adapter, i.childPosition));
+            BrowserSettings.getInstance().setHomePage(getUrl(adapter, childPosition));
             Toast.makeText(activity, R.string.homepage_set, Toast.LENGTH_LONG).show();
             break;
         }
         // Only for the Most visited page
         case R.id.save_to_bookmarks_menu_id: {
-            Cursor cursor = adapter.getItem(i.childPosition);
+            Cursor cursor = adapter.getItem(childPosition);
             String name = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
             String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
             // If the site is bookmarked, the item becomes remove from
@@ -232,7 +250,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             break;
         }
         default:
-            return super.onContextItemSelected(item);
+            return false;
         }
         return true;
     }
@@ -683,6 +701,41 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         @Override
         public boolean startDrag(Cursor item) {
             return canEdit(item);
+        }
+
+        @Override
+        public ViewGroup getActionModeView(ActionMode mode,
+                BookmarkDragState state) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            LinearLayout view = (LinearLayout) inflater.inflate(
+                    R.layout.bookmarks_drag_actionmode, null);
+            view.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+            ExtraDragState extraState = (ExtraDragState) state.extraState;
+            BrowserBookmarksAdapter adapter = getChildAdapter(extraState.groupPosition);
+            Cursor c = adapter.getItem(extraState.childPosition);
+            boolean isFolder = c.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
+            if (isFolder) {
+                view.findViewById(R.id.open_context_menu_id).setVisibility(View.GONE);
+                ImageView iv = (ImageView) view.findViewById(
+                        R.id.new_window_context_menu_id);
+                iv.setImageResource(R.drawable.ic_windows_holo_dark);
+            }
+            return view;
+        }
+
+        @Override
+        public void actionItemClicked(View v, BookmarkDragState state) {
+            if (v.getId() == R.id.info) {
+                if (mCurrentView == VIEW_THUMBNAILS) {
+                    mGrid.showContextMenuForState(state);
+                } else {
+                    // TODO: Support expandable list
+                }
+            } else {
+                ExtraDragState extraState = (ExtraDragState) state.extraState;
+                handleContextItem(v.getId(), extraState.groupPosition,
+                        extraState.childPosition);
+            }
         }
     };
 

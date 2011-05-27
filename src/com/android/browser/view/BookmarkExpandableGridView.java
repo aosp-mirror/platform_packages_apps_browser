@@ -16,13 +16,6 @@
 
 package com.android.browser.view;
 
-import com.android.browser.BookmarkDragHandler;
-import com.android.browser.BreadCrumbView;
-import com.android.browser.BrowserBookmarksAdapter;
-import com.android.browser.R;
-import com.android.browser.BookmarkDragHandler.BookmarkDragAdapter;
-import com.android.internal.view.menu.MenuBuilder;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DataSetObserver;
@@ -39,6 +32,15 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.android.browser.BookmarkDragHandler;
+import com.android.browser.BookmarkDragHandler.BookmarkDragAdapter;
+import com.android.browser.BookmarkDragHandler.BookmarkDragState;
+import com.android.browser.BreadCrumbView;
+import com.android.browser.BrowserBookmarksAdapter;
+import com.android.browser.BrowserBookmarksPage.ExtraDragState;
+import com.android.browser.R;
+import com.android.internal.view.menu.MenuBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -206,6 +208,16 @@ public class BookmarkExpandableGridView extends ExpandableListView
         return mDragAdapter;
     }
 
+    public void showContextMenuForState(BookmarkDragState state) {
+        ExtraDragState extraState = (ExtraDragState) state.extraState;
+        mContextMenuInfo = new BookmarkContextMenuInfo(
+                extraState.childPosition,
+                extraState.groupPosition);
+        if (getParent() != null) {
+            getParent().showContextMenuForChild(BookmarkExpandableGridView.this);
+        }
+    }
+
     private BookmarkDragAdapter mDragAdapter = new BookmarkDragAdapter() {
 
         @Override
@@ -219,6 +231,7 @@ public class BookmarkExpandableGridView extends ExpandableListView
             int childPosition = (Integer) v.getTag(R.id.child_position);
             return getChildAdapter(groupPosition).getItem(childPosition);
         }
+
     };
 
     private OnClickListener mChildClickListener = new OnClickListener() {
@@ -252,11 +265,13 @@ public class BookmarkExpandableGridView extends ExpandableListView
 
         @Override
         public boolean onLongClick(View v) {
-            int groupPosition = (Integer) v.getTag(R.id.group_position);
-            int childPosition = (Integer) v.getTag(R.id.child_position);
+            ExtraDragState state = new ExtraDragState();
+            state.groupPosition = (Integer) v.getTag(R.id.group_position);
+            state.childPosition = (Integer) v.getTag(R.id.child_position);
             long id = (Long) v.getTag(R.id.child_id);
-            Cursor c = getChildAdapter(groupPosition).getItem(childPosition);
-            return mDragHandler.startDrag(v, c, id);
+            Cursor c = getChildAdapter(state.groupPosition)
+                    .getItem(state.childPosition);
+            return mDragHandler.startDrag(v, c, id, state);
         }
     };
 
