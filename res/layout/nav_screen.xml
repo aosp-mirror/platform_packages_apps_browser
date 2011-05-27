@@ -21,12 +21,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <LinearLayout
-        android:id="@+id/titlebar"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@drawable/bg_urlbar" />
-    <LinearLayout
         android:id="@+id/tabbar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -69,7 +63,5 @@
         android:id="@+id/scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/tabbar"
-        android:paddingTop="0dp"
-        android:paddingBottom="10dp" />
+        android:layout_above="@id/tabbar" />
 </RelativeLayout>

@@ -16,12 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.IntentHandler.UrlData;
-import com.android.browser.UI.DropdownChangeListener;
-import com.android.browser.provider.BrowserProvider;
-import com.android.browser.search.SearchEngine;
-import com.android.common.Search;
-
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.SearchManager;
@@ -80,6 +74,12 @@ import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
+
+import com.android.browser.IntentHandler.UrlData;
+import com.android.browser.UI.DropdownChangeListener;
+import com.android.browser.provider.BrowserProvider;
+import com.android.browser.search.SearchEngine;
+import com.android.common.Search;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -1242,8 +1242,8 @@ public class Controller
         }
     }
 
-    protected void onMenuKey() {
-        mUi.onMenuKey();
+    protected boolean onMenuKey() {
+        return mUi.onMenuKey();
     }
 
     // menu handling and state
@@ -2465,8 +2465,12 @@ public class Controller
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
         if (KeyEvent.KEYCODE_MENU == keyCode) {
-            event.startTracking();
-            return true;
+            if (mOptionsMenuHandler != null) {
+                return false;
+            } else {
+                event.startTracking();
+                return true;
+            }
         }
         if (!noModifiers
                 && ((KeyEvent.KEYCODE_MENU == keyCode)
@@ -2594,8 +2598,7 @@ public class Controller
         if (KeyEvent.KEYCODE_MENU == keyCode) {
             mMenuIsDown = false;
             if (event.isTracking() && !event.isCanceled()) {
-                onMenuKey();
-                return true;
+                return onMenuKey();
             }
         }
         if (!event.hasNoModifiers()) return false;

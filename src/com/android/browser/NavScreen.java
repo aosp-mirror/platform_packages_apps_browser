@@ -74,16 +74,6 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
         init();
     }
 
-    @Override
-    public void onMeasure(int wspec, int hspec) {
-        super.onMeasure(wspec, hspec);
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        mAdapter.notifyDataSetChanged();
-    }
-
     protected Tab getSelectedTab() {
         return (Tab) mScroller.getSelectedItem();
     }
@@ -268,66 +258,34 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.nav_tab_view,
-                        null);
-            }
+            final NavTabView tabview = new NavTabView(mActivity);
             final Tab tab = getItem(position);
             final BrowserWebView web = (BrowserWebView) tab.getWebView();
-            removeFromParent(web);
-            FrameLayout mview = (FrameLayout) convertView.findViewById(R.id.tab_view);
-            mview.addView(web, 0);
-            ImageButton close = (ImageButton) convertView.findViewById(R.id.closetab);
-            close.setOnClickListener(new OnClickListener() {
+            tabview.setWebView(mUi, tab);
+            tabview.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onCloseTab((Tab) (mScroller.getSelectedItem()));
-                }
-            });
-            web.setNavMode(true);
-            web.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mScroller.setSelection(position);
-                    close();
-                }
-            });
-            ImageButton forward = (ImageButton) convertView.findViewById(R.id.forward);
-            ImageButton refresh = (ImageButton) convertView.findViewById(R.id.refresh);
-            TextView title = (TextView) convertView.findViewById(R.id.title);
-            ImageView favicon = (ImageView) convertView.findViewById(R.id.favicon);
-            if (web != null) {
-                forward.setVisibility(web.canGoForward()
-                        ? View.VISIBLE : View.GONE);
-            }
-            // refresh titlebar
-            favicon.setImageDrawable(mUi.getFaviconDrawable(tab.getFavicon()));
-            title.setText(tab.getUrl());
-            title.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mUi.getTitleBar().setSkipTitleBarAnimations(true);
-                    close(false);
-                    mUi.editUrl(false);
-                    mUi.getTitleBar().setSkipTitleBarAnimations(false);
-                }
-            });
-            forward.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mUi.hideNavScreen(true);
-                    web.goForward();
-                }
-            });
-            refresh.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mUi.hideNavScreen(true);
-                    web.reload();
-                }
-            });
+                    if (tabview.isRefresh(v)) {
+                        mUi.hideNavScreen(true);
+                        web.reload();
+                    } else if (tabview.isClose(v)) {
+                        onCloseTab((Tab) (mScroller.getSelectedItem()));
+                    } else if (tabview.isTitle(v)) {
+                        mUi.getTitleBar().setSkipTitleBarAnimations(true);
+                        close(false);
+                        mUi.editUrl(false);
+                        mUi.getTitleBar().setSkipTitleBarAnimations(false);
+                    } else if (tabview.isForward(v)) {
+                        mUi.hideNavScreen(true);
+                        web.goForward();
+                    } else if (tabview.isWebView(v)) {
+                        mScroller.setSelection(position);
+                        close();
 
-            return convertView;
+                    }
+                }
+            });
+            return tabview;
         }
 
     }
@@ -391,10 +349,5 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
 
     }
 
-    private static void removeFromParent(View v) {
-        if (v.getParent() != null) {
-            ((ViewGroup) v.getParent()).removeView(v);
-        }
-    }
 
 }
