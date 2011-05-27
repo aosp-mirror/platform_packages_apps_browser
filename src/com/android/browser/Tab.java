@@ -1706,6 +1706,15 @@ class Tab {
         return mSavedState;
     }
 
+    Bundle getSavedState(boolean saveImages) {
+        if (saveImages && mScreenshot != null) {
+            Bundle b = new Bundle(mSavedState);
+            b.putParcelable(SCREENSHOT, mScreenshot);
+            return b;
+        }
+        return mSavedState;
+    }
+
     /**
      * Set the saved state.
      */
@@ -1738,9 +1747,6 @@ class Tab {
         // Remember the parent tab so the relationship can be restored.
         if (mParent != null) {
             mSavedState.putLong(PARENTTAB, mParent.mId);
-        }
-        if (mScreenshot != null) {
-            mSavedState.putParcelable(SCREENSHOT, mScreenshot);
         }
         mSavedState.putBoolean(USERAGENT,
                 mSettings.hasDesktopUseragent(getWebView()));

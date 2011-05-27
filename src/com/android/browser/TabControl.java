@@ -272,15 +272,17 @@ class TabControl {
      * position sorted array of tab ids
      * for each tab id, save the tab state
      * @param outState
+     * @param saveImages
      */
-    void saveState(Bundle outState) {
+    void saveState(Bundle outState, boolean saveImages) {
         final int numTabs = getTabCount();
         long[] ids = new long[numTabs];
         int i = 0;
         for (Tab tab : mTabs) {
             ids[i++] = tab.getId();
             if (tab.saveState()) {
-                outState.putBundle(Long.toString(tab.getId()), tab.getSavedState());
+                outState.putBundle(Long.toString(tab.getId()),
+                        tab.getSavedState(saveImages));
             }
         }
         outState.putLongArray(POSITIONS, ids);

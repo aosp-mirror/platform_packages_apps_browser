@@ -22,7 +22,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Parcel;
 import android.util.Log;
 
@@ -45,7 +44,7 @@ public class CrashRecoveryHandler {
 
     public void backupState() {
         final Bundle state = new Bundle();
-        mController.onSaveInstanceState(state);
+        mController.onSaveInstanceState(state, false);
         final Context context = mController.getActivity();
         new Thread() {
             @Override
@@ -57,7 +56,7 @@ public class CrashRecoveryHandler {
                             Context.MODE_PRIVATE);
                     fout.write(p.marshall());
                     fout.close();
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     Log.i(LOGTAG, "Failed to save persistent state", e);
                 } finally {
                     p.recycle();

@@ -115,7 +115,7 @@ public class BrowserActivity extends Activity {
     protected void onNewIntent(Intent intent) {
         if (ACTION_RESTART.equals(intent.getAction())) {
             Bundle outState = new Bundle();
-            mController.onSaveInstanceState(outState);
+            mController.onSaveInstanceState(outState, true);
             finish();
             getApplicationContext().startActivity(
                     new Intent(getApplicationContext(), BrowserActivity.class)
@@ -166,7 +166,7 @@ public class BrowserActivity extends Activity {
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onSaveInstanceState: this=" + this);
         }
-        mController.onSaveInstanceState(outState);
+        mController.onSaveInstanceState(outState, true);
     }
 
     @Override

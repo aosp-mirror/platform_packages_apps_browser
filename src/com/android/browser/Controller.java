@@ -616,7 +616,7 @@ public class Controller
         mCrashRecoveryHandler.clearState();
     }
 
-    void onSaveInstanceState(Bundle outState) {
+    void onSaveInstanceState(Bundle outState, boolean saveImages) {
         // the default implementation requires each view to have an id. As the
         // browser handles the state itself and it doesn't use id for the views,
         // don't call the default implementation. Otherwise it will trigger the
@@ -624,7 +624,7 @@ public class Controller
         // focused view XXX has no id".
 
         // Save all the tabs
-        mTabControl.saveState(outState);
+        mTabControl.saveState(outState, saveImages);
         // Save time so that we know how old incognito tabs (if any) are.
         outState.putSerializable("lastActiveDate", Calendar.getInstance());
     }
