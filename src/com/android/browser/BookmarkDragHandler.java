@@ -16,23 +16,30 @@
 
 package com.android.browser;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BrowserContract;
-import android.provider.BrowserContract.Bookmarks;
+import android.view.ActionMode;
+import android.view.ActionMode.Callback;
 import android.view.DragEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnDragListener;
+import android.view.ViewGroup;
 
-public class BookmarkDragHandler {
+public class BookmarkDragHandler implements Callback {
 
     public static interface BookmarkDragController {
         boolean startDrag(Cursor item);
+
+        ViewGroup getActionModeView(ActionMode mode, BookmarkDragState state);
+        void actionItemClicked(View v, BookmarkDragState state);
     }
 
     public static interface BookmarkDragAdapter {
@@ -40,26 +47,29 @@ public class BookmarkDragHandler {
         Cursor getItemForView(View v);
     }
 
-    static class BookmarkDragState {
-        long id;
-        long parent;
+    public static class BookmarkDragState {
+        public long id;
+        public long parent;
+        public Object extraState;
     }
 
     static final String BOOKMARK_DRAG_LABEL = "com.android.browser.BOOKMARK_LABEL";
 
-    private Context mContext;
+    private Activity mActivity;
     private BookmarkDragController mDragController;
     private BookmarkDragAdapter mDragAdapter;
+    private ActionMode mActionMode;
+    private BookmarkDragState mDragState;
 
-    public BookmarkDragHandler(Context context, BookmarkDragController controller,
+    public BookmarkDragHandler(Activity activity, BookmarkDragController controller,
             BookmarkDragAdapter adapter) {
-        mContext = context;
+        mActivity = activity;
         mDragController = controller;
         mDragAdapter = adapter;
         mDragAdapter.setBookmarkDragHandler(this);
     }
 
-    public boolean startDrag(View view, Cursor item, long id) {
+    public boolean startDrag(View view, Cursor item, long id, Object extraState) {
         if (!mDragController.startDrag(item)) {
             return false;
         }
@@ -69,7 +79,10 @@ public class BookmarkDragHandler {
         BookmarkDragState state = new BookmarkDragState();
         state.id = id;
         state.parent = item.getLong(BookmarksLoader.COLUMN_INDEX_PARENT);
+        state.extraState = extraState;
+        mDragState = state;
         view.startDrag(data, new View.DragShadowBuilder(view), state, 0);
+        mActionMode = view.startActionMode(this);
         return true;
     }
 
@@ -98,9 +111,9 @@ public class BookmarkDragHandler {
                     parent = c.getLong(BookmarksLoader.COLUMN_INDEX_ID);
                 }
                 if (parent != state.parent) {
-                    ContentResolver cr = mContext.getContentResolver();
+                    ContentResolver cr = mActivity.getContentResolver();
                     ContentValues values = new ContentValues();
-                    values.put(Bookmarks.PARENT, parent);
+                    values.put(BrowserContract.Bookmarks.PARENT, parent);
                     Uri uri = event.getClipData().getItemAt(0).getUri();
                     cr.update(uri, values, null, null);
                 }
@@ -110,7 +123,55 @@ public class BookmarkDragHandler {
         }
     };
 
+    private OnDragListener mActionModeDragListener = new OnDragListener() {
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            BookmarkDragState state = (BookmarkDragState) event.getLocalState();
+            switch (event.getAction()) {
+            case DragEvent.ACTION_DRAG_STARTED:
+                return true;
+            case DragEvent.ACTION_DROP:
+                mDragController.actionItemClicked(v, state);
+                // fall through
+            case DragEvent.ACTION_DRAG_ENDED:
+                if (mActionMode != null) {
+                    mActionMode.finish();
+                    mActionMode = null;
+                }
+                return true;
+            }
+            return false;
+        }
+    };
+
     static boolean isFolder(Cursor c) {
         return c.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
     }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        ViewGroup view = mDragController.getActionModeView(mode, mDragState);
+        int count = view.getChildCount();
+        for (int i = 0; i < count; i++) {
+            view.getChildAt(i).setOnDragListener(mActionModeDragListener);
+        }
+        mode.setCustomView(view);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        return false;
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+    }
+
 }
