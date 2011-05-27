@@ -944,10 +944,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                         && projection == null) {
                     projection = Browser.HISTORY_PROJECTION;
                 }
-                if (match == LEGACY) {
-                    uri = BookmarkUtils.addAccountInfo(getContext(),
-                            uri.buildUpon()).build();
-                }
                 String[] args = createCombinedQuery(uri, projection, qb);
                 if (selectionArgs == null) {
                     selectionArgs = args;
@@ -996,19 +992,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         selection = DatabaseUtils.concatenateWhere(selection,
                 Bookmarks.IS_DELETED + "=0 AND " + Bookmarks.IS_FOLDER + "=0");
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String accountType = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
-        String accountName = prefs.getString(BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
-        if (!TextUtils.isEmpty(accountName) && !TextUtils.isEmpty(accountType)) {
-            selection = DatabaseUtils.concatenateWhere(selection,
-                    Bookmarks.ACCOUNT_TYPE + "=? AND " + Bookmarks.ACCOUNT_NAME + "=? ");
-            selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
-                    new String[] { accountType, accountName });
-        } else {
-            selection = DatabaseUtils.concatenateWhere(selection,
-                    Bookmarks.ACCOUNT_TYPE + " IS NULL AND " +
-                    Bookmarks.ACCOUNT_NAME + " IS NULL ");
-        }
         Cursor c = mOpenHelper.getReadableDatabase().query(TABLE_BOOKMARKS,
                 SUGGEST_PROJECTION, selection, selectionArgs, null, null,
                 DEFAULT_BOOKMARKS_SORT_ORDER, null);
@@ -1148,8 +1131,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 String[] projection = new String[] { Combined._ID,
                         Combined.IS_BOOKMARK, Combined.URL };
                 SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-                uri = BookmarkUtils.addAccountInfo(getContext(), uri.buildUpon())
-                        .build();
                 String[] args = createCombinedQuery(uri, projection, qb);
                 if (selectionArgs == null) {
                     selectionArgs = args;
@@ -1219,14 +1200,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 values.remove(BookmarkColumns.DATE);
                 values.remove(BookmarkColumns.VISITS);
                 values.remove(BookmarkColumns.USER_ENTERED);
-                SharedPreferences prefs = PreferenceManager
-                        .getDefaultSharedPreferences(getContext());
-                String accountType = prefs.getString(
-                        BrowserBookmarksPage.PREF_ACCOUNT_TYPE, null);
-                String accountName = prefs.getString(
-                        BrowserBookmarksPage.PREF_ACCOUNT_NAME, null);
-                values.put(Bookmarks.ACCOUNT_TYPE, accountType);
-                values.put(Bookmarks.ACCOUNT_NAME, accountName);
                 values.put(Bookmarks.IS_FOLDER, 0);
             }
         }
