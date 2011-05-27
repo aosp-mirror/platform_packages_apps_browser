@@ -20,17 +20,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <LinearLayout
-        android:id="@+id/titlebar"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@drawable/bg_urlbar" />
-    <LinearLayout
         android:id="@+id/tabbar"
         android:orientation="vertical"
         android:layout_width="44dip"
         android:layout_height="match_parent"
-        android:layout_below="@id/titlebar"
         android:layout_alignParentRight="true"
         android:background="#80404040">
         <ImageButton
@@ -69,7 +62,5 @@
         android:id="@+id/scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/tabbar"
-        android:paddingTop="0dp"
-        android:paddingBottom="10dp" />
+        android:layout_toLeftOf="@id/tabbar" />
 </RelativeLayout>

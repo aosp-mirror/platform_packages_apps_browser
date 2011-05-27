@@ -68,8 +68,8 @@
     <dimen name="nav_tab_spacing">8dp</dimen>
     <dimen name="menu_width">240dip</dimen>
     <dimen name="toolbar_height">52dip</dimen>
-    <dimen name="tab_capture_size">480dp</dimen>
+    <dimen name="tab_capture_size">160dp</dimen>
     <dimen name="nav_tab_width">280dip</dimen>
-    <dimen name="nav_tab_height">400dip</dimen>
-    <dimen name="nav_scroller_padding">40dip</dimen>
+    <dimen name="nav_tab_height">280dip</dimen>
+    <dimen name="nav_scroller_padding">68dip</dimen>
 </resources>

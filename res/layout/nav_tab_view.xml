@@ -17,8 +17,8 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:paddingLeft="4dp"
     android:paddingRight="4dp"
     android:orientation="vertical"
@@ -28,6 +28,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
+        android:layout_gravity="center_horizontal"
         android:paddingLeft="4dip"
         android:paddingRight="4dip"
         android:paddingTop="2dip"
@@ -69,6 +70,7 @@
         android:id="@+id/tab_view"
         android:layout_width="@dimen/nav_tab_width"
         android:layout_height="@dimen/nav_tab_height"
+        android:layout_gravity="center_horizontal"
         android:padding="4dip"
         android:focusable="false"
         android:background="@drawable/nav_tab_bg">
@@ -77,7 +79,7 @@
             android:src="@drawable/ic_stop_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|top"
+            android:layout_gravity="right|bottom"
             android:background="@drawable/navtab_close_background" />
     </FrameLayout>
 </LinearLayout>

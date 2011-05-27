@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -107,12 +108,16 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean onMenuKey() {
-        if (mNavScreen == null) {
-            showNavScreen();
+        if (!isComboViewShowing()) {
+            if (mNavScreen == null) {
+                showNavScreen();
+            } else {
+                mNavScreen.close();
+            }
+            return true;
         } else {
-            mNavScreen.close();
+            return false;
         }
-        return true;
     }
 
     @Override
@@ -210,6 +215,14 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
+    public void showComboView(boolean startWithHistory, Bundle extras) {
+        if (mNavScreen != null) {
+            hideNavScreen(false);
+        }
+        super.showComboView(startWithHistory, extras);
+    }
+
+    @Override
     public boolean showsWeb() {
         return super.showsWeb() && mActiveTabsPage == null;
     }
@@ -283,15 +296,12 @@ public class PhoneUi extends BaseUi {
     @Override
     protected void captureTab(final Tab tab) {
         if (tab == null) return;
-        if (mUseQuickControls) {
-            super.captureTab(tab);
-        } else {
-            BrowserWebView web = (BrowserWebView) tab.getWebView();
-            if (web != null) {
-                tab.setScreenshot(web.capture());
-            }
+        BrowserWebView web = (BrowserWebView) tab.getWebView();
+        if (web != null) {
+            tab.setScreenshot(web.capture());
         }
     }
+
     void showNavScreen() {
         detachTab(mActiveTab);
         mNavScreen = new NavScreen(mActivity, mUiController, this);
