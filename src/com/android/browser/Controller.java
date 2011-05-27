@@ -480,15 +480,8 @@ public class Controller
                                 break;
                             case R.id.open_newtab_context_menu_id:
                                 final Tab parent = mTabControl.getCurrentTab();
-                                final Tab newTab =
-                                        openTab(url,
-                                                (parent != null)
-                                                && parent.isPrivateBrowsingEnabled(),
-                                                !mSettings.openInBackground(),
-                                                true);
-                                if (newTab != null && newTab != parent) {
-                                    parent.addChildTab(newTab);
-                                }
+                                openTab(url, parent,
+                                        !mSettings.openInBackground(), true);
                                 break;
                             case R.id.copy_link_context_menu_id:
                                 copy(url);
@@ -1392,15 +1385,9 @@ public class Controller
                                     @Override
                                     public boolean onMenuItemClick(MenuItem item) {
                                         final Tab parent = mTabControl.getCurrentTab();
-                                        final Tab newTab =
-                                                openTab(extra,
-                                                        (parent != null)
-                                                        && parent.isPrivateBrowsingEnabled(),
-                                                        !mSettings.openInBackground(),
-                                                        true);
-                                        if (newTab != parent) {
-                                            parent.addChildTab(newTab);
-                                        }
+                                        openTab(extra, parent,
+                                                !mSettings.openInBackground(),
+                                                true);
                                         return true;
                                     }
                                 });
@@ -2225,8 +2212,23 @@ public class Controller
     @Override
     public Tab openTab(String url, boolean incognito, boolean setActive,
             boolean useCurrent) {
+        return openTab(url, incognito, setActive, useCurrent, null);
+    }
+
+    @Override
+    public Tab openTab(String url, Tab parent, boolean setActive,
+            boolean useCurrent) {
+        return openTab(url, (parent != null) && parent.isPrivateBrowsingEnabled(),
+                setActive, useCurrent, parent);
+    }
+
+    public Tab openTab(String url, boolean incognito, boolean setActive,
+            boolean useCurrent, Tab parent) {
         Tab tab = createNewTab(incognito, setActive, useCurrent);
         if (tab != null) {
+            if (parent != null && parent != tab) {
+                parent.addChildTab(tab);
+            }
             WebView w = tab.getWebView();
             if (url != null) {
                 loadUrl(w, url);

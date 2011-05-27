@@ -855,11 +855,7 @@ class Tab {
                 transport.setWebView(mSubView);
             } else {
                 final Tab newTab = mWebViewController.openTab(null,
-                        Tab.this.isPrivateBrowsingEnabled(),
-                        true, true);
-                if (newTab != Tab.this) {
-                    Tab.this.addChildTab(newTab);
-                }
+                        Tab.this, true, true);
                 transport.setWebView(newTab.getWebView());
             }
             msg.sendToTarget();
