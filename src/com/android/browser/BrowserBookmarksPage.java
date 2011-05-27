@@ -82,9 +82,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
     static final String EXTRA_DISABLE_WINDOW = "disable_new_window";
 
-    public static final String PREF_ACCOUNT_TYPE = "acct_type";
-    public static final String PREF_ACCOUNT_NAME = "acct_name";
-
     static final String ACCOUNT_TYPE = "account_type";
     static final String ACCOUNT_NAME = "account_name";
 

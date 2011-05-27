@@ -333,7 +333,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
-        static final int DATABASE_VERSION = 27;
+        static final int DATABASE_VERSION = 28;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -402,6 +402,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             if (!importFromBrowserProvider(db)) {
                 createDefaultBookmarks(db);
             }
+
+            enableSync(db);
+        }
+
+        void enableSync(SQLiteDatabase db) {
+            ContentValues values = new ContentValues();
+            values.put(Settings.KEY, Settings.KEY_SYNC_ENABLED);
+            values.put(Settings.VALUE, 1);
+            insertSettingsInTransaction(db, values);
         }
 
         boolean importFromBrowserProvider(SQLiteDatabase db) {
@@ -491,7 +500,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            // TODO write upgrade logic
+            if (oldVersion < 28) {
+                enableSync(db);
+            }
             if (oldVersion < 27) {
                 createAccountsView(db);
             }

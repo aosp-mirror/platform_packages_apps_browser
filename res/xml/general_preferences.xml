@@ -22,13 +22,6 @@
             android:hint="@string/http"
             android:inputType="textUri|textMultiLine" />
 
-    <PreferenceCategory android:title="@string/pref_general_sync_title">
-        <Preference android:key="sync_with_chrome"
-            android:title="@string/pref_personal_sync_with_chrome"
-            android:summary="@string/pref_personal_sync_with_chrome_summary"
-        />
-    </PreferenceCategory>
-
     <PreferenceCategory android:title="@string/pref_general_autofill_title">
         <CheckBoxPreference android:key="autofill_enabled"
             android:title="@string/pref_autofill_enabled"
