@@ -66,6 +66,25 @@ public class NavTabScroller extends FrameLayout {
         addView(sview);
     }
 
+    @Override
+    protected void onMeasure(int wspec, int hspec) {
+        super.onMeasure(wspec, hspec);
+        calcPadding();
+    }
+
+    private void calcPadding() {
+        if (mAdapter.getCount() > 0) {
+            View v = mContentView.getChildAt(0);
+            if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                int pad = (getMeasuredHeight() - v.getMeasuredHeight()) / 2;
+                mContentView.setPadding(0, pad, 0, pad);
+            } else {
+                int pad = (getMeasuredWidth() - v.getMeasuredWidth()) / 2;
+                mContentView.setPadding(pad, 0, pad, 0);
+            }
+        }
+    }
+
     protected void setAdapter(BaseAdapter adapter) {
         mAdapter = adapter;
         mAdapter.registerDataSetObserver(new DataSetObserver() {
@@ -151,8 +170,6 @@ public class NavTabScroller extends FrameLayout {
             mContentView.setOrientation(LinearLayout.VERTICAL);
             setVerticalScrollBarEnabled(false);
             setSmoothScrollingEnabled(true);
-            int pad = ctx.getResources().getDimensionPixelSize(R.dimen.nav_scroller_padding);
-            mContentView.setPadding(0, pad, 0, pad);
             mContentView.setLayoutParams(
                     new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
             addView(mContentView);
@@ -185,10 +202,6 @@ public class NavTabScroller extends FrameLayout {
                 if (sel != mSelected) {
                     setSelection(sel);
                 }
-                if (!isCentered(mSelected)) {
-                    NavTabView ntv = (NavTabView) getSelectedView();
-                    ntv.setHighlighted(false);
-                }
             }
         }
 
@@ -200,6 +213,11 @@ public class NavTabScroller extends FrameLayout {
             if (MotionEvent.ACTION_UP == evt.getActionMasked()) {
                 if (mScroller.isFinished() && dragged) {
                     snapToSelected();
+                }
+            } else if (MotionEvent.ACTION_MOVE == evt.getActionMasked()) {
+                NavTabView ntv = (NavTabView) getSelectedView();
+                if (mIsBeingDragged && ntv.isHighlighted()) {
+                    ntv.setHighlighted(false);
                 }
             }
             return result;
@@ -215,15 +233,9 @@ public class NavTabScroller extends FrameLayout {
                     // reset snap scrolling flag
                     mSnapScroll = false;
                     NavTabView ntv = (NavTabView) getSelectedView();
-                    ntv.setHighlighted(isCentered(mSelected));
+                    ntv.setHighlighted(true);
                 }
             }
-        }
-
-        private boolean isCentered(int ix) {
-            int midy = getScrollY() + (getTop() + getBottom()) / 2;
-            View v = mContentView.getChildAt(ix);
-            return (v.getTop() + v.getBottom()) / 2 == midy;
         }
 
         private void snapToSelected() {
@@ -234,6 +246,9 @@ public class NavTabScroller extends FrameLayout {
                 // snap to selected
                 mSnapScroll = true;
                 smoothScrollTo(0, top);
+            } else {
+                NavTabView ntv = (NavTabView) getSelectedView();
+                ntv.setHighlighted(true);
             }
         }
 
@@ -270,12 +285,9 @@ public class NavTabScroller extends FrameLayout {
             mContentView.setOrientation(LinearLayout.HORIZONTAL);
             setVerticalScrollBarEnabled(false);
             setSmoothScrollingEnabled(true);
-            int pad = ctx.getResources().getDimensionPixelSize(R.dimen.nav_scroller_padding);
-            mContentView.setPadding(pad, 0, pad, 0);
             mContentView.setLayoutParams(
                     new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
             addView(mContentView);
-
         }
 
         public LinearLayout getContentView() {
@@ -304,10 +316,6 @@ public class NavTabScroller extends FrameLayout {
                 if (sel != mSelected) {
                     setSelection(sel);
                 }
-                if (!isCentered(mSelected)) {
-                    NavTabView ntv = (NavTabView) getSelectedView();
-                    ntv.setHighlighted(false);
-                }
             }
         }
 
@@ -319,6 +327,11 @@ public class NavTabScroller extends FrameLayout {
             if (MotionEvent.ACTION_UP == evt.getActionMasked()) {
                 if (mScroller.isFinished() && dragged) {
                     snapToSelected();
+                }
+            } else if (MotionEvent.ACTION_MOVE == evt.getActionMasked()) {
+                NavTabView ntv = (NavTabView) getSelectedView();
+                if (mIsBeingDragged && ntv.isHighlighted()) {
+                    ntv.setHighlighted(false);
                 }
             }
             return result;
@@ -334,15 +347,9 @@ public class NavTabScroller extends FrameLayout {
                     // reset snap scrolling flag
                     mSnapScroll = false;
                     NavTabView ntv = (NavTabView) getSelectedView();
-                    ntv.setHighlighted(isCentered(mSelected));
+                    ntv.setHighlighted(true);
                 }
             }
-        }
-
-        private boolean isCentered(int ix) {
-            int midx = getScrollX() + getWidth() / 2;
-            View v = mContentView.getChildAt(ix);
-            return (v.getLeft() + v.getRight()) / 2 == midx;
         }
 
         private void snapToSelected() {
@@ -353,6 +360,9 @@ public class NavTabScroller extends FrameLayout {
                 // snap to selected
                 mSnapScroll = true;
                 smoothScrollTo(left, 0);
+            } else {
+                NavTabView ntv = (NavTabView) getSelectedView();
+                ntv.setHighlighted(true);
             }
         }
 

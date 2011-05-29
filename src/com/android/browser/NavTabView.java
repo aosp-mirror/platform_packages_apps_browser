@@ -17,8 +17,10 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +44,9 @@ public class NavTabView extends LinearLayout {
     OnClickListener mClickListener;
     boolean mHighlighted;
     Drawable mTitleBg;
+    Drawable mUrlBg;
+    float mMediumTextSize;
+    float mSmallTextSize;
 
     public NavTabView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -59,6 +64,9 @@ public class NavTabView extends LinearLayout {
     }
 
     private void init() {
+        final Resources res = mContext.getResources();
+        mMediumTextSize = res.getDimension(R.dimen.nav_tab_text_normal);
+        mSmallTextSize = res.getDimension(R.dimen.nav_tab_text_small);
         LayoutInflater.from(mContext).inflate(R.layout.nav_tab_view,
                     this);
         mContainer = (FrameLayout) findViewById(R.id.tab_view);
@@ -68,9 +76,10 @@ public class NavTabView extends LinearLayout {
         mTitle = (TextView) findViewById(R.id.title);
         mFavicon = (ImageView) findViewById(R.id.favicon);
         mTitleBar = findViewById(R.id.titlebar);
-        mTitleBg = mContext.getResources().getDrawable(R.drawable.bg_urlbar);
+        mTitleBg = res.getDrawable(R.drawable.bg_urlbar);
+        mUrlBg = res.getDrawable(
+                com.android.internal.R.drawable.edit_text_holo_dark);
         setState(false);
-        // refresh titlebar
     }
 
     protected boolean isRefresh(View v) {
@@ -108,6 +117,8 @@ public class NavTabView extends LinearLayout {
                     ? View.VISIBLE : View.GONE);
             mTitleBar.setBackgroundDrawable(mTitleBg);
             mClose.setVisibility(View.VISIBLE);
+            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mMediumTextSize);
+            mTitle.setBackgroundDrawable(mUrlBg);
         } else {
             setAlpha(0.8f);
             mForward.setVisibility(View.GONE);
@@ -115,6 +126,8 @@ public class NavTabView extends LinearLayout {
             mFavicon.setVisibility(View.INVISIBLE);
             mClose.setVisibility(View.GONE);
             mTitleBar.setBackgroundDrawable(null);
+            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSmallTextSize);
+            mTitle.setBackgroundDrawable(null);
         }
         setTitle();
     }

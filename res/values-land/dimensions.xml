@@ -17,5 +17,4 @@
     <dimen name="preference_widget_width">72dp</dimen>
     <dimen name="nav_tab_width">280dip</dimen>
     <dimen name="nav_tab_height">240dip</dimen>
-    <dimen name="nav_scroller_padding">101dip</dimen>
 </resources>

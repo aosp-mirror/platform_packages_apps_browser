@@ -79,7 +79,7 @@
             android:src="@drawable/ic_stop_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
+            android:layout_gravity="bottom|right"
             android:background="@drawable/navtab_close_background" />
     </FrameLayout>
 </LinearLayout>
