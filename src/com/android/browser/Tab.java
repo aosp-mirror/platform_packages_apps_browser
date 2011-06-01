@@ -983,8 +983,14 @@ class Tab {
         @Override
         public void onShowCustomView(View view,
                 WebChromeClient.CustomViewCallback callback) {
+            onShowCustomView(view, mActivity.getRequestedOrientation(), callback);
+        }
+
+        @Override
+        public void onShowCustomView(View view, int requestedOrientation,
+                WebChromeClient.CustomViewCallback callback) {
             if (mInForeground) mWebViewController.showCustomView(Tab.this, view,
-                    callback);
+                    requestedOrientation, callback);
         }
 
         @Override

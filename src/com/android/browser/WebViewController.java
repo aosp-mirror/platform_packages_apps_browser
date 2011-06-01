@@ -72,7 +72,8 @@ public interface WebViewController {
     void onDownloadStart(Tab tab, String url, String useragent, String contentDisposition,
             String mimeType, long contentLength);
 
-    void showCustomView(Tab tab, View view, WebChromeClient.CustomViewCallback callback);
+    void showCustomView(Tab tab, View view, int requestedOrientation, 
+            WebChromeClient.CustomViewCallback callback);
 
     void hideCustomView();
 
