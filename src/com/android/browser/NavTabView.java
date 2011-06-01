@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -32,21 +33,23 @@ import android.widget.TextView;
 
 public class NavTabView extends LinearLayout {
 
-    Tab mTab;
-    BrowserWebView mWebView;
-    ImageButton mForward;
-    ImageButton mRefresh;
-    ImageView mFavicon;
-    ImageButton mClose;
-    FrameLayout mContainer;
-    TextView mTitle;
-    View mTitleBar;
-    OnClickListener mClickListener;
-    boolean mHighlighted;
-    Drawable mTitleBg;
-    Drawable mUrlBg;
-    float mMediumTextSize;
-    float mSmallTextSize;
+    private Tab mTab;
+    private BrowserWebView mWebView;
+    private WebProxyView mProxy;
+    private ImageButton mForward;
+    private ImageButton mRefresh;
+    private ImageView mFavicon;
+    private ImageButton mClose;
+    private FrameLayout mContainer;
+    private TextView mTitle;
+    private View mTitleBar;
+    private OnClickListener mClickListener;
+    private boolean mHighlighted;
+    private Drawable mTitleBg;
+    private Drawable mUrlBg;
+    private float mMediumTextSize;
+    private float mSmallTextSize;
+    private boolean mPaused;
 
     public NavTabView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -82,6 +85,20 @@ public class NavTabView extends LinearLayout {
         setState(false);
     }
 
+    protected void pause() {
+        mPaused = true;
+        mWebView.onPause();
+    }
+
+    protected void resume() {
+        mPaused = false;
+        mWebView.onResume();
+    }
+
+    protected boolean isPaused() {
+        return mPaused;
+    }
+
     protected boolean isRefresh(View v) {
         return v == mRefresh;
     }
@@ -99,7 +116,7 @@ public class NavTabView extends LinearLayout {
     }
 
     protected boolean isWebView(View v) {
-        return v == mWebView;
+        return v == mProxy;
     }
 
     protected void setHighlighted(boolean highlighted) {
@@ -153,8 +170,8 @@ public class NavTabView extends LinearLayout {
         if (web == null) return;
         mWebView = web;
         removeFromParent(mWebView);
-        mWebView.setNavMode(true);
-        mContainer.addView(mWebView, 0);
+        mProxy = new WebProxyView(mContext, mWebView);
+        mContainer.addView(mProxy, 0);
         if (mWebView != null) {
             mForward.setVisibility(mWebView.canGoForward()
                     ? View.VISIBLE : View.GONE);
@@ -174,15 +191,39 @@ public class NavTabView extends LinearLayout {
         mRefresh.setOnClickListener(mClickListener);
         mForward.setOnClickListener(mClickListener);
         mClose.setOnClickListener(mClickListener);
-        if (mWebView != null) {
-            mWebView.setOnClickListener(mClickListener);
+        if (mProxy != null) {
+            mProxy.setOnClickListener(mClickListener);
         }
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        mWebView.setProxyView(null);
     }
 
     private static void removeFromParent(View v) {
         if (v.getParent() != null) {
             ((ViewGroup) v.getParent()).removeView(v);
         }
+    }
+
+    static class WebProxyView extends View {
+
+        private BrowserWebView mWeb;
+
+        public WebProxyView(Context context, BrowserWebView web) {
+            super(context);
+            setWillNotDraw(false);
+            mWeb = web;
+            mWeb.setProxyView(this);
+
+        }
+
+        public void onDraw(Canvas c) {
+            c.translate(-mWeb.getScrollX(), -mWeb.getScrollY());
+            mWeb.onDraw(c);
+        }
+
     }
 
 }

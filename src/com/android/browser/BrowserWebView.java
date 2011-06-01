@@ -22,8 +22,9 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.webkit.WebView;
+
+import com.android.browser.NavTabView.WebProxyView;
 
 import java.util.Map;
 
@@ -39,10 +40,7 @@ public class BrowserWebView extends WebView implements Runnable {
     private TitleBarBase mTitleBar;
     private int mCaptureSize;
     private Bitmap mCapture;
-    private boolean mNavMode;
-    private boolean mTracking;
-    private int mSlop;
-    float mDownX, mDownY;
+    private WebProxyView mProxyView;
 
     /**
      * @param context
@@ -84,15 +82,21 @@ public class BrowserWebView extends WebView implements Runnable {
     }
 
     private void init() {
-        mNavMode = false;
-        mSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
         mCaptureSize = mContext.getResources().getDimensionPixelSize(R.dimen.tab_capture_size);
         mCapture = Bitmap.createBitmap(mCaptureSize, mCaptureSize,
                 Bitmap.Config.RGB_565);
     }
 
-    protected void setNavMode(boolean enabled) {
-        mNavMode = enabled;
+    protected void setProxyView(WebProxyView p) {
+        mProxyView = p;
+    }
+
+    @Override
+    public void invalidate() {
+        super.invalidate();
+        if (mProxyView != null) {
+            mProxyView.invalidate();
+        }
     }
 
     @Override
@@ -127,36 +131,13 @@ public class BrowserWebView extends WebView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent evt) {
-        if (mNavMode) {
-            if (MotionEvent.ACTION_DOWN == evt.getActionMasked()) {
-                mDownX = evt.getX();
-                mDownY = evt.getY();
-                mTracking = true;
-                return true;
-            } else if (mTracking && MotionEvent.ACTION_MOVE == evt.getActionMasked()) {
-                if (mSlop < Math.abs(evt.getX() - mDownX)
-                        || mSlop < Math.abs(evt.getY() - mDownY)) {
-                    mTracking = false;
-                }
-                return mTracking;
-            } else if (mTracking && MotionEvent.ACTION_UP == evt.getActionMasked()) {
-                performClick();
-                mTracking = false;
-                return true;
-            } else if (mTracking && MotionEvent.ACTION_CANCEL == evt.getActionMasked()) {
-                mTracking = false;
-                return true;
-            }
-            return super.onTouchEvent(evt);
-        } else {
-            if (MotionEvent.ACTION_DOWN == evt.getActionMasked()) {
-                mUserInitiated = true;
-            } else if (MotionEvent.ACTION_UP == evt.getActionMasked()
-                    || (MotionEvent.ACTION_CANCEL == evt.getActionMasked())) {
-                mUserInitiated = false;
-            }
-            return super.onTouchEvent(evt);
+        if (MotionEvent.ACTION_DOWN == evt.getActionMasked()) {
+            mUserInitiated = true;
+        } else if (MotionEvent.ACTION_UP == evt.getActionMasked()
+                || (MotionEvent.ACTION_CANCEL == evt.getActionMasked())) {
+            mUserInitiated = false;
         }
+        return super.onTouchEvent(evt);
     }
 
     @Override

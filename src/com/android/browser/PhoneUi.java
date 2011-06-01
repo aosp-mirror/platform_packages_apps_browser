@@ -167,7 +167,6 @@ public class PhoneUi extends BaseUi {
             Log.e(LOGTAG, "active tab with no webview detected");
             return;
         }
-        view.setNavMode(false);
         // Request focus on the top window.
         if (mUseQuickControls) {
             mPieControl.forceToTop(mContentView);
