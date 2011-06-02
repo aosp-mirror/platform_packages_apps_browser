@@ -283,12 +283,9 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Kai naud. „Google“ paiešką, naud. Int. „Google“ paiešką, kad renk. tekst. b. rodomi rezult. (tai g. padid. duom. naud.)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Visas ekranas"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Jei norite paslėpti būsenos juostą, naudokite viso ekrano režimą."</string>
-    <!-- no translation found for pref_enable_useragent_switcher (9063310468293037499) -->
-    <skip />
-    <!-- no translation found for pref_enable_useragent_switcher_summary (1782363693543953474) -->
-    <skip />
-    <!-- no translation found for help_useragent_switcher (123586256526014375) -->
-    <skip />
+    <string name="pref_enable_useragent_switcher" msgid="9063310468293037499">"Naudotojo priemonės perjungiklis"</string>
+    <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"Perjunkite iš planšetiniam kompiuteriui skirtos svetainės versijos į skirtą staliniam (ir atvirkščiai)"</string>
+    <string name="help_useragent_switcher" msgid="123586256526014375">"Jei norite perjungti iš planšetiniam kompiuteriui skirtos svetainės versijos į skirtą staliniam (ir atvirkščiai), palieskite „Android“ arba nešiojamojo kompiuterio piktogramą."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Duomenų jungiamumo problema"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Failo problema"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Patvirtinti"</string>
