@@ -32,12 +32,15 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemClock;
+import android.security.KeyChain;
+import android.security.KeyChainAliasResponse;
 import android.speech.RecognizerResultsIntent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
+import android.webkit.ClientCertRequestHandler;
 import android.webkit.ConsoleMessage;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
@@ -791,6 +794,27 @@ class Tab {
         }
 
         /**
+         * Displays client certificate request to the user.
+         */
+        @Override
+        public void onReceivedClientCertRequest(final WebView view,
+                final ClientCertRequestHandler handler, final String host_and_port) {
+            if (!mInForeground) {
+                handler.ignore();
+                return;
+            }
+            KeyChain.choosePrivateKeyAlias(mActivity, new KeyChainAliasResponse() {
+                @Override public void alias(String alias) {
+                    if (alias == null) {
+                        handler.cancel();
+                        return;
+                    }
+                    new KeyChainLookup(mActivity, handler, alias).execute();
+                }
+            });
+        }
+
+        /**
          * Handles an HTTP authentication request.
          *
          * @param handler The authentication handler
@@ -1230,6 +1254,11 @@ class Tab {
         public void onReceivedSslError(WebView view, SslErrorHandler handler,
                 SslError error) {
             mClient.onReceivedSslError(view, handler, error);
+        }
+        @Override
+        public void onReceivedClientCertRequest(WebView view,
+                ClientCertRequestHandler handler, String host_and_port) {
+            mClient.onReceivedClientCertRequest(view, handler, host_and_port);
         }
         @Override
         public void onReceivedHttpAuthRequest(WebView view,

@@ -20,6 +20,7 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Message;
 import android.view.KeyEvent;
+import android.webkit.ClientCertRequestHandler;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
@@ -98,6 +99,13 @@ abstract class TestWebViewClient extends WebViewClient {
   public void onReceivedSslError(WebView view, SslErrorHandler handler,
           SslError error) {
       mWrappedClient.onReceivedSslError(view, handler, error);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void onReceivedClientCertRequest(WebView view, ClientCertRequestHandler handler,
+          String host_and_port) {
+      mWrappedClient.onReceivedClientCertRequest(view, handler, host_and_port);
   }
 
   /** {@inheritDoc} */

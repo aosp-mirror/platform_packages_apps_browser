@@ -23,6 +23,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
+import android.webkit.ClientCertRequestHandler;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
@@ -218,6 +219,16 @@ public class JNIBindingsTestApp extends ActivityInstrumentationTestCase2<Browser
                     SslError error) {
                 Log.w(TAG, "SSL error: " + error);
                 handler.proceed();
+            }
+
+            /**
+             * Ignores and logs SSL client certificate requests.
+             */
+            @Override
+            public void onReceivedClientCertRequest(WebView view, ClientCertRequestHandler handler,
+                    String host_and_port) {
+                Log.w(TAG, "SSL client certificate request: " + host_and_port);
+                handler.cancel();
             }
 
         });
