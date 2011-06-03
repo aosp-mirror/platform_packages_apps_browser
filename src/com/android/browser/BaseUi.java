@@ -86,6 +86,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     private View mCustomView;
     private WebChromeClient.CustomViewCallback mCustomViewCallback;
+    private int mOriginalOrientation;
 
     private CombinedBookmarkHistoryView mComboView;
 
@@ -540,13 +541,15 @@ public abstract class BaseUi implements UI, WebViewFactory {
     }
 
     @Override
-    public void showCustomView(View view,
+    public void showCustomView(View view, int requestedOrientation,
             WebChromeClient.CustomViewCallback callback) {
         // if a view already exists then immediately terminate the new one
         if (mCustomView != null) {
             callback.onCustomViewHidden();
             return;
         }
+
+        mOriginalOrientation = mActivity.getRequestedOrientation();
 
         // Add the custom view to its container.
         mCustomViewContainer.addView(view, COVER_SCREEN_GRAVITY_CENTER);
@@ -556,6 +559,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mContentView.setVisibility(View.GONE);
         // Finally show the custom view container.
         setStatusBarVisibility(false);
+        mActivity.setRequestedOrientation(requestedOrientation);
         mCustomViewContainer.setVisibility(View.VISIBLE);
         mCustomViewContainer.bringToFront();
     }
@@ -573,6 +577,7 @@ public abstract class BaseUi implements UI, WebViewFactory {
         mCustomViewContainer.setVisibility(View.GONE);
         mCustomViewCallback.onCustomViewHidden();
         // Show the content view.
+        mActivity.setRequestedOrientation(mOriginalOrientation);
         setStatusBarVisibility(true);
         mContentView.setVisibility(View.VISIBLE);
     }

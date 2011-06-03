@@ -353,8 +353,9 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
-    public void showCustomView(View view, CustomViewCallback callback) {
-        super.showCustomView(view, callback);
+    public void showCustomView(View view, int requestedOrientation,
+            CustomViewCallback callback) {
+        super.showCustomView(view, requestedOrientation, callback);
         mActivity.getActionBar().hide();
     }
 

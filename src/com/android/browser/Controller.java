@@ -1079,14 +1079,14 @@ public class Controller
         return (searchEngine != null && searchEngine.supportsVoiceSearch());
     }
 
-    public void showCustomView(Tab tab, View view,
+    public void showCustomView(Tab tab, View view, int requestedOrientation,
             WebChromeClient.CustomViewCallback callback) {
         if (tab.inForeground()) {
             if (mUi.isCustomViewShowing()) {
                 callback.onCustomViewHidden();
                 return;
             }
-            mUi.showCustomView(view, callback);
+            mUi.showCustomView(view, requestedOrientation, callback);
             // Save the menu state and set it to empty while the custom
             // view is showing.
             mOldMenuState = mMenuState;
