@@ -284,10 +284,8 @@
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"เต็มหน้าจอ"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"ใช้โหมดเต็มหน้าจอเพื่อซ่อนแถบสถานะ"</string>
     <string name="pref_enable_useragent_switcher" msgid="9063310468293037499">"การสลับตัวแทนผู้ใช้"</string>
-    <!-- no translation found for pref_enable_useragent_switcher_summary (1782363693543953474) -->
-    <skip />
-    <!-- no translation found for help_useragent_switcher (123586256526014375) -->
-    <skip />
+    <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"สลับระหว่างไซต์รุ่นแท็บเล็ตและรุ่นเดสก์ท็อป"</string>
+    <string name="help_useragent_switcher" msgid="123586256526014375">"แตะที่ไอคอน Android หรือแลปท็อปเพื่อสลับระหว่างไซต์รุ่นแท็บเล็ตและรุ่นเดสก์ท็อป"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"ปัญหาการเชื่อมต่อข้อมูล"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"ปัญหาเกี่ยวกับไฟล์"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"ยืนยัน"</string>

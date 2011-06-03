@@ -284,10 +284,8 @@
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Full screen"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Use full-screen mode to hide the status bar."</string>
     <string name="pref_enable_useragent_switcher" msgid="9063310468293037499">"Useragent Switcher"</string>
-    <!-- no translation found for pref_enable_useragent_switcher_summary (1782363693543953474) -->
-    <skip />
-    <!-- no translation found for help_useragent_switcher (123586256526014375) -->
-    <skip />
+    <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"Toggle between the tablet and desktop versions of a site"</string>
+    <string name="help_useragent_switcher" msgid="123586256526014375">"Tap on the Android or laptop icon to toggle between the tablet and desktop versions of a site."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Data connectivity problem"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem with file"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirm"</string>
