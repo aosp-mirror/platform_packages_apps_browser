@@ -36,19 +36,12 @@ public class NavTabView extends LinearLayout {
     private Tab mTab;
     private BrowserWebView mWebView;
     private WebProxyView mProxy;
-    private ImageButton mForward;
-    private ImageButton mRefresh;
-    private ImageView mFavicon;
-    private ImageButton mClose;
+    private ImageView mClose;
     private FrameLayout mContainer;
     private TextView mTitle;
     private View mTitleBar;
     private OnClickListener mClickListener;
     private boolean mHighlighted;
-    private Drawable mTitleBg;
-    private Drawable mUrlBg;
-    private float mMediumTextSize;
-    private float mSmallTextSize;
 
     public NavTabView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -66,26 +59,11 @@ public class NavTabView extends LinearLayout {
     }
 
     private void init() {
-        final Resources res = mContext.getResources();
-        mMediumTextSize = res.getDimension(R.dimen.nav_tab_text_normal);
-        mSmallTextSize = res.getDimension(R.dimen.nav_tab_text_small);
-        LayoutInflater.from(mContext).inflate(R.layout.nav_tab_view,
-                    this);
+        LayoutInflater.from(mContext).inflate(R.layout.nav_tab_view, this);
         mContainer = (FrameLayout) findViewById(R.id.tab_view);
-        mForward = (ImageButton) findViewById(R.id.forward);
-        mClose = (ImageButton) findViewById(R.id.closetab);
-        mRefresh = (ImageButton) findViewById(R.id.refresh);
+        mClose = (ImageView) findViewById(R.id.closetab);
         mTitle = (TextView) findViewById(R.id.title);
-        mFavicon = (ImageView) findViewById(R.id.favicon);
         mTitleBar = findViewById(R.id.titlebar);
-        mTitleBg = res.getDrawable(R.drawable.bg_urlbar);
-        mUrlBg = res.getDrawable(
-                com.android.internal.R.drawable.edit_text_holo_dark);
-        setState(false);
-    }
-
-    protected boolean isRefresh(View v) {
-        return v == mRefresh;
     }
 
     protected boolean isClose(View v) {
@@ -96,10 +74,6 @@ public class NavTabView extends LinearLayout {
         return v == mTitleBar;
     }
 
-    protected boolean isForward(View v) {
-        return v == mForward;
-    }
-
     protected boolean isWebView(View v) {
         return v == mProxy;
     }
@@ -107,29 +81,6 @@ public class NavTabView extends LinearLayout {
     protected void setHighlighted(boolean highlighted) {
         if (highlighted == mHighlighted) return;
         mHighlighted = highlighted;
-        setState(highlighted);
-    }
-
-    private void setState(boolean highlighted) {
-        if (highlighted) {
-            setAlpha(1.0f);
-            mFavicon.setVisibility(View.VISIBLE);
-            setupButtons();
-            mTitleBar.setBackgroundDrawable(mTitleBg);
-            mClose.setVisibility(View.VISIBLE);
-            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mMediumTextSize);
-            mTitle.setBackgroundDrawable(mUrlBg);
-        } else {
-            setAlpha(0.8f);
-            mForward.setVisibility(View.GONE);
-            mRefresh.setVisibility(View.INVISIBLE);
-            mFavicon.setVisibility(View.INVISIBLE);
-            mClose.setVisibility(View.GONE);
-            mTitleBar.setBackgroundDrawable(null);
-            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSmallTextSize);
-            mTitle.setBackgroundDrawable(null);
-        }
-        setTitle();
     }
 
     private void setTitle() {
@@ -138,7 +89,9 @@ public class NavTabView extends LinearLayout {
             mTitle.setText(mTab.getUrl());
         } else {
             String txt = mTab.getTitle();
-            if (txt == null) txt = mTab.getUrl();
+            if (txt == null) {
+                txt = mTab.getUrl();
+            }
             mTitle.setText(txt);
         }
     }
@@ -149,7 +102,6 @@ public class NavTabView extends LinearLayout {
 
     protected void setWebView(PhoneUi ui, Tab tab) {
         mTab = tab;
-        mFavicon.setImageDrawable(ui.getFaviconDrawable(tab.getFavicon()));
         setTitle();
         BrowserWebView web = (BrowserWebView) tab.getWebView();
         if (web != null) {
@@ -157,18 +109,6 @@ public class NavTabView extends LinearLayout {
             removeFromParent(mWebView);
             mProxy = new WebProxyView(mContext, mWebView);
             mContainer.addView(mProxy, 0);
-        }
-        setupButtons();
-    }
-
-    void setupButtons() {
-        if (mTab.isSnapshot()) {
-            mForward.setVisibility(View.GONE);
-            mRefresh.setVisibility(View.GONE);
-        } else if (mWebView != null) {
-            mForward.setVisibility(mWebView.canGoForward()
-                    ? View.VISIBLE : View.GONE);
-            mRefresh.setVisibility(View.VISIBLE);
         }
     }
 
@@ -180,8 +120,6 @@ public class NavTabView extends LinearLayout {
     public void setOnClickListener(OnClickListener listener) {
         mClickListener = listener;
         mTitleBar.setOnClickListener(mClickListener);
-        mRefresh.setOnClickListener(mClickListener);
-        mForward.setOnClickListener(mClickListener);
         mClose.setOnClickListener(mClickListener);
         if (mProxy != null) {
             mProxy.setOnClickListener(mClickListener);
@@ -192,6 +130,13 @@ public class NavTabView extends LinearLayout {
     public void onDetachedFromWindow() {
         if (mWebView != null) {
             mWebView.setProxyView(null);
+        }
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        if (mWebView != null) {
+            mWebView.invalidate();
         }
     }
 
@@ -214,7 +159,11 @@ public class NavTabView extends LinearLayout {
         }
 
         public void onDraw(Canvas c) {
-            c.translate(-mWeb.getScrollX(), -mWeb.getScrollY());
+            float scale = 0.7f;
+            int sx = mWeb.getScrollX();
+            int sy = mWeb.getScrollY();
+            c.scale(scale, scale);
+            c.translate(-sx, -sy);
             mWeb.onDraw(c);
         }
 
