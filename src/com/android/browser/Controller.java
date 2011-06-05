@@ -81,8 +81,10 @@ import com.android.browser.provider.BrowserProvider;
 import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -1494,6 +1496,7 @@ public class Controller
                 final MenuItem counter = menu.findItem(R.id.dump_counters_menu_id);
                 counter.setVisible(showDebugSettings);
                 counter.setEnabled(showDebugSettings);
+                menu.findItem(R.id.freeze_tab_menu_id).setVisible(showDebugSettings);
 
                 final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
                 newtab.setEnabled(getTabControl().canCreateNewTab());
@@ -1598,6 +1601,26 @@ public class Controller
 
             case R.id.find_menu_id:
                 getCurrentTopWebView().showFindDialog(null, true);
+                break;
+
+            case R.id.freeze_tab_menu_id:
+                // TODO: Show error messages
+                WebView source = getCurrentTopWebView();
+                if (source == null) break;
+                Tab t = createNewTab(false, true, false);
+                if (t == null) break;
+                WebView pinned = t.getWebView();
+                if (pinned == null) break;
+                try {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    source.saveViewState(bos);
+                    ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+                    pinned.loadViewState(bis);
+                    bis.close();
+                    bos.close();
+                } catch (IOException e) {
+                    closeTab(t);
+                }
                 break;
 
             case R.id.save_webarchive_menu_id:

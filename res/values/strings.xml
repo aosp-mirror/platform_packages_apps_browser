@@ -235,6 +235,9 @@
     <string name="copy_page_url">Copy page url</string>
     <!-- Menu item -->
     <string name="share_page">Share page</string>
+    <!-- Menu item to freeze a tab. This will make a view-only
+            snapshot of the page in a new tab. [CHAR LIMIT=50] -->
+    <string name="menu_freeze_tab">Freeze tab</string>
     <!-- Menu item for saving a page. [CHAR LIMIT=30] -->
     <string name="menu_save_webarchive">Save page</string>
     <!-- Toast informing the user that the page has been saved. [CHAR LIMIT=50] -->
