@@ -111,6 +111,8 @@
     <string name="menu_view_download" msgid="2124570321712995120">"دانلودها"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"کپی url صفحه"</string>
     <string name="share_page" msgid="593756995297268343">"اشتراک گذاری صفحه"</string>
+    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
+    <skip />
     <string name="menu_save_webarchive" msgid="2474117375302625691">"ذخیره صفحه"</string>
     <string name="webarchive_saved" msgid="2212053339474523406">"صفحه ذخیره شد."</string>
     <string name="webarchive_failed" msgid="19950914584285713">"صفحه ذخیره نشد."</string>
@@ -284,7 +286,7 @@
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"تمام صفحه"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"استفاده از حالت تمام صفحه برای مخفی کردن نوار وضعیت."</string>
     <string name="pref_enable_useragent_switcher" msgid="9063310468293037499">"Useragent Switcher"</string>
-    <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"بین نسخه های رایانه لوحی و رایانه رومیزی یک سایت جابجا شوید"</string>
+    <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"جابجایی بین نسخه های رایانه لوحی و رایانه رومیزی یک سایت"</string>
     <string name="help_useragent_switcher" msgid="123586256526014375">"برای جابجایی بین نسخه های رایانه لوحی و رایانه رومیزی یک سایت، روی نماد Android یا لپ تاپ ضربه بزنید."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"مشکل اتصال داده"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"مشکل در فایل"</string>

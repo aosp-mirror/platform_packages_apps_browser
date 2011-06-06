@@ -126,6 +126,8 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Telechargiadas"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar la URL da la pagina"</string>
     <string name="share_page" msgid="593756995297268343">"Barattar la pagina"</string>
+    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
+    <skip />
     <!-- outdated translation 3934652434001459581 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Memorisar sco archiv web"</string>
     <!-- outdated translation 7045250341467345007 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Memorisà archiv da web"</string>
     <!-- outdated translation 2880998204746620260 -->     <string name="webarchive_failed" msgid="19950914584285713">"Betg reussì da memorisar l\'archiv da web."</string>
