@@ -111,6 +111,8 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Загрузки"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Копировать URL страницы"</string>
     <string name="share_page" msgid="593756995297268343">"Отправить страницу"</string>
+    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
+    <skip />
     <string name="menu_save_webarchive" msgid="2474117375302625691">"Сохранить страницу"</string>
     <string name="webarchive_saved" msgid="2212053339474523406">"Страница сохранена."</string>
     <string name="webarchive_failed" msgid="19950914584285713">"Не удалось сохранить страницу."</string>

@@ -111,6 +111,8 @@
     <string name="menu_view_download" msgid="2124570321712995120">"הורדות"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"העתק כתובת אתר של דף"</string>
     <string name="share_page" msgid="593756995297268343">"שתף דף"</string>
+    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
+    <skip />
     <string name="menu_save_webarchive" msgid="2474117375302625691">"שמור דף"</string>
     <string name="webarchive_saved" msgid="2212053339474523406">"הדף נשמר."</string>
     <string name="webarchive_failed" msgid="19950914584285713">"שמירת הדף נכשלה."</string>
@@ -285,7 +287,7 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"השתמש במצב מסך מלא כדי להסתיר את שורת המצב."</string>
     <string name="pref_enable_useragent_switcher" msgid="9063310468293037499">"מחליף סוכן משתמש"</string>
     <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"מעבר בין גרסת טבלט לגרסת שולחן העבודה של אתר"</string>
-    <string name="help_useragent_switcher" msgid="123586256526014375">"הקש על הסמל Android או על הסמל \'מחשב נייד\' כדי לעבור בין גרסה לטבלט לגרסה לשולחן עבודה של אתר."</string>
+    <string name="help_useragent_switcher" msgid="123586256526014375">"הקש על הסמל Android או על הסמל \'מחשב נייד\' כדי לעבור בין גרסת לטבלט לגרסה לשולחן עבודה של אתר."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"בעיה בקישוריות נתונים"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"בעיה בקובץ"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"אשר"</string>

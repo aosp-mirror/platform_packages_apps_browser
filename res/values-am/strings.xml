@@ -172,6 +172,8 @@
     <string name="copy_page_url" msgid="7635062169011319208">"url ገፅ ቅዳ"</string>
     <!-- no translation found for share_page (593756995297268343) -->
     <skip />
+    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
+    <skip />
     <!-- outdated translation 3934652434001459581 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"እንደ ድረ መዝገብ አስቀምጥ"</string>
     <!-- outdated translation 7045250341467345007 -->     <string name="webarchive_saved" msgid="2212053339474523406">"የድረ መዝገብ ተቀምጧል።"</string>
     <!-- outdated translation 2880998204746620260 -->     <string name="webarchive_failed" msgid="19950914584285713">"የድረ መዝገብ ለማስቀመጥ ተሳነ"</string>
