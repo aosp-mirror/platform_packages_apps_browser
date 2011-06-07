@@ -71,6 +71,7 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         Resources res = context.getResources();
         mStopDrawable = res.getDrawable(R.drawable.ic_stop_holo_dark);
         mRefreshDrawable = res.getDrawable(R.drawable.ic_refresh_holo_dark);
+        setUaSwitcher(mFavicon);
     }
 
     @Override
