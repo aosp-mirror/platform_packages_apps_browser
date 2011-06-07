@@ -1496,7 +1496,6 @@ public class Controller
                 final MenuItem counter = menu.findItem(R.id.dump_counters_menu_id);
                 counter.setVisible(showDebugSettings);
                 counter.setEnabled(showDebugSettings);
-                menu.findItem(R.id.freeze_tab_menu_id).setVisible(showDebugSettings);
 
                 final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
                 newtab.setEnabled(getTabControl().canCreateNewTab());
@@ -1605,21 +1604,20 @@ public class Controller
 
             case R.id.freeze_tab_menu_id:
                 // TODO: Show error messages
-                WebView source = getCurrentTopWebView();
+                Tab source = getTabControl().getCurrentTab();
                 if (source == null) break;
-                Tab t = createNewTab(false, true, false);
-                if (t == null) break;
-                WebView pinned = t.getWebView();
-                if (pinned == null) break;
+                Tab snapshot = createNewTab(false, false, false);
+                if (snapshot == null) break;
                 try {
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    source.saveViewState(bos);
+                    source.saveSnapshot(bos);
                     ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-                    pinned.loadViewState(bis);
+                    snapshot.loadSnapshot(bis);
+                    mUi.onTabDataChanged(snapshot);
                     bis.close();
                     bos.close();
+                    setActiveTab(snapshot);
                 } catch (IOException e) {
-                    closeTab(t);
                 }
                 break;
 

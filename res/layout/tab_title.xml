@@ -31,6 +31,13 @@
         android:src="@drawable/ic_incognito_holo_dark"
         android:visibility="gone" />
     <ImageView
+        android:id="@+id/snapshot"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:src="@drawable/ic_snapshot"
+        android:visibility="gone" />
+    <ImageView
         android:id="@+id/favicon"
         android:layout_width="20dip"
         android:layout_height="20dip"
