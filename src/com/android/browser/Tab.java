@@ -16,9 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.homepages.HomeProvider;
-import com.android.common.speech.LoggingEvents;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
@@ -28,6 +25,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -60,6 +58,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.browser.homepages.HomeProvider;
+import com.android.common.speech.LoggingEvents;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -135,6 +142,7 @@ class Tab {
     private DataController mDataController;
     // State of the auto-login request.
     private DeviceAccountLogin mDeviceAccountLogin;
+    private boolean mIsSnapshot = false;
 
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
@@ -1475,6 +1483,10 @@ class Tab {
      * @param child the Tab that was created from this Tab
      */
     void addChildTab(Tab child) {
+        if (mIsSnapshot) {
+            throw new IllegalStateException(
+                    "Snapshot tabs cannot have child tabs!");
+        }
         if (mChildren == null) {
             mChildren = new Vector<Tab>();
         }
@@ -1739,10 +1751,7 @@ class Tab {
         }
 
         mSavedState = new Bundle();
-        final WebBackForwardList list = mMainView.saveState(mSavedState);
-
-        // Store some extra info for displaying the tab in the picker.
-        final WebHistoryItem item = list != null ? list.getCurrentItem() : null;
+        mMainView.saveState(mSavedState);
 
         mSavedState.putLong(ID, mId);
         mSavedState.putString(CURRURL, mCurrentState.mUrl);
@@ -1805,6 +1814,103 @@ class Tab {
 
     public Bitmap getScreenshot() {
         return mScreenshot;
+    }
+
+    public boolean isSnapshot() {
+        return mIsSnapshot;
+    }
+
+    public boolean loadSnapshot(InputStream rstream) {
+        if (rstream == null) {
+            mIsSnapshot = false;
+            if (mMainView != null) {
+                mMainView.clearViewState();
+            }
+            return true;
+        }
+        DataInputStream stream = new DataInputStream(rstream);
+        if (!readTabInfo(stream)) {
+            return false;
+        }
+        if (!mMainView.loadViewState(stream)) {
+            return false;
+        }
+        mIsSnapshot = true;
+        return true;
+    }
+
+    public boolean saveSnapshot(OutputStream rstream) {
+        if (rstream == null) return false;
+        if (mMainView == null) return false;
+        DataOutputStream stream = new DataOutputStream(rstream);
+        if (saveTabInfo(stream)) {
+            return mMainView.saveViewState(stream);
+        }
+        return false;
+    }
+
+    private boolean readTabInfo(DataInputStream stream) {
+        try {
+            PageState state = new PageState(mActivity, false);
+            state.mTitle = stream.readUTF();
+            if (state.mTitle.length() == 0) {
+                state.mTitle = null;
+            }
+            state.mUrl = stream.readUTF();
+            int faviconLen = stream.readInt();
+            if (faviconLen > 0) {
+                byte[] data = new byte[faviconLen];
+                int read = stream.read(data);
+                if (read != faviconLen) {
+                    throw new IOException("Read didn't match expected len!"
+                            + " Expected: " + faviconLen
+                            + " Got: " + read);
+                }
+                state.mFavicon = BitmapFactory.decodeByteArray(data, 0, data.length);
+            }
+            mCurrentState = state;
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    private boolean saveTabInfo(DataOutputStream stream) {
+        try {
+            // mTitle might be null, but writeUTF doesn't handle that
+            String title = mCurrentState.mTitle;
+            stream.writeUTF(title != null ? title : "");
+            // mUrl is never null
+            stream.writeUTF(mCurrentState.mUrl);
+            byte[] compressedPixels = compressFavicon();
+            if (compressedPixels == null) {
+                stream.writeInt(-1);
+            } else {
+                stream.writeInt(compressedPixels.length);
+                stream.write(compressedPixels);
+            }
+            return true;
+        } catch (Exception e) {
+            Log.w(LOGTAG, "Failed to saveTabInfo", e);
+            return false;
+        }
+    }
+
+    private byte[] compressFavicon() {
+        Bitmap favicon = mCurrentState.mFavicon;
+        if (favicon == null) {
+            return null;
+        }
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        byte[] data = null;
+        try {
+            favicon.compress(CompressFormat.PNG, 100, stream);
+            data = stream.toByteArray();
+            stream.close();
+        } catch (IOException e) {
+            // Will return null below then
+        }
+        return data;
     }
 
 }

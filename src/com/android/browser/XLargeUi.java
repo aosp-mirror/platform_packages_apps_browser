@@ -213,7 +213,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             mTabBar.showTitleBarIndicator(false);
         } else {
             // check if title bar is already attached by animation
-            if (mTitleBar.getParent() == null) {
+            if (mTitleBar.getParent() == null && !tab.isSnapshot()) {
                 view.setEmbeddedTitleBar(mTitleBar);
             }
             view.setScrollListener(this);

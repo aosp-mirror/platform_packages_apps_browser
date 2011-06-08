@@ -238,7 +238,7 @@ public class TabBar extends LinearLayout
 
     void showTitleBarIndicator(boolean show) {
         Tab tab = mTabControl.getCurrentTab();
-        if (tab != null) {
+        if (tab != null && !tab.isSnapshot()) {
             TabView tv = mTabMap.get(tab);
             if (tv != null) {
                 tv.showIndicator(show);
@@ -325,6 +325,7 @@ public class TabBar extends LinearLayout
         TextView mTitle;
         View mIndicator;
         View mIncognito;
+        View mSnapshot;
         ImageView mIconView;
         ImageView mLock;
         ImageView mClose;
@@ -355,6 +356,7 @@ public class TabBar extends LinearLayout
             mClose = (ImageView) mTabContent.findViewById(R.id.close);
             mClose.setOnClickListener(this);
             mIncognito = mTabContent.findViewById(R.id.incognito);
+            mSnapshot = mTabContent.findViewById(R.id.snapshot);
             mIndicator = mTabContent.findViewById(R.id.chevron);
             mSelected = false;
             mInLoad = false;
@@ -399,11 +401,15 @@ public class TabBar extends LinearLayout
             if (mTab.getFavicon() != null) {
                 setFavicon(renderFavicon(mTab.getFavicon()));
             }
-            if (mTab != null) {
-                mIncognito.setVisibility(
-                        mTab.isPrivateBrowsingEnabled() ?
-                        View.VISIBLE : View.GONE);
-            }
+            updateTabIcons();
+        }
+
+        private void updateTabIcons() {
+            mIncognito.setVisibility(
+                    mTab.isPrivateBrowsingEnabled() ?
+                    View.VISIBLE : View.GONE);
+            mSnapshot.setVisibility(mTab.isSnapshot()
+                    ? View.VISIBLE : View.GONE);
         }
 
         @Override
@@ -666,6 +672,7 @@ public class TabBar extends LinearLayout
             } else if (url != null) {
                 tv.setDisplayTitle(UrlUtils.stripUrl(url));
             }
+            tv.updateTabIcons();
         }
     }
 
