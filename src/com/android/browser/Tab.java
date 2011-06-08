@@ -1920,10 +1920,10 @@ class Tab {
         final WebHistoryItem item = list != null ? list.getCurrentItem() : null;
         populatePickerData(item);
 
-        if (mPickerData.mUrl != null) {
+        if (mPickerData != null && mPickerData.mUrl != null) {
             mSavedState.putString(CURRURL, mPickerData.mUrl);
         }
-        if (mPickerData.mTitle != null) {
+        if (mPickerData != null && mPickerData.mTitle != null) {
             mSavedState.putString(CURRTITLE, mPickerData.mTitle);
         }
         mSavedState.putBoolean(CLOSEONEXIT, mCloseOnExit);
