@@ -35,6 +35,8 @@ import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -48,6 +50,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -60,7 +64,8 @@ import java.util.List;
  */
 public class TitleBarBase extends RelativeLayout
         implements OnClickListener, OnFocusChangeListener, UrlInputListener,
-        TextChangeWatcher, DeviceAccountLogin.AutoLoginCallback {
+        TextChangeWatcher, DeviceAccountLogin.AutoLoginCallback,
+        OnMenuItemClickListener {
 
     protected static final int PROGRESS_MAX = 100;
 
@@ -75,7 +80,7 @@ public class TitleBarBase extends RelativeLayout
     protected UrlInputView mUrlInput;
     protected boolean mInVoiceMode;
     protected View mContainer;
-
+    private View mUaSwitcher;
 
     // Auto-login UI
     protected View mAutoLogin;
@@ -385,6 +390,14 @@ public class TitleBarBase extends RelativeLayout
         return mAutoLoginHandler != null;
     }
 
+    public void setUaSwitcher(View v) {
+        if (mUaSwitcher != null) {
+            mUaSwitcher.setOnClickListener(null);
+        }
+        mUaSwitcher = v;
+        mUaSwitcher.setOnClickListener(this);
+    }
+
     @Override
     public void onClick(View v) {
         if (mAutoLoginCancel == v) {
@@ -402,7 +415,42 @@ public class TitleBarBase extends RelativeLayout
                 mAutoLoginHandler.login(
                         mAutoLoginAccount.getSelectedItemPosition(), this);
             }
+        } else if (mUaSwitcher == v) {
+            BrowserSettings settings = BrowserSettings.getInstance();
+            WebView web = getCurrentWebView();
+            if (web == null) return;
+            boolean desktop = settings.hasDesktopUseragent(web);
+            PopupMenu popup = new PopupMenu(mContext, mUaSwitcher);
+            Menu menu = popup.getMenu();
+            popup.getMenuInflater().inflate(R.menu.ua_switcher, menu);
+            menu.findItem(R.id.ua_mobile_menu_id).setChecked(!desktop);
+            menu.findItem(R.id.ua_desktop_menu_id).setChecked(desktop);
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        BrowserSettings settings = BrowserSettings.getInstance();
+        WebView web = getCurrentWebView();
+        if (web == null) return false;
+        boolean desktop = settings.hasDesktopUseragent(web);
+        switch (item.getItemId()) {
+        case R.id.ua_mobile_menu_id:
+            if (desktop) {
+                settings.toggleDesktopUseragent(web);
+                web.loadUrl(web.getOriginalUrl());
+            }
+            return true;
+        case R.id.ua_desktop_menu_id:
+            if (!desktop) {
+                settings.toggleDesktopUseragent(web);
+                web.loadUrl(web.getOriginalUrl());
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

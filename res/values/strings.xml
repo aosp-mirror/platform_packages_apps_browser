@@ -665,13 +665,6 @@
     <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
     <string name="pref_lab_fullscreen_summary">
       Use fullscreen mode to hide the status bar.</string>
-    <!-- Title for the useragent switcher lab feature [CHAR LIMIT=40] -->
-    <string name="pref_enable_useragent_switcher">Useragent Switcher</string>
-    <!-- Summary for the useragent switcher lab feature [CHAR LIMIT=120] -->
-    <string name="pref_enable_useragent_switcher_summary">Toggle between the tablet and desktop versions of a site</string>
-    <!-- Text explaining how to use the useragent switcher lab feature [CHAR LIMIT=none] -->
-    <string name="help_useragent_switcher">Tap on the Android or laptop icon to toggle between the tablet and desktop versions of a site.</string>
-
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>
@@ -1016,4 +1009,8 @@
     <string name="preview">Preview:</string>
     <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
     <string name="local_bookmarks">Local</string>
+    <!-- Popup menu option that allows the user to select the mobile version of a webpage [CHAR LIMIT=50] -->
+    <string name="ua_switcher_mobile">Mobile</string>
+    <!-- Popup menu option that allows the user to select the desktop version of a webpage [CHAR LIMIT=50] -->
+    <string name="ua_switcher_desktop">Desktop</string>
 </resources>

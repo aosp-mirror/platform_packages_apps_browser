@@ -16,11 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.homepages.HomeProvider;
-import com.android.browser.provider.BrowserProvider;
-import com.android.browser.search.SearchEngine;
-import com.android.browser.search.SearchEngines;
-
 import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -42,6 +37,11 @@ import android.webkit.WebSettings.ZoomDensity;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
+
+import com.android.browser.homepages.HomeProvider;
+import com.android.browser.provider.BrowserProvider;
+import com.android.browser.search.SearchEngine;
+import com.android.browser.search.SearchEngines;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
@@ -165,7 +165,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setAutoFillProfile(getAutoFillProfile());
 
         String ua = mCustomUserAgents.get(settings);
-        if (enableUseragentSwitcher() && ua != null) {
+        if (ua != null) {
             settings.setUserAgentString(ua);
         } else {
             settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
@@ -604,10 +604,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean useFullscreen() {
         return mPrefs.getBoolean(PREF_FULLSCREEN, false);
-    }
-
-    public boolean enableUseragentSwitcher() {
-        return mPrefs.getBoolean(PREF_ENABLE_USERAGENT_SWITCHER, false);
     }
 
     // -----------------------------

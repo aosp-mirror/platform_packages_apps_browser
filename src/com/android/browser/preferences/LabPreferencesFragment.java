@@ -45,7 +45,6 @@ public class LabPreferencesFragment extends PreferenceFragment
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.lab_preferences);
         registerChangeListener(PreferenceKeys.PREF_ENABLE_QUICK_CONTROLS);
-        registerChangeListener(PreferenceKeys.PREF_ENABLE_USERAGENT_SWITCHER);
         useInstantPref = findPreference(PreferenceKeys.PREF_USE_INSTANT_SEARCH);
     }
 
@@ -80,17 +79,6 @@ public class LabPreferencesFragment extends PreferenceFragment
             // Attempt to restart
             startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
                     getActivity(), BrowserActivity.class));
-        }
-        if (PreferenceKeys.PREF_ENABLE_USERAGENT_SWITCHER.equals(key)) {
-            if ((Boolean)newValue) {
-                // Show the help
-                LayoutInflater inflater = LayoutInflater.from(getActivity());
-                View content = inflater.inflate(R.layout.help_dialog_useragent_switcher, null);
-                new AlertDialog.Builder(getActivity())
-                        .setView(content)
-                        .setNeutralButton(android.R.string.ok, null)
-                        .show();
-            }
         }
         return true;
     }

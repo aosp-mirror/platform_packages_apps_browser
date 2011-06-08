@@ -78,7 +78,6 @@ public interface PreferenceKeys {
     static final String PREF_USE_MOST_VISITED_HOMEPAGE = "use_most_visited_homepage";
     static final String PREF_USE_INSTANT_SEARCH = "use_instant_search";
     static final String PREF_FULLSCREEN = "fullscreen";
-    static final String PREF_ENABLE_USERAGENT_SWITCHER = "enable_useragent_switcher";
 
     // ----------------------
     // Keys for privacy_security_preferences.xml

@@ -62,8 +62,6 @@ public class TitleBarXLarge extends TitleBarBase
     private ImageView mVoiceSearch;
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
-    private boolean mHasFocus = false;
-    private BrowserSettings mSettings;
 
     public TitleBarXLarge(Activity activity, UiController controller,
             XLargeUi ui, FrameLayout parent) {
@@ -77,10 +75,7 @@ public class TitleBarXLarge extends TitleBarBase
         mUnfocusDrawable = resources.getDrawable(
                 R.drawable.textfield_default_holo_dark);
         mInVoiceMode = false;
-        mSettings = BrowserSettings.getInstance();
         initLayout(activity, R.layout.url_bar);
-        PreferenceManager.getDefaultSharedPreferences(activity)
-                .registerOnSharedPreferenceChangeListener(mSharedPrefsListener);
     }
 
     @Override
@@ -109,7 +104,7 @@ public class TitleBarXLarge extends TitleBarBase
         mGoButton.setOnClickListener(this);
         mClearButton.setOnClickListener(this);
         mVoiceSearch.setOnClickListener(this);
-        mUrlIcon.setOnClickListener(this);
+        setUaSwitcher(mUrlIcon);
         mUrlInput.setContainer(mUrlContainer);
         setFocusState(false);
     }
@@ -187,13 +182,6 @@ public class TitleBarXLarge extends TitleBarBase
             clearOrClose();
         } else if (mVoiceSearch == v) {
             mUiController.startVoiceSearch();
-        } else if (mUrlIcon == v) {
-            WebView web = mUiController.getCurrentWebView();
-            if (mSettings.enableUseragentSwitcher() && web != null) {
-                mSettings.toggleDesktopUseragent(web);
-                web.loadUrl(web.getOriginalUrl());
-                updateUrlIcon();
-            }
         } else {
             super.onClick(v);
         }
@@ -213,38 +201,14 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     void updateUrlIcon() {
-        if (mHasFocus) {
-            return;
-        }
-        if (!mInVoiceMode && mSettings.enableUseragentSwitcher()) {
-            WebView web = mUiController.getCurrentWebView();
-            if (mSettings.hasDesktopUseragent(web)) {
-                mUrlIcon.setImageResource(R.drawable.ic_ua_desktop);
-            } else {
-                mUrlIcon.setImageResource(R.drawable.ic_ua_android);
-            }
-        } else {
-            mUrlIcon.setImageResource(mInVoiceMode ?
-                    R.drawable.ic_search_holo_dark
-                    : R.drawable.ic_web_holo_dark);
-        }
+        mUrlIcon.setImageResource(mInVoiceMode ?
+                R.drawable.ic_search_holo_dark
+                : R.drawable.ic_web_holo_dark);
     }
-
-    private OnSharedPreferenceChangeListener mSharedPrefsListener =
-            new OnSharedPreferenceChangeListener() {
-
-        @Override
-        public void onSharedPreferenceChanged(
-                SharedPreferences sharedPreferences, String key) {
-            updateUrlIcon();
-        }
-
-    };
 
     @Override
     protected void setFocusState(boolean focus) {
         super.setFocusState(focus);
-        mHasFocus = focus;
         if (focus) {
             mSearchButton.setVisibility(View.GONE);
             mStar.setVisibility(View.GONE);
