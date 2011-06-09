@@ -312,6 +312,7 @@ public class PhoneUi extends BaseUi {
     }
 
     void hideNavScreen(boolean animate) {
+        if (mNavScreen == null) return;
         Tab tab = mNavScreen.getSelectedTab();
         mCustomViewContainer.removeView(mNavScreen);
         mNavScreen = null;
