@@ -191,4 +191,13 @@ public class BrowserWebView extends WebView implements Runnable {
         }
     }
 
+    @Override
+    protected void updateCachedTextfield(String updatedText) {
+        super.updateCachedTextfield(updatedText);
+        CrashRecoveryHandler handler = CrashRecoveryHandler.getInstance();
+        if (handler != null) {
+            handler.backupState();
+        }
+    }
+
 }

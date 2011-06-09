@@ -226,7 +226,7 @@ public class Controller
         mDataController = DataController.getInstance(mActivity);
         mTabControl = new TabControl(this);
         mSettings.setController(this);
-        mCrashRecoveryHandler = new CrashRecoveryHandler(this);
+        mCrashRecoveryHandler = CrashRecoveryHandler.initialize(this);
 
         mUrlHandler = new UrlHandler(this);
         mIntentHandler = new IntentHandler(mActivity, this);
@@ -262,7 +262,6 @@ public class Controller
     void start(final Bundle icicle, final Intent intent) {
         boolean noCrashRecovery = intent.getBooleanExtra(NO_CRASH_RECOVERY, false);
         if (icicle != null || noCrashRecovery) {
-            mCrashRecoveryHandler.clearState();
             doStart(icicle, intent);
         } else {
             mCrashRecoveryHandler.startRecovery(intent);
@@ -615,7 +614,7 @@ public class Controller
         mNetworkHandler.onPause();
 
         WebView.disablePlatformNotifications();
-        mCrashRecoveryHandler.clearState();
+        mCrashRecoveryHandler.backupState();
     }
 
     void onSaveInstanceState(Bundle outState, boolean saveImages) {
@@ -2141,6 +2140,7 @@ public class Controller
     protected void removeTab(Tab tab) {
         mUi.removeTab(tab);
         mTabControl.removeTab(tab);
+        mCrashRecoveryHandler.backupState();
     }
 
     @Override
