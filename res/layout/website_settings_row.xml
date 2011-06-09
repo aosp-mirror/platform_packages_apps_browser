@@ -27,7 +27,7 @@
     android:layout_marginLeft="18dip"
     android:layout_marginRight="18dip"
     android:layout_centerVertical="true"
-    android:background="@drawable/fav_icn_background"
+    android:background="@drawable/bookmark_list_favicon_bg"
     android:padding="2dip" />
 
   <LinearLayout android:id="@+id/features"
