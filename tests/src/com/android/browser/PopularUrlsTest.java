@@ -24,6 +24,7 @@ import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.ClientCertRequestHandler;
 import android.webkit.DownloadListener;
 import android.webkit.HttpAuthHandler;
 import android.webkit.JsPromptResult;
@@ -222,6 +223,16 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                     SslError error) {
                 Log.w(TAG, "SSL error: " + error);
                 handler.proceed();
+            }
+
+            /**
+             * Ignores and logs SSL client certificate requests.
+             */
+            @Override
+            public void onReceivedClientCertRequest(WebView view, ClientCertRequestHandler handler,
+                    String host_and_port) {
+                Log.w(TAG, "SSL client certificate request: " + host_and_port);
+                handler.cancel();
             }
 
             /**
