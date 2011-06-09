@@ -169,15 +169,11 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
 
     private void onCloseTab(Tab tab) {
         if (tab != null) {
-            mUiController.closeTab(tab);
-            if (mUiController.getTabControl().getTabCount() == 0) {
-                openNewTab();
-            } else {
-                mAdapter.notifyDataSetChanged();
-            }
+            switchToSelected();
+            mUiController.closeCurrentTab();
+            mAdapter.notifyDataSetChanged();
         }
     }
-
 
     private void openNewTab() {
         // need to call openTab explicitely with setactive false
