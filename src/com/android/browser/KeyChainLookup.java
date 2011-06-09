@@ -18,8 +18,8 @@ package com.android.browser;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.RemoteException;
 import android.security.KeyChain;
+import android.security.KeyChainException;
 import android.webkit.ClientCertRequestHandler;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
@@ -42,7 +42,7 @@ final class KeyChainLookup extends AsyncTask<Void, Void, Void> {
         } catch (InterruptedException e) {
             mHandler.ignore();
             return null;
-        } catch (RemoteException e) {
+        } catch (KeyChainException e) {
             mHandler.ignore();
             return null;
         }
