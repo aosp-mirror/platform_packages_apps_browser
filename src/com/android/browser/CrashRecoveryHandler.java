@@ -22,7 +22,10 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Parcel;
+import android.os.Process;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -35,37 +38,88 @@ public class CrashRecoveryHandler {
     private static final String LOGTAG = "BrowserCrashRecovery";
     private static final String STATE_FILE = "browser_state.parcel";
     private static final int BUFFER_SIZE = 4096;
+    private static final long BACKUP_DELAY = 500; // 500ms between writes
+
+    private static CrashRecoveryHandler sInstance;
 
     private Controller mController;
+    private Handler mForegroundHandler;
+    private Handler mBackgroundHandler;
 
-    public CrashRecoveryHandler(Controller controller) {
+    public static CrashRecoveryHandler initialize(Controller controller) {
+        if (sInstance == null) {
+            sInstance = new CrashRecoveryHandler(controller);
+        } else {
+            sInstance.mController = controller;
+        }
+        return sInstance;
+    }
+
+    public static CrashRecoveryHandler getInstance() {
+        return sInstance;
+    }
+
+    private CrashRecoveryHandler(Controller controller) {
         mController = controller;
+        mForegroundHandler = new Handler();
+        HandlerThread thread = new HandlerThread(LOGTAG,
+                Process.THREAD_PRIORITY_BACKGROUND);
+        thread.start();
+        mBackgroundHandler = new Handler(thread.getLooper());
     }
 
     public void backupState() {
-        final Bundle state = new Bundle();
-        mController.onSaveInstanceState(state, false);
-        final Context context = mController.getActivity();
-        new Thread() {
-            @Override
-            public void run() {
-                Parcel p = Parcel.obtain();
-                try {
-                    state.writeToParcel(p, 0);
-                    FileOutputStream fout = context.openFileOutput(STATE_FILE,
-                            Context.MODE_PRIVATE);
-                    fout.write(p.marshall());
-                    fout.close();
-                } catch (Throwable e) {
-                    Log.i(LOGTAG, "Failed to save persistent state", e);
-                } finally {
-                    p.recycle();
-                }
-            }
-        }.start();
+        mForegroundHandler.postDelayed(mCreateState, BACKUP_DELAY);
     }
 
-    public void clearState() {
+    private Runnable mCreateState = new Runnable() {
+
+        @Override
+        public void run() {
+            try {
+                final Bundle state = new Bundle();
+                mController.onSaveInstanceState(state, false);
+                Context context = mController.getActivity()
+                        .getApplicationContext();
+                mBackgroundHandler.post(new WriteState(context, state));
+                // Remove any queued up saves
+                mForegroundHandler.removeCallbacks(mCreateState);
+            } catch (Throwable t) {
+                Log.w(LOGTAG, "Failed to save state", t);
+                return;
+            }
+        }
+
+    };
+
+    static class WriteState implements Runnable {
+        private Context mContext;
+        private Bundle mState;
+
+        WriteState(Context context, Bundle state) {
+            mContext = context;
+            mState = state;
+        }
+
+        @Override
+        public void run() {
+            Parcel p = Parcel.obtain();
+            try {
+                mState.writeToParcel(p, 0);
+                FileOutputStream fout = mContext.openFileOutput(STATE_FILE,
+                        Context.MODE_PRIVATE);
+                fout.write(p.marshall());
+                fout.close();
+            } catch (Throwable e) {
+                Log.i(LOGTAG, "Failed to save persistent state", e);
+            } finally {
+                p.recycle();
+            }
+        }
+
+    }
+
+    private void clearState() {
         Context context = mController.getActivity();
         context.deleteFile(STATE_FILE);
     }
