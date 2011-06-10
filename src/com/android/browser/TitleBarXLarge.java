@@ -165,8 +165,7 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mForwardButton == v) {
             mUiController.getCurrentTopWebView().goForward();
         } else if (mStar == v) {
-            mUiController.bookmarkCurrentPage(
-                    AddBookmarkPage.DEFAULT_FOLDER_ID, true);
+            mUiController.bookmarkCurrentPage(true);
         } else if (mAllButton == v) {
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mSearchButton == v) {

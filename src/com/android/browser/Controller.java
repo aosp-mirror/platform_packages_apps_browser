@@ -1555,7 +1555,7 @@ public class Controller
                 break;
 
             case R.id.add_bookmark_menu_id:
-                bookmarkCurrentPage(AddBookmarkPage.DEFAULT_FOLDER_ID, false);
+                bookmarkCurrentPage(false);
                 break;
 
             case R.id.stop_reload_menu_id:
@@ -1907,7 +1907,7 @@ public class Controller
      *          existing bookmark.
      */
     @Override
-    public void bookmarkCurrentPage(long folderId, boolean canBeAnEdit) {
+    public void bookmarkCurrentPage(boolean canBeAnEdit) {
         Intent i = new Intent(mActivity,
                 AddBookmarkPage.class);
         WebView w = getCurrentTopWebView();
@@ -1926,8 +1926,6 @@ public class Controller
                 createScreenshot(w, getDesiredThumbnailWidth(mActivity),
                 getDesiredThumbnailHeight(mActivity)));
         i.putExtra(BrowserContract.Bookmarks.FAVICON, w.getFavicon());
-        i.putExtra(BrowserContract.Bookmarks.PARENT,
-                folderId);
         if (canBeAnEdit) {
             i.putExtra(AddBookmarkPage.CHECK_FOR_DUPE, true);
         }
