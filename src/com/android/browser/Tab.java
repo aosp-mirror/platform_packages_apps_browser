@@ -33,7 +33,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemClock;
 import android.security.KeyChain;
-import android.security.KeyChainAliasResponse;
+import android.security.KeyChainAliasCallback;
 import android.speech.RecognizerResultsIntent;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -803,7 +803,7 @@ class Tab {
                 handler.ignore();
                 return;
             }
-            KeyChain.choosePrivateKeyAlias(mActivity, new KeyChainAliasResponse() {
+            KeyChain.choosePrivateKeyAlias(mActivity, new KeyChainAliasCallback() {
                 @Override public void alias(String alias) {
                     if (alias == null) {
                         handler.cancel();
@@ -811,7 +811,7 @@ class Tab {
                     }
                     new KeyChainLookup(mActivity, handler, alias).execute();
                 }
-            });
+            }, null, null, null, -1);
         }
 
         /**
