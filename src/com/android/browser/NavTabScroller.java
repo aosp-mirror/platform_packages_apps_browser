@@ -197,17 +197,7 @@ public class NavTabScroller extends FrameLayout {
                 int bottom = child.getBottom();
                 if (top <= midy && bottom >= midy) {
                     sel = i;
-                } else {
-                    // check if on screen
-                    if (top > getScrollY() + getHeight() || bottom < getScrollY()) {
-                        if (!child.isPaused()) {
-                            child.pause();
-                        }
-                    } else {
-                        if (child.isPaused()) {
-                            child.resume();
-                        }
-                    }
+                    break;
                 }
             }
             if (sel != -1) {

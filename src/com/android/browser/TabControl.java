@@ -286,7 +286,11 @@ class TabControl {
             }
         }
         outState.putLongArray(POSITIONS, ids);
-        final long cid = getCurrentTab().getId();
+        Tab current = getCurrentTab();
+        long cid = -1;
+        if (current != null) {
+            cid = current.getId();
+        }
         outState.putLong(CURRENT, cid);
     }
 

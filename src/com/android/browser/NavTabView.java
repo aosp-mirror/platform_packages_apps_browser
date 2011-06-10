@@ -198,7 +198,9 @@ public class NavTabView extends LinearLayout {
 
     @Override
     public void onDetachedFromWindow() {
-        mWebView.setProxyView(null);
+        if (mWebView != null) {
+            mWebView.setProxyView(null);
+        }
     }
 
     private static void removeFromParent(View v) {
