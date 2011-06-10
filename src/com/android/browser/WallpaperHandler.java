@@ -68,7 +68,7 @@ public class WallpaperHandler extends Thread
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if (mUrl != null) {
+        if (mUrl != null && getState() == State.NEW) {
             // The user may have tried to set a image with a large file size as
             // their background so it may take a few moments to perform the
             // operation.
