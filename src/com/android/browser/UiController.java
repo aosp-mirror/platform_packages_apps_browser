@@ -57,7 +57,7 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     void stopLoading();
 
-    void bookmarkCurrentPage(long folderId, boolean canBeAnEdit);
+    void bookmarkCurrentPage(boolean canBeAnEdit);
 
     void bookmarksOrHistoryPicker(boolean openHistory);
 

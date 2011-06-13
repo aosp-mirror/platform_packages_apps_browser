@@ -170,22 +170,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         // TODO: Figure out what to do here (if anything?)
     }
 
-    long getFolderId() {
-        LoaderManager manager = getLoaderManager();
-        BookmarksLoader loader =
-                (BookmarksLoader) ((Loader<?>)manager.getLoader(LOADER_BOOKMARKS));
-
-        Uri uri = loader.getUri();
-        if (uri != null) {
-            try {
-                return ContentUris.parseId(uri);
-            } catch (NumberFormatException nfx) {
-                return -1;
-            }
-        }
-        return -1;
-    }
-
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         BookmarkContextMenuInfo i = (BookmarkContextMenuInfo)item.getMenuInfo();
