@@ -62,7 +62,7 @@ public class FontSizePreview extends WebViewPreview {
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setMinimumFontSize(bs.getMinimumFontSize());
         ws.setTextZoom(bs.getTextZoom());
-        mWebView.loadData(mHtml, "text/html", "utf-8");
+        mWebView.loadData(mHtml, "text/html", null);
     }
 
     @Override
