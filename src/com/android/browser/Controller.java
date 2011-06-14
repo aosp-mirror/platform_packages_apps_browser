@@ -23,6 +23,7 @@ import android.content.ClipboardManager;
 import android.content.ContentProvider;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -78,6 +79,7 @@ import android.widget.Toast;
 import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.provider.BrowserProvider;
+import com.android.browser.provider.BrowserProvider2.Snapshots;
 import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 
@@ -326,6 +328,8 @@ public class Controller
                     webView.setInitialScale(scale);
                 }
             }
+            mTabControl.loadSnapshotTabs();
+            mUi.updateTabs(mTabControl.getTabs());
         } else {
             mTabControl.restoreState(icicle, currentTabId, restoreIncognitoTabs,
                     mUi.needsRestoreAllTabs());
@@ -797,7 +801,8 @@ public class Controller
     public void onPageFinished(Tab tab) {
         mUi.onTabDataChanged(tab);
         if (!tab.isPrivateBrowsingEnabled()
-                && !TextUtils.isEmpty(tab.getUrl())) {
+                && !TextUtils.isEmpty(tab.getUrl())
+                && !tab.isSnapshot()) {
             if (tab.inForeground() && !didUserStopLoading()
                     || !tab.inForeground()) {
                 // Only update the bookmark screenshot if the user did not
@@ -1605,19 +1610,28 @@ public class Controller
                 // TODO: Show error messages
                 Tab source = getTabControl().getCurrentTab();
                 if (source == null) break;
-                Tab snapshot = createNewTab(false, false, false);
-                if (snapshot == null) break;
-                try {
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    source.saveSnapshot(bos);
-                    ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-                    snapshot.loadSnapshot(bis);
-                    mUi.onTabDataChanged(snapshot);
-                    bis.close();
-                    bos.close();
-                    setActiveTab(snapshot);
-                } catch (IOException e) {
-                }
+                final ContentResolver cr = mActivity.getContentResolver();
+                final ContentValues values = source.createSnapshotValues();
+                new AsyncTask<Tab, Void, Long>() {
+                    @Override
+                    protected Long doInBackground(Tab... params) {
+                        Tab t = params[0];
+                        if (values == null) {
+                            return t.isSnapshot()
+                                    ? ((SnapshotTab)t).getSnapshotId()
+                                    : -1;
+                        }
+                        Uri result = cr.insert(Snapshots.CONTENT_URI, values);
+                        long id = ContentUris.parseId(result);
+                        return id;
+                    }
+
+                    protected void onPostExecute(Long id) {
+                        if (id > 0) {
+                            createNewSnapshotTab(id, true);
+                        }
+                    };
+                }.execute(source);
                 break;
 
             case R.id.save_webarchive_menu_id:
@@ -2139,6 +2153,18 @@ public class Controller
         mUi.removeTab(tab);
         mTabControl.removeTab(tab);
         mCrashRecoveryHandler.backupState();
+        if (tab.isSnapshot()) {
+            SnapshotTab st = (SnapshotTab) tab;
+            final Uri uri = ContentUris.withAppendedId(
+                    Snapshots.CONTENT_URI, st.getSnapshotId());
+            final ContentResolver cr = mActivity.getContentResolver();
+            new Thread() {
+                @Override
+                public void run() {
+                    cr.delete(uri, null, null);
+                }
+            }.start();
+        }
     }
 
     @Override
@@ -2277,6 +2303,15 @@ public class Controller
             } else {
                 mUi.showMaxTabsWarning();
             }
+        }
+        return tab;
+    }
+
+    private SnapshotTab createNewSnapshotTab(long snapshotId, boolean setActive) {
+        SnapshotTab tab = mTabControl.createSnapshotTab(snapshotId);
+        addTab(tab);
+        if (setActive) {
+            setActiveTab(tab);
         }
         return tab;
     }

@@ -49,7 +49,6 @@ public class NavTabView extends LinearLayout {
     private Drawable mUrlBg;
     private float mMediumTextSize;
     private float mSmallTextSize;
-    private boolean mPaused;
 
     public NavTabView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -85,20 +84,6 @@ public class NavTabView extends LinearLayout {
         setState(false);
     }
 
-    protected void pause() {
-        mPaused = true;
-        mWebView.onPause();
-    }
-
-    protected void resume() {
-        mPaused = false;
-        mWebView.onResume();
-    }
-
-    protected boolean isPaused() {
-        return mPaused;
-    }
-
     protected boolean isRefresh(View v) {
         return v == mRefresh;
     }
@@ -128,10 +113,8 @@ public class NavTabView extends LinearLayout {
     private void setState(boolean highlighted) {
         if (highlighted) {
             setAlpha(1.0f);
-            mRefresh.setVisibility(View.VISIBLE);
             mFavicon.setVisibility(View.VISIBLE);
-            mForward.setVisibility(mWebView.canGoForward()
-                    ? View.VISIBLE : View.GONE);
+            setupButtons();
             mTitleBar.setBackgroundDrawable(mTitleBg);
             mClose.setVisibility(View.VISIBLE);
             mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mMediumTextSize);
@@ -166,18 +149,27 @@ public class NavTabView extends LinearLayout {
 
     protected void setWebView(PhoneUi ui, Tab tab) {
         mTab = tab;
-        BrowserWebView web = (BrowserWebView) tab.getWebView();
-        if (web == null) return;
-        mWebView = web;
-        removeFromParent(mWebView);
-        mProxy = new WebProxyView(mContext, mWebView);
-        mContainer.addView(mProxy, 0);
-        if (mWebView != null) {
-            mForward.setVisibility(mWebView.canGoForward()
-                    ? View.VISIBLE : View.GONE);
-        }
         mFavicon.setImageDrawable(ui.getFaviconDrawable(tab.getFavicon()));
         setTitle();
+        BrowserWebView web = (BrowserWebView) tab.getWebView();
+        if (web != null) {
+            mWebView = web;
+            removeFromParent(mWebView);
+            mProxy = new WebProxyView(mContext, mWebView);
+            mContainer.addView(mProxy, 0);
+        }
+        setupButtons();
+    }
+
+    void setupButtons() {
+        if (mTab.isSnapshot()) {
+            mForward.setVisibility(View.GONE);
+            mRefresh.setVisibility(View.GONE);
+        } else if (mWebView != null) {
+            mForward.setVisibility(mWebView.canGoForward()
+                    ? View.VISIBLE : View.GONE);
+            mRefresh.setVisibility(View.VISIBLE);
+        }
     }
 
     protected void hideTitle() {

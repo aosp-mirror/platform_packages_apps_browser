@@ -20,6 +20,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -62,6 +64,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.provider.BrowserProvider2.Snapshots;
 import com.android.common.speech.LoggingEvents;
 
 import java.io.ByteArrayOutputStream;
@@ -96,10 +99,10 @@ class Tab {
     }
 
     Activity mActivity;
-    private WebViewController mWebViewController;
+    protected WebViewController mWebViewController;
 
     // The tab ID
-    private long mId;
+    private long mId = -1;
 
     // The Geolocation permissions prompt
     private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
@@ -145,7 +148,6 @@ class Tab {
     private DataController mDataController;
     // State of the auto-login request.
     private DeviceAccountLogin mDeviceAccountLogin;
-    private boolean mIsSnapshot = false;
 
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
@@ -154,7 +156,7 @@ class Tab {
     private BrowserSettings mSettings;
 
     // All the state needed for a page
-    private static class PageState {
+    protected static class PageState {
         String mUrl;
         String mTitle;
         LockIcon mLockIcon;
@@ -192,7 +194,7 @@ class Tab {
     }
 
     // The current/loading page's state
-    private PageState mCurrentState;
+    protected PageState mCurrentState;
 
     // Used for saving and restoring each Tab
     static final String ID = "ID";
@@ -1512,10 +1514,6 @@ class Tab {
      * @param child the Tab that was created from this Tab
      */
     void addChildTab(Tab child) {
-        if (mIsSnapshot) {
-            throw new IllegalStateException(
-                    "Snapshot tabs cannot have child tabs!");
-        }
         if (mChildren == null) {
             mChildren = new Vector<Tab>();
         }
@@ -1846,100 +1844,23 @@ class Tab {
     }
 
     public boolean isSnapshot() {
-        return mIsSnapshot;
-    }
-
-    public boolean loadSnapshot(InputStream rstream) {
-        if (rstream == null) {
-            mIsSnapshot = false;
-            if (mMainView != null) {
-                mMainView.clearViewState();
-            }
-            return true;
-        }
-        DataInputStream stream = new DataInputStream(rstream);
-        if (!readTabInfo(stream)) {
-            return false;
-        }
-        if (!mMainView.loadViewState(stream)) {
-            return false;
-        }
-        mIsSnapshot = true;
-        return true;
-    }
-
-    public boolean saveSnapshot(OutputStream rstream) {
-        if (rstream == null) return false;
-        if (mMainView == null) return false;
-        DataOutputStream stream = new DataOutputStream(rstream);
-        if (saveTabInfo(stream)) {
-            return mMainView.saveViewState(stream);
-        }
         return false;
     }
 
-    private boolean readTabInfo(DataInputStream stream) {
-        try {
-            PageState state = new PageState(mActivity, false);
-            state.mTitle = stream.readUTF();
-            if (state.mTitle.length() == 0) {
-                state.mTitle = null;
-            }
-            state.mUrl = stream.readUTF();
-            int faviconLen = stream.readInt();
-            if (faviconLen > 0) {
-                byte[] data = new byte[faviconLen];
-                int read = stream.read(data);
-                if (read != faviconLen) {
-                    throw new IOException("Read didn't match expected len!"
-                            + " Expected: " + faviconLen
-                            + " Got: " + read);
-                }
-                state.mFavicon = BitmapFactory.decodeByteArray(data, 0, data.length);
-            }
-            mCurrentState = state;
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    private boolean saveTabInfo(DataOutputStream stream) {
-        try {
-            // mTitle might be null, but writeUTF doesn't handle that
-            String title = mCurrentState.mTitle;
-            stream.writeUTF(title != null ? title : "");
-            // mUrl is never null
-            stream.writeUTF(mCurrentState.mUrl);
-            byte[] compressedPixels = compressFavicon();
-            if (compressedPixels == null) {
-                stream.writeInt(-1);
-            } else {
-                stream.writeInt(compressedPixels.length);
-                stream.write(compressedPixels);
-            }
-            return true;
-        } catch (Exception e) {
-            Log.w(LOGTAG, "Failed to saveTabInfo", e);
-            return false;
-        }
-    }
-
-    private byte[] compressFavicon() {
-        Bitmap favicon = mCurrentState.mFavicon;
-        if (favicon == null) {
+    public ContentValues createSnapshotValues() {
+        if (mMainView == null) return null;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        if (!mMainView.saveViewState(stream)) {
             return null;
         }
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        byte[] data = null;
-        try {
-            favicon.compress(CompressFormat.PNG, 100, stream);
-            data = stream.toByteArray();
-            stream.close();
-        } catch (IOException e) {
-            // Will return null below then
-        }
-        return data;
+        byte[] data = stream.toByteArray();
+        ContentResolver cr = mActivity.getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put(Snapshots.TITLE, mCurrentState.mTitle);
+        values.put(Snapshots.URL, mCurrentState.mUrl);
+        values.put(Snapshots.VIEWSTATE, data);
+        values.put(Snapshots.BACKGROUND, mMainView.getPageBackgroundColor());
+        return values;
     }
 
 }

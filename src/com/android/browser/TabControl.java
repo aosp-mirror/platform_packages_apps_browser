@@ -16,9 +16,13 @@
 
 package com.android.browser;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
+
+import com.android.browser.provider.BrowserProvider2.Snapshots;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,8 +34,8 @@ class TabControl {
     // Log Tag
     private static final String LOGTAG = "TabControl";
 
-    // next Tab ID
-    private static long sNextId = 0;
+    // next Tab ID, starting at 1
+    private static long sNextId = 1;
 
     private static final String POSITIONS = "positions";
     private static final String CURRENT = "current";
@@ -202,6 +206,14 @@ class TabControl {
         return createNewTab(false);
     }
 
+    SnapshotTab createSnapshotTab(long snapshotId) {
+        // TODO: Don't count this against the limit
+        SnapshotTab t = new SnapshotTab(mController, snapshotId);
+        t.setId(getNextId());
+        mTabs.add(t);
+        return t;
+    }
+
     /**
      * Remove the parent child relationships from all tabs.
      */
@@ -346,7 +358,10 @@ class TabControl {
             }
             final String idkey = Long.toString(id);
             Bundle state = inState.getBundle(idkey);
-            if (!restoreIncognitoTabs && state != null
+            if (state == null || state.isEmpty()) {
+                // Skip tab
+                continue;
+            } else if (!restoreIncognitoTabs
                     && state.getBoolean(Tab.INCOGNITO)) {
                 // ignore tab
             } else if (id == currentId || restoreAll) {
@@ -383,6 +398,16 @@ class TabControl {
             sNextId = maxId + 1;
 
         }
+        if (mCurrentTab == -1) {
+            if (getTabCount() > 0) {
+                setCurrentTab(getTab(0));
+            } else {
+                Tab t = createNewTab();
+                setCurrentTab(t);
+                t.getWebView().loadUrl(BrowserSettings.getInstance()
+                        .getHomePage());
+            }
+        }
         // restore parent/child relationships
         for (long id : ids) {
             final Tab tab = tabMap.get(id);
@@ -396,6 +421,21 @@ class TabControl {
                     }
                 }
             }
+        }
+        loadSnapshotTabs();
+
+    }
+
+    void loadSnapshotTabs() {
+        ContentResolver cr = mController.getActivity().getContentResolver();
+        Cursor c = cr.query(Snapshots.CONTENT_URI, new String[] { "_id" },
+                null, null, null);
+        try {
+            while (c.moveToNext()) {
+                createSnapshotTab(c.getLong(0));
+            }
+        } finally {
+            c.close();
         }
     }
 
@@ -614,7 +654,7 @@ class TabControl {
         // Display the new current tab
         mCurrentTab = mTabs.indexOf(newTab);
         WebView mainView = newTab.getWebView();
-        boolean needRestore = (mainView == null);
+        boolean needRestore = !newTab.isSnapshot() && (mainView == null);
         if (needRestore) {
             // Same work as in createNewTab() except don't do new Tab()
             mainView = createNewWebView();
