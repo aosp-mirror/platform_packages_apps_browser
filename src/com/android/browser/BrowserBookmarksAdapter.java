@@ -52,6 +52,12 @@ public class BrowserBookmarksAdapter extends CursorAdapter {
     }
 
     void bindGridView(View view, Context context, Cursor cursor) {
+        // We need to set this to handle rotation and other configuration change
+        // events. If the padding didn't change, this is a no op.
+        int padding = context.getResources()
+                .getDimensionPixelSize(R.dimen.combo_horizontalSpacing);
+        view.setPadding(padding, view.getPaddingTop(),
+                padding, view.getPaddingBottom());
         ImageView thumb = (ImageView) view.findViewById(R.id.thumb);
         TextView tv = (TextView) view.findViewById(R.id.label);
 

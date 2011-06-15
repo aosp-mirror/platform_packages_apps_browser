@@ -57,6 +57,7 @@ public class BookmarkExpandableGridView extends ExpandableListView
     private boolean mLongClickable;
     private BreadCrumbView.Controller mBreadcrumbController;
     private BookmarkDragHandler mDragHandler;
+    private int mMaxColumnCount;
 
     public BookmarkExpandableGridView(Context context) {
         super(context);
@@ -78,14 +79,27 @@ public class BookmarkExpandableGridView extends ExpandableListView
         mContext = context;
         setItemsCanFocus(true);
         setLongClickable(false);
+        mMaxColumnCount = mContext.getResources()
+                .getInteger(R.integer.max_bookmark_columns);
         mAdapter = new BookmarkAccountAdapter(mContext);
         super.setAdapter(mAdapter);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        if (width > 0) {
+            mAdapter.measureChildren(width);
+            if (mAdapter.mRowPadding > 0) {
+                width -= mAdapter.mRowPadding * 2;
+            }
+            widthMeasureSpec = MeasureSpec.makeMeasureSpec(width, widthMode);
+        }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mAdapter.measureChildren();
+        if (width != getMeasuredWidth()) {
+            mAdapter.measureChildren(getMeasuredWidth());
+        }
     }
 
     @Override
@@ -98,10 +112,6 @@ public class BookmarkExpandableGridView extends ExpandableListView
         View v = infalter.inflate(layout, this, false);
         v.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
         mColumnWidth = v.getMeasuredWidth();
-    }
-
-    public void setHorizontalSpacing(int horizontalSpacing) {
-        // TODO Auto-generated method stub
     }
 
     public void clearAccounts() {
@@ -330,11 +340,6 @@ public class BookmarkExpandableGridView extends ExpandableListView
                 convertView = mInflater.inflate(R.layout.bookmark_grid_row, parent, false);
             }
             LinearLayout row = (LinearLayout) convertView;
-            row.setPadding(
-                    mRowPadding,
-                    row.getPaddingTop(),
-                    mRowPadding,
-                    row.getPaddingBottom());
             if (row.getChildCount() > mRowCount) {
                 row.removeViews(mRowCount, row.getChildCount() - mRowCount);
             }
@@ -387,13 +392,13 @@ public class BookmarkExpandableGridView extends ExpandableListView
             return mGroups.size();
         }
 
-        public void measureChildren() {
-            int viewWidth = getMeasuredWidth();
+        public void measureChildren(int viewWidth) {
             if (mLastViewWidth == viewWidth) return;
 
-            ViewGroup parent = (ViewGroup) mInflater.inflate(R.layout.bookmark_grid_row, null);
-            viewWidth -= parent.getPaddingLeft() + parent.getPaddingRight();
             int rowCount = viewWidth / mColumnWidth;
+            if (mMaxColumnCount > 0) {
+                rowCount = Math.min(rowCount, mMaxColumnCount);
+            }
             int rowPadding = (viewWidth - (rowCount * mColumnWidth)) / 2;
             boolean notify = rowCount != mRowCount || rowPadding != mRowPadding;
             mRowCount = rowCount;

@@ -27,4 +27,6 @@
     <integer name="comboViewFadeInDuration">400</integer>
     <!--  fade between tabs duration -->
     <integer name="tabFadeDuration">300</integer>
+    <!-- The maximum number of columns in the bookmark grid view -->
+    <integer name="max_bookmark_columns">5</integer>
 </resources>

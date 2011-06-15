@@ -556,13 +556,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         Resources res = getActivity().getResources();
-        int horizontalSpacing = (int) res.getDimension(R.dimen.combo_horizontalSpacing);
-        mGrid.setHorizontalSpacing(horizontalSpacing);
         mGrid.setColumnWidthFromLayout(R.layout.bookmark_thumbnail);
-        int paddingLeftRight = (int) res.getDimension(R.dimen.combo_paddingLeftRight);
         int paddingTop = (int) res.getDimension(R.dimen.combo_paddingTop);
-        mRoot.setPadding(paddingLeftRight, paddingTop,
-                paddingLeftRight, 0);
+        mRoot.setPadding(0, paddingTop, 0, 0);
         getActivity().invalidateOptionsMenu();
     }
 
