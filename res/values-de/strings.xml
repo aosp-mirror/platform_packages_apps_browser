@@ -309,7 +309,7 @@
     <string name="download_delete_file" msgid="5330036497843073249">"Datei wird gelöscht."</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Kein freier Speicher vorhanden"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> konnte nicht heruntergeladen werden."\n"Bereinigen Sie den Speicher Ihres Telefons und versuchen Sie es erneut."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download war nicht erfolgreich"</string>
+    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download fehlgeschlagen"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Kein USB-Speicher"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Keine SD-Karte"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Sie benötigen einen USB-Speicher, um <xliff:g id="FILENAME">%s</xliff:g> herunterzuladen."</string>
@@ -322,7 +322,7 @@
     <string name="download_no_application_title" msgid="1286056729168874295">"Datei kann nicht geöffnet werden."</string>
     <string name="retry" msgid="1835923075542266721">"Wiederholen"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Downloadverlauf ist leer."</string>
-    <string name="download_error" msgid="413496839831257187">"Download war nicht erfolgreich."</string>
+    <string name="download_error" msgid="413496839831257187">"Download fehlgeschlagen"</string>
     <string name="download_success" msgid="2279041638155595203">"Download von <xliff:g id="FILE">%s</xliff:g> abgeschlossen."</string>
     <string name="download_running" msgid="2622942231322015059">"Downloadvorgang läuft..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Download wird gestartet…"</string>
