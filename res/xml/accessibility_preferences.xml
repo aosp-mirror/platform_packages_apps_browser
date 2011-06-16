@@ -17,24 +17,29 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.android.browser.preferences.WebViewPreview />
-
-    <ListPreference
-        android:key="text_size"
-        android:title="@string/pref_text_size"
-        android:defaultValue="NORMAL"
-        android:entries="@array/pref_text_size_choices"
-        android:entryValues="@array/pref_text_size_values"
-        android:dialogTitle="@string/pref_text_size_dialogtitle" />
-
-    <com.android.browser.preferences.MinFontSizePreference
-        android:key="min_font_size"
-        android:title="@string/pref_min_font_size"
-        android:defaultValue="1" />
-
     <CheckBoxPreference android:key="force_userscalable"
         android:title="@string/pref_force_userscalable"
         android:summary="@string/pref_force_userscalable_summary"
         android:defaultValue="false" />
+
+    <PreferenceCategory android:title="@string/pref_font_size_category">
+        <com.android.browser.preferences.WebViewPreview
+            android:title="@string/preview" />
+
+        <ListPreference
+            android:key="text_size"
+            android:title="@string/pref_text_size"
+            android:defaultValue="NORMAL"
+            android:entries="@array/pref_text_size_choices"
+            android:entryValues="@array/pref_text_size_values"
+            android:dialogTitle="@string/pref_text_size_dialogtitle" />
+
+        <com.android.browser.preferences.FontSizePreference
+            android:key="min_font_size"
+            android:title="@string/pref_min_font_size"
+            android:defaultValue="0"
+            android:max="18" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

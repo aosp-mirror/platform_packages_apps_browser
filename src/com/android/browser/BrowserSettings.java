@@ -83,6 +83,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             HONEYCOMB_USERAGENT,
     };
 
+    // The minimum min font size
+    // Aka, the lower bounds for the min font size range
+    // which is 1:5..24
+    private static final int MIN_FONT_SIZE_OFFSET = 5;
+
     private static BrowserSettings sInstance;
 
     private Context mContext;
@@ -423,7 +428,12 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public int getMinimumFontSize() {
-        return mPrefs.getInt(PREF_MIN_FONT_SIZE, 1);
+        int minFont = mPrefs.getInt(PREF_MIN_FONT_SIZE, 0);
+        minFont++; // Preference starts at 0, min font at 1
+        if (minFont > 1) {
+            minFont += MIN_FONT_SIZE_OFFSET;
+        }
+        return minFont;
     }
 
     public boolean forceEnableUserScalable() {

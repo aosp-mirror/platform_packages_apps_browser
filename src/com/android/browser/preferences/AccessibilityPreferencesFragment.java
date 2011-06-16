@@ -43,7 +43,6 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getListView().setItemsCanFocus(true);
     }
 
     @Override
