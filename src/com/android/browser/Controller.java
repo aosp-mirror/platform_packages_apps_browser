@@ -38,6 +38,7 @@ import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -155,6 +156,7 @@ public class Controller
     private IntentHandler mIntentHandler;
     private PageDialogsHandler mPageDialogsHandler;
     private NetworkStateHandler mNetworkHandler;
+    private NfcHandler mNfcHandler;
 
     private Message mAutoFillSetupMessage;
 
@@ -233,6 +235,7 @@ public class Controller
         mUrlHandler = new UrlHandler(this);
         mIntentHandler = new IntentHandler(mActivity, this);
         mPageDialogsHandler = new PageDialogsHandler(mActivity, this);
+        mNfcHandler = new NfcHandler(mActivity, this);
 
         PowerManager pm = (PowerManager) mActivity
                 .getSystemService(Context.POWER_SERVICE);
@@ -531,6 +534,11 @@ public class Controller
 
     }
 
+
+    public Tab getCurrentTab() {
+        return mTabControl.getCurrentTab();
+    }
+
     @Override
     public void shareCurrentPage() {
         shareCurrentPage(mTabControl.getCurrentTab());
@@ -616,9 +624,11 @@ public class Controller
         }
         mUi.onPause();
         mNetworkHandler.onPause();
+        mNfcHandler.onPause();
 
         WebView.disablePlatformNotifications();
         mCrashRecoveryHandler.backupState();
+
     }
 
     void onSaveInstanceState(Bundle outState, boolean saveImages) {
@@ -649,8 +659,10 @@ public class Controller
             mHandler.removeMessages(RELEASE_WAKELOCK);
             mWakeLock.release();
         }
+
         mUi.onResume();
         mNetworkHandler.onResume();
+        mNfcHandler.onResume();
         WebView.enablePlatformNotifications();
     }
 
@@ -820,6 +832,7 @@ public class Controller
                 mWakeLock.release();
             }
         }
+
         // Performance probe
         if (false) {
             Performance.onPageFinished(tab.getUrl());
