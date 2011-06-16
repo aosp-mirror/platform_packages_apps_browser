@@ -26,7 +26,6 @@ import android.content.res.Resources;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -34,11 +33,9 @@ import android.webkit.WebView;
 
 public class WebViewPreview extends Preference implements OnSharedPreferenceChangeListener {
 
-    // 80 char line width limit? Rules are made to be broken.
     static final String HTML_FORMAT = "<html><head><style type=\"text/css\">p { margin: 2px auto;}</style><body><p style=\"font-size: .4em\">%s</p><p style=\"font-size: .7em\">%s</p><p style=\"font-size: 1em\">%s</p><p style=\"font-size: 1.3em\">%s</p><p style=\"font-size: 1.6em\">%s</p></body></html>";
 
-    String HTML;
-    private View mRoot;
+    String mHtml;
     private WebView mWebView;
 
     public WebViewPreview(
@@ -60,7 +57,8 @@ public class WebViewPreview extends Preference implements OnSharedPreferenceChan
     void init(Context context) {
         Resources res = context.getResources();
         Object[] visualNames = res.getStringArray(R.array.pref_text_size_choices);
-        HTML = String.format(HTML_FORMAT, visualNames);
+        mHtml = String.format(HTML_FORMAT, visualNames);
+        setLayoutResource(R.layout.webview_preview);
     }
 
     void updatePreview() {
@@ -70,19 +68,23 @@ public class WebViewPreview extends Preference implements OnSharedPreferenceChan
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setMinimumFontSize(bs.getMinimumFontSize());
         ws.setTextSize(bs.getTextSize());
-        mWebView.loadData(HTML, "text/html", "utf-8");
+        mWebView.loadData(mHtml, "text/html", "utf-8");
     }
 
     @Override
-    public View getView(View convertView, ViewGroup parent) {
-        if (mWebView == null) {
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            mRoot = inflater.inflate(R.layout.webview_preview, parent, false);
-            mWebView = (WebView) mRoot.findViewById(R.id.webview);
-            mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
+    protected View onCreateView(ViewGroup parent) {
+        View root = super.onCreateView(parent);
+        WebView webView = (WebView) root.findViewById(R.id.webview);
+        webView.setFocusable(false);
+        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        return root;
+    }
+
+    @Override
+    protected void onBindView(View view) {
+        super.onBindView(view);
+        mWebView = (WebView) view.findViewById(R.id.webview);
         updatePreview();
-        return mRoot;
     }
 
     @Override

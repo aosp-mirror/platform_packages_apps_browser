@@ -642,6 +642,8 @@
     <string name="pref_default_text_encoding_default" translatable="false">Latin-1</string>
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
+    <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+    <string name="pref_font_size_category">Font size</string>
     <!-- Title for lab settings [CHAR LIMIT=25] -->
     <string name="pref_lab_title">Labs</string>
     <!-- Title for lab quick controls feature [CHAR LIMIT=40] -->
@@ -1005,8 +1007,8 @@
     <string name="recover_yes">Restore</string>
     <!-- No, don't recover windows from last time [CHAR LIMIT=10] -->
     <string name="recover_no">No</string>
-    <!-- Font size preview label [CHAR LIMIT=30] -->
-    <string name="preview">Preview:</string>
+    <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+    <string name="preview">Preview</string>
     <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
     <string name="local_bookmarks">Local</string>
     <!-- Popup menu option that allows the user to select the mobile version of a webpage [CHAR LIMIT=50] -->
