@@ -31,9 +31,12 @@ import android.widget.FrameLayout;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.android.browser.view.Gallery.OnItemSelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +60,7 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
     ImageView mFavicon;
     ImageButton mCloseTab;
 
-    NavTabScroller mScroller;
+    NavTabGallery mScroller;
     float mTabAspect = 0.66f;
     int mTabWidth;
     int mTabHeight;
@@ -111,9 +114,9 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
         if (newconfig.orientation != mOrientation) {
             int selIx = mScroller.getSelectionIndex();
             removeAllViews();
+            mOrientation = newconfig.orientation;
             init();
             mScroller.setSelection(selIx);
-            mOrientation = newconfig.orientation;
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -128,10 +131,11 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
         mNewTab.setOnClickListener(this);
         mNewIncognito.setOnClickListener(this);
         mMore.setOnClickListener(this);
-        mScroller = (NavTabScroller) findViewById(R.id.scroller);
+        mScroller = (NavTabGallery) findViewById(R.id.scroller);
         mAdapter = new TabAdapter(mContext, mUiController.getTabControl());
         mScroller.setAdapter(mAdapter);
-
+        mScroller.setOrientation(mOrientation == Configuration.ORIENTATION_LANDSCAPE
+                ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
         // update state for active tab
         mScroller.setSelection(mUiController.getTabControl().getTabPosition(mUi.getActiveTab()));
     }
@@ -261,19 +265,13 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
             tabview.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (tabview.isRefresh(v)) {
-                        mUi.hideNavScreen(true);
-                        web.reload();
-                    } else if (tabview.isClose(v)) {
+                    if (tabview.isClose(v)) {
                         onCloseTab((Tab) (mScroller.getSelectedItem()));
                     } else if (tabview.isTitle(v)) {
                         mUi.getTitleBar().setSkipTitleBarAnimations(true);
                         close(false);
                         mUi.editUrl(false);
                         mUi.getTitleBar().setSkipTitleBarAnimations(false);
-                    } else if (tabview.isForward(v)) {
-                        mUi.hideNavScreen(true);
-                        web.goForward();
                     } else if (tabview.isWebView(v)) {
                         mScroller.setSelection(position);
                         close();
