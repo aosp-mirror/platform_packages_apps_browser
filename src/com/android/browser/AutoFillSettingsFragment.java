@@ -28,6 +28,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings.AutoFillProfile;
 import android.widget.Button;
@@ -131,7 +134,38 @@ public class AutoFillSettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+        setHasOptionsMenu(true);
         mSettings = BrowserSettings.getInstance();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.autofill_profile_editor, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.autofill_profile_editor_delete_profile_menu_id) {
+            // Clear the UI.
+            mFullNameEdit.setText("");
+            mEmailEdit.setText("");
+            mCompanyEdit.setText("");
+            mAddressLine1Edit.setText("");
+            mAddressLine2Edit.setText("");
+            mCityEdit.setText("");
+            mStateEdit.setText("");
+            mZipEdit.setText("");
+            mCountryEdit.setText("");
+            mPhoneEdit.setText("");
+
+            // Update browser settings and native with a null profile. This will
+            // trigger the current profile to get deleted from the DB.
+            mSettings.setAutoFillProfile(null,
+                    mHandler.obtainMessage(PROFILE_DELETED_MSG));
+            updateButtonState();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -183,37 +217,6 @@ public class AutoFillSettingsFragment extends Fragment {
                         mHandler.obtainMessage(PROFILE_SAVED_MSG));
                 closeEditor();
             }
-        });
-
-        Button deleteButton = (Button)v.findViewById(R.id.autofill_profile_editor_delete_button);
-        deleteButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View button) {
-                // Clear the UI.
-                mFullNameEdit.setText("");
-                mEmailEdit.setText("");
-                mCompanyEdit.setText("");
-                mAddressLine1Edit.setText("");
-                mAddressLine2Edit.setText("");
-                mCityEdit.setText("");
-                mStateEdit.setText("");
-                mZipEdit.setText("");
-                mCountryEdit.setText("");
-                mPhoneEdit.setText("");
-
-                // Update browser settings and native with a null profile. This will
-                // trigger the current profile to get deleted from the DB.
-                mSettings.setAutoFillProfile(null,
-                        mHandler.obtainMessage(PROFILE_DELETED_MSG));
-
-                updateButtonState();
-            }
-        });
-
-        Button cancelButton = (Button)v.findViewById(R.id.autofill_profile_editor_cancel_button);
-        cancelButton.setOnClickListener(new OnClickListener() {
-           public void onClick(View button) {
-               closeEditor();
-           }
         });
 
         // Populate the text boxes with any pre existing AutoFill data.
