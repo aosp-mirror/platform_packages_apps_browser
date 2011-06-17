@@ -288,6 +288,9 @@ class TabControl {
      */
     void saveState(Bundle outState, boolean saveImages) {
         final int numTabs = getTabCount();
+        if (numTabs == 0) {
+            return;
+        }
         long[] ids = new long[numTabs];
         int i = 0;
         for (Tab tab : mTabs) {
@@ -297,13 +300,15 @@ class TabControl {
                         tab.getSavedState(saveImages));
             }
         }
-        outState.putLongArray(POSITIONS, ids);
-        Tab current = getCurrentTab();
-        long cid = -1;
-        if (current != null) {
-            cid = current.getId();
+        if (!outState.isEmpty()) {
+            outState.putLongArray(POSITIONS, ids);
+            Tab current = getCurrentTab();
+            long cid = -1;
+            if (current != null) {
+                cid = current.getId();
+            }
+            outState.putLong(CURRENT, cid);
         }
-        outState.putLong(CURRENT, cid);
     }
 
     /**

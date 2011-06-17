@@ -103,6 +103,10 @@ public class CrashRecoveryHandler {
 
         @Override
         public void run() {
+            if (mState.isEmpty()) {
+                clearState(mContext);
+                return;
+            }
             Parcel p = Parcel.obtain();
             try {
                 mState.writeToParcel(p, 0);
@@ -119,8 +123,7 @@ public class CrashRecoveryHandler {
 
     }
 
-    private void clearState() {
-        Context context = mController.getActivity();
+    private static void clearState(Context context) {
         context.deleteFile(STATE_FILE);
     }
 
@@ -128,6 +131,7 @@ public class CrashRecoveryHandler {
         new AlertDialog.Builder(mController.getActivity())
                 .setTitle(R.string.recover_title)
                 .setMessage(R.string.recover_prompt)
+                .setIcon(R.mipmap.ic_launcher_browser)
                 .setPositiveButton(R.string.recover_yes, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -137,7 +141,7 @@ public class CrashRecoveryHandler {
                 .setNegativeButton(R.string.recover_no, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        clearState();
+                        clearState(mController.getActivity());
                         mController.doStart(null, intent);
                     }
                 })
