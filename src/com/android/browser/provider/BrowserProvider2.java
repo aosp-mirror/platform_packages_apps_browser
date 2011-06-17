@@ -17,6 +17,7 @@
 package com.android.browser.provider;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -1601,6 +1602,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
             case SEARCHES: {
                 modified = db.update(TABLE_SEARCHES, values, selection, selectionArgs);
+                break;
+            }
+
+            case ACCOUNTS: {
+                Account[] accounts = AccountManager.get(getContext()).getAccounts();
+                mSyncHelper.onAccountsChanged(mDb, accounts);
                 break;
             }
 
