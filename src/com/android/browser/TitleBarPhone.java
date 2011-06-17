@@ -72,6 +72,7 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         mStopDrawable = res.getDrawable(R.drawable.ic_stop_holo_dark);
         mRefreshDrawable = res.getDrawable(R.drawable.ic_refresh_holo_dark);
         setUaSwitcher(mFavicon);
+        mUrlInput.setContainer(this);
     }
 
     @Override
@@ -110,16 +111,6 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     }
 
     @Override
-    protected void onProgressStarted() {
-        setFocusState(mUrlInput.hasFocus());
-    }
-
-    @Override
-    protected void onProgressStopped() {
-        setFocusState(mUrlInput.hasFocus());
-    }
-
-    @Override
     void setProgress(int progress) {
         super.setProgress(progress);
         if (progress == 100) {
@@ -137,13 +128,15 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
      */
     @Override
     void setDisplayTitle(String title) {
-        if (title == null) {
-            mUrlInput.setText(R.string.new_tab);
-        } else {
-            mUrlInput.setText(title);
+        if (!isEditingUrl()) {
+            if (title == null) {
+                mUrlInput.setText(R.string.new_tab);
+            } else {
+                mUrlInput.setText(title);
+            }
+            mUrlInput.setSelection(0);
+            updateNavigationState();
         }
-        mUrlInput.setSelection(0);
-        updateNavigationState();
     }
 
     @Override
