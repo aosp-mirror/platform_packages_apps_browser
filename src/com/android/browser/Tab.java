@@ -37,6 +37,7 @@ import android.os.SystemClock;
 import android.security.KeyChain;
 import android.security.KeyChainAliasCallback;
 import android.speech.RecognizerResultsIntent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -1775,6 +1776,12 @@ class Tab {
         // stored the saved state in mSavedState.
         if (mMainView == null) {
             return mSavedState != null;
+        }
+        // If the tab is the homepage or has no URL, don't save it
+        String homepage = BrowserSettings.getInstance().getHomePage();
+        if (TextUtils.equals(homepage, mCurrentState.mUrl)
+                || TextUtils.isEmpty(mCurrentState.mUrl)) {
+            return false;
         }
 
         mSavedState = new Bundle();

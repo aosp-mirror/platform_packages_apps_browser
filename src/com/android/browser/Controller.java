@@ -640,8 +640,10 @@ public class Controller
 
         // Save all the tabs
         mTabControl.saveState(outState, saveImages);
-        // Save time so that we know how old incognito tabs (if any) are.
-        outState.putSerializable("lastActiveDate", Calendar.getInstance());
+        if (!outState.isEmpty()) {
+            // Save time so that we know how old incognito tabs (if any) are.
+            outState.putSerializable("lastActiveDate", Calendar.getInstance());
+        }
     }
 
     void onResume() {
