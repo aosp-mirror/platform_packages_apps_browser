@@ -1280,16 +1280,21 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     values.put(Bookmarks.DATE_MODIFIED, now);
                     values.put(Bookmarks.DIRTY, 1);
 
+                    boolean hasAccounts = values.containsKey(Bookmarks.ACCOUNT_TYPE)
+                            || values.containsKey(Bookmarks.ACCOUNT_NAME);
                     String accountType = values
                             .getAsString(Bookmarks.ACCOUNT_TYPE);
                     String accountName = values
                             .getAsString(Bookmarks.ACCOUNT_NAME);
                     boolean hasParent = values.containsKey(Bookmarks.PARENT);
-                    if (hasParent) {
+                    if (hasParent && hasAccounts) {
                         // Let's make sure it's valid
                         long parentId = values.getAsLong(Bookmarks.PARENT);
                         hasParent = isValidParent(
                                 accountType, accountName, parentId);
+                    } else if (hasParent && !hasAccounts) {
+                        long parentId = values.getAsLong(Bookmarks.PARENT);
+                        hasParent = setParentValues(parentId, values);
                     }
 
                     // If no parent is set default to the "Bookmarks Bar" folder
@@ -1377,12 +1382,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         }
     }
 
-    private boolean isValidParent(String accountType, String accountName,
-            long parentId) {
-        if (parentId <= 0) {
-            return false;
+    private String[] getAccountNameAndType(long id) {
+        if (id <= 0) {
+            return null;
         }
-        Uri uri = ContentUris.withAppendedId(Bookmarks.CONTENT_URI, parentId);
+        Uri uri = ContentUris.withAppendedId(Bookmarks.CONTENT_URI, id);
         Cursor c = query(uri,
                 new String[] { Bookmarks.ACCOUNT_NAME, Bookmarks.ACCOUNT_TYPE },
                 null, null, null);
@@ -1390,15 +1394,33 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             if (c.moveToFirst()) {
                 String parentName = c.getString(0);
                 String parentType = c.getString(1);
-                if (TextUtils.equals(accountName, parentName)
-                        && TextUtils.equals(accountType, parentType)) {
-                    return true;
-                }
+                return new String[] { parentName, parentType };
             }
-            return false;
+            return null;
         } finally {
             c.close();
         }
+    }
+
+    private boolean setParentValues(long parentId, ContentValues values) {
+        String[] parent = getAccountNameAndType(parentId);
+        if (parent == null) {
+            return false;
+        }
+        values.put(Bookmarks.ACCOUNT_NAME, parent[0]);
+        values.put(Bookmarks.ACCOUNT_TYPE, parent[1]);
+        return true;
+    }
+
+    private boolean isValidParent(String accountType, String accountName,
+            long parentId) {
+        String[] parent = getAccountNameAndType(parentId);
+        if (parent != null
+                && TextUtils.equals(accountName, parent[0])
+                && TextUtils.equals(accountType, parent[1])) {
+            return true;
+        }
+        return false;
     }
 
     private void filterSearchClient(String[] selectionArgs) {
