@@ -510,9 +510,7 @@
     <string name="pref_security_accept_cookies">Accept cookies</string>
     <!-- Settings summary -->
     <string name="pref_security_accept_cookies_summary">Allow sites to save and read \"cookie\" data</string>
-    <!-- Settings label -->
-    <string name="pref_text_size">Text size</string>
-    <!-- Settings text size options; appear in Text size dialog box -->
+    <!-- Settings text size options; appear in Text size dialog box [CHAR LIMIT=30] -->
     <string-array name="pref_text_size_choices">
         <item>Tiny</item>
         <item>Small</item>
@@ -520,18 +518,12 @@
         <item>Large</item>
         <item>Huge</item>
     </string-array>
-    <!-- Title of dialog for setting the text size -->
-    <string name="pref_text_size_dialogtitle">Text size</string>
-    <!-- Do not translate -->
-    <string-array name="pref_text_size_values" translatable="false">
-        <item><xliff:g>SMALLEST</xliff:g></item>
-        <item><xliff:g>SMALLER</xliff:g></item>
-        <item><xliff:g>NORMAL</xliff:g></item>
-        <item><xliff:g>LARGER</xliff:g></item>
-        <item><xliff:g>LARGEST</xliff:g></item>
-    </string-array>
     <!-- Label for minimum font size [CHAR LIMIT=30] -->
     <string name="pref_min_font_size">Minimum font size</string>
+    <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+    <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
+    <!-- Label for text zoom (percent) [CHAR LIMIT=30] -->
+    <string name="pref_text_zoom">Text zoom</string>
     <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
     <string name="pref_force_userscalable">Force enable zoom</string>
     <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->

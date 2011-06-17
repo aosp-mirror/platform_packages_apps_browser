@@ -33,7 +33,7 @@ import android.webkit.WebView;
 
 public class WebViewPreview extends Preference implements OnSharedPreferenceChangeListener {
 
-    static final String HTML_FORMAT = "<html><head><style type=\"text/css\">p { margin: 2px auto;}</style><body><p style=\"font-size: .4em\">%s</p><p style=\"font-size: .7em\">%s</p><p style=\"font-size: 1em\">%s</p><p style=\"font-size: 1.3em\">%s</p><p style=\"font-size: 1.6em\">%s</p></body></html>";
+    static final String HTML_FORMAT = "<html><head><style type=\"text/css\">p { margin: 2px auto;}</style><body><p style=\"font-size: 4pt\">%s</p><p style=\"font-size: 8pt\">%s</p><p style=\"font-size: 10pt\">%s</p><p style=\"font-size: 14pt\">%s</p><p style=\"font-size: 18pt\">%s</p></body></html>";
 
     String mHtml;
     private WebView mWebView;
@@ -67,7 +67,7 @@ public class WebViewPreview extends Preference implements OnSharedPreferenceChan
         WebSettings ws = mWebView.getSettings();
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setMinimumFontSize(bs.getMinimumFontSize());
-        ws.setTextSize(bs.getTextSize());
+        ws.setTextZoom(bs.getTextZoom());
         mWebView.loadData(mHtml, "text/html", "utf-8");
     }
 

@@ -87,6 +87,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     // Aka, the lower bounds for the min font size range
     // which is 1:5..24
     private static final int MIN_FONT_SIZE_OFFSET = 5;
+    // The initial value in the text zoom range
+    // This is what represents 100% in the SeekBarPreference range
+    private static final int TEXT_ZOOM_START_VAL = 10;
+    // The size of a single step in the text zoom range, in percent
+    private static final int TEXT_ZOOM_STEP = 5;
 
     private static BrowserSettings sInstance;
 
@@ -115,6 +120,31 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         if (Build.VERSION.CODENAME.equals("REL")) {
             // This is a release build, always startup with debug disabled
             setDebugEnabled(false);
+        }
+        if (mPrefs.contains(PREF_TEXT_SIZE)) {
+            /*
+             * Update from TextSize enum to zoom percent
+             * SMALLEST is 50%
+             * SMALLER is 75%
+             * NORMAL is 100%
+             * LARGER is 150%
+             * LARGEST is 200%
+             */
+            switch (getTextSize()) {
+            case SMALLEST:
+                setTextZoom(50);
+                break;
+            case SMALLER:
+                setTextZoom(75);
+                break;
+            case LARGER:
+                setTextZoom(150);
+                break;
+            case LARGEST:
+                setTextZoom(200);
+                break;
+            }
+            mPrefs.edit().remove(PREF_TEXT_SIZE).apply();
         }
         mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
@@ -158,7 +188,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setMinimumLogicalFontSize(getMinimumFontSize());
         settings.setForceUserScalable(forceEnableUserScalable());
         settings.setPluginState(getPluginState());
-        settings.setTextSize(getTextSize());
+        settings.setTextZoom(getTextZoom());
         settings.setAutoFillEnabled(isAutofillEnabled());
         settings.setLayoutAlgorithm(getLayoutAlgorithm());
         settings.setJavaScriptCanOpenWindowsAutomatically(blockPopupWindows());
@@ -417,27 +447,49 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
+    public static int getAdjustedMinimumFontSize(int rawValue) {
+        rawValue++; // Preference starts at 0, min font at 1
+        if (rawValue > 1) {
+            rawValue += (MIN_FONT_SIZE_OFFSET - 2);
+        }
+        return rawValue;
+    }
+
+    public static int getAdjustedTextZoom(int rawValue) {
+        rawValue = (rawValue - TEXT_ZOOM_START_VAL) * TEXT_ZOOM_STEP;
+        return rawValue + 100;
+    }
+
+    static int getRawTextZoom(int percent) {
+        return (percent - 100) / TEXT_ZOOM_STEP + TEXT_ZOOM_START_VAL;
+    }
+
     // -----------------------------
     // getter/setters for accessibility_preferences.xml
     // -----------------------------
 
-    // TODO: Cache
-    public TextSize getTextSize() {
+    @Deprecated
+    private TextSize getTextSize() {
         String textSize = mPrefs.getString(PREF_TEXT_SIZE, "NORMAL");
         return TextSize.valueOf(textSize);
     }
 
     public int getMinimumFontSize() {
         int minFont = mPrefs.getInt(PREF_MIN_FONT_SIZE, 0);
-        minFont++; // Preference starts at 0, min font at 1
-        if (minFont > 1) {
-            minFont += MIN_FONT_SIZE_OFFSET;
-        }
-        return minFont;
+        return getAdjustedMinimumFontSize(minFont);
     }
 
     public boolean forceEnableUserScalable() {
         return mPrefs.getBoolean(PREF_FORCE_USERSCALABLE, false);
+    }
+
+    public int getTextZoom() {
+        int textZoom = mPrefs.getInt(PREF_TEXT_ZOOM, 10);
+        return getAdjustedTextZoom(textZoom);
+    }
+
+    public void setTextZoom(int percent) {
+        mPrefs.edit().putInt(PREF_TEXT_ZOOM, getRawTextZoom(percent)).apply();
     }
 
     // -----------------------------

@@ -16,33 +16,44 @@
 
 package com.android.browser.preferences;
 
-import com.android.browser.PreferenceKeys;
-import com.android.browser.R;
-
-import android.content.res.Resources;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.view.View;
+
+import com.android.browser.BrowserSettings;
+import com.android.browser.PreferenceKeys;
+import com.android.browser.R;
+
+import java.text.NumberFormat;
 
 public class AccessibilityPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
+
+    NumberFormat mFormat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.accessibility_preferences);
+        BrowserSettings settings = BrowserSettings.getInstance();
+        mFormat = NumberFormat.getPercentInstance();
 
-        Preference e = findPreference(PreferenceKeys.PREF_TEXT_SIZE);
+        Preference e = findPreference(PreferenceKeys.PREF_MIN_FONT_SIZE);
         e.setOnPreferenceChangeListener(this);
-        e.setSummary(getVisualTextSizeName(
-                getPreferenceScreen().getSharedPreferences()
-                .getString(PreferenceKeys.PREF_TEXT_SIZE, null)) );
+        updateMinFontSummary(e, settings.getMinimumFontSize());
+        e = findPreference(PreferenceKeys.PREF_TEXT_ZOOM);
+        e.setOnPreferenceChangeListener(this);
+        updateTextZoomSummary(e, settings.getTextZoom());
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    void updateMinFontSummary(Preference pref, int minFontSize) {
+        Context c = getActivity();
+        pref.setSummary(c.getString(R.string.pref_min_font_size_value, minFontSize));
+    }
+
+    void updateTextZoomSummary(Preference pref, int textZoom) {
+        pref.setSummary(mFormat.format(textZoom / 100.0));
     }
 
     @Override
@@ -53,31 +64,15 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
             return false;
         }
 
-        if (pref.getKey().equals(PreferenceKeys.PREF_TEXT_SIZE)) {
-            pref.setSummary(getVisualTextSizeName((String) objValue));
-            return true;
+        if (PreferenceKeys.PREF_MIN_FONT_SIZE.equals(pref.getKey())) {
+            updateMinFontSummary(pref, BrowserSettings
+                    .getAdjustedMinimumFontSize((Integer) objValue));
         }
-        return false;
-    }
-
-    private CharSequence getVisualTextSizeName(String enumName) {
-        Resources res = getActivity().getResources();
-        CharSequence[] visualNames = res.getTextArray(R.array.pref_text_size_choices);
-        CharSequence[] enumNames = res.getTextArray(R.array.pref_text_size_values);
-
-        // Sanity check
-        if (visualNames.length != enumNames.length) {
-            return "";
+        if (PreferenceKeys.PREF_TEXT_ZOOM.equals(pref.getKey())) {
+            updateTextZoomSummary(pref, BrowserSettings
+                    .getAdjustedTextZoom((Integer) objValue));
         }
-
-        int length = enumNames.length;
-        for (int i = 0; i < length; i++) {
-            if (enumNames[i].equals(enumName)) {
-                return visualNames[i];
-            }
-        }
-
-        return "";
+        return true;
     }
 
 }
