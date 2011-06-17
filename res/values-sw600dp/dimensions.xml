@@ -34,4 +34,5 @@
     <dimen name="qc_thumb_width">240dip</dimen>
     <dimen name="qc_thumb_height">160dip</dimen>
     <dimen name="qc_item_size">48dip</dimen>
+    <dimen name="suggest_item_padding">16dp</dimen>
 </resources>

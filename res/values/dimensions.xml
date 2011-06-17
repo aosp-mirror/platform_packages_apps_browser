@@ -71,4 +71,5 @@
     <dimen name="nav_tab_height">240dip</dimen>
     <dimen name="nav_tab_text_normal">18sp</dimen>
     <dimen name="nav_tab_text_small">14sp</dimen>
+    <dimen name="suggest_item_padding">8dp</dimen>
 </resources>
