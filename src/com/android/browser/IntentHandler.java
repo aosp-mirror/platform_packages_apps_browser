@@ -27,6 +27,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
@@ -95,6 +96,7 @@ public class IntentHandler {
         boolean activateVoiceSearch = RecognizerResultsIntent
                 .ACTION_VOICE_SEARCH_RESULTS.equals(action);
         if (Intent.ACTION_VIEW.equals(action)
+                || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
                 || Intent.ACTION_SEARCH.equals(action)
                 || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
                 || Intent.ACTION_WEB_SEARCH.equals(action)
@@ -214,7 +216,8 @@ public class IntentHandler {
         if (intent != null
                 && (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             final String action = intent.getAction();
-            if (Intent.ACTION_VIEW.equals(action)) {
+            if (Intent.ACTION_VIEW.equals(action) ||
+                    NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
                 url = UrlUtils.smartUrlFilter(intent.getData());
                 if (url != null && url.startsWith("http")) {
                     final Bundle pairs = intent
