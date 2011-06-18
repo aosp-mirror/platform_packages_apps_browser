@@ -680,6 +680,8 @@
     <string name="browser_history">Recently visited pages</string>
     <!-- Appears on History screen if no history is found -->
     <string name="empty_history">Browser history is empty.</string>
+    <!-- Menu option to load the user's home page [CHAR LIMIT=30] -->
+    <string name="go_home">Home</string>
     <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
     <string name="add_new_bookmark">Add bookmark\u2026</string>
     <!-- Verb placed in front of a screenshot of a web page that, when clicked,
