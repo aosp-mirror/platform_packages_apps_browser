@@ -49,19 +49,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebIconDatabase.IconListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
 
 import com.android.browser.BookmarkDragHandler.BookmarkDragController;
 import com.android.browser.BookmarkDragHandler.BookmarkDragState;
-import com.android.browser.view.BookmarkExpandableGridView;
-import com.android.browser.view.BookmarkExpandableGridView.BookmarkContextMenuInfo;
+import com.android.browser.view.BookmarkExpandableView;
+import com.android.browser.view.BookmarkExpandableView.BookmarkContextMenuInfo;
 
 import java.util.HashMap;
 
@@ -76,8 +74,8 @@ interface BookmarksPageCallbacks {
  *  View showing the user's bookmarks in the browser.
  */
 public class BrowserBookmarksPage extends Fragment implements View.OnCreateContextMenuListener,
-        LoaderManager.LoaderCallbacks<Cursor>, IconListener,
-        BreadCrumbView.Controller, OnMenuItemClickListener, OnChildClickListener {
+        LoaderManager.LoaderCallbacks<Cursor>, BreadCrumbView.Controller,
+        OnMenuItemClickListener, OnChildClickListener {
 
     public static class ExtraDragState {
         public int childPosition;
@@ -94,14 +92,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     static final String ACCOUNT_TYPE = "account_type";
     static final String ACCOUNT_NAME = "account_name";
 
-    static final int VIEW_THUMBNAILS = 1;
-    static final int VIEW_LIST = 2;
+    public static final int VIEW_THUMBNAILS = 1;
+    public static final int VIEW_LIST = 2;
     static final String PREF_SELECTED_VIEW = "bookmarks_view";
 
     BookmarksPageCallbacks mCallbacks;
     View mRoot;
-    BookmarkExpandableGridView mGrid;
-    ListView mList;
+    BookmarkExpandableView mGrid;
     boolean mDisableNewWindow;
     boolean mEnableContextMenu = true;
     View mEmptyView;
@@ -167,7 +164,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        // TODO: Figure out what to do here (if anything?)
     }
 
     @Override
@@ -326,8 +322,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         SharedPreferences prefs = PreferenceManager
             .getDefaultSharedPreferences(getActivity());
         mCurrentView = prefs.getInt(PREF_SELECTED_VIEW, getDefaultView());
-        // TODO: Support list view
-        mCurrentView = VIEW_THUMBNAILS;
 
         Bundle args = getArguments();
         mDisableNewWindow = args == null ? false : args.getBoolean(EXTRA_DISABLE_WINDOW, false);
@@ -341,12 +335,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         mRoot = inflater.inflate(R.layout.bookmarks, container, false);
         mEmptyView = mRoot.findViewById(android.R.id.empty);
 
-        mGrid = (BookmarkExpandableGridView) mRoot.findViewById(R.id.grid);
+        mGrid = (BookmarkExpandableView) mRoot.findViewById(R.id.grid);
         mGrid.setOnChildClickListener(this);
         mGrid.setColumnWidthFromLayout(R.layout.bookmark_thumbnail);
         mGrid.setBreadcrumbController(this);
-        mList = (ListView) mRoot.findViewById(R.id.list);
-        // TODO: mList.setOnItemClickListener(this);
         setEnableContextMenu(mEnableContextMenu);
         mDragHandler = new BookmarkDragHandler(getActivity(), mDragController,
                 mGrid.getDragAdapter());
@@ -354,9 +346,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         // Start the loaders
         LoaderManager lm = getLoaderManager();
         lm.restartLoader(LOADER_ACCOUNTS, null, this);
-
-        // Add our own listener in case there are favicons that have yet to be loaded.
-        CombinedBookmarkHistoryView.getIconListenerSet().addListener(this);
 
         return mRoot;
     }
@@ -378,34 +367,14 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             lm.destroyLoader(id);
         }
         mBookmarkAdapters.clear();
-
-        CombinedBookmarkHistoryView.getIconListenerSet().removeListener(this);
-    }
-
-    @Override
-    public void onReceivedIcon(String url, Bitmap icon) {
-        // A new favicon has been loaded, so let anything attached to the adapter know about it
-        // so new icons will be loaded.
-        // TODO: Notify all of data set changed
-        // TODO: Wait, is this even needed? Won't this trigger a DB change anyway?
     }
 
     private BrowserBookmarksAdapter getChildAdapter(int groupPosition) {
-        if (mCurrentView == VIEW_THUMBNAILS) {
-            return mGrid.getChildAdapter(groupPosition);
-        } else {
-            // TODO: Support expandable list
-            return null;
-        }
+        return mGrid.getChildAdapter(groupPosition);
     }
 
     private BreadCrumbView getBreadCrumbs(int groupPosition) {
-        if (mCurrentView == VIEW_THUMBNAILS) {
-            return mGrid.getBreadCrumbs(groupPosition);
-        } else {
-            // TODO: Support expandable list
-            return null;
-        }
+        return mGrid.getBreadCrumbs(groupPosition);
     }
 
     @Override
@@ -566,11 +535,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     }
 
     void selectView(int view) {
-        // TODO: Support list view
-        view = mCurrentView;
         if (view == mCurrentView) {
             return;
         }
+        mCurrentView = view;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Editor edit = prefs.edit();
         edit.putInt(PREF_SELECTED_VIEW, mCurrentView);
@@ -578,31 +546,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         if (mEmptyView.getVisibility() == View.VISIBLE) {
             return;
         }
-        setupBookmarkView();
-    }
-
-    private void setupBookmarkView() {
-        // TODO: Support list view
-//        mAdapter.selectView(mCurrentView);
-//        switch (mCurrentView) {
-//        case VIEW_THUMBNAILS:
-//            mList.setAdapter(null);
-//            SharedPreferences prefs = PreferenceManager
-//                    .getDefaultSharedPreferences(getActivity());
-//            String accountName = prefs.getString(PREF_ACCOUNT_NAME, null);
-//            mGrid.addAccount(accountName, mAdapter);
-//            mGrid.setVisibility(View.VISIBLE);
-//            mList.setVisibility(View.GONE);
-//            break;
-//        case VIEW_LIST:
-//            mGrid.clearAccounts();
-//            if (mList.getAdapter() != mAdapter) {
-//                mList.setAdapter(mAdapter);
-//            }
-//            mGrid.setVisibility(View.GONE);
-//            mList.setVisibility(View.VISIBLE);
-//            break;
-//        }
+        mGrid.selectView(mCurrentView);
     }
 
     /**
@@ -662,14 +606,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 mGrid.setLongClickable(false);
             }
         }
-        if (mList != null) {
-            if (mEnableContextMenu) {
-                registerForContextMenu(mList);
-            } else {
-                unregisterForContextMenu(mList);
-                mList.setLongClickable(false);
-            }
-        }
     }
 
     private BookmarkDragController mDragController = new BookmarkDragController() {
@@ -702,11 +638,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         @Override
         public void actionItemClicked(View v, BookmarkDragState state) {
             if (v.getId() == R.id.info) {
-                if (mCurrentView == VIEW_THUMBNAILS) {
-                    mGrid.showContextMenuForState(state);
-                } else {
-                    // TODO: Support expandable list
-                }
+                mGrid.showContextMenuForState(state);
             } else {
                 ExtraDragState extraState = (ExtraDragState) state.extraState;
                 handleContextItem(v.getId(), extraState.groupPosition,
