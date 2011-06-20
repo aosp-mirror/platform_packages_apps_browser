@@ -111,8 +111,7 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Λήψεις"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Αντιγραφή διεύθυνσης url της σελίδας"</string>
     <string name="share_page" msgid="593756995297268343">"Κοινή χρήση σελίδας"</string>
-    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
-    <skip />
+    <string name="menu_freeze_tab" msgid="189603565552297099">"Πάγωμα καρτέλας"</string>
     <string name="menu_save_webarchive" msgid="2474117375302625691">"Αποθήκευση σελίδας"</string>
     <string name="webarchive_saved" msgid="2212053339474523406">"Η σελίδα αποθηκεύτηκε."</string>
     <string name="webarchive_failed" msgid="19950914584285713">"Απέτυχε η αποθήκευση της σελίδας."</string>
@@ -233,7 +232,6 @@
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Να εμφαν.προειδοπ.εάν υπάρχ.πρόβλ.με την ασφάλ.ιστότ."</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Αποδοχή cookie"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Να επιτρ.η αποθ.και ανάγν.δεδ.\"cookie\" από ιστότ."</string>
-    <string name="pref_text_size" msgid="3827031324346612208">"Μέγεθος κειμένου"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Πολύ μικρό"</item>
     <item msgid="1950030433642671460">"Μικρό"</item>
@@ -241,8 +239,11 @@
     <item msgid="5043128215356351184">"Μεγάλο"</item>
     <item msgid="7201512237890458902">"Πολύ μεγάλο"</item>
   </string-array>
-    <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Μέγεθος κειμένου"</string>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Ελάχιστο μέγ. γραμματοσειράς"</string>
+    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
+    <skip />
+    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
+    <skip />
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Αναγκ. ενεργοπ. εστίασης"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Να αντικατ. ή όχι το αίτημα ιστότ. για έλεγχο συμπερ. εστίασης"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Προεπιλεγμένο ζουμ"</string>
@@ -276,6 +277,8 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Κωδικοποίηση κειμένου"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Προσβασιμότητα"</string>
+    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Εργαστήρια"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Στοιχεία γρήγορου ελέγχου"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Σύρετε τον αντίχειρα από αρ. ή δεξ. για τα στοιχ. γρήγ. ελέγχου και κρύψτε τις γραμμές Εφαρμογές και URL"</string>
@@ -285,9 +288,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Χρησιμοποιήστε το Instant μαζί με την Αναζήτηση για να εμφανίζονται αποτελ. καθώς πληκτρολ. (πιθανή αύξηση δεδομένων)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Πλήρης οθόνη"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Χρησιμοποιήστε τη λειτουργία πλήρους οθόνης για την απόκρυψη της γραμμής κατάστασης."</string>
-    <string name="pref_enable_useragent_switcher" msgid="9063310468293037499">"Εναλλαγή παράγοντα χρήστη"</string>
-    <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"Κάντε εναλλαγή μεταξύ των εκδόσεων ενός ιστότοπου για tablet και για κανονικό υπολογιστή"</string>
-    <string name="help_useragent_switcher" msgid="123586256526014375">"Πατήστε στο εικονίδιο Android ή στο εικονίδιο φορητού υπολογιστή για να κάνετε εναλλαγή μεταξύ των εκδόσεων ενός ιστότοπου για tablet και για κανονικό υπολογιστή."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Πρόβλημα σύνδεσης δεδομένων"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Υπάρχει πρόβλημα με το αρχείο"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Επιβεβαίωση"</string>
@@ -297,6 +297,8 @@
     <string name="clear_history" msgid="5998307092715979619">"Εκκαθάριση ιστορικού"</string>
     <string name="browser_history" msgid="1038987118290272525">"Σελίδες που επισκεφθήκατε πρόσφατα"</string>
     <string name="empty_history" msgid="8738772352308207274">"Το ιστορικό του προγράμματος περιήγησης είναι κενό."</string>
+    <!-- no translation found for go_home (3140773562046381164) -->
+    <skip />
     <string name="add_new_bookmark" msgid="8086367791400349049">"Προσθήκη σελιδοδείκτη..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Προσθήκη"</string>
     <string name="search_hint" msgid="4647356319916631820">"Αναζήτηση ή πληκτρολόγηση διεύθυνσης URL"</string>
@@ -353,7 +355,7 @@
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Εκκαθάριση αποθηκευμένων δεδομένων"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Όλα τα δεδομένα που αποθηκεύτηκαν από αυτόν τον ιστότοπο θα διαγραφούν"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Εκκαθάριση όλων"</string>
-    <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Άκυρο"</string>
+    <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Ακύρωση"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB αποθηκευμένα στο τηλέφωνό σας"</string>
     <string name="loading_video" msgid="4887871585216091096">"Φόρτωση βίντεο"</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"Η σελίδα <xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> θέλει να μάθει την τοποθεσία σας"</string>
@@ -368,7 +370,7 @@
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Εκκαθάριση πρόσβασης τοποθεσίας"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Η πρόσβαση στην τοποθεσία για αυτόν τον ιστότοπο θα απαλειφθεί"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Εκκαθάριση πρόσβασης"</string>
-    <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Άκυρο"</string>
+    <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Ακύρωση"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Εκκαθάριση όλων"</string>
     <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Εκκαθάριση όλων των ρυθμίσεων ιστοτόπου;"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Θα γίνει διαγραφή όλων των δεδομένων ιστοτόπων και αδειών τοποθεσιών."</string>
@@ -396,9 +398,11 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"Δεν υπάρχουν άλλες διαθέσιμες καρτέλες"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google με Instant (Labs)"</string>
     <string name="recover_title" msgid="8095611702406163360">"Επαναφορά παραθύρων;"</string>
-    <string name="recover_prompt" msgid="5526783279696786755">"Η λειτουργία του προγράμματος περιήγησης διακόπηκε ξαφνικά. Θα θέλατε να κάνετε ανάκτηση των παραθύρων από την τελευταία συνεδρία σας;"</string>
-    <string name="recover_yes" msgid="5837971910598069183">"Ναι"</string>
+    <!-- outdated translation 5526783279696786755 -->     <string name="recover_prompt" msgid="6541354420842425606">"Η λειτουργία του προγράμματος περιήγησης διακόπηκε ξαφνικά. Θα θέλατε να κάνετε ανάκτηση των παραθύρων από την τελευταία συνεδρία σας;"</string>
+    <!-- outdated translation 5837971910598069183 -->     <string name="recover_yes" msgid="4540538008955917099">"Ναι"</string>
     <string name="recover_no" msgid="3121030267940592611">"Όχι"</string>
-    <string name="preview" msgid="1470306351083271066">"Προεπισκόπηση:"</string>
+    <!-- outdated translation 1470306351083271066 -->     <string name="preview" msgid="6450823514561689038">"Προεπισκόπηση:"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Τοπικά"</string>
+    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Για κινητά"</string>
+    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Για υπολογιστή"</string>
 </resources>

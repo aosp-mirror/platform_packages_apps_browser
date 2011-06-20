@@ -55,8 +55,7 @@
     <skip />
     <!-- no translation found for view_certificate (1472768887529093862) -->
     <skip />
-    <!-- no translation found for ssl_go_back (4598951822061593819) -->
-    <skip />
+    <string name="ssl_go_back" msgid="4598951822061593819">"Phindela emuva"</string>
     <!-- no translation found for ssl_untrusted (5369967226521102194) -->
     <skip />
     <!-- no translation found for ssl_mismatch (558688832420069896) -->
@@ -104,18 +103,12 @@
     <skip />
     <string name="containing_folder" msgid="6771180232953030479">"Yengeza ku-"</string>
     <string name="new_folder" msgid="7743540149088867917">"Ifolda entsha"</string>
-    <!-- no translation found for edit_folder (621817453133656156) -->
-    <skip />
-    <!-- no translation found for delete_folder (2046483129024501116) -->
-    <skip />
-    <!-- no translation found for no_subfolders (5880411440592452802) -->
-    <skip />
-    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
-    <skip />
-    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
-    <skip />
-    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
-    <skip />
+    <string name="edit_folder" msgid="621817453133656156">"Hlela ifolda"</string>
+    <string name="delete_folder" msgid="2046483129024501116">"Susa ifolda"</string>
+    <string name="no_subfolders" msgid="5880411440592452802">"Awekho amafolda angaphansi"</string>
+    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Amabhukimakhi"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Isikrini sasekhaya"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"Enye ifolda..."</string>
     <string name="name" msgid="5462672162695365387">"Ilebula"</string>
     <!-- no translation found for http (2163722670597250102) -->
     <skip />
@@ -146,14 +139,11 @@
     <skip />
     <!-- no translation found for bookmark_page (6845189305130307274) -->
     <skip />
-    <!-- no translation found for bookmark_thumbnail_view (3164068314718522138) -->
-    <skip />
-    <!-- no translation found for bookmark_list_view (7848510619500937839) -->
-    <skip />
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Izithonjana"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Uhlu"</string>
     <string name="current_page" msgid="7510129573681663135">"kusuka ku "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Ibhukimakhi \"<xliff:g id="BOOKMARK">%s</xliff:g>\" izosuswa."</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Vula konke kumawindi amasha"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Iya"</string>
     <string name="incognito_tab" msgid="5419458065370134289">"Vula ithebhu entsha ye-incognito"</string>
     <string name="select_dot" msgid="6299170761900561967">"Khetha umbhalo"</string>
@@ -177,10 +167,8 @@
     <!-- outdated translation 3934652434001459581 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Londoloza njengeSigcinamlando seWebhu."</string>
     <!-- outdated translation 7045250341467345007 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Isigcinamlando sewebhu silondoloziwe."</string>
     <!-- outdated translation 2880998204746620260 -->     <string name="webarchive_failed" msgid="19950914584285713">"Yehlulekile ukulondoloza isigcinamlando sewebhu."</string>
-    <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
-    <skip />
-    <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
-    <skip />
+    <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> amabhukimakhi"</string>
+    <string name="contextheader_folder_empty" msgid="974171637803391651">"Ifolda engenalutho"</string>
     <!-- no translation found for contextmenu_openlink (7237961252214188935) -->
     <skip />
     <!-- no translation found for contextmenu_openlink_newwindow (992765050093960353) -->
@@ -239,22 +227,16 @@
     <skip />
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Hlela injini yokusesha"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Khetha injini yokusesha"</string>
-    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
-    <skip />
-    <!-- outdated translation 1493179933653044553 -->     <string name="pref_use_current" msgid="1778622474040406672">"Sebenzisa ikhasi lamanje"</string>
-    <!-- no translation found for pref_use_blank (8503238592551111169) -->
-    <skip />
-    <!-- no translation found for pref_use_default (192587563274735878) -->
-    <skip />
+    <string name="pref_set_homepage_to" msgid="7196350233061395098">"Hlelela ku-"</string>
+    <string name="pref_use_current" msgid="1778622474040406672">"Ikhasi lamanje"</string>
+    <string name="pref_use_blank" msgid="8503238592551111169">"Ikhasi elingenalutho"</string>
+    <string name="pref_use_default" msgid="192587563274735878">"Ikhasi elimisiwe"</string>
     <!-- no translation found for pref_content_autofit (8260474534053660809) -->
     <skip />
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Lungisa amakhasi ewebhu ukulingana kwisikrini"</string>
-    <!-- no translation found for pref_general_title (1946872771219249323) -->
-    <skip />
-    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
-    <skip />
-    <!-- no translation found for pref_general_autofill_title (547881256865816858) -->
-    <skip />
+    <string name="pref_general_title" msgid="1946872771219249323">"Okuvamile"</string>
+    <string name="pref_general_sync_title" msgid="3138637035975860324">"Vumelanisa"</string>
+    <!-- outdated translation 64638897890112873 -->     <string name="pref_general_autofill_title" msgid="547881256865816858">"Ukugcwalisa Ngokuzenzakalelayo"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Vumelanisa ne-Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Abelana namabhukimakhi &amp; enye idatha phakathi kweSiphequluli se-Android ne-Google Chrome"</string>
     <string name="pref_personal_google_account" msgid="952360133341490071">"I-akhawunti ye-Google"</string>
@@ -267,10 +249,8 @@
     <!-- outdated translation 1350709161524642663 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Izilungiselelo Zokugcwalisa Okuzenzakalelayo"</string>
     <!-- unknown quoting pattern: original -1, translation 1 -->
     <!-- outdated translation 6748434431641768870 -->     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Hlela &amp;amp; phatha idatha yamafomu Agcwaliswe Ngokuzenzakalelayo"</string>
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
-    <skip />
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Ukungena ngemvume okuzenzakalelayo kwi-Google"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Ingena ngemvume kumasayithi e-Google isebenzisa i-<xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for autologin_bar_text (3684581827167173371) -->
     <skip />
     <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->
@@ -279,55 +259,36 @@
     <skip />
     <!-- no translation found for autologin_bar_error (5132514366023044839) -->
     <skip />
-    <!-- no translation found for autofill_profile_editor_heading (8392952553626722083) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
-    <skip />
+    <!-- outdated translation 5009490178189728877 -->     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Ukugcwalisa ngokuzenzakalelayo kuzosebenzisa iphrofayli yakho ukukusiza ukugcwalisa amafomu ewebhu ngokuqhafaza okukodwa."</string>
+    <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Igama eliphelele:"</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"I-imeyili:"</string>
+    <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Igama lenkampani:"</string>
+    <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Umugqa wekheli 1:"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Isitaladi, ikheli, P.O. box, c/o"</string>
+    <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Umugqa wekheli 2:"</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"I-aphathimenti, i-suite, iyunithi, isakhiwo, phansi nokunye."</string>
+    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"Izwe / Idolobha:"</string>
+    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"Izwe / Isifundazwe / Isifunda:"</string>
+    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Ikhodi ye-Zip:"</string>
+    <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Izwe:"</string>
+    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Ifoni:"</string>
     <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
     <skip />
     <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Gcina iphrofayli"</string>
-    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
-    <skip />
-    <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
-    <skip />
+    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Iphrofayli igciniwe"</string>
+    <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Iphrofayli isusiwe"</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Susa iphrofayli"</string>
+    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Isiphequluli ngokuzenzakalelayo singagcwalisa amafomu ewebhu anjengalawa. Ungathanda ukumisa iphrofayli yakho?"</string>
     <!-- no translation found for autofill_setup_dialog_negative_toast (6990737008936188620) -->
     <skip />
     <!-- no translation found for disable_autofill (8305901059849400354) -->
     <skip />
-    <!-- no translation found for pref_privacy_security_title (3480313968942160914) -->
-    <skip />
+    <!-- outdated translation 1705642466867300373 -->     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Ubumfihlo &amp; Ukuvikeleka"</string>
     <!-- no translation found for pref_privacy_clear_cache (3380316479925886998) -->
     <skip />
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Sula okuqukethwe okulondolozwa okwesikhashana kwasendaweni nezizinda zemininingwane"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Okuqekethwe okulondolozwe okwesikhashana kwasendaweni nezizinda zemininingwane kuzosuswa."</string>
-    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
-    <skip />
+    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Amakhukhi"</string>
     <!-- no translation found for pref_privacy_clear_cookies (3095583579133780331) -->
     <skip />
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Sula wonke amakhukhi okuphequlula"</string>
@@ -337,8 +298,7 @@
     <!-- no translation found for pref_privacy_clear_history_summary (6868501330708940734) -->
     <skip />
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Umlando wokuzulazula wesiphequluli uzosuswa."</string>
-    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
-    <skip />
+    <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Ifomu yedatha"</string>
     <!-- no translation found for pref_privacy_clear_form_data (4232668196344383987) -->
     <skip />
     <!-- no translation found for pref_privacy_clear_form_data_summary (1790390894719517167) -->
@@ -348,15 +308,13 @@
     <skip />
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Sula wonke amaphasiwedi agciniwe"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Wonke amaphasiwedi agciniwe azosuswa."</string>
-    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
-    <skip />
+    <string name="pref_privacy_location_title" msgid="7458378016606081067">"Indawo"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Vumela indawo"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Vumela amasayithi ukucela ukufinyelela kundawo yakho"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Sula ukufinyelela indawo"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Sula ukufinyelela indawo kwawo wonke amawebhusayithi"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Sula ukufinyelela indawo kwawo wonke amawebhusayithi"</string>
-    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
-    <skip />
+    <string name="pref_security_passwords_title" msgid="5734190542383756711">"Amaphasiwedi"</string>
     <!-- no translation found for pref_security_remember_passwords (6492957683454529549) -->
     <skip />
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Londoloza amagama omesebenzisi namaphasiwedi amawebhusayithi"</string>
@@ -370,8 +328,6 @@
     <!-- no translation found for pref_security_accept_cookies (3201367661925047989) -->
     <skip />
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Vumela amasayithi ukugcina nokufunda idatha \"yekhukhi\""</string>
-    <!-- no translation found for pref_text_size (3827031324346612208) -->
-    <skip />
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Ncane"</item>
     <item msgid="1950030433642671460">"Ncane"</item>
@@ -379,9 +335,11 @@
     <item msgid="5043128215356351184">"Okukhulu"</item>
     <item msgid="7201512237890458902">"Khulu"</item>
   </string-array>
-    <!-- no translation found for pref_text_size_dialogtitle (3625388833512647865) -->
-    <skip />
     <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <skip />
+    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
+    <skip />
+    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
     <skip />
     <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
     <skip />
@@ -396,12 +354,10 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Ukusondeza okuzenzakalelayo"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Vula amakhasi ngokufingqiwe"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Bonisa okufingqiwe kwamakhasi asanda kuvulwa"</string>
-    <!-- no translation found for pref_extras_title (7075456173747370647) -->
-    <skip />
+    <string name="pref_extras_title" msgid="7075456173747370647">"Okuthuthukisiwe"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Izilungiselelo zewebhusayithi"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Izilungiselelo ezithuthukisiwe zamawebhusayithi omuntu ngamunye"</string>
-    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
-    <skip />
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Setha kabusha okumisiwe"</string>
     <!-- no translation found for pref_extras_reset_default (8904000515846202110) -->
     <skip />
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Buyisela esimweni izilungiselelo ezizenzakalelayo"</string>
@@ -424,16 +380,13 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Umbhalo wekhodi wokubhaliwe"</string>
     <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
     <skip />
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
+    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
     <skip />
-    <!-- no translation found for pref_lab_quick_controls (3267606522082281367) -->
-    <skip />
-    <!-- no translation found for pref_lab_quick_controls_summary (1564546156544675707) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage (7597766876952506909) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (4132511544800457513) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Amalebhu"</string>
+    <!-- outdated translation 2105979166017257647 -->     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Izilawuli Ezisheshayo"</string>
+    <!-- outdated translation 8025196176636589803 -->     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Shintshela isithonjana kusuka kunqenqema langokwesokunxele noma langokwesokudla ukufinyelela izilawuli ezisheshayo"</string>
+    <!-- outdated translation 547134501893835512 -->     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Ikhasi Eliyisiqalo Elivakashelwa Njalo"</string>
+    <!-- outdated translation 6857702350834122532 -->     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Isetha ikhasi lakho eliyisiqalo ukubonisa amakhasi avakashelwa njalo."</string>
     <!-- no translation found for pref_use_instant_search (1119176077760723740) -->
     <skip />
     <!-- no translation found for pref_use_instant_search_summary (839320474961917522) -->
@@ -441,12 +394,6 @@
     <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
     <skip />
     <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
-    <!-- no translation found for pref_enable_useragent_switcher (9063310468293037499) -->
-    <skip />
-    <!-- no translation found for pref_enable_useragent_switcher_summary (1782363693543953474) -->
-    <skip />
-    <!-- no translation found for help_useragent_switcher (123586256526014375) -->
     <skip />
     <!-- no translation found for browserFrameNetworkErrorLabel (126892350904924893) -->
     <skip />
@@ -462,6 +409,8 @@
     <skip />
     <string name="browser_history" msgid="1038987118290272525">"Amakhasi asanda kuvakashelwa"</string>
     <!-- no translation found for empty_history (8738772352308207274) -->
+    <skip />
+    <!-- no translation found for go_home (3140773562046381164) -->
     <skip />
     <string name="add_new_bookmark" msgid="8086367791400349049">"Engeza ibhukimakhi..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Engeza"</string>
@@ -506,17 +455,14 @@
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> ayikwazanga ukulandwa."\n"Khulula isikhala efonini yakho bese uzama futhi."</string>
     <!-- no translation found for download_failed_generic_dlg_title (6106781095337833391) -->
     <skip />
-    <!-- no translation found for download_no_sdcard_dlg_title (56777245081568508) -->
-    <skip />
-    <!-- no translation found for download_no_sdcard_dlg_title (605904452159416792) -->
-    <skip />
-    <!-- no translation found for download_no_sdcard_dlg_msg (3144652102051031721) -->
-    <skip />
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Ukugcina nge-USB akutholakali"</string>
+    <!-- outdated translation 56777245081568508 -->     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Ukugcina nge-USB akutholakali"</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Ukugcina nge-USB kuyadingeka ukuze ulande i-<xliff:g id="FILENAME">%s</xliff:g>."</string>
     <!-- no translation found for download_no_sdcard_dlg_msg (2616399456116301518) -->
     <skip />
-    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Ikhadi le-SD alitholakali"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Ukugcina nge-USB akutholakali"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Ikhadi le-SD alitholakali"</string>
-    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Ikhadi le-SD limatasa. Ukuvumela ukulanda, khetha \"Vala ukulondoloza nge-USB\" kwisaziso."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Ukugcina nge-USB kumatasa. Ukuvumela ukulanda, khetha \"Vala ukugcina nge-USB\' kwisaziso."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Ikhadi le-SD limatasa. Ukuvumela ukulanda, khetha \"Vala ukulondoloza nge-USB\" kwisaziso."</string>
     <!-- no translation found for cannot_download (8150552478556798780) -->
     <skip />
@@ -603,22 +549,24 @@
     <!-- no translation found for import_bookmarks_dialog_add (7552306756868669353) -->
     <skip />
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Yengeza amabhukimakhi akho e-Android kumabhukimakhi e-<xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
-    <skip />
-    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
-    <skip />
+    <string name="menu_share_url" msgid="5851814357333739700">"Yabelana"</string>
+    <string name="max_tabs_warning" msgid="4122034303809457570">"Awasekho amathebhu atholakalayo"</string>
     <!-- no translation found for instant_search_label (8769284297650716935) -->
     <skip />
     <!-- no translation found for recover_title (8095611702406163360) -->
     <skip />
-    <!-- no translation found for recover_prompt (5526783279696786755) -->
+    <!-- no translation found for recover_prompt (6541354420842425606) -->
     <skip />
-    <!-- no translation found for recover_yes (5837971910598069183) -->
+    <!-- no translation found for recover_yes (4540538008955917099) -->
     <skip />
     <!-- no translation found for recover_no (3121030267940592611) -->
     <skip />
-    <!-- no translation found for preview (1470306351083271066) -->
+    <!-- no translation found for preview (6450823514561689038) -->
     <skip />
     <!-- no translation found for local_bookmarks (533816851415228520) -->
+    <skip />
+    <!-- no translation found for ua_switcher_mobile (5103260404792449606) -->
+    <skip />
+    <!-- no translation found for ua_switcher_desktop (2535200543238676638) -->
     <skip />
 </resources>

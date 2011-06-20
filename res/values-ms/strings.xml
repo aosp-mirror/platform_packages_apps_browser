@@ -17,16 +17,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Penyemak imbas"</string>
-    <!-- no translation found for choose_upload (3649366287575002063) -->
-    <skip />
-    <!-- no translation found for uploads_disabled (463761197575372994) -->
-    <skip />
-    <!-- no translation found for new_tab (4505722538297295141) -->
-    <skip />
-    <!-- no translation found for new_incognito_tab (5821404839654751753) -->
-    <skip />
-    <!-- no translation found for active_tabs (3050623868203544623) -->
-    <skip />
+    <string name="choose_upload" msgid="3649366287575002063">"Pilih fail untuk dimuat naik"</string>
+    <string name="uploads_disabled" msgid="463761197575372994">"Muat naik fail dilumpuhkan."</string>
+    <string name="new_tab" msgid="4505722538297295141">"Tetingkap baru"</string>
+    <string name="new_incognito_tab" msgid="5821404839654751753">"Tetingkap penyamaran baru"</string>
+    <string name="active_tabs" msgid="3050623868203544623">"Tetingkap"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Penanda halaman"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Yang paling kerap dilawati"</string>
     <string name="tab_history" msgid="1979267558744613746">"Sejarah"</string>
@@ -39,8 +34,7 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Penyemak imbas"</string>
     <string name="cancel" msgid="3017274947407233702">"Batal"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
-    <!-- no translation found for title_bar_loading (7438217780834640678) -->
-    <skip />
+    <string name="title_bar_loading" msgid="7438217780834640678">"Memuatkan..."</string>
     <string name="page_info" msgid="4048529256302257195">"Maklumat halaman"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Lihat maklumat halaman"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Alamat:"</string>
@@ -48,8 +42,7 @@
     <string name="ssl_continue" msgid="8031515015829358457">"Teruskan"</string>
     <string name="security_warning" msgid="6607795404322797541">"Amaran keselamatan"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Lihat sijil"</string>
-    <!-- no translation found for ssl_go_back (4598951822061593819) -->
-    <skip />
+    <string name="ssl_go_back" msgid="4598951822061593819">"Kembali"</string>
     <string name="ssl_untrusted" msgid="5369967226521102194">"Sijil ini bukan daripada pihak berkuasa yang dipercayai."</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"Nama tapak tidak sepadan dengan nama pada sijil."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Sijil ini telah tamat tempoh."</string>
@@ -71,64 +64,45 @@
     <string name="forward" msgid="4288210890526641577">"Ke hadapan"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Batal"</string>
-    <!-- outdated translation 969988560160364559 -->     <string name="location" msgid="3411848697912600125">"Lokasi"</string>
+    <string name="location" msgid="3411848697912600125">"Alamat"</string>
     <!-- no translation found for account (5179824606448077042) -->
     <skip />
-    <!-- no translation found for containing_folder (6771180232953030479) -->
-    <skip />
-    <!-- no translation found for new_folder (7743540149088867917) -->
-    <skip />
-    <!-- no translation found for edit_folder (621817453133656156) -->
-    <skip />
-    <!-- no translation found for delete_folder (2046483129024501116) -->
-    <skip />
-    <!-- no translation found for no_subfolders (5880411440592452802) -->
-    <skip />
-    <!-- no translation found for add_to_bookmarks_menu_option (4449323955122214389) -->
-    <skip />
-    <!-- no translation found for add_to_homescreen_menu_option (1461447829242963790) -->
-    <skip />
-    <!-- no translation found for add_to_other_folder_menu_option (5450890093372998187) -->
-    <skip />
-    <!-- outdated translation 5990326151488445481 -->     <string name="name" msgid="5462672162695365387">"Nama"</string>
+    <string name="containing_folder" msgid="6771180232953030479">"Tambah ke"</string>
+    <string name="new_folder" msgid="7743540149088867917">"Folder baru"</string>
+    <string name="edit_folder" msgid="621817453133656156">"Edit folder"</string>
+    <string name="delete_folder" msgid="2046483129024501116">"Padamkan folder"</string>
+    <string name="no_subfolders" msgid="5880411440592452802">"Tiada subfolder"</string>
+    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Penanda halaman"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Skrin utama"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"Folder lain..."</string>
+    <string name="name" msgid="5462672162695365387">"Label"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <!-- no translation found for save_to_bookmarks (6101482434920313244) -->
-    <skip />
-    <!-- no translation found for bookmark_this_page (7530739804320811054) -->
-    <skip />
+    <string name="save_to_bookmarks" msgid="6101482434920313244">"Tambah Penanda Halaman"</string>
+    <string name="bookmark_this_page" msgid="7530739804320811054">"Menanda halaman laman ini"</string>
     <string name="remove" msgid="7820112494467011374">"Alih keluar"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edit penanda halaman"</string>
-    <!-- outdated translation 9202323987633899835 -->     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Tambah pintasan ke Laman Utama"</string>
+    <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Tambah pintasan ke laman utama"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Buka"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Padam penanda halaman"</string>
-    <!-- no translation found for remove_from_bookmarks (4374080666576982775) -->
-    <skip />
+    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Alih keluar daripada penanda halaman"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Alih keluar daripada sejarah"</string>
-    <!-- no translation found for set_as_homepage (4752937379414905560) -->
-    <skip />
+    <string name="set_as_homepage" msgid="4752937379414905560">"Tetapkan sebagai halaman utama"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Disimpan ke penanda halaman."</string>
-    <!-- no translation found for bookmark_not_saved (700600955089376724) -->
-    <skip />
-    <!-- no translation found for homepage_set (8768087280310966395) -->
-    <skip />
+    <string name="bookmark_not_saved" msgid="700600955089376724">"Tidak boleh menyimpan penanda halaman."</string>
+    <string name="homepage_set" msgid="8768087280310966395">"Halaman utama sudah ditetapkan."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Penanda halaman mesti mempunyai nama."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Penanda halaman mesti mempunyai lokasi."</string>
     <string name="bookmark_url_not_valid" msgid="6719785633980202419">"URL tidak sah."</string>
-    <!-- no translation found for bookmark_cannot_save_url (791722768778386941) -->
-    <skip />
+    <string name="bookmark_cannot_save_url" msgid="791722768778386941">"URL ini tidak boleh ditandakan halamannya."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Padam"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Tandakan halaman yang terakhir dilihat"</string>
-    <!-- no translation found for bookmark_thumbnail_view (3164068314718522138) -->
-    <skip />
-    <!-- no translation found for bookmark_list_view (7848510619500937839) -->
-    <skip />
+    <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Lakaran kenit"</string>
+    <string name="bookmark_list_view" msgid="7848510619500937839">"Senarai"</string>
     <string name="current_page" msgid="7510129573681663135">"dari "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Penanda halaman \"<xliff:g id="BOOKMARK">%s</xliff:g>\" akan dipadamkan."</string>
-    <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
-    <skip />
+    <string name="open_all_in_new_window" msgid="6514602245828366045">"Buka semua dalam tetingkap baru"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Pergi"</string>
-    <!-- no translation found for incognito_tab (5419458065370134289) -->
-    <skip />
+    <string name="incognito_tab" msgid="5419458065370134289">"Buka tab penyamaran baru"</string>
     <string name="select_dot" msgid="6299170761900561967">"Pilih teks"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Tetingkap semasa"</string>
     <string name="tab_picker_remove_tab" msgid="630087809802479397">"Tutup"</string>
@@ -136,208 +110,131 @@
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Penanda halaman"</string>
     <string name="history" msgid="2451240511251410032">"Sejarah"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Muat turun"</string>
-    <!-- no translation found for copy_page_url (7635062169011319208) -->
-    <skip />
+    <string name="copy_page_url" msgid="7635062169011319208">"Salin url halaman"</string>
     <string name="share_page" msgid="593756995297268343">"Kongsi halaman"</string>
     <!-- no translation found for menu_freeze_tab (189603565552297099) -->
     <skip />
-    <!-- no translation found for menu_save_webarchive (2474117375302625691) -->
-    <skip />
-    <!-- no translation found for webarchive_saved (2212053339474523406) -->
-    <skip />
-    <!-- no translation found for webarchive_failed (19950914584285713) -->
-    <skip />
-    <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
-    <skip />
-    <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
-    <skip />
+    <string name="menu_save_webarchive" msgid="2474117375302625691">"Simpan halaman"</string>
+    <string name="webarchive_saved" msgid="2212053339474523406">"Halaman disimpan."</string>
+    <string name="webarchive_failed" msgid="19950914584285713">"Gagal menyimpan halaman."</string>
+    <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> penanda halaman"</string>
+    <string name="contextheader_folder_empty" msgid="974171637803391651">"Folder kosong"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Buka"</string>
     <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Buka dalam tetingkap baru"</string>
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Buka dalam tetingkap latar belakang baru"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Simpan pautan"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Kongsi pautan"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Salin"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"Salin URL pautan"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Simpan imej"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"Papar imej"</string>
-    <!-- no translation found for contextmenu_set_wallpaper (3691902960115350686) -->
-    <skip />
+    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Tetapkan sebagai kertas dinding"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Dail..."</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Tambah kenalan"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"Hantar e-mel"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Peta"</string>
-    <!-- no translation found for choosertitle_sharevia (4600490613341909086) -->
-    <skip />
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"Kongsi melalui"</string>
     <string name="clear" msgid="7070043081700011461">"Padam bersih"</string>
     <string name="replace" msgid="4843033491070384047">"Gantikan"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Penanda halaman"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Tetapan"</string>
     <string name="pref_content_title" msgid="722227111894838633">"Tetapan kandungan halaman"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Muatkan imej"</string>
-    <!-- no translation found for pref_content_load_images_summary (5055874125248398584) -->
-    <skip />
-    <!-- outdated translation 7808433807197256726 -->     <string name="pref_content_block_popups" msgid="4158524847764470895">"Sekat tetingkap pop-up"</string>
+    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Paparkan imej di halaman web"</string>
+    <string name="pref_content_block_popups" msgid="4158524847764470895">"Sekat pop timbul"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Dayakan JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Buka di latar belakang"</string>
-    <!-- no translation found for pref_content_plugins (7231944644794301582) -->
-    <skip />
-    <!-- no translation found for pref_content_plugins_choices:0 (6745108155096660725) -->
-    <!-- no translation found for pref_content_plugins_choices:1 (2484126708670016519) -->
-    <!-- no translation found for pref_content_plugins_choices:2 (8547442717307793863) -->
-    <!-- no translation found for pref_content_open_in_background_summary (1737664075721181678) -->
-    <skip />
-    <!-- outdated translation 6082437160778559806 -->     <string name="pref_content_homepage" msgid="3324574611613105696">"Tetapkan laman utama"</string>
-    <!-- no translation found for pref_content_search_engine (1620101310821644144) -->
-    <skip />
-    <!-- no translation found for pref_content_search_engine_summary (5162667665858487316) -->
-    <skip />
-    <!-- no translation found for pref_set_homepage_to (7196350233061395098) -->
-    <skip />
-    <!-- no translation found for pref_use_current (1778622474040406672) -->
-    <skip />
-    <!-- no translation found for pref_use_blank (8503238592551111169) -->
-    <skip />
-    <!-- no translation found for pref_use_default (192587563274735878) -->
-    <skip />
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Dayakan pemalam"</string>
+  <string-array name="pref_content_plugins_choices">
+    <item msgid="6745108155096660725">"Sentiasa hidup"</item>
+    <item msgid="2484126708670016519">"Atas permintaan"</item>
+    <item msgid="8547442717307793863">"Mati"</item>
+  </string-array>
+    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Buka tetingkap baru di belakang tetingkap semasa"</string>
+    <string name="pref_content_homepage" msgid="3324574611613105696">"Tetapkan halaman utama"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Tetapkan enjin carian"</string>
+    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Pilih enjin carian"</string>
+    <string name="pref_set_homepage_to" msgid="7196350233061395098">"Tetapkan pada…"</string>
+    <string name="pref_use_current" msgid="1778622474040406672">"Halaman semasa"</string>
+    <string name="pref_use_blank" msgid="8503238592551111169">"Halaman kosong"</string>
+    <string name="pref_use_default" msgid="192587563274735878">"Halaman lalai"</string>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Muat auto halaman"</string>
-    <!-- no translation found for pref_content_autofit_summary (4587831659894879986) -->
-    <skip />
-    <!-- no translation found for pref_general_title (1946872771219249323) -->
-    <skip />
-    <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
-    <skip />
-    <!-- no translation found for pref_general_autofill_title (547881256865816858) -->
-    <skip />
-    <!-- no translation found for pref_personal_sync_with_chrome (1695182180332194033) -->
-    <skip />
-    <!-- no translation found for pref_personal_sync_with_chrome_summary (7414133931827321055) -->
-    <skip />
-    <!-- no translation found for pref_personal_google_account (952360133341490071) -->
-    <skip />
-    <!-- no translation found for pref_personal_sync_bookmarks (59237515966184432) -->
-    <skip />
-    <!-- no translation found for pref_personal_sync_bookmarks_summary (4791767605662205482) -->
-    <skip />
-    <!-- no translation found for pref_personal_start_syncing (6046972042512655232) -->
-    <skip />
-    <!-- no translation found for pref_personal_account_dialog_title (1390867119887955530) -->
-    <skip />
-    <!-- no translation found for pref_autofill_enabled (1015751713312396713) -->
-    <skip />
-    <!-- no translation found for pref_autofill_enabled_summary (422640696197018914) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor (3864116896052437796) -->
-    <skip />
-    <!-- no translation found for pref_autofill_profile_editor_summary (3653552312512743181) -->
-    <skip />
-    <!-- no translation found for pref_autologin_title (2362827272595366379) -->
-    <skip />
-    <!-- no translation found for pref_autologin_progress (8333244467048833461) -->
-    <skip />
-    <!-- no translation found for autologin_bar_text (3684581827167173371) -->
-    <skip />
-    <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->
-    <skip />
+    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Format halaman web agar padan dengan saiz skrin"</string>
+    <string name="pref_general_title" msgid="1946872771219249323">"Umum"</string>
+    <string name="pref_general_sync_title" msgid="3138637035975860324">"Penyegerakan"</string>
+    <string name="pref_general_autofill_title" msgid="547881256865816858">"Auto isi"</string>
+    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Segerakkan dengan Google Chrome"</string>
+    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Berkongsi penanda halaman &amp; data lain antara Penyemak Imbas Android dan Google Chrome"</string>
+    <string name="pref_personal_google_account" msgid="952360133341490071">"Akaun Google"</string>
+    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Segerakkan penanda halaman"</string>
+    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Segerakkan penanda halaman antara Penyemak Imbas Android dan Google Chrome"</string>
+    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Mula menyegerak"</string>
+    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Plih akaun utk kngsi"</string>
+    <string name="pref_autofill_enabled" msgid="1015751713312396713">"Auto isi borang"</string>
+    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Isikan borang web dengan satu klik"</string>
+    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Auto isi data"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Masukkan dan simpan data untuk medan auto isi borang web"</string>
+    <string name="pref_autologin_title" msgid="2362827272595366379">"Log masuk Google automatik"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Melog masuk ke dalam tapak Google menggunakan <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"Log masuk automatik tersedia."</string>
+    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Log masuk"</string>
     <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
     <skip />
-    <!-- no translation found for autologin_bar_error (5132514366023044839) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_heading (8392952553626722083) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_name (8566130291459685955) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_email_address (7967585896612797173) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_company_name (2813443159949210417) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1 (836433242509243081) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_1_hint (5965659598509327172) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2 (8194745202893822479) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_address_line_2_hint (2048330295853546405) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_city (4193225955409148508) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_state (8549739922338171458) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_zip_code (283668573295656671) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_country (7234470301239156656) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_phone_number (4938852821413729276) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_phone_number_invalid (7166394872369167580) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_save_profile (8349915287435262888) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_save (6834102203944938409) -->
-    <skip />
-    <!-- no translation found for autofill_profile_successful_delete (2421442112954362732) -->
-    <skip />
-    <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
-    <skip />
-    <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
-    <skip />
-    <!-- no translation found for autofill_setup_dialog_negative_toast (6990737008936188620) -->
-    <skip />
-    <!-- no translation found for disable_autofill (8305901059849400354) -->
-    <skip />
-    <!-- no translation found for pref_privacy_security_title (3480313968942160914) -->
-    <skip />
+    <string name="autologin_bar_error" msgid="5132514366023044839">"Log masuk gagal."</string>
+    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Masukkan data yang anda mahu auto isi dalam medan web apabila anda menyentuhnya."</string>
+    <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nama penuh:"</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mel:"</string>
+    <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Nama syarikat:"</string>
+    <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Alamat baris 1:"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Alamat jalan, P.S, d/a"</string>
+    <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Alamat baris 2:"</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"Pangsapuri, suite, unit, bangunan, tingkat dsb."</string>
+    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"Bandar / Pekan:"</string>
+    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"Negeri / Daerah / Wilayah:"</string>
+    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Poskod:"</string>
+    <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Negara:"</string>
+    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Nombor telefon tidak sah"</string>
+    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Simpan profil"</string>
+    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profil disimpan"</string>
+    <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profil telah dipadamkan"</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Padam profil"</string>
+    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Penyemak imbas boleh melengkapkan borang web seperti ini secara automatik. Adakah anda mahu menyediakan profil anda?"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Auto isi sentiasa boleh dikonfigurasikan melalui Tetapan Penyemak Imbas."</string>
+    <string name="disable_autofill" msgid="8305901059849400354">"Lumpuhkan auto isi"</string>
+    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privasi &amp; keselamatan"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Padam bersih cache"</string>
-    <!-- no translation found for pref_privacy_clear_cache_summary (2216463577207991454) -->
-    <skip />
-    <!-- no translation found for pref_privacy_clear_cache_dlg (5541011591300753881) -->
-    <skip />
-    <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
-    <skip />
+    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Padam bersih kandungan tercache dan pangkalan data setempat"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Kandungan tercache dan pangkalan data setempat akan dipadamkan."</string>
+    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Kuki"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Padam bersih semua data kuki"</string>
-    <!-- no translation found for pref_privacy_clear_cookies_summary (6962742063990677520) -->
-    <skip />
-    <!-- no translation found for pref_privacy_clear_cookies_dlg (552855688091432682) -->
-    <skip />
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Padam bersih semua kuki penyemak imbas"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Semua kuki akan dipadamkan."</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Padam bersih sejarah"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Padam bersih sejarah navigasi penyemak imbas"</string>
-    <!-- no translation found for pref_privacy_clear_history_dlg (544903007914753853) -->
-    <skip />
-    <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
-    <skip />
+    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Sejarah navigasi penyemak imbas akan dipadamkan."</string>
+    <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Data borang"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Padam bersih data borang"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Padam bersih semua data borang yang disimpan"</string>
-    <!-- no translation found for pref_privacy_clear_form_data_dlg (4443621086781197928) -->
-    <skip />
+    <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Semua data borang yang disimpan akan dipadamkan."</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Padam bersih kata laluan"</string>
-    <!-- no translation found for pref_privacy_clear_passwords_summary (8856782718942903335) -->
-    <skip />
-    <!-- no translation found for pref_privacy_clear_passwords_dlg (2083869328824248255) -->
-    <skip />
-    <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
-    <skip />
-    <!-- no translation found for pref_privacy_enable_geolocation (1395040170290765686) -->
-    <skip />
-    <!-- no translation found for pref_privacy_enable_geolocation_summary (8437020934664306205) -->
-    <skip />
-    <!-- no translation found for pref_privacy_clear_geolocation_access (6649680770030042980) -->
-    <skip />
-    <!-- no translation found for pref_privacy_clear_geolocation_access_summary (7750143359497314679) -->
-    <skip />
-    <!-- no translation found for pref_privacy_clear_geolocation_access_dlg (7327063124488827244) -->
-    <skip />
-    <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
-    <skip />
+    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Padam bersih semua kata laluan yang disimpan"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Semua kata laluan yang disimpan akan dipadamkan."</string>
+    <string name="pref_privacy_location_title" msgid="7458378016606081067">"Lokasi"</string>
+    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Dayakan lokasi"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Benarkan tapak meminta akses ke lokasi anda"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Padam bersih akses lokasi"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Padam bersih akses lokasi bagi semua tapak web"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Padam bersih akses lokasi bagi semua tapak web"</string>
+    <string name="pref_security_passwords_title" msgid="5734190542383756711">"Kata laluan"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Ingat kata laluan"</string>
-    <!-- no translation found for pref_security_remember_passwords_summary (256388703356349137) -->
-    <skip />
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Simpan nama pengguna dan kata laluan untuk tapak web"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Ingat data borang"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Ingat data yang saya taipkan dalam borang untuk kegunaan akan datang"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Tunjukkan amaran keselamatan"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Tunjukkan amaran jika terdapat masalah dengan keselamatan tapak"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Terima kuki"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Benarkan tapak menyimpan dan membaca data \"kuki\""</string>
-    <string name="pref_text_size" msgid="3827031324346612208">"Saiz teks"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Sangat kecil"</item>
     <item msgid="1950030433642671460">"Kecil"</item>
@@ -345,8 +242,10 @@
     <item msgid="5043128215356351184">"Besar"</item>
     <item msgid="7201512237890458902">"Sangat Besar"</item>
   </string-array>
-    <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Saiz teks"</string>
-    <!-- no translation found for pref_min_font_size (8811125835817449131) -->
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Saiz fon minimum"</string>
+    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
+    <skip />
+    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
     <skip />
     <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
     <skip />
@@ -359,76 +258,59 @@
     <item msgid="3840999588443167001">"Dekat"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zum lalai"</string>
-    <!-- no translation found for pref_content_load_page (2219810141690955452) -->
-    <skip />
-    <!-- no translation found for pref_content_load_page_summary (8792093504054149369) -->
-    <skip />
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Tetapan terperinci"</string>
-    <!-- no translation found for pref_extras_website_settings (67866640052455549) -->
-    <skip />
-    <!-- no translation found for pref_extras_website_settings_summary (1656771443223494406) -->
-    <skip />
-    <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
-    <skip />
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Buka halaman dalam gambaran keseluruhan"</string>
+    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Tunjukkan gambaran keseluruhan halaman-halaman yang baru dibuka"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Terperinci"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Tetapan tapak web"</string>
+    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Tetapan terperinci untuk tapak web individu"</string>
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Tetapkan semula lalai"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Tetapkan semula kepada lalai"</string>
-    <!-- outdated translation 7984680562706914966 -->     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Padam bersih semua data penyemak imbas dan tetapkan semula semua tetapan kepada lalai"</string>
-    <!-- no translation found for pref_extras_reset_default_dlg (6640261575874704022) -->
-    <skip />
+    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Memulihkan ke tetapan lalai"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Tetapan akan berbalik ke nilai lalai."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Tetapkan semula kepada lalai"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Nyahpepijat"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Pengekodan teks"</string>
-    <!-- no translation found for pref_default_text_encoding_choices:2 (6122474363777211732) -->
-    <!-- no translation found for pref_default_text_encoding_choices:3 (373372275931607040) -->
-    <!-- no translation found for pref_default_text_encoding_choices:4 (891615911084608570) -->
-    <!-- no translation found for pref_default_text_encoding_choices:5 (5589150448475151241) -->
-    <!-- no translation found for pref_default_text_encoding_choices:6 (7356792686950371843) -->
-    <!-- no translation found for pref_default_text_encoding_choices:7 (2193955365569270096) -->
+  <string-array name="pref_default_text_encoding_choices">
+    <item msgid="7275223955790513818">"Latin-1 (ISO-8859-1)"</item>
+    <item msgid="2456597866837587140">"Unikod (UTF-8)"</item>
+    <item msgid="6122474363777211732">"Cina (GBK)"</item>
+    <item msgid="373372275931607040">"Cina (Big5)"</item>
+    <item msgid="891615911084608570">"Jepun (ISO-2022-JP)"</item>
+    <item msgid="5589150448475151241">"Jepun (Shift_JIS)"</item>
+    <item msgid="7356792686950371843">"Jepun (EUC-JP)"</item>
+    <item msgid="2193955365569270096">"Korea (EUC-KR)"</item>
+  </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Pengekodan teks"</string>
-    <!-- no translation found for pref_accessibility_title (5127836981587423215) -->
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"Kebolehaksesan"</string>
+    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
     <skip />
-    <!-- no translation found for pref_lab_title (5571091610359629423) -->
-    <skip />
-    <!-- no translation found for pref_lab_quick_controls (3267606522082281367) -->
-    <skip />
-    <!-- no translation found for pref_lab_quick_controls_summary (1564546156544675707) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage (7597766876952506909) -->
-    <skip />
-    <!-- no translation found for pref_lab_most_visited_homepage_summary (4132511544800457513) -->
-    <skip />
-    <!-- no translation found for pref_use_instant_search (1119176077760723740) -->
-    <skip />
-    <!-- no translation found for pref_use_instant_search_summary (839320474961917522) -->
-    <skip />
+    <string name="pref_lab_title" msgid="5571091610359629423">"Makmal"</string>
+    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Kawalan pantas"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Leret jari dr kiri/kanan utk akses kawalan pantas dan sembunyikan bar Apl &amp; URL"</string>
+    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Halaman utama paling banyak dilawati"</string>
+    <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Halaman utama anda memaparkan halaman web yang paling banyak anda lawati."</string>
+    <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Guna Google Instant bila anda guna Carian Google, utk tunjuk hasil bila anda menaip (boleh menambah penggunaan data)."</string>
     <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
     <skip />
     <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
-    <!-- no translation found for pref_enable_useragent_switcher (9063310468293037499) -->
-    <skip />
-    <!-- no translation found for pref_enable_useragent_switcher_summary (1782363693543953474) -->
-    <skip />
-    <!-- no translation found for help_useragent_switcher (123586256526014375) -->
     <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Masalah kesambungan data"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Masalah dengan fail"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Sahkan"</string>
     <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Halaman yang anda cuba paparkan mengandungi data yang sudah pun diserahkan (\"POSTDATA\"). Jika anda menghantar semula data itu, sebarang tindakan yang dijalankan borang pada halaman itu (seperti carian atau pembelian dalam talian) akan diulangi."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"Tiada sambungan rangkaian"</string>
-    <!-- no translation found for loadSuspended (3133656588880851273) -->
-    <skip />
+    <string name="loadSuspended" msgid="3133656588880851273">"Penyemak imbas tidak boleh memuatkan halaman ini kerana tiada sambungan internet."</string>
     <string name="clear_history" msgid="5998307092715979619">"Padam bersih sejarah"</string>
-    <!-- no translation found for browser_history (1038987118290272525) -->
-    <skip />
+    <string name="browser_history" msgid="1038987118290272525">"Halaman terbaru dilawati"</string>
     <string name="empty_history" msgid="8738772352308207274">"Sejarah penyemak imbas kosong."</string>
+    <!-- no translation found for go_home (3140773562046381164) -->
+    <skip />
     <string name="add_new_bookmark" msgid="8086367791400349049">"Tambah penanda halaman..."</string>
-    <!-- no translation found for add_bookmark_short (3783984330998103735) -->
-    <skip />
-    <!-- no translation found for search_hint (4647356319916631820) -->
-    <skip />
+    <string name="add_bookmark_short" msgid="3783984330998103735">"Tambah"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Buat carian atau taipkan URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Pergi"</string>
-    <!-- no translation found for search_settings_description (1422401062529014107) -->
-    <skip />
+    <string name="search_settings_description" msgid="1422401062529014107">"Penanda halaman dan sejarah web"</string>
     <string name="attention" msgid="3473639060042811244">"Perhatian"</string>
     <string name="popup_window_attempt" msgid="2673111696288657989">"Tapak ini cuba membuka tetingkap pop timbul."</string>
     <string name="allow" msgid="1157313689171991335">"Benarkan"</string>
@@ -441,30 +323,25 @@
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Tidak diketahui&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"Buka"</string>
     <string name="download_menu_clear" msgid="6264454531553418124">"Padam bersih daripada senarai"</string>
-    <!-- no translation found for download_menu_delete (8815502136393894148) -->
-    <skip />
+    <string name="download_menu_delete" msgid="8815502136393894148">"Padam"</string>
     <string name="download_menu_cancel" msgid="2545333007601851574">"Batalkan muat turun"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Batalkan semua muat turun"</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Batalkan muat turun"</string>
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Semua <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> muat turun akan dibatalkan dan dipadam bersih daripada sejarah muat turun."</string>
-    <!-- no translation found for download_delete_file (5330036497843073249) -->
-    <skip />
+    <string name="download_delete_file" msgid="5330036497843073249">"Fail akan dipadamkan"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Kehabisan ruang"</string>
     <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> tidak boleh dimuat turun."\n"Kosongkan sebahagian ruang pada telefon anda dan cuba lagi."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Muat turun tidak berjaya"</string>
-    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Tiada kad SD"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Storan USB tidak tersedia"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Tiada kad SD"</string>
-    <!-- no translation found for download_no_sdcard_dlg_msg (3144652102051031721) -->
-    <skip />
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Storan USB diperlukan untuk memuat turun <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Kad SD diperlukan untuk memuat turun <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Kad SD tidak tersedia"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Storan USB tidak tersedia"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Kad SD tidak tersedia"</string>
-    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Kad SD sibuk. Untuk membenarkan muat turun, pilih \"Matikan storan USB\" dalam pemberitahuan."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"Storan USB sibuk. Untuk membenarkan muat turun, pilih \"Matikan storan USB\" dalam pemberitahuan."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"Kad SD sibuk. Untuk membenarkan muat turun, pilih \"Matikan storan USB\" dalam pemberitahuan."</string>
-    <!-- no translation found for cannot_download (8150552478556798780) -->
-    <skip />
-    <!-- no translation found for download_no_application_title (1286056729168874295) -->
-    <skip />
+    <string name="cannot_download" msgid="8150552478556798780">"Boleh memuat turun URL \"http\" atau \"https\" sahaja."</string>
+    <string name="download_no_application_title" msgid="1286056729168874295">"Tidak boleh membuka fail"</string>
     <string name="retry" msgid="1835923075542266721">"Cuba semula"</string>
     <string name="no_downloads" msgid="3947445710685021498">"Sejarah muat turun kosong."</string>
     <string name="download_error" msgid="413496839831257187">"Download tidak berjaya."</string>
@@ -474,119 +351,68 @@
     <string name="download_pending_network" msgid="6548714525679461053">"Menunggu sambungan data..."</string>
     <string name="download_running_paused" msgid="6418029352085656495">"Menunggu sambungan data..."</string>
     <string name="download_canceled" msgid="6057083743144492515">"Muat turun dibatalkan."</string>
-    <!-- no translation found for download_not_acceptable (313769696131563652) -->
-    <skip />
+    <string name="download_not_acceptable" msgid="313769696131563652">"Tidak boleh memuat turun. Kandungan tidak disokong pada telefon ini."</string>
     <string name="download_file_error" msgid="1206648050615176113">"Tidak boleh menyelesaikan muat turun. Ruang tidak mencukupi."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Tidak boleh memuat turun. Saiz item tidak boleh ditentukan."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Muat turun terganggu. Ia tidak boleh disambung semula."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Cari di web"</string>
-    <!-- no translation found for webstorage_outofspace_notification_title (1160474608059771788) -->
-    <skip />
-    <!-- no translation found for webstorage_outofspace_notification_text (7341075135051829692) -->
-    <skip />
-    <!-- no translation found for webstorage_clear_data_title (689484577124333977) -->
-    <skip />
-    <!-- no translation found for webstorage_clear_data_dialog_title (345457466368974706) -->
-    <skip />
-    <!-- no translation found for webstorage_clear_data_dialog_message (6678281256970470125) -->
-    <skip />
-    <!-- no translation found for webstorage_clear_data_dialog_ok_button (2516563534211898636) -->
-    <skip />
-    <!-- no translation found for webstorage_clear_data_dialog_cancel_button (2028867751958942762) -->
-    <skip />
-    <!-- no translation found for webstorage_origin_summary_mb_stored (1985885826292236210) -->
-    <skip />
-    <!-- no translation found for loading_video (4887871585216091096) -->
-    <skip />
-    <!-- no translation found for geolocation_permissions_prompt_message (356796102004052471) -->
-    <skip />
-    <!-- no translation found for geolocation_permissions_prompt_share (9084486342048347976) -->
-    <skip />
-    <!-- no translation found for geolocation_permissions_prompt_dont_share (6303025160237860300) -->
-    <skip />
-    <!-- no translation found for geolocation_permissions_prompt_remember (3118526300707348308) -->
-    <skip />
-    <!-- no translation found for geolocation_permissions_prompt_toast_allowed (987286072035125498) -->
-    <skip />
-    <!-- no translation found for geolocation_permissions_prompt_toast_disallowed (7695100950212692515) -->
-    <skip />
-    <!-- no translation found for geolocation_settings_page_title (1745477985097536528) -->
-    <skip />
-    <!-- no translation found for geolocation_settings_page_summary_allowed (9180251524290811398) -->
-    <skip />
-    <!-- no translation found for geolocation_settings_page_summary_not_allowed (4589649082203102544) -->
-    <skip />
-    <!-- no translation found for geolocation_settings_page_dialog_title (1549842043381347668) -->
-    <skip />
-    <!-- no translation found for geolocation_settings_page_dialog_message (7586671987576403993) -->
-    <skip />
-    <!-- no translation found for geolocation_settings_page_dialog_ok_button (4789434178048077287) -->
-    <skip />
-    <!-- no translation found for geolocation_settings_page_dialog_cancel_button (7941036504673409747) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all (8739804325997655980) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_title (7791826325122461718) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_message (6150502090601476333) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_ok_button (6401582240627669431) -->
-    <skip />
-    <!-- no translation found for website_settings_clear_all_dialog_cancel_button (1896757051856611674) -->
-    <skip />
-    <!-- no translation found for progress_dialog_setting_wallpaper (4871900779338536674) -->
-    <skip />
-    <!-- no translation found for defaultBookmarksUpButton (2303951020715704735) -->
-    <skip />
-    <!-- no translation found for empty_bookmarks_folder (7843361614634930942) -->
-    <skip />
-    <!-- no translation found for rlz_access_point (7165847807377650632) -->
-    <skip />
-    <!-- no translation found for account_chooser_dialog_title (3314204833188808194) -->
-    <!-- no translation found for account_chooser_dialog_title (4833571985009544332) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_title (3325557652271172128) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_description (1942452375564381488) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_select_add_account (3102882579089291099) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_delete_select_account (5192284761080626386) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_confirm_delete (8854001080444749211) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_confirm_add (5433677293195372675) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_remove (5984607822851800902) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_next (7578143961884352676) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_previous (8551440353688257031) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_cancel (4936061122806506634) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_wizard_done (1446247092194489191) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_add (7552306756868669353) -->
-    <skip />
-    <!-- no translation found for import_bookmarks_dialog_import (6933613853573899218) -->
-    <skip />
-    <!-- no translation found for menu_share_url (5851814357333739700) -->
-    <skip />
-    <!-- no translation found for max_tabs_warning (4122034303809457570) -->
-    <skip />
-    <!-- no translation found for instant_search_label (8769284297650716935) -->
-    <skip />
-    <!-- no translation found for recover_title (8095611702406163360) -->
-    <skip />
-    <!-- no translation found for recover_prompt (5526783279696786755) -->
-    <skip />
-    <!-- no translation found for recover_yes (5837971910598069183) -->
-    <skip />
-    <!-- no translation found for recover_no (3121030267940592611) -->
-    <skip />
-    <!-- no translation found for preview (1470306351083271066) -->
-    <skip />
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Storan penyemak imbas penuh"</string>
+    <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Klik untuk mengosongkan ruang."</string>
+    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Padam bersih data yang disimpan"</string>
+    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Padam bersih data yang disimpan"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Semua data yang disimpan oleh tapak web ini akan dipadamkan"</string>
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Padam bersih semua"</string>
+    <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Batal"</string>
+    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB disimpan pada telefon anda"</string>
+    <string name="loading_video" msgid="4887871585216091096">"Memuatkan video"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> mahu mengetahui lokasi anda"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Kongsi lokasi"</string>
+    <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Tolak"</string>
+    <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Ingat pilihan"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Tapak ini boleh mengakses lokasi anda. Tukarkannya dalam Tetapan -&gt; Tetapan tapak web"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Tapak ini tidak boleh mengakses lokasi anda. Tukarkannya dalam Tetapan -&gt; Tetapan tapak web"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Padam bersih akses lokasi"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Tapak ini boleh mengakses lokasi anda pada masa ini"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Tapak ini tidak boleh mengakses lokasi anda pada masa ini"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Padam bersih akses lokasi"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Akses lokasi untuk tapak web ini akan dipadam bersih"</string>
+    <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Padam bersih akses"</string>
+    <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Batal"</string>
+    <string name="website_settings_clear_all" msgid="8739804325997655980">"Padam bersih semua"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Padam bersih semua tetapan tapak web?"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Semua tapak web dan kebenaran lokasi akan dipadamkan."</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Padamkan semua data"</string>
+    <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Batal"</string>
+    <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Menetapkan kertas dinding..."</string>
+    <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Penanda halaman"</string>
+    <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Tiada penanda halaman"</string>
+    <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Pilih akaun"</string>
+    <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Segerakkan dengan akaun Google"</string>
+    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Penanda halaman pada peranti ini belum lagi dikaitkan dengan akaun Google. Simpan penanda halaman ini dengan menambahnya ke akaun. Padam penanda halaman ini jika anda tidak mahu menyegerakkannya."</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Tambah penanda halaman yang ada pada peranti ini buat masa ini dan mula menyegerakkan dengan Akaun Google"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Padamkan penanda halaman yang ada pada peranti ini buat masa ini dan mulakan penyegerakan dengan Akaun Google"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Padamkan penanda halaman yang ada pada peranti ini buat masa ini dan mulakan penyegerakan penanda halaman dengan <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Tambah penanda halaman yang ada pada peranti ini buat masa ini dan mulakan penyegerakan dengan <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Padam penanda halaman"</string>
+    <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Seterusnya"</string>
+    <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Sebelumnya"</string>
+    <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Batal"</string>
+    <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Selesai"</string>
+    <string name="import_bookmarks_dialog_add" msgid="7552306756868669353">"Tambah penanda halaman ke Akaun Google"</string>
+    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Tambah penanda halaman Android anda ke penanda halaman untuk <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
+    <string name="menu_share_url" msgid="5851814357333739700">"Kongsi"</string>
+    <string name="max_tabs_warning" msgid="4122034303809457570">"Tiada lagi tab yang sedia"</string>
+    <string name="instant_search_label" msgid="8769284297650716935">"Google dengan Instant (Makmal)"</string>
+    <string name="recover_title" msgid="8095611702406163360">"Pulihkan tetingkap?"</string>
+    <!-- outdated translation 5526783279696786755 -->     <string name="recover_prompt" msgid="6541354420842425606">"Penyemak imbas kelihatan seperti telah ranap. Adakah anda mahu memulihkan tetingkap anda kepada keadaan terakhirnya?"</string>
+    <!-- outdated translation 5837971910598069183 -->     <string name="recover_yes" msgid="4540538008955917099">"Ya"</string>
+    <string name="recover_no" msgid="3121030267940592611">"Tidak"</string>
+    <!-- outdated translation 1470306351083271066 -->     <string name="preview" msgid="6450823514561689038">"Pratonton:"</string>
     <!-- no translation found for local_bookmarks (533816851415228520) -->
+    <skip />
+    <!-- no translation found for ua_switcher_mobile (5103260404792449606) -->
+    <skip />
+    <!-- no translation found for ua_switcher_desktop (2535200543238676638) -->
     <skip />
 </resources>
