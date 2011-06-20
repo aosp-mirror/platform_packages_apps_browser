@@ -111,8 +111,7 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Mga Pag-download"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopyahin ang url ng pahina"</string>
     <string name="share_page" msgid="593756995297268343">"Ibahagi ang pahina"</string>
-    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
-    <skip />
+    <string name="menu_freeze_tab" msgid="189603565552297099">"I-freeze ang Tab"</string>
     <string name="menu_save_webarchive" msgid="2474117375302625691">"I-save ang pahina"</string>
     <string name="webarchive_saved" msgid="2212053339474523406">"Na-save na ang pahina."</string>
     <string name="webarchive_failed" msgid="19950914584285713">"Nabigong ma-save ang pahina."</string>
@@ -233,7 +232,6 @@
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Ipakita ang babala kung may problema sa seguridad ng site"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Tanggapin ang cookies"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Payagan ang mga site na i-save at basahin ang data ng \"cookie\""</string>
-    <string name="pref_text_size" msgid="3827031324346612208">"Laki ng teksto"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Katiting"</item>
     <item msgid="1950030433642671460">"Maliit"</item>
@@ -241,8 +239,11 @@
     <item msgid="5043128215356351184">"Malaki"</item>
     <item msgid="7201512237890458902">"Malaki"</item>
   </string-array>
-    <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Laki ng teksto"</string>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimum na laki ng font"</string>
+    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
+    <skip />
+    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
+    <skip />
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Pwersahing paganahin ang zoom"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Override o hindi hiling site na ikontrol galaw ng zoom"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Default zoom"</string>
@@ -276,6 +277,8 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Pag-encode ng teksto"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Pagiging Naa-access"</string>
+    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Mga Lab"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Mga mabilis na pagkontrol"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"I-swipe thumb sa kaliwa o kanan gilid para access bilis kontrol at itago Application at URL bar"</string>
@@ -285,9 +288,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gamit Google Instant pag gumamit ka Google Search, para magpakita resulta habang type ka (mapataas nito paggamit data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Fullscreen"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gamitin ang mode na fullscreen upang itago ang status bar."</string>
-    <string name="pref_enable_useragent_switcher" msgid="9063310468293037499">"Useragent Switcher"</string>
-    <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"Mag-toggle sa pagitan ng mga bersyon ng tablet at desktop ng isang site"</string>
-    <string name="help_useragent_switcher" msgid="123586256526014375">"Tapikin ang Android o laptop na icon upang mag-toggle sa pagitan ng mga bersyon ng tablet at desktop ng isang site."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema sa pagkakakonekta ng data"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema sa file"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Kumpirmahin"</string>
@@ -297,6 +297,8 @@
     <string name="clear_history" msgid="5998307092715979619">"I-clear ang kasaysayan"</string>
     <string name="browser_history" msgid="1038987118290272525">"Mga pahinang binisita kamakailan"</string>
     <string name="empty_history" msgid="8738772352308207274">"Walang laman ang kasaysayan ng browser."</string>
+    <!-- no translation found for go_home (3140773562046381164) -->
+    <skip />
     <string name="add_new_bookmark" msgid="8086367791400349049">"Magdagdag ng bookmark..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Idagdag"</string>
     <string name="search_hint" msgid="4647356319916631820">"Hanapin o i-type ang URL"</string>
@@ -396,9 +398,11 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"Wala nang available na mga tab"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google na mayroong Instant (Labs)"</string>
     <string name="recover_title" msgid="8095611702406163360">"Ibalik ang windows?"</string>
-    <string name="recover_prompt" msgid="5526783279696786755">"Mukhang nag-crash ang browser. Gusto mo bang ibalik ang iyong windows mula sa nakaraan?"</string>
-    <string name="recover_yes" msgid="5837971910598069183">"Oo"</string>
+    <!-- outdated translation 5526783279696786755 -->     <string name="recover_prompt" msgid="6541354420842425606">"Mukhang nag-crash ang browser. Gusto mo bang ibalik ang iyong windows mula sa nakaraan?"</string>
+    <!-- outdated translation 5837971910598069183 -->     <string name="recover_yes" msgid="4540538008955917099">"Oo"</string>
     <string name="recover_no" msgid="3121030267940592611">"Hindi"</string>
-    <string name="preview" msgid="1470306351083271066">"Preview:"</string>
+    <!-- outdated translation 1470306351083271066 -->     <string name="preview" msgid="6450823514561689038">"Preview:"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokal"</string>
+    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobile"</string>
+    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Desktop"</string>
 </resources>

@@ -24,5 +24,5 @@
     <string name="open_all_in_new_window" msgid="4294281492905397499">"Abrir tudo em separadores novos"</string>
     <string name="pref_content_open_in_background_summary" msgid="4799440480107121813">"Abrir novos separadores atrás do atual"</string>
     <string name="recover_title" msgid="1558775426269800998">"Restaurar separadores?"</string>
-    <string name="recover_prompt" msgid="3793203259958951755">"O navegador bloqueou. Pretende restaurar os separadores abertos na última sessão?"</string>
+    <!-- outdated translation 3793203259958951755 -->     <string name="recover_prompt" msgid="377456662058488205">"O navegador bloqueou. Pretende restaurar os separadores abertos na última sessão?"</string>
 </resources>

@@ -111,8 +111,7 @@
     <string name="menu_view_download" msgid="2124570321712995120">"دانلودها"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"کپی url صفحه"</string>
     <string name="share_page" msgid="593756995297268343">"اشتراک گذاری صفحه"</string>
-    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
-    <skip />
+    <string name="menu_freeze_tab" msgid="189603565552297099">"ثابت کردن برگه"</string>
     <string name="menu_save_webarchive" msgid="2474117375302625691">"ذخیره صفحه"</string>
     <string name="webarchive_saved" msgid="2212053339474523406">"صفحه ذخیره شد."</string>
     <string name="webarchive_failed" msgid="19950914584285713">"صفحه ذخیره نشد."</string>
@@ -233,7 +232,6 @@
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"نمایش اخطار، در صورت وجود مشکل در امنیت یک سایت"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"پذیرش کوکی ها"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"اجازه به سایت ها برای ذخیره و خواندن داده های \"کوکی\""</string>
-    <string name="pref_text_size" msgid="3827031324346612208">"اندازه متن"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"خیلی کوچک"</item>
     <item msgid="1950030433642671460">"کوچک"</item>
@@ -241,8 +239,11 @@
     <item msgid="5043128215356351184">"بزرگ"</item>
     <item msgid="7201512237890458902">"بسیار بزرگ"</item>
   </string-array>
-    <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"اندازه متن"</string>
     <string name="pref_min_font_size" msgid="8811125835817449131">"حداقل اندازه قلم"</string>
+    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
+    <skip />
+    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
+    <skip />
     <string name="pref_force_userscalable" msgid="5641500562399892621">"فعال کردن اجباری بزرگنمایی"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"لغو یا عدم لغو درخواست وب سایت برای کنترل رفتار بزرگنمایی"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"بزرگنمایی پیش فرض"</string>
@@ -276,6 +277,8 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"رمزگذاری متن"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"قابلیت دسترسی"</string>
+    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"کنترل های سریع"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"انگشت شست را از لبه چپ یا راست حرکت دهید تا به کنترل های سریع دسترسی داشته و نوارهای URL و برنامه را پنهان کنید"</string>
@@ -285,9 +288,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"هنگام استفاده از جستجوی Google، برای نمایش نتایج در حین تایپ از Google Instant استفاده کنید (ممکن است مصرف داده بالا برود)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"تمام صفحه"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"استفاده از حالت تمام صفحه برای مخفی کردن نوار وضعیت."</string>
-    <string name="pref_enable_useragent_switcher" msgid="9063310468293037499">"Useragent Switcher"</string>
-    <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"جابجایی بین نسخه های رایانه لوحی و رایانه رومیزی یک سایت"</string>
-    <string name="help_useragent_switcher" msgid="123586256526014375">"برای جابجایی بین نسخه های رایانه لوحی و رایانه رومیزی یک سایت، روی نماد Android یا لپ تاپ ضربه بزنید."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"مشکل اتصال داده"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"مشکل در فایل"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"تأیید"</string>
@@ -297,6 +297,8 @@
     <string name="clear_history" msgid="5998307092715979619">"پاک کردن سابقه"</string>
     <string name="browser_history" msgid="1038987118290272525">"صفحات بازدید شده اخیر"</string>
     <string name="empty_history" msgid="8738772352308207274">"سابقه مرورگر خالی است."</string>
+    <!-- no translation found for go_home (3140773562046381164) -->
+    <skip />
     <string name="add_new_bookmark" msgid="8086367791400349049">"افزودن نشانک..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"افزودن"</string>
     <string name="search_hint" msgid="4647356319916631820">"جستجو یا تایپ URL"</string>
@@ -396,9 +398,11 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"برگه بیشتری در دسترس نیست"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google با Instant (ویژگی های آزمایشی)"</string>
     <string name="recover_title" msgid="8095611702406163360">"پنجره ها بازیابی شوند؟"</string>
-    <string name="recover_prompt" msgid="5526783279696786755">"به نظر می رسد مرورگر خراب شده است. آیا می خواهید پنجره های آخرین بازدید خود را بازیابی کنید؟"</string>
-    <string name="recover_yes" msgid="5837971910598069183">"بله"</string>
+    <!-- outdated translation 5526783279696786755 -->     <string name="recover_prompt" msgid="6541354420842425606">"به نظر می رسد مرورگر خراب شده است. آیا می خواهید پنجره های آخرین بازدید خود را بازیابی کنید؟"</string>
+    <!-- outdated translation 5837971910598069183 -->     <string name="recover_yes" msgid="4540538008955917099">"بله"</string>
     <string name="recover_no" msgid="3121030267940592611">"خیر"</string>
-    <string name="preview" msgid="1470306351083271066">"پیش نمایش:"</string>
+    <!-- outdated translation 1470306351083271066 -->     <string name="preview" msgid="6450823514561689038">"پیش نمایش:"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"محلی"</string>
+    <string name="ua_switcher_mobile" msgid="5103260404792449606">"تلفن همراه"</string>
+    <string name="ua_switcher_desktop" msgid="2535200543238676638">"دسکتاپ"</string>
 </resources>

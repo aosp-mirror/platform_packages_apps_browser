@@ -111,8 +111,7 @@
     <string name="menu_view_download" msgid="2124570321712995120">"İndirme işlemleri"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Sayfa url\'sini kopyala"</string>
     <string name="share_page" msgid="593756995297268343">"Sayfayı paylaş"</string>
-    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
-    <skip />
+    <string name="menu_freeze_tab" msgid="189603565552297099">"Sekmeyi dondur"</string>
     <string name="menu_save_webarchive" msgid="2474117375302625691">"Sayfayı kaydet"</string>
     <string name="webarchive_saved" msgid="2212053339474523406">"Sayfa kaydedildi."</string>
     <string name="webarchive_failed" msgid="19950914584285713">"Sayfa kaydedilemedi."</string>
@@ -233,7 +232,6 @@
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Site güvenliği ile ilgili bir sorun varsa uyarı göster"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Çerezleri kabul et"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Sitelere \"çerez\" verilerini kaydetme ve okuma izni ver"</string>
-    <string name="pref_text_size" msgid="3827031324346612208">"Metin boyutu"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Çok Küçük"</item>
     <item msgid="1950030433642671460">"Küçük"</item>
@@ -241,8 +239,11 @@
     <item msgid="5043128215356351184">"Büyük"</item>
     <item msgid="7201512237890458902">"Çok büyük"</item>
   </string-array>
-    <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Metin boyutu"</string>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimum yazı tipi boyutu"</string>
+    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
+    <skip />
+    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
+    <skip />
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Yakınlştrmyı etknlştrmye zorla"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Sitenin yakınlaştırmayı kontrol isteğinin geçersiz kılınıp kılınmayacağı"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Varsayılan zum"</string>
@@ -276,6 +277,8 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Metin kodlama"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Erişilebilirlik"</string>
+    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
+    <skip />
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Hızlı denetimler"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Hızlı dentmlr erşmk, Uyg ve URL çubklr gizlmk için başprmğnzı sol veya sağ kenrdn hızlc kaydrn"</string>
@@ -285,9 +288,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Yazarken sonuçların görüntülenmesi için, Google Arama\'yı kullanırken Google Anında Arama\'dan yararlanın (veri kullanımını artırabilir)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Tam ekran"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Durum çubuğunu gizlemek için tam ekran modunu kullanın"</string>
-    <string name="pref_enable_useragent_switcher" msgid="9063310468293037499">"Kullanıcı Aracı Değiştirici"</string>
-    <string name="pref_enable_useragent_switcher_summary" msgid="1782363693543953474">"Bir sitenin tablet ve masaüstü sürümleri arasında geçiş yapın"</string>
-    <string name="help_useragent_switcher" msgid="123586256526014375">"Bir sitenin tablet ve masaüstü sürümleri arasında geçiş yapmak için Android veya dizüstü bilgisayar simgesine hafifçe vurun."</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Veri bağlantısı sorunu"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Sorunlu dosya"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Doğrula"</string>
@@ -297,6 +297,8 @@
     <string name="clear_history" msgid="5998307092715979619">"Geçmişi temizle"</string>
     <string name="browser_history" msgid="1038987118290272525">"Son ziyaret edilen sayfalar"</string>
     <string name="empty_history" msgid="8738772352308207274">"Tarayıcı geçmişi boş."</string>
+    <!-- no translation found for go_home (3140773562046381164) -->
+    <skip />
     <string name="add_new_bookmark" msgid="8086367791400349049">"Favori ekle..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Ekle"</string>
     <string name="search_hint" msgid="4647356319916631820">"Arayın veya URL\'yi yazın"</string>
@@ -396,9 +398,11 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"Kullanılabilir başka sekme yok"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Anında Arama ile Google (Labs)"</string>
     <string name="recover_title" msgid="8095611702406163360">"Pencereler geri yüklensin mi?"</string>
-    <string name="recover_prompt" msgid="5526783279696786755">"Tarayıcı kilitlenmiş görünüyor. Son kullandığınız pencerelerin geri yüklenmesini ister misiniz?"</string>
-    <string name="recover_yes" msgid="5837971910598069183">"Evet"</string>
+    <!-- outdated translation 5526783279696786755 -->     <string name="recover_prompt" msgid="6541354420842425606">"Tarayıcı kilitlenmiş görünüyor. Son kullandığınız pencerelerin geri yüklenmesini ister misiniz?"</string>
+    <!-- outdated translation 5837971910598069183 -->     <string name="recover_yes" msgid="4540538008955917099">"Evet"</string>
     <string name="recover_no" msgid="3121030267940592611">"Hayır"</string>
-    <string name="preview" msgid="1470306351083271066">"Önizleme:"</string>
+    <!-- outdated translation 1470306351083271066 -->     <string name="preview" msgid="6450823514561689038">"Önizleme:"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Yerel"</string>
+    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobil"</string>
+    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Masaüstü"</string>
 </resources>
