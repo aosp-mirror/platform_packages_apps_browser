@@ -467,6 +467,12 @@ public class BrowserActivity extends Activity
 
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
+            if (!TextUtils.isEmpty(urlData.mUrl) &&
+                    urlData.mUrl.startsWith("javascript:")) {
+                // Always open javascript: URIs in new tabs
+                openTabAndShow(urlData, true, appId);
+                return;
+            }
             if ((Intent.ACTION_VIEW.equals(action)
                     // If a voice search has no appId, it means that it came
                     // from the browser.  In that case, reuse the current tab.
@@ -2665,8 +2671,9 @@ public class BrowserActivity extends Activity
         }
 
         // The "about:" schemes are internal to the browser; don't want these to
-        // be dispatched to other apps.
-        if (url.startsWith("about:")) {
+        // be dispatched to other apps. Similarly, javascript: schemas are private
+        // to the page
+        if (url.startsWith("about:") || url.startsWith("javascript:")) {
             return false;
         }
 
