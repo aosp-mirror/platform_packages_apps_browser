@@ -20,14 +20,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -69,11 +67,6 @@ import com.android.browser.provider.BrowserProvider2.Snapshots;
 import com.android.common.speech.LoggingEvents;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -1861,13 +1854,20 @@ class Tab {
             return null;
         }
         byte[] data = stream.toByteArray();
-        ContentResolver cr = mActivity.getContentResolver();
         ContentValues values = new ContentValues();
         values.put(Snapshots.TITLE, mCurrentState.mTitle);
         values.put(Snapshots.URL, mCurrentState.mUrl);
         values.put(Snapshots.VIEWSTATE, data);
         values.put(Snapshots.BACKGROUND, mMainView.getPageBackgroundColor());
         return values;
+    }
+
+    public void loadUrl(String url, Map<String, String> headers) {
+        if (mMainView != null) {
+            mCurrentState = new PageState(mActivity, false, url, null);
+            mWebViewController.onPageStarted(this, mMainView, null);
+            mMainView.loadUrl(url, headers);
+        }
     }
 
 }
