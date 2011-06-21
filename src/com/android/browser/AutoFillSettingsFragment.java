@@ -120,6 +120,7 @@ public class AutoFillSettingsFragment extends Fragment {
                 case PROFILE_SAVED_MSG:
                     Toast.makeText(getActivity(), R.string.autofill_profile_successful_save,
                             Toast.LENGTH_SHORT).show();
+                    closeEditor();
                     break;
 
                 case PROFILE_DELETED_MSG:
@@ -215,7 +216,6 @@ public class AutoFillSettingsFragment extends Fragment {
 
                 mSettings.setAutoFillProfile(newProfile,
                         mHandler.obtainMessage(PROFILE_SAVED_MSG));
-                closeEditor();
             }
         });
 
