@@ -2219,10 +2219,7 @@ public class Controller
         } else {
             // Get rid of the subwindow if it exists
             dismissSubWindow(currentTab);
-            if (!urlData.isEmpty()) {
-                // Load the given url.
-                loadUrlDataIn(currentTab, urlData);
-            }
+            reuseTab(currentTab, appId, urlData);
             return currentTab;
         }
     }
