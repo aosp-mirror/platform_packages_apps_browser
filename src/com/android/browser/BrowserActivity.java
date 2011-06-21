@@ -1718,33 +1718,30 @@ public class BrowserActivity extends Activity
     // url isn't null, it will load the given url.
     /* package */Tab openTabAndShow(UrlData urlData, boolean closeOnExit,
             String appId) {
-        final Tab currentTab = mTabControl.getCurrentTab();
-        if (mTabControl.canCreateNewTab()) {
-            final Tab tab = mTabControl.createNewTab(closeOnExit, appId,
-                    urlData.mUrl);
-            WebView webview = tab.getWebView();
-            // If the last tab was removed from the active tabs page, currentTab
-            // will be null.
-            if (currentTab != null) {
-                removeTabFromContentView(currentTab);
+        Tab currentTab = mTabControl.getCurrentTab();
+        if (!mTabControl.canCreateNewTab()) {
+            Tab closeTab = mTabControl.getTab(0);
+            closeTab(closeTab);
+            if (closeTab == currentTab) {
+                currentTab = null;
             }
-            // We must set the new tab as the current tab to reflect the old
-            // animation behavior.
-            mTabControl.setCurrentTab(tab);
-            attachTabToContentView(tab);
-            if (!urlData.isEmpty()) {
-                loadUrlDataIn(tab, urlData);
-            }
-            return tab;
-        } else {
-            // Get rid of the subwindow if it exists
-            dismissSubWindow(currentTab);
-            if (!urlData.isEmpty()) {
-                // Load the given url.
-                loadUrlDataIn(currentTab, urlData);
-            }
-            return currentTab;
         }
+        final Tab tab = mTabControl.createNewTab(closeOnExit, appId,
+                urlData.mUrl);
+        WebView webview = tab.getWebView();
+        // If the last tab was removed from the active tabs page, currentTab
+        // will be null.
+        if (currentTab != null) {
+            removeTabFromContentView(currentTab);
+        }
+        // We must set the new tab as the current tab to reflect the old
+        // animation behavior.
+        mTabControl.setCurrentTab(tab);
+        attachTabToContentView(tab);
+        if (!urlData.isEmpty()) {
+            loadUrlDataIn(tab, urlData);
+        }
+        return tab;
     }
 
     private Tab openTab(String url) {
