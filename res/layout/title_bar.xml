@@ -24,11 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:orientation="horizontal"
-        android:background="@drawable/bg_urlbar"
-        android:paddingLeft="4dip"
-        android:paddingRight="4dip"
-        android:paddingTop="2dip"
-        android:paddingBottom="2dip">
+        android:background="@drawable/bg_urlbar">
         <LinearLayout
             android:id="@+id/title_bg"
             android:layout_width="0dip"
@@ -36,54 +32,58 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+            <FrameLayout
+                android:id="@+id/iconcombo"
+                android:layout_width="52dip"
+                android:layout_height="match_parent"
+                style="@style/HoloButton">
+                <ImageView
+                    android:id="@+id/favicon"
+                    android:layout_width="36dip"
+                    android:layout_height="36dip"
+                    android:paddingLeft="8dip"
+                    android:paddingRight="8dip"
+                    android:layout_gravity="center_vertical" />
+                <ImageView
+                    android:id="@+id/lock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:visibility="gone" />
+            </FrameLayout>
             <ImageView
-                android:id="@+id/favicon"
-                android:layout_width="20dip"
-                android:layout_height="20dip" />
-            <ImageView
-                android:id="@+id/lock"
+                android:id="@+id/stop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dip"
-                android:visibility="gone" />
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_stop_holo_dark"
+                style="@style/HoloButton" />
             <com.android.browser.UrlInputView
                 android:id="@+id/url"
                 android:focusable="true"
                 android:layout_width="0dip"
                 android:layout_weight="1.0"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="2dip"
-                android:paddingLeft="4dip"
-                android:paddingRight="4dip"
-                android:background="@*android:drawable/edit_text_holo_dark"
+                android:fadingEdge="horizontal"
+                android:fadingEdgeLength="24dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:hint="@string/search_hint"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:lines="1"
                 android:scrollHorizontally="true"
-                android:inputType="textUri"
+                android:inputType="text"
                 android:imeOptions="actionGo"
-                style="@style/Suggestions" />
+                style="@style/Suggestions"
+                android:background="@null" />
+            <ImageView
+                android:id="@+id/voice"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_voice_search_holo_dark"
+                style="@style/HoloButton"
+                android:visibility="gone" />
         </LinearLayout>
-        <ImageView
-            android:id="@+id/voice"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_voice_search_holo_dark"
-            android:visibility="gone" />
-        <ImageView
-            android:id="@+id/stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_stop_holo_dark" />
-        <ImageButton
-            android:id="@+id/forward"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_forward_holo_dark"
-            style="@style/HoloButton" />
         <ImageButton
             android:id="@+id/tab_switcher"
             android:layout_width="wrap_content"

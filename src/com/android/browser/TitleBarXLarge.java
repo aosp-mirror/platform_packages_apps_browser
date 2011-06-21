@@ -218,7 +218,6 @@ public class TitleBarXLarge extends TitleBarBase
         mStopButton.setImageDrawable(mReloadDrawable);
     }
 
-    @Override
     protected void updateSearchMode(boolean userEdited) {
         setSearchMode(!userEdited || TextUtils.isEmpty(mUrlInput.getUserText()));
     }
