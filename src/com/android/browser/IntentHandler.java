@@ -139,6 +139,12 @@ public class IntentHandler {
             }
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
+            if (!TextUtils.isEmpty(urlData.mUrl) &&
+                    urlData.mUrl.startsWith("javascript:")) {
+                // Always open javascript: URIs in new tabs
+                mController.openTabAndShow(null, urlData, true, appId);
+                return;
+            }
             if ((Intent.ACTION_VIEW.equals(action)
                     // If a voice search has no appId, it means that it came
                     // from the browser.  In that case, reuse the current tab.
