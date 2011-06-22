@@ -209,6 +209,7 @@ public class TitleBarBase extends RelativeLayout
         @Override
         public void onAnimationStart(Animator animation) {
             mWasCanceled = false;
+            mUrlInput.setEnabled(false);
         }
 
         @Override
@@ -221,6 +222,7 @@ public class TitleBarBase extends RelativeLayout
                 setTranslationY(0);
             }
             mBaseUi.setTitleGravity(Gravity.NO_GRAVITY);
+            mUrlInput.setEnabled(true);
         }
 
         @Override

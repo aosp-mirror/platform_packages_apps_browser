@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * Ui for xlarge screen sizes
  */
-public class XLargeUi extends BaseUi implements ScrollListener {
+public class XLargeUi extends BaseUi {
 
     private static final String LOGTAG = "XLargeUi";
 
@@ -153,6 +153,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
 
     @Override
     public void onScroll(int visibleTitleHeight, boolean userInitiated) {
+        super.onScroll(visibleTitleHeight, userInitiated);
         mTabBar.onScroll(visibleTitleHeight, userInitiated);
     }
 
@@ -192,13 +193,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
                 captureTab(mActiveTab);
             }
         }
-        super.setActiveTab(tab, true);
-        setActiveTab(tab, true);
-        mTitleBar.setSkipTitleBarAnimations(false);
-    }
-
-    @Override
-    void setActiveTab(Tab tab, boolean needsAttaching) {
+        super.setActiveTab(tab);
         BrowserWebView view = (BrowserWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
         // so the tab is guaranteed to have a webview
@@ -226,6 +221,7 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         }
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
+        mTitleBar.setSkipTitleBarAnimations(false);
     }
 
     @Override
@@ -280,10 +276,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
             mTabBar.onHideTitleBar();
             mTitleBar.hide();
         }
-    }
-
-    public boolean isEditingUrl() {
-        return mTitleBar.isEditingUrl();
     }
 
     @Override

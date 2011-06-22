@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import com.android.browser.BrowserWebView.ScrollListener;
 import com.android.browser.Tab.LockIcon;
 import com.android.internal.view.menu.MenuBuilder;
 
@@ -32,12 +33,15 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -55,7 +59,7 @@ import java.util.List;
 /**
  * UI interface definitions
  */
-public abstract class BaseUi implements UI, WebViewFactory {
+public abstract class BaseUi implements UI, WebViewFactory, ScrollListener {
 
     private static final String LOGTAG = "BaseUi";
 
@@ -69,6 +73,9 @@ public abstract class BaseUi implements UI, WebViewFactory {
         ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.MATCH_PARENT,
         Gravity.CENTER);
+
+    private static final int MSG_HIDE_TITLEBAR = 1;
+    private static final int HIDE_TITLEBAR_DELAY = 1500; // in ms
 
     Activity mActivity;
     UiController mUiController;
@@ -94,6 +101,8 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     private Toast mStopToast;
 
+    private int mLastScrollY;
+    private int mTitlebarScrollTriggerSlop;
 
     // the default <video> poster
     private Bitmap mDefaultVideoPoster;
@@ -126,6 +135,12 @@ public abstract class BaseUi implements UI, WebViewFactory {
         setFullscreen(BrowserSettings.getInstance().useFullscreen());
         mGenericFavicon = res.getDrawable(
                 R.drawable.app_web_browser_sm);
+        ViewConfiguration config = ViewConfiguration.get(browser);
+        mTitlebarScrollTriggerSlop = Math.max(
+                config.getScaledOverflingDistance(),
+                config.getScaledOverscrollDistance());
+        mTitlebarScrollTriggerSlop = Math.max(mTitlebarScrollTriggerSlop,
+                config.getScaledTouchSlop());
     }
 
     @Override
@@ -251,17 +266,12 @@ public abstract class BaseUi implements UI, WebViewFactory {
 
     @Override
     public void setActiveTab(final Tab tab) {
-        setActiveTab(tab, true);
-    }
-
-    void setActiveTab(Tab tab, boolean needsAttaching) {
+        mHandler.removeMessages(MSG_HIDE_TITLEBAR);
         if ((tab != mActiveTab) && (mActiveTab != null)) {
             removeTabFromContentView(mActiveTab);
         }
         mActiveTab = tab;
-        if (needsAttaching) {
-            attachTabToContentView(tab);
-        }
+        attachTabToContentView(tab);
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
         onTabDataChanged(tab);
         onProgressChanged(tab);
@@ -462,6 +472,10 @@ public abstract class BaseUi implements UI, WebViewFactory {
         return getTitleBar().isShowing();
     }
 
+    public boolean isEditingUrl() {
+        return getTitleBar().isEditingUrl();
+    }
+
     protected abstract TitleBarBase getTitleBar();
 
     protected void setTitleGravity(int gravity) {
@@ -507,7 +521,6 @@ public abstract class BaseUi implements UI, WebViewFactory {
         dismissIME();
         hideTitleBar();
         if (mActiveTab != null) {
-            WebView web = mActiveTab.getWebView();
             mActiveTab.putInBackground();
         }
         mComboView.setAlpha(0f);
@@ -826,4 +839,52 @@ public abstract class BaseUi implements UI, WebViewFactory {
         return d;
     }
 
+    public boolean isLoading() {
+        return mActiveTab != null ? mActiveTab.inPageLoad() : false;
+    }
+
+    /**
+     * Suggest to the UI that the title bar can be hidden. The UI will then
+     * decide whether or not to hide based off a number of factors, such
+     * as if the user is editing the URL bar or if the page is loading
+     */
+    public void suggestHideTitleBar() {
+        if (!isLoading() && !isEditingUrl()) {
+            hideTitleBar();
+        }
+    }
+
+    @Override
+    public void onScroll(int visibleTitleHeight, boolean userInitiated) {
+        WebView view = mActiveTab != null ? mActiveTab.getWebView() : null;
+        if (view == null || !userInitiated) {
+            return;
+        }
+        int scrollY = view.getScrollY();
+        if (scrollY < (mLastScrollY - mTitlebarScrollTriggerSlop)) {
+            mLastScrollY = scrollY;
+            if (visibleTitleHeight == 0) {
+                mHandler.removeMessages(MSG_HIDE_TITLEBAR);
+                showTitleBar();
+                Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
+                mHandler.sendMessageDelayed(msg, HIDE_TITLEBAR_DELAY);
+            } else if (visibleTitleHeight == getTitleBar().getEmbeddedHeight()
+                    && mHandler.hasMessages(MSG_HIDE_TITLEBAR)) {
+                mHandler.removeMessages(MSG_HIDE_TITLEBAR);
+                hideTitleBar();
+            }
+        } else if (scrollY > mLastScrollY) {
+            mLastScrollY = scrollY;
+        }
+    }
+
+    private Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == MSG_HIDE_TITLEBAR) {
+                suggestHideTitleBar();
+            }
+        }
+    };
 }

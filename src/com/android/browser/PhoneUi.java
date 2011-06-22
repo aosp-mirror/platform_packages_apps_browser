@@ -33,7 +33,6 @@ import android.widget.FrameLayout;
 public class PhoneUi extends BaseUi {
 
     private static final String LOGTAG = "PhoneUi";
-    private static final float NAV_TAB_SCALE = 0.75f;
 
     private TitleBarPhone mTitleBar;
     private ActiveTabsPage mActiveTabsPage;
@@ -134,7 +133,7 @@ public class PhoneUi extends BaseUi {
             mTitleBar.setProgress(progress);
             if (progress == 100) {
                 if (!mOptionsMenuOpen || !mExtendedMenuOpen) {
-                    hideTitleBar();
+                    suggestHideTitleBar();
                     if (mUseQuickControls) {
                         mTitleBar.setShowProgressOnly(false);
                     }
@@ -154,12 +153,7 @@ public class PhoneUi extends BaseUi {
     @Override
     public void setActiveTab(final Tab tab) {
         captureTab(mActiveTab);
-        super.setActiveTab(tab, true);
-        setActiveTab(tab, true);
-    }
-
-    @Override
-    void setActiveTab(Tab tab, boolean needsAttaching) {
+        super.setActiveTab(tab);
         BrowserWebView view = (BrowserWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
         // so the tab is guaranteed to have a webview
@@ -176,6 +170,7 @@ public class PhoneUi extends BaseUi {
             if (mTitleBar.getParent() == null) {
                 view.setEmbeddedTitleBar(mTitleBar);
             }
+            view.setScrollListener(this);
         }
         if (tab.isInVoiceSearchMode()) {
             showVoiceTitleBar(tab.getVoiceDisplayTitle(), tab.getVoiceSearchResults());

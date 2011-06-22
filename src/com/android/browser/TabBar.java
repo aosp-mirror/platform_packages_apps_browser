@@ -111,7 +111,6 @@ public class TabBar extends LinearLayout
         mInactiveDrawable = res.getDrawable(R.drawable.browsertab_inactive);
 
         mTabMap = new HashMap<Tab, TabView>();
-        Resources resources = activity.getResources();
         LayoutInflater factory = LayoutInflater.from(activity);
         factory.inflate(R.layout.tab_bar, this);
         setPadding(0, (int) res.getDimension(R.dimen.tab_padding_top), 0, 0);
