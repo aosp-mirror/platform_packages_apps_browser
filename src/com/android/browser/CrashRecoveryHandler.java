@@ -19,6 +19,7 @@ package com.android.browser;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
@@ -141,6 +142,12 @@ public class CrashRecoveryHandler {
                 .setNegativeButton(R.string.recover_no, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
                         clearState(mController.getActivity());
                         mController.doStart(null, intent);
                     }
