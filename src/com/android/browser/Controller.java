@@ -38,7 +38,6 @@ import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.net.Uri;
 import android.net.http.SslError;
-import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -84,14 +83,13 @@ import com.android.browser.provider.BrowserProvider2.Snapshots;
 import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for browser
@@ -481,10 +479,10 @@ public class Controller
                         }
                         switch (msg.arg1) {
                             case R.id.open_context_menu_id:
-                                loadUrlFromContext(getCurrentTopWebView(), url);
+                                loadUrlFromContext(url);
                                 break;
                             case R.id.view_image_context_menu_id:
-                                loadUrlFromContext(getCurrentTopWebView(), src);
+                                loadUrlFromContext(src);
                                 break;
                             case R.id.open_newtab_context_menu_id:
                                 final Tab parent = mTabControl.getCurrentTab();
@@ -505,7 +503,7 @@ public class Controller
                     }
 
                     case LOAD_URL:
-                        loadUrlFromContext(getCurrentTopWebView(), (String) msg.obj);
+                        loadUrlFromContext((String) msg.obj);
                         break;
 
                     case STOP_LOAD:
@@ -1204,8 +1202,7 @@ public class Controller
                         true);
             } else {
                 final Tab currentTab = mTabControl.getCurrentTab();
-                dismissSubWindow(currentTab);
-                loadUrl(getCurrentTopWebView(), url);
+                loadUrl(currentTab, url);
             }
         }
     }
@@ -1604,10 +1601,7 @@ public class Controller
 
             case R.id.homepage_menu_id:
                 Tab current = mTabControl.getCurrentTab();
-                if (current != null) {
-                    dismissSubWindow(current);
-                    loadUrl(current.getWebView(), mSettings.getHomePage());
-                }
+                loadUrl(current, mSettings.getHomePage());
                 break;
 
             case R.id.preferences_menu_id:
@@ -2204,7 +2198,7 @@ public class Controller
         }
     }
 
-    protected void reuseTab(Tab appTab, String appId, UrlData urlData) {
+    protected void reuseTab(Tab appTab, UrlData urlData) {
         // Dismiss the subwindow if applicable.
         dismissSubWindow(appTab);
         // Since we might kill the WebView, remove it from the
@@ -2289,9 +2283,8 @@ public class Controller
             if (parent != null && parent != tab) {
                 parent.addChildTab(tab);
             }
-            WebView w = tab.getWebView();
             if (url != null) {
-                loadUrl(w, url);
+                loadUrl(tab, url);
             }
         }
         return tab;
@@ -2313,8 +2306,7 @@ public class Controller
         } else {
             if (useCurrent) {
                 tab = mTabControl.getCurrentTab();
-                // Get rid of the subwindow if it exists
-                dismissSubWindow(tab);
+                reuseTab(tab, null);
             } else {
                 mUi.showMaxTabsWarning();
             }
@@ -2383,15 +2375,15 @@ public class Controller
         removeTab(tab);
     }
 
-    /**************** TODO: Url loading clean up *******************************/
-
     // Called when loading from context menu or LOAD_URL message
-    protected void loadUrlFromContext(WebView view, String url) {
+    protected void loadUrlFromContext(String url) {
+        Tab tab = getCurrentTab();
+        WebView view = tab != null ? tab.getWebView() : null;
         // In case the user enters nothing.
-        if (url != null && url.length() != 0 && view != null) {
+        if (url != null && url.length() != 0 && tab != null && view != null) {
             url = UrlUtils.smartUrlFilter(url);
             if (!view.getWebViewClient().shouldOverrideUrlLoading(view, url)) {
-                loadUrl(view, url);
+                loadUrl(tab, url);
             }
         }
     }
@@ -2403,8 +2395,15 @@ public class Controller
      * @param view The WebView used to load url.
      * @param url The URL to load.
      */
-    protected void loadUrl(WebView view, String url) {
-        view.loadUrl(url);
+    protected void loadUrl(Tab tab, String url) {
+        loadUrl(tab, url, null);
+    }
+
+    protected void loadUrl(Tab tab, String url, Map<String, String> headers) {
+        if (tab != null) {
+            dismissSubWindow(tab);
+            tab.loadUrl(url, headers);
+        }
     }
 
     /**
@@ -2414,7 +2413,13 @@ public class Controller
      * @param data The UrlData being loaded.
      */
     protected void loadUrlDataIn(Tab t, UrlData data) {
-        data.loadIn(t);
+        if (data != null) {
+            if (data.mVoiceIntent != null) {
+                t.activateVoiceSearchMode(data.mVoiceIntent);
+            } else {
+                loadUrl(t, data.mUrl, data.mHeaders);
+            }
+        }
     }
 
     @Override

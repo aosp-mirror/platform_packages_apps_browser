@@ -141,6 +141,12 @@ public class IntentHandler {
             }
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
+            if (!TextUtils.isEmpty(urlData.mUrl) &&
+                    urlData.mUrl.startsWith("javascript:")) {
+                // Always open javascript: URIs in new tabs
+                mController.openTab(urlData);
+                return;
+            }
             if ((Intent.ACTION_VIEW.equals(action)
                     // If a voice search has no appId, it means that it came
                     // from the browser.  In that case, reuse the current tab.
@@ -150,7 +156,7 @@ public class IntentHandler {
                 if (activateVoiceSearch) {
                     Tab appTab = mTabControl.getTabFromAppId(appId);
                     if (appTab != null) {
-                        mController.reuseTab(appTab, appId, urlData);
+                        mController.reuseTab(appTab, urlData);
                         return;
                     } else {
                         Tab tab = mController.openTab(urlData);
@@ -358,18 +364,6 @@ public class IntentHandler {
 
         boolean isEmpty() {
             return mVoiceIntent == null && (mUrl == null || mUrl.length() == 0);
-        }
-
-        /**
-         * Load this UrlData into the given Tab.  Use loadUrlDataIn to update
-         * the title bar as well.
-         */
-        public void loadIn(Tab t) {
-            if (mVoiceIntent != null) {
-                t.activateVoiceSearchMode(mVoiceIntent);
-            } else {
-                t.getWebView().loadUrl(mUrl, mHeaders);
-            }
         }
     }
 

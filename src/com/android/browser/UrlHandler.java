@@ -262,7 +262,7 @@ public class UrlHandler {
                 // If the Activity Manager is not invoked, load the URL directly
                 if (!startActivityForUrl(result)) {
                     if (!handleMenuClick(mTab, result)) {
-                            mController.loadUrl(mWebView, result);
+                        mController.loadUrl(mTab, result);
                     }
                 }
             }
