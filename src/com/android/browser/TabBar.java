@@ -276,12 +276,9 @@ public class TabBar extends LinearLayout
     public void onScroll(int visibleTitleHeight, boolean userInitiated) {
         if (mUseQuickControls) return;
         // isLoading is using the current tab, which initially might not be set yet
-        if (mTabControl.getCurrentTab() != null
-                && !isLoading()) {
-            if (visibleTitleHeight == 0) {
-                if (!showsTitleBarIndicator()
-                        && (!mUi.isEditingUrl() || userInitiated)) {
-                    mUi.hideTitleBar();
+        if (mTabControl.getCurrentTab() != null) {
+            if (visibleTitleHeight == 0 && !mUi.isTitleBarShowing()) {
+                if (!showsTitleBarIndicator()) {
                     showTitleBarIndicator(true);
                 }
             } else {

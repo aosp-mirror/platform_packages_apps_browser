@@ -123,36 +123,6 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     @Override
-    public void onFocusChange(View view, boolean hasFocus) {
-        // if losing focus and not in touch mode, leave as is
-        if (hasFocus || view.isInTouchMode() || mUrlInput.needsUpdate()) {
-            setFocusState(hasFocus);
-            mUrlContainer.setBackgroundDrawable(hasFocus
-                    ? mFocusDrawable : mUnfocusDrawable);
-        }
-        if (hasFocus) {
-            mUrlInput.forceIme();
-            if (mInVoiceMode) {
-                mUrlInput.forceFilter();
-            }
-        } else if (!mUrlInput.needsUpdate()) {
-            mUrlInput.dismissDropDown();
-            mUrlInput.hideIME();
-            if (mUseQuickControls) {
-                mUi.hideTitleBar();
-            }
-
-            if (mUrlInput.getText().length() == 0) {
-                Tab currentTab = mUiController.getTabControl().getCurrentTab();
-                if (currentTab != null) {
-                    mUrlInput.setText(currentTab.getUrl(), false);
-                }
-            }
-        }
-        mUrlInput.clearNeedsUpdate();
-    }
-
-    @Override
     public void setCurrentUrlIsBookmark(boolean isBookmark) {
         mStar.setActivated(isBookmark);
     }
@@ -226,6 +196,8 @@ public class TitleBarXLarge extends TitleBarBase
             }
             updateUrlIcon();
         }
+        mUrlContainer.setBackgroundDrawable(focus
+                ? mFocusDrawable : mUnfocusDrawable);
     }
 
     private void stopOrRefresh() {

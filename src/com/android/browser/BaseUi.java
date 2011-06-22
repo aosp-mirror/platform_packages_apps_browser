@@ -857,13 +857,14 @@ public abstract class BaseUi implements UI, WebViewFactory, ScrollListener {
     @Override
     public void onScroll(int visibleTitleHeight, boolean userInitiated) {
         WebView view = mActiveTab != null ? mActiveTab.getWebView() : null;
-        if (view == null || !userInitiated) {
+        if (view == null) {
             return;
         }
         int scrollY = view.getScrollY();
-        if (scrollY < (mLastScrollY - mTitlebarScrollTriggerSlop)) {
+        if (isTitleBarShowing()
+                || scrollY < (mLastScrollY - mTitlebarScrollTriggerSlop)) {
             mLastScrollY = scrollY;
-            if (visibleTitleHeight == 0) {
+            if (visibleTitleHeight == 0 && userInitiated) {
                 mHandler.removeMessages(MSG_HIDE_TITLEBAR);
                 showTitleBar();
                 Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
