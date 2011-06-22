@@ -87,8 +87,9 @@ public class UrlHandler {
         }
 
         // The "about:" schemes are internal to the browser; don't want these to
-        // be dispatched to other apps.
-        if (url.startsWith("about:")) {
+        // be dispatched to other apps. Similarly, javascript: schemas are private
+        // to the page
+        if (url.startsWith("about:") || url.startsWith("javascript:")) {
             return false;
         }
 
