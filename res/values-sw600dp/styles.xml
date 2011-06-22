@@ -22,4 +22,6 @@
         <item name="android:actionBarStyle">@style/ActionBarStyle</item>
         <item name="android:actionButtonStyle">@style/ActionButton</item>
     </style>
+    <style name="Suggestions" parent="@android:style/Widget.Holo.AutoCompleteTextView">
+    </style>
 </resources>

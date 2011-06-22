@@ -48,14 +48,16 @@
     <style name="ActionButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
-    <style name="Suggestions" parent="@android:style/Widget.Holo.Light.AutoCompleteTextView">
+    <style name="Suggestions" parent="@android:style/Widget.Holo.AutoCompleteTextView">
+        <item name="android:popupBackground">#D0000000</item>
+        <item name="android:dropDownVerticalOffset">0dip</item>
     </style>
     <style name="SuggestionLineMedium"
-            parent="@android:style/TextAppearance.Holo.Medium.Inverse">
+            parent="@android:style/TextAppearance.Holo.Medium">
         <item name="android:textSize">16sp</item>
     </style>
     <style name="SuggestionLineSmall"
-            parent="@android:style/TextAppearance.Holo.Small.Inverse">
+            parent="@android:style/TextAppearance.Holo.Small">
         <item name="android:textSize">12sp</item>
     </style>
     <style name="ActionBar" parent="@android:style/Widget.ActionBar">
