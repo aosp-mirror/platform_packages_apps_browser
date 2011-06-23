@@ -73,7 +73,7 @@
         android:layout_height="match_parent"
         android:id="@+id/icon2"
         android:scaleType="center"
-        android:src="@drawable/ic_add_string"
+        android:src="@drawable/ic_querybuilder"
         android:background="@drawable/suggest_item_selector"
         android:paddingRight="@dimen/suggest_item_padding"
         android:paddingLeft="@dimen/suggest_item_padding"
