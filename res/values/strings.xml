@@ -342,12 +342,25 @@
     <string name="pref_content_search_engine_summary">Select a search engine</string>
     <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
     <string name="pref_set_homepage_to">Set to\u2026</string>
-    <!-- Settings button label to set the homepage to the current page [CHAR LIMIT=40] -->
-    <string name="pref_use_current">Current page</string>
-    <!-- Settings button label to set the homepage to a blank page [CHAR LIMIT=40] -->
-    <string name="pref_use_blank">Blank page</string>
-    <!-- Settings button label to set the homepage to the default page [CHAR LIMIT=40] -->
-    <string name="pref_use_default">Default page</string>
+    <string-array name="pref_homepage_choices">
+        <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+        <item>Current page</item>
+        <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+        <item>Blank page</item>
+        <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+        <item>Default page</item>
+        <!-- Setting choice to set the homepage to the "Most Visited" homepage feature [CHAR LIMIT=40] -->
+        <item>Most-visited homepage</item>
+        <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+        <item>Other\u2026</item>
+    </string-array>
+    <string-array name="pref_homepage_values" translatable="false">
+        <item>current</item>
+        <item>blank</item>
+        <item>default</item>
+        <item>most_visited</item>
+        <item>other</item>
+    </string-array>
     <!-- Settings label -->
     <string name="pref_content_autofit">Auto-fit pages</string>
     <!-- Settings summary -->
@@ -643,11 +656,6 @@
     <!-- Summary for lab quick controls feature [CHAR LIMIT=80] -->
     <string name="pref_lab_quick_controls_summary">
         Swipe thumb from left or right edge to access quick controls and hide Application and URL bars</string>
-    <!-- Title for lab "Most Visited" homepage feature [CHAR LIMIT=40] -->
-    <string name="pref_lab_most_visited_homepage">Most-visited homepage</string>
-    <!-- Summary for lab "Most Visited" homepage feature [CHAR LIMIT=80] -->
-    <string name="pref_lab_most_visited_homepage_summary">
-        Your homepage displays your most-visited webpages.</string>
     <!-- Title for the "Instant search" lab feature [CHAR LIMIT=40] -->
     <string name="pref_use_instant_search">Google Instant</string>
     <!-- Summary for the "Instant search" lab feature [CHAR LIMIT=120] -->
