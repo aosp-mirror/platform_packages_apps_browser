@@ -799,6 +799,22 @@ class Tab {
                 handler.ignore();
                 return;
             }
+            int colon = host_and_port.lastIndexOf(':');
+            String host;
+            int port;
+            if (colon == -1) {
+                host = host_and_port;
+                port = -1;
+            } else {
+                String portString = host_and_port.substring(colon + 1);
+                try {
+                    port = Integer.parseInt(portString);
+                    host = host_and_port.substring(0, colon);
+                } catch  (NumberFormatException e) {
+                    host = host_and_port;
+                    port = -1;
+                }
+            }
             KeyChain.choosePrivateKeyAlias(mActivity, new KeyChainAliasCallback() {
                 @Override public void alias(String alias) {
                     if (alias == null) {
@@ -807,7 +823,7 @@ class Tab {
                     }
                     new KeyChainLookup(mActivity, handler, alias).execute();
                 }
-            }, null, null, null, -1);
+            }, null, null, host, port, null);
         }
 
         /**
