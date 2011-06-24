@@ -29,4 +29,6 @@
     <integer name="tabFadeDuration">300</integer>
     <!-- The maximum number of columns in the bookmark grid view -->
     <integer name="max_bookmark_columns">5</integer>
+    <!-- The duration of the titlebar animation in millisecs -->
+    <integer name="titlebar_animation_duration">200</integer>
 </resources>
