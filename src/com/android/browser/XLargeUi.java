@@ -70,6 +70,14 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     }
 
     @Override
+    public void onSetWebView(Tab tab, WebView v) {
+        super.onSetWebView(tab, v);
+        if (v != null) {
+            ((BrowserWebView) v).setScrollListener(this);
+        }
+    }
+
+    @Override
     public void showComboView(boolean startWithHistory, Bundle extras) {
         super.showComboView(startWithHistory, extras);
         if (mUseQuickControls) {
@@ -133,21 +141,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     @Override
     public void onDestroy() {
         hideTitleBar();
-    }
-
-    // webview factory
-
-    @Override
-    public WebView createWebView(boolean privateBrowsing) {
-        // Create a new WebView
-        BrowserWebView w = (BrowserWebView) super.createWebView(privateBrowsing);
-        w.setScrollListener(this);
-        return w;
-    }
-
-    @Override
-    public WebView createSubWebView(boolean privateBrowsing) {
-        return super.createWebView(privateBrowsing);
     }
 
     @Override

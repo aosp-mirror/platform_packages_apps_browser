@@ -135,8 +135,14 @@ public class IntentHandler {
                 urlData = new UrlData(mSettings.getHomePage());
             }
 
-            if (intent.getBooleanExtra(Browser.EXTRA_CREATE_NEW_TAB, false)) {
-                mController.openTab(urlData);
+            if (intent.getBooleanExtra(Browser.EXTRA_CREATE_NEW_TAB, false)
+                  || urlData.isPreloaded()) {
+                Tab t = mController.openTab(urlData);
+                if (t == null && urlData.isPreloaded()) {
+                    Tab pre = urlData.getPreloadedTab();
+                    // TODO: check if we need to stop loading
+                    pre.destroy();
+                }
                 return;
             }
             /*
@@ -220,9 +226,10 @@ public class IntentHandler {
         }
     }
 
-    protected UrlData getUrlDataFromIntent(Intent intent) {
+    protected static UrlData getUrlDataFromIntent(Intent intent) {
         String url = "";
         Map<String, String> headers = null;
+        Tab preloaded = null;
         if (intent != null
                 && (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             final String action = intent.getAction();
@@ -240,6 +247,10 @@ public class IntentHandler {
                             headers.put(key, pairs.getString(key));
                         }
                     }
+                }
+                if (intent.hasExtra(PreloadRequestReceiver.EXTRA_PRELOAD_ID)) {
+                    String id = intent.getStringExtra(PreloadRequestReceiver.EXTRA_PRELOAD_ID);
+                    preloaded = Preloader.getInstance().getPreloadedTab(id);
                 }
             } else if (Intent.ACTION_SEARCH.equals(action)
                     || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
@@ -265,7 +276,7 @@ public class IntentHandler {
                 }
             }
         }
-        return new UrlData(url, headers, intent);
+        return new UrlData(url, headers, intent, preloaded);
     }
 
     /**
@@ -348,14 +359,20 @@ public class IntentHandler {
         final String mUrl;
         final Map<String, String> mHeaders;
         final Intent mVoiceIntent;
+        final Tab mPreloadedTab;
 
         UrlData(String url) {
             this.mUrl = url;
             this.mHeaders = null;
             this.mVoiceIntent = null;
+            this.mPreloadedTab = null;
         }
 
         UrlData(String url, Map<String, String> headers, Intent intent) {
+            this(url, headers, intent, null);
+        }
+
+        UrlData(String url, Map<String, String> headers, Intent intent, Tab preloaded) {
             this.mUrl = url;
             this.mHeaders = headers;
             if (RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS
@@ -364,10 +381,19 @@ public class IntentHandler {
             } else {
                 this.mVoiceIntent = null;
             }
+            mPreloadedTab = preloaded;
         }
 
         boolean isEmpty() {
             return mVoiceIntent == null && (mUrl == null || mUrl.length() == 0);
+        }
+
+        boolean isPreloaded() {
+            return mPreloadedTab != null;
+        }
+
+        Tab getPreloadedTab() {
+            return mPreloadedTab;
         }
     }
 

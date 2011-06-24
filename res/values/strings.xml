@@ -645,6 +645,12 @@
     <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
     <string name="pref_lab_fullscreen_summary">
       Use fullscreen mode to hide the status bar.</string>
+    <!-- Title for bandwidth management preference [CHAR LIMIT=25] -->
+    <string name="pref_data_title">Bandwidth Management</string>
+    <!-- Title for search preloading [CHAR LIMIT=40] -->
+    <string name="pref_data_preload_title">Search result preloading</string>
+    <!-- Summary for search preloading [CHAR LIMIT=80] -->
+    <string name="pref_data_preload_summary">Allow the browser to preload high confidence search results in the background</string>
     <!-- Title for a dialog displayed when the browser has a data connectivity
             problem -->
     <string name="browserFrameNetworkErrorLabel">Data connectivity problem</string>
@@ -995,4 +1001,6 @@
     <string name="ua_switcher_mobile">Mobile</string>
     <!-- Popup menu option that allows the user to select the desktop version of a webpage [CHAR LIMIT=50] -->
     <string name="ua_switcher_desktop">Desktop</string>
+    <!-- Preload permission label [CHAR LIMIT=40] -->
+    <string name="permission_preload_label">Preload results</string>
 </resources>

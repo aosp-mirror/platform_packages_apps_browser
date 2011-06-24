@@ -20,6 +20,10 @@
 
     <original-package android:name="com.android.browser" />
 
+    <permission android:name="com.android.browser.permission.PRELOAD"
+        android:label="@string/permission_preload_label"
+        android:protectionLevel="signatureOrSystem" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -241,6 +245,14 @@
                 <action android:name="android.accounts.LOGIN_ACCOUNTS_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".PreloadRequestReceiver"
+             android:permission="com.android.browser.permission.PRELOAD" >
+             <intent-filter>
+                 <action android:name="android.intent.action.PRELOAD"/>
+                 <data android:scheme="http" />
+             </intent-filter>
+         </receiver>
 
     </application>
 

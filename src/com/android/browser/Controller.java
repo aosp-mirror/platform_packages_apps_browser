@@ -229,6 +229,7 @@ public class Controller
         mTabControl = new TabControl(this);
         mSettings.setController(this);
         mCrashRecoveryHandler = CrashRecoveryHandler.initialize(this);
+        mFactory = new BrowserWebViewFactory(browser);
 
         mUrlHandler = new UrlHandler(this);
         mIntentHandler = new IntentHandler(mActivity, this);
@@ -312,7 +313,7 @@ public class Controller
             // If the intent is ACTION_VIEW and data is not null, the Browser is
             // invoked to view the content by another application. In this case,
             // the tab will be close when exit.
-            UrlData urlData = mIntentHandler.getUrlDataFromIntent(intent);
+            UrlData urlData = IntentHandler.getUrlDataFromIntent(intent);
             Tab t = null;
             if (urlData.isEmpty()) {
                 t = openTabToHomePage();
@@ -356,10 +357,6 @@ public class Controller
         }
     }
 
-    void setWebViewFactory(WebViewFactory factory) {
-        mFactory = factory;
-    }
-
     @Override
     public WebViewFactory getWebViewFactory() {
         return mFactory;
@@ -378,6 +375,11 @@ public class Controller
                 ? false
                 : mainView.isPrivateBrowsingEnabled());
         mUi.createSubWindow(tab, subView);
+    }
+
+    @Override
+    public Context getContext() {
+        return mActivity;
     }
 
     @Override
@@ -1637,6 +1639,7 @@ public class Controller
                         return id;
                     }
 
+                    @Override
                     protected void onPostExecute(Long id) {
                         if (id > 0) {
                             createNewSnapshotTab(id, true);
@@ -2247,11 +2250,19 @@ public class Controller
     // open a non inconito tab with the given url data
     // and set as active tab
     public Tab openTab(UrlData urlData) {
-        Tab tab = createNewTab(false, true, true);
-        if ((tab != null) && !urlData.isEmpty()) {
-            loadUrlDataIn(tab, urlData);
+        if (urlData.isPreloaded()) {
+            Tab tab = urlData.getPreloadedTab();
+            tab.getWebView().clearHistory();
+            mTabControl.addPreloadedTab(tab);
+            setActiveTab(tab);
+            return tab;
+        } else {
+            Tab tab = createNewTab(false, true, true);
+            if ((tab != null) && !urlData.isEmpty()) {
+                loadUrlDataIn(tab, urlData);
+            }
+            return tab;
         }
-        return tab;
     }
 
     @Override
@@ -2417,6 +2428,8 @@ public class Controller
         if (data != null) {
             if (data.mVoiceIntent != null) {
                 t.activateVoiceSearchMode(data.mVoiceIntent);
+            } else if (data.isPreloaded()) {
+                // this isn't called for preloaded tabs
             } else {
                 loadUrl(t, data.mUrl, data.mHeaders);
             }

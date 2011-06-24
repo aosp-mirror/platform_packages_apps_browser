@@ -176,6 +176,14 @@ class TabControl {
         return false;
     }
 
+    void addPreloadedTab(Tab tab) {
+        tab.setId(getNextId());
+        mTabs.add(tab);
+        tab.setController(mController);
+        mController.onSetWebView(tab, tab.getWebView());
+        tab.putInBackground();
+    }
+
     /**
      * Create a new tab.
      * @return The newly createTab or null if we have reached the maximum

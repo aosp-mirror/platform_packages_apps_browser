@@ -94,4 +94,9 @@ public interface PreferenceKeys {
     static final String PREF_SAVE_FORMDATA = "save_formdata";
     static final String PREF_SHOW_SECURITY_WARNINGS = "show_security_warnings";
 
+    // ----------------------
+    // Keys for bandwidth_preferences.xml
+    // ----------------------
+    static final String PREF_DATA_PRELOAD = "preload_enabled";
+
 }
