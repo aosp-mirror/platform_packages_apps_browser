@@ -872,7 +872,7 @@ public abstract class BaseUi implements UI, WebViewFactory, ScrollListener {
             } else if (visibleTitleHeight == getTitleBar().getEmbeddedHeight()
                     && mHandler.hasMessages(MSG_HIDE_TITLEBAR)) {
                 mHandler.removeMessages(MSG_HIDE_TITLEBAR);
-                hideTitleBar();
+                suggestHideTitleBar();
             }
         } else if (scrollY > mLastScrollY) {
             mLastScrollY = scrollY;
