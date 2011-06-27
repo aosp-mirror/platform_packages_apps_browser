@@ -16,16 +16,13 @@
 
 package com.android.browser;
 
-import com.android.browser.UI.DropdownChangeListener;
-import com.android.browser.UrlInputView.UrlInputListener;
-import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
-
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -44,6 +41,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebView;
 import android.widget.AbsoluteLayout;
 import android.widget.ArrayAdapter;
@@ -57,6 +55,10 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.browser.UI.DropdownChangeListener;
+import com.android.browser.UrlInputView.UrlInputListener;
+import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
+
 import java.util.List;
 
 /**
@@ -68,6 +70,7 @@ public class TitleBarBase extends RelativeLayout
         OnMenuItemClickListener {
 
     protected static final int PROGRESS_MAX = 100;
+    private static final float ANIM_TITLEBAR_DECELERATE = 2.5f;
 
     // These need to be set by the subclass.
     protected ImageView mFavicon;
@@ -149,6 +152,14 @@ public class TitleBarBase extends RelativeLayout
         mSkipTitleBarAnimations = skip;
     }
 
+    void setupTitleBarAnimator(Animator animator) {
+        Resources res = mContext.getResources();
+        int duration = res.getInteger(R.integer.titlebar_animation_duration);
+        animator.setInterpolator(new DecelerateInterpolator(
+                ANIM_TITLEBAR_DECELERATE));
+        animator.setDuration(duration);
+    }
+
     void show() {
         if (mUseQuickControls) {
             mParent.addView(this);
@@ -163,6 +174,7 @@ public class TitleBarBase extends RelativeLayout
                 mTitleBarAnimator = ObjectAnimator.ofFloat(this,
                         "translationY",
                         startPos, 0);
+                setupTitleBarAnimator(mTitleBarAnimator);
                 mTitleBarAnimator.start();
             }
             mBaseUi.setTitleGravity(Gravity.TOP);
@@ -181,6 +193,7 @@ public class TitleBarBase extends RelativeLayout
                         "translationY", getTranslationY(),
                         (-getEmbeddedHeight() + visibleHeight));
                 mTitleBarAnimator.addListener(mHideTileBarAnimatorListener);
+                setupTitleBarAnimator(mTitleBarAnimator);
                 mTitleBarAnimator.start();
             } else {
                 mBaseUi.setTitleGravity(Gravity.NO_GRAVITY);
