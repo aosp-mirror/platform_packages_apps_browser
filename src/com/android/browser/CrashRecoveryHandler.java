@@ -22,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -38,8 +39,16 @@ public class CrashRecoveryHandler {
 
     private static final String LOGTAG = "BrowserCrashRecovery";
     private static final String STATE_FILE = "browser_state.parcel";
+    private static final String RECOVERY_PREFERENCES = "browser_recovery_prefs";
+    private static final String KEY_LAST_RECOVERED = "last_recovered";
     private static final int BUFFER_SIZE = 4096;
     private static final long BACKUP_DELAY = 500; // 500ms between writes
+    /* This is the duration for which we will prompt to restore
+     * instead of automatically restoring. The first time the browser crashes,
+     * we will automatically restore. If we then crash again within XX minutes,
+     * we will prompt instead of automatically restoring.
+     */
+    private static final long PROMPT_INTERVAL = 30 * 60 * 1000; // 30 minutes
 
     private static CrashRecoveryHandler sInstance;
 
@@ -136,6 +145,7 @@ public class CrashRecoveryHandler {
                 .setPositiveButton(R.string.recover_yes, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        updateLastRecovered();
                         mController.doStart(state, intent);
                     }
                 })
@@ -155,7 +165,30 @@ public class CrashRecoveryHandler {
                 .show();
     }
 
+    private boolean shouldPrompt() {
+        Context context = mController.getActivity();
+        SharedPreferences prefs = context.getSharedPreferences(
+                RECOVERY_PREFERENCES, Context.MODE_PRIVATE);
+        long lastRecovered = prefs.getLong(KEY_LAST_RECOVERED,
+                System.currentTimeMillis());
+        long timeSinceLastRecover = System.currentTimeMillis() - lastRecovered;
+        if (timeSinceLastRecover > PROMPT_INTERVAL) {
+            return false;
+        }
+        return true;
+    }
+
+    private void updateLastRecovered() {
+        Context context = mController.getActivity();
+        SharedPreferences prefs = context.getSharedPreferences(
+                RECOVERY_PREFERENCES, Context.MODE_PRIVATE);
+        prefs.edit()
+            .putLong(KEY_LAST_RECOVERED, System.currentTimeMillis())
+            .commit();
+    }
+
     public void startRecovery(Intent intent) {
+        Bundle state = null;
         Parcel parcel = Parcel.obtain();
         try {
             Context context = mController.getActivity();
@@ -169,16 +202,22 @@ public class CrashRecoveryHandler {
             byte[] data = dataStream.toByteArray();
             parcel.unmarshall(data, 0, data.length);
             parcel.setDataPosition(0);
-            Bundle state = parcel.readBundle();
-            promptToRecover(state, intent);
+            state = parcel.readBundle();
+            if (shouldPrompt()) {
+                promptToRecover(state, intent);
+                return;
+            } else {
+                updateLastRecovered();
+            }
         } catch (FileNotFoundException e) {
             // No state to recover
-            mController.doStart(null, intent);
+            state = null;
         } catch (Exception e) {
             Log.w(LOGTAG, "Failed to recover state!", e);
-            mController.doStart(null, intent);
+            state = null;
         } finally {
             parcel.recycle();
         }
+        mController.doStart(state, intent);
     }
 }
