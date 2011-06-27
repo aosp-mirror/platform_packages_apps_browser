@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Der Name der Website stimmt nicht mit dem Namen auf dem Zertifikat überein."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Dieses Zertifikat ist abgelaufen."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Dieses Zertifikat ist noch nicht gültig."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"Sicherheitszertifikat"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Dies ist ein gültiges Zertifikat."</string>
-    <string name="issued_to" msgid="9032338008819841339">"Ausgegeben an:"</string>
-    <string name="common_name" msgid="5745530093500062357">"Allgemeiner Name."</string>
-    <string name="org_name" msgid="8868889052889991293">"Organisation:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"Organisationseinheit:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"Ausgegeben von:"</string>
-    <string name="validity_period" msgid="57988851973181309">"Gültigkeit:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"Ausgegeben am:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"Läuft ab am:"</string>
     <string name="stopping" msgid="4839698519340302982">"Wird angehalten..."</string>
     <string name="stop" msgid="5687251076030630074">"Anhalten"</string>
     <string name="reload" msgid="8585220783228408062">"Aktualisieren"</string>

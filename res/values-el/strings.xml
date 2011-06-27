@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Το όνομα του ιστότοπου δεν αντιστοιχεί στο όνομα του πιστοποιητικού."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Αυτό το πιστοποιητικό έχει λήξει."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Αυτό το πιστοποιητικό δεν είναι έγκυρο ακόμα."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"Πιστοποιητικό ασφαλείας"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Αυτό το πιστοποιητικό είναι έγκυρο."</string>
-    <string name="issued_to" msgid="9032338008819841339">"Εκδόθηκε στις:"</string>
-    <string name="common_name" msgid="5745530093500062357">"Κοινό όνομα:"</string>
-    <string name="org_name" msgid="8868889052889991293">"Οργανισμός:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"Μονάδα οργάνωσης:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"Εκδόθηκε:"</string>
-    <string name="validity_period" msgid="57988851973181309">"Ισχύς:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"Εκδόθηκε στις:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"Λήγει:"</string>
     <string name="stopping" msgid="4839698519340302982">"Διακοπή..."</string>
     <string name="stop" msgid="5687251076030630074">"Διακοπή"</string>
     <string name="reload" msgid="8585220783228408062">"Ανανέωση"</string>

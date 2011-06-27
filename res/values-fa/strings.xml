@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"نام سایت با نام موجود در گواهی مطابقت ندارد."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"این گواهی منقضی شده است."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"این گواهی هنوز معتبر نیست."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"گواهی امنیتی"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"این گواهی معتبر است."</string>
-    <string name="issued_to" msgid="9032338008819841339">"صدور برای:"</string>
-    <string name="common_name" msgid="5745530093500062357">"نام عادی:"</string>
-    <string name="org_name" msgid="8868889052889991293">"سازمان:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"واحد سازمانی:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"صدور توسط:"</string>
-    <string name="validity_period" msgid="57988851973181309">"اعتبار:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"صدور در:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"تاریخ انقضا:"</string>
     <string name="stopping" msgid="4839698519340302982">"در حال توقف..."</string>
     <string name="stop" msgid="5687251076030630074">"توقف"</string>
     <string name="reload" msgid="8585220783228408062">"تازه کردن"</string>

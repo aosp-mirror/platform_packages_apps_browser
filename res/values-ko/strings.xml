@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"사이트 이름이 인증서에 있는 것과 일치하지 않습니다."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"인증서가 만료되었습니다."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"인증서가 아직 유효하지 않습니다."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"보안 인증서"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"유효한 인증서입니다."</string>
-    <string name="issued_to" msgid="9032338008819841339">"발급 대상:"</string>
-    <string name="common_name" msgid="5745530093500062357">"일반 이름:"</string>
-    <string name="org_name" msgid="8868889052889991293">"조직:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"조직 구성 단위:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"발급 기관:"</string>
-    <string name="validity_period" msgid="57988851973181309">"유효성:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"발급 날짜:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"만료 날짜:"</string>
     <string name="stopping" msgid="4839698519340302982">"중지하는 중..."</string>
     <string name="stop" msgid="5687251076030630074">"중지"</string>
     <string name="reload" msgid="8585220783228408062">"새로고침"</string>

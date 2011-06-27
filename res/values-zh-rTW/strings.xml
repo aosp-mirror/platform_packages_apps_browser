@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"網站名稱與憑證不符。"</string>
     <string name="ssl_expired" msgid="5739349389499575559">"此憑證已過期"</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"此憑證無效。"</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"安全憑證"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"這個憑證沒有問題。"</string>
-    <string name="issued_to" msgid="9032338008819841339">"發給："</string>
-    <string name="common_name" msgid="5745530093500062357">"好記的名稱："</string>
-    <string name="org_name" msgid="8868889052889991293">"組織："</string>
-    <string name="org_unit" msgid="4489056376307768196">"組織單位："</string>
-    <string name="issued_by" msgid="6959484326943152487">"發行者："</string>
-    <string name="validity_period" msgid="57988851973181309">"合法性："</string>
-    <string name="issued_on" msgid="2082890654801808368">"發給："</string>
-    <string name="expires_on" msgid="8061200430557020704">"有效日期："</string>
     <string name="stopping" msgid="4839698519340302982">"停止中…"</string>
     <string name="stop" msgid="5687251076030630074">"停止"</string>
     <string name="reload" msgid="8585220783228408062">"重新整理"</string>

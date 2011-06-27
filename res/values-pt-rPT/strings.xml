@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"O nome do site não corresponde ao nome constante no certificado."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Este certificado expirou."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Este certificado ainda não é válido."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"Certificado de segurança"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Este certificado é válido."</string>
-    <string name="issued_to" msgid="9032338008819841339">"Emitido para:"</string>
-    <string name="common_name" msgid="5745530093500062357">"Nome comum:"</string>
-    <string name="org_name" msgid="8868889052889991293">"Organização:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"Unidade organizacional:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"Emitido por:"</string>
-    <string name="validity_period" msgid="57988851973181309">"Validade:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"Emitido em:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"Expira em:"</string>
     <string name="stopping" msgid="4839698519340302982">"A interromper..."</string>
     <string name="stop" msgid="5687251076030630074">"Parar"</string>
     <string name="reload" msgid="8585220783228408062">"Actualizar"</string>

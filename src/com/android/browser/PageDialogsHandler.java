@@ -22,7 +22,6 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.HttpAuthHandler;
@@ -30,8 +29,6 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.Date;
 
 /**
  * Displays page info
@@ -234,11 +231,12 @@ public class PageDialogsHandler {
      * @param tab The tab to show certificate for.
      */
     private void showSSLCertificate(final Tab tab) {
-        final View certificateView =
-                inflateCertificateView(tab.getWebView().getCertificate());
-        if (certificateView == null) {
+
+        SslCertificate cert = tab.getWebView().getCertificate();
+        if (cert == null) {
             return;
         }
+        final View certificateView = cert.inflateCertificateView(mContext);
 
         LayoutInflater factory = LayoutInflater.from(mContext);
 
@@ -248,12 +246,12 @@ public class PageDialogsHandler {
         LinearLayout ll = (LinearLayout) factory.inflate(
             R.layout.ssl_success, placeholder);
         ((TextView)ll.findViewById(R.id.success))
-            .setText(R.string.ssl_certificate_is_valid);
+            .setText(com.android.internal.R.string.ssl_certificate_is_valid);
 
         mSSLCertificateView = tab;
         mSSLCertificateDialog =
             new AlertDialog.Builder(mContext)
-                .setTitle(R.string.ssl_certificate).setIcon(
+                .setTitle(com.android.internal.R.string.ssl_certificate).setIcon(
                     R.drawable.ic_dialog_browser_certificate_secure)
                 .setView(certificateView)
                 .setPositiveButton(R.string.ok,
@@ -289,11 +287,11 @@ public class PageDialogsHandler {
             final WebView view, final SslErrorHandler handler,
             final SslError error) {
 
-        final View certificateView =
-            inflateCertificateView(error.getCertificate());
-        if (certificateView == null) {
+        SslCertificate cert = error.getCertificate();
+        if (cert == null) {
             return;
         }
+        final View certificateView = cert.inflateCertificateView(mContext);
 
         LayoutInflater factory = LayoutInflater.from(mContext);
 
@@ -333,7 +331,7 @@ public class PageDialogsHandler {
         mSSLCertificateOnErrorError = error;
         mSSLCertificateOnErrorDialog =
             new AlertDialog.Builder(mContext)
-                .setTitle(R.string.ssl_certificate).setIcon(
+                .setTitle(com.android.internal.R.string.ssl_certificate).setIcon(
                     R.drawable.ic_dialog_browser_certificate_partially_secure)
                 .setView(certificateView)
                 .setPositiveButton(R.string.ok,
@@ -378,76 +376,4 @@ public class PageDialogsHandler {
                         })
                 .show();
     }
-
-    /**
-     * Inflates the SSL certificate view (helper method).
-     * @param certificate The SSL certificate.
-     * @return The resultant certificate view with issued-to, issued-by,
-     * issued-on, expires-on, and possibly other fields set.
-     * If the input certificate is null, returns null.
-     */
-    private View inflateCertificateView(SslCertificate certificate) {
-        if (certificate == null) {
-            return null;
-        }
-
-        LayoutInflater factory = LayoutInflater.from(mContext);
-
-        View certificateView = factory.inflate(
-            R.layout.ssl_certificate, null);
-
-        // issued to:
-        SslCertificate.DName issuedTo = certificate.getIssuedTo();
-        if (issuedTo != null) {
-            ((TextView) certificateView.findViewById(R.id.to_common))
-                .setText(issuedTo.getCName());
-            ((TextView) certificateView.findViewById(R.id.to_org))
-                .setText(issuedTo.getOName());
-            ((TextView) certificateView.findViewById(R.id.to_org_unit))
-                .setText(issuedTo.getUName());
-        }
-
-        // issued by:
-        SslCertificate.DName issuedBy = certificate.getIssuedBy();
-        if (issuedBy != null) {
-            ((TextView) certificateView.findViewById(R.id.by_common))
-                .setText(issuedBy.getCName());
-            ((TextView) certificateView.findViewById(R.id.by_org))
-                .setText(issuedBy.getOName());
-            ((TextView) certificateView.findViewById(R.id.by_org_unit))
-                .setText(issuedBy.getUName());
-        }
-
-        // issued on:
-        String issuedOn = formatCertificateDate(
-            certificate.getValidNotBeforeDate());
-        ((TextView) certificateView.findViewById(R.id.issued_on))
-            .setText(issuedOn);
-
-        // expires on:
-        String expiresOn = formatCertificateDate(
-            certificate.getValidNotAfterDate());
-        ((TextView) certificateView.findViewById(R.id.expires_on))
-            .setText(expiresOn);
-
-        return certificateView;
-    }
-
-    /**
-     * Formats the certificate date to a properly localized date string.
-     * @return Properly localized version of the certificate date string and
-     * the "" if it fails to localize.
-     */
-    private String formatCertificateDate(Date certificateDate) {
-      if (certificateDate == null) {
-          return "";
-      }
-      String formattedDate = DateFormat.getDateFormat(mContext)
-              .format(certificateDate);
-      if (formattedDate == null) {
-          return "";
-      }
-      return formattedDate;
-    }
-
 }

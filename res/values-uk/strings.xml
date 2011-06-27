@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Назва сайту не відповідає назві в сертифікаті."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Термін дії сертиф. завершився."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Цей сертифікат ще недійсний."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"Сертифікат безпеки"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Цей сертифікат є дійсним."</string>
-    <string name="issued_to" msgid="9032338008819841339">"Кому видано:"</string>
-    <string name="common_name" msgid="5745530093500062357">"Загальне ім\'я:"</string>
-    <string name="org_name" msgid="8868889052889991293">"Організація:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"Організац. підрозділ:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"Ким видано:"</string>
-    <string name="validity_period" msgid="57988851973181309">"Чинність:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"Дата видачі:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"Діє до:"</string>
     <string name="stopping" msgid="4839698519340302982">"Зупинка..."</string>
     <string name="stop" msgid="5687251076030630074">"Зупин."</string>
     <string name="reload" msgid="8585220783228408062">"Оновити"</string>
