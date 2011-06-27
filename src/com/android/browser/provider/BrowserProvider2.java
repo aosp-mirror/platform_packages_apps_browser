@@ -1978,6 +1978,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case SUGGEST_COLUMN_INTENT_ACTION_ID:
                 return Intent.ACTION_VIEW;
             case SUGGEST_COLUMN_INTENT_DATA_ID:
+                return mSource.getString(URL_INDEX);
             case SUGGEST_COLUMN_TEXT_2_TEXT_ID:
             case SUGGEST_COLUMN_TEXT_2_URL_ID:
                 return UrlUtils.stripUrl(mSource.getString(URL_INDEX));
