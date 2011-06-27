@@ -49,16 +49,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Il num da la website na correspunda betg al num sin il certificat."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Quest certificat è scrudà."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Quest certificat n\'è anc betg valid."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"Certificat da segirezza"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Quest certificat è valid."</string>
-    <string name="issued_to" msgid="9032338008819841339">"Emess a:"</string>
-    <string name="common_name" msgid="5745530093500062357">"Num general:"</string>
-    <string name="org_name" msgid="8868889052889991293">"Organisaziun:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"Unitad d\'organisaziun:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"Emess da:"</string>
-    <string name="validity_period" msgid="57988851973181309">"Validitad:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"Emess ils:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"Scroda ils:"</string>
     <string name="stopping" msgid="4839698519340302982">"Fermar…"</string>
     <string name="stop" msgid="5687251076030630074">"Fermar"</string>
     <string name="reload" msgid="8585220783228408062">"Actualisar"</string>

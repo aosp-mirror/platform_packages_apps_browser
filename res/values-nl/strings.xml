@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"De naam van deze site komt niet overeen met de naam op het certificaat."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Dit certificaat is verlopen."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Dit certificaat is nog niet geldig."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"Beveiligingscertificaat"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Dit certificaat is geldig."</string>
-    <string name="issued_to" msgid="9032338008819841339">"Uitgegeven voor:"</string>
-    <string name="common_name" msgid="5745530093500062357">"Algemene naam:"</string>
-    <string name="org_name" msgid="8868889052889991293">"Organisatie:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"Organisatie-eenheid:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"Uitgegeven door:"</string>
-    <string name="validity_period" msgid="57988851973181309">"Geldigheid:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"Uitgegeven op:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"Verloopt op:"</string>
     <string name="stopping" msgid="4839698519340302982">"Stoppen..."</string>
     <string name="stop" msgid="5687251076030630074">"Stoppen"</string>
     <string name="reload" msgid="8585220783228408062">"Vernieuwen"</string>

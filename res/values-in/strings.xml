@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Nama situs tidak cocok dengan nama pada sertifikat."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Sertifikat ini telah kedaluwarsa."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Sertifikat ini belum valid."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"Sertifikat keamanan"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Sertifikat ini valid."</string>
-    <string name="issued_to" msgid="9032338008819841339">"Diterbitkan ke:"</string>
-    <string name="common_name" msgid="5745530093500062357">"Nama umum:"</string>
-    <string name="org_name" msgid="8868889052889991293">"Organisasi:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"Unit organisasi:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"Diterbitkan oleh:"</string>
-    <string name="validity_period" msgid="57988851973181309">"Validitas:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"Diterbitkan pada:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"Kedaluwarsa pada:"</string>
     <string name="stopping" msgid="4839698519340302982">"Menghentikan"</string>
     <string name="stop" msgid="5687251076030630074">"Berhenti"</string>
     <string name="reload" msgid="8585220783228408062">"Segarkan"</string>

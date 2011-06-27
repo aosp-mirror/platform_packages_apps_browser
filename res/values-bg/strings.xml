@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Името на сайта не съответства на името в сертификата."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Сертификатът е изтекъл."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Сертификатът още не е валиден."</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"Сертификат за сигурност"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"Сертификатът е валиден."</string>
-    <string name="issued_to" msgid="9032338008819841339">"Издаден на:"</string>
-    <string name="common_name" msgid="5745530093500062357">"Общо име:"</string>
-    <string name="org_name" msgid="8868889052889991293">"Организация:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"Организационна единица:"</string>
-    <string name="issued_by" msgid="6959484326943152487">"Издаден от:"</string>
-    <string name="validity_period" msgid="57988851973181309">"Валидност:"</string>
-    <string name="issued_on" msgid="2082890654801808368">"Издаден на:"</string>
-    <string name="expires_on" msgid="8061200430557020704">"Изтича на:"</string>
     <string name="stopping" msgid="4839698519340302982">"Спира се..."</string>
     <string name="stop" msgid="5687251076030630074">"Стоп"</string>
     <string name="reload" msgid="8585220783228408062">"Опресняване"</string>

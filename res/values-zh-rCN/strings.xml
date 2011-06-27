@@ -47,16 +47,6 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"网站的名称与证书上的名称不一致。"</string>
     <string name="ssl_expired" msgid="5739349389499575559">"该证书已过期。"</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"该证书尚未生效。"</string>
-    <string name="ssl_certificate" msgid="5226747157992111668">"安全证书"</string>
-    <string name="ssl_certificate_is_valid" msgid="7096160815933145579">"该证书有效。"</string>
-    <string name="issued_to" msgid="9032338008819841339">"颁发给："</string>
-    <string name="common_name" msgid="5745530093500062357">"常用名称："</string>
-    <string name="org_name" msgid="8868889052889991293">"组织:"</string>
-    <string name="org_unit" msgid="4489056376307768196">"组织单位："</string>
-    <string name="issued_by" msgid="6959484326943152487">"颁发者："</string>
-    <string name="validity_period" msgid="57988851973181309">"有效期："</string>
-    <string name="issued_on" msgid="2082890654801808368">"颁发时间："</string>
-    <string name="expires_on" msgid="8061200430557020704">"有效期至："</string>
     <string name="stopping" msgid="4839698519340302982">"正在停止..."</string>
     <string name="stop" msgid="5687251076030630074">"停止"</string>
     <string name="reload" msgid="8585220783228408062">"刷新"</string>
