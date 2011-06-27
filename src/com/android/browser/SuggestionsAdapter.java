@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import com.android.browser.provider.BrowserProvider2;
 import com.android.browser.search.SearchEngine;
 
 import android.app.SearchManager;
@@ -472,6 +473,8 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             Uri.Builder ub = BrowserContract.Combined.CONTENT_URI.buildUpon();
             ub.appendQueryParameter(BrowserContract.PARAM_LIMIT,
                     Integer.toString(Math.max(mLinesLandscape, mLinesPortrait)));
+            ub.appendQueryParameter(BrowserProvider2.PARAM_GROUP_BY,
+                    BrowserContract.Combined.URL);
             mCursor =
                     mContext.getContentResolver().query(ub.build(), COMBINED_PROJECTION,
                             selection,

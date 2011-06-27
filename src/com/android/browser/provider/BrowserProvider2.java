@@ -80,6 +80,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         public static final String FAVICON = History.FAVICON;
     }
 
+    public static final String PARAM_GROUP_BY = "groupBy";
+
     public static final String LEGACY_AUTHORITY = "browser";
     static final Uri LEGACY_AUTHORITY_URI = new Uri.Builder()
             .authority(LEGACY_AUTHORITY).scheme("content").build();
@@ -795,6 +797,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         final int match = URI_MATCHER.match(uri);
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         String limit = uri.getQueryParameter(BrowserContract.PARAM_LIMIT);
+        String groupBy = uri.getQueryParameter(PARAM_GROUP_BY);
         switch (match) {
             case ACCOUNTS: {
                 qb.setTables(VIEW_ACCOUNTS);
@@ -1023,8 +1026,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
         }
 
-        Cursor cursor = qb.query(db, projection, selection, selectionArgs, null, null, sortOrder,
-                limit);
+        Cursor cursor = qb.query(db, projection, selection, selectionArgs, groupBy,
+                null, sortOrder, limit);
         cursor.setNotificationUri(getContext().getContentResolver(), BrowserContract.AUTHORITY_URI);
         return cursor;
     }
