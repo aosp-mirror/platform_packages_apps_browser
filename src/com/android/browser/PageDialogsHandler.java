@@ -39,7 +39,6 @@ public class PageDialogsHandler {
     private Context mContext;
     private Controller mController;
     private boolean mPageInfoFromShowSSLCertificateOnError;
-    private String mUrlCertificateOnError;
     private Tab mPageInfoView;
     private AlertDialog mPageInfoDialog;
 
@@ -64,9 +63,7 @@ public class PageDialogsHandler {
     public void onConfigurationChanged(Configuration config) {
         if (mPageInfoDialog != null) {
             mPageInfoDialog.dismiss();
-            showPageInfo(mPageInfoView,
-                         mPageInfoFromShowSSLCertificateOnError,
-                         mUrlCertificateOnError);
+            showPageInfo(mPageInfoView, mPageInfoFromShowSSLCertificateOnError);
         }
         if (mSSLCertificateDialog != null) {
             mSSLCertificateDialog.dismiss();
@@ -74,9 +71,8 @@ public class PageDialogsHandler {
         }
         if (mSSLCertificateOnErrorDialog != null) {
             mSSLCertificateOnErrorDialog.dismiss();
-            showSSLCertificateOnError(mSSLCertificateOnErrorView,
-                                      mSSLCertificateOnErrorHandler,
-                                      mSSLCertificateOnErrorError);
+            showSSLCertificateOnError(mSSLCertificateOnErrorView, mSSLCertificateOnErrorHandler,
+                    mSSLCertificateOnErrorError);
         }
         if (mHttpAuthenticationDialog != null) {
             mHttpAuthenticationDialog.reshow();
@@ -130,19 +126,16 @@ public class PageDialogsHandler {
      * this dialog was opened from the SSL-certificate-on-error dialog or
      * not. This is important, since we need to know whether to return to
      * the parent dialog or simply dismiss.
-     * @param urlCertificateOnError The URL that invokes SSLCertificateError.
-     * Null when fromShowSSLCertificateOnError is false.
      */
     void showPageInfo(final Tab tab,
-            final boolean fromShowSSLCertificateOnError,
-            final String urlCertificateOnError) {
+            final boolean fromShowSSLCertificateOnError) {
         final LayoutInflater factory = LayoutInflater.from(mContext);
 
         final View pageInfoView = factory.inflate(R.layout.page_info, null);
 
         final WebView view = tab.getWebView();
 
-        String url = fromShowSSLCertificateOnError ? urlCertificateOnError : tab.getUrl();
+        String url = tab.getUrl();
         String title = tab.getTitle();
 
         if (url == null) {
@@ -157,7 +150,6 @@ public class PageDialogsHandler {
 
         mPageInfoView = tab;
         mPageInfoFromShowSSLCertificateOnError = fromShowSSLCertificateOnError;
-        mUrlCertificateOnError = urlCertificateOnError;
 
         AlertDialog.Builder alertDialogBuilder =
             new AlertDialog.Builder(mContext)
@@ -269,7 +261,7 @@ public class PageDialogsHandler {
                                 mSSLCertificateDialog = null;
                                 mSSLCertificateView = null;
 
-                                showPageInfo(tab, false, null);
+                                showPageInfo(tab, false);
                             }
                         })
                 .setOnCancelListener(
@@ -278,7 +270,7 @@ public class PageDialogsHandler {
                                 mSSLCertificateDialog = null;
                                 mSSLCertificateView = null;
 
-                                showPageInfo(tab, false, null);
+                                showPageInfo(tab, false);
                             }
                         })
                 .show();
@@ -367,8 +359,7 @@ public class PageDialogsHandler {
 
                                 showPageInfo(mController.getTabControl()
                                         .getTabFromView(view),
-                                        true,
-                                        error.getUrl());
+                                        true);
                             }
                         })
                 .setOnCancelListener(
