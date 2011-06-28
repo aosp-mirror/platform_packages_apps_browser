@@ -1694,8 +1694,7 @@ public class Controller
                 break;
 
             case R.id.page_info_menu_id:
-                mPageDialogsHandler.showPageInfo(mTabControl.getCurrentTab(),
-                        false);
+                mPageDialogsHandler.showPageInfo(mTabControl.getCurrentTab(), false, null);
                 break;
 
             case R.id.classic_history_menu_id:
