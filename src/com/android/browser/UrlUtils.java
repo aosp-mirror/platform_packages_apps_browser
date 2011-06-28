@@ -84,7 +84,7 @@ public class UrlUtils {
      * @return Original or modified URL
      *
      */
-    protected static String smartUrlFilter(String url) {
+    public static String smartUrlFilter(String url) {
 
         String inUrl = url.trim();
         boolean hasSpace = inUrl.indexOf(' ') != -1;

@@ -279,7 +279,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
-    static String getFactoryResetHomeUrl(Context context) {
+    public static String getFactoryResetHomeUrl(Context context) {
         String url = context.getResources().getString(R.string.homepage_base);
         if (url.indexOf("{CID}") != -1) {
             url = url.replace("{CID}",
@@ -545,9 +545,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     // -----------------------------
 
     public String getHomePage() {
-        if (useMostVisitedHomepage()) {
-            return HomeProvider.MOST_VISITED;
-        }
         return mPrefs.getString(PREF_HOMEPAGE, getFactoryResetHomeUrl(mContext));
     }
 
@@ -657,7 +654,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean useMostVisitedHomepage() {
-        return mPrefs.getBoolean(PREF_USE_MOST_VISITED_HOMEPAGE, false);
+        return HomeProvider.MOST_VISITED.equals(getHomePage());
     }
 
     public boolean useInstantSearch() {

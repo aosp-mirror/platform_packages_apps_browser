@@ -22,11 +22,6 @@
         android:title="@string/pref_lab_quick_controls"
         android:summary="@string/pref_lab_quick_controls_summary" />
     <CheckBoxPreference
-        android:key="use_most_visited_homepage"
-        android:defaultValue="false"
-        android:title="@string/pref_lab_most_visited_homepage"
-        android:summary="@string/pref_lab_most_visited_homepage_summary" />
-    <CheckBoxPreference
         android:key="fullscreen"
         android:defaultValue="false"
         android:title="@string/pref_lab_fullscreen"

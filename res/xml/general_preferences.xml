@@ -16,11 +16,11 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.android.browser.BrowserHomepagePreference
-            android:key="homepage"
-            android:title="@string/pref_content_homepage"
-            android:hint="@string/http"
-            android:inputType="textUri|textMultiLine" />
+    <ListPreference
+        android:key="homepage_picker"
+        android:entries="@array/pref_homepage_choices"
+        android:entryValues="@array/pref_homepage_values"
+        android:title="@string/pref_content_homepage" />
 
     <PreferenceCategory android:title="@string/pref_general_autofill_title">
         <CheckBoxPreference android:key="autofill_enabled"
