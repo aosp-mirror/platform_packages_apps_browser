@@ -139,6 +139,15 @@ public class IntentHandler {
                 mController.openTab(urlData);
                 return;
             }
+            /*
+             * TODO: Don't allow javascript URIs
+             * 0) If this is a javascript: URI, *always* open a new tab
+             * 1) If this is a voice search, re-use tab for appId
+             *    If there is no appId, use current tab
+             * 2) If the URL is already opened, switch to that tab
+             * 3-phone) Reuse tab with same appId
+             * 3-tablet) Open new tab
+             */
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
             if (!TextUtils.isEmpty(urlData.mUrl) &&
@@ -151,38 +160,33 @@ public class IntentHandler {
                     // If a voice search has no appId, it means that it came
                     // from the browser.  In that case, reuse the current tab.
                     || (activateVoiceSearch && appId != null))
-                    && !mActivity.getPackageName().equals(appId)
-                    && (flags & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-                if (activateVoiceSearch) {
+                    && !mActivity.getPackageName().equals(appId)) {
+                if (activateVoiceSearch || !BrowserActivity.isTablet(mActivity)) {
                     Tab appTab = mTabControl.getTabFromAppId(appId);
                     if (appTab != null) {
                         mController.reuseTab(appTab, urlData);
                         return;
-                    } else {
-                        Tab tab = mController.openTab(urlData);
-                        if (tab != null) {
-                            tab.setAppId(appId);
-                        }
                     }
+                }
+                // No matching application tab, try to find a regular tab
+                // with a matching url.
+                Tab appTab = mTabControl.findTabWithUrl(urlData.mUrl);
+                if (appTab != null) {
+                    // Transfer ownership
+                    appTab.setAppId(appId);
+                    if (current != appTab) {
+                        mController.switchToTab(appTab);
+                    }
+                    // Otherwise, we are already viewing the correct tab.
                 } else {
-                    // No matching application tab, try to find a regular tab
-                    // with a matching url.
-                    Tab appTab = mTabControl.findUnusedTabWithUrl(urlData.mUrl);
-                    if (appTab != null) {
-                        if (current != appTab) {
-                            mController.switchToTab(appTab);
-                        }
-                        // Otherwise, we are already viewing the correct tab.
-                    } else {
-                        // if FLAG_ACTIVITY_BROUGHT_TO_FRONT flag is on, the url
-                        // will be opened in a new tab unless we have reached
-                        // MAX_TABS. Then the url will be opened in the current
-                        // tab. If a new tab is created, it will have "true" for
-                        // exit on close.
-                        Tab tab = mController.openTab(urlData);
-                        if (tab != null) {
-                            tab.setAppId(appId);
-                        }
+                    // if FLAG_ACTIVITY_BROUGHT_TO_FRONT flag is on, the url
+                    // will be opened in a new tab unless we have reached
+                    // MAX_TABS. Then the url will be opened in the current
+                    // tab. If a new tab is created, it will have "true" for
+                    // exit on close.
+                    Tab tab = mController.openTab(urlData);
+                    if (tab != null) {
+                        tab.setAppId(appId);
                     }
                 }
             } else {

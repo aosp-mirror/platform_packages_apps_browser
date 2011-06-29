@@ -152,6 +152,7 @@ class Tab {
     // All the state needed for a page
     protected static class PageState {
         String mUrl;
+        String mOriginalUrl;
         String mTitle;
         LockIcon mLockIcon;
         Bitmap mFavicon;
@@ -159,10 +160,10 @@ class Tab {
 
         PageState(Context c, boolean incognito) {
             if (incognito) {
-                mUrl = "browser:incognito";
+                mOriginalUrl = mUrl = "browser:incognito";
                 mTitle = c.getString(R.string.new_incognito_tab);
             } else {
-                mUrl = "";
+                mOriginalUrl = mUrl = "";
                 mTitle = c.getString(R.string.new_tab);
             }
             mFavicon = BitmapFactory.decodeResource(
@@ -171,7 +172,7 @@ class Tab {
         }
 
         PageState(Context c, boolean incognito, String url, Bitmap favicon) {
-            mUrl = url;
+            mOriginalUrl = mUrl = url;
             mTitle = null;
             if (URLUtil.isHttpsUrl(url)) {
                 mLockIcon = LockIcon.LOCK_ICON_SECURE;
@@ -562,6 +563,7 @@ class Tab {
             if (mCurrentState.mUrl == null) {
                 mCurrentState.mUrl = url != null ? url : "";
             }
+            mCurrentState.mOriginalUrl = view.getOriginalUrl();
             mCurrentState.mTitle = view.getTitle();
             mCurrentState.mFavicon = view.getFavicon();
             if (!URLUtil.isHttpsUrl(mCurrentState.mUrl)) {
@@ -1677,10 +1679,10 @@ class Tab {
     }
 
     String getOriginalUrl() {
-        if (mMainView == null) {
-            return "";
+        if (mCurrentState.mOriginalUrl == null) {
+            return getUrl();
         }
-        return UrlUtils.filteredUrl(mMainView.getOriginalUrl());
+        return UrlUtils.filteredUrl(mCurrentState.mOriginalUrl);
     }
 
     /**

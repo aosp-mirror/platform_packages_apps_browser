@@ -338,6 +338,8 @@ public class Controller
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails.
             setActiveTab(mTabControl.getCurrentTab());
+            // Handle the intent
+            mIntentHandler.onNewIntent(intent);
         }
         // clear up the thumbnail directory, which is no longer used;
         // ideally this should only be run once after an upgrade from
