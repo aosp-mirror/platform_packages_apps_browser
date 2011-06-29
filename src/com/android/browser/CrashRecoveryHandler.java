@@ -31,6 +31,7 @@ import android.os.Process;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -120,8 +121,8 @@ public class CrashRecoveryHandler {
             Parcel p = Parcel.obtain();
             try {
                 mState.writeToParcel(p, 0);
-                FileOutputStream fout = mContext.openFileOutput(STATE_FILE,
-                        Context.MODE_PRIVATE);
+                File state = new File(mContext.getCacheDir(), STATE_FILE);
+                FileOutputStream fout = new FileOutputStream(state);
                 fout.write(p.marshall());
                 fout.close();
             } catch (Throwable e) {
@@ -134,7 +135,10 @@ public class CrashRecoveryHandler {
     }
 
     private static void clearState(Context context) {
-        context.deleteFile(STATE_FILE);
+        File state = new File(context.getCacheDir(), STATE_FILE);
+        if (state.exists()) {
+            state.delete();
+        }
     }
 
     public void promptToRecover(final Bundle state, final Intent intent) {
@@ -166,6 +170,8 @@ public class CrashRecoveryHandler {
     }
 
     private boolean shouldPrompt() {
+        // STOPSHIP TODO: Remove once b/4971724 is fixed
+        if (true) return false;
         Context context = mController.getActivity();
         SharedPreferences prefs = context.getSharedPreferences(
                 RECOVERY_PREFERENCES, Context.MODE_PRIVATE);
@@ -192,7 +198,8 @@ public class CrashRecoveryHandler {
         Parcel parcel = Parcel.obtain();
         try {
             Context context = mController.getActivity();
-            FileInputStream fin = context.openFileInput(STATE_FILE);
+            File stateFile = new File(context.getCacheDir(), STATE_FILE);
+            FileInputStream fin = new FileInputStream(stateFile);
             ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[BUFFER_SIZE];
             int read;
