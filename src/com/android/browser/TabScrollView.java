@@ -246,11 +246,11 @@ public class TabScrollView extends HorizontalScrollView {
         @Override
         protected int getChildDrawingOrder(int count, int i) {
             int next = -1;
-            if ((i == (count - 1)) && (mSelected >= 0)) {
+            if ((i == (count - 1)) && (mSelected >= 0) && (mSelected < count)) {
                 next = mSelected;
             } else {
                 next = count - i - 1;
-                if (next <= mSelected) {
+                if (next <= mSelected && next > 0) {
                     next--;
                 }
             }
