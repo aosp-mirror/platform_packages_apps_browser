@@ -57,8 +57,6 @@ public class GoogleAccountLogin implements Runnable,
     private static final String GOOGLE = "com.google";
     // Last auto login time
     private static final String PREF_AUTOLOGIN_TIME = "last_autologin_time";
-    // A week in milliseconds (7*24*60*60*1000)
-    private static final long WEEK_IN_MILLIS = 604800000L;
 
     private final Activity mActivity;
     private final Account mAccount;
@@ -294,7 +292,12 @@ public class GoogleAccountLogin implements Runnable,
                     }
                 }, 2000);
             mRunnable = null;
-            mWebView.destroy();
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mWebView.destroy();
+                }
+            });
         }
     }
 
