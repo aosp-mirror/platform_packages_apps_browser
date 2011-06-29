@@ -48,6 +48,7 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     private ImageButton mForward;
     private Drawable mStopDrawable;
     private Drawable mRefreshDrawable;
+    private View mTabSwitcher;
 
     public TitleBarPhone(Activity activity, UiController controller, PhoneUi ui,
             FrameLayout parent) {
@@ -67,6 +68,8 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         mVoiceButton.setOnClickListener(this);
         mForward = (ImageButton) findViewById(R.id.forward);
         mForward.setOnClickListener(this);
+        mTabSwitcher = findViewById(R.id.tab_switcher);
+        mTabSwitcher.setOnClickListener(this);
         setFocusState(false);
         Resources res = context.getResources();
         mStopDrawable = res.getDrawable(R.drawable.ic_stop_holo_dark);
@@ -167,6 +170,8 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             if (web != null) {
                 web.goForward();
             }
+        } else if (v == mTabSwitcher) {
+            mBaseUi.onMenuKey();
         } else {
             super.onClick(v);
         }
