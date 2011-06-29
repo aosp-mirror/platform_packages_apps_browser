@@ -18,9 +18,7 @@ package com.android.browser;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.webkit.WebView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +29,7 @@ import java.util.Map;
 public class Preloader {
 
     private final static String LOGTAG = "browser.preloader";
-    private final static boolean LOGD_ENABLED = true;//com.android.browser.Browser.LOGD_ENABLED;
+    private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
 
     private static final int PRERENDER_TIMEOUT_MILLIS = 30 * 1000; // 30s
 
@@ -76,19 +74,27 @@ public class Preloader {
         return s;
     }
 
-    public void handlePreloadRequest(String id, String url, Map<String, String> headers) {
+    public void handlePreloadRequest(String id, String url, Map<String, String> headers,
+            String searchBoxQuery) {
         PreloaderSession s = getSession(id);
         s.touch(); // reset timer
-        if (LOGD_ENABLED) Log.d(LOGTAG, "Preloading " + url);
-        s.getTab().loadUrl(url, headers);
+        PreloadedTabControl tab = s.getTabControl();
+        if (searchBoxQuery != null) {
+            tab.loadUrlIfChanged(url, headers);
+            tab.setQuery(searchBoxQuery);
+        } else {
+            tab.loadUrl(url, headers);
+        }
     }
 
     public void discardPreload(String id) {
         PreloaderSession s = takeSession(id);
         if (s != null) {
             if (LOGD_ENABLED) Log.d(LOGTAG, "Discard preload session " + id);
-            Tab t = s.getTab();
+            PreloadedTabControl t = s.getTabControl();
             t.destroy();
+        } else {
+            if (LOGD_ENABLED) Log.d(LOGTAG, "Ignored discard request " + id);
         }
     }
 
@@ -96,15 +102,15 @@ public class Preloader {
      * Return a preloaded tab, and remove it from the preloader. This is used when the
      * view is about to be displayed.
      */
-    public Tab getPreloadedTab(String id) {
+    public PreloadedTabControl getPreloadedTab(String id) {
         PreloaderSession s = takeSession(id);
         if (LOGD_ENABLED) Log.d(LOGTAG, "Showing preload session " + id + "=" + s);
-        return s == null ? null : s.getTab();
+        return s == null ? null : s.getTabControl();
     }
 
     private class PreloaderSession {
         private final String mId;
-        private final Tab mTab;
+        private final PreloadedTabControl mTabControl;
 
         private final Runnable mTimeoutTask = new Runnable(){
             @Override
@@ -115,7 +121,8 @@ public class Preloader {
 
         public PreloaderSession(String id) {
             mId = id;
-            mTab = new Tab(new PreloadController(mContext), mFactory.createWebView(false));
+            mTabControl = new PreloadedTabControl(
+                    new Tab(new PreloadController(mContext), mFactory.createWebView(false)));
             touch();
         }
 
@@ -128,8 +135,8 @@ public class Preloader {
             mHandler.postDelayed(mTimeoutTask, PRERENDER_TIMEOUT_MILLIS);
         }
 
-        public Tab getTab() {
-            return mTab;
+        public PreloadedTabControl getTabControl() {
+            return mTabControl;
         }
 
     }

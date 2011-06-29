@@ -67,6 +67,7 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.HttpAuthHandler;
+import android.webkit.SearchBox;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -2182,23 +2183,37 @@ public class Controller
         }
     }
 
+    private Tab showPreloadedTab(final UrlData urlData) {
+        if (!urlData.isPreloaded()) {
+            return null;
+        }
+        final PreloadedTabControl tabControl = urlData.getPreloadedTab();
+        final String sbQuery = urlData.getSearchBoxQueryToSubmit();
+        if (sbQuery != null) {
+            if (!tabControl.searchBoxSubmit(sbQuery, urlData.mUrl, urlData.mHeaders)) {
+                // Could not submit query. Fallback to regular tab creation
+                tabControl.destroy();
+                return null;
+            }
+        }
+        Tab t = tabControl.getTab();
+        mTabControl.addPreloadedTab(t);
+        addTab(t);
+        setActiveTab(t);
+        return t;
+    }
+
     // open a non inconito tab with the given url data
     // and set as active tab
     public Tab openTab(UrlData urlData) {
-        if (urlData.isPreloaded()) {
-            Tab tab = urlData.getPreloadedTab();
-            tab.getWebView().clearHistory();
-            mTabControl.addPreloadedTab(tab);
-            addTab(tab);
-            setActiveTab(tab);
-            return tab;
-        } else {
-            Tab tab = createNewTab(false, true, true);
+        Tab tab = showPreloadedTab(urlData);
+        if (tab == null) {
+            tab = createNewTab(false, true, true);
             if ((tab != null) && !urlData.isEmpty()) {
                 loadUrlDataIn(tab, urlData);
             }
-            return tab;
         }
+        return tab;
     }
 
     @Override

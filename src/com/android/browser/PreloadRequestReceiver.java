@@ -39,6 +39,7 @@ public class PreloadRequestReceiver extends BroadcastReceiver {
     private static final String ACTION_PRELOAD = "android.intent.action.PRELOAD";
     static final String EXTRA_PRELOAD_ID = "preload_id";
     static final String EXTRA_PRELOAD_DISCARD = "preload_discard";
+    static final String EXTRA_SEARCHBOX_SETQUERY = "searchbox_query";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -73,8 +74,13 @@ public class PreloadRequestReceiver extends BroadcastReceiver {
                     }
                 }
             }
+            String sbQuery = i.getStringExtra(EXTRA_SEARCHBOX_SETQUERY);
             if (url != null) {
-                Preloader.getInstance().handlePreloadRequest(id, url, headers);
+                if (LOGD_ENABLED){
+                    Log.d(LOGTAG, "Preload request(" + id + ", " + url + ", " +
+                            headers + ", " + sbQuery + ")");
+                }
+                Preloader.getInstance().handlePreloadRequest(id, url, headers, sbQuery);
             }
         }
     }

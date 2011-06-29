@@ -138,11 +138,6 @@ public class IntentHandler {
             if (intent.getBooleanExtra(Browser.EXTRA_CREATE_NEW_TAB, false)
                   || urlData.isPreloaded()) {
                 Tab t = mController.openTab(urlData);
-                if (t == null && urlData.isPreloaded()) {
-                    Tab pre = urlData.getPreloadedTab();
-                    // TODO: check if we need to stop loading
-                    pre.destroy();
-                }
                 return;
             }
             /*
@@ -229,7 +224,8 @@ public class IntentHandler {
     protected static UrlData getUrlDataFromIntent(Intent intent) {
         String url = "";
         Map<String, String> headers = null;
-        Tab preloaded = null;
+        PreloadedTabControl preloaded = null;
+        String preloadedSearchBoxQuery = null;
         if (intent != null
                 && (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             final String action = intent.getAction();
@@ -250,6 +246,8 @@ public class IntentHandler {
                 }
                 if (intent.hasExtra(PreloadRequestReceiver.EXTRA_PRELOAD_ID)) {
                     String id = intent.getStringExtra(PreloadRequestReceiver.EXTRA_PRELOAD_ID);
+                    preloadedSearchBoxQuery = intent.getStringExtra(
+                            PreloadRequestReceiver.EXTRA_SEARCHBOX_SETQUERY);
                     preloaded = Preloader.getInstance().getPreloadedTab(id);
                 }
             } else if (Intent.ACTION_SEARCH.equals(action)
@@ -276,7 +274,7 @@ public class IntentHandler {
                 }
             }
         }
-        return new UrlData(url, headers, intent, preloaded);
+        return new UrlData(url, headers, intent, preloaded, preloadedSearchBoxQuery);
     }
 
     /**
@@ -359,20 +357,23 @@ public class IntentHandler {
         final String mUrl;
         final Map<String, String> mHeaders;
         final Intent mVoiceIntent;
-        final Tab mPreloadedTab;
+        final PreloadedTabControl mPreloadedTab;
+        final String mSearchBoxQueryToSubmit;
 
         UrlData(String url) {
             this.mUrl = url;
             this.mHeaders = null;
             this.mVoiceIntent = null;
             this.mPreloadedTab = null;
+            this.mSearchBoxQueryToSubmit = null;
         }
 
         UrlData(String url, Map<String, String> headers, Intent intent) {
-            this(url, headers, intent, null);
+            this(url, headers, intent, null, null);
         }
 
-        UrlData(String url, Map<String, String> headers, Intent intent, Tab preloaded) {
+        UrlData(String url, Map<String, String> headers, Intent intent,
+                PreloadedTabControl preloaded, String searchBoxQueryToSubmit) {
             this.mUrl = url;
             this.mHeaders = headers;
             if (RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS
@@ -381,7 +382,8 @@ public class IntentHandler {
             } else {
                 this.mVoiceIntent = null;
             }
-            mPreloadedTab = preloaded;
+            this.mPreloadedTab = preloaded;
+            this.mSearchBoxQueryToSubmit = searchBoxQueryToSubmit;
         }
 
         boolean isEmpty() {
@@ -392,8 +394,12 @@ public class IntentHandler {
             return mPreloadedTab != null;
         }
 
-        Tab getPreloadedTab() {
+        PreloadedTabControl getPreloadedTab() {
             return mPreloadedTab;
+        }
+
+        String getSearchBoxQueryToSubmit() {
+            return mSearchBoxQueryToSubmit;
         }
     }
 
