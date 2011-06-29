@@ -551,40 +551,28 @@ class TabControl {
         }
     }
 
-    // This method checks if a non-app tab (one created within the browser)
-    // matches the given url.
+    // This method checks if a tab matches the given url.
     private boolean tabMatchesUrl(Tab t, String url) {
-        if (t.getAppId() != null) {
-            return false;
-        }
-        WebView webview = t.getWebView();
-        if (webview == null) {
-            return false;
-        } else if (url.equals(webview.getUrl())
-                || url.equals(webview.getOriginalUrl())) {
-            return true;
-        }
-        return false;
+        return url.equals(t.getUrl()) || url.equals(t.getOriginalUrl());
     }
 
     /**
-     * Return the tab that has no app id associated with it and the url of the
-     * tab matches the given url.
+     * Return the tab that matches the given url.
      * @param url The url to search for.
      */
-    Tab findUnusedTabWithUrl(String url) {
+    Tab findTabWithUrl(String url) {
         if (url == null) {
             return null;
         }
         // Check the current tab first.
-        Tab t = getCurrentTab();
-        if (t != null && tabMatchesUrl(t, url)) {
-            return t;
+        Tab currentTab = getCurrentTab();
+        if (currentTab != null && tabMatchesUrl(currentTab, url)) {
+            return currentTab;
         }
         // Now check all the rest.
         for (Tab tab : mTabs) {
             if (tabMatchesUrl(tab, url)) {
-                return t;
+                return tab;
             }
         }
         return null;

@@ -115,10 +115,7 @@ public class BookmarkUtils {
     static Intent createAddToHomeIntent(Context context, String url, String title,
             Bitmap touchIcon, Bitmap favicon) {
         Intent i = new Intent(INSTALL_SHORTCUT);
-        Intent shortcutIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        long urlHash = url.hashCode();
-        long uniqueId = (urlHash << 32) | shortcutIntent.hashCode();
-        shortcutIntent.putExtra(Browser.EXTRA_APPLICATION_ID, Long.toString(uniqueId));
+        Intent shortcutIntent = createShortcutIntent(url);
         i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
         i.putExtra(Intent.EXTRA_SHORTCUT_ICON, createIcon(context, touchIcon, favicon,
@@ -127,6 +124,14 @@ public class BookmarkUtils {
         // Do not allow duplicate items
         i.putExtra("duplicate", false);
         return i;
+    }
+
+    static Intent createShortcutIntent(String url) {
+        Intent shortcutIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        long urlHash = url.hashCode();
+        long uniqueId = (urlHash << 32) | shortcutIntent.hashCode();
+        shortcutIntent.putExtra(Browser.EXTRA_APPLICATION_ID, Long.toString(uniqueId));
+        return shortcutIntent;
     }
 
     private static Bitmap getIconBackground(Context context, BookmarkIconType type, int density) {
