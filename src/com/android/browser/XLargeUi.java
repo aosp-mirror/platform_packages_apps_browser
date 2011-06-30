@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.BrowserWebView.ScrollListener;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
@@ -30,12 +28,14 @@ import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
 
+import com.android.browser.BrowserWebView.ScrollListener;
+
 import java.util.List;
 
 /**
  * Ui for xlarge screen sizes
  */
-public class XLargeUi extends BaseUi {
+public class XLargeUi extends BaseUi implements ScrollListener {
 
     private static final String LOGTAG = "XLargeUi";
 
@@ -44,7 +44,6 @@ public class XLargeUi extends BaseUi {
 
     private TitleBarXLarge mTitleBar;
 
-    private boolean mUseQuickControls;
     private PieControl mPieControl;
     private Handler mHandler;
 
@@ -153,7 +152,6 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public void onScroll(int visibleTitleHeight, boolean userInitiated) {
-        super.onScroll(visibleTitleHeight, userInitiated);
         mTabBar.onScroll(visibleTitleHeight, userInitiated);
     }
 

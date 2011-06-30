@@ -36,7 +36,6 @@ public class PhoneUi extends BaseUi {
 
     private TitleBarPhone mTitleBar;
     private ActiveTabsPage mActiveTabsPage;
-    private boolean mUseQuickControls;
     private PieControl mPieControl;
     private NavScreen mNavScreen;
 
@@ -164,13 +163,11 @@ public class PhoneUi extends BaseUi {
         // Request focus on the top window.
         if (mUseQuickControls) {
             mPieControl.forceToTop(mContentView);
-            view.setScrollListener(null);
         } else {
             // check if title bar is already attached by animation
             if (mTitleBar.getParent() == null) {
                 view.setEmbeddedTitleBar(mTitleBar);
             }
-            view.setScrollListener(this);
         }
         if (tab.isInVoiceSearchMode()) {
             showVoiceTitleBar(tab.getVoiceDisplayTitle(), tab.getVoiceSearchResults());
