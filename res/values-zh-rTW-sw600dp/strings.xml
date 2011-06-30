@@ -24,5 +24,5 @@
     <string name="open_all_in_new_window" msgid="4294281492905397499">"在新分頁中開啟所有書籤"</string>
     <string name="pref_content_open_in_background_summary" msgid="4799440480107121813">"在目前分頁的後面開啟新分頁"</string>
     <string name="recover_title" msgid="1558775426269800998">"還原分頁？"</string>
-    <!-- outdated translation 3793203259958951755 -->     <string name="recover_prompt" msgid="377456662058488205">"瀏覽器已當機，您要還原當機前開啟的分頁嗎？"</string>
+    <string name="recover_prompt" msgid="377456662058488205">"您想要還原最後開啟的瀏覽器分頁嗎？"</string>
 </resources>

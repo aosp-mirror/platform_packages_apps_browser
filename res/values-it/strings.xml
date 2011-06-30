@@ -143,9 +143,11 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Imposta motore di ricerca"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Seleziona un motore di ricerca"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Imposta su..."</string>
-    <string name="pref_use_current" msgid="1778622474040406672">"Pagina corrente"</string>
-    <string name="pref_use_blank" msgid="8503238592551111169">"Pagina vuota"</string>
-    <string name="pref_use_default" msgid="192587563274735878">"Pagina predefinita"</string>
+    <!-- no translation found for pref_homepage_choices:0 (844041670142910837) -->
+    <!-- no translation found for pref_homepage_choices:1 (4430498748295169195) -->
+    <!-- no translation found for pref_homepage_choices:2 (5747608191946904074) -->
+    <!-- no translation found for pref_homepage_choices:3 (723023698618841163) -->
+    <!-- no translation found for pref_homepage_choices:4 (5021822752506507426) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"Adatta autom. pagine"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Adatta le pagine web allo schermo"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Generali"</string>
@@ -230,10 +232,8 @@
     <item msgid="7201512237890458902">"Molto grande"</item>
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Dimensioni minime caratteri"</string>
-    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
-    <skip />
-    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
-    <skip />
+    <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pt"</string>
+    <string name="pref_text_zoom" msgid="8387229123479610157">"Zoom testo"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Attivazione forzata zoom"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Ignorare o meno la richiesta di un sito di controllare lo zoom"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predefinito"</string>
@@ -267,13 +267,10 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codifica testo"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Accessibilità"</string>
-    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
-    <skip />
+    <string name="pref_font_size_category" msgid="6288925476811083551">"Dimensione carattere"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Controlli rapidi"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Fai scorrere il pollice dal lato sinistro/destro per accedere ai controlli e nascondere le barre delle applicazioni e dell\'URL"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Più visitati in pagina iniziale"</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"La tua pagina iniziale mostra le tue pagine web più visitate."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Usa Google Instant con Ricerca Google per visualizzare i risultati mentre digiti (può aumentare l\'uso dei dati)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Schermo intero"</string>
@@ -287,8 +284,7 @@
     <string name="clear_history" msgid="5998307092715979619">"Cancella cronologia"</string>
     <string name="browser_history" msgid="1038987118290272525">"Pagine visitate di recente"</string>
     <string name="empty_history" msgid="8738772352308207274">"La cronologia del browser è vuota."</string>
-    <!-- no translation found for go_home (3140773562046381164) -->
-    <skip />
+    <string name="go_home" msgid="3140773562046381164">"Home page"</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"Aggiungi segnalibro…"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Aggiungi"</string>
     <string name="search_hint" msgid="4647356319916631820">"Cerca o digita un URL"</string>
@@ -388,11 +384,11 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"Nessun\'altra scheda disponibile"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google con Instant (Labs)"</string>
     <string name="recover_title" msgid="8095611702406163360">"Ripristinare le finestre?"</string>
-    <!-- outdated translation 5526783279696786755 -->     <string name="recover_prompt" msgid="6541354420842425606">"Sembra che si sia verificato un arresto anomalo del browser. Ripristinare le finestre che erano aperte durante l\'ultima sessione?"</string>
-    <!-- outdated translation 5837971910598069183 -->     <string name="recover_yes" msgid="4540538008955917099">"Sì"</string>
+    <string name="recover_prompt" msgid="6541354420842425606">"Ripristinare le finestre del browser che erano aperte durante l\'ultima sessione?"</string>
+    <string name="recover_yes" msgid="4540538008955917099">"Ripristina"</string>
     <string name="recover_no" msgid="3121030267940592611">"No"</string>
-    <!-- outdated translation 1470306351083271066 -->     <string name="preview" msgid="6450823514561689038">"Anteprima:"</string>
+    <string name="preview" msgid="6450823514561689038">"Anteprima"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Locali"</string>
-    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobile"</string>
+    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Cellulare"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"Desktop"</string>
 </resources>
