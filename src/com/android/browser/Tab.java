@@ -1654,7 +1654,6 @@ class Tab {
                     .findViewById(R.id.geolocation_permissions_prompt);
             mGeolocationPermissionsPrompt = (GeolocationPermissionsPrompt) stub
                     .inflate();
-            mGeolocationPermissionsPrompt.init();
         }
         return mGeolocationPermissionsPrompt;
     }
