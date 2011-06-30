@@ -16,10 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.BrowserWebView.ScrollListener;
-import com.android.browser.Tab.LockIcon;
-import com.android.internal.view.menu.MenuBuilder;
-
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -40,9 +36,11 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -54,12 +52,15 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.browser.Tab.LockIcon;
+import com.android.internal.view.menu.MenuBuilder;
+
 import java.util.List;
 
 /**
  * UI interface definitions
  */
-public abstract class BaseUi implements UI, WebViewFactory, ScrollListener {
+public abstract class BaseUi implements UI, WebViewFactory, OnTouchListener {
 
     private static final String LOGTAG = "BaseUi";
 
@@ -101,7 +102,7 @@ public abstract class BaseUi implements UI, WebViewFactory, ScrollListener {
 
     private Toast mStopToast;
 
-    private int mLastScrollY;
+    private float mInitialY;
     private int mTitlebarScrollTriggerSlop;
 
     // the default <video> poster
@@ -110,6 +111,7 @@ public abstract class BaseUi implements UI, WebViewFactory, ScrollListener {
     private View mVideoProgressView;
 
     private boolean mActivityPaused;
+    protected boolean mUseQuickControls;
 
     public BaseUi(Activity browser, UiController controller) {
         mActivity = browser;
@@ -269,8 +271,16 @@ public abstract class BaseUi implements UI, WebViewFactory, ScrollListener {
         mHandler.removeMessages(MSG_HIDE_TITLEBAR);
         if ((tab != mActiveTab) && (mActiveTab != null)) {
             removeTabFromContentView(mActiveTab);
+            WebView web = mActiveTab.getWebView();
+            if (web != null) {
+                web.setOnTouchListener(null);
+            }
         }
         mActiveTab = tab;
+        WebView web = mActiveTab.getWebView();
+        if (web != null && !mUseQuickControls) {
+            web.setOnTouchListener(this);
+        }
         attachTabToContentView(tab);
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
         onTabDataChanged(tab);
@@ -855,28 +865,31 @@ public abstract class BaseUi implements UI, WebViewFactory, ScrollListener {
     }
 
     @Override
-    public void onScroll(int visibleTitleHeight, boolean userInitiated) {
-        WebView view = mActiveTab != null ? mActiveTab.getWebView() : null;
-        if (view == null) {
-            return;
-        }
-        int scrollY = view.getScrollY();
-        if (isTitleBarShowing()
-                || scrollY < (mLastScrollY - mTitlebarScrollTriggerSlop)) {
-            mLastScrollY = scrollY;
-            if (visibleTitleHeight == 0 && userInitiated) {
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            mInitialY = event.getY();
+            break;
+        case MotionEvent.ACTION_MOVE:
+            WebView web = (WebView) v;
+            if (!isTitleBarShowing()
+                    && web.getVisibleTitleHeight() == 0
+                    && event.getY() > (mInitialY + mTitlebarScrollTriggerSlop)) {
                 mHandler.removeMessages(MSG_HIDE_TITLEBAR);
                 showTitleBar();
+            } else if (event.getY() < mInitialY) {
+                mInitialY = event.getY();
+            }
+            break;
+        case MotionEvent.ACTION_CANCEL:
+        case MotionEvent.ACTION_UP:
+            if (isTitleBarShowing()) {
                 Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
                 mHandler.sendMessageDelayed(msg, HIDE_TITLEBAR_DELAY);
-            } else if (visibleTitleHeight == getTitleBar().getEmbeddedHeight()
-                    && mHandler.hasMessages(MSG_HIDE_TITLEBAR)) {
-                mHandler.removeMessages(MSG_HIDE_TITLEBAR);
-                suggestHideTitleBar();
             }
-        } else if (scrollY > mLastScrollY) {
-            mLastScrollY = scrollY;
+            break;
         }
+        return false;
     }
 
     private Handler mHandler = new Handler() {
