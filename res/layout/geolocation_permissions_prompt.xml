@@ -18,74 +18,67 @@
 
 <com.android.browser.GeolocationPermissionsPrompt
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/geolocation_permissions_prompt_background"
+    android:visibility="gone">
 
-    <!-- Use an inner element as we can't show a hidden outermost element -->
-    <LinearLayout android:id="@+id/inner"
-        android:orientation="vertical"
+    <!-- 'google.com wants to know your location' -->
+    <TextView android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:paddingTop="1px"
-        android:visibility="gone">
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+        android:padding="6dip"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <!-- White line -->
-        <View
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/white" />
+    <CheckBox android:id="@+id/remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message"
+        android:layout_alignLeft="@id/message" />
+    <TextView
+        android:paddingLeft="4dip"
+        android:text="@string/geolocation_permissions_prompt_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_alignBaseline="@id/remember"
+        android:layout_toRightOf="@id/remember" />
 
-        <!-- Container for content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/remember"
+        android:orientation="vertical"
+        android:divider="?android:attr/dividerHorizontal"
+        android:showDividers="beginning"
+        android:dividerPadding="16dip"
+        android:background="@null">
         <LinearLayout
-            android:orientation="vertical"
+            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/geolocation_permissions_prompt_background"
-            android:padding="6dip">
-
-            <!-- 'google.com wants to know your location' -->
-            <TextView android:id="@+id/message"
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="2dip"
+            android:paddingRight="2dip"
+            android:measureWithLargestChild="true"
+            android:background="@null">
+            <Button
+                android:id="@+id/dont_share_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_weight="1"
+                android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:textSize="14dip"
-                android:textColor="@color/black" />
-
-            <!-- Checkbox -->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox android:id="@+id/remember"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:paddingLeft="4dip"
-                    android:text="@string/geolocation_permissions_prompt_remember"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14dip"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <!-- Buttons -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button android:id="@+id/share_button"
-                    android:text="@string/geolocation_permissions_prompt_share"
-                    android:layout_weight="1"
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content" />
-                <Button android:id="@+id/dont_share_button"
-                    android:text="@string/geolocation_permissions_prompt_dont_share"
-                    android:layout_weight="1"
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
+                android:text="@string/geolocation_permissions_prompt_dont_share" />
+            <Button
+                android:id="@+id/share_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:text="@string/geolocation_permissions_prompt_share" />
         </LinearLayout>
     </LinearLayout>
+
 </com.android.browser.GeolocationPermissionsPrompt>

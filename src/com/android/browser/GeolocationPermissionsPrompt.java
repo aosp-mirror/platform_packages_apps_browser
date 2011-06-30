@@ -17,22 +17,18 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView;
 import android.webkit.GeolocationPermissions;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GeolocationPermissionsPrompt extends LinearLayout {
-    private LinearLayout mInner;
+public class GeolocationPermissionsPrompt extends RelativeLayout {
     private TextView mMessage;
     private Button mShareButton;
     private Button mDontShareButton;
@@ -48,22 +44,26 @@ public class GeolocationPermissionsPrompt extends LinearLayout {
         super(context, attrs);
     }
 
-    void init() {
-        mInner = (LinearLayout) findViewById(R.id.inner);
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        init();
+    }
+
+    private void init() {
         mMessage = (TextView) findViewById(R.id.message);
         mShareButton = (Button) findViewById(R.id.share_button);
         mDontShareButton = (Button) findViewById(R.id.dont_share_button);
         mRemember = (CheckBox) findViewById(R.id.remember);
 
-        final GeolocationPermissionsPrompt me = this;
         mShareButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                me.handleButtonClick(true);
+                handleButtonClick(true);
             }
         });
         mDontShareButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                me.handleButtonClick(false);
+                handleButtonClick(false);
             }
         });
     }
@@ -79,21 +79,21 @@ public class GeolocationPermissionsPrompt extends LinearLayout {
         setMessage("http".equals(uri.getScheme()) ?  mOrigin.substring(7) : mOrigin);
         // The checkbox should always be intially checked.
         mRemember.setChecked(true);
-        showDialog(true);
+        setVisibility(View.VISIBLE);
     }
 
     /**
      * Hides the prompt.
      */
     public void hide() {
-        showDialog(false);
+        setVisibility(View.GONE);
     }
 
     /**
      * Handles a click on one the buttons by invoking the callback.
      */
     private void handleButtonClick(boolean allow) {
-        showDialog(false);
+        hide();
 
         boolean remember = mRemember.isChecked();
         if (remember) {
@@ -116,12 +116,5 @@ public class GeolocationPermissionsPrompt extends LinearLayout {
         mMessage.setText(String.format(
             getResources().getString(R.string.geolocation_permissions_prompt_message),
             origin));
-    }
-
-    /**
-     * Shows or hides the prompt.
-     */
-    private void showDialog(boolean shown) {
-        mInner.setVisibility(shown ? View.VISIBLE : View.GONE);
     }
 }

@@ -88,7 +88,6 @@ public abstract class BaseUi implements UI, WebViewFactory, OnTouchListener {
     private Drawable mMixLockIcon;
     protected Drawable mGenericFavicon;
 
-    private FrameLayout mBrowserFrameLayout;
     protected FrameLayout mContentView;
     protected FrameLayout mCustomViewContainer;
 
@@ -125,15 +124,14 @@ public abstract class BaseUi implements UI, WebViewFactory, OnTouchListener {
 
         FrameLayout frameLayout = (FrameLayout) mActivity.getWindow()
                 .getDecorView().findViewById(android.R.id.content);
-        mBrowserFrameLayout = (FrameLayout) LayoutInflater.from(mActivity)
-                .inflate(R.layout.custom_screen, null);
-        mContentView = (FrameLayout) mBrowserFrameLayout.findViewById(
+        LayoutInflater.from(mActivity)
+                .inflate(R.layout.custom_screen, frameLayout);
+        mContentView = (FrameLayout) frameLayout.findViewById(
                 R.id.main_content);
-        mErrorConsoleContainer = (LinearLayout) mBrowserFrameLayout
+        mErrorConsoleContainer = (LinearLayout) frameLayout
                 .findViewById(R.id.error_console);
-        mCustomViewContainer = (FrameLayout) mBrowserFrameLayout
+        mCustomViewContainer = (FrameLayout) frameLayout
                 .findViewById(R.id.fullscreen_custom_content);
-        frameLayout.addView(mBrowserFrameLayout, COVER_SCREEN_PARAMS);
         setFullscreen(BrowserSettings.getInstance().useFullscreen());
         mGenericFavicon = res.getDrawable(
                 R.drawable.app_web_browser_sm);
@@ -384,7 +382,7 @@ public abstract class BaseUi implements UI, WebViewFactory, OnTouchListener {
             // The tab consists of a container view, which contains the main
             // WebView, as well as any other UI elements associated with the tab.
             container = mActivity.getLayoutInflater().inflate(R.layout.tab,
-                    null);
+                    mContentView, false);
             tab.setViewContainer(container);
         }
         if (tab.getWebView() != webView) {
