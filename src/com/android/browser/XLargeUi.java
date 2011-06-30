@@ -77,9 +77,8 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         }
     }
 
-    @Override
-    public void showComboView(boolean startWithHistory, Bundle extras) {
-        super.showComboView(startWithHistory, extras);
+    public void showComboView(ComboViews startWith, Bundle extras) {
+        super.showComboView(startWith, extras);
         if (mUseQuickControls) {
             mActionBar.show();
         }

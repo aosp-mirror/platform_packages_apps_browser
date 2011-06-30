@@ -16,13 +16,9 @@
 
 package com.android.browser;
 
-import android.content.ContentResolver;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
-
-import com.android.browser.provider.BrowserProvider2.Snapshots;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -215,7 +211,6 @@ class TabControl {
     }
 
     SnapshotTab createSnapshotTab(long snapshotId) {
-        // TODO: Don't count this against the limit
         SnapshotTab t = new SnapshotTab(mController, snapshotId);
         t.setId(getNextId());
         mTabs.add(t);
@@ -434,21 +429,6 @@ class TabControl {
                     }
                 }
             }
-        }
-        loadSnapshotTabs();
-
-    }
-
-    void loadSnapshotTabs() {
-        ContentResolver cr = mController.getActivity().getContentResolver();
-        Cursor c = cr.query(Snapshots.CONTENT_URI, new String[] { "_id" },
-                null, null, null);
-        try {
-            while (c.moveToNext()) {
-                createSnapshotTab(c.getLong(0));
-            }
-        } finally {
-            c.close();
         }
     }
 

@@ -40,7 +40,6 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
@@ -77,6 +76,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.android.browser.IntentHandler.UrlData;
+import com.android.browser.UI.ComboViews;
 import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.provider.BrowserProvider;
 import com.android.browser.provider.BrowserProvider2.Snapshots;
@@ -330,7 +330,6 @@ public class Controller
                     webView.setInitialScale(scale);
                 }
             }
-            mTabControl.loadSnapshotTabs();
             mUi.updateTabs(mTabControl.getTabs());
         } else {
             mTabControl.restoreState(icicle, currentTabId, restoreIncognitoTabs,
@@ -1179,7 +1178,8 @@ public class Controller
         // Disable opening in a new window if we have maxed out the windows
         extras.putBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW,
                 !mTabControl.canCreateNewTab());
-        mUi.showComboView(startWithHistory, extras);
+        mUi.showComboView(startWithHistory
+                ? ComboViews.History : ComboViews.Bookmarks, extras);
     }
 
     // combo view callbacks
@@ -1520,11 +1520,9 @@ public class Controller
                 final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
                 newtab.setEnabled(getTabControl().canCreateNewTab());
 
-                MenuItem archive = menu.findItem(R.id.save_webarchive_menu_id);
-                Tab tab = getTabControl().getCurrentTab();
-                String url = tab != null ? tab.getUrl() : null;
-                archive.setVisible(!TextUtils.isEmpty(url)
-                        && !url.endsWith(".webarchivexml"));
+                MenuItem saveSnapshot = menu.findItem(R.id.save_snapshot_menu_id);
+                Tab tab = getCurrentTab();
+                saveSnapshot.setVisible(tab != null && !tab.isSnapshot());
                 break;
         }
         mCurrentMenuState = mMenuState;
@@ -1619,83 +1617,32 @@ public class Controller
                 getCurrentTopWebView().showFindDialog(null, true);
                 break;
 
-            case R.id.freeze_tab_menu_id:
-                // TODO: Show error messages
-                Tab source = getTabControl().getCurrentTab();
+            case R.id.save_snapshot_menu_id:
+                final Tab source = getTabControl().getCurrentTab();
                 if (source == null) break;
                 final ContentResolver cr = mActivity.getContentResolver();
                 final ContentValues values = source.createSnapshotValues();
-                new AsyncTask<Tab, Void, Long>() {
-                    @Override
-                    protected Long doInBackground(Tab... params) {
-                        Tab t = params[0];
-                        if (values == null) {
-                            return t.isSnapshot()
-                                    ? ((SnapshotTab)t).getSnapshotId()
-                                    : -1;
-                        }
-                        Uri result = cr.insert(Snapshots.CONTENT_URI, values);
-                        long id = ContentUris.parseId(result);
-                        return id;
-                    }
+                if (values != null) {
+                    new AsyncTask<Tab, Void, Long>() {
 
-                    @Override
-                    protected void onPostExecute(Long id) {
-                        if (id > 0) {
-                            createNewSnapshotTab(id, true);
+                        @Override
+                        protected Long doInBackground(Tab... params) {
+                            Uri result = cr.insert(Snapshots.CONTENT_URI, values);
+                            long id = ContentUris.parseId(result);
+                            return id;
                         }
-                    };
-                }.execute(source);
-                break;
 
-            case R.id.save_webarchive_menu_id:
-                String state = Environment.getExternalStorageState();
-                if (!Environment.MEDIA_MOUNTED.equals(state)) {
-                    Log.e(LOGTAG, "External storage not mounted");
-                    Toast.makeText(mActivity, R.string.webarchive_failed,
+                        @Override
+                        protected void onPostExecute(Long id) {
+                            Bundle b = new Bundle();
+                            b.putLong(BrowserSnapshotPage.EXTRA_ANIMATE_ID, id);
+                            mUi.showComboView(ComboViews.Snapshots, b);
+                        };
+                    }.execute(source);
+                } else {
+                    Toast.makeText(mActivity, R.string.snapshot_failed,
                             Toast.LENGTH_SHORT).show();
-                    break;
                 }
-                final String directory = Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_DOWNLOADS) + File.separator;
-                File dir = new File(directory);
-                if (!dir.exists() && !dir.mkdirs()) {
-                    Log.e(LOGTAG, "Save as Web Archive: mkdirs for " + directory + " failed!");
-                    Toast.makeText(mActivity, R.string.webarchive_failed,
-                            Toast.LENGTH_SHORT).show();
-                    break;
-                }
-                final WebView topWebView = getCurrentTopWebView();
-                final String title = topWebView.getTitle();
-                final String url = topWebView.getUrl();
-                topWebView.saveWebArchive(directory, true,
-                        new ValueCallback<String>() {
-                    @Override
-                    public void onReceiveValue(final String value) {
-                        if (value != null) {
-                            File file = new File(value);
-                            final long length = file.length();
-                            if (file.exists() && length > 0) {
-                                Toast.makeText(mActivity, R.string.webarchive_saved,
-                                        Toast.LENGTH_SHORT).show();
-                                final DownloadManager manager = (DownloadManager) mActivity
-                                        .getSystemService(Context.DOWNLOAD_SERVICE);
-                                new Thread("Add WebArchive to download manager") {
-                                    @Override
-                                    public void run() {
-                                        manager.addCompletedDownload(
-                                                null == title ? value : title,
-                                                value, true, "application/x-webarchive-xml",
-                                                value, length, true);
-                                    }
-                                }.start();
-                                return;
-                            }
-                        }
-                        DownloadHandler.onDownloadStartNoStream(mActivity,
-                                url, null, null, null, topWebView.isPrivateBrowsingEnabled());
-                    }
-                });
                 break;
 
             case R.id.page_info_menu_id:
@@ -2166,18 +2113,6 @@ public class Controller
         mUi.removeTab(tab);
         mTabControl.removeTab(tab);
         mCrashRecoveryHandler.backupState();
-        if (tab.isSnapshot()) {
-            SnapshotTab st = (SnapshotTab) tab;
-            final Uri uri = ContentUris.withAppendedId(
-                    Snapshots.CONTENT_URI, st.getSnapshotId());
-            final ContentResolver cr = mActivity.getContentResolver();
-            new Thread() {
-                @Override
-                public void run() {
-                    cr.delete(uri, null, null);
-                }
-            }.start();
-        }
     }
 
     @Override
@@ -2326,11 +2261,17 @@ public class Controller
         return tab;
     }
 
-    private SnapshotTab createNewSnapshotTab(long snapshotId, boolean setActive) {
-        SnapshotTab tab = mTabControl.createSnapshotTab(snapshotId);
-        addTab(tab);
-        if (setActive) {
-            setActiveTab(tab);
+    @Override
+    public SnapshotTab createNewSnapshotTab(long snapshotId, boolean setActive) {
+        SnapshotTab tab = null;
+        if (mTabControl.canCreateNewTab()) {
+            tab = mTabControl.createSnapshotTab(snapshotId);
+            addTab(tab);
+            if (setActive) {
+                setActiveTab(tab);
+            }
+        } else {
+            mUi.showMaxTabsWarning();
         }
         return tab;
     }

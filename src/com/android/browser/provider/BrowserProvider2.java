@@ -78,6 +78,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         public static final String TITLE = History.TITLE;
         public static final String URL = History.URL;
         public static final String FAVICON = History.FAVICON;
+        public static final String THUMBNAIL = History.THUMBNAIL;
     }
 
     public static final String PARAM_GROUP_BY = "groupBy";

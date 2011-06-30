@@ -62,11 +62,8 @@
             android:icon="@drawable/ic_share_holo_dark"
             android:alphabeticShortcut="s" />
         <item
-            android:id="@+id/save_webarchive_menu_id"
-            android:title="@string/menu_save_webarchive" />
-        <item
-            android:id="@+id/freeze_tab_menu_id"
-            android:title="@string/menu_freeze_tab" />
+            android:id="@+id/save_snapshot_menu_id"
+            android:title="@string/menu_save_snapshot" />
         <item
             android:id="@+id/page_info_menu_id"
             android:title="@string/page_info"

@@ -16,7 +16,6 @@
 
 package com.android.browser;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -477,15 +476,13 @@ public abstract class BaseUi implements UI, OnTouchListener {
     }
 
     @Override
-    public void showComboView(boolean startWithHistory, Bundle extras) {
+    public void showComboView(ComboViews startingView, Bundle extras) {
         if (mComboView != null) {
             return;
         }
         mComboView = new CombinedBookmarkHistoryView(mActivity,
                 mUiController,
-                startWithHistory ?
-                        CombinedBookmarkHistoryView.FRAGMENT_ID_HISTORY
-                        : CombinedBookmarkHistoryView.FRAGMENT_ID_BOOKMARKS,
+                startingView,
                 extras);
         FrameLayout wrapper =
             (FrameLayout) mContentView.findViewById(R.id.webview_wrapper);
@@ -496,11 +493,6 @@ public abstract class BaseUi implements UI, OnTouchListener {
         if (mActiveTab != null) {
             mActiveTab.putInBackground();
         }
-        mComboView.setAlpha(0f);
-        ObjectAnimator anim = ObjectAnimator.ofFloat(mComboView, "alpha", 0f, 1f);
-        Resources res = mActivity.getResources();
-        anim.setDuration(res.getInteger(R.integer.comboViewFadeInDuration));
-        anim.start();
         mContentView.addView(mComboView, COVER_SCREEN_PARAMS);
     }
 

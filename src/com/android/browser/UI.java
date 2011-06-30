@@ -33,6 +33,12 @@ import java.util.List;
  */
 public interface UI {
 
+    public static enum ComboViews {
+        History,
+        Bookmarks,
+        Snapshots,
+    }
+
     public void onPause();
 
     public void onResume();
@@ -77,7 +83,7 @@ public interface UI {
 
     public void removeActiveTabsPage();
 
-    public void showComboView(boolean startWithHistory, Bundle extra);
+    public void showComboView(ComboViews startingView, Bundle extra);
 
     public void hideComboView();
 

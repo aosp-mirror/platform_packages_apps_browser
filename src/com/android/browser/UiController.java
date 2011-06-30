@@ -97,4 +97,6 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     boolean onOptionsItemSelected(MenuItem item);
 
+    SnapshotTab createNewSnapshotTab(long snapshotId, boolean setActive);
+
 }

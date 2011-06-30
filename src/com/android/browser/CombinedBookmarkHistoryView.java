@@ -17,6 +17,8 @@
 package com.android.browser;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
@@ -28,7 +30,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
@@ -44,6 +45,8 @@ import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import com.android.browser.UI.ComboViews;
 
 import java.util.HashMap;
 import java.util.Vector;
@@ -61,6 +64,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     final static int INVALID_ID = 0;
     final static int FRAGMENT_ID_BOOKMARKS = 1;
     final static int FRAGMENT_ID_HISTORY = 2;
+    final static int FRAGMENT_ID_SNAPSHOTS = 3;
 
     private UiController mUiController;
     private Activity mActivity;
@@ -72,10 +76,13 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
     ActionBar.Tab mTabBookmarks;
     ActionBar.Tab mTabHistory;
+    ActionBar.Tab mTabSnapshots;
     ViewGroup mBookmarksHeader;
 
     BrowserBookmarksPage mBookmarks;
     BrowserHistoryPage mHistory;
+    BrowserSnapshotPage mSnapshots;
+    boolean mIsAnimating;
 
     static class IconListenerSet implements IconListener {
         // Used to store favicons as we get them from the database
@@ -115,7 +122,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     }
 
     public CombinedBookmarkHistoryView(Activity activity, UiController controller,
-            int startingFragment, Bundle extras) {
+            ComboViews startingView, Bundle extras) {
         super(activity);
         mUiController = controller;
         mActivity = activity;
@@ -124,7 +131,6 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
         View v = LayoutInflater.from(activity).inflate(R.layout.bookmarks_history, this);
         v.setOnTouchListener(this);
-        Resources res = activity.getResources();
 
 //        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
@@ -152,11 +158,28 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             }
         }).execute();
 
-        setupActionBar(startingFragment);
+        mIsAnimating = true;
+        setAlpha(0f);
+        Resources res = mActivity.getResources();
+        animate().alpha(1f)
+                .setDuration(res.getInteger(R.integer.comboViewFadeInDuration))
+                .setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mIsAnimating = false;
+                FragmentManager fm = mActivity.getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                onTabSelected(mActionBar.getSelectedTab(), ft);
+                ft.commit();
+            }
+        });
+
+        setupActionBar(startingView);
         mUiController.registerOptionsMenuHandler(this);
     }
 
-    void setupActionBar(int startingFragment) {
+    void setupActionBar(ComboViews startingView) {
         if (BrowserActivity.isTablet(mContext)) {
             mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
                     | ActionBar.DISPLAY_USE_LOGO);
@@ -168,13 +191,30 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         mTabBookmarks = mActionBar.newTab();
         mTabBookmarks.setText(R.string.tab_bookmarks);
         mTabBookmarks.setTabListener(this);
-        mActionBar.addTab(mTabBookmarks, FRAGMENT_ID_BOOKMARKS == startingFragment);
+        mActionBar.addTab(mTabBookmarks, ComboViews.Bookmarks == startingView);
         mTabHistory = mActionBar.newTab();
         mTabHistory.setText(R.string.tab_history);
         mTabHistory.setTabListener(this);
-        mActionBar.addTab(mTabHistory, FRAGMENT_ID_HISTORY == startingFragment);
+        mActionBar.addTab(mTabHistory, ComboViews.History == startingView);
+        mTabSnapshots = mActionBar.newTab();
+        mTabSnapshots.setText(R.string.tab_snapshots);
+        mTabSnapshots.setTabListener(this);
+        mActionBar.addTab(mTabSnapshots, ComboViews.Snapshots == startingView);
         mActionBar.setCustomView(mBookmarksHeader);
         mActionBar.show();
+    }
+
+    void tearDownActionBar() {
+        if (mActionBar != null) {
+            mActionBar.removeAllTabs();
+            mTabBookmarks.setTabListener(null);
+            mTabHistory.setTabListener(null);
+            mTabSnapshots.setTabListener(null);
+            mTabBookmarks = null;
+            mTabHistory = null;
+            mTabSnapshots = null;
+            mActionBar = null;
+        }
     }
 
     @Override
@@ -210,6 +250,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         mBookmarks = BrowserBookmarksPage.newInstance(mBookmarkCallbackWrapper,
                 extras, mBookmarksHeader);
         mHistory = BrowserHistoryPage.newInstance(mUiController, extras);
+        mSnapshots = BrowserSnapshotPage.newInstance(mUiController, extras);
     }
 
     private void loadFragment(int id, FragmentTransaction ft) {
@@ -222,6 +263,9 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             case FRAGMENT_ID_HISTORY:
                 ft.replace(R.id.fragment, mHistory);
                 break;
+            case FRAGMENT_ID_SNAPSHOTS:
+                ft.replace(R.id.fragment, mSnapshots);
+                break;
             default:
                 throw new IllegalArgumentException();
         }
@@ -231,6 +275,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        tearDownActionBar();
         if (mCurrentFragment != INVALID_ID) {
             try {
                 FragmentManager fm = mActivity.getFragmentManager();
@@ -239,6 +284,8 @@ public class CombinedBookmarkHistoryView extends LinearLayout
                     transaction.remove(mBookmarks);
                 } else if (mCurrentFragment == FRAGMENT_ID_HISTORY) {
                     transaction.remove(mHistory);
+                } else if (mCurrentFragment == FRAGMENT_ID_SNAPSHOTS) {
+                    transaction.remove(mSnapshots);
                 }
                 transaction.commit();
             } catch (IllegalStateException ex) {
@@ -256,6 +303,9 @@ public class CombinedBookmarkHistoryView extends LinearLayout
      * callback for back key presses
      */
     boolean onBackPressed() {
+        if (mIsAnimating) {
+            return true;
+        }
         if (mCurrentFragment == FRAGMENT_ID_BOOKMARKS) {
             return mBookmarks.onBackPressed();
         }
@@ -278,10 +328,19 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        if (mIsAnimating) {
+            // We delay set while animating (smooth animations)
+            // TODO: Signal to the fragment in advance so that it can start
+            // loading its data asynchronously
+            return;
+        }
+
         if (tab == mTabBookmarks) {
             loadFragment(FRAGMENT_ID_BOOKMARKS, ft);
         } else if (tab == mTabHistory) {
             loadFragment(FRAGMENT_ID_HISTORY, ft);
+        } else if (tab == mTabSnapshots) {
+            loadFragment(FRAGMENT_ID_SNAPSHOTS, ft);
         }
     }
 

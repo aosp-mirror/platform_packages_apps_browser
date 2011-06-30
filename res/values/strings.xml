@@ -34,6 +34,8 @@
     <string name="tab_most_visited">Most visited</string>
     <!-- Name of tab containing the user's complete history, organized by time of last visit -->
     <string name="tab_history">History</string>
+    <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
+    <string name="tab_snapshots">Saved Pages</string>
     <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
     <string name="added_to_bookmarks">Added to bookmarks</string>
     <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
@@ -213,15 +215,10 @@
     <string name="copy_page_url">Copy page url</string>
     <!-- Menu item -->
     <string name="share_page">Share page</string>
-    <!-- Menu item to freeze a tab. This will make a view-only
-            snapshot of the page in a new tab. [CHAR LIMIT=50] -->
-    <string name="menu_freeze_tab">Freeze tab</string>
-    <!-- Menu item for saving a page. [CHAR LIMIT=30] -->
-    <string name="menu_save_webarchive">Save page</string>
-    <!-- Toast informing the user that the page has been saved. [CHAR LIMIT=50] -->
-    <string name="webarchive_saved">Page saved.</string>
-    <!-- Toast informing the user that saving the page has failed. [CHAR LIMIT=50] -->
-    <string name="webarchive_failed">Failed to save page.</string>
+    <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+    <string name="menu_save_snapshot">Save for offline reading</string>
+    <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
+    <string name="snapshot_failed">Failed to save for offline reading.</string>
     <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
     <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> bookmarks</string>
     <!-- No bookmarks in the folder [CHAR LIMIT=50] -->

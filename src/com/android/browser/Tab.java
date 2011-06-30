@@ -1875,6 +1875,15 @@ class Tab {
 
     public ContentValues createSnapshotValues() {
         if (mMainView == null) return null;
+        /*
+         * TODO: Compression
+         * Some quick tests indicate GZIPing the stream will result in
+         * some decent savings. There is little overhead for sites with mostly
+         * images (such as the "Most Visited" page), dropping from 235kb
+         * to 200kb. Sites with a decent amount of text (hardocp.com), the size
+         * drops from 522kb to 381kb. Do this as part of the switch to saving
+         * to the SD card.
+         */
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         if (!mMainView.saveViewState(stream)) {
             return null;

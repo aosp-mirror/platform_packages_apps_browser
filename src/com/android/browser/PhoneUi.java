@@ -206,11 +206,11 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
-    public void showComboView(boolean startWithHistory, Bundle extras) {
+    public void showComboView(ComboViews startWith, Bundle extras) {
         if (mNavScreen != null) {
             hideNavScreen(false);
         }
-        super.showComboView(startWithHistory, extras);
+        super.showComboView(startWith, extras);
     }
 
     @Override
