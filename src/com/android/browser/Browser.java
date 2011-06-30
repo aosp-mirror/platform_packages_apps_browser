@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.app.Application;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.webkit.CookieSyncManager;
 
@@ -52,6 +53,8 @@ public class Browser extends Application {
         if (LOGV_ENABLED)
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
 
+        // Fix AsyncTask to use multiple threads
+        AsyncTask.setDefaultExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         // Fix heap utilization for better heap size characteristics.
         VMRuntime.getRuntime().setTargetHeapUtilization(
                 TARGET_HEAP_UTILIZATION);
