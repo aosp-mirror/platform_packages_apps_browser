@@ -58,8 +58,7 @@ public class NfcHandler implements NfcAdapter.NdefPushCallback {
         String currentUrl = currentTab.getUrl();
         if (currentUrl != null && currentTab.getWebView() != null &&
                     !currentTab.getWebView().isPrivateBrowsingEnabled()) {
-            NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI,
-                    NdefRecord.RTD_URI, new byte[] {}, currentUrl.getBytes());
+            NdefRecord record = NdefRecord.createUri(currentUrl);
             NdefMessage msg = new NdefMessage(new NdefRecord[] { record });
             return msg;
         } else {
