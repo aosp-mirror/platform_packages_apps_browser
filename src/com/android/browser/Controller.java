@@ -2348,7 +2348,8 @@ public class Controller
      * @param view The WebView used to load url.
      * @param url The URL to load.
      */
-    protected void loadUrl(Tab tab, String url) {
+    @Override
+    public void loadUrl(Tab tab, String url) {
         loadUrl(tab, url, null);
     }
 

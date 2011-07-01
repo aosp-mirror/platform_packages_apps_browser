@@ -554,7 +554,15 @@ public class TitleBarBase extends RelativeLayout
     @Override
     public void onAction(String text, String extra, String source) {
         mUiController.getCurrentTopWebView().requestFocus();
-        mBaseUi.hideTitleBar();
+        if (UrlInputView.TYPED.equals(source)) {
+            String url = UrlUtils.smartUrlFilter(text, false);
+            Tab t = mBaseUi.getActiveTab();
+            if (url != null && t != null) {
+                mUiController.loadUrl(t, url);
+                setDisplayTitle(text);
+                return;
+            }
+        }
         Intent i = new Intent();
         String action = null;
         if (UrlInputView.VOICE.equals(source)) {
