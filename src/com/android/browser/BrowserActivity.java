@@ -92,7 +92,6 @@ public class BrowserActivity extends Activity {
             mUi = new PhoneUi(this, mController);
         }
         mController.setUi(mUi);
-        mController.setWebViewFactory((BaseUi) mUi);
 
         Bundle state = getIntent().getBundleExtra(EXTRA_STATE);
         if (state != null && icicle == null) {

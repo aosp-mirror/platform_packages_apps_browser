@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -35,6 +36,8 @@ import java.util.List;
  * WebView aspect of the controller
  */
 public interface WebViewController {
+
+    Context getContext();
 
     Activity getActivity();
 
@@ -72,7 +75,7 @@ public interface WebViewController {
     void onDownloadStart(Tab tab, String url, String useragent, String contentDisposition,
             String mimeType, long contentLength);
 
-    void showCustomView(Tab tab, View view, int requestedOrientation, 
+    void showCustomView(Tab tab, View view, int requestedOrientation,
             WebChromeClient.CustomViewCallback callback);
 
     void hideCustomView();

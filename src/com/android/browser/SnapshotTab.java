@@ -76,7 +76,7 @@ public class SnapshotTab extends Tab {
 
     void loadData() {
         if (mLoadTask == null) {
-            mLoadTask = new LoadData(this, mActivity.getContentResolver());
+            mLoadTask = new LoadData(this, mContext.getContentResolver());
             mLoadTask.execute();
         }
     }

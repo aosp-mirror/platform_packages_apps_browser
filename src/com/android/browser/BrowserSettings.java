@@ -689,4 +689,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return mPrefs.getBoolean(PREF_REMEMBER_PASSWORDS, true);
     }
 
+    // -----------------------------
+    // getter/setters for bandwidth_preferences.xml
+    // -----------------------------
+
+    public boolean isPreloadEnabled() {
+        return mPrefs.getBoolean(PREF_DATA_PRELOAD, false);
+    }
 }

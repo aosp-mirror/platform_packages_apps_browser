@@ -92,7 +92,7 @@ class Tab {
         LOCK_ICON_MIXED,
     }
 
-    Activity mActivity;
+    Context mContext;
     protected WebViewController mWebViewController;
 
     // The tab ID
@@ -304,7 +304,7 @@ class Tab {
                 logIntent.putExtra(
                         LoggingEvents.VoiceSearch.EXTRA_N_BEST_CHOOSE_INDEX,
                         index);
-                mActivity.sendBroadcast(logIntent);
+                mContext.sendBroadcast(logIntent);
             }
             if (mVoiceSearchData.mVoiceSearchIntent != null) {
                 // Copy the Intent, so that each history item will have its own
@@ -487,7 +487,7 @@ class Tab {
 
     private void showError(ErrorDialog errDialog) {
         if (mInForeground) {
-            AlertDialog d = new AlertDialog.Builder(mActivity)
+            AlertDialog d = new AlertDialog.Builder(mContext)
                     .setTitle(errDialog.mTitle)
                     .setMessage(errDialog.mDescription)
                     .setPositiveButton(R.string.ok, null)
@@ -508,7 +508,7 @@ class Tab {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInPageLoad = true;
             mPageLoadProgress = 0;
-            mCurrentState = new PageState(mActivity,
+            mCurrentState = new PageState(mContext,
                     view.isPrivateBrowsingEnabled(), url, favicon);
             mLoadStartTime = SystemClock.uptimeMillis();
             if (mVoiceSearchData != null
@@ -516,7 +516,7 @@ class Tab {
                 if (mVoiceSearchData.mSourceIsGoogle) {
                     Intent i = new Intent(LoggingEvents.ACTION_LOG_EVENT);
                     i.putExtra(LoggingEvents.EXTRA_FLUSH, true);
-                    mActivity.sendBroadcast(i);
+                    mContext.sendBroadcast(i);
                 }
                 revertVoiceSearchMode();
             }
@@ -587,7 +587,7 @@ class Tab {
                 Intent logIntent = new Intent(LoggingEvents.ACTION_LOG_EVENT);
                 logIntent.putExtra(LoggingEvents.EXTRA_EVENT,
                         LoggingEvents.VoiceSearch.RESULT_CLICKED);
-                mActivity.sendBroadcast(logIntent);
+                mContext.sendBroadcast(logIntent);
             }
             if (mInForeground) {
                 return mWebViewController.shouldOverrideUrlLoading(Tab.this,
@@ -659,7 +659,7 @@ class Tab {
             }
             mDontResend = dontResend;
             mResend = resend;
-            new AlertDialog.Builder(mActivity).setTitle(
+            new AlertDialog.Builder(mContext).setTitle(
                     R.string.browserFrameFormResubmitLabel).setMessage(
                     R.string.browserFrameFormResubmitMessage)
                     .setPositiveButton(R.string.ok,
@@ -718,7 +718,7 @@ class Tab {
             }
             if (mSettings.showSecurityWarnings()) {
                 final LayoutInflater factory =
-                    LayoutInflater.from(mActivity);
+                    LayoutInflater.from(mContext);
                 final View warningsView =
                     factory.inflate(R.layout.ssl_warnings, null);
                 final LinearLayout placeholder =
@@ -756,7 +756,7 @@ class Tab {
                     placeholder.addView(ll);
                 }
 
-                new AlertDialog.Builder(mActivity).setTitle(
+                new AlertDialog.Builder(mContext).setTitle(
                         R.string.security_warning).setIcon(
                         android.R.drawable.ic_dialog_alert).setView(
                         warningsView).setPositiveButton(R.string.ssl_continue,
@@ -817,13 +817,14 @@ class Tab {
                     port = -1;
                 }
             }
-            KeyChain.choosePrivateKeyAlias(mActivity, new KeyChainAliasCallback() {
+            KeyChain.choosePrivateKeyAlias(
+                    mWebViewController.getActivity(), new KeyChainAliasCallback() {
                 @Override public void alias(String alias) {
                     if (alias == null) {
                         handler.cancel();
                         return;
                     }
-                    new KeyChainLookup(mActivity, handler, alias).execute();
+                    new KeyChainLookup(mContext, handler, alias).execute();
                 }
             }, null, null, host, port, null);
         }
@@ -846,7 +847,7 @@ class Tab {
         public WebResourceResponse shouldInterceptRequest(WebView view,
                 String url) {
             WebResourceResponse res = HomeProvider.shouldInterceptRequest(
-                    mActivity, url);
+                    mContext, url);
             return res;
         }
 
@@ -869,7 +870,7 @@ class Tab {
         @Override
         public void onReceivedLoginRequest(WebView view, String realm,
                 String account, String args) {
-            new DeviceAccountLogin(mActivity, view, Tab.this, mWebViewController)
+            new DeviceAccountLogin(mWebViewController.getActivity(), view, Tab.this, mWebViewController)
                     .handleLogin(realm, account, args);
         }
 
@@ -916,7 +917,7 @@ class Tab {
             }
             // Short-circuit if we can't create any more tabs or sub windows.
             if (dialog && mSubView != null) {
-                new AlertDialog.Builder(mActivity)
+                new AlertDialog.Builder(mContext)
                         .setTitle(R.string.too_many_subwindows_dialog_title)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setMessage(R.string.too_many_subwindows_dialog_message)
@@ -924,7 +925,7 @@ class Tab {
                         .show();
                 return false;
             } else if (!mWebViewController.getTabControl().canCreateNewTab()) {
-                new AlertDialog.Builder(mActivity)
+                new AlertDialog.Builder(mContext)
                         .setTitle(R.string.too_many_windows_dialog_title)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setMessage(R.string.too_many_windows_dialog_message)
@@ -958,7 +959,7 @@ class Tab {
 
             // Build a confirmation dialog to display to the user.
             final AlertDialog d =
-                    new AlertDialog.Builder(mActivity)
+                    new AlertDialog.Builder(mContext)
                     .setTitle(R.string.attention)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setMessage(R.string.popup_window_attempt)
@@ -1011,7 +1012,7 @@ class Tab {
         @Override
         public void onReceivedTouchIconUrl(WebView view, String url,
                 boolean precomposed) {
-            final ContentResolver cr = mActivity.getContentResolver();
+            final ContentResolver cr = mContext.getContentResolver();
             // Let precomposed icons take precedence over non-composed
             // icons.
             if (precomposed && mTouchIconLoader != null) {
@@ -1021,7 +1022,7 @@ class Tab {
             // Have only one async task at a time.
             if (mTouchIconLoader == null) {
                 mTouchIconLoader = new DownloadTouchIcon(Tab.this,
-                        mActivity, cr, view);
+                        mContext, cr, view);
                 mTouchIconLoader.execute(url);
             }
         }
@@ -1029,7 +1030,10 @@ class Tab {
         @Override
         public void onShowCustomView(View view,
                 WebChromeClient.CustomViewCallback callback) {
-            onShowCustomView(view, mActivity.getRequestedOrientation(), callback);
+            Activity activity = mWebViewController.getActivity();
+            if (activity != null) {
+                onShowCustomView(view, activity.getRequestedOrientation(), callback);
+            }
         }
 
         @Override
@@ -1202,8 +1206,8 @@ class Tab {
         public void setupAutoFill(Message message) {
             // Prompt the user to set up their profile.
             final Message msg = message;
-            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-            LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
             final View layout = inflater.inflate(R.layout.setup_autofill_dialog, null);
 
@@ -1217,7 +1221,7 @@ class Tab {
                         if (disableAutoFill.isChecked()) {
                             // Disable autofill and show a toast with how to turn it on again.
                             mSettings.setAutofillEnabled(false);
-                            Toast.makeText(mActivity,
+                            Toast.makeText(mContext,
                                     R.string.autofill_setup_dialog_negative_toast,
                                     Toast.LENGTH_LONG).show();
                         } else {
@@ -1338,10 +1342,10 @@ class Tab {
     // Construct a new tab
     Tab(WebViewController wvcontroller, WebView w) {
         mWebViewController = wvcontroller;
-        mActivity = mWebViewController.getActivity();
+        mContext = mWebViewController.getContext();
         mSettings = BrowserSettings.getInstance();
-        mDataController = DataController.getInstance(mActivity);
-        mCurrentState = new PageState(mActivity, w != null
+        mDataController = DataController.getInstance(mContext);
+        mCurrentState = new PageState(mContext, w != null
                 ? w.isPrivateBrowsingEnabled() : false);
         mInPageLoad = false;
         mInForeground = false;
@@ -1371,6 +1375,10 @@ class Tab {
         };
 
         setWebView(w);
+    }
+
+    public void setController(WebViewController ctl) {
+        mWebViewController = ctl;
     }
 
     public void setId(long id) {
@@ -1468,7 +1476,7 @@ class Tab {
                     }
                 }
             });
-            mSubView.setOnCreateContextMenuListener(mActivity);
+            mSubView.setOnCreateContextMenuListener(mWebViewController.getActivity());
             return true;
         }
         return false;
@@ -1558,9 +1566,10 @@ class Tab {
     void putInForeground() {
         mInForeground = true;
         resume();
-        mMainView.setOnCreateContextMenuListener(mActivity);
+        Activity activity = mWebViewController.getActivity();
+        mMainView.setOnCreateContextMenuListener(activity);
         if (mSubView != null) {
-            mSubView.setOnCreateContextMenuListener(mActivity);
+            mSubView.setOnCreateContextMenuListener(activity);
         }
         // Show the pending error dialog if the queue is not empty
         if (mQueuedErrors != null && mQueuedErrors.size() >  0) {
@@ -1689,7 +1698,7 @@ class Tab {
      */
     String getTitle() {
         if (mCurrentState.mTitle == null && mInPageLoad) {
-            return mActivity.getString(R.string.title_bar_loading);
+            return mContext.getString(R.string.title_bar_loading);
         }
         return mCurrentState.mTitle;
     }
@@ -1715,7 +1724,7 @@ class Tab {
      */
     ErrorConsoleView getErrorConsole(boolean createIfNecessary) {
         if (createIfNecessary && mErrorConsole == null) {
-            mErrorConsole = new ErrorConsoleView(mActivity);
+            mErrorConsole = new ErrorConsoleView(mContext);
             mErrorConsole.setWebView(mMainView);
         }
         return mErrorConsole;
@@ -1881,7 +1890,7 @@ class Tab {
 
     public void loadUrl(String url, Map<String, String> headers) {
         if (mMainView != null) {
-            mCurrentState = new PageState(mActivity, false, url, null);
+            mCurrentState = new PageState(mContext, false, url, null);
             mWebViewController.onPageStarted(this, mMainView, null);
             mMainView.loadUrl(url, headers);
         }

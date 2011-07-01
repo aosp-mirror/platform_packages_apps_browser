@@ -32,6 +32,10 @@
         android:title="@string/pref_extras_title"
     />
 
+    <header android:fragment="com.android.browser.preferences.BandwidthPreferencesFragment"
+        android:title="@string/pref_data_title"
+    />
+
     <header android:fragment="com.android.browser.preferences.LabPreferencesFragment"
         android:title="@string/pref_lab_title"
     />

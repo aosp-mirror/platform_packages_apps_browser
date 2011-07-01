@@ -61,6 +61,7 @@ public class Browser extends Application {
         // create CookieSyncManager with current Context
         CookieSyncManager.createInstance(this);
         BrowserSettings.initialize(getApplicationContext());
+        Preloader.initialize(getApplicationContext());
     }
 
     static Intent createBrowserViewIntent() {
