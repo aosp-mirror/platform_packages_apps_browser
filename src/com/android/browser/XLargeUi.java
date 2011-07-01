@@ -28,14 +28,12 @@ import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
 
-import com.android.browser.BrowserWebView.ScrollListener;
-
 import java.util.List;
 
 /**
  * Ui for xlarge screen sizes
  */
-public class XLargeUi extends BaseUi implements ScrollListener {
+public class XLargeUi extends BaseUi {
 
     private static final String LOGTAG = "XLargeUi";
 
@@ -67,14 +65,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         mActionBar.setCustomView(mTabBar);
-    }
-
-    @Override
-    public void onSetWebView(Tab tab, WebView v) {
-        super.onSetWebView(tab, v);
-        if (v != null) {
-            ((BrowserWebView) v).setScrollListener(this);
-        }
     }
 
     public void showComboView(ComboViews startWith, Bundle extras) {
@@ -142,11 +132,6 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         hideTitleBar();
     }
 
-    @Override
-    public void onScroll(int visibleTitleHeight, boolean userInitiated) {
-        mTabBar.onScroll(visibleTitleHeight, userInitiated);
-    }
-
     void stopWebViewScrolling() {
         BrowserWebView web = (BrowserWebView) mUiController.getCurrentWebView();
         if (web != null) {
@@ -194,14 +179,11 @@ public class XLargeUi extends BaseUi implements ScrollListener {
         // Request focus on the top window.
         if (mUseQuickControls) {
             mPieControl.forceToTop(mContentView);
-            view.setScrollListener(null);
-            mTabBar.showTitleBarIndicator(false);
         } else {
             // check if title bar is already attached by animation
             if (mTitleBar.getParent() == null && !tab.isSnapshot()) {
                 view.setEmbeddedTitleBar(mTitleBar);
             }
-            view.setScrollListener(this);
         }
         mTabBar.onSetActiveTab(tab);
         if (tab.isInVoiceSearchMode()) {
@@ -256,14 +238,12 @@ public class XLargeUi extends BaseUi implements ScrollListener {
     protected void showTitleBar() {
         if (canShowTitleBar()) {
             mTitleBar.show();
-            mTabBar.onShowTitleBar();
         }
     }
 
     @Override
     protected void hideTitleBar() {
         if (isTitleBarShowing()) {
-            mTabBar.onHideTitleBar();
             mTitleBar.hide();
         }
     }

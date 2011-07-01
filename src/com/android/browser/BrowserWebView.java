@@ -20,7 +20,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -31,12 +30,9 @@ import java.util.Map;
 /**
  * Manage WebView scroll events
  */
-public class BrowserWebView extends WebView implements Runnable {
+public class BrowserWebView extends WebView {
 
-    private ScrollListener mScrollListener;
-    private boolean mIsCancelled;
     private boolean mBackgroundRemoved = false;
-    private boolean mUserInitiated = false;
     private TitleBarBase mTitleBar;
     private int mCaptureSize;
     private Bitmap mCapture;
@@ -104,13 +100,6 @@ public class BrowserWebView extends WebView implements Runnable {
         return (mTitleBar != null) ? mTitleBar.getEmbeddedHeight() : 0;
     }
 
-    // scroll runnable implementation
-    public void run() {
-        if (!mIsCancelled && (mScrollListener != null)) {
-            mScrollListener.onScroll(getVisibleTitleHeight(), mUserInitiated);
-        }
-    }
-
     void hideEmbeddedTitleBar() {
         scrollBy(0, getVisibleTitleHeight());
     }
@@ -119,51 +108,10 @@ public class BrowserWebView extends WebView implements Runnable {
     public void setEmbeddedTitleBar(final View title) {
         super.setEmbeddedTitleBar(title);
         mTitleBar = (TitleBarBase) title;
-        if (title != null && mScrollListener != null) {
-            // allow the scroll listener to initialize its state
-            post(this);
-        }
     }
 
     public boolean hasTitleBar() {
         return (mTitleBar != null);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent evt) {
-        if (MotionEvent.ACTION_DOWN == evt.getActionMasked()) {
-            mUserInitiated = true;
-        } else if (MotionEvent.ACTION_UP == evt.getActionMasked()
-                || (MotionEvent.ACTION_CANCEL == evt.getActionMasked())) {
-            mUserInitiated = false;
-        }
-        return super.onTouchEvent(evt);
-    }
-
-    @Override
-    public void stopScroll() {
-        mIsCancelled = true;
-        super.stopScroll();
-    }
-
-    @Override
-    protected void onScrollChanged(int l, final int t, int ol, int ot) {
-        super.onScrollChanged(l, t, ol, ot);
-        if (!mIsCancelled) {
-            post(this);
-        } else {
-            mIsCancelled = false;
-        }
-    }
-
-    void setScrollListener(ScrollListener l) {
-        mScrollListener = l;
-    }
-
-    // callback for scroll events
-
-    interface ScrollListener {
-        public void onScroll(int visibleTitleHeight, boolean userInitiated);
     }
 
     protected Bitmap capture() {

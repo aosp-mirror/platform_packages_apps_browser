@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.BrowserWebView.ScrollListener;
-
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
@@ -43,7 +41,6 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -56,8 +53,7 @@ import java.util.Map;
 /**
  * tabbed title bar for xlarge screen browser
  */
-public class TabBar extends LinearLayout
-        implements ScrollListener, OnClickListener {
+public class TabBar extends LinearLayout implements OnClickListener {
 
     private static final int PROGRESS_MAX = 100;
 
@@ -235,60 +231,6 @@ public class TabBar extends LinearLayout
         mUi.showTitleBar();
     }
 
-    void showTitleBarIndicator(boolean show) {
-        Tab tab = mTabControl.getCurrentTab();
-        if (tab != null && !tab.isSnapshot()) {
-            TabView tv = mTabMap.get(tab);
-            if (tv != null) {
-                tv.showIndicator(show);
-            }
-        }
-    }
-
-    boolean showsTitleBarIndicator() {
-        Tab tab = mTabControl.getCurrentTab();
-        if (tab != null) {
-            TabView tv = mTabMap.get(tab);
-            if (tv != null) {
-                return tv.showsIndicator();
-            }
-        }
-        return false;
-    }
-
-    // callback after fake titlebar is shown
-    void onShowTitleBar() {
-        showTitleBarIndicator(false);
-    }
-
-    // callback after fake titlebar is hidden
-    void onHideTitleBar() {
-        Tab tab = mTabControl.getCurrentTab();
-        WebView w = tab.getWebView();
-        if (w != null) {
-            showTitleBarIndicator(w.getVisibleTitleHeight() == 0);
-        }
-    }
-
-    // webview scroll listener
-
-    @Override
-    public void onScroll(int visibleTitleHeight, boolean userInitiated) {
-        if (mUseQuickControls) return;
-        // isLoading is using the current tab, which initially might not be set yet
-        if (mTabControl.getCurrentTab() != null) {
-            if (visibleTitleHeight == 0 && !mUi.isTitleBarShowing()) {
-                if (!showsTitleBarIndicator()) {
-                    showTitleBarIndicator(true);
-                }
-            } else {
-                if (showsTitleBarIndicator()) {
-                    showTitleBarIndicator(false);
-                }
-            }
-        }
-    }
-
     @Override
     public void createContextMenu(ContextMenu menu) {
         MenuInflater inflater = mActivity.getMenuInflater();
@@ -319,7 +261,6 @@ public class TabBar extends LinearLayout
         Tab mTab;
         View mTabContent;
         TextView mTitle;
-        View mIndicator;
         View mIncognito;
         View mSnapshot;
         ImageView mIconView;
@@ -353,31 +294,10 @@ public class TabBar extends LinearLayout
             mClose.setOnClickListener(this);
             mIncognito = mTabContent.findViewById(R.id.incognito);
             mSnapshot = mTabContent.findViewById(R.id.snapshot);
-            mIndicator = mTabContent.findViewById(R.id.chevron);
             mSelected = false;
             mInLoad = false;
             // update the status
             updateFromTab();
-        }
-
-        void showIndicator(boolean show) {
-            if (mSelected) {
-                mIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
-                LayoutParams lp = (LinearLayout.LayoutParams) getLayoutParams();
-                if (show) {
-                    lp.width = mTabWidthSelected + mIndicator.getWidth();
-                } else {
-                    lp.width = mTabWidthSelected;
-                }
-                lp.height =  LayoutParams.MATCH_PARENT;
-                setLayoutParams(lp);
-            } else {
-                mIndicator.setVisibility(View.GONE);
-            }
-        }
-
-        boolean showsIndicator() {
-            return (mIndicator.getVisibility() == View.VISIBLE);
         }
 
         @Override
@@ -412,7 +332,6 @@ public class TabBar extends LinearLayout
         public void setActivated(boolean selected) {
             mSelected = selected;
             mClose.setVisibility(mSelected ? View.VISIBLE : View.GONE);
-            mIndicator.setVisibility(View.GONE);
             mTitle.setTextAppearance(mActivity, mSelected ?
                     R.style.TabTitleSelected : R.style.TabTitleUnselected);
             setHorizontalFadingEdgeEnabled(!mSelected);
@@ -623,12 +542,6 @@ public class TabBar extends LinearLayout
         TabView tv = mTabMap.get(tab);
         if (tv != null) {
             tv.setProgress(tv.mTab.getLoadProgress());
-            // update the scroll state
-            WebView webview = tab.getWebView();
-            if (webview != null) {
-                int h = webview.getVisibleTitleHeight();
-                onScroll(h, true);
-            }
         }
     }
 
