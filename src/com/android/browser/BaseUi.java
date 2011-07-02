@@ -250,6 +250,10 @@ public abstract class BaseUi implements UI, OnTouchListener {
         boolean incognito = mActiveTab.getWebView().isPrivateBrowsingEnabled();
         getTitleBar().setIncognitoMode(incognito);
         updateAutoLogin(tab, false);
+        if (web != null && web.getVisibleTitleHeight()
+                != getTitleBar().getEmbeddedHeight()) {
+            showTitleBarForDuration();
+        }
     }
 
     Tab getActiveTab() {
@@ -817,6 +821,13 @@ public abstract class BaseUi implements UI, OnTouchListener {
         if (!isLoading() && !isEditingUrl()) {
             hideTitleBar();
         }
+    }
+
+    private void showTitleBarForDuration() {
+        mHandler.removeMessages(MSG_HIDE_TITLEBAR);
+        showTitleBar();
+        Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
+        mHandler.sendMessageDelayed(msg, HIDE_TITLEBAR_DELAY);
     }
 
     @Override
