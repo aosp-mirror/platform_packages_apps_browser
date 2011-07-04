@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.os.AsyncTask;
 
 /** This class implements sharing the URL of the currently
   * shown browser page over NFC. Sharing is only active
@@ -30,6 +31,37 @@ public class NfcHandler implements NfcAdapter.NdefPushCallback {
     private NfcAdapter mNfcAdapter;
     private Activity mActivity;
     private Controller mController;
+
+    /** We need an async task to check whether the tab is private
+      * on the UI thread.
+      */
+    private class CreateMessageTask extends AsyncTask<Void, Void, NdefMessage> {
+        private boolean mIsPrivate = false;
+        private Tab mCurrentTab;
+
+        @Override
+        protected void onPreExecute() {
+            mCurrentTab = mController.getCurrentTab();
+            if ((mCurrentTab != null) && (mCurrentTab.getWebView() != null)) {
+                mIsPrivate = mCurrentTab.getWebView().isPrivateBrowsingEnabled();
+            }
+        }
+
+        @Override
+        protected NdefMessage doInBackground(Void... params) {
+            if ((mCurrentTab == null) || mIsPrivate) {
+                return null;
+            }
+            String currentUrl = mCurrentTab.getUrl();
+            if (currentUrl != null) {
+                NdefRecord record = NdefRecord.createUri(currentUrl);
+                NdefMessage msg = new NdefMessage(new NdefRecord[] { record });
+                return msg;
+            } else {
+                return null;
+            }
+        }
+    }
 
     public NfcHandler(Activity browser, Controller controller) {
         mActivity = browser;
@@ -51,17 +83,11 @@ public class NfcHandler implements NfcAdapter.NdefPushCallback {
 
     @Override
     public NdefMessage createMessage() {
-        Tab currentTab = mController.getCurrentTab();
-        if (currentTab == null) {
-            return null;
-        }
-        String currentUrl = currentTab.getUrl();
-        if (currentUrl != null && currentTab.getWebView() != null &&
-                    !currentTab.getWebView().isPrivateBrowsingEnabled()) {
-            NdefRecord record = NdefRecord.createUri(currentUrl);
-            NdefMessage msg = new NdefMessage(new NdefRecord[] { record });
-            return msg;
-        } else {
+        CreateMessageTask task = new CreateMessageTask();
+        task.execute();
+        try {
+            return task.get();
+        } catch (Exception e) {
             return null;
         }
     }
