@@ -2189,6 +2189,7 @@ public class Controller
             Tab tab = urlData.getPreloadedTab();
             tab.getWebView().clearHistory();
             mTabControl.addPreloadedTab(tab);
+            addTab(tab);
             setActiveTab(tab);
             return tab;
         } else {
