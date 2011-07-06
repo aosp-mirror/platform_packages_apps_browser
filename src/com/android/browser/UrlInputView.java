@@ -16,14 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.SuggestionsAdapter.CompletionListener;
-import com.android.browser.SuggestionsAdapter.SuggestItem;
-import com.android.browser.UI.DropdownChangeListener;
-import com.android.browser.autocomplete.SuggestiveAutoCompleteTextView;
-import com.android.browser.search.SearchEngine;
-import com.android.browser.search.SearchEngineInfo;
-import com.android.browser.search.SearchEngines;
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.database.DataSetObserver;
@@ -32,6 +24,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Patterns;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -39,6 +32,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+
+import com.android.browser.SuggestionsAdapter.CompletionListener;
+import com.android.browser.SuggestionsAdapter.SuggestItem;
+import com.android.browser.UI.DropdownChangeListener;
+import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
+import com.android.browser.autocomplete.SuggestiveAutoCompleteTextView;
+import com.android.browser.search.SearchEngine;
+import com.android.browser.search.SearchEngineInfo;
+import com.android.browser.search.SearchEngines;
 
 import java.util.List;
 
@@ -48,12 +50,19 @@ import java.util.List;
  */
 public class UrlInputView extends SuggestiveAutoCompleteTextView
         implements OnEditorActionListener,
-        CompletionListener, OnItemClickListener {
-
+        CompletionListener, OnItemClickListener, TextChangeWatcher {
 
     static final String TYPED = "browser-type";
     static final String SUGGESTED = "browser-suggest";
     static final String VOICE = "voice-search";
+
+    static interface StateListener {
+        static final int STATE_NORMAL = 0;
+        static final int STATE_HIGHLIGHTED = 1;
+        static final int STATE_EDITED = 2;
+
+        public void onStateChanged(int state);
+    }
 
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
@@ -63,6 +72,9 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
     private boolean mIncognitoMode;
     private boolean mNeedsUpdate;
     private DropdownChangeListener mDropdownListener;
+
+    private int mState;
+    private StateListener mStateListener;
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -90,6 +102,7 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
         setOnItemClickListener(this);
         mNeedsUpdate = false;
         mDropdownListener = null;
+        addQueryTextWatcher(this);
 
         mAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -105,6 +118,32 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
                 dispatchChange();
             }
         });
+        mState = StateListener.STATE_NORMAL;
+    }
+
+    protected void onFocusChanged(boolean focused, int direction, Rect prevRect) {
+        super.onFocusChanged(focused, direction, prevRect);
+        if (focused) {
+            if (hasSelection()) {
+                changeState(StateListener.STATE_HIGHLIGHTED);
+            } else {
+                changeState(StateListener.STATE_EDITED);
+            }
+        } else {
+            // reset the selection state
+            changeState(StateListener.STATE_NORMAL);
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent evt) {
+        boolean hasSelection = hasSelection();
+        boolean res = super.onTouchEvent(evt);
+        if ((MotionEvent.ACTION_DOWN == evt.getActionMasked())
+              && hasSelection) {
+            changeState(StateListener.STATE_EDITED);
+        }
+        return res;
     }
 
     /**
@@ -133,6 +172,19 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
 
     public void setUrlInputListener(UrlInputListener listener) {
         mListener = listener;
+    }
+
+    public void setStateListener(StateListener listener) {
+        mStateListener = listener;
+        // update listener
+        changeState(mState);
+    }
+
+    private void changeState(int newState) {
+        mState = newState;
+        if (mStateListener != null) {
+            mStateListener.onStateChanged(mState);
+        }
     }
 
     void setVoiceResults(List<String> voiceResults) {
@@ -305,4 +357,12 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
     public boolean requestRectangleOnScreen(Rect rect, boolean immediate) {
         return false;
     }
+
+    @Override
+    public void onTextChanged(String newText) {
+        if (StateListener.STATE_HIGHLIGHTED == mState) {
+            changeState(StateListener.STATE_EDITED);
+        }
+    }
+
 }

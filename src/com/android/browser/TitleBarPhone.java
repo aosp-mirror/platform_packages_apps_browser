@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -29,8 +27,10 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.android.browser.UrlInputView.StateListener;
+import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 
 import java.util.List;
 
@@ -39,16 +39,17 @@ import java.util.List;
  * browser.
  */
 public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener,
-        OnClickListener, TextChangeWatcher {
+        OnClickListener, TextChangeWatcher, StateListener {
 
     private Activity mActivity;
     private ImageView mStopButton;
     private ImageView mVoiceButton;
-    private boolean mHasLockIcon;
-    private ImageButton mForward;
     private Drawable mStopDrawable;
     private Drawable mRefreshDrawable;
     private View mTabSwitcher;
+    private View mComboIcon;
+    private View mTitleContainer;
+    private Drawable mTextfieldBgDrawable;
 
     public TitleBarPhone(Activity activity, UiController controller, PhoneUi ui,
             FrameLayout parent) {
@@ -66,16 +67,18 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         mStopButton.setOnClickListener(this);
         mVoiceButton = (ImageView) findViewById(R.id.voice);
         mVoiceButton.setOnClickListener(this);
-        mForward = (ImageButton) findViewById(R.id.forward);
-        mForward.setOnClickListener(this);
         mTabSwitcher = findViewById(R.id.tab_switcher);
         mTabSwitcher.setOnClickListener(this);
+        mComboIcon = findViewById(R.id.iconcombo);
+        mTitleContainer = findViewById(R.id.title_bg);
         setFocusState(false);
         Resources res = context.getResources();
         mStopDrawable = res.getDrawable(R.drawable.ic_stop_holo_dark);
         mRefreshDrawable = res.getDrawable(R.drawable.ic_refresh_holo_dark);
-        setUaSwitcher(mFavicon);
+        mTextfieldBgDrawable = res.getDrawable(R.drawable.textfield_active_holo_dark);
+        setUaSwitcher(mComboIcon);
         mUrlInput.setContainer(this);
+        mUrlInput.setStateListener(this);
     }
 
     @Override
@@ -99,29 +102,23 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     }
 
     @Override
-    protected void setFocusState(boolean focus) {
-        super.setFocusState(focus);
-        if (focus) {
-            mHasLockIcon = (mLockIcon.getVisibility() == View.VISIBLE);
-            mLockIcon.setVisibility(View.GONE);
-            mStopButton.setVisibility(View.GONE);
-            mVoiceButton.setVisibility(View.VISIBLE);
-        } else {
-            mLockIcon.setVisibility(mHasLockIcon ? View.VISIBLE : View.GONE);
-            mStopButton.setVisibility(View.VISIBLE);
-            mVoiceButton.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
     void setProgress(int progress) {
         super.setProgress(progress);
         if (progress == 100) {
+            mStopButton.setVisibility(View.GONE);
             mStopButton.setImageDrawable(mRefreshDrawable);
-        } else if (mStopButton.getDrawable() != mStopDrawable) {
-            mStopButton.setImageDrawable(mStopDrawable);
+            if (!isEditingUrl()) {
+                mComboIcon.setVisibility(View.VISIBLE);
+            }
+        } else {
+            if (mStopButton.getDrawable() != mStopDrawable) {
+                mStopButton.setImageDrawable(mStopDrawable);
+                if (mStopButton.getVisibility() != View.VISIBLE) {
+                    mComboIcon.setVisibility(View.GONE);
+                    mStopButton.setVisibility(View.VISIBLE);
+                }
+            }
         }
-        updateNavigationState();
     }
 
     /**
@@ -138,7 +135,6 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
                 mUrlInput.setText(title);
             }
             mUrlInput.setSelection(0);
-            updateNavigationState();
         }
     }
 
@@ -160,16 +156,12 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             } else {
                 WebView web = mBaseUi.getWebView();
                 if (web != null) {
+                    stopEditingUrl();
                     web.reload();
                 }
             }
         } else if (v == mVoiceButton) {
             mUiController.startVoiceSearch();
-        } else if (v == mForward) {
-            WebView web = mBaseUi.getWebView();
-            if (web != null) {
-                web.goForward();
-            }
         } else if (v == mTabSwitcher) {
             mBaseUi.onMenuKey();
         } else {
@@ -177,10 +169,30 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         }
     }
 
-    private void updateNavigationState() {
-        WebView web = mBaseUi.getWebView();
-        if (web != null) {
-          mForward.setVisibility(web.canGoForward() ? View.VISIBLE : View.GONE);
+    @Override
+    public void onStateChanged(int state) {
+        switch(state) {
+        case StateListener.STATE_NORMAL:
+            mComboIcon.setVisibility(View.VISIBLE);
+            mStopButton.setVisibility(View.GONE);
+            setSearchMode(false);
+            mTabSwitcher.setVisibility(View.VISIBLE);
+            mTitleContainer.setBackgroundDrawable(null);
+            break;
+        case StateListener.STATE_HIGHLIGHTED:
+            mComboIcon.setVisibility(View.GONE);
+            mStopButton.setVisibility(View.VISIBLE);
+            setSearchMode(true);
+            mTabSwitcher.setVisibility(View.GONE);
+            mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
+            break;
+        case StateListener.STATE_EDITED:
+            mComboIcon.setVisibility(View.GONE);
+            mStopButton.setVisibility(View.GONE);
+            setSearchMode(false);
+            mTabSwitcher.setVisibility(View.GONE);
+            mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
+            break;
         }
     }
 

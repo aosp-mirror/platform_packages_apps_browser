@@ -493,13 +493,6 @@ public class TitleBarBase extends RelativeLayout
     }
 
     protected void setFocusState(boolean focus) {
-        if (focus) {
-            updateSearchMode(false);
-        }
-    }
-
-    protected void updateSearchMode(boolean userEdited) {
-        setSearchMode(!userEdited || TextUtils.isEmpty(mUrlInput.getUserText()));
     }
 
     protected void setSearchMode(boolean voiceSearchEnabled) {}
@@ -523,8 +516,6 @@ public class TitleBarBase extends RelativeLayout
     @Override
     public void onTextChanged(String newText) {
         if (mUrlInput.hasFocus()) {
-            // check if input field is empty and adjust voice search state
-            updateSearchMode(true);
             // clear voice mode when user types
             setInVoiceMode(false, null);
         }
