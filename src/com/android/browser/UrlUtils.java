@@ -85,7 +85,22 @@ public class UrlUtils {
      *
      */
     public static String smartUrlFilter(String url) {
+        return smartUrlFilter(url, true);
+    }
 
+    /**
+     * Attempts to determine whether user input is a URL or search
+     * terms.  Anything with a space is passed to search if canBeSearch is true.
+     *
+     * Converts to lowercase any mistakenly uppercased schema (i.e.,
+     * "Http://" converts to "http://"
+     *
+     * @param canBeSearch If true, will return a search url if it isn't a valid
+     *                    URL. If false, invalid URLs will return null
+     * @return Original or modified URL
+     *
+     */
+    public static String smartUrlFilter(String url, boolean canBeSearch) {
         String inUrl = url.trim();
         boolean hasSpace = inUrl.indexOf(' ') != -1;
 
@@ -97,7 +112,7 @@ public class UrlUtils {
             if (!lcScheme.equals(scheme)) {
                 inUrl = lcScheme + matcher.group(2);
             }
-            if (hasSpace) {
+            if (hasSpace && Patterns.WEB_URL.matcher(inUrl).matches()) {
                 inUrl = inUrl.replace(" ", "%20");
             }
             return inUrl;
@@ -107,12 +122,11 @@ public class UrlUtils {
                 return URLUtil.guessUrl(inUrl);
             }
         }
-
-        // FIXME: Is this the correct place to add to searches?
-        // what if someone else calls this function?
-
-//        Browser.addSearchUrl(mBrowser.getContentResolver(), inUrl);
-        return URLUtil.composeSearchUrl(inUrl, QUICKSEARCH_G, QUERY_PLACE_HOLDER);
+        if (canBeSearch) {
+            return URLUtil.composeSearchUrl(inUrl,
+                    QUICKSEARCH_G, QUERY_PLACE_HOLDER);
+        }
+        return null;
     }
 
     /* package */ static String fixUrl(String inUrl) {

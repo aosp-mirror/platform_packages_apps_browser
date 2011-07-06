@@ -99,4 +99,6 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     SnapshotTab createNewSnapshotTab(long snapshotId, boolean setActive);
 
+    void loadUrl(Tab tab, String url);
+
 }
