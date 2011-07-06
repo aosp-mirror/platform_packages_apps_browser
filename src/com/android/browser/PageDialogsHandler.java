@@ -249,7 +249,7 @@ public class PageDialogsHandler {
         LayoutInflater factory = LayoutInflater.from(mContext);
 
         final LinearLayout placeholder =
-                (LinearLayout)certificateView.findViewById(R.id.placeholder);
+                (LinearLayout)certificateView.findViewById(com.android.internal.R.id.placeholder);
 
         LinearLayout ll = (LinearLayout) factory.inflate(
             R.layout.ssl_success, placeholder);
@@ -304,7 +304,7 @@ public class PageDialogsHandler {
         LayoutInflater factory = LayoutInflater.from(mContext);
 
         final LinearLayout placeholder =
-                (LinearLayout)certificateView.findViewById(R.id.placeholder);
+                (LinearLayout)certificateView.findViewById(com.android.internal.R.id.placeholder);
 
         if (error.hasError(SslError.SSL_UNTRUSTED)) {
             LinearLayout ll = (LinearLayout)factory
