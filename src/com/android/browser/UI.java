@@ -143,4 +143,7 @@ public interface UI {
     void hideAutoLogin(Tab tab);
 
     void setFullscreen(boolean enabled);
+
+    void setUseQuickControls(boolean enabled);
+
 }

@@ -36,7 +36,7 @@ public class PhoneUi extends BaseUi {
 
     private TitleBarPhone mTitleBar;
     private ActiveTabsPage mActiveTabsPage;
-    private PieControl mPieControl;
+    private PieControlPhone mPieControl;
     private NavScreen mNavScreen;
 
     boolean mExtendedMenuOpen;
@@ -262,15 +262,18 @@ public class PhoneUi extends BaseUi {
         }
     }
 
-    private void setUseQuickControls(boolean useQuickControls) {
+    @Override
+    public void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
         getTitleBar().setUseQuickControls(mUseQuickControls);
         if (useQuickControls) {
-            mPieControl = new PieControl(mActivity, mUiController, this);
+            mPieControl = new PieControlPhone(mActivity, mUiController, this);
             mPieControl.attachToContainer(mContentView);
             WebView web = getWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(null);
+                // don't show url bar on scrolling
+                web.setOnTouchListener(null);
             }
         } else {
             if (mPieControl != null) {
@@ -279,6 +282,8 @@ public class PhoneUi extends BaseUi {
             WebView web = getWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(mTitleBar);
+                // show url bar on scrolling
+                web.setOnTouchListener(this);
             }
             setTitleGravity(Gravity.NO_GRAVITY);
         }

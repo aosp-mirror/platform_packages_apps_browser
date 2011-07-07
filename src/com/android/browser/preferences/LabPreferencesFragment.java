@@ -16,23 +16,16 @@
 
 package com.android.browser.preferences;
 
-import com.android.browser.BrowserActivity;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+
 import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 import com.android.browser.search.SearchEngine;
 
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-
-public class LabPreferencesFragment extends PreferenceFragment
-        implements OnPreferenceChangeListener {
+public class LabPreferencesFragment extends PreferenceFragment {
     private BrowserSettings mBrowserSettings;
     private Preference useInstantPref;
 
@@ -44,15 +37,7 @@ public class LabPreferencesFragment extends PreferenceFragment
 
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.lab_preferences);
-        registerChangeListener(PreferenceKeys.PREF_ENABLE_QUICK_CONTROLS);
         useInstantPref = findPreference(PreferenceKeys.PREF_USE_INSTANT_SEARCH);
-    }
-
-    private void registerChangeListener(String key) {
-        Preference e = findPreference(key);
-        if (e != null) {
-            e.setOnPreferenceChangeListener(this);
-        }
     }
 
     @Override
@@ -72,14 +57,4 @@ public class LabPreferencesFragment extends PreferenceFragment
         }
     }
 
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        String key = preference.getKey();
-        if (PreferenceKeys.PREF_ENABLE_QUICK_CONTROLS.equals(key)) {
-            // Attempt to restart
-            startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
-                    getActivity(), BrowserActivity.class));
-        }
-        return true;
-    }
 }

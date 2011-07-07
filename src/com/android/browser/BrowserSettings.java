@@ -276,6 +276,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             if (mController.getUi() != null) {
                 mController.getUi().setFullscreen(useFullscreen());
             }
+        } else if (PREF_ENABLE_QUICK_CONTROLS.equals(key)) {
+            if (mController.getUi() != null) {
+                mController.getUi().setUseQuickControls(sharedPreferences.getBoolean(key, false));
+            }
         }
     }
 

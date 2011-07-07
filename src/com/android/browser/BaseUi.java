@@ -251,7 +251,8 @@ public abstract class BaseUi implements UI, OnTouchListener {
         getTitleBar().setIncognitoMode(incognito);
         updateAutoLogin(tab, false);
         if (web != null && web.getVisibleTitleHeight()
-                != getTitleBar().getEmbeddedHeight()) {
+                != getTitleBar().getEmbeddedHeight()
+                && !mUseQuickControls) {
             showTitleBarForDuration();
         }
     }

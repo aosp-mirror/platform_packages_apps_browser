@@ -37,8 +37,8 @@
         />
     <ImageView
         android:id="@+id/thumb"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="@dimen/qc_thumb_width"
+        android:layout_width="@dimen/qc_thumb_height"
         android:layout_marginTop= "1dip"
         android:layout_marginLeft= "1dip"
         android:layout_marginRight= "1dip"

@@ -42,7 +42,7 @@ public class XLargeUi extends BaseUi {
 
     private TitleBarXLarge mTitleBar;
 
-    private PieControl mPieControl;
+    private PieControlXLarge mPieControl;
     private Handler mHandler;
 
     /**
@@ -84,16 +84,20 @@ public class XLargeUi extends BaseUi {
         }
     }
 
-    private void setUseQuickControls(boolean useQuickControls) {
+    @Override
+    public void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
         mTitleBar.setUseQuickControls(mUseQuickControls);
         if (useQuickControls) {
             checkTabCount();
-            mPieControl = new PieControl(mActivity, mUiController, this);
+            mPieControl = new PieControlXLarge(mActivity, mUiController, this);
             mPieControl.attachToContainer(mContentView);
             WebView web = getWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(null);
+                // don't show url bar on scrolling
+                web.setOnTouchListener(null);
+
             }
         } else {
             mActivity.getActionBar().show();
@@ -103,6 +107,8 @@ public class XLargeUi extends BaseUi {
             WebView web = getWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(mTitleBar);
+                // show url bar on scrolling
+                web.setOnTouchListener(this);
             }
             setTitleGravity(Gravity.NO_GRAVITY);
         }
