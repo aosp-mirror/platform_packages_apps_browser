@@ -49,6 +49,9 @@ import java.util.HashMap;
 public class BookmarkExpandableView extends ExpandableListView
         implements BreadCrumbView.Controller {
 
+    // Experimental drag & drop
+    private static final boolean ENABLE_DRAG_DROP = false;
+
     private BookmarkAccountAdapter mAdapter;
     private int mColumnWidth;
     private Context mContext;
@@ -280,6 +283,9 @@ public class BookmarkExpandableView extends ExpandableListView
 
         @Override
         public boolean onLongClick(View v) {
+            if (!ENABLE_DRAG_DROP) {
+                return false;
+            }
             ExtraDragState state = new ExtraDragState();
             state.groupPosition = (Integer) v.getTag(R.id.group_position);
             state.childPosition = (Integer) v.getTag(R.id.child_position);
