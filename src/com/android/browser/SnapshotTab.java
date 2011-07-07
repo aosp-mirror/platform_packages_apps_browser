@@ -20,18 +20,20 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 
-import com.android.browser.provider.BrowserProvider2.Snapshots;
+import com.android.browser.provider.SnapshotProvider.Snapshots;
 
 import java.io.ByteArrayInputStream;
+import java.util.zip.GZIPInputStream;
 
 
 public class SnapshotTab extends Tab {
+
+    private static final String LOGTAG = "SnapshotTab";
 
     private long mSnapshotId;
     private LoadData mLoadTask;
@@ -145,8 +147,13 @@ public class SnapshotTab extends Tab {
                     WebView web = mTab.getWebView();
                     if (web != null) {
                         byte[] data = result.getBlob(4);
-                        ByteArrayInputStream stream = new ByteArrayInputStream(data);
-                        web.loadViewState(stream);
+                        ByteArrayInputStream bis = new ByteArrayInputStream(data);
+                        try {
+                            GZIPInputStream stream = new GZIPInputStream(bis);
+                            web.loadViewState(stream);
+                        } catch (Exception e) {
+                            Log.w(LOGTAG, "Failed to load view state", e);
+                        }
                     }
                     mTab.mBackgroundColor = result.getInt(5);
                     mTab.mWebViewController.onPageFinished(mTab);

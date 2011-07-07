@@ -79,7 +79,7 @@ import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
 import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.provider.BrowserProvider;
-import com.android.browser.provider.BrowserProvider2.Snapshots;
+import com.android.browser.provider.SnapshotProvider.Snapshots;
 import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 
@@ -1945,7 +1945,7 @@ public class Controller
         return null;
     }
 
-    private static Bitmap createScreenshot(WebView view, int width, int height) {
+    static Bitmap createScreenshot(WebView view, int width, int height) {
         // We render to a bitmap 2x the desired size so that we can then
         // re-scale it with filtering since canvas.scale doesn't filter
         // This helps reduce aliasing at the cost of being slightly blurry

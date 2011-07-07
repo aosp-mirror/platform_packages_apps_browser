@@ -43,7 +43,7 @@ import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-import com.android.browser.provider.BrowserProvider2.Snapshots;
+import com.android.browser.provider.SnapshotProvider.Snapshots;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -61,12 +61,14 @@ public class BrowserSnapshotPage extends Fragment implements
         Snapshots.THUMBNAIL,
         Snapshots.FAVICON,
         Snapshots.URL,
+        Snapshots.DATE_CREATED,
     };
     private static final int SNAPSHOT_TITLE = 1;
     private static final int SNAPSHOT_VIEWSTATE_LENGTH = 2;
     private static final int SNAPSHOT_THUMBNAIL = 3;
     private static final int SNAPSHOT_FAVICON = 4;
     private static final int SNAPSHOT_URL = 5;
+    private static final int SNAPSHOT_DATE_CREATED = 6;
 
     GridView mGrid;
     View mEmpty;
@@ -113,10 +115,9 @@ public class BrowserSnapshotPage extends Fragment implements
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         if (id == LOADER_SNAPSHOTS) {
-            // TODO: Sort by date created
             return new CursorLoader(getActivity(),
                     Snapshots.CONTENT_URI, PROJECTION,
-                    null, null, null);
+                    null, null, Snapshots.DATE_CREATED + " DESC");
         }
         return null;
     }
@@ -216,12 +217,11 @@ public class BrowserSnapshotPage extends Fragment implements
             title.setText(cursor.getString(SNAPSHOT_TITLE));
             TextView size = (TextView) view.findViewById(R.id.size);
             int stateLen = cursor.getInt(SNAPSHOT_VIEWSTATE_LENGTH);
-            size.setText(String.format("%.1fMB", stateLen / 1024f / 1024f));
-            // We don't actually have the date in the database yet
-            // Use the current date as a placeholder
+            size.setText(String.format("%.2fMB", stateLen / 1024f / 1024f));
+            long timestamp = cursor.getLong(SNAPSHOT_DATE_CREATED);
             TextView date = (TextView) view.findViewById(R.id.date);
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
-            date.setText(dateFormat.format(new Date()));
+            date.setText(dateFormat.format(new Date(timestamp)));
         }
 
         @Override

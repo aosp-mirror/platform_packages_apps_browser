@@ -254,6 +254,10 @@
              </intent-filter>
          </receiver>
 
+        <provider android:name=".provider.SnapshotProvider"
+                  android:authorities="com.android.browser.snapshots"
+                  android:exported="false" />
+
     </application>
 
 </manifest>

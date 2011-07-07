@@ -27,6 +27,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.browser.homepages.HomeProvider;
-import com.android.browser.provider.BrowserProvider2.Snapshots;
+import com.android.browser.provider.SnapshotProvider.Snapshots;
 import com.android.common.speech.LoggingEvents;
 
 import java.io.ByteArrayOutputStream;
@@ -73,6 +74,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Vector;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * Class for maintaining Tabs with a main WebView and a subwindow.
@@ -1875,26 +1877,40 @@ class Tab {
 
     public ContentValues createSnapshotValues() {
         if (mMainView == null) return null;
-        /*
-         * TODO: Compression
-         * Some quick tests indicate GZIPing the stream will result in
-         * some decent savings. There is little overhead for sites with mostly
-         * images (such as the "Most Visited" page), dropping from 235kb
-         * to 200kb. Sites with a decent amount of text (hardocp.com), the size
-         * drops from 522kb to 381kb. Do this as part of the switch to saving
-         * to the SD card.
-         */
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        if (!mMainView.saveViewState(stream)) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            GZIPOutputStream stream = new GZIPOutputStream(bos);
+            if (!mMainView.saveViewState(stream)) {
+                return null;
+            }
+            stream.flush();
+            stream.close();
+        } catch (Exception e) {
+            Log.w(LOGTAG, "Failed to save view state", e);
             return null;
         }
-        byte[] data = stream.toByteArray();
+        byte[] data = bos.toByteArray();
         ContentValues values = new ContentValues();
         values.put(Snapshots.TITLE, mCurrentState.mTitle);
         values.put(Snapshots.URL, mCurrentState.mUrl);
         values.put(Snapshots.VIEWSTATE, data);
         values.put(Snapshots.BACKGROUND, mMainView.getPageBackgroundColor());
+        values.put(Snapshots.DATE_CREATED, System.currentTimeMillis());
+        values.put(Snapshots.FAVICON, compressBitmap(getFavicon()));
+        Bitmap screenshot = Controller.createScreenshot(mMainView,
+                Controller.getDesiredThumbnailWidth(mContext),
+                Controller.getDesiredThumbnailHeight(mContext));
+        values.put(Snapshots.THUMBNAIL, compressBitmap(screenshot));
         return values;
+    }
+
+    public byte[] compressBitmap(Bitmap bitmap) {
+        if (bitmap == null) {
+            return null;
+        }
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
     }
 
     public void loadUrl(String url, Map<String, String> headers) {
