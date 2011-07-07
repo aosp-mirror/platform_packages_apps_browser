@@ -24,5 +24,5 @@
     <string name="open_all_in_new_window" msgid="4294281492905397499">"Deschideţi-le pe toate în file noi"</string>
     <string name="pref_content_open_in_background_summary" msgid="4799440480107121813">"Deschideţi filele noi în spatele celei curente"</string>
     <string name="recover_title" msgid="1558775426269800998">"Restabiliţi filele?"</string>
-    <!-- outdated translation 3793203259958951755 -->     <string name="recover_prompt" msgid="377456662058488205">"Browserul pare să se fi blocat. Doriţi să restabiliţi filele din ultima sesiune?"</string>
+    <string name="recover_prompt" msgid="377456662058488205">"Doriţi să restabiliţi filele dvs. de browser din ultima sesiune?"</string>
 </resources>

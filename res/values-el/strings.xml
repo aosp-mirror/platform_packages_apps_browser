@@ -143,9 +143,11 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Ορισμός μηχανής αναζήτησης"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Επιλέξτε μηχανή αναζήτησης"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Ορισμός σε..."</string>
-    <string name="pref_use_current" msgid="1778622474040406672">"Τρέχουσα σελίδα"</string>
-    <string name="pref_use_blank" msgid="8503238592551111169">"Κενή σελίδα"</string>
-    <string name="pref_use_default" msgid="192587563274735878">"Προεπιλεγμένη σελίδα"</string>
+    <!-- no translation found for pref_homepage_choices:0 (844041670142910837) -->
+    <!-- no translation found for pref_homepage_choices:1 (4430498748295169195) -->
+    <!-- no translation found for pref_homepage_choices:2 (5747608191946904074) -->
+    <!-- no translation found for pref_homepage_choices:3 (723023698618841163) -->
+    <!-- no translation found for pref_homepage_choices:4 (5021822752506507426) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"Αυτόματη προσαρμογή σελίδων"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Μορφοποίηση ιστοσελίδων για την προσαρμογή τους στο μέγεθος της οθόνης"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Γενικές"</string>
@@ -230,10 +232,8 @@
     <item msgid="7201512237890458902">"Πολύ μεγάλο"</item>
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Ελάχιστο μέγ. γραμματοσειράς"</string>
-    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
-    <skip />
-    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
-    <skip />
+    <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
+    <string name="pref_text_zoom" msgid="8387229123479610157">"Μεγέθυνση κειμένου"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Αναγκ. ενεργοπ. εστίασης"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Να αντικατ. ή όχι το αίτημα ιστότ. για έλεγχο συμπερ. εστίασης"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Προεπιλεγμένο ζουμ"</string>
@@ -267,13 +267,10 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Κωδικοποίηση κειμένου"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Προσβασιμότητα"</string>
-    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
-    <skip />
+    <string name="pref_font_size_category" msgid="6288925476811083551">"Μέγεθος γραμματοσειράς"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Εργαστήρια"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Στοιχεία γρήγορου ελέγχου"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Σύρετε τον αντίχειρα από αρ. ή δεξ. για τα στοιχ. γρήγ. ελέγχου και κρύψτε τις γραμμές Εφαρμογές και URL"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Αρχική σελίδα με τις περισσότερες επισκέψεις"</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Η αρχική σελίδα εμφανίζει τις ιστοσελίδες με τις περισσότερες επισκέψεις σας."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Χρησιμοποιήστε το Instant μαζί με την Αναζήτηση για να εμφανίζονται αποτελ. καθώς πληκτρολ. (πιθανή αύξηση δεδομένων)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Πλήρης οθόνη"</string>
@@ -287,8 +284,7 @@
     <string name="clear_history" msgid="5998307092715979619">"Εκκαθάριση ιστορικού"</string>
     <string name="browser_history" msgid="1038987118290272525">"Σελίδες που επισκεφθήκατε πρόσφατα"</string>
     <string name="empty_history" msgid="8738772352308207274">"Το ιστορικό του προγράμματος περιήγησης είναι κενό."</string>
-    <!-- no translation found for go_home (3140773562046381164) -->
-    <skip />
+    <string name="go_home" msgid="3140773562046381164">"Αρχική σελίδα"</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"Προσθήκη σελιδοδείκτη..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Προσθήκη"</string>
     <string name="search_hint" msgid="4647356319916631820">"Αναζήτηση ή πληκτρολόγηση διεύθυνσης URL"</string>
@@ -388,10 +384,10 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"Δεν υπάρχουν άλλες διαθέσιμες καρτέλες"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google με Instant (Labs)"</string>
     <string name="recover_title" msgid="8095611702406163360">"Επαναφορά παραθύρων;"</string>
-    <!-- outdated translation 5526783279696786755 -->     <string name="recover_prompt" msgid="6541354420842425606">"Η λειτουργία του προγράμματος περιήγησης διακόπηκε ξαφνικά. Θα θέλατε να κάνετε ανάκτηση των παραθύρων από την τελευταία συνεδρία σας;"</string>
-    <!-- outdated translation 5837971910598069183 -->     <string name="recover_yes" msgid="4540538008955917099">"Ναι"</string>
+    <string name="recover_prompt" msgid="6541354420842425606">"Θα θέλατε να επαναφέρετε τα παράθυρα του προγράμματος περιήγησης από την τελευταία συνεδρία σας;"</string>
+    <string name="recover_yes" msgid="4540538008955917099">"Επαναφορά"</string>
     <string name="recover_no" msgid="3121030267940592611">"Όχι"</string>
-    <!-- outdated translation 1470306351083271066 -->     <string name="preview" msgid="6450823514561689038">"Προεπισκόπηση:"</string>
+    <string name="preview" msgid="6450823514561689038">"Προεπισκόπηση"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Τοπικά"</string>
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"Για κινητά"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"Για υπολογιστή"</string>

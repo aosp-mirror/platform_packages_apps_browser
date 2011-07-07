@@ -144,10 +144,12 @@
     <string name="pref_content_homepage" msgid="3324574611613105696">"Tetapkan halaman utama"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Tetapkan enjin carian"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Pilih enjin carian"</string>
-    <string name="pref_set_homepage_to" msgid="7196350233061395098">"Tetapkan pada…"</string>
-    <string name="pref_use_current" msgid="1778622474040406672">"Halaman semasa"</string>
-    <string name="pref_use_blank" msgid="8503238592551111169">"Halaman kosong"</string>
-    <string name="pref_use_default" msgid="192587563274735878">"Halaman lalai"</string>
+    <string name="pref_set_homepage_to" msgid="7196350233061395098">"Tetapkan pada..."</string>
+    <!-- no translation found for pref_homepage_choices:0 (844041670142910837) -->
+    <!-- no translation found for pref_homepage_choices:1 (4430498748295169195) -->
+    <!-- no translation found for pref_homepage_choices:2 (5747608191946904074) -->
+    <!-- no translation found for pref_homepage_choices:3 (723023698618841163) -->
+    <!-- no translation found for pref_homepage_choices:4 (5021822752506507426) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"Muat auto halaman"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Format halaman web agar padan dengan saiz skrin"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Umum"</string>
@@ -158,7 +160,7 @@
     <string name="pref_personal_google_account" msgid="952360133341490071">"Akaun Google"</string>
     <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Segerakkan penanda halaman"</string>
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Segerakkan penanda halaman antara Penyemak Imbas Android dan Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Mula menyegerak"</string>
+    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Mula menyegerakkan"</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Plih akaun utk kngsi"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Auto isi borang"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Isikan borang web dengan satu klik"</string>
@@ -277,8 +279,6 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"Makmal"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Kawalan pantas"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Leret jari dr kiri/kanan utk akses kawalan pantas dan sembunyikan bar Apl &amp; URL"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"Halaman utama paling banyak dilawati"</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"Halaman utama anda memaparkan halaman web yang paling banyak anda lawati."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Guna Google Instant bila anda guna Carian Google, utk tunjuk hasil bila anda menaip (boleh menambah penggunaan data)."</string>
     <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->

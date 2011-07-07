@@ -64,26 +64,6 @@
     <skip />
     <!-- no translation found for ssl_not_yet_valid (2893167846212645846) -->
     <skip />
-    <!-- no translation found for ssl_certificate (5226747157992111668) -->
-    <skip />
-    <!-- no translation found for ssl_certificate_is_valid (7096160815933145579) -->
-    <skip />
-    <!-- no translation found for issued_to (9032338008819841339) -->
-    <skip />
-    <!-- no translation found for common_name (5745530093500062357) -->
-    <skip />
-    <!-- no translation found for org_name (8868889052889991293) -->
-    <skip />
-    <!-- no translation found for org_unit (4489056376307768196) -->
-    <skip />
-    <!-- no translation found for issued_by (6959484326943152487) -->
-    <skip />
-    <!-- no translation found for validity_period (57988851973181309) -->
-    <skip />
-    <!-- no translation found for issued_on (2082890654801808368) -->
-    <skip />
-    <!-- no translation found for expires_on (8061200430557020704) -->
-    <skip />
     <!-- no translation found for stopping (4839698519340302982) -->
     <skip />
     <!-- no translation found for stop (5687251076030630074) -->
@@ -228,9 +208,11 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"የፍለጋ ፍርግም አዘጋጅ"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"የፍለጋ ፍርግም ምረጥ"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"ለ አዘጋጅ....."</string>
-    <string name="pref_use_current" msgid="1778622474040406672">"የአሁኑ ገፅ"</string>
-    <string name="pref_use_blank" msgid="8503238592551111169">"ባዶ ገጽ"</string>
-    <string name="pref_use_default" msgid="192587563274735878">"ነባሪ ገፅ"</string>
+    <!-- no translation found for pref_homepage_choices:0 (844041670142910837) -->
+    <!-- no translation found for pref_homepage_choices:1 (4430498748295169195) -->
+    <!-- no translation found for pref_homepage_choices:2 (5747608191946904074) -->
+    <!-- no translation found for pref_homepage_choices:3 (723023698618841163) -->
+    <!-- no translation found for pref_homepage_choices:4 (5021822752506507426) -->
     <!-- no translation found for pref_content_autofit (8260474534053660809) -->
     <skip />
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"ማያውን ለማስማማት ድረ ገፆችን ቅረፅ"</string>
@@ -385,8 +367,6 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"ቤተ ሙከራዎች"</string>
     <!-- outdated translation 2105979166017257647 -->     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"ፈጣን መቆጣጠሪያ"</string>
     <!-- outdated translation 8025196176636589803 -->     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"ፈጣን መቆጣጠሪያዎችን ለመድረስ አውራ ጣትወደ ግራ  ወይም ወደ ቀኝአንሸራት"</string>
-    <!-- outdated translation 547134501893835512 -->     <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"ብዙ ጊዜ የተጎበኘ መነሻ ገፅ"</string>
-    <!-- outdated translation 6857702350834122532 -->     <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"ብዙ የተጎበኘ ገፆችን ለማሳየት መነሻ ገፅዎን ያዘጋጃል።"</string>
     <!-- no translation found for pref_use_instant_search (1119176077760723740) -->
     <skip />
     <!-- no translation found for pref_use_instant_search_summary (839320474961917522) -->

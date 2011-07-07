@@ -143,9 +143,11 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"設定搜尋引擎"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"選取搜尋引擎"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"設為..."</string>
-    <string name="pref_use_current" msgid="1778622474040406672">"目前網頁"</string>
-    <string name="pref_use_blank" msgid="8503238592551111169">"空白網頁"</string>
-    <string name="pref_use_default" msgid="192587563274735878">"預設網頁"</string>
+    <!-- no translation found for pref_homepage_choices:0 (844041670142910837) -->
+    <!-- no translation found for pref_homepage_choices:1 (4430498748295169195) -->
+    <!-- no translation found for pref_homepage_choices:2 (5747608191946904074) -->
+    <!-- no translation found for pref_homepage_choices:3 (723023698618841163) -->
+    <!-- no translation found for pref_homepage_choices:4 (5021822752506507426) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"自動調整頁面"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"配合螢幕大小調整網頁版面"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"一般設定"</string>
@@ -230,10 +232,8 @@
     <item msgid="7201512237890458902">"最大"</item>
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"最小字型大小"</string>
-    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
-    <skip />
-    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
-    <skip />
+    <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
+    <string name="pref_text_zoom" msgid="8387229123479610157">"文字縮放"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"強制啟用縮放功能"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"是否覆寫網站的控制縮放行為要求"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"預設縮放"</string>
@@ -267,13 +267,10 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"文字編碼"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"協助工具"</string>
-    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
-    <skip />
+    <string name="pref_font_size_category" msgid="6288925476811083551">"字型大小"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"研究室"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"快速控制介面"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"於左右邊緣滑動拇指即可使用快速控制介面，以及隱藏應用程式列和網址列"</string>
-    <string name="pref_lab_most_visited_homepage" msgid="7597766876952506909">"最常瀏覽首頁"</string>
-    <string name="pref_lab_most_visited_homepage_summary" msgid="4132511544800457513">"首頁會顯示您最常瀏覽的網頁。"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 互動智慧搜尋"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"使用「Google 搜尋」時啟用「Google 互動智慧搜尋」功能，您輸入查詢時可以即時獲得顯示搜尋結果 (這會增加資料傳輸量)。"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全螢幕"</string>
@@ -287,8 +284,7 @@
     <string name="clear_history" msgid="5998307092715979619">"清除記錄"</string>
     <string name="browser_history" msgid="1038987118290272525">"最近瀏覽的網頁"</string>
     <string name="empty_history" msgid="8738772352308207274">"瀏覽記錄是空的。"</string>
-    <!-- no translation found for go_home (3140773562046381164) -->
-    <skip />
+    <string name="go_home" msgid="3140773562046381164">"首頁"</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"加入書籤…"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"新增"</string>
     <string name="search_hint" msgid="4647356319916631820">"搜尋或輸入網址"</string>
@@ -388,10 +384,10 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"已無分頁可供使用"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"使用 Google 互動智慧搜尋 (研究室)"</string>
     <string name="recover_title" msgid="8095611702406163360">"還原視窗？"</string>
-    <!-- outdated translation 5526783279696786755 -->     <string name="recover_prompt" msgid="6541354420842425606">"瀏覽器似乎當機了。您想要還原最後一次的視窗嗎？"</string>
-    <!-- outdated translation 5837971910598069183 -->     <string name="recover_yes" msgid="4540538008955917099">"好"</string>
+    <string name="recover_prompt" msgid="6541354420842425606">"您想要還原最後開啟的瀏覽器視窗嗎？"</string>
+    <string name="recover_yes" msgid="4540538008955917099">"還原"</string>
     <string name="recover_no" msgid="3121030267940592611">"不用了"</string>
-    <!-- outdated translation 1470306351083271066 -->     <string name="preview" msgid="6450823514561689038">"預覽："</string>
+    <string name="preview" msgid="6450823514561689038">"預覽"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"本機"</string>
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"行動版"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"電腦版"</string>

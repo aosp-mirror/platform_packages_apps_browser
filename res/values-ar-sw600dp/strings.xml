@@ -24,5 +24,5 @@
     <string name="open_all_in_new_window" msgid="4294281492905397499">"فتح الكل في علامات تبويب جديدة"</string>
     <string name="pref_content_open_in_background_summary" msgid="4799440480107121813">"فتح علامات تبويب جديدة وراء علامة التبويب الحالية"</string>
     <string name="recover_title" msgid="1558775426269800998">"هل تريد استعادة علامات التبويب؟"</string>
-    <!-- outdated translation 3793203259958951755 -->     <string name="recover_prompt" msgid="377456662058488205">"يبدو أن المتصفح قد تعطل. هل تريد استعادة علامات التبويب من المرة السابقة؟"</string>
+    <string name="recover_prompt" msgid="377456662058488205">"هل تريد استعادة علامات تبويب المتصفح من المرة السابقة؟"</string>
 </resources>
