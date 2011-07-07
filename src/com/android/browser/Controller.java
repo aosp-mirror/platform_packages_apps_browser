@@ -2692,4 +2692,10 @@ public class Controller
     public void registerDropdownChangeListener(DropdownChangeListener d) {
         mUi.registerDropdownChangeListener(d);
     }
+
+    public boolean onSearchRequested() {
+        mUi.editUrl(false);
+        return true;
+    }
+
 }

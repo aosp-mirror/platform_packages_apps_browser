@@ -268,4 +268,9 @@ public class BrowserActivity extends Activity {
         mController.onActivityResult(requestCode, resultCode, intent);
     }
 
+    @Override
+    public boolean onSearchRequested() {
+        return mController.onSearchRequested();
+    }
+
 }
