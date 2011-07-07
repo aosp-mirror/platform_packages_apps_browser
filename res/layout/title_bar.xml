@@ -19,156 +19,25 @@
     android:id="@+id/titlebar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
+    <include
+        layout="@layout/title_bar_nav"
         android:id="@+id/taburlbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_urlbar">
-        <LinearLayout
-            android:id="@+id/title_bg"
-            android:layout_width="0dip"
-            android:layout_weight="1.0"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <FrameLayout
-                android:id="@+id/iconcombo"
-                android:layout_width="52dip"
-                android:layout_height="match_parent"
-                style="@style/HoloButton">
-                <ImageView
-                    android:id="@+id/favicon"
-                    android:layout_width="36dip"
-                    android:layout_height="36dip"
-                    android:paddingLeft="8dip"
-                    android:paddingRight="8dip"
-                    android:layout_gravity="center_vertical" />
-                <ImageView
-                    android:id="@+id/lock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:visibility="gone" />
-            </FrameLayout>
-            <ImageView
-                android:id="@+id/stop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_stop_holo_dark"
-                style="@style/HoloButton" />
-            <com.android.browser.UrlInputView
-                android:id="@+id/url"
-                android:focusable="true"
-                android:layout_width="0dip"
-                android:layout_weight="1.0"
-                android:layout_height="match_parent"
-                android:fadingEdge="horizontal"
-                android:fadingEdgeLength="24dip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:hint="@string/search_hint"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:lines="1"
-                android:scrollHorizontally="true"
-                android:inputType="text"
-                android:imeOptions="actionGo"
-                style="@style/Suggestions"
-                android:background="@null" />
-            <ImageView
-                android:id="@+id/voice"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_voice_search_holo_dark"
-                style="@style/HoloButton"
-                android:visibility="gone" />
-        </LinearLayout>
-        <ImageButton
-            android:id="@+id/tab_switcher"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_windows_holo_dark"
-            style="@style/HoloButton" />
-        <ImageButton
-            android:id="@+id/more"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            style="@style/HoloButton"
-            android:gravity="center_vertical"
-            android:src="@*android:drawable/ic_menu_moreoverflow_normal_holo_dark" />
-    </LinearLayout>
-    <LinearLayout
+        android:layout_height="@dimen/toolbar_height" />
+    <include
+        layout="@layout/title_bar_autologin"
         android:id="@+id/autologin"
-        android:background="#FBF0A0"
-        android:gravity="center_vertical"
         android:paddingTop="3dip"
-        android:visibility="gone"
-        android:layout_below="@+id/taburlbar"
+        android:layout_below="@id/taburlbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip">
-            <TextView
-                android:text="@string/autologin_bar_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/primary_text_light"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-            <Spinner
-                android:id="@+id/autologin_account"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:paddingLeft="8dp"
-                android:paddingRight="24dp"
-                style="@android:style/Widget.Holo.Light.Spinner" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip">
-            <Button
-                android:id="@+id/autologin_close"
-                android:layout_width="0dip"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/autologin_bar_hide_text"
-                style="@android:style/Widget.Holo.Light.Button" />
-            <ProgressBar
-                android:id="@+id/autologin_progress"
-                android:indeterminateOnly="true"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:visibility="invisible" />
-            <Button
-                android:id="@+id/autologin_login"
-                android:text="@string/autologin_bar_login_text"
-                style="@android:style/Widget.Holo.Light.Button"
-                android:layout_height="wrap_content"
-                android:layout_width="0dip"
-                android:layout_weight="1" />
-        </LinearLayout>
-        <TextView
-            android:id="@+id/autologin_error"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="#dd6826"
-            android:text="@string/autologin_bar_error"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:visibility="gone" />
-    </LinearLayout>
+        android:layout_height="wrap_content" />
     <com.android.browser.PageProgressView
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:layout_below="@+id/taburlbar"
+        android:layout_below="@id/taburlbar"
         android:src="@drawable/progress"
-        android:layout_marginTop="-8dip"
+        android:layout_marginTop="@dimen/progress_bar_margin"
         android:visibility="gone" />
 </RelativeLayout>

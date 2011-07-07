@@ -33,7 +33,7 @@ import java.util.Map;
 public class BrowserWebView extends WebView {
 
     private boolean mBackgroundRemoved = false;
-    private TitleBarBase mTitleBar;
+    private TitleBar mTitleBar;
     private int mCaptureSize;
     private Bitmap mCapture;
     private WebProxyView mProxyView;
@@ -107,7 +107,7 @@ public class BrowserWebView extends WebView {
     @Override
     public void setEmbeddedTitleBar(final View title) {
         super.setEmbeddedTitleBar(title);
-        mTitleBar = (TitleBarBase) title;
+        mTitleBar = (TitleBar) title;
     }
 
     public boolean hasTitleBar() {

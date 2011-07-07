@@ -34,10 +34,10 @@ public class PhoneUi extends BaseUi {
 
     private static final String LOGTAG = "PhoneUi";
 
-    private TitleBarPhone mTitleBar;
     private ActiveTabsPage mActiveTabsPage;
     private PieControlPhone mPieControl;
     private NavScreen mNavScreen;
+    private NavigationBarPhone mNavigationBar;
 
     boolean mExtendedMenuOpen;
     boolean mOptionsMenuOpen;
@@ -49,13 +49,9 @@ public class PhoneUi extends BaseUi {
      */
     public PhoneUi(Activity browser, UiController controller) {
         super(browser, controller);
-        mTitleBar = new TitleBarPhone(mActivity, mUiController, this,
-                mContentView);
-        // mTitleBar will be always be shown in the fully loaded mode on
-        // phone
-        mTitleBar.setProgress(100);
         mActivity.getActionBar().hide();
         setUseQuickControls(BrowserSettings.getInstance().useQuickControls());
+        mNavigationBar = (NavigationBarPhone) mTitleBar.getNavigationBar();
     }
 
     @Override
@@ -86,7 +82,7 @@ public class PhoneUi extends BaseUi {
     @Override
     public void editUrl(boolean clearInput) {
         if (mUseQuickControls) {
-            getTitleBar().setShowProgressOnly(false);
+            mTitleBar.setShowProgressOnly(false);
         }
         super.editUrl(clearInput);
     }
@@ -178,11 +174,6 @@ public class PhoneUi extends BaseUi {
         tab.getTopWindow().requestFocus();
     }
 
-    @Override
-    protected TitleBarBase getTitleBar() {
-        return mTitleBar;
-    }
-
     /**
      * Suggest to the UI that the title bar can be hidden. The UI will then
      * decide whether or not to hide based off a number of factors, such
@@ -190,8 +181,8 @@ public class PhoneUi extends BaseUi {
      */
     @Override
     public void suggestHideTitleBar() {
-        if (!isLoading() && !isEditingUrl() && !mTitleBar.isMenuShowing()) {
-            hideTitleBar();
+        if (!mNavigationBar.isMenuShowing()) {
+            super.suggestHideTitleBar();
         }
     }
 
@@ -266,9 +257,9 @@ public class PhoneUi extends BaseUi {
     protected void setTitleGravity(int gravity) {
         if (mUseQuickControls) {
             FrameLayout.LayoutParams lp =
-                    (FrameLayout.LayoutParams) getTitleBar().getLayoutParams();
+                    (FrameLayout.LayoutParams) mTitleBar.getLayoutParams();
             lp.gravity = gravity;
-            getTitleBar().setLayoutParams(lp);
+            mTitleBar.setLayoutParams(lp);
         } else {
             super.setTitleGravity(gravity);
         }
@@ -277,7 +268,7 @@ public class PhoneUi extends BaseUi {
     @Override
     public void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
-        getTitleBar().setUseQuickControls(mUseQuickControls);
+        mTitleBar.setUseQuickControls(mUseQuickControls);
         if (useQuickControls) {
             mPieControl = new PieControlPhone(mActivity, mUiController, this);
             mPieControl.attachToContainer(mContentView);

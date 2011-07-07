@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 The Android Open Source Project
+ * Copyright (C) 2011 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,40 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.android.browser;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.ViewConfiguration;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnDismissListener;
 
 import com.android.browser.UrlInputView.StateListener;
-import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 
-import java.util.List;
+public class NavigationBarPhone extends NavigationBarBase implements
+        StateListener, OnDismissListener {
 
-/**
- * This class represents a title bar for a particular "tab" or "window" in the
- * browser.
- */
-public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener,
-        OnClickListener, TextChangeWatcher, StateListener, OnDismissListener {
-
-    private Activity mActivity;
     private ImageView mStopButton;
     private ImageView mVoiceButton;
     private Drawable mStopDrawable;
@@ -59,19 +48,21 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     private boolean mMenuShowing;
     private boolean mNeedsMenu;
 
-    public TitleBarPhone(Activity activity, UiController controller, PhoneUi ui,
-            FrameLayout parent) {
-        super(activity, controller, ui, parent);
-        mNeedsMenu = !ViewConfiguration.get(activity).hasPermanentMenuKey();
-        mActivity = activity;
-        initLayout(activity, R.layout.title_bar);
+    public NavigationBarPhone(Context context) {
+        super(context);
+    }
+
+    public NavigationBarPhone(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public NavigationBarPhone(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 
     @Override
-    protected void initLayout(Context context, int layoutId) {
-        super.initLayout(context, layoutId);
-        mLockIcon = (ImageView) findViewById(R.id.lock);
-        mFavicon = (ImageView) findViewById(R.id.favicon);
+    protected void onFinishInflate() {
+        super.onFinishInflate();
         mStopButton = (ImageView) findViewById(R.id.stop);
         mStopButton.setOnClickListener(this);
         mVoiceButton = (ImageView) findViewById(R.id.voice);
@@ -83,25 +74,22 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         mComboIcon = findViewById(R.id.iconcombo);
         mTitleContainer = findViewById(R.id.title_bg);
         setFocusState(false);
-        Resources res = context.getResources();
+        Resources res = getContext().getResources();
         mStopDrawable = res.getDrawable(R.drawable.ic_stop_holo_dark);
         mRefreshDrawable = res.getDrawable(R.drawable.ic_refresh_holo_dark);
         mTextfieldBgDrawable = res.getDrawable(R.drawable.textfield_active_holo_dark);
         setUaSwitcher(mComboIcon);
         mUrlInput.setContainer(this);
         mUrlInput.setStateListener(this);
+        mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
     }
 
     @Override
     public void createContextMenu(ContextMenu menu) {
-        MenuInflater inflater = mActivity.getMenuInflater();
+        Activity activity = mBaseUi.getActivity();
+        MenuInflater inflater = activity.getMenuInflater();
         inflater.inflate(R.menu.title_context, menu);
-        mActivity.onCreateContextMenu(menu, this, null);
-    }
-
-    @Override
-    public void setInVoiceMode(boolean voicemode, List<String> voiceResults) {
-        super.setInVoiceMode(voicemode, voiceResults);
+        activity.onCreateContextMenu(menu, this, null);
     }
 
     @Override
@@ -113,22 +101,24 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     }
 
     @Override
-    void setProgress(int progress) {
-        super.setProgress(progress);
-        if (progress == 100) {
-            mStopButton.setVisibility(View.GONE);
-            mStopButton.setImageDrawable(mRefreshDrawable);
-            if (!isEditingUrl()) {
-                mComboIcon.setVisibility(View.VISIBLE);
+    public void onProgressStarted() {
+        super.onProgressStarted();
+        if (mStopButton.getDrawable() != mStopDrawable) {
+            mStopButton.setImageDrawable(mStopDrawable);
+            if (mStopButton.getVisibility() != View.VISIBLE) {
+                mComboIcon.setVisibility(View.GONE);
+                mStopButton.setVisibility(View.VISIBLE);
             }
-        } else {
-            if (mStopButton.getDrawable() != mStopDrawable) {
-                mStopButton.setImageDrawable(mStopDrawable);
-                if (mStopButton.getVisibility() != View.VISIBLE) {
-                    mComboIcon.setVisibility(View.GONE);
-                    mStopButton.setVisibility(View.VISIBLE);
-                }
-            }
+        }
+    }
+
+    @Override
+    public void onProgressStopped() {
+        super.onProgressStopped();
+        mStopButton.setVisibility(View.GONE);
+        mStopButton.setImageDrawable(mRefreshDrawable);
+        if (!isEditingUrl()) {
+            mComboIcon.setVisibility(View.VISIBLE);
         }
     }
 
@@ -150,19 +140,9 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     }
 
     @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (v == mUrlInput) {
-            if (hasFocus) {
-                mActivity.closeOptionsMenu();
-            }
-        }
-        super.onFocusChange(v, hasFocus);
-    }
-
-    @Override
     public void onClick(View v) {
         if (v == mStopButton) {
-            if (mInLoad) {
+            if (mTitleBar.isInLoad()) {
                 mUiController.stopLoading();
             } else {
                 WebView web = mBaseUi.getWebView();
@@ -246,5 +226,4 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             break;
         }
     }
-
 }

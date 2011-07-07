@@ -40,7 +40,7 @@ public class XLargeUi extends BaseUi {
     private ActionBar mActionBar;
     private TabBar mTabBar;
 
-    private TitleBarXLarge mTitleBar;
+    private NavigationBarTablet mNavBar;
 
     private PieControlXLarge mPieControl;
     private Handler mHandler;
@@ -52,9 +52,7 @@ public class XLargeUi extends BaseUi {
     public XLargeUi(Activity browser, UiController controller) {
         super(browser, controller);
         mHandler = new Handler();
-        mTitleBar = new TitleBarXLarge(mActivity, mUiController, this,
-                mContentView);
-        mTitleBar.setProgress(100);
+        mNavBar = (NavigationBarTablet) mTitleBar.getNavigationBar();
         mTabBar = new TabBar(mActivity, mUiController, this);
         mActionBar = mActivity.getActionBar();
         setupActionBar();
@@ -129,7 +127,7 @@ public class XLargeUi extends BaseUi {
     public void onResume() {
         super.onResume();
         if (!BrowserSettings.getInstance().useInstantSearch()) {
-            mTitleBar.clearCompletions();
+            mNavBar.clearCompletions();
         }
     }
 
@@ -187,7 +185,7 @@ public class XLargeUi extends BaseUi {
             mPieControl.forceToTop(mContentView);
         } else {
             // check if title bar is already attached by animation
-            if (mTitleBar.getParent() == null && !tab.isSnapshot()) {
+            if (mTitleBar.getParent() == null) {
                 view.setEmbeddedTitleBar(mTitleBar);
             }
         }
@@ -231,13 +229,13 @@ public class XLargeUi extends BaseUi {
     @Override
     public void editUrl(boolean clearInput) {
         if (mUseQuickControls) {
-            getTitleBar().setShowProgressOnly(false);
+            mTitleBar.setShowProgressOnly(false);
         }
         super.editUrl(clearInput);
     }
 
     void stopEditingUrl() {
-        mTitleBar.stopEditingUrl();
+        mTitleBar.getNavigationBar().stopEditingUrl();
     }
 
     @Override
@@ -252,11 +250,6 @@ public class XLargeUi extends BaseUi {
         if (isTitleBarShowing()) {
             mTitleBar.hide();
         }
-    }
-
-    @Override
-    protected TitleBarBase getTitleBar() {
-        return mTitleBar;
     }
 
     @Override
@@ -291,7 +284,7 @@ public class XLargeUi extends BaseUi {
 
     @Override
     protected void updateNavigationState(Tab tab) {
-        mTitleBar.updateNavigationState(tab);
+        mNavBar.updateNavigationState(tab);
     }
 
     @Override
@@ -305,19 +298,6 @@ public class XLargeUi extends BaseUi {
     public void setFavicon(Tab tab) {
         super.setFavicon(tab);
         mTabBar.onFavicon(tab, tab.getFavicon());
-    }
-
-    @Override
-    public void showVoiceTitleBar(String title, List<String> vsresults) {
-        mTitleBar.setInVoiceMode(true, vsresults);
-        mTitleBar.setDisplayTitle(title);
-    }
-
-    @Override
-    public void revertVoiceTitleBar(Tab tab) {
-        mTitleBar.setInVoiceMode(false, null);
-        String url = tab.getUrl();
-        mTitleBar.setDisplayTitle(url);
     }
 
     @Override
