@@ -68,19 +68,6 @@ import java.util.HashMap;
 
 public class BrowserProvider2 extends SQLiteContentProvider {
 
-    public static interface Snapshots {
-
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(
-                BrowserContract.AUTHORITY_URI, "snapshots");
-        public static final String _ID = "_id";
-        public static final String VIEWSTATE = "view_state";
-        public static final String BACKGROUND = "background";
-        public static final String TITLE = History.TITLE;
-        public static final String URL = History.URL;
-        public static final String FAVICON = History.FAVICON;
-        public static final String THUMBNAIL = History.THUMBNAIL;
-    }
-
     public static final String PARAM_GROUP_BY = "groupBy";
 
     public static final String LEGACY_AUTHORITY = "browser";
@@ -152,9 +139,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final int LEGACY = 9000;
     static final int LEGACY_ID = 9001;
 
-    static final int SNAPSHOTS = 10000;
-    static final int SNAPSHOTS_ID = 10001;
-
     public static final long FIXED_ID_ROOT = 1;
 
     // Default sort order for unsync'd bookmarks
@@ -215,9 +199,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(LEGACY_AUTHORITY,
                 "bookmarks/" + SearchManager.SUGGEST_URI_PATH_QUERY,
                 BOOKMARKS_SUGGESTIONS);
-
-        matcher.addURI(authority, "snapshots", SNAPSHOTS);
-        matcher.addURI(authority, "snapshots/#", SNAPSHOTS_ID);
 
         // Projection maps
         HashMap<String, String> map;
@@ -352,7 +333,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
-        static final int DATABASE_VERSION = 29;
+        static final int DATABASE_VERSION = 30;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -423,8 +404,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
 
             enableSync(db);
-
-            createSnapshots(db);
         }
 
         void enableSync(SQLiteDatabase db) {
@@ -521,8 +500,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if (oldVersion < 29) {
-                createSnapshots(db);
+            if (oldVersion < 30) {
+                db.execSQL("DROP VIEW IF EXISTS " + VIEW_SNAPSHOTS_COMBINED);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_SNAPSHOTS);
             }
             if (oldVersion < 28) {
                 enableSync(db);
@@ -544,23 +524,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
         }
 
-        void createSnapshots(SQLiteDatabase db) {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_SNAPSHOTS);
-            db.execSQL("CREATE TABLE " + TABLE_SNAPSHOTS + " (" +
-                    Snapshots._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    Snapshots.URL + " TEXT NOT NULL," +
-                    Snapshots.TITLE + " TEXT," +
-                    Snapshots.BACKGROUND + " INTEGER," +
-                    Snapshots.VIEWSTATE + " BLOB NOT NULL" +
-                    ");");
-            db.execSQL("CREATE VIEW IF NOT EXISTS " + VIEW_SNAPSHOTS_COMBINED +
-                    " AS SELECT * FROM " + TABLE_SNAPSHOTS +
-                    " LEFT OUTER JOIN " + TABLE_IMAGES +
-                    " ON " + TABLE_SNAPSHOTS + "." + Snapshots.URL +
-                    " = images.url_key");
-        }
-
-        @Override
         public void onOpen(SQLiteDatabase db) {
             db.enableWriteAheadLogging();
             mSyncHelper.onDatabaseOpened(db);
@@ -1011,17 +974,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 break;
             }
 
-            case SNAPSHOTS_ID: {
-                selection = DatabaseUtils.concatenateWhere(selection, "_id=?");
-                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
-                        new String[] { Long.toString(ContentUris.parseId(uri)) });
-                // fall through
-            }
-            case SNAPSHOTS: {
-                qb.setTables(VIEW_SNAPSHOTS_COMBINED);
-                break;
-            }
-
             default: {
                 throw new UnsupportedOperationException("Unknown URL " + uri.toString());
             }
@@ -1221,16 +1173,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 }
                 break;
             }
-            case SNAPSHOTS_ID: {
-                selection = DatabaseUtils.concatenateWhere(selection, TABLE_SNAPSHOTS + "._id=?");
-                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
-                        new String[] { Long.toString(ContentUris.parseId(uri)) });
-                // fall through
-            }
-            case SNAPSHOTS: {
-                deleted = db.delete(TABLE_SNAPSHOTS, selection, selectionArgs);
-                break;
-            }
             default: {
                 throw new UnsupportedOperationException("Unknown delete URI " + uri);
             }
@@ -1365,11 +1307,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case SETTINGS: {
                 id = 0;
                 insertSettingsInTransaction(db, values);
-                break;
-            }
-
-            case SNAPSHOTS: {
-                id = db.insertOrThrow(TABLE_SNAPSHOTS, Snapshots.TITLE, values);
                 break;
             }
 
