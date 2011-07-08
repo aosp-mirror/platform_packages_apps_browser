@@ -61,12 +61,16 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         e = findPreference(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES);
         e.setOnPreferenceChangeListener(this);
 
+        e = findPreference(PreferenceKeys.PREF_SEARCH_ENGINE);
+        e.setOnPreferenceChangeListener(this);
+        updateListPreferenceSummary((ListPreference) e);
+
         e = findPreference(PreferenceKeys.PREF_PLUGIN_STATE);
         e.setOnPreferenceChangeListener(this);
-        updatePluginSummary((ListPreference) e);
+        updateListPreferenceSummary((ListPreference) e);
     }
 
-    void updatePluginSummary(ListPreference e) {
+    void updateListPreferenceSummary(ListPreference e) {
         e.setSummary(e.getEntry());
     }
 
@@ -121,10 +125,11 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
                         getActivity(), BrowserActivity.class));
                 return true;
             }
-        } else if (pref.getKey().equals(PreferenceKeys.PREF_PLUGIN_STATE)) {
+        } else if (pref.getKey().equals(PreferenceKeys.PREF_PLUGIN_STATE)
+                || pref.getKey().equals(PreferenceKeys.PREF_SEARCH_ENGINE)) {
             ListPreference lp = (ListPreference) pref;
             lp.setValue((String) objValue);
-            updatePluginSummary(lp);
+            updateListPreferenceSummary(lp);
             return false;
         }
         return false;
