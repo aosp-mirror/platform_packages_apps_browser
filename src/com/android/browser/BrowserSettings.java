@@ -224,6 +224,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setJavaScriptEnabled(enableJavascript());
         settings.setLightTouchEnabled(enableLightTouch());
         settings.setNavDump(enableNavDump());
+        settings.setHardwareAccelSkiaEnabled(isSkiaHardwareAccelerated());
         settings.setShowVisualIndicator(enableVisualIndicator());
         settings.setDefaultTextEncodingName(getDefaultTextEncoding());
         settings.setDefaultZoom(getDefaultZoom());
@@ -622,6 +623,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             return true;
         }
         return mPrefs.getBoolean(PREF_ENABLE_HARDWARE_ACCEL, true);
+    }
+
+    public boolean isSkiaHardwareAccelerated() {
+        if (!isDebugEnabled()) {
+            return false;
+        }
+        return mPrefs.getBoolean(PREF_ENABLE_HARDWARE_ACCEL_SKIA, false);
     }
 
     public int getUserAgent() {
