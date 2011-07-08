@@ -819,13 +819,16 @@ public class Controller
         if (!tab.isPrivateBrowsingEnabled()
                 && !TextUtils.isEmpty(tab.getUrl())
                 && !tab.isSnapshot()) {
+            // Only update the bookmark screenshot if the user did not
+            // cancel the load early and there is not already
+            // a pending update for the tab.
             if (tab.inForeground() && !didUserStopLoading()
                     || !tab.inForeground()) {
-                // Only update the bookmark screenshot if the user did not
-                // cancel the load early.
-                mHandler.sendMessageDelayed(mHandler.obtainMessage(
-                        UPDATE_BOOKMARK_THUMBNAIL, 0, 0, tab),
-                        500);
+                if (!mHandler.hasMessages(UPDATE_BOOKMARK_THUMBNAIL, tab)) {
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(
+                            UPDATE_BOOKMARK_THUMBNAIL, 0, 0, tab),
+                            500);
+                }
             }
         }
         // pause the WebView timer and release the wake lock if it is finished
