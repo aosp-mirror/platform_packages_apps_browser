@@ -22,4 +22,10 @@
         android:summary="@string/pref_data_preload_summary"
         android:defaultValue="false" />
 
+    <CheckBoxPreference
+        android:key="load_images"
+        android:defaultValue="true"
+        android:title="@string/pref_content_load_images"
+        android:summary="@string/pref_content_load_images_summary" />
+
 </PreferenceScreen>
