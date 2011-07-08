@@ -679,9 +679,7 @@ public class Controller
         if ((!mActivityPaused && !inLoad) || (mActivityPaused && inLoad)) {
             CookieSyncManager.getInstance().startSync();
             WebView w = tab.getWebView();
-            if (w != null) {
-                w.resumeTimers();
-            }
+            WebViewTimersControl.getInstance().onBrowserActivityResume(w);
         }
     }
 
@@ -695,10 +693,7 @@ public class Controller
             return true;
         } else if (!tab.inPageLoad()) {
             CookieSyncManager.getInstance().stopSync();
-            WebView w = getCurrentWebView();
-            if (w != null) {
-                w.pauseTimers();
-            }
+            WebViewTimersControl.getInstance().onBrowserActivityPause(getCurrentWebView());
             return true;
         }
         return false;

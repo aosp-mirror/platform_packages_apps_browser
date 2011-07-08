@@ -15,6 +15,7 @@
  */
 package com.android.browser;
 
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.SearchBox;
@@ -25,7 +26,7 @@ import java.util.Map;
  * Class to manage the controlling of preloaded tab.
  */
 public class PreloadedTabControl {
-    private static final boolean LOGD_ENABLED = true;//com.android.browser.Browser.LOGD_ENABLED;
+    private static final boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
     private static final String LOGTAG = "PreloadedTabControl";
 
     final Tab mTab;
@@ -33,17 +34,26 @@ public class PreloadedTabControl {
     private boolean mDestroyed;
 
     public PreloadedTabControl(Tab t) {
+        if (LOGD_ENABLED) Log.d(LOGTAG, "PreloadedTabControl.<init>");
         mTab = t;
     }
 
-    private void maybeSetQuery(String query, SearchBox sb) {
+    private void maybeSetQuery(final String query, SearchBox sb) {
         if (!TextUtils.equals(mLastQuery, query)) {
             if (sb != null) {
                 if (LOGD_ENABLED) Log.d(LOGTAG, "Changing searchbox query to " + query);
                 sb.setVerbatim(true);
                 sb.setQuery(query);
-                sb.onchange();
-                mLastQuery = query;
+                sb.onchange(new SearchBox.SearchBoxListener() {
+                    @Override
+                    public void onChangeComplete(boolean called) {
+                        if (mDestroyed) return;
+                        if (LOGD_ENABLED) Log.d(LOGTAG, "Changed searchbox query: " + called);
+                        if (called) {
+                            mLastQuery = query;
+                        }
+                    }
+                });
             } else {
                 if (LOGD_ENABLED) Log.d(LOGTAG, "Cannot set query: no searchbox interface");
             }
@@ -62,30 +72,34 @@ public class PreloadedTabControl {
             if (LOGD_ENABLED) Log.d(LOGTAG, "No searchbox, cannot submit query");
             return false;
         }
-        sb.isSupported(new SearchBox.IsSupportedCallback() {
+        maybeSetQuery(query, sb);
+        if (LOGD_ENABLED) Log.d(LOGTAG, "Submitting query " + query);
+        sb.onsubmit(new SearchBox.SearchBoxListener() {
             @Override
-            public void searchBoxIsSupported(boolean supported) {
-                if (LOGD_ENABLED) Log.d(LOGTAG, "SearchBox supported: " + supported);
-                if (mDestroyed) {
-                    if (LOGD_ENABLED) Log.d(LOGTAG, "tab has been destroyed");
-                    return;
-                }
-                if (supported) {
-                    maybeSetQuery(query, sb);
-                    if (LOGD_ENABLED) Log.d(LOGTAG, "Submitting query " + query);
-                    sb.onsubmit();
-                } else {
-                    if (LOGD_ENABLED) Log.d(LOGTAG, "SearchBox not supported; falling back");
+            public void onSubmitComplete(boolean called) {
+                if (mDestroyed) return;
+                if (LOGD_ENABLED) Log.d(LOGTAG, "Query submitted: " + called);
+                if (!called) {
+                    if (LOGD_ENABLED) Log.d(LOGTAG, "Query not submitted; falling back");
                     loadUrl(fallbackUrl, fallbackHeaders);
                 }
                 mTab.getWebView().clearHistory();
-            }
-        });
+            }});
         return true;
     }
 
     public void loadUrlIfChanged(String url, Map<String, String> headers) {
-        if (!TextUtils.equals(url, mTab.getUrl())) {
+        String currentUrl = mTab.getUrl();
+        if (!TextUtils.isEmpty(currentUrl)) {
+            try {
+                // remove fragment:
+                currentUrl = Uri.parse(currentUrl).buildUpon().fragment(null).build().toString();
+            } catch (UnsupportedOperationException e) {
+                // carry on
+            }
+        }
+        if (LOGD_ENABLED) Log.d(LOGTAG, "loadUrlIfChanged\nnew: " + url + "\nold: " +currentUrl);
+        if (!TextUtils.equals(url, currentUrl)) {
             loadUrl(url, headers);
         }
     }
@@ -96,6 +110,7 @@ public class PreloadedTabControl {
     }
 
     public void destroy() {
+        if (LOGD_ENABLED) Log.d(LOGTAG, "PreloadedTabControl.destroy");
         mDestroyed = true;
         mTab.destroy();
     }

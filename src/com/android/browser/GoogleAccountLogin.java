@@ -84,7 +84,7 @@ public class GoogleAccountLogin implements Runnable,
         // resumeWebViewTimers. So to avoid problems with timers not running, we
         // duplicate the work here using the off-screen WebView.
         CookieSyncManager.getInstance().startSync();
-        mWebView.resumeTimers();
+        WebViewTimersControl.getInstance().onBrowserActivityResume(mWebView);
 
         mWebView.setWebViewClient(new WebViewClient() {
             @Override

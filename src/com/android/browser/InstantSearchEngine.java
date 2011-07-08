@@ -85,10 +85,10 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
 
         mSearchBox.setQuery(query);
         mSearchBox.setVerbatim(true);
-        mSearchBox.onsubmit();
+        mSearchBox.onsubmit(null);
     }
 
-    private final class BrowserSearchboxListener implements SearchBox.SearchBoxListener {
+    private final class BrowserSearchboxListener extends SearchBox.SearchBoxListener {
         /*
          * The maximum number of out of order suggestions we accept
          * before giving up the wait.
@@ -253,7 +253,7 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
         }
 
         mSearchBox.setDimensions(0, 0, 0, mHeight);
-        mSearchBox.onresize();
+        mSearchBox.onresize(null);
 
         if (TextUtils.isEmpty(query)) {
             // To force the SRP to render an empty (no results) page.
@@ -262,7 +262,7 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
             mSearchBox.setVerbatim(false);
         }
         mSearchBox.setQuery(query);
-        mSearchBox.onchange();
+        mSearchBox.onchange(null);
 
         // Don't bother waiting for suggestions for an empty query. We still
         // set the query so that the SRP clears itself.
@@ -327,7 +327,7 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
             mHeight = rescaledHeight;
             if (mSearchBox != null) {
                 mSearchBox.setDimensions(0, 0, 0, rescaledHeight);
-                mSearchBox.onresize();
+                mSearchBox.onresize(null);
             }
         }
     }

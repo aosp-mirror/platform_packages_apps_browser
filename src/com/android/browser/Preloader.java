@@ -19,6 +19,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.webkit.WebView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +63,7 @@ public class Preloader {
             if (LOGD_ENABLED) Log.d(LOGTAG, "Create new preload session " + id);
             s = new PreloaderSession(id);
             mSessions.put(id, s);
+            WebViewTimersControl.getInstance().onPrerenderStart(s.getWebView());
         }
         return s;
     }
@@ -70,6 +72,9 @@ public class Preloader {
         PreloaderSession s = mSessions.remove(id);
         if (s != null) {
             s.cancelTimeout();
+        }
+        if (mSessions.size() == 0) {
+            WebViewTimersControl.getInstance().onPrerenderDone(s == null ? null : s.getWebView());
         }
         return s;
     }
@@ -137,6 +142,11 @@ public class Preloader {
 
         public PreloadedTabControl getTabControl() {
             return mTabControl;
+        }
+
+        public WebView getWebView() {
+            Tab t = mTabControl.getTab();
+            return t == null? null : t.getWebView();
         }
 
     }
