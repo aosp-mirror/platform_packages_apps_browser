@@ -18,14 +18,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="20dip" >
+    android:paddingTop="9dip"
+    android:paddingBottom="3dip"
+    android:paddingLeft="3dip"
+    android:paddingRight="1dip">
 
     <TextView
         android:text="@string/autofill_setup_dialog_message"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dip" />
+        android:padding="5dip" />
 
     <CheckBox android:id="@+id/setup_autofill_dialog_disable_autofill"
         android:text="@string/disable_autofill"
