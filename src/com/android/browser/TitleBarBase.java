@@ -548,7 +548,9 @@ public class TitleBarBase extends RelativeLayout
         if (UrlInputView.TYPED.equals(source)) {
             String url = UrlUtils.smartUrlFilter(text, false);
             Tab t = mBaseUi.getActiveTab();
-            if (url != null && t != null) {
+            // Only shortcut javascript URIs for now, as there is special
+            // logic in UrlHandler for other schemas
+            if (url != null && t != null && url.startsWith("javascript:")) {
                 mUiController.loadUrl(t, url);
                 setDisplayTitle(text);
                 return;
