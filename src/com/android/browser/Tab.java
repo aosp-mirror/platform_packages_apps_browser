@@ -1214,6 +1214,7 @@ class Tab {
             final View layout = inflater.inflate(R.layout.setup_autofill_dialog, null);
 
             builder.setView(layout)
+                .setTitle(R.string.autofill_setup_dialog_title)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
