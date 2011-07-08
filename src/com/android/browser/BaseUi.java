@@ -838,7 +838,8 @@ public abstract class BaseUi implements UI, OnTouchListener {
             break;
         case MotionEvent.ACTION_MOVE:
             WebView web = (WebView) v;
-            if (!isTitleBarShowing()
+            if (event.getPointerCount() == 1
+                    && !isTitleBarShowing()
                     && web.getVisibleTitleHeight() == 0
                     && event.getY() > (mInitialY + mTitlebarScrollTriggerSlop)) {
                 mHandler.removeMessages(MSG_HIDE_TITLEBAR);
