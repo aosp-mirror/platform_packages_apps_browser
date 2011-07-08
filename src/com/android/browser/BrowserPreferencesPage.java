@@ -16,18 +16,21 @@
 
 package com.android.browser;
 
-import com.android.browser.preferences.DebugPreferencesFragment;
-
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.MenuItem;
+
+import com.android.browser.preferences.BandwidthPreferencesFragment;
+import com.android.browser.preferences.DebugPreferencesFragment;
 
 import java.util.List;
 
 public class BrowserPreferencesPage extends PreferenceActivity {
 
     public static final String CURRENT_PAGE = "currentPage";
+    private List<Header> mHeaders;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -53,6 +56,21 @@ public class BrowserPreferencesPage extends PreferenceActivity {
             debug.fragment = DebugPreferencesFragment.class.getName();
             target.add(debug);
         }
+        mHeaders = target;
+    }
+
+    @Override
+    public Header onGetInitialHeader() {
+        String action = getIntent().getAction();
+        if (Intent.ACTION_MANAGE_NETWORK_USAGE.equals(action)) {
+            String fragName = BandwidthPreferencesFragment.class.getName();
+            for (Header h : mHeaders) {
+                if (fragName.equals(h.fragment)) {
+                    return h;
+                }
+            }
+        }
+        return super.onGetInitialHeader();
     }
 
     @Override

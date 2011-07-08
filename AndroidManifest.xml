@@ -162,6 +162,10 @@
         </activity>
 
         <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences">
+            <intent-filter>
+               <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
+               <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity android:name="BookmarkSearch"
