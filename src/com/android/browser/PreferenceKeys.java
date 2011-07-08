@@ -37,7 +37,6 @@ public interface PreferenceKeys {
     static final String PREF_DEFAULT_TEXT_ENCODING = "default_text_encoding";
     static final String PREF_DEFAULT_ZOOM = "default_zoom";
     static final String PREF_ENABLE_JAVASCRIPT = "enable_javascript";
-    static final String PREF_LOAD_IMAGES = "load_images";
     static final String PREF_LOAD_PAGE = "load_page";
     static final String PREF_OPEN_IN_BACKGROUND = "open_in_background";
     static final String PREF_PLUGIN_STATE = "plugin_state";
@@ -98,5 +97,6 @@ public interface PreferenceKeys {
     // Keys for bandwidth_preferences.xml
     // ----------------------
     static final String PREF_DATA_PRELOAD = "preload_enabled";
+    static final String PREF_LOAD_IMAGES = "load_images";
 
 }

@@ -76,12 +76,6 @@
                 android:defaultValue="true"
                 android:title="@string/pref_content_block_popups" />
 
-        <CheckBoxPreference
-                android:key="load_images"
-                android:defaultValue="true"
-                android:title="@string/pref_content_load_images"
-                android:summary="@string/pref_content_load_images_summary" />
-
         <ListPreference
                 android:key="default_text_encoding"
                 android:title="@string/pref_default_text_encoding"
