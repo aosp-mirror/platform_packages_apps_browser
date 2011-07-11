@@ -168,6 +168,10 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 mIsAnimating = false;
+                if (mActionBar == null) {
+                    // We were destroyed, return
+                    return;
+                }
                 FragmentManager fm = mActivity.getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 onTabSelected(mActionBar.getSelectedTab(), ft);
