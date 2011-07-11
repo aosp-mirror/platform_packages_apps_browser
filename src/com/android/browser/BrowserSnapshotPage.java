@@ -98,8 +98,10 @@ public class BrowserSnapshotPage extends Fragment implements
     public void onDestroyView() {
         super.onDestroyView();
         getLoaderManager().destroyLoader(LOADER_SNAPSHOTS);
-        mAdapter.changeCursor(null);
-        mAdapter = null;
+        if (mAdapter != null) {
+            mAdapter.changeCursor(null);
+            mAdapter = null;
+        }
     }
 
     void setupGrid(LayoutInflater inflater) {
