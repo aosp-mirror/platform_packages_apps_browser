@@ -183,6 +183,18 @@ public class PhoneUi extends BaseUi {
         return mTitleBar;
     }
 
+    /**
+     * Suggest to the UI that the title bar can be hidden. The UI will then
+     * decide whether or not to hide based off a number of factors, such
+     * as if the user is editing the URL bar or if the page is loading
+     */
+    @Override
+    public void suggestHideTitleBar() {
+        if (!isLoading() && !isEditingUrl() && !mTitleBar.isMenuShowing()) {
+            hideTitleBar();
+        }
+    }
+
     // active tabs page
 
     @Override

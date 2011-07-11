@@ -824,7 +824,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
         }
     }
 
-    private void showTitleBarForDuration() {
+    protected void showTitleBarForDuration() {
         mHandler.removeMessages(MSG_HIDE_TITLEBAR);
         showTitleBar();
         Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);

@@ -21,13 +21,18 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewConfiguration;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnDismissListener;
 
 import com.android.browser.UrlInputView.StateListener;
 import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
@@ -39,7 +44,7 @@ import java.util.List;
  * browser.
  */
 public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener,
-        OnClickListener, TextChangeWatcher, StateListener {
+        OnClickListener, TextChangeWatcher, StateListener, OnDismissListener {
 
     private Activity mActivity;
     private ImageView mStopButton;
@@ -49,11 +54,15 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
     private View mTabSwitcher;
     private View mComboIcon;
     private View mTitleContainer;
+    private View mMore;
     private Drawable mTextfieldBgDrawable;
+    private boolean mMenuShowing;
+    private boolean mNeedsMenu;
 
     public TitleBarPhone(Activity activity, UiController controller, PhoneUi ui,
             FrameLayout parent) {
         super(activity, controller, ui, parent);
+        mNeedsMenu = !ViewConfiguration.get(activity).hasPermanentMenuKey();
         mActivity = activity;
         initLayout(activity, R.layout.title_bar);
     }
@@ -69,6 +78,8 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
         mVoiceButton.setOnClickListener(this);
         mTabSwitcher = findViewById(R.id.tab_switcher);
         mTabSwitcher.setOnClickListener(this);
+        mMore = findViewById(R.id.more);
+        mMore.setOnClickListener(this);
         mComboIcon = findViewById(R.id.iconcombo);
         mTitleContainer = findViewById(R.id.title_bg);
         setFocusState(false);
@@ -164,9 +175,46 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             mUiController.startVoiceSearch();
         } else if (v == mTabSwitcher) {
             mBaseUi.onMenuKey();
+        } else if (mMore == v) {
+            showMenu();
         } else {
             super.onClick(v);
         }
+    }
+
+    public boolean isMenuShowing() {
+        return mMenuShowing;
+    }
+
+    private void showMenu() {
+        mMenuShowing = true;
+        PopupMenu popup = new PopupMenu(mContext, mMore);
+        Menu menu = popup.getMenu();
+        popup.getMenuInflater().inflate(R.menu.browser, menu);
+        menu.setGroupVisible(R.id.NAV_MENU, false);
+        popup.setOnMenuItemClickListener(this);
+        popup.setOnDismissListener(this);
+        popup.show();
+    }
+
+    @Override
+    public void onDismiss(PopupMenu menu) {
+        onMenuHidden();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        onMenuHidden();
+        boolean res = mUiController.onOptionsItemSelected(item);
+        if (!res) {
+            return super.onMenuItemClick(item);
+        }
+        return res;
+    }
+
+    private void onMenuHidden() {
+        mMenuShowing = false;
+        mBaseUi.showTitleBarForDuration();
     }
 
     @Override
@@ -178,12 +226,14 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             setSearchMode(false);
             mTabSwitcher.setVisibility(View.VISIBLE);
             mTitleContainer.setBackgroundDrawable(null);
+            mMore.setVisibility(mNeedsMenu ? View.VISIBLE : View.GONE);
             break;
         case StateListener.STATE_HIGHLIGHTED:
             mComboIcon.setVisibility(View.GONE);
             mStopButton.setVisibility(View.VISIBLE);
             setSearchMode(true);
             mTabSwitcher.setVisibility(View.GONE);
+            mMore.setVisibility(View.GONE);
             mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
             break;
         case StateListener.STATE_EDITED:
@@ -191,6 +241,7 @@ public class TitleBarPhone extends TitleBarBase implements OnFocusChangeListener
             mStopButton.setVisibility(View.GONE);
             setSearchMode(false);
             mTabSwitcher.setVisibility(View.GONE);
+            mMore.setVisibility(View.GONE);
             mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
             break;
         }

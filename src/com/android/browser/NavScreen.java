@@ -32,16 +32,13 @@ import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListPopupWindow;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.browser.view.Gallery.OnItemSelectedListener;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class NavScreen extends RelativeLayout implements OnClickListener {
+public class NavScreen extends RelativeLayout
+        implements OnClickListener, OnMenuItemClickListener {
 
     UiController mUiController;
     PhoneUi mUi;
@@ -65,7 +62,6 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
     int mTabWidth;
     int mTabHeight;
     TabAdapter mAdapter;
-    ListPopupWindow mPopup;
     int mOrientation;
 
     public NavScreen(Activity activity, UiController ctl, PhoneUi ui) {
@@ -82,30 +78,21 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
     }
 
     protected void showMenu() {
-        Menu menu = mUi.getMenu();
+        PopupMenu popup = new PopupMenu(mContext, mMore);
+        Menu menu = popup.getMenu();
+        popup.getMenuInflater().inflate(R.menu.browser, menu);
         menu.setGroupVisible(R.id.NAV_MENU, false);
-
-        MenuAdapter menuAdapter = new MenuAdapter(mContext);
-        menuAdapter.setMenu(menu);
-        ListPopupWindow popup = new ListPopupWindow(mContext);
-        popup.setInputMethodMode(ListPopupWindow.INPUT_METHOD_NOT_NEEDED);
-        popup.setAdapter(menuAdapter);
-        popup.setModal(true);
-        popup.setAnchorView(mMore);
-        popup.setWidth((int) mContext.getResources().getDimension(
-                R.dimen.menu_width));
+        popup.setOnMenuItemClickListener(this);
         popup.show();
-        mPopup = popup;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return mUiController.onOptionsItemSelected(item);
     }
 
     protected float getToolbarHeight() {
         return mActivity.getResources().getDimension(R.dimen.toolbar_height);
-    }
-
-    protected void dismissMenu() {
-        if (mPopup != null) {
-            mPopup.dismiss();
-        }
     }
 
     // for configuration changes
@@ -283,65 +270,5 @@ public class NavScreen extends RelativeLayout implements OnClickListener {
         }
 
     }
-
-    private class MenuAdapter extends BaseAdapter implements OnClickListener {
-
-        List<MenuItem> mItems;
-        LayoutInflater mInflater;
-
-        public MenuAdapter(Context ctx) {
-            mInflater = LayoutInflater.from(ctx);
-            mItems = new ArrayList<MenuItem>();
-        }
-
-        public void setMenu(Menu menu) {
-            mItems.clear();
-            for (int i = 0; i < menu.size(); i++) {
-                MenuItem item = menu.getItem(i);
-                if (item.isEnabled() && item.isVisible()) {
-                    mItems.add(item);
-                }
-            }
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public int getCount() {
-            return mItems.size();
-        }
-
-        @Override
-        public MenuItem getItem(int position) {
-            return mItems.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (v.getTag() != null) {
-                dismissMenu();
-                mActivity.closeOptionsMenu();
-                mUi.hideNavScreen(false);
-                mUiController.onOptionsItemSelected((MenuItem) v.getTag());
-            }
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final MenuItem item = mItems.get(position);
-            View view = mInflater.inflate(R.layout.qc_menu_item, null);
-            TextView label = (TextView) view.findViewById(R.id.title);
-            label.setText(item.getTitle());
-            label.setTag(item);
-            label.setOnClickListener(this);
-            return label;
-        }
-
-    }
-
 
 }
