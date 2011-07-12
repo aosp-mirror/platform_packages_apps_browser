@@ -36,6 +36,8 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     WebView getCurrentTopWebView();
 
+    Tab getCurrentTab();
+
     TabControl getTabControl();
 
     List<Tab> getTabs();

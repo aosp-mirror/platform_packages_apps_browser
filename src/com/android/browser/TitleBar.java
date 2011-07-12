@@ -51,6 +51,7 @@ public class TitleBar extends RelativeLayout {
     private AutologinBar mAutoLogin;
     private NavigationBarBase mNavBar;
     private boolean mUseQuickControls;
+    private SnapshotBar mSnapshotBar;
 
     //state
     private boolean mShowing;
@@ -75,6 +76,8 @@ public class TitleBar extends RelativeLayout {
         mAutoLogin.setTitleBar(this);
         mNavBar = (NavigationBarBase) findViewById(R.id.taburlbar);
         mNavBar.setTitleBar(this);
+        mSnapshotBar = (SnapshotBar) findViewById(R.id.snapshotbar);
+        mSnapshotBar.setTitleBar(this);
     }
 
     public BaseUi getUi() {
@@ -91,7 +94,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     void setShowProgressOnly(boolean progress) {
-        if (progress && !inAutoLogin()) {
+        if (progress && !wantsToBeVisible()) {
             mNavBar.setVisibility(View.GONE);
         } else {
             mNavBar.setVisibility(View.VISIBLE);
@@ -208,7 +211,7 @@ public class TitleBar extends RelativeLayout {
             mInLoad = false;
             mNavBar.onProgressStopped();
             // check if needs to be hidden
-            if (!isEditingUrl() && !inAutoLogin()) {
+            if (!isEditingUrl() && !wantsToBeVisible()) {
                 hide();
                 if (mUseQuickControls) {
                     setShowProgressOnly(false);
@@ -286,7 +289,13 @@ public class TitleBar extends RelativeLayout {
         }
     }
 
-    public boolean inAutoLogin() {
+    public boolean wantsToBeVisible() {
+        return inAutoLogin()
+            || (mSnapshotBar.getVisibility() == View.VISIBLE
+                    && mSnapshotBar.isAnimating());
+    }
+
+    private boolean inAutoLogin() {
         return mAutoLogin.getVisibility() == View.VISIBLE;
     }
 
@@ -336,6 +345,17 @@ public class TitleBar extends RelativeLayout {
             return getCurrentWebView();
         }
         return super.focusSearch(focused, dir);
+    }
+
+    public void onTabDataChanged(Tab tab) {
+        mSnapshotBar.onTabDataChanged(tab);
+        if (tab.isSnapshot()) {
+            mSnapshotBar.setVisibility(VISIBLE);
+            mNavBar.setVisibility(GONE);
+        } else {
+            mSnapshotBar.setVisibility(GONE);
+            mNavBar.setVisibility(VISIBLE);
+        }
     }
 
 }

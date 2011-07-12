@@ -129,9 +129,9 @@ public class PieControlXLarge extends PieControlBase implements OnClickListener 
         Tab tab = mUiController.getTabControl().getCurrentTab();
         WebView web = tab.getWebView();
         if (mBack.getView() == v) {
-            web.goBack();
+            tab.goBack();
         } else if (mForward.getView() == v) {
-            web.goForward();
+            tab.goForward();
         } else if (mRefresh.getView() == v) {
             if (tab.inPageLoad()) {
                 web.stopLoading();

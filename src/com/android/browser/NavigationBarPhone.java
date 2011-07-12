@@ -156,7 +156,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
         } else if (v == mTabSwitcher) {
             mBaseUi.onMenuKey();
         } else if (mMore == v) {
-            showMenu();
+            showMenu(mMore);
         } else {
             super.onClick(v);
         }
@@ -166,9 +166,9 @@ public class NavigationBarPhone extends NavigationBarBase implements
         return mMenuShowing;
     }
 
-    private void showMenu() {
+    void showMenu(View anchor) {
         mMenuShowing = true;
-        PopupMenu popup = new PopupMenu(mContext, mMore);
+        PopupMenu popup = new PopupMenu(mContext, anchor);
         Menu menu = popup.getMenu();
         popup.getMenuInflater().inflate(R.menu.browser, menu);
         menu.setGroupVisible(R.id.NAV_MENU, false);

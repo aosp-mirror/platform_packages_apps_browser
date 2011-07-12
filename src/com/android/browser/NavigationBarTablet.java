@@ -107,12 +107,11 @@ public class NavigationBarTablet extends NavigationBarBase {
     }
 
     void updateNavigationState(Tab tab) {
-        WebView web = tab.getWebView();
-        if (web != null) {
-            mBackButton.setImageResource(web.canGoBack()
+        if (tab != null) {
+            mBackButton.setImageResource(tab.canGoBack()
                     ? R.drawable.ic_back_holo_dark
                     : R.drawable.ic_back_disabled_holo_dark);
-            mForwardButton.setImageResource(web.canGoForward()
+            mForwardButton.setImageResource(tab.canGoForward()
                     ? R.drawable.ic_forward_holo_dark
                     : R.drawable.ic_forward_disabled_holo_dark);
         }
@@ -127,9 +126,9 @@ public class NavigationBarTablet extends NavigationBarBase {
     @Override
     public void onClick(View v) {
         if (mBackButton == v) {
-            mUiController.getCurrentTopWebView().goBack();
+            mUiController.getCurrentTab().goBack();
         } else if (mForwardButton == v) {
-            mUiController.getCurrentTopWebView().goForward();
+            mUiController.getCurrentTab().goForward();
         } else if (mStar == v) {
             mUiController.bookmarkCurrentPage(true);
         } else if (mAllButton == v) {

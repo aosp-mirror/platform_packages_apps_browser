@@ -28,6 +28,7 @@ import android.webkit.WebView;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 
 import java.io.ByteArrayInputStream;
+import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 
@@ -38,19 +39,16 @@ public class SnapshotTab extends Tab {
     private long mSnapshotId;
     private LoadData mLoadTask;
     private WebViewFactory mWebViewFactory;
-    // TODO: Support non-persistent webview's on phone
-    private boolean mPersistentWebview;
     private int mBackgroundColor;
+    private long mDateCreated;
+    private boolean mIsLive;
 
     public SnapshotTab(WebViewController wvcontroller, long snapshotId) {
         super(wvcontroller, null);
         mSnapshotId = snapshotId;
         mWebViewFactory = mWebViewController.getWebViewFactory();
-        mPersistentWebview = !BrowserActivity.isTablet(wvcontroller.getActivity());
-        if (mPersistentWebview) {
-            WebView web = mWebViewFactory.createWebView(false);
-            setWebView(web);
-        }
+        WebView web = mWebViewFactory.createWebView(false);
+        setWebView(web);
         loadData();
     }
 
@@ -71,9 +69,6 @@ public class SnapshotTab extends Tab {
     void putInBackground() {
         if (getWebView() == null) return;
         super.putInBackground();
-        if (!mPersistentWebview) {
-            super.destroy();
-        }
     }
 
     void loadData() {
@@ -90,7 +85,7 @@ public class SnapshotTab extends Tab {
 
     @Override
     public boolean isSnapshot() {
-        return true;
+        return !mIsLive;
     }
 
     public long getSnapshotId() {
@@ -107,6 +102,40 @@ public class SnapshotTab extends Tab {
         return false;
     }
 
+    public long getDateCreated() {
+        return mDateCreated;
+    }
+
+    @Override
+    public void loadUrl(String url, Map<String, String> headers) {
+        if (!mIsLive) {
+            mIsLive = true;
+            getWebView().clearViewState();
+        }
+        super.loadUrl(url, headers);
+    }
+
+    @Override
+    public boolean canGoBack() {
+        return super.canGoBack() || mIsLive;
+    }
+
+    @Override
+    public boolean canGoForward() {
+        return mIsLive && super.canGoForward();
+    }
+
+    @Override
+    public void goBack() {
+        if (super.canGoBack()) {
+            super.goBack();
+        } else {
+            mIsLive = false;
+            getWebView().stopLoading();
+            loadData();
+        }
+    }
+
     static class LoadData extends AsyncTask<Void, Void, Cursor> {
 
         static final String[] PROJECTION = new String[] {
@@ -116,6 +145,7 @@ public class SnapshotTab extends Tab {
             Snapshots.FAVICON, // 3
             Snapshots.VIEWSTATE, // 4
             Snapshots.BACKGROUND, // 5
+            Snapshots.DATE_CREATED, // 6
         };
 
         private SnapshotTab mTab;
@@ -156,6 +186,7 @@ public class SnapshotTab extends Tab {
                         }
                     }
                     mTab.mBackgroundColor = result.getInt(5);
+                    mTab.mDateCreated = result.getLong(6);
                     mTab.mWebViewController.onPageFinished(mTab);
                 }
             } finally {

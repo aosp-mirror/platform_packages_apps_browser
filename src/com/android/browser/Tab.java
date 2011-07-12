@@ -1457,6 +1457,8 @@ class Tab implements PictureListener {
     void destroy() {
         if (mMainView != null) {
             dismissSubWindow();
+            // Make sure the embedded title bar isn't still attached
+            mMainView.setEmbeddedTitleBar(null);
             // save the WebView to call destroy() after detach it from the tab
             WebView webView = mMainView;
             setWebView(null);
@@ -1968,6 +1970,26 @@ class Tab implements PictureListener {
         //update screenshot
         if (!mHandler.hasMessages(MSG_CAPTURE)) {
             mHandler.sendEmptyMessageDelayed(MSG_CAPTURE, CAPTURE_DELAY);
+        }
+    }
+
+    public boolean canGoBack() {
+        return mMainView != null ? mMainView.canGoBack() : false;
+    }
+
+    public boolean canGoForward() {
+        return mMainView != null ? mMainView.canGoForward() : false;
+    }
+
+    public void goBack() {
+        if (mMainView != null) {
+            mMainView.goBack();
+        }
+    }
+
+    public void goForward() {
+        if (mMainView != null) {
+            mMainView.goForward();
         }
     }
 

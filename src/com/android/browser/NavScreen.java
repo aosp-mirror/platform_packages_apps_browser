@@ -129,7 +129,7 @@ public class NavScreen extends RelativeLayout
         if (web != null) {
             if (mForward == v) {
                 mUi.hideNavScreen(true);
-                web.goForward();
+                mTab.goForward();
             } else if (mRefresh == v) {
                 mUi.hideNavScreen(true);
                 web.reload();

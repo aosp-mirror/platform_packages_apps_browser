@@ -74,7 +74,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
         Gravity.CENTER);
 
     private static final int MSG_HIDE_TITLEBAR = 1;
-    private static final int HIDE_TITLEBAR_DELAY = 1500; // in ms
+    public static final int HIDE_TITLEBAR_DELAY = 1500; // in ms
 
     Activity mActivity;
     UiController mUiController;
@@ -208,6 +208,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
         setFavicon(tab);
         updateLockIconToLatest(tab);
         updateNavigationState(tab);
+        mTitleBar.onTabDataChanged(tab);
     }
 
     @Override
@@ -431,7 +432,9 @@ public abstract class BaseUi implements UI, OnTouchListener {
             mUiController.endActionMode();
         }
         showTitleBar();
-        mNavigationBar.startEditingUrl(clearInput);
+        if (!getActiveTab().isSnapshot()) {
+            mNavigationBar.startEditingUrl(clearInput);
+        }
     }
 
     boolean canShowTitleBar() {
@@ -443,6 +446,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
     }
 
     protected void showTitleBar() {
+        mHandler.removeMessages(MSG_HIDE_TITLEBAR);
         if (canShowTitleBar()) {
             mTitleBar.show();
         }
@@ -830,13 +834,12 @@ public abstract class BaseUi implements UI, OnTouchListener {
      * as if the user is editing the URL bar or if the page is loading
      */
     public void suggestHideTitleBar() {
-        if (!isLoading() && !isEditingUrl() && !mTitleBar.inAutoLogin()) {
+        if (!isLoading() && !isEditingUrl() && !mTitleBar.wantsToBeVisible()) {
             hideTitleBar();
         }
     }
 
     protected void showTitleBarForDuration() {
-        mHandler.removeMessages(MSG_HIDE_TITLEBAR);
         showTitleBar();
         Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
         mHandler.sendMessageDelayed(msg, HIDE_TITLEBAR_DELAY);
@@ -854,7 +857,6 @@ public abstract class BaseUi implements UI, OnTouchListener {
                     && !isTitleBarShowing()
                     && web.getVisibleTitleHeight() == 0
                     && event.getY() > (mInitialY + mTitlebarScrollTriggerSlop)) {
-                mHandler.removeMessages(MSG_HIDE_TITLEBAR);
                 showTitleBar();
             } else if (event.getY() < mInitialY) {
                 mInitialY = event.getY();

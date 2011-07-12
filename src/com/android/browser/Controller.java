@@ -536,7 +536,7 @@ public class Controller
 
     }
 
-
+    @Override
     public Tab getCurrentTab() {
         return mTabControl.getCurrentTab();
     }
@@ -1463,14 +1463,14 @@ public class Controller
                     menu.setGroupEnabled(R.id.MAIN_MENU, true);
                     menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, true);
                 }
-                final WebView w = getCurrentTopWebView();
+                final Tab t = getCurrentTab();
                 boolean canGoBack = false;
                 boolean canGoForward = false;
                 boolean isHome = false;
-                if (w != null) {
-                    canGoBack = w.canGoBack();
-                    canGoForward = w.canGoForward();
-                    isHome = mSettings.getHomePage().equals(w.getUrl());
+                if (t != null) {
+                    canGoBack = t.canGoBack();
+                    canGoForward = t.canGoForward();
+                    isHome = mSettings.getHomePage().equals(t.getUrl());
                 }
                 final MenuItem back = menu.findItem(R.id.back_menu_id);
                 back.setEnabled(canGoBack);
@@ -1563,11 +1563,11 @@ public class Controller
                 break;
 
             case R.id.back_menu_id:
-                getCurrentTopWebView().goBack();
+                getCurrentTab().goBack();
                 break;
 
             case R.id.forward_menu_id:
-                getCurrentTopWebView().goForward();
+                getCurrentTab().goForward();
                 break;
 
             case R.id.close_menu_id:
@@ -2373,12 +2373,11 @@ public class Controller
 
     @Override
     public void onUserCanceledSsl(Tab tab) {
-        WebView web = tab.getWebView();
         // TODO: Figure out the "right" behavior
-        if (web.canGoBack()) {
-            web.goBack();
+        if (tab.canGoBack()) {
+            tab.goBack();
         } else {
-            web.loadUrl(mSettings.getHomePage());
+            tab.loadUrl(mSettings.getHomePage(), null);
         }
     }
 
@@ -2395,9 +2394,8 @@ public class Controller
             mActivity.moveTaskToBack(true);
             return;
         }
-        WebView w = current.getWebView();
-        if (w.canGoBack()) {
-            w.goBack();
+        if (current.canGoBack()) {
+            current.goBack();
         } else {
             // Check to see if we are closing a window that was created by
             // another window. If so, we switch back to that window.
@@ -2506,7 +2504,8 @@ public class Controller
         }
 
         WebView webView = getCurrentTopWebView();
-        if (webView == null) return false;
+        Tab tab = getCurrentTab();
+        if (webView == null || tab == null) return false;
 
         boolean ctrl = event.hasModifiers(KeyEvent.META_CTRL_ON);
         boolean shift = event.hasModifiers(KeyEvent.META_SHIFT_ON);
@@ -2540,13 +2539,13 @@ public class Controller
                 return true;
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if (ctrl) {
-                    webView.goBack();
+                    tab.goBack();
                     return true;
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
                 if (ctrl) {
-                    webView.goForward();
+                    tab.goForward();
                     return true;
                 }
                 break;

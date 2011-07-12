@@ -25,6 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height" />
     <include
+        layout="@layout/title_bar_snapshot"
+        android:id="@+id/snapshotbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height" />
+    <include
         layout="@layout/title_bar_autologin"
         android:id="@+id/autologin"
         android:paddingTop="3dip"

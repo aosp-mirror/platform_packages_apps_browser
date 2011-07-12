@@ -82,9 +82,8 @@ public class PieControlPhone extends PieControlBase implements OnClickListener {
     @Override
     public void onClick(View v) {
         Tab tab = mUiController.getTabControl().getCurrentTab();
-        WebView web = tab.getWebView();
         if (mBack.getView() == v) {
-            web.goBack();
+            tab.goBack();
         } else if (mUrl.getView() == v) {
             mUi.editUrl(false);
         } else if (mShowTabs.getView() == v) {
