@@ -458,7 +458,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
 
         while (mStatus.getIteration() < loopCount) {
             if (clearCache) {
-                webView.clearCache(true);
+                clearCacheUiThread(webView, true);
             }
             while(iterator.hasNext()) {
                 page = iterator.next();
@@ -480,7 +480,7 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 waitForLoad();
                 long stopTime = System.currentTimeMillis();
 
-                String url = webView.getUrl();
+                String url = getUrlUiThread(webView);
                 Log.i(TAG, "finish: " + url);
 
                 if (writer != null) {
@@ -532,6 +532,46 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             if (bufferedReader != null) {
                 bufferedReader.close();
             }
+        }
+    }
+
+    private void clearCacheUiThread(final WebView webView, final boolean includeDiskFiles) {
+        Runnable runner = new Runnable() {
+
+            @Override
+            public void run() {
+                webView.clearCache(includeDiskFiles);
+            }
+        };
+        getInstrumentation().runOnMainSync(runner);
+    }
+
+    private String getUrlUiThread(final WebView webView) {
+        WebViewUrlGetter urlGetter = new WebViewUrlGetter(webView);
+        getInstrumentation().runOnMainSync(urlGetter);
+        return urlGetter.getUrl();
+    }
+
+    private class WebViewUrlGetter implements Runnable {
+
+        private WebView mWebView;
+        private String mUrl;
+
+        public WebViewUrlGetter(WebView webView) {
+            mWebView = webView;
+        }
+
+        @Override
+        public void run() {
+                mUrl = null;
+                mUrl = mWebView.getUrl();
+        }
+
+        public String getUrl() {
+            if (mUrl != null) {
+                return mUrl;
+            } else
+                throw new IllegalStateException("url has not been fetched yet");
         }
     }
 }
