@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Environment;
+import android.provider.Browser;
 import android.test.ActivityInstrumentationTestCase2;
 import android.text.TextUtils;
 import android.util.Log;
@@ -467,6 +468,8 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 Log.i(TAG, "start: " + page);
                 Uri uri = Uri.parse(page);
                 final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.putExtra(Browser.EXTRA_APPLICATION_ID,
+                    getInstrumentation().getTargetContext().getPackageName());
 
                 long startTime = System.currentTimeMillis();
                 resetForNewPage();
