@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -110,6 +109,8 @@ public abstract class BaseUi implements UI, OnTouchListener {
 
     private boolean mActivityPaused;
     protected boolean mUseQuickControls;
+    protected TitleBar mTitleBar;
+    private NavigationBarBase mNavigationBar;
 
     public BaseUi(Activity browser, UiController controller) {
         mActivity = browser;
@@ -140,6 +141,10 @@ public abstract class BaseUi implements UI, OnTouchListener {
                 config.getScaledOverscrollDistance());
         mTitlebarScrollTriggerSlop = Math.max(mTitlebarScrollTriggerSlop,
                 config.getScaledTouchSlop());
+        mTitleBar = new TitleBar(mActivity, mUiController, this,
+                mContentView);
+        mTitleBar.setProgress(100);
+        mNavigationBar = mTitleBar.getNavigationBar();
     }
 
     private void cancelStopToast() {
@@ -168,6 +173,10 @@ public abstract class BaseUi implements UI, OnTouchListener {
     }
 
     public void onConfigurationChanged(Configuration config) {
+    }
+
+    public Activity getActivity() {
+        return mActivity;
     }
 
     // key handling
@@ -205,7 +214,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
     public void bookmarkedStatusHasChanged(Tab tab) {
         if (tab.inForeground()) {
             boolean isBookmark = tab.isBookmarkedSite();
-            getTitleBar().setCurrentUrlIsBookmark(isBookmark);
+            mNavigationBar.setCurrentUrlIsBookmark(isBookmark);
         }
     }
 
@@ -248,10 +257,10 @@ public abstract class BaseUi implements UI, OnTouchListener {
         onTabDataChanged(tab);
         onProgressChanged(tab);
         boolean incognito = mActiveTab.getWebView().isPrivateBrowsingEnabled();
-        getTitleBar().setIncognitoMode(incognito);
+        mNavigationBar.setIncognitoMode(incognito);
         updateAutoLogin(tab, false);
         if (web != null && web.getVisibleTitleHeight()
-                != getTitleBar().getEmbeddedHeight()
+                != mTitleBar.getEmbeddedHeight()
                 && !mUseQuickControls) {
             showTitleBarForDuration();
         }
@@ -422,7 +431,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
             mUiController.endActionMode();
         }
         showTitleBar();
-        getTitleBar().startEditingUrl(clearInput);
+        mNavigationBar.startEditingUrl(clearInput);
     }
 
     boolean canShowTitleBar() {
@@ -433,27 +442,29 @@ public abstract class BaseUi implements UI, OnTouchListener {
                 && !mUiController.isInCustomActionMode();
     }
 
-    void showTitleBar() {
+    protected void showTitleBar() {
         if (canShowTitleBar()) {
-            getTitleBar().show();
+            mTitleBar.show();
         }
     }
 
     protected void hideTitleBar() {
-        if (getTitleBar().isShowing()) {
-            getTitleBar().hide();
+        if (mTitleBar.isShowing()) {
+            mTitleBar.hide();
         }
     }
 
     protected boolean isTitleBarShowing() {
-        return getTitleBar().isShowing();
+        return mTitleBar.isShowing();
     }
 
     public boolean isEditingUrl() {
-        return getTitleBar().isEditingUrl();
+        return mTitleBar.isEditingUrl();
     }
 
-    protected abstract TitleBarBase getTitleBar();
+    public TitleBar getTitleBar() {
+        return mTitleBar;
+    }
 
     protected void setTitleGravity(int gravity) {
         WebView web = getWebView();
@@ -464,20 +475,20 @@ public abstract class BaseUi implements UI, OnTouchListener {
 
     @Override
     public void showVoiceTitleBar(String title, List<String> results) {
-        getTitleBar().setInVoiceMode(true, results);
-        getTitleBar().setDisplayTitle(title);
+        mNavigationBar.setInVoiceMode(true, results);
+        mNavigationBar.setDisplayTitle(title);
     }
 
     @Override
     public void revertVoiceTitleBar(Tab tab) {
-        getTitleBar().setInVoiceMode(false, null);
+        mNavigationBar.setInVoiceMode(false, null);
         String url = tab.getUrl();
-        getTitleBar().setDisplayTitle(url);
+        mNavigationBar.setDisplayTitle(url);
     }
 
     @Override
     public void registerDropdownChangeListener(DropdownChangeListener d) {
-        getTitleBar().registerDropdownChangeListener(d);
+        mNavigationBar.registerDropdownChangeListener(d);
     }
 
     @Override
@@ -492,7 +503,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
         FrameLayout wrapper =
             (FrameLayout) mContentView.findViewById(R.id.webview_wrapper);
         wrapper.setVisibility(View.GONE);
-        getTitleBar().stopEditingUrl();
+        mNavigationBar.stopEditingUrl();
         dismissIME();
         hideTitleBar();
         if (mActiveTab != null) {
@@ -599,7 +610,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
     }
 
     protected void updateAutoLogin(Tab tab, boolean animate) {
-        getTitleBar().updateAutoLogin(tab, animate);
+        mTitleBar.updateAutoLogin(tab, animate);
     }
 
     /**
@@ -621,7 +632,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
         } else if (lockIconType == LockIcon.LOCK_ICON_MIXED) {
             d = mMixLockIcon;
         }
-        getTitleBar().setLock(d);
+        mNavigationBar.setLock(d);
     }
 
     protected void setUrlTitle(Tab tab) {
@@ -632,7 +643,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
         }
         if (tab.isInVoiceSearchMode()) return;
         if (tab.inForeground()) {
-            getTitleBar().setDisplayTitle(url);
+            mNavigationBar.setDisplayTitle(url);
         }
     }
 
@@ -640,7 +651,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
     protected void setFavicon(Tab tab) {
         if (tab.inForeground()) {
             Bitmap icon = tab.getFavicon();
-            getTitleBar().setFavicon(icon);
+            mNavigationBar.setFavicon(icon);
         }
     }
 
@@ -793,7 +804,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
         }
     }
 
-    protected Drawable getFaviconDrawable(Bitmap icon) {
+    public Drawable getFaviconDrawable(Bitmap icon) {
         Drawable[] array = new Drawable[3];
         array[0] = new PaintDrawable(Color.BLACK);
         PaintDrawable p = new PaintDrawable(Color.WHITE);
@@ -819,7 +830,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
      * as if the user is editing the URL bar or if the page is loading
      */
     public void suggestHideTitleBar() {
-        if (!isLoading() && !isEditingUrl()) {
+        if (!isLoading() && !isEditingUrl() && !mTitleBar.inAutoLogin()) {
             hideTitleBar();
         }
     }

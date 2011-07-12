@@ -35,4 +35,6 @@
     <dimen name="qc_thumb_height">160dip</dimen>
     <dimen name="qc_item_size">48dip</dimen>
     <dimen name="suggest_item_padding">16dp</dimen>
+    <dimen name="toolbar_height">48dip</dimen>
+    <dimen name="progress_bar_margin">-11dip</dimen>
 </resources>

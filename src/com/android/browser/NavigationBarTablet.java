@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The Android Open Source Project
+ * Copyright (C) 2011 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,38 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.android.browser;
 
-import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.util.List;
 
-/**
- * tabbed title bar for xlarge screen browser
- */
-public class TitleBarXLarge extends TitleBarBase
-        implements OnClickListener, OnFocusChangeListener, TextChangeWatcher,
-        DeviceAccountLogin.AutoLoginCallback {
-
-    private XLargeUi mUi;
+public class NavigationBarTablet extends NavigationBarBase {
 
     private Drawable mStopDrawable;
     private Drawable mReloadDrawable;
@@ -63,24 +46,34 @@ public class TitleBarXLarge extends TitleBarBase
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
 
-    public TitleBarXLarge(Activity activity, UiController controller,
-            XLargeUi ui, FrameLayout parent) {
-        super(activity, controller, ui, parent);
-        mUi = ui;
-        Resources resources = activity.getResources();
+    public NavigationBarTablet(Context context) {
+        super(context);
+        init(context);
+    }
+
+    public NavigationBarTablet(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    public NavigationBarTablet(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init(context);
+    }
+
+    private void init(Context context) {
+        Resources resources = context.getResources();
         mStopDrawable = resources.getDrawable(R.drawable.ic_stop_holo_dark);
         mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_holo_dark);
         mFocusDrawable = resources.getDrawable(
                 R.drawable.textfield_active_holo_dark);
         mUnfocusDrawable = resources.getDrawable(
                 R.drawable.textfield_default_holo_dark);
-        mInVoiceMode = false;
-        initLayout(activity, R.layout.url_bar);
     }
 
     @Override
-    protected void initLayout(Context context, int layoutId) {
-        super.initLayout(context, layoutId);
+    protected void onFinishInflate() {
+        super.onFinishInflate();
         mAllButton = findViewById(R.id.all_btn);
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
@@ -90,7 +83,6 @@ public class TitleBarXLarge extends TitleBarBase
         mStar = (ImageView) findViewById(R.id.star);
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = (ImageView) findViewById(R.id.search);
-        mLockIcon = (ImageView) findViewById(R.id.lock);
         mGoButton = findViewById(R.id.go);
         mClearButton = findViewById(R.id.clear);
         mVoiceSearch = (ImageView) findViewById(R.id.voicesearch);
@@ -106,6 +98,11 @@ public class TitleBarXLarge extends TitleBarBase
         mVoiceSearch.setOnClickListener(this);
         setUaSwitcher(mUrlIcon);
         mUrlInput.setContainer(mUrlContainer);
+    }
+
+    @Override
+    public void setTitleBar(TitleBar titleBar) {
+        super.setTitleBar(titleBar);
         setFocusState(false);
     }
 
@@ -127,7 +124,6 @@ public class TitleBarXLarge extends TitleBarBase
         mStar.setActivated(isBookmark);
     }
 
-
     @Override
     public void onClick(View v) {
         if (mBackButton == v) {
@@ -139,7 +135,7 @@ public class TitleBarXLarge extends TitleBarBase
         } else if (mAllButton == v) {
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mSearchButton == v) {
-            mUi.editUrl(true);
+            mBaseUi.editUrl(true);
         } else if (mStopButton == v) {
             stopOrRefresh();
         } else if (mGoButton == v) {
@@ -155,9 +151,6 @@ public class TitleBarXLarge extends TitleBarBase
             super.onClick(v);
         }
     }
-
-    @Override
-    void setFavicon(Bitmap icon) { }
 
     private void clearOrClose() {
         if (TextUtils.isEmpty(mUrlInput.getUserText())) {
@@ -189,7 +182,7 @@ public class TitleBarXLarge extends TitleBarBase
             mVoiceSearch.setVisibility(View.GONE);
             mStar.setVisibility(View.VISIBLE);
             mClearButton.setVisibility(View.GONE);
-            if (mUseQuickControls) {
+            if (mTitleBar.useQuickControls()) {
                 mSearchButton.setVisibility(View.GONE);
             } else {
                 mSearchButton.setVisibility(View.VISIBLE);
@@ -201,7 +194,7 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     private void stopOrRefresh() {
-        if (mInLoad) {
+        if (mTitleBar.isInLoad()) {
             mUiController.stopLoading();
         } else {
             mUiController.getCurrentTopWebView().reload();
@@ -209,12 +202,12 @@ public class TitleBarXLarge extends TitleBarBase
     }
 
     @Override
-    protected void onProgressStarted() {
+    public void onProgressStarted() {
         mStopButton.setImageDrawable(mStopDrawable);
     }
 
     @Override
-    protected void onProgressStopped() {
+    public void onProgressStopped() {
         mStopButton.setImageDrawable(mReloadDrawable);
     }
 
@@ -238,14 +231,6 @@ public class TitleBarXLarge extends TitleBarBase
         if (voicemode) {
             mUrlIcon.setImageDrawable(mSearchButton.getDrawable());
         }
-    }
-
-    @Override
-    public View focusSearch(View focused, int dir) {
-        if (FOCUS_DOWN == dir && hasFocus()) {
-            return getCurrentWebView();
-        }
-        return super.focusSearch(focused, dir);
     }
 
 }
