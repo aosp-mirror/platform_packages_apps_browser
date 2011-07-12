@@ -69,8 +69,6 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     void editUrl();
 
-    void removeActiveTabsPage(boolean attach);
-
     void handleNewIntent(Intent intent);
 
     boolean shouldShowErrorConsole();

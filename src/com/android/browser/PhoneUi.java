@@ -34,7 +34,6 @@ public class PhoneUi extends BaseUi {
 
     private static final String LOGTAG = "PhoneUi";
 
-    private ActiveTabsPage mActiveTabsPage;
     private PieControlPhone mPieControl;
     private NavScreen mNavScreen;
     private NavigationBarPhone mNavigationBar;
@@ -60,20 +59,6 @@ public class PhoneUi extends BaseUi {
         mActivity.getActionBar().hide();
     }
 
-    // lifecycle
-
-    @Override
-    public void onPause() {
-        // FIXME: This removes the active tabs page and resets the menu to
-        // MAIN_MENU.  A better solution might be to do this work in onNewIntent
-        // but then we would need to save it in onSaveInstanceState and restore
-        // it in onCreate/onRestoreInstanceState
-        if (mActiveTabsPage != null) {
-            mUiController.removeActiveTabsPage(true);
-        }
-        super.onPause();
-    }
-
     @Override
     public void onDestroy() {
         hideTitleBar();
@@ -89,11 +74,7 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean onBackKey() {
-        if (mActiveTabsPage != null) {
-            // if tab page is showing, hide it
-            mUiController.removeActiveTabsPage(true);
-            return true;
-        } else if (mNavScreen != null) {
+        if (mNavScreen != null) {
             mNavScreen.close();
             return true;
         }
@@ -147,7 +128,6 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void setActiveTab(final Tab tab) {
-        captureTab(mActiveTab);
         super.setActiveTab(tab);
         BrowserWebView view = (BrowserWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
@@ -186,39 +166,12 @@ public class PhoneUi extends BaseUi {
         }
     }
 
-    // active tabs page
-
-    @Override
-    public void showActiveTabsPage() {
-        captureTab(mActiveTab);
-        mActiveTabsPage = new ActiveTabsPage(mActivity, mUiController);
-        mTitleBar.setVisibility(View.GONE);
-        hideTitleBar();
-        mContentView.addView(mActiveTabsPage, COVER_SCREEN_PARAMS);
-        mActiveTabsPage.requestFocus();
-    }
-
-    /**
-     * Remove the active tabs page.
-     */
-    @Override
-    public void removeActiveTabsPage() {
-        mContentView.removeView(mActiveTabsPage);
-        mTitleBar.setVisibility(View.VISIBLE);
-        mActiveTabsPage = null;
-    }
-
     @Override
     public void showComboView(ComboViews startWith, Bundle extras) {
         if (mNavScreen != null) {
             hideNavScreen(false);
         }
         super.showComboView(startWith, extras);
-    }
-
-    @Override
-    public boolean showsWeb() {
-        return super.showsWeb() && mActiveTabsPage == null;
     }
 
     // menu handling callbacks
@@ -289,15 +242,6 @@ public class PhoneUi extends BaseUi {
                 web.setOnTouchListener(this);
             }
             setTitleGravity(Gravity.NO_GRAVITY);
-        }
-    }
-
-    @Override
-    protected void captureTab(final Tab tab) {
-        if (tab == null) return;
-        BrowserWebView web = (BrowserWebView) tab.getWebView();
-        if (web != null) {
-            tab.setScreenshot(web.capture());
         }
     }
 

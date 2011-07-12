@@ -26,11 +26,14 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Picture;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.security.KeyChain;
@@ -57,6 +60,7 @@ import android.webkit.WebHistoryItem;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
+import android.webkit.WebView.PictureListener;
 import android.webkit.WebViewClient;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -79,7 +83,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * Class for maintaining Tabs with a main WebView and a subwindow.
  */
-class Tab {
+class Tab implements PictureListener {
 
     // Log Tag
     private static final String LOGTAG = "Tab";
@@ -87,6 +91,9 @@ class Tab {
     // filter them and match the logtag used for these messages in older versions
     // of the browser.
     private static final String CONSOLE_LOGTAG = "browser";
+
+    private static final int MSG_CAPTURE = 42;
+    private static final int CAPTURE_DELAY = 500;
 
     public enum LockIcon {
         LOCK_ICON_UNSECURE,
@@ -148,8 +155,12 @@ class Tab {
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
 
-    private Bitmap mScreenshot;
     private BrowserSettings mSettings;
+    private int mCaptureWidth;
+    private int mCaptureHeight;
+    private Bitmap mCapture;
+    private Handler mHandler;
+
 
     // All the state needed for a page
     protected static class PageState {
@@ -1383,6 +1394,16 @@ class Tab {
         };
 
         setWebView(w);
+        mCaptureWidth = mContext.getResources().getDimensionPixelSize(R.dimen.nav_tab_width);
+        mCaptureHeight = mContext.getResources().getDimensionPixelSize(R.dimen.nav_tab_height);
+        mCapture = Bitmap.createBitmap(mCaptureWidth, mCaptureHeight,
+                Bitmap.Config.RGB_565);
+        mHandler = new Handler() {
+            public void handleMessage(Message m) {
+                Tab.this.capture();
+            }
+        };
+
     }
 
     public void setController(WebViewController ctl) {
@@ -1426,6 +1447,7 @@ class Tab {
             // switched to another tab while waiting for the download to start.
             mMainView.setDownloadListener(mDownloadListener);
             mMainView.setWebBackForwardListClient(mWebBackForwardListClient);
+            mMainView.setPictureListener(this);
         }
     }
 
@@ -1780,9 +1802,9 @@ class Tab {
     }
 
     Bundle getSavedState(boolean saveImages) {
-        if (saveImages && mScreenshot != null) {
+        if (saveImages && mCapture != null) {
             Bundle b = new Bundle(mSavedState);
-            b.putParcelable(SCREENSHOT, mScreenshot);
+            b.putParcelable(SCREENSHOT, mCapture);
             return b;
         }
         return mSavedState;
@@ -1841,7 +1863,10 @@ class Tab {
         mSavedState = null;
         mId = b.getLong(ID);
         mAppId = b.getString(APPID);
-        mScreenshot = b.getParcelable(SCREENSHOT);
+        final Bitmap sshot = b.getParcelable(SCREENSHOT);
+        if (sshot != null) {
+            mCapture = sshot;
+        }
         if (b.getBoolean(USERAGENT)
                 != mSettings.hasDesktopUseragent(getWebView())) {
             mSettings.toggleDesktopUseragent(getWebView());
@@ -1870,11 +1895,11 @@ class Tab {
     };
 
     public void setScreenshot(Bitmap screenshot) {
-        mScreenshot = screenshot;
+        mCapture = screenshot;
     }
 
     public Bitmap getScreenshot() {
-        return mScreenshot;
+        return mCapture;
     }
 
     public boolean isSnapshot() {
@@ -1924,6 +1949,25 @@ class Tab {
             mCurrentState = new PageState(mContext, false, url, null);
             mWebViewController.onPageStarted(this, mMainView, null);
             mMainView.loadUrl(url, headers);
+        }
+    }
+
+    protected void capture() {
+        if (mMainView == null || mCapture == null) return;
+        Canvas c = new Canvas(mCapture);
+        final int left = mMainView.getScrollX();
+        final int top = mMainView.getScrollY() + mMainView.getVisibleTitleHeight();
+        c.translate(-left, -top);
+        float scale = mCaptureWidth / (float) mMainView.getWidth();
+        c.scale(scale, scale, left, top);
+        mMainView.draw(c);
+    }
+
+    @Override
+    public void onNewPicture(WebView view, Picture picture) {
+        //update screenshot
+        if (!mHandler.hasMessages(MSG_CAPTURE)) {
+            mHandler.sendEmptyMessageDelayed(MSG_CAPTURE, CAPTURE_DELAY);
         }
     }
 

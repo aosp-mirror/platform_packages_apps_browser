@@ -26,8 +26,6 @@
     <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
     <string name="new_incognito_tab">New incognito window</string>
-    <!-- Name of menu item which brings up a list of the currently active tabs -->
-    <string name="active_tabs">Windows</string>
     <!-- Name of tab containing bookmarks -->
     <string name="tab_bookmarks">Bookmarks</string>
     <!-- Name of tab containing the user's most visited websites, organized by number of visits -->

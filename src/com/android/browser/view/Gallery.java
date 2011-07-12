@@ -261,9 +261,7 @@ public class Gallery extends ViewGroup implements
 
     @Override
     protected boolean getChildStaticTransformation(View child, Transformation t) {
-        t.clear();
-        t.setAlpha(child == mSelectedChild ? 1.0f : mUnselectedAlpha);
-        return true;
+        return false;
     }
 
     @Override
@@ -393,8 +391,6 @@ public class Gallery extends ViewGroup implements
             // Similarly, empty space on the left
             fillToGalleryLeft();
         }
-        // Clear unused views
-        mRecycler.clear();
         setSelectionToCenterChild();
         invalidate();
     }

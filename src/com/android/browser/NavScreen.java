@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
-import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,9 +57,6 @@ public class NavScreen extends RelativeLayout
     ImageButton mCloseTab;
 
     NavTabGallery mScroller;
-    float mTabAspect = 0.66f;
-    int mTabWidth;
-    int mTabHeight;
     TabAdapter mAdapter;
     int mOrientation;
 
@@ -200,25 +196,6 @@ public class NavScreen extends RelativeLayout
         mUi.hideNavScreen(animate);
     }
 
-    class TabGallery extends Gallery {
-
-        public TabGallery(Context ctx) {
-            super(ctx);
-            setUnselectedAlpha(0.3f);
-        }
-
-       @Override
-       protected ViewGroup.LayoutParams generateDefaultLayoutParams() {
-           return new Gallery.LayoutParams(mTabWidth, mTabHeight);
-       }
-
-       @Override
-       protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams lp) {
-           return generateDefaultLayoutParams();
-       }
-
-    }
-
     class TabAdapter extends BaseAdapter {
 
         Context context;
@@ -247,7 +224,6 @@ public class NavScreen extends RelativeLayout
         public View getView(final int position, View convertView, ViewGroup parent) {
             final NavTabView tabview = new NavTabView(mActivity);
             final Tab tab = getItem(position);
-            final BrowserWebView web = (BrowserWebView) tab.getWebView();
             tabview.setWebView(mUi, tab);
             tabview.setOnClickListener(new OnClickListener() {
                 @Override

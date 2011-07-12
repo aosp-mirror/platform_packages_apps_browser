@@ -1223,28 +1223,6 @@ public class Controller
         mUi.hideComboView();
     }
 
-    // active tabs page handling
-
-    protected void showActiveTabsPage() {
-        mMenuState = EMPTY_MENU;
-        mUi.showActiveTabsPage();
-    }
-
-    /**
-     * Remove the active tabs page.
-     * @param needToAttach If true, the active tabs page did not attach a tab
-     *                     to the content view, so we need to do that here.
-     */
-    @Override
-    public void removeActiveTabsPage(boolean needToAttach) {
-        mMenuState = R.id.MAIN_MENU;
-        mUi.removeActiveTabsPage();
-        if (needToAttach) {
-            setActiveTab(mTabControl.getCurrentTab());
-        }
-        getCurrentTopWebView().requestFocus();
-    }
-
     // key handling
     protected void onBackKey() {
         if (!mUi.onBackKey()) {
@@ -1570,10 +1548,6 @@ public class Controller
 
             case R.id.bookmarks_menu_id:
                 bookmarksOrHistoryPicker(false);
-                break;
-
-            case R.id.active_tabs_menu_id:
-                showActiveTabsPage();
                 break;
 
             case R.id.add_bookmark_menu_id:

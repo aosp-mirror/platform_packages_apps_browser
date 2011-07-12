@@ -48,11 +48,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <FrameLayout
+    <ImageView
         android:id="@+id/tab_view"
         android:layout_width="@dimen/nav_tab_width"
         android:layout_height="@dimen/nav_tab_height"
         android:layout_gravity="center_horizontal"
-        android:focusable="false">
-    </FrameLayout>
+        android:focusable="false" />
 </LinearLayout>

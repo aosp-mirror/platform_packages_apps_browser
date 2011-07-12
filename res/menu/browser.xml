@@ -30,11 +30,6 @@
                 android:alphabeticShortcut="b"
                 android:icon="@drawable/ic_bookmarks_holo_dark" />
             <item
-                android:id="@+id/active_tabs_menu_id"
-                android:title="@string/active_tabs"
-                android:icon="@drawable/ic_windows_holo_dark"
-                android:alphabeticShortcut="t" />
-            <item
                 android:id="@+id/stop_reload_menu_id"
                 android:alphabeticShortcut="r" />
             <item

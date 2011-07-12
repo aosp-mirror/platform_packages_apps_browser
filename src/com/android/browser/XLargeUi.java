@@ -167,11 +167,6 @@ public class XLargeUi extends BaseUi {
     public void setActiveTab(final Tab tab) {
         mTitleBar.cancelTitleBarAnimation(true);
         mTitleBar.setSkipTitleBarAnimations(true);
-        if (mUseQuickControls) {
-            if (mActiveTab != null) {
-                captureTab(mActiveTab);
-            }
-        }
         super.setActiveTab(tab);
         BrowserWebView view = (BrowserWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,

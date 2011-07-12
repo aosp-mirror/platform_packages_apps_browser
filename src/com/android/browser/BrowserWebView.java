@@ -17,13 +17,9 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.WebView;
-
-import com.android.browser.NavTabView.WebProxyView;
 
 import java.util.Map;
 
@@ -34,9 +30,6 @@ public class BrowserWebView extends WebView {
 
     private boolean mBackgroundRemoved = false;
     private TitleBar mTitleBar;
-    private int mCaptureSize;
-    private Bitmap mCapture;
-    private WebProxyView mProxyView;
 
     /**
      * @param context
@@ -57,7 +50,6 @@ public class BrowserWebView extends WebView {
     public BrowserWebView(
             Context context, AttributeSet attrs, int defStyle, boolean privateBrowsing) {
         super(context, attrs, defStyle, privateBrowsing);
-        init();
     }
 
     /**
@@ -66,7 +58,6 @@ public class BrowserWebView extends WebView {
      */
     public BrowserWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     /**
@@ -74,25 +65,6 @@ public class BrowserWebView extends WebView {
      */
     public BrowserWebView(Context context) {
         super(context);
-        init();
-    }
-
-    private void init() {
-        mCaptureSize = mContext.getResources().getDimensionPixelSize(R.dimen.tab_capture_size);
-        mCapture = Bitmap.createBitmap(mCaptureSize, mCaptureSize,
-                Bitmap.Config.RGB_565);
-    }
-
-    protected void setProxyView(WebProxyView p) {
-        mProxyView = p;
-    }
-
-    @Override
-    public void invalidate() {
-        super.invalidate();
-        if (mProxyView != null) {
-            mProxyView.invalidate();
-        }
     }
 
     @Override
@@ -112,18 +84,6 @@ public class BrowserWebView extends WebView {
 
     public boolean hasTitleBar() {
         return (mTitleBar != null);
-    }
-
-    protected Bitmap capture() {
-        if (mCapture == null) return null;
-        Canvas c = new Canvas(mCapture);
-        final int left = getScrollX();
-        final int top = getScrollY() + getVisibleTitleHeight();
-        c.translate(-left, -top);
-        float scale = mCaptureSize / (float) Math.max(getWidth(), getHeight());
-        c.scale(scale, scale, left, top);
-        onDraw(c);
-        return mCapture;
     }
 
     @Override

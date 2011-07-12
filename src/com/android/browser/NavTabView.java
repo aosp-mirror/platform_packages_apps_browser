@@ -17,16 +17,10 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,12 +28,10 @@ import android.widget.TextView;
 public class NavTabView extends LinearLayout {
 
     private Tab mTab;
-    private BrowserWebView mWebView;
-    private WebProxyView mProxy;
     private ImageView mClose;
-    private FrameLayout mContainer;
     private TextView mTitle;
     private View mTitleBar;
+    private ImageView mImage;
     private OnClickListener mClickListener;
     private boolean mHighlighted;
 
@@ -60,10 +52,10 @@ public class NavTabView extends LinearLayout {
 
     private void init() {
         LayoutInflater.from(mContext).inflate(R.layout.nav_tab_view, this);
-        mContainer = (FrameLayout) findViewById(R.id.tab_view);
         mClose = (ImageView) findViewById(R.id.closetab);
         mTitle = (TextView) findViewById(R.id.title);
         mTitleBar = findViewById(R.id.titlebar);
+        mImage = (ImageView) findViewById(R.id.tab_view);
     }
 
     protected boolean isClose(View v) {
@@ -75,7 +67,7 @@ public class NavTabView extends LinearLayout {
     }
 
     protected boolean isWebView(View v) {
-        return v == mProxy;
+        return v == mImage;
     }
 
     protected void setHighlighted(boolean highlighted) {
@@ -103,12 +95,9 @@ public class NavTabView extends LinearLayout {
     protected void setWebView(PhoneUi ui, Tab tab) {
         mTab = tab;
         setTitle();
-        BrowserWebView web = (BrowserWebView) tab.getWebView();
-        if (web != null) {
-            mWebView = web;
-            removeFromParent(mWebView);
-            mProxy = new WebProxyView(mContext, mWebView);
-            mContainer.addView(mProxy, 0);
+        Bitmap image = tab.getScreenshot();
+        if (image != null) {
+            mImage.setImageBitmap(image);
         }
     }
 
@@ -121,52 +110,9 @@ public class NavTabView extends LinearLayout {
         mClickListener = listener;
         mTitleBar.setOnClickListener(mClickListener);
         mClose.setOnClickListener(mClickListener);
-        if (mProxy != null) {
-            mProxy.setOnClickListener(mClickListener);
+        if (mImage != null) {
+            mImage.setOnClickListener(mClickListener);
         }
-    }
-
-    @Override
-    public void onDetachedFromWindow() {
-        if (mWebView != null) {
-            mWebView.setProxyView(null);
-        }
-    }
-
-    @Override
-    public void onAttachedToWindow() {
-        if (mWebView != null) {
-            mWebView.invalidate();
-        }
-    }
-
-    private static void removeFromParent(View v) {
-        if (v.getParent() != null) {
-            ((ViewGroup) v.getParent()).removeView(v);
-        }
-    }
-
-    static class WebProxyView extends View {
-
-        private BrowserWebView mWeb;
-
-        public WebProxyView(Context context, BrowserWebView web) {
-            super(context);
-            setWillNotDraw(false);
-            mWeb = web;
-            mWeb.setProxyView(this);
-
-        }
-
-        public void onDraw(Canvas c) {
-            float scale = 0.7f;
-            int sx = mWeb.getScrollX();
-            int sy = mWeb.getScrollY();
-            c.scale(scale, scale);
-            c.translate(-sx, -sy);
-            mWeb.onDraw(c);
-        }
-
     }
 
 }
