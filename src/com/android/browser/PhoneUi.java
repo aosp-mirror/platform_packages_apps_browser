@@ -322,4 +322,9 @@ public class PhoneUi extends BaseUi {
         mContentView.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public boolean needsRestoreAllTabs() {
+        return false;
+    }
+
 }
