@@ -154,4 +154,10 @@ public class FolderSpinnerAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void clearRecentFolder() {
+        if (mIncludesRecentFolder) {
+            mIncludesRecentFolder = false;
+            notifyDataSetChanged();
+        }
+    }
 }

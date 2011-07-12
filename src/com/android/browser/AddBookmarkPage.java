@@ -959,6 +959,7 @@ public class AddBookmarkPage extends Activity
             long root = mAccountAdapter.getItem(position).rootFolderId;
             if (root != mRootFolder) {
                 onRootFolderFound(root);
+                mFolderAdapter.clearRecentFolder();
             }
         }
     }
