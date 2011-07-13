@@ -224,6 +224,7 @@ public class Gallery extends ViewGroup implements
                 // Nothing selected
                 checkSelectionChanged();
             }
+            layout(0, false);
         } else {
             // checkFocus();
             mOldSelectedPosition = INVALID_POSITION;
@@ -231,6 +232,7 @@ public class Gallery extends ViewGroup implements
             resetList();
             // Nothing selected
             checkSelectionChanged();
+            invalidate();
         }
     }
 
@@ -240,7 +242,6 @@ public class Gallery extends ViewGroup implements
     void resetList() {
         mDataChanged = false;
         removeAllViewsInLayout();
-        invalidate();
     }
 
     public void setCallbackDuringFling(boolean shouldCallback) {

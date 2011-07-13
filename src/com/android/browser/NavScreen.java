@@ -156,8 +156,11 @@ public class NavScreen extends RelativeLayout
 
     private void onCloseTab(Tab tab) {
         if (tab != null) {
-            switchToSelected();
-            mUiController.closeCurrentTab();
+            if (tab == mUiController.getCurrentTab()) {
+                mUiController.closeCurrentTab();
+            } else {
+                mUiController.closeTab(tab);
+            }
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -229,8 +232,10 @@ public class NavScreen extends RelativeLayout
                 @Override
                 public void onClick(View v) {
                     if (tabview.isClose(v)) {
-                        onCloseTab((Tab) (mScroller.getSelectedItem()));
+                        onCloseTab(tab);
                     } else if (tabview.isTitle(v)) {
+                        mScroller.setSelection(position);
+                        switchToSelected();
                         mUi.getTitleBar().setSkipTitleBarAnimations(true);
                         close(false);
                         mUi.editUrl(false);
@@ -238,7 +243,6 @@ public class NavScreen extends RelativeLayout
                     } else if (tabview.isWebView(v)) {
                         mScroller.setSelection(position);
                         close();
-
                     }
                 }
             });
