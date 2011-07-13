@@ -297,10 +297,12 @@ class TabControl {
         long[] ids = new long[numTabs];
         int i = 0;
         for (Tab tab : mTabs) {
-            ids[i++] = tab.getId();
             if (tab.saveState()) {
+                ids[i++] = tab.getId();
                 outState.putBundle(Long.toString(tab.getId()),
                         tab.getSavedState(saveImages));
+            } else {
+                ids[i++] = -1;
             }
         }
         if (!outState.isEmpty()) {
@@ -327,19 +329,32 @@ class TabControl {
         }
         final long oldcurrent = inState.getLong(CURRENT);
         long current = -1;
-        if (restoreIncognitoTabs ||
-                !inState.getBundle(Long.toString(oldcurrent)).getBoolean(Tab.INCOGNITO)) {
+        if (restoreIncognitoTabs || (hasState(oldcurrent, inState) && !isIncognito(oldcurrent, inState))) {
                 current = oldcurrent;
         } else {
             // pick first non incognito tab
             for (long id : ids) {
-                if (!inState.getBundle(Long.toString(id)).getBoolean(Tab.INCOGNITO)) {
+                if (hasState(id, inState) && !isIncognito(id, inState)) {
                     current = id;
                     break;
                 }
             }
         }
         return current;
+    }
+
+    private boolean hasState(long id, Bundle state) {
+        if (id == -1) return false;
+        Bundle tab = state.getBundle(Long.toString(id));
+        return ((tab != null) && !tab.isEmpty());
+    }
+
+    private boolean isIncognito(long id, Bundle state) {
+        Bundle tabstate = state.getBundle(Long.toString(id));
+        if ((tabstate != null) && !tabstate.isEmpty()) {
+            return tabstate.getBoolean(Tab.INCOGNITO);
+        }
+        return false;
     }
 
     /**
