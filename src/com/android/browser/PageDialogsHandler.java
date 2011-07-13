@@ -306,32 +306,23 @@ public class PageDialogsHandler {
         final LinearLayout placeholder =
                 (LinearLayout)certificateView.findViewById(com.android.internal.R.id.placeholder);
 
+        LinearLayout ll = (LinearLayout)factory.inflate(R.layout.ssl_warning, placeholder);
+        TextView textView = (TextView)ll.findViewById(R.id.warning);
+
         if (error.hasError(SslError.SSL_UNTRUSTED)) {
-            LinearLayout ll = (LinearLayout)factory
-                .inflate(R.layout.ssl_warning, placeholder);
-            ((TextView)ll.findViewById(R.id.warning))
-                .setText(R.string.ssl_untrusted);
-        }
-
-        if (error.hasError(SslError.SSL_IDMISMATCH)) {
-            LinearLayout ll = (LinearLayout)factory
-                .inflate(R.layout.ssl_warning, placeholder);
-            ((TextView)ll.findViewById(R.id.warning))
-                .setText(R.string.ssl_mismatch);
-        }
-
-        if (error.hasError(SslError.SSL_EXPIRED)) {
-            LinearLayout ll = (LinearLayout)factory
-                .inflate(R.layout.ssl_warning, placeholder);
-            ((TextView)ll.findViewById(R.id.warning))
-                .setText(R.string.ssl_expired);
-        }
-
-        if (error.hasError(SslError.SSL_NOTYETVALID)) {
-            LinearLayout ll = (LinearLayout)factory
-                .inflate(R.layout.ssl_warning, placeholder);
-            ((TextView)ll.findViewById(R.id.warning))
-                .setText(R.string.ssl_not_yet_valid);
+            textView.setText(R.string.ssl_untrusted);
+        } else if (error.hasError(SslError.SSL_IDMISMATCH)) {
+            textView.setText(R.string.ssl_mismatch);
+        } else if (error.hasError(SslError.SSL_EXPIRED)) {
+            textView.setText(R.string.ssl_expired);
+        } else if (error.hasError(SslError.SSL_NOTYETVALID)) {
+            textView.setText(R.string.ssl_not_yet_valid);
+        } else if (error.hasError(SslError.SSL_DATE_INVALID)) {
+            textView.setText(R.string.ssl_date_invalid);
+        } else if (error.hasError(SslError.SSL_INVALID)) {
+            textView.setText(R.string.ssl_invalid);
+        } else {
+            textView.setText(R.string.ssl_unknown);
         }
 
         mSSLCertificateOnErrorHandler = handler;

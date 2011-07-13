@@ -90,7 +90,13 @@
     <string name="ssl_expired">This certificate has expired.</string>
     <!-- Message in an SSL Error dialog -->
     <string name="ssl_not_yet_valid">This certificate is not valid yet.</string>
-    
+    <!-- Message in an SSL Error dialog -->
+    <string name="ssl_date_invalid">This certificate has an invalid date.</string>
+    <!-- Message in an SSL Error dialog -->
+    <string name="ssl_invalid">This certificate is invalid.</string>
+    <!-- Message in an SSL Error dialog -->
+    <string name="ssl_unknown">Unknown certificate error.</string>
+
     <!-- Toast informing the user that loading has stopped for the current page. -->
     <string name="stopping">Stopping\u2026</string>
     <!-- Menu item to stop the current page from loading. -->
