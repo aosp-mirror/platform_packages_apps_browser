@@ -27,6 +27,8 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
+import com.android.browser.UrlInputView.StateListener;
+
 /**
  * Ui for regular phone screen sizes
  */
@@ -150,6 +152,8 @@ public class PhoneUi extends BaseUi {
         } else {
             revertVoiceTitleBar(tab);
         }
+        // update nav bar state
+        mNavigationBar.onStateChanged(StateListener.STATE_NORMAL);
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
     }
