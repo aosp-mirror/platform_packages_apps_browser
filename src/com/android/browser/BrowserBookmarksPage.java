@@ -26,8 +26,6 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -36,7 +34,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Accounts;
 import android.provider.BrowserContract.ChromeSyncColumns;
@@ -53,7 +50,6 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
 
 import com.android.browser.BookmarkDragHandler.BookmarkDragController;
@@ -67,7 +63,7 @@ interface BookmarksPageCallbacks {
     // Return true if handled
     boolean onBookmarkSelected(Cursor c, boolean isFolder);
     // Return true if handled
-    boolean onOpenInNewWindow(Cursor c);
+    boolean onOpenInNewWindow(String... urls);
 }
 
 /**
@@ -75,7 +71,7 @@ interface BookmarksPageCallbacks {
  */
 public class BrowserBookmarksPage extends Fragment implements View.OnCreateContextMenuListener,
         LoaderManager.LoaderCallbacks<Cursor>, BreadCrumbView.Controller,
-        OnMenuItemClickListener, OnChildClickListener {
+        OnChildClickListener {
 
     public static class ExtraDragState {
         public int childPosition;
@@ -94,7 +90,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
     public static final int VIEW_THUMBNAILS = 1;
     public static final int VIEW_LIST = 2;
-    static final String PREF_SELECTED_VIEW = "bookmarks_view";
 
     BookmarksPageCallbacks mCallbacks;
     View mRoot;
@@ -102,7 +97,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     boolean mDisableNewWindow;
     boolean mEnableContextMenu = true;
     View mEmptyView;
-    int mCurrentView;
     View mHeader;
     HashMap<Integer, BrowserBookmarksAdapter> mBookmarkAdapters = new HashMap<Integer, BrowserBookmarksAdapter>();
     BookmarkDragHandler mDragHandler;
@@ -142,7 +136,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 args.putString(ACCOUNT_NAME, accountName);
                 args.putString(ACCOUNT_TYPE, accountType);
                 BrowserBookmarksAdapter adapter = new BrowserBookmarksAdapter(
-                        getActivity(), mCurrentView);
+                        getActivity(), VIEW_THUMBNAILS);
                 mBookmarkAdapters.put(id, adapter);
                 mGrid.addAccount(accountName, adapter);
                 lm.restartLoader(id, args, this);
@@ -252,11 +246,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     };
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.bookmark, menu);
-    }
-
-    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         BookmarkContextMenuInfo info = (BookmarkContextMenuInfo) menuInfo;
         BrowserBookmarksAdapter adapter = getChildAdapter(info.groupPosition);
@@ -319,13 +308,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        SharedPreferences prefs = PreferenceManager
-            .getDefaultSharedPreferences(getActivity());
-        mCurrentView = prefs.getInt(PREF_SELECTED_VIEW, getDefaultView());
-
         Bundle args = getArguments();
         mDisableNewWindow = args == null ? false : args.getBoolean(EXTRA_DISABLE_WINDOW, false);
-
         setHasOptionsMenu(true);
     }
 
@@ -348,13 +332,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         lm.restartLoader(LOADER_ACCOUNTS, null, this);
 
         return mRoot;
-    }
-
-     private int getDefaultView() {
-        if (BrowserActivity.isTablet(getActivity())) {
-            return VIEW_THUMBNAILS;
-        }
-        return VIEW_LIST;
     }
 
     @Override
@@ -425,7 +402,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 long id = c.getLong(BookmarksLoader.COLUMN_INDEX_ID);
                 new OpenAllInTabsTask(id).execute();
             } else {
-                mCallbacks.onOpenInNewWindow(c);
+                mCallbacks.onOpenInNewWindow(BrowserBookmarksPage.getUrl(c));
             }
         }
     }
@@ -447,10 +424,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
         @Override
         protected void onPostExecute(Cursor result) {
-            if (mCallbacks != null) {
+            if (mCallbacks != null && result.getCount() > 0) {
+                String[] urls = new String[result.getCount()];
+                int i = 0;
                 while (result.moveToNext()) {
-                    mCallbacks.onOpenInNewWindow(result);
+                    urls[i++] = BrowserBookmarksPage.getUrl(result);
                 }
+                mCallbacks.onOpenInNewWindow(urls);
             }
         }
 
@@ -505,19 +485,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.thumbnail_view:
-            selectView(VIEW_THUMBNAILS);
-            return true;
-        case R.id.list_view:
-            selectView(VIEW_LIST);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         Resources res = getActivity().getResources();
@@ -525,28 +492,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         int paddingTop = (int) res.getDimension(R.dimen.combo_paddingTop);
         mRoot.setPadding(0, paddingTop, 0, 0);
         getActivity().invalidateOptionsMenu();
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.list_view).setVisible(mCurrentView != VIEW_LIST);
-        menu.findItem(R.id.thumbnail_view).setVisible(mCurrentView != VIEW_THUMBNAILS);
-    }
-
-    void selectView(int view) {
-        if (view == mCurrentView) {
-            return;
-        }
-        mCurrentView = view;
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        Editor edit = prefs.edit();
-        edit.putInt(PREF_SELECTED_VIEW, mCurrentView);
-        edit.apply();
-        if (mEmptyView.getVisibility() == View.VISIBLE) {
-            return;
-        }
-        mGrid.selectView(mCurrentView);
     }
 
     /**
@@ -573,19 +518,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 manager.getLoader(LOADER_BOOKMARKS + groupPosition));
         loader.setUri(uri);
         loader.forceLoad();
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.list_view:
-            selectView(BrowserBookmarksPage.VIEW_LIST);
-            return true;
-        case R.id.thumbnail_view:
-            selectView(BrowserBookmarksPage.VIEW_THUMBNAILS);
-            return true;
-        }
-        return false;
     }
 
     public boolean onBackPressed() {

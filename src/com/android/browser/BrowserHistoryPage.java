@@ -29,7 +29,6 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -38,9 +37,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Combined;
@@ -66,6 +63,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.browser.CombinedBookmarkHistoryView.CombinedBookmarksCallbacks;
+
 /**
  * Activity for displaying the browser's history, divided into
  * days of viewing.
@@ -76,7 +75,7 @@ public class BrowserHistoryPage extends Fragment
     static final int LOADER_HISTORY = 1;
     static final int LOADER_MOST_VISITED = 2;
 
-    BookmarksHistoryCallbacks mCallbacks;
+    CombinedBookmarksCallbacks mCallback;
     HistoryAdapter mAdapter;
     HistoryChildWrapper mChildWrapper;
     boolean mDisableNewWindow;
@@ -125,17 +124,15 @@ public class BrowserHistoryPage extends Fragment
         cm.setText(text);
     }
 
-    static BrowserHistoryPage newInstance(BookmarksHistoryCallbacks cb, Bundle args) {
+    static BrowserHistoryPage newInstance(CombinedBookmarksCallbacks cb, Bundle args) {
         BrowserHistoryPage bhp = new BrowserHistoryPage();
-        bhp.mCallbacks = cb;
+        bhp.mCallback = cb;
         bhp.setArguments(args);
         return bhp;
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getActivity());
         Uri.Builder combinedBuilder = Combined.CONTENT_URI.buildUpon();
 
         switch (id) {
@@ -289,14 +286,14 @@ public class BrowserHistoryPage extends Fragment
         @Override
         public void onItemClick(
                 AdapterView<?> parent, View view, int position, long id) {
-            mCallbacks.onUrlSelected(((HistoryItem) view).getUrl(), false);
+            mCallback.openUrl(((HistoryItem) view).getUrl());
         }
     };
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View view,
             int groupPosition, int childPosition, long id) {
-        mCallbacks.onUrlSelected(((HistoryItem) view).getUrl(), false);
+        mCallback.openUrl(((HistoryItem) view).getUrl());
         return true;
     }
 
@@ -310,56 +307,49 @@ public class BrowserHistoryPage extends Fragment
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.history, menu);
+    }
+
+    void promptToClearHistory() {
+        final ContentResolver resolver = getActivity().getContentResolver();
+        final ClearHistoryTask clear = new ClearHistoryTask(resolver);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.clear)
+                .setMessage(R.string.pref_privacy_clear_history_dlg)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+                         if (which == DialogInterface.BUTTON_POSITIVE) {
+                             clear.start();
+                         }
+                     }
+                });
+        final Dialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.clear_history_menu_id:
-                final ContentResolver resolver = getActivity().getContentResolver();
-                final ClearHistoryTask clear = new ClearHistoryTask(resolver, mCallbacks);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.clear)
-                        .setMessage(R.string.pref_privacy_clear_history_dlg)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setNegativeButton(R.string.cancel, null)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                             @Override
-                             public void onClick(DialogInterface dialog, int which) {
-                                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                                     clear.execute();
-                                 }
-                             }
-                        });
-                final Dialog dialog = builder.create();
-                dialog.show();
-                return true;
-
-            default:
-                break;
+        if (item.getItemId() == R.id.clear_history_menu_id) {
+            promptToClearHistory();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    static class ClearHistoryTask extends AsyncTask<Void, Void, Void> {
+    static class ClearHistoryTask extends Thread {
         ContentResolver mResolver;
-        BookmarksHistoryCallbacks mCallbacks;
 
-        public ClearHistoryTask(ContentResolver resolver,
-                BookmarksHistoryCallbacks callbacks) {
+        public ClearHistoryTask(ContentResolver resolver) {
             mResolver = resolver;
-            mCallbacks = callbacks;
-        }
-        @Override
-        protected Void doInBackground(Void... params) {
-            Browser.clearHistory(mResolver);
-            return null;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            mCallbacks.onRemoveParentChildRelationships();
+        public void run() {
+            Browser.clearHistory(mResolver);
         }
     }
 
@@ -427,10 +417,10 @@ public class BrowserHistoryPage extends Fragment
         Activity activity = getActivity();
         switch (item.getItemId()) {
             case R.id.open_context_menu_id:
-                mCallbacks.onUrlSelected(url, false);
+                mCallback.openUrl(url);
                 return true;
             case R.id.new_window_context_menu_id:
-                mCallbacks.onUrlSelected(url, true);
+                mCallback.openInNewTab(url);
                 return true;
             case R.id.save_to_bookmarks_menu_id:
                 if (historyItem.isBookmark()) {

@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * UI aspect of the controller
  */
-public interface UiController extends BookmarksHistoryCallbacks {
+public interface UiController {
 
     UI getUi();
 
@@ -60,7 +60,7 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     void stopLoading();
 
-    void bookmarkCurrentPage(boolean canBeAnEdit);
+    Intent createBookmarkCurrentPageIntent(boolean canBeAnEdit);
 
     void bookmarksOrHistoryPicker(boolean openHistory);
 
@@ -76,8 +76,6 @@ public interface UiController extends BookmarksHistoryCallbacks {
 
     boolean shouldShowErrorConsole();
 
-    void removeComboView();
-
     void hideCustomView();
 
     void attachSubWindow(Tab tab);
@@ -89,10 +87,6 @@ public interface UiController extends BookmarksHistoryCallbacks {
     void endActionMode();
 
     void shareCurrentPage();
-
-    void registerOptionsMenuHandler(OptionsMenuHandler handler);
-
-    void unregisterOptionsMenuHandler(OptionsMenuHandler handler);
 
     void updateMenuState(Tab tab, Menu menu);
 

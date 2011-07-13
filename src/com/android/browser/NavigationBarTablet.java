@@ -156,7 +156,7 @@ public class NavigationBarTablet extends NavigationBarBase {
         } else if (mForwardButton == v) {
             mUiController.getCurrentTab().goForward();
         } else if (mStar == v) {
-            mUiController.bookmarkCurrentPage(true);
+            getContext().startActivity(mUiController.createBookmarkCurrentPageIntent(true));
         } else if (mAllButton == v) {
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mSearchButton == v) {

@@ -15,23 +15,9 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/add_bookmark"
-        android:icon="@drawable/ic_bookmark_off_holo_dark"
-        android:title="@string/add_new_bookmark"
-        android:showAsAction="always|withText" />
-    <item
-        android:id="@+id/go_home"
-        android:icon="@drawable/ic_home_holo_dark"
-        android:showAsAction="always" />
-    <item
-        android:id="@+id/thumbnail_view"
-        android:title="@string/bookmark_thumbnail_view"/>
-    <item
-        android:id="@+id/list_view"
-        android:title="@string/bookmark_list_view"/>
-    <item
-        android:id="@+id/preferences_menu_id"
-        android:title="@string/menu_preferences"
-        android:alphabeticShortcut="p" />
+    <item android:id="@+id/clear_history_menu_id"
+        android:title="@string/clear_history"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:showAsAction="ifRoom"
+        android:orderInCategory="1" />
 </menu>

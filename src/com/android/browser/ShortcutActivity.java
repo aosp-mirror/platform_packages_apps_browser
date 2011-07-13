@@ -19,7 +19,6 @@ package com.android.browser;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,7 +58,7 @@ public class ShortcutActivity extends Activity
     }
 
     @Override
-    public boolean onOpenInNewWindow(Cursor c) {
+    public boolean onOpenInNewWindow(String... urls) {
         return false;
     }
 

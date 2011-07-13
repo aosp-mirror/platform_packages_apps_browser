@@ -85,8 +85,6 @@ public interface UI {
 
     public void showComboView(ComboViews startingView, Bundle extra);
 
-    public void hideComboView();
-
     public void showCustomView(View view, int requestedOrientation,
             CustomViewCallback callback);
 
