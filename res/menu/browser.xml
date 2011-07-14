@@ -20,16 +20,6 @@
         <group
             android:id="@+id/NAV_MENU">
             <item
-                android:id="@+id/new_tab_menu_id"
-                android:title="@string/new_tab"
-                android:icon="@drawable/ic_menu_new_window"
-                android:alphabeticShortcut="n" />
-            <item
-                android:id="@+id/bookmarks_menu_id"
-                android:title="@string/bookmarks"
-                android:alphabeticShortcut="b"
-                android:icon="@drawable/ic_bookmarks_holo_dark" />
-            <item
                 android:id="@+id/stop_reload_menu_id"
                 android:alphabeticShortcut="r" />
             <item

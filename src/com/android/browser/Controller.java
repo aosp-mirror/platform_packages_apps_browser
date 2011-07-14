@@ -67,7 +67,6 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.HttpAuthHandler;
-import android.webkit.SearchBox;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -1458,52 +1457,57 @@ public class Controller
                     menu.setGroupEnabled(R.id.MAIN_MENU, true);
                     menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, true);
                 }
-                final Tab t = getCurrentTab();
-                boolean canGoBack = false;
-                boolean canGoForward = false;
-                boolean isHome = false;
-                if (t != null) {
-                    canGoBack = t.canGoBack();
-                    canGoForward = t.canGoForward();
-                    isHome = mSettings.getHomePage().equals(t.getUrl());
-                }
-                final MenuItem back = menu.findItem(R.id.back_menu_id);
-                back.setEnabled(canGoBack);
-
-                final MenuItem home = menu.findItem(R.id.homepage_menu_id);
-                home.setEnabled(!isHome);
-
-                final MenuItem forward = menu.findItem(R.id.forward_menu_id);
-                forward.setEnabled(canGoForward);
-
-                // decide whether to show the share link option
-                PackageManager pm = mActivity.getPackageManager();
-                Intent send = new Intent(Intent.ACTION_SEND);
-                send.setType("text/plain");
-                ResolveInfo ri = pm.resolveActivity(send,
-                        PackageManager.MATCH_DEFAULT_ONLY);
-                menu.findItem(R.id.share_page_menu_id).setVisible(ri != null);
-
-                boolean isNavDump = mSettings.enableNavDump();
-                final MenuItem nav = menu.findItem(R.id.dump_nav_menu_id);
-                nav.setVisible(isNavDump);
-                nav.setEnabled(isNavDump);
-
-                boolean showDebugSettings = mSettings.isDebugEnabled();
-                final MenuItem counter = menu.findItem(R.id.dump_counters_menu_id);
-                counter.setVisible(showDebugSettings);
-                counter.setEnabled(showDebugSettings);
-
-                final MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
-                newtab.setEnabled(getTabControl().canCreateNewTab());
-
-                MenuItem saveSnapshot = menu.findItem(R.id.save_snapshot_menu_id);
-                Tab tab = getCurrentTab();
-                saveSnapshot.setVisible(tab != null && !tab.isSnapshot());
+                updateMenuState(getCurrentTab(), menu);
                 break;
         }
         mCurrentMenuState = mMenuState;
         return mUi.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void updateMenuState(Tab tab, Menu menu) {
+        boolean canGoBack = false;
+        boolean canGoForward = false;
+        boolean isHome = false;
+        if (tab != null) {
+            canGoBack = tab.canGoBack();
+            canGoForward = tab.canGoForward();
+            isHome = mSettings.getHomePage().equals(tab.getUrl());
+        }
+        final MenuItem back = menu.findItem(R.id.back_menu_id);
+        back.setEnabled(canGoBack);
+
+        final MenuItem home = menu.findItem(R.id.homepage_menu_id);
+        home.setEnabled(!isHome);
+
+        final MenuItem forward = menu.findItem(R.id.forward_menu_id);
+        forward.setEnabled(canGoForward);
+
+        final MenuItem source = menu.findItem(mInLoad ? R.id.stop_menu_id : R.id.reload_menu_id);
+        final MenuItem dest = menu.findItem(R.id.stop_reload_menu_id);
+        dest.setTitle(source.getTitle());
+        dest.setIcon(source.getIcon());
+
+        // decide whether to show the share link option
+        PackageManager pm = mActivity.getPackageManager();
+        Intent send = new Intent(Intent.ACTION_SEND);
+        send.setType("text/plain");
+        ResolveInfo ri = pm.resolveActivity(send,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        menu.findItem(R.id.share_page_menu_id).setVisible(ri != null);
+
+        boolean isNavDump = mSettings.enableNavDump();
+        final MenuItem nav = menu.findItem(R.id.dump_nav_menu_id);
+        nav.setVisible(isNavDump);
+        nav.setEnabled(isNavDump);
+
+        boolean showDebugSettings = mSettings.isDebugEnabled();
+        final MenuItem counter = menu.findItem(R.id.dump_counters_menu_id);
+        counter.setVisible(showDebugSettings);
+        counter.setEnabled(showDebugSettings);
+
+        MenuItem saveSnapshot = menu.findItem(R.id.save_snapshot_menu_id);
+        saveSnapshot.setVisible(tab != null && !tab.isSnapshot());
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

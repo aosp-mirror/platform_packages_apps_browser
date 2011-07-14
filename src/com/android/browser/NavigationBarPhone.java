@@ -171,7 +171,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
         PopupMenu popup = new PopupMenu(mContext, anchor);
         Menu menu = popup.getMenu();
         popup.getMenuInflater().inflate(R.menu.browser, menu);
-        menu.setGroupVisible(R.id.NAV_MENU, false);
+        mUiController.updateMenuState(mBaseUi.getActiveTab(), menu);
         popup.setOnMenuItemClickListener(this);
         popup.setOnDismissListener(this);
         popup.show();
