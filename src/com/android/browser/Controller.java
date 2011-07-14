@@ -1485,8 +1485,10 @@ public class Controller
 
         final MenuItem source = menu.findItem(mInLoad ? R.id.stop_menu_id : R.id.reload_menu_id);
         final MenuItem dest = menu.findItem(R.id.stop_reload_menu_id);
-        dest.setTitle(source.getTitle());
-        dest.setIcon(source.getIcon());
+        if (source != null && dest != null) {
+            dest.setTitle(source.getTitle());
+            dest.setIcon(source.getIcon());
+        }
 
         // decide whether to show the share link option
         PackageManager pm = mActivity.getPackageManager();
