@@ -15,13 +15,17 @@
  */
 package com.android.browser;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -43,8 +47,10 @@ public class NavigationBarTablet extends NavigationBarBase {
     private View mAllButton;
     private View mClearButton;
     private ImageView mVoiceSearch;
+    private View mNavButtons;
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
+    private boolean mHideNavButtons;
 
     public NavigationBarTablet(Context context) {
         super(context);
@@ -69,6 +75,7 @@ public class NavigationBarTablet extends NavigationBarBase {
                 R.drawable.textfield_active_holo_dark);
         mUnfocusDrawable = resources.getDrawable(
                 R.drawable.textfield_default_holo_dark);
+        mHideNavButtons = resources.getBoolean(R.bool.hide_nav_buttons);
     }
 
     @Override
@@ -77,6 +84,7 @@ public class NavigationBarTablet extends NavigationBarBase {
         mAllButton = findViewById(R.id.all_btn);
         // TODO: Change enabled states based on whether you can go
         // back/forward.  Probably should be done inside onPageStarted.
+        mNavButtons = findViewById(R.id.navbuttons);
         mBackButton = (ImageButton) findViewById(R.id.back);
         mForwardButton = (ImageButton) findViewById(R.id.forward);
         mUrlIcon = (ImageView) findViewById(R.id.url_icon);
@@ -98,6 +106,24 @@ public class NavigationBarTablet extends NavigationBarBase {
         mVoiceSearch.setOnClickListener(this);
         setUaSwitcher(mUrlIcon);
         mUrlInput.setContainer(mUrlContainer);
+    }
+
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+        Resources res = mContext.getResources();
+        mHideNavButtons = res.getBoolean(R.bool.hide_nav_buttons);
+        if (mUrlInput.hasFocus()) {
+            if (mHideNavButtons && (mNavButtons.getVisibility() == View.VISIBLE)) {
+                int aw = mNavButtons.getMeasuredWidth();
+                mNavButtons.setVisibility(View.GONE);
+                mNavButtons.setAlpha(0f);
+                mNavButtons.setTranslationX(-aw);
+            } else if (!mHideNavButtons && (mNavButtons.getVisibility() == View.GONE)) {
+                mNavButtons.setVisibility(View.VISIBLE);
+                mNavButtons.setAlpha(1f);
+                mNavButtons.setTranslationX(0);
+            }
+        }
     }
 
     @Override
@@ -171,12 +197,18 @@ public class NavigationBarTablet extends NavigationBarBase {
     protected void setFocusState(boolean focus) {
         super.setFocusState(focus);
         if (focus) {
+            if (mHideNavButtons) {
+                hideNavButtons();
+            }
             mSearchButton.setVisibility(View.GONE);
             mStar.setVisibility(View.GONE);
             mClearButton.setVisibility(View.VISIBLE);
             mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
             updateSearchMode(false);
         } else {
+            if (mHideNavButtons) {
+                showNavButtons();
+            }
             mGoButton.setVisibility(View.GONE);
             mVoiceSearch.setVisibility(View.GONE);
             mStar.setVisibility(View.VISIBLE);
@@ -230,6 +262,36 @@ public class NavigationBarTablet extends NavigationBarBase {
         if (voicemode) {
             mUrlIcon.setImageDrawable(mSearchButton.getDrawable());
         }
+    }
+
+    private void hideNavButtons() {
+        int awidth = mNavButtons.getMeasuredWidth();
+        Animator anim1 = ObjectAnimator.ofFloat(mNavButtons, View.TRANSLATION_X, 0, - awidth);
+        Animator anim2 = ObjectAnimator.ofInt(mUrlContainer, "left", mUrlContainer.getLeft(),
+                mUrlContainer.getPaddingLeft());
+        Animator anim3 = ObjectAnimator.ofFloat(mNavButtons, View.ALPHA, 1f, 0f);
+        AnimatorSet combo = new AnimatorSet();
+        combo.playTogether(anim1, anim2, anim3);
+        combo.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mNavButtons.setVisibility(View.GONE);
+            }
+        });
+        combo.setDuration(150);
+        combo.start();
+    }
+
+    private void showNavButtons() {
+        int awidth = mNavButtons.getMeasuredWidth();
+        Animator anim1 = ObjectAnimator.ofFloat(mNavButtons, View.TRANSLATION_X, -awidth, 0);
+        Animator anim2 = ObjectAnimator.ofInt(mUrlContainer, "left", 0, awidth);
+        Animator anim3 = ObjectAnimator.ofFloat(mNavButtons, View.ALPHA, 0f, 1f);
+        AnimatorSet combo = new AnimatorSet();
+        combo.playTogether(anim1, anim2, anim3);
+        mNavButtons.setVisibility(View.VISIBLE);
+        combo.setDuration(150);
+        combo.start();
     }
 
 }

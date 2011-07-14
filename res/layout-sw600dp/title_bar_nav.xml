@@ -18,26 +18,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:background="@drawable/bg_urlbar">
-    <ImageButton
-        android:id="@+id/back"
-        android:src="@drawable/ic_back_holo_dark"
+    <LinearLayout
+        android:id="@+id/navbuttons"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dip"
-        style="@style/HoloButton" />
-    <ImageButton
-        android:id="@+id/forward"
-        android:src="@drawable/ic_forward_holo_dark"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        style="@style/HoloButton" />
-    <ImageButton
-        android:id="@+id/stop"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        style="@style/HoloButton"
-        android:gravity="center_vertical"
-        android:src="@drawable/ic_stop_holo_dark" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/back"
+            android:src="@drawable/ic_back_holo_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dip"
+            style="@style/HoloButton" />
+        <ImageButton
+            android:id="@+id/forward"
+            android:src="@drawable/ic_forward_holo_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="@style/HoloButton" />
+        <ImageButton
+            android:id="@+id/stop"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="@style/HoloButton"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_stop_holo_dark" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/urlbar_focused"
         android:layout_width="0dip"
