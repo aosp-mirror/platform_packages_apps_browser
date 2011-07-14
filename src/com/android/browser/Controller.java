@@ -2536,6 +2536,10 @@ public class Controller
                 if (!noModifiers) break;
                 event.startTracking();
                 return true;
+            case KeyEvent.KEYCODE_FORWARD:
+                if (!noModifiers) break;
+                tab.goForward();
+                return true;
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if (ctrl) {
                     tab.goBack();
