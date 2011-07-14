@@ -77,7 +77,7 @@ public class NavScreen extends RelativeLayout
         PopupMenu popup = new PopupMenu(mContext, mMore);
         Menu menu = popup.getMenu();
         popup.getMenuInflater().inflate(R.menu.browser, menu);
-        menu.setGroupVisible(R.id.NAV_MENU, false);
+        mUiController.updateMenuState(mScroller.getSelectedItem(), menu);
         popup.setOnMenuItemClickListener(this);
         popup.show();
     }
