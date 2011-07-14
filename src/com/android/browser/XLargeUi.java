@@ -253,7 +253,7 @@ public class XLargeUi extends BaseUi {
     @Override
     public void onActionModeStarted(ActionMode mode) {
         if (!mTitleBar.isEditingUrl()) {
-            // hide the fake title bar when CAB is shown
+            // hide the title bar when CAB is shown
             hideTitleBar();
         }
     }

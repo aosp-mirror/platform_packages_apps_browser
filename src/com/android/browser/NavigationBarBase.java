@@ -74,7 +74,6 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
         mFavicon = (ImageView) findViewById(R.id.favicon);
         mUrlInput = (UrlInputView) findViewById(R.id.url);
         mUrlInput.setUrlInputListener(this);
-        mUrlInput.setController(mUiController);
         mUrlInput.setOnFocusChangeListener(this);
         mUrlInput.setSelectAllOnFocus(true);
         mUrlInput.addQueryTextWatcher(this);
@@ -84,6 +83,7 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
         mTitleBar = titleBar;
         mBaseUi = mTitleBar.getUi();
         mUiController = mTitleBar.getUiController();
+        mUrlInput.setController(mUiController);
     }
 
     public void setLock(Drawable d) {
