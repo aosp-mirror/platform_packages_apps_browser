@@ -21,10 +21,10 @@
     <string name="uploads_disabled" msgid="463761197575372994">"آپلودهای فایل غیر فعال هستند."</string>
     <string name="new_tab" msgid="4505722538297295141">"پنجره جدید"</string>
     <string name="new_incognito_tab" msgid="5821404839654751753">"پنجره ناشناخته جدید"</string>
-    <string name="active_tabs" msgid="3050623868203544623">"پنجره ها"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"نشانک ها"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"بیشتر بازدید شده"</string>
     <string name="tab_history" msgid="1979267558744613746">"سابقه"</string>
+    <string name="tab_snapshots" msgid="4435852763803720588">"صفحات ذخیره شده"</string>
     <string name="added_to_bookmarks" msgid="1020224130695956728">"به نشانک ها اضافه شد"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"از نشانک ها حذف شد"</string>
     <string name="sign_in_to" msgid="5939425800148759165">"ورود به سیستم <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
@@ -101,10 +101,8 @@
     <string name="menu_view_download" msgid="2124570321712995120">"دانلودها"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"کپی url صفحه"</string>
     <string name="share_page" msgid="593756995297268343">"اشتراک گذاری صفحه"</string>
-    <string name="menu_freeze_tab" msgid="189603565552297099">"ثابت کردن برگه"</string>
-    <string name="menu_save_webarchive" msgid="2474117375302625691">"ذخیره صفحه"</string>
-    <string name="webarchive_saved" msgid="2212053339474523406">"صفحه ذخیره شد."</string>
-    <string name="webarchive_failed" msgid="19950914584285713">"صفحه ذخیره نشد."</string>
+    <string name="menu_save_snapshot" msgid="6935080344031126139">"ذخیره برای مطالعه در حالت آفلاین"</string>
+    <string name="snapshot_failed" msgid="6176197364690207251">"ذخیره برای مطالعه بصورت آفلاین انجام نشد."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> نشانک"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"پوشه خالی"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"باز کردن"</string>
@@ -143,11 +141,13 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"تنظیم موتور جستجو"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"انتخاب یک موتور جستجو"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"تنظیم به..."</string>
-    <!-- no translation found for pref_homepage_choices:0 (844041670142910837) -->
-    <!-- no translation found for pref_homepage_choices:1 (4430498748295169195) -->
-    <!-- no translation found for pref_homepage_choices:2 (5747608191946904074) -->
-    <!-- no translation found for pref_homepage_choices:3 (723023698618841163) -->
-    <!-- no translation found for pref_homepage_choices:4 (5021822752506507426) -->
+  <string-array name="pref_homepage_choices">
+    <item msgid="844041670142910837">"صفحه فعلی"</item>
+    <item msgid="4430498748295169195">"صفحه خالی"</item>
+    <item msgid="5747608191946904074">"صفحه پیش فرض"</item>
+    <item msgid="723023698618841163">"صفحه اصلی دارای بیشترین بازدید"</item>
+    <item msgid="5021822752506507426">"سایر موارد..."</item>
+  </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"تنظیم خودکار صفحات"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"قالب صفحات وب متناسب با صفحه"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"عمومی"</string>
@@ -188,6 +188,7 @@
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"نمایه ذخیره شد"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"نمایه حذف شد"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"حذف نمایه"</string>
+    <string name="autofill_setup_dialog_title" msgid="1955613311837926540">"تکمیل خودکار تنظیم شود؟"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"مرورگر می تواند بصورت خودکار فرم های وب مانند این یکی را پر کند. دوست دارید نمایه خود را تنظیم کنید؟"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"تکمیل خودکار را همیشه می توانید از طریق تنظیمات مرورگر پیکربندی کنید."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"غیرفعال کردن تکمیل خودکار"</string>
@@ -275,6 +276,9 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"هنگام استفاده از جستجوی Google، برای نمایش نتایج در حین تایپ از Google Instant استفاده کنید (ممکن است مصرف داده بالا برود)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"تمام صفحه"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"استفاده از حالت تمام صفحه برای مخفی کردن نوار وضعیت."</string>
+    <string name="pref_data_title" msgid="750316606686075162">"مدیریت پهنای باند"</string>
+    <string name="pref_data_preload_title" msgid="4479320472980292873">"جستجوی پیش بارگیری نتیجه"</string>
+    <string name="pref_data_preload_summary" msgid="7488335627364473744">"به مرورگر اجازه می دهد نتایجی را که در آنها اطمینان بالایی وجود دارد از پیش در پس زمینه بارگیری کند"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"مشکل اتصال داده"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"مشکل در فایل"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"تأیید"</string>
@@ -391,4 +395,5 @@
     <string name="local_bookmarks" msgid="533816851415228520">"محلی"</string>
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"تلفن همراه"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"دسکتاپ"</string>
+    <string name="permission_preload_label" msgid="4856971662337877316">"پیش بارگیری نتایج"</string>
 </resources>
