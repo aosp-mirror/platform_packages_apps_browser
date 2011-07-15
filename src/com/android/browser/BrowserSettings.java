@@ -205,6 +205,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         } else {
             settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
         }
+
+        settings.setProperty("gfxInvertedScreen",
+                useInvertedRendering() ? "true" : "false");
     }
 
     /**
@@ -672,6 +675,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean useFullscreen() {
         return mPrefs.getBoolean(PREF_FULLSCREEN, false);
+    }
+
+    public boolean useInvertedRendering() {
+        return mPrefs.getBoolean(PREF_INVERTED, false);
     }
 
     // -----------------------------

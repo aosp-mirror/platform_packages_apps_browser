@@ -642,6 +642,10 @@
     <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
     <string name="pref_lab_fullscreen_summary">
       Use fullscreen mode to hide the status bar.</string>
+    <!-- Title for the inverted screen lab feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+    <string name="pref_lab_inverted">Inverted Rendering</string>
+    <!-- Summary for the inverted screen lab feature. [CHAR LIMIT=120] -->
+    <string name="pref_lab_inverted_summary">Checking this causes the browser to invert colors. Black will become white and vice versa.</string>
     <!-- Title for bandwidth management preference [CHAR LIMIT=25] -->
     <string name="pref_data_title">Bandwidth Management</string>
     <!-- Title for search preloading [CHAR LIMIT=40] -->
