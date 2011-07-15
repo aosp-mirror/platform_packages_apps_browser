@@ -22,10 +22,11 @@
     <skip />
     <string name="new_tab" msgid="4505722538297295141">"Dirisha jipya"</string>
     <string name="new_incognito_tab" msgid="5821404839654751753">"Dirisha fiche jipya"</string>
-    <string name="active_tabs" msgid="3050623868203544623">"Windows"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Alamisho"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Zilizotembelewa sana"</string>
     <string name="tab_history" msgid="1979267558744613746">"Historia"</string>
+    <!-- no translation found for tab_snapshots (4435852763803720588) -->
+    <skip />
     <string name="added_to_bookmarks" msgid="1020224130695956728">"Imeongezwa kwa alamisho"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"Imeondolewa kutoka kwa alamisho"</string>
     <string name="sign_in_to" msgid="5939425800148759165">"Ingia kwa <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
@@ -142,11 +143,10 @@
     <string name="copy_page_url" msgid="7635062169011319208">"Nakili url ya ukurasa"</string>
     <!-- no translation found for share_page (593756995297268343) -->
     <skip />
-    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
+    <!-- no translation found for menu_save_snapshot (6935080344031126139) -->
     <skip />
-    <!-- outdated translation 3934652434001459581 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Hifadhi kama Jalada la Wavuti"</string>
-    <!-- outdated translation 7045250341467345007 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Jalada la wavuti limehifadhiwa."</string>
-    <!-- outdated translation 2880998204746620260 -->     <string name="webarchive_failed" msgid="19950914584285713">"Imeshindwa kuhifadhi jalada la wavuti"</string>
+    <!-- no translation found for snapshot_failed (6176197364690207251) -->
+    <skip />
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Alamisho <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Folda iko tupu"</string>
     <!-- no translation found for contextmenu_openlink (7237961252214188935) -->
@@ -259,6 +259,8 @@
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Maelezo Mafupi yamehifadhiwa"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Maelezo mafupi yamefutwa"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Futa maelezo mafupi"</string>
+    <!-- no translation found for autofill_setup_dialog_title (1955613311837926540) -->
+    <skip />
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Kivinjari kinaweza kukamilisha fomu za wavuti  kama hii kiotomatiki. Je, ungependa kuweka maelezo yako mafupi?"</string>
     <!-- no translation found for autofill_setup_dialog_negative_toast (6990737008936188620) -->
     <skip />
@@ -373,6 +375,12 @@
     <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
     <skip />
     <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <skip />
+    <!-- no translation found for pref_data_title (750316606686075162) -->
+    <skip />
+    <!-- no translation found for pref_data_preload_title (4479320472980292873) -->
+    <skip />
+    <!-- no translation found for pref_data_preload_summary (7488335627364473744) -->
     <skip />
     <!-- no translation found for browserFrameNetworkErrorLabel (126892350904924893) -->
     <skip />
@@ -547,5 +555,7 @@
     <!-- no translation found for ua_switcher_mobile (5103260404792449606) -->
     <skip />
     <!-- no translation found for ua_switcher_desktop (2535200543238676638) -->
+    <skip />
+    <!-- no translation found for permission_preload_label (4856971662337877316) -->
     <skip />
 </resources>

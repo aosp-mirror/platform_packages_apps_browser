@@ -22,10 +22,11 @@
     <skip />
     <string name="new_tab" msgid="4505722538297295141">"Nova fanestra"</string>
     <string name="new_incognito_tab" msgid="5821404839654751753">"Nova fanestra incognito"</string>
-    <string name="active_tabs" msgid="3050623868203544623">"Fanestra"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Segnapaginas"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Visità il pli savens"</string>
     <string name="tab_history" msgid="1979267558744613746">"Cronologia"</string>
+    <!-- no translation found for tab_snapshots (4435852763803720588) -->
+    <skip />
     <string name="added_to_bookmarks" msgid="1020224130695956728">"Agiuntà als segnapaginas"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"Allontanà dals segnapaginas"</string>
     <string name="sign_in_to" msgid="5939425800148759165">"S\'annunziar tar <xliff:g id="HOSTNAME">%s1</xliff:g> «<xliff:g id="REALM">%s2</xliff:g>»"</string>
@@ -116,11 +117,10 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Telechargiadas"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar la URL da la pagina"</string>
     <string name="share_page" msgid="593756995297268343">"Barattar la pagina"</string>
-    <!-- no translation found for menu_freeze_tab (189603565552297099) -->
+    <!-- no translation found for menu_save_snapshot (6935080344031126139) -->
     <skip />
-    <!-- outdated translation 3934652434001459581 -->     <string name="menu_save_webarchive" msgid="2474117375302625691">"Memorisar sco archiv web"</string>
-    <!-- outdated translation 7045250341467345007 -->     <string name="webarchive_saved" msgid="2212053339474523406">"Memorisà archiv da web"</string>
-    <!-- outdated translation 2880998204746620260 -->     <string name="webarchive_failed" msgid="19950914584285713">"Betg reussì da memorisar l\'archiv da web."</string>
+    <!-- no translation found for snapshot_failed (6176197364690207251) -->
+    <skip />
     <!-- no translation found for contextheader_folder_bookmarkcount (353987136645619089) -->
     <skip />
     <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
@@ -248,6 +248,8 @@
     <skip />
     <!-- no translation found for autofill_profile_editor_delete_profile (2754563301088418752) -->
     <skip />
+    <!-- no translation found for autofill_setup_dialog_title (1955613311837926540) -->
+    <skip />
     <!-- no translation found for autofill_setup_dialog_message (6605682320156223114) -->
     <skip />
     <!-- no translation found for autofill_setup_dialog_negative_toast (6990737008936188620) -->
@@ -357,6 +359,12 @@
     <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
     <skip />
     <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <skip />
+    <!-- no translation found for pref_data_title (750316606686075162) -->
+    <skip />
+    <!-- no translation found for pref_data_preload_title (4479320472980292873) -->
+    <skip />
+    <!-- no translation found for pref_data_preload_summary (7488335627364473744) -->
     <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problem da connectivitad da datas"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem da datoteca"</string>
@@ -503,5 +511,7 @@
     <!-- no translation found for ua_switcher_mobile (5103260404792449606) -->
     <skip />
     <!-- no translation found for ua_switcher_desktop (2535200543238676638) -->
+    <skip />
+    <!-- no translation found for permission_preload_label (4856971662337877316) -->
     <skip />
 </resources>

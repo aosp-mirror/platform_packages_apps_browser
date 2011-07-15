@@ -21,10 +21,10 @@
     <string name="uploads_disabled" msgid="463761197575372994">"文件上传功能已停用。"</string>
     <string name="new_tab" msgid="4505722538297295141">"新窗口"</string>
     <string name="new_incognito_tab" msgid="5821404839654751753">"新隐身窗口"</string>
-    <string name="active_tabs" msgid="3050623868203544623">"窗口"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"书签"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"访问最多"</string>
     <string name="tab_history" msgid="1979267558744613746">"历史记录"</string>
+    <string name="tab_snapshots" msgid="4435852763803720588">"保存的页面"</string>
     <string name="added_to_bookmarks" msgid="1020224130695956728">"已添加到书签"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"从书签中删除"</string>
     <string name="sign_in_to" msgid="5939425800148759165">"登录 <xliff:g id="HOSTNAME">%s1</xliff:g>“<xliff:g id="REALM">%s2</xliff:g>”"</string>
@@ -101,10 +101,8 @@
     <string name="menu_view_download" msgid="2124570321712995120">"下载内容"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"复制网页网址"</string>
     <string name="share_page" msgid="593756995297268343">"分享网页"</string>
-    <string name="menu_freeze_tab" msgid="189603565552297099">"冻结标签"</string>
-    <string name="menu_save_webarchive" msgid="2474117375302625691">"保存网页"</string>
-    <string name="webarchive_saved" msgid="2212053339474523406">"网页已保存。"</string>
-    <string name="webarchive_failed" msgid="19950914584285713">"保存网页时失败。"</string>
+    <string name="menu_save_snapshot" msgid="6935080344031126139">"保存以供离线阅读"</string>
+    <string name="snapshot_failed" msgid="6176197364690207251">"无法保存以供离线阅读。"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> 个书签"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空文件夹"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"打开"</string>
@@ -143,11 +141,13 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"设置搜索引擎"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"选择搜索引擎"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"设置为..."</string>
-    <!-- no translation found for pref_homepage_choices:0 (844041670142910837) -->
-    <!-- no translation found for pref_homepage_choices:1 (4430498748295169195) -->
-    <!-- no translation found for pref_homepage_choices:2 (5747608191946904074) -->
-    <!-- no translation found for pref_homepage_choices:3 (723023698618841163) -->
-    <!-- no translation found for pref_homepage_choices:4 (5021822752506507426) -->
+  <string-array name="pref_homepage_choices">
+    <item msgid="844041670142910837">"当前页"</item>
+    <item msgid="4430498748295169195">"空白页"</item>
+    <item msgid="5747608191946904074">"默认页"</item>
+    <item msgid="723023698618841163">"“最常访问的网页”主页"</item>
+    <item msgid="5021822752506507426">"其他..."</item>
+  </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"自动调整页面"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"调整网页版面以适合屏幕大小"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"常规"</string>
@@ -188,6 +188,7 @@
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"个人资料已保存"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"个人资料已删除"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"删除个人资料"</string>
+    <string name="autofill_setup_dialog_title" msgid="1955613311837926540">"要设置自动填充功能吗？"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"浏览器可自动填充网络表单（例如该表单）。您希望设置个人资料吗？"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"您可以随时通过“浏览器设置”配置自动填充功能。"</string>
     <string name="disable_autofill" msgid="8305901059849400354">"停用自动填充"</string>
@@ -275,6 +276,9 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"借助 Google 即搜即得，您可以在使用 Google 搜索时一边键入内容一边查看结果（此功能可能会增加数据使用量）。"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全屏"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"使用全屏模式可隐藏状态栏。"</string>
+    <string name="pref_data_title" msgid="750316606686075162">"带宽管理"</string>
+    <string name="pref_data_preload_title" msgid="4479320472980292873">"搜索结果预加载"</string>
+    <string name="pref_data_preload_summary" msgid="7488335627364473744">"允许浏览器在后台预加载可信度高的搜索结果"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"数据连接性问题"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"文件有问题"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"确认"</string>
@@ -391,4 +395,5 @@
     <string name="local_bookmarks" msgid="533816851415228520">"本地"</string>
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"移动版"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"桌面版"</string>
+    <string name="permission_preload_label" msgid="4856971662337877316">"预加载结果"</string>
 </resources>
