@@ -188,8 +188,7 @@
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Потребителският профил бе запазен"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Потребителският профил бе изтрит"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Изтриване на профила"</string>
-    <!-- no translation found for autofill_setup_dialog_title (1955613311837926540) -->
-    <skip />
+    <string name="autofill_setup_dialog_title" msgid="1955613311837926540">"Да се настрои авт. попълване?"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Браузърът може автоматично да попълва уеб формуляри като този. Искате ли да настроите потребителския си профил?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Автоматичното попълване винаги може да се конфигурира от „Настройки на браузъра“."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Деактивиране на автоматичното попълване"</string>
