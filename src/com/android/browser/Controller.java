@@ -2293,6 +2293,7 @@ public class Controller
         // hide combo view if open
         removeComboView();
         if (mTabControl.getTabCount() == 1) {
+            CrashRecoveryHandler.clearState(mActivity);
             mActivity.finish();
             return;
         }

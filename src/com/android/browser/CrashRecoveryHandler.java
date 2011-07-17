@@ -134,7 +134,7 @@ public class CrashRecoveryHandler {
 
     }
 
-    private static void clearState(Context context) {
+    public static void clearState(Context context) {
         File state = new File(context.getCacheDir(), STATE_FILE);
         if (state.exists()) {
             state.delete();
