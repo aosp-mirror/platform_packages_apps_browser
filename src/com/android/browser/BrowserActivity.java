@@ -79,8 +79,9 @@ public class BrowserActivity extends Activity {
             return;
         }
 
-        if (((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
-                .isEnabled()) {
+        AccessibilityManager accessibilityManager = (AccessibilityManager)
+                getSystemService(ACCESSIBILITY_SERVICE);
+        if (accessibilityManager != null && accessibilityManager.isEnabled()) {
             setDefaultKeyMode(DEFAULT_KEYS_DISABLE);
         }
 
