@@ -263,4 +263,12 @@ public class PhoneUi extends BaseUi {
         return false;
     }
 
+    public void toggleNavScreen() {
+        if (mNavScreen == null) {
+            showNavScreen();
+        } else {
+            hideNavScreen(false);
+        }
+    }
+
 }

@@ -46,6 +46,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     private View mMore;
     private Drawable mTextfieldBgDrawable;
     private PopupMenu mPopupMenu;
+    private boolean mMenuShowing;
     private boolean mNeedsMenu;
 
     public NavigationBarPhone(Context context) {
@@ -154,7 +155,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
         } else if (v == mVoiceButton) {
             mUiController.startVoiceSearch();
         } else if (v == mTabSwitcher) {
-            mBaseUi.onMenuKey();
+            ((PhoneUi) mBaseUi).toggleNavScreen();
         } else if (mMore == v) {
             showMenu(mMore);
         } else {
@@ -163,15 +164,35 @@ public class NavigationBarPhone extends NavigationBarBase implements
     }
 
     public boolean isMenuShowing() {
-        return (mPopupMenu != null);
+        return mMenuShowing;
     }
 
     void showMenu() {
         // called from menu key, use tab switcher as anchor
-        showMenu(mTabSwitcher);
+        mMenuShowing = true;
+        if (isEditingUrl()) {
+            stopEditingUrl();
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    showMenu();
+                }
+            });
+        } else {
+            mBaseUi.getTitleBar().setSkipTitleBarAnimations(true);
+            mBaseUi.showTitleBar();
+            mBaseUi.getTitleBar().setSkipTitleBarAnimations(false);
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    showMenu(mTabSwitcher);
+                }
+            });
+        }
     }
 
     void showMenu(View anchor) {
+        mMenuShowing = true;
         mPopupMenu = new PopupMenu(mContext, anchor);
         Menu menu = mPopupMenu.getMenu();
         mPopupMenu.getMenuInflater().inflate(R.menu.browser, menu);
@@ -184,6 +205,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     void dismissMenu() {
        if (mPopupMenu != null) {
            mPopupMenu.dismiss();
+           mBaseUi.suggestHideTitleBar();
        }
     }
 
@@ -203,6 +225,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     }
 
     private void onMenuHidden() {
+        mMenuShowing = false;
         mPopupMenu = null;
         mBaseUi.showTitleBarForDuration();
     }
