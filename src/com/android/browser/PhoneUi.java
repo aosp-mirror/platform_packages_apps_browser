@@ -79,10 +79,10 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean onMenuKey() {
-        if (mNavScreen == null) {
-            showNavScreen();
+        if (mNavigationBar.isMenuShowing()) {
+            mNavigationBar.dismissMenu();
         } else {
-            mNavScreen.close();
+            mNavigationBar.showMenu();
         }
         return true;
     }

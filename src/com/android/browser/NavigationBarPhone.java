@@ -45,7 +45,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     private View mTitleContainer;
     private View mMore;
     private Drawable mTextfieldBgDrawable;
-    private boolean mMenuShowing;
+    private PopupMenu mPopupMenu;
     private boolean mNeedsMenu;
 
     public NavigationBarPhone(Context context) {
@@ -163,18 +163,28 @@ public class NavigationBarPhone extends NavigationBarBase implements
     }
 
     public boolean isMenuShowing() {
-        return mMenuShowing;
+        return (mPopupMenu != null);
+    }
+
+    void showMenu() {
+        // called from menu key, use tab switcher as anchor
+        showMenu(mTabSwitcher);
     }
 
     void showMenu(View anchor) {
-        mMenuShowing = true;
-        PopupMenu popup = new PopupMenu(mContext, anchor);
-        Menu menu = popup.getMenu();
-        popup.getMenuInflater().inflate(R.menu.browser, menu);
+        mPopupMenu = new PopupMenu(mContext, anchor);
+        Menu menu = mPopupMenu.getMenu();
+        mPopupMenu.getMenuInflater().inflate(R.menu.browser, menu);
         mUiController.updateMenuState(mBaseUi.getActiveTab(), menu);
-        popup.setOnMenuItemClickListener(this);
-        popup.setOnDismissListener(this);
-        popup.show();
+        mPopupMenu.setOnMenuItemClickListener(this);
+        mPopupMenu.setOnDismissListener(this);
+        mPopupMenu.show();
+    }
+
+    void dismissMenu() {
+       if (mPopupMenu != null) {
+           mPopupMenu.dismiss();
+       }
     }
 
     @Override
@@ -193,7 +203,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     }
 
     private void onMenuHidden() {
-        mMenuShowing = false;
+        mPopupMenu = null;
         mBaseUi.showTitleBarForDuration();
     }
 
