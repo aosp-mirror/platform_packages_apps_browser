@@ -1196,24 +1196,6 @@ public class Gallery extends ViewGroup implements
     }
 
     @Override
-    protected int getChildDrawingOrder(int childCount, int i) {
-        int selectedIndex = mSelectedPosition - mFirstPosition;
-        // Just to be safe
-        if (selectedIndex < 0)
-            return i;
-        if (i == childCount - 1) {
-            // Draw the selected child last
-            return selectedIndex;
-        } else if (i >= selectedIndex) {
-            // Move the children to the right of the selected child earlier one
-            return i + 1;
-        } else {
-            // Keep the children to the left of the selected child the same
-            return i;
-        }
-    }
-
-    @Override
     protected void onFocusChanged(boolean gainFocus, int direction,
             Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
