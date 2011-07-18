@@ -84,6 +84,7 @@ public class NavScreen extends RelativeLayout
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        mUi.hideNavScreen(false);
         return mUiController.onOptionsItemSelected(item);
     }
 
