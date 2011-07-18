@@ -73,16 +73,6 @@ public class XLargeUi extends BaseUi {
     }
 
     @Override
-    public void hideComboView() {
-        if (isComboViewShowing()) {
-            super.hideComboView();
-            // ComboView changes the action bar, set it back up to what we want
-            setupActionBar();
-            checkTabCount();
-        }
-    }
-
-    @Override
     public void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
         mTitleBar.setUseQuickControls(mUseQuickControls);

@@ -192,6 +192,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="ComboViewActivity"
+                  android:configChanges="orientation|keyboardHidden|keyboard|screenSize">
+        </activity>
+
         <!-- Bookmark thumbnail homescreen widget -->
         <receiver
             android:name=".widget.BookmarkThumbnailWidgetProvider"

@@ -17,17 +17,13 @@
 package com.android.browser;
 
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -35,8 +31,6 @@ import android.os.Bundle;
 import android.provider.Browser;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -51,13 +45,8 @@ import com.android.browser.UI.ComboViews;
 import java.util.HashMap;
 import java.util.Vector;
 
-interface BookmarksHistoryCallbacks {
-    public void onUrlSelected(String url, boolean newWindow);
-    public void onRemoveParentChildRelationships();
-}
-
 public class CombinedBookmarkHistoryView extends LinearLayout
-        implements OnTouchListener, TabListener, OptionsMenuHandler {
+        implements OnTouchListener, TabListener {
 
     final static String STARTING_FRAGMENT = "fragment";
 
@@ -66,7 +55,6 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     final static int FRAGMENT_ID_HISTORY = 2;
     final static int FRAGMENT_ID_SNAPSHOTS = 3;
 
-    private UiController mUiController;
     private Activity mActivity;
     private ActionBar mActionBar;
 
@@ -82,7 +70,14 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     BrowserBookmarksPage mBookmarks;
     BrowserHistoryPage mHistory;
     BrowserSnapshotPage mSnapshots;
-    boolean mIsAnimating;
+    CombinedBookmarksCallbacks mCallback;
+
+    public static interface CombinedBookmarksCallbacks {
+        void openUrl(String url);
+        void openInNewTab(String... urls);
+        void openSnapshot(long id);
+        void close();
+    }
 
     static class IconListenerSet implements IconListener {
         // Used to store favicons as we get them from the database
@@ -121,18 +116,17 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         return sIconListenerSet;
     }
 
-    public CombinedBookmarkHistoryView(Activity activity, UiController controller,
-            ComboViews startingView, Bundle extras) {
+    public CombinedBookmarkHistoryView(Activity activity,
+            CombinedBookmarksCallbacks cb, ComboViews startingView,
+            Bundle extras) {
         super(activity);
-        mUiController = controller;
         mActivity = activity;
         mExtras = extras;
         mActionBar = mActivity.getActionBar();
+        mCallback = cb;
 
         View v = LayoutInflater.from(activity).inflate(R.layout.bookmarks_history, this);
         v.setOnTouchListener(this);
-
-//        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         mBookmarksHeader = new FrameLayout(mActivity);
         mBookmarksHeader.setLayoutParams(new FrameLayout.LayoutParams(
@@ -158,29 +152,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             }
         }).execute();
 
-        mIsAnimating = true;
-        setAlpha(0f);
-        Resources res = mActivity.getResources();
-        animate().alpha(1f)
-                .setDuration(res.getInteger(R.integer.comboViewFadeInDuration))
-                .setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                mIsAnimating = false;
-                if (mActionBar == null) {
-                    // We were destroyed, return
-                    return;
-                }
-                FragmentManager fm = mActivity.getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                onTabSelected(mActionBar.getSelectedTab(), ft);
-                ft.commit();
-            }
-        });
-
         setupActionBar(startingView);
-        mUiController.registerOptionsMenuHandler(this);
     }
 
     void setupActionBar(ComboViews startingView) {
@@ -228,15 +200,15 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             // Warning, ugly hack below
             // This is done because history uses orientation-specific padding
             FragmentManager fm = mActivity.getFragmentManager();
-            mHistory = BrowserHistoryPage.newInstance(mUiController, mHistory.getArguments());
+            mHistory = BrowserHistoryPage.newInstance(mCallback, mHistory.getArguments());
             fm.beginTransaction().replace(R.id.fragment, mHistory).commit();
         }
     }
 
     private BookmarksPageCallbacks mBookmarkCallbackWrapper = new BookmarksPageCallbacks() {
         @Override
-        public boolean onOpenInNewWindow(Cursor c) {
-            mUiController.onUrlSelected(BrowserBookmarksPage.getUrl(c), true);
+        public boolean onOpenInNewWindow(String... urls) {
+            mCallback.openInNewTab(urls);
             return true;
         }
 
@@ -245,7 +217,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             if (isFolder) {
                 return false;
             }
-            mUiController.onUrlSelected(BrowserBookmarksPage.getUrl(c), false);
+            mCallback.openUrl(BrowserBookmarksPage.getUrl(c));
             return true;
         }
     };
@@ -253,8 +225,8 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     private void initFragments(Bundle extras) {
         mBookmarks = BrowserBookmarksPage.newInstance(mBookmarkCallbackWrapper,
                 extras, mBookmarksHeader);
-        mHistory = BrowserHistoryPage.newInstance(mUiController, extras);
-        mSnapshots = BrowserSnapshotPage.newInstance(mUiController, extras);
+        mHistory = BrowserHistoryPage.newInstance(mCallback, extras);
+        mSnapshots = BrowserSnapshotPage.newInstance(mCallback, extras);
     }
 
     private void loadFragment(int id, FragmentTransaction ft) {
@@ -300,16 +272,12 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             }
             mCurrentFragment = INVALID_ID;
         }
-        mUiController.unregisterOptionsMenuHandler(this);
     }
 
     /**
      * callback for back key presses
      */
     boolean onBackPressed() {
-        if (mIsAnimating) {
-            return true;
-        }
         if (mCurrentFragment == FRAGMENT_ID_BOOKMARKS) {
             return mBookmarks.onBackPressed();
         }
@@ -332,13 +300,6 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
-        if (mIsAnimating) {
-            // We delay set while animating (smooth animations)
-            // TODO: Signal to the fragment in advance so that it can start
-            // loading its data asynchronously
-            return;
-        }
-
         if (tab == mTabBookmarks) {
             loadFragment(FRAGMENT_ID_BOOKMARKS, ft);
         } else if (tab == mTabHistory) {
@@ -353,44 +314,4 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         // Ignore
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Handled by fragment
-        return false;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // Handled by fragment
-        return false;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            mUiController.getUi().onBackKey();
-            return true;
-        case R.id.go_home:
-            BrowserSettings settings = BrowserSettings.getInstance();
-            mUiController.onUrlSelected(settings.getHomePage(), false);
-            return true;
-        case R.id.add_bookmark:
-            mUiController.bookmarkCurrentPage(false);
-            return true;
-        case R.id.preferences_menu_id:
-            Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
-            intent.putExtra(BrowserPreferencesPage.CURRENT_PAGE,
-                    mUiController.getCurrentTopWebView().getUrl());
-            mActivity.startActivityForResult(intent, Controller.PREFERENCES_PAGE);
-            return true;
-        }
-
-        switch (mCurrentFragment) {
-        case FRAGMENT_ID_BOOKMARKS:
-            return mBookmarks.onOptionsItemSelected(item);
-        case FRAGMENT_ID_HISTORY:
-            return mHistory.onOptionsItemSelected(item);
-        }
-        return false;
-    }
 }

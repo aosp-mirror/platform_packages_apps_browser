@@ -118,6 +118,7 @@ public class Controller
     private static final int EMPTY_MENU = -1;
 
     // activity requestCode
+    final static int COMBO_VIEW = 1;
     final static int PREFERENCES_PAGE = 3;
     final static int FILE_SELECTED = 4;
     final static int AUTOFILL_SETUP = 5;
@@ -145,7 +146,6 @@ public class Controller
     private TabControl mTabControl;
     private BrowserSettings mSettings;
     private WebViewFactory mFactory;
-    private OptionsMenuHandler mOptionsMenuHandler = null;
 
     private WakeLock mWakeLock;
 
@@ -1152,6 +1152,30 @@ public class Controller
                     mAutoFillSetupMessage = null;
                 }
                 break;
+            case COMBO_VIEW:
+                if (intent == null || resultCode != Activity.RESULT_OK) {
+                    break;
+                }
+                if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+                    Tab t = getCurrentTab();
+                    Uri uri = intent.getData();
+                    loadUrl(t, uri.toString());
+                } else if (intent.hasExtra(ComboViewActivity.EXTRA_OPEN_ALL)) {
+                    String[] urls = intent.getStringArrayExtra(
+                            ComboViewActivity.EXTRA_OPEN_ALL);
+                    Tab parent = getCurrentTab();
+                    for (String url : urls) {
+                        parent = openTab(url, parent,
+                                !mSettings.openInBackground(), true);
+                    }
+                } else if (intent.hasExtra(ComboViewActivity.EXTRA_OPEN_SNAPSHOT)) {
+                    long id = intent.getLongExtra(
+                            ComboViewActivity.EXTRA_OPEN_SNAPSHOT, -1);
+                    if (id >= 0) {
+                        createNewSnapshotTab(id, true);
+                    }
+                }
+                break;
             default:
                 break;
         }
@@ -1189,34 +1213,6 @@ public class Controller
         mTabControl.removeParentChildRelationShips();
     }
 
-    /**
-     * callback from ComboPage when bookmark/history selection
-     */
-    @Override
-    public void onUrlSelected(String url, boolean newTab) {
-        removeComboView();
-        if (!TextUtils.isEmpty(url)) {
-            if (newTab) {
-                final Tab parent = mTabControl.getCurrentTab();
-                openTab(url,
-                        (parent != null) && parent.isPrivateBrowsingEnabled(),
-                        !mSettings.openInBackground(),
-                        true);
-            } else {
-                final Tab currentTab = mTabControl.getCurrentTab();
-                loadUrl(currentTab, url);
-            }
-        }
-    }
-
-    /**
-     * dismiss the ComboPage
-     */
-    @Override
-    public void removeComboView() {
-        mUi.hideComboView();
-    }
-
     // key handling
     protected void onBackKey() {
         if (!mUi.onBackKey()) {
@@ -1241,10 +1237,6 @@ public class Controller
     // TODO: maybe put into separate handler
 
     protected boolean onCreateOptionsMenu(Menu menu) {
-        if (mOptionsMenuHandler != null) {
-            return mOptionsMenuHandler.onCreateOptionsMenu(menu);
-        }
-
         if (mMenuState == EMPTY_MENU) {
             return false;
         }
@@ -1437,9 +1429,6 @@ public class Controller
     }
 
     boolean onPrepareOptionsMenu(Menu menu) {
-        if (mOptionsMenuHandler != null) {
-            return mOptionsMenuHandler.onPrepareOptionsMenu(menu);
-        }
         // Note: setVisible will decide whether an item is visible; while
         // setEnabled() will decide whether an item is enabled, which also means
         // whether the matching shortcut key will function.
@@ -1513,16 +1502,6 @@ public class Controller
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mOptionsMenuHandler != null &&
-                mOptionsMenuHandler.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        if (item.getGroupId() != R.id.CONTEXT_MENU) {
-            // menu remains active, so ensure comboview is dismissed
-            // if main menu option is selected
-            removeComboView();
-        }
         if (null == getCurrentTopWebView()) {
             return false;
         }
@@ -1552,7 +1531,7 @@ public class Controller
                 break;
 
             case R.id.add_bookmark_menu_id:
-                bookmarkCurrentPage(false);
+                mActivity.startActivity(createBookmarkCurrentPageIntent(false));
                 break;
 
             case R.id.stop_reload_menu_id:
@@ -1853,13 +1832,13 @@ public class Controller
     /**
      * add the current page as a bookmark to the given folder id
      * @param folderId use -1 for the default folder
-     * @param canBeAnEdit If true, check to see whether the site is already
+     * @param editExisting If true, check to see whether the site is already
      *          bookmarked, and if it is, edit that bookmark.  If false, and
      *          the site is already bookmarked, do not attempt to edit the
      *          existing bookmark.
      */
     @Override
-    public void bookmarkCurrentPage(boolean canBeAnEdit) {
+    public Intent createBookmarkCurrentPageIntent(boolean editExisting) {
         Intent i = new Intent(mActivity,
                 AddBookmarkPage.class);
         WebView w = getCurrentTopWebView();
@@ -1878,13 +1857,13 @@ public class Controller
                 createScreenshot(w, getDesiredThumbnailWidth(mActivity),
                 getDesiredThumbnailHeight(mActivity)));
         i.putExtra(BrowserContract.Bookmarks.FAVICON, w.getFavicon());
-        if (canBeAnEdit) {
+        if (editExisting) {
             i.putExtra(AddBookmarkPage.CHECK_FOR_DUPE, true);
         }
         // Put the dialog at the upper right of the screen, covering the
         // star on the title bar.
         i.putExtra("gravity", Gravity.RIGHT | Gravity.TOP);
-        mActivity.startActivity(i);
+        return i;
     }
 
     // file chooser
@@ -2278,8 +2257,6 @@ public class Controller
      */
     @Override
     public boolean switchToTab(Tab tab) {
-        // hide combo view if open
-        removeComboView();
         Tab currentTab = mTabControl.getCurrentTab();
         if (tab == null || tab == currentTab) {
             return false;
@@ -2290,8 +2267,6 @@ public class Controller
 
     @Override
     public void closeCurrentTab() {
-        // hide combo view if open
-        removeComboView();
         if (mTabControl.getTabCount() == 1) {
             CrashRecoveryHandler.clearState(mActivity);
             mActivity.finish();
@@ -2318,8 +2293,6 @@ public class Controller
      */
     @Override
     public void closeTab(Tab tab) {
-        // hide combo view if open
-        removeComboView();
         removeTab(tab);
     }
 
@@ -2490,12 +2463,8 @@ public class Controller
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
         if (KeyEvent.KEYCODE_MENU == keyCode) {
-            if (mOptionsMenuHandler != null) {
-                return false;
-            } else {
-                event.startTracking();
-                return true;
-            }
+            event.startTracking();
+            return true;
         }
         if (!noModifiers
                 && ((KeyEvent.KEYCODE_MENU == keyCode)
@@ -2656,18 +2625,6 @@ public class Controller
                 AutoFillSettingsFragment.class.getName());
         mAutoFillSetupMessage = message;
         mActivity.startActivityForResult(intent, AUTOFILL_SETUP);
-    }
-
-    @Override
-    public void registerOptionsMenuHandler(OptionsMenuHandler handler) {
-        mOptionsMenuHandler = handler;
-    }
-
-    @Override
-    public void unregisterOptionsMenuHandler(OptionsMenuHandler handler) {
-        if (mOptionsMenuHandler == handler) {
-            mOptionsMenuHandler = null;
-        }
     }
 
     @Override

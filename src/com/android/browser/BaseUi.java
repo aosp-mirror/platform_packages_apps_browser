@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -92,8 +93,6 @@ public abstract class BaseUi implements UI, OnTouchListener {
     private View mCustomView;
     private WebChromeClient.CustomViewCallback mCustomViewCallback;
     private int mOriginalOrientation;
-
-    private CombinedBookmarkHistoryView mComboView;
 
     private LinearLayout mErrorConsoleContainer = null;
 
@@ -183,12 +182,6 @@ public abstract class BaseUi implements UI, OnTouchListener {
 
     @Override
     public boolean onBackKey() {
-        if (mComboView != null) {
-            if (!mComboView.onBackPressed()) {
-                mUiController.removeComboView();
-            }
-            return true;
-        }
         if (mCustomView != null) {
             mUiController.hideCustomView();
             return true;
@@ -497,45 +490,16 @@ public abstract class BaseUi implements UI, OnTouchListener {
 
     @Override
     public void showComboView(ComboViews startingView, Bundle extras) {
-        if (mComboView != null) {
-            return;
+        Intent intent = new Intent(mActivity, ComboViewActivity.class);
+        intent.putExtra(ComboViewActivity.EXTRA_INITIAL_VIEW, startingView.name());
+        intent.putExtra(ComboViewActivity.EXTRA_COMBO_ARGS, extras);
+        Tab t = getActiveTab();
+        if (t != null) {
+            intent.putExtra(ComboViewActivity.EXTRA_CURRENT_URL, t.getUrl());
         }
-        mComboView = new CombinedBookmarkHistoryView(mActivity,
-                mUiController,
-                startingView,
-                extras);
-        FrameLayout wrapper =
-            (FrameLayout) mContentView.findViewById(R.id.webview_wrapper);
-        wrapper.setVisibility(View.GONE);
-        mNavigationBar.stopEditingUrl();
-        dismissIME();
-        hideTitleBar();
-        if (mActiveTab != null) {
-            mActiveTab.putInBackground();
-        }
-        mContentView.addView(mComboView, COVER_SCREEN_PARAMS);
-    }
-
-    public boolean isComboViewShowing() {
-        return (mComboView != null);
-    }
-
-    /**
-     * dismiss the ComboPage
-     */
-    @Override
-    public void hideComboView() {
-        if (mComboView != null) {
-            mContentView.removeView(mComboView);
-            FrameLayout wrapper =
-                (FrameLayout) mContentView.findViewById(R.id.webview_wrapper);
-            wrapper.setVisibility(View.VISIBLE);
-            mComboView = null;
-        }
-        if (mActiveTab != null) {
-            mActiveTab.putInForeground();
-        }
-        mActivity.invalidateOptionsMenu();
+        intent.putExtra(ComboViewActivity.EXTRA_BOOKMARK_PAGE,
+                mUiController.createBookmarkCurrentPageIntent(false));
+        mActivity.startActivityForResult(intent, Controller.COMBO_VIEW);
     }
 
     @Override
@@ -594,8 +558,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
 
     @Override
     public boolean showsWeb() {
-        return mCustomView == null
-            && mComboView == null;
+        return mCustomView == null;
     }
 
     @Override

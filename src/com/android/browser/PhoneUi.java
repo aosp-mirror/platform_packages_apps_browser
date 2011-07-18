@@ -56,12 +56,6 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
-    public void hideComboView() {
-        super.hideComboView();
-        mActivity.getActionBar().hide();
-    }
-
-    @Override
     public void onDestroy() {
         hideTitleBar();
     }
@@ -85,22 +79,16 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean onMenuKey() {
-        if (!isComboViewShowing()) {
-            if (mNavScreen == null) {
-                showNavScreen();
-            } else {
-                mNavScreen.close();
-            }
-            return true;
+        if (mNavScreen == null) {
+            showNavScreen();
         } else {
-            return false;
+            mNavScreen.close();
         }
+        return true;
     }
 
     @Override
     public boolean dispatchKey(int code, KeyEvent event) {
-        if (!isComboViewShowing()) {
-        }
         return false;
     }
 
