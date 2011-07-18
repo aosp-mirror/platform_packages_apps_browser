@@ -322,8 +322,8 @@
         <item>Blank page</item>
         <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
         <item>Default page</item>
-        <!-- Setting choice to set the homepage to the "Most Visited" homepage feature [CHAR LIMIT=40] -->
-        <item>Most-visited homepage</item>
+        <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+        <item>Most visited sites</item>
         <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
         <item>Other\u2026</item>
     </string-array>
