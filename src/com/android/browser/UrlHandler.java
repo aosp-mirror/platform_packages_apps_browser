@@ -257,6 +257,8 @@ public class UrlHandler {
         }
 
         protected void onPostExecute(String result) {
+            // abort if we left browser already
+            if (mController.isActivityPaused()) return;
             // Make sure the Tab was not closed while handling the task
             if (mController.getTabControl().getTabPosition(mTab) != -1) {
                 // If the Activity Manager is not invoked, load the URL directly
