@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -208,6 +209,8 @@ public class Controller
     private DataController mDataController;
     private CrashRecoveryHandler mCrashRecoveryHandler;
 
+    private boolean mSimulateActionBarOverlayMode;
+
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
         public Void doInBackground(File... files) {
@@ -261,6 +264,7 @@ public class Controller
         mSystemAllowGeolocationOrigins.start();
 
         retainIconsOnStartup();
+        mSimulateActionBarOverlayMode = !BrowserActivity.isTablet(mActivity);
     }
 
     void start(final Bundle icicle, final Intent intent) {
@@ -1792,11 +1796,28 @@ public class Controller
         mActivity.startActivity(intent);
     }
 
+    int getActionModeHeight() {
+        TypedArray actionBarSizeTypedArray = mActivity.obtainStyledAttributes(
+                    new int[] { android.R.attr.actionBarSize });
+        int size = (int) actionBarSizeTypedArray.getDimension(0, 0f);
+        actionBarSizeTypedArray.recycle();
+        return size;
+    }
+
     // action mode
 
     void onActionModeStarted(ActionMode mode) {
         mUi.onActionModeStarted(mode);
         mActionMode = mode;
+        if (mSimulateActionBarOverlayMode) {
+            WebView web = getCurrentWebView();
+            // Simulate overlay mode by scrolling the webview the amount it will be
+            // pushed down. Actual overlay mode doesn't work for us as otherwise
+            // the CAB will, well, overlay the content, which breaks things like
+            // find on page.
+            int scrollBy = getActionModeHeight();
+            web.scrollBy(0, scrollBy);
+        }
     }
 
     /*
@@ -1825,6 +1846,11 @@ public class Controller
         if (!isInCustomActionMode()) return;
         mUi.onActionModeFinished(mInLoad);
         mActionMode = null;
+        if (mSimulateActionBarOverlayMode) {
+            WebView web = getCurrentWebView();
+            int scrollBy = getActionModeHeight();
+            web.scrollBy(0, -scrollBy);
+        }
     }
 
     boolean isInLoad() {

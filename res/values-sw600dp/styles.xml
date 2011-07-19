@@ -20,7 +20,7 @@
         <item name="android:windowActionBar">true</item>
         <item name="android:windowNoTitle">false</item>
         <item name="android:actionBarStyle">@style/ActionBarStyle</item>
-        <item name="android:actionButtonStyle">@style/ActionButton</item>
+        <item name="android:actionBarSize">56dip</item>
     </style>
     <style name="Suggestions" parent="@android:style/Widget.Holo.AutoCompleteTextView">
     </style>
