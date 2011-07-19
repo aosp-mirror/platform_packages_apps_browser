@@ -218,8 +218,10 @@ public class BrowserSnapshotPage extends Fragment implements
             TextView title = (TextView) view.findViewById(R.id.title);
             title.setText(cursor.getString(SNAPSHOT_TITLE));
             TextView size = (TextView) view.findViewById(R.id.size);
-            int stateLen = cursor.getInt(SNAPSHOT_VIEWSTATE_LENGTH);
-            size.setText(String.format("%.2fMB", stateLen / 1024f / 1024f));
+            if (size != null) {
+                int stateLen = cursor.getInt(SNAPSHOT_VIEWSTATE_LENGTH);
+                size.setText(String.format("%.2fMB", stateLen / 1024f / 1024f));
+            }
             long timestamp = cursor.getLong(SNAPSHOT_DATE_CREATED);
             TextView date = (TextView) view.findViewById(R.id.date);
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
