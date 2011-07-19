@@ -187,6 +187,10 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
         }
     }
 
+    int getState() {
+        return mState;
+    }
+
     void setVoiceResults(List<String> voiceResults) {
         mAdapter.setVoiceResults(voiceResults);
     }

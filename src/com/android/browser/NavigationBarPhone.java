@@ -116,11 +116,11 @@ public class NavigationBarPhone extends NavigationBarBase implements
     @Override
     public void onProgressStopped() {
         super.onProgressStopped();
-        mStopButton.setVisibility(View.GONE);
         mStopButton.setImageDrawable(mRefreshDrawable);
         if (!isEditingUrl()) {
             mComboIcon.setVisibility(View.VISIBLE);
         }
+        onStateChanged(mUrlInput.getState());
     }
 
     /**
@@ -236,7 +236,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
         case StateListener.STATE_NORMAL:
             mComboIcon.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
-            setSearchMode(false);
+            setSearchMode(mInVoiceMode);
             mTabSwitcher.setVisibility(View.VISIBLE);
             mTitleContainer.setBackgroundDrawable(null);
             mMore.setVisibility(mNeedsMenu ? View.VISIBLE : View.GONE);
