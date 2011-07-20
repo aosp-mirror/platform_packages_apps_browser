@@ -81,11 +81,25 @@ public class PreloadController implements WebViewController {
     @Override
     public void onPageStarted(Tab tab, WebView view, Bitmap favicon) {
         if (LOGD_ENABLED) Log.d(LOGTAG, "onPageStarted()");
+        if (view != null) {
+            // Clear history of all previously visited pages. When the
+            // user visits a preloaded tab, the only item in the history
+            // list should the currently viewed page.
+            view.clearHistory();
+        }
     }
 
     @Override
     public void onPageFinished(Tab tab) {
         if (LOGD_ENABLED) Log.d(LOGTAG, "onPageFinished()");
+        if (tab != null) {
+            final WebView view = tab.getWebView();
+            if (view != null) {
+                // Clear history of all previously visited pages. When the
+                // user visits a preloaded tab.
+                view.clearHistory();
+            }
+        }
     }
 
     @Override
