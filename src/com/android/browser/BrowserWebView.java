@@ -99,13 +99,4 @@ public class BrowserWebView extends WebView {
         }
     }
 
-    @Override
-    protected void updateCachedTextfield(String updatedText) {
-        super.updateCachedTextfield(updatedText);
-        CrashRecoveryHandler handler = CrashRecoveryHandler.getInstance();
-        if (handler != null) {
-            handler.backupState();
-        }
-    }
-
 }

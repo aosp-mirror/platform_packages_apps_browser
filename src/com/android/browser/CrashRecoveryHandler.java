@@ -170,8 +170,6 @@ public class CrashRecoveryHandler {
     }
 
     private boolean shouldPrompt() {
-        // STOPSHIP TODO: Remove once b/4971724 is fixed
-        if (true) return false;
         Context context = mController.getActivity();
         SharedPreferences prefs = context.getSharedPreferences(
                 RECOVERY_PREFERENCES, Context.MODE_PRIVATE);
