@@ -1004,4 +1004,8 @@
     <string name="ua_switcher_desktop">Desktop</string>
     <!-- Preload permission label [CHAR LIMIT=40] -->
     <string name="permission_preload_label">Preload results</string>
+    <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+    <string name="empty_snapshots_folder">There are no saved pages.</string>
+    <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
+    <string name="remove_snapshot">Delete saved page</string>
 </resources>
