@@ -23,6 +23,7 @@ import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -75,16 +76,6 @@ public class PhoneUi extends BaseUi {
             return true;
         }
         return super.onBackKey();
-    }
-
-    @Override
-    public boolean onMenuKey() {
-        if (mNavigationBar.isMenuShowing()) {
-            mNavigationBar.dismissMenu();
-        } else {
-            mNavigationBar.showMenu();
-        }
-        return true;
     }
 
     @Override
@@ -167,6 +158,20 @@ public class PhoneUi extends BaseUi {
     }
 
     // menu handling callbacks
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.setGroupVisible(R.id.NAV_MENU, (mNavScreen == null));
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mNavScreen != null) {
+            hideNavScreen(false);
+        }
+        return false;
+    }
 
     @Override
     public void onContextMenuCreated(Menu menu) {

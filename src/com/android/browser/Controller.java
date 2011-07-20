@@ -1512,6 +1512,10 @@ public class Controller
             // won't get onKeyUp for MENU. So it is important to reset it here.
             mMenuIsDown = false;
         }
+        if (mUi.onOptionsItemSelected(item)) {
+            // ui callback handled it
+            return true;
+        }
         switch (item.getItemId()) {
             // -- Main menu
             case R.id.new_tab_menu_id:
@@ -2462,10 +2466,6 @@ public class Controller
         boolean noModifiers = event.hasNoModifiers();
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
-        if (KeyEvent.KEYCODE_MENU == keyCode) {
-            event.startTracking();
-            return true;
-        }
         if (!noModifiers
                 && ((KeyEvent.KEYCODE_MENU == keyCode)
                         || (KeyEvent.KEYCODE_CTRL_LEFT == keyCode)

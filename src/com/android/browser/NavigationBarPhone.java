@@ -167,30 +167,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
         return mMenuShowing;
     }
 
-    void showMenu() {
-        // called from menu key, use tab switcher as anchor
-        mMenuShowing = true;
-        if (isEditingUrl()) {
-            stopEditingUrl();
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    showMenu();
-                }
-            });
-        } else {
-            mBaseUi.getTitleBar().setSkipTitleBarAnimations(true);
-            mBaseUi.showTitleBar();
-            mBaseUi.getTitleBar().setSkipTitleBarAnimations(false);
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    showMenu(mTabSwitcher);
-                }
-            });
-        }
-    }
-
     void showMenu(View anchor) {
         mMenuShowing = true;
         mPopupMenu = new PopupMenu(mContext, anchor);
@@ -200,13 +176,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mPopupMenu.setOnMenuItemClickListener(this);
         mPopupMenu.setOnDismissListener(this);
         mPopupMenu.show();
-    }
-
-    void dismissMenu() {
-       if (mPopupMenu != null) {
-           mPopupMenu.dismiss();
-           mBaseUi.suggestHideTitleBar();
-       }
     }
 
     @Override

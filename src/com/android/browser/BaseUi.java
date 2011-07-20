@@ -35,6 +35,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -650,6 +651,11 @@ public abstract class BaseUi implements UI, OnTouchListener {
 
     @Override
     public void onExtendedMenuOpened() {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return false;
     }
 
     @Override

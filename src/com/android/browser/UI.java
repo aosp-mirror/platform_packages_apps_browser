@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
@@ -101,6 +102,8 @@ public interface UI {
     public void onOptionsMenuOpened();
 
     public void onExtendedMenuOpened();
+
+    public boolean onOptionsItemSelected(MenuItem item);
 
     public void onOptionsMenuClosed(boolean inLoad);
 

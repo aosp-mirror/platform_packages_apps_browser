@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -59,6 +60,7 @@ public class NavScreen extends RelativeLayout
     NavTabGallery mScroller;
     TabAdapter mAdapter;
     int mOrientation;
+    boolean mNeedsMenu;
 
     public NavScreen(Activity activity, UiController ctl, PhoneUi ui) {
         super(activity);
@@ -122,6 +124,10 @@ public class NavScreen extends RelativeLayout
                 ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
         // update state for active tab
         mScroller.setSelection(mUiController.getTabControl().getTabPosition(mUi.getActiveTab()));
+        mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
+        if (!mNeedsMenu) {
+            mMore.setVisibility(View.GONE);
+        }
     }
 
     @Override
