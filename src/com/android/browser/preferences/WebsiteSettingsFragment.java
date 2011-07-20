@@ -16,27 +16,22 @@
 
 package com.android.browser.preferences;
 
-import com.android.browser.R;
-import com.android.browser.WebStorageSizeManager;
-
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
 import android.provider.BrowserContract.Bookmarks;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -44,12 +39,13 @@ import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
 import android.webkit.WebStorage;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.Serializable;
+import com.android.browser.R;
+import com.android.browser.WebStorageSizeManager;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -69,7 +65,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
     private SiteAdapter mAdapter = null;
     private Site mSite = null;
 
-    static class Site implements Serializable {
+    static class Site implements Parcelable {
         private String mOrigin;
         private String mTitle;
         private Bitmap mIcon;
@@ -160,6 +156,38 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             Uri uri = Uri.parse(str);
             return "http".equals(uri.getScheme()) ?  str.substring(7) : str;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(mOrigin);
+            dest.writeString(mTitle);
+            dest.writeInt(mFeatures);
+            dest.writeParcelable(mIcon, flags);
+        }
+
+        private Site(Parcel in) {
+            mOrigin = in.readString();
+            mTitle = in.readString();
+            mFeatures = in.readInt();
+            mIcon = in.readParcelable(null);
+        }
+
+        public static final Parcelable.Creator<Site> CREATOR
+                = new Parcelable.Creator<Site>() {
+            public Site createFromParcel(Parcel in) {
+                return new Site(in);
+            }
+
+            public Site[] newArray(int size) {
+                return new Site[size];
+            }
+        };
+
     }
 
     class SiteAdapter extends ArrayAdapter<Site>
@@ -597,7 +625,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                 PreferenceActivity activity = (PreferenceActivity) getActivity();
                 if (activity != null) {
                     Bundle args = new Bundle();
-                    args.putSerializable(EXTRA_SITE, site);
+                    args.putParcelable(EXTRA_SITE, site);
                     activity.startPreferencePanel(WebsiteSettingsFragment.class.getName(), args, 0,
                             site.getPrettyTitle(), null, 0);
                 }
@@ -615,7 +643,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
         View view = inflater.inflate(R.layout.website_settings, container, false);
         Bundle args = getArguments();
         if (args != null) {
-            mSite = (Site) args.getSerializable(EXTRA_SITE);
+            mSite = (Site) args.getParcelable(EXTRA_SITE);
         }
         if (mSite == null) {
             View clear = view.findViewById(R.id.clear_all_button);
