@@ -18,6 +18,6 @@
     <group android:id="@+id/CONTEXT_MENU">
         <item
             android:id="@+id/delete_context_menu_id"
-            android:title="@string/remove_bookmark"/>
+            android:title="@string/remove_snapshot"/>
     </group>
 </menu>
