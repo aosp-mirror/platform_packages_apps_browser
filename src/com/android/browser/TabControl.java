@@ -389,6 +389,11 @@ class TabControl {
                 // ignore tab
             } else if (id == currentId || restoreAll) {
                 Tab t = createNewTab();
+                if (t == null) {
+                    // We could "break" at this point, but we want
+                    // sNextId to be set correctly.
+                    continue;
+                }
                 tabMap.put(id, t);
                 // Me must set the current tab before restoring the state
                 // so that all the client classes are set.
@@ -416,11 +421,12 @@ class TabControl {
                 // added the tab to the front as they are not current
                 mTabQueue.add(0, t);
             }
-            // make sure that there is no id overlap between the restored
-            // and new tabs
-            sNextId = maxId + 1;
-
         }
+
+        // make sure that there is no id overlap between the restored
+        // and new tabs
+        sNextId = maxId + 1;
+
         if (mCurrentTab == -1) {
             if (getTabCount() > 0) {
                 setCurrentTab(getTab(0));
