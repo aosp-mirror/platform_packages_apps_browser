@@ -173,7 +173,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
         } else if (mGoLive == v) {
             goLive();
         } else if (mTabSwitcher == v) {
-            mTitleBar.getUi().onMenuKey();
+            ((PhoneUi) mTitleBar.getUi()).toggleNavScreen();
         } else if (mOverflowMenu == v) {
             NavigationBarBase navBar = mTitleBar.getNavigationBar();
             if (navBar instanceof NavigationBarPhone) {
