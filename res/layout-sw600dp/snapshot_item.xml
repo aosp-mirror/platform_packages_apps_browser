@@ -63,4 +63,15 @@
         android:typeface="sans"
         android:textSize="14sp"
         android:textColor="#AAAAAA" />
+    <TextView android:id="@+id/size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/divider"
+        android:layout_alignBottom="@id/divider"
+        android:layout_alignRight="@+id/thumb"
+        android:paddingRight="2dip"
+        android:gravity="center_vertical"
+        android:typeface="sans"
+        android:textSize="14sp"
+        android:textColor="#AAAAAA" />
 </RelativeLayout>
