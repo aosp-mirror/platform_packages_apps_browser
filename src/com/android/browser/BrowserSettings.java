@@ -102,6 +102,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private WebStorageSizeManager mWebStorageSizeManager;
     private AutofillHandler mAutofillHandler;
     private WeakHashMap<WebSettings, String> mCustomUserAgents;
+    private boolean mInitialized = false;
+
+    // Cached values
+    private int mPageCacheCapacity = 1;
+    private String mAppCachePath;
 
     // Cached settings
     private SearchEngine mSearchEngine;
@@ -117,43 +122,12 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private BrowserSettings(Context context) {
         mContext = context;
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if (Build.VERSION.CODENAME.equals("REL")) {
-            // This is a release build, always startup with debug disabled
-            setDebugEnabled(false);
-        }
-        if (mPrefs.contains(PREF_TEXT_SIZE)) {
-            /*
-             * Update from TextSize enum to zoom percent
-             * SMALLEST is 50%
-             * SMALLER is 75%
-             * NORMAL is 100%
-             * LARGER is 150%
-             * LARGEST is 200%
-             */
-            switch (getTextSize()) {
-            case SMALLEST:
-                setTextZoom(50);
-                break;
-            case SMALLER:
-                setTextZoom(75);
-                break;
-            case LARGER:
-                setTextZoom(150);
-                break;
-            case LARGEST:
-                setTextZoom(200);
-                break;
-            }
-            mPrefs.edit().remove(PREF_TEXT_SIZE).apply();
-        }
         mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
         mCustomUserAgents = new WeakHashMap<WebSettings, String>();
-        mWebStorageSizeManager = new WebStorageSizeManager(mContext,
-                new WebStorageSizeManager.StatFsDiskInfo(getAppCachePath()),
-                new WebStorageSizeManager.WebKitAppCacheInfo(getAppCachePath()));
         mPrefs.registerOnSharedPreferenceChangeListener(this);
         mAutofillHandler.asyncLoadFromDb();
+        new Thread(mInitialization, "BrowserSettingsInitialization").start();
     }
 
     public void setController(Controller controller) {
@@ -170,6 +144,66 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             syncStaticSettings(settings);
             syncSetting(settings);
             mManagedSettings.add(new WeakReference<WebSettings>(settings));
+        }
+    }
+
+    private Runnable mInitialization = new Runnable() {
+
+        @Override
+        public void run() {
+            // the cost of one cached page is ~3M (measured using nytimes.com). For
+            // low end devices, we only cache one page. For high end devices, we try
+            // to cache more pages, currently choose 5.
+            if (ActivityManager.staticGetMemoryClass() > 16) {
+                mPageCacheCapacity = 5;
+            }
+            mWebStorageSizeManager = new WebStorageSizeManager(mContext,
+                    new WebStorageSizeManager.StatFsDiskInfo(getAppCachePath()),
+                    new WebStorageSizeManager.WebKitAppCacheInfo(getAppCachePath()));
+            if (Build.VERSION.CODENAME.equals("REL")) {
+                // This is a release build, always startup with debug disabled
+                setDebugEnabled(false);
+            }
+            if (mPrefs.contains(PREF_TEXT_SIZE)) {
+                /*
+                 * Update from TextSize enum to zoom percent
+                 * SMALLEST is 50%
+                 * SMALLER is 75%
+                 * NORMAL is 100%
+                 * LARGER is 150%
+                 * LARGEST is 200%
+                 */
+                switch (getTextSize()) {
+                case SMALLEST:
+                    setTextZoom(50);
+                    break;
+                case SMALLER:
+                    setTextZoom(75);
+                    break;
+                case LARGER:
+                    setTextZoom(150);
+                    break;
+                case LARGEST:
+                    setTextZoom(200);
+                    break;
+                }
+                mPrefs.edit().remove(PREF_TEXT_SIZE).apply();
+            }
+            synchronized (BrowserSettings.this) {
+                mInitialized = true;
+                BrowserSettings.this.notifyAll();
+            }
+        }
+    };
+
+    void requireInitialization() {
+        synchronized (BrowserSettings.this) {
+            while (!mInitialized) {
+                try {
+                    BrowserSettings.this.wait();
+                } catch (InterruptedException e) {
+                }
+            }
         }
     }
 
@@ -236,7 +270,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setWorkersEnabled(true);  // This only affects V8.
 
         // HTML5 configuration parametersettings.
-        settings.setAppCacheMaxSize(mWebStorageSizeManager.getAppCacheMaxSize());
+        settings.setAppCacheMaxSize(getWebStorageSizeManager().getAppCacheMaxSize());
         settings.setAppCachePath(getAppCachePath());
         settings.setDatabasePath(mContext.getDir("databases", 0).getPath());
         settings.setGeolocationDatabasePath(mContext.getDir("geolocation", 0).getPath());
@@ -314,25 +348,21 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return layoutAlgorithm;
     }
 
-    // TODO: Cache
     public int getPageCacheCapacity() {
-        // the cost of one cached page is ~3M (measured using nytimes.com). For
-        // low end devices, we only cache one page. For high end devices, we try
-        // to cache more pages, currently choose 5.
-        if (ActivityManager.staticGetMemoryClass() > 16) {
-            return 5;
-        } else {
-            return 1;
-        }
+        requireInitialization();
+        return mPageCacheCapacity;
     }
 
     public WebStorageSizeManager getWebStorageSizeManager() {
+        requireInitialization();
         return mWebStorageSizeManager;
     }
 
-    // TODO: Cache
     private String getAppCachePath() {
-        return mContext.getDir("appcache", 0).getPath();
+        if (mAppCachePath == null) {
+            mAppCachePath = mContext.getDir("appcache", 0).getPath();
+        }
+        return mAppCachePath;
     }
 
     private void updateSearchEngine(boolean force) {
@@ -366,6 +396,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean isDebugEnabled() {
+        requireInitialization();
         return mPrefs.getBoolean(PREF_DEBUG_MENU, false);
     }
 
@@ -496,6 +527,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public int getTextZoom() {
+        requireInitialization();
         int textZoom = mPrefs.getInt(PREF_TEXT_ZOOM, 10);
         return getAdjustedTextZoom(textZoom);
     }
