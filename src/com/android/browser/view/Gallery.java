@@ -63,7 +63,7 @@ public class Gallery extends ViewGroup implements
 
     private RecycleBin mRecycler;
 
-    private boolean mHorizontal;
+    protected boolean mHorizontal;
     private int mFirstPosition;
     private int mItemCount;
     private boolean mDataChanged;
@@ -82,8 +82,8 @@ public class Gallery extends ViewGroup implements
 
     private GestureDetector mGestureDetector;
 
-    private int mDownTouchPosition;
-    private View mDownTouchView;
+    protected int mDownTouchPosition;
+    protected View mDownTouchView;
     private FlingRunnable mFlingRunnable = new FlingRunnable();
 
     private OnItemSelectedListener mOnItemSelectedListener;
@@ -114,12 +114,14 @@ public class Gallery extends ViewGroup implements
     private boolean mIsFirstScroll;
 
     private boolean mIsBeingDragged;
+    protected boolean mIsOrthoDragged;
 
     private int mActivePointerId = INVALID_POINTER;
 
     private int mTouchSlop;
 
     private float mLastMotionCoord;
+    private float mLastOrthoCoord;
 
     public Gallery(Context context) {
         this(context, null);
@@ -676,7 +678,7 @@ public class Gallery extends ViewGroup implements
      *            This will either be the left or right edge of the view,
      *            depending on the fromLeft paramter
      * @param fromLeft
-     *            Are we posiitoning views based on the left edge? (i.e.,
+     *            Are we positioning views based on the left edge? (i.e.,
      *            building from left to right)?
      * @return A view that has been added to the gallery
      */
@@ -769,7 +771,7 @@ public class Gallery extends ViewGroup implements
      *            Child to place
      * @return Where the top of the child should be
      */
-    private int calculateTop(View child, boolean duringLayout) {
+    protected int calculateTop(View child, boolean duringLayout) {
         int myHeight = mHorizontal ? (duringLayout ? getMeasuredHeight()
                 : getHeight()) : (duringLayout ? getMeasuredWidth()
                 : getWidth());
@@ -805,6 +807,9 @@ public class Gallery extends ViewGroup implements
         if ((action == MotionEvent.ACTION_MOVE) && (mIsBeingDragged)) {
             return true;
         }
+        if ((action == MotionEvent.ACTION_MOVE) && (mIsOrthoDragged)) {
+            return true;
+        }
         switch (action & MotionEvent.ACTION_MASK) {
         case MotionEvent.ACTION_MOVE: {
             /*
@@ -821,10 +826,20 @@ public class Gallery extends ViewGroup implements
             final int pointerIndex = ev.findPointerIndex(activePointerId);
             final float coord = mHorizontal ? ev.getX(pointerIndex) : ev
                     .getY(pointerIndex);
+
             final int diff = (int) Math.abs(coord - mLastMotionCoord);
             if (diff > mTouchSlop) {
                 mIsBeingDragged = true;
                 mLastMotionCoord = coord;
+            } else {
+                final float ocoord = mHorizontal ? ev.getY(pointerIndex)
+                        : ev.getX(pointerIndex);
+                if (Math.abs(ocoord - mLastOrthoCoord) > mTouchSlop) {
+                    mIsOrthoDragged = true;
+                    mLastOrthoCoord = ocoord;
+                }
+            }
+            if (mIsBeingDragged || mIsOrthoDragged) {
                 if (mParent != null)
                     mParent.requestDisallowInterceptTouchEvent(true);
             }
@@ -844,6 +859,9 @@ public class Gallery extends ViewGroup implements
              * flinged.
              */
             mIsBeingDragged = !mFlingRunnable.mScroller.isFinished();
+            mIsOrthoDragged = false;
+            final float ocoord = mHorizontal ? ev.getY() : ev.getX();
+            mLastOrthoCoord = ocoord;
             mGestureDetector.onTouchEvent(ev);
             break;
         }
@@ -851,20 +869,24 @@ public class Gallery extends ViewGroup implements
         case MotionEvent.ACTION_UP:
             /* Release the drag */
             mIsBeingDragged = false;
+            mIsOrthoDragged = false;
             mActivePointerId = INVALID_POINTER;
             break;
         case MotionEvent.ACTION_POINTER_DOWN: {
             final int index = ev.getActionIndex();
             mLastMotionCoord = mHorizontal ? ev.getX(index) : ev.getY(index);
+            mLastOrthoCoord = mHorizontal ? ev.getY(index) : ev.getX(index);
             mActivePointerId = ev.getPointerId(index);
             break;
         }
         case MotionEvent.ACTION_POINTER_UP:
-            mLastMotionCoord = ev.getX(ev.findPointerIndex(mActivePointerId));
+            mLastMotionCoord = mHorizontal ? ev.getX(ev.findPointerIndex(mActivePointerId))
+                    : ev.getY(ev.findPointerIndex(mActivePointerId));
+            mLastOrthoCoord = mHorizontal ? ev.getY(ev.findPointerIndex(mActivePointerId))
+                    : ev.getX(ev.findPointerIndex(mActivePointerId));
             break;
         }
-
-        return mIsBeingDragged;
+        return mIsBeingDragged || mIsOrthoDragged;
     }
 
     @Override
@@ -874,7 +896,7 @@ public class Gallery extends ViewGroup implements
         int action = event.getAction();
         if (action == MotionEvent.ACTION_UP) {
             // Helper method for lifted finger
-            onUp();
+            onUp(mDownTouchView);
         } else if (action == MotionEvent.ACTION_CANCEL) {
             onCancel();
         }
@@ -902,6 +924,10 @@ public class Gallery extends ViewGroup implements
             if (!mSuppressSelectionChanged)
                 mSuppressSelectionChanged = true;
         }
+        if (isOrthoMove(velocityX, velocityY)) {
+            onOrthoFling(mDownTouchView, e1, e2, mHorizontal ? velocityY : velocityX);
+            return true;
+        }
         mFlingRunnable.startUsingVelocity(mHorizontal ? (int) -velocityX
                 : (int) -velocityY);
         return true;
@@ -912,22 +938,36 @@ public class Gallery extends ViewGroup implements
         if (localLOGV)
             Log.v(TAG, String.valueOf(e2.getX() - e1.getX()));
         mParent.requestDisallowInterceptTouchEvent(true);
-        if (!mShouldCallbackDuringFling) {
-            if (mIsFirstScroll) {
-                if (!mSuppressSelectionChanged)
-                    mSuppressSelectionChanged = true;
-                postDelayed(mDisableSuppressSelectionChangedRunnable,
-                        SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT);
+        if (mIsOrthoDragged && isOrthoMove(distanceX, distanceY)) {
+            onOrthoDrag(mDownTouchView, e1, e2, mHorizontal ? distanceY : distanceX);
+        } else if (mIsBeingDragged) {
+            if (!mShouldCallbackDuringFling) {
+                if (mIsFirstScroll) {
+                    if (!mSuppressSelectionChanged) {
+                        mSuppressSelectionChanged = true;
+                    }
+                    postDelayed(mDisableSuppressSelectionChangedRunnable,
+                            SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT);
+                }
+            } else {
+                if (mSuppressSelectionChanged) {
+                    mSuppressSelectionChanged = false;
+                }
             }
-        } else {
-            if (mSuppressSelectionChanged)
-                mSuppressSelectionChanged = false;
-        }
-        trackMotionScroll(mHorizontal ? -1 * (int) distanceX : -1
-                * (int) distanceY);
+            trackMotionScroll(mHorizontal ? -1 * (int) distanceX : -1
+                                            * (int) distanceY);
 
-        mIsFirstScroll = false;
+            mIsFirstScroll = false;
+        }
         return true;
+    }
+
+    protected void onOrthoDrag(View draggedView, MotionEvent down,
+            MotionEvent move, float distance) {
+    }
+
+    protected void onOrthoFling(View draggedView, MotionEvent down,
+            MotionEvent move, float velocity) {
     }
 
     public boolean onDown(MotionEvent e) {
@@ -935,7 +975,6 @@ public class Gallery extends ViewGroup implements
         mDownTouchPosition = pointToPosition((int) e.getX(), (int) e.getY());
         if (mDownTouchPosition >= 0) {
             mDownTouchView = getChildAt(mDownTouchPosition - mFirstPosition);
-            mDownTouchView.setPressed(true);
         }
         // Reset the multiple-scroll tracking state
         mIsFirstScroll = true;
@@ -946,18 +985,23 @@ public class Gallery extends ViewGroup implements
     /**
      * Called when a touch event's action is MotionEvent.ACTION_UP.
      */
-    void onUp() {
+    protected void onUp(View downView) {
         if (mFlingRunnable.mScroller.isFinished()) {
             scrollIntoSlots();
         }
         dispatchUnpress();
     }
 
+    private boolean isOrthoMove(float moveX, float moveY) {
+        return mHorizontal && Math.abs(moveY) > Math.abs(moveX)
+                || !mHorizontal && Math.abs(moveX) > Math.abs(moveY);
+    }
+
     /**
      * Called when a touch event's action is MotionEvent.ACTION_CANCEL.
      */
     void onCancel() {
-        onUp();
+        onUp(mDownTouchView);
     }
 
     public void onLongPress(MotionEvent e) {
@@ -986,9 +1030,6 @@ public class Gallery extends ViewGroup implements
 
     @Override
     protected void dispatchSetPressed(boolean pressed) {
-        if (mSelectedChild != null) {
-            mSelectedChild.setPressed(pressed);
-        }
     }
 
     @Override
@@ -1063,7 +1104,7 @@ public class Gallery extends ViewGroup implements
             long itemId) {
     }
 
-    boolean movePrevious() {
+    protected boolean movePrevious() {
         if (mItemCount > 0 && mSelectedPosition > 0) {
             scrollToChild(mSelectedPosition - mFirstPosition - 1);
             return true;
