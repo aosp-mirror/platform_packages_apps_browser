@@ -21,7 +21,6 @@ import android.os.Looper;
 import android.util.Log;
 import android.webkit.WebView;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -39,7 +38,7 @@ public class Preloader {
     private final Context mContext;
     private final Handler mHandler;
     private final BrowserWebViewFactory mFactory;
-    private final HashMap<String, PreloaderSession> mSessions;
+    private volatile PreloaderSession mSession;
 
     public static void initialize(Context context) {
         sInstance = new Preloader(context);
@@ -52,36 +51,52 @@ public class Preloader {
     private Preloader(Context context) {
         mContext = context;
         mHandler = new Handler(Looper.getMainLooper());
-        mSessions = new HashMap<String, PreloaderSession>();
+        mSession = null;
         mFactory = new BrowserWebViewFactory(context);
 
     }
 
     private PreloaderSession getSession(String id) {
-        PreloaderSession s = mSessions.get(id);
-        if (s == null) {
+        if (mSession == null) {
             if (LOGD_ENABLED) Log.d(LOGTAG, "Create new preload session " + id);
-            s = new PreloaderSession(id);
-            mSessions.put(id, s);
-            WebViewTimersControl.getInstance().onPrerenderStart(s.getWebView());
+            mSession = new PreloaderSession(id);
+            WebViewTimersControl.getInstance().onPrerenderStart(
+                    mSession.getWebView());
+            return mSession;
+        } else if (mSession.mId.equals(id)) {
+            if (LOGD_ENABLED) Log.d(LOGTAG, "Returning existing preload session " + id);
+            return mSession;
         }
-        return s;
+
+        if (LOGD_ENABLED) Log.d(LOGTAG, "Existing session in progress : " + mSession.mId +
+                " returning null.");
+        return null;
     }
 
     private PreloaderSession takeSession(String id) {
-        PreloaderSession s = mSessions.remove(id);
+        PreloaderSession s = null;
+        if (mSession != null && mSession.mId.equals(id)) {
+            s = mSession;
+            mSession = null;
+        }
+
         if (s != null) {
             s.cancelTimeout();
         }
-        if (mSessions.size() == 0) {
-            WebViewTimersControl.getInstance().onPrerenderDone(s == null ? null : s.getWebView());
-        }
+
+        WebViewTimersControl.getInstance().onPrerenderDone(s == null ? null : s.getWebView());
         return s;
     }
 
     public void handlePreloadRequest(String id, String url, Map<String, String> headers,
             String searchBoxQuery) {
         PreloaderSession s = getSession(id);
+        if (s == null) {
+            if (LOGD_ENABLED) Log.d(LOGTAG, "Discarding preload request, existing"
+                    + " session in progress");
+            return;
+        }
+
         s.touch(); // reset timer
         PreloadedTabControl tab = s.getTabControl();
         if (searchBoxQuery != null) {
