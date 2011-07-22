@@ -646,7 +646,7 @@ public class Controller
         // focused view XXX has no id".
 
         // Save all the tabs
-        mTabControl.saveState(outState, saveImages);
+        mTabControl.saveState(outState, false);
         if (!outState.isEmpty()) {
             // Save time so that we know how old incognito tabs (if any) are.
             outState.putSerializable("lastActiveDate", Calendar.getInstance());
