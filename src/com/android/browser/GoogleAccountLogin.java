@@ -281,16 +281,7 @@ public class GoogleAccountLogin implements Runnable,
             Log.d(LOGTAG, "Finished login attempt for " + mAccount.name);
             mActivity.runOnUiThread(mRunnable);
 
-            // Post a delayed message to dismiss the dialog in order to avoid a
-            // flash of the progress dialog.
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mProgressDialog.isShowing()) {
-                            mProgressDialog.dismiss();
-                        }
-                    }
-                }, 2000);
+            mProgressDialog.dismiss();
             mRunnable = null;
             mActivity.runOnUiThread(new Runnable() {
                 @Override
