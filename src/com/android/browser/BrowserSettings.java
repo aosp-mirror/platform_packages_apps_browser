@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Build;
+import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
@@ -103,6 +104,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private AutofillHandler mAutofillHandler;
     private WeakHashMap<WebSettings, String> mCustomUserAgents;
     private boolean mInitialized = false;
+    // Looper shared between some lightweight background operations
+    // Specifically, this is created on the thread that initializes browser settings
+    // and is then reused by CrashRecoveryHandler
+    private Looper mBackgroundLooper;
 
     // Cached values
     private int mPageCacheCapacity = 1;
@@ -127,7 +132,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mCustomUserAgents = new WeakHashMap<WebSettings, String>();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
         mAutofillHandler.asyncLoadFromDb();
-        new Thread(mInitialization, "BrowserSettingsInitialization").start();
+        new Thread(mSetupAndLoop, "BackgroundLooper").start();
     }
 
     public void setController(Controller controller) {
@@ -139,6 +144,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
+    public Looper getBackgroundLooper() {
+        requireInitialization();
+        return mBackgroundLooper;
+    }
+
     public void startManagingSettings(WebSettings settings) {
         synchronized (mManagedSettings) {
             syncStaticSettings(settings);
@@ -147,7 +157,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
-    private Runnable mInitialization = new Runnable() {
+    private Runnable mSetupAndLoop = new Runnable() {
 
         @Override
         public void run() {
@@ -189,10 +199,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                 }
                 mPrefs.edit().remove(PREF_TEXT_SIZE).apply();
             }
+            Looper.prepare();
+            mBackgroundLooper = Looper.myLooper();
             synchronized (BrowserSettings.this) {
                 mInitialized = true;
                 BrowserSettings.this.notifyAll();
             }
+            Looper.loop();
         }
     };
 

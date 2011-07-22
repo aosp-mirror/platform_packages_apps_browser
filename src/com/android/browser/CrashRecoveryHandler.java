@@ -25,9 +25,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.Parcel;
-import android.os.Process;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -73,10 +72,8 @@ public class CrashRecoveryHandler {
     private CrashRecoveryHandler(Controller controller) {
         mController = controller;
         mForegroundHandler = new Handler();
-        HandlerThread thread = new HandlerThread(LOGTAG,
-                Process.THREAD_PRIORITY_BACKGROUND);
-        thread.start();
-        mBackgroundHandler = new Handler(thread.getLooper());
+        Looper looper = BrowserSettings.getInstance().getBackgroundLooper();
+        mBackgroundHandler = new Handler(looper);
     }
 
     public void backupState() {

@@ -57,6 +57,13 @@ public class BrowserActivity extends Activity {
         }
         super.onCreate(icicle);
 
+        // If this was a web search request, pass it on to the default web
+        // search provider and finish this activity.
+        if (IntentHandler.handleWebSearchIntent(this, null, getIntent())) {
+            finish();
+            return;
+        }
+
         BrowserSettings settings = BrowserSettings.getInstance();
 
         // render the browser in OpenGL
@@ -67,13 +74,6 @@ public class BrowserActivity extends Activity {
         } else {
             // Clear the flag in the activity's window
             this.getWindow().setFlags(0, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        }
-
-        // If this was a web search request, pass it on to the default web
-        // search provider and finish this activity.
-        if (IntentHandler.handleWebSearchIntent(this, null, getIntent())) {
-            finish();
-            return;
         }
 
         AccessibilityManager accessibilityManager = (AccessibilityManager)

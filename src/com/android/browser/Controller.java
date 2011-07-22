@@ -206,7 +206,6 @@ public class Controller
     // Checks to see when the bookmarks database has changed, and updates the
     // Tabs' notion of whether they represent bookmarked sites.
     private ContentObserver mBookmarksObserver;
-    private DataController mDataController;
     private CrashRecoveryHandler mCrashRecoveryHandler;
 
     private boolean mSimulateActionBarOverlayMode;
@@ -228,7 +227,6 @@ public class Controller
     public Controller(Activity browser) {
         mActivity = browser;
         mSettings = BrowserSettings.getInstance();
-        mDataController = DataController.getInstance(mActivity);
         mTabControl = new TabControl(this);
         mSettings.setController(this);
         mCrashRecoveryHandler = CrashRecoveryHandler.initialize(this);
@@ -238,10 +236,6 @@ public class Controller
         mIntentHandler = new IntentHandler(mActivity, this);
         mPageDialogsHandler = new PageDialogsHandler(mActivity, this);
         mNfcHandler = new NfcHandler(mActivity, this);
-
-        PowerManager pm = (PowerManager) mActivity
-                .getSystemService(Context.POWER_SERVICE);
-        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
 
         startHandler();
         mBookmarksObserver = new ContentObserver(mHandler) {
@@ -518,7 +512,7 @@ public class Controller
                         break;
 
                     case RELEASE_WAKELOCK:
-                        if (mWakeLock.isHeld()) {
+                        if (mWakeLock != null && mWakeLock.isHeld()) {
                             mWakeLock.release();
                             // if we reach here, Browser should be still in the
                             // background loading after WAKELOCK_TIMEOUT (5-min).
@@ -622,6 +616,11 @@ public class Controller
         if (tab != null) {
             tab.pause();
             if (!pauseWebViewTimers(tab)) {
+                if (mWakeLock == null) {
+                    PowerManager pm = (PowerManager) mActivity
+                            .getSystemService(Context.POWER_SERVICE);
+                    mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
+                }
                 mWakeLock.acquire();
                 mHandler.sendMessageDelayed(mHandler
                         .obtainMessage(RELEASE_WAKELOCK), WAKELOCK_TIMEOUT);
@@ -662,15 +661,19 @@ public class Controller
             current.resume();
             resumeWebViewTimers(current);
         }
-        if (mWakeLock.isHeld()) {
-            mHandler.removeMessages(RELEASE_WAKELOCK);
-            mWakeLock.release();
-        }
+        releaseWakeLock();
 
         mUi.onResume();
         mNetworkHandler.onResume();
         mNfcHandler.onResume();
         WebView.enablePlatformNotifications();
+    }
+
+    private void releaseWakeLock() {
+        if (mWakeLock != null && mWakeLock.isHeld()) {
+            mHandler.removeMessages(RELEASE_WAKELOCK);
+            mWakeLock.release();
+        }
     }
 
     /**
@@ -832,10 +835,7 @@ public class Controller
         // pause the WebView timer and release the wake lock if it is finished
         // while BrowserActivity is in pause state.
         if (mActivityPaused && pauseWebViewTimers(tab)) {
-            if (mWakeLock.isHeld()) {
-                mHandler.removeMessages(RELEASE_WAKELOCK);
-                mWakeLock.release();
-            }
+            releaseWakeLock();
         }
 
         // Performance probe
@@ -890,7 +890,7 @@ public class Controller
         }
         // Update the title in the history database if not in private browsing mode
         if (!tab.isPrivateBrowsingEnabled()) {
-            mDataController.updateHistoryTitle(pageUrl, title);
+            DataController.getInstance(mActivity).updateHistoryTitle(pageUrl, title);
         }
     }
 
@@ -937,7 +937,7 @@ public class Controller
                 || url.regionMatches(true, 0, "about:", 0, 6)) {
             return;
         }
-        mDataController.updateVisitedHistory(url);
+        DataController.getInstance(mActivity).updateVisitedHistory(url);
         WebIconDatabase.getInstance().retainIconForPageUrl(url);
         if (!mActivityPaused) {
             // Since we clear the state in onPause, don't backup the current
