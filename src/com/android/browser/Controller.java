@@ -224,12 +224,15 @@ public class Controller
         }
     }
 
-    public Controller(Activity browser) {
+    public Controller(Activity browser, boolean preloadCrashState) {
         mActivity = browser;
         mSettings = BrowserSettings.getInstance();
         mTabControl = new TabControl(this);
         mSettings.setController(this);
         mCrashRecoveryHandler = CrashRecoveryHandler.initialize(this);
+        if (preloadCrashState) {
+            mCrashRecoveryHandler.preloadCrashState();
+        }
         mFactory = new BrowserWebViewFactory(browser);
 
         mUrlHandler = new UrlHandler(this);
@@ -2298,7 +2301,7 @@ public class Controller
     @Override
     public void closeCurrentTab() {
         if (mTabControl.getTabCount() == 1) {
-            CrashRecoveryHandler.clearState(mActivity);
+            mCrashRecoveryHandler.clearState();
             mActivity.finish();
             return;
         }

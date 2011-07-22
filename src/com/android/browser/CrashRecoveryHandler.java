@@ -26,6 +26,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.os.Parcel;
 import android.util.Log;
 
@@ -50,11 +51,20 @@ public class CrashRecoveryHandler {
      */
     private static final long PROMPT_INTERVAL = 30 * 60 * 1000; // 30 minutes
 
+    private static final int MSG_WRITE_STATE = 1;
+    private static final int MSG_CLEAR_STATE = 2;
+    private static final int MSG_PRELOAD_STATE = 3;
+
     private static CrashRecoveryHandler sInstance;
 
     private Controller mController;
+    private Context mContext;
     private Handler mForegroundHandler;
     private Handler mBackgroundHandler;
+    private boolean mIsPreloading = false;
+    private boolean mDidPreload = false;
+    private boolean mShouldPrompt = false;
+    private Bundle mRecoveryState = null;
 
     public static CrashRecoveryHandler initialize(Controller controller) {
         if (sInstance == null) {
@@ -71,9 +81,47 @@ public class CrashRecoveryHandler {
 
     private CrashRecoveryHandler(Controller controller) {
         mController = controller;
+        mContext = mController.getActivity().getApplicationContext();
         mForegroundHandler = new Handler();
         Looper looper = BrowserSettings.getInstance().getBackgroundLooper();
-        mBackgroundHandler = new Handler(looper);
+        mBackgroundHandler = new Handler(looper) {
+
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                case MSG_WRITE_STATE:
+                    Parcel p = Parcel.obtain();
+                    try {
+                        Bundle state = (Bundle) msg.obj;
+                        state.writeToParcel(p, 0);
+                        File stateFile = new File(mContext.getCacheDir(), STATE_FILE);
+                        FileOutputStream fout = new FileOutputStream(stateFile);
+                        fout.write(p.marshall());
+                        fout.close();
+                    } catch (Throwable e) {
+                        Log.i(LOGTAG, "Failed to save persistent state", e);
+                    } finally {
+                        p.recycle();
+                    }
+                    break;
+                case MSG_CLEAR_STATE:
+                    File state = new File(mContext.getCacheDir(), STATE_FILE);
+                    if (state.exists()) {
+                        state.delete();
+                    }
+                    break;
+                case MSG_PRELOAD_STATE:
+                    mRecoveryState = loadCrashState();
+                    mShouldPrompt = shouldPrompt();
+                    synchronized (CrashRecoveryHandler.this) {
+                        mIsPreloading = false;
+                        mDidPreload = true;
+                        CrashRecoveryHandler.this.notifyAll();
+                    }
+                    break;
+                }
+            }
+        };
     }
 
     public void backupState() {
@@ -87,9 +135,8 @@ public class CrashRecoveryHandler {
             try {
                 final Bundle state = new Bundle();
                 mController.onSaveInstanceState(state, false);
-                Context context = mController.getActivity()
-                        .getApplicationContext();
-                mBackgroundHandler.post(new WriteState(context, state));
+                Message.obtain(mBackgroundHandler, MSG_WRITE_STATE, state)
+                        .sendToTarget();
                 // Remove any queued up saves
                 mForegroundHandler.removeCallbacks(mCreateState);
             } catch (Throwable t) {
@@ -100,42 +147,8 @@ public class CrashRecoveryHandler {
 
     };
 
-    static class WriteState implements Runnable {
-        private Context mContext;
-        private Bundle mState;
-
-        WriteState(Context context, Bundle state) {
-            mContext = context;
-            mState = state;
-        }
-
-        @Override
-        public void run() {
-            if (mState.isEmpty()) {
-                clearState(mContext);
-                return;
-            }
-            Parcel p = Parcel.obtain();
-            try {
-                mState.writeToParcel(p, 0);
-                File state = new File(mContext.getCacheDir(), STATE_FILE);
-                FileOutputStream fout = new FileOutputStream(state);
-                fout.write(p.marshall());
-                fout.close();
-            } catch (Throwable e) {
-                Log.i(LOGTAG, "Failed to save persistent state", e);
-            } finally {
-                p.recycle();
-            }
-        }
-
-    }
-
-    public static void clearState(Context context) {
-        File state = new File(context.getCacheDir(), STATE_FILE);
-        if (state.exists()) {
-            state.delete();
-        }
+    public void clearState() {
+        mBackgroundHandler.sendEmptyMessage(MSG_CLEAR_STATE);
     }
 
     public void promptToRecover(final Bundle state, final Intent intent) {
@@ -159,7 +172,7 @@ public class CrashRecoveryHandler {
                 .setOnCancelListener(new OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
-                        clearState(mController.getActivity());
+                        clearState();
                         mController.doStart(null, intent);
                     }
                 })
@@ -167,11 +180,9 @@ public class CrashRecoveryHandler {
     }
 
     private boolean shouldPrompt() {
-        Context context = mController.getActivity();
-        SharedPreferences prefs = context.getSharedPreferences(
+        SharedPreferences prefs = mContext.getSharedPreferences(
                 RECOVERY_PREFERENCES, Context.MODE_PRIVATE);
-        long lastRecovered = prefs.getLong(KEY_LAST_RECOVERED,
-                System.currentTimeMillis());
+        long lastRecovered = prefs.getLong(KEY_LAST_RECOVERED, 0);
         long timeSinceLastRecover = System.currentTimeMillis() - lastRecovered;
         if (timeSinceLastRecover > PROMPT_INTERVAL) {
             return false;
@@ -180,20 +191,18 @@ public class CrashRecoveryHandler {
     }
 
     private void updateLastRecovered() {
-        Context context = mController.getActivity();
-        SharedPreferences prefs = context.getSharedPreferences(
+        SharedPreferences prefs = mContext.getSharedPreferences(
                 RECOVERY_PREFERENCES, Context.MODE_PRIVATE);
         prefs.edit()
             .putLong(KEY_LAST_RECOVERED, System.currentTimeMillis())
             .commit();
     }
 
-    public void startRecovery(Intent intent) {
+    private Bundle loadCrashState() {
         Bundle state = null;
         Parcel parcel = Parcel.obtain();
         try {
-            Context context = mController.getActivity();
-            File stateFile = new File(context.getCacheDir(), STATE_FILE);
+            File stateFile = new File(mContext.getCacheDir(), STATE_FILE);
             FileInputStream fin = new FileInputStream(stateFile);
             ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[BUFFER_SIZE];
@@ -205,21 +214,48 @@ public class CrashRecoveryHandler {
             parcel.unmarshall(data, 0, data.length);
             parcel.setDataPosition(0);
             state = parcel.readBundle();
-            if (shouldPrompt()) {
-                promptToRecover(state, intent);
-                return;
-            } else {
-                updateLastRecovered();
-            }
         } catch (FileNotFoundException e) {
             // No state to recover
             state = null;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Log.w(LOGTAG, "Failed to recover state!", e);
             state = null;
         } finally {
             parcel.recycle();
         }
-        mController.doStart(state, intent);
+        return state;
     }
+
+    public void startRecovery(Intent intent) {
+        synchronized (CrashRecoveryHandler.this) {
+            while (mIsPreloading) {
+                try {
+                    CrashRecoveryHandler.this.wait();
+                } catch (InterruptedException e) {}
+            }
+        }
+        if (!mDidPreload) {
+            mRecoveryState = loadCrashState();
+            mShouldPrompt = shouldPrompt();
+        }
+        if (mShouldPrompt) {
+            promptToRecover(mRecoveryState, intent);
+            return;
+        } else {
+            updateLastRecovered();
+        }
+        mController.doStart(mRecoveryState, intent);
+        mRecoveryState = null;
+    }
+
+    public void preloadCrashState() {
+        synchronized (CrashRecoveryHandler.this) {
+            if (mIsPreloading) {
+                return;
+            }
+            mIsPreloading = true;
+        }
+        mBackgroundHandler.sendEmptyMessage(MSG_PRELOAD_STATE);
+    }
+
 }

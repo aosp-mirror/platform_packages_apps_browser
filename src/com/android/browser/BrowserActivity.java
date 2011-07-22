@@ -82,7 +82,7 @@ public class BrowserActivity extends Activity {
             setDefaultKeyMode(DEFAULT_KEYS_DISABLE);
         }
 
-        mController = new Controller(this);
+        mController = new Controller(this, icicle == null);
         boolean xlarge = isTablet(this);
         if (xlarge) {
             mUi = new XLargeUi(this, mController);
