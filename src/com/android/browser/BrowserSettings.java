@@ -103,7 +103,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private WebStorageSizeManager mWebStorageSizeManager;
     private AutofillHandler mAutofillHandler;
     private WeakHashMap<WebSettings, String> mCustomUserAgents;
-    private boolean mInitialized = false;
+    private static boolean sInitialized = false;
     // Looper shared between some lightweight background operations
     // Specifically, this is created on the thread that initializes browser settings
     // and is then reused by CrashRecoveryHandler
@@ -115,6 +115,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     // Cached settings
     private SearchEngine mSearchEngine;
+
+    private static String sFactoryResetUrl;
 
     public static void initialize(final Context context) {
         sInstance = new BrowserSettings(context);
@@ -199,21 +201,28 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                 }
                 mPrefs.edit().remove(PREF_TEXT_SIZE).apply();
             }
+
+            sFactoryResetUrl = mContext.getResources().getString(R.string.homepage_base);
+            if (sFactoryResetUrl.indexOf("{CID}") != -1) {
+                sFactoryResetUrl = sFactoryResetUrl.replace("{CID}",
+                    BrowserProvider.getClientId(mContext.getContentResolver()));
+            }
+
             Looper.prepare();
             mBackgroundLooper = Looper.myLooper();
-            synchronized (BrowserSettings.this) {
-                mInitialized = true;
-                BrowserSettings.this.notifyAll();
+            synchronized (BrowserSettings.class) {
+                sInitialized = true;
+                BrowserSettings.class.notifyAll();
             }
             Looper.loop();
         }
     };
 
-    void requireInitialization() {
-        synchronized (BrowserSettings.this) {
-            while (!mInitialized) {
+    private static void requireInitialization() {
+        synchronized (BrowserSettings.class) {
+            while (!sInitialized) {
                 try {
-                    BrowserSettings.this.wait();
+                    BrowserSettings.class.wait();
                 } catch (InterruptedException e) {
                 }
             }
@@ -334,12 +343,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public static String getFactoryResetHomeUrl(Context context) {
-        String url = context.getResources().getString(R.string.homepage_base);
-        if (url.indexOf("{CID}") != -1) {
-            url = url.replace("{CID}",
-                    BrowserProvider.getClientId(context.getContentResolver()));
-        }
-        return url;
+        requireInitialization();
+        return sFactoryResetUrl;
     }
 
     public LayoutAlgorithm getLayoutAlgorithm() {
