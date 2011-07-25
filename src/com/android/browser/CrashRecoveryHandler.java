@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class CrashRecoveryHandler {
 
@@ -201,9 +202,10 @@ public class CrashRecoveryHandler {
     private Bundle loadCrashState() {
         Bundle state = null;
         Parcel parcel = Parcel.obtain();
+        FileInputStream fin = null;
         try {
             File stateFile = new File(mContext.getCacheDir(), STATE_FILE);
-            FileInputStream fin = new FileInputStream(stateFile);
+            fin = new FileInputStream(stateFile);
             ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[BUFFER_SIZE];
             int read;
@@ -222,6 +224,11 @@ public class CrashRecoveryHandler {
             state = null;
         } finally {
             parcel.recycle();
+            if (fin != null) {
+                try {
+                    fin.close();
+                } catch (IOException e) { }
+            }
         }
         return state;
     }
