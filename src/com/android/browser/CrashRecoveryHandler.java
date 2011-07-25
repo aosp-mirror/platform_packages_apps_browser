@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.os.Parcel;
 import android.util.Log;
@@ -83,8 +82,7 @@ public class CrashRecoveryHandler {
         mController = controller;
         mContext = mController.getActivity().getApplicationContext();
         mForegroundHandler = new Handler();
-        Looper looper = BrowserSettings.getInstance().getBackgroundLooper();
-        mBackgroundHandler = new Handler(looper) {
+        mBackgroundHandler = new Handler(BackgroundHandler.getLooper()) {
 
             @Override
             public void handleMessage(Message msg) {

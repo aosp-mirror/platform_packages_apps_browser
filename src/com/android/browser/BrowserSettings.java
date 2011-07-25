@@ -22,7 +22,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Build;
-import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
@@ -104,10 +103,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private AutofillHandler mAutofillHandler;
     private WeakHashMap<WebSettings, String> mCustomUserAgents;
     private static boolean sInitialized = false;
-    // Looper shared between some lightweight background operations
-    // Specifically, this is created on the thread that initializes browser settings
-    // and is then reused by CrashRecoveryHandler
-    private Looper mBackgroundLooper;
 
     // Cached values
     private int mPageCacheCapacity = 1;
@@ -134,7 +129,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mCustomUserAgents = new WeakHashMap<WebSettings, String>();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
         mAutofillHandler.asyncLoadFromDb();
-        new Thread(mSetupAndLoop, "BackgroundLooper").start();
+        BackgroundHandler.execute(mSetup);
     }
 
     public void setController(Controller controller) {
@@ -146,11 +141,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
-    public Looper getBackgroundLooper() {
-        requireInitialization();
-        return mBackgroundLooper;
-    }
-
     public void startManagingSettings(WebSettings settings) {
         synchronized (mManagedSettings) {
             syncStaticSettings(settings);
@@ -159,7 +149,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
-    private Runnable mSetupAndLoop = new Runnable() {
+    private Runnable mSetup = new Runnable() {
 
         @Override
         public void run() {
@@ -208,13 +198,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                     BrowserProvider.getClientId(mContext.getContentResolver()));
             }
 
-            Looper.prepare();
-            mBackgroundLooper = Looper.myLooper();
             synchronized (BrowserSettings.class) {
                 sInitialized = true;
                 BrowserSettings.class.notifyAll();
             }
-            Looper.loop();
         }
     };
 
@@ -523,6 +510,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     static int getRawTextZoom(int percent) {
         return (percent - 100) / TEXT_ZOOM_STEP + TEXT_ZOOM_START_VAL;
+    }
+
+    public SharedPreferences getPreferences() {
+        return mPrefs;
     }
 
     // -----------------------------
