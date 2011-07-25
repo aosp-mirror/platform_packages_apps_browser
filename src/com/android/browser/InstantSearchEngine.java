@@ -199,7 +199,7 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
             return false;
         }
 
-        final String currentUrl = current.getUrl();
+        final String currentUrl = mController.getCurrentTab().getUrl();
 
         if (currentUrl != null) {
             Uri uri = Uri.parse(currentUrl);
