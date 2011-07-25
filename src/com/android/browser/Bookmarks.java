@@ -67,7 +67,7 @@ public class Bookmarks {
      *  @param parent ID of the parent folder.
      */
     /* package */ static void addBookmark(Context context, boolean showToast, String url,
-            String name, Bitmap thumbnail, boolean retainIcon, long parent) {
+            String name, Bitmap thumbnail, long parent) {
         // Want to append to the beginning of the list
         ContentValues values = new ContentValues();
         try {
@@ -81,9 +81,6 @@ public class Bookmarks {
             context.getContentResolver().insert(BrowserContract.Bookmarks.CONTENT_URI, values);
         } catch (IllegalStateException e) {
             Log.e(LOGTAG, "addBookmark", e);
-        }
-        if (retainIcon) {
-            WebIconDatabase.getInstance().retainIconForPageUrl(url);
         }
         if (showToast) {
             Toast.makeText(context, R.string.added_to_bookmarks,

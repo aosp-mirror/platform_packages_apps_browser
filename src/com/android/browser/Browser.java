@@ -17,12 +17,8 @@
 package com.android.browser;
 
 import android.app.Application;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.webkit.CookieSyncManager;
-
-import dalvik.system.VMRuntime;
 
 public class Browser extends Application { 
 
@@ -37,15 +33,6 @@ public class Browser extends Application {
     // Set to true to enable extra debug logging.
     final static boolean LOGD_ENABLED = true;
 
-    /**
-     * Specifies a heap utilization ratio that works better
-     * for the browser than the default ratio does.
-     */
-    private final static float TARGET_HEAP_UTILIZATION = 0.75f;
-
-    public Browser() {
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -53,20 +40,11 @@ public class Browser extends Application {
         if (LOGV_ENABLED)
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
 
-        // Fix AsyncTask to use multiple threads
-        AsyncTask.setDefaultExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        // Fix heap utilization for better heap size characteristics.
-        VMRuntime.getRuntime().setTargetHeapUtilization(
-                TARGET_HEAP_UTILIZATION);
         // create CookieSyncManager with current Context
         CookieSyncManager.createInstance(this);
         BrowserSettings.initialize(getApplicationContext());
         Preloader.initialize(getApplicationContext());
     }
 
-    static Intent createBrowserViewIntent() {
-        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-        return intent;
-    }
 }
 
