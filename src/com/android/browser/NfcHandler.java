@@ -21,6 +21,10 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+
+import java.util.concurrent.CountDownLatch;
 
 /** This class implements sharing the URL of the currently
   * shown browser page over NFC. Sharing is only active
@@ -31,42 +35,26 @@ public class NfcHandler implements NfcAdapter.NdefPushCallback {
     private NfcAdapter mNfcAdapter;
     private Activity mActivity;
     private Controller mController;
+    private Handler mHandler;
+    private Tab mCurrentTab;
+    private boolean mIsPrivate;
+    private CountDownLatch mPrivateBrowsingSignal;
 
-    /** We need an async task to check whether the tab is private
-      * on the UI thread.
-      */
-    private class CreateMessageTask extends AsyncTask<Void, Void, NdefMessage> {
-        private boolean mIsPrivate = false;
-        private Tab mCurrentTab;
-
-        @Override
-        protected void onPreExecute() {
-            mCurrentTab = mController.getCurrentTab();
-            if ((mCurrentTab != null) && (mCurrentTab.getWebView() != null)) {
-                mIsPrivate = mCurrentTab.getWebView().isPrivateBrowsingEnabled();
-            }
-        }
-
-        @Override
-        protected NdefMessage doInBackground(Void... params) {
-            if ((mCurrentTab == null) || mIsPrivate) {
-                return null;
-            }
-            String currentUrl = mCurrentTab.getUrl();
-            if (currentUrl != null) {
-                NdefRecord record = NdefRecord.createUri(currentUrl);
-                NdefMessage msg = new NdefMessage(new NdefRecord[] { record });
-                return msg;
-            } else {
-                return null;
-            }
-        }
-    }
+    private static final int GET_PRIVATE_BROWSING_STATE_MSG = 100;
 
     public NfcHandler(Activity browser, Controller controller) {
         mActivity = browser;
         mController = controller;
         mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity);
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == GET_PRIVATE_BROWSING_STATE_MSG) {
+                    mIsPrivate = mCurrentTab.getWebView().isPrivateBrowsingEnabled();
+                    mPrivateBrowsingSignal.countDown();
+                }
+            }
+        };
     }
 
     void onPause() {
@@ -83,11 +71,29 @@ public class NfcHandler implements NfcAdapter.NdefPushCallback {
 
     @Override
     public NdefMessage createMessage() {
-        CreateMessageTask task = new CreateMessageTask();
-        task.execute();
-        try {
-            return task.get();
-        } catch (Exception e) {
+        mCurrentTab = mController.getCurrentTab();
+        if ((mCurrentTab != null) && (mCurrentTab.getWebView() != null)) {
+            // We can only read the WebView state on the UI thread, so post
+            // a message and wait.
+            mPrivateBrowsingSignal = new CountDownLatch(1);
+            mHandler.sendMessage(mHandler.obtainMessage(GET_PRIVATE_BROWSING_STATE_MSG));
+            try {
+                mPrivateBrowsingSignal.await();
+            } catch (InterruptedException e) {
+                return null;
+            }
+        }
+
+        if ((mCurrentTab == null) || mIsPrivate) {
+            return null;
+        }
+
+        String currentUrl = mCurrentTab.getUrl();
+        if (currentUrl != null) {
+            NdefRecord record = NdefRecord.createUri(currentUrl);
+            NdefMessage msg = new NdefMessage(new NdefRecord[] { record });
+            return msg;
+        } else {
             return null;
         }
     }
