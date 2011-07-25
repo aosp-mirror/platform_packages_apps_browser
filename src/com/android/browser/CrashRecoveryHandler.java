@@ -195,7 +195,7 @@ public class CrashRecoveryHandler {
                 RECOVERY_PREFERENCES, Context.MODE_PRIVATE);
         prefs.edit()
             .putLong(KEY_LAST_RECOVERED, System.currentTimeMillis())
-            .commit();
+            .apply();
     }
 
     private Bundle loadCrashState() {
