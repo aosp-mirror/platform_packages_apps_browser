@@ -73,49 +73,48 @@ class SystemAllowGeolocationOrigins {
     }
 
     void maybeApplySettingAsync() {
-        new AsyncTask<Void,Void,Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                maybeApplySetting();
-                return null;
-            }
-        }.execute();
+        BackgroundHandler.execute(mMaybeApplySetting);
     }
 
     /**
      * Checks to see if the system setting has changed and if so,
      * updates the Geolocation permissions accordingly.
      */
-    private void maybeApplySetting() {
-        // Get the new value
-        String newSetting = getSystemSetting();
+    private Runnable mMaybeApplySetting = new Runnable() {
 
-        // Get the last read value
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String lastReadSetting =
-                preferences.getString(LAST_READ_ALLOW_GEOLOCATION_ORIGINS, "");
+        @Override
+        public void run() {
+         // Get the new value
+            String newSetting = getSystemSetting();
 
-        // If the new value is the same as the last one we read, we're done.
-        if (TextUtils.equals(lastReadSetting, newSetting)) {
-            return;
+            // Get the last read value
+            SharedPreferences preferences = BrowserSettings.getInstance()
+                    .getPreferences();
+            String lastReadSetting =
+                    preferences.getString(LAST_READ_ALLOW_GEOLOCATION_ORIGINS, "");
+
+            // If the new value is the same as the last one we read, we're done.
+            if (TextUtils.equals(lastReadSetting, newSetting)) {
+                return;
+            }
+
+            // Save the new value as the last read value
+            preferences.edit()
+                    .putString(LAST_READ_ALLOW_GEOLOCATION_ORIGINS, newSetting)
+                    .apply();
+
+            Set<String> oldOrigins = parseAllowGeolocationOrigins(lastReadSetting);
+            Set<String> newOrigins = parseAllowGeolocationOrigins(newSetting);
+            Set<String> addedOrigins = setMinus(newOrigins, oldOrigins);
+            Set<String> removedOrigins = setMinus(oldOrigins, newOrigins);
+
+            // Remove the origins in the last read value
+            removeOrigins(removedOrigins);
+
+            // Add the origins in the new value
+            addOrigins(addedOrigins);
         }
-
-        // Save the new value as the last read value
-        preferences.edit()
-                .putString(LAST_READ_ALLOW_GEOLOCATION_ORIGINS, newSetting)
-                .apply();
-
-        Set<String> oldOrigins = parseAllowGeolocationOrigins(lastReadSetting);
-        Set<String> newOrigins = parseAllowGeolocationOrigins(newSetting);
-        Set<String> addedOrigins = setMinus(newOrigins, oldOrigins);
-        Set<String> removedOrigins = setMinus(oldOrigins, newOrigins);
-
-        // Remove the origins in the last read value
-        removeOrigins(removedOrigins);
-
-        // Add the origins in the new value
-        addOrigins(addedOrigins);
-    }
+    };
 
     /**
      * Parses the value of the default geolocation permissions setting.

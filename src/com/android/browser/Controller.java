@@ -424,36 +424,36 @@ public class Controller
         // WebIconDatabase needs to be retrieved on the UI thread so that if
         // it has not been created successfully yet the Handler is started on the
         // UI thread.
-        new RetainIconsOnStartupTask(WebIconDatabase.getInstance()).execute();
+        Runnable task = new RetainIconsOnStartupTask(
+                mActivity, WebIconDatabase.getInstance());
+        BackgroundHandler.execute(task);
     }
 
-    private class RetainIconsOnStartupTask extends AsyncTask<Void, Void, Void> {
+    private static class RetainIconsOnStartupTask implements Runnable {
         private WebIconDatabase mDb;
+        private Context mContext;
 
-        public RetainIconsOnStartupTask(WebIconDatabase db) {
+        public RetainIconsOnStartupTask(Context context, WebIconDatabase db) {
             mDb = db;
+            mContext = context;
         }
 
         @Override
-        protected Void doInBackground(Void... unused) {
-            mDb.open(mActivity.getDir("icons", 0).getPath());
+        public void run() {
+            mDb.open(mContext.getDir("icons", 0).getPath());
             Cursor c = null;
             try {
-                c = Browser.getAllBookmarks(mActivity.getContentResolver());
-                if (c.moveToFirst()) {
-                    int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
-                    do {
-                        String url = c.getString(urlIndex);
-                        mDb.retainIconForPageUrl(url);
-                    } while (c.moveToNext());
+                c = Browser.getAllBookmarks(mContext.getContentResolver());
+                int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
+                while (c.moveToNext()) {
+                    String url = c.getString(urlIndex);
+                    mDb.retainIconForPageUrl(url);
                 }
-            } catch (IllegalStateException e) {
+            } catch (Throwable e) {
                 Log.e(LOGTAG, "retainIconsOnStartup", e);
             } finally {
                 if (c != null) c.close();
             }
-
-            return null;
         }
     }
 
