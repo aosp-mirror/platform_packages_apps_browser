@@ -514,6 +514,25 @@ class TabControl {
         return tabsToGo;
     }
 
+    Tab getLeastUsedTab(Tab current) {
+        if (getTabCount() == 1 || current == null) {
+            return null;
+        }
+        if (mTabQueue.size() == 0) {
+            return null;
+        }
+        // find a tab which is not the current tab or the parent of the
+        // current tab
+        for (Tab t : mTabQueue) {
+            if (t != null && t.getWebView() != null) {
+                if (t != current && t != current.getParent()) {
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * Show the tab that contains the given WebView.
      * @param view The WebView used to find the tab.

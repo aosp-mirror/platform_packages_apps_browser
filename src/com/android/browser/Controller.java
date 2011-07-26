@@ -2159,6 +2159,13 @@ public class Controller
                 return null;
             }
         }
+        // check tab count and make room for new tab
+        if (!mTabControl.canCreateNewTab()) {
+            Tab leastUsed = mTabControl.getLeastUsedTab(getCurrentTab());
+            if (leastUsed != null) {
+                closeTab(leastUsed);
+            }
+        }
         Tab t = tabControl.getTab();
         mTabControl.addPreloadedTab(t);
         addTab(t);
