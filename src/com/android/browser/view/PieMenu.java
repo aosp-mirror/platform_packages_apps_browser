@@ -310,7 +310,6 @@ public class PieMenu extends FrameLayout {
         float x = evt.getX();
         float y = evt.getY();
         int action = evt.getActionMasked();
-        int edges = evt.getEdgeFlags();
         if (MotionEvent.ACTION_DOWN == action) {
             if ((x > getWidth() - mSlop) || (x < mSlop)) {
                 setCenter((int) x, (int) y);
