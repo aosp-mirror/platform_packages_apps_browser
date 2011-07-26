@@ -16,12 +16,6 @@
 
 package com.android.browser;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.util.EntityUtils;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -35,12 +29,16 @@ import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.util.EntityUtils;
 
 public class GoogleAccountLogin implements Runnable,
         AccountManagerCallback<Bundle>, OnCancelListener {
@@ -56,14 +54,11 @@ public class GoogleAccountLogin implements Runnable,
     // Google account type
     private static final String GOOGLE = "com.google";
     // Last auto login time
-    private static final String PREF_AUTOLOGIN_TIME = "last_autologin_time";
+    public static final String PREF_AUTOLOGIN_TIME = "last_autologin_time";
 
     private final Activity mActivity;
     private final Account mAccount;
     private final WebView mWebView;
-    // Does not matter if this is initialized in a non-ui thread.
-    // Dialog.dismiss() will post to the right handler.
-    private final Handler mHandler = new Handler();
     private Runnable mRunnable;
     private ProgressDialog mProgressDialog;
 
@@ -93,15 +88,13 @@ public class GoogleAccountLogin implements Runnable,
             }
             @Override
             public void onPageFinished(WebView view, String url) {
-                saveLoginTime();
                 done();
             }
         });
     }
 
     private void saveLoginTime() {
-        Editor ed = PreferenceManager.
-                getDefaultSharedPreferences(mActivity).edit();
+        Editor ed = BrowserSettings.getInstance().getPreferences().edit();
         ed.putLong(PREF_AUTOLOGIN_TIME, System.currentTimeMillis());
         ed.apply();
     }
@@ -228,7 +221,7 @@ public class GoogleAccountLogin implements Runnable,
     public static void startLoginIfNeeded(Activity activity,
             Runnable runnable) {
         // Already logged in?
-        if (isLoggedIn(activity)) {
+        if (isLoggedIn()) {
             runnable.run();
             return;
         }
@@ -246,6 +239,7 @@ public class GoogleAccountLogin implements Runnable,
     }
 
     private void startLogin() {
+        saveLoginTime();
         mProgressDialog = ProgressDialog.show(mActivity,
                 mActivity.getString(R.string.pref_autologin_title),
                 mActivity.getString(R.string.pref_autologin_progress,
@@ -263,11 +257,10 @@ public class GoogleAccountLogin implements Runnable,
     }
 
     // Checks if we already did pre-login.
-    private static boolean isLoggedIn(Context ctx) {
+    private static boolean isLoggedIn() {
         // See if we last logged in less than a week ago.
-        long lastLogin = PreferenceManager.
-                getDefaultSharedPreferences(ctx).
-                getLong(PREF_AUTOLOGIN_TIME, -1);
+        long lastLogin = BrowserSettings.getInstance().getPreferences()
+                .getLong(PREF_AUTOLOGIN_TIME, -1);
         if (lastLogin == -1) {
             return false;
         }
