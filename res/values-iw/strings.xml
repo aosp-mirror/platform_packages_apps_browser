@@ -141,13 +141,7 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"הגדר מנוע חיפוש"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"בחר מנוע חיפוש"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"הוגדר ל..."</string>
-  <string-array name="pref_homepage_choices">
-    <item msgid="844041670142910837">"דף נוכחי"</item>
-    <item msgid="4430498748295169195">"דף ריק"</item>
-    <item msgid="5747608191946904074">"דף ברירת מחדל"</item>
-    <item msgid="723023698618841163">"דף הבית הפופולרי ביותר"</item>
-    <item msgid="5021822752506507426">"אחר..."</item>
-  </string-array>
+    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"התאם דפים באופן אוטומטי"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"עצב דפי אינטרנט כך שיתאימו למסך"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"כללי"</string>
@@ -276,6 +270,10 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"השתמש ב-Google Instant כאשר אתה משתמש בחיפוש Google, כדי להציג תוצאות בעת ההקלדה (פעולה זו יכולה להגדיל שימוש בנתונים)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"מסך מלא"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"השתמש במצב מסך מלא כדי להסתיר את שורת המצב."</string>
+    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
+    <skip />
+    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
+    <skip />
     <string name="pref_data_title" msgid="750316606686075162">"ניהול רוחב פס"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"טעינה מוקדמת של תוצאות חיפוש"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"אפשר לדפדפן לטעון מראש תוצאות חיפוש בעלות אמינות גבוהה ברקע"</string>
@@ -396,4 +394,8 @@
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"נייד"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"שולחן עבודה"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"טעינה מוקדמת של תוצאות"</string>
+    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
+    <skip />
+    <!-- no translation found for remove_snapshot (1624447424544976849) -->
+    <skip />
 </resources>
