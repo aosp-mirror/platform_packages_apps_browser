@@ -33,7 +33,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.database.DataSetObserver;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -50,7 +49,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
-import android.webkit.WebIconDatabase.IconListener;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -86,16 +84,6 @@ public class BrowserHistoryPage extends Fragment
     private FragmentBreadCrumbs mFragmentBreadCrumbs;
     private ExpandableListView mHistoryList;
 
-    // Implementation of WebIconDatabase.IconListener
-    class IconReceiver implements IconListener {
-        @Override
-        public void onReceivedIcon(String url, Bitmap icon) {
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
-    // Instance of IconReceiver
-    final IconReceiver mIconReceiver = new IconReceiver();
     private View mRoot;
 
     static interface HistoryQuery {
@@ -238,8 +226,6 @@ public class BrowserHistoryPage extends Fragment
         getLoaderManager().restartLoader(LOADER_HISTORY, null, this);
         getLoaderManager().restartLoader(LOADER_MOST_VISITED, null, this);
 
-        // Register to receive icons in case they haven't all been loaded.
-        CombinedBookmarkHistoryView.getIconListenerSet().addListener(mIconReceiver);
         return mRoot;
     }
 
@@ -300,7 +286,6 @@ public class BrowserHistoryPage extends Fragment
     @Override
     public void onDestroy() {
         super.onDestroy();
-        CombinedBookmarkHistoryView.getIconListenerSet().removeListener(mIconReceiver);
         getLoaderManager().destroyLoader(LOADER_HISTORY);
         getLoaderManager().destroyLoader(LOADER_MOST_VISITED);
     }

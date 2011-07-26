@@ -759,7 +759,7 @@ public class AddBookmarkPage extends Activity
             try {
                 final ContentResolver cr = getContentResolver();
                 Bookmarks.addBookmark(AddBookmarkPage.this, false, url,
-                        title, thumbnail, true, mCurrentFolder);
+                        title, thumbnail, mCurrentFolder);
                 if (touchIconUrl != null) {
                     new DownloadTouchIcon(mContext, cr, url).execute(mTouchIconUrl);
                 }

@@ -260,7 +260,7 @@ public class Controller
                 new SystemAllowGeolocationOrigins(mActivity.getApplicationContext());
         mSystemAllowGeolocationOrigins.start();
 
-        retainIconsOnStartup();
+        openIconDatabase();
         mSimulateActionBarOverlayMode = !BrowserActivity.isTablet(mActivity);
     }
 
@@ -418,43 +418,17 @@ public class Controller
         return mTabControl.getTabs();
     }
 
-    // Open the icon database and retain all the icons for visited sites.
-    // This is done on a background thread so as not to stall startup.
-    private void retainIconsOnStartup() {
-        // WebIconDatabase needs to be retrieved on the UI thread so that if
-        // it has not been created successfully yet the Handler is started on the
-        // UI thread.
-        Runnable task = new RetainIconsOnStartupTask(
-                mActivity, WebIconDatabase.getInstance());
-        BackgroundHandler.execute(task);
-    }
+    // Open the icon database.
+    private void openIconDatabase() {
+        // We have to call getInstance on the UI thread
+        final WebIconDatabase instance = WebIconDatabase.getInstance();
+        BackgroundHandler.execute(new Runnable() {
 
-    private static class RetainIconsOnStartupTask implements Runnable {
-        private WebIconDatabase mDb;
-        private Context mContext;
-
-        public RetainIconsOnStartupTask(Context context, WebIconDatabase db) {
-            mDb = db;
-            mContext = context;
-        }
-
-        @Override
-        public void run() {
-            mDb.open(mContext.getDir("icons", 0).getPath());
-            Cursor c = null;
-            try {
-                c = Browser.getAllBookmarks(mContext.getContentResolver());
-                int urlIndex = c.getColumnIndex(Browser.BookmarkColumns.URL);
-                while (c.moveToNext()) {
-                    String url = c.getString(urlIndex);
-                    mDb.retainIconForPageUrl(url);
-                }
-            } catch (Throwable e) {
-                Log.e(LOGTAG, "retainIconsOnStartup", e);
-            } finally {
-                if (c != null) c.close();
+            @Override
+            public void run() {
+                instance.open(mActivity.getDir("icons", 0).getPath());
             }
-        }
+        });
     }
 
     private void startHandler() {
@@ -941,7 +915,6 @@ public class Controller
             return;
         }
         DataController.getInstance(mActivity).updateVisitedHistory(url);
-        WebIconDatabase.getInstance().retainIconForPageUrl(url);
         if (!mActivityPaused) {
             // Since we clear the state in onPause, don't backup the current
             // state if we are already paused

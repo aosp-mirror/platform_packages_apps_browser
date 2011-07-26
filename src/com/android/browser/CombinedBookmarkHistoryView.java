@@ -26,16 +26,13 @@ import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -136,21 +133,6 @@ public class CombinedBookmarkHistoryView extends LinearLayout
 
         // Start up the default fragment
         initFragments(mExtras);
-
-        // XXX: Must do this before launching the AsyncTask to avoid a
-        // potential crash if the icon database has not been created.
-        WebIconDatabase.getInstance();
-
-        // Do this every time the view is created in case a new favicon was
-        // added to the webkit db.
-        (new AsyncTask<Void, Void, Void>() {
-            @Override
-            public Void doInBackground(Void... v) {
-                Browser.requestAllIcons(mActivity.getContentResolver(),
-                        Browser.BookmarkColumns.FAVICON + " is NULL", getIconListenerSet());
-                return null;
-            }
-        }).execute();
 
         setupActionBar(startingView);
     }
