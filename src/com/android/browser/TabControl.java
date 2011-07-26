@@ -155,7 +155,7 @@ class TabControl {
     }
 
     boolean canCreateNewTab() {
-        return mMaxTabs != mTabs.size();
+        return mMaxTabs > mTabs.size();
     }
 
     /**
@@ -186,11 +186,10 @@ class TabControl {
      *         number of open tabs.
      */
     Tab createNewTab(boolean privateBrowsing) {
-        int size = mTabs.size();
-        // Return false if we have maxed out on tabs
-        if (mMaxTabs == size) {
+        if (!canCreateNewTab()) {
             return null;
         }
+
         final WebView w = createNewWebView(privateBrowsing);
 
         // Create a new tab and add it to the tab list
