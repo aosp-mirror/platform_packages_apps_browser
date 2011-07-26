@@ -76,4 +76,8 @@
         android:title="@string/js_engine_flags"
         android:singleLine="true" />
 
+    <Preference
+        android:key="reset_prelogin"
+        android:title="@string/pref_development_reset_prelogin" />
+
 </PreferenceScreen>
