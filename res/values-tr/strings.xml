@@ -141,13 +141,7 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Arama motoru ayarlayın"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Arama moturu seçin"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Ana sayfayı ayarla..."</string>
-  <string-array name="pref_homepage_choices">
-    <item msgid="844041670142910837">"Mevcut sayfa"</item>
-    <item msgid="4430498748295169195">"Boş sayfa"</item>
-    <item msgid="5747608191946904074">"Varsayılan sayfa"</item>
-    <item msgid="723023698618841163">"En çok ziyaret edilen ana sayfa"</item>
-    <item msgid="5021822752506507426">"Diğer…"</item>
-  </string-array>
+    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"Sayfaları otomatik sığdır"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Web sayfalarını ekrana sığacak şekilde biçimlendir"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Genel"</string>
@@ -276,6 +270,10 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Yazarken sonuçların görüntülenmesi için, Google Arama\'yı kullanırken Google Anında Arama\'dan yararlanın (veri kullanımını artırabilir)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Tam ekran"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Durum çubuğunu gizlemek için tam ekran modunu kullanın"</string>
+    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
+    <skip />
+    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
+    <skip />
     <string name="pref_data_title" msgid="750316606686075162">"Bant Genişliği Yönetimi"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Arama sonucunu önyükleme"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Tarayıcının yüksek güvenli arama sonuçlarını arka planda önyüklemesine izin ver"</string>
@@ -396,4 +394,8 @@
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobil"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"Masaüstü"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Sonuçları önyükle"</string>
+    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
+    <skip />
+    <!-- no translation found for remove_snapshot (1624447424544976849) -->
+    <skip />
 </resources>

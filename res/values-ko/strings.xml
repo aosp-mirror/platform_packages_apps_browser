@@ -141,13 +141,7 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"검색 엔진 설정"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"검색 엔진 선택"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"다음으로 설정:"</string>
-  <string-array name="pref_homepage_choices">
-    <item msgid="844041670142910837">"현재 페이지"</item>
-    <item msgid="4430498748295169195">"빈 페이지"</item>
-    <item msgid="5747608191946904074">"기본 페이지"</item>
-    <item msgid="723023698618841163">"자주 방문한 홈페이지"</item>
-    <item msgid="5021822752506507426">"기타..."</item>
-  </string-array>
+    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"페이지 자동 맞춤"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"화면에 맞게 웹페이지 형식 지정"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"기본설정"</string>
@@ -276,6 +270,10 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Google 검색을 사용할 때 Google 순간 검색을 사용하면 입력하는 동안 결과가 표시됩니다(데이터 사용이 증가될 수 있음)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"전체화면"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"전체화면 모드를 사용하여 상태 표시줄을 숨깁니다."</string>
+    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
+    <skip />
+    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
+    <skip />
     <string name="pref_data_title" msgid="750316606686075162">"대역폭 관리"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"검색결과 미리 로드"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"브라우저가 신뢰도 높은 검색결과를 백그라운드에 미리 로드하도록 허용"</string>
@@ -396,4 +394,8 @@
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"모바일"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"데스크톱"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"결과 미리 로드"</string>
+    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
+    <skip />
+    <!-- no translation found for remove_snapshot (1624447424544976849) -->
+    <skip />
 </resources>

@@ -141,13 +141,7 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Налашт. пошук. сист."</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Виберіть пошукову систему"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Установити…"</string>
-  <string-array name="pref_homepage_choices">
-    <item msgid="844041670142910837">"Поточну сторінку"</item>
-    <item msgid="4430498748295169195">"Порожню сторінку"</item>
-    <item msgid="5747608191946904074">"Сторінку за умовчанням"</item>
-    <item msgid="723023698618841163">"Найчастіше відвідувану домашню сторінку"</item>
-    <item msgid="5021822752506507426">"Інше..."</item>
-  </string-array>
+    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"Автомат. припасув."</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Форматув. сторінки до розмірів екрана"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Загальні"</string>
@@ -276,9 +270,13 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Використовуйте Миттєвий пошук у пошуку Google для відображ. результ. під час введення (може збільшитись викорис. даних)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Повноекранний режим"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Використовуйте повноекранний режим, щоб ховати рядок стану."</string>
+    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
+    <skip />
+    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
+    <skip />
     <string name="pref_data_title" msgid="750316606686075162">"Керув.пропускн.спроможн."</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Попереднє завантаж. результатів пошуку"</string>
-    <string name="pref_data_preload_summary" msgid="7488335627364473744">"Дозвол.веб-перегл. попередньо завантаж. рез-ти пошуку вис.достовір. у фонов.реж."</string>
+    <string name="pref_data_preload_summary" msgid="7488335627364473744">"Дозволити переглядачу завантажувати достовірні рез-ти пошуку у фоновому режимі"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблема з доступом до даних"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблема з файлом"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Підтверд."</string>
@@ -396,4 +394,8 @@
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"Версія для мобільного пристрою"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"Версія для комп’ютера"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Попередньо завантажувати результати"</string>
+    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
+    <skip />
+    <!-- no translation found for remove_snapshot (1624447424544976849) -->
+    <skip />
 </resources>

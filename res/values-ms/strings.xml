@@ -55,8 +55,7 @@
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Batal"</string>
     <string name="location" msgid="3411848697912600125">"Alamat"</string>
-    <!-- no translation found for account (5179824606448077042) -->
-    <skip />
+    <string name="account" msgid="5179824606448077042">"Akaun"</string>
     <string name="containing_folder" msgid="6771180232953030479">"Tambah ke"</string>
     <string name="new_folder" msgid="7743540149088867917">"Folder baru"</string>
     <string name="edit_folder" msgid="621817453133656156">"Edit folder"</string>
@@ -142,13 +141,7 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Tetapkan enjin carian"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Pilih enjin carian"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Tetapkan pada..."</string>
-  <string-array name="pref_homepage_choices">
-    <item msgid="844041670142910837">"Halaman semasa"</item>
-    <item msgid="4430498748295169195">"Halaman kosong"</item>
-    <item msgid="5747608191946904074">"Halaman lalai"</item>
-    <item msgid="723023698618841163">"Halaman utama paling dilawati"</item>
-    <item msgid="5021822752506507426">"Lain-lain..."</item>
-  </string-array>
+    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"Muat auto halaman"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Format halaman web agar padan dengan saiz skrin"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Umum"</string>
@@ -167,10 +160,9 @@
     <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Masukkan dan simpan data untuk medan auto isi borang web"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"Log masuk Google automatik"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Melog masuk ke dalam tapak Google menggunakan <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <!-- outdated translation 8013977161879448141 -->     <string name="autologin_bar_text" msgid="3684581827167173371">"Log masuk automatik tersedia."</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"Log masuk sebagai"</string>
     <string name="autologin_bar_login_text" msgid="7052816600314556734">"Log masuk"</string>
-    <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
-    <skip />
+    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Sembunyikn"</string>
     <string name="autologin_bar_error" msgid="5132514366023044839">"Log masuk gagal."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Masukkan data yang anda mahu auto isi dalam medan web apabila anda menyentuhnya."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nama penuh:"</string>
@@ -190,8 +182,7 @@
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profil disimpan"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profil telah dipadamkan"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Padam profil"</string>
-    <!-- no translation found for autofill_setup_dialog_title (1955613311837926540) -->
-    <skip />
+    <string name="autofill_setup_dialog_title" msgid="1955613311837926540">"Sediakan auto-isi?"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Penyemak imbas boleh melengkapkan borang web seperti ini secara automatik. Adakah anda mahu menyediakan profil anda?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Auto isi sentiasa boleh dikonfigurasikan melalui Tetapan Penyemak Imbas."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Lumpuhkan auto isi"</string>
@@ -236,14 +227,10 @@
     <item msgid="7201512237890458902">"Sangat Besar"</item>
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Saiz fon minimum"</string>
-    <!-- no translation found for pref_min_font_size_value (2924708480509060209) -->
-    <skip />
-    <!-- no translation found for pref_text_zoom (8387229123479610157) -->
-    <skip />
-    <!-- no translation found for pref_force_userscalable (5641500562399892621) -->
-    <skip />
-    <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
-    <skip />
+    <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
+    <string name="pref_text_zoom" msgid="8387229123479610157">"Zum teks"</string>
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Paksa dayakan zum"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Samada mahu m\'atasi p\'mintn tpk web utk kwl klakuan zum atau tdk"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zum lalai"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Jauh"</item>
@@ -275,16 +262,17 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Pengekodan teks"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Kebolehaksesan"</string>
-    <!-- no translation found for pref_font_size_category (6288925476811083551) -->
-    <skip />
+    <string name="pref_font_size_category" msgid="6288925476811083551">"Saiz fon"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Makmal"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Kawalan pantas"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Leret jari dr kiri/kanan utk akses kawalan pantas dan sembunyikan bar Apl &amp; URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Guna Google Instant bila anda guna Carian Google, utk tunjuk hasil bila anda menaip (boleh menambah penggunaan data)."</string>
-    <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
+    <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Skrin penuh"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gunakan mod skrin penuh untuk menyembunyikan bar status."</string>
+    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
     <skip />
-    <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
+    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
     <skip />
     <string name="pref_data_title" msgid="750316606686075162">"Pengurusan Lebar Jalur"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Hasil carian sedang dipramuat"</string>
@@ -298,8 +286,7 @@
     <string name="clear_history" msgid="5998307092715979619">"Padam bersih sejarah"</string>
     <string name="browser_history" msgid="1038987118290272525">"Halaman terbaru dilawati"</string>
     <string name="empty_history" msgid="8738772352308207274">"Sejarah penyemak imbas kosong."</string>
-    <!-- no translation found for go_home (3140773562046381164) -->
-    <skip />
+    <string name="go_home" msgid="3140773562046381164">"Laman utama"</string>
     <string name="add_new_bookmark" msgid="8086367791400349049">"Tambah penanda halaman..."</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Tambah"</string>
     <string name="search_hint" msgid="4647356319916631820">"Buat carian atau taipkan URL"</string>
@@ -399,15 +386,16 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"Tiada lagi tab yang sedia"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google dengan Instant (Makmal)"</string>
     <string name="recover_title" msgid="8095611702406163360">"Pulihkan tetingkap?"</string>
-    <!-- outdated translation 5526783279696786755 -->     <string name="recover_prompt" msgid="6541354420842425606">"Penyemak imbas kelihatan seperti telah ranap. Adakah anda mahu memulihkan tetingkap anda kepada keadaan terakhirnya?"</string>
-    <!-- outdated translation 5837971910598069183 -->     <string name="recover_yes" msgid="4540538008955917099">"Ya"</string>
+    <string name="recover_prompt" msgid="6541354420842425606">"Adakah anda mahu memulihkan tab penyemak imbas anda kepada keadaan terakhirnya?"</string>
+    <string name="recover_yes" msgid="4540538008955917099">"Pulihkan"</string>
     <string name="recover_no" msgid="3121030267940592611">"Tidak"</string>
-    <!-- outdated translation 1470306351083271066 -->     <string name="preview" msgid="6450823514561689038">"Pratonton:"</string>
-    <!-- no translation found for local_bookmarks (533816851415228520) -->
-    <skip />
-    <!-- no translation found for ua_switcher_mobile (5103260404792449606) -->
-    <skip />
-    <!-- no translation found for ua_switcher_desktop (2535200543238676638) -->
-    <skip />
+    <string name="preview" msgid="6450823514561689038">"Pratonton"</string>
+    <string name="local_bookmarks" msgid="533816851415228520">"Tempatan"</string>
+    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mudah alih"</string>
+    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Desktop"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Pramuat hasil"</string>
+    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
+    <skip />
+    <!-- no translation found for remove_snapshot (1624447424544976849) -->
+    <skip />
 </resources>
