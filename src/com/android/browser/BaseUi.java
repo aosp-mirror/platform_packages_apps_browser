@@ -738,20 +738,6 @@ public abstract class BaseUi implements UI, OnTouchListener {
         warning.show();
     }
 
-    protected void captureTab(final Tab tab) {
-        captureTab(tab,
-                (int) mActivity.getResources()
-                        .getDimension(R.dimen.qc_thumb_width),
-                (int) mActivity.getResources()
-                        .getDimension(R.dimen.qc_thumb_height));
-    }
-
-    protected void captureTab(final Tab tab, int width, int height) {
-        if ((tab == null) || (tab.getWebView() == null)) return;
-        Bitmap sshot = Controller.createScreenshot(tab, width, height);
-        tab.setScreenshot(sshot);
-    }
-
     protected WebView getWebView() {
         if (mActiveTab != null) {
             return mActiveTab.getWebView();

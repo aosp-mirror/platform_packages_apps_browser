@@ -72,7 +72,7 @@ public class PieControlPhone extends PieControlBase implements OnClickListener {
 
     private void buildTabs() {
         final List<Tab> tabs = mUiController.getTabs();
-        mUi.captureTab(mUi.getActiveTab());
+        mUi.getActiveTab().capture();
         mTabAdapter.setTabs(tabs);
         PieStackView sym = (PieStackView) mShowTabs.getPieView();
         sym.setCurrent(mUiController.getTabControl().getCurrentPosition());

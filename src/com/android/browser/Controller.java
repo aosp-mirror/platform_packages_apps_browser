@@ -80,6 +80,7 @@ import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
 import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.provider.BrowserProvider;
+import com.android.browser.provider.BrowserProvider2.Thumbnails;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
@@ -87,6 +88,7 @@ import com.android.common.Search;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -309,6 +311,7 @@ public class Controller
     private void onPreloginFinished(Bundle icicle, Intent intent, long currentTabId,
             boolean restoreIncognitoTabs) {
         if (currentTabId == -1) {
+            BackgroundHandler.execute(new PruneThumbnails(mActivity, null));
             final Bundle extra = intent.getExtras();
             // Create an initial tab.
             // If the intent is ACTION_VIEW and data is not null, the Browser is
@@ -335,7 +338,13 @@ public class Controller
         } else {
             mTabControl.restoreState(icicle, currentTabId, restoreIncognitoTabs,
                     mUi.needsRestoreAllTabs());
-            mUi.updateTabs(mTabControl.getTabs());
+            List<Tab> tabs = mTabControl.getTabs();
+            ArrayList<Long> restoredTabs = new ArrayList<Long>(tabs.size());
+            for (Tab t : tabs) {
+                restoredTabs.add(t.getId());
+            }
+            BackgroundHandler.execute(new PruneThumbnails(mActivity, restoredTabs));
+            mUi.updateTabs(tabs);
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails.
             setActiveTab(mTabControl.getCurrentTab());
@@ -355,6 +364,38 @@ public class Controller
         if (BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(intent.getAction())) {
             bookmarksOrHistoryPicker(false);
         }
+    }
+
+    private static class PruneThumbnails implements Runnable {
+        private Context mContext;
+        private List<Long> mIds;
+
+        PruneThumbnails(Context context, List<Long> preserveIds) {
+            mContext = context.getApplicationContext();
+            mIds = preserveIds;
+        }
+
+        @Override
+        public void run() {
+            ContentResolver cr = mContext.getContentResolver();
+            if (mIds == null || mIds.size() == 0) {
+                cr.delete(Thumbnails.CONTENT_URI, null, null);
+            } else {
+                int length = mIds.size();
+                StringBuilder where = new StringBuilder();
+                where.append(Thumbnails._ID);
+                where.append(" not in (");
+                for (int i = 0; i < length; i++) {
+                    where.append(mIds.get(i));
+                    if (i < (length - 1)) {
+                        where.append(",");
+                    }
+                }
+                where.append(")");
+                cr.delete(Thumbnails.CONTENT_URI, where.toString(), null);
+            }
+        }
+
     }
 
     @Override
@@ -612,7 +653,7 @@ public class Controller
 
     }
 
-    void onSaveInstanceState(Bundle outState, boolean saveImages) {
+    void onSaveInstanceState(Bundle outState) {
         // the default implementation requires each view to have an id. As the
         // browser handles the state itself and it doesn't use id for the views,
         // don't call the default implementation. Otherwise it will trigger the
@@ -620,7 +661,7 @@ public class Controller
         // focused view XXX has no id".
 
         // Save all the tabs
-        mTabControl.saveState(outState, false);
+        mTabControl.saveState(outState);
         if (!outState.isEmpty()) {
             // Save time so that we know how old incognito tabs (if any) are.
             outState.putSerializable("lastActiveDate", Calendar.getInstance());
@@ -1902,13 +1943,6 @@ public class Controller
                 R.dimen.bookmarkThumbnailHeight);
     }
 
-    static Bitmap createScreenshot(Tab tab, int width, int height) {
-        if ((tab != null) && (tab.getWebView() != null)) {
-            return createScreenshot(tab.getWebView(), width, height);
-        }
-        return null;
-    }
-
     static Bitmap createScreenshot(WebView view, int width, int height) {
         // We render to a bitmap 2x the desired size so that we can then
         // re-scale it with filtering since canvas.scale doesn't filter
@@ -2644,6 +2678,11 @@ public class Controller
     public boolean onSearchRequested() {
         mUi.editUrl(false);
         return true;
+    }
+
+    @Override
+    public boolean shouldCaptureThumbnails() {
+        return mUi.shouldCaptureThumbnails();
     }
 
 }

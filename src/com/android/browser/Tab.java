@@ -20,11 +20,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -53,7 +55,6 @@ import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
-import android.webkit.WebBackForwardList;
 import android.webkit.WebBackForwardListClient;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
@@ -68,10 +69,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.provider.BrowserProvider2.Thumbnails;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 import com.android.common.speech.LoggingEvents;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -94,6 +97,8 @@ class Tab implements PictureListener {
 
     private static final int MSG_CAPTURE = 42;
     private static final int CAPTURE_DELAY = 500;
+
+    private static Bitmap sDefaultFavicon;
 
     public enum LockIcon {
         LOCK_ICON_UNSECURE,
@@ -161,6 +166,13 @@ class Tab implements PictureListener {
     private Bitmap mCapture;
     private Handler mHandler;
 
+    private static synchronized Bitmap getDefaultFavicon(Context context) {
+        if (sDefaultFavicon == null) {
+            sDefaultFavicon = BitmapFactory.decodeResource(
+                    context.getResources(), R.drawable.app_web_browser_sm);
+        }
+        return sDefaultFavicon;
+    }
 
     // All the state needed for a page
     protected static class PageState {
@@ -179,8 +191,7 @@ class Tab implements PictureListener {
                 mOriginalUrl = mUrl = "";
                 mTitle = c.getString(R.string.new_tab);
             }
-            mFavicon = BitmapFactory.decodeResource(
-                    c.getResources(), R.drawable.app_web_browser_sm);
+            mFavicon = null;
             mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
         }
 
@@ -192,13 +203,9 @@ class Tab implements PictureListener {
             } else {
                 mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
             }
-            if (favicon != null) {
-                mFavicon = favicon;
-            } else {
-                mFavicon = BitmapFactory.decodeResource(
-                        c.getResources(), R.drawable.app_web_browser_sm);
-            }
+            mFavicon = favicon;
         }
+
     }
 
     // The current/loading page's state
@@ -211,7 +218,6 @@ class Tab implements PictureListener {
     static final String PARENTTAB = "parentTab";
     static final String APPID = "appid";
     static final String INCOGNITO = "privateBrowsingEnabled";
-    static final String SCREENSHOT = "screenshot";
     static final String USERAGENT = "useragent";
 
     // -------------------------------------------------------------------------
@@ -576,19 +582,7 @@ class Tab implements PictureListener {
                         url, SystemClock.uptimeMillis() - mLoadStartTime);
             }
             mInPageLoad = false;
-            // Sync state (in case of stop/timeout)
-            mCurrentState.mUrl = view.getUrl();
-            if (mCurrentState.mUrl == null) {
-                mCurrentState.mUrl = url != null ? url : "";
-            }
-            mCurrentState.mOriginalUrl = view.getOriginalUrl();
-            mCurrentState.mTitle = view.getTitle();
-            mCurrentState.mFavicon = view.getFavicon();
-            if (!URLUtil.isHttpsUrl(mCurrentState.mUrl)) {
-                // In case we stop when loading an HTTPS page from an HTTP page
-                // but before a provisional load occurred
-                mCurrentState.mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
-            }
+            syncCurrentState(view, url);
             mWebViewController.onPageFinished(Tab.this);
         }
 
@@ -893,6 +887,22 @@ class Tab implements PictureListener {
         }
 
     };
+
+    private void syncCurrentState(WebView view, String url) {
+        // Sync state (in case of stop/timeout)
+        mCurrentState.mUrl = view.getUrl();
+        if (mCurrentState.mUrl == null) {
+            mCurrentState.mUrl = url != null ? url : "";
+        }
+        mCurrentState.mOriginalUrl = view.getOriginalUrl();
+        mCurrentState.mTitle = view.getTitle();
+        mCurrentState.mFavicon = view.getFavicon();
+        if (!URLUtil.isHttpsUrl(mCurrentState.mUrl)) {
+            // In case we stop when loading an HTTPS page from an HTTP page
+            // but before a provisional load occurred
+            mCurrentState.mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
+        }
+    }
 
     // Called by DeviceAccountLogin when the Tab needs to have the auto-login UI
     // displayed.
@@ -1355,11 +1365,16 @@ class Tab implements PictureListener {
 
     // -------------------------------------------------------------------------
 
-    // TODO temporarily use activity here
-    // remove later
-
     // Construct a new tab
     Tab(WebViewController wvcontroller, WebView w) {
+        this(wvcontroller, w, null);
+    }
+
+    Tab(WebViewController wvcontroller, Bundle state) {
+        this(wvcontroller, null, state);
+    }
+
+    Tab(WebViewController wvcontroller, WebView w, Bundle state) {
         mWebViewController = wvcontroller;
         mContext = mWebViewController.getContext();
         mSettings = BrowserSettings.getInstance();
@@ -1393,21 +1408,46 @@ class Tab implements PictureListener {
             }
         };
 
+        mCaptureWidth = mContext.getResources().getDimensionPixelSize(
+                R.dimen.tab_thumbnail_width);
+        mCaptureHeight = mContext.getResources().getDimensionPixelSize(
+                R.dimen.tab_thumbnail_height);
+        updateShouldCaptureThumbnails();
+        restoreState(state);
         setWebView(w);
-        mCaptureWidth = mContext.getResources().getDimensionPixelSize(R.dimen.nav_tab_width);
-        mCaptureHeight = mContext.getResources().getDimensionPixelSize(R.dimen.nav_tab_height);
-        mCapture = Bitmap.createBitmap(mCaptureWidth, mCaptureHeight,
-                Bitmap.Config.RGB_565);
         mHandler = new Handler() {
             public void handleMessage(Message m) {
-                Tab.this.capture();
+                switch (m.what) {
+                case MSG_CAPTURE:
+                    capture();
+                    break;
+                }
             }
         };
+    }
 
+    public void updateShouldCaptureThumbnails() {
+        if (mWebViewController.shouldCaptureThumbnails()) {
+            synchronized (Tab.this) {
+                if (mCapture == null) {
+                    mCapture = Bitmap.createBitmap(mCaptureWidth, mCaptureHeight,
+                            Bitmap.Config.RGB_565);
+                    if (mInForeground) {
+                        postCapture();
+                    }
+                }
+            }
+        } else {
+            synchronized (Tab.this) {
+                mCapture = null;
+                deleteThumbnail();
+            }
+        }
     }
 
     public void setController(WebViewController ctl) {
         mWebViewController = ctl;
+        updateShouldCaptureThumbnails();
     }
 
     public void setId(long id) {
@@ -1435,6 +1475,13 @@ class Tab implements PictureListener {
 
         mWebViewController.onSetWebView(this, w);
 
+        if (mMainView != null) {
+            if (w != null) {
+                syncCurrentState(w, null);
+            } else {
+                mCurrentState = new PageState(mContext, false);
+            }
+        }
         // set the new one
         mMainView = w;
         // attach the WebViewClient, WebChromeClient and DownloadListener
@@ -1448,6 +1495,10 @@ class Tab implements PictureListener {
             mMainView.setDownloadListener(mDownloadListener);
             mMainView.setWebBackForwardListClient(mWebBackForwardListClient);
             mMainView.setPictureListener(this);
+            if (mSavedState != null) {
+                mMainView.restoreState(mSavedState);
+                mSavedState = null;
+            }
         }
     }
 
@@ -1480,6 +1531,7 @@ class Tab implements PictureListener {
         if (mParent != null) {
             mParent.mChildren.remove(this);
         }
+        deleteThumbnail();
     }
 
     /**
@@ -1739,7 +1791,10 @@ class Tab implements PictureListener {
      * Get the favicon of this tab.
      */
     Bitmap getFavicon() {
-        return mCurrentState.mFavicon;
+        if (mCurrentState.mFavicon != null) {
+            return mCurrentState.mFavicon;
+        }
+        return getDefaultFavicon(mContext);
     }
 
     public boolean isBookmarkedSite() {
@@ -1796,43 +1851,19 @@ class Tab implements PictureListener {
     }
 
     /**
-     * Get the cached saved state bundle.
-     * @return cached state bundle
+     * @return The Bundle with the tab's state if it can be saved, otherwise null
      */
-    Bundle getSavedState() {
-        return mSavedState;
-    }
-
-    Bundle getSavedState(boolean saveImages) {
-        if (saveImages && mCapture != null) {
-            Bundle b = new Bundle(mSavedState);
-            b.putParcelable(SCREENSHOT, mCapture);
-            return b;
-        }
-        return mSavedState;
-    }
-
-    /**
-     * Set the saved state.
-     */
-    void setSavedState(Bundle state) {
-        mSavedState = state;
-    }
-
-    /**
-     * @return TRUE if succeed in saving the state.
-     */
-    boolean saveState() {
+    public Bundle saveState() {
         // If the WebView is null it means we ran low on memory and we already
         // stored the saved state in mSavedState.
         if (mMainView == null) {
-            return mSavedState != null;
+            return mSavedState;
         }
         // If the tab is the homepage or has no URL, don't save it
         String homepage = BrowserSettings.getInstance().getHomePage();
         if (TextUtils.equals(homepage, mCurrentState.mUrl)
                 || TextUtils.isEmpty(mCurrentState.mUrl)) {
-            return false;
+            return null;
         }
 
         mSavedState = new Bundle();
@@ -1841,6 +1872,7 @@ class Tab implements PictureListener {
         mSavedState.putLong(ID, mId);
         mSavedState.putString(CURRURL, mCurrentState.mUrl);
         mSavedState.putString(CURRTITLE, mCurrentState.mTitle);
+        mSavedState.putBoolean(INCOGNITO, mMainView.isPrivateBrowsingEnabled());
         if (mAppId != null) {
             mSavedState.putString(APPID, mAppId);
         }
@@ -1850,35 +1882,35 @@ class Tab implements PictureListener {
         }
         mSavedState.putBoolean(USERAGENT,
                 mSettings.hasDesktopUseragent(getWebView()));
-        return true;
+        return mSavedState;
     }
 
     /*
      * Restore the state of the tab.
      */
-    boolean restoreState(Bundle b) {
-        if (b == null) {
-            return false;
+    private void restoreState(Bundle b) {
+        mSavedState = b;
+        if (mSavedState == null) {
+            return;
         }
         // Restore the internal state even if the WebView fails to restore.
         // This will maintain the app id, original url and close-on-exit values.
-        mSavedState = null;
         mId = b.getLong(ID);
         mAppId = b.getString(APPID);
-        final Bitmap sshot = b.getParcelable(SCREENSHOT);
-        if (sshot != null) {
-            mCapture = sshot;
-        }
         if (b.getBoolean(USERAGENT)
                 != mSettings.hasDesktopUseragent(getWebView())) {
             mSettings.toggleDesktopUseragent(getWebView());
         }
-
-        final WebBackForwardList list = mMainView.restoreState(b);
-        if (list == null) {
-            return false;
+        String url = b.getString(CURRURL);
+        String title = b.getString(CURRTITLE);
+        boolean incognito = b.getBoolean(INCOGNITO);
+        mCurrentState = new PageState(mContext, incognito, url, null);
+        mCurrentState.mTitle = title;
+        synchronized (Tab.this) {
+            if (mCapture != null) {
+                BackgroundHandler.execute(mLoadThumbnail);
+            }
         }
-        return true;
     }
 
     public void updateBookmarkedStatus() {
@@ -1896,12 +1928,10 @@ class Tab implements PictureListener {
         }
     };
 
-    public void setScreenshot(Bitmap screenshot) {
-        mCapture = screenshot;
-    }
-
     public Bitmap getScreenshot() {
-        return mCapture;
+        synchronized (Tab.this) {
+            return mCapture;
+        }
     }
 
     public boolean isSnapshot() {
@@ -1963,11 +1993,16 @@ class Tab implements PictureListener {
         float scale = mCaptureWidth / (float) mMainView.getWidth();
         c.scale(scale, scale, left, top);
         mMainView.draw(c);
+        persistThumbnail();
     }
 
     @Override
     public void onNewPicture(WebView view, Picture picture) {
         //update screenshot
+        postCapture();
+    }
+
+    private void postCapture() {
         if (!mHandler.hasMessages(MSG_CAPTURE)) {
             mHandler.sendEmptyMessageDelayed(MSG_CAPTURE, CAPTURE_DELAY);
         }
@@ -1992,5 +2027,85 @@ class Tab implements PictureListener {
             mMainView.goForward();
         }
     }
+
+    protected void persistThumbnail() {
+        BackgroundHandler.execute(mSaveThumbnail);
+    }
+
+    protected void deleteThumbnail() {
+        BackgroundHandler.execute(mDeleteThumbnail);
+    }
+
+    private void updateCaptureFromBlob(byte[] blob) {
+        synchronized (Tab.this) {
+            if (mCapture == null) {
+                return;
+            }
+            mCapture.copyPixelsFromBuffer(ByteBuffer.wrap(blob));
+        }
+    }
+
+    private byte[] getCaptureBlob() {
+        synchronized (Tab.this) {
+            if (mCapture == null) {
+                return null;
+            }
+            ByteBuffer buffer = ByteBuffer.allocate(mCapture.getByteCount());
+            mCapture.copyPixelsToBuffer(buffer);
+            return buffer.array();
+        }
+    }
+
+    private Runnable mSaveThumbnail = new Runnable() {
+
+        @Override
+        public void run() {
+            byte[] blob = getCaptureBlob();
+            if (blob == null) {
+                return;
+            }
+            ContentResolver cr = mContext.getContentResolver();
+            ContentValues values = new ContentValues();
+            values.put(Thumbnails._ID, mId);
+            values.put(Thumbnails.THUMBNAIL, blob);
+            cr.insert(Thumbnails.CONTENT_URI, values);
+        }
+    };
+
+    private Runnable mDeleteThumbnail = new Runnable() {
+
+        @Override
+        public void run() {
+            ContentResolver cr = mContext.getContentResolver();
+            try {
+                cr.delete(ContentUris.withAppendedId(Thumbnails.CONTENT_URI, mId),
+                        null, null);
+            } catch (Throwable t) {}
+        }
+    };
+
+    private Runnable mLoadThumbnail = new Runnable() {
+
+        @Override
+        public void run() {
+            ContentResolver cr = mContext.getContentResolver();
+            Cursor c = null;
+            try {
+                Uri uri = ContentUris.withAppendedId(Thumbnails.CONTENT_URI, mId);
+                c = cr.query(uri, new String[] {Thumbnails._ID,
+                        Thumbnails.THUMBNAIL}, null, null, null);
+                if (c.moveToFirst()) {
+                    byte[] data = c.getBlob(1);
+                    if (data != null && data.length > 0) {
+                        updateCaptureFromBlob(data);
+                    }
+                }
+            } finally {
+                if (c != null) {
+                    c.close();
+                }
+            }
+        }
+    };
 
 }
