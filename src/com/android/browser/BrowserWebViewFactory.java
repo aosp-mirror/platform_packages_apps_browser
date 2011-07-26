@@ -55,8 +55,10 @@ public class BrowserWebViewFactory implements WebViewFactory {
         w.setMapTrackballToArrowKeys(false); // use trackball directly
         // Enable the built-in zoom
         w.getSettings().setBuiltInZoomControls(true);
-        boolean supportsMultiTouch = mContext.getPackageManager()
-                .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH);
+        final PackageManager pm = mContext.getPackageManager();
+        boolean supportsMultiTouch =
+                pm.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH)
+                || pm.hasSystemFeature(PackageManager.FEATURE_FAKETOUCH_MULTITOUCH_DISTINCT);
         w.getSettings().setDisplayZoomControls(!supportsMultiTouch);
         w.setExpandedTileBounds(true);  // smoother scrolling
 
