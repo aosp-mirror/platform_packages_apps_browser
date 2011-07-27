@@ -63,6 +63,7 @@ public class AccountsChangedReceiver extends BroadcastReceiver {
                 }
             }
             cr.update(Accounts.CONTENT_URI, null, null, null);
+            c.close();
         }
 
         void delete(ContentResolver cr, String name, String type) {
