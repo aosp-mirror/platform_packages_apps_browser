@@ -274,7 +274,15 @@ public class GoogleAccountLogin implements Runnable,
             Log.d(LOGTAG, "Finished login attempt for " + mAccount.name);
             mActivity.runOnUiThread(mRunnable);
 
-            mProgressDialog.dismiss();
+            try {
+                mProgressDialog.dismiss();
+            } catch (Exception e) {
+                // TODO: Switch to a managed dialog solution (DialogFragment?)
+                // Also refactor this class, it doesn't
+                // play nice with the activity lifecycle, leading to issues
+                // with the dialog it manages
+                Log.w(LOGTAG, "Failed to dismiss mProgressDialog: " + e.getMessage());
+            }
             mRunnable = null;
             mActivity.runOnUiThread(new Runnable() {
                 @Override
