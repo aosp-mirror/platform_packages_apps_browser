@@ -23,8 +23,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.View.OnClickListener;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
@@ -36,6 +36,8 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.android.browser.NavTabGallery.OnRemoveListener;
 
 public class NavScreen extends RelativeLayout
         implements OnClickListener, OnMenuItemClickListener {
@@ -124,6 +126,12 @@ public class NavScreen extends RelativeLayout
                 ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
         // update state for active tab
         mScroller.setSelection(mUiController.getTabControl().getTabPosition(mUi.getActiveTab()));
+        mScroller.setOnRemoveListener(new OnRemoveListener() {
+            public void onRemovePosition(int pos) {
+                Tab tab = mAdapter.getItem(pos);
+                onCloseTab(tab);
+            }
+        });
         mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
         if (!mNeedsMenu) {
             mMore.setVisibility(View.GONE);
