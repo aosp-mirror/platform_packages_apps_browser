@@ -99,7 +99,7 @@ public class SnapshotTab extends Tab {
     }
 
     @Override
-    Bundle saveState() {
+    public Bundle saveState() {
         return null;
     }
 
