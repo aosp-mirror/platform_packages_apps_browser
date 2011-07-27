@@ -40,6 +40,7 @@ public class NavTabGallery extends Gallery {
 
     private OnRemoveListener mRemoveListener;
     private boolean mBlockUpCallback;
+    private Animator mAnimator;
 
     public NavTabGallery(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -76,13 +77,15 @@ public class NavTabGallery extends Gallery {
     @Override
     protected void onOrthoDrag(View v, MotionEvent down, MotionEvent move,
             float distance) {
-        offsetView(v, - distance);
+        if (mAnimator == null) {
+            offsetView(v, - distance);
+        }
     }
 
     @Override
     protected void onOrthoFling(View v, MotionEvent down, MotionEvent move,
             float velocity) {
-        if (Math.abs(velocity) > MIN_VELOCITY) {
+        if ((mAnimator == null) && (Math.abs(velocity) > MIN_VELOCITY)) {
             mBlockUpCallback = true;
             animateOut(v, velocity);
         }
@@ -90,6 +93,7 @@ public class NavTabGallery extends Gallery {
 
     @Override
     protected void onUp(View downView) {
+        if (mAnimator != null) return;
         if (mBlockUpCallback) {
             mBlockUpCallback = false;
             return;
@@ -118,8 +122,13 @@ public class NavTabGallery extends Gallery {
         }
     }
 
-    private void animateOut(View v, float velocity) {
-        final int position = mDownTouchPosition;
+    protected void animateOut(View v) {
+        animateOut(v, -MIN_VELOCITY);
+    }
+
+    private void animateOut(final View v, float velocity) {
+        if (mAnimator != null) return;
+        final int position = mFirstPosition + indexOfChild(v);
         int target = 0;
         if (velocity < 0) {
             target = mHorizontal ? -v.getHeight() :  - v.getWidth();
@@ -128,21 +137,28 @@ public class NavTabGallery extends Gallery {
         }
         int distance = target - (mHorizontal ? v.getTop() : v.getLeft());
         long duration = (long) (Math.abs(distance) * 1000 / Math.abs(velocity));
-        ObjectAnimator animator = null;
         if (mHorizontal) {
-            animator = ObjectAnimator.ofFloat(v, TRANSLATION_Y, 0, target);
+            mAnimator = ObjectAnimator.ofFloat(v, TRANSLATION_Y, 0, target);
         } else {
-            animator = ObjectAnimator.ofFloat(v, TRANSLATION_X, 0, target);
+            mAnimator = ObjectAnimator.ofFloat(v, TRANSLATION_X, 0, target);
         }
-        animator.setDuration(duration);
-        animator.addListener(new AnimatorListenerAdapter() {
+        mAnimator.setDuration(duration);
+        mAnimator.addListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator a) {
                 if (mRemoveListener !=  null) {
+                    boolean needsGap = position < (mAdapter.getCount() - 1);
+                    if (needsGap) {
+                        setGapPosition(position, mHorizontal ? v.getWidth() : v.getHeight());
+                    }
                     mRemoveListener.onRemovePosition(position);
+                    if (!needsGap && position > 0) {
+                        scrollToChild(position - 1);
+                    }
+                    mAnimator = null;
                 }
             }
         });
-        animator.start();
+        mAnimator.start();
     }
 
 }
