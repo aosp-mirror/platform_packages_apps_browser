@@ -276,4 +276,9 @@ public class PhoneUi extends BaseUi {
         }
     }
 
+    @Override
+    public boolean shouldCaptureThumbnails() {
+        return true;
+    }
+
 }

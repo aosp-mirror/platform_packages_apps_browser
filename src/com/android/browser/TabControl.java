@@ -186,6 +186,12 @@ class TabControl {
      *         number of open tabs.
      */
     Tab createNewTab(boolean privateBrowsing) {
+        return createNewTab(null, privateBrowsing);
+    }
+
+    Tab createNewTab(Bundle state, boolean privateBrowsing) {
+        int size = mTabs.size();
+        // Return false if we have maxed out on tabs
         if (!canCreateNewTab()) {
             return null;
         }
@@ -193,7 +199,7 @@ class TabControl {
         final WebView w = createNewWebView(privateBrowsing);
 
         // Create a new tab and add it to the tab list
-        Tab t = new Tab(mController, w);
+        Tab t = new Tab(mController, w, state);
         t.setId(getNextId());
         mTabs.add(t);
         // Initially put the tab in the background.
@@ -288,7 +294,7 @@ class TabControl {
      * @param outState
      * @param saveImages
      */
-    void saveState(Bundle outState, boolean saveImages) {
+    void saveState(Bundle outState) {
         final int numTabs = getTabCount();
         if (numTabs == 0) {
             return;
@@ -296,10 +302,10 @@ class TabControl {
         long[] ids = new long[numTabs];
         int i = 0;
         for (Tab tab : mTabs) {
-            if (tab.saveState()) {
+            Bundle tabState = tab.saveState();
+            if (tabState != null) {
                 ids[i++] = tab.getId();
-                outState.putBundle(Long.toString(tab.getId()),
-                        tab.getSavedState(saveImages));
+                outState.putBundle(Long.toString(tab.getId()), tabState);
             } else {
                 ids[i++] = -1;
             }
@@ -329,7 +335,7 @@ class TabControl {
         final long oldcurrent = inState.getLong(CURRENT);
         long current = -1;
         if (restoreIncognitoTabs || (hasState(oldcurrent, inState) && !isIncognito(oldcurrent, inState))) {
-                current = oldcurrent;
+            current = oldcurrent;
         } else {
             // pick first non incognito tab
             for (long id : ids) {
@@ -363,8 +369,6 @@ class TabControl {
      * @param restoreIncognitoTabs Restoring private browsing tabs
      * @param restoreAll All webviews get restored, not just the current tab
      *        (this does not override handling of incognito tabs)
-     * @return True if there were previous tabs that were restored. False if
-     *         there was no saved state or restoring the state failed.
      */
     void restoreState(Bundle inState, long currentId,
             boolean restoreIncognitoTabs, boolean restoreAll) {
@@ -387,7 +391,7 @@ class TabControl {
                     && state.getBoolean(Tab.INCOGNITO)) {
                 // ignore tab
             } else if (id == currentId || restoreAll) {
-                Tab t = createNewTab();
+                Tab t = createNewTab(state, false);
                 if (t == null) {
                     // We could "break" at this point, but we want
                     // sNextId to be set correctly.
@@ -399,23 +403,12 @@ class TabControl {
                 if (id == currentId) {
                     setCurrentTab(t);
                 }
-                if (!t.restoreState(state)) {
-                    Log.w(LOGTAG, "Fail in restoreState, load home page.");
-                    t.getWebView().loadUrl(BrowserSettings.getInstance()
-                            .getHomePage());
-                }
             } else {
                 // Create a new tab and don't restore the state yet, add it
                 // to the tab list
-                Tab t = new Tab(mController, null);
+                Tab t = new Tab(mController, state);
                 t.setId(id);
                 tabMap.put(id, t);
-                if (state != null) {
-                    t.setSavedState(state);
-                    // Need to maintain the app id and original url so we
-                    // can possibly reuse this tab.
-                    t.setAppId(state.getString(Tab.APPID));
-                }
                 mTabs.add(t);
                 // added the tab to the front as they are not current
                 mTabQueue.add(0, t);
@@ -619,8 +612,6 @@ class TabControl {
         if (getCurrentTab() == t) {
             setCurrentTab(t, true);
         }
-        // Clear the saved state and picker data
-        t.setSavedState(null);
     }
 
     /**
@@ -681,12 +672,6 @@ class TabControl {
             newTab.setWebView(mainView);
         }
         newTab.putInForeground();
-        if (needRestore) {
-            // Have to finish setCurrentTab work before calling restoreState
-            if (!newTab.restoreState(newTab.getSavedState())) {
-                mainView.loadUrl(BrowserSettings.getInstance().getHomePage());
-            }
-        }
         return true;
     }
 

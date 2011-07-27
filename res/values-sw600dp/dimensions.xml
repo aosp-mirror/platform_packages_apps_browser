@@ -37,4 +37,6 @@
     <dimen name="suggest_item_padding">16dp</dimen>
     <dimen name="toolbar_height">48dip</dimen>
     <dimen name="progress_bar_margin">-11dip</dimen>
+    <dimen name="tab_thumbnail_width">@dimen/qc_thumb_width</dimen>
+    <dimen name="tab_thumbnail_height">@dimen/qc_thumb_height</dimen>
 </resources>

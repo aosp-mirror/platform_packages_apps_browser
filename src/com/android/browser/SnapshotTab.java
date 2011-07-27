@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 
@@ -44,7 +45,7 @@ public class SnapshotTab extends Tab {
     private boolean mIsLive;
 
     public SnapshotTab(WebViewController wvcontroller, long snapshotId) {
-        super(wvcontroller, null);
+        super(wvcontroller, null, null);
         mSnapshotId = snapshotId;
         mWebViewFactory = mWebViewController.getWebViewFactory();
         WebView web = mWebViewFactory.createWebView(false);
@@ -98,8 +99,8 @@ public class SnapshotTab extends Tab {
     }
 
     @Override
-    boolean saveState() {
-        return false;
+    Bundle saveState() {
+        return null;
     }
 
     public long getDateCreated() {
@@ -198,4 +199,15 @@ public class SnapshotTab extends Tab {
         }
 
     }
+
+    @Override
+    protected void persistThumbnail() {
+        // Nope
+    }
+
+    @Override
+    protected void deleteThumbnail() {
+        // Nope
+    }
+
 }

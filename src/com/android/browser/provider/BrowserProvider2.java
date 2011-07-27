@@ -74,6 +74,13 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final Uri LEGACY_AUTHORITY_URI = new Uri.Builder()
             .authority(LEGACY_AUTHORITY).scheme("content").build();
 
+    public static interface Thumbnails {
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(
+                BrowserContract.AUTHORITY_URI, "thumbnails");
+        public static final String _ID = "_id";
+        public static final String THUMBNAIL = "thumbnail";
+    }
+
     static final String TABLE_BOOKMARKS = "bookmarks";
     static final String TABLE_HISTORY = "history";
     static final String TABLE_IMAGES = "images";
@@ -81,6 +88,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final String TABLE_SYNC_STATE = "syncstate";
     static final String TABLE_SETTINGS = "settings";
     static final String TABLE_SNAPSHOTS = "snapshots";
+    static final String TABLE_THUMBNAILS = "thumbnails";
 
     static final String TABLE_BOOKMARKS_JOIN_IMAGES = "bookmarks LEFT OUTER JOIN images " +
             "ON bookmarks.url = images." + Images.URL;
@@ -110,6 +118,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             "url_key NOT IN (SELECT url FROM bookmarks " +
             "WHERE url IS NOT NULL AND deleted == 0) AND url_key NOT IN " +
             "(SELECT url FROM history WHERE url IS NOT NULL)";
+
+    static final int THUMBNAILS = 10;
+    static final int THUMBNAILS_ID = 11;
 
     static final int BOOKMARKS = 1000;
     static final int BOOKMARKS_ID = 1001;
@@ -187,6 +198,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "combined", COMBINED);
         matcher.addURI(authority, "combined/#", COMBINED_ID);
         matcher.addURI(authority, "settings", SETTINGS);
+        matcher.addURI(authority, "thumbnails", THUMBNAILS);
+        matcher.addURI(authority, "thumbnails/#", THUMBNAILS_ID);
 
         // Legacy
         matcher.addURI(LEGACY_AUTHORITY, "searches", SEARCHES);
@@ -333,7 +346,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
-        static final int DATABASE_VERSION = 30;
+        static final int DATABASE_VERSION = 31;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -396,6 +409,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     ");");
 
             createAccountsView(db);
+            createThumbnails(db);
 
             mSyncHelper.createDatabase(db);
 
@@ -404,6 +418,13 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
 
             enableSync(db);
+        }
+
+        void createThumbnails(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_THUMBNAILS + " (" +
+                    Thumbnails._ID + " INTEGER PRIMARY KEY," +
+                    Thumbnails.THUMBNAIL + " BLOB NOT NULL" +
+                    ");");
         }
 
         void enableSync(SQLiteDatabase db) {
@@ -500,6 +521,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            if (oldVersion < 31) {
+                createThumbnails(db);
+            }
             if (oldVersion < 30) {
                 db.execSQL("DROP VIEW IF EXISTS " + VIEW_SNAPSHOTS_COMBINED);
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_SNAPSHOTS);
@@ -974,6 +998,18 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 break;
             }
 
+            case THUMBNAILS_ID: {
+                selection = DatabaseUtils.concatenateWhere(
+                        selection, Thumbnails._ID + " = ?");
+                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                        new String[] { Long.toString(ContentUris.parseId(uri)) });
+                // fall through
+            }
+            case THUMBNAILS: {
+                qb.setTables(TABLE_THUMBNAILS);
+                break;
+            }
+
             default: {
                 throw new UnsupportedOperationException("Unknown URL " + uri.toString());
             }
@@ -1173,6 +1209,17 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 }
                 break;
             }
+            case THUMBNAILS_ID: {
+                selection = DatabaseUtils.concatenateWhere(
+                        selection, Thumbnails._ID + " = ?");
+                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                        new String[] { Long.toString(ContentUris.parseId(uri)) });
+                // fall through
+            }
+            case THUMBNAILS: {
+                deleted = db.delete(TABLE_THUMBNAILS, selection, selectionArgs);
+                break;
+            }
             default: {
                 throw new UnsupportedOperationException("Unknown delete URI " + uri);
             }
@@ -1307,6 +1354,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case SETTINGS: {
                 id = 0;
                 insertSettingsInTransaction(db, values);
+                break;
+            }
+
+            case THUMBNAILS: {
+                id = db.replaceOrThrow(TABLE_THUMBNAILS, null, values);
                 break;
             }
 
@@ -1549,6 +1601,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case ACCOUNTS: {
                 Account[] accounts = AccountManager.get(getContext()).getAccounts();
                 mSyncHelper.onAccountsChanged(mDb, accounts);
+                break;
+            }
+
+            case THUMBNAILS: {
+                modified = db.update(TABLE_THUMBNAILS, values,
+                        selection, selectionArgs);
                 break;
             }
 

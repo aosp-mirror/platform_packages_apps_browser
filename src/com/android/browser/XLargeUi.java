@@ -101,6 +101,10 @@ public class XLargeUi extends BaseUi {
             setTitleGravity(Gravity.NO_GRAVITY);
         }
         mTabBar.setUseQuickControls(mUseQuickControls);
+        // We need to update the tabs with this change
+        for (Tab t : mTabControl.getTabs()) {
+            t.updateShouldCaptureThumbnails();
+        }
     }
 
     private void checkTabCount() {
@@ -332,6 +336,11 @@ public class XLargeUi extends BaseUi {
 
     TabBar getTabBar() {
         return mTabBar;
+    }
+
+    @Override
+    public boolean shouldCaptureThumbnails() {
+        return mUseQuickControls;
     }
 
 }

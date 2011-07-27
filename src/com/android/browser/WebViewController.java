@@ -122,4 +122,6 @@ public interface WebViewController {
     void showAutoLogin(Tab tab);
 
     void hideAutoLogin(Tab tab);
+
+    boolean shouldCaptureThumbnails();
 }

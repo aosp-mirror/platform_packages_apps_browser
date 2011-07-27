@@ -133,7 +133,7 @@ public class CrashRecoveryHandler {
         public void run() {
             try {
                 final Bundle state = new Bundle();
-                mController.onSaveInstanceState(state, false);
+                mController.onSaveInstanceState(state);
                 Message.obtain(mBackgroundHandler, MSG_WRITE_STATE, state)
                         .sendToTarget();
                 // Remove any queued up saves
