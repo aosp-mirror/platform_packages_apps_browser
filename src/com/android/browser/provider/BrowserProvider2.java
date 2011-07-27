@@ -432,6 +432,26 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             values.put(Settings.KEY, Settings.KEY_SYNC_ENABLED);
             values.put(Settings.VALUE, 1);
             insertSettingsInTransaction(db, values);
+            // Enable bookmark sync on all accounts
+            AccountManager am = (AccountManager) getContext().getSystemService(
+                    Context.ACCOUNT_SERVICE);
+            if (am == null) {
+                return;
+            }
+            Account[] accounts = am.getAccountsByType("com.google");
+            if (accounts == null || accounts.length == 0) {
+                return;
+            }
+            for (Account account : accounts) {
+                if (ContentResolver.getIsSyncable(
+                        account, BrowserContract.AUTHORITY) == 0) {
+                    // Account wasn't syncable, enable it
+                    ContentResolver.setIsSyncable(
+                            account, BrowserContract.AUTHORITY, 1);
+                    ContentResolver.setSyncAutomatically(
+                            account, BrowserContract.AUTHORITY, true);
+                }
+            }
         }
 
         boolean importFromBrowserProvider(SQLiteDatabase db) {
