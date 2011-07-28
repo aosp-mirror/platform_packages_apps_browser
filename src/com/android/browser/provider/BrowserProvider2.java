@@ -1227,6 +1227,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                                 new String[] { Long.toString(id) });
                     }
                 }
+                c.close();
                 break;
             }
             case THUMBNAILS_ID: {
@@ -1259,8 +1260,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     " AND account_type = ? AND account_name = ?",
                     new String[] { ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR,
                     accountType, accountName }, null, null, null);
-            if (c.moveToFirst()) {
-                return c.getLong(0);
+            try {
+                if (c.moveToFirst()) {
+                    return c.getLong(0);
+                }
+            } finally {
+                c.close();
             }
         }
         return FIXED_ID_ROOT;
@@ -1737,8 +1742,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             if (c.moveToFirst()) {
                 parentAccountName = c.getString(0);
                 parentAccountType = c.getString(1);
-                c.close();
             }
+            c.close();
         } else if (values.containsKey(Bookmarks.ACCOUNT_NAME)
                 || values.containsKey(Bookmarks.ACCOUNT_TYPE)) {
             // TODO: Implement if needed (no one needs this yet)
