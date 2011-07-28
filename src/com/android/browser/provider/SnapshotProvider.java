@@ -106,7 +106,6 @@ public class SnapshotProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new SnapshotDatabaseHelper(getContext());
         IntentFilter filter = new IntentFilter(Intent.ACTION_MEDIA_EJECT);
         filter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
         getContext().registerReceiver(mExternalStorageReceiver, filter);
@@ -117,13 +116,15 @@ public class SnapshotProvider extends ContentProvider {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            try {
-                mOpenHelper.close();
-            } catch (Throwable t) {
-                // We failed to close the open helper, which most likely means
-                // another thread is busy attempting to open the database
-                // or use the database. Let that thread try to gracefully
-                // deal with the error
+            if (mOpenHelper != null) {
+                try {
+                    mOpenHelper.close();
+                } catch (Throwable t) {
+                    // We failed to close the open helper, which most likely means
+                    // another thread is busy attempting to open the database
+                    // or use the database. Let that thread try to gracefully
+                    // deal with the error
+                }
             }
         }
     };
@@ -132,6 +133,9 @@ public class SnapshotProvider extends ContentProvider {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             try {
+                if (mOpenHelper == null) {
+                    mOpenHelper = new SnapshotDatabaseHelper(getContext());
+                }
                 return mOpenHelper.getWritableDatabase();
             } catch (Throwable t) {
                 return null;
@@ -145,6 +149,9 @@ public class SnapshotProvider extends ContentProvider {
         if (Environment.MEDIA_MOUNTED.equals(state)
                 || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
             try {
+                if (mOpenHelper == null) {
+                    mOpenHelper = new SnapshotDatabaseHelper(getContext());
+                }
                 return mOpenHelper.getReadableDatabase();
             } catch (Throwable t) {
                 return null;
