@@ -67,6 +67,7 @@ public class GoogleAccountLogin implements Runnable,
     private String mLsid;
     private int mState;  // {NONE(0), SID(1), LSID(2)}
     private boolean mTokensInvalidated;
+    private String mUserAgent;
 
     private GoogleAccountLogin(Activity activity, Account account,
             Runnable runnable) {
@@ -74,6 +75,7 @@ public class GoogleAccountLogin implements Runnable,
         mAccount = account;
         mWebView = new WebView(mActivity);
         mRunnable = runnable;
+        mUserAgent = mWebView.getSettings().getUserAgentString();
 
         // XXX: Doing pre-login causes onResume to skip calling
         // resumeWebViewTimers. So to avoid problems with timers not running, we
@@ -106,17 +108,8 @@ public class GoogleAccountLogin implements Runnable,
                 .appendQueryParameter("SID", mSid)
                 .appendQueryParameter("LSID", mLsid)
                 .build().toString();
-        // Check mRunnable to see if the request has been canceled.  Otherwise
-        // we might access a destroyed WebView.
-        String ua = null;
-        synchronized (this) {
-            if (mRunnable == null) {
-                return;
-            }
-            ua = mWebView.getSettings().getUserAgentString();
-        }
         // Intentionally not using Proxy.
-        AndroidHttpClient client = AndroidHttpClient.newInstance(ua);
+        AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
         HttpPost request = new HttpPost(url);
 
         String result = null;
