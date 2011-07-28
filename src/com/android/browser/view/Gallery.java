@@ -16,6 +16,9 @@
 
 package com.android.browser.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
@@ -64,7 +67,7 @@ public class Gallery extends ViewGroup implements
     private RecycleBin mRecycler;
 
     protected boolean mHorizontal;
-    private int mFirstPosition;
+    protected int mFirstPosition;
     private int mItemCount;
     private boolean mDataChanged;
 
@@ -88,6 +91,10 @@ public class Gallery extends ViewGroup implements
 
     private OnItemSelectedListener mOnItemSelectedListener;
     private SelectionNotifier mSelectionNotifier;
+
+    private int mGapPosition;
+    private int mGap;
+    private Animator mGapAnimator;
 
     /**
      * Sets mSuppressSelectionChanged = false. This is used to set it to false
@@ -161,6 +168,10 @@ public class Gallery extends ViewGroup implements
         mTouchSlop = configuration.getScaledTouchSlop();
         setFocusable(true);
         setWillNotDraw(false);
+        mGapPosition = INVALID_POSITION;
+        mGap = 0;
+        // proguard
+        setGap(getGap());
     }
 
     /**
@@ -192,6 +203,29 @@ public class Gallery extends ViewGroup implements
         requestLayout();
     }
 
+    /**
+     * define a visual gap in the list of items
+     * the gap is rendered in front (left or above)
+     * the given position
+     * @param position
+     * @param gap
+     */
+    public void setGapPosition(int position, int gap) {
+        mGapPosition = position;
+        mGap = gap;
+    }
+
+    public void setGap(int gap) {
+        if (mGapPosition != INVALID_POSITION) {
+            mGap = gap;
+            layout(0, false);
+        }
+    }
+
+    public int getGap() {
+        return mGap;
+    }
+
     public void setAdapter(BaseAdapter adapter) {
         mAdapter = adapter;
         if (mAdapter != null) {
@@ -214,6 +248,9 @@ public class Gallery extends ViewGroup implements
 
     void handleDataChanged() {
         if (mAdapter != null) {
+            if (mGapAnimator != null) {
+                mGapAnimator.cancel();
+            }
             resetList();
             mItemCount = mAdapter.getCount();
             // checkFocus();
@@ -226,7 +263,21 @@ public class Gallery extends ViewGroup implements
                 // Nothing selected
                 checkSelectionChanged();
             }
-            layout(0, false);
+            if (mGapPosition > INVALID_POSITION) {
+                mGapAnimator = ObjectAnimator.ofInt(this, "gap", mGap, 0);
+                mGapAnimator.setDuration(250);
+                mGapAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator a) {
+                        mGapPosition = INVALID_POSITION;
+                        mGap = 0;
+                        mGapAnimator = null;
+                    }
+                });
+                mGapAnimator.start();
+            } else {
+                layout(0, false);
+            }
         } else {
             // checkFocus();
             mOldSelectedPosition = INVALID_POSITION;
@@ -373,7 +424,7 @@ public class Gallery extends ViewGroup implements
      * @param deltaX
      *            Change in X from the previous event.
      */
-    void trackMotionScroll(int deltaX) {
+    protected void trackMotionScroll(int deltaX) {
         if (getChildCount() == 0) {
             return;
         }
@@ -587,11 +638,27 @@ public class Gallery extends ViewGroup implements
         }
         fillToGalleryRight();
         fillToGalleryLeft();
+        if (mGapPosition > INVALID_POSITION) {
+            adjustGap();
+        }
         mRecycler.clear();
         invalidate();
         checkSelectionChanged();
         mDataChanged = false;
         updateSelectedItemMetadata();
+    }
+
+    void adjustGap() {
+        for (int i = 0; i < getChildCount(); i++) {
+            int pos = i + mFirstPosition;
+            if (pos >= mGapPosition) {
+                if (mHorizontal) {
+                    getChildAt(i).offsetLeftAndRight(mGap);
+                } else {
+                    getChildAt(i).offsetTopAndBottom(mGap);
+                }
+            }
+        }
     }
 
     void recycleAllViews() {
@@ -619,7 +686,7 @@ public class Gallery extends ViewGroup implements
             // No children available!
             curPosition = 0;
             curRightEdge = (mHorizontal ? mRight - mLeft - mPaddingRight
-                    : mBottom - mBottom - mPaddingBottom);
+                    : mBottom - mTop - mPaddingBottom);
             mShouldStopFling = true;
         }
         while (curRightEdge > galleryLeft && curPosition >= 0) {
@@ -1122,7 +1189,7 @@ public class Gallery extends ViewGroup implements
         }
     }
 
-    private boolean scrollToChild(int childPosition) {
+    protected boolean scrollToChild(int childPosition) {
         View child = getChildAt(childPosition);
         if (child != null) {
             int distance = getCenterOfGallery() - getCenterOfView(child);

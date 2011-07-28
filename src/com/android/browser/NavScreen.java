@@ -247,7 +247,7 @@ public class NavScreen extends RelativeLayout
                 @Override
                 public void onClick(View v) {
                     if (tabview.isClose(v)) {
-                        onCloseTab(tab);
+                        mScroller.animateOut(tabview);
                     } else if (tabview.isTitle(v)) {
                         mScroller.setSelection(position);
                         switchToSelected();
