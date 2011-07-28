@@ -86,14 +86,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
     }
 
     @Override
-    public void createContextMenu(ContextMenu menu) {
-        Activity activity = mBaseUi.getActivity();
-        MenuInflater inflater = activity.getMenuInflater();
-        inflater.inflate(R.menu.title_context, menu);
-        activity.onCreateContextMenu(menu, this, null);
-    }
-
-    @Override
     protected void setSearchMode(boolean voiceSearchEnabled) {
         boolean showvoicebutton = voiceSearchEnabled &&
                 mUiController.supportsVoiceSearch();
