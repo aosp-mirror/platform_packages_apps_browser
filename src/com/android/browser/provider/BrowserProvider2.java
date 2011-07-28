@@ -471,6 +471,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             BookmarkColumns.TITLE, // 1
                             BookmarkColumns.FAVICON, // 2
                             BookmarkColumns.TOUCH_ICON, // 3
+                            BookmarkColumns.CREATED, // 4
                             }, BookmarkColumns.BOOKMARK + "!=0", null,
                             null, null, null);
                     if (c != null) {
@@ -478,6 +479,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             ContentValues values = new ContentValues();
                             values.put(Bookmarks.URL, c.getString(0));
                             values.put(Bookmarks.TITLE, c.getString(1));
+                            values.put(Bookmarks.DATE_CREATED, c.getInt(4));
                             values.put(Bookmarks.POSITION, 0);
                             values.put(Bookmarks.PARENT, FIXED_ID_ROOT);
                             ContentValues imageValues = new ContentValues();
@@ -497,7 +499,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             BookmarkColumns.VISITS, // 2
                             BookmarkColumns.DATE, // 3
                             BookmarkColumns.CREATED, // 4
-                            }, null, null, null, null, null);
+                            }, BookmarkColumns.VISITS + " > 0 OR "
+                            + BookmarkColumns.BOOKMARK + " = 0",
+                            null, null, null, null);
                     if (c != null) {
                         while (c.moveToNext()) {
                             ContentValues values = new ContentValues();

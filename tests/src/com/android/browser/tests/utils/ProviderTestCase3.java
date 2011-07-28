@@ -69,6 +69,11 @@ public abstract class ProviderTestCase3<T extends ContentProvider> extends Andro
         public Context getApplicationContext() {
             return this;
         }
+
+        @Override
+        public Object getSystemService(String name) {
+            return null;
+        }
     }
     /**
      * Constructor.
@@ -114,7 +119,15 @@ public abstract class ProviderTestCase3<T extends ContentProvider> extends Andro
                                     //delegated to
                 getContext(), // The context that file methods are delegated to
                 filenamePrefix);
-        mProviderContext = new IsolatedContext(mResolver, targetContextWrapper);
+        // The default IsolatedContext has a mock AccountManager that doesn't
+        // work for us, so override getSystemService to always return null
+        mProviderContext = new IsolatedContext(mResolver, targetContextWrapper) {
+
+            @Override
+            public Object getSystemService(String name) {
+                return null;
+            }
+        };
 
         mProvider = mProviderClass.newInstance();
         mProvider.attachInfo(mProviderContext, null);
