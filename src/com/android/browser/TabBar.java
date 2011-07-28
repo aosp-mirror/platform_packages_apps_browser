@@ -231,13 +231,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
         mUi.showTitleBar();
     }
 
-    @Override
-    public void createContextMenu(ContextMenu menu) {
-        MenuInflater inflater = mActivity.getMenuInflater();
-        inflater.inflate(R.menu.title_context, menu);
-        mActivity.onCreateContextMenu(menu, this, null);
-    }
-
     private TabView buildTabView(Tab tab) {
         TabView tabview = new TabView(mActivity, tab);
         mTabMap.put(tab, tabview);

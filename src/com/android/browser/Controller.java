@@ -1636,7 +1636,6 @@ public class Controller
                 bookmarksOrHistoryPicker(true);
                 break;
 
-            case R.id.title_bar_share_page_url:
             case R.id.share_page_menu_id:
                 Tab currentTab = mTabControl.getCurrentTab();
                 if (null == currentTab) {
@@ -1703,20 +1702,6 @@ public class Controller
         int id = item.getItemId();
         boolean result = true;
         switch (id) {
-            // For the context menu from the title bar
-            case R.id.title_bar_copy_page_url:
-                Tab currentTab = mTabControl.getCurrentTab();
-                if (null == currentTab) {
-                    result = false;
-                    break;
-                }
-                WebView mainView = currentTab.getWebView();
-                if (null == mainView) {
-                    result = false;
-                    break;
-                }
-                copy(mainView.getUrl());
-                break;
             // -- Browser context menu
             case R.id.open_context_menu_id:
             case R.id.save_link_context_menu_id:
