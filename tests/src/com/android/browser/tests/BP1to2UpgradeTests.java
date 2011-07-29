@@ -99,8 +99,8 @@ public class BP1to2UpgradeTests extends BP2TestCaseHelper {
         c.close();
         // Next, test public API
         c = getMockContentResolver().query(Browser.BOOKMARKS_URI,
-                Browser.HISTORY_PROJECTION, BookmarkColumns.BOOKMARK + " = ?",
-                new String[] { "0" }, null);
+                Browser.HISTORY_PROJECTION, BookmarkColumns.BOOKMARK + " = 0",
+                null, null);
         assertEquals("public API", 1, c.getCount());
         assertTrue(c.moveToFirst());
         assertEquals("http://slashdot.org/",
@@ -129,7 +129,7 @@ public class BP1to2UpgradeTests extends BP2TestCaseHelper {
         // Next, test public API
         c = getMockContentResolver().query(Browser.BOOKMARKS_URI,
                 new String[] { BookmarkColumns.URL, BookmarkColumns.CREATED },
-                BookmarkColumns.BOOKMARK + " = ?", new String[] { "1" }, null);
+                BookmarkColumns.BOOKMARK + " = 1", null, null);
         assertEquals("public API", 1, c.getCount());
         assertTrue(c.moveToFirst());
         assertEquals("http://slashdot.org/", c.getString(0));
