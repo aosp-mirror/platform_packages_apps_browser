@@ -182,9 +182,11 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         tv1.setText(Html.fromHtml(item.title));
         if (TextUtils.isEmpty(item.url)) {
             tv2.setVisibility(View.GONE);
+            tv1.setMaxLines(2);
         } else {
             tv2.setVisibility(View.VISIBLE);
             tv2.setText(item.url);
+            tv1.setMaxLines(1);
         }
         int id = -1;
         switch (item.type) {
