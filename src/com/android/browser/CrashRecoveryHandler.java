@@ -16,11 +16,7 @@
 
 package com.android.browser;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -49,7 +45,7 @@ public class CrashRecoveryHandler {
      * we will automatically restore. If we then crash again within XX minutes,
      * we will prompt instead of automatically restoring.
      */
-    private static final long PROMPT_INTERVAL = 30 * 60 * 1000; // 30 minutes
+    private static final long PROMPT_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
     private static final int MSG_WRITE_STATE = 1;
     private static final int MSG_CLEAR_STATE = 2;
@@ -63,7 +59,6 @@ public class CrashRecoveryHandler {
     private Handler mBackgroundHandler;
     private boolean mIsPreloading = false;
     private boolean mDidPreload = false;
-    private boolean mShouldPrompt = false;
     private Bundle mRecoveryState = null;
 
     public static CrashRecoveryHandler initialize(Controller controller) {
@@ -111,7 +106,6 @@ public class CrashRecoveryHandler {
                     break;
                 case MSG_PRELOAD_STATE:
                     mRecoveryState = loadCrashState();
-                    mShouldPrompt = shouldPrompt();
                     synchronized (CrashRecoveryHandler.this) {
                         mIsPreloading = false;
                         mDidPreload = true;
@@ -148,56 +142,32 @@ public class CrashRecoveryHandler {
 
     public void clearState() {
         mBackgroundHandler.sendEmptyMessage(MSG_CLEAR_STATE);
+        updateLastRecovered(0);
     }
 
-    public void promptToRecover(final Bundle state, final Intent intent) {
-        new AlertDialog.Builder(mController.getActivity())
-                .setTitle(R.string.recover_title)
-                .setMessage(R.string.recover_prompt)
-                .setIcon(R.mipmap.ic_launcher_browser)
-                .setPositiveButton(R.string.recover_yes, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        updateLastRecovered();
-                        mController.doStart(state, intent);
-                    }
-                })
-                .setNegativeButton(R.string.recover_no, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                })
-                .setOnCancelListener(new OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        clearState();
-                        mController.doStart(null, intent);
-                    }
-                })
-                .show();
-    }
-
-    private boolean shouldPrompt() {
+    private boolean shouldRestore() {
         SharedPreferences prefs = mContext.getSharedPreferences(
                 RECOVERY_PREFERENCES, Context.MODE_PRIVATE);
         long lastRecovered = prefs.getLong(KEY_LAST_RECOVERED, 0);
         long timeSinceLastRecover = System.currentTimeMillis() - lastRecovered;
         if (timeSinceLastRecover > PROMPT_INTERVAL) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
-    private void updateLastRecovered() {
+    private void updateLastRecovered(long time) {
         SharedPreferences prefs = mContext.getSharedPreferences(
                 RECOVERY_PREFERENCES, Context.MODE_PRIVATE);
         prefs.edit()
-            .putLong(KEY_LAST_RECOVERED, System.currentTimeMillis())
+            .putLong(KEY_LAST_RECOVERED, time)
             .apply();
     }
 
     private Bundle loadCrashState() {
+        if (!shouldRestore()) {
+            return null;
+        }
         Bundle state = null;
         Parcel parcel = Parcel.obtain();
         FileInputStream fin = null;
@@ -228,7 +198,10 @@ public class CrashRecoveryHandler {
                 } catch (IOException e) { }
             }
         }
-        return state;
+        if (state != null && !state.isEmpty()) {
+            return state;
+        }
+        return null;
     }
 
     public void startRecovery(Intent intent) {
@@ -241,16 +214,9 @@ public class CrashRecoveryHandler {
         }
         if (!mDidPreload) {
             mRecoveryState = loadCrashState();
-            mShouldPrompt = shouldPrompt();
         }
-        if (mRecoveryState != null && !mRecoveryState.isEmpty()) {
-            if (mShouldPrompt) {
-                promptToRecover(mRecoveryState, intent);
-                return;
-            } else {
-                updateLastRecovered();
-            }
-        }
+        updateLastRecovered(mRecoveryState != null
+                ? System.currentTimeMillis() : 0);
         mController.doStart(mRecoveryState, intent);
         mRecoveryState = null;
     }
