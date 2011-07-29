@@ -454,7 +454,12 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public void resetDefaultPreferences() {
-        mPrefs.edit().clear().apply();
+        // Preserve autologin setting
+        long gal = mPrefs.getLong(GoogleAccountLogin.PREF_AUTOLOGIN_TIME, -1);
+        mPrefs.edit()
+                .clear()
+                .putLong(GoogleAccountLogin.PREF_AUTOLOGIN_TIME, gal)
+                .apply();
         syncManagedSettings();
     }
 
