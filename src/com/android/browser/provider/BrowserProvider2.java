@@ -355,6 +355,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     SyncStateContentProviderHelper mSyncHelper = new SyncStateContentProviderHelper();
     // This is so provider tests can intercept widget updating
     ContentObserver mWidgetObserver = null;
+    boolean mUpdateWidgets = false;
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
@@ -766,10 +767,19 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     }
 
     void refreshWidgets() {
-        if (mWidgetObserver == null) {
-            BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
-        } else {
-            mWidgetObserver.dispatchChange(false);
+        mUpdateWidgets = true;
+    }
+
+    @Override
+    protected void onEndTransaction(boolean callerIsSyncAdapter) {
+        super.onEndTransaction(callerIsSyncAdapter);
+        if (mUpdateWidgets) {
+            if (mWidgetObserver == null) {
+                BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
+            } else {
+                mWidgetObserver.dispatchChange(false);
+            }
+            mUpdateWidgets = false;
         }
     }
 
