@@ -29,12 +29,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="16dip"
+            android:contentDescription="@string/accessibility_button_back"
             style="@style/HoloButton" />
         <ImageButton
             android:id="@+id/forward"
             android:src="@drawable/ic_forward_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:contentDescription="@string/accessibility_button_forward"
             style="@style/HoloButton" />
         <ImageButton
             android:id="@+id/stop"
@@ -42,6 +44,7 @@
             android:layout_height="match_parent"
             style="@style/HoloButton"
             android:gravity="center_vertical"
+            android:contentDescription="@string/accessibility_button_stop"
             android:src="@drawable/ic_stop_holo_dark" />
     </LinearLayout>
     <LinearLayout
@@ -58,6 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_web_holo_dark"
+            android:contentDescription="@string/accessibility_button_uaswitch"
             style="@style/HoloIcon" />
         <ImageView
             android:id="@+id/lock"
@@ -88,12 +92,14 @@
             android:src="@drawable/btn_imageview_star"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:contentDescription="@string/accessibility_button_addbookmark"
             style="@style/HoloButton" />
         <ImageButton
             android:id="@+id/clear"
             android:src="@drawable/ic_stop_holo_dark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:contentDescription="@string/accessibility_button_clear"
             style="@style/HoloButton" />
     </LinearLayout>
     <ImageButton
@@ -103,12 +109,14 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:gravity="center_vertical"
+            android:contentDescription="@string/accessibility_button_go"
         style="@style/HoloButton" />
     <ImageButton
         android:id="@+id/voicesearch"
         android:src="@drawable/ic_voice_search_holo_dark"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+            android:contentDescription="@string/accessibility_button_voice"
         style="@style/HoloButton" />
     <ImageButton
         android:id="@+id/search"
@@ -116,6 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
+            android:contentDescription="@string/accessibility_button_search"
         style="@style/HoloButton" />
     <ImageButton
         android:id="@+id/all_btn"
@@ -124,5 +133,6 @@
         android:scaleType="center"
         android:paddingRight="16dip"
         style="@style/HoloButton"
+        android:contentDescription="@string/accessibility_button_bookmarks"
         android:src="@drawable/ic_bookmarks_history_holo_dark" />
 </com.android.browser.NavigationBarTablet>

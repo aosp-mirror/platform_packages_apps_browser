@@ -111,6 +111,8 @@ public class NavScreen extends RelativeLayout
 
     private void init() {
         LayoutInflater.from(mContext).inflate(R.layout.nav_screen, this);
+        setContentDescription(mContext.getResources().getString(
+                R.string.accessibility_transition_navscreen));
         mBookmarks = (ImageButton) findViewById(R.id.bookmarks);
         mNewTab = (ImageButton) findViewById(R.id.newtab);
         mNewIncognito = (ImageButton) findViewById(R.id.newincognito);

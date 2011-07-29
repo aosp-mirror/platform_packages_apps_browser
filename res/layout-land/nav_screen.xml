@@ -36,6 +36,7 @@
             android:paddingRight="16dip"
             style="@style/HoloButton"
             android:gravity="center_vertical"
+            android:contentDescription="@string/accessibility_button_newtab"
             android:src="@drawable/ic_new_window_holo_dark" />
         <ImageButton
             android:id="@+id/newincognito"
@@ -45,6 +46,7 @@
             android:paddingRight="16dip"
             style="@style/HoloButton"
             android:gravity="center_vertical"
+            android:contentDescription="@string/accessibility_button_newincognitotab"
             android:src="@drawable/ic_new_incognito_holo_dark" />
         <ImageButton
             android:id="@+id/bookmarks"
@@ -52,6 +54,7 @@
             android:layout_height="match_parent"
             android:paddingLeft="16dip"
             android:paddingRight="16dip"
+            android:contentDescription="@string/accessibility_button_bookmarks"
             android:src="@drawable/ic_bookmarks_history_holo_dark"
             style="@style/HoloButton" />
         <ImageButton
@@ -62,6 +65,7 @@
             android:paddingRight="16dip"
             style="@style/HoloButton"
             android:gravity="center_vertical"
+            android:contentDescription="@string/accessibility_button_more"
             android:src="@*android:drawable/ic_menu_moreoverflow_normal_holo_dark" />
     </LinearLayout>
     <com.android.browser.NavTabGallery
