@@ -243,11 +243,13 @@ public class CrashRecoveryHandler {
             mRecoveryState = loadCrashState();
             mShouldPrompt = shouldPrompt();
         }
-        if (mShouldPrompt) {
-            promptToRecover(mRecoveryState, intent);
-            return;
-        } else {
-            updateLastRecovered();
+        if (mRecoveryState != null && !mRecoveryState.isEmpty()) {
+            if (mShouldPrompt) {
+                promptToRecover(mRecoveryState, intent);
+                return;
+            } else {
+                updateLastRecovered();
+            }
         }
         mController.doStart(mRecoveryState, intent);
         mRecoveryState = null;
