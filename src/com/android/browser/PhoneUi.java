@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
@@ -25,6 +26,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
@@ -250,6 +253,8 @@ public class PhoneUi extends BaseUi {
         mContentView.setVisibility(View.GONE);
         mCustomViewContainer.setVisibility(View.VISIBLE);
         mCustomViewContainer.bringToFront();
+        // notify accessibility manager about the screen change
+        mNavScreen.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
 
     void hideNavScreen(boolean animate) {

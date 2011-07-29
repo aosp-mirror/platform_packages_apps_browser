@@ -1012,4 +1012,49 @@
     <string name="remove_snapshot">Delete saved page</string>
     <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
     <string name="snapshot_go_live">Go live</string>
+
+    <!--  Accessibility content descriptions -->
+
+    <!-- Content description for back button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_back">Go back</string>
+    <!-- Content description for forward button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_forward">Go forward</string>
+    <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_refresh">Refresh page</string>
+    <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_stop">Stop page load</string>
+    <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_addbookmark">Bookmark page</string>
+    <!-- Content description for search button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_search">Search</string>
+    <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_voice">Start voice search</string>
+    <!-- Content description for bookmarks button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_bookmarks">Bookmarks</string>
+    <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_closetab">Close tab</string>
+    <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_newtab">Open new tab</string>
+    <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_newincognitotab">Open new incognito tab</string>
+    <!-- Content description for clear button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_clear">Clear input</string>
+    <!-- Content description for user agent switcher [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_uaswitch">Switch user agent</string>
+    <!-- Content description for go button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_go">Go</string>
+
+    <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_navscreen">Page manager</string>
+    <!-- Content description for overflow menu button [CHAR LIMIT=NONE] -->
+    <string name="accessibility_button_more">More options</string>
+
+    <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
+    <string name="accessibility_state_incognito">Incognito page</string>
+    <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+    <string name="accessibility_state_frozen">Saved page</string>
+
+    <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
+    <string name="accessibility_transition_navscreen">Tab management</string>
+
 </resources>

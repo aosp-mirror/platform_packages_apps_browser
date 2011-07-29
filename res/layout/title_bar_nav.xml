@@ -49,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:contentDescription="@string/accessibility_button_stop"
             android:src="@drawable/ic_stop_holo_dark"
             style="@style/HoloButton" />
         <com.android.browser.UrlInputView
@@ -73,6 +74,7 @@
             android:id="@+id/voice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:contentDescription="@string/accessibility_button_voice"
             android:src="@drawable/ic_voice_search_holo_dark"
             style="@style/HoloButton"
             android:visibility="gone" />
@@ -81,6 +83,7 @@
         android:id="@+id/tab_switcher"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+            android:contentDescription="@string/accessibility_button_navscreen"
         android:src="@drawable/ic_windows_holo_dark"
         style="@style/HoloButton" />
     <ImageButton
@@ -89,5 +92,6 @@
         android:layout_height="match_parent"
         style="@style/HoloButton"
         android:gravity="center_vertical"
+        android:contentDescription="@string/accessibility_button_more"
         android:src="@*android:drawable/ic_menu_moreoverflow_normal_holo_dark" />
 </com.android.browser.NavigationBarPhone>

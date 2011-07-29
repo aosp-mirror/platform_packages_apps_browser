@@ -35,6 +35,8 @@ public class NavigationBarTablet extends NavigationBarBase {
 
     private Drawable mStopDrawable;
     private Drawable mReloadDrawable;
+    private String mStopDescription;
+    private String mRefreshDescription;
 
     private View mUrlContainer;
     private ImageButton mBackButton;
@@ -71,6 +73,8 @@ public class NavigationBarTablet extends NavigationBarBase {
         Resources resources = context.getResources();
         mStopDrawable = resources.getDrawable(R.drawable.ic_stop_holo_dark);
         mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_holo_dark);
+        mStopDescription = resources.getString(R.string.accessibility_button_stop);
+        mRefreshDescription = resources.getString(R.string.accessibility_button_refresh);
         mFocusDrawable = resources.getDrawable(
                 R.drawable.textfield_active_holo_dark);
         mUnfocusDrawable = resources.getDrawable(
@@ -235,11 +239,13 @@ public class NavigationBarTablet extends NavigationBarBase {
     @Override
     public void onProgressStarted() {
         mStopButton.setImageDrawable(mStopDrawable);
+        mStopButton.setContentDescription(mStopDescription);
     }
 
     @Override
     public void onProgressStopped() {
         mStopButton.setImageDrawable(mReloadDrawable);
+        mStopButton.setContentDescription(mRefreshDescription);
     }
 
     protected void updateSearchMode(boolean userEdited) {

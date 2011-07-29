@@ -22,6 +22,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:src="@drawable/ic_incognito_holo_dark"
+        android:contentDescription="@string/accessibility_state_incognito"
         android:visibility="gone" />
     <ImageView
         android:id="@+id/snapshot"
@@ -29,6 +30,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:src="@drawable/ic_search_category_history"
+            android:contentDescription="@string/accessibility_state_frozen"
         android:visibility="gone" />
     <ImageView
         android:id="@+id/favicon"
@@ -59,5 +61,6 @@
         android:background="?android:attr/selectableItemBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/accessibility_button_closetab"
         android:src="@drawable/ic_tab_close" />
 </merge>

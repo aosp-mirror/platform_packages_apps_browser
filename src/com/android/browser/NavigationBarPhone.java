@@ -40,6 +40,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
     private ImageView mVoiceButton;
     private Drawable mStopDrawable;
     private Drawable mRefreshDrawable;
+    private String mStopDescription;
+    private String mRefreshDescription;
     private View mTabSwitcher;
     private View mComboIcon;
     private View mTitleContainer;
@@ -78,6 +80,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
         Resources res = getContext().getResources();
         mStopDrawable = res.getDrawable(R.drawable.ic_stop_holo_dark);
         mRefreshDrawable = res.getDrawable(R.drawable.ic_refresh_holo_dark);
+        mStopDescription = res.getString(R.string.accessibility_button_stop);
+        mRefreshDescription = res.getString(R.string.accessibility_button_refresh);
         mTextfieldBgDrawable = res.getDrawable(R.drawable.textfield_active_holo_dark);
         setUaSwitcher(mComboIcon);
         mUrlInput.setContainer(this);
@@ -98,6 +102,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
         super.onProgressStarted();
         if (mStopButton.getDrawable() != mStopDrawable) {
             mStopButton.setImageDrawable(mStopDrawable);
+            mStopButton.setContentDescription(mStopDescription);
             if (mStopButton.getVisibility() != View.VISIBLE) {
                 mComboIcon.setVisibility(View.GONE);
                 mStopButton.setVisibility(View.VISIBLE);
@@ -109,6 +114,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     public void onProgressStopped() {
         super.onProgressStopped();
         mStopButton.setImageDrawable(mRefreshDrawable);
+        mStopButton.setContentDescription(mRefreshDescription);
         if (!isEditingUrl()) {
             mComboIcon.setVisibility(View.VISIBLE);
         }
