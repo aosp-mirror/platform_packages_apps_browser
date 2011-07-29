@@ -1010,4 +1010,6 @@
     <string name="empty_snapshots_folder">There are no saved pages.</string>
     <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
     <string name="remove_snapshot">Delete saved page</string>
+    <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+    <string name="snapshot_go_live">Go live</string>
 </resources>

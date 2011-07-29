@@ -23,16 +23,22 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewConfiguration;
 import android.view.ViewPropertyAnimator;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.Date;
 
-public class SnapshotBar extends LinearLayout implements OnClickListener {
+public class SnapshotBar extends LinearLayout implements OnClickListener,
+        OnMenuItemClickListener {
 
     private static final int MSG_SHOW_TITLE = 1;
     private static final long DURATION_SHOW_DATE = BaseUi.HIDE_TITLEBAR_DELAY;
@@ -171,7 +177,11 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
         if (mBookmarks == v) {
             mTitleBar.getUiController().bookmarksOrHistoryPicker(false);
         } else if (mGoLive == v) {
-            goLive();
+            PopupMenu popup = new PopupMenu(mContext, mGoLive);
+            Menu menu = popup.getMenu();
+            popup.getMenuInflater().inflate(R.menu.snapshot_go_live, menu);
+            popup.setOnMenuItemClickListener(this);
+            popup.show();
         } else if (mTabSwitcher == v) {
             ((PhoneUi) mTitleBar.getUi()).toggleNavScreen();
         } else if (mOverflowMenu == v) {
@@ -186,6 +196,16 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
             Message m = mHandler.obtainMessage(MSG_SHOW_TITLE);
             mHandler.sendMessageDelayed(m, DURATION_SHOW_DATE);
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.snapshot_go_live:
+            goLive();
+            return true;
+        }
+        return false;
     }
 
     private void goLive() {
