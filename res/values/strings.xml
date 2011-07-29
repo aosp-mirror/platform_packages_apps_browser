@@ -567,6 +567,8 @@
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_hardware_accel" translatable="false">Enable OpenGL Rendering</string>
     <!-- Do not tranlsate.  Development option -->
+    <string name="pref_development_hardware_accel_skia" translatable="false">Enable HW Accelerated Skia</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_visual_indicator" translatable="false">Enable Visual Indicator</string>
     <!-- Do not tranlsate.  Development option -->
     <string name="js_engine_flags" translatable="false">Set JS flags</string>
