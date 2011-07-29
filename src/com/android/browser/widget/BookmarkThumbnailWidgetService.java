@@ -114,7 +114,7 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
         pref.edit()
             .putLong(STATE_CURRENT_FOLDER, rootFolder)
             .putLong(STATE_ROOT_FOLDER, rootFolder)
-            .commit();
+            .apply();
     }
 
     /**
