@@ -81,6 +81,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         public static final String THUMBNAIL = "thumbnail";
     }
 
+    public static interface OmniboxSuggestions {
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(
+                BrowserContract.AUTHORITY_URI, "omnibox_suggestions");
+        public static final String _ID = "_id";
+        public static final String URL = "url";
+        public static final String TITLE = "title";
+        public static final String IS_BOOKMARK = "bookmark";
+    }
+
     static final String TABLE_BOOKMARKS = "bookmarks";
     static final String TABLE_HISTORY = "history";
     static final String TABLE_IMAGES = "images";
@@ -97,6 +106,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     static final String VIEW_ACCOUNTS = "v_accounts";
     static final String VIEW_SNAPSHOTS_COMBINED = "v_snapshots_combined";
+    static final String VIEW_OMNIBOX_SUGGESTIONS = "v_omnibox_suggestions";
 
     static final String FORMAT_COMBINED_JOIN_SUBQUERY_JOIN_IMAGES =
             "history LEFT OUTER JOIN (%s) bookmarks " +
@@ -121,6 +131,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     static final int THUMBNAILS = 10;
     static final int THUMBNAILS_ID = 11;
+    static final int OMNIBOX_SUGGESTIONS = 20;
 
     static final int BOOKMARKS = 1000;
     static final int BOOKMARKS_ID = 1001;
@@ -200,6 +211,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "settings", SETTINGS);
         matcher.addURI(authority, "thumbnails", THUMBNAILS);
         matcher.addURI(authority, "thumbnails/#", THUMBNAILS_ID);
+        matcher.addURI(authority, "omnibox_suggestions", OMNIBOX_SUGGESTIONS);
 
         // Legacy
         matcher.addURI(LEGACY_AUTHORITY, "searches", SEARCHES);
@@ -346,7 +358,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
-        static final int DATABASE_VERSION = 31;
+        static final int DATABASE_VERSION = 32;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -418,6 +430,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
 
             enableSync(db);
+            createOmniboxSuggestions(db);
+        }
+
+        void createOmniboxSuggestions(SQLiteDatabase db) {
+            db.execSQL(SQL_CREATE_VIEW_OMNIBOX_SUGGESTIONS);
         }
 
         void createThumbnails(SQLiteDatabase db) {
@@ -545,6 +562,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            if (oldVersion < 32) {
+                createOmniboxSuggestions(db);
+            }
             if (oldVersion < 31) {
                 createThumbnails(db);
             }
@@ -1031,6 +1051,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
             case THUMBNAILS: {
                 qb.setTables(TABLE_THUMBNAILS);
+                break;
+            }
+
+            case OMNIBOX_SUGGESTIONS: {
+                qb.setTables(VIEW_OMNIBOX_SUGGESTIONS);
                 break;
             }
 
@@ -2062,4 +2087,21 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             return mSource.moveToPosition(newPosition);
         }
     }
+
+    // ---------------------------------------------------
+    //  SQL below, be warned
+    // ---------------------------------------------------
+
+    private static final String SQL_CREATE_VIEW_OMNIBOX_SUGGESTIONS =
+            "CREATE VIEW IF NOT EXISTS v_omnibox_suggestions "
+            + " AS "
+            + "  SELECT _id, url, title, 1 AS bookmark, 0 AS visits, 0 AS date"
+            + "  FROM bookmarks "
+            + "  WHERE deleted = 0 AND folder = 0 "
+            + "  UNION ALL "
+            + "  SELECT _id, url, title, 0 AS bookmark, visits, date "
+            + "  FROM history "
+            + "  WHERE url NOT IN (SELECT url FROM bookmarks"
+            + "    WHERE deleted = 0 AND folder = 0) "
+            + "  ORDER BY bookmark DESC, visits DESC, date DESC ";
 }

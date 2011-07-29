@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import com.android.browser.provider.BrowserProvider2;
+import com.android.browser.provider.BrowserProvider2.OmniboxSuggestions;
 import com.android.browser.search.SearchEngine;
 
 import android.app.SearchManager;
@@ -53,9 +54,12 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     public static final int TYPE_SUGGEST = 4;
     public static final int TYPE_VOICE_SEARCH = 5;
 
-    private static final String[] COMBINED_PROJECTION =
-            {BrowserContract.Combined._ID, BrowserContract.Combined.TITLE,
-                    BrowserContract.Combined.URL, BrowserContract.Combined.IS_BOOKMARK};
+    private static final String[] COMBINED_PROJECTION = {
+            OmniboxSuggestions._ID,
+            OmniboxSuggestions.TITLE,
+            OmniboxSuggestions.URL,
+            OmniboxSuggestions.IS_BOOKMARK
+            };
 
     private static final String COMBINED_SELECTION =
             "(url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ? OR title LIKE ?)";
@@ -470,18 +474,14 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
                 args[4] = like;
                 selection = COMBINED_SELECTION;
             }
-            Uri.Builder ub = BrowserContract.Combined.CONTENT_URI.buildUpon();
+            Uri.Builder ub = OmniboxSuggestions.CONTENT_URI.buildUpon();
             ub.appendQueryParameter(BrowserContract.PARAM_LIMIT,
                     Integer.toString(Math.max(mLinesLandscape, mLinesPortrait)));
             ub.appendQueryParameter(BrowserProvider2.PARAM_GROUP_BY,
-                    BrowserContract.Combined.URL);
+                    OmniboxSuggestions.URL);
             mCursor =
                     mContext.getContentResolver().query(ub.build(), COMBINED_PROJECTION,
-                            selection,
-                            (constraint != null) ? args : null,
-                            BrowserContract.Combined.IS_BOOKMARK + " DESC, " +
-                            BrowserContract.Combined.VISITS + " DESC, " +
-                            BrowserContract.Combined.DATE_LAST_VISITED + " DESC");
+                            selection, (constraint != null) ? args : null, null);
             if (mCursor != null) {
                 mCursor.moveToFirst();
             }
