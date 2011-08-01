@@ -296,7 +296,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             private Map<String, Site> mSites;
 
             public UpdateFromBookmarksDbTask(Context ctx, Map<String, Site> sites) {
-                mContext = ctx;
+                mContext = ctx.getApplicationContext();
                 mSites = sites;
             }
 

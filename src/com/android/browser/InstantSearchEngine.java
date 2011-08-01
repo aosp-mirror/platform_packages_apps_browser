@@ -52,7 +52,7 @@ public class InstantSearchEngine implements SearchEngine, DropdownChangeListener
     private final SearchEngine mWrapped;
 
     public InstantSearchEngine(Context context, SearchEngine wrapped) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mWrapped = wrapped;
     }
 

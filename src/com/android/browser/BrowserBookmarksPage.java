@@ -584,7 +584,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         BookmarkItem mHeader;
 
         public LookupBookmarkCount(Context context, BookmarkItem header) {
-            mContext = context;
+            mContext = context.getApplicationContext();
             mHeader = header;
         }
 

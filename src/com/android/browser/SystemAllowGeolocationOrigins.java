@@ -48,7 +48,7 @@ class SystemAllowGeolocationOrigins {
     private final SettingObserver mSettingObserver;
 
     public SystemAllowGeolocationOrigins(Context context) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mSettingObserver = new SettingObserver();
     }
 

@@ -29,7 +29,7 @@ final class KeyChainLookup extends AsyncTask<Void, Void, Void> {
     private final ClientCertRequestHandler mHandler;
     private final String mAlias;
     KeyChainLookup(Context context, ClientCertRequestHandler handler, String alias) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mHandler = handler;
         mAlias = alias;
     }

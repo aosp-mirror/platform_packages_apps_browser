@@ -122,7 +122,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     private BrowserSettings(Context context) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
