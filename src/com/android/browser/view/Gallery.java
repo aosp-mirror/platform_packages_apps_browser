@@ -254,29 +254,27 @@ public class Gallery extends ViewGroup implements
             resetList();
             mItemCount = mAdapter.getCount();
             // checkFocus();
-            int position = mItemCount > 0 ? 0 : INVALID_POSITION;
-            if (mSelectedPosition >= 0) {
-                position = Math.min(mItemCount - 1, mSelectedPosition);
-            }
-            setSelectedPositionInt(position);
-            if (mItemCount == 0) {
-                // Nothing selected
-                checkSelectionChanged();
-            }
-            if (mGapPosition > INVALID_POSITION) {
-                mGapAnimator = ObjectAnimator.ofInt(this, "gap", mGap, 0);
-                mGapAnimator.setDuration(250);
-                mGapAnimator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator a) {
-                        mGapPosition = INVALID_POSITION;
-                        mGap = 0;
-                        mGapAnimator = null;
-                    }
-                });
-                mGapAnimator.start();
-            } else {
-                layout(0, false);
+            if (mItemCount > 0) {
+                int position = 0;
+                if (mSelectedPosition >= 0) {
+                    position = Math.min(mItemCount - 1, mSelectedPosition);
+                }
+                setSelectedPositionInt(position);
+                if (mGapPosition > INVALID_POSITION) {
+                    mGapAnimator = ObjectAnimator.ofInt(this, "gap", mGap, 0);
+                    mGapAnimator.setDuration(250);
+                    mGapAnimator.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator a) {
+                            mGapPosition = INVALID_POSITION;
+                            mGap = 0;
+                            mGapAnimator = null;
+                        }
+                    });
+                    mGapAnimator.start();
+                } else {
+                    layout(0, false);
+                }
             }
         } else {
             // checkFocus();

@@ -151,7 +151,7 @@ public class NavTabGallery extends Gallery {
                         setGapPosition(position, mHorizontal ? v.getWidth() : v.getHeight());
                     }
                     mRemoveListener.onRemovePosition(position);
-                    if (!needsGap && position > 0) {
+                    if (!needsGap && (position > 0) && (mAdapter.getCount() > 0)) {
                         scrollToChild(position - 1);
                     }
                     mAnimator = null;

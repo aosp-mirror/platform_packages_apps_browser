@@ -2301,6 +2301,7 @@ public class Controller
     public void closeCurrentTab() {
         if (mTabControl.getTabCount() == 1) {
             mCrashRecoveryHandler.clearState();
+            mTabControl.removeTab(getCurrentTab());
             mActivity.finish();
             return;
         }
