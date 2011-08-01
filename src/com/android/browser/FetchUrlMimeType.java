@@ -22,7 +22,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.conn.params.ConnRouteParams;
 
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Proxy;
@@ -45,15 +44,15 @@ import java.io.IOException;
  */
 class FetchUrlMimeType extends Thread {
 
-    private Activity mActivity;
+    private Context mContext;
     private DownloadManager.Request mRequest;
     private String mUri;
     private String mCookies;
     private String mUserAgent;
 
-    public FetchUrlMimeType(Activity activity, DownloadManager.Request request,
+    public FetchUrlMimeType(Context context, DownloadManager.Request request,
             String uri, String cookies, String userAgent) {
-        mActivity = activity;
+        mContext = context.getApplicationContext();
         mRequest = request;
         mUri = uri;
         mCookies = cookies;
@@ -65,7 +64,7 @@ class FetchUrlMimeType extends Thread {
         // User agent is likely to be null, though the AndroidHttpClient
         // seems ok with that.
         AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
-        HttpHost httpHost = Proxy.getPreferredHttpHost(mActivity, mUri);
+        HttpHost httpHost = Proxy.getPreferredHttpHost(mContext, mUri);
         if (httpHost != null) {
             ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
         }
@@ -121,7 +120,7 @@ class FetchUrlMimeType extends Thread {
        }
 
        // Start the download
-       DownloadManager manager = (DownloadManager) mActivity.getSystemService(
+       DownloadManager manager = (DownloadManager) mContext.getSystemService(
                Context.DOWNLOAD_SERVICE);
        manager.enqueue(mRequest);
     }
