@@ -127,7 +127,7 @@ public class NavTabGallery extends Gallery {
     }
 
     private void animateOut(final View v, float velocity) {
-        if (mAnimator != null) return;
+        if ((v == null) || (mAnimator != null)) return;
         final int position = mFirstPosition + indexOfChild(v);
         int target = 0;
         if (velocity < 0) {
