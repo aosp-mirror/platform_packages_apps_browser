@@ -164,8 +164,29 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.setGroupVisible(R.id.NAV_MENU, (mNavScreen == null));
+        updateMenuState(mActiveTab, menu);
         return true;
+    }
+
+    @Override
+    public void updateMenuState(Tab tab, Menu menu) {
+        menu.setGroupVisible(R.id.NAV_MENU, (mNavScreen == null));
+        MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
+        if (bm != null) {
+            bm.setVisible(mNavScreen == null);
+        }
+        MenuItem nt = menu.findItem(R.id.new_tab_menu_id);
+        if (nt != null) {
+            nt.setVisible(mNavScreen == null);
+        }
+        MenuItem find = menu.findItem(R.id.find_menu_id);
+        if (find != null) {
+            find.setVisible(((tab != null) && !tab.isSnapshot()));
+        }
+        MenuItem abm = menu.findItem(R.id.add_bookmark_menu_id);
+        if (abm != null) {
+            abm.setVisible((tab != null) && !tab.isSnapshot());
+        }
     }
 
     @Override

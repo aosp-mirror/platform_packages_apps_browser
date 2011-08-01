@@ -1520,6 +1520,7 @@ public class Controller
 
         MenuItem saveSnapshot = menu.findItem(R.id.save_snapshot_menu_id);
         saveSnapshot.setVisible(tab != null && !tab.isSnapshot());
+        mUi.updateMenuState(tab, menu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

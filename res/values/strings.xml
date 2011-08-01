@@ -197,6 +197,8 @@
     <string name="open_all_in_new_window">Open all in new windows</string>
     <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
     <string name="goto_dot">Go</string>
+    <!-- Menu item that opens up a new tab. [CHAR LIMIT=30] -->
+    <string name="menu_new_tab">Open new tab</string>
     <!-- Menu item that opens up a new incognito tab. [CHAR LIMIT=30] -->
     <string name="incognito_tab">Open new incognito tab</string>
     <!-- Menu item to switch to text selection mode for copy and paste. -->

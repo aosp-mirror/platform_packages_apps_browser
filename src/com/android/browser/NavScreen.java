@@ -52,7 +52,6 @@ public class NavScreen extends RelativeLayout
     ImageButton mBookmarks;
     ImageButton mMore;
     ImageButton mNewTab;
-    ImageButton mNewIncognito;
     FrameLayout mHolder;
 
     TextView mTitle;
@@ -115,11 +114,9 @@ public class NavScreen extends RelativeLayout
                 R.string.accessibility_transition_navscreen));
         mBookmarks = (ImageButton) findViewById(R.id.bookmarks);
         mNewTab = (ImageButton) findViewById(R.id.newtab);
-        mNewIncognito = (ImageButton) findViewById(R.id.newincognito);
         mMore = (ImageButton) findViewById(R.id.more);
         mBookmarks.setOnClickListener(this);
         mNewTab.setOnClickListener(this);
-        mNewIncognito.setOnClickListener(this);
         mMore.setOnClickListener(this);
         mScroller = (NavTabGallery) findViewById(R.id.scroller);
         mAdapter = new TabAdapter(mContext, mUiController.getTabControl());
@@ -160,9 +157,6 @@ public class NavScreen extends RelativeLayout
             openNewTab();
         } else if (mMore == v) {
             showMenu();
-        } else if (mNewIncognito == v) {
-            mUi.hideNavScreen(true);
-            mUiController.openIncognitoTab();
         } else if (mTitle == v) {
             mUi.getTitleBar().setSkipTitleBarAnimations(true);
             close(false);

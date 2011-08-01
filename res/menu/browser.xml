@@ -28,9 +28,17 @@
                 android:icon="@*android:drawable/ic_menu_forward" />
         </group>
         <item
+            android:id="@+id/new_tab_menu_id"
+            android:title="@string/menu_new_tab"
+            android:icon="@drawable/ic_new_window_holo_dark" />
+        <item
             android:id="@+id/incognito_menu_id"
             android:title="@string/incognito_tab"
             android:icon="@drawable/ic_new_incognito_holo_dark" />
+        <item
+            android:id="@+id/bookmarks_menu_id"
+            android:title="@string/bookmarks"
+            android:icon="@drawable/ic_bookmarks_history_holo_dark" />
         <item
             android:id="@+id/add_bookmark_menu_id"
             android:title="@string/save_to_bookmarks"

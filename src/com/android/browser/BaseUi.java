@@ -646,6 +646,10 @@ public abstract class BaseUi implements UI, OnTouchListener {
     }
 
     @Override
+    public void updateMenuState(Tab tab, Menu menu) {
+    }
+
+    @Override
     public void onOptionsMenuOpened() {
     }
 
