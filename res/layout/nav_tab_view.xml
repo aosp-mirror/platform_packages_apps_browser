@@ -46,6 +46,7 @@
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:paddingRight="16dip"
             android:contentDescription="@string/accessibility_button_closetab"
             style="@style/HoloButton" />
     </LinearLayout>
@@ -53,6 +54,8 @@
         android:id="@+id/tab_view"
         android:layout_width="@dimen/nav_tab_width"
         android:layout_height="@dimen/nav_tab_height"
+        android:paddingLeft="2dip"
+        android:paddingRight="2dip"
         android:layout_gravity="center_horizontal"
         android:focusable="false" />
 </LinearLayout>
