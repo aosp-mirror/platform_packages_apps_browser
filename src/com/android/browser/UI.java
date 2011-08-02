@@ -134,6 +134,8 @@ public interface UI {
 
     void editUrl(boolean clearInput);
 
+    boolean isEditingUrl();
+
     boolean dispatchKey(int code, KeyEvent event);
 
     public static interface DropdownChangeListener {

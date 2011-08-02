@@ -1812,7 +1812,7 @@ public class Controller
     void onActionModeStarted(ActionMode mode) {
         mUi.onActionModeStarted(mode);
         mActionMode = mode;
-        if (mSimulateActionBarOverlayMode) {
+        if (mSimulateActionBarOverlayMode && !mUi.isEditingUrl()) {
             WebView web = getCurrentWebView();
             // Simulate overlay mode by scrolling the webview the amount it will be
             // pushed down. Actual overlay mode doesn't work for us as otherwise

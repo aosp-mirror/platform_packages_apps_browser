@@ -213,7 +213,9 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void onActionModeStarted(ActionMode mode) {
-        hideTitleBar();
+        if (!isEditingUrl()) {
+            hideTitleBar();
+        }
     }
 
     @Override
