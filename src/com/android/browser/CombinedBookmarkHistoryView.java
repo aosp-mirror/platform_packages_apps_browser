@@ -52,8 +52,8 @@ public class CombinedBookmarkHistoryView extends LinearLayout
     final static int FRAGMENT_ID_HISTORY = 2;
     final static int FRAGMENT_ID_SNAPSHOTS = 3;
 
-    private Activity mActivity;
     private ActionBar mActionBar;
+    private FragmentManager mFragmentManager;
 
     private Bundle mExtras;
 
@@ -117,15 +117,15 @@ public class CombinedBookmarkHistoryView extends LinearLayout
             CombinedBookmarksCallbacks cb, ComboViews startingView,
             Bundle extras) {
         super(activity);
-        mActivity = activity;
         mExtras = extras;
-        mActionBar = mActivity.getActionBar();
+        mActionBar = activity.getActionBar();
         mCallback = cb;
+        mFragmentManager = activity.getFragmentManager();
 
         View v = LayoutInflater.from(activity).inflate(R.layout.bookmarks_history, this);
         v.setOnTouchListener(this);
 
-        mBookmarksHeader = new FrameLayout(mActivity);
+        mBookmarksHeader = new FrameLayout(activity);
         mBookmarksHeader.setLayoutParams(new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.MATCH_PARENT,
@@ -181,9 +181,8 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         if (mCurrentFragment == FRAGMENT_ID_HISTORY) {
             // Warning, ugly hack below
             // This is done because history uses orientation-specific padding
-            FragmentManager fm = mActivity.getFragmentManager();
             mHistory = BrowserHistoryPage.newInstance(mCallback, mHistory.getArguments());
-            fm.beginTransaction().replace(R.id.fragment, mHistory).commit();
+            mFragmentManager.beginTransaction().replace(R.id.fragment, mHistory).commit();
         }
     }
 
@@ -236,8 +235,7 @@ public class CombinedBookmarkHistoryView extends LinearLayout
         tearDownActionBar();
         if (mCurrentFragment != INVALID_ID) {
             try {
-                FragmentManager fm = mActivity.getFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
+                FragmentTransaction transaction = mFragmentManager.beginTransaction();
                 if (mCurrentFragment == FRAGMENT_ID_BOOKMARKS) {
                     transaction.remove(mBookmarks);
                 } else if (mCurrentFragment == FRAGMENT_ID_HISTORY) {
