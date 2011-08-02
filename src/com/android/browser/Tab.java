@@ -2041,7 +2041,12 @@ class Tab implements PictureListener {
             if (mCapture == null) {
                 return;
             }
-            mCapture.copyPixelsFromBuffer(ByteBuffer.wrap(blob));
+            ByteBuffer buffer = ByteBuffer.wrap(blob);
+            if (buffer.capacity() != blob.length) {
+                Log.e(LOGTAG, "Load capture has mismatched sizes: "
+                        + buffer.capacity() + " vs " + blob.length);
+            }
+            mCapture.copyPixelsFromBuffer(buffer);
         }
     }
 
