@@ -47,6 +47,12 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"De naam van deze site komt niet overeen met de naam op het certificaat."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Dit certificaat is verlopen."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Dit certificaat is nog niet geldig."</string>
+    <!-- no translation found for ssl_date_invalid (3705563379257285534) -->
+    <skip />
+    <!-- no translation found for ssl_invalid (9041704741505449967) -->
+    <skip />
+    <!-- no translation found for ssl_unknown (5679243486524754571) -->
+    <skip />
     <string name="stopping" msgid="4839698519340302982">"Stoppen..."</string>
     <string name="stop" msgid="5687251076030630074">"Stoppen"</string>
     <string name="reload" msgid="8585220783228408062">"Vernieuwen"</string>
@@ -141,7 +147,13 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Zoekmachine instellen"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Selecteer een zoekmachine"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Ingesteld op..."</string>
-    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
+  <string-array name="pref_homepage_choices">
+    <item msgid="844041670142910837">"Huidige pagina"</item>
+    <item msgid="4430498748295169195">"Lege pagina"</item>
+    <item msgid="5747608191946904074">"Standaardpagina"</item>
+    <item msgid="6092441301001006473">"Meest bezochte sites"</item>
+    <item msgid="5021822752506507426">"Anders..."</item>
+  </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Pagina\'s passend maken"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Webpagina\'s zo indelen dat deze op het scherm passen"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Algemeen"</string>
@@ -270,10 +282,8 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gebruik Google Instant bij Google Zoeken voor resultaten tijdens het typen (kan resulteren in meer gegevensverbruik)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Volledig scherm"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gebruik de modus voor volledig scherm om de statusbalk te verbergen."</string>
-    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
-    <skip />
+    <string name="pref_lab_inverted" msgid="1650585016924791747">"Omgekeerde opbouw"</string>
+    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"Als u dit aanvinkt, keert de browser de kleuren om. Zwart wordt wit en andersom."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Bandbreedtebeheer"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Zoekresultaten vooraf laden"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Browser toestaan resultaten met hoog betrouwbaarheidsniveau vooraf te laden"</string>
@@ -385,17 +395,51 @@
     <string name="menu_share_url" msgid="5851814357333739700">"Delen"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Er zijn niet meer tabbladen beschikbaar"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google met Instant (Labs)"</string>
-    <string name="recover_title" msgid="8095611702406163360">"Vensters herstellen?"</string>
-    <string name="recover_prompt" msgid="6541354420842425606">"Wilt u de browservensters uit uw vorige sessie herstellen?"</string>
-    <string name="recover_yes" msgid="4540538008955917099">"Herstellen"</string>
-    <string name="recover_no" msgid="3121030267940592611">"Nee"</string>
     <string name="preview" msgid="6450823514561689038">"Voorbeeld"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokaal"</string>
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobiel"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"Desktop"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Resultaten vooraf laden"</string>
-    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
+    <string name="empty_snapshots_folder" msgid="5788256228290785444">"Er zijn geen opgeslagen pagina\'s."</string>
+    <string name="remove_snapshot" msgid="1624447424544976849">"Opgeslagen pagina verwijderen"</string>
+    <!-- no translation found for snapshot_go_live (1209542802541168497) -->
     <skip />
-    <!-- no translation found for remove_snapshot (1624447424544976849) -->
+    <!-- no translation found for accessibility_button_back (6194680634245279407) -->
+    <skip />
+    <!-- no translation found for accessibility_button_forward (1236827218480658168) -->
+    <skip />
+    <!-- no translation found for accessibility_button_refresh (1023441396241841313) -->
+    <skip />
+    <!-- no translation found for accessibility_button_stop (6793644120043222148) -->
+    <skip />
+    <!-- no translation found for accessibility_button_addbookmark (4787844912630006181) -->
+    <skip />
+    <!-- no translation found for accessibility_button_search (5357014102136055376) -->
+    <skip />
+    <!-- no translation found for accessibility_button_voice (152016375096083337) -->
+    <skip />
+    <!-- no translation found for accessibility_button_bookmarks (7435055677299151649) -->
+    <skip />
+    <!-- no translation found for accessibility_button_closetab (6954807842756927737) -->
+    <skip />
+    <!-- no translation found for accessibility_button_newtab (4116986240706315748) -->
+    <skip />
+    <!-- no translation found for accessibility_button_newincognitotab (5254901889040012964) -->
+    <skip />
+    <!-- no translation found for accessibility_button_clear (6943152307986161598) -->
+    <skip />
+    <!-- no translation found for accessibility_button_uaswitch (6286804719724282339) -->
+    <skip />
+    <!-- no translation found for accessibility_button_go (1182818872083055958) -->
+    <skip />
+    <!-- no translation found for accessibility_button_navscreen (9142904748728713075) -->
+    <skip />
+    <!-- no translation found for accessibility_button_more (3054251446394224216) -->
+    <skip />
+    <!-- no translation found for accessibility_state_incognito (5786038488425202355) -->
+    <skip />
+    <!-- no translation found for accessibility_state_frozen (8041539250447035570) -->
+    <skip />
+    <!-- no translation found for accessibility_transition_navscreen (2734915619351519547) -->
     <skip />
 </resources>
