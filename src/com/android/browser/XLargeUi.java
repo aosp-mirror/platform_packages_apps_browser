@@ -25,6 +25,7 @@ import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
 
@@ -94,6 +95,10 @@ public class XLargeUi extends BaseUi {
             }
             WebView web = getWebView();
             if (web != null) {
+                if (mTitleBar.getParent() != null) {
+                    ViewGroup p = (ViewGroup) mTitleBar.getParent();
+                    p.removeView(mTitleBar);
+                }
                 web.setEmbeddedTitleBar(mTitleBar);
                 // show url bar on scrolling
                 web.setOnTouchListener(this);
