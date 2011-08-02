@@ -84,7 +84,6 @@ public class Preloader {
             s.cancelTimeout();
         }
 
-        WebViewTimersControl.getInstance().onPrerenderDone(s == null ? null : s.getWebView());
         return s;
     }
 
@@ -111,6 +110,7 @@ public class Preloader {
         PreloaderSession s = takeSession(id);
         if (s != null) {
             if (LOGD_ENABLED) Log.d(LOGTAG, "Discard preload session " + id);
+            WebViewTimersControl.getInstance().onPrerenderDone(s == null ? null : s.getWebView());
             PreloadedTabControl t = s.getTabControl();
             t.destroy();
         } else {
