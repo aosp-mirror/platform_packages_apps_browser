@@ -1993,6 +1993,7 @@ class Tab implements PictureListener {
         float scale = mCaptureWidth / (float) mMainView.getWidth();
         c.scale(scale, scale, left, top);
         mMainView.draw(c);
+        c.setBitmap(null);
         persistThumbnail();
     }
 

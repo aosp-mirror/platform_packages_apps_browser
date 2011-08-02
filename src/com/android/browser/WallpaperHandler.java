@@ -162,6 +162,7 @@ public class WallpaperHandler extends Thread
             Canvas canvas = new Canvas(bm);
             oldWallpaper.setBounds(0, 0, width, height);
             oldWallpaper.draw(canvas);
+            canvas.setBitmap(null);
             try {
                 wm.setBitmap(bm);
             } catch (IOException e) {

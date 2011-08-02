@@ -243,6 +243,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
         Canvas c = new Canvas(b);
         drawable.setBounds(0, 0, width, height);
         drawable.draw(c);
+        c.setBitmap(null);
         return b;
     }
 
