@@ -60,7 +60,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      */
     public DownloadTouchIcon(Tab tab, Context ctx, ContentResolver cr, WebView view) {
         mTab = tab;
-        mContext = ctx;
+        mContext = ctx.getApplicationContext();
         mContentResolver = cr;
         // Store these in case they change.
         mOriginalUrl = view.getOriginalUrl();
@@ -77,7 +77,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      */
     public DownloadTouchIcon(Context ctx, ContentResolver cr, String url) {
         mTab = null;
-        mContext = ctx;
+        mContext = ctx.getApplicationContext();
         mContentResolver = cr;
         mOriginalUrl = null;
         mUrl = url;
@@ -91,7 +91,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
      */
     public DownloadTouchIcon(Context context, Message msg, String userAgent) {
         mMessage = msg;
-        mContext = context;
+        mContext = context.getApplicationContext();
         mContentResolver = null;
         mOriginalUrl = null;
         mUrl = null;

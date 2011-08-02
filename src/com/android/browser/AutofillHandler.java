@@ -42,7 +42,7 @@ public class AutofillHandler {
     private Context mContext;
 
     public AutofillHandler(Context context) {
-        mContext = context;
+        mContext = context.getApplicationContext();
     }
 
     /**

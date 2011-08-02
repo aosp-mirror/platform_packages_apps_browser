@@ -46,7 +46,7 @@ public class AccountsChangedReceiver extends BroadcastReceiver {
     static class DeleteRemovedAccounts extends Thread {
         Context mContext;
         public DeleteRemovedAccounts(Context context) {
-            mContext = context;
+            mContext = context.getApplicationContext();
         }
 
         @Override

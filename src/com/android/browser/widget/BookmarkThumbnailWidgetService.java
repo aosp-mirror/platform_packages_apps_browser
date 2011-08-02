@@ -166,7 +166,7 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
         private SharedPreferences mPreferences = null;
 
         public BookmarkFactory(Context context, int widgetId) {
-            mContext = context;
+            mContext = context.getApplicationContext();
             mWidgetId = widgetId;
         }
 

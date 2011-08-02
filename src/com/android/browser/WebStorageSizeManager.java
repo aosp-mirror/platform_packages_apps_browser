@@ -189,7 +189,7 @@ public class WebStorageSizeManager {
      */
     public WebStorageSizeManager(Context ctx, DiskInfo diskInfo,
             AppCacheInfo appCacheInfo) {
-        mContext = ctx;
+        mContext = ctx.getApplicationContext();
         mDiskInfo = diskInfo;
         mGlobalLimit = getGlobalLimit();
         // The initial max size of the app cache is either 25% of the global

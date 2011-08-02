@@ -51,7 +51,7 @@ public class RequestHandler extends Thread {
 
     public RequestHandler(Context context, Uri uri, OutputStream out) {
         mUri = uri;
-        mContext = context;
+        mContext = context.getApplicationContext();
         mOutput = out;
     }
 

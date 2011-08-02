@@ -49,7 +49,7 @@ public class Preloader {
     }
 
     private Preloader(Context context) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         mHandler = new Handler(Looper.getMainLooper());
         mSession = null;
         mFactory = new BrowserWebViewFactory(context);

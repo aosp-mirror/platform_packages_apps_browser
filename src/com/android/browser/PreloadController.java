@@ -41,7 +41,7 @@ public class PreloadController implements WebViewController {
     private Context mContext;
 
     public PreloadController(Context ctx) {
-        mContext = ctx;
+        mContext = ctx.getApplicationContext();
 
     }
 

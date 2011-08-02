@@ -742,7 +742,7 @@ public class AddBookmarkPage extends Activity
         private Message mMessage;
         private Context mContext;
         public SaveBookmarkRunnable(Context ctx, Message msg) {
-            mContext = ctx;
+            mContext = ctx.getApplicationContext();
             mMessage = msg;
         }
         public void run() {
@@ -776,7 +776,7 @@ public class AddBookmarkPage extends Activity
         Long mId;
 
         public UpdateBookmarkTask(Context context, long id) {
-            mContext = context;
+            mContext = context.getApplicationContext();
             mId = id;
         }
 
@@ -1062,7 +1062,7 @@ public class AddBookmarkPage extends Activity
 
         public EditBookmarkInfoLoader(Context context, Bundle bundle) {
             super(context);
-            mContext = context;
+            mContext = context.getApplicationContext();
             mMap = bundle;
         }
 
