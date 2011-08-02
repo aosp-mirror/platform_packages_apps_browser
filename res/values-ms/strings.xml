@@ -47,6 +47,12 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Nama tapak tidak sepadan dengan nama pada sijil."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Sijil ini telah tamat tempoh."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Sijil ini belum lagi sah."</string>
+    <!-- no translation found for ssl_date_invalid (3705563379257285534) -->
+    <skip />
+    <!-- no translation found for ssl_invalid (9041704741505449967) -->
+    <skip />
+    <!-- no translation found for ssl_unknown (5679243486524754571) -->
+    <skip />
     <string name="stopping" msgid="4839698519340302982">"Menghentikan…"</string>
     <string name="stop" msgid="5687251076030630074">"Henti"</string>
     <string name="reload" msgid="8585220783228408062">"Muat semula"</string>
@@ -141,7 +147,13 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Tetapkan enjin carian"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Pilih enjin carian"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Tetapkan pada..."</string>
-    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
+  <string-array name="pref_homepage_choices">
+    <item msgid="844041670142910837">"Halaman semasa"</item>
+    <item msgid="4430498748295169195">"Halaman kosong"</item>
+    <item msgid="5747608191946904074">"Halaman lalai"</item>
+    <item msgid="6092441301001006473">"Tapak yang paling kerap dilawati"</item>
+    <item msgid="5021822752506507426">"Lain-lain..."</item>
+  </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Muat auto halaman"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Format halaman web agar padan dengan saiz skrin"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Umum"</string>
@@ -230,7 +242,7 @@
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
     <string name="pref_text_zoom" msgid="8387229123479610157">"Zum teks"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Paksa dayakan zum"</string>
-    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Samada mahu m\'atasi p\'mintn tpk web utk kwl klakuan zum atau tdk"</string>
+    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Sama ada mahu atasi prmintaan tpk web utk kwl klakuan zum"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zum lalai"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Jauh"</item>
@@ -270,10 +282,8 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Guna Google Instant bila anda guna Carian Google, utk tunjuk hasil bila anda menaip (boleh menambah penggunaan data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Skrin penuh"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gunakan mod skrin penuh untuk menyembunyikan bar status."</string>
-    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
-    <skip />
+    <string name="pref_lab_inverted" msgid="1650585016924791747">"Pemaparan songsang"</string>
+    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"Menanda semak yg ini akan menyebabakan penyemak imbs menyongsangkan warna. Hitam menjadi putih &amp; begitu juga sebaliknya."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Pengurusan Lebar Jalur"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Hasil carian sedang dipramuat"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Benarkan penyemak imbas mempramuat hasil carian berkeyakinan tinggi di ltr blkg"</string>
@@ -385,17 +395,51 @@
     <string name="menu_share_url" msgid="5851814357333739700">"Kongsi"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Tiada lagi tab yang sedia"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google dengan Instant (Makmal)"</string>
-    <string name="recover_title" msgid="8095611702406163360">"Pulihkan tetingkap?"</string>
-    <string name="recover_prompt" msgid="6541354420842425606">"Adakah anda mahu memulihkan tab penyemak imbas anda kepada keadaan terakhirnya?"</string>
-    <string name="recover_yes" msgid="4540538008955917099">"Pulihkan"</string>
-    <string name="recover_no" msgid="3121030267940592611">"Tidak"</string>
     <string name="preview" msgid="6450823514561689038">"Pratonton"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Tempatan"</string>
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mudah alih"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"Desktop"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Pramuat hasil"</string>
-    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
+    <string name="empty_snapshots_folder" msgid="5788256228290785444">"Tidak terdapat halaman disimpan."</string>
+    <string name="remove_snapshot" msgid="1624447424544976849">"Padamkan halaman disimpan"</string>
+    <!-- no translation found for snapshot_go_live (1209542802541168497) -->
     <skip />
-    <!-- no translation found for remove_snapshot (1624447424544976849) -->
+    <!-- no translation found for accessibility_button_back (6194680634245279407) -->
+    <skip />
+    <!-- no translation found for accessibility_button_forward (1236827218480658168) -->
+    <skip />
+    <!-- no translation found for accessibility_button_refresh (1023441396241841313) -->
+    <skip />
+    <!-- no translation found for accessibility_button_stop (6793644120043222148) -->
+    <skip />
+    <!-- no translation found for accessibility_button_addbookmark (4787844912630006181) -->
+    <skip />
+    <!-- no translation found for accessibility_button_search (5357014102136055376) -->
+    <skip />
+    <!-- no translation found for accessibility_button_voice (152016375096083337) -->
+    <skip />
+    <!-- no translation found for accessibility_button_bookmarks (7435055677299151649) -->
+    <skip />
+    <!-- no translation found for accessibility_button_closetab (6954807842756927737) -->
+    <skip />
+    <!-- no translation found for accessibility_button_newtab (4116986240706315748) -->
+    <skip />
+    <!-- no translation found for accessibility_button_newincognitotab (5254901889040012964) -->
+    <skip />
+    <!-- no translation found for accessibility_button_clear (6943152307986161598) -->
+    <skip />
+    <!-- no translation found for accessibility_button_uaswitch (6286804719724282339) -->
+    <skip />
+    <!-- no translation found for accessibility_button_go (1182818872083055958) -->
+    <skip />
+    <!-- no translation found for accessibility_button_navscreen (9142904748728713075) -->
+    <skip />
+    <!-- no translation found for accessibility_button_more (3054251446394224216) -->
+    <skip />
+    <!-- no translation found for accessibility_state_incognito (5786038488425202355) -->
+    <skip />
+    <!-- no translation found for accessibility_state_frozen (8041539250447035570) -->
+    <skip />
+    <!-- no translation found for accessibility_transition_navscreen (2734915619351519547) -->
     <skip />
 </resources>

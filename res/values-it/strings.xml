@@ -47,6 +47,12 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Il nome del sito non corrisponde al nome nel certificato."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Il certificato è scaduto."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Questo certificato non è ancora valido."</string>
+    <!-- no translation found for ssl_date_invalid (3705563379257285534) -->
+    <skip />
+    <!-- no translation found for ssl_invalid (9041704741505449967) -->
+    <skip />
+    <!-- no translation found for ssl_unknown (5679243486524754571) -->
+    <skip />
     <string name="stopping" msgid="4839698519340302982">"Interruzione..."</string>
     <string name="stop" msgid="5687251076030630074">"Interrompi"</string>
     <string name="reload" msgid="8585220783228408062">"Aggiorna"</string>
@@ -141,7 +147,13 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Imposta motore di ricerca"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Seleziona un motore di ricerca"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Imposta su..."</string>
-    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
+  <string-array name="pref_homepage_choices">
+    <item msgid="844041670142910837">"Pagina corrente"</item>
+    <item msgid="4430498748295169195">"Pagina vuota"</item>
+    <item msgid="5747608191946904074">"Pagina predefinita"</item>
+    <item msgid="6092441301001006473">"Siti più visitati"</item>
+    <item msgid="5021822752506507426">"Altro..."</item>
+  </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Adatta autom. pagine"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Adatta le pagine web allo schermo"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Generali"</string>
@@ -270,10 +282,8 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Usa Google Instant con Ricerca Google per visualizzare i risultati mentre digiti (può aumentare l\'uso dei dati)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Schermo intero"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Usa la modalità a schermo intero per nascondere la barra di stato."</string>
-    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
-    <skip />
+    <string name="pref_lab_inverted" msgid="1650585016924791747">"Rendering invertito"</string>
+    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"Se selezioni questa opzione verranno invertiti i colori nel browser. Il nero diventerà bianco e viceversa."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Gestione larghezza di banda"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Precaricamento risultati di ricerca"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Consenti al browser di precaricare i risultati di ricerca affidabili in background"</string>
@@ -385,17 +395,51 @@
     <string name="menu_share_url" msgid="5851814357333739700">"Condividi"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Nessun\'altra scheda disponibile"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google con Instant (Labs)"</string>
-    <string name="recover_title" msgid="8095611702406163360">"Ripristinare le finestre?"</string>
-    <string name="recover_prompt" msgid="6541354420842425606">"Ripristinare le finestre del browser che erano aperte durante l\'ultima sessione?"</string>
-    <string name="recover_yes" msgid="4540538008955917099">"Ripristina"</string>
-    <string name="recover_no" msgid="3121030267940592611">"No"</string>
     <string name="preview" msgid="6450823514561689038">"Anteprima"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Locali"</string>
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"Cellulare"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"Desktop"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Precaricamento risultati"</string>
-    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
+    <string name="empty_snapshots_folder" msgid="5788256228290785444">"Non esistono pagine salvate."</string>
+    <string name="remove_snapshot" msgid="1624447424544976849">"Elimina pagina salvata"</string>
+    <!-- no translation found for snapshot_go_live (1209542802541168497) -->
     <skip />
-    <!-- no translation found for remove_snapshot (1624447424544976849) -->
+    <!-- no translation found for accessibility_button_back (6194680634245279407) -->
+    <skip />
+    <!-- no translation found for accessibility_button_forward (1236827218480658168) -->
+    <skip />
+    <!-- no translation found for accessibility_button_refresh (1023441396241841313) -->
+    <skip />
+    <!-- no translation found for accessibility_button_stop (6793644120043222148) -->
+    <skip />
+    <!-- no translation found for accessibility_button_addbookmark (4787844912630006181) -->
+    <skip />
+    <!-- no translation found for accessibility_button_search (5357014102136055376) -->
+    <skip />
+    <!-- no translation found for accessibility_button_voice (152016375096083337) -->
+    <skip />
+    <!-- no translation found for accessibility_button_bookmarks (7435055677299151649) -->
+    <skip />
+    <!-- no translation found for accessibility_button_closetab (6954807842756927737) -->
+    <skip />
+    <!-- no translation found for accessibility_button_newtab (4116986240706315748) -->
+    <skip />
+    <!-- no translation found for accessibility_button_newincognitotab (5254901889040012964) -->
+    <skip />
+    <!-- no translation found for accessibility_button_clear (6943152307986161598) -->
+    <skip />
+    <!-- no translation found for accessibility_button_uaswitch (6286804719724282339) -->
+    <skip />
+    <!-- no translation found for accessibility_button_go (1182818872083055958) -->
+    <skip />
+    <!-- no translation found for accessibility_button_navscreen (9142904748728713075) -->
+    <skip />
+    <!-- no translation found for accessibility_button_more (3054251446394224216) -->
+    <skip />
+    <!-- no translation found for accessibility_state_incognito (5786038488425202355) -->
+    <skip />
+    <!-- no translation found for accessibility_state_frozen (8041539250447035570) -->
+    <skip />
+    <!-- no translation found for accessibility_transition_navscreen (2734915619351519547) -->
     <skip />
 </resources>
