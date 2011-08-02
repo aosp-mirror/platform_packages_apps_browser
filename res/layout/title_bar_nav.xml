@@ -58,6 +58,7 @@
             android:layout_width="0dip"
             android:layout_weight="1.0"
             android:layout_height="match_parent"
+            android:paddingLeft="8dip"
             android:fadingEdge="horizontal"
             android:fadingEdgeLength="24dip"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -93,5 +94,5 @@
         style="@style/HoloButton"
         android:gravity="center_vertical"
         android:contentDescription="@string/accessibility_button_more"
-        android:src="@*android:drawable/ic_menu_moreoverflow_normal_holo_dark" />
+        android:src="@drawable/ic_menu_overflow" />
 </com.android.browser.NavigationBarPhone>

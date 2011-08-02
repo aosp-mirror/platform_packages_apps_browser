@@ -52,7 +52,7 @@
             style="@style/HoloButton"
             android:gravity="center_vertical"
             android:contentDescription="@string/accessibility_button_more"
-            android:src="@*android:drawable/ic_menu_moreoverflow_normal_holo_dark" />
+            android:src="@drawable/ic_menu_overflow" />
     </LinearLayout>
     <com.android.browser.NavTabGallery
         android:id="@+id/scroller"
