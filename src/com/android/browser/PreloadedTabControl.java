@@ -82,8 +82,9 @@ public class PreloadedTabControl {
                 if (!called) {
                     if (LOGD_ENABLED) Log.d(LOGTAG, "Query not submitted; falling back");
                     loadUrl(fallbackUrl, fallbackHeaders);
+                    // make sure that the failed, preloaded URL is cleared from the back stack
+                    mTab.clearBackStackWhenItemAdded(fallbackUrl);
                 }
-                mTab.getWebView().clearHistory();
             }});
         return true;
     }
