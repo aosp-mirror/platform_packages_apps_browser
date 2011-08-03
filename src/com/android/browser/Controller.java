@@ -1967,6 +1967,7 @@ public class Controller
         thumbnail.draw(canvas);
         Bitmap ret = Bitmap.createScaledBitmap(bm, width / filter_scale,
                 height / filter_scale, true);
+        canvas.setBitmap(null);
         bm.recycle();
         return ret;
     }

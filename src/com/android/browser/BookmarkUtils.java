@@ -104,6 +104,7 @@ public class BookmarkUtils {
                 drawFaviconToCanvas(context, favicon, canvas, iconBounds, type);
             }
         }
+        canvas.setBitmap(null);
         return bm;
     }
 
