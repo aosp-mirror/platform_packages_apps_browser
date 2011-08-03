@@ -524,6 +524,14 @@
     <string name="pref_force_userscalable">Force enable zoom</string>
     <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
     <string name="pref_force_userscalable_summary">Whether or not to override a website\'s request to control zoom behavior</string>
+    <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+    <string name="pref_inverted_category">Inverted Screen Rendering</string>
+    <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+    <string name="pref_inverted">Inverted Rendering</string>
+    <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+    <string name="pref_inverted_summary">Enable inverted rendering. Black will become white and vice versa.</string>
+    <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+    <string name="pref_inverted_contrast">Contrast</string>
     <!-- Settings label -->
     <string name="pref_default_zoom">Default zoom</string>
     <!-- Settings default zoom options; appear in default zoom dialog box -->
@@ -654,10 +662,6 @@
     <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
     <string name="pref_lab_fullscreen_summary">
       Use fullscreen mode to hide the status bar.</string>
-    <!-- Title for the inverted screen lab feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
-    <string name="pref_lab_inverted">Inverted Rendering</string>
-    <!-- Summary for the inverted screen lab feature. [CHAR LIMIT=120] -->
-    <string name="pref_lab_inverted_summary">Checking this causes the browser to invert colors. Black will become white and vice versa.</string>
     <!-- Title for bandwidth management preference [CHAR LIMIT=25] -->
     <string name="pref_data_title">Bandwidth Management</string>
     <!-- Title for search preloading [CHAR LIMIT=40] -->

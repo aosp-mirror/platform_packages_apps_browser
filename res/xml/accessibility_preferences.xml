@@ -40,4 +40,20 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/pref_inverted_category">
+
+        <CheckBoxPreference
+            android:key="inverted"
+            android:defaultValue="false"
+            android:title="@string/pref_inverted"
+            android:summary="@string/pref_inverted_summary" />
+
+        <com.android.browser.preferences.FontSizePreference
+            android:key="inverted_contrast"
+            android:title="@string/pref_inverted_contrast"
+            android:defaultValue="0"
+            android:max="20" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

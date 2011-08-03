@@ -28,6 +28,8 @@ public interface PreferenceKeys {
     static final String PREF_TEXT_SIZE = "text_size";
     static final String PREF_TEXT_ZOOM = "text_zoom";
     static final String PREF_FORCE_USERSCALABLE = "force_userscalable";
+    static final String PREF_INVERTED = "inverted";
+    static final String PREF_INVERTED_CONTRAST = "inverted_contrast";
 
     // ----------------------
     // Keys for advanced_preferences.xml
@@ -79,7 +81,6 @@ public interface PreferenceKeys {
     static final String PREF_ENABLE_QUICK_CONTROLS = "enable_quick_controls";
     static final String PREF_USE_INSTANT_SEARCH = "use_instant_search";
     static final String PREF_FULLSCREEN = "fullscreen";
-    static final String PREF_INVERTED = "inverted";
 
     // ----------------------
     // Keys for privacy_security_preferences.xml

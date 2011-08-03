@@ -26,9 +26,4 @@
         android:defaultValue="false"
         android:title="@string/pref_lab_fullscreen"
         android:summary="@string/pref_lab_fullscreen_summary" />
-    <CheckBoxPreference
-        android:key="inverted"
-        android:defaultValue="false"
-        android:title="@string/pref_lab_inverted"
-        android:summary="@string/pref_lab_inverted_summary" />
 </PreferenceScreen>

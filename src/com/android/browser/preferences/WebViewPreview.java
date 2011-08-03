@@ -17,6 +17,7 @@
 package com.android.browser.preferences;
 
 import com.android.browser.BrowserSettings;
+import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
 import android.content.Context;
@@ -68,6 +69,7 @@ public class WebViewPreview extends Preference implements OnSharedPreferenceChan
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setMinimumFontSize(bs.getMinimumFontSize());
         ws.setTextZoom(bs.getTextZoom());
+        ws.setProperty(PreferenceKeys.PREF_INVERTED_CONTRAST, Float.toString(bs.getInvertedContrast()));
         mWebView.loadData(mHtml, "text/html", "utf-8");
     }
 

@@ -45,6 +45,9 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         e = findPreference(PreferenceKeys.PREF_TEXT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         updateTextZoomSummary(e, settings.getTextZoom());
+        e = findPreference(PreferenceKeys.PREF_INVERTED_CONTRAST);
+        e.setOnPreferenceChangeListener(this);
+        updateInvertedContrastSummary(e, (int) (settings.getInvertedContrast() * 100));
     }
 
     void updateMinFontSummary(Preference pref, int minFontSize) {
@@ -54,6 +57,10 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
 
     void updateTextZoomSummary(Preference pref, int textZoom) {
         pref.setSummary(mFormat.format(textZoom / 100.0));
+    }
+
+    void updateInvertedContrastSummary(Preference pref, int contrast) {
+        pref.setSummary(mFormat.format(contrast / 100.0));
     }
 
     @Override
@@ -71,6 +78,10 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         if (PreferenceKeys.PREF_TEXT_ZOOM.equals(pref.getKey())) {
             updateTextZoomSummary(pref, BrowserSettings
                     .getAdjustedTextZoom((Integer) objValue));
+        }
+        if (PreferenceKeys.PREF_INVERTED_CONTRAST.equals(pref.getKey())) {
+            updateInvertedContrastSummary(pref,
+                    (int) ((10 + (Integer) objValue) * 10));
         }
         return true;
     }
