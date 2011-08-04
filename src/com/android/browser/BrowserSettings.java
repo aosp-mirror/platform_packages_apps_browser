@@ -235,7 +235,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setTextZoom(getTextZoom());
         settings.setAutoFillEnabled(isAutofillEnabled());
         settings.setLayoutAlgorithm(getLayoutAlgorithm());
-        settings.setJavaScriptCanOpenWindowsAutomatically(blockPopupWindows());
+        settings.setJavaScriptCanOpenWindowsAutomatically(!blockPopupWindows());
         settings.setLoadsImagesAutomatically(loadImages());
         settings.setLoadWithOverviewMode(loadPageInOverviewMode());
         settings.setSavePassword(rememberPasswords());
