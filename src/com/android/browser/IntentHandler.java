@@ -17,10 +17,6 @@
 
 package com.android.browser;
 
-import com.android.browser.search.SearchEngine;
-import com.android.common.Search;
-import com.android.common.speech.LoggingEvents;
-
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ContentResolver;
@@ -35,6 +31,10 @@ import android.provider.MediaStore;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Patterns;
+
+import com.android.browser.search.SearchEngine;
+import com.android.common.Search;
+import com.android.common.speech.LoggingEvents;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -187,6 +187,9 @@ public class IntentHandler {
                     Tab tab = mController.openTab(urlData);
                     if (tab != null) {
                         tab.setAppId(appId);
+                        if ((intent.getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+                            tab.setCloseOnBack(true);
+                        }
                     }
                 }
             } else {

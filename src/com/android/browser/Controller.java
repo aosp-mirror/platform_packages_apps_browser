@@ -2415,6 +2415,9 @@ public class Controller
                 // Now we close the other tab
                 closeTab(current);
             } else {
+                if ((current.getAppId() != null) || current.closeOnBack()) {
+                    closeCurrentTab();
+                }
                 /*
                  * Instead of finishing the activity, simply push this to the back
                  * of the stack and let ActivityManager to choose the foreground

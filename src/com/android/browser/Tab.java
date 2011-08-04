@@ -145,6 +145,8 @@ class Tab implements PictureListener {
     // Application identifier used to find tabs that another application wants
     // to reuse.
     private String mAppId;
+    // flag to indicate if tab should be closed on back
+    private boolean mCloseOnBack;
     // Keep the original url around to avoid killing the old WebView if the url
     // has not changed.
     // Error console for the tab
@@ -225,6 +227,7 @@ class Tab implements PictureListener {
     static final String APPID = "appid";
     static final String INCOGNITO = "privateBrowsingEnabled";
     static final String USERAGENT = "useragent";
+    static final String CLOSEFLAG = "closeOnBack";
 
     // -------------------------------------------------------------------------
 
@@ -1785,6 +1788,14 @@ class Tab implements PictureListener {
         mAppId = id;
     }
 
+    boolean closeOnBack() {
+        return mCloseOnBack;
+    }
+
+    void setCloseOnBack(boolean close) {
+        mCloseOnBack = close;
+    }
+
     String getUrl() {
         return UrlUtils.filteredUrl(mCurrentState.mUrl);
     }
@@ -1895,6 +1906,7 @@ class Tab implements PictureListener {
         if (mAppId != null) {
             mSavedState.putString(APPID, mAppId);
         }
+        mSavedState.putBoolean(CLOSEFLAG, mCloseOnBack);
         // Remember the parent tab so the relationship can be restored.
         if (mParent != null) {
             mSavedState.putLong(PARENTTAB, mParent.mId);
@@ -1916,6 +1928,7 @@ class Tab implements PictureListener {
         // This will maintain the app id, original url and close-on-exit values.
         mId = b.getLong(ID);
         mAppId = b.getString(APPID);
+        mCloseOnBack = b.getBoolean(CLOSEFLAG);
         if (b.getBoolean(USERAGENT)
                 != mSettings.hasDesktopUseragent(getWebView())) {
             mSettings.toggleDesktopUseragent(getWebView());
