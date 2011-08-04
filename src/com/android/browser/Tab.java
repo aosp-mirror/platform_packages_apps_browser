@@ -90,6 +90,7 @@ class Tab implements PictureListener {
 
     // Log Tag
     private static final String LOGTAG = "Tab";
+    private static final boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
     // Special case the logtag for messages for the Console to make it easier to
     // filter them and match the logtag used for these messages in older versions
     // of the browser.
@@ -165,6 +166,11 @@ class Tab implements PictureListener {
     private int mCaptureHeight;
     private Bitmap mCapture;
     private Handler mHandler;
+
+    /**
+     * See {@link #clearBackStackWhenItemAdded(String)}.
+     */
+    private String mClearHistoryMatchUrl;
 
     private static synchronized Bitmap getDefaultFavicon(Context context) {
         if (sDefaultFavicon == null) {
@@ -1398,6 +1404,18 @@ class Tab implements PictureListener {
                 if (isInVoiceSearchMode()) {
                     item.setCustomData(mVoiceSearchData.mVoiceSearchIntent);
                 }
+                if (mClearHistoryMatchUrl != null) {
+                    if (LOGD_ENABLED) {
+                        Log.d(LOGTAG, "onNewHistoryItem:\n\t" + item.getUrl() + "\n\t"
+                                + mClearHistoryMatchUrl);
+                    }
+                    if (TextUtils.equals(item.getOriginalUrl(), mClearHistoryMatchUrl)) {
+                        if (mMainView != null) {
+                            mMainView.clearHistory();
+                        }
+                    }
+                    mClearHistoryMatchUrl = null;
+                }
             }
             @Override
             public void onIndexChanged(WebHistoryItem item, int index) {
@@ -1416,6 +1434,7 @@ class Tab implements PictureListener {
         restoreState(state);
         setWebView(w);
         mHandler = new Handler() {
+            @Override
             public void handleMessage(Message m) {
                 switch (m.what) {
                 case MSG_CAPTURE:
@@ -2027,6 +2046,17 @@ class Tab implements PictureListener {
         if (mMainView != null) {
             mMainView.goForward();
         }
+    }
+
+    /**
+     * Causes the tab back/forward stack to be cleared once, if the given URL is the next URL
+     * to be added to the stack.
+     *
+     * This is used to ensure that preloaded URLs that are not subsequently seen by the user do
+     * not appear in the back stack.
+     */
+    public void clearBackStackWhenItemAdded(String urlToMatch) {
+        mClearHistoryMatchUrl = urlToMatch;
     }
 
     protected void persistThumbnail() {
