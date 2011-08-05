@@ -113,6 +113,8 @@
     <!-- no translation found for open_all_in_new_window (6514602245828366045) -->
     <skip />
     <string name="goto_dot" msgid="3895839050522602723">"Dai"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"Avrir in nov tab incognito"</string>
     <string name="select_dot" msgid="6299170761900561967">"Selecziunar text"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Fanestras actualas"</string>
@@ -317,6 +319,14 @@
     <skip />
     <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
     <skip />
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predefinì"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Lontan"</item>
@@ -365,10 +375,6 @@
     <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
     <skip />
     <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
     <skip />
     <!-- no translation found for pref_data_title (750316606686075162) -->
     <skip />

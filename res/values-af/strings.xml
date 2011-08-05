@@ -152,6 +152,8 @@
     <string name="open_all_in_new_window" msgid="6514602245828366045">"Open almal in nuwe vensters"</string>
     <!-- no translation found for goto_dot (3895839050522602723) -->
     <skip />
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"Open nuwe incognito-oortjie"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
     <skip />
@@ -375,6 +377,14 @@
     <skip />
     <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
     <skip />
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <!-- no translation found for pref_default_zoom (8076142259097187395) -->
     <skip />
     <!-- no translation found for pref_default_zoom_choices:0 (549583171195154919) -->
@@ -419,10 +429,6 @@
     <!-- no translation found for pref_lab_fullscreen (8173609016657987973) -->
     <skip />
     <!-- no translation found for pref_lab_fullscreen_summary (6853711692160711419) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
     <skip />
     <!-- no translation found for pref_data_title (750316606686075162) -->
     <skip />

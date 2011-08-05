@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"O marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\" será eliminado."</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"Abrir tudo em janelas novas"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ir"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"Abrir novo separador de navegação anónima"</string>
     <string name="select_dot" msgid="6299170761900561967">"Seleccionar texto"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Janelas actuais"</string>
@@ -147,7 +149,13 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Definir motor de pesquisa"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Seleccionar um motor de pesquisa"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"Definido para..."</string>
-    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
+  <string-array name="pref_homepage_choices">
+    <item msgid="844041670142910837">"Página atual"</item>
+    <item msgid="4430498748295169195">"Página em branco"</item>
+    <item msgid="5747608191946904074">"Página predefinida"</item>
+    <item msgid="6092441301001006473">"Sites mais visitados"</item>
+    <item msgid="5021822752506507426">"Outros ..."</item>
+  </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Ajuste auto de páginas"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Formatar páginas Web para se ajustarem ao ecrã"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Gerais"</string>
@@ -237,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Zoom do texto"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Forçar ativação do zoom"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Eliminar ou não pedido do site para controlar zoom"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predefinido"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Afastado"</item>
@@ -276,10 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Utilize Google Instantâneo na Pesquisa do Google para mostrar resultados quando escreve (pode aumentar utiliz. dados)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Ecrã inteiro"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Utilizar o modo de ecrã inteiro para ocultar a barra de estado."</string>
-    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
-    <skip />
     <string name="pref_data_title" msgid="750316606686075162">"Gestão da Larg. de banda"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Pré-carreg. dos resultados da pesquisa"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Permitir ao navegador pré-carreg. em 2º plano result. de pesq. de alta confiança"</string>
@@ -396,10 +408,8 @@
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"Telemóvel"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"Computador"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Pré-carregar resultados"</string>
-    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
-    <skip />
-    <!-- no translation found for remove_snapshot (1624447424544976849) -->
-    <skip />
+    <string name="empty_snapshots_folder" msgid="5788256228290785444">"Não existem páginas guardadas."</string>
+    <string name="remove_snapshot" msgid="1624447424544976849">"Eliminar a página guardada"</string>
     <!-- no translation found for snapshot_go_live (1209542802541168497) -->
     <skip />
     <!-- no translation found for accessibility_button_back (6194680634245279407) -->

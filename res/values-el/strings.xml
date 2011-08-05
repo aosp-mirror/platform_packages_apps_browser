@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Ο σελιδοδείκτης \"<xliff:g id="BOOKMARK">%s</xliff:g>\" θα διαγραφεί."</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"Άνοιγμα όλων σε νέα παράθυρα"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Μετάβαση"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"Άνοιγμα νέας καρτέλας ανώνυμης περιήγησης"</string>
     <string name="select_dot" msgid="6299170761900561967">"Επιλογή κειμένου"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Τρέχοντα παράθυρα"</string>
@@ -243,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Μεγέθυνση κειμένου"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Αναγκ. ενεργοπ. εστίασης"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Να αντικατ. ή όχι το αίτημα ιστότ. για έλεγχο συμπερ. εστίασης"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Προεπιλεγμένο ζουμ"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Μακριά"</item>
@@ -282,8 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Χρησιμοποιήστε το Instant μαζί με την Αναζήτηση για να εμφανίζονται αποτελ. καθώς πληκτρολ. (πιθανή αύξηση δεδομένων)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Πλήρης οθόνη"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Χρησιμοποιήστε τη λειτουργία πλήρους οθόνης για την απόκρυψη της γραμμής κατάστασης."</string>
-    <string name="pref_lab_inverted" msgid="1650585016924791747">"Ανεστραμμένη απόδοση"</string>
-    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"Με αυτήν την επιλογή το πρόγραμμα περιήγησης θα αντιστρέψει τα χρώματα. Το μαύρο θα γίνει άσπρο και τούμπαλιν."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Διαχείριση εύρους ζώνης"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Προφόρτωση αποτελεσμάτων αναζήτησης"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Να επιτρέπεται η προφόρτωση αποτελεσμάτων αναζήτησης υψηλής αξιοπιστίας σε φόντο"</string>

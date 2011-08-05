@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Zakładka „<xliff:g id="BOOKMARK">%s</xliff:g>” zostanie usunięta."</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"Otwórz wszystkie w nowych oknach"</string>
     <string name="goto_dot" msgid="3895839050522602723">"OK"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"Otwórz nową kartę incognito"</string>
     <string name="select_dot" msgid="6299170761900561967">"Zaznacz tekst"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Bieżące okna"</string>
@@ -243,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Powiększenie tekstu"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Wymuś włączenie powiększenia"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Określa, czy zezwolić stronie na sterowanie powiększeniem"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Powiększenie domyślne"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Małe"</item>
@@ -282,8 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Użyj wyszukiwania dynamicznego Google, aby uzyskiwać wyniki podczas pisania (może być pobierana większa ilość danych)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Pełny ekran"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Użyj trybu pełnoekranowego, aby ukryć pasek stanu."</string>
-    <string name="pref_lab_inverted" msgid="1650585016924791747">"Negatyw"</string>
-    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"Po zaznaczeniu tej opcji kolory w przeglądarce zostaną odwrócone. Czarny zmieni się w biały i odwrotnie."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Zarządzanie przepustowością"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Wstępne wczytywanie wyników wyszukiwania"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Zezwalaj przeglądarce na wstępne wczytywanie sprawdzonych wyników wyszukiwania w tle"</string>

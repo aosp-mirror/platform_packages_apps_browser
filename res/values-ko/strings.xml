@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"\'<xliff:g id="BOOKMARK">%s</xliff:g>\' 북마크가 삭제됩니다."</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"새 창에서 모두 열기"</string>
     <string name="goto_dot" msgid="3895839050522602723">"이동"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"새 시크릿 탭 열기"</string>
     <string name="select_dot" msgid="6299170761900561967">"텍스트 선택"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"현재 창"</string>
@@ -243,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"글꼴 크기"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"확대/축소 강제 사용"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"확대/축소 요청 무시 여부"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"기본 확대/축소"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"축소"</item>
@@ -282,8 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Google 검색을 사용할 때 Google 순간 검색을 사용하면 입력하는 동안 결과가 표시됩니다(데이터 사용이 증가될 수 있음)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"전체화면"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"전체화면 모드를 사용하여 상태 표시줄을 숨깁니다."</string>
-    <string name="pref_lab_inverted" msgid="1650585016924791747">"역렌더링"</string>
-    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"이 기능을 선택하면 브라우저 색이 반전됩니다. 검은색이 흰색으로 바뀌고 그 반대도 마찬가지입니다."</string>
     <string name="pref_data_title" msgid="750316606686075162">"대역폭 관리"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"검색결과 미리 로드"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"브라우저가 신뢰도 높은 검색결과를 백그라운드에 미리 로드하도록 허용"</string>

@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"A(z) \"<xliff:g id="BOOKMARK">%s</xliff:g>\" könyvjelző törlésre kerül."</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"Összes megnyitása új ablakban"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ugrás"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"Új inkognitólap megnyitása"</string>
     <string name="select_dot" msgid="6299170761900561967">"Szöveg kijelölése"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Jelenlegi ablakok"</string>
@@ -243,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Szöveg nagyítása"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Nagyítás engedélyezése"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Webhely kezelheti-e a nagyítást"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Alapértelmezett nagyítás"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Távoli"</item>
@@ -282,8 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"A Google-keresésnél használja a Google Instantot, és a találatok gépelés közben megjelennek (az adatforgalom nőhet)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Teljes képernyő"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Használja a teljes képernyős módot az állapotsor elrejtéséhez."</string>
-    <string name="pref_lab_inverted" msgid="1650585016924791747">"Inverz megjelenítés"</string>
-    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"Ha bejelöli, a böngésző ellentétesen jeleníti meg a színeket. A fekete szín fehér lesz, és fordítva."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Sávszélesség kezelése"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Keresési találatok előtöltése"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"A biztonságos keresési találatokat előre betöltheti a böngésző a háttérben"</string>
