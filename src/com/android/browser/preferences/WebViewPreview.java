@@ -16,28 +16,22 @@
 
 package com.android.browser.preferences;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.PreferenceKeys;
-import com.android.browser.R;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Resources;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-public class WebViewPreview extends Preference implements OnSharedPreferenceChangeListener {
+import com.android.browser.R;
 
-    static final String HTML_FORMAT = "<html><head><style type=\"text/css\">p { margin: 2px auto;}</style><body><p style=\"font-size: 4pt\">%s</p><p style=\"font-size: 8pt\">%s</p><p style=\"font-size: 10pt\">%s</p><p style=\"font-size: 14pt\">%s</p><p style=\"font-size: 18pt\">%s</p></body></html>";
+public abstract class WebViewPreview extends Preference
+        implements OnSharedPreferenceChangeListener {
 
-    String mHtml;
-    private WebView mWebView;
+    protected WebView mWebView;
 
     public WebViewPreview(
             Context context, AttributeSet attrs, int defStyle) {
@@ -55,30 +49,20 @@ public class WebViewPreview extends Preference implements OnSharedPreferenceChan
         init(context);
     }
 
-    void init(Context context) {
-        Resources res = context.getResources();
-        Object[] visualNames = res.getStringArray(R.array.pref_text_size_choices);
-        mHtml = String.format(HTML_FORMAT, visualNames);
+    protected void init(Context context) {
         setLayoutResource(R.layout.webview_preview);
     }
 
-    void updatePreview() {
-        if (mWebView == null) return;
+    protected abstract void updatePreview();
 
-        WebSettings ws = mWebView.getSettings();
-        BrowserSettings bs = BrowserSettings.getInstance();
-        ws.setMinimumFontSize(bs.getMinimumFontSize());
-        ws.setTextZoom(bs.getTextZoom());
-        ws.setProperty(PreferenceKeys.PREF_INVERTED_CONTRAST, Float.toString(bs.getInvertedContrast()));
-        mWebView.loadData(mHtml, "text/html", "utf-8");
-    }
+    protected void setupWebView(WebView view) {}
 
     @Override
     protected View onCreateView(ViewGroup parent) {
         View root = super.onCreateView(parent);
         WebView webView = (WebView) root.findViewById(R.id.webview);
         webView.setFocusable(false);
-        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        setupWebView(webView);
         return root;
     }
 

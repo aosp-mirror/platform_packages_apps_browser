@@ -23,16 +23,16 @@
         android:defaultValue="false" />
 
     <PreferenceCategory android:title="@string/pref_font_size_category">
-        <com.android.browser.preferences.WebViewPreview
+        <com.android.browser.preferences.FontSizePreview
             android:title="@string/preview" />
 
-        <com.android.browser.preferences.FontSizePreference
+        <com.android.browser.preferences.SeekBarSummaryPreference
             android:key="text_zoom"
             android:title="@string/pref_text_zoom"
             android:defaultValue="10"
             android:max="30" />
 
-        <com.android.browser.preferences.FontSizePreference
+        <com.android.browser.preferences.SeekBarSummaryPreference
             android:key="min_font_size"
             android:title="@string/pref_min_font_size"
             android:defaultValue="0"
@@ -41,6 +41,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_inverted_category">
+        <com.android.browser.preferences.InvertedContrastPreview
+            android:title="@string/preview" />
 
         <CheckBoxPreference
             android:key="inverted"
@@ -48,9 +50,10 @@
             android:title="@string/pref_inverted"
             android:summary="@string/pref_inverted_summary" />
 
-        <com.android.browser.preferences.FontSizePreference
+        <com.android.browser.preferences.SeekBarSummaryPreference
             android:key="inverted_contrast"
             android:title="@string/pref_inverted_contrast"
+            android:dependency="inverted"
             android:defaultValue="0"
             android:max="20" />
 

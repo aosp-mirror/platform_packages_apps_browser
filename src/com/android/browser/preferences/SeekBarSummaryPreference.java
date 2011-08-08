@@ -26,23 +26,23 @@ import android.widget.TextView;
 
 import com.android.browser.R;
 
-public class FontSizePreference extends SeekBarPreference {
+public class SeekBarSummaryPreference extends SeekBarPreference {
 
     CharSequence mSummary;
     TextView mSummaryView;
 
-    public FontSizePreference(
+    public SeekBarSummaryPreference(
             Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
-    public FontSizePreference(Context context, AttributeSet attrs) {
+    public SeekBarSummaryPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public FontSizePreference(Context context) {
+    public SeekBarSummaryPreference(Context context) {
         super(context);
         init();
     }

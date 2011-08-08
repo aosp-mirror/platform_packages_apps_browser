@@ -250,10 +250,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
         }
 
-        settings.setProperty(PREF_INVERTED,
+        settings.setProperty(WebViewProperties.gfxInvertedScreen,
                 useInvertedRendering() ? "true" : "false");
 
-        settings.setProperty(PREF_INVERTED_CONTRAST,
+        settings.setProperty(WebViewProperties.gfxInvertedScreenContrast,
                 Float.toString(getInvertedContrast()));
     }
 
@@ -740,10 +740,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public float getInvertedContrast() {
         return 1 + (mPrefs.getInt(PREF_INVERTED_CONTRAST, 0) / 10f);
-    }
-
-    public void setInvertedContrast(int contrast) {
-        mPrefs.edit().putInt(PREF_INVERTED_CONTRAST, contrast).apply();
     }
 
     // -----------------------------
