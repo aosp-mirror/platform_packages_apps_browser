@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Penanda halaman \"<xliff:g id="BOOKMARK">%s</xliff:g>\" akan dipadamkan."</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"Buka semua dalam tetingkap baru"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Pergi"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"Buka tab penyamaran baru"</string>
     <string name="select_dot" msgid="6299170761900561967">"Pilih teks"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Tetingkap semasa"</string>
@@ -194,7 +196,7 @@
     <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profil disimpan"</string>
     <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profil telah dipadamkan"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Padam profil"</string>
-    <string name="autofill_setup_dialog_title" msgid="1955613311837926540">"Sediakan auto-isi?"</string>
+    <string name="autofill_setup_dialog_title" msgid="1955613311837926540">"Sediakan autoisi?"</string>
     <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Penyemak imbas boleh melengkapkan borang web seperti ini secara automatik. Adakah anda mahu menyediakan profil anda?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Auto isi sentiasa boleh dikonfigurasikan melalui Tetapan Penyemak Imbas."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Lumpuhkan auto isi"</string>
@@ -243,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Zum teks"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Paksa dayakan zum"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Sama ada mahu atasi prmintaan tpk web utk kwl klakuan zum"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zum lalai"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Jauh"</item>
@@ -282,8 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Guna Google Instant bila anda guna Carian Google, utk tunjuk hasil bila anda menaip (boleh menambah penggunaan data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Skrin penuh"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gunakan mod skrin penuh untuk menyembunyikan bar status."</string>
-    <string name="pref_lab_inverted" msgid="1650585016924791747">"Pemaparan songsang"</string>
-    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"Menanda semak yg ini akan menyebabakan penyemak imbs menyongsangkan warna. Hitam menjadi putih &amp; begitu juga sebaliknya."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Pengurusan Lebar Jalur"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Hasil carian sedang dipramuat"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Benarkan penyemak imbas mempramuat hasil carian berkeyakinan tinggi di ltr blkg"</string>

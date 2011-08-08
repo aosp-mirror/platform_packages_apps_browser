@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"刪除「<xliff:g id="BOOKMARK">%s</xliff:g>」書籤？"</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"於新視窗開啟所有書籤"</string>
     <string name="goto_dot" msgid="3895839050522602723">"前往"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"開啟新的無痕式分頁"</string>
     <string name="select_dot" msgid="6299170761900561967">"選取文字"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"目前視窗"</string>
@@ -147,7 +149,13 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"設定搜尋引擎"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"選取搜尋引擎"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"設為..."</string>
-    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
+  <string-array name="pref_homepage_choices">
+    <item msgid="844041670142910837">"目前網頁"</item>
+    <item msgid="4430498748295169195">"空白網頁"</item>
+    <item msgid="5747608191946904074">"預設網頁"</item>
+    <item msgid="6092441301001006473">"最常瀏覽網站"</item>
+    <item msgid="5021822752506507426">"其他..."</item>
+  </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"自動調整頁面"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"配合螢幕大小調整網頁版面"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"一般設定"</string>
@@ -237,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"文字縮放"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"強制啟用縮放功能"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"是否覆寫網站的控制縮放行為要求"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"預設縮放"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"遠"</item>
@@ -276,10 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"使用「Google 搜尋」時啟用「Google 互動智慧搜尋」功能，您輸入查詢時可以即時獲得顯示搜尋結果 (這會增加資料傳輸量)。"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全螢幕"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"使用全螢幕模式以隱藏狀態列。"</string>
-    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
-    <skip />
     <string name="pref_data_title" msgid="750316606686075162">"頻寬管理"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"正在預先載入搜尋結果"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"允許瀏覽器在背景預先載入可信度高的搜尋結果"</string>
@@ -396,10 +408,8 @@
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"行動版"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"電腦版"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"預先載入結果"</string>
-    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
-    <skip />
-    <!-- no translation found for remove_snapshot (1624447424544976849) -->
-    <skip />
+    <string name="empty_snapshots_folder" msgid="5788256228290785444">"沒有已儲存的頁面。"</string>
+    <string name="remove_snapshot" msgid="1624447424544976849">"刪除已儲存的頁面"</string>
     <!-- no translation found for snapshot_go_live (1209542802541168497) -->
     <skip />
     <!-- no translation found for accessibility_button_back (6194680634245279407) -->

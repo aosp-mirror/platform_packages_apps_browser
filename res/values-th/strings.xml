@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"บุ๊กมาร์ก \"<xliff:g id="BOOKMARK">%s</xliff:g>\" จะถูกลบ"</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"เปิดทั้งหมดในหน้าต่างใหม่"</string>
     <string name="goto_dot" msgid="3895839050522602723">"ไป"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"เปิดแท็บใหม่ที่ไม่ระบุตัวตน"</string>
     <string name="select_dot" msgid="6299170761900561967">"เลือกข้อความ"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"หน้าต่างปัจจุบัน"</string>
@@ -243,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"ขยายข้อความ"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"บังคับเปิดใช้งานการขยาย"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"แทนที่คำขอควบคุมการขยายของเว็บไซต์หรือไม่"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"การซูมเริ่มต้น"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"ไกล"</item>
@@ -282,8 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"ใช้ Google ค้นหาทันใจเมื่อคุณใช้ Google Search เพื่อแสดงผลการค้นหาในขณะที่คุณพิมพ์ (ซึ่งสามารถเพิ่มการใช้งานข้อมูล)"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"เต็มหน้าจอ"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"ใช้โหมดเต็มหน้าจอเพื่อซ่อนแถบสถานะ"</string>
-    <string name="pref_lab_inverted" msgid="1650585016924791747">"การแสดงผลกลับกัน"</string>
-    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"หากเลือกตัวเลือกนี้จะทำให้เบราว์เซอร์สลับสี โดยสีดำจะสลับเป็นสีขาวและในทางกลับกันด้วย"</string>
     <string name="pref_data_title" msgid="750316606686075162">"การจัดการแบนด์วิดท์"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"การโหลดผลการค้นหาล่วงหน้า"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"อนุญาตให้เบราว์เซอร์โหลดผลการค้นหาที่เชื่อถือได้สูงก่อนล่วงหน้าในเบื้องหลัง"</string>

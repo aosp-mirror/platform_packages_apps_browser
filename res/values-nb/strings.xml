@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Bokmerket \"<xliff:g id="BOOKMARK">%s</xliff:g>\" vil bli slettet."</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"Åpne alle i nye vinduer"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Gå til"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"Åpne ny inkognitofane"</string>
     <string name="select_dot" msgid="6299170761900561967">"Velg tekst"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"Gjeldende vinduer"</string>
@@ -243,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Tekstzooming"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Tving aktivering av zoom"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Hvorvidt et nettsteds forespørs. om å kontr. zoom-adferd skal overstyres"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"Standardzoom"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Langt unna"</item>
@@ -282,8 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Bruk Google Instant når du bruker Google Søk for å vise resultater mens du skriver (dette kan gi økt databruk)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Fullskjerm"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Bruk fullskjermmodus for å skjule statusfeltet."</string>
-    <string name="pref_lab_inverted" msgid="1650585016924791747">"Omvendt visning"</string>
-    <string name="pref_lab_inverted_summary" msgid="2224690234778313947">"Hvis du merker av for dette alternativet, vil nettleseren vise omvendte farger. Svart blir hvitt, og omvendt."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Admin. av båndbredde"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Forhåndslaster søkeresultat"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"La nettleseren forhåndslaste søkeresultater med høy visshet i bakgrunnen"</string>

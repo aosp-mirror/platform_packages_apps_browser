@@ -97,6 +97,8 @@
     <string name="delete_bookmark_warning" msgid="758043186202032205">"将会删除书签“<xliff:g id="BOOKMARK">%s</xliff:g>”。"</string>
     <string name="open_all_in_new_window" msgid="6514602245828366045">"在新窗口中打开全部书签"</string>
     <string name="goto_dot" msgid="3895839050522602723">"转至"</string>
+    <!-- no translation found for menu_new_tab (8045774594066898348) -->
+    <skip />
     <string name="incognito_tab" msgid="5419458065370134289">"打开新的隐身标签页"</string>
     <string name="select_dot" msgid="6299170761900561967">"选择文本"</string>
     <string name="tab_picker_title" msgid="864478399057782913">"当前窗口"</string>
@@ -147,7 +149,13 @@
     <string name="pref_content_search_engine" msgid="1620101310821644144">"设置搜索引擎"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"选择搜索引擎"</string>
     <string name="pref_set_homepage_to" msgid="7196350233061395098">"设置为..."</string>
-    <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
+  <string-array name="pref_homepage_choices">
+    <item msgid="844041670142910837">"当前页"</item>
+    <item msgid="4430498748295169195">"空白页"</item>
+    <item msgid="5747608191946904074">"默认页"</item>
+    <item msgid="6092441301001006473">"访问最多的网站"</item>
+    <item msgid="5021822752506507426">"其他..."</item>
+  </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"自动调整页面"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"调整网页版面以适合屏幕大小"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"常规"</string>
@@ -237,6 +245,14 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"文字缩放"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"强制启用缩放"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"是否通过替换网站的请求来控制缩放行为"</string>
+    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
+    <skip />
+    <!-- no translation found for pref_inverted (4813962104859359420) -->
+    <skip />
+    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
+    <skip />
+    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
+    <skip />
     <string name="pref_default_zoom" msgid="8076142259097187395">"默认缩放设置"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"远"</item>
@@ -276,10 +292,6 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"借助 Google 即搜即得，您可以在使用 Google 搜索时一边键入内容一边查看结果（此功能可能会增加数据使用量）。"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全屏"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"使用全屏模式可隐藏状态栏。"</string>
-    <!-- no translation found for pref_lab_inverted (1650585016924791747) -->
-    <skip />
-    <!-- no translation found for pref_lab_inverted_summary (2224690234778313947) -->
-    <skip />
     <string name="pref_data_title" msgid="750316606686075162">"带宽管理"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"搜索结果预加载"</string>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"允许浏览器在后台预加载相关度高的搜索结果"</string>
@@ -350,7 +362,7 @@
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"此时将删除由此网站存储的所有数据"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"全部清除"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"取消"</string>
-    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"您手机的存储空间 (MB)"</string>
+    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB 数据存储在您手机中"</string>
     <string name="loading_video" msgid="4887871585216091096">"正在载入视频"</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g>需要了解您的位置信息"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"共享位置信息"</string>
@@ -396,10 +408,8 @@
     <string name="ua_switcher_mobile" msgid="5103260404792449606">"移动版"</string>
     <string name="ua_switcher_desktop" msgid="2535200543238676638">"桌面版"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"预加载结果"</string>
-    <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->
-    <skip />
-    <!-- no translation found for remove_snapshot (1624447424544976849) -->
-    <skip />
+    <string name="empty_snapshots_folder" msgid="5788256228290785444">"没有已保存的网页。"</string>
+    <string name="remove_snapshot" msgid="1624447424544976849">"删除保存的网页"</string>
     <!-- no translation found for snapshot_go_live (1209542802541168497) -->
     <skip />
     <!-- no translation found for accessibility_button_back (6194680634245279407) -->
