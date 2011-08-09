@@ -64,6 +64,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -211,6 +212,8 @@ public class Controller
     private CrashRecoveryHandler mCrashRecoveryHandler;
 
     private boolean mSimulateActionBarOverlayMode;
+
+    private boolean mBlockEvents;
 
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
@@ -2673,6 +2676,31 @@ public class Controller
     @Override
     public boolean shouldCaptureThumbnails() {
         return mUi.shouldCaptureThumbnails();
+    }
+
+    @Override
+    public void setBlockEvents(boolean block) {
+        mBlockEvents = block;
+    }
+
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        return mBlockEvents;
+    }
+
+    public boolean dispatchKeyShortcutEvent(KeyEvent event) {
+        return mBlockEvents;
+    }
+
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return mBlockEvents;
+    }
+
+    public boolean dispatchTrackballEvent(MotionEvent ev) {
+        return mBlockEvents;
+    }
+
+    public boolean dispatchGenericMotionEvent(MotionEvent ev) {
+        return mBlockEvents;
     }
 
 }

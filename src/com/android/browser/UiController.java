@@ -98,4 +98,6 @@ public interface UiController {
 
     void loadUrl(Tab tab, String url);
 
+    void setBlockEvents(boolean block);
+
 }

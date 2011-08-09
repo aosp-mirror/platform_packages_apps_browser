@@ -39,11 +39,16 @@ import android.widget.TextView;
 
 import com.android.browser.NavTabGallery.OnRemoveListener;
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
+import com.android.browser.view.Gallery.OnScrollFinishedListener;
 
 import java.util.HashMap;
 
 public class NavScreen extends RelativeLayout
         implements OnClickListener, OnMenuItemClickListener, OnThumbnailUpdatedListener {
+
+
+    private static final int SCROLL_MIN = 200;
+    private static final int SCROLL_FACTOR = 20;
 
     UiController mUiController;
     PhoneUi mUi;
@@ -126,11 +131,11 @@ public class NavScreen extends RelativeLayout
         TabControl tc = mUiController.getTabControl();
         mTabViews = new HashMap<Tab, View>(tc.getTabCount());
         mAdapter = new TabAdapter(mContext, tc);
-        mScroller.setAdapter(mAdapter);
         mScroller.setOrientation(mOrientation == Configuration.ORIENTATION_LANDSCAPE
                 ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
         // update state for active tab
-        mScroller.setSelection(mUiController.getTabControl().getTabPosition(mUi.getActiveTab()));
+        mScroller.setAdapter(mAdapter,
+                mUiController.getTabControl().getTabPosition(mUi.getActiveTab()));
         mScroller.setOnRemoveListener(new OnRemoveListener() {
             public void onRemovePosition(int pos) {
                 Tab tab = mAdapter.getItem(pos);
@@ -185,19 +190,26 @@ public class NavScreen extends RelativeLayout
         // need to call openTab explicitely with setactive false
         Tab tab = mUiController.openTab(BrowserSettings.getInstance().getHomePage(),
                 false, false, false);
-        mAdapter.notifyDataSetChanged();
+        int duration = 0;
         if (tab != null) {
-            // set tab as the selected in flipper, then hide
+            mUiController.setBlockEvents(true);
+            int oldsel = mScroller.getSelectedItemPosition();
             final int tix = mUi.mTabControl.getTabPosition(tab);
-            mScroller.setSelection(tix);
-            postDelayed(new Runnable() {
+            duration = SCROLL_MIN + SCROLL_FACTOR * Math.abs(oldsel - tix);
+            mScroller.handleDataChanged();
+            mScroller.smoothScrollToPosition(tix, duration, new OnScrollFinishedListener() {
                 @Override
-                public void run() {
+                public void onScrollFinished() {
+                    mUiController.setBlockEvents(false);
                     mUi.hideNavScreen(true);
                     switchToSelected();
                 }
-            }, 100);
+            });
         }
+    }
+
+    View getSelectedTabView() {
+        return mScroller.getSelectedTab();
     }
 
     private void switchToSelected() {
@@ -243,7 +255,7 @@ public class NavScreen extends RelativeLayout
         public View getView(final int position, View convertView, ViewGroup parent) {
             final NavTabView tabview = new NavTabView(mActivity);
             final Tab tab = getItem(position);
-            tabview.setWebView(mUi, tab);
+            tabview.setWebView(tab);
             mTabViews.put(tab, tabview.mImage);
             tabview.setOnClickListener(new OnClickListener() {
                 @Override

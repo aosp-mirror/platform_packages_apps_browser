@@ -31,6 +31,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Picture;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -1455,6 +1456,7 @@ class Tab implements PictureListener {
                 if (mCapture == null) {
                     mCapture = Bitmap.createBitmap(mCaptureWidth, mCaptureHeight,
                             Bitmap.Config.RGB_565);
+                    mCapture.eraseColor(Color.WHITE);
                     if (mInForeground) {
                         postCapture();
                     }

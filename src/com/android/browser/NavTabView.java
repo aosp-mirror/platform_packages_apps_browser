@@ -21,12 +21,15 @@ import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class NavTabView extends LinearLayout {
 
+    private ViewGroup mContent;
     private Tab mTab;
     private ImageView mClose;
     private TextView mTitle;
@@ -52,6 +55,7 @@ public class NavTabView extends LinearLayout {
 
     private void init() {
         LayoutInflater.from(mContext).inflate(R.layout.nav_tab_view, this);
+        mContent = (ViewGroup) findViewById(R.id.main);
         mClose = (ImageView) findViewById(R.id.closetab);
         mTitle = (TextView) findViewById(R.id.title);
         mTitleBar = findViewById(R.id.titlebar);
@@ -92,7 +96,11 @@ public class NavTabView extends LinearLayout {
         return mHighlighted;
     }
 
-    protected void setWebView(PhoneUi ui, Tab tab) {
+    protected void setWebView(WebView w) {
+        mContent.addView(w, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+    }
+
+    protected void setWebView(Tab tab) {
         mTab = tab;
         setTitle();
         Bitmap image = tab.getScreenshot();

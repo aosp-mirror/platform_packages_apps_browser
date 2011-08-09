@@ -34,6 +34,8 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
@@ -130,6 +132,8 @@ public class Gallery extends ViewGroup implements
     private float mLastMotionCoord;
     private float mLastOrthoCoord;
 
+    private int mScrollValue;
+
     public Gallery(Context context) {
         this(context, null);
     }
@@ -172,6 +176,7 @@ public class Gallery extends ViewGroup implements
         mGap = 0;
         // proguard
         setGap(getGap());
+        setScrollValue(getScrollValue());
     }
 
     /**
@@ -180,7 +185,10 @@ public class Gallery extends ViewGroup implements
      */
     public interface OnItemSelectedListener {
         void onItemSelected(ViewGroup parent, View view, int position, long id);
+    }
 
+    public interface OnScrollFinishedListener {
+        void onScrollFinished();
     }
 
     /**
@@ -226,6 +234,11 @@ public class Gallery extends ViewGroup implements
         return mGap;
     }
 
+    public void setAdapter(BaseAdapter adapter, int selpos) {
+        mSelectedPosition = selpos;
+        setAdapter(adapter);
+    }
+
     public void setAdapter(BaseAdapter adapter) {
         mAdapter = adapter;
         if (mAdapter != null) {
@@ -246,7 +259,7 @@ public class Gallery extends ViewGroup implements
         handleDataChanged();
     }
 
-    void handleDataChanged() {
+    public void handleDataChanged() {
         if (mAdapter != null) {
             if (mGapAnimator != null) {
                 mGapAnimator.cancel();
@@ -427,7 +440,8 @@ public class Gallery extends ViewGroup implements
             return;
         }
         boolean toLeft = deltaX < 0;
-        int limitedDeltaX = getLimitedMotionScrollAmount(toLeft, deltaX);
+        int limitedDeltaX = mFlingRunnable.mScroller.isFinished()
+                ? deltaX : getLimitedMotionScrollAmount(toLeft, deltaX);
         if (limitedDeltaX != deltaX) {
             // The above call returned a limited amount, so stop any
             // scrolls/flings
@@ -1178,7 +1192,7 @@ public class Gallery extends ViewGroup implements
         }
     }
 
-    boolean moveNext() {
+    public boolean moveNext() {
         if (mItemCount > 0 && mSelectedPosition < mItemCount - 1) {
             scrollToChild(mSelectedPosition - mFirstPosition + 1);
             return true;
@@ -1187,14 +1201,46 @@ public class Gallery extends ViewGroup implements
         }
     }
 
-    protected boolean scrollToChild(int childPosition) {
+    public boolean scrollToChild(int childPosition) {
         View child = getChildAt(childPosition);
         if (child != null) {
             int distance = getCenterOfGallery() - getCenterOfView(child);
-            mFlingRunnable.startUsingDistance(distance);
+            mFlingRunnable.startUsingDistance(distance, 0);
             return true;
         }
         return false;
+    }
+
+    /**
+     * use the scroller to scroll to a new position, independent
+     * of whether attached or not
+     * this uses trackMotionScroll, which will set the selection
+     */
+    public void smoothScrollToPosition(int pos, int duration,
+            final OnScrollFinishedListener listener) {
+        if (pos >= mAdapter.getCount() || getChildCount() < 1) return;
+        int dist = (mSelectedPosition - pos) * (mHorizontal ? getChildHeight(getChildAt(0))
+                : getChildWidth(getChildAt(0)));
+        ObjectAnimator scroll = ObjectAnimator.ofInt(this, "scrollValue", 0, dist);
+        scroll.setDuration(duration);
+        scroll.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mScrollValue = 0;
+                listener.onScrollFinished();
+            }
+        });
+        scroll.setInterpolator(new BounceInterpolator());
+        scroll.start();
+    }
+
+    public void setScrollValue(int scroll) {
+        trackMotionScroll(scroll - mScrollValue);
+        mScrollValue = scroll;
+    }
+
+    public int getScrollValue() {
+        return mScrollValue;
     }
 
     protected void setSelectedPositionInt(int position) {
@@ -1368,11 +1414,15 @@ public class Gallery extends ViewGroup implements
         }
 
         public void startUsingDistance(int distance) {
+            startUsingDistance(distance, mAnimationDuration);
+        }
+
+        public void startUsingDistance(int distance, int duration) {
             if (distance == 0)
                 return;
             startCommon();
             mLastFlingX = 0;
-            mScroller.startScroll(0, 0, -distance, 0, mAnimationDuration);
+            mScroller.startScroll(0, 0, -distance, 0, duration);
             post(this);
         }
 

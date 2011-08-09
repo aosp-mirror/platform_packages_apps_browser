@@ -28,6 +28,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -269,6 +270,36 @@ public class BrowserActivity extends Activity {
     @Override
     public boolean onSearchRequested() {
         return mController.onSearchRequested();
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        return mController.dispatchKeyEvent(event)
+                || super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public boolean dispatchKeyShortcutEvent(KeyEvent event) {
+        return mController.dispatchKeyShortcutEvent(event)
+                || super.dispatchKeyShortcutEvent(event);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return mController.dispatchTouchEvent(ev)
+                || super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean dispatchTrackballEvent(MotionEvent ev) {
+        return mController.dispatchTrackballEvent(ev)
+                || super.dispatchTrackballEvent(ev);
+    }
+
+    @Override
+    public boolean dispatchGenericMotionEvent(MotionEvent ev) {
+        return mController.dispatchGenericMotionEvent(ev) ||
+                super.dispatchGenericMotionEvent(ev);
     }
 
 }

@@ -14,10 +14,19 @@
      limitations under the License.
 -->
 
-<resources>
-    <!-- IDs for BookmarkExpandableGridView -->
-    <item type="id" name="group_position" />
-    <item type="id" name="child_position" />
-    <item type="id" name="child_id" />
-    <item type="id" name="tab_view" />
-</resources>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="false">
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height" />
+    <ImageView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
