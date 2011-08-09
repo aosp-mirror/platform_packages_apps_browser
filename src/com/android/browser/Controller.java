@@ -1000,7 +1000,7 @@ public class Controller
         if (username != null && password != null) {
             handler.proceed(username, password);
         } else {
-            if (tab.inForeground()) {
+            if (tab.inForeground() && !handler.suppressDialog()) {
                 mPageDialogsHandler.showHttpAuthentication(tab, handler, host, realm);
             } else {
                 handler.cancel();
