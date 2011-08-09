@@ -68,6 +68,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.browser.TabControl.OnThumbnailUpdatedListener;
 import com.android.browser.homepages.HomeProvider;
 import com.android.browser.provider.BrowserProvider2.Thumbnails;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
@@ -97,7 +98,7 @@ class Tab implements PictureListener {
     private static final String CONSOLE_LOGTAG = "browser";
 
     private static final int MSG_CAPTURE = 42;
-    private static final int CAPTURE_DELAY = 500;
+    private static final int CAPTURE_DELAY = 100;
 
     private static Bitmap sDefaultFavicon;
 
@@ -1498,6 +1499,7 @@ class Tab implements PictureListener {
         mWebViewController.onSetWebView(this, w);
 
         if (mMainView != null) {
+            mMainView.setPictureListener(null);
             if (w != null) {
                 syncCurrentState(w, null);
             } else {
@@ -1516,7 +1518,10 @@ class Tab implements PictureListener {
             // switched to another tab while waiting for the download to start.
             mMainView.setDownloadListener(mDownloadListener);
             mMainView.setWebBackForwardListClient(mWebBackForwardListClient);
-            mMainView.setPictureListener(this);
+            TabControl tc = mWebViewController.getTabControl();
+            if (tc != null && tc.getOnThumbnailUpdatedListener() != null) {
+                mMainView.setPictureListener(this);
+            }
             if (mSavedState != null) {
                 mMainView.restoreState(mSavedState);
                 mSavedState = null;
@@ -1670,6 +1675,9 @@ class Tab implements PictureListener {
     }
 
     void putInForeground() {
+        if (mInForeground) {
+            return;
+        }
         mInForeground = true;
         resume();
         Activity activity = mWebViewController.getActivity();
@@ -1685,6 +1693,9 @@ class Tab implements PictureListener {
     }
 
     void putInBackground() {
+        if (!mInForeground) {
+            return;
+        }
         mInForeground = false;
         pause();
         mMainView.setOnCreateContextMenuListener(null);
@@ -2024,9 +2035,22 @@ class Tab implements PictureListener {
         c.translate(-left, -top);
         float scale = mCaptureWidth / (float) mMainView.getWidth();
         c.scale(scale, scale, left, top);
-        mMainView.draw(c);
+        if (mMainView instanceof BrowserWebView) {
+            ((BrowserWebView)mMainView).drawContent(c);
+        } else {
+            mMainView.draw(c);
+        }
         c.setBitmap(null);
+        mHandler.removeMessages(MSG_CAPTURE);
         persistThumbnail();
+        TabControl tc = mWebViewController.getTabControl();
+        if (tc != null) {
+            OnThumbnailUpdatedListener updateListener
+                    = tc.getOnThumbnailUpdatedListener();
+            if (updateListener != null) {
+                updateListener.onThumbnailUpdated(this);
+            }
+        }
     }
 
     @Override

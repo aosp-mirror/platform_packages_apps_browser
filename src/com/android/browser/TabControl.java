@@ -36,6 +36,10 @@ class TabControl {
     private static final String POSITIONS = "positions";
     private static final String CURRENT = "current";
 
+    public static interface OnThumbnailUpdatedListener {
+        void onThumbnailUpdated(Tab t);
+    }
+
     // Maximum number of tabs.
     private int mMaxTabs;
     // Private array of WebViews that are used as tabs.
@@ -48,6 +52,7 @@ class TabControl {
     private final Controller mController;
 
     private final File mThumbnailDir;
+    private OnThumbnailUpdatedListener mOnThumbnailUpdatedListener;
 
     /**
      * Construct a new TabControl object
@@ -673,6 +678,20 @@ class TabControl {
         }
         newTab.putInForeground();
         return true;
+    }
+
+    public void setOnThumbnailUpdatedListener(OnThumbnailUpdatedListener listener) {
+        mOnThumbnailUpdatedListener = listener;
+        for (Tab t : mTabs) {
+            WebView web = t.getWebView();
+            if (web != null) {
+                web.setPictureListener(listener != null ? t : null);
+            }
+        }
+    }
+
+    public OnThumbnailUpdatedListener getOnThumbnailUpdatedListener() {
+        return mOnThumbnailUpdatedListener;
     }
 
 }
