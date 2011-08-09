@@ -35,6 +35,8 @@ import java.io.File;
  */
 public abstract class ProviderTestCase3<T extends ContentProvider> extends AndroidTestCase {
 
+    public static final String FILENAME_PREFIX = "test.";
+
     Class<T> mProviderClass;
     String[] mProviderAuthority;
 
@@ -112,13 +114,12 @@ public abstract class ProviderTestCase3<T extends ContentProvider> extends Andro
         super.setUp();
 
         mResolver = new MockContentResolver2();
-        final String filenamePrefix = "test.";
         RenamingDelegatingContext targetContextWrapper = new
                 RenamingDelegatingContext(
                 new MockContext2(), // The context that most methods are
                                     //delegated to
                 getContext(), // The context that file methods are delegated to
-                filenamePrefix);
+                FILENAME_PREFIX);
         // The default IsolatedContext has a mock AccountManager that doesn't
         // work for us, so override getSystemService to always return null
         mProviderContext = new IsolatedContext(mResolver, targetContextWrapper) {

@@ -18,6 +18,9 @@ package com.android.browser.tests.utils;
 
 import com.android.browser.provider.BrowserProvider2;
 
+import java.io.File;
+import java.io.FilenameFilter;
+
 import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -207,5 +210,23 @@ public abstract class BP2TestCaseHelper extends ProviderTestCase3<BrowserProvide
         }
         perfIdeallyUntriggered(mBookmarksObserver, mWidgetObserver);
         return updated;
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        // Delete the test databases so that subsequent runs have a clean slate
+        File f = getMockContext().getDatabasePath("test");
+        File dir = f.getParentFile();
+        File testFiles[] = dir.listFiles(new FilenameFilter() {
+
+            @Override
+            public boolean accept(File dir, String filename) {
+                return filename.startsWith(ProviderTestCase3.FILENAME_PREFIX);
+            }
+        });
+        for (File testFile : testFiles) {
+            testFile.delete();
+        }
     }
 }

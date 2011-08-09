@@ -251,7 +251,7 @@ public class BrowserProvider extends ContentProvider {
 
         public DatabaseHelper(Context context) {
             super(context, sDatabaseName, null, DATABASE_VERSION);
-            mContext = context.getApplicationContext();
+            mContext = context;
         }
 
         @Override
