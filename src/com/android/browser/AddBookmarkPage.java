@@ -1010,8 +1010,7 @@ public class AddBookmarkPage extends Activity
         static final int COLUMN_INDEX_ROOT_ID = 2;
 
         public AccountsLoader(Context context) {
-            super(context, Accounts.CONTENT_URI, PROJECTION, null, null,
-                    Accounts.ACCOUNT_NAME + " ASC");
+            super(context, Accounts.CONTENT_URI, PROJECTION, null, null, null);
         }
 
     }

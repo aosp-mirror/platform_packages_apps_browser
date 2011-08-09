@@ -69,6 +69,7 @@ import java.util.HashMap;
 public class BrowserProvider2 extends SQLiteContentProvider {
 
     public static final String PARAM_GROUP_BY = "groupBy";
+    public static final String PARAM_ALLOW_EMPTY_ACCOUNTS = "allowEmptyAccounts";
 
     public static final String LEGACY_AUTHORITY = "browser";
     static final Uri LEGACY_AUTHORITY_URI = new Uri.Builder()
@@ -114,6 +115,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             "ON history.url = images.url_key";
 
     static final String DEFAULT_SORT_HISTORY = History.DATE_LAST_VISITED + " DESC";
+    static final String DEFAULT_SORT_ACCOUNTS =
+            Accounts.ACCOUNT_NAME + " IS NOT NULL DESC, "
+            + Accounts.ACCOUNT_NAME + " ASC";
 
     private static final String[] SUGGEST_PROJECTION = new String[] {
             Bookmarks._ID,
@@ -844,6 +848,14 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case ACCOUNTS: {
                 qb.setTables(VIEW_ACCOUNTS);
                 qb.setProjectionMap(ACCOUNTS_PROJECTION_MAP);
+                String allowEmpty = uri.getQueryParameter(PARAM_ALLOW_EMPTY_ACCOUNTS);
+                if ("false".equals(allowEmpty)) {
+                    selection = DatabaseUtils.concatenateWhere(selection,
+                            SQL_WHERE_ACCOUNT_HAS_BOOKMARKS);
+                }
+                if (sortOrder == null) {
+                    sortOrder = DEFAULT_SORT_ACCOUNTS;
+                }
                 break;
             }
 
@@ -2114,4 +2126,19 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             + "  WHERE url NOT IN (SELECT url FROM bookmarks"
             + "    WHERE deleted = 0 AND folder = 0) "
             + "  ORDER BY bookmark DESC, visits DESC, date DESC ";
+
+    private static final String SQL_WHERE_ACCOUNT_HAS_BOOKMARKS =
+            "0 < ( "
+            + "SELECT count(*) "
+            + "FROM bookmarks "
+            + "WHERE deleted = 0 AND folder = 0 "
+            + "  AND ( "
+            + "    v_accounts.account_name = bookmarks.account_name "
+            + "    OR (v_accounts.account_name IS NULL AND bookmarks.account_name IS NULL) "
+            + "  ) "
+            + "  AND ( "
+            + "    v_accounts.account_type = bookmarks.account_type "
+            + "    OR (v_accounts.account_type IS NULL AND bookmarks.account_type IS NULL) "
+            + "  ) "
+            + ")";
 }
