@@ -41,7 +41,6 @@ import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +53,7 @@ import android.widget.Toast;
 
 import com.android.browser.BookmarkDragHandler.BookmarkDragController;
 import com.android.browser.BookmarkDragHandler.BookmarkDragState;
+import com.android.browser.provider.BrowserProvider2;
 import com.android.browser.view.BookmarkExpandableView;
 import com.android.browser.view.BookmarkExpandableView.BookmarkContextMenuInfo;
 
@@ -619,8 +619,11 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         };
 
         public AccountsLoader(Context context) {
-            super(context, Accounts.CONTENT_URI, ACCOUNTS_PROJECTION, null, null,
-                    Accounts.ACCOUNT_NAME + " ASC");
+            super(context, Accounts.CONTENT_URI
+                    .buildUpon()
+                    .appendQueryParameter(BrowserProvider2.PARAM_ALLOW_EMPTY_ACCOUNTS, "false")
+                    .build(),
+                    ACCOUNTS_PROJECTION, null, null, null);
         }
 
     }
