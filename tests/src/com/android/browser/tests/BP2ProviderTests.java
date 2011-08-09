@@ -33,6 +33,15 @@ import java.io.ByteArrayOutputStream;
 @SmallTest
 public class BP2ProviderTests extends BP2TestCaseHelper {
 
+    static final String[] PROJECTION = new String[] {
+            BrowserContract.Bookmarks.PARENT,
+            BrowserContract.Bookmarks.ACCOUNT_NAME,
+            BrowserContract.Bookmarks.ACCOUNT_TYPE,
+    };
+    static final int INDEX_PARENT = 0;
+    static final int INDEX_ACCOUNT_NAME = 1;
+    static final int INDEX_ACCOUNT_TYPE = 2;
+
     public void testUpdateImage() {
         String url = "http://stub1.com";
         insertBookmark(url, "stub 1");
@@ -56,6 +65,7 @@ public class BP2ProviderTests extends BP2TestCaseHelper {
     }
 
     private void doTestIsValidParent(String accountName, String accountType) {
+        // Create the folder
         ContentValues values = new ContentValues();
         values.put(BrowserContract.Bookmarks.TITLE, "New Folder");
         values.put(BrowserContract.Bookmarks.IS_FOLDER, 1);
@@ -65,6 +75,7 @@ public class BP2ProviderTests extends BP2TestCaseHelper {
         assertNotNull(folderUri);
         long folderId = ContentUris.parseId(folderUri);
         assertTrue("Failed to parse folder id!", folderId > 0);
+        // Insert a bookmark with the same ACCOUNT_* info as parent
         values.put(BrowserContract.Bookmarks.TITLE, "google");
         values.put(BrowserContract.Bookmarks.URL, "http://google.com");
         values.put(BrowserContract.Bookmarks.IS_FOLDER, 0);
@@ -72,31 +83,54 @@ public class BP2ProviderTests extends BP2TestCaseHelper {
         Uri insertedUri = insertBookmark(values);
         assertNotNull(insertedUri);
         Cursor c = getMockContentResolver().query(insertedUri,
-                new String[] { BrowserContract.Bookmarks.PARENT },
-                null, null, null);
+                PROJECTION, null, null, null);
         try {
             assertNotNull(c);
             assertTrue(c.moveToFirst());
-            long insertedParentId = c.getLong(0);
+            long insertedParentId = c.getLong(INDEX_PARENT);
+            String insertedAccountName = c.getString(INDEX_ACCOUNT_NAME);
+            String insertedAccountType = c.getString(INDEX_ACCOUNT_TYPE);
             assertEquals(folderId, insertedParentId);
-            if (accountName == null) {
-                values.put(BrowserContract.Bookmarks.ACCOUNT_NAME, "test2@gmail.com");
-                values.put(BrowserContract.Bookmarks.ACCOUNT_TYPE, "com.google");
-            } else {
-                values.remove(BrowserContract.Bookmarks.ACCOUNT_NAME);
-                values.remove(BrowserContract.Bookmarks.ACCOUNT_TYPE);
-            }
+            assertEquals(accountName, insertedAccountName);
+            assertEquals(accountType, insertedAccountType);
+
+            // Insert a bookmark with no ACCOUNT_* set, BUT with a valid parent
+            // The inserted should end up with the ACCOUNT_* of the parent
+            values.remove(BrowserContract.Bookmarks.ACCOUNT_NAME);
+            values.remove(BrowserContract.Bookmarks.ACCOUNT_TYPE);
             insertedUri = insertBookmark(values);
             assertNotNull(insertedUri);
             c.close();
             c = getMockContentResolver().query(insertedUri,
-                    new String[] { BrowserContract.Bookmarks.PARENT },
-                    null, null, null);
+                    PROJECTION, null, null, null);
             assertNotNull(c);
             assertTrue(c.moveToFirst());
-            insertedParentId = c.getLong(0);
-            assertFalse("child has different accounts than parent!",
-                    folderId == insertedParentId);
+            insertedParentId = c.getLong(INDEX_PARENT);
+            insertedAccountName = c.getString(INDEX_ACCOUNT_NAME);
+            insertedAccountType = c.getString(INDEX_ACCOUNT_TYPE);
+            assertEquals(folderId, insertedParentId);
+            assertEquals(accountName, insertedAccountName);
+            assertEquals(accountType, insertedAccountType);
+
+            // Insert a bookmark with a different ACCOUNT_* than it's parent
+            // ACCOUNT_* should override parent
+            accountName = accountName + "@something.else";
+            accountType = "com.google";
+            values.put(BrowserContract.Bookmarks.ACCOUNT_NAME, accountName);
+            values.put(BrowserContract.Bookmarks.ACCOUNT_TYPE, accountType);
+            insertedUri = insertBookmark(values);
+            assertNotNull(insertedUri);
+            c.close();
+            c = getMockContentResolver().query(insertedUri,
+                    PROJECTION, null, null, null);
+            assertNotNull(c);
+            assertTrue(c.moveToFirst());
+            insertedParentId = c.getLong(INDEX_PARENT);
+            insertedAccountName = c.getString(INDEX_ACCOUNT_NAME);
+            insertedAccountType = c.getString(INDEX_ACCOUNT_TYPE);
+            assertNotSame(folderId, insertedParentId);
+            assertEquals(accountName, insertedAccountName);
+            assertEquals(accountType, insertedAccountType);
         } finally {
             c.close();
         }
