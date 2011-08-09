@@ -38,9 +38,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.browser.NavTabGallery.OnRemoveListener;
+import com.android.browser.TabControl.OnThumbnailUpdatedListener;
+
+import java.util.HashMap;
 
 public class NavScreen extends RelativeLayout
-        implements OnClickListener, OnMenuItemClickListener {
+        implements OnClickListener, OnMenuItemClickListener, OnThumbnailUpdatedListener {
 
     UiController mUiController;
     PhoneUi mUi;
@@ -62,6 +65,7 @@ public class NavScreen extends RelativeLayout
     TabAdapter mAdapter;
     int mOrientation;
     boolean mNeedsMenu;
+    HashMap<Tab, View> mTabViews;
 
     public NavScreen(Activity activity, UiController ctl, PhoneUi ui) {
         super(activity);
@@ -119,7 +123,9 @@ public class NavScreen extends RelativeLayout
         mNewTab.setOnClickListener(this);
         mMore.setOnClickListener(this);
         mScroller = (NavTabGallery) findViewById(R.id.scroller);
-        mAdapter = new TabAdapter(mContext, mUiController.getTabControl());
+        TabControl tc = mUiController.getTabControl();
+        mTabViews = new HashMap<Tab, View>(tc.getTabCount());
+        mAdapter = new TabAdapter(mContext, tc);
         mScroller.setAdapter(mAdapter);
         mScroller.setOrientation(mOrientation == Configuration.ORIENTATION_LANDSCAPE
                 ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
@@ -239,6 +245,7 @@ public class NavScreen extends RelativeLayout
             final NavTabView tabview = new NavTabView(mActivity);
             final Tab tab = getItem(position);
             tabview.setWebView(mUi, tab);
+            mTabViews.put(tab, tabview.mImage);
             tabview.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -260,6 +267,15 @@ public class NavScreen extends RelativeLayout
             return tabview;
         }
 
+    }
+
+    @Override
+    public void onThumbnailUpdated(Tab t) {
+        View v = mTabViews.get(t);
+        if (v != null) {
+            v.invalidate();
+            mScroller.invalidate();
+        }
     }
 
 }

@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
@@ -27,7 +26,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
@@ -112,6 +110,8 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void setActiveTab(final Tab tab) {
+        mTitleBar.cancelTitleBarAnimation(true);
+        mTitleBar.setSkipTitleBarAnimations(true);
         super.setActiveTab(tab);
         BrowserWebView view = (BrowserWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
@@ -138,6 +138,7 @@ public class PhoneUi extends BaseUi {
         mNavigationBar.onStateChanged(StateListener.STATE_NORMAL);
         updateLockIconToLatest(tab);
         tab.getTopWindow().requestFocus();
+        mTitleBar.setSkipTitleBarAnimations(false);
     }
 
     /**
@@ -269,6 +270,7 @@ public class PhoneUi extends BaseUi {
     }
 
     void showNavScreen() {
+        mActiveTab.capture();
         detachTab(mActiveTab);
         mNavScreen = new NavScreen(mActivity, mUiController, this);
         // Add the custom view to its container.
@@ -278,10 +280,12 @@ public class PhoneUi extends BaseUi {
         mCustomViewContainer.bringToFront();
         // notify accessibility manager about the screen change
         mNavScreen.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+        mTabControl.setOnThumbnailUpdatedListener(mNavScreen);
     }
 
     void hideNavScreen(boolean animate) {
         if (mNavScreen == null) return;
+        mTabControl.setOnThumbnailUpdatedListener(null);
         Tab tab = mNavScreen.getSelectedTab();
         mCustomViewContainer.removeView(mNavScreen);
         mNavScreen = null;

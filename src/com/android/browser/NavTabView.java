@@ -31,7 +31,7 @@ public class NavTabView extends LinearLayout {
     private ImageView mClose;
     private TextView mTitle;
     private View mTitleBar;
-    private ImageView mImage;
+    ImageView mImage;
     private OnClickListener mClickListener;
     private boolean mHighlighted;
 
