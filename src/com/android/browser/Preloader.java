@@ -106,6 +106,15 @@ public class Preloader {
         }
     }
 
+    public void cancelSearchBoxPreload(String id) {
+        PreloaderSession s = getSession(id);
+        if (s != null) {
+            s.touch(); // reset timer
+            PreloadedTabControl tab = s.getTabControl();
+            tab.searchBoxCancel();
+        }
+    }
+
     public void discardPreload(String id) {
         PreloaderSession s = takeSession(id);
         if (s != null) {

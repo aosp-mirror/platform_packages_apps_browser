@@ -89,6 +89,19 @@ public class PreloadedTabControl {
         return true;
     }
 
+    public void searchBoxCancel() {
+        SearchBox sb = mTab.getWebView().getSearchBox();
+        if (sb != null) {
+            mLastQuery = null;
+            sb.oncancel(new SearchBox.SearchBoxListener(){
+                @Override
+                public void onCancelComplete(boolean called) {
+                    if (LOGD_ENABLED) Log.d(LOGTAG, "Query cancelled: " + called);
+                }
+            });
+        }
+    }
+
     public void loadUrlIfChanged(String url, Map<String, String> headers) {
         String currentUrl = mTab.getUrl();
         if (!TextUtils.isEmpty(currentUrl)) {

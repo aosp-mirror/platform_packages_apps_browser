@@ -39,6 +39,7 @@ public class PreloadRequestReceiver extends BroadcastReceiver {
     private static final String ACTION_PRELOAD = "android.intent.action.PRELOAD";
     static final String EXTRA_PRELOAD_ID = "preload_id";
     static final String EXTRA_PRELOAD_DISCARD = "preload_discard";
+    static final String EXTRA_SEARCHBOX_CANCEL = "searchbox_cancel";
     static final String EXTRA_SEARCHBOX_SETQUERY = "searchbox_query";
 
     @Override
@@ -61,6 +62,9 @@ public class PreloadRequestReceiver extends BroadcastReceiver {
         if (i.getBooleanExtra(EXTRA_PRELOAD_DISCARD, false)) {
             if (LOGD_ENABLED) Log.d(LOGTAG, "Got " + id + " preload discard request");
             Preloader.getInstance().discardPreload(id);
+        } else if (i.getBooleanExtra(EXTRA_SEARCHBOX_CANCEL, false)) {
+            if (LOGD_ENABLED) Log.d(LOGTAG, "Got " + id + " searchbox cancel request");
+            Preloader.getInstance().cancelSearchBoxPreload(id);
         } else {
             if (LOGD_ENABLED) Log.d(LOGTAG, "Got " + id + " preload request for " + url);
             if (url != null && url.startsWith("http")) {
