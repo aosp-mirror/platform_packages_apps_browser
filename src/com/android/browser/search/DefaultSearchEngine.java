@@ -15,6 +15,7 @@
  */
 package com.android.browser.search;
 
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.ActivityNotFoundException;
@@ -92,6 +93,12 @@ public class DefaultSearchEngine implements SearchEngine {
                 intent.putExtra(SearchManager.EXTRA_DATA_KEY, extraData);
             }
             intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.getPackageName());
+            Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+            viewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            viewIntent.setPackage(context.getPackageName());
+            PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent,
+                    PendingIntent.FLAG_ONE_SHOT);
+            intent.putExtra(SearchManager.EXTRA_WEB_SEARCH_PENDINGINTENT, pending);
             context.startActivity(intent);
         } catch (ActivityNotFoundException ex) {
             Log.e(TAG, "Web search activity not found: " + mSearchable.getSearchActivity());
