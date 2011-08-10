@@ -101,14 +101,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     HashMap<Integer, BrowserBookmarksAdapter> mBookmarkAdapters = new HashMap<Integer, BrowserBookmarksAdapter>();
     BookmarkDragHandler mDragHandler;
 
-    static BrowserBookmarksPage newInstance(BookmarksPageCallbacks cb,
-            Bundle args, ViewGroup headerContainer) {
-        BrowserBookmarksPage bbp = new BrowserBookmarksPage();
-        bbp.mCallbacks = cb;
-        bbp.setArguments(args);
-        return bbp;
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         if (id == LOADER_ACCOUNTS) {
@@ -295,9 +287,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
             item.setUrl(url);
             Bitmap bitmap = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON);
-            if (bitmap == null) {
-                bitmap = CombinedBookmarkHistoryView.getIconListenerSet().getFavicon(url);
-            }
             item.setFavicon(bitmap);
         }
     }
@@ -311,7 +300,36 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         Bundle args = getArguments();
         mDisableNewWindow = args == null ? false : args.getBoolean(EXTRA_DISABLE_WINDOW, false);
         setHasOptionsMenu(true);
+        if (mCallbacks == null && getActivity() instanceof CombinedBookmarksCallbacks) {
+            mCallbacks = new CombinedBookmarksCallbackWrapper(
+                    (CombinedBookmarksCallbacks) getActivity());
+        }
     }
+
+    private static class CombinedBookmarksCallbackWrapper
+            implements BookmarksPageCallbacks {
+
+        private CombinedBookmarksCallbacks mCombinedCallback;
+
+        private CombinedBookmarksCallbackWrapper(CombinedBookmarksCallbacks cb) {
+            mCombinedCallback = cb;
+        }
+
+        @Override
+        public boolean onOpenInNewWindow(String... urls) {
+            mCombinedCallback.openInNewTab(urls);
+            return true;
+        }
+
+        @Override
+        public boolean onBookmarkSelected(Cursor c, boolean isFolder) {
+            if (isFolder) {
+                return false;
+            }
+            mCombinedCallback.openUrl(BrowserBookmarksPage.getUrl(c));
+            return true;
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -518,10 +536,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 manager.getLoader(LOADER_BOOKMARKS + groupPosition));
         loader.setUri(uri);
         loader.forceLoad();
-    }
-
-    public boolean onBackPressed() {
-        return false;
     }
 
     public void setCallbackListener(BookmarksPageCallbacks callbackListener) {

@@ -54,7 +54,7 @@
     <dimen name="widgetHorizontalSpacing">14dip</dimen>
     <dimen name="widgetVerticalSpacing">12dip</dimen>
     <!-- For the combined Bookmarks History view -->
-    <dimen name="combo_paddingTop">10dip</dimen>
+    <dimen name="combo_paddingTop">0dip</dimen>
     <dimen name="combo_horizontalSpacing">6dip</dimen>
     <dimen name="tab_view_thumbnail_height">76dip</dimen>
     <!-- Preference activity side margins -->

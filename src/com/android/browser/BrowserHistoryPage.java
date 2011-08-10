@@ -61,8 +61,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.browser.CombinedBookmarkHistoryView.CombinedBookmarksCallbacks;
-
 /**
  * Activity for displaying the browser's history, divided into
  * days of viewing.
@@ -110,13 +108,6 @@ public class BrowserHistoryPage extends Fragment
         ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(
                 Context.CLIPBOARD_SERVICE);
         cm.setText(text);
-    }
-
-    static BrowserHistoryPage newInstance(CombinedBookmarksCallbacks cb, Bundle args) {
-        BrowserHistoryPage bhp = new BrowserHistoryPage();
-        bhp.mCallback = cb;
-        bhp.setArguments(args);
-        return bhp;
     }
 
     @Override
@@ -208,6 +199,7 @@ public class BrowserHistoryPage extends Fragment
         mDisableNewWindow = args.getBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW, false);
         int mvlimit = getResources().getInteger(R.integer.most_visits_limit);
         mMostVisitsLimit = Integer.toString(mvlimit);
+        mCallback = (CombinedBookmarksCallbacks) getActivity();
     }
 
     @Override
@@ -663,9 +655,6 @@ public class BrowserHistoryPage extends Fragment
             if (data != null) {
                 item.setFavicon(BitmapFactory.decodeByteArray(data, 0,
                         data.length));
-            } else {
-                item.setFavicon(CombinedBookmarkHistoryView
-                        .getIconListenerSet().getFavicon(url));
             }
             item.setIsBookmark(cursor.getInt(HistoryQuery.INDEX_IS_BOOKMARK) == 1);
             return item;
