@@ -22,10 +22,10 @@
          system can provide a file [CHAR-LIMIT=NONE]-->
     <string name="uploads_disabled">File uploads are disabled.</string>
     <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
-    <string name="new_tab">New window</string>
+    <string name="new_tab">New tab</string>
     <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
-    <string name="new_incognito_tab">New incognito window</string>
+    <string name="new_incognito_tab">New incognito tab</string>
     <!-- Name of tab containing bookmarks -->
     <string name="tab_bookmarks">Bookmarks</string>
     <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
@@ -193,20 +193,12 @@
     <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
     <string name="delete_bookmark_warning">Bookmark \"<xliff:g id="bookmark">%s</xliff:g>\" will be deleted.</string>
-    <!-- Context menu item to open every bookmark in a folder in new windows [CHAR LIMIT=50] -->
-    <string name="open_all_in_new_window">Open all in new windows</string>
+    <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+    <string name="open_all_in_new_window">Open all in new tabs</string>
     <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
     <string name="goto_dot">Go</string>
-    <!-- Menu item that opens up a new tab. [CHAR LIMIT=30] -->
-    <string name="menu_new_tab">Open new tab</string>
-    <!-- Menu item that opens up a new incognito tab. [CHAR LIMIT=30] -->
-    <string name="incognito_tab">Open new incognito tab</string>
     <!-- Menu item to switch to text selection mode for copy and paste. -->
     <string name="select_dot">Select text</string>
-    <!-- Title of current windows screen; appears in title bar -->
-    <string name="tab_picker_title">Current windows</string>
-    <!-- Context Menu item to close the currently selected window -->
-    <string name="tab_picker_remove_tab">Close</string>
     <!-- Menu item to open the bookmarks page. This is a shorter version that
             is displayed with an icon -->
     <string name="bookmarks">Bookmarks</string>
@@ -234,10 +226,10 @@
     <string name="contextmenu_openlink">Open</string>
     <!-- Context Menu item to open the currently selected link in a new
             window. -->
-    <string name="contextmenu_openlink_newwindow">Open in new window</string>
+    <string name="contextmenu_openlink_newwindow">Open in new tab</string>
     <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
-    <string name="contextmenu_openlink_newwindow_background">Open in new background window</string>
+    <string name="contextmenu_openlink_newwindow_background">Open in new background tab</string>
     <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
     <string name="contextmenu_savelink">Save link</string>
@@ -314,7 +306,7 @@
         <item>OFF</item>
     </string-array>
     <!-- Settings summary [CHAR LIMIT=50]-->
-    <string name="pref_content_open_in_background_summary">Open new windows behind the current one</string>
+    <string name="pref_content_open_in_background_summary">Open new tabs behind the current one</string>
     <!-- Settings label [CHAR LIMIT=50] -->
     <string name="pref_content_homepage">Set homepage</string>
     <!-- Settings label -->
@@ -724,10 +716,10 @@
 
     <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
-    <string name="too_many_windows_dialog_title">Window limit reached</string>
+    <string name="too_many_windows_dialog_title">Tab limit reached</string>
     <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
-    <string name="too_many_windows_dialog_message">Could not open a new window because you have already opened the maximum number.</string>
+    <string name="too_many_windows_dialog_message">Could not open a new tab because you have already opened the maximum number.</string>
     <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
     <string name="too_many_subwindows_dialog_title">Pop-up already open</string>

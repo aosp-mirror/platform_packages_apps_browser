@@ -14,4 +14,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <bool name="isTablet">false</bool>
     <bool name="hide_nav_buttons">true</bool>
+    <!-- Browser menu toggles -->
+    <bool name="menu_show_navigation">true</bool>
+    <bool name="menu_show_bookmarks">true</bool>
 </resources>
