@@ -116,16 +116,21 @@ public class AutoFillSettingsFragment extends Fragment {
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
+                Context c = getActivity();
                 switch (msg.what) {
                 case PROFILE_SAVED_MSG:
-                    Toast.makeText(getActivity(), R.string.autofill_profile_successful_save,
-                            Toast.LENGTH_SHORT).show();
-                    closeEditor();
+                    if (c != null) {
+                        Toast.makeText(c, R.string.autofill_profile_successful_save,
+                                Toast.LENGTH_SHORT).show();
+                        closeEditor();
+                    }
                     break;
 
                 case PROFILE_DELETED_MSG:
-                    Toast.makeText(getActivity(), R.string.autofill_profile_successful_delete,
-                            Toast.LENGTH_SHORT).show();
+                    if (c != null) {
+                        Toast.makeText(c, R.string.autofill_profile_successful_delete,
+                                Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 }
             }
