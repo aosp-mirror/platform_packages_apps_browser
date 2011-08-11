@@ -35,10 +35,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
-import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -62,8 +60,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
     private TabControl mTabControl;
     private XLargeUi mUi;
 
-    private int mTabWidthSelected;
-    private int mTabWidthUnselected;
+    private int mTabWidth;
 
     private TabScrollView mTabs;
 
@@ -71,8 +68,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
     private int mButtonWidth;
 
     private Map<Tab, TabView> mTabMap;
-
-    private Drawable mGenericFavicon;
 
     private int mCurrentTextureWidth = 0;
     private int mCurrentTextureHeight = 0;
@@ -101,8 +96,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
         mTabControl = mUiController.getTabControl();
         mUi = ui;
         Resources res = activity.getResources();
-        mTabWidthSelected = (int) res.getDimension(R.dimen.tab_width_selected);
-        mTabWidthUnselected = (int) res.getDimension(R.dimen.tab_width_unselected);
+        mTabWidth = (int) res.getDimension(R.dimen.tab_width);
         mActiveDrawable = res.getDrawable(R.drawable.bg_urlbar);
         mInactiveDrawable = res.getDrawable(R.drawable.browsertab_inactive);
 
@@ -113,7 +107,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
         mTabs = (TabScrollView) findViewById(R.id.tabs);
         mNewTab = (ImageButton) findViewById(R.id.newtab);
         mNewTab.setOnClickListener(this);
-        mGenericFavicon = res.getDrawable(R.drawable.app_web_browser_sm);
 
         updateTabs(mUiController.getTabs());
         mButtonWidth = -1;
@@ -138,8 +131,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
     public void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
         Resources res = mActivity.getResources();
-        mTabWidthSelected = (int) res.getDimension(R.dimen.tab_width_selected);
-        mTabWidthUnselected = (int) res.getDimension(R.dimen.tab_width_unselected);
+        mTabWidth = (int) res.getDimension(R.dimen.tab_width);
         // force update of tab bar
         mTabs.updateLayout();
     }
@@ -309,7 +301,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
             setDisplayTitle(displayTitle);
             setProgress(mTab.getLoadProgress());
             if (mTab.getFavicon() != null) {
-                setFavicon(renderFavicon(mTab.getFavicon()));
+                setFavicon(mUi.getFaviconDrawable(mTab.getFavicon()));
             }
             updateTabIcons();
         }
@@ -326,6 +318,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
         public void setActivated(boolean selected) {
             mSelected = selected;
             mClose.setVisibility(mSelected ? View.VISIBLE : View.GONE);
+            mIconView.setVisibility(mSelected ? View.GONE : View.VISIBLE);
             mTitle.setTextAppearance(mActivity, mSelected ?
                     R.style.TabTitleSelected : R.style.TabTitleUnselected);
             setHorizontalFadingEdgeEnabled(!mSelected);
@@ -337,7 +330,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
 
         public void updateLayoutParams() {
             LayoutParams lp = (LinearLayout.LayoutParams) getLayoutParams();
-            lp.width = mSelected ? mTabWidthSelected : mTabWidthUnselected;
+            lp.width = mTabWidth;
             lp.height =  LayoutParams.MATCH_PARENT;
             setLayoutParams(lp);
         }
@@ -447,29 +440,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
 
     }
 
-    static Drawable createFaviconBackground(Context context) {
-        PaintDrawable faviconBackground = new PaintDrawable();
-        Resources res = context.getResources();
-        faviconBackground.getPaint().setColor(context.getResources()
-                .getColor(R.color.tabFaviconBackground));
-        faviconBackground.setCornerRadius(
-                res.getDimension(R.dimen.tab_favicon_corner_radius));
-        return faviconBackground;
-    }
-
-    private Drawable renderFavicon(Bitmap icon) {
-        Drawable[] array = new Drawable[2];
-        array[0] = createFaviconBackground(getContext());
-        if (icon == null) {
-            array[1] = mGenericFavicon;
-        } else {
-            array[1] = new BitmapDrawable(icon);
-        }
-        LayerDrawable d = new LayerDrawable(array);
-        d.setLayerInset(1, 2, 2, 2, 2);
-        return d;
-    }
-
     private void animateTabOut(final Tab tab, final TabView tv) {
         ObjectAnimator scalex = ObjectAnimator.ofFloat(tv, "scaleX", 1.0f, 0.0f);
         ObjectAnimator scaley = ObjectAnimator.ofFloat(tv, "scaleY", 1.0f, 0.0f);
@@ -542,7 +512,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
     public void onFavicon(Tab tab, Bitmap favicon) {
         TabView tv = mTabMap.get(tab);
         if (tv != null) {
-            tv.setFavicon(renderFavicon(favicon));
+            tv.setFavicon(mUi.getFaviconDrawable(favicon));
         }
     }
 

@@ -22,6 +22,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -53,6 +54,7 @@ public class NavigationBarTablet extends NavigationBarBase {
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
     private boolean mHideNavButtons;
+    private Drawable mFaviconDrawable;
 
     public NavigationBarTablet(Context context) {
         super(context);
@@ -191,10 +193,25 @@ public class NavigationBarTablet extends NavigationBarBase {
         }
     }
 
+    @Override
+    public void setFavicon(Bitmap icon) {
+        mFaviconDrawable = mBaseUi.getFaviconDrawable(icon);
+        updateUrlIcon();
+    }
+
     void updateUrlIcon() {
-        mUrlIcon.setImageResource(mInVoiceMode ?
-                R.drawable.ic_search_holo_dark
-                : R.drawable.ic_web_holo_dark);
+        if (mUrlInput.hasFocus()) {
+            mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
+        } else {
+            if (mInVoiceMode) {
+                mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
+            } else {
+                if (mFaviconDrawable == null) {
+                    mFaviconDrawable = mBaseUi.getFaviconDrawable(null);
+                }
+                mUrlIcon.setImageDrawable(mFaviconDrawable);
+            }
+        }
     }
 
     @Override

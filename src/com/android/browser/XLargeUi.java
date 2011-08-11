@@ -18,6 +18,12 @@ package com.android.browser;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -37,6 +43,8 @@ import java.util.List;
 public class XLargeUi extends BaseUi {
 
     private static final String LOGTAG = "XLargeUi";
+
+    private PaintDrawable mFaviconBackground;
 
     private ActionBar mActionBar;
     private TabBar mTabBar;
@@ -346,6 +354,32 @@ public class XLargeUi extends BaseUi {
     @Override
     public boolean shouldCaptureThumbnails() {
         return mUseQuickControls;
+    }
+
+    private Drawable getFaviconBackground() {
+        if (mFaviconBackground == null) {
+            mFaviconBackground = new PaintDrawable();
+            Resources res = mActivity.getResources();
+            mFaviconBackground.getPaint().setColor(
+                    res.getColor(R.color.tabFaviconBackground));
+            mFaviconBackground.setCornerRadius(
+                    res.getDimension(R.dimen.tab_favicon_corner_radius));
+        }
+        return mFaviconBackground;
+    }
+
+    @Override
+    public Drawable getFaviconDrawable(Bitmap icon) {
+        Drawable[] array = new Drawable[2];
+        array[0] = getFaviconBackground();
+        if (icon == null) {
+            array[1] = mGenericFavicon;
+        } else {
+            array[1] = new BitmapDrawable(mActivity.getResources(), icon);
+        }
+        LayerDrawable d = new LayerDrawable(array);
+        d.setLayerInset(1, 2, 2, 2, 2);
+        return d;
     }
 
 }

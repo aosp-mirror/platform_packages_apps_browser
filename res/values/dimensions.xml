@@ -12,10 +12,7 @@
 -->
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- The width of a selected tab -->
-    <dimen name="tab_width_selected">200dp</dimen>
-    <!-- The width of an unselected tab -->
-    <dimen name="tab_width_unselected">160dp</dimen>
+    <dimen name="tab_width">180dp</dimen>
     <dimen name="tab_height">44dp</dimen>
     <dimen name="tab_overlap">8dp</dimen>
     <dimen name="tab_addoverlap">14dp</dimen>
