@@ -153,14 +153,6 @@ public class PhoneUi extends BaseUi {
         }
     }
 
-    @Override
-    public void showComboView(ComboViews startWith, Bundle extras) {
-        if (mNavScreen != null) {
-            hideNavScreen(false);
-        }
-        super.showComboView(startWith, extras);
-    }
-
     // menu handling callbacks
 
     @Override
@@ -311,6 +303,17 @@ public class PhoneUi extends BaseUi {
     @Override
     public boolean shouldCaptureThumbnails() {
         return true;
+    }
+
+    @Override
+    public boolean isWebShowing() {
+        return super.isWebShowing() && mNavScreen == null;
+    }
+
+    @Override
+    public void showWeb(boolean animate) {
+        super.showWeb(animate);
+        hideNavScreen(animate);
     }
 
 }

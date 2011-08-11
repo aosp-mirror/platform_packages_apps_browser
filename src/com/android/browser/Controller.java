@@ -1177,6 +1177,7 @@ public class Controller
                 if (intent == null || resultCode != Activity.RESULT_OK) {
                     break;
                 }
+                mUi.showWeb(false);
                 if (Intent.ACTION_VIEW.equals(intent.getAction())) {
                     Tab t = getCurrentTab();
                     Uri uri = intent.getData();
@@ -2618,7 +2619,7 @@ public class Controller
     boolean onKeyLongPress(int keyCode, KeyEvent event) {
         switch(keyCode) {
         case KeyEvent.KEYCODE_BACK:
-            if (mUi.showsWeb()) {
+            if (mUi.isWebShowing()) {
                 bookmarksOrHistoryPicker(true);
                 return true;
             }
