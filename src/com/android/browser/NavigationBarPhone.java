@@ -128,11 +128,12 @@ public class NavigationBarPhone extends NavigationBarBase implements
      */
     @Override
     void setDisplayTitle(String title) {
+        mUrlInput.setTag(title);
         if (!isEditingUrl()) {
             if (title == null) {
                 mUrlInput.setText(R.string.new_tab);
             } else {
-                mUrlInput.setText(title);
+                mUrlInput.setText(UrlUtils.stripUrl(title), false);
             }
             mUrlInput.setSelection(0);
         }
@@ -195,6 +196,18 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mMenuShowing = false;
         mPopupMenu = null;
         mBaseUi.showTitleBarForDuration();
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (view == mUrlInput) {
+            if (hasFocus) {
+                mUrlInput.setText((String) mUrlInput.getTag(), false);
+            } else {
+                setDisplayTitle(mUrlInput.getText().toString());
+            }
+        }
+        super.onFocusChange(view, hasFocus);
     }
 
     @Override
