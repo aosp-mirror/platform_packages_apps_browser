@@ -13,7 +13,5 @@
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The width of a selected tab -->
-    <dimen name="tab_width_selected">280dp</dimen>
-    <!-- The width of an unselected tab -->
-    <dimen name="tab_width_unselected">240dp</dimen>
+    <dimen name="tab_width">240dp</dimen>
 </resources>
