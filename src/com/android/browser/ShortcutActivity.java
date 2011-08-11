@@ -63,13 +63,6 @@ public class ShortcutActivity extends Activity
     }
 
     @Override
-    public void onBackPressed() {
-        if (!mBookmarks.onBackPressed()) {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
         case R.id.cancel:

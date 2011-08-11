@@ -43,7 +43,6 @@ import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-import com.android.browser.CombinedBookmarkHistoryView.CombinedBookmarksCallbacks;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 
 import java.text.DateFormat;
@@ -76,12 +75,10 @@ public class BrowserSnapshotPage extends Fragment implements
     SnapshotAdapter mAdapter;
     CombinedBookmarksCallbacks mCallback;
 
-    public static BrowserSnapshotPage newInstance(CombinedBookmarksCallbacks cb,
-            Bundle extras) {
-        BrowserSnapshotPage instance = new BrowserSnapshotPage();
-        instance.mCallback = cb;
-        instance.setArguments(extras);
-        return instance;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mCallback = (CombinedBookmarksCallbacks) getActivity();
     }
 
     @Override

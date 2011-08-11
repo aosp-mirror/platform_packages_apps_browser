@@ -14,39 +14,25 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bookmarks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:paddingTop="@dimen/combo_paddingTop">
-
-    <FrameLayout
-        android:id="@+id/header_container"
+    <com.android.browser.view.BookmarkExpandableView
+        android:id="@+id/grid"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:childDivider="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp" />
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/empty_bookmarks_folder"
         android:visibility="gone" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.android.browser.view.BookmarkExpandableView
-            android:id="@+id/grid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:childDivider="@android:color/transparent"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp" />
-        <TextView
-            android:id="@android:id/empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/empty_bookmarks_folder"
-            android:visibility="gone" />
-    </FrameLayout>
-
-</LinearLayout>
+</FrameLayout>
