@@ -167,7 +167,7 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
             if (mUrlInput.getText().length() == 0) {
                 Tab currentTab = mUiController.getTabControl().getCurrentTab();
                 if (currentTab != null) {
-                    mUrlInput.setText(currentTab.getUrl(), false);
+                    setDisplayTitle(currentTab.getUrl());
                 }
             }
             mBaseUi.suggestHideTitleBar();
