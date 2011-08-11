@@ -39,35 +39,22 @@
             android:title="@string/new_incognito_tab"
             android:icon="@drawable/ic_new_incognito_holo_dark" />
         <item
-            android:id="@+id/bookmarks_menu_id"
-            android:title="@string/bookmarks"
-            android:icon="@drawable/ic_bookmarks_history_holo_dark"
-            android:alphabeticShortcut="b"
-            android:visible="@bool/menu_show_bookmarks" />
-        <item
             android:id="@+id/add_bookmark_menu_id"
             android:title="@string/save_to_bookmarks"
             android:icon="@drawable/ic_bookmark_on_holo_dark"
             android:alphabeticShortcut="d"
             android:visible="@bool/menu_show_bookmarks" />
         <item
-            android:id="@+id/find_menu_id"
-            android:title="@*android:string/find_on_page"
-            android:icon="@*android:drawable/ic_menu_find"
-            android:alphabeticShortcut="f" />
+            android:id="@+id/bookmarks_menu_id"
+            android:title="@string/bookmarks"
+            android:icon="@drawable/ic_bookmarks_history_holo_dark"
+            android:alphabeticShortcut="b"
+            android:visible="@bool/menu_show_bookmarks" />
         <item
             android:id="@+id/share_page_menu_id"
             android:title="@string/share_page"
             android:icon="@drawable/ic_share_holo_dark"
             android:alphabeticShortcut="s" />
-        <item
-            android:id="@+id/save_snapshot_menu_id"
-            android:title="@string/menu_save_snapshot" />
-        <item
-            android:id="@+id/page_info_menu_id"
-            android:title="@string/page_info"
-            android:icon="@drawable/ic_pageinfo_holo_dark"
-            android:alphabeticShortcut="g" />
         <item
             android:id="@+id/view_downloads_menu_id"
             android:title="@string/menu_view_download"
@@ -118,6 +105,10 @@
             android:alphabeticShortcut="l" />
         <item android:id="@+id/close_menu_id"
             android:alphabeticShortcut="w" />
+        <item android:id="@+id/find_menu_id"
+            android:alphabeticShortcut="f" />
+        <item android:id="@+id/page_info_menu_id"
+            android:alphabeticShortcut="g" />
     </group>
     <!-- these items are toggled in and out of @+id/stop_reload_menu_id -->
     <item android:id="@+id/stop_menu_id"

@@ -23,5 +23,14 @@
         android:id="@+id/ua_desktop_menu_id"
         android:checkable="true"
         android:title="@string/ua_switcher_desktop" />
+    <item
+        android:id="@+id/find_menu_id"
+        android:title="@*android:string/find_on_page"/>
+    <item
+        android:id="@+id/save_snapshot_menu_id"
+        android:title="@string/menu_save_snapshot" />
+    <item
+        android:id="@+id/page_info_menu_id"
+        android:title="@string/page_info" />
 </menu>
 

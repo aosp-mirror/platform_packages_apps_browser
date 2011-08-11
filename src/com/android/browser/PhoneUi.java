@@ -180,10 +180,6 @@ public class PhoneUi extends BaseUi {
         if (nt != null) {
             nt.setVisible(mNavScreen == null);
         }
-        MenuItem find = menu.findItem(R.id.find_menu_id);
-        if (find != null) {
-            find.setVisible(((tab != null) && !tab.isSnapshot()));
-        }
         MenuItem abm = menu.findItem(R.id.add_bookmark_menu_id);
         if (abm != null) {
             abm.setVisible((tab != null) && !tab.isSnapshot());
