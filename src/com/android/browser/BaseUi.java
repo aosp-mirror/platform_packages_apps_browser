@@ -426,7 +426,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
             mUiController.endActionMode();
         }
         showTitleBar();
-        if (!getActiveTab().isSnapshot()) {
+        if ((getActiveTab() != null) && !getActiveTab().isSnapshot()) {
             mNavigationBar.startEditingUrl(clearInput);
         }
     }
