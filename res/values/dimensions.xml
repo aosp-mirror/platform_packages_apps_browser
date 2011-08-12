@@ -64,8 +64,8 @@
     <dimen name="menu_width">240dip</dimen>
     <dimen name="menu_height">32dip</dimen>
     <dimen name="toolbar_height">52dip</dimen>
-    <dimen name="tab_thumbnail_width">@dimen/nav_tab_width</dimen>
-    <dimen name="tab_thumbnail_height">@dimen/nav_tab_height</dimen>
+    <dimen name="tab_thumbnail_width">240dip</dimen>
+    <dimen name="tab_thumbnail_height">160dip</dimen>
     <dimen name="nav_tab_width">240dip</dimen>
     <dimen name="nav_tab_height">160dip</dimen>
     <dimen name="nav_tab_text_normal">18sp</dimen>
