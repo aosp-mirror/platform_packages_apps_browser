@@ -424,7 +424,7 @@ public abstract class BaseUi implements UI {
             mUiController.endActionMode();
         }
         showTitleBar();
-        if (!getActiveTab().isSnapshot()) {
+        if ((getActiveTab() != null) && !getActiveTab().isSnapshot()) {
             mNavigationBar.startEditingUrl(clearInput);
         }
     }
