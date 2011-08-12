@@ -29,8 +29,13 @@ import java.util.Map;
  */
 public class BrowserWebView extends WebView {
 
+    public interface OnScrollChangedListener {
+        void onScrollChanged(int l, int t, int oldl, int oldt);
+    }
+
     private boolean mBackgroundRemoved = false;
     private TitleBar mTitleBar;
+    private OnScrollChangedListener mOnScrollChangedListener;
 
     /**
      * @param context
@@ -88,7 +93,7 @@ public class BrowserWebView extends WebView {
     }
 
     @Override
-    protected void onDraw(android.graphics.Canvas c) {
+    protected void onDraw(Canvas c) {
         super.onDraw(c);
         if (!mBackgroundRemoved && getRootView().getBackground() != null) {
             mBackgroundRemoved = true;
@@ -102,6 +107,18 @@ public class BrowserWebView extends WebView {
 
     public void drawContent(Canvas c) {
         onDraw(c);
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        if (mOnScrollChangedListener != null) {
+            mOnScrollChangedListener.onScrollChanged(l, t, oldl, oldt);
+        }
+    }
+
+    public void setOnScrollChangedListener(OnScrollChangedListener listener) {
+        mOnScrollChangedListener = listener;
     }
 
 }

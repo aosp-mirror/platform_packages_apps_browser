@@ -36,11 +36,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -60,7 +57,7 @@ import java.util.List;
 /**
  * UI interface definitions
  */
-public abstract class BaseUi implements UI, OnTouchListener {
+public abstract class BaseUi implements UI {
 
     private static final String LOGTAG = "BaseUi";
 
@@ -97,10 +94,9 @@ public abstract class BaseUi implements UI, OnTouchListener {
 
     private LinearLayout mErrorConsoleContainer = null;
 
-    private Toast mStopToast;
+    private UrlBarAutoShowManager mUrlBarAutoShowManager;
 
-    private float mInitialY;
-    private int mTitlebarScrollTriggerSlop;
+    private Toast mStopToast;
 
     // the default <video> poster
     private Bitmap mDefaultVideoPoster;
@@ -135,16 +131,11 @@ public abstract class BaseUi implements UI, OnTouchListener {
         setFullscreen(BrowserSettings.getInstance().useFullscreen());
         mGenericFavicon = res.getDrawable(
                 R.drawable.app_web_browser_sm);
-        ViewConfiguration config = ViewConfiguration.get(browser);
-        mTitlebarScrollTriggerSlop = Math.max(
-                config.getScaledOverflingDistance(),
-                config.getScaledOverscrollDistance());
-        mTitlebarScrollTriggerSlop = Math.max(mTitlebarScrollTriggerSlop,
-                config.getScaledTouchSlop());
         mTitleBar = new TitleBar(mActivity, mUiController, this,
                 mContentView);
         mTitleBar.setProgress(100);
         mNavigationBar = mTitleBar.getNavigationBar();
+        mUrlBarAutoShowManager = new UrlBarAutoShowManager(this);
     }
 
     private void cancelStopToast() {
@@ -244,9 +235,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
         }
         mActiveTab = tab;
         WebView web = mActiveTab.getWebView();
-        if (web != null && !mUseQuickControls) {
-            web.setOnTouchListener(this);
-        }
+        updateUrlBarAutoShowManagerTarget();
         attachTabToContentView(tab);
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
         onTabDataChanged(tab);
@@ -258,6 +247,15 @@ public abstract class BaseUi implements UI, OnTouchListener {
                 != mTitleBar.getEmbeddedHeight()
                 && !mUseQuickControls) {
             showTitleBarForDuration();
+        }
+    }
+
+    protected void updateUrlBarAutoShowManagerTarget() {
+        WebView web = mActiveTab != null ? mActiveTab.getWebView() : null;
+        if (!mUseQuickControls && web instanceof BrowserWebView) {
+            mUrlBarAutoShowManager.setTarget((BrowserWebView) web);
+        } else {
+            mUrlBarAutoShowManager.setTarget(null);
         }
     }
 
@@ -803,34 +801,6 @@ public abstract class BaseUi implements UI, OnTouchListener {
         showTitleBar();
         Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
         mHandler.sendMessageDelayed(msg, HIDE_TITLEBAR_DELAY);
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            mInitialY = event.getY();
-            break;
-        case MotionEvent.ACTION_MOVE:
-            WebView web = (WebView) v;
-            if (event.getPointerCount() == 1
-                    && !isTitleBarShowing()
-                    && web.getVisibleTitleHeight() == 0
-                    && event.getY() > (mInitialY + mTitlebarScrollTriggerSlop)) {
-                showTitleBar();
-            } else if (event.getY() < mInitialY) {
-                mInitialY = event.getY();
-            }
-            break;
-        case MotionEvent.ACTION_CANCEL:
-        case MotionEvent.ACTION_UP:
-            if (isTitleBarShowing()) {
-                Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
-                mHandler.sendMessageDelayed(msg, HIDE_TITLEBAR_DELAY);
-            }
-            break;
-        }
-        return false;
     }
 
     private Handler mHandler = new Handler() {

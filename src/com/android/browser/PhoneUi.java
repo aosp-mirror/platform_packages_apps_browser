@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -228,8 +227,6 @@ public class PhoneUi extends BaseUi {
             WebView web = getWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(null);
-                // don't show url bar on scrolling
-                web.setOnTouchListener(null);
             }
         } else {
             if (mPieControl != null) {
@@ -238,11 +235,10 @@ public class PhoneUi extends BaseUi {
             WebView web = getWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(mTitleBar);
-                // show url bar on scrolling
-                web.setOnTouchListener(this);
             }
             setTitleGravity(Gravity.NO_GRAVITY);
         }
+        updateUrlBarAutoShowManagerTarget();
     }
 
     void showNavScreen() {

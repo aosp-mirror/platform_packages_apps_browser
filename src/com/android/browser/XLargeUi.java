@@ -92,8 +92,6 @@ public class XLargeUi extends BaseUi {
             WebView web = getWebView();
             if (web != null) {
                 web.setEmbeddedTitleBar(null);
-                // don't show url bar on scrolling
-                web.setOnTouchListener(null);
 
             }
         } else {
@@ -108,8 +106,6 @@ public class XLargeUi extends BaseUi {
                     p.removeView(mTitleBar);
                 }
                 web.setEmbeddedTitleBar(mTitleBar);
-                // show url bar on scrolling
-                web.setOnTouchListener(this);
             }
             setTitleGravity(Gravity.NO_GRAVITY);
         }
@@ -118,6 +114,7 @@ public class XLargeUi extends BaseUi {
         for (Tab t : mTabControl.getTabs()) {
             t.updateShouldCaptureThumbnails();
         }
+        updateUrlBarAutoShowManagerTarget();
     }
 
     private void checkTabCount() {
