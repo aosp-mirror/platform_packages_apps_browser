@@ -1518,8 +1518,6 @@ public class Controller
         counter.setVisible(showDebugSettings);
         counter.setEnabled(showDebugSettings);
 
-        MenuItem saveSnapshot = menu.findItem(R.id.save_snapshot_menu_id);
-        saveSnapshot.setVisible(tab != null && !tab.isSnapshot());
         mUi.updateMenuState(tab, menu);
     }
 

@@ -121,6 +121,11 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
             popup.getMenuInflater().inflate(R.menu.ua_switcher, menu);
             menu.findItem(R.id.ua_mobile_menu_id).setChecked(!desktop);
             menu.findItem(R.id.ua_desktop_menu_id).setChecked(desktop);
+            Tab tab = mUiController.getCurrentTab();
+            MenuItem saveSnapshot = menu.findItem(R.id.save_snapshot_menu_id);
+            saveSnapshot.setVisible(tab != null && !tab.isSnapshot());
+            MenuItem find = menu.findItem(R.id.find_menu_id);
+            find.setVisible(tab != null && !tab.isSnapshot());
             popup.setOnMenuItemClickListener(this);
             popup.show();
         }
