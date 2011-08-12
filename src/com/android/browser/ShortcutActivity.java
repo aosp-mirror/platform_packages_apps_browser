@@ -31,8 +31,7 @@ public class ShortcutActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: Is this needed?
-        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+        setTitle(R.string.shortcut_bookmark_title);
         setContentView(R.layout.pick_bookmark);
         mBookmarks = (BrowserBookmarksPage) getFragmentManager()
                 .findFragmentById(R.id.bookmarks);

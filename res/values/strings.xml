@@ -204,6 +204,8 @@
     <string name="bookmarks">Bookmarks</string>
     <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
     <string name="shortcut_bookmark">Bookmark</string>
+    <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+    <string name="shortcut_bookmark_title">Pick a bookmark</string>
     <!-- Menu item to display the History of previously visited pages -->
     <string name="history">History</string>
     <!-- Menu item for viewing downloads from the browser -->
