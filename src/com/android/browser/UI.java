@@ -122,7 +122,9 @@ public interface UI {
     public void setShouldShowErrorConsole(Tab tab, boolean show);
 
     // returns if the web page is clear of any overlays (not including sub windows)
-    public boolean showsWeb();
+    public boolean isWebShowing();
+
+    public void showWeb(boolean animate);
 
     Bitmap getDefaultVideoPoster();
 

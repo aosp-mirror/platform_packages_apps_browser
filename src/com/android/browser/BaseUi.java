@@ -558,7 +558,7 @@ public abstract class BaseUi implements UI, OnTouchListener {
     }
 
     @Override
-    public boolean showsWeb() {
+    public boolean isWebShowing() {
         return mCustomView == null;
     }
 
@@ -841,4 +841,10 @@ public abstract class BaseUi implements UI, OnTouchListener {
             }
         }
     };
+
+    @Override
+    public void showWeb(boolean animate) {
+        mUiController.hideCustomView();
+    }
+
 }

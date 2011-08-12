@@ -156,7 +156,6 @@ public class NavScreen extends RelativeLayout
             }
         }
         if (mBookmarks == v) {
-            mUi.hideNavScreen(false);
             switchToSelected();
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mNewTab == v) {
