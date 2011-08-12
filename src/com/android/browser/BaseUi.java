@@ -793,7 +793,8 @@ public abstract class BaseUi implements UI, OnTouchListener {
      * as if the user is editing the URL bar or if the page is loading
      */
     public void suggestHideTitleBar() {
-        if (!isLoading() && !isEditingUrl() && !mTitleBar.wantsToBeVisible()) {
+        if (!isLoading() && !isEditingUrl() && !mTitleBar.wantsToBeVisible()
+                && !mNavigationBar.isMenuShowing()) {
             hideTitleBar();
         }
     }

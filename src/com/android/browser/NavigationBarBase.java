@@ -33,6 +33,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnDismissListener;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import com.android.browser.UI.DropdownChangeListener;
@@ -43,7 +44,7 @@ import java.util.List;
 
 public class NavigationBarBase extends LinearLayout implements OnClickListener,
         OnMenuItemClickListener, UrlInputListener, OnFocusChangeListener,
-        TextChangeWatcher {
+        TextChangeWatcher, OnDismissListener {
 
     protected BaseUi mBaseUi;
     protected TitleBar mTitleBar;
@@ -54,6 +55,8 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
     private ImageView mFavicon;
     private ImageView mLockIcon;
     private View mUaSwitcher;
+    private boolean mUaSwitcherShowing;
+    private PopupMenu mUaSwitcherMenu;
 
     public NavigationBarBase(Context context) {
         super(context);
@@ -116,9 +119,9 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
             WebView web = mTitleBar.getCurrentWebView();
             if (web == null) return;
             boolean desktop = settings.hasDesktopUseragent(web);
-            PopupMenu popup = new PopupMenu(mContext, mUaSwitcher);
-            Menu menu = popup.getMenu();
-            popup.getMenuInflater().inflate(R.menu.ua_switcher, menu);
+            mUaSwitcherMenu = new PopupMenu(mContext, mUaSwitcher);
+            Menu menu = mUaSwitcherMenu.getMenu();
+            mUaSwitcherMenu.getMenuInflater().inflate(R.menu.ua_switcher, menu);
             menu.findItem(R.id.ua_mobile_menu_id).setChecked(!desktop);
             menu.findItem(R.id.ua_desktop_menu_id).setChecked(desktop);
             Tab tab = mUiController.getCurrentTab();
@@ -126,8 +129,10 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
             saveSnapshot.setVisible(tab != null && !tab.isSnapshot());
             MenuItem find = menu.findItem(R.id.find_menu_id);
             find.setVisible(tab != null && !tab.isSnapshot());
-            popup.setOnMenuItemClickListener(this);
-            popup.show();
+            mUaSwitcherMenu.setOnMenuItemClickListener(this);
+            mUaSwitcherMenu.setOnDismissListener(this);
+            mUaSwitcherShowing = true;
+            mUaSwitcherMenu.show();
         }
     }
 
@@ -333,6 +338,19 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
     }
 
     public void onProgressStopped() {
+    }
+
+    @Override
+    public void onDismiss(PopupMenu menu) {
+        if (mUaSwitcherMenu == menu) {
+            mUaSwitcherShowing = false;
+            mUaSwitcherMenu = null;
+            mBaseUi.showTitleBarForDuration();
+        }
+    }
+
+    public boolean isMenuShowing() {
+        return mUaSwitcherShowing;
     }
 
 }

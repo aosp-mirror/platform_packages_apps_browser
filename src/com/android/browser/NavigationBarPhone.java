@@ -15,14 +15,11 @@
  */
 package com.android.browser;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -34,7 +31,7 @@ import android.widget.PopupMenu.OnDismissListener;
 import com.android.browser.UrlInputView.StateListener;
 
 public class NavigationBarPhone extends NavigationBarBase implements
-        StateListener, OnDismissListener {
+        StateListener {
 
     private ImageView mStopButton;
     private ImageView mVoiceButton;
@@ -48,7 +45,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     private View mMore;
     private Drawable mTextfieldBgDrawable;
     private PopupMenu mPopupMenu;
-    private boolean mMenuShowing;
+    private boolean mOverflowMenuShowing;
     private boolean mNeedsMenu;
 
     public NavigationBarPhone(Context context) {
@@ -162,12 +159,13 @@ public class NavigationBarPhone extends NavigationBarBase implements
         }
     }
 
+    @Override
     public boolean isMenuShowing() {
-        return mMenuShowing;
+        return super.isMenuShowing() || mOverflowMenuShowing;
     }
 
     void showMenu(View anchor) {
-        mMenuShowing = true;
+        mOverflowMenuShowing = true;
         mPopupMenu = new PopupMenu(mContext, anchor);
         Menu menu = mPopupMenu.getMenu();
         mPopupMenu.getMenuInflater().inflate(R.menu.browser, menu);
@@ -179,7 +177,10 @@ public class NavigationBarPhone extends NavigationBarBase implements
 
     @Override
     public void onDismiss(PopupMenu menu) {
-        onMenuHidden();
+        if (menu == mPopupMenu) {
+            onMenuHidden();
+        }
+        super.onDismiss(menu);
     }
 
     @Override
@@ -193,7 +194,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     }
 
     private void onMenuHidden() {
-        mMenuShowing = false;
+        mOverflowMenuShowing = false;
         mPopupMenu = null;
         mBaseUi.showTitleBarForDuration();
     }

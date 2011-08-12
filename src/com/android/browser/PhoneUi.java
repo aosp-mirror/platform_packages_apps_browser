@@ -141,18 +141,6 @@ public class PhoneUi extends BaseUi {
         mTitleBar.setSkipTitleBarAnimations(false);
     }
 
-    /**
-     * Suggest to the UI that the title bar can be hidden. The UI will then
-     * decide whether or not to hide based off a number of factors, such
-     * as if the user is editing the URL bar or if the page is loading
-     */
-    @Override
-    public void suggestHideTitleBar() {
-        if (!mNavigationBar.isMenuShowing()) {
-            super.suggestHideTitleBar();
-        }
-    }
-
     // menu handling callbacks
 
     @Override
