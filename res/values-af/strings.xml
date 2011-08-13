@@ -21,9 +21,9 @@
     <string name="choose_upload" msgid="3649366287575002063">"Kies lêer vir oplaai"</string>
     <!-- no translation found for uploads_disabled (463761197575372994) -->
     <skip />
-    <!-- no translation found for new_tab (4505722538297295141) -->
+    <!-- no translation found for new_tab (7971857320679510529) -->
     <skip />
-    <string name="new_incognito_tab" msgid="5821404839654751753">"Nuwe incognito-venster"</string>
+    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Nuwe incognito-venster"</string>
     <!-- no translation found for tab_bookmarks (2305793036003473653) -->
     <skip />
     <!-- no translation found for tab_most_visited (1077402532455000703) -->
@@ -75,12 +75,9 @@
     <skip />
     <!-- no translation found for ssl_not_yet_valid (2893167846212645846) -->
     <skip />
-    <!-- no translation found for ssl_date_invalid (3705563379257285534) -->
-    <skip />
-    <!-- no translation found for ssl_invalid (9041704741505449967) -->
-    <skip />
-    <!-- no translation found for ssl_unknown (5679243486524754571) -->
-    <skip />
+    <string name="ssl_date_invalid" msgid="3705563379257285534">"Hierdie sertifikaat het \'n ongeldige datum."</string>
+    <string name="ssl_invalid" msgid="9041704741505449967">"Hierdie sertifikaat is ongeldig."</string>
+    <string name="ssl_unknown" msgid="5679243486524754571">"Onbekende sertifikaatfout."</string>
     <!-- no translation found for stopping (4839698519340302982) -->
     <skip />
     <!-- no translation found for stop (5687251076030630074) -->
@@ -149,17 +146,10 @@
     <skip />
     <!-- no translation found for delete_bookmark_warning (758043186202032205) -->
     <skip />
-    <string name="open_all_in_new_window" msgid="6514602245828366045">"Open almal in nuwe vensters"</string>
+    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Open almal in nuwe vensters"</string>
     <!-- no translation found for goto_dot (3895839050522602723) -->
     <skip />
-    <!-- no translation found for menu_new_tab (8045774594066898348) -->
-    <skip />
-    <string name="incognito_tab" msgid="5419458065370134289">"Open nuwe incognito-oortjie"</string>
     <!-- no translation found for select_dot (6299170761900561967) -->
-    <skip />
-    <!-- no translation found for tab_picker_title (864478399057782913) -->
-    <skip />
-    <!-- no translation found for tab_picker_remove_tab (630087809802479397) -->
     <skip />
     <!-- no translation found for bookmarks (1961279134885867815) -->
     <skip />
@@ -181,9 +171,9 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Leë vouer"</string>
     <!-- no translation found for contextmenu_openlink (7237961252214188935) -->
     <skip />
-    <!-- no translation found for contextmenu_openlink_newwindow (992765050093960353) -->
+    <!-- no translation found for contextmenu_openlink_newwindow (1205313604181761403) -->
     <skip />
-    <!-- no translation found for contextmenu_openlink_newwindow_background (5556131402560251639) -->
+    <!-- no translation found for contextmenu_openlink_newwindow_background (4690381019116746687) -->
     <skip />
     <!-- no translation found for contextmenu_savelink (5508554930832538184) -->
     <skip />
@@ -235,7 +225,7 @@
     <item msgid="2484126708670016519">"Op aanvraag"</item>
     <item msgid="8547442717307793863">"Af"</item>
   </string-array>
-    <!-- no translation found for pref_content_open_in_background_summary (1737664075721181678) -->
+    <!-- no translation found for pref_content_open_in_background_summary (6114922017800433172) -->
     <skip />
     <!-- no translation found for pref_content_homepage (3324574611613105696) -->
     <skip />
@@ -377,14 +367,10 @@
     <skip />
     <!-- no translation found for pref_force_userscalable_summary (4431962409438162448) -->
     <skip />
-    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
-    <skip />
-    <!-- no translation found for pref_inverted (4813962104859359420) -->
-    <skip />
-    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
-    <skip />
-    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
-    <skip />
+    <string name="pref_inverted_category" msgid="3115731672066279347">"Omgekeerde skermaanbieding"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"Omgekeerde aanbieding"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"Omgekeerde aanbieding geaktiveer. Swart sal wit word en omgekeerd."</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontras"</string>
     <!-- no translation found for pref_default_zoom (8076142259097187395) -->
     <skip />
     <!-- no translation found for pref_default_zoom_choices:0 (549583171195154919) -->
@@ -474,9 +460,9 @@
     <skip />
     <!-- no translation found for block (9172175889884707800) -->
     <skip />
-    <!-- no translation found for too_many_windows_dialog_title (5175503564948906442) -->
+    <!-- no translation found for too_many_windows_dialog_title (5709782301477380438) -->
     <skip />
-    <!-- no translation found for too_many_windows_dialog_message (1398571800233959583) -->
+    <!-- no translation found for too_many_windows_dialog_message (7417529754382308997) -->
     <skip />
     <!-- no translation found for too_many_subwindows_dialog_title (3805453941587725944) -->
     <skip />
@@ -645,44 +631,24 @@
     <skip />
     <!-- no translation found for remove_snapshot (1624447424544976849) -->
     <skip />
-    <!-- no translation found for snapshot_go_live (1209542802541168497) -->
-    <skip />
-    <!-- no translation found for accessibility_button_back (6194680634245279407) -->
-    <skip />
-    <!-- no translation found for accessibility_button_forward (1236827218480658168) -->
-    <skip />
-    <!-- no translation found for accessibility_button_refresh (1023441396241841313) -->
-    <skip />
-    <!-- no translation found for accessibility_button_stop (6793644120043222148) -->
-    <skip />
-    <!-- no translation found for accessibility_button_addbookmark (4787844912630006181) -->
-    <skip />
-    <!-- no translation found for accessibility_button_search (5357014102136055376) -->
-    <skip />
-    <!-- no translation found for accessibility_button_voice (152016375096083337) -->
-    <skip />
-    <!-- no translation found for accessibility_button_bookmarks (7435055677299151649) -->
-    <skip />
-    <!-- no translation found for accessibility_button_closetab (6954807842756927737) -->
-    <skip />
-    <!-- no translation found for accessibility_button_newtab (4116986240706315748) -->
-    <skip />
-    <!-- no translation found for accessibility_button_newincognitotab (5254901889040012964) -->
-    <skip />
-    <!-- no translation found for accessibility_button_clear (6943152307986161598) -->
-    <skip />
-    <!-- no translation found for accessibility_button_uaswitch (6286804719724282339) -->
-    <skip />
-    <!-- no translation found for accessibility_button_go (1182818872083055958) -->
-    <skip />
-    <!-- no translation found for accessibility_button_navscreen (9142904748728713075) -->
-    <skip />
-    <!-- no translation found for accessibility_button_more (3054251446394224216) -->
-    <skip />
-    <!-- no translation found for accessibility_state_incognito (5786038488425202355) -->
-    <skip />
-    <!-- no translation found for accessibility_state_frozen (8041539250447035570) -->
-    <skip />
-    <!-- no translation found for accessibility_transition_navscreen (2734915619351519547) -->
-    <skip />
+    <string name="snapshot_go_live" msgid="1209542802541168497">"Word aktief"</string>
+    <string name="accessibility_button_back" msgid="6194680634245279407">"Gaan terug"</string>
+    <string name="accessibility_button_forward" msgid="1236827218480658168">"Gaan vorentoe"</string>
+    <string name="accessibility_button_refresh" msgid="1023441396241841313">"Herlaai bladsy"</string>
+    <string name="accessibility_button_stop" msgid="6793644120043222148">"Hou op bladsy laai"</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Boekmerk bladsy"</string>
+    <string name="accessibility_button_search" msgid="5357014102136055376">"Soek"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Begin stemsoektog"</string>
+    <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Boekmerke"</string>
+    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Sluit oortjie"</string>
+    <string name="accessibility_button_newtab" msgid="4116986240706315748">"Open nuwe oortjie"</string>
+    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Open nuwe incognito-oortjie"</string>
+    <string name="accessibility_button_clear" msgid="6943152307986161598">"Vee invoer uit"</string>
+    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Wissel gebruikeragent"</string>
+    <string name="accessibility_button_go" msgid="1182818872083055958">"Doen dit"</string>
+    <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Bladsybestuurder"</string>
+    <string name="accessibility_button_more" msgid="3054251446394224216">"Meer opsies"</string>
+    <string name="accessibility_state_incognito" msgid="5786038488425202355">"Incognito-bladsy"</string>
+    <string name="accessibility_state_frozen" msgid="8041539250447035570">"Gestoorde bladsy"</string>
+    <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Oortjiebestuur"</string>
 </resources>

@@ -19,8 +19,8 @@
     <string name="application_name" msgid="1935869255545976415">"Navegador"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Seleccionar archivo para subir"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Las subidas de archivos están inhabilitadas."</string>
-    <string name="new_tab" msgid="4505722538297295141">"Nueva ventana"</string>
-    <string name="new_incognito_tab" msgid="5821404839654751753">"Nueva ventana de incógnito"</string>
+    <string name="new_tab" msgid="7971857320679510529">"Nueva ficha"</string>
+    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Nueva ventana de incógnito"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcadores"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Más visitados"</string>
     <string name="tab_history" msgid="1979267558744613746">"Historial"</string>
@@ -47,12 +47,9 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"El nombre del sitio no coincide con el del certificado."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Este certificado ha caducado."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Este certificado aún no es válido."</string>
-    <!-- no translation found for ssl_date_invalid (3705563379257285534) -->
-    <skip />
-    <!-- no translation found for ssl_invalid (9041704741505449967) -->
-    <skip />
-    <!-- no translation found for ssl_unknown (5679243486524754571) -->
-    <skip />
+    <string name="ssl_date_invalid" msgid="3705563379257285534">"La fecha de este certificado no es válida."</string>
+    <string name="ssl_invalid" msgid="9041704741505449967">"Este certificado no es válido."</string>
+    <string name="ssl_unknown" msgid="5679243486524754571">"Error de certificado desconocido"</string>
     <string name="stopping" msgid="4839698519340302982">"Deteniendo..."</string>
     <string name="stop" msgid="5687251076030630074">"Detener"</string>
     <string name="reload" msgid="8585220783228408062">"Actualizar"</string>
@@ -95,14 +92,9 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Lista"</string>
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Se eliminará el marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
-    <string name="open_all_in_new_window" msgid="6514602245828366045">"Abrir todo en ventanas nuevas"</string>
+    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Abrir todo en ventanas nuevas"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ir"</string>
-    <!-- no translation found for menu_new_tab (8045774594066898348) -->
-    <skip />
-    <string name="incognito_tab" msgid="5419458065370134289">"Abrir nueva pestaña de incógnito"</string>
     <string name="select_dot" msgid="6299170761900561967">"Seleccionar texto"</string>
-    <string name="tab_picker_title" msgid="864478399057782913">"Ventanas actuales"</string>
-    <string name="tab_picker_remove_tab" msgid="630087809802479397">"Cerrar"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Marcadores"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Marcador"</string>
     <string name="history" msgid="2451240511251410032">"Historial"</string>
@@ -114,8 +106,8 @@
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> marcadores"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Carpeta vacía"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
-    <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"Abrir en ventana nueva"</string>
-    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"Abrir en una nueva ventana en segundo plano"</string>
+    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Abrir en ventana nueva"</string>
+    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Abrir en una nueva ventana en segundo plano"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Guardar enlace"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Compartir enlace"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copiar"</string>
@@ -144,7 +136,7 @@
     <item msgid="2484126708670016519">"A petición"</item>
     <item msgid="8547442717307793863">"Desactivado"</item>
   </string-array>
-    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Abrir nuevas ventanas detrás de la actual"</string>
+    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Abrir nuevas ventanas detrás de la actual"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Establecer página principal"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Establecer motor de búsqueda"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Seleccionar un motor de búsqueda"</string>
@@ -245,14 +237,10 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Zoom"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Forzar habilitación de zoom"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"¿Anular control del zoom?"</string>
-    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
-    <skip />
-    <!-- no translation found for pref_inverted (4813962104859359420) -->
-    <skip />
-    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
-    <skip />
-    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
-    <skip />
+    <string name="pref_inverted_category" msgid="3115731672066279347">"Representación de pantalla invertida"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"Representación invertida"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"Habilita la representación invertida (el negro se convertirá en blanco y viceversa)."</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"Contraste"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predeterminado"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Lejos"</item>
@@ -314,8 +302,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Este sitio está intentando mostrar una ventana emergente."</string>
     <string name="allow" msgid="1157313689171991335">"Permitir"</string>
     <string name="block" msgid="9172175889884707800">"Bloquear"</string>
-    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"Límite de ventanas alcanzado"</string>
-    <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"No se ha podido abrir una ventana nueva porque ya se ha abierto el número máximo de ventanas admitido."</string>
+    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Límite de ventanas alcanzado"</string>
+    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"No se ha podido abrir una ventana nueva porque ya se ha abierto el número máximo de ventanas admitido."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ventana emergente ya abierta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"No se ha podido abrir una nueva ventana emergente porque no se puede abrir más de una ventana emergente a la vez."</string>
     <string name="download_title" msgid="2122874021047565594">"Historial de descargas"</string>
@@ -410,44 +398,24 @@
     <string name="permission_preload_label" msgid="4856971662337877316">"Precargar resultados"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"No hay páginas guardadas."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Eliminar página guardada"</string>
-    <!-- no translation found for snapshot_go_live (1209542802541168497) -->
-    <skip />
-    <!-- no translation found for accessibility_button_back (6194680634245279407) -->
-    <skip />
-    <!-- no translation found for accessibility_button_forward (1236827218480658168) -->
-    <skip />
-    <!-- no translation found for accessibility_button_refresh (1023441396241841313) -->
-    <skip />
-    <!-- no translation found for accessibility_button_stop (6793644120043222148) -->
-    <skip />
-    <!-- no translation found for accessibility_button_addbookmark (4787844912630006181) -->
-    <skip />
-    <!-- no translation found for accessibility_button_search (5357014102136055376) -->
-    <skip />
-    <!-- no translation found for accessibility_button_voice (152016375096083337) -->
-    <skip />
-    <!-- no translation found for accessibility_button_bookmarks (7435055677299151649) -->
-    <skip />
-    <!-- no translation found for accessibility_button_closetab (6954807842756927737) -->
-    <skip />
-    <!-- no translation found for accessibility_button_newtab (4116986240706315748) -->
-    <skip />
-    <!-- no translation found for accessibility_button_newincognitotab (5254901889040012964) -->
-    <skip />
-    <!-- no translation found for accessibility_button_clear (6943152307986161598) -->
-    <skip />
-    <!-- no translation found for accessibility_button_uaswitch (6286804719724282339) -->
-    <skip />
-    <!-- no translation found for accessibility_button_go (1182818872083055958) -->
-    <skip />
-    <!-- no translation found for accessibility_button_navscreen (9142904748728713075) -->
-    <skip />
-    <!-- no translation found for accessibility_button_more (3054251446394224216) -->
-    <skip />
-    <!-- no translation found for accessibility_state_incognito (5786038488425202355) -->
-    <skip />
-    <!-- no translation found for accessibility_state_frozen (8041539250447035570) -->
-    <skip />
-    <!-- no translation found for accessibility_transition_navscreen (2734915619351519547) -->
-    <skip />
+    <string name="snapshot_go_live" msgid="1209542802541168497">"Streaming en directo"</string>
+    <string name="accessibility_button_back" msgid="6194680634245279407">"Volver"</string>
+    <string name="accessibility_button_forward" msgid="1236827218480658168">"Avanzar"</string>
+    <string name="accessibility_button_refresh" msgid="1023441396241841313">"Actualizar página"</string>
+    <string name="accessibility_button_stop" msgid="6793644120043222148">"Detener carga de la página"</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Marcar página"</string>
+    <string name="accessibility_button_search" msgid="5357014102136055376">"Buscar"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Iniciar búsqueda por voz"</string>
+    <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Marcadores"</string>
+    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Cerrar pestaña"</string>
+    <string name="accessibility_button_newtab" msgid="4116986240706315748">"Abrir nueva pestaña"</string>
+    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Abrir nueva pestaña de incógnito"</string>
+    <string name="accessibility_button_clear" msgid="6943152307986161598">"Borrar entrada"</string>
+    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Cambiar user-agent"</string>
+    <string name="accessibility_button_go" msgid="1182818872083055958">"Ir"</string>
+    <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Administrador de página"</string>
+    <string name="accessibility_button_more" msgid="3054251446394224216">"Más opciones"</string>
+    <string name="accessibility_state_incognito" msgid="5786038488425202355">"Página de incógnito"</string>
+    <string name="accessibility_state_frozen" msgid="8041539250447035570">"Página guardada"</string>
+    <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Administración de pestañas"</string>
 </resources>
