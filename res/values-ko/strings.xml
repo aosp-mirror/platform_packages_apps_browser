@@ -19,8 +19,8 @@
     <string name="application_name" msgid="1935869255545976415">"인터넷"</string>
     <string name="choose_upload" msgid="3649366287575002063">"업로드할 파일 선택"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"파일 업로드가 사용 중지되었습니다."</string>
-    <string name="new_tab" msgid="4505722538297295141">"새 창"</string>
-    <string name="new_incognito_tab" msgid="5821404839654751753">"새 시크릿 창"</string>
+    <string name="new_tab" msgid="7971857320679510529">"새 탭"</string>
+    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"새 시크릿 창"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"북마크"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"자주 방문한 페이지"</string>
     <string name="tab_history" msgid="1979267558744613746">"기록"</string>
@@ -47,12 +47,9 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"사이트 이름이 인증서에 있는 것과 일치하지 않습니다."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"인증서가 만료되었습니다."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"인증서가 아직 유효하지 않습니다."</string>
-    <!-- no translation found for ssl_date_invalid (3705563379257285534) -->
-    <skip />
-    <!-- no translation found for ssl_invalid (9041704741505449967) -->
-    <skip />
-    <!-- no translation found for ssl_unknown (5679243486524754571) -->
-    <skip />
+    <string name="ssl_date_invalid" msgid="3705563379257285534">"인증서의 날짜가 잘못되었습니다."</string>
+    <string name="ssl_invalid" msgid="9041704741505449967">"인증서가 잘못되었습니다."</string>
+    <string name="ssl_unknown" msgid="5679243486524754571">"알 수 없는 인증서 오류입니다."</string>
     <string name="stopping" msgid="4839698519340302982">"중지하는 중..."</string>
     <string name="stop" msgid="5687251076030630074">"중지"</string>
     <string name="reload" msgid="8585220783228408062">"새로고침"</string>
@@ -95,14 +92,9 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"목록"</string>
     <string name="current_page" msgid="7510129573681663135">"북마크할 페이지 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"\'<xliff:g id="BOOKMARK">%s</xliff:g>\' 북마크가 삭제됩니다."</string>
-    <string name="open_all_in_new_window" msgid="6514602245828366045">"새 창에서 모두 열기"</string>
+    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"새 창에서 모두 열기"</string>
     <string name="goto_dot" msgid="3895839050522602723">"이동"</string>
-    <!-- no translation found for menu_new_tab (8045774594066898348) -->
-    <skip />
-    <string name="incognito_tab" msgid="5419458065370134289">"새 시크릿 탭 열기"</string>
     <string name="select_dot" msgid="6299170761900561967">"텍스트 선택"</string>
-    <string name="tab_picker_title" msgid="864478399057782913">"현재 창"</string>
-    <string name="tab_picker_remove_tab" msgid="630087809802479397">"닫기"</string>
     <string name="bookmarks" msgid="1961279134885867815">"북마크"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"북마크"</string>
     <string name="history" msgid="2451240511251410032">"기록"</string>
@@ -114,8 +106,8 @@
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"북마크 <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>개"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"빈 폴더"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"열기"</string>
-    <string name="contextmenu_openlink_newwindow" msgid="992765050093960353">"새 창에서 열기"</string>
-    <string name="contextmenu_openlink_newwindow_background" msgid="5556131402560251639">"새 배경 창에서 열기"</string>
+    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"새 창에서 열기"</string>
+    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"새 배경 창에서 열기"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"링크 저장"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"링크 공유"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"복사"</string>
@@ -144,7 +136,7 @@
     <item msgid="2484126708670016519">"요청 시"</item>
     <item msgid="8547442717307793863">"사용 안함"</item>
   </string-array>
-    <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"현재 창 뒤에 새 창 열기"</string>
+    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"현재 창 뒤에 새 창 열기"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"홈페이지 설정"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"검색 엔진 설정"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"검색 엔진 선택"</string>
@@ -245,14 +237,10 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"글꼴 크기"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"확대/축소 강제 사용"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"확대/축소 요청 무시 여부"</string>
-    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
-    <skip />
-    <!-- no translation found for pref_inverted (4813962104859359420) -->
-    <skip />
-    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
-    <skip />
-    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
-    <skip />
+    <string name="pref_inverted_category" msgid="3115731672066279347">"화면 반전 렌더링"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"반전 렌더링"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"반전 렌더링을 사용합니다. 검은색은 흰색이 되고 흰색은 검은색이 됩니다."</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"대비"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"기본 확대/축소"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"축소"</item>
@@ -314,8 +302,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"사이트에서 팝업 창을 열려고 합니다."</string>
     <string name="allow" msgid="1157313689171991335">"허용"</string>
     <string name="block" msgid="9172175889884707800">"차단"</string>
-    <string name="too_many_windows_dialog_title" msgid="5175503564948906442">"창 개수 한도에 도달"</string>
-    <string name="too_many_windows_dialog_message" msgid="1398571800233959583">"이미 최대 개수의 창을 열었기 때문에 새 창을 열 수 없습니다."</string>
+    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"창 개수 한도에 도달"</string>
+    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"이미 최대 개수의 창을 열었기 때문에 새 창을 열 수 없습니다."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"팝업이 이미 열려 있음"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"한 번에 하나만 열 수 있으므로 새 팝업 창을 열 수 없습니다."</string>
     <string name="download_title" msgid="2122874021047565594">"다운로드 기록"</string>
@@ -410,44 +398,24 @@
     <string name="permission_preload_label" msgid="4856971662337877316">"결과 미리 로드"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"저장된 페이지가 없습니다."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"저장된 페이지 삭제"</string>
-    <!-- no translation found for snapshot_go_live (1209542802541168497) -->
-    <skip />
-    <!-- no translation found for accessibility_button_back (6194680634245279407) -->
-    <skip />
-    <!-- no translation found for accessibility_button_forward (1236827218480658168) -->
-    <skip />
-    <!-- no translation found for accessibility_button_refresh (1023441396241841313) -->
-    <skip />
-    <!-- no translation found for accessibility_button_stop (6793644120043222148) -->
-    <skip />
-    <!-- no translation found for accessibility_button_addbookmark (4787844912630006181) -->
-    <skip />
-    <!-- no translation found for accessibility_button_search (5357014102136055376) -->
-    <skip />
-    <!-- no translation found for accessibility_button_voice (152016375096083337) -->
-    <skip />
-    <!-- no translation found for accessibility_button_bookmarks (7435055677299151649) -->
-    <skip />
-    <!-- no translation found for accessibility_button_closetab (6954807842756927737) -->
-    <skip />
-    <!-- no translation found for accessibility_button_newtab (4116986240706315748) -->
-    <skip />
-    <!-- no translation found for accessibility_button_newincognitotab (5254901889040012964) -->
-    <skip />
-    <!-- no translation found for accessibility_button_clear (6943152307986161598) -->
-    <skip />
-    <!-- no translation found for accessibility_button_uaswitch (6286804719724282339) -->
-    <skip />
-    <!-- no translation found for accessibility_button_go (1182818872083055958) -->
-    <skip />
-    <!-- no translation found for accessibility_button_navscreen (9142904748728713075) -->
-    <skip />
-    <!-- no translation found for accessibility_button_more (3054251446394224216) -->
-    <skip />
-    <!-- no translation found for accessibility_state_incognito (5786038488425202355) -->
-    <skip />
-    <!-- no translation found for accessibility_state_frozen (8041539250447035570) -->
-    <skip />
-    <!-- no translation found for accessibility_transition_navscreen (2734915619351519547) -->
-    <skip />
+    <string name="snapshot_go_live" msgid="1209542802541168497">"라이브"</string>
+    <string name="accessibility_button_back" msgid="6194680634245279407">"뒤로"</string>
+    <string name="accessibility_button_forward" msgid="1236827218480658168">"앞으로"</string>
+    <string name="accessibility_button_refresh" msgid="1023441396241841313">"페이지 새로고침"</string>
+    <string name="accessibility_button_stop" msgid="6793644120043222148">"페이지 로드 중지"</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"북마크 페이지"</string>
+    <string name="accessibility_button_search" msgid="5357014102136055376">"검색"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"음성 검색 시작"</string>
+    <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"북마크"</string>
+    <string name="accessibility_button_closetab" msgid="6954807842756927737">"탭 닫기"</string>
+    <string name="accessibility_button_newtab" msgid="4116986240706315748">"새 탭 열기"</string>
+    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"새 시크릿 탭 열기"</string>
+    <string name="accessibility_button_clear" msgid="6943152307986161598">"입력내용 지우기"</string>
+    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"사용자 에이전트 전환"</string>
+    <string name="accessibility_button_go" msgid="1182818872083055958">"이동"</string>
+    <string name="accessibility_button_navscreen" msgid="9142904748728713075">"페이지 관리자"</string>
+    <string name="accessibility_button_more" msgid="3054251446394224216">"옵션 더보기"</string>
+    <string name="accessibility_state_incognito" msgid="5786038488425202355">"시크릿 페이지"</string>
+    <string name="accessibility_state_frozen" msgid="8041539250447035570">"저장된 페이지"</string>
+    <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"탭 관리"</string>
 </resources>
