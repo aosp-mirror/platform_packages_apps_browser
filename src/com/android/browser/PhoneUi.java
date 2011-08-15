@@ -329,10 +329,12 @@ public class PhoneUi extends BaseUi {
         final Tab tab = mNavScreen.getSelectedTab();
         if ((tab != null) && !animate) {
             finishAnimateOut(tab);
+            return;
         }
         NavTabView tabview = (NavTabView) mNavScreen.getSelectedTabView();
         if (tabview == null) {
             finishAnimateOut(tab);
+            return;
         }
         mUiController.setBlockEvents(true);
         mUiController.setActiveTab(tab);
