@@ -87,4 +87,15 @@ public class BrowserPreferencesPage extends PreferenceActivity {
 
         return false;
     }
+
+    @Override
+    public Intent onBuildStartFragmentIntent(String fragmentName, Bundle args,
+            int titleRes, int shortTitleRes) {
+        Intent intent = super.onBuildStartFragmentIntent(fragmentName, args,
+                titleRes, shortTitleRes);
+        String url = getIntent().getStringExtra(CURRENT_PAGE);
+        intent.putExtra(CURRENT_PAGE, url);
+        return intent;
+    }
+
 }
