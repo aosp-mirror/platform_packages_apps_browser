@@ -191,10 +191,12 @@ class Tab implements PictureListener {
         String mTitle;
         LockIcon mLockIcon;
         Bitmap mFavicon;
-        Boolean mIsBookmarkedSite = false;
+        boolean mIsBookmarkedSite = false;
+        boolean mIncognito = false;
 
         PageState(Context c, boolean incognito) {
-            if (incognito) {
+            mIncognito = incognito;
+            if (mIncognito) {
                 mOriginalUrl = mUrl = "browser:incognito";
                 mTitle = c.getString(R.string.new_incognito_tab);
             } else {
@@ -206,6 +208,7 @@ class Tab implements PictureListener {
         }
 
         PageState(Context c, boolean incognito, String url, Bitmap favicon) {
+            mIncognito = incognito;
             mOriginalUrl = mUrl = url;
             mTitle = null;
             if (URLUtil.isHttpsUrl(url)) {
@@ -913,6 +916,7 @@ class Tab implements PictureListener {
             // but before a provisional load occurred
             mCurrentState.mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
         }
+        mCurrentState.mIncognito = view.isPrivateBrowsingEnabled();
     }
 
     // Called by DeviceAccountLogin when the Tab needs to have the auto-login UI
@@ -1746,11 +1750,7 @@ class Tab implements PictureListener {
      * @return True if private browsing is enabled.
      */
     boolean isPrivateBrowsingEnabled() {
-        WebView webView = getWebView();
-        if (webView == null) {
-            return false;
-        }
-        return webView.isPrivateBrowsingEnabled();
+        return mCurrentState.mIncognito;
     }
 
     /**

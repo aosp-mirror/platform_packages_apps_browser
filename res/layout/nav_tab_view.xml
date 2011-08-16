@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dip"
         android:layout_gravity="center_horizontal"
-        android:paddingLeft="16dip" >
+        android:paddingLeft="8dip" >
         <TextView
             android:id="@+id/title"
             android:layout_width="0dip"
@@ -39,7 +39,8 @@
             android:ellipsize="end"
             android:lines="1"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:scrollHorizontally="true" />
+            android:scrollHorizontally="true"
+            android:drawablePadding="8dip" />
         <ImageView
             android:id="@+id/closetab"
             android:src="@drawable/ic_stop_holo_dark"
