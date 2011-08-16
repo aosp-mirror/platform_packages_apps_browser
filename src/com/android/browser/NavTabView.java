@@ -90,6 +90,22 @@ public class NavTabView extends LinearLayout {
             }
             mTitle.setText(txt);
         }
+        if (mTab.isSnapshot()) {
+            setTitleIcon(R.drawable.ic_history_holo_dark);
+        } else if (mTab.isPrivateBrowsingEnabled()) {
+            setTitleIcon(R.drawable.ic_incognito_holo_dark);
+        } else {
+            setTitleIcon(0);
+        }
+    }
+
+    private void setTitleIcon(int id) {
+        if (id == 0) {
+            mTitle.setPadding(mTitle.getCompoundDrawablePadding(), 0, 0, 0);
+        } else {
+            mTitle.setPadding(0, 0, 0, 0);
+        }
+        mTitle.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0);
     }
 
     protected boolean isHighlighted() {
