@@ -327,13 +327,15 @@ public class PhoneUi extends BaseUi {
     void hideNavScreen(boolean animate) {
         if (mNavScreen == null) return;
         final Tab tab = mNavScreen.getSelectedTab();
-        if ((tab != null) && !animate) {
-            finishAnimateOut(tab);
+        if ((tab == null) || !animate) {
+            mContentView.setVisibility(View.VISIBLE);
+            finishAnimateOut();
             return;
         }
         NavTabView tabview = (NavTabView) mNavScreen.getSelectedTabView();
         if (tabview == null) {
-            finishAnimateOut(tab);
+            mContentView.setVisibility(View.VISIBLE);
+            finishAnimateOut();
             return;
         }
         mUiController.setBlockEvents(true);
@@ -375,7 +377,7 @@ public class PhoneUi extends BaseUi {
             @Override
             public void onAnimationEnd(Animator anim) {
                 mCustomViewContainer.removeView(screen.mMain);
-                finishAnimateOut(tab);
+                finishAnimateOut();
                 mUiController.setBlockEvents(false);
             }
         });
@@ -383,7 +385,7 @@ public class PhoneUi extends BaseUi {
         animSet.start();
     }
 
-    private void finishAnimateOut(Tab tab) {
+    private void finishAnimateOut() {
         mTabControl.setOnThumbnailUpdatedListener(null);
         mCustomViewContainer.removeView(mNavScreen);
         mCustomViewContainer.setAlpha(1f);
