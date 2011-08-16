@@ -353,4 +353,7 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
         return mUaSwitcherShowing;
     }
 
+    public void onTabDataChanged(Tab tab) {
+    }
+
 }

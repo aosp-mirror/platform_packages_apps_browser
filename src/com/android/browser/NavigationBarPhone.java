@@ -47,6 +47,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     private PopupMenu mPopupMenu;
     private boolean mOverflowMenuShowing;
     private boolean mNeedsMenu;
+    private View mIncognitoIcon;
 
     public NavigationBarPhone(Context context) {
         super(context);
@@ -84,6 +85,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mUrlInput.setContainer(this);
         mUrlInput.setStateListener(this);
         mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
+        mIncognitoIcon = findViewById(R.id.incognito_icon);
     }
 
     @Override
@@ -240,4 +242,12 @@ public class NavigationBarPhone extends NavigationBarBase implements
             break;
         }
     }
+
+    @Override
+    public void onTabDataChanged(Tab tab) {
+        super.onTabDataChanged(tab);
+        mIncognitoIcon.setVisibility(tab.isPrivateBrowsingEnabled()
+                ? View.VISIBLE : View.GONE);
+    }
+
 }

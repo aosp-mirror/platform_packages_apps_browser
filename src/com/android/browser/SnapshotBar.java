@@ -21,13 +21,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
 import android.view.ViewPropertyAnimator;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -55,7 +54,6 @@ public class SnapshotBar extends LinearLayout implements OnClickListener,
     private boolean mIsAnimating;
     private ViewPropertyAnimator mTitleAnimator, mDateAnimator;
     private float mAnimRadius = 20f;
-    private View mDateContainer;
 
     public SnapshotBar(Context context) {
         super(context);
@@ -98,7 +96,6 @@ public class SnapshotBar extends LinearLayout implements OnClickListener,
         mTabSwitcher = findViewById(R.id.tab_switcher);
         mOverflowMenu = findViewById(R.id.more);
         mToggleContainer = findViewById(R.id.toggle_container);
-        mDateContainer = findViewById(R.id.date_container);
 
         if (mBookmarks != null) {
             mBookmarks.setOnClickListener(this);
@@ -145,9 +142,9 @@ public class SnapshotBar extends LinearLayout implements OnClickListener,
         mTitle.setAlpha(1f);
         mTitle.setTranslationY(0f);
         mTitle.setRotationX(0f);
-        mDateContainer.setAlpha(0f);
-        mDateContainer.setTranslationY(-mAnimRadius);
-        mDateContainer.setRotationX(90f);
+        mDate.setAlpha(0f);
+        mDate.setTranslationY(-mAnimRadius);
+        mDate.setRotationX(90f);
     }
 
     private void showDate() {
@@ -155,7 +152,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener,
                 .alpha(0f)
                 .translationY(mAnimRadius)
                 .rotationX(-90f);
-        mDateAnimator = mDateContainer.animate()
+        mDateAnimator = mDate.animate()
                 .alpha(1f)
                 .translationY(0f)
                 .rotationX(0f);
@@ -166,7 +163,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener,
                 .alpha(1f)
                 .translationY(0f)
                 .rotationX(0f);
-        mDateAnimator = mDateContainer.animate()
+        mDateAnimator = mDate.animate()
                 .alpha(0f)
                 .translationY(-mAnimRadius)
                 .rotationX(90f);

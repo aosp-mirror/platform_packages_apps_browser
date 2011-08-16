@@ -194,6 +194,7 @@ public abstract class BaseUi implements UI {
         updateLockIconToLatest(tab);
         updateNavigationState(tab);
         mTitleBar.onTabDataChanged(tab);
+        mNavigationBar.onTabDataChanged(tab);
     }
 
     @Override
