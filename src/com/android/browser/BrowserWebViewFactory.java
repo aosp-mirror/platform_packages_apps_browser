@@ -60,7 +60,6 @@ public class BrowserWebViewFactory implements WebViewFactory {
                 pm.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH)
                 || pm.hasSystemFeature(PackageManager.FEATURE_FAKETOUCH_MULTITOUCH_DISTINCT);
         w.getSettings().setDisplayZoomControls(!supportsMultiTouch);
-        w.setExpandedTileBounds(true);  // smoother scrolling
 
         // Add this WebView to the settings observer list and update the
         // settings
