@@ -21,7 +21,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -34,6 +33,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebView;
@@ -246,6 +246,10 @@ public class PhoneUi extends BaseUi {
             }
             WebView web = getWebView();
             if (web != null) {
+                // make sure we can re-parent titlebar
+                if ((mTitleBar != null) && (mTitleBar.getParent() != null)) {
+                    ((ViewGroup) mTitleBar.getParent()).removeView(mTitleBar);
+                }
                 web.setEmbeddedTitleBar(mTitleBar);
             }
             setTitleGravity(Gravity.NO_GRAVITY);
