@@ -25,6 +25,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -72,11 +73,27 @@ public class TitleBar extends RelativeLayout {
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.title_bar, this);
         mProgress = (PageProgressView) findViewById(R.id.progress);
-        mAutoLogin = (AutologinBar) findViewById(R.id.autologin);
-        mAutoLogin.setTitleBar(this);
         mNavBar = (NavigationBarBase) findViewById(R.id.taburlbar);
         mNavBar.setTitleBar(this);
-        mSnapshotBar = (SnapshotBar) findViewById(R.id.snapshotbar);
+    }
+
+    private void inflateAutoLoginBar() {
+        if (mAutoLogin != null) {
+            return;
+        }
+
+        ViewStub stub = (ViewStub) findViewById(R.id.autologin_stub);
+        mAutoLogin = (AutologinBar) stub.inflate();
+        mAutoLogin.setTitleBar(this);
+    }
+
+    private void inflateSnapshotBar() {
+        if (mSnapshotBar != null) {
+            return;
+        }
+
+        ViewStub stub = (ViewStub) findViewById(R.id.snapshotbar_stub);
+        mSnapshotBar = (SnapshotBar) stub.inflate();
         mSnapshotBar.setTitleBar(this);
     }
 
@@ -236,19 +253,28 @@ public class TitleBar extends RelativeLayout {
 
     public int getEmbeddedHeight() {
         int height = mNavBar.getHeight();
-        if (mAutoLogin.getVisibility() == View.VISIBLE) {
+        if (mAutoLogin != null && mAutoLogin.getVisibility() == View.VISIBLE) {
             height += mAutoLogin.getHeight();
         }
         return height;
     }
 
     public void updateAutoLogin(Tab tab, boolean animate) {
+        if (mAutoLogin == null) {
+            if  (tab.getDeviceAccountLogin() == null) {
+                return;
+            }
+            inflateAutoLoginBar();
+        }
         mAutoLogin.updateAutoLogin(tab, animate);
     }
 
     public void showAutoLogin(boolean animate) {
         if (mUseQuickControls) {
             mBaseUi.showTitleBar();
+        }
+        if (mAutoLogin == null) {
+            inflateAutoLoginBar();
         }
         mAutoLogin.setVisibility(View.VISIBLE);
         if (animate) {
@@ -291,12 +317,12 @@ public class TitleBar extends RelativeLayout {
 
     public boolean wantsToBeVisible() {
         return inAutoLogin()
-            || (mSnapshotBar.getVisibility() == View.VISIBLE
+            || (mSnapshotBar != null && mSnapshotBar.getVisibility() == View.VISIBLE
                     && mSnapshotBar.isAnimating());
     }
 
     private boolean inAutoLogin() {
-        return mAutoLogin.getVisibility() == View.VISIBLE;
+        return mAutoLogin != null && mAutoLogin.getVisibility() == View.VISIBLE;
     }
 
     public boolean isEditingUrl() {
@@ -348,12 +374,18 @@ public class TitleBar extends RelativeLayout {
     }
 
     public void onTabDataChanged(Tab tab) {
-        mSnapshotBar.onTabDataChanged(tab);
+        if (mSnapshotBar != null) {
+            mSnapshotBar.onTabDataChanged(tab);
+        }
+
         if (tab.isSnapshot()) {
+            inflateSnapshotBar();
             mSnapshotBar.setVisibility(VISIBLE);
             mNavBar.setVisibility(GONE);
         } else {
-            mSnapshotBar.setVisibility(GONE);
+            if (mSnapshotBar != null) {
+                mSnapshotBar.setVisibility(GONE);
+            }
             mNavBar.setVisibility(VISIBLE);
         }
     }

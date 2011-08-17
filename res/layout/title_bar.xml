@@ -24,14 +24,14 @@
         android:id="@+id/taburlbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height" />
-    <include
-        layout="@layout/title_bar_snapshot"
-        android:id="@+id/snapshotbar"
+    <ViewStub
+        android:id="@+id/snapshotbar_stub"
+        android:layout="@layout/title_bar_snapshot"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height" />
-    <include
-        layout="@layout/title_bar_autologin"
-        android:id="@+id/autologin"
+    <ViewStub
+        android:id="@+id/autologin_stub"
+        android:layout="@layout/title_bar_autologin"
         android:paddingTop="3dip"
         android:layout_below="@id/taburlbar"
         android:layout_width="match_parent"
