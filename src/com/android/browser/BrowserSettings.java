@@ -103,6 +103,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private AutofillHandler mAutofillHandler;
     private WeakHashMap<WebSettings, String> mCustomUserAgents;
     private static boolean sInitialized = false;
+    private boolean mNeedsSharedSync = true;
 
     // Cached values
     private int mPageCacheCapacity = 1;
@@ -134,7 +135,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public void setController(Controller controller) {
         mController = controller;
-        syncSharedSettings();
+        if (sInitialized) {
+            syncSharedSettings();
+        }
 
         if (mController != null && (mSearchEngine instanceof InstantSearchEngine)) {
              ((InstantSearchEngine) mSearchEngine).setController(mController);
@@ -142,6 +145,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public void startManagingSettings(WebSettings settings) {
+        if (mNeedsSharedSync) {
+            syncSharedSettings();
+        }
         synchronized (mManagedSettings) {
             syncStaticSettings(settings);
             syncSetting(settings);
@@ -290,6 +296,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     private void syncSharedSettings() {
+        mNeedsSharedSync = false;
         CookieManager.getInstance().setAcceptCookie(acceptCookies());
         if (mController != null) {
             mController.setShouldShowErrorConsole(enableJavascriptConsole());
@@ -405,6 +412,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean isDebugEnabled() {
+        requireInitialization();
         return mPrefs.getBoolean(PREF_DEBUG_MENU, false);
     }
 
