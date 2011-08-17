@@ -319,9 +319,11 @@ public class PhoneUi extends BaseUi {
     }
 
     private void finishAnimationIn() {
-        // notify accessibility manager about the screen change
-        mNavScreen.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
-        mTabControl.setOnThumbnailUpdatedListener(mNavScreen);
+        if (mNavScreen != null) {
+            // notify accessibility manager about the screen change
+            mNavScreen.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+            mTabControl.setOnThumbnailUpdatedListener(mNavScreen);
+        }
     }
 
     void hideNavScreen(boolean animate) {
