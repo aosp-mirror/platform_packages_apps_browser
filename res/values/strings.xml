@@ -218,7 +218,7 @@
     <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
     <string name="menu_save_snapshot">Save for offline reading</string>
     <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
-    <string name="snapshot_failed">Failed to save for offline reading.</string>
+    <string name="snapshot_failed">Couldn\'t save for offline reading.</string>
     <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
     <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> bookmarks</string>
     <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
@@ -379,11 +379,11 @@
     <!-- Auto-login bar description [CHAR-LIMIT=40] -->
     <string name="autologin_bar_text">Sign in as</string>
     <!-- Login button [CHAR-LIMIT=10] -->
-    <string name="autologin_bar_login_text">Login</string>
+    <string name="autologin_bar_login_text">Sign in</string>
     <!-- Hide button [CHAR-LIMIT=10] -->
     <string name="autologin_bar_hide_text">Hide</string>
     <!-- Login failure text [CHAR-LIMIT=25] -->
-    <string name="autologin_bar_error">Login failed.</string>
+    <string name="autologin_bar_error">Couldn\'t sign in.</string>
 
     <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
     <string name="autofill_profile_editor_heading">Enter the data you want to auto-fill in web fields when you touch them.</string>
