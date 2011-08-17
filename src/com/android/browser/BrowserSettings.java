@@ -405,7 +405,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean isDebugEnabled() {
-        requireInitialization();
         return mPrefs.getBoolean(PREF_DEBUG_MENU, false);
     }
 

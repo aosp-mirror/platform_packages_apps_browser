@@ -16,21 +16,18 @@
 
 package com.android.browser.preferences;
 
-import com.android.browser.BrowserActivity;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceFragment;
+
 import com.android.browser.BrowserSettings;
 import com.android.browser.GoogleAccountLogin;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceFragment;
-
 public class DebugPreferencesFragment extends PreferenceFragment
-        implements OnPreferenceChangeListener, OnPreferenceClickListener {
+        implements OnPreferenceClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,18 +35,8 @@ public class DebugPreferencesFragment extends PreferenceFragment
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.debug_preferences);
 
-        Preference e = findPreference(PreferenceKeys.PREF_ENABLE_HARDWARE_ACCEL);
-        e.setOnPreferenceChangeListener(this);
-        e = findPreference(PreferenceKeys.PREF_RESET_PRELOGIN);
+        Preference e = findPreference(PreferenceKeys.PREF_RESET_PRELOGIN);
         e.setOnPreferenceClickListener(this);
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        // Attempt to restart
-        startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
-                getActivity(), BrowserActivity.class));
-        return true;
     }
 
     @Override

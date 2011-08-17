@@ -1664,10 +1664,21 @@ class Tab implements PictureListener {
 
     void resume() {
         if (mMainView != null) {
+            setupHwAcceleration(mMainView);
             mMainView.onResume();
             if (mSubView != null) {
                 mSubView.onResume();
             }
+        }
+    }
+
+    private void setupHwAcceleration(View web) {
+        if (web == null) return;
+        BrowserSettings settings = BrowserSettings.getInstance();
+        if (settings.isHardwareAccelerated()) {
+            web.setLayerType(View.LAYER_TYPE_NONE, null);
+        } else {
+            web.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
     }
 
