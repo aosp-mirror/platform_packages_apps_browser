@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +50,6 @@ class TabControl {
     // the main browser controller
     private final Controller mController;
 
-    private final File mThumbnailDir;
     private OnThumbnailUpdatedListener mOnThumbnailUpdatedListener;
 
     /**
@@ -59,8 +57,6 @@ class TabControl {
      */
     TabControl(Controller controller) {
         mController = controller;
-        mThumbnailDir = mController.getActivity()
-                .getDir("thumbnails", 0);
         mMaxTabs = mController.getMaxTabs();
         mTabs = new ArrayList<Tab>(mMaxTabs);
         mTabQueue = new ArrayList<Tab>(mMaxTabs);
@@ -68,10 +64,6 @@ class TabControl {
 
     static long getNextId() {
         return sNextId++;
-    }
-
-    File getThumbnailDir() {
-        return mThumbnailDir;
     }
 
     /**

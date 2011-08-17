@@ -87,7 +87,6 @@ import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -215,20 +214,6 @@ public class Controller
 
     private boolean mBlockEvents;
 
-    private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
-        @Override
-        public Void doInBackground(File... files) {
-            if (files != null) {
-                for (File f : files) {
-                    if (!f.delete()) {
-                        Log.e(LOGTAG, f.getPath() + " was not deleted");
-                    }
-                }
-            }
-            return null;
-        }
-    }
-
     public Controller(Activity browser, boolean preloadCrashState) {
         mActivity = browser;
         mSettings = BrowserSettings.getInstance();
@@ -354,11 +339,6 @@ public class Controller
             // Handle the intent
             mIntentHandler.onNewIntent(intent);
         }
-        // clear up the thumbnail directory, which is no longer used;
-        // ideally this should only be run once after an upgrade from
-        // a previous version of the browser
-        new ClearThumbnails().execute(mTabControl.getThumbnailDir()
-                .listFiles());
         // Read JavaScript flags if it exists.
         String jsFlags = getSettings().getJsEngineFlags();
         if (jsFlags.trim().length() != 0) {

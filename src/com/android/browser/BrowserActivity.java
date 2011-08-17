@@ -65,24 +65,6 @@ public class BrowserActivity extends Activity {
             return;
         }
 
-        BrowserSettings settings = BrowserSettings.getInstance();
-
-        // render the browser in OpenGL
-        if (settings.isHardwareAccelerated()) {
-            // Set the flag in the activity's window
-            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
-                    WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        } else {
-            // Clear the flag in the activity's window
-            this.getWindow().setFlags(0, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        }
-
-        AccessibilityManager accessibilityManager = (AccessibilityManager)
-                getSystemService(ACCESSIBILITY_SERVICE);
-        if (accessibilityManager != null && accessibilityManager.isEnabled()) {
-            setDefaultKeyMode(DEFAULT_KEYS_DISABLE);
-        }
-
         mController = new Controller(this, icicle == null);
         boolean xlarge = isTablet(this);
         if (xlarge) {
