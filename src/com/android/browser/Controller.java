@@ -2603,12 +2603,7 @@ public class Controller
                 break;
 //          case KeyEvent.KEYCODE_U:    // in Chrome: opens source of page
 //          case KeyEvent.KEYCODE_V:    // text view intercepts to paste
-            case KeyEvent.KEYCODE_W:    // in Chrome: close tab
-                if (ctrl) {
-                    closeCurrentTab();
-                    return true;
-                }
-                break;
+//          case KeyEvent.KEYCODE_W:    // menu
 //          case KeyEvent.KEYCODE_X:    // text view intercepts to cut
 //          case KeyEvent.KEYCODE_Y:    // unused
 //          case KeyEvent.KEYCODE_Z:    // unused
