@@ -185,16 +185,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
         super.onDismiss(menu);
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        onMenuHidden();
-        boolean res = mUiController.onOptionsItemSelected(item);
-        if (!res) {
-            return super.onMenuItemClick(item);
-        }
-        return res;
-    }
-
     private void onMenuHidden() {
         mOverflowMenuShowing = false;
         mPopupMenu = null;

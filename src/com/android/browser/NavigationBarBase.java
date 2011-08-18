@@ -156,7 +156,7 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
             }
             return true;
         }
-        return false;
+        return mUiController.onOptionsItemSelected(item);
     }
 
     @Override
