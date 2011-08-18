@@ -334,12 +334,22 @@ public class PhoneUi extends BaseUi {
         if (mNavScreen == null) return;
         final Tab tab = mNavScreen.getSelectedTab();
         if ((tab == null) || !animate) {
+            if (tab != null) {
+                setActiveTab(tab);
+            } else if (mTabControl.getTabCount() > 0) {
+                // use a fallback tab
+                setActiveTab(mTabControl.getCurrentTab());
+            }
             mContentView.setVisibility(View.VISIBLE);
             finishAnimateOut();
             return;
         }
         NavTabView tabview = (NavTabView) mNavScreen.getSelectedTabView();
         if (tabview == null) {
+            if (mTabControl.getTabCount() > 0) {
+                // use a fallback tab
+                setActiveTab(mTabControl.getCurrentTab());
+            }
             mContentView.setVisibility(View.VISIBLE);
             finishAnimateOut();
             return;
