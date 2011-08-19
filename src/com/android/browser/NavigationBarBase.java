@@ -24,17 +24,11 @@ import android.os.Bundle;
 import android.speech.RecognizerResultsIntent;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnDismissListener;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.UrlInputView.UrlInputListener;
@@ -42,9 +36,9 @@ import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatche
 
 import java.util.List;
 
-public class NavigationBarBase extends LinearLayout implements OnClickListener,
-        OnMenuItemClickListener, UrlInputListener, OnFocusChangeListener,
-        TextChangeWatcher, OnDismissListener {
+public class NavigationBarBase extends LinearLayout implements
+        OnClickListener, UrlInputListener, OnFocusChangeListener,
+        TextChangeWatcher {
 
     protected BaseUi mBaseUi;
     protected TitleBar mTitleBar;
@@ -54,9 +48,6 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
 
     private ImageView mFavicon;
     private ImageView mLockIcon;
-    private View mUaSwitcher;
-    private boolean mUaSwitcherShowing;
-    private PopupMenu mUaSwitcherMenu;
 
     public NavigationBarBase(Context context) {
         super(context);
@@ -104,59 +95,8 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
         mFavicon.setImageDrawable(mBaseUi.getFaviconDrawable(icon));
     }
 
-    public void setUaSwitcher(View v) {
-        if (mUaSwitcher != null) {
-            mUaSwitcher.setOnClickListener(null);
-        }
-        mUaSwitcher = v;
-        mUaSwitcher.setOnClickListener(this);
-    }
-
     @Override
     public void onClick(View v) {
-        if (mUaSwitcher == v) {
-            BrowserSettings settings = BrowserSettings.getInstance();
-            WebView web = mTitleBar.getCurrentWebView();
-            if (web == null) return;
-            boolean desktop = settings.hasDesktopUseragent(web);
-            mUaSwitcherMenu = new PopupMenu(mContext, mUaSwitcher);
-            Menu menu = mUaSwitcherMenu.getMenu();
-            mUaSwitcherMenu.getMenuInflater().inflate(R.menu.ua_switcher, menu);
-            menu.findItem(R.id.ua_mobile_menu_id).setChecked(!desktop);
-            menu.findItem(R.id.ua_desktop_menu_id).setChecked(desktop);
-            Tab tab = mUiController.getCurrentTab();
-            MenuItem saveSnapshot = menu.findItem(R.id.save_snapshot_menu_id);
-            saveSnapshot.setVisible(tab != null && !tab.isSnapshot());
-            MenuItem find = menu.findItem(R.id.find_menu_id);
-            find.setVisible(tab != null && !tab.isSnapshot());
-            mUaSwitcherMenu.setOnMenuItemClickListener(this);
-            mUaSwitcherMenu.setOnDismissListener(this);
-            mUaSwitcherShowing = true;
-            mUaSwitcherMenu.show();
-        }
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        BrowserSettings settings = BrowserSettings.getInstance();
-        WebView web = mTitleBar.getCurrentWebView();
-        if (web == null) return false;
-        boolean desktop = settings.hasDesktopUseragent(web);
-        switch (item.getItemId()) {
-        case R.id.ua_mobile_menu_id:
-            if (desktop) {
-                settings.toggleDesktopUseragent(web);
-                web.loadUrl(web.getOriginalUrl());
-            }
-            return true;
-        case R.id.ua_desktop_menu_id:
-            if (!desktop) {
-                settings.toggleDesktopUseragent(web);
-                web.loadUrl(web.getOriginalUrl());
-            }
-            return true;
-        }
-        return mUiController.onOptionsItemSelected(item);
     }
 
     @Override
@@ -340,17 +280,8 @@ public class NavigationBarBase extends LinearLayout implements OnClickListener,
     public void onProgressStopped() {
     }
 
-    @Override
-    public void onDismiss(PopupMenu menu) {
-        if (mUaSwitcherMenu == menu) {
-            mUaSwitcherShowing = false;
-            mUaSwitcherMenu = null;
-            mBaseUi.showTitleBarForDuration();
-        }
-    }
-
     public boolean isMenuShowing() {
-        return mUaSwitcherShowing;
+        return false;
     }
 
     public void onTabDataChanged(Tab tab) {

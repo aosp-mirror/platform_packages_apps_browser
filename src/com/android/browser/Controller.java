@@ -1466,10 +1466,12 @@ public class Controller
         boolean canGoBack = false;
         boolean canGoForward = false;
         boolean isHome = false;
+        boolean isDesktopUa = false;
         if (tab != null) {
             canGoBack = tab.canGoBack();
             canGoForward = tab.canGoForward();
             isHome = mSettings.getHomePage().equals(tab.getUrl());
+            isDesktopUa = mSettings.hasDesktopUseragent(tab.getWebView());
         }
         final MenuItem back = menu.findItem(R.id.back_menu_id);
         back.setEnabled(canGoBack);
@@ -1504,6 +1506,8 @@ public class Controller
         final MenuItem counter = menu.findItem(R.id.dump_counters_menu_id);
         counter.setVisible(showDebugSettings);
         counter.setEnabled(showDebugSettings);
+        final MenuItem uaSwitcher = menu.findItem(R.id.ua_desktop_menu_id);
+        uaSwitcher.setChecked(isDesktopUa);
 
         mUi.updateMenuState(tab, menu);
     }
@@ -1648,6 +1652,12 @@ public class Controller
 
             case R.id.view_downloads_menu_id:
                 viewDownloads();
+                break;
+
+            case R.id.ua_desktop_menu_id:
+                WebView web = getCurrentWebView();
+                mSettings.toggleDesktopUseragent(web);
+                web.loadUrl(web.getOriginalUrl());
                 break;
 
             case R.id.window_one_menu_id:

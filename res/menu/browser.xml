@@ -56,10 +56,18 @@
             android:icon="@drawable/ic_share_holo_dark"
             android:alphabeticShortcut="s" />
         <item
-            android:id="@+id/view_downloads_menu_id"
-            android:title="@string/menu_view_download"
-            android:icon="@drawable/ic_downloads_holo_dark"
-            android:alphabeticShortcut="j" />
+            android:id="@+id/find_menu_id"
+            android:title="@*android:string/find_on_page"/>
+        <item
+            android:id="@+id/ua_desktop_menu_id"
+            android:checkable="true"
+            android:title="@string/ua_switcher_desktop" />
+        <item
+            android:id="@+id/save_snapshot_menu_id"
+            android:title="@string/menu_save_snapshot" />
+        <item
+            android:id="@+id/page_info_menu_id"
+            android:title="@string/page_info" />
         <item
             android:id="@+id/preferences_menu_id"
             android:title="@string/menu_preferences"
@@ -76,6 +84,8 @@
             android:visible="false" />
     </group>
     <group android:id="@+id/MAIN_SHORTCUT_MENU" android:visible="false">
+        <item android:id="@+id/view_downloads_menu_id"
+            android:alphabeticShortcut="j" />
         <item android:id="@+id/homepage_menu_id"
             android:alphabeticShortcut="&#32;" />
         <item android:id="@+id/classic_history_menu_id"

@@ -1000,10 +1000,8 @@
     <string name="preview">Preview</string>
     <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
     <string name="local_bookmarks">Local</string>
-    <!-- Popup menu option that allows the user to select the mobile version of a webpage [CHAR LIMIT=50] -->
-    <string name="ua_switcher_mobile">Mobile</string>
-    <!-- Popup menu option that allows the user to select the desktop version of a webpage [CHAR LIMIT=50] -->
-    <string name="ua_switcher_desktop">Desktop</string>
+    <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+    <string name="ua_switcher_desktop">Request desktop site</string>
     <!-- Preload permission label [CHAR LIMIT=40] -->
     <string name="permission_preload_label">Preload results</string>
     <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->

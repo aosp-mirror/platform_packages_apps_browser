@@ -27,11 +27,12 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnDismissListener;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import com.android.browser.UrlInputView.StateListener;
 
 public class NavigationBarPhone extends NavigationBarBase implements
-        StateListener {
+        StateListener, OnMenuItemClickListener, OnDismissListener {
 
     private ImageView mStopButton;
     private ImageView mVoiceButton;
@@ -81,7 +82,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mStopDescription = res.getString(R.string.accessibility_button_stop);
         mRefreshDescription = res.getString(R.string.accessibility_button_refresh);
         mTextfieldBgDrawable = res.getDrawable(R.drawable.textfield_active_holo_dark);
-        setUaSwitcher(mComboIcon);
         mUrlInput.setContainer(this);
         mUrlInput.setStateListener(this);
         mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
@@ -182,7 +182,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
         if (menu == mPopupMenu) {
             onMenuHidden();
         }
-        super.onDismiss(menu);
     }
 
     private void onMenuHidden() {
@@ -238,6 +237,11 @@ public class NavigationBarPhone extends NavigationBarBase implements
         super.onTabDataChanged(tab);
         mIncognitoIcon.setVisibility(tab.isPrivateBrowsingEnabled()
                 ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return mUiController.onOptionsItemSelected(item);
     }
 
 }

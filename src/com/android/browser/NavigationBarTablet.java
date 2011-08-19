@@ -110,7 +110,6 @@ public class NavigationBarTablet extends NavigationBarBase {
         mGoButton.setOnClickListener(this);
         mClearButton.setOnClickListener(this);
         mVoiceSearch.setOnClickListener(this);
-        setUaSwitcher(mUrlIcon);
         mUrlInput.setContainer(mUrlContainer);
     }
 
