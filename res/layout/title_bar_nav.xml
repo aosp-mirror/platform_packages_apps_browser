@@ -74,7 +74,7 @@
             android:lines="1"
             android:scrollHorizontally="true"
             android:inputType="text"
-            android:imeOptions="actionGo"
+            android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
             style="@style/Suggestions"
             android:background="@null" />
         <ImageView

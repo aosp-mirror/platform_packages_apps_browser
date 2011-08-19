@@ -85,7 +85,7 @@
             android:lines="1"
             android:scrollHorizontally="true"
             android:inputType="textUri"
-            android:imeOptions="actionGo"
+            android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
             style="@style/Suggestions" />
         <ImageButton
             android:id="@+id/star"
