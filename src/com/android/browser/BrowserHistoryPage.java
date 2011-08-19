@@ -388,7 +388,11 @@ public class BrowserHistoryPage extends Fragment
         if (menuInfo == null) {
             return false;
         }
-        HistoryItem historyItem = (HistoryItem) getTargetView(menuInfo);
+        View targetView = getTargetView(menuInfo);
+        if (!(targetView instanceof HistoryItem)) {
+            return false;
+        }
+        HistoryItem historyItem = (HistoryItem) targetView;
         String url = historyItem.getUrl();
         String title = historyItem.getName();
         Activity activity = getActivity();

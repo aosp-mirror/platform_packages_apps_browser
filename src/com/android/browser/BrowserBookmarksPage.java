@@ -154,7 +154,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        BookmarkContextMenuInfo i = (BookmarkContextMenuInfo)item.getMenuInfo();
+        if (!(item.getMenuInfo() instanceof BookmarkContextMenuInfo)) {
+            return false;
+        }
+        BookmarkContextMenuInfo i = (BookmarkContextMenuInfo) item.getMenuInfo();
         // If we have no menu info, we can't tell which item was selected.
         if (i == null) {
             return false;
