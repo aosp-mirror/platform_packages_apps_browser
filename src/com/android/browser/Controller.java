@@ -601,6 +601,9 @@ public class Controller
 
     @Override
     public void handleNewIntent(Intent intent) {
+        if (!mUi.isWebShowing()) {
+            mUi.showWeb(false);
+        }
         mIntentHandler.onNewIntent(intent);
     }
 
