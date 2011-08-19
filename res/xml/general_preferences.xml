@@ -16,7 +16,7 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
+    <com.android.browser.preferences.NonformattingListPreference
         android:key="homepage_picker"
         android:entries="@array/pref_homepage_choices"
         android:entryValues="@array/pref_homepage_values"
