@@ -2291,6 +2291,10 @@ public class Controller
 
     @Override
     public void closeCurrentTab() {
+        closeCurrentTab(false);
+    }
+
+    protected void closeCurrentTab(boolean andQuit) {
         if (mTabControl.getTabCount() == 1) {
             mCrashRecoveryHandler.clearState();
             mTabControl.removeTab(getCurrentTab());
@@ -2306,7 +2310,10 @@ public class Controller
                 newTab = mTabControl.getTab(pos - 1);
             }
         }
-        if (switchToTab(newTab)) {
+        if (andQuit) {
+            mTabControl.setCurrentTab(newTab);
+            closeTab(current);
+        } else if (switchToTab(newTab)) {
             // Close window
             closeTab(current);
         }
@@ -2406,7 +2413,7 @@ public class Controller
                 closeTab(current);
             } else {
                 if ((current.getAppId() != null) || current.closeOnBack()) {
-                    closeCurrentTab();
+                    closeCurrentTab(true);
                 }
                 /*
                  * Instead of finishing the activity, simply push this to the back

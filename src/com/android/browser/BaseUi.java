@@ -157,6 +157,9 @@ public abstract class BaseUi implements UI {
 
     public void onResume() {
         mActivityPaused = false;
+        // check if we exited without setting active tab
+        // b: 5188145
+        setActiveTab(mTabControl.getCurrentTab());
     }
 
     protected boolean isActivityPaused() {
