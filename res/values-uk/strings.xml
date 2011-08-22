@@ -97,12 +97,14 @@
     <string name="select_dot" msgid="6299170761900561967">"Вибрати текст"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Закладки"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Закладка"</string>
+    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
+    <skip />
     <string name="history" msgid="2451240511251410032">"Історія"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Завантаження"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Копіюв. URL стор."</string>
     <string name="share_page" msgid="593756995297268343">"Надісл. стор."</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Зберегти для читання в режимі офлайн"</string>
-    <string name="snapshot_failed" msgid="6176197364690207251">"Не вдалося зберегти для читання в режимі офлайн."</string>
+    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Не вдалося зберегти для читання в режимі офлайн."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Закладок: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Порожня папка"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Відкр."</string>
@@ -167,9 +169,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Автоматичний вхід у Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Вхід у Google Sites за допомогою <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Вхід із використанням облікового запису"</string>
-    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Увійти"</string>
+    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Увійти"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Сховати"</string>
-    <string name="autologin_bar_error" msgid="5132514366023044839">"Помилка входу."</string>
+    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Помилка входу."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Введіть дані, які автоматично підставлятимуться у веб-поля, коли ви торкатиметеся їх."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Повне ім\'я:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Електронна адреса:"</string>
@@ -237,14 +239,10 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Масштаб тексту"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Примусово ввімк. масштабування"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Чи потрібно змінюв. запит веб-сайту на контроль поведінки масштабування"</string>
-    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
-    <skip />
-    <!-- no translation found for pref_inverted (4813962104859359420) -->
-    <skip />
-    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
-    <skip />
-    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
-    <skip />
+    <string name="pref_inverted_category" msgid="3115731672066279347">"Відображення інвертованого екрана"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"Інвертоване відображення"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"Увімкнути інвертоване відображення. Чорне стане білим і навпаки."</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"Контраст"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Масштаб за умовч."</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Віддал."</item>
@@ -397,14 +395,13 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google із Миттєвим пошуком (Лабораторії)"</string>
     <string name="preview" msgid="6450823514561689038">"Попередній перегляд"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Локальні"</string>
-    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Версія для мобільного пристрою"</string>
-    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Версія для комп’ютера"</string>
+    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Версія для комп’ютера"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Попередньо завантажувати результати"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Немає збережених сторінок."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Видалити збережену сторінку"</string>
-    <string name="snapshot_go_live" msgid="1209542802541168497">"Перейти в онлайн"</string>
+    <string name="snapshot_go_live" msgid="1209542802541168497">"Перейти онлайн"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Повернутися"</string>
-    <string name="accessibility_button_forward" msgid="1236827218480658168">"Перейти уперед"</string>
+    <string name="accessibility_button_forward" msgid="1236827218480658168">"Перейти вперед"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Оновити сторінку"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Припинити завантаження сторінки"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Зробити закладку для сторінки"</string>

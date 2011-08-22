@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Choose file for upload"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"File uploads are disabled."</string>
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"New window"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"New incognito window"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"New incognito tab"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Bookmarks"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Most visited"</string>
     <string name="tab_history" msgid="1979267558744613746">"History"</string>
@@ -92,22 +92,23 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"List"</string>
     <string name="current_page" msgid="7510129573681663135">"from "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Bookmark \"<xliff:g id="BOOKMARK">%s</xliff:g>\" will be deleted."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Open all in new windows"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Open all in new tabs"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Go"</string>
     <string name="select_dot" msgid="6299170761900561967">"Select text"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Bookmarks"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Bookmark"</string>
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Pick a bookmark"</string>
     <string name="history" msgid="2451240511251410032">"History"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Downloads"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copy page URL"</string>
     <string name="share_page" msgid="593756995297268343">"Share page"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Save for offline reading"</string>
-    <string name="snapshot_failed" msgid="6176197364690207251">"Failed to save for offline reading."</string>
+    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Failed to save for offline reading."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> bookmarks"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Empty folder"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Open"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Open in new window"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Open in new background window"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Open in new tab"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Open in new background tab"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Save link"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Share link"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copy"</string>
@@ -136,7 +137,7 @@
     <item msgid="2484126708670016519">"On demand"</item>
     <item msgid="8547442717307793863">"Off"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Open new windows behind the current one"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Open new tabs behind the current one"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Set homepage"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Set search engine"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Select a search engine"</string>
@@ -167,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatic Google sign-in"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Signing in to Google sites using <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Sign in as"</string>
-    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Login"</string>
+    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Login"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Hide"</string>
-    <string name="autologin_bar_error" msgid="5132514366023044839">"Login failed."</string>
+    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Login failed."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Enter the data that you want to auto-fill in web fields when you touch them."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Full name:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
@@ -302,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"This site is attempting to open a pop-up window."</string>
     <string name="allow" msgid="1157313689171991335">"Allow"</string>
     <string name="block" msgid="9172175889884707800">"Block"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Window limit reached"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Couldn\'t open a new window because you\'ve already opened the maximum number."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Tab limit reached"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Couldn\'t open a new tab because you\'ve already opened the maximum number."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up already open"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Could not open a new pop-up window because only one can be open at any time."</string>
     <string name="download_title" msgid="2122874021047565594">"Download history"</string>
@@ -393,8 +394,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google with Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Preview"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Local"</string>
-    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobile"</string>
-    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Desktop"</string>
+    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Desktop"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Preload results"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"There are no saved pages."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Delete saved page"</string>

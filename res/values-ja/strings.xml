@@ -47,7 +47,7 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"サイト名と証明書上の名前が一致しません。"</string>
     <string name="ssl_expired" msgid="5739349389499575559">"この証明書は有効期限切れです。"</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"この証明書はまだ有効ではありません。"</string>
-    <string name="ssl_date_invalid" msgid="3705563379257285534">"この証明書の日付は無効です。"</string>
+    <string name="ssl_date_invalid" msgid="3705563379257285534">"この証明書は日付が無効です。"</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"この証明書は無効です。"</string>
     <string name="ssl_unknown" msgid="5679243486524754571">"不明な証明書エラーです。"</string>
     <string name="stopping" msgid="4839698519340302982">"停止中..."</string>
@@ -97,12 +97,14 @@
     <string name="select_dot" msgid="6299170761900561967">"テキストを選択してコピー"</string>
     <string name="bookmarks" msgid="1961279134885867815">"ブックマーク"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"ブックマーク"</string>
+    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
+    <skip />
     <string name="history" msgid="2451240511251410032">"履歴"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"ダウンロード履歴"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"ページのURLをコピー"</string>
     <string name="share_page" msgid="593756995297268343">"ページを共有"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"オフラインで読めるよう保存"</string>
-    <string name="snapshot_failed" msgid="6176197364690207251">"オフラインで読むための保存に失敗しました"</string>
+    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"オフラインで読むための保存に失敗しました"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g>件のブックマーク"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空のフォルダ"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"開く"</string>
@@ -167,9 +169,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Googleへの自動ログイン"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"<xliff:g id="ID_1">%s</xliff:g>を使用してGoogleサイトにログインしています"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"次のアカウントでログイン"</string>
-    <string name="autologin_bar_login_text" msgid="7052816600314556734">"ログイン"</string>
+    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"ログイン"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"表示しない"</string>
-    <string name="autologin_bar_error" msgid="5132514366023044839">"ログインに失敗しました。"</string>
+    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"ログインに失敗しました。"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"ウェブ上でフィールドをタップしたときに自動入力するデータを入力します。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"氏名:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"メール:"</string>
@@ -237,14 +239,10 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"テキストの倍率"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"拡大縮小設定の上書き"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"サイトの拡大縮小設定を上書き"</string>
-    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
-    <skip />
-    <!-- no translation found for pref_inverted (4813962104859359420) -->
-    <skip />
-    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
-    <skip />
-    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
-    <skip />
+    <string name="pref_inverted_category" msgid="3115731672066279347">"画面の反転レンダリング"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"反転レンダリング"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"反転レンダリングを有効にします。黒は白に、白は黒になります。"</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"コントラスト"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"デフォルトの倍率"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"低"</item>
@@ -397,8 +395,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Googleインスタント検索（Labs）"</string>
     <string name="preview" msgid="6450823514561689038">"プレビュー"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"ローカル"</string>
-    <string name="ua_switcher_mobile" msgid="5103260404792449606">"モバイル"</string>
-    <string name="ua_switcher_desktop" msgid="2535200543238676638">"デスクトップ"</string>
+    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"デスクトップ"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"結果のプリロード"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"保存したページはありません。"</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"保存したページを削除"</string>
@@ -416,7 +413,7 @@
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"新しいシークレットタブを開く"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"入力内容を消去"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"ユーザーエージェントを切り替える"</string>
-    <string name="accessibility_button_go" msgid="1182818872083055958">"実行"</string>
+    <string name="accessibility_button_go" msgid="1182818872083055958">"移動"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"ページマネージャ"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"その他のオプション"</string>
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"シークレットページ"</string>
