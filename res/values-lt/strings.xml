@@ -97,12 +97,14 @@
     <string name="select_dot" msgid="6299170761900561967">"Pasirinkti tekstą"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Žymės"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Žymė"</string>
+    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
+    <skip />
     <string name="history" msgid="2451240511251410032">"Istorija"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Atsisiuntimai"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopijuoti puslapio URL"</string>
     <string name="share_page" msgid="593756995297268343">"Bendrinti puslapį"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Išsaugoti, kad būtų galima skaityti neprisijungus"</string>
-    <string name="snapshot_failed" msgid="6176197364690207251">"Nepavyko išsaugoti, kad būtų gal. skait. neprisij."</string>
+    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Nepavyko išsaugoti, kad būtų gal. skait. neprisij."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Žymių: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Tuščias aplankas"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Atidaryti"</string>
@@ -167,9 +169,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Autom. prisijung. prie „Google“"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Prisijungiama prie „Google“ svetainių naudojant <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Prisijungti kaip"</string>
-    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Prisijung."</string>
+    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Prisijung."</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Slėpti"</string>
-    <string name="autologin_bar_error" msgid="5132514366023044839">"Nepavyko prisijungti."</string>
+    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Nepavyko prisijungti."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Įveskite duomenis, kuriais norite automatiškai užpildyti žiniatinklio laukus, kai juos paliesite."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Vardas ir pavardė:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"El. paštas:"</string>
@@ -237,14 +239,10 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Teksto mastelio keitimas"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Priverstinai įgal. mast. keit."</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Ar įr. svet. užkl. vald. mast. keit. elgs."</string>
-    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
-    <skip />
-    <!-- no translation found for pref_inverted (4813962104859359420) -->
-    <skip />
-    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
-    <skip />
-    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
-    <skip />
+    <string name="pref_inverted_category" msgid="3115731672066279347">"Atvirkštinis ekrano atvaizdavimas"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"Atvirkštinis atvaizdavimas"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"Įgalinti atvirkštinį atvaizdavimą. Juoda taps balta ir atvirkščiai."</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontrastas"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Numatytasis mastelio keitimas"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Toli"</item>
@@ -397,8 +395,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"„Google“ su Intuityviąja paieška (Laboratorijos)"</string>
     <string name="preview" msgid="6450823514561689038">"Peržiūra"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Vietinės"</string>
-    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobilusis įrenginys"</string>
-    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Stalinis kompiuteris"</string>
+    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Stalinis kompiuteris"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Iš anksto įkelti rezultatus"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Nėra išsaugotų puslapių."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Ištrinti išsaugotą puslapį"</string>

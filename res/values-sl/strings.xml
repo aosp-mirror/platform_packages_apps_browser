@@ -47,7 +47,7 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Ime mesta se ne ujema z imenom potrdila."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Potrdilo je poteklo."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Potrdilo še ni veljavno."</string>
-    <string name="ssl_date_invalid" msgid="3705563379257285534">"Potrdilo ima neveljaven datum."</string>
+    <string name="ssl_date_invalid" msgid="3705563379257285534">"To potrdilo ima neveljaven datum."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"To potrdilo je neveljavno."</string>
     <string name="ssl_unknown" msgid="5679243486524754571">"Neznana napaka potrdila."</string>
     <string name="stopping" msgid="4839698519340302982">"Ustavljanje ..."</string>
@@ -97,12 +97,14 @@
     <string name="select_dot" msgid="6299170761900561967">"Izberi besedilo"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Zaznamki"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Zaznamek"</string>
+    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
+    <skip />
     <string name="history" msgid="2451240511251410032">"Zgodovina"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Prenosi"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopiraj URL strani"</string>
     <string name="share_page" msgid="593756995297268343">"Stran deli z drugimi"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Shrani za branje brez povezave"</string>
-    <string name="snapshot_failed" msgid="6176197364690207251">"Shranjevanje za branje brez povezave ni uspelo."</string>
+    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Shranjevanje za branje brez povezave ni uspelo."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Število zaznamkov: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Prazna mapa"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Odpri"</string>
@@ -167,9 +169,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Samodejna prijava v Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Prijavljanje v Google Spletna mesta z <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Prijava kot"</string>
-    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Prijava"</string>
+    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Prijava"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Skrij"</string>
-    <string name="autologin_bar_error" msgid="5132514366023044839">"Prijava ni uspela."</string>
+    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Prijava ni uspela."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Vnesite podatke, za katere želite, da se samodejno vnesejo v spletna polja, ko se jih dotaknete."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Polno ime:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-pošta:"</string>
@@ -237,14 +239,10 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Povečava pisave"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Vsili povečavo"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Preglas. zaht. mesta za nadz. povečave?"</string>
-    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
-    <skip />
-    <!-- no translation found for pref_inverted (4813962104859359420) -->
-    <skip />
-    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
-    <skip />
-    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
-    <skip />
+    <string name="pref_inverted_category" msgid="3115731672066279347">"Obrnjeno upodabljanje zaslona"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"Obrnjeno upodabljanje"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"Omogoči obrnjeno upodabljanje. Črni bo postal beli in obratno."</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontrast"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Privzeta povečava/pomanjšava"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Oddaljeno"</item>
@@ -397,8 +395,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google z Dinamičnim iskanjem (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Predogled"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokalno"</string>
-    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobilna različica"</string>
-    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Namizje"</string>
+    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Namizje"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Vnaprej naloži rezultate"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Ni shranjenih strani."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Brisanje shranjene strani"</string>

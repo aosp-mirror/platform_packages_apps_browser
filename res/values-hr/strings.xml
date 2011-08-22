@@ -49,7 +49,7 @@
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Ovaj certifikat još nije važeći."</string>
     <string name="ssl_date_invalid" msgid="3705563379257285534">"Ovaj certifikat ima nevažeći datum."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"Ovaj certifikat nije valjan."</string>
-    <string name="ssl_unknown" msgid="5679243486524754571">"Nepoznata pogreška certifikata."</string>
+    <string name="ssl_unknown" msgid="5679243486524754571">"Pogreška nepoznatog certifikata."</string>
     <string name="stopping" msgid="4839698519340302982">"Zaustavljanje..."</string>
     <string name="stop" msgid="5687251076030630074">"Zaustavi"</string>
     <string name="reload" msgid="8585220783228408062">"Osvježi"</string>
@@ -97,12 +97,14 @@
     <string name="select_dot" msgid="6299170761900561967">"Odabir teksta"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Oznake"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Oznaka"</string>
+    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
+    <skip />
     <string name="history" msgid="2451240511251410032">"Povijest"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Preuzimanja"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopiraj url stranice"</string>
     <string name="share_page" msgid="593756995297268343">"Dijeli stranicu"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Spremi za izvanmrežno čitanje"</string>
-    <string name="snapshot_failed" msgid="6176197364690207251">"Neuspjelo spremanje za izvanmrežno čitanje."</string>
+    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Neuspjelo spremanje za izvanmrežno čitanje."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Br. oznaka: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Prazna mapa"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Otvori"</string>
@@ -167,9 +169,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatska prijava na Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Prijava na Google web-lokacije putem <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Prijavite se kao"</string>
-    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Prijava"</string>
+    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Prijava"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Sakrij"</string>
-    <string name="autologin_bar_error" msgid="5132514366023044839">"Prijava nije uspjela."</string>
+    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Prijava nije uspjela."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Unesite podatke koje želite automatski unijeti u web-polja kad ih dodirnete."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Puno ime:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-pošta:"</string>
@@ -237,14 +239,10 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Zumiranje teksta"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Prisilno omogući zumiranje"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Poništiti zahtjev web-lokacije za kontrolu ponašanja zumiranja"</string>
-    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
-    <skip />
-    <!-- no translation found for pref_inverted (4813962104859359420) -->
-    <skip />
-    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
-    <skip />
-    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
-    <skip />
+    <string name="pref_inverted_category" msgid="3115731672066279347">"Obrnuto renderiranje zaslona"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"Obrnuto renderiranje"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"Omogućuje obrnuto renderiranje. Crno će postati bijelo i obrnuto."</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontrast"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zadano povećanje/smanjenje"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Daleko"</item>
@@ -397,27 +395,26 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google sa značajkom Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Pregled"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokalno"</string>
-    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobilni uređaj"</string>
-    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Stolno računalo"</string>
+    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Stolno računalo"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Prethodno učitavanje rezultata"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Nema spremljenih stranica."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Brisanje spremljene stranice"</string>
-    <string name="snapshot_go_live" msgid="1209542802541168497">"Idi na prikaz uživo"</string>
-    <string name="accessibility_button_back" msgid="6194680634245279407">"Idi natrag"</string>
+    <string name="snapshot_go_live" msgid="1209542802541168497">"Idi uživo"</string>
+    <string name="accessibility_button_back" msgid="6194680634245279407">"Vrati se"</string>
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Idi naprijed"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Osvježi stranicu"</string>
-    <string name="accessibility_button_stop" msgid="6793644120043222148">"Prekini učitavanje stranice"</string>
-    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Označi stranicu"</string>
-    <string name="accessibility_button_search" msgid="5357014102136055376">"Pretraži"</string>
+    <string name="accessibility_button_stop" msgid="6793644120043222148">"Prekid učitavanja stranice"</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Označavanje web-stranice"</string>
+    <string name="accessibility_button_search" msgid="5357014102136055376">"Pretraživanje"</string>
     <string name="accessibility_button_voice" msgid="152016375096083337">"Pokreni glasovno pretraživanje"</string>
-    <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Knjižne oznake"</string>
-    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Zatvori karticu"</string>
+    <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Oznake"</string>
+    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Zatvaranje kartice"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Otvori novu karticu"</string>
-    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Otvori novu anonimnu karticu"</string>
-    <string name="accessibility_button_clear" msgid="6943152307986161598">"Jasan unos"</string>
+    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Otvaranje nove anonimne kartice"</string>
+    <string name="accessibility_button_clear" msgid="6943152307986161598">"Isprazni unos"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Prebaci korisničkog posrednika"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"Idi"</string>
-    <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Upravitelj stranicama"</string>
+    <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Upravitelj stranice"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"Više opcija"</string>
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Anonimna stranica"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"Spremljena stranica"</string>

@@ -134,6 +134,8 @@
     <skip />
     <!-- no translation found for shortcut_bookmark (3974876480401135895) -->
     <skip />
+    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
+    <skip />
     <!-- no translation found for history (2451240511251410032) -->
     <skip />
     <!-- no translation found for menu_view_download (2124570321712995120) -->
@@ -143,7 +145,7 @@
     <skip />
     <!-- no translation found for menu_save_snapshot (6935080344031126139) -->
     <skip />
-    <!-- no translation found for snapshot_failed (6176197364690207251) -->
+    <!-- no translation found for snapshot_failed (4584580873565876033) -->
     <skip />
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> amabhukimakhi"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Ifolda engenalutho"</string>
@@ -233,11 +235,11 @@
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Ingena ngemvume kumasayithi e-Google isebenzisa i-<xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for autologin_bar_text (3684581827167173371) -->
     <skip />
-    <!-- no translation found for autologin_bar_login_text (7052816600314556734) -->
+    <!-- no translation found for autologin_bar_login_text (3336615320510851879) -->
     <skip />
     <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
     <skip />
-    <!-- no translation found for autologin_bar_error (5132514366023044839) -->
+    <!-- no translation found for autologin_bar_error (7470001207395920811) -->
     <skip />
     <!-- outdated translation 5009490178189728877 -->     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Ukugcwalisa ngokuzenzakalelayo kuzosebenzisa iphrofayli yakho ukukusiza ukugcwalisa amafomu ewebhu ngokuqhafaza okukodwa."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Igama eliphelele:"</string>
@@ -547,9 +549,7 @@
     <skip />
     <!-- no translation found for local_bookmarks (533816851415228520) -->
     <skip />
-    <!-- no translation found for ua_switcher_mobile (5103260404792449606) -->
-    <skip />
-    <!-- no translation found for ua_switcher_desktop (2535200543238676638) -->
+    <!-- no translation found for ua_switcher_desktop (220097077327558435) -->
     <skip />
     <!-- no translation found for permission_preload_label (4856971662337877316) -->
     <skip />

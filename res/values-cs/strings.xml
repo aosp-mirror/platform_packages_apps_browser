@@ -97,12 +97,14 @@
     <string name="select_dot" msgid="6299170761900561967">"Vybrat text"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Záložky"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Přidat do záložek"</string>
+    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
+    <skip />
     <string name="history" msgid="2451240511251410032">"Historie"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Stažené"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopírovat adresu URL stránky"</string>
     <string name="share_page" msgid="593756995297268343">"Sdílet stránku"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Uložit ke čtení offline"</string>
-    <string name="snapshot_failed" msgid="6176197364690207251">"Uložení ke čtení offline se nezdařilo."</string>
+    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Uložení ke čtení offline se nezdařilo."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Počet záložek: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Prázdná složka"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Otevřít"</string>
@@ -167,9 +169,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatické přihlášení do Googlu"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Přihlašování do webů Google pomocí uživatelského jména <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Přihlásit se jako"</string>
-    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Přihlášení"</string>
+    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Přihlášení"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Skrýt"</string>
-    <string name="autologin_bar_error" msgid="5132514366023044839">"Přihlášení selhalo."</string>
+    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Přihlášení selhalo."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Zadejte data, která chcete automaticky vyplňovat do textových polí na webu, když se jich dotknete."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Jméno a příjmení:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
@@ -393,8 +395,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google s dynamickým vyhledáváním (experimentální funkce)"</string>
     <string name="preview" msgid="6450823514561689038">"Náhled"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokální"</string>
-    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobil"</string>
-    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Počítač"</string>
+    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Počítač"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Předběžné načítání výsledků"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Nemáte žádné uložené stránky."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Smazat uloženou stránku"</string>
@@ -411,7 +412,7 @@
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Otevřít novou kartu"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Otevřít novou anonymní kartu"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"Vymazat vstup"</string>
-    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Přepnout uživatelského agenta"</string>
+    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Přepnout identifikátor robota"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"Přejít"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Správce stránky"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"Další možnosti"</string>

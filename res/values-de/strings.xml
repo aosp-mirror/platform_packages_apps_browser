@@ -97,12 +97,14 @@
     <string name="select_dot" msgid="6299170761900561967">"Text auswählen"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Lesezeichen"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Lesezeichen"</string>
+    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
+    <skip />
     <string name="history" msgid="2451240511251410032">"Verlauf"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Downloads"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Seiten-URL kopieren"</string>
     <string name="share_page" msgid="593756995297268343">"Seitenlink weitergeben"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Für Offline-Lesen speichern"</string>
-    <string name="snapshot_failed" msgid="6176197364690207251">"Speichern für Offline-Lesen fehlgeschlagen"</string>
+    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Speichern für Offline-Lesen fehlgeschlagen"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> Lesezeichen"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Leerer Ordner"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Öffnen"</string>
@@ -167,9 +169,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatische Google-Anmeldung"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Anmeldung in Google Sites mit <xliff:g id="ID_1">%s</xliff:g>..."</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Anmelden als"</string>
-    <string name="autologin_bar_login_text" msgid="7052816600314556734">"Anmelden"</string>
+    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Anmelden"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ausblenden"</string>
-    <string name="autologin_bar_error" msgid="5132514366023044839">"Anmeldung fehlgeschlagen"</string>
+    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Anmeldung fehlgeschlagen"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Geben Sie die Daten ein, die automatisch in Web-Felder eingetragen werden sollen, wenn Sie sie berühren."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Vollständiger Name:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-Mail:"</string>
@@ -237,14 +239,10 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Textzoom"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Zoom zwingend aktivieren"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Anfrage einer Website zur Steuerung des Zoomverhaltens überschreiben?"</string>
-    <!-- no translation found for pref_inverted_category (3115731672066279347) -->
-    <skip />
-    <!-- no translation found for pref_inverted (4813962104859359420) -->
-    <skip />
-    <!-- no translation found for pref_inverted_summary (8570087335228699813) -->
-    <skip />
-    <!-- no translation found for pref_inverted_contrast (8527441236225288169) -->
-    <skip />
+    <string name="pref_inverted_category" msgid="3115731672066279347">"Umgekehrtes Rendering des Bildschirms"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"Umgekehrtes Rendering"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"Umgekehrtes Rendering aktivieren. Schwarz wird Weiß und umgekehrt."</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontrast"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Standard-Zoom"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Entfernt"</item>
@@ -397,10 +395,9 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google mit dynamischer Suche (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Vorschau"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokal"</string>
-    <string name="ua_switcher_mobile" msgid="5103260404792449606">"Mobil"</string>
-    <string name="ua_switcher_desktop" msgid="2535200543238676638">"Desktop"</string>
+    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Desktop"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Ergebnisse vorab laden"</string>
-    <string name="empty_snapshots_folder" msgid="5788256228290785444">"Es gibt keine gespeicherten Seiten."</string>
+    <string name="empty_snapshots_folder" msgid="5788256228290785444">"Es sind keine gespeicherten Seiten vorhanden."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Gespeicherte Seite löschen"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"Live-Version"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Zurück"</string>
