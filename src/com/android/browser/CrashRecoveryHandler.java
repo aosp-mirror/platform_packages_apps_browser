@@ -34,6 +34,7 @@ import java.io.IOException;
 
 public class CrashRecoveryHandler {
 
+    private static final boolean LOGV_ENABLED = Browser.LOGV_ENABLED;
     private static final String LOGTAG = "BrowserCrashRecovery";
     private static final String STATE_FILE = "browser_state.parcel";
     private static final String RECOVERY_PREFERENCES = "browser_recovery_prefs";
@@ -84,14 +85,26 @@ public class CrashRecoveryHandler {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                 case MSG_WRITE_STATE:
+                    if (LOGV_ENABLED) {
+                        Log.v(LOGTAG, "Saving crash recovery state");
+                    }
                     Parcel p = Parcel.obtain();
                     try {
                         Bundle state = (Bundle) msg.obj;
                         state.writeToParcel(p, 0);
-                        File stateFile = new File(mContext.getCacheDir(), STATE_FILE);
-                        FileOutputStream fout = new FileOutputStream(stateFile);
+                        File stateJournal = new File(mContext.getCacheDir(),
+                                STATE_FILE + ".journal");
+                        FileOutputStream fout = new FileOutputStream(stateJournal);
                         fout.write(p.marshall());
                         fout.close();
+                        File stateFile = new File(mContext.getCacheDir(),
+                                STATE_FILE);
+                        if (!stateJournal.renameTo(stateFile)) {
+                            // Failed to rename, try deleting the existing
+                            // file and try again
+                            stateFile.delete();
+                            stateJournal.renameTo(stateFile);
+                        }
                     } catch (Throwable e) {
                         Log.i(LOGTAG, "Failed to save persistent state", e);
                     } finally {
@@ -99,6 +112,9 @@ public class CrashRecoveryHandler {
                     }
                     break;
                 case MSG_CLEAR_STATE:
+                    if (LOGV_ENABLED) {
+                        Log.v(LOGTAG, "Clearing crash recovery state");
+                    }
                     File state = new File(mContext.getCacheDir(), STATE_FILE);
                     if (state.exists()) {
                         state.delete();

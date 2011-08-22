@@ -31,8 +31,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
-import android.view.accessibility.AccessibilityManager;
 
 import com.google.common.annotations.VisibleForTesting;
 
@@ -45,8 +43,7 @@ public class BrowserActivity extends Activity {
 
     private final static String LOGTAG = "browser";
 
-    private final static boolean LOGV_ENABLED =
-            com.android.browser.Browser.LOGV_ENABLED;
+    private final static boolean LOGV_ENABLED = Browser.LOGV_ENABLED;
 
     private Controller mController;
     private UI mUi;
@@ -54,7 +51,8 @@ public class BrowserActivity extends Activity {
     @Override
     public void onCreate(Bundle icicle) {
         if (LOGV_ENABLED) {
-            Log.v(LOGTAG, this + " onStart");
+            Log.v(LOGTAG, this + " onStart, has state: "
+                    + (icicle == null ? "false" : "true"));
         }
         super.onCreate(icicle);
 
