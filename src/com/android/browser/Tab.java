@@ -56,6 +56,7 @@ import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
+import android.webkit.WebBackForwardList;
 import android.webkit.WebBackForwardListClient;
 import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
@@ -1529,7 +1530,12 @@ class Tab implements PictureListener {
                 mMainView.setPictureListener(this);
             }
             if (mSavedState != null) {
-                mMainView.restoreState(mSavedState);
+                WebBackForwardList restoredState
+                        = mMainView.restoreState(mSavedState);
+                if (restoredState == null || restoredState.getSize() == 0) {
+                    Log.w(LOGTAG, "Failed to restore WebView state!");
+                    loadUrl(mCurrentState.mOriginalUrl, null);
+                }
                 mSavedState = null;
             }
         }
@@ -1913,15 +1919,17 @@ class Tab implements PictureListener {
         if (mMainView == null) {
             return mSavedState;
         }
-        // If the tab is the homepage or has no URL, don't save it
-        String homepage = BrowserSettings.getInstance().getHomePage();
-        if (TextUtils.equals(homepage, mCurrentState.mUrl)
-                || TextUtils.isEmpty(mCurrentState.mUrl)) {
+
+        if (TextUtils.isEmpty(mCurrentState.mUrl)) {
             return null;
         }
 
         mSavedState = new Bundle();
-        mMainView.saveState(mSavedState);
+        WebBackForwardList savedList = mMainView.saveState(mSavedState);
+        if (savedList == null || savedList.getSize() == 0) {
+            Log.w(LOGTAG, "Failed to save back/forward list for "
+                    + mCurrentState.mUrl);
+        }
 
         mSavedState.putLong(ID, mId);
         mSavedState.putString(CURRURL, mCurrentState.mUrl);

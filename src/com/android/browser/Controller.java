@@ -635,8 +635,6 @@ public class Controller
         mNfcHandler.onPause();
 
         WebView.disablePlatformNotifications();
-        mCrashRecoveryHandler.backupState();
-
     }
 
     void onSaveInstanceState(Bundle outState) {
@@ -852,6 +850,7 @@ public class Controller
 
     @Override
     public void onProgressChanged(Tab tab) {
+        mCrashRecoveryHandler.backupState();
         int newProgress = tab.getLoadProgress();
 
         if (newProgress == 100) {
@@ -942,11 +941,7 @@ public class Controller
             return;
         }
         DataController.getInstance(mActivity).updateVisitedHistory(url);
-        if (!mActivityPaused) {
-            // Since we clear the state in onPause, don't backup the current
-            // state if we are already paused
-            mCrashRecoveryHandler.backupState();
-        }
+        mCrashRecoveryHandler.backupState();
     }
 
     @Override
