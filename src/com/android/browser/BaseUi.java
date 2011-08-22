@@ -116,7 +116,7 @@ public abstract class BaseUi implements UI {
         mInputManager = (InputMethodManager)
                 browser.getSystemService(Activity.INPUT_METHOD_SERVICE);
         mSecLockIcon = res.getDrawable(R.drawable.ic_secure_holo_dark);
-        mMixLockIcon = res.getDrawable(R.drawable.ic_partial_secure);
+        mMixLockIcon = res.getDrawable(R.drawable.ic_secure_partial_holo_dark);
 
         FrameLayout frameLayout = (FrameLayout) mActivity.getWindow()
                 .getDecorView().findViewById(android.R.id.content);
