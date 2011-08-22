@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -57,6 +58,9 @@ import com.android.browser.provider.BrowserProvider2;
 import com.android.browser.view.BookmarkExpandableView;
 import com.android.browser.view.BookmarkExpandableView.BookmarkContextMenuInfo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 interface BookmarksPageCallbacks {
@@ -84,6 +88,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     static final int LOADER_BOOKMARKS = 100;
 
     static final String EXTRA_DISABLE_WINDOW = "disable_new_window";
+    static final String PREF_GROUP_STATE = "bbp_group_state";
 
     static final String ACCOUNT_TYPE = "account_type";
     static final String ACCOUNT_NAME = "account_name";
@@ -100,6 +105,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     View mHeader;
     HashMap<Integer, BrowserBookmarksAdapter> mBookmarkAdapters = new HashMap<Integer, BrowserBookmarksAdapter>();
     BookmarkDragHandler mDragHandler;
+    JSONObject mState;
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -130,7 +136,12 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 BrowserBookmarksAdapter adapter = new BrowserBookmarksAdapter(
                         getActivity(), VIEW_THUMBNAILS);
                 mBookmarkAdapters.put(id, adapter);
-                mGrid.addAccount(accountName, adapter);
+                boolean expand = true;
+                try {
+                    expand = mState.getBoolean(accountName != null ? accountName
+                            : BookmarkExpandableView.LOCAL_ACCOUNT_NAME);
+                } catch (JSONException e) {} // no state for accountName
+                mGrid.addAccount(accountName, adapter, expand);
                 lm.restartLoader(id, args, this);
                 id++;
             }
@@ -300,12 +311,35 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        SharedPreferences prefs = BrowserSettings.getInstance().getPreferences();
+        try {
+            mState = new JSONObject(prefs.getString(PREF_GROUP_STATE, "{}"));
+        } catch (JSONException e) {
+            // Parse failed, clear preference and start with empty state
+            prefs.edit().remove(PREF_GROUP_STATE).apply();
+            mState = new JSONObject();
+        }
         Bundle args = getArguments();
         mDisableNewWindow = args == null ? false : args.getBoolean(EXTRA_DISABLE_WINDOW, false);
         setHasOptionsMenu(true);
         if (mCallbacks == null && getActivity() instanceof CombinedBookmarksCallbacks) {
             mCallbacks = new CombinedBookmarksCallbackWrapper(
                     (CombinedBookmarksCallbacks) getActivity());
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            mState = mGrid.saveGroupState();
+            // Save state
+            SharedPreferences prefs = BrowserSettings.getInstance().getPreferences();
+            prefs.edit()
+                    .putString(PREF_GROUP_STATE, mState.toString())
+                    .apply();
+        } catch (JSONException e) {
+            // Not critical, ignore
         }
     }
 

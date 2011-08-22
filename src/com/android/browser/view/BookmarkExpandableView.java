@@ -43,11 +43,16 @@ import com.android.browser.BrowserBookmarksPage.ExtraDragState;
 import com.android.browser.R;
 import com.android.internal.view.menu.MenuBuilder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BookmarkExpandableView extends ExpandableListView
         implements BreadCrumbView.Controller {
+
+    public static final String LOCAL_ACCOUNT_NAME = "local";
 
     // Experimental drag & drop
     private static final boolean ENABLE_DRAG_DROP = false;
@@ -123,7 +128,8 @@ public class BookmarkExpandableView extends ExpandableListView
         mAdapter.clear();
     }
 
-    public void addAccount(String accountName, BrowserBookmarksAdapter adapter) {
+    public void addAccount(String accountName, BrowserBookmarksAdapter adapter,
+            boolean expandGroup) {
         // First, check if it already exists
         int indexOf = mAdapter.mGroups.indexOf(accountName);
         if (indexOf >= 0) {
@@ -144,7 +150,9 @@ public class BookmarkExpandableView extends ExpandableListView
             adapter.registerDataSetObserver(mAdapter.mObserver);
         }
         mAdapter.notifyDataSetChanged();
-        expandGroup(mAdapter.getGroupCount() - 1);
+        if (expandGroup) {
+            expandGroup(mAdapter.getGroupCount() - 1);
+        }
     }
 
     @Override
@@ -306,6 +314,18 @@ public class BookmarkExpandableView extends ExpandableListView
             adapter.selectView(mCurrentView);
         }
         mAdapter.notifyDataSetChanged();
+    }
+
+    public JSONObject saveGroupState() throws JSONException {
+        JSONObject obj = new JSONObject();
+        int count = mAdapter.getGroupCount();
+        for (int i = 0; i < count; i++) {
+            String acctName = mAdapter.mGroups.get(i);
+            if (!isGroupExpanded(i)) {
+                obj.put(acctName != null ? acctName : LOCAL_ACCOUNT_NAME, false);
+            }
+        }
+        return obj;
     }
 
     class BookmarkAccountAdapter extends BaseExpandableListAdapter {
