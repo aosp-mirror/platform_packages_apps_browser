@@ -81,7 +81,11 @@ public class SnapshotTab extends Tab {
 
     @Override
     void addChildTab(Tab child) {
-        throw new IllegalStateException("Snapshot tabs cannot have child tabs!");
+        if (mIsLive) {
+            super.addChildTab(child);
+        } else {
+            throw new IllegalStateException("Snapshot tabs cannot have child tabs!");
+        }
     }
 
     @Override
@@ -95,11 +99,17 @@ public class SnapshotTab extends Tab {
 
     @Override
     public ContentValues createSnapshotValues() {
+        if (mIsLive) {
+            return super.createSnapshotValues();
+        }
         return null;
     }
 
     @Override
     public Bundle saveState() {
+        if (mIsLive) {
+            return super.saveState();
+        }
         return null;
     }
 
@@ -202,12 +212,8 @@ public class SnapshotTab extends Tab {
 
     @Override
     protected void persistThumbnail() {
-        // Nope
+        if (mIsLive) {
+            super.persistThumbnail();
+        }
     }
-
-    @Override
-    protected void deleteThumbnail() {
-        // Nope
-    }
-
 }
