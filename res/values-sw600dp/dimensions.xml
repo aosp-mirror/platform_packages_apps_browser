@@ -14,8 +14,7 @@
     <dimen name="bookmarkThumbnailWidth">180dip</dimen>
     <dimen name="bookmarkThumbnailHeight">120dip</dimen>
     <dimen name="widgetThumbnailHeight">104dip</dimen>
-    <dimen name="widgetHorizontalSpacing">6dip</dimen>
-    <dimen name="widgetVerticalSpacing">6dip</dimen>
+    <dimen name="widgetColumnWidth">130dip</dimen>
     <dimen name="favicon_padded_size">28dip</dimen>
     <dimen name="add_bookmark_width">500dip</dimen>
     <!-- For the most visited page -->
