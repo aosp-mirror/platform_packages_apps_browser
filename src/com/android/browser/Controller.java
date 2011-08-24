@@ -2674,32 +2674,23 @@ public class Controller
     }
 
     public boolean dispatchKeyEvent(KeyEvent event) {
-        return mBlockEvents || hasNoActiveTab();
+        return mBlockEvents;
     }
 
     public boolean dispatchKeyShortcutEvent(KeyEvent event) {
-        return mBlockEvents || hasNoActiveTab();
+        return mBlockEvents;
     }
 
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        return mBlockEvents || hasNoActiveTab();
+        return mBlockEvents;
     }
 
     public boolean dispatchTrackballEvent(MotionEvent ev) {
-        return mBlockEvents || hasNoActiveTab();
+        return mBlockEvents;
     }
 
     public boolean dispatchGenericMotionEvent(MotionEvent ev) {
-        return mBlockEvents || hasNoActiveTab();
-    }
-
-    private boolean hasNoActiveTab() {
-        Tab tab = getCurrentTab();
-        if (tab == null) {
-            Log.w(LOGTAG, "Received event with no active tab. Tab count: "
-                    + mTabControl.getTabCount());
-        }
-        return tab == null;
+        return mBlockEvents;
     }
 
 }
