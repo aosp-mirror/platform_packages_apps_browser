@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 The Android Open Source Project
+<!-- Copyright (C) 2011 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,11 +14,11 @@
      limitations under the License.
 -->
 
-<!-- 3x2 Widget displaying the user's bookmarks as a list with favicons. -->
+<!-- 3x3 Widget displaying the user's bookmarks as a list with favicons. -->
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="219dip"
-    android:minHeight="146dip"
+    android:minHeight="219dip"
     android:minResizeHeight="72dip"
     android:minResizeWidth="146dip"
     android:updatePeriodMillis="0"
