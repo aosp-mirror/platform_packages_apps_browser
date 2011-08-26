@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Velg fil for opplasting"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Filopplasting er deaktivert"</string>
     <string name="new_tab" msgid="7971857320679510529">"Ny fane"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Nytt inkognitovindu"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"Ny inkognitofane"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Bokmerker"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Mest besøkt"</string>
     <string name="tab_history" msgid="1979267558744613746">"Logg"</string>
@@ -92,24 +92,23 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Liste"</string>
     <string name="current_page" msgid="7510129573681663135">"fra "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Bokmerket \"<xliff:g id="BOOKMARK">%s</xliff:g>\" vil bli slettet."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Åpne alle i nye vinduer"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Åpne alle i nye faner"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Gå til"</string>
     <string name="select_dot" msgid="6299170761900561967">"Velg tekst"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Bokmerker"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Bokmerk"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Velg et bokmerke"</string>
     <string name="history" msgid="2451240511251410032">"Logg"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Nedlastinger"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopier nettstedsadresse"</string>
     <string name="share_page" msgid="593756995297268343">"Del side"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Lagre for frakoblet lesing"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Lagring for frakoblet lesing mislyktes."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Kunne ikke lagre for frakoblet lesing."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> bokmerker"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Tøm mappe"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Åpne"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Åpne i nytt vindu"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Åpne melding i nytt bakgrunnsvindu"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Åpne i ny fane"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Åpne i ny bakgrunnsfane"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Lagre kobling"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Del kobling"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopier"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"Behovsbasert"</item>
     <item msgid="8547442717307793863">"Av"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Nye vinduer åpnes bak det gjeldende"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Åpne nye faner bak den nåværende"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Angi startside"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Angi søkemotor"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Velg en søkemotor"</string>
@@ -169,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatisk Google-pålogging"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Pålogging til Google-nettsteder ved hjelp av <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Logg på som"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Logg på"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Logg på"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Skjul"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Pålogging mislyktes."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Kunne ikke logge på"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Skriv inn dataene du vil fylle inn automatisk når du trykker på felter på nettet."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Fullt navn:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-post:"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Nettstedet prøver å åpne et popup-vindu"</string>
     <string name="allow" msgid="1157313689171991335">"Tillat"</string>
     <string name="block" msgid="9172175889884707800">"Blokker"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Vindusgrense nådd"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Kan ikke åpne et nytt vindu fordi du allerede har åpnet maksimalt antall."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Fanegrensen er nådd"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Du kan ikke åpne en ny fane fordi du allerede har åpnet maksimalt antall."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Popup-vindu allerede åpent"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Kan ikke åpne et nytt popup-vindu, fordi det bare kan være ett åpent av gangen."</string>
     <string name="download_title" msgid="2122874021047565594">"Nedlastingslogg"</string>
@@ -395,7 +394,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google med Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Forhåndsvisning"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokal"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Datamaskin"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Be om skrivebordsversjonen av nettstedet"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Forhåndsinnlasting av resultater"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Du har ingen lagrede sider."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Slett lagret side"</string>

@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Zvoliť súbor, ktorý chcete odovzdať"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Odovzdávanie súborov je zakázané."</string>
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"Nové okno"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Nové okno inkognito"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"Nová karta v režime inkognito"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Záložky"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Najviac navštevované"</string>
     <string name="tab_history" msgid="1979267558744613746">"História"</string>
@@ -92,24 +92,23 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Zoznam"</string>
     <string name="current_page" msgid="7510129573681663135">"od "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Záložka <xliff:g id="BOOKMARK">%s</xliff:g> bude odstránená."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Otvoriť všetky v nových oknách"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Otvoriť všetky na nových kartách"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Hľadať"</string>
     <string name="select_dot" msgid="6299170761900561967">"Vybrať text"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Záložky"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Pridať medzi záložky"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Vyberte záložku"</string>
     <string name="history" msgid="2451240511251410032">"História"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Prevzatia"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopírovať adresu URL stránky"</string>
     <string name="share_page" msgid="593756995297268343">"Zdieľať stránku"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Uložiť na čítanie offline"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Uloženie na čítanie offline zlyhalo."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Nepodarilo sa uložiť na čítanie v režime offline."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Počet záložiek: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Prázdny priečinok"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Otvoriť"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Otvoriť v novom okne"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Otvoriť v novom okne na pozadí"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Otvoriť na novej karte"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Otvoriť na novej karte na pozadí"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Uložiť odkaz"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Zdieľať odkaz"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopírovať"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"Na požiadanie"</item>
     <item msgid="8547442717307793863">"Vypnuté"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Otvárať nové okná za aktuálnym oknom"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Otvárať nové karty za aktuálnou kartou"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Nastaviť domovskú stránku"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Nastaviť vyhľadávací nástroj"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Výber vyhľadávacieho nástroja"</string>
@@ -169,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatické prihlasovanie Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Prihlasovanie na stránky Google pomocou používateľského mena <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Prihlásený/-á ako"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Prihlásiť"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Prihlásiť sa"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Skryť"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Prihlásenie zlyhalo."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Prihlásenie sa nepodarilo."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Zadajte údaje, ktoré sa majú pri dotyku automaticky doplniť do webových polí."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Celé meno:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Táto stránka sa pokúša otvoriť kontextové okno."</string>
     <string name="allow" msgid="1157313689171991335">"Povoliť"</string>
     <string name="block" msgid="9172175889884707800">"Blokovať"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Bol dosiahnutý maximálny počet okien"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Nové okno sa nedá otvoriť, pretože je už otvorený maximálny počet okien."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Bol dosiahnutý limit počtu kariet"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Novú kartu nie je možné otvoriť, pretože už je otvorený maximálny počet kariet."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Kontextové okno je už otvorené"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Nie je možné otvoriť nové kontextové okno, pretože môže byť otvorené iba jedno."</string>
     <string name="download_title" msgid="2122874021047565594">"História preberania"</string>
@@ -395,28 +394,28 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google s Dynamickým vyhľadávaním (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Zobraziť ukážku"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Miestne"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Stolný počítač"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Vyžiadať stránky pre počítače"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Predbežné načítanie výsledkov"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Neexistujú žiadne uložené stránky."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Odstrániť uloženú stránku"</string>
-    <string name="snapshot_go_live" msgid="1209542802541168497">"Načítať z Internetu"</string>
+    <string name="snapshot_go_live" msgid="1209542802541168497">"Prejsť online"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Späť"</string>
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Ďalej"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Obnoviť stránku"</string>
-    <string name="accessibility_button_stop" msgid="6793644120043222148">"Zastavenie načítavania stránky"</string>
-    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Pridanie stránky medzi záložky"</string>
+    <string name="accessibility_button_stop" msgid="6793644120043222148">"Zastavenie načítavania stránky."</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Uložiť stránku ako záložku"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Vyhľadávanie"</string>
-    <string name="accessibility_button_voice" msgid="152016375096083337">"Spustenie Hlasového vyhľadávania"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Spustenie hlasového vyhľadávania"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Záložky"</string>
-    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Zatvorenie karty"</string>
-    <string name="accessibility_button_newtab" msgid="4116986240706315748">"Otvorenie novej karty"</string>
-    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Otvorenie novej karty v režime inkognito"</string>
-    <string name="accessibility_button_clear" msgid="6943152307986161598">"Vymazanie vstupu"</string>
-    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Prepnutie platformy user-agent"</string>
-    <string name="accessibility_button_go" msgid="1182818872083055958">"Prejsť"</string>
-    <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Správca stránok"</string>
+    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Zatvoriť kartu"</string>
+    <string name="accessibility_button_newtab" msgid="4116986240706315748">"Otvorte novú kartu"</string>
+    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Nová karta v režime inkognito"</string>
+    <string name="accessibility_button_clear" msgid="6943152307986161598">"Vymazať vstup"</string>
+    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Prepnúť identifikátor robota"</string>
+    <string name="accessibility_button_go" msgid="1182818872083055958">"Spustiť"</string>
+    <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Správca stránky"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"Viac možností"</string>
-    <string name="accessibility_state_incognito" msgid="5786038488425202355">"Stránka v režime inkognito"</string>
+    <string name="accessibility_state_incognito" msgid="5786038488425202355">"Stránka inkognito"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"Uložená stránka"</string>
-    <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Správa kariet"</string>
+    <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Správa karty"</string>
 </resources>

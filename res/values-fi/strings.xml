@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Valitse lähetettävä tiedosto"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Tiedostojen lähettäminen ei ole käytössä."</string>
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"Uusi ikkuna"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Uusi incognito-ikkuna"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"Uusi incognito-välilehti"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Kirjanmerkit"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Useimmin avatut"</string>
     <string name="tab_history" msgid="1979267558744613746">"Historia"</string>
@@ -92,24 +92,23 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Luettelo"</string>
     <string name="current_page" msgid="7510129573681663135">"kohteesta "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Kirjanmerkki \"<xliff:g id="BOOKMARK">%s</xliff:g>\" poistetaan."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Avaa kaikki uusissa ikkunoissa"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Avaa kaikki uusiin välilehtiin"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Siirry"</string>
     <string name="select_dot" msgid="6299170761900561967">"Tekstin valinta"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Kirjanmerkit"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Kirjanmerkki"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Valitse kirjanmerkki"</string>
     <string name="history" msgid="2451240511251410032">"Historia"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Lataukset"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopioi sivun URL-osoite"</string>
     <string name="share_page" msgid="593756995297268343">"Jaa sivu"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Tallenna offline-tilassa luettavaksi"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Tallennus offline-tilassa luettavaksi epäonnistui"</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Ei voitu tallentaa offline-käyttöä varten."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> kirjanmerkkiä"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Tyhjä kansio"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Avaa"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Avaa uudessa ikkunassa"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Avaa uudessa ikkunassa taustalla"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Avaa uudessa välilehdessä"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Avaa uudessa välilehdessä taustalla"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Tallenna linkki"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Jaa linkki"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopioi"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"Tarvittaessa"</item>
     <item msgid="8547442717307793863">"Pois käytöstä"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Avaa uudet ikkunat nykyisen taakse"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Avaa uudet välilehdet nykyisen taakse"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Aseta etusivu"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Aseta hakukone"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Valitse hakukone"</string>
@@ -169,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automaattinen Google-sisäänkirjaus"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Kirjaudutaan Google-sivustoihin käyttäjänimellä <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Kirjautunut käyttäjänä"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Kirjaudu"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Kirjaudu"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Piilota"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Kirjautuminen epäonnistui."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Kirjautuminen ei onnistu."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Kirjoita tiedot, jotka haluat täyttää automaattisesti verkon kenttiin koskettaessasi kenttiä."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Koko nimi:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Sähköposti:"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Sivusto yrittää avata ponnahdusikkunan."</string>
     <string name="allow" msgid="1157313689171991335">"Salli"</string>
     <string name="block" msgid="9172175889884707800">"Estä"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Ikkunoita avattu enimmäismäärä"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Uutta ikkunaa ei voi avata, koska suurin sallittu määrä ikkunoita on jo avattuna."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Välilehtiä avattu enimmäismäärä"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Uutta välilehteä ei voi avata, koska suurin sallittu määrä välilehtiä on jo avattuna."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ponnahdusikkuna on jo auki"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Uuden ponnahdusikkunan avaaminen ei onnistu, koska kerralla voi olla auki vain yksi ponnahdusikkuna."</string>
     <string name="download_title" msgid="2122874021047565594">"Lataushistoria"</string>
@@ -395,7 +394,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google ja Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Esikatselu"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Paikalliset kirjanmerkit"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Tietokone"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Käytä sivuston tietokoneversiota"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Esilatauksen tulokset"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Ei tallennettuja sivuja."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Poista tallennettu sivu"</string>

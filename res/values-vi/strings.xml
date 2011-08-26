@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Chọn tệp để tải lên"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Nội dung tải lên của tệp bị vô hiệu hóa."</string>
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"Cửa sổ mới"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Cửa sổ ẩn danh mới"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"Tab ẩn danh mới"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Dấu trang"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Truy cập nhiều nhất"</string>
     <string name="tab_history" msgid="1979267558744613746">"Lịch sử"</string>
@@ -92,24 +92,23 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Danh sách"</string>
     <string name="current_page" msgid="7510129573681663135">"từ "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Dấu trang \"<xliff:g id="BOOKMARK">%s</xliff:g>\" sẽ bị xoá."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Mở tất cả trong cửa sổ mới"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Mở tất cả dấu trang trong tab mới"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Đến"</string>
     <string name="select_dot" msgid="6299170761900561967">"Chọn văn bản"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Dấu trang"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Dấu trang"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Chọn dấu trang"</string>
     <string name="history" msgid="2451240511251410032">"Lịch sử"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Nội dung tải xuống"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Sao chép url của trang"</string>
     <string name="share_page" msgid="593756995297268343">"Chia sẻ trang"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Lưu để đọc ngoại tuyến"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Không thể lưu để đọc ngoại tuyến."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Không thể lưu để đọc ngoại tuyến."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> dấu trang"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Thư mục trống"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Mở"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Mở trong cửa sổ mới"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Mở trong cửa sổ nền mới"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Mở trong tab mới"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Mở trong tab nền mới"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Lưu liên kết"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Chia sẻ liên kết"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Sao chép"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"Theo yêu cầu"</item>
     <item msgid="8547442717307793863">"Tắt"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Mở cửa sổ mới phía sau cửa sổ hiện tại"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Mở tab mới phía sau tab hiện tại"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Đặt trang chủ"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Đặt công cụ tìm kiếm"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Chọn công cụ tìm kiếm"</string>
@@ -169,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Tự động đăng nhập Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Đang đăng nhập vào trang web Google bằng <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Đăng nhập với tên"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Đăng nhập"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Đ.nhập"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ẩn"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Đăng nhập không thành công."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Không thể đăng nhập."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Nhập dữ liệu bạn muốn để tự động điền vào các trường trên web khi bạn gặp chúng."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Tên đầy đủ:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Trang web này đang cố mở cửa sổ bật lên."</string>
     <string name="allow" msgid="1157313689171991335">"Cho phép"</string>
     <string name="block" msgid="9172175889884707800">"Chặn"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Đã đạt tới giới hạn cửa sổ"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Không thể mở cửa sổ mới vì bạn đã mở số cửa sổ tối đa."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Đã đạt tới giới hạn tab"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Không thể mở tab mới vì bạn đã mở số lượng tab tối đa."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Cửa sổ bật lên đã mở"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Không thể mở cửa sổ bật lên mới vì chỉ có thể mở một cửa sổ một lúc."</string>
     <string name="download_title" msgid="2122874021047565594">"Lịch sử tải xuống"</string>
@@ -395,25 +394,25 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google với tính năng Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Xem trước"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Địa phương"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Máy tính"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Yêu cầu trang web dành cho máy tính"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Tải trước kết quả"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Không có trang nào được lưu."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Xóa trang đã lưu"</string>
-    <string name="snapshot_go_live" msgid="1209542802541168497">"Tìm bản trực tuyến"</string>
+    <string name="snapshot_go_live" msgid="1209542802541168497">"Phát hành trực tuyến"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Quay lại"</string>
-    <string name="accessibility_button_forward" msgid="1236827218480658168">"Chuyển tiếp"</string>
+    <string name="accessibility_button_forward" msgid="1236827218480658168">"Đi về phía trước"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Làm mới trang"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Ngừng tải trang"</string>
-    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Đánh dấu trang"</string>
-    <string name="accessibility_button_search" msgid="5357014102136055376">"Tìm kiếm"</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Trang dấu trang"</string>
+    <string name="accessibility_button_search" msgid="5357014102136055376">"Tìm"</string>
     <string name="accessibility_button_voice" msgid="152016375096083337">"Bắt đầu tìm kiếm bằng giọng nói"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Dấu trang"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Đóng tab"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Mở tab mới"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Mở tab ẩn danh mới"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"Xóa văn bản nhập"</string>
-    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Chuyển đổi tác nhân người dùng"</string>
-    <string name="accessibility_button_go" msgid="1182818872083055958">"Tìm"</string>
+    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Chuyển đổi tác nhân của người dùng"</string>
+    <string name="accessibility_button_go" msgid="1182818872083055958">"Bắt đầu"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Trình quản lý trang"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"Tùy chọn khác"</string>
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Trang ẩn danh"</string>

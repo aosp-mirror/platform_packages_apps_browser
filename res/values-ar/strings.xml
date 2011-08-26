@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"اختر ملفًا لتحميله"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"تحميلات الملفات معطلة."</string>
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"نافذة جديدة"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"نافذة جديدة للتصفح المتخفي"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"علامة تبويب جديدة للتصفح المتخفي"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"الإشارات"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"الأكثر زيارة"</string>
     <string name="tab_history" msgid="1979267558744613746">"سجلّ"</string>
@@ -49,7 +49,7 @@
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"هذه الشهادة ليست صالحة بعد."</string>
     <string name="ssl_date_invalid" msgid="3705563379257285534">"تشتمل هذه الشهادة على تاريخ غير صالح."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"هذه الشهادة غير صالحة."</string>
-    <string name="ssl_unknown" msgid="5679243486524754571">"خطأ غير معروف في الشهادة."</string>
+    <string name="ssl_unknown" msgid="5679243486524754571">"حدث خطأ غير معروف بالشهادة."</string>
     <string name="stopping" msgid="4839698519340302982">"جارٍ الإيقاف..."</string>
     <string name="stop" msgid="5687251076030630074">"إيقاف"</string>
     <string name="reload" msgid="8585220783228408062">"تحديث"</string>
@@ -92,13 +92,12 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"قائمة"</string>
     <string name="current_page" msgid="7510129573681663135">"من "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"سيتم حذف الإشارة \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"فتح الكل في نوافذ جديدة"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"فتح الكل في علامات تبويب جديدة"</string>
     <string name="goto_dot" msgid="3895839050522602723">"تنفيذ"</string>
     <string name="select_dot" msgid="6299170761900561967">"تحديد نص"</string>
     <string name="bookmarks" msgid="1961279134885867815">"الإشارات"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"إشارة"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"تحديد إشارة مرجعية"</string>
     <string name="history" msgid="2451240511251410032">"سجلّ"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"التنزيلات"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"نسخ عنوان URL للصفحة"</string>
@@ -108,8 +107,8 @@
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> من الإشارات المرجعية"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"المجلد فارغ"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"فتح"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"فتح في نافذة جديدة"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"فتح في نافذة جديدة في الخلفية"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"فتح في علامة تبويب جديدة"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"فتح في علامة تبويب جديدة في الخلفية"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"حفظ الرابط"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"مشاركة الرابط"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"نسخ"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"عند الطلب"</item>
     <item msgid="8547442717307793863">"إيقاف"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"فتح نوافذ جديدة وراء النافذة الحالية"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"فتح علامات تبويب جديدة وراء علامة التبويب الحالية"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"تعيين الصفحة الرئيسية"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"تعين محرك بحث"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"تحديد محرك بحث"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"يحاول هذا الموقع فتح نافذة منبثقة."</string>
     <string name="allow" msgid="1157313689171991335">"السماح"</string>
     <string name="block" msgid="9172175889884707800">"حظر"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"تم بلوغ الحد الأقصى للنوافذ"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"تعذر فتح نافذة جديدة نظرًا لأنك فتحت الحد الأقصى للنوافذ فعليًا."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"تم بلوغ الحد الأقصى لعلامات التبويب"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"تعذر فتح علامة تبويب جديدة نظرًا لأنك فتحت الحد الأقصى لعلامات التبويب فعليًا."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"النافذة مفتوحة فعليًا"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"تعذر فتح نافذة منبثقة جديدة نظرًا لأنه يمكن فتح نافذة واحدة فقط في أي وقت."</string>
     <string name="download_title" msgid="2122874021047565594">"سجل التنزيل"</string>
@@ -401,7 +400,7 @@
     <string name="remove_snapshot" msgid="1624447424544976849">"حذف الصفحة المحفوظة"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"بث مباشر"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"رجوع"</string>
-    <string name="accessibility_button_forward" msgid="1236827218480658168">"الانتقال للتالي"</string>
+    <string name="accessibility_button_forward" msgid="1236827218480658168">"انتقال للأمام"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"تحديث الصفحة"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"إيقاف تحميل الصفحة"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"وضع إشارة على الصفحة"</string>
@@ -411,12 +410,12 @@
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"إغلاق علامة التبويب"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"فتح علامة تبويب جديدة"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"فتح علامة تبويب جديدة للتصفح المتخفي"</string>
-    <string name="accessibility_button_clear" msgid="6943152307986161598">"محو الإرسال"</string>
+    <string name="accessibility_button_clear" msgid="6943152307986161598">"محو الإدخال"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"تبديل وكيل المستخدم"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"انتقال"</string>
-    <string name="accessibility_button_navscreen" msgid="9142904748728713075">"مدير الصفحة"</string>
-    <string name="accessibility_button_more" msgid="3054251446394224216">"مزيد من الخيارات"</string>
+    <string name="accessibility_button_navscreen" msgid="9142904748728713075">"مدير الصفحات"</string>
+    <string name="accessibility_button_more" msgid="3054251446394224216">"خيارات أكثر"</string>
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"صفحة التصفح المتخفي"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"صفحة محفوظة"</string>
-    <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"إدارة علامة التبويب"</string>
+    <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"التبويب إدارة"</string>
 </resources>

@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"选择要上传的文件"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"文件上传功能已停用。"</string>
     <string name="new_tab" msgid="7971857320679510529">"新标签"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"新隐身窗口"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"新隐身标签页"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"书签"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"访问最多"</string>
     <string name="tab_history" msgid="1979267558744613746">"历史记录"</string>
@@ -92,13 +92,12 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"列表"</string>
     <string name="current_page" msgid="7510129573681663135">"来源 "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"将会删除书签“<xliff:g id="BOOKMARK">%s</xliff:g>”。"</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"在新窗口中打开全部书签"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"在新标签页中打开全部书签"</string>
     <string name="goto_dot" msgid="3895839050522602723">"转至"</string>
     <string name="select_dot" msgid="6299170761900561967">"选择文本"</string>
     <string name="bookmarks" msgid="1961279134885867815">"书签"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"书签"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"选择一个书签"</string>
     <string name="history" msgid="2451240511251410032">"历史记录"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"下载内容"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"复制网页网址"</string>
@@ -108,8 +107,8 @@
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> 个书签"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空文件夹"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"打开"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"在新窗口中打开"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"在新的后台窗口中打开"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"在新标签页中打开"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"在新的后台标签页中打开"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"保存链接"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"分享链接"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"复制"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"在需要时打开"</item>
     <item msgid="8547442717307793863">"关"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"在当前窗口后方打开新窗口"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"在当前标签页后方打开新标签页"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"设置主页"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"设置搜索引擎"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"选择搜索引擎"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"该网站试图打开一个弹出式窗口。"</string>
     <string name="allow" msgid="1157313689171991335">"允许"</string>
     <string name="block" msgid="9172175889884707800">"阻止"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"打开的窗口数已达上限"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"无法打开新窗口，因为打开的窗口数已达到上限。"</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"已达到标签页数上限"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"无法打开新标签页，因为打开的标签页数已达到上限。"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"弹出式窗口已经打开"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"无法打开新的弹出式窗口，因为任何时候都是一次只能打开一个窗口。"</string>
     <string name="download_title" msgid="2122874021047565594">"下载历史记录"</string>

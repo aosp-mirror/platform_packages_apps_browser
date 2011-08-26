@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Избор на файл за качване"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Качванията на файлове са деактивирани."</string>
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"Нов прозорец"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Нов прозорец „инкогнито“"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"Нов раздел „инкогнито“"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Отметки"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Най-посещавани"</string>
     <string name="tab_history" msgid="1979267558744613746">"История"</string>
@@ -92,13 +92,12 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Списък"</string>
     <string name="current_page" msgid="7510129573681663135">"от "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Отметката „<xliff:g id="BOOKMARK">%s</xliff:g>“ ще бъде изтрита."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Отваряне на всички в нови прозорци"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Отваряне на всички в нови раздели"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Старт"</string>
     <string name="select_dot" msgid="6299170761900561967">"Избиране на текст"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Отметки"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Отметка"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Изберете отметка"</string>
     <string name="history" msgid="2451240511251410032">"История"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Изтеглени"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Копиране на URL адреса на страницата"</string>
@@ -108,8 +107,8 @@
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> отметки"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Празна папка"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Отваряне"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Отваряне в нов прозорец"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Отваряне в нов прозорец на заден план"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Отваряне в нов раздел"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Отваряне в нов раздел на заден план"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Запазване на връзката"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Споделяне на връзката"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Копиране"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"При поискване"</item>
     <item msgid="8547442717307793863">"Изкл."</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Отваряне на нови прозорци зад текущия"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Отваряне на нови раздели зад текущия"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Задаване на начална страница"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Задаване на търсеща машина"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Избор на търсеща машина"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Този сайт се опитва да отвори изскачащ прозорец."</string>
     <string name="allow" msgid="1157313689171991335">"Разрешаване"</string>
     <string name="block" msgid="9172175889884707800">"Блокиране"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Достигнато е ограничението за прозорци"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Не можа да бъде отворен нов прозорец, защото вече сте отворили максималния брой."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Достигнато е ограничението за раздели"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Не можа да бъде отворен нов раздел, защото вече сте отворили максималния брой."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Изскачащият прозорец вече е отворен"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Не можа да бъде отворен нов изскачащ прозорец – най-много един може да е отворен по всяко време."</string>
     <string name="download_title" msgid="2122874021047565594">"История на изтеглянията"</string>

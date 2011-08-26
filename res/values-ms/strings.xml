@@ -103,7 +103,7 @@
     <string name="copy_page_url" msgid="7635062169011319208">"Salin url halaman"</string>
     <string name="share_page" msgid="593756995297268343">"Kongsi halaman"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Simpan untuk pembacaan di luar talian"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Gagal menyimpan untuk pembacaan di luar talian."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Tidak dapat disimpan untuk pembacaan di luar talian."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> penanda halaman"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Folder kosong"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Buka"</string>
@@ -168,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Log masuk Google automatik"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Melog masuk ke dalam tapak Google menggunakan <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Log masuk sebagai"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Log masuk"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Daftar masuk"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Sembunyikn"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Log masuk gagal."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Tidak dapat mendaftar masuk."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Masukkan data yang anda mahu auto isi dalam medan web apabila anda menyentuhnya."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nama penuh:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mel:"</string>
@@ -394,25 +394,25 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google dengan Instant (Makmal)"</string>
     <string name="preview" msgid="6450823514561689038">"Pratonton"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Tempatan"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Desktop"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Minta tapak versi komputer meja"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Pramuat hasil"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Tidak terdapat halaman disimpan."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Padamkan halaman disimpan"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"Muatkn siaran lngsng"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Kembali"</string>
-    <string name="accessibility_button_forward" msgid="1236827218480658168">"Ke depan"</string>
+    <string name="accessibility_button_forward" msgid="1236827218480658168">"Pergi ke depan"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Memuat semula halaman"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Menghentikan pemuatan halaman"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Menanda halaman halaman"</string>
-    <string name="accessibility_button_search" msgid="5357014102136055376">"Cari"</string>
-    <string name="accessibility_button_voice" msgid="152016375096083337">"Mulakan carian suara"</string>
+    <string name="accessibility_button_search" msgid="5357014102136055376">"Mencari"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Memulakan carian suara"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Penanda halaman"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Menutup tab"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Membuka tab baru"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Membuka tab incognito baru"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"Mengosongkan input"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Menukar ejen pengguna"</string>
-    <string name="accessibility_button_go" msgid="1182818872083055958">"Pergi"</string>
+    <string name="accessibility_button_go" msgid="1182818872083055958">"Menjalankan"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Pengurus halaman"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"Lagi pilihan"</string>
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Halaman incognito"</string>

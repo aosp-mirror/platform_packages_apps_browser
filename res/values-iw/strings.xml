@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"בחר קובץ להעלאה"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"העלאות הקובץ הושבתו."</string>
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"חלון חדש"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"חלון חדש של גלישה בסתר"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"כרטיסייה חדשה של גלישה בסתר"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"סימניות"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"אתרים שבהם אתה מבקר בתדירות הגבוהה ביותר"</string>
     <string name="tab_history" msgid="1979267558744613746">"היסטוריה"</string>
@@ -42,12 +42,12 @@
     <string name="ssl_continue" msgid="8031515015829358457">"המשך"</string>
     <string name="security_warning" msgid="6607795404322797541">"אזהרת אבטחה"</string>
     <string name="view_certificate" msgid="1472768887529093862">"הצג אישור"</string>
-    <string name="ssl_go_back" msgid="4598951822061593819">"חזור"</string>
+    <string name="ssl_go_back" msgid="4598951822061593819">"חזור אחורה"</string>
     <string name="ssl_untrusted" msgid="5369967226521102194">"אישור זה אינו מגיע מרשות אמינה."</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"שם האתר לא תואם לשם באישור."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"פג תוקפו של אישור זה."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"אישור זה אינו חוקי עדיין."</string>
-    <string name="ssl_date_invalid" msgid="3705563379257285534">"לאישור זה יש תאריך חוקי."</string>
+    <string name="ssl_date_invalid" msgid="3705563379257285534">"לאישור זה יש תאריך בלתי חוקי."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"אישור זה אינו חוקי."</string>
     <string name="ssl_unknown" msgid="5679243486524754571">"שגיאת אישור לא ידועה."</string>
     <string name="stopping" msgid="4839698519340302982">"מפסיק..."</string>
@@ -66,7 +66,7 @@
     <string name="no_subfolders" msgid="5880411440592452802">"אין תיקיות משנה"</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"סימניות"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"מסך דף הבית"</string>
-    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"תיקיה אחרת..."</string>
+    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"תיקיה אחרת???"</string>
     <string name="name" msgid="5462672162695365387">"תווית"</string>
     <string name="http" msgid="2163722670597250102">"http://‎"</string>
     <string name="save_to_bookmarks" msgid="6101482434920313244">"הוסף לסימניות"</string>
@@ -92,13 +92,12 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"רשימה"</string>
     <string name="current_page" msgid="7510129573681663135">"מ: "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"הסימניה \"<xliff:g id="BOOKMARK">%s</xliff:g>\" תימחק."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"פתח הכל בחלונות חדשים"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"פתח הכל בכרטיסיות חדשות"</string>
     <string name="goto_dot" msgid="3895839050522602723">"בצע"</string>
     <string name="select_dot" msgid="6299170761900561967">"בחר טקסט"</string>
     <string name="bookmarks" msgid="1961279134885867815">"סימניות"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"הוסף לסימניות"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"בחר סימנייה"</string>
     <string name="history" msgid="2451240511251410032">"היסטוריה"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"הורדות"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"העתק כתובת אתר של דף"</string>
@@ -108,8 +107,8 @@
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> סימניות"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"תיקיה ריקה"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"פתח"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"פתח בחלון חדש"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"פתח בחלון רקע חדש"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"פתח בכרטיסייה חדשה"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"פתח בכרטיסיית רקע חדשה"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"שמור קישור"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"שתף קישור"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"העתק"</string>
@@ -138,22 +137,22 @@
     <item msgid="2484126708670016519">"לפי דרישה"</item>
     <item msgid="8547442717307793863">"כבוי"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"פתח חלונות חדשים מאחורי החלון הנוכחי"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"פתח כרטיסיות חדשות מאחורי הכרטיסייה הנוכחית"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"הגדר את דף הבית"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"הגדר מנוע חיפוש"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"בחר מנוע חיפוש"</string>
-    <string name="pref_set_homepage_to" msgid="7196350233061395098">"הוגדר ל..."</string>
+    <string name="pref_set_homepage_to" msgid="7196350233061395098">"הגדר ל-???"</string>
   <string-array name="pref_homepage_choices">
     <item msgid="844041670142910837">"דף נוכחי"</item>
     <item msgid="4430498748295169195">"דף ריק"</item>
     <item msgid="5747608191946904074">"דף ברירת מחדל"</item>
     <item msgid="6092441301001006473">"האתרים שבהם ביקרת בתדירות גבוהה"</item>
-    <item msgid="5021822752506507426">"אחר..."</item>
+    <item msgid="5021822752506507426">"אחר???"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"התאם דפים באופן אוטומטי"</string>
     <string name="pref_content_autofit_summary" msgid="4587831659894879986">"עצב דפי אינטרנט כך שיתאימו למסך"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"כללי"</string>
-    <string name="pref_general_sync_title" msgid="3138637035975860324">"סנכרון"</string>
+    <string name="pref_general_sync_title" msgid="3138637035975860324">"סנכרן"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"מילוי אוטומטי"</string>
     <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"סנכרן עם Google Chrome"</string>
     <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"שתף סימניות ונתונים אחרים בין דפדפן Android לבין Google Chrome"</string>
@@ -162,14 +161,14 @@
     <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"סנכרן סימניות בין דפדפן Android לבין Google Chrome"</string>
     <string name="pref_personal_start_syncing" msgid="6046972042512655232">"התחל סינכרון"</string>
     <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"בחר חשבון Google לשיתוף"</string>
-    <string name="pref_autofill_enabled" msgid="1015751713312396713">"מילוי אוטומטי של טופס"</string>
+    <string name="pref_autofill_enabled" msgid="1015751713312396713">"מילוי אוטומטי של טפסים"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"מלא טופסי אינטרנט בלחיצה אחת"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"נתונים של \'מילוי אוטומטי\'"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"הזן נתונים ושמור אותם למילוי אוטומטי של שדות בטופס אינטרנט"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"הזן נתונים ושמור אותם למילוי אוטומטי של שדות בטפסים מקוונים"</string>
     <string name="pref_autologin_title" msgid="2362827272595366379">"כניסה אוטומטית ל-Google"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"כניסה אל Google Sites באמצעות <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"נכנס אל Google Sites באמצעות <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"היכנס כ:"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"התחבר"</string>
+    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"התחברות"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"הסתר"</string>
     <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"ההתחברות נכשלה."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"הזן את הנתונים שברצונך למלא באופן אוטומטי בשדות באינטרנט כאשר תיגע בשדות אלה."</string>
@@ -198,7 +197,7 @@
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"נקה קובץ שמור"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"נקה תוכן ומסדי נתונים בקובץ השמור המקומי"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"תוכן ומסדי נתונים בקובץ השמור המקומי יימחקו."</string>
-    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"קובצי cookie"</string>
+    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"קובצי Cookie"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"נקה את כל הנתונים של קובצי Cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"נקה את כל קובצי ה-Cookie של הדפדפן"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"כל קובצי ה-Cookie יימחקו."</string>
@@ -275,9 +274,9 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"קידוד טקסט"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"נגישות"</string>
     <string name="pref_font_size_category" msgid="6288925476811083551">"גודל גופן"</string>
-    <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
+    <string name="pref_lab_title" msgid="5571091610359629423">"Google Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"פקדים מהירים"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"העבר את האגודל מאחד הצדדים  כדי לגשת לפקדים המהירים ולהסתיר את סרגלי היישום וה-URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"העבר את האגודל מאחד הצדדים כדי לגשת לפקדים המהירים ולהסתיר את סרגלי היישום וה-URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"השתמש ב-Google Instant כאשר אתה משתמש בחיפוש Google, כדי להציג תוצאות בעת ההקלדה (פעולה זו יכולה להגדיל שימוש בנתונים)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"מסך מלא"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"אתר זה מנסה לפתוח חלון קופץ."</string>
     <string name="allow" msgid="1157313689171991335">"מותר"</string>
     <string name="block" msgid="9172175889884707800">"חסום"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"הגעת למגבלת החלונות"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"אין אפשרות לפתוח חלון חדש כיוון שכבר פתחת את מספר החלונות המקסימלי."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"הגעת למגבלת הכרטיסיות"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"אין אפשרות לפתוח כרטיסייה חדשה כיוון שכבר פתחת את מספר הכרטיסיות המקסימלי."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"חלון קופץ כבר פתוח"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"אין אפשרות לפתוח חלון קופץ חדש כיוון שניתן לפתוח חלון אחד בלבד בכל פעם."</string>
     <string name="download_title" msgid="2122874021047565594">"היסטוריית הורדות"</string>
@@ -329,7 +328,7 @@
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"כרטיס SD לא זמין"</string>
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"אמצעי אחסון מסוג USB אינו פנוי. כדי לאפשר הורדות, בחר \"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"כרטיס SD אינו פנוי. כדי לאפשר הורדות, בחר \"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
-    <string name="cannot_download" msgid="8150552478556798780">"ניתן להוריד רק כתובות אתרים המתחילות ב-\"http\" או \"https\"."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"ניתן להוריד רק כתובות אתר המתחילות ב-\"http\" או \"https\"."</string>
     <string name="download_no_application_title" msgid="1286056729168874295">"אין אפשרות לפתוח את הקובץ"</string>
     <string name="retry" msgid="1835923075542266721">"נסה שוב"</string>
     <string name="no_downloads" msgid="3947445710685021498">"היסטוריית ההורדות ריקה."</string>
@@ -376,13 +375,13 @@
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"סימניות"</string>
     <string name="empty_bookmarks_folder" msgid="7843361614634930942">"אין סימניות"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
-    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"בחירת חשבון"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"בחר חשבון"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"סינכרון עם חשבון Google"</string>
-    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"הסימניות בהתקן זה עדיין לא משויכות לחשבון Google. כדי לשמור את הסימניות, הוסף אותן לחשבון. מחק את הסימניות אם אינך מעוניין לסנכרן אותן."</string>
-    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"הוסף את הסימניות הקיימות כרגע בהתקן זה והתחל בסינכרון עם חשבון Google"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"מחק את הסימניות הקיימות כרגע בהתקן זה והתחל בסינכרון עם חשבון Google"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"מחק סימניות הקיימות כרגע בהתקן זה והתחל בסינכרון סימניות עם <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"הוסף את הסימניות הקיימות כרגע בהתקן זה והתחל בסינכרון הסימניות עם <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"הסימניות במכשיר זה עדיין לא משויכות לחשבון Google. כדי לשמור את הסימניות, הוסף אותן לחשבון. מחק את הסימניות אם אינך מעוניין לסנכרן אותן."</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"הוסף את הסימניות הקיימות כרגע במכשיר זה והתחל בסינכרון עם חשבון Google"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"מחק את הסימניות הקיימות כרגע במכשיר זה והתחל בסינכרון עם חשבון Google"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"מחק סימניות הקיימות כרגע במכשיר זה והתחל בסינכרון סימניות עם <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"הוסף את הסימניות הקיימות כרגע במכשיר זה והתחל בסינכרון הסימניות עם <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"מחק סימניות"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"הבא"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"הקודם"</string>
@@ -400,9 +399,9 @@
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"אין דפים שמורים."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"מחק את הדף השמור"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"עבור למצב פעיל"</string>
-    <string name="accessibility_button_back" msgid="6194680634245279407">"חזור"</string>
+    <string name="accessibility_button_back" msgid="6194680634245279407">"חזור אחורה"</string>
     <string name="accessibility_button_forward" msgid="1236827218480658168">"המשך קדימה"</string>
-    <string name="accessibility_button_refresh" msgid="1023441396241841313">"רענן את הדף"</string>
+    <string name="accessibility_button_refresh" msgid="1023441396241841313">"רענן עמוד"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"הפסק טעינת דף"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"הוסף דף לסימניות"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"חיפוש"</string>
@@ -410,10 +409,10 @@
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"סימניות"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"סגור כרטיסייה"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"פתח כרטיסייה חדשה"</string>
-    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"פתח כרטיסיה חדשה של גלישה בסתר"</string>
+    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"פתח כרטיסייה חדשה של גלישה בסתר"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"נקה תוכן"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"החלף סוכן משתמש"</string>
-    <string name="accessibility_button_go" msgid="1182818872083055958">"המשך"</string>
+    <string name="accessibility_button_go" msgid="1182818872083055958">"בצע"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"מנהל דפים"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"אפשרויות נוספות"</string>
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"דף גלישה בסתר"</string>

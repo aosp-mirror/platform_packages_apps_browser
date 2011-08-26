@@ -103,7 +103,7 @@
     <string name="copy_page_url" msgid="7635062169011319208">"Copy page URL"</string>
     <string name="share_page" msgid="593756995297268343">"Share page"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Save for offline reading"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Failed to save for offline reading."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Couldn\'t save for offline reading."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> bookmarks"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Empty folder"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Open"</string>
@@ -168,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatic Google sign-in"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Signing in to Google sites using <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Sign in as"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Login"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Sign in"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Hide"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Login failed."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Couldn\'t sign in."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Enter the data that you want to auto-fill in web fields when you touch them."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Full name:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
@@ -394,7 +394,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google with Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Preview"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Local"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Desktop"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Request desktop site"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Preload results"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"There are no saved pages."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Delete saved page"</string>

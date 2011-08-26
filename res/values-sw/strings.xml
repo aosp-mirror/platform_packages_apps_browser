@@ -21,7 +21,7 @@
     <!-- no translation found for uploads_disabled (463761197575372994) -->
     <skip />
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"Dirisha jipya"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Dirisha fiche jipya"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"Kichupo fiche kipya"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Alamisho"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Zilizotembelewa sana"</string>
     <string name="tab_history" msgid="1979267558744613746">"Historia"</string>
@@ -127,15 +127,14 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Orodha"</string>
     <string name="current_page" msgid="7510129573681663135">"kutoka "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Alamisho \"<xliff:g id="BOOKMARK">%s</xliff:g>\" itafutwa."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Fungua zote katika madirisha mapya"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Fungua zote kwenye vichupo vipya"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Nenda"</string>
     <string name="select_dot" msgid="6299170761900561967">"Chagua maandishi"</string>
     <!-- no translation found for bookmarks (1961279134885867815) -->
     <skip />
     <!-- no translation found for shortcut_bookmark (3974876480401135895) -->
     <skip />
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Teua alamisho"</string>
     <!-- no translation found for history (2451240511251410032) -->
     <skip />
     <!-- no translation found for menu_view_download (2124570321712995120) -->
@@ -145,16 +144,13 @@
     <skip />
     <!-- no translation found for menu_save_snapshot (6935080344031126139) -->
     <skip />
-    <!-- no translation found for snapshot_failed (4584580873565876033) -->
-    <skip />
+    <string name="snapshot_failed" msgid="4584580873565876033">"Haikuweza kuhifadhi usomaji mkondoni."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Alamisho <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Folda iko tupu"</string>
     <!-- no translation found for contextmenu_openlink (7237961252214188935) -->
     <skip />
-    <!-- no translation found for contextmenu_openlink_newwindow (1205313604181761403) -->
-    <skip />
-    <!-- no translation found for contextmenu_openlink_newwindow_background (4690381019116746687) -->
-    <skip />
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Fungua katika kichupo kipya"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Fungua katika kichupo kipya cha maandhari nyuma"</string>
     <!-- no translation found for contextmenu_savelink (5508554930832538184) -->
     <skip />
     <!-- no translation found for contextmenu_sharelink (5392275392280130331) -->
@@ -202,7 +198,7 @@
     <item msgid="2484126708670016519">"Inapohitajika"</item>
     <item msgid="8547442717307793863">"Zima"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Fungua madirisha mapya nyuma ya dirisha la sasa"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Fungua vichupo vipya nyuma vya sasa"</string>
     <!-- no translation found for pref_content_homepage (3324574611613105696) -->
     <skip />
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Weka injini tafuti"</string>
@@ -234,12 +230,10 @@
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Kuingia kwa tovuti za Google kwa kutumia <xliff:g id="ID_1">%s</xliff:g>"</string>
     <!-- no translation found for autologin_bar_text (3684581827167173371) -->
     <skip />
-    <!-- no translation found for autologin_bar_login_text (3336615320510851879) -->
-    <skip />
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Ingia ndani"</string>
     <!-- no translation found for autologin_bar_hide_text (3629355974385859580) -->
     <skip />
-    <!-- no translation found for autologin_bar_error (7470001207395920811) -->
-    <skip />
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Haingeweza kuinga ndani"</string>
     <!-- outdated translation 5009490178189728877 -->     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Kujaza Kiotomatiki kutatumia maelezo yako mafupi ili kukusaidia kukamilisha fomu za wavuti kwa kubofya mara moja."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Jina kamili:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Barua pepe"</string>
@@ -416,10 +410,8 @@
     <skip />
     <!-- no translation found for block (9172175889884707800) -->
     <skip />
-    <!-- no translation found for too_many_windows_dialog_title (5709782301477380438) -->
-    <skip />
-    <!-- no translation found for too_many_windows_dialog_message (7417529754382308997) -->
-    <skip />
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Kikomo cha kichupo kimefikiwa"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Haikuweza kufungua kichupo kipya kwa sababu umefungua tayari idadi ya juu."</string>
     <!-- no translation found for too_many_subwindows_dialog_title (3805453941587725944) -->
     <skip />
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Haikuweza kufungua dirisha jipya la ibukizi kwa sababu ni moja tu unaoweza kufunguliwa kwa wakati mmoja."</string>
@@ -548,8 +540,7 @@
     <skip />
     <!-- no translation found for local_bookmarks (533816851415228520) -->
     <skip />
-    <!-- no translation found for ua_switcher_desktop (220097077327558435) -->
-    <skip />
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Omba tovuti ya eneo kazi"</string>
     <!-- no translation found for permission_preload_label (4856971662337877316) -->
     <skip />
     <!-- no translation found for empty_snapshots_folder (5788256228290785444) -->

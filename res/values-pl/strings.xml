@@ -49,7 +49,7 @@
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Ten certyfikat nie jest jeszcze prawidłowy."</string>
     <string name="ssl_date_invalid" msgid="3705563379257285534">"Certyfikat ma nieprawidłową datę."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"Certyfikat jest nieprawidłowy."</string>
-    <string name="ssl_unknown" msgid="5679243486524754571">"Nieznany błąd certyfikatu."</string>
+    <string name="ssl_unknown" msgid="5679243486524754571">"Nieznany błąd certyfikatu"</string>
     <string name="stopping" msgid="4839698519340302982">"Trwa zatrzymywanie…"</string>
     <string name="stop" msgid="5687251076030630074">"Zatrzymaj"</string>
     <string name="reload" msgid="8585220783228408062">"Odśwież"</string>
@@ -103,7 +103,7 @@
     <string name="copy_page_url" msgid="7635062169011319208">"Kopiuj adres URL strony"</string>
     <string name="share_page" msgid="593756995297268343">"Udostępnij stronę"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Zapisz do czytania offline"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Nie można zapisać do czytania w trybie offline."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Nie można zapisać do czytania w trybie offline."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Zakładki: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Pusty folder"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Otwórz"</string>
@@ -168,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatyczne logowanie do Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Logowanie w witrynach Google za pomocą identyfikatora <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Zaloguj jako"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Zaloguj"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Zaloguj"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ukryj"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Niepowodzenie logowania."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Nie można się zalogować"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Wprowadź dane, które chcesz automatycznie umieszczać w formularzach internetowych."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Imię i nazwisko:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
@@ -394,7 +394,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google z wyszukiwaniem dynamicznym (Laboratorium)"</string>
     <string name="preview" msgid="6450823514561689038">"Podgląd"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokalne"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Dla komputerów"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Zażądaj komputerowej wersji strony"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Wstępnie wczytaj wyniki"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Brak zapisanych stron."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Usuń zapisaną stronę"</string>
@@ -405,7 +405,7 @@
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Zatrzymaj wczytywanie strony"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Dodaj stronę do zakładek"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Szukaj"</string>
-    <string name="accessibility_button_voice" msgid="152016375096083337">"Rozpocznij wyszukiwanie głosowe"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Wyszukiwanie głosowe"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Zakładki"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Zamknij kartę"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Otwórz nową kartę"</string>

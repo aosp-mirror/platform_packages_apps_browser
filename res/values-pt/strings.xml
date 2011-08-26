@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Escolha o arquivo para envio"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"O upload de arquivos está desativado."</string>
     <string name="new_tab" msgid="7971857320679510529">"Nova guia"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Nova janela anônima"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"Nova guia anônima"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Favoritos"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Mais visitados"</string>
     <string name="tab_history" msgid="1979267558744613746">"Histórico"</string>
@@ -47,9 +47,9 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"O nome do site não corresponde ao nome no certificado."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Este certificado expirou."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Este certificado ainda não é válido."</string>
-    <string name="ssl_date_invalid" msgid="3705563379257285534">"A data desse certificado é inválida."</string>
+    <string name="ssl_date_invalid" msgid="3705563379257285534">"Este certificado tem uma data inválida."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"Este certificado é inválido."</string>
-    <string name="ssl_unknown" msgid="5679243486524754571">"Ocorreu um erro desconhecido de certificado."</string>
+    <string name="ssl_unknown" msgid="5679243486524754571">"Erro de certificado desconhecido."</string>
     <string name="stopping" msgid="4839698519340302982">"Parando…"</string>
     <string name="stop" msgid="5687251076030630074">"Parar"</string>
     <string name="reload" msgid="8585220783228408062">"Atualizar"</string>
@@ -92,24 +92,23 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Lista"</string>
     <string name="current_page" msgid="7510129573681663135">"de "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"O favorito \"<xliff:g id="BOOKMARK">%s</xliff:g>\" será excluído."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Abrir todos em novas janelas"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Abrir tudo em novas guias"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ir"</string>
     <string name="select_dot" msgid="6299170761900561967">"Selecionar texto"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Favoritos"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Favorito"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Escolha um favorito"</string>
     <string name="history" msgid="2451240511251410032">"Histórico"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Downloads"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar URL da página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartilhar página"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Salvar para leitura off-line"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Falha ao salvar para leitura off-line."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Não foi possível salvar para leitura off-line."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> favoritos"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Pasta vazia"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Abrir em uma nova janela"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Abrir em uma nova janela em segundo plano"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Abrir em nova guia"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Abrir em uma nova guia em segundo plano"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Salvar link"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Compartilhar link"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copiar"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"Sob demanda"</item>
     <item msgid="8547442717307793863">"Desativado"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Abrir novas janelas atrás da janela atual"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Abrir novas guias atrás da guia atual"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Definir página inicial"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Definir mecanismo de pesquisa"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Selecionar um mecanismo de pesquisa"</string>
@@ -169,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Login automático do Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Faça login nos sites do Google usando <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Fazer login como"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Fazer login"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Login"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ocultar"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Falha de login."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Falha ao fazer login."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Insira os dados que deseja preencher automaticamente em campos da web ao tocá-los."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nome completo:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Este site está tentando abrir uma janela pop-up."</string>
     <string name="allow" msgid="1157313689171991335">"Permitir"</string>
     <string name="block" msgid="9172175889884707800">"Bloquear"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Limite de janelas atingido"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Não foi possível abrir uma nova janela porque você já abriu o número máximo."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Limite da guia atingido"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Não foi possível abrir uma nova guia porque você já abriu o número máximo."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up já aberta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Não foi possível abrir uma nova janela pop-up porque apenas uma pode ser aberta por vez."</string>
     <string name="download_title" msgid="2122874021047565594">"Histórico de downloads"</string>
@@ -395,24 +394,24 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google com Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Visualizar"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Locais"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Computador"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Solicitar site na versão desktop"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Pré-carregar resultados"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Nenhuma página salva."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Excluir página salva"</string>
-    <string name="snapshot_go_live" msgid="1209542802541168497">"Entrar ao vivo"</string>
+    <string name="snapshot_go_live" msgid="1209542802541168497">"Atualizar"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Voltar"</string>
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Avançar"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Atualizar página"</string>
-    <string name="accessibility_button_stop" msgid="6793644120043222148">"Parar de carregar a página"</string>
+    <string name="accessibility_button_stop" msgid="6793644120043222148">"Parar carregamento da página"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Adicionar página aos favoritos"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Pesquisar"</string>
-    <string name="accessibility_button_voice" msgid="152016375096083337">"Iniciar pesquisa por voz"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Iniciar busca por voz"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Favoritos"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Fechar guia"</string>
-    <string name="accessibility_button_newtab" msgid="4116986240706315748">"Abrir nova guia"</string>
+    <string name="accessibility_button_newtab" msgid="4116986240706315748">"Nova guia aberta"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Abrir nova guia anônima"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"Limpar entrada"</string>
-    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Alternar agente do usuário"</string>
+    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Alterar agente do usuário"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"Ir"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Gerenciador de páginas"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"Mais opções"</string>

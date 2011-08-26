@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Izberite datoteko za prenos v strežnik"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Prenosi datotek so onemogočeni."</string>
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"Novo okno"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Novo okno brez belež. zgod."</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"Nov zavihek brez belež. zgod."</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Zaznamki"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Najpogosteje obiskovano"</string>
     <string name="tab_history" msgid="1979267558744613746">"Zgodovina"</string>
@@ -47,8 +47,8 @@
     <string name="ssl_mismatch" msgid="558688832420069896">"Ime mesta se ne ujema z imenom potrdila."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Potrdilo je poteklo."</string>
     <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Potrdilo še ni veljavno."</string>
-    <string name="ssl_date_invalid" msgid="3705563379257285534">"To potrdilo ima neveljaven datum."</string>
-    <string name="ssl_invalid" msgid="9041704741505449967">"To potrdilo je neveljavno."</string>
+    <string name="ssl_date_invalid" msgid="3705563379257285534">"Potrdilo ima neveljaven datum."</string>
+    <string name="ssl_invalid" msgid="9041704741505449967">"To potrdilo ni veljavno."</string>
     <string name="ssl_unknown" msgid="5679243486524754571">"Neznana napaka potrdila."</string>
     <string name="stopping" msgid="4839698519340302982">"Ustavljanje ..."</string>
     <string name="stop" msgid="5687251076030630074">"Ustavi"</string>
@@ -92,13 +92,12 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Seznam"</string>
     <string name="current_page" msgid="7510129573681663135">"od "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Zaznamek »<xliff:g id="BOOKMARK">%s</xliff:g>« bo izbrisan"</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Odpri vse v novih oknih"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Odpri vse v novih zavihkih"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Pojdi"</string>
     <string name="select_dot" msgid="6299170761900561967">"Izberi besedilo"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Zaznamki"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Zaznamek"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Izberite zaznamek"</string>
     <string name="history" msgid="2451240511251410032">"Zgodovina"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Prenosi"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopiraj URL strani"</string>
@@ -108,8 +107,8 @@
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Število zaznamkov: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Prazna mapa"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Odpri"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Odpri v novem oknu"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Odpri v novem oknu v ozadju"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Odpri v novem zavihku"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Odpri v novem zavihku v ozadju"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Shrani povezavo"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Skupna raba povezave"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopiraj"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"Na zahtevo"</item>
     <item msgid="8547442717307793863">"Izključen"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Odpri nova okna za trenutnim"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Odpri nove zavihke za trenutnim"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Nastavi domačo stran"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Nastavi iskalnik"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Izberi iskalnik"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"To mesto poskuša odpreti pojavno okno."</string>
     <string name="allow" msgid="1157313689171991335">"Omogoči"</string>
     <string name="block" msgid="9172175889884707800">"Blokiraj"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Dosežena je omejitev za okna"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Novega okna ni mogoče odpreti, ker ste jih že odprli največje dovoljeno število."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Dosežena je omejitev števila zavihkov"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Novega zavihka ni mogoče odpreti, ker ste jih že odprli največje dovoljeno število."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pojavno okno je že odprto"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Novega pojavnega okna ni mogoče odpreti, ker je lahko odprto samo eno."</string>
     <string name="download_title" msgid="2122874021047565594">"Zgodovina prenosov"</string>
@@ -398,10 +397,10 @@
     <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Namizje"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Vnaprej naloži rezultate"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Ni shranjenih strani."</string>
-    <string name="remove_snapshot" msgid="1624447424544976849">"Brisanje shranjene strani"</string>
+    <string name="remove_snapshot" msgid="1624447424544976849">"Izbriši shranjeno stran"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"Objavi"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Nazaj"</string>
-    <string name="accessibility_button_forward" msgid="1236827218480658168">"Naprej"</string>
+    <string name="accessibility_button_forward" msgid="1236827218480658168">"Pojdi naprej"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Osveži stran"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Ustavitev nalaganja strani"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Dodajanje strani med zaznamke"</string>

@@ -103,7 +103,7 @@
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar URL de la página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Guardar para leer sin conexión"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Se produjo un error al guardar para leer sin conexión."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"La página no se guardó para su lectura offline."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> Marcadores"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Vaciar carpeta"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
@@ -168,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Acceso automático a Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Accediendo a Google Sites utilizando <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Iniciar sesión como"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Acceder"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Acceder"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ocultar"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Falló el acceso."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"No se pudo acceder."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Ingresa los datos que deseas que se completen automáticamente al tocar los campos web."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nombre completo:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Correo electrónico:"</string>
@@ -303,7 +303,7 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Este sitio está intentando abrir una ventana emergente."</string>
     <string name="allow" msgid="1157313689171991335">"Permitir"</string>
     <string name="block" msgid="9172175889884707800">"Bloquear"</string>
-    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Se alcanzó el límite de la pestaña."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Se alcanzó el límite de pestañas."</string>
     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"No se ha podido abrir una pestaña nueva porque ya has abierto el máximo permitido."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ventana emergente ya abierta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"No es posible abrir una ventana emergente nueva porque sólo puede abrirse una por vez."</string>
@@ -394,7 +394,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google con Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Vista previa"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Locales"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Versión para equipos de escritorio"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Solicitar la versión para escritorio del sitio"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Precargar resultados"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"No hay páginas guardadas."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Eliminar página guardada"</string>

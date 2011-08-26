@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"Izvēlieties augšupielādējamo failu"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Failu augšupielādes ir atspējotas."</string>
     <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"Jauns logs"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Jauns inkognito logs"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"Jauna inkognito cilne"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Grāmatzīmes"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Visvairāk apmeklētās"</string>
     <string name="tab_history" msgid="1979267558744613746">"Vēsture"</string>
@@ -92,24 +92,23 @@
     <string name="bookmark_list_view" msgid="7848510619500937839">"Saraksts"</string>
     <string name="current_page" msgid="7510129573681663135">"no "</string>
     <string name="delete_bookmark_warning" msgid="758043186202032205">"Grāmatzīme “<xliff:g id="BOOKMARK">%s</xliff:g>” tiks dzēsta."</string>
-    <!-- outdated translation 6514602245828366045 -->     <string name="open_all_in_new_window" msgid="455786763426575293">"Atvērt visas jaunos logos"</string>
+    <string name="open_all_in_new_window" msgid="455786763426575293">"Atvērt visas grāmatzīmes jaunās cilnēs"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Sākt"</string>
     <string name="select_dot" msgid="6299170761900561967">"Atlasīt tekstu"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Grāmatzīmes"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Atzīmēt ar grāmatzīmi"</string>
-    <!-- no translation found for shortcut_bookmark_title (3072725276532691472) -->
-    <skip />
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Grāmatzīmes izvēle"</string>
     <string name="history" msgid="2451240511251410032">"Vēsture"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Lejupielādes"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopēt lapas URL"</string>
     <string name="share_page" msgid="593756995297268343">"Kopīgot lapu"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Saglabāt, lai lasītu bezsaistē"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"Neizdevās saglabāt, lai lasītu bezsaistē."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Nevarēja saglabāt lasīšanai bezsaistē."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> grāmatzīmes"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Tukša mape"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Atvērt"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Atvērt jaunā logā"</string>
-    <!-- outdated translation 5556131402560251639 -->     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Atvērt jaunā fona logā"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Atvērt jaunā cilnē"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Atvērt jaunā fona cilnē"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Saglabāt saiti"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Kopīgot saiti"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopēt"</string>
@@ -138,7 +137,7 @@
     <item msgid="2484126708670016519">"Pēc pieprasījuma"</item>
     <item msgid="8547442717307793863">"Izslēgt"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Atvērt jaunus logus aiz pašreizējā loga"</string>
+    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Atvērt jaunas cilnes aiz pašreiz atvērtās"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Iestatīt sākumlapu"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Iestatīt meklētājprogrammu"</string>
     <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Atlasīt meklētājprogrammu"</string>
@@ -169,9 +168,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Autom. pierakst. vietnē Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Pierakstīšanās pakalpojumā Google vietnes, izmantojot <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Pierakstīties kā"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Pieteikties"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Pierakst."</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Paslēpt"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"Neizdevās pieteikties."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Nevarēja pierakstīties."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Ievadiet datus, kas automātiski jāaizpilda tīmekļa laukos, kad tiem pieskaraties."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Vārds, uzvārds:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-pasta adrese:"</string>
@@ -304,8 +303,8 @@
     <string name="popup_window_attempt" msgid="2673111696288657989">"Vietne mēģina atvērt uznirstošo logu."</string>
     <string name="allow" msgid="1157313689171991335">"Atļaut"</string>
     <string name="block" msgid="9172175889884707800">"Bloķēt"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Sasniegts maksimālais logu skaits"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Nevarēja atvērt jaunu logu, jo jau atvērts maksimālais logu skaits."</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Sasniegts ciļņu ierobežojums"</string>
+    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Nevarēja atvērt jaunu cilni, jo ir atvērts maksimālais pieļaujamais ciļņu skaits."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Uznirstošais logs jau ir atvērts."</string>
     <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Nevarēja atvērt jaunu uznirstošo logu, jo vienlaicīgi var būt atvērts tikai viens šāds logs."</string>
     <string name="download_title" msgid="2122874021047565594">"Lejupielāžu vēsture"</string>
@@ -395,7 +394,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Pakalpojums Google ar dinamisko meklēšanu (Laboratorijas)"</string>
     <string name="preview" msgid="6450823514561689038">"Priekšskatīt"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Vietējās"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"Versija datoriem"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Pieprasīt datoram paredzētu vietnes versiju"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Veikt rezultātu pirmsielādi"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Nav nevienas saglabātas lapas."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Dzēst saglabāto lapu"</string>
