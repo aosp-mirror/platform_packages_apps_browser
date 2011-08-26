@@ -62,7 +62,7 @@ class TabControl {
         mTabQueue = new ArrayList<Tab>(mMaxTabs);
     }
 
-    static long getNextId() {
+    synchronized static long getNextId() {
         return sNextId++;
     }
 
@@ -170,7 +170,6 @@ class TabControl {
     }
 
     void addPreloadedTab(Tab tab) {
-        tab.setId(getNextId());
         mTabs.add(tab);
         tab.setController(mController);
         mController.onSetWebView(tab, tab.getWebView());
@@ -197,7 +196,6 @@ class TabControl {
 
         // Create a new tab and add it to the tab list
         Tab t = new Tab(mController, w, state);
-        t.setId(getNextId());
         mTabs.add(t);
         // Initially put the tab in the background.
         t.putInBackground();
@@ -214,7 +212,6 @@ class TabControl {
 
     SnapshotTab createSnapshotTab(long snapshotId) {
         SnapshotTab t = new SnapshotTab(mController, snapshotId);
-        t.setId(getNextId());
         mTabs.add(t);
         return t;
     }
@@ -302,9 +299,20 @@ class TabControl {
             Bundle tabState = tab.saveState();
             if (tabState != null) {
                 ids[i++] = tab.getId();
-                outState.putBundle(Long.toString(tab.getId()), tabState);
+                String key = Long.toString(tab.getId());
+                if (outState.containsKey(key)) {
+                    // Dump the tab state for debugging purposes
+                    for (Tab dt : mTabs) {
+                        Log.e(LOGTAG, dt.toString());
+                    }
+                    throw new IllegalStateException(
+                            "Error saving state, duplicate tab ids!");
+                }
+                outState.putBundle(key, tabState);
             } else {
                 ids[i++] = -1;
+                // Since we won't be restoring the thumbnail, delete it
+                tab.deleteThumbnail();
             }
         }
         if (!outState.isEmpty()) {
@@ -404,7 +412,6 @@ class TabControl {
                 // Create a new tab and don't restore the state yet, add it
                 // to the tab list
                 Tab t = new Tab(mController, state);
-                t.setId(id);
                 tabMap.put(id, t);
                 mTabs.add(t);
                 // added the tab to the front as they are not current
@@ -419,11 +426,6 @@ class TabControl {
         if (mCurrentTab == -1) {
             if (getTabCount() > 0) {
                 setCurrentTab(getTab(0));
-            } else {
-                Tab t = createNewTab();
-                setCurrentTab(t);
-                t.getWebView().loadUrl(BrowserSettings.getInstance()
-                        .getHomePage());
             }
         }
         // restore parent/child relationships

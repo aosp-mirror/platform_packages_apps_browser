@@ -332,6 +332,9 @@ public class Controller
                 restoredTabs.add(t.getId());
             }
             BackgroundHandler.execute(new PruneThumbnails(mActivity, restoredTabs));
+            if (tabs.size() == 0) {
+                openTabToHomePage();
+            }
             mUi.updateTabs(tabs);
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails.
@@ -1206,13 +1209,6 @@ public class Controller
     }
 
     // combo view callbacks
-
-    /**
-     * callback from ComboPage when clear history is requested
-     */
-    public void onRemoveParentChildRelationships() {
-        mTabControl.removeParentChildRelationShips();
-    }
 
     // key handling
     protected void onBackKey() {

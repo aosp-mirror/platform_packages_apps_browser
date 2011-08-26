@@ -1412,6 +1412,9 @@ class Tab implements PictureListener {
                 R.dimen.tab_thumbnail_height);
         updateShouldCaptureThumbnails();
         restoreState(state);
+        if (getId() == -1) {
+            mId = TabControl.getNextId();
+        }
         setWebView(w);
         mHandler = new Handler() {
             @Override
@@ -1448,10 +1451,6 @@ class Tab implements PictureListener {
     public void setController(WebViewController ctl) {
         mWebViewController = ctl;
         updateShouldCaptureThumbnails();
-    }
-
-    public void setId(long id) {
-        mId = id;
     }
 
     public long getId() {
@@ -1592,6 +1591,9 @@ class Tab implements PictureListener {
      * Set the parent tab of this tab.
      */
     void setParent(Tab parent) {
+        if (parent == this) {
+            throw new IllegalStateException("Cannot set parent to self!");
+        }
         mParent = parent;
         // This tab may have been freed due to low memory. If that is the case,
         // the parent tab id is already saved. If we are changing that id
@@ -1609,6 +1611,10 @@ class Tab implements PictureListener {
         if (parent != null && mSettings.hasDesktopUseragent(parent.getWebView())
                 != mSettings.hasDesktopUseragent(getWebView())) {
             mSettings.toggleDesktopUseragent(getWebView());
+        }
+
+        if (parent != null && parent.getId() == getId()) {
+            throw new IllegalStateException("Parent has same ID as child!");
         }
     }
 
@@ -1689,6 +1695,7 @@ class Tab implements PictureListener {
         if (!mInForeground) {
             return;
         }
+        capture();
         mInForeground = false;
         pause();
         mMainView.setOnCreateContextMenuListener(null);
@@ -2174,5 +2181,28 @@ class Tab implements PictureListener {
             }
         }
     };
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(100);
+        builder.append(mId);
+        builder.append(") has parent: ");
+        if (getParent() != null) {
+            builder.append("true[");
+            builder.append(getParent().getId());
+            builder.append("]");
+        } else {
+            builder.append("false");
+        }
+        builder.append(", incog: ");
+        builder.append(isPrivateBrowsingEnabled());
+        if (!isPrivateBrowsingEnabled()) {
+            builder.append(", title: ");
+            builder.append(getTitle());
+            builder.append(", url: ");
+            builder.append(getUrl());
+        }
+        return builder.toString();
+    }
 
 }
