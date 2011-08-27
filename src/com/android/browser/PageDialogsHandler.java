@@ -284,6 +284,13 @@ public class PageDialogsHandler {
                 .show();
     }
 
+    private void addError(LayoutInflater inflater, LinearLayout parent, int error) {
+        TextView textView = (TextView) inflater.inflate(R.layout.ssl_warning,
+                parent, false);
+        textView.setText(error);
+        parent.addView(textView);
+    }
+
     /**
      * Displays the SSL error certificate dialog.
      * @param view The target web-view.
@@ -306,23 +313,26 @@ public class PageDialogsHandler {
         final LinearLayout placeholder =
                 (LinearLayout)certificateView.findViewById(com.android.internal.R.id.placeholder);
 
-        LinearLayout ll = (LinearLayout)factory.inflate(R.layout.ssl_warning, placeholder);
-        TextView textView = (TextView)ll.findViewById(R.id.warning);
-
         if (error.hasError(SslError.SSL_UNTRUSTED)) {
-            textView.setText(R.string.ssl_untrusted);
-        } else if (error.hasError(SslError.SSL_IDMISMATCH)) {
-            textView.setText(R.string.ssl_mismatch);
-        } else if (error.hasError(SslError.SSL_EXPIRED)) {
-            textView.setText(R.string.ssl_expired);
-        } else if (error.hasError(SslError.SSL_NOTYETVALID)) {
-            textView.setText(R.string.ssl_not_yet_valid);
-        } else if (error.hasError(SslError.SSL_DATE_INVALID)) {
-            textView.setText(R.string.ssl_date_invalid);
-        } else if (error.hasError(SslError.SSL_INVALID)) {
-            textView.setText(R.string.ssl_invalid);
-        } else {
-            textView.setText(R.string.ssl_unknown);
+            addError(factory, placeholder, R.string.ssl_untrusted);
+        }
+        if (error.hasError(SslError.SSL_IDMISMATCH)) {
+            addError(factory, placeholder, R.string.ssl_mismatch);
+        }
+        if (error.hasError(SslError.SSL_EXPIRED) || true) {
+            addError(factory, placeholder, R.string.ssl_expired);
+        }
+        if (error.hasError(SslError.SSL_NOTYETVALID)) {
+            addError(factory, placeholder, R.string.ssl_not_yet_valid);
+        }
+        if (error.hasError(SslError.SSL_DATE_INVALID) || true) {
+            addError(factory, placeholder, R.string.ssl_date_invalid);
+        }
+        if (error.hasError(SslError.SSL_INVALID)) {
+            addError(factory, placeholder, R.string.ssl_invalid);
+        }
+        if (placeholder.getChildCount() == 0) {
+            addError(factory, placeholder, R.string.ssl_unknown);
         }
 
         mSSLCertificateOnErrorHandler = handler;

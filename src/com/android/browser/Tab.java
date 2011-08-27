@@ -744,75 +744,45 @@ class Tab implements PictureListener {
                 return;
             }
             if (mSettings.showSecurityWarnings()) {
-                final LayoutInflater factory =
-                    LayoutInflater.from(mContext);
-                final View warningsView =
-                    factory.inflate(R.layout.ssl_warnings, null);
-                final LinearLayout placeholder =
-                    (LinearLayout)warningsView.findViewById(R.id.placeholder);
-
-                if (error.hasError(SslError.SSL_UNTRUSTED)) {
-                    LinearLayout ll = (LinearLayout)factory
-                        .inflate(R.layout.ssl_warning, null);
-                    ((TextView)ll.findViewById(R.id.warning))
-                        .setText(R.string.ssl_untrusted);
-                    placeholder.addView(ll);
-                }
-
-                if (error.hasError(SslError.SSL_IDMISMATCH)) {
-                    LinearLayout ll = (LinearLayout)factory
-                        .inflate(R.layout.ssl_warning, null);
-                    ((TextView)ll.findViewById(R.id.warning))
-                        .setText(R.string.ssl_mismatch);
-                    placeholder.addView(ll);
-                }
-
-                if (error.hasError(SslError.SSL_EXPIRED)) {
-                    LinearLayout ll = (LinearLayout)factory
-                        .inflate(R.layout.ssl_warning, null);
-                    ((TextView)ll.findViewById(R.id.warning))
-                        .setText(R.string.ssl_expired);
-                    placeholder.addView(ll);
-                }
-
-                if (error.hasError(SslError.SSL_NOTYETVALID)) {
-                    LinearLayout ll = (LinearLayout)factory
-                        .inflate(R.layout.ssl_warning, null);
-                    ((TextView)ll.findViewById(R.id.warning))
-                        .setText(R.string.ssl_not_yet_valid);
-                    placeholder.addView(ll);
-                }
-
-                new AlertDialog.Builder(mContext).setTitle(
-                        R.string.security_warning).setIcon(
-                        android.R.drawable.ic_dialog_alert).setView(
-                        warningsView).setPositiveButton(R.string.ssl_continue,
+                new AlertDialog.Builder(mContext)
+                    .setTitle(R.string.security_warning)
+                    .setMessage(R.string.ssl_warnings_header)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(R.string.ssl_continue,
                         new DialogInterface.OnClickListener() {
+                            @Override
                             public void onClick(DialogInterface dialog,
                                     int whichButton) {
                                 handler.proceed();
                             }
-                        }).setNeutralButton(R.string.view_certificate,
+                        })
+                    .setNeutralButton(R.string.view_certificate,
                         new DialogInterface.OnClickListener() {
+                            @Override
                             public void onClick(DialogInterface dialog,
                                     int whichButton) {
-                                mWebViewController.showSslCertificateOnError(view,
-                                        handler, error);
+                                mWebViewController.showSslCertificateOnError(
+                                        view, handler, error);
                             }
-                        }).setNegativeButton(R.string.ssl_go_back,
+                        })
+                    .setNegativeButton(R.string.ssl_go_back,
                         new DialogInterface.OnClickListener() {
+                            @Override
                             public void onClick(DialogInterface dialog,
                                     int whichButton) {
                                 dialog.cancel();
                             }
-                        }).setOnCancelListener(
+                        })
+                    .setOnCancelListener(
                         new DialogInterface.OnCancelListener() {
+                            @Override
                             public void onCancel(DialogInterface dialog) {
                                 handler.cancel();
                                 setLockIconType(LockIcon.LOCK_ICON_UNSECURE);
                                 mWebViewController.onUserCanceledSsl(Tab.this);
                             }
-                        }).show();
+                        })
+                    .show();
             } else {
                 handler.proceed();
             }
