@@ -157,7 +157,6 @@ public class Controller
     private IntentHandler mIntentHandler;
     private PageDialogsHandler mPageDialogsHandler;
     private NetworkStateHandler mNetworkHandler;
-    private NfcHandler mNfcHandler;
 
     private Message mAutoFillSetupMessage;
 
@@ -228,7 +227,6 @@ public class Controller
         mUrlHandler = new UrlHandler(this);
         mIntentHandler = new IntentHandler(mActivity, this);
         mPageDialogsHandler = new PageDialogsHandler(mActivity, this);
-        mNfcHandler = new NfcHandler(mActivity, this);
 
         startHandler();
         mBookmarksObserver = new ContentObserver(mHandler) {
@@ -255,6 +253,8 @@ public class Controller
     }
 
     void start(final Bundle icicle, final Intent intent) {
+        NfcHandler.register(mActivity, this);
+
         boolean noCrashRecovery = intent.getBooleanExtra(NO_CRASH_RECOVERY, false);
         if (icicle != null || noCrashRecovery) {
             doStart(icicle, intent);
@@ -632,7 +632,6 @@ public class Controller
         }
         mUi.onPause();
         mNetworkHandler.onPause();
-        mNfcHandler.onPause();
 
         WebView.disablePlatformNotifications();
     }
@@ -667,7 +666,6 @@ public class Controller
 
         mUi.onResume();
         mNetworkHandler.onResume();
-        mNfcHandler.onResume();
         WebView.enablePlatformNotifications();
     }
 

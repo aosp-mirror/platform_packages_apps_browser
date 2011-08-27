@@ -20,7 +20,7 @@ import android.app.Activity;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.os.AsyncTask;
+import android.nfc.NfcEvent;
 import android.os.Handler;
 import android.os.Message;
 
@@ -31,46 +31,39 @@ import java.util.concurrent.CountDownLatch;
   * when the activity is in the foreground and resumed.
   * Incognito tabs will not be shared over NFC.
   */
-public class NfcHandler implements NfcAdapter.NdefPushCallback {
-    private NfcAdapter mNfcAdapter;
-    private Activity mActivity;
-    private Controller mController;
-    private Handler mHandler;
-    private Tab mCurrentTab;
-    private boolean mIsPrivate;
-    private CountDownLatch mPrivateBrowsingSignal;
+public class NfcHandler implements NfcAdapter.CreateNdefMessageCallback {
+    static final int GET_PRIVATE_BROWSING_STATE_MSG = 100;
 
-    private static final int GET_PRIVATE_BROWSING_STATE_MSG = 100;
+    final Controller mController;
 
-    public NfcHandler(Activity browser, Controller controller) {
-        mActivity = browser;
+    Tab mCurrentTab;
+    boolean mIsPrivate;
+    CountDownLatch mPrivateBrowsingSignal;
+
+    public static void register(Activity activity, Controller controller) {
+        NfcAdapter adapter = NfcAdapter.getDefaultAdapter(activity.getApplicationContext());
+        if (adapter == null) {
+            return;  // NFC not available on this device
+        }
+        adapter.setNdefPushMessageCallback(new NfcHandler(controller), activity);
+    }
+
+    public NfcHandler(Controller controller) {
         mController = controller;
-        mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity);
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == GET_PRIVATE_BROWSING_STATE_MSG) {
-                    mIsPrivate = mCurrentTab.getWebView().isPrivateBrowsingEnabled();
-                    mPrivateBrowsingSignal.countDown();
-                }
+    }
+
+    final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == GET_PRIVATE_BROWSING_STATE_MSG) {
+                mIsPrivate = mCurrentTab.getWebView().isPrivateBrowsingEnabled();
+                mPrivateBrowsingSignal.countDown();
             }
-        };
-    }
-
-    void onPause() {
-        if (mNfcAdapter != null) {
-            mNfcAdapter.disableForegroundNdefPush(mActivity);
         }
-    }
-
-    void onResume() {
-        if (mNfcAdapter != null) {
-            mNfcAdapter.enableForegroundNdefPush(mActivity, this);
-        }
-    }
+    };
 
     @Override
-    public NdefMessage createMessage() {
+    public NdefMessage createNdefMessage(NfcEvent event) {
         mCurrentTab = mController.getCurrentTab();
         if ((mCurrentTab != null) && (mCurrentTab.getWebView() != null)) {
             // We can only read the WebView state on the UI thread, so post
@@ -96,9 +89,5 @@ public class NfcHandler implements NfcAdapter.NdefPushCallback {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public void onMessagePushed() {
     }
 }
