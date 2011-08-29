@@ -877,7 +877,7 @@ class Tab implements PictureListener {
         // Sync state (in case of stop/timeout)
         mCurrentState.mUrl = view.getUrl();
         if (mCurrentState.mUrl == null) {
-            mCurrentState.mUrl = url != null ? url : "";
+            mCurrentState.mUrl = "";
         }
         mCurrentState.mOriginalUrl = view.getOriginalUrl();
         mCurrentState.mTitle = view.getTitle();

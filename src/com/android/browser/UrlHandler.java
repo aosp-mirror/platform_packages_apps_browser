@@ -25,6 +25,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.Browser;
 import android.util.Log;
 import android.webkit.WebView;
 
@@ -76,7 +77,7 @@ public class UrlHandler {
                 // If a new tab is created through JavaScript open to load this
                 // url, we would like to close it as we will load this url in a
                 // different Activity.
-                mController.closeEmptyChildTab();
+                mController.closeEmptyTab();
                 return true;
             }
             // wtai://wp/sd;dtmf
@@ -114,7 +115,7 @@ public class UrlHandler {
             }
         }
 
-        if (startActivityForUrl(url)) {
+        if (startActivityForUrl(tab, url)) {
             return true;
         }
 
@@ -125,7 +126,7 @@ public class UrlHandler {
         return false;
     }
 
-    boolean startActivityForUrl(String url) {
+    boolean startActivityForUrl(Tab tab, String url) {
       Intent intent;
       // perform generic parsing of the URI to turn it into an Intent.
       try {
@@ -148,7 +149,7 @@ public class UrlHandler {
               // If a new tab is created through JavaScript open to load this
               // url, we would like to close it as we will load this url in a
               // different Activity.
-              mController.closeEmptyChildTab();
+              mController.closeEmptyTab();
               return true;
           } else {
               return false;
@@ -159,6 +160,13 @@ public class UrlHandler {
       // security (only access to BROWSABLE activities).
       intent.addCategory(Intent.CATEGORY_BROWSABLE);
       intent.setComponent(null);
+      // Re-use the existing tab if the intent comes back to us
+      if (tab != null) {
+          if (tab.getAppId() == null) {
+              tab.setAppId("com.android.browser-" + tab.getId());
+          }
+          intent.putExtra(Browser.EXTRA_APPLICATION_ID, tab.getAppId());
+      }
       // Make sure webkit can handle it internally before checking for specialized
       // handlers. If webkit can't handle it internally, we need to call
       // startActivityIfNeeded
@@ -172,7 +180,7 @@ public class UrlHandler {
               // If a new tab is created through JavaScript open to load this
               // url, we would like to close it as we will load this url in a
               // different Activity.
-              mController.closeEmptyChildTab();
+              mController.closeEmptyTab();
               return true;
           }
       } catch (ActivityNotFoundException ex) {
@@ -262,7 +270,7 @@ public class UrlHandler {
             // Make sure the Tab was not closed while handling the task
             if (mController.getTabControl().getTabPosition(mTab) != -1) {
                 // If the Activity Manager is not invoked, load the URL directly
-                if (!startActivityForUrl(result)) {
+                if (!startActivityForUrl(mTab, result)) {
                     if (!handleMenuClick(mTab, result)) {
                         mController.loadUrl(mTab, result);
                     }
