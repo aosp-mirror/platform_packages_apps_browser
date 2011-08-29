@@ -71,7 +71,7 @@
             android:ellipsize="end"
             android:lines="1"
             android:scrollHorizontally="true"
-            android:inputType="text"
+            android:inputType="textUri"
             android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
             style="@style/Suggestions"
             android:background="@null" />
