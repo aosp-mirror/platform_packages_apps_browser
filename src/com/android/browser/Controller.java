@@ -37,7 +37,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Picture;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.AsyncTask;
@@ -145,6 +144,9 @@ public class Controller
 
     // "no-crash-recovery" parameter in intetnt to suppress crash recovery
     final static String NO_CRASH_RECOVERY = "no-crash-recovery";
+
+    // A bitmap that is re-used in createScreenshot as scratch space
+    private static Bitmap sThumbnailBitmap;
 
     private Activity mActivity;
     private UI mUi;
@@ -638,6 +640,10 @@ public class Controller
 
         WebView.disablePlatformNotifications();
         NfcHandler.unregister(mActivity);
+        if (sThumbnailBitmap != null) {
+            sThumbnailBitmap.recycle();
+            sThumbnailBitmap = null;
+        }
     }
 
     void onSaveInstanceState(Bundle outState) {
@@ -1923,45 +1929,43 @@ public class Controller
     }
 
     static Bitmap createScreenshot(WebView view, int width, int height) {
+        if (view == null || view.getContentHeight() == 0
+                || view.getContentWidth() == 0) {
+            return null;
+        }
         // We render to a bitmap 2x the desired size so that we can then
         // re-scale it with filtering since canvas.scale doesn't filter
         // This helps reduce aliasing at the cost of being slightly blurry
         final int filter_scale = 2;
-        Picture thumbnail = view.capturePicture();
-        if (thumbnail == null) {
-            return null;
+        int scaledWidth = width * filter_scale;
+        int scaledHeight = height * filter_scale;
+        if (sThumbnailBitmap == null || sThumbnailBitmap.getWidth() != scaledWidth
+                || sThumbnailBitmap.getHeight() != scaledHeight) {
+            if (sThumbnailBitmap != null) {
+                sThumbnailBitmap.recycle();
+                sThumbnailBitmap = null;
+            }
+            sThumbnailBitmap =
+                    Bitmap.createBitmap(scaledWidth, scaledHeight, Bitmap.Config.RGB_565);
         }
-        width *= filter_scale;
-        height *= filter_scale;
-        Bitmap bm = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        Canvas canvas = new Canvas(bm);
-        // May need to tweak these values to determine what is the
-        // best scale factor
-        int thumbnailWidth = thumbnail.getWidth();
-        int thumbnailHeight = thumbnail.getHeight();
-        float scaleFactor = 1.0f;
-        if (thumbnailWidth > 0 && thumbnailHeight > 0) {
-            scaleFactor = (float) width / (float)thumbnailWidth;
+        Canvas canvas = new Canvas(sThumbnailBitmap);
+        int contentWidth = view.getContentWidth();
+        float overviewScale = scaledWidth / (view.getScale() * contentWidth);
+        if (view instanceof BrowserWebView) {
+            int dy = -((BrowserWebView)view).getTitleHeight();
+            canvas.translate(0, dy * overviewScale);
+        }
+
+        canvas.scale(overviewScale, overviewScale);
+
+        if (view instanceof BrowserWebView) {
+            ((BrowserWebView)view).drawContent(canvas);
         } else {
-            return null;
+            view.draw(canvas);
         }
-
-        float scaleFactorY = (float) height / (float)thumbnailHeight;
-        if (scaleFactorY > scaleFactor) {
-            // The picture is narrower than the requested AR
-            // Center the thumnail and crop the sides
-            scaleFactor = scaleFactorY;
-            float wx = (thumbnailWidth * scaleFactor) - width;
-            canvas.translate((int) -(wx / 2), 0);
-        }
-
-        canvas.scale(scaleFactor, scaleFactor);
-
-        thumbnail.draw(canvas);
-        Bitmap ret = Bitmap.createScaledBitmap(bm, width / filter_scale,
-                height / filter_scale, true);
+        Bitmap ret = Bitmap.createScaledBitmap(sThumbnailBitmap,
+                width, height, true);
         canvas.setBitmap(null);
-        bm.recycle();
         return ret;
     }
 
