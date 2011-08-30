@@ -2094,15 +2094,11 @@ public class Controller
         }
     }
 
-    protected void closeEmptyChildTab() {
+    protected void closeEmptyTab() {
         Tab current = mTabControl.getCurrentTab();
         if (current != null
                 && current.getWebView().copyBackForwardList().getSize() == 0) {
-            Tab parent = current.getParent();
-            if (parent != null) {
-                switchToTab(parent);
-                closeTab(current);
-            }
+            closeCurrentTab();
         }
     }
 
