@@ -36,6 +36,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
 
     private ImageView mStopButton;
     private ImageView mVoiceButton;
+    private ImageView mMagnify;
+    private ImageView mClearButton;
     private Drawable mStopDrawable;
     private Drawable mRefreshDrawable;
     private String mStopDescription;
@@ -69,6 +71,9 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mStopButton.setOnClickListener(this);
         mVoiceButton = (ImageView) findViewById(R.id.voice);
         mVoiceButton.setOnClickListener(this);
+        mClearButton = (ImageView) findViewById(R.id.clear);
+        mClearButton.setOnClickListener(this);
+        mMagnify = (ImageView) findViewById(R.id.magnify);
         mTabSwitcher = findViewById(R.id.tab_switcher);
         mTabSwitcher.setOnClickListener(this);
         mMore = findViewById(R.id.more);
@@ -156,6 +161,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
             ((PhoneUi) mBaseUi).toggleNavScreen();
         } else if (mMore == v) {
             showMenu(mMore);
+        } else if (mClearButton == v) {
+            mUrlInput.setText("");
         } else {
             super.onClick(v);
         }
@@ -209,6 +216,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
         case StateListener.STATE_NORMAL:
             mComboIcon.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
+            mClearButton.setVisibility(View.GONE);
+            mMagnify.setVisibility(View.GONE);
             setSearchMode(mInVoiceMode);
             mTabSwitcher.setVisibility(View.VISIBLE);
             mTitleContainer.setBackgroundDrawable(null);
@@ -217,6 +226,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
         case StateListener.STATE_HIGHLIGHTED:
             mComboIcon.setVisibility(View.GONE);
             mStopButton.setVisibility(View.VISIBLE);
+            mClearButton.setVisibility(View.GONE);
+            mMagnify.setVisibility(View.GONE);
             setSearchMode(true);
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);
@@ -225,6 +236,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
         case StateListener.STATE_EDITED:
             mComboIcon.setVisibility(View.GONE);
             mStopButton.setVisibility(View.GONE);
+            mClearButton.setVisibility(View.VISIBLE);
+            mMagnify.setVisibility(View.VISIBLE);
             setSearchMode(false);
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);

@@ -56,6 +56,8 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
     static final String SUGGESTED = "browser-suggest";
     static final String VOICE = "voice-search";
 
+    static final int POST_DELAY = 100;
+
     static interface StateListener {
         static final int STATE_NORMAL = 0;
         static final int STATE_HIGHLIGHTED = 1;
@@ -123,16 +125,23 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
 
     protected void onFocusChanged(boolean focused, int direction, Rect prevRect) {
         super.onFocusChanged(focused, direction, prevRect);
+        int state = -1;
         if (focused) {
             if (hasSelection()) {
-                changeState(StateListener.STATE_HIGHLIGHTED);
+                state = StateListener.STATE_HIGHLIGHTED;
             } else {
-                changeState(StateListener.STATE_EDITED);
+                state = StateListener.STATE_EDITED;
             }
         } else {
             // reset the selection state
-            changeState(StateListener.STATE_NORMAL);
+            state = StateListener.STATE_NORMAL;
         }
+        final int s = state;
+        post(new Runnable() {
+            public void run() {
+                changeState(s);
+            }
+        });
     }
 
     @Override
@@ -141,7 +150,10 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
         boolean res = super.onTouchEvent(evt);
         if ((MotionEvent.ACTION_DOWN == evt.getActionMasked())
               && hasSelection) {
-            changeState(StateListener.STATE_EDITED);
+            postDelayed(new Runnable() {
+                public void run() {
+                    changeState(StateListener.STATE_EDITED);
+                }}, POST_DELAY);
         }
         return res;
     }
