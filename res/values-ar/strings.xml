@@ -357,8 +357,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"مشاركة الموقع"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"رفض"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"تذكّر التفضيل"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"يمكن لهذا الموقع الإلكتروني الدخول إلى موقعك الجغرافي. غير هذا في الإعدادات -&gt; إعدادات موقع الويب"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"لا يمكن لهذا الموقع الإلكتروني الدخول إلى موقعك الجغرافي. غير هذا في الإعدادات -&gt; إعدادات موقع الويب"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"يمكن لهذا الموقع الإلكتروني الدخول إلى موقعك الجغرافي. غير هذا في الإعدادات -&gt; إعدادات موقع الويب"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"لا يمكن لهذا الموقع الإلكتروني الدخول إلى موقعك الجغرافي. غير هذا في الإعدادات -&gt; إعدادات موقع الويب"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"محو إمكانية الدخول إلى الموقع الجغرافي"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"يمكن لهذا الموقع الإلكتروني الدخول إلى موقعك الجغرافي حاليًا"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"لا يمكن لهذا الموقع الإلكتروني الدخول إلى موقعك الجغرافي حاليًا"</string>

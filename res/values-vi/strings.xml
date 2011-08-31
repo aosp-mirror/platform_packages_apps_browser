@@ -357,8 +357,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Chia sẻ vị trí"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Từ chối"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Nhớ tùy chọn"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Trang web này có thể truy cập vị trí của bạn. Thay đổi điều này trong Cài đặt -&gt; Cài đặt trang web"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Trang web này không thể truy cập vị trí của bạn. Thay đổi điều này trong Cài đặt -&gt; Cài đặt trang web"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Trang web này có thể truy cập vị trí của bạn. Thay đổi điều này trong Cài đặt -&gt; Cài đặt trang web"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Trang web này không thể truy cập vị trí của bạn. Thay đổi điều này trong Cài đặt -&gt; Cài đặt trang web"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Xóa truy cập vị trí"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Trang web này hiện có thể truy cập vị trí của bạn"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Trang web này hiện không thể truy cập vị trí của bạn"</string>

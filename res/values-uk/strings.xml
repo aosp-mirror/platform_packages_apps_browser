@@ -357,8 +357,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Повідом. місцезн."</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Відхилити"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Пам\'ятати параметр"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Сайт може отрим. доступ до вашого місцезн.. Щоб змінити: Налашт. -&gt; Налашт. сайту"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Сайт не може отрим. доступ до вашого місцезн. Щоб змінити: Налашт. -&gt; Налашт. сайту"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Сайт може отрим. доступ до вашого місцезн.. Щоб змінити: Налашт. -&gt; Налашт. сайту"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Сайт не може отрим. доступ до вашого місцезн. Щоб змінити: Налашт. -&gt; Налашт. сайту"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Очист. доступ до місцезн."</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Сайт наразі не може отрим. доступ до вашого місцезн."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Сайт наразі не може отрим. доступ до вашого місцезн."</string>

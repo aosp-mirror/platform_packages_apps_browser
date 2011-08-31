@@ -357,8 +357,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"共享位置信息"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"拒绝"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"记住偏好设置"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"此网站可以访问您所在的地点。请在“设置”-&gt;“网站设置”中进行相应更改"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"此网站无法访问您所在的地点。请在“设置”-&gt;“网站设置”中进行相应更改"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"此网站可以访问您所在的地点。请在“设置”-&gt;“网站设置”中进行相应更改"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"此网站无法访问您所在的地点。请在“设置”-&gt;“网站设置”中进行相应更改"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"取消位置信息访问权限"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"此网站目前可访问您的位置信息"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"此网站目前不能访问您的位置信息"</string>

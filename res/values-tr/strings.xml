@@ -357,8 +357,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Konumu paylaş"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Reddet"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Tercihi anımsa"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Bu site konum bilginize erişebilir. Bunu, Ayarlar -&gt; Web sitesi ayarlarından değiştirin"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Bu site konum bilginize erişemiyor. Bunu, Ayarlar -&gt; Web sitesi ayarlarından değiştirin"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Bu site konum bilginize erişebilir. Bunu, Ayarlar -&gt; Web sitesi ayarlarından değiştirin"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Bu site konum bilginize erişemiyor. Bunu, Ayarlar -&gt; Web sitesi ayarlarından değiştirin"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Konum erişimini temizle"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Bu site şu anda konumunuza erişebilir"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Bu site şu anda konumunuza erişemiyor"</string>

@@ -551,8 +551,8 @@
     <skip />
     <!-- no translation found for geolocation_permissions_prompt_remember (3118526300707348308) -->
     <skip />
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Hierdie werf kan jou ligging sien. Verander dit in Instellings -&gt; Webwerf-instellings"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Hierdie werf kan nie jou ligging sien nie. Verander dit in Instellings -&gt; Webwerf-instellings"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Hierdie werf kan jou ligging sien. Verander dit in Instellings -&gt; Webwerf-instellings"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Hierdie werf kan nie jou ligging sien nie. Verander dit in Instellings -&gt; Webwerf-instellings"</string>
     <!-- no translation found for geolocation_settings_page_title (1745477985097536528) -->
     <skip />
     <!-- no translation found for geolocation_settings_page_summary_allowed (9180251524290811398) -->

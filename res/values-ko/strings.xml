@@ -357,8 +357,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"위치 공유"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"거부"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"환경설정 저장"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"사이트에서 현재 위치에 액세스할 수 있습니다. 설정 -&gt; 웹사이트 설정에서 설정을 변경하세요."</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"사이트에서 현재 위치에 액세스할 수 없습니다. 설정 -&gt; 웹사이트 설정에서 설정을 변경하세요."</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"사이트에서 현재 위치에 액세스할 수 있습니다. 설정 -&gt; 웹사이트 설정에서 설정을 변경하세요."</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"사이트에서 현재 위치에 액세스할 수 없습니다. 설정 -&gt; 웹사이트 설정에서 설정을 변경하세요."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"위치 정보 액세스 삭제"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"사이트에서 사용자의 위치에 현재 액세스할 수 있음"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"사이트에서 사용자의 위치에 현재 액세스할 수 없음"</string>

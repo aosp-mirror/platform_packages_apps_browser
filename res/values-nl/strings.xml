@@ -357,8 +357,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Locatie delen"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Weigeren"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Voorkeur onthouden"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Deze site heeft toegang tot uw locatie. Wijzig dit in \'Instellingen\' -&gt; \'Website-instellingen\'"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Deze site heeft geen toegang tot uw locatie. Wijzig dit in \'Instellingen\' -&gt; \'Website-instellingen\'"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Deze site heeft toegang tot uw locatie. Wijzig dit in \'Instellingen\' -&gt; \'Website-instellingen\'"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Deze site heeft geen toegang tot uw locatie. Wijzig dit in \'Instellingen\' -&gt; \'Website-instellingen\'"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Locatietoegang blokk."</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Deze site heeft momenteel toegang tot uw locatie"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Deze site heeft momenteel geen toegang tot uw locatie"</string>

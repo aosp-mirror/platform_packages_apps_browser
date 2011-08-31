@@ -357,8 +357,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Partilhar localização"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Recusar"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Memorizar preferência"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Este site tem acesso à sua localização. Altere esta definição em Definições -&gt; Definições do Web site"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Este site não tem acesso à sua localização. Altere esta definição em Definições -&gt; Definições do Web site"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Este site tem acesso à sua localização. Altere esta definição em Definições -&gt; Definições do Web site"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Este site não tem acesso à sua localização. Altere esta definição em Definições -&gt; Definições do Web site"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Limpar acesso à localização"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Actualmente este site pode aceder à sua localização"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Actualmente este site não pode aceder à sua localização"</string>

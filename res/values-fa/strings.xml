@@ -357,8 +357,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"اشتراک گذاری موقعیت مکانی"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"عدم پذیرش"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"به خاطر سپردن موارد برگزیده"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"این سایت می تواند به موقعیت مکانی شما دسترسی پیدا کند. این وضعیت را می توانید در تنظیمات -&gt; تنظیمات وب سایت تغییر دهید"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"این سایت نمی تواند به موقعیت مکانی شما دسترسی پیدا کند. این وضعیت را می توانید در تنظیمات -&gt; تنظیمات وب سایت تغییر دهید"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"این سایت می تواند به موقعیت مکانی شما دسترسی پیدا کند. این وضعیت را می توانید در تنظیمات -&gt; تنظیمات وب سایت تغییر دهید"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"این سایت نمی تواند به موقعیت مکانی شما دسترسی پیدا کند. این وضعیت را می توانید در تنظیمات -&gt; تنظیمات وب سایت تغییر دهید"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"پاک کردن دسترسی به موقعیت مکانی"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"این سایت در حال حاضر می تواند به موقعیت مکانی شما دسترسی پیدا کند"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"این سایت در حال حاضر نمی تواند به موقعیت مکانی شما دسترسی پیدا کند"</string>

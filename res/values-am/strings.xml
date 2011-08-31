@@ -490,8 +490,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"ሥፍራ አጋራ"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"አለመቀበል"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"ምርጫ አስታውስ"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"ይህ ስፍራዎን መድረስ ይችላል። ቅንብሮች ውስጥ ይህን ለውጥ-&gt; ድረ ገፅ ቅንብሮች"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"ይህ ስፍራዎን መድረስ አይችልም። ቅንብሮች ውስጥ ይህን ለውጥ-&gt; ድረ ገፅ ቅንብሮች"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"ይህ ስፍራዎን መድረስ ይችላል። ቅንብሮች ውስጥ ይህን ለውጥ-&gt; ድረ ገፅ ቅንብሮች"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"ይህ ስፍራዎን መድረስ አይችልም። ቅንብሮች ውስጥ ይህን ለውጥ-&gt; ድረ ገፅ ቅንብሮች"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"የስፍራ መድረሻ አፅዳ"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"ይህ ድረ ገፅ በአሁኑ ጊዜ የእርስዎን ስፍራ መድረስ ይችላል"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"ይህ ድረ ገፅ በአሁኑ ጊዜ የእርስዎን ስፍራ መድረስ ይችላል"</string>

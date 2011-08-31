@@ -455,8 +455,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Tradir mia posiziun"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Refusar"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Memorisar las preferenzas"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Questa website ha access a Vossa posiziun. Modifitgai questa opziun en Parameters -&gt; Parameters da la website"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Questa pagina n\'ha betg access a Vossa posiziun. Midai questa opziun en Parameters -&gt; Parameters da la website"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Questa website ha access a Vossa posiziun. Modifitgai questa opziun en Parameters -&gt; Parameters da la website"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Questa pagina n\'ha betg access a Vossa posiziun. Midai questa opziun en Parameters -&gt; Parameters da la website"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Stizzar l\'access a la posiziun"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Questa website ha actualmain access a Vossa posiziun"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Questa website n\'ha per il mument betg access a Vossa posiziun."</string>

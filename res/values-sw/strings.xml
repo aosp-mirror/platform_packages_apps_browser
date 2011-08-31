@@ -489,8 +489,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Shiriki mahali"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Kataa"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Kumbuka mapendeleo"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="987286072035125498">"Tovuti hii inaweza kufikia mahali pako. Badilisha hii katika Mipangilio -&gt; Mipangilio ya tovuti"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7695100950212692515">"Tovuti hii haiwezi kufikia mahali pako. Badilisha hili katika Mipangilio -&gt; Mipangilio ya wavuti"</string>
+    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Tovuti hii inaweza kufikia mahali pako. Badilisha hii katika Mipangilio -&gt; Mipangilio ya tovuti"</string>
+    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Tovuti hii haiwezi kufikia mahali pako. Badilisha hili katika Mipangilio -&gt; Mipangilio ya wavuti"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Futa ufikiaji mahali"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Tovuti hii kwa sasa inaweza kufikia mahali ulipo"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Tovuti hii kwa sasa haiwezi kufikia mahali ulipo"</string>
