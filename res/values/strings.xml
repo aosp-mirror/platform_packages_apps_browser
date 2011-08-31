@@ -348,20 +348,6 @@
     <string name="pref_general_sync_title">Sync</string>
     <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
     <string name="pref_general_autofill_title">Auto-fill</string>
-    <!-- Checkbox setting to enable or disable syncing bookmarks and other data with Google Chrome. [CHAR-LIMIT=48] -->
-    <string name="pref_personal_sync_with_chrome">Sync with Google Chrome</string>
-    <!-- Checkbox setting to enable or disable syncing bookmarks and other data with Google Chrome. [CHAR-LIMIT=none] -->
-    <string name="pref_personal_sync_with_chrome_summary">Share bookmarks &amp; other data between Android Browser and Google Chrome</string>
-    <!-- Label indicating which Google account is being used to sync bookmarks between Android and Chrome [CHAR-LIMIT=20] -->
-    <string name="pref_personal_google_account">Google account</string>
-    <!-- Checkbox setting to enable or disable syncing bookmarks with Google Chrome. [CHAR-LIMIT=32] -->
-    <string name="pref_personal_sync_bookmarks">Sync bookmarks</string>
-    <!-- Summary for a checkbox setting to enable or disable syncing bookmarks with Google Chrome. [CHAR-LIMIT=none] -->
-    <string name="pref_personal_sync_bookmarks_summary">Sync bookmarks between Android Browser and Google Chrome</string>
-    <!-- Button to start a sync of bookmarks and other data between the Android Browser and Google Chrome [CHAR-LIMIT=20] -->
-    <string name="pref_personal_start_syncing">Start syncing</string>
-    <!-- Dialog title used when asking the user which Google account they want to use to sync data between Android Browser and Google Chrome [CHAR-LIMIT=20] -->
-    <string name="pref_personal_account_dialog_title">Select Google account to share with</string>
 
     <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
     <string name="pref_autofill_enabled">Form auto-fill</string>
