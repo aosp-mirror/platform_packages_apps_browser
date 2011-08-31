@@ -193,7 +193,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
         if (view == mUrlInput) {
-            if (hasFocus) {
+            if (hasFocus && !mUrlInput.getText().toString().equals(mUrlInput.getTag())) {
+                // only change text if different
                 mUrlInput.setText((String) mUrlInput.getTag(), false);
             } else {
                 setDisplayTitle(mUrlInput.getText().toString());
