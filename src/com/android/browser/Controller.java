@@ -253,8 +253,6 @@ public class Controller
     }
 
     void start(final Bundle icicle, final Intent intent) {
-        NfcHandler.register(mActivity, this);
-
         boolean noCrashRecovery = intent.getBooleanExtra(NO_CRASH_RECOVERY, false);
         if (icicle != null || noCrashRecovery) {
             doStart(icicle, intent);
@@ -637,6 +635,7 @@ public class Controller
         mNetworkHandler.onPause();
 
         WebView.disablePlatformNotifications();
+        NfcHandler.unregister(mActivity);
     }
 
     void onSaveInstanceState(Bundle outState) {
@@ -670,6 +669,7 @@ public class Controller
         mUi.onResume();
         mNetworkHandler.onResume();
         WebView.enablePlatformNotifications();
+        NfcHandler.register(mActivity, this);
     }
 
     private void releaseWakeLock() {
