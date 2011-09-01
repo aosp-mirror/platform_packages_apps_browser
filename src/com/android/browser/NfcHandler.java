@@ -45,7 +45,18 @@ public class NfcHandler implements NfcAdapter.CreateNdefMessageCallback {
         if (adapter == null) {
             return;  // NFC not available on this device
         }
-        adapter.setNdefPushMessageCallback(new NfcHandler(controller), activity);
+        NfcHandler handler = null;
+        if (controller != null) {
+            handler = new NfcHandler(controller);
+        }
+
+        adapter.setNdefPushMessageCallback(handler, activity);
+    }
+
+    public static void unregister(Activity activity) {
+        // Passing a null controller causes us to disable
+        // the callback and release the ref to out activity.
+        register(activity, null);
     }
 
     public NfcHandler(Controller controller) {
