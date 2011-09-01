@@ -538,6 +538,13 @@ class Tab implements PictureListener {
     private final WebViewClient mWebViewClient = new WebViewClient() {
         private Message mDontResend;
         private Message mResend;
+
+        private boolean providersDiffer(String url, String otherUrl) {
+            Uri uri1 = Uri.parse(url);
+            Uri uri2 = Uri.parse(otherUrl);
+            return !uri1.getEncodedAuthority().equals(uri2.getEncodedAuthority());
+        }
+
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInPageLoad = true;
@@ -546,7 +553,7 @@ class Tab implements PictureListener {
                     view.isPrivateBrowsingEnabled(), url, favicon);
             mLoadStartTime = SystemClock.uptimeMillis();
             if (mVoiceSearchData != null
-                    && !url.equals(mVoiceSearchData.mLastVoiceSearchUrl)) {
+                    && providersDiffer(url, mVoiceSearchData.mLastVoiceSearchUrl)) {
                 if (mVoiceSearchData.mSourceIsGoogle) {
                     Intent i = new Intent(LoggingEvents.ACTION_LOG_EVENT);
                     i.putExtra(LoggingEvents.EXTRA_FLUSH, true);
