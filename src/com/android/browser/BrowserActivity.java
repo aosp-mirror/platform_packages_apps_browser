@@ -62,7 +62,6 @@ public class BrowserActivity extends Activity {
             finish();
             return;
         }
-
         mController = new Controller(this, icicle == null);
         boolean xlarge = isTablet(this);
         if (xlarge) {
