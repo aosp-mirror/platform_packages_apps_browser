@@ -2168,6 +2168,7 @@ public class Controller
             }
         }
         Tab t = tabControl.getTab();
+        t.refreshIdAfterPreload();
         mTabControl.addPreloadedTab(t);
         addTab(t);
         setActiveTab(t);
