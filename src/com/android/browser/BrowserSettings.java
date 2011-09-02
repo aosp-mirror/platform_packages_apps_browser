@@ -128,7 +128,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
         mCustomUserAgents = new WeakHashMap<WebSettings, String>();
-        mPrefs.registerOnSharedPreferenceChangeListener(this);
         mAutofillHandler.asyncLoadFromDb();
         BackgroundHandler.execute(mSetup);
     }
@@ -168,6 +167,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             mWebStorageSizeManager = new WebStorageSizeManager(mContext,
                     new WebStorageSizeManager.StatFsDiskInfo(getAppCachePath()),
                     new WebStorageSizeManager.WebKitAppCacheInfo(getAppCachePath()));
+            // Workaround b/5253777
+            CookieManager.getInstance().acceptCookie();
+            // Workaround b/5254577
+            mPrefs.registerOnSharedPreferenceChangeListener(BrowserSettings.this);
             if (Build.VERSION.CODENAME.equals("REL")) {
                 // This is a release build, always startup with debug disabled
                 setDebugEnabled(false);
