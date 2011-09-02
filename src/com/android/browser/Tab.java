@@ -1435,6 +1435,15 @@ class Tab implements PictureListener {
         };
     }
 
+    /**
+     * This is used to get a new ID when the tab has been preloaded, before it is displayed and
+     * added to TabControl. Preloaded tabs can be created before restoreInstanceState, leading
+     * to overlapping IDs between the preloaded and restored tabs.
+     */
+    public void refreshIdAfterPreload() {
+        mId = TabControl.getNextId();
+    }
+
     public void updateShouldCaptureThumbnails() {
         if (mWebViewController.shouldCaptureThumbnails()) {
             synchronized (Tab.this) {

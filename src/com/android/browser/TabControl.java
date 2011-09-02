@@ -170,6 +170,12 @@ class TabControl {
     }
 
     void addPreloadedTab(Tab tab) {
+        for (Tab current : mTabs) {
+            if (current != null && current.getId() == tab.getId()) {
+                throw new IllegalStateException("Tab with id " + tab.getId() + " already exists: "
+                        + current.toString());
+            }
+        }
         mTabs.add(tab);
         tab.setController(mController);
         mController.onSetWebView(tab, tab.getWebView());
