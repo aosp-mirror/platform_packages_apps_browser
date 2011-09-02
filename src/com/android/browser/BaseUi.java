@@ -247,8 +247,7 @@ public abstract class BaseUi implements UI {
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
         onTabDataChanged(tab);
         onProgressChanged(tab);
-        boolean incognito = mActiveTab.getWebView().isPrivateBrowsingEnabled();
-        mNavigationBar.setIncognitoMode(incognito);
+        mNavigationBar.setIncognitoMode(tab.isPrivateBrowsingEnabled());
         updateAutoLogin(tab, false);
         if (web != null && web.getVisibleTitleHeight()
                 != mTitleBar.getEmbeddedHeight()
