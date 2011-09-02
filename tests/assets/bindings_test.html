@@ -114,16 +114,12 @@ function testJavaReturnTypes() {
   if (returned == null) {
     appendLog("returnObject() failed: expected non-null, got " + returned);
     return false;
-  } else if (returned.x != 0) {
-    // EMULATE_JSC_BINDINGS
-    // Note: the Java sets the x property to 123. JSC and V8 do not support object
-    // members in the bindings though.
-    appendLog("returnObject() failed: expected 'x' property 0, got " + returned.x)
+  } else if (returned.x != undefined) {
+    // We do not support getting object properties.
+    appendLog("returnObject() failed: expected 'x' property undefined, got " + returned.x)
     return false;
   } else if (returned.s != undefined) {
-    // EMULATE_JSC_BINDINGS
-    // Note that the java class returned has s set to Hello World. JSC and V8 do not support
-    // getting properties.
+    // We do not support getting object properties.
     appendLog("returnObject() failed: expected 's' property undefined, got " + returned.s);
     return false;
   } else if (!returned.aMethod()) {
@@ -150,19 +146,15 @@ function testJavaReturnTypes() {
 }
 
 function getIfaceProperties() {
-  if (JNIBindingsTest.mInt != 0) {
-    // EMULATE_JSC_BINDINGS
-    // Note: the Java sets the mInt property to 123. JSC and V8 do not support object
-    // members in the bindings though.
-    appendLog("getIfaceProperties() failed: expected mInt = 0, got " + JNIBindingsTest.mInt);
+  if (JNIBindingsTest.mInt != undefined) {
+    // We do not support getting object properties.
+    appendLog("getIfaceProperties() failed: expected mInt = undefined, got " + JNIBindingsTest.mInt);
     return false;
   }
 
   if (JNIBindingsTest.mString != undefined) {
-    // EMULATE_JSC_BINDINGS
-    // Note that the java class returned has s set to Hello World. JSC and V8 do not support
-    // getting properties.
-    appendLog("getIfaceProperties() failed: expected mString = 'Hello World', got " + JNIBindingsTest.mString);
+    // We do not support getting object properties.
+    appendLog("getIfaceProperties() failed: expected mString = undefined, got " + JNIBindingsTest.mString);
     return false;
   }
 
