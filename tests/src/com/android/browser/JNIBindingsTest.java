@@ -82,8 +82,8 @@ public class JNIBindingsTest extends AndroidTestCase {
         return true;
     }
 
-    public boolean testObjectTypes(String stringParam, String emptyString, Object objectParam,
-            Object emptyObject) {
+    public boolean testObjectTypes(String stringParam, String emptyString, String nullString,
+            Object objectParam, Object emptyObject) {
         String expectedString = "Foo";
         String expectedEmptyString = "";
 
@@ -92,6 +92,7 @@ public class JNIBindingsTest extends AndroidTestCase {
             assertNotNull(emptyString);
             assertEquals(expectedString, stringParam);
             assertEquals(expectedEmptyString, emptyString);
+            assertNull(nullString);
             assertNull(objectParam);
             assertNull(emptyObject);
         } catch (AssertionFailedError e) {
@@ -267,6 +268,7 @@ public class JNIBindingsTest extends AndroidTestCase {
     public long returnLong() { return 1234L; }
     public short returnShort() { return 12345; }
     public String returnString() { return "Hello World!"; }
+    public String returnNullString() { return null; }
 
     public class TestObject {
         public int x = 123;

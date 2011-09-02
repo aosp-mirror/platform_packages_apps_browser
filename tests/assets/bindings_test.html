@@ -7,7 +7,7 @@ function testPrimitiveTypes() {
 }
 
 function testObjectTypes() {
-  return JNIBindingsTest.testObjectTypes("Foo", "", {"foo":"bar"}, {});
+  return JNIBindingsTest.testObjectTypes("Foo", "", null, {"foo":"bar"}, {});
 }
 
 function testArray() {
@@ -101,6 +101,12 @@ function testJavaReturnTypes() {
   returned = JNIBindingsTest.returnString();
   if (returned != expectedStringReturn) {
     appendLog("returnString() failed: expected "+ expectedStringReturn +", got " + returned);
+    return false;
+  }
+
+  returned = JNIBindingsTest.returnNullString();
+  if (returned !== undefined) {
+    appendLog("returnNullString() failed: expected undefined, got " + returned);
     return false;
   }
 
