@@ -31,6 +31,8 @@ public class UrlBarAutoShowManager implements OnTouchListener,
         OnScrollChangedListener {
 
     private static float V_TRIGGER_ANGLE = .9f;
+    private static long SCROLL_TIMEOUT_DURATION = 150;
+    private static long IGNORE_INTERVAL = 250;
 
     private BrowserWebView mTarget;
     private BaseUi mUi;
@@ -39,10 +41,10 @@ public class UrlBarAutoShowManager implements OnTouchListener,
 
     private float mStartTouchX;
     private float mStartTouchY;
-    private float mLastTouchX;
-    private float mLastTouchY;
     private boolean mIsTracking;
     private boolean mHasTriggered;
+    private long mLastScrollTime;
+    private long mTriggeredTime;
 
     public UrlBarAutoShowManager(BaseUi ui) {
         mUi = ui;
@@ -66,11 +68,15 @@ public class UrlBarAutoShowManager implements OnTouchListener,
 
     @Override
     public void onScrollChanged(int l, int t, int oldl, int oldt) {
+        mLastScrollTime = System.currentTimeMillis();
         if (t != oldt) {
             if (t != 0) {
                 // If it is showing, extend it
                 if (mUi.isTitleBarShowing()) {
-                    mUi.showTitleBarForDuration();
+                    long remaining = mLastScrollTime - mTriggeredTime;
+                    remaining = Math.max(BaseUi.HIDE_TITLEBAR_DELAY - remaining,
+                            SCROLL_TIMEOUT_DURATION);
+                    mUi.showTitleBarForDuration(remaining);
                 }
             } else {
                 mUi.suggestHideTitleBar();
@@ -95,6 +101,11 @@ public class UrlBarAutoShowManager implements OnTouchListener,
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
             if (!mIsTracking && event.getPointerCount() == 1) {
+                long sinceLastScroll =
+                        System.currentTimeMillis() - mLastScrollTime;
+                if (sinceLastScroll < IGNORE_INTERVAL) {
+                    break;
+                }
                 mStartTouchY = event.getY();
                 mStartTouchX = event.getX();
                 mIsTracking = true;
@@ -113,6 +124,7 @@ public class UrlBarAutoShowManager implements OnTouchListener,
                     if (dy > mSlop && angle > V_TRIGGER_ANGLE
                             && !mUi.isTitleBarShowing()
                             && web.getVisibleTitleHeight() == 0) {
+                        mTriggeredTime = System.currentTimeMillis();
                         mUi.showTitleBar();
                     }
                 }
